@@ -1,4 +1,5 @@
 import { FC, memo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import AcceptIcon from '@material-ui/icons/Check'
 import AcceptRevokeIcon from '@material-ui/icons/Clear'
@@ -8,7 +9,7 @@ import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { CustomPlusIcon, DeleteIcon, EditIcon, EyeIcon } from '@components/shared/svg-icons'
+import { DeleteIcon, EditIcon, EyeIcon } from '@components/shared/svg-icons'
 
 import { checkIsBuyer, checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -167,7 +168,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             disabled={isAtProcessOrder || disabledAddSupplierButtonWhenCreateIdea}
             onClick={() => onSupplierActions(ModalModes.ADD)}
           >
-            <CustomPlusIcon />
+            <FiPlus style={{ width: 16, height: 16 }} />
           </Button>
         ) : null}
 

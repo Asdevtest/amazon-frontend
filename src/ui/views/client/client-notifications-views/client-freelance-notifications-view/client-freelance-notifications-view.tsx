@@ -41,14 +41,12 @@ export const ClientFreelanceNotificationsView = observer(() => {
           baseTooltip: {
             title: t(TranslationKey.Filter),
           },
-
           toolbar: {
             columsBtnSettings: {
               columnsModel: viewModel.columnsModel,
               columnVisibilityModel: viewModel.columnVisibilityModel,
               onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-
             sortSettings: {
               sortModel: viewModel.sortModel,
               columnsModel: viewModel.columnsModel,

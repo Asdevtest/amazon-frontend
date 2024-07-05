@@ -1,10 +1,10 @@
 import { memo, useEffect, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { BigPlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsPositiveNum, checkIsStringFilesSame } from '@utils/checks'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
@@ -212,7 +212,7 @@ export const GroupingBoxesForm = memo(props => {
                   />
                 </div>
               ))}
-              <BigPlusIcon className={styles.bigPlus} onClick={onClickAddBox} />
+              <FiPlus className={styles.bigPlus} onClick={onClickAddBox} />
             </div>
           ) : (
             <p className={styles.needChooseMainBox}>{t(TranslationKey['Select the basic box'])}</p>

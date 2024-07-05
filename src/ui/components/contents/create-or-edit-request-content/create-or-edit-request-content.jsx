@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { memo, useEffect, useRef, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 import { useHistory } from 'react-router-dom'
 
 import { Checkbox, Link, MenuItem, Select } from '@mui/material'
@@ -26,7 +27,7 @@ import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { CustomPlusIcon, FireIcon } from '@components/shared/svg-icons'
+import { FireIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -575,7 +576,7 @@ export const CreateOrEditRequestContent = memo(props => {
                     disabled={!formFields.request?.productId}
                     onClick={() => onClickAddMediaFromProduct(formFields.request?.productId)}
                   >
-                    <CustomPlusIcon />
+                    <FiPlus style={{ width: 16, height: 16 }} />
                     {t(TranslationKey['Add from product'])}
                   </Button>
                 </div>

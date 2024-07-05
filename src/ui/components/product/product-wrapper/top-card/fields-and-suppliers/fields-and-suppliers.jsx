@@ -1,4 +1,5 @@
 import { memo, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { Box, Grid, Link, MenuItem, Radio, Select, Typography } from '@mui/material'
 
@@ -21,7 +22,7 @@ import { Input } from '@components/shared/input'
 import { InterconnectedProducts } from '@components/shared/interconnected-products'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { CustomPlusIcon, DownloadRoundIcon, EditIcon } from '@components/shared/svg-icons'
+import { DownloadRoundIcon, EditIcon } from '@components/shared/svg-icons'
 import { TagList } from '@components/shared/tag-list'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
@@ -475,7 +476,7 @@ export const FieldsAndSuppliers = memo(props => {
 
               {checkIsClient(curUserRole) && !product?.parentProductId && (
                 <Button iconButton smallIconButton onClick={() => onTriggerOpenModal('showBindProductModal')}>
-                  <CustomPlusIcon />
+                  <FiPlus style={{ width: 16, height: 16 }} />
                 </Button>
               )}
             </div>
@@ -514,7 +515,7 @@ export const FieldsAndSuppliers = memo(props => {
           </div>
         ) : checkIsClient(curUserRole) ? (
           <Button onClick={() => onTriggerOpenModal('showBindProductModal')}>
-            <CustomPlusIcon />
+            <FiPlus style={{ width: 16, height: 16 }} />
             {t(TranslationKey['Add product linkage'])}
           </Button>
         ) : null}

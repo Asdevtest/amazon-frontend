@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -19,7 +20,6 @@ import { Input } from '@components/shared/input'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { PlusIcon } from '@components/shared/svg-icons'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -749,7 +749,7 @@ export const IdeaViewAndEditCard = observer(
 
                 {currentUserIsClient && showCreateRequestButton && (
                   <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickCreateRequestButton(formFields)}>
-                    <PlusIcon className={styles.plusIcon} />
+                    <FiPlus style={{ width: 16, height: 16 }} />
                     {t(TranslationKey['Create request'])}
                   </Button>
                 )}

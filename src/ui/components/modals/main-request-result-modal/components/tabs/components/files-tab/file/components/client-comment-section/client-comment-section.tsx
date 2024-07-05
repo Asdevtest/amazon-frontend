@@ -1,11 +1,12 @@
 import { ChangeEvent, FC, memo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IMediaRework } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
 import { Input } from '@components/shared/input'
-import { CustomPlusIcon, EyeIcon } from '@components/shared/svg-icons'
+import { EyeIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -34,7 +35,7 @@ export const ClientCommentSection: FC<ClientCommentSectionProps> = memo(props =>
       {file.commentByClient || readOnly ? (
         <EyeIcon className={styles.icon} />
       ) : (
-        <CustomPlusIcon className={cx(styles.icon, styles.plusIcon)} />
+        <FiPlus style={{ width: 16, height: 16 }} />
       )}
 
       <span className={styles.commentText}>{t(TranslationKey.Comment)}</span>

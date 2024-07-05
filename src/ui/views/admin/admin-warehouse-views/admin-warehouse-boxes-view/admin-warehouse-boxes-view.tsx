@@ -1,38 +1,39 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
+import { GridRowParams } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
-import { Button } from '@components/shared/button'
+import { BoxForm } from '@components/forms/box-form'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IOrder } from '@typings/models/orders/order'
+import { IBox } from '@typings/models/boxes/box'
 
-import { useStyles } from './buyer-free-orders-view.style'
+import { useStyles } from './admin-warehouse-boxes-view.style'
 
-import { BuyerFreeOrdersViewModel } from './buyer-free-orders-view.model'
+import { AdminWarehouseBoxesViewModel } from './admin-warehouse-boxes-view.model'
 
-export const BuyerFreeOrdersView = observer(() => {
+export const AdminWarehouseBoxesView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new BuyerFreeOrdersViewModel())
+  const [viewModel] = useState(() => new AdminWarehouseBoxesViewModel())
 
   return (
-    <>
-      <Button disabled={viewModel.selectedRows.length === 0} onClick={viewModel.onPickupSomeItems}>
-        {t(TranslationKey['Take on the work of the selected'])}
-      </Button>
+    <div className={styles.container}>
+      <SearchInput
+        inputClasses={styles.searchInput}
+        placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+        onSubmit={viewModel.onSearchSubmit}
+      />
 
-      <div className={styles.dataGridWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          sortingMode="client"
-          paginationMode="client"
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -44,16 +45,15 @@ export const BuyerFreeOrdersView = observer(() => {
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          getRowId={(row: IOrder) => row._id}
+          getRowId={({ _id }: IBox) => _id}
           slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
-            },
+            columnMenu: viewModel.columnMenuSettings,
             toolbar: {
               resetFiltersBtnSettings: {
-                isSomeFilterOn: viewModel.isSomeFilterOn,
                 onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
               },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -67,29 +67,22 @@ export const BuyerFreeOrdersView = observer(() => {
               },
             },
           }}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onRowDoubleClick={(params: GridRowParams) => viewModel.setCurrentOpenedBox(params.row)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
-      {viewModel.showTwoVerticalChoicesModal ? (
-        <TwoVerticalChoicesModal
-          // @ts-ignore
-          tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
-          tooltipSecondButton={t(TranslationKey['Stay in "Free Orders"'])}
-          openModal={viewModel.showTwoVerticalChoicesModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
-          title={t(TranslationKey['Order picked up'])}
-          topBtnText={t(TranslationKey['Go to order'])}
-          bottomBtnText={t(TranslationKey['Continue to work with free orders'])}
-          onClickTopBtn={viewModel.goToMyOrders}
-          onClickBottomBtn={viewModel.onClickContinueWorkButton}
-        />
-      ) : null}
-    </>
+      <Modal
+        openModal={viewModel.showBoxViewModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+      >
+        {/* @ts-ignore */}
+        <BoxForm box={viewModel.curBox} onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')} />
+      </Modal>
+    </div>
   )
 })

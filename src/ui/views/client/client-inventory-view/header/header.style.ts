@@ -23,11 +23,6 @@ export const useStyles = makeStyles()(() => ({
     width: '330px',
   },
 
-  icon: {
-    width: '16px !important',
-    height: '16px !important',
-  },
-
   controlButtonsWrapper: {
     display: 'flex',
     gap: '12px',

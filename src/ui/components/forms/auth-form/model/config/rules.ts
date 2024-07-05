@@ -6,7 +6,7 @@ import { t } from '@utils/translations'
 
 export const nameValidationRules: Rule[] = [
   { max: 30, message: t(TranslationKey['The name is too long!']) },
-  { required: true, message: t(TranslationKey['Please input your name!']), whitespace: true },
+  { required: true, message: t(TranslationKey['Please input your name!']) },
 ]
 
 export const getEmailValidationRules = (auth?: boolean): Rule[] => {

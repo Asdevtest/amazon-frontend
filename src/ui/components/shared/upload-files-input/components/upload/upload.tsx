@@ -1,11 +1,10 @@
 import { ChangeEvent, FC, MouseEventHandler, memo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { docValidTypes } from '@constants/media/doc-types'
 import { imageValidTypes } from '@constants/media/image-types'
 import { videoValidTypes } from '@constants/media/video-types'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -52,7 +51,7 @@ export const Upload: FC<UploadProps> = memo(props => {
         {minimized ? (
           <>
             {t(TranslationKey['Add file'])}
-            <CustomPlusIcon />
+            <FiPlus style={{ width: 16, height: 16 }} />
           </>
         ) : (
           t(TranslationKey['Click or Drop here'])

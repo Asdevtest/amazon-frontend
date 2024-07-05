@@ -1,5 +1,5 @@
 import { ClassNamesArg } from '@emotion/react'
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, KeyboardEventHandler, useEffect, useState } from 'react'
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import SearchIcon from '@mui/icons-material/Search'
@@ -24,7 +24,7 @@ interface Props {
   hideButton?: boolean
   onChange?: (value: ChangeEvent<HTMLInputElement>) => void
   onSubmit?: (value: string) => void
-  onKeyDown?: () => void
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement>
   onBlur?: () => void
   onFocus?: () => void
 }

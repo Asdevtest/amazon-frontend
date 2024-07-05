@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, MouseEvent, memo, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import Checkbox from '@mui/material/Checkbox'
 import Menu from '@mui/material/Menu'
@@ -9,7 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { Input } from '@components/shared/input'
 import { SlideByType } from '@components/shared/slide-by-type'
-import { PencilIcon, PlusIcon } from '@components/shared/svg-icons'
+import { PencilIcon } from '@components/shared/svg-icons'
 
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
@@ -97,7 +98,7 @@ export const Slot: FC<SlotProps> = memo(props => {
             {item.commentByClient ? (
               <PencilIcon className={styles.commentIcon} />
             ) : (
-              <PlusIcon className={styles.commentIcon} />
+              <FiPlus style={{ width: 16, height: 16 }} />
             )}
           </Button>
 

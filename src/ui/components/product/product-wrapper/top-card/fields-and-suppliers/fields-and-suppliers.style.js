@@ -352,11 +352,6 @@ export const useStyles = makeStyles()(theme => ({
     paddingRight: '31px',
   },
 
-  plusIcon: {
-    width: '21px !important',
-    height: '21px !important',
-  },
-
   plusButton: {
     display: 'flex',
     justifyContent: 'center',
