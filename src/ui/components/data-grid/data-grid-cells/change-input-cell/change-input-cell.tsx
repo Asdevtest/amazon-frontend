@@ -22,10 +22,6 @@ interface ChangeInputCellProps {
 export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
   const { rowId, onClickSubmit, text, disabled, isInteger, maxLength, isString, isPepurchase } = props
 
-  if (!text) {
-    return null
-  }
-
   const { classes: styles, cx } = useStyles()
 
   const [value, setValue] = useState(text || '')
