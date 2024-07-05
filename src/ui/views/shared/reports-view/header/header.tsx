@@ -1,12 +1,12 @@
 import { Dayjs } from 'dayjs'
 import { FC, memo, useCallback } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRangeDatePicker } from '@components/shared/custom-range-date-picker'
-import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -47,7 +47,11 @@ export const Header: FC<HeaderProps> = memo(props => {
         />
       ) : null}
 
-      <CustomButton type="primary" icon={<CustomPlusIcon />} onClick={handleToggleReportModalEditMode}>
+      <CustomButton
+        type="primary"
+        icon={<FiPlus style={{ width: 16, height: 16 }} />}
+        onClick={handleToggleReportModalEditMode}
+      >
         {t(TranslationKey['New report'])}
       </CustomButton>
     </div>

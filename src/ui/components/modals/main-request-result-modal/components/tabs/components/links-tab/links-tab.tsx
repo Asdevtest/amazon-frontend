@@ -1,10 +1,10 @@
 import { ChangeEvent, FC, memo, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IFields, SetFields } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
 import { Input } from '@components/shared/input'
-import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -83,7 +83,7 @@ export const LinksTab: FC<LinksTabProps> = memo(props => {
           />
 
           <button disabled={disabledAddLinkButton} className={styles.button} onClick={handleAddLink}>
-            <CustomPlusIcon className={styles.iconPlus} />
+            <FiPlus style={{ width: 16, height: 16 }} />
             {t(TranslationKey['Add link'])}
           </button>
         </div>

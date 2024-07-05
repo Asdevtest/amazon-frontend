@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
 import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
+import { FiPlus } from 'react-icons/fi'
 import { v4 as uuid } from 'uuid'
 
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
@@ -14,7 +15,7 @@ import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { SlideByType } from '@components/shared/slide-by-type'
-import { BigPlusIcon, CrossInRectangleIcon, PhotoCameraWithPlusIcon } from '@components/shared/svg-icons'
+import { CrossInRectangleIcon, PhotoCameraWithPlusIcon } from '@components/shared/svg-icons'
 
 import { createUploadFile } from '@utils/create-upload-file'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
@@ -366,7 +367,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
 
         <div className={styles.footerWrapper}>
           <div className={styles.bigPlusWrapper}>
-            <BigPlusIcon className={styles.bigPlus} onClick={onClickAddImageObj} />
+            <FiPlus className={styles.bigPlus} onClick={onClickAddImageObj} />
           </div>
 
           <div className={styles.flexContainer}>

@@ -1,11 +1,11 @@
 import { ChangeEvent, FC, RefAttributes, forwardRef, memo } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
+import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IMediaRework } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
 import { Checkbox } from '@components/shared/checkbox'
-import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -90,7 +90,7 @@ export const File: FC<FileProps & RefAttributes<HTMLDivElement | null>> = memo(
               commonContent
             ) : (
               <button className={styles.file}>
-                <CustomPlusIcon className={cx(styles.icon, styles.plusIcon)} />
+                <FiPlus style={{ width: 16, height: 16 }} />
                 <span className={styles.commentText}>{t(TranslationKey.Upload)}</span>
                 <input
                   multiple

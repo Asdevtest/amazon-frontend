@@ -55,16 +55,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  icon: {
-    width: '16px !important',
-    height: '16px !important',
-    color: theme.palette.primary.main,
-  },
-
-  plusIcon: {
-    padding: 2,
-  },
-
   commentText: {
     fontSize: '12px',
     lineHeight: '16px',

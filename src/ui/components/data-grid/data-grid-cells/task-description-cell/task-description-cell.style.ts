@@ -87,7 +87,6 @@ export const useStyles = makeStyles()(theme => ({
 
   taskDescriptionIcon: {
     color: theme.palette.primary.main,
-    margin: '0 8px',
   },
 
   taskTableCell: {
