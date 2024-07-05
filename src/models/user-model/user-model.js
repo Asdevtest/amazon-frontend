@@ -294,6 +294,26 @@ class UserModelStatic {
     const response = await restApiService.userApi.apiV1UsersFreelanceNoticesGet()
     return response.data
   }
+
+  async forceUpdateToken() {
+    try {
+      const userModel = SettingsModel.loadValue('UserModel')
+      const refreshToken = userModel.refreshToken
+      const response = await this.getAccessToken(refreshToken)
+
+      if (response) {
+        const accessToken = response?.accessToken
+
+        SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
+        this.setAccessToken(accessToken)
+
+        ChatModel.disconnect()
+        ChatModel.init(accessToken)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
 export const UserModel = new UserModelStatic()

@@ -277,7 +277,8 @@
           ["@widgets", "./src/widgets"],
           ["@routes", "./src/routes"],
           ["@ui", "./src/ui"],
-          ["@shared", "./src/shared"]
+          ["@shared", "./src/shared"],
+          ["@pages", "./src/pages"]
         ],
         "extensions": [".ts", ".js", ".jsx", ".json", ".tsx", ".d.ts"]
       }

@@ -1,14 +1,15 @@
 import { makeAutoObservable } from 'mobx'
+import { NavigateFunction } from 'react-router-dom'
 
 import { UserModel } from '@models/user-model'
 
 import { Roles } from '@typings/enums/roles'
 import { IFullUser } from '@typings/shared/full-user'
 
-import { roleMapper } from './helpers/roleMapper'
+import { roleMapper } from './helpers'
 
 export class RoleSelectModel {
-  history?: any
+  navigate?: NavigateFunction
 
   get userInfo() {
     return UserModel.userInfo as unknown as IFullUser // TODO: типизация UserModel
@@ -22,34 +23,19 @@ export class RoleSelectModel {
     return this.roles?.length === 1
   }
 
-  constructor(history: any) {
-    this.history = history
+  constructor(navigate: NavigateFunction) {
+    this.navigate = navigate
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  /* async forceUpdateToken() {
-    const userModel = await SettingsModel.loadValue('UserModel')
-    const refreshToken = userModel.refreshToken
-
-    await restApiService.userApi.apiV1UsersGetAccessTokenPost({ body: { refreshToken } }).then(({ data }) => {
-      const accessToken = data?.accessToken
-
-      SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
-      UserModel.setAccessToken(accessToken)
-
-      ChatModel.disconnect()
-      ChatModel.init(accessToken)
-    })
-  } */
-
   async onChangeUserInfo(role: Roles) {
     try {
-      await UserModel.changeUserInfo(role)
-      // await this.forceUpdateToken()
+      await UserModel.changeUserInfo({ role })
+      await UserModel.forceUpdateToken()
       await UserModel.getUserInfo()
 
-      this.history?.push(`/dashboard`)
+      this.navigate?.(`/dashboard`)
     } catch (error) {
       console.error(error)
     }

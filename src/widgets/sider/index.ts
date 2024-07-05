@@ -1,1 +1,1 @@
-export { Sider } from './ui/Sider'
+export { Sider } from './ui'

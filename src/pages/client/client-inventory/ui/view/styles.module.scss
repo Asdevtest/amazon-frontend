@@ -1,0 +1,15 @@
+.datagridWrapper {
+  margin-top: 20px;
+  height: 75vh;
+  width: 100%;
+}
+
+.clickableCell {
+  transition: 0.3s ease;
+
+  &:hover {
+    border-radius: 10;
+    box-shadow: inset 0 0 10px rgba(247, 179, 7, 0.8);
+    transform: scale(0.98);
+  }
+}

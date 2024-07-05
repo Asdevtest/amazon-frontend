@@ -16,6 +16,7 @@
     "^@styles/(.*)$",
     "^@components/(.*)$",
     "^@views/(.*)$",
+    "^@pages/(.*)$",
     "^@utils/(.*)$",
     "^@contexts/(.*)$",
     "^@typings/(.*)$",

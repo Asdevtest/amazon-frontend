@@ -14,6 +14,7 @@ module.exports = config => ({
       '@styles': path.resolve(__dirname, 'src/styles'),
       '@components': path.resolve(__dirname, 'src/ui/components'),
       '@views': path.resolve(__dirname, 'src/ui/views'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@typings': path.resolve(__dirname, './src/typings'),
       '@contexts': path.resolve(__dirname, './src/contexts'),

@@ -1,0 +1,39 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.buttonsSubWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+s.earchInput {
+  width: 330px;
+}
+
+.icon {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.controlButtonsWrapper {
+  display: flex;
+  gap: 12px;
+}
+
+.controlButtonsSubWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}

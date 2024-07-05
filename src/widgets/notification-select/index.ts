@@ -1,1 +1,1 @@
-export { NotificationSelect } from './ui/NotificationSelect'
+export { NotificationSelect } from './ui'

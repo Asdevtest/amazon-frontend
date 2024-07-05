@@ -1,1 +1,1 @@
-export { RoleSelect } from './ui/RoleSelect'
+export { RoleSelect } from './ui'

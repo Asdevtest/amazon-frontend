@@ -172,7 +172,7 @@ const ClientFreelanceView = lazy(() =>
   import('@views/client/client-freelance-view').then(module => ({ default: module.ClientFreelanceView })),
 )
 const ClientInventoryView = lazy(() =>
-  import('@views/client/client-inventory-view').then(module => ({ default: module.ClientInventoryView })),
+  import('@pages/client/client-inventory').then(module => ({ default: module.ClientInventoryPage })),
 )
 const ReportsView = lazy(() =>
   import('@views/shared/reports-view').then(module => {

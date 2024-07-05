@@ -29,6 +29,7 @@
       "@styles/*": ["./src/styles/*"],
       "@components/*": ["./src/ui/components/*"],
       "@views/*": ["./src/ui/views/*"],
+      "@pages/*": ["./src/pages/*"],
       "@utils/*": ["./src/utils/*"],
       "@contexts/*": ["./src/contexts/*"],
       "@typings/*": ["./src/typings/*"],

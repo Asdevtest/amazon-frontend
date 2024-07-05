@@ -13,4 +13,5 @@ export interface IGridColumn extends GridBaseColDef {
   fields?: IRadioBottonsSetting[]
   transformValueMethod?: (value: any) => string
   columnMenuConfig?: any
+  hide?: boolean
 }

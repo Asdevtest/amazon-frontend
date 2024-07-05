@@ -1,1 +1,1 @@
-export { ProfileDropdown } from './ui/ProfileDropdown'
+export { ProfileDropdown } from './ui'

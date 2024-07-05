@@ -3,10 +3,10 @@ import { Suspense } from 'react'
 import { RouterProvider } from 'react-router-dom'
 
 import { router } from '../routes/router'
-import { ToastifyProvider } from '../widgets/navigation/toastify/toastify-provider'
 
 import { useNotifications } from './providers/notifications'
 import { Theme, useTheme } from './providers/theme'
+import { ToastifyProvider } from './providers/toastify'
 
 export const App = () => {
   useNotifications()
