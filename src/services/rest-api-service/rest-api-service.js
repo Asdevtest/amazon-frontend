@@ -40,6 +40,14 @@ const api = axios.create({
   baseURL: BACKEND_API_URL,
 })
 
+api.interceptors.request.use(config => {
+  config.headers = config.headers || {}
+  const userModel = SettingsModel.loadValue('UserModel')
+  config.headers.Authorization = `Bearer ${userModel.accessToken}`
+
+  return config
+})
+
 class RestApiService {
   openapiConfig = new Configuration()
 
