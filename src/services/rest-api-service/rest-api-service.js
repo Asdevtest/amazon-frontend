@@ -1,6 +1,14 @@
-import { BACKEND_API_URL } from '@constants/keys/env'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
-import api, { getAxiosInstance } from '@services/axios/api'
+import { BACKEND_API_URL } from '@constants/keys/env'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { ChatModel } from '@models/chat-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
+
+import { t } from '@utils/translations'
 
 import { Configuration } from './codegen'
 import { AdministratorApi } from './codegen/api/administrator-api'
@@ -27,6 +35,11 @@ import { StorekeepersApi } from './codegen/api/storekeepers-api'
 import { SupervisorApi } from './codegen/api/supervisor-api'
 import { SupplierApi } from './codegen/api/supplier-api'
 import { UserApi } from './codegen/api/user-api'
+import { accessDeniedErrorMessageList, errorMessageList } from './error-message-list'
+
+const api = axios.create({
+  baseURL: BACKEND_API_URL,
+})
 
 class RestApiService {
   openapiConfig = new Configuration()
@@ -35,7 +48,6 @@ class RestApiService {
     this.openapiConfig.basePath = BACKEND_API_URL
 
     console.log('api :>> ', api)
-    console.log('getAxiosInstance :>> ', getAxiosInstance())
 
     this.axiosInstance = api
     this.administratorApi = new AdministratorApi(this.openapiConfig, undefined, this.axiosInstance)
