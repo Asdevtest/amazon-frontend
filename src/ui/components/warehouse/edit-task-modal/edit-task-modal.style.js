@@ -6,7 +6,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     padding: '10px 20px',
     height: '100%',
-
     flexDirection: 'column',
     position: 'relative',
   },
@@ -50,10 +49,8 @@ export const useStyles = makeStyles()(theme => ({
     maxHeight: 606,
     overflowY: 'auto',
     paddingRight: 20,
-
     marginTop: theme.spacing(2.5),
     marginBottom: theme.spacing(2.5),
-
     display: 'grid',
     gap: '20px',
     gridTemplateColumns: '1fr 1fr 1fr',
