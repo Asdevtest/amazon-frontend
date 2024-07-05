@@ -20,6 +20,7 @@ export const filtersFields = [
   'updatedAt',
   'minProductionTerm',
   'maxProductionTerm',
+  'subUsers',
 ]
 
 export const fieldsForSearch = ['amazonTitle', 'id', 'asin', 'skuByClient', 'item']
