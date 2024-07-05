@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
@@ -170,6 +171,28 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       width: 180,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.MULTIPLE,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: params => {
+        const subUsers = params.row?.product?.subUsers || []
+        const subUsersByShop = params.row?.product?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.product?.subUsers || []
+        const subUsersByShop = row?.product?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {
