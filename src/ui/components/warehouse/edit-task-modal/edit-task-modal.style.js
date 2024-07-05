@@ -109,33 +109,43 @@ export const useStyles = makeStyles()(theme => ({
     textAlign: 'center',
   },
   heightFieldAuto: {
-    height: 258,
+    height: 106,
     width: 330,
 
     padding: 0,
     border: `1px solid ${theme.palette.input.customBorder}`,
   },
 
-  clientAndBuyerComment: {
-    height: '100px',
+  storekeeperCommentField: {
+    width: 330,
+    height: '100%',
+  },
+
+  commentsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+
+    width: '100%',
   },
 
   commentsWrapper: {
-    width: '400px',
     display: 'flex',
-    gap: '30px',
+    gap: '10px',
   },
 
   imageFileInputWrapper: {
-    width: '690px',
+    width: '100%',
+    height: '100%',
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 
   commentsAndFilesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'start',
+    alignItems: 'center',
     gridColumn: '1 / 4',
   },
 

@@ -205,29 +205,33 @@ export const EditTaskModal = memo(
 
           <div className={styles.commentsAndFilesWrapper}>
             <div className={styles.commentsWrapper}>
+              <div className={styles.commentsContainer}>
+                <Field
+                  multiline
+                  disabled
+                  className={styles.heightFieldAuto}
+                  minRows={isPcSmallResolution ? 2 : 4}
+                  maxRows={isPcSmallResolution ? 2 : 4}
+                  label={t(TranslationKey['Client comment'])}
+                  placeholder={t(TranslationKey['Client comment on the task'])}
+                  value={task.clientComment || ''}
+                />
+
+                <Field
+                  multiline
+                  disabled
+                  className={styles.heightFieldAuto}
+                  minRows={isPcSmallResolution ? 2 : 4}
+                  maxRows={isPcSmallResolution ? 2 : 4}
+                  label={t(TranslationKey['Buyer comment'])}
+                  placeholder={t(TranslationKey['Buyer comments to the task'])}
+                  value={task.buyerComment || ''}
+                />
+              </div>
+
               <Field
                 multiline
-                disabled
-                className={cx(styles.heightFieldAuto, styles.clientAndBuyerComment)}
-                minRows={isPcSmallResolution ? 2 : 4}
-                maxRows={isPcSmallResolution ? 2 : 4}
-                label={t(TranslationKey['Client comment'])}
-                placeholder={t(TranslationKey['Client comment on the task'])}
-                value={task.clientComment || ''}
-              />
-              <Field
-                multiline
-                disabled
-                className={cx(styles.heightFieldAuto, styles.clientAndBuyerComment)}
-                minRows={isPcSmallResolution ? 2 : 4}
-                maxRows={isPcSmallResolution ? 2 : 4}
-                label={t(TranslationKey['Buyer comment'])}
-                placeholder={t(TranslationKey['Buyer comments to the task'])}
-                value={task.buyerComment || ''}
-              />
-              <Field
-                multiline
-                className={cx(styles.heightFieldAuto, styles.storekeeperCommentField)}
+                className={styles.storekeeperCommentField}
                 disabled={readOnly}
                 minRows={isMobileResolution ? 4 : isPcSmallResolution ? 7 : 11}
                 maxRows={isMobileResolution ? 4 : isPcSmallResolution ? 7 : 11}
