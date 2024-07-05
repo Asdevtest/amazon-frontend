@@ -1965,4 +1965,7 @@ export enum TranslationKey {
   "Label the box as labeled with the supplier's barcode" = "Label the box as labeled with the supplier's barcode",
   "can't be zero" = "can't be zero",
   'File not selected' = 'File not selected',
+  'Are you sure you want to delete ASIN?' = 'Are you sure you want to delete ASIN?',
+  'Try to study market prices and choose a performer and choose relevant terms and conditions' = 'Try to study market prices and choose a performer and choose relevant terms and conditions',
+  'The terms of the proposal do not fit, the contractor will be able to edit them and do it again' = 'The terms of the proposal do not fit, the contractor will be able to edit them and do it again',
 }

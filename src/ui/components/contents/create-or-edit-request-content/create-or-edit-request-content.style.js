@@ -180,7 +180,8 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
-    gap: 20,
+    gap: 30,
+    marginRight: 10,
   },
 
   arrowIcon: {

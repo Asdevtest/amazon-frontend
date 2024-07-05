@@ -1964,5 +1964,8 @@
   "Performer's comment": "Комментарий исполнителя",
   "Label the box as labeled with the supplier's barcode": "Маркируйте коробку, как помечено штрих-кодом поставщика",
   "can't be zero": "не может быть нулем",
-  "File not selected": "Файл не выбран"
+  "File not selected": "Файл не выбран",
+  "Are you sure you want to delete ASIN?": "Вы уверены, что хотите удалить ASIN?",
+  "Try to study market prices and choose a performer and choose relevant terms and conditions": "Попробуйте изучить рыночные цены, выбрать исполнителя и выбрать соответствующие условия",
+  "The terms of the proposal do not fit, the contractor will be able to edit them and do it again": "Условия предложения не подходят, подрядчик сможет их отредактировать и сделать это снова"
 }
