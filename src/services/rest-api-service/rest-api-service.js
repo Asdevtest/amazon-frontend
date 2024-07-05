@@ -32,7 +32,7 @@ import { UserApi } from './codegen/api/user-api'
 class RestApiService {
   openapiConfig = new Configuration()
 
-  constructor() {
+  constructor(api) {
     this.openapiConfig.basePath = BACKEND_API_URL
 
     this.axiosInstance = api
@@ -63,4 +63,4 @@ class RestApiService {
   }
 }
 
-export const restApiService = new RestApiService()
+export const restApiService = new RestApiService(api)
