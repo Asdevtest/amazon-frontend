@@ -42,8 +42,12 @@ const api = axios.create({
 
 api.interceptors.request.use(config => {
   config.headers = config.headers || {}
-  const userModel = SettingsModel.loadValue('UserModel')
-  config.headers.Authorization = `Bearer ${userModel.accessToken}`
+
+  const value = localStorage.getItem('UserModel')
+
+  console.log('value :>> ', value)
+
+  config.headers.Authorization = `Bearer ${value.accessToken}`
 
   return config
 })
