@@ -1256,8 +1256,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
 
       await this.getCurrentData()
+      toast.success(t(TranslationKey['Data added successfully']))
     } catch (error) {
       console.error(error)
+      toast.success(t(TranslationKey['Data not added']))
     } finally {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
@@ -1391,15 +1393,16 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       runInAction(() => {
         this.showCircularProgressModal = false
 
-        this.successModalText = t(TranslationKey['Product added'])
+        toast.success(t(TranslationKey['Product added']))
       })
-      this.onTriggerOpenModal('showSuccessModal')
+
       await this.getCurrentData()
     } catch (error) {
       runInAction(() => {
         this.showCircularProgressModal = false
       })
       console.error(error)
+      toast.success(t(TranslationKey['Product not added']))
     }
   }
 

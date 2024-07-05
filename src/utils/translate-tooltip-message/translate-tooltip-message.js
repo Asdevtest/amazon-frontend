@@ -61,7 +61,7 @@ export const translateTooltipMessageByRole = (label, role) => {
         return t(TranslationKey['Button to put the status, the card of the product is put on the exchange for sale'])
       case t(TranslationKey['Supplier not found']):
         return t(TranslationKey['Button for displaying the status, the product card is blocked'])
-      case t(TranslationKey["The supplier's price does not fit"]):
+      case t(TranslationKey["The supplier's price does't fit"]):
         return t(TranslationKey['Button for displaying the status, the product card is blocked'])
       case t(TranslationKey['Save without status']):
         return t(TranslationKey['Save product card data without setting a status'])
@@ -94,7 +94,7 @@ export const translateTooltipAttentionMessageByRole = (label, role) => {
         return t(TranslationKey['The final status, once saved, cannot be changed!'])
       case t(TranslationKey['Supplier found']):
         return t(TranslationKey['Final status, after saving will be paid for the search'])
-      case t(TranslationKey["The supplier's price does not fit"]):
+      case t(TranslationKey["The supplier's price does't fit"]):
         return t(TranslationKey['The final status, once saved, cannot be changed!'])
     }
   }

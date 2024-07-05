@@ -25,5 +25,5 @@ export const adminExchangeStatusesTranslations: Record<AdminExchangeStatuses, st
   [AdminExchangeStatuses.COMPLETE]: 'Published',
   [AdminExchangeStatuses.REJECTED]: 'Rejected',
   [AdminExchangeStatuses.COMPLETE_PRICE_NOT_ACCEPTABLE]: 'No supplier (completed by supervisor)',
-  [AdminExchangeStatuses.COMPLETE_SUPPLIER_NOT_FOUND]: "The supplier's price does not fit",
+  [AdminExchangeStatuses.COMPLETE_SUPPLIER_NOT_FOUND]: "The supplier's price does't fit",
 }

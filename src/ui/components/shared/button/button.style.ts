@@ -226,7 +226,7 @@ export const useStyles = makeStyles()(theme => {
     },
 
     smallButton: {
-      height: '24px',
+      height: '32px',
     },
 
     iconButton: {
