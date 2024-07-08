@@ -49,7 +49,7 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
   const onFinish = useCallback(
     (values: FieldData) => {
       onSubmit(values)
-      form.resetFields()
+      // form.resetFields()
     },
     [onSubmit],
   )
