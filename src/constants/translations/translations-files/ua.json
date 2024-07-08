@@ -1971,5 +1971,6 @@
   "Select launch type": "Виберіть тип запуску",
   "New price": "Нова ціна",
   "Search by SKU, ASIN, Title, Launch type": "Пошук за SKU, ASIN, Назвою, Типом запуску",
-  "Proposals_Left": "Залишилось {{num1}} з {{num2}} пропозицій"
+  "Proposals_Left": "Залишилось {{num1}} з {{num2}} пропозицій",
+  "Notify users of completed launches in": "Повідомляйте користувачів про завершені запуски за"
 }

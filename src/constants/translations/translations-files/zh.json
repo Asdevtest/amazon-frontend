@@ -1964,5 +1964,6 @@
   "Select launch type": "选择启动类型",
   "New price": "新价格",
   "Search by SKU, ASIN, Title, Launch type": "按 SKU、ASIN、标题、启动类型搜索",
-  "Proposals_Left": "剩余 {{num1}} 个提案，{{num2}} 个提案剩余"
+  "Proposals_Left": "剩余 {{num1}} 个提案，{{num2}} 个提案剩余",
+  "Notify users of completed launches in": "通知已完成的执行者在"
 }

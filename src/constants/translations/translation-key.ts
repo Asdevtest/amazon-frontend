@@ -1972,4 +1972,5 @@ export enum TranslationKey {
   'New price' = 'New price',
   'Search by SKU, ASIN, Title, Launch type' = 'Search by SKU, ASIN, Title, Launch type',
   'Proposals_Left' = 'Proposals_Left',
+  'Notify users of completed launches in' = 'Notify users of completed launches in',
 }
