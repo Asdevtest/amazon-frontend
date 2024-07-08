@@ -1975,5 +1975,7 @@
   "Notify users of completed launches in": "Повідомляйте користувачів про завершені запуски за",
   "Try to research market prices and make your offer based on the amount of work and your skills.": "Намагайтеся вивчити ринкові ціни та робити свою пропозицію на основі обсягу роботи та Ваших навичок.",
   "A photo of the Transperensy Code sticker": "Фото стікера Transperensy Code",
-  "Button to set the status, the product card is sent to the supervisor for checking (can be changed before checking)": "Кнопка виставлення статусу, картка товару надсилається на перевірку супервізору (можна змінити до перевірки)"
+  "Button to set the status, the product card is sent to the supervisor for checking (can be changed before checking)": "Кнопка виставлення статусу, картка товару надсилається на перевірку супервізору (можна змінити до перевірки)",
+  "Client's chosen rate, region of shipment and its cost": "Вибраний клієнтом тариф, регіон відправлення та його вартість",
+  "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order": "Зміна фактичної вартості ініціює повернення різниці коштів клієнту або вимога про доплату на замовлення"
 }
