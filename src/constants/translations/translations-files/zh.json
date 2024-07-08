@@ -1957,5 +1957,8 @@
   "Performer's comment": "执行者的评论",
   "Label the box as labeled with the supplier's barcode": "将盒子标记为带有供应商条形码的标签",
   "can't be zero": "不能为零",
-  "File not selected": "未选择文件"
+  "File not selected": "未选择文件",
+  "Select launch type": "选择启动类型",
+  "New price": "新价格",
+  "Search by SKU, ASIN, Title, Launch type": "按 SKU、ASIN、标题、启动类型搜索"
 }

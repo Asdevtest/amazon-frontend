@@ -1965,4 +1965,7 @@ export enum TranslationKey {
   "Label the box as labeled with the supplier's barcode" = "Label the box as labeled with the supplier's barcode",
   "can't be zero" = "can't be zero",
   'File not selected' = 'File not selected',
+  'Select launch type' = 'Select launch type',
+  'New price' = 'New price',
+  'Search by SKU, ASIN, Title, Launch type' = 'Search by SKU, ASIN, Title, Launch type',
 }
