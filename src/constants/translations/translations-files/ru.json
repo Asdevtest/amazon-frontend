@@ -1976,5 +1976,6 @@
   "Try to research market prices and make your offer based on the amount of work and your skills.": "Попробуйте исследовать рыночные цены и сделать предложение на основе количества работы и ваших навыков.",
   "Button to set the status, the product card is sent to the supervisor for checking (can be changed before checking)": "Кнопка для установки статуса, карточка продукта отправлена для проверки (можно изменить до проверки)",
   "Client's chosen rate, region of shipment and its cost": "Выбранный клиентом тариф, регион отправки и его стоимость",
-  "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order": "Изменение фактической стоимости инициирует возврат разницы средств клиенту или требование о доплате по заказу"
+  "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order": "Изменение фактической стоимости инициирует возврат разницы средств клиенту или требование о доплате по заказу",
+  "Returns all boxes from the selected batch to the 'Boxes ready to send' section": "Возвращает все коробки из выбранной партии в раздел 'Коробки, готовые к отправке'"
 }

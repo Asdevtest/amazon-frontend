@@ -1969,5 +1969,6 @@
   "Try to research market prices and make your offer based on the amount of work and your skills.": "尝试研究市场价格，并基于工作量和技能制作您的提议。",
   "Button to set the status, the product card is sent to the supervisor for checking (can be changed before checking)": "按钮设置状态，产品卡片发送给主管进行检查（可在检查之前更改）",
   "Client's chosen rate, region of shipment and its cost": "客户选择的费率，发货区域和其成本",
-  "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order": "实际成本变化会导致退款到客户或请求额外付款"
+  "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order": "实际成本变化会导致退款到客户或请求额外付款",
+  "Returns all boxes from the selected batch to the 'Boxes ready to send' section": "从指定批次返回所有箱子到\"准备发送箱子\"一节"
 }

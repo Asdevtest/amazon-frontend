@@ -954,7 +954,7 @@ export enum TranslationKey {
   'The cost depends on the total weight and the rate you choose' = 'The cost depends on the total weight and the rate you choose',
   'List of batches and management of boxes related to them' = 'List of batches and management of boxes related to them',
   'Removes the box for further addition to the batch, returns to My Warehouse' = 'Removes the box for further addition to the batch, returns to My Warehouse',
-  'Returns all boxes from the selected batch to the "Boxes ready to send" section' = 'Returns all boxes from the selected batch to the "Boxes ready to send" section',
+  "Returns all boxes from the selected batch to the 'Boxes ready to send' section" = "Returns all boxes from the selected batch to the 'Boxes ready to send' section",
   'Add your own sub-user' = 'Add your own sub-user',
   'A list of your added Amazon stores with reports on them' = 'A list of your added Amazon stores with reports on them',
   'Enter store name' = 'Enter store name',
