@@ -121,7 +121,7 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
 
       <div className={cx(styles.buttons, { [styles.editUser]: editUser })}>
         <Form.Item shouldUpdate>
-          <CustomButton type="primary" htmlType="submit" loading={loading}>
+          <CustomButton type="primary" htmlType="submit" loading={loading} disabled={loading}>
             {buttonText}
           </CustomButton>
         </Form.Item>
