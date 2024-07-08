@@ -1974,4 +1974,5 @@ export enum TranslationKey {
   'Proposals_Left' = 'Proposals_Left',
   'Notify users of completed launches in' = 'Notify users of completed launches in',
   'Try to research market prices and make your offer based on the amount of work and your skills.' = 'Try to research market prices and make your offer based on the amount of work and your skills.',
+  'Button to set the status, the product card is sent to the supervisor for checking (can be changed before checking)' = 'Button to set the status, the product card is sent to the supervisor for checking (can be changed before checking)',
 }
