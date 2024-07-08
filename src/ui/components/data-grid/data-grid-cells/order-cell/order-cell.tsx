@@ -69,10 +69,6 @@ export const OrderCell: FC<OrderCellProps> = memo(props => {
           )})`}</span>
         )}
 
-        {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
-          <span className={styles.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
-        )}
-
         {error && <span className={styles.OrderCellError}>{error}</span>}
       </div>
     </div>
