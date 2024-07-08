@@ -292,7 +292,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
-      width: 100,
+      width: 180,
 
       columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
     },
