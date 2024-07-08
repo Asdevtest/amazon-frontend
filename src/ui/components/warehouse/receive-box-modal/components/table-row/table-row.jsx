@@ -171,7 +171,9 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
         />
       </TableCell>
       <TableCell>
-        <Button onClick={() => handlers.onAddImages(item._id)}>{buttonTextWithCounter}</Button>
+        <Button className={styles.imagesBtn} onClick={() => handlers.onAddImages(item._id)}>
+          {buttonTextWithCounter}
+        </Button>
       </TableCell>
 
       <TableCell>
