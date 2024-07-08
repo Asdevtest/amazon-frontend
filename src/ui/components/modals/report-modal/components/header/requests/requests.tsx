@@ -34,7 +34,7 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
           request.spec.title.length > MAX_SPEC_TITLE_LENGTH_WITHOUT_TOOLTIP ? request.spec.title : ''
 
         return (
-          <div key={request._id} className={styles.requestWrapper}>
+          <div key={request.launch?._id} className={styles.requestWrapper}>
             <div className={styles.requestConatainer}>
               <div className={styles.requestText}>
                 <span className={styles.requestTextSecond}>{`${t(TranslationKey['Request type'])}:`}</span>

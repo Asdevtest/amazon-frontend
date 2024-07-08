@@ -1960,5 +1960,8 @@
   "File not selected": "未选择文件",
   "Are you sure you want to delete ASIN?": "您确定要删除ASIN吗?",
   "Try to study market prices and choose a performer and choose relevant terms and conditions": "尝试研究市场价格，选择执行者并选择相关条款和条件",
-  "The terms of the proposal do not fit, the contractor will be able to edit them and do it again": "提案条款不合适，承包商可以编辑并重新提交"
+  "The terms of the proposal do not fit, the contractor will be able to edit them and do it again": "提案条款不合适，承包商可以编辑并重新提交",
+  "Select launch type": "选择启动类型",
+  "New price": "新价格",
+  "Search by SKU, ASIN, Title, Launch type": "按 SKU、ASIN、标题、启动类型搜索"
 }
