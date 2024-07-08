@@ -34,7 +34,8 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
     setNameSearchValue('')
   }
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'p') {
+    const key = event.key.toLowerCase()
+    if (key === 'p' || key === 'п') {
       event.stopPropagation()
     }
   }
