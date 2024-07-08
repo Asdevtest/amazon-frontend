@@ -1934,7 +1934,6 @@ export enum TranslationKey {
   'The new password that you entered do not match!' = 'The new password that you entered do not match!',
   'Confirm password' = 'Confirm password',
   'Register' = 'Register',
-  'Successful login' = 'Successful login',
   'User is waiting for confirmation' = 'User is waiting for confirmation',
   'Invalid password or email address.' = 'Invalid password or email address.',
   'User with such email already exist.' = 'User with such email already exist.',
