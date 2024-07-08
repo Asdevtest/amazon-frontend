@@ -29,16 +29,14 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
 
   const [reasonValue, setReasonValue] = useState('')
 
-  const [paymentType, setPaymentType] = useState(
-    isWithdraw ? paymentTypeSettings.WITHDRAW : paymentTypeSettings.DEPOSIT,
-  )
+  const [entityType, setPaymentType] = useState(isWithdraw ? paymentTypeSettings.WITHDRAW : paymentTypeSettings.DEPOSIT)
 
   const [showConfirmModal, setConfirmModal] = useState(false)
   const onTriggerConfirmModal = () => setConfirmModal(prevState => !prevState)
 
   const onConfirm = () => {
     const data = {
-      paymentType,
+      entityType,
       recipientId: user.id || user._id,
       sum: isWithdraw ? Number(-balanceValue) : Number(balanceValue),
       comment: reasonValue,
@@ -91,7 +89,7 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
               <Select
                 input={<Input fullWidth />}
                 variant="filled"
-                value={paymentType}
+                value={entityType}
                 onChange={e => setPaymentType(e.target.value)}
               >
                 {[paymentTypeSettings.WITHDRAW, paymentTypeSettings.FINE].map(type => (
