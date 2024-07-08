@@ -18,7 +18,7 @@ export const getEntityTypeTranslations = (paymentType: EntityType) => {
     case EntityType.DEPOSIT:
       return t(TranslationKey['Account replenishment'])
 
-    case EntityType.WITHDRAWAL:
+    case EntityType.WITHDRAW:
       return t(TranslationKey['Write-off'])
 
     default:
