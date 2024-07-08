@@ -160,6 +160,16 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
     },
 
     {
+      field: 'arrivalDate',
+      headerName: t(TranslationKey['Arrival date']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Arrival date'])} />,
+      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatDate(row?.batch?.arrivalDate) || '-'} />,
+      table: DataGridFilterTables.BOXES,
+      columnKey: columnnsKeys.shared.DATE,
+      width: 110,
+    },
+
+    {
       field: 'actions',
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
