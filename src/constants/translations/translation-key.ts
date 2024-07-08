@@ -1971,4 +1971,5 @@ export enum TranslationKey {
   'Select launch type' = 'Select launch type',
   'New price' = 'New price',
   'Search by SKU, ASIN, Title, Launch type' = 'Search by SKU, ASIN, Title, Launch type',
+  'The password should not start or end with a space!' = 'The password should not start or end with a space!',
 }

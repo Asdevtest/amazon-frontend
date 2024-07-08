@@ -10,23 +10,29 @@ export const nameValidationRules: Rule[] = [
 ]
 
 export const getEmailValidationRules = (auth?: boolean): Rule[] => {
-  if (auth) {
-    return [
-      { type: 'email', message: t(TranslationKey['The input is not valid email!']) },
-      { required: true, message: t(TranslationKey['Please input your email!']) },
-    ]
-  }
-
-  return [
-    { max: 30, message: t(TranslationKey['The email is too long!']) },
+  const commonRules: Rule[] = [
     { type: 'email', message: t(TranslationKey['The input is not valid email!']) },
     { required: true, message: t(TranslationKey['Please input your email!']) },
   ]
+  const additionalRules: Rule[] = auth ? [] : [{ max: 30, message: t(TranslationKey['The email is too long!']) }]
+
+  return [...additionalRules, ...commonRules]
 }
 
 export const getPasswordValidationRules = (auth?: boolean, editUser?: boolean): Rule[] => {
   if (auth) {
-    return [{ required: true, message: t(TranslationKey['Please input your password!']) }]
+    return [
+      { required: true, message: t(TranslationKey['Please input your password!']) },
+      () => ({
+        validator(_, value) {
+          if (value.trim() !== value) {
+            return Promise.reject(new Error(t(TranslationKey['The password should not start or end with a space!'])))
+          }
+
+          return Promise.resolve()
+        },
+      }),
+    ]
   }
 
   const rulesWithoutRequired: Rule[] = [
@@ -41,7 +47,16 @@ export const getPasswordValidationRules = (auth?: boolean, editUser?: boolean): 
       message: t(TranslationKey['The password must contain at least one lowercase letter!']),
     },
     { pattern: /(?=.*\d)/, message: t(TranslationKey['The password must contain at least one digit!']) },
-    { pattern: /^[A-Za-z\d]*$/, message: t(TranslationKey['The password must contain only English letters!']) },
+    { pattern: /^[A-Za-z\d\s]*$/, message: t(TranslationKey['The password must contain only English letters!']) },
+    () => ({
+      validator(_, value) {
+        if (value.trim() !== value) {
+          return Promise.reject(new Error(t(TranslationKey['The password should not start or end with a space!'])))
+        }
+
+        return Promise.resolve()
+      },
+    }),
   ]
 
   if (editUser) {
@@ -61,6 +76,7 @@ export const confirmValidationRules: Rule[] = [
       if (!value || getFieldValue('password') === value) {
         return Promise.resolve()
       }
+
       return Promise.reject(new Error(t(TranslationKey['The new password that you entered do not match!'])))
     },
   }),
@@ -69,9 +85,14 @@ export const confirmValidationRules: Rule[] = [
 export const newPasswordValidationRules: Rule[] = [
   ({ getFieldValue }) => ({
     validator(_, value) {
+      if (value.trim() !== value) {
+        return Promise.reject(new Error(t(TranslationKey['The password should not start or end with a space!'])))
+      }
+
       if (!value || getFieldValue('oldPassword') !== value) {
         return Promise.resolve()
       }
+
       return Promise.reject(
         new Error(t(TranslationKey['The new password that you entered matches the current password!'])),
       )
