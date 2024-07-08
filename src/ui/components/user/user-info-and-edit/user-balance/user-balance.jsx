@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -21,84 +20,71 @@ import { UserBalanceModel } from './user-balance.model'
 
 export const UserBalance = observer(({ userId }) => {
   const { classes: styles, cx } = useStyles()
-  const history = useHistory()
-  const model = useRef(new UserBalanceModel({ history, userId }))
-
-  useEffect(() => {
-    model.current.loadData()
-  }, [])
-
-  const {
-    user,
-    showReplenishModal,
-    showWithdrawModal,
-    makePayment,
-    onTriggerReplenishModal,
-    onTriggerWithdrawModal,
-
-    requestStatus,
-    getCurrentData,
-    sortModel,
-    filterModel,
-    densityModel,
-    columnsModel,
-
-    onChangeSortingModel,
-    onChangeFilterModel,
-  } = model.current
+  const [viewModel] = useState(() => new UserBalanceModel(userId))
 
   const getRowClassName = params => (params.row.sum < 0 ? styles.redRow : params.row.sum > 0 && styles.greenRow)
 
   return (
-    <div className={styles.mainWrapper}>
-      <DashboardBalance user={user} />
+    <>
+      {viewModel.user ? <DashboardBalance user={viewModel.user} /> : null}
 
-      <div className={styles.btnsWrapper}>
-        <Button onClick={onTriggerReplenishModal}>{t(TranslationKey.Deposit)}</Button>
-        <Button variant={ButtonVariant.OUTLINED} onClick={onTriggerWithdrawModal}>
+      <div className={styles.buttons}>
+        <Button onClick={viewModel.onTriggerReplenishModal}>{t(TranslationKey.Deposit)}</Button>
+        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onTriggerWithdrawModal}>
           {t(TranslationKey.Withdraw)}
         </Button>
       </div>
+
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          getRowClassName={getRowClassName}
-          sortModel={sortModel}
-          filterModel={filterModel}
-          columnVisibilityModel={model.current.columnVisibilityModel}
-          paginationModel={model.current.paginationModel}
-          rows={getCurrentData()}
-          rowHeight={75}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          pinnedColumns={viewModel.pinnedColumns}
+          paginationModel={viewModel.paginationModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
+          getRowId={({ _id }) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
             toolbar: {
               columsBtnSettings: {
-                columnsModel: model.current.columnsModel,
-                columnVisibilityModel: model.current.columnVisibilityModel,
-                onColumnVisibilityModelChange: model.current.onColumnVisibilityModelChange,
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
             },
           }}
-          density={densityModel}
-          columns={columnsModel}
-          loading={requestStatus === loadingStatus.IS_LOADING}
-          onSortModelChange={onChangeSortingModel}
-          onPaginationModelChange={model.current.onPaginationModelChange}
-          onFilterModelChange={onChangeFilterModel}
+          rowCount={viewModel.rowCount}
+          getRowClassName={getRowClassName}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         />
       </div>
-      <Modal openModal={showReplenishModal} setOpenModal={onTriggerReplenishModal}>
-        <AdminBalanceModal user={user} onTriggerParentModal={onTriggerReplenishModal} onSubmit={makePayment} />
-      </Modal>
-      <Modal openModal={showWithdrawModal} setOpenModal={onTriggerWithdrawModal}>
+
+      <Modal openModal={viewModel.showReplenishModal} setOpenModal={viewModel.onTriggerReplenishModal}>
         <AdminBalanceModal
-          isWithdraw
-          user={user}
-          onTriggerParentModal={onTriggerWithdrawModal}
-          onSubmit={makePayment}
+          user={viewModel.user}
+          onTriggerParentModal={viewModel.onTriggerReplenishModal}
+          onSubmit={viewModel.makePayment}
         />
       </Modal>
-    </div>
+
+      <Modal openModal={viewModel.showWithdrawModal} setOpenModal={viewModel.onTriggerWithdrawModal}>
+        <AdminBalanceModal
+          isWithdraw
+          user={viewModel.user}
+          onTriggerParentModal={viewModel.onTriggerWithdrawModal}
+          onSubmit={viewModel.makePayment}
+        />
+      </Modal>
+    </>
   )
 })
