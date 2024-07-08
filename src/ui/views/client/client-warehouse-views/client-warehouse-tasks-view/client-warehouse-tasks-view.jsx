@@ -28,7 +28,7 @@ export const ClientWarehouseTasksView = observer(() => {
   const [viewModel] = useState(() => new ClientWarehouseTasksViewModel())
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.headerWrapper}>
         <div />
 
@@ -175,6 +175,6 @@ export const ClientWarehouseTasksView = observer(() => {
       ) : null}
 
       {viewModel.showProgress && <CircularProgressWithLabel />}
-    </>
+    </div>
   )
 })
