@@ -1964,5 +1964,8 @@
   "Performer's comment": "Комментарий исполнителя",
   "Label the box as labeled with the supplier's barcode": "Маркируйте коробку, как помечено штрих-кодом поставщика",
   "can't be zero": "не может быть нулем",
-  "File not selected": "Файл не выбран"
+  "File not selected": "Файл не выбран",
+  "Select launch type": "Выберите тип запуска",
+  "New price": "Новая цена",
+  "Search by SKU, ASIN, Title, Launch type": "Поиск по SKU, ASIN, Названию, Типу запуска"
 }

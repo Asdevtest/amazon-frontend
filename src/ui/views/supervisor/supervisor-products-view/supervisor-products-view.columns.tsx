@@ -165,7 +165,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
         />
       ),
       valueFormatter: ({ row }: GridRowModel) => (row?.ordered ? t(TranslationKey.Yes) : t(TranslationKey.No)),
-      width: 85,
+      width: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.YES_NO,
     },
