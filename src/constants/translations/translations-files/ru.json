@@ -1972,5 +1972,6 @@
   "New price": "Новая цена",
   "Search by SKU, ASIN, Title, Launch type": "Поиск по SKU, ASIN, Названию, Типу запуска",
   "Amazon's bestseller rating": "Рейтинг бестселлеров Амазон",
-  "Calculated from the price of the product, fees and the total price of the supplier": "Вычисляется из цены продукта, сборов и общей цены поставщика"
+  "Calculated from the price of the product, fees and the total price of the supplier": "Вычисляется из цены продукта, сборов и общей цены поставщика",
+  "Approximate calculation": "Приблизительный расчет"
 }

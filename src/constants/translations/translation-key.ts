@@ -1973,4 +1973,5 @@ export enum TranslationKey {
   'Search by SKU, ASIN, Title, Launch type' = 'Search by SKU, ASIN, Title, Launch type',
   "Amazon's bestseller rating" = "Amazon's bestseller rating",
   'Calculated from the price of the product, fees and the total price of the supplier' = 'Calculated from the price of the product, fees and the total price of the supplier',
+  'Approximate calculation' = 'Approximate calculation',
 }

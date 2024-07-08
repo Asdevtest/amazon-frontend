@@ -137,14 +137,14 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '150px',
+    width: '180px',
   },
 
   destinationCostUnitWrapper: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '131px',
+    width: '141px',
     height: '100%',
   },
 

@@ -141,7 +141,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       ),
       renderCell: (params: GridValidRowModel) => <MultilineTextCell text={toFixed(params.value, 2)} />,
       valueGetter: (params: GridRenderCellParams) => toFixed(params.row?.costUnitWithDeliveryToChina),
-      width: 150,
+      width: 180,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -159,7 +159,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
             toFixed(variation?.destination?.costUnitWithDeliveryToUsa),
           )
           .join(', '),
-      width: 130,
+      width: 140,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
