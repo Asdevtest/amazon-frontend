@@ -1,6 +1,6 @@
 import { BACKEND_API_URL } from '@constants/keys/env'
 
-import { getAxiosInstance } from '@services/axios/api'
+import api from '@services/axios/api'
 
 import { Configuration } from './codegen'
 import { AdministratorApi } from './codegen/api/administrator-api'
@@ -34,7 +34,7 @@ class RestApiService {
   constructor() {
     this.openapiConfig.basePath = BACKEND_API_URL
 
-    this.axiosInstance = getAxiosInstance()
+    this.axiosInstance = api
     this.administratorApi = new AdministratorApi(this.openapiConfig, undefined, this.axiosInstance)
     this.announcementsApi = new AnnouncementsApi(this.openapiConfig, undefined, this.axiosInstance)
     this.buyerApi = new BuyerApi(this.openapiConfig, undefined, this.axiosInstance)
