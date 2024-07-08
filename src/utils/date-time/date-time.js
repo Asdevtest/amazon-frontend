@@ -1,6 +1,7 @@
 import { compareAsc, compareDesc, format, formatDistanceStrict, formatISO, isValid, parseISO } from 'date-fns'
 import enUS from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
+import ukUa from 'date-fns/locale/uk'
 
 import { ONE_HOUR_IN_MILLISECONDS } from '@constants/time'
 
@@ -92,7 +93,7 @@ export const getDistanceBetweenDatesInSeconds = (firstDate, secondDate) => {
 export const formatDateDistanceFromNowStrict = (date, tryNow) =>
   formatDistanceStrict(parseISO(date), tryNow ? tryNow : new Date(), {
     addSuffix: true,
-    locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
+    locale: SettingsModel.languageTag === 'ru' ? ruLocale : SettingsModel.languageTag === 'ua' ? ukUa : enUS,
     partialMethod: 'ceil',
   })
 

@@ -105,6 +105,8 @@ export const errorMessagesTranslate = error => {
 export const translateProposalsLeftMessage = (num1, num2) => {
   if (SettingsModel.languageTag === 'ru') {
     return `Осталось ${num1} из ${num2} предложений`
+  } else if (SettingsModel.languageTag === 'ua') {
+    return `${num1} з ${num2} пропозицій залишилось`
   } else {
     return `${num1} out of ${num2} proposals left`
   }
