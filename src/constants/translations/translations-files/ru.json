@@ -1970,5 +1970,7 @@
   "The terms of the proposal do not fit, the contractor will be able to edit them and do it again": "Условия предложения не подходят, подрядчик сможет их отредактировать и сделать это снова",
   "Select launch type": "Выберите тип запуска",
   "New price": "Новая цена",
-  "Search by SKU, ASIN, Title, Launch type": "Поиск по SKU, ASIN, Названию, Типу запуска"
+  "Search by SKU, ASIN, Title, Launch type": "Поиск по SKU, ASIN, Названию, Типу запуска",
+  "Amazon's bestseller rating": "Рейтинг бестселлеров Амазон",
+  "Calculated from the price of the product, fees and the total price of the supplier": "Вычисляется из цены продукта, сборов и общей цены поставщика"
 }
