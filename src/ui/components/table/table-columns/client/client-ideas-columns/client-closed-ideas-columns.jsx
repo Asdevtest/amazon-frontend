@@ -8,6 +8,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import {
   ClosedIdeaActionsCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
@@ -223,6 +224,29 @@ export const clientClosedIdeasColumns = rowHandlers => {
       filterable: false,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.MULTIPLE,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: params => {
+        const subUsers = params.row?.parentProduct?.subUsers || []
+        const subUsersByShop = params.row?.parentProduct?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.parentProduct?.subUsers || []
+        const subUsersByShop = row?.parentProduct?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      table: DataGridFilterTables.PRODUCTS,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {

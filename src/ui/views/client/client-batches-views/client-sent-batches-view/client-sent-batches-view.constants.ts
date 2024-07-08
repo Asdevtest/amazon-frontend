@@ -17,6 +17,7 @@ export const filtersFields: string[] = [
   'trackingNumber',
   'arrivalDate',
   'quantityBoxes',
+  'subUsers',
 ]
 
 export const fieldsForSearch = ['amazonTitle', 'humanFriendlyId', 'asin']

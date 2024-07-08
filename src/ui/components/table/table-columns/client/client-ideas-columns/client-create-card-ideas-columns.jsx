@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   CreateCardIdeaActionsCell,
   IdeaProductCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
@@ -134,6 +135,29 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       filterable: false,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: params => {
+        const subUsers = params.row?.parentProduct?.subUsers || []
+        const subUsersByShop = params.row?.parentProduct?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.parentProduct?.subUsers || []
+        const subUsersByShop = row?.parentProduct?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      table: DataGridFilterTables.PRODUCTS,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {

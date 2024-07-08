@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   BatchBoxesCell,
   BatchTrackingCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -99,6 +100,31 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       columnKey: columnnsKeys.shared.OBJECT,
       table: DataGridFilterTables.BOXES,
       disableCustomSort: true,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: params => {
+        const product = params.row?.boxes?.[0]?.items?.[0]?.product
+        const subUsers = product?.subUsers || []
+        const subUsersByShop = product?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const product = row?.boxes?.[0]?.items?.[0]?.product
+        const subUsers = product?.subUsers || []
+        const subUsersByShop = product?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      table: DataGridFilterTables.PRODUCTS,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {
