@@ -69,6 +69,8 @@ export class SupervisorSettingsViewModel extends DataGridTableModel {
       }
 
       this.onTriggerOpenModal('showAsinCheckerModal')
+
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
