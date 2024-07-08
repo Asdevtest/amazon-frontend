@@ -1970,5 +1970,6 @@
   "The terms of the proposal do not fit, the contractor will be able to edit them and do it again": "The terms of the proposal do not fit, the contractor will be able to edit them and do it again",
   "Select launch type": "Select launch type",
   "New price": "New price",
-  "Search by SKU, ASIN, Title, Launch type": "Search by SKU, ASIN, Title, Launch type"
+  "Search by SKU, ASIN, Title, Launch type": "Search by SKU, ASIN, Title, Launch type",
+  "Proposals_Left": "{{num1}} out of {{num2}} proposals left"
 }

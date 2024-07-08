@@ -1970,5 +1970,6 @@
   "The terms of the proposal do not fit, the contractor will be able to edit them and do it again": "Умови пропозиції не підходять, підрядник зможе їх відредагувати та зробити це знову",
   "Select launch type": "Виберіть тип запуску",
   "New price": "Нова ціна",
-  "Search by SKU, ASIN, Title, Launch type": "Пошук за SKU, ASIN, Назвою, Типом запуску"
+  "Search by SKU, ASIN, Title, Launch type": "Пошук за SKU, ASIN, Назвою, Типом запуску",
+  "Proposals_Left": "Залишилось {{num1}} з {{num2}} пропозицій"
 }
