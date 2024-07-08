@@ -39,7 +39,7 @@ export const shopsColumns = handlers => {
       headerName: 'PPC-Organic By Day',
       renderHeader: () => <MultilineTextHeaderCell text="PPC-Organic By Day" />,
 
-      width: 125,
+      width: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -57,7 +57,7 @@ export const shopsColumns = handlers => {
       headerName: 'Inventory Shipments',
       renderHeader: () => <MultilineTextHeaderCell text="Inventory Shipments" />,
 
-      width: 125,
+      width: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -77,7 +77,7 @@ export const shopsColumns = handlers => {
       headerName: 'Inventory',
       renderHeader: () => <MultilineTextHeaderCell text="Inventory" />,
 
-      width: 125,
+      width: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -95,7 +95,7 @@ export const shopsColumns = handlers => {
       headerName: t(TranslationKey.Returns),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Returns)} />,
 
-      width: 125,
+      width: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -113,7 +113,7 @@ export const shopsColumns = handlers => {
       headerName: 'PPC-Organic by Weeks',
       renderHeader: () => <MultilineTextHeaderCell text="PPC-Organic by Weeks" />,
 
-      width: 125,
+      width: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -131,7 +131,7 @@ export const shopsColumns = handlers => {
       headerName: t(TranslationKey['Warehouse report']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Warehouse report'])} />,
 
-      width: 125,
+      width: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -148,7 +148,7 @@ export const shopsColumns = handlers => {
       headerName: t(TranslationKey['Dashboard by goods/days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Dashboard by goods/days'])} />,
 
-      width: 125,
+      width: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -165,7 +165,7 @@ export const shopsColumns = handlers => {
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-      width: 120,
+      width: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
