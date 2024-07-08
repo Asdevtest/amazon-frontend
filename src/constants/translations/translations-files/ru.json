@@ -1977,5 +1977,7 @@
   "Button to set the status, the product card is sent to the supervisor for checking (can be changed before checking)": "Кнопка для установки статуса, карточка продукта отправлена для проверки (можно изменить до проверки)",
   "Client's chosen rate, region of shipment and its cost": "Выбранный клиентом тариф, регион отправки и его стоимость",
   "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order": "Изменение фактической стоимости инициирует возврат разницы средств клиенту или требование о доплате по заказу",
-  "Returns all boxes from the selected batch to the 'Boxes ready to send' section": "Возвращает все коробки из выбранной партии в раздел 'Коробки, готовые к отправке'"
+  "Returns all boxes from the selected batch to the 'Boxes ready to send' section": "Возвращает все коробки из выбранной партии в раздел 'Коробки, готовые к отправке'",
+  "Attention, it is necessary to add a photo of the product with glued transparency to the box": "Внимание, необходимо добавить в коробку фотографию товара с transparency",
+  "Boxes marked in red will not be shipped because they have no dimensions or insufficient data": "Коробки помеченные красным не будут отправлены, потому что они не имеют размеров или недостаточно данных"
 }

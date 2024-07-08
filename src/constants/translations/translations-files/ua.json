@@ -1977,5 +1977,6 @@
   "A photo of the Transperensy Code sticker": "Фото стікера Transperensy Code",
   "Button to set the status, the product card is sent to the supervisor for checking (can be changed before checking)": "Кнопка виставлення статусу, картка товару надсилається на перевірку супервізору (можна змінити до перевірки)",
   "Client's chosen rate, region of shipment and its cost": "Вибраний клієнтом тариф, регіон відправлення та його вартість",
-  "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order": "Зміна фактичної вартості ініціює повернення різниці коштів клієнту або вимога про доплату на замовлення"
+  "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order": "Коробки, позначені червоним, не будуть відправлені, тому що у них немає розмірів або недостатньо даних",
+  "Attention, it is necessary to add a photo of the product with glued transparency to the box": "Увага, необхідно додати в коробку фотографію товару з transparency"
 }
