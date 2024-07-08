@@ -605,7 +605,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <div>
             <Typography className={styles.modalTitle}>{'¥'}</Typography>
 
-            <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
+            <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-end">
               <Grid item>
                 <Field
                   error={tmpSupplier.priceInYuan >= 1000000 && '> 1000000 !'}
@@ -686,7 +686,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <div>
             <Typography className={styles.modalTitle}>{'$'}</Typography>
 
-            <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
+            <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-end">
               <Grid item>
                 <Field
                   disabled={onlyRead}

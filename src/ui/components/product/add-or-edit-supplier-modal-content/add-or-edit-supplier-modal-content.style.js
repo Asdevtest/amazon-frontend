@@ -100,7 +100,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   shortContainer: {
-    width: '120px !important',
+    width: '160px !important',
     margin: '0px !important',
   },
 
