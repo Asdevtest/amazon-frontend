@@ -24,6 +24,8 @@ import { IProduct } from '@typings/models/products/product'
 import { IGridColumn } from '@typings/shared/grid-column'
 import { ITag } from '@typings/shared/tag'
 
+import { productColumnMenuItems, productColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 interface IHandlers {
   onClickShowProduct: (row: IProduct) => void
 }
@@ -60,9 +62,12 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
           />
         )
       },
-      width: 260,
 
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+      fields: productColumnMenuItems,
+      columnMenuConfig: productColumnMenuValue,
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 250,
     },
 
     {
