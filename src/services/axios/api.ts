@@ -53,8 +53,8 @@ api.interceptors.response.use(
           const response = await axios.post<IPostAccessToken, IGetAccessToken>(
             `${BACKEND_API_URL}/api/v1/users/get_access_token`,
             {
-              body: { refreshToken: userModel.refreshToken },
-            },
+            refreshToken: userModel.refreshToken,
+          },
           )
 
           const accessToken = response?.data?.accessToken
