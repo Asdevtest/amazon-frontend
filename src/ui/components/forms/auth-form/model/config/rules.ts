@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { t } from '@utils/translations'
 
 export const nameValidationRules: Rule[] = [
-  { max: 30, message: t(TranslationKey['The name is too long!']) },
+  { max: 32, message: t(TranslationKey['The name is too long!']) },
   { required: true, message: t(TranslationKey['Please input your name!']) },
 ]
 

@@ -67,12 +67,12 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
   return (
     <Form name="registration" size="large" form={form} rootClassName={styles.form} onFinish={onFinish}>
       {!auth ? (
-        <Form.Item hasFeedback name="name" rules={nameValidationRules}>
+        <Form.Item hasFeedback name="name" validateTrigger="onBlur" rules={nameValidationRules}>
           <Input maxLength={MAX_INPUT_LENGTH} placeholder={t(TranslationKey.Name)} prefix={<RiUser3Line />} />
         </Form.Item>
       ) : null}
 
-      <Form.Item<FieldData> hasFeedback name="email" rules={emailValidationRules}>
+      <Form.Item<FieldData> hasFeedback validateTrigger="onBlur" name="email" rules={emailValidationRules}>
         <Input
           maxLength={MAX_INPUT_LENGTH}
           disabled={editUser}
@@ -83,7 +83,12 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
       </Form.Item>
 
       {editUser ? (
-        <Form.Item<FieldData> hasFeedback name="oldPassword" rules={passwordValidationRules}>
+        <Form.Item<FieldData>
+          hasFeedback
+          name="oldPassword"
+          validateTrigger={['onBlur', 'onChange']}
+          rules={passwordValidationRules}
+        >
           <Input.Password
             maxLength={MAX_INPUT_LENGTH}
             type="password"
@@ -97,6 +102,7 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
       <Form.Item<FieldData>
         hasFeedback
         name="password"
+        validateTrigger={['onBlur', 'onChange']}
         dependencies={['oldPassword']}
         rules={editUser ? newPasswordValidationRules : passwordValidationRules}
       >
@@ -104,13 +110,19 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
           maxLength={MAX_INPUT_LENGTH}
           type="password"
           placeholder={t(TranslationKey[editUser ? 'New password' : 'Password'])}
-          autoComplete={!auth ? 'new-password' : 'on'}
+          autoComplete={!auth ? 'new-password' : 'new-password'}
           prefix={<RiLockPasswordLine />}
         />
       </Form.Item>
 
       {showConfirmPasswordField ? (
-        <Form.Item hasFeedback name="confirm" dependencies={['password']} rules={confirmValidationRules}>
+        <Form.Item
+          hasFeedback
+          name="confirm"
+          dependencies={['password']}
+          validateTrigger={['onBlur', 'onChange']}
+          rules={confirmValidationRules}
+        >
           <Input.Password
             maxLength={MAX_INPUT_LENGTH}
             placeholder={t(TranslationKey['Confirm password'])}
