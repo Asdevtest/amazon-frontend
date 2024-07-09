@@ -78,7 +78,6 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
 
   const getRowClassName = (params: GridRowClassNameParams) =>
     viewModel.currentLogicsTariffId === params?.id ? styles.activeRow : ''
-
   const getCellClassName = (params: GridCellParams) => (params?.field === 'deliveryTimeInDay' ? styles.borderCell : '')
 
   const isDisableButton =
