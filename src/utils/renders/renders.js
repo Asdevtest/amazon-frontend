@@ -1,7 +1,14 @@
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsStorekeeper, checkIsSupervisor } from '../checks'
+import {
+  checkIsBuyer,
+  checkIsClient,
+  checkIsFreelancer,
+  checkIsResearcher,
+  checkIsStorekeeper,
+  checkIsSupervisor,
+} from '../checks'
 import { t } from '../translations'
 
 export const renderTooltipTitle = (categoryTitle, userRole) => {
@@ -99,6 +106,11 @@ export const renderTooltipTitle = (categoryTitle, userRole) => {
         return t(TranslationKey["Detailed description of the movement of the user's money"])
       case t(TranslationKey['Warehouse management']):
         return t(TranslationKey['Management of tariffs for logistics and warehousing services'])
+    }
+  } else if (checkIsFreelancer(UserRoleCodeMap[userRole])) {
+    switch (categoryTitle) {
+      case t(TranslationKey.Finances):
+        return t(TranslationKey["Detailed description of the movement of the user's money"])
     }
   }
 }

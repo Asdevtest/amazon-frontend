@@ -42,7 +42,7 @@ export const ProductStatusButtons = props => {
                 value={buttonConfig.statusKey}
                 label={
                   <Text
-                    tooltipInfoContent={translateTooltipMessageByRole(buttonConfig.label, curUserRole)}
+                    tooltipInfoContent={translateTooltipMessageByRole(buttonConfig.label, curUserRole) || ''}
                     tooltipAttentionContent={translateTooltipAttentionMessageByRole(buttonConfig.label, curUserRole)}
                   >
                     {buttonConfig.label}

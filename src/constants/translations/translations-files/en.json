@@ -1970,5 +1970,14 @@
   "Select launch type": "Select launch type",
   "New price": "New price",
   "Search by SKU, ASIN, Title, Launch type": "Search by SKU, ASIN, Title, Launch type",
+  "Proposals_Left": "{{num1}} out of {{num2}} proposals left",
+  "Notify users of completed launches in": "Notify users of completed launches in",
+  "Try to research market prices and make your offer based on the amount of work and your skills.": "Try to research market prices and make your offer based on the amount of work and your skills.",
+  "Button to set the status, the product card is sent to the supervisor for checking (can be changed before checking)": "Button to set the status, the product card is sent to the supervisor for checking (can be changed before checking)",
+  "Client's chosen rate, region of shipment and its cost": "Client's chosen rate, region of shipment and its cost",
+  "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order": "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order",
+  "Returns all boxes from the selected batch to the 'Boxes ready to send' section": "Returns all boxes from the selected batch to the 'Boxes ready to send' section",
+  "Attention, it is necessary to add a photo of the product with glued transparency to the box": "Attention, it is necessary to add a photo of the product with glued transparency to the box",
+  "Boxes marked in red will not be shipped because they have no dimensions or insufficient data": "Boxes marked in red will not be shipped because they have no dimensions or insufficient data",
   "The password should not start or end with a space!": "The password should not start or end with a space!"
 }

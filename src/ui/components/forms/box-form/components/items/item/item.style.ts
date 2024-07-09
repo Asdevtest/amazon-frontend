@@ -118,15 +118,26 @@ export const useStyles = makeStyles()(theme => ({
   button: {
     height: 30,
     margin: 0,
+    whiteSpace: 'nowrap',
+  },
+
+  checkboxWrapper: {
+    flex: 1,
   },
 
   checkboxContainer: {
     display: 'flex',
     alignItems: 'center',
-    gap: 10,
+    justifyContent: 'space-between',
   },
 
   checkbox: {
     padding: 0,
+  },
+
+  orderDetail: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: '10px',
   },
 }))

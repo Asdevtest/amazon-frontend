@@ -1,30 +1,37 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: '20px',
+    height: '100%',
+    width: '100%',
+  },
+
   tasksWrapper: {
-    height: 'calc(100vh - 300px)',
+    width: '100%',
+    flex: 1,
+    overflow: 'auto',
+    padding: '3px',
   },
 
   headerWrapper: {
+    width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    height: '40px',
-    marginBottom: '10px',
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
     width: 405,
-    height: 36,
-    fontSize: '16px',
-    paddingLeft: '7px',
   },
 
   filters: {
     display: 'flex',
     gap: '10px',
     flexWrap: 'wrap',
-    marginBottom: '10px',
   },
 
   downloadIcon: {

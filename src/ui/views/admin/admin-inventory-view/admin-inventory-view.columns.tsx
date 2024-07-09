@@ -126,7 +126,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
           productId={params.row?._id}
         />
       ),
-      width: 100,
+      width: 200,
       filterable: false,
       disableCustomSort: true,
     },
@@ -147,7 +147,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 150,
+      width: 190,
       renderCell: params => <DownloadAndCopyBtnsCell value={params.value} />,
 
       disableCustomSort: true,
