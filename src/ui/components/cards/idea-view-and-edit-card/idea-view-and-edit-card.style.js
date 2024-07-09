@@ -259,6 +259,7 @@ export const useStyles = makeStyles()(theme => ({
   addOrEditBtnsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: 20,
   },
 
   input: {
