@@ -19,10 +19,11 @@ interface BatchTrackingCellProps {
   arrivalDate: string
   disabled?: boolean
   disableMultilineForTrack?: boolean
+  disabledArrivalDate?: boolean
 }
 
 export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
-  ({ rowHandlers, id, trackingNumber, arrivalDate, disabled, disableMultilineForTrack }) => {
+  ({ rowHandlers, id, trackingNumber, arrivalDate, disabled, disabledArrivalDate, disableMultilineForTrack }) => {
     const { classes: styles } = useStyles()
 
     return (
@@ -49,7 +50,7 @@ export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
           labelClasses={styles.batchTrackingTitle}
           inputComponent={
             <DatePickerCell
-              disabled={disabled}
+              disabled={disabledArrivalDate}
               id={id}
               arrivalDate={arrivalDate}
               onClickSaveArrivalDate={rowHandlers?.onClickSaveArrivalDate}

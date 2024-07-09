@@ -42,6 +42,7 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
   constructor({ history }: { history: any }) {
     const rowHandlers = {
       changeViewModeHandler: (value: tableProductViewMode) => this.changeViewModeHandler(value),
+      onClickSaveArrivalDate: (id: string, date: string) => this.onClickSaveArrivalDate(id, date),
     }
 
     const columnsModel = clientBatchesViewColumns(rowHandlers, () => this.productViewMode)
@@ -218,5 +219,10 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
 
   changeViewModeHandler(value: tableProductViewMode) {
     this.productViewMode = value
+  }
+
+  async onClickSaveArrivalDate(id: string, date: string) {
+    await BatchesModel.changeBatch(id, { arrivalDate: date })
+    this.getCurrentData()
   }
 }
