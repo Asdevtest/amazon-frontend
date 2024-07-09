@@ -9,7 +9,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   searchInput: {
-    width: 410,
+    width: 480,
   },
 
   boxesFiltersWrapper: {
