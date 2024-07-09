@@ -16,6 +16,7 @@ import {
   DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -343,6 +344,29 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       sortable: false,
 
       columnKey: columnnsKeys.shared.STRING,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: ({ row }) => {
+        const subUsers = row?.product?.subUsers || []
+        const subUsersByShop = row?.product?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.product?.subUsers || []
+        const subUsersByShop = row?.product?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      filterable: false,
+      disableCustomSort: true,
+      table: DataGridFilterTables.PRODUCTS,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {
