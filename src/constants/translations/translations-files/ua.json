@@ -1934,7 +1934,6 @@
   "The new password that you entered do not match!": "Новий пароль, який ви ввели, не співпадає!",
   "Confirm password": "Підтвердьте пароль",
   "Register": "Реєстрація",
-  "Successful login": "Успішний вхід",
   "User is waiting for confirmation": "Користувач чекає підтвердження",
   "Invalid password or email address.": "Невірний пароль або адреса електронної пошти.",
   "User with such email already exists.": "Користувач з такою електронною поштою вже існує.",

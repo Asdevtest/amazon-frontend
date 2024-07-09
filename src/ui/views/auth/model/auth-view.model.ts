@@ -69,8 +69,6 @@ export class AuthViewModel {
 
         this.history?.push(allowedRoutes[0].routePath)
       }
-
-      toast.success(t(TranslationKey['Successful login']))
     } catch (error: any) {
       if (error?.response?.data?.message) {
         toast.error(t(TranslationKey[error?.response.data.message as TranslationKey]))
