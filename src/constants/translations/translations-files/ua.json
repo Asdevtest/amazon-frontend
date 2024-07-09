@@ -1981,5 +1981,6 @@
   "Client's chosen rate, region of shipment and its cost": "Вибраний клієнтом тариф, регіон відправлення та його вартість",
   "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order": "Коробки, позначені червоним, не будуть відправлені, тому що у них немає розмірів або недостатньо даних",
   "Attention, it is necessary to add a photo of the product with glued transparency to the box": "Увага, необхідно додати в коробку фотографію товару з transparency",
-  "The password should not start or end with a space!": "Пароль не повинен починатися або закінчуватися пробілом!"
+  "The password should not start or end with a space!": "Пароль не повинен починатися або закінчуватися пробілом!",
+  "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "Виберіть найбільш ефективну ставку, розділіть партії на кілька покупок, якщо вам потрібно відправити на різні склади"
 }

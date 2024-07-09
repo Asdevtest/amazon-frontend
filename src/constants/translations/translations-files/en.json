@@ -1982,5 +1982,6 @@
   "Returns all boxes from the selected batch to the 'Boxes ready to send' section": "Returns all boxes from the selected batch to the 'Boxes ready to send' section",
   "Attention, it is necessary to add a photo of the product with glued transparency to the box": "Attention, it is necessary to add a photo of the product with glued transparency to the box",
   "Boxes marked in red will not be shipped because they have no dimensions or insufficient data": "Boxes marked in red will not be shipped because they have no dimensions or insufficient data",
-  "The password should not start or end with a space!": "The password should not start or end with a space!"
+  "The password should not start or end with a space!": "The password should not start or end with a space!",
+  "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses"
 }
