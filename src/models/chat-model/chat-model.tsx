@@ -3,6 +3,7 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
 import { toast } from 'react-toastify'
 
+import { chatsType } from '@constants/keys/chats'
 import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
 import { noticeSound } from '@constants/sounds.js'
@@ -31,7 +32,7 @@ import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-ch
 import { PaginationDirection } from '@typings/enums/pagination-direction'
 import { IShutdownNotice } from '@typings/models/chats/shutdown-notice'
 
-import { ChatContract, SendMessageRequestParamsContract } from './contracts'
+import { ChatContract, ChatUserContract, SendMessageRequestParamsContract } from './contracts'
 import { ChatMessageContract, TChatMessageDataUniversal } from './contracts/chat-message.contract'
 
 const websocketChatServiceIsNotInitializedError = new Error('websocketChatService is not  onotialized')
@@ -744,6 +745,35 @@ class ChatModelStatic {
   private async onGetServerSettings(data: IShutdownNotice) {
     this.toggleServerSettings = data
     toast.error(data.text, { position: 'top-right' })
+  }
+
+  public async getOnlineUsers() {
+    if (!this.websocketChatService) throw websocketChatServiceIsNotInitializedError
+    try {
+      const usersOnline = (await this.websocketChatService.getOnlineUsers()) as ChatUserContract[]
+
+      console.log('usersOnline :>> ', usersOnline)
+
+      runInAction(() => {
+        this.simpleChats = this.simpleChats.map(chat => {
+          if (chat.type === chatsType.DEFAULT) {
+            chat.users = chat.users.map(user => {
+              const findUserOnline = usersOnline.find(userOnline => userOnline?._id === user?._id)
+
+              if (findUserOnline) {
+                user.lastSeen = findUserOnline.lastSeen
+              }
+
+              return user
+            })
+          }
+
+          return chat
+        })
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 

@@ -127,6 +127,7 @@ export class MessagesViewModel {
     try {
       ChatModel.getUnreadMessagesCount()
       await ChatModel.getSimpleChats()
+
       this.selectChatHandler()
     } catch (error) {
       console.error(error)
@@ -312,6 +313,10 @@ export class MessagesViewModel {
     } catch (error) {
       console.error('onSubmitMessage error ', error)
     }
+  }
+
+  getOnlineUsers() {
+    ChatModel.getOnlineUsers()
   }
 
   onClickBackButton() {
