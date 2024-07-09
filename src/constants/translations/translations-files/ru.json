@@ -1934,10 +1934,9 @@
   "The new password that you entered do not match!": "Новый пароль, который вы ввели, не совпадает!",
   "Confirm password": "Подтвердите пароль",
   "Register": "Регистрация",
-  "Successful login": "Успешный вход",
   "User is waiting for confirmation": "Пользователь ожидает подтверждения",
   "Invalid password or email address.": "Неверный пароль или адрес электронной почты.",
-  "User with such email already exists.": "Пользователь с таким адресом электронной почты уже существует.",
+  "User with such email already exist.": "Пользователь с таким адресом электронной почты уже существует.",
   "The supplier's price does't fit": "Цена поставщика не подходит",
   "Account replenishment": "Пополнение счета",
   "Write-off": "Списание средств",
@@ -1979,5 +1978,6 @@
   "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order": "Изменение фактической стоимости инициирует возврат разницы средств клиенту или требование о доплате по заказу",
   "Returns all boxes from the selected batch to the 'Boxes ready to send' section": "Возвращает все коробки из выбранной партии в раздел 'Коробки, готовые к отправке'",
   "Attention, it is necessary to add a photo of the product with glued transparency to the box": "Внимание, необходимо добавить в коробку фотографию товара с transparency",
-  "Boxes marked in red will not be shipped because they have no dimensions or insufficient data": "Коробки помеченные красным не будут отправлены, потому что они не имеют размеров или недостаточно данных"
+  "Boxes marked in red will not be shipped because they have no dimensions or insufficient data": "Коробки помеченные красным не будут отправлены, потому что они не имеют размеров или недостаточно данных",
+  "The password should not start or end with a space!": "Пароль не должен начинаться или заканчиваться пробелом!"
 }

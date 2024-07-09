@@ -10,6 +10,13 @@ import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
 
+interface IPostAccessToken {
+  body: { refreshToken: string }
+}
+interface IGetAccessToken {
+  data: { accessToken: string }
+}
+
 const api = axios.create({
   baseURL: BACKEND_API_URL,
 })
@@ -43,9 +50,12 @@ api.interceptors.response.use(
         const userModel = JSON.parse(storage)
 
         try {
-          const response = await axios.post<any>(`${BACKEND_API_URL}/api/v1/users/get_access_token`, {
+          const response = await axios.post<IPostAccessToken, IGetAccessToken>(
+            `${BACKEND_API_URL}/api/v1/users/get_access_token`,
+            {
             refreshToken: userModel.refreshToken,
-          })
+          },
+          )
 
           const accessToken = response?.data?.accessToken
 

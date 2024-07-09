@@ -45,14 +45,16 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = mem
           {file.fileUrl ? (
             <div className={styles.buttons}>
               <Tooltip title={file.fileName}>
-                <Button fullWidth isTableButton onClick={() => handleClickOpenNewTab(file.fileUrl)}>
+                <Button isSmallButton fullWidth isTableButton onClick={() => handleClickOpenNewTab(file.fileUrl)}>
                   <p className={styles.text}>{file.fileName}</p>
                 </Button>
               </Tooltip>
 
-              <Button iconButton onClick={() => handleClickOpenNewTab(file.fileUrl)}>
-                <PrintIcon />
-              </Button>
+              <div>
+                <Button iconButton onClick={() => handleClickOpenNewTab(file.fileUrl)}>
+                  <PrintIcon />
+                </Button>
+              </div>
             </div>
           ) : (
             <p>{t(TranslationKey['Not added'])}</p>

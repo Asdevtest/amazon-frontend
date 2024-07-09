@@ -1927,10 +1927,9 @@
   "The new password that you entered do not match!": "你输入的新密码不匹配",
   "Confirm password": "确认密码",
   "Register": "注册",
-  "Successful login": "登录成功",
   "User is waiting for confirmation": "用户正在等待确认",
   "Invalid password or email address.": "无效的密码或电子邮件地址.",
-  "User with such email already exists.": "已存在使用此电子邮件的用户.",
+  "User with such email already exist.": "已存在使用此电子邮件的用户.",
   "The supplier's price does't fit": "供应商的价格不适合",
   "Account replenishment": "账户补充",
   "Write-off": "销账",
@@ -1972,5 +1971,6 @@
   "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order": "实际成本变化会导致退款到客户或请求额外付款",
   "Returns all boxes from the selected batch to the 'Boxes ready to send' section": "从指定批次返回所有箱子到\"准备发送箱子\"一节",
   "Boxes marked in red will not be shipped because they have no dimensions or insufficient data": "红色标记的箱子将不会被发货因为它们没有尺寸或不足足够的数据",
-  "Attention, it is necessary to add a photo of the product with glued transparency to the box": "注意，必须添加包装盒子的一张产品照片"
+  "Attention, it is necessary to add a photo of the product with glued transparency to the box": "注意，必须添加包装盒子的一张产品照片",
+  "The password should not start or end with a space!": "密码不应以空格开始或结束!"
 }

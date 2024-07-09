@@ -1934,7 +1934,6 @@ export enum TranslationKey {
   'The new password that you entered do not match!' = 'The new password that you entered do not match!',
   'Confirm password' = 'Confirm password',
   'Register' = 'Register',
-  'Successful login' = 'Successful login',
   'User is waiting for confirmation' = 'User is waiting for confirmation',
   'Invalid password or email address.' = 'Invalid password or email address.',
   'User with such email already exist.' = 'User with such email already exist.',
@@ -1979,4 +1978,5 @@ export enum TranslationKey {
   'A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order' = 'A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order',
   'Attention, it is necessary to add a photo of the product with glued transparency to the box' = 'Attention, it is necessary to add a photo of the product with glued transparency to the box',
   'Boxes marked in red will not be shipped because they have no dimensions or insufficient data' = 'Boxes marked in red will not be shipped because they have no dimensions or insufficient data',
+  'The password should not start or end with a space!' = 'The password should not start or end with a space!',
 }

@@ -240,6 +240,25 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
   },
 
   {
+    field: 'storage',
+    headerName: 'Storage',
+    renderHeader: () => <MultilineTextHeaderCell text="Storage" />,
+
+    renderCell: params => (
+      <ChangeInputCell
+        isString
+        maxLength={25}
+        rowId={params.row.originalData._id}
+        text={params.row?.originalData?.storage}
+        onClickSubmit={handlers.onClickSaveStorage}
+      />
+    ),
+    width: 240,
+
+    columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
     field: 'redFlags',
     headerName: t(TranslationKey['Red flags']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
