@@ -46,11 +46,11 @@ export const MyServicesView = observer(({ history }) => {
         />
 
         <div className={styles.flexContainer}>
-          <Button className={styles.fixWidth} onClick={() => viewModel.onToggleArchive(!viewModel.archive)}>
+          <Button onClick={() => viewModel.onToggleArchive(!viewModel.archive)}>
             {t(TranslationKey[viewModel.archive ? 'To the actual' : 'Open archive'])}
           </Button>
 
-          <Button styleType={ButtonStyle.SUCCESS} className={styles.fixWidth} onClick={viewModel.onClickCreateService}>
+          <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickCreateService}>
             {t(TranslationKey['Create a service'])}
           </Button>
         </div>

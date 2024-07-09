@@ -59,11 +59,11 @@ export const AddOrEditDestinationForm = observer(
 
     return (
       <div className={styles.root}>
-        <Typography variant="h5" className={styles.standartText}>
+        <p className={styles.title}>
           {destinationToEdit
             ? t(TranslationKey['Edit drop off location'])
             : t(TranslationKey['Add a new drop off location'])}
-        </Typography>
+        </p>
 
         <div className={styles.form}>
           {destinationToEdit && (
@@ -143,13 +143,15 @@ export const AddOrEditDestinationForm = observer(
         </div>
 
         <div className={styles.footerWrapper}>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
-            tooltipInfoContent={t(TranslationKey['Add a new rate'])}
-            onClick={onClickAddBtn}
-          >
-            {t(TranslationKey.Add)}
-          </Button>
+          {onClickAddBtn ? (
+            <Button
+              styleType={ButtonStyle.SUCCESS}
+              tooltipInfoContent={t(TranslationKey['Add a new rate'])}
+              onClick={onClickAddBtn}
+            >
+              {t(TranslationKey.Add)}
+            </Button>
+          ) : null}
 
           <div className={styles.btnsWrapper}>
             <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>

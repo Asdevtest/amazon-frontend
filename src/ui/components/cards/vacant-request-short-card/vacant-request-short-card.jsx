@@ -180,12 +180,12 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
         >
           {t(TranslationKey.Details)}
         </Button>
-        <Typography className={styles.cardSubTitle}>
-          {translateProposalsLeftMessage(
-            item?.maxAmountOfProposals - item?.countProposalsByStatuses?.acceptedProposals,
-            item?.maxAmountOfProposals,
-          )}
-        </Typography>
+        <p className={styles.cardSubTitle}>
+          {t(TranslationKey.Proposals_Left, {
+            num1: item?.maxAmountOfProposals - item?.countProposalsByStatuses?.acceptedProposals,
+            num2: item?.maxAmountOfProposals,
+          })}
+        </p>
       </div>
     </div>
   )

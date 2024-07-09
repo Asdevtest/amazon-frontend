@@ -37,7 +37,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     ),
     filterable: false,
     sortable: false,
-    width: window.innerWidth < 1282 ? 118 : 130,
+    width: 150,
   },
 
   {

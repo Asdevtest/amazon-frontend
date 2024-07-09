@@ -99,27 +99,29 @@ export const Item: FC<ItemProps> = memo(props => {
 
         {isOrderInfo ? (
           <>
-            <Field
-              disabled
-              classes={{ input: styles.input }}
-              inputClasses={styles.inputClasses}
-              containerClasses={styles.field}
-              labelClasses={cx(styles.text, styles.label)}
-              label={t(TranslationKey.Quantity)}
-              value={quantity}
-              placeholder={t(TranslationKey['Not available'])}
-            />
+            <div className={styles.orderDetail}>
+              <Field
+                disabled
+                classes={{ input: styles.input }}
+                inputClasses={styles.inputClasses}
+                containerClasses={styles.field}
+                labelClasses={cx(styles.text, styles.label)}
+                label={t(TranslationKey.Quantity)}
+                value={quantity}
+                placeholder={t(TranslationKey['Not available'])}
+              />
 
-            <Field
-              disabled
-              classes={{ input: styles.input }}
-              inputClasses={styles.inputClasses}
-              containerClasses={styles.field}
-              labelClasses={cx(styles.text, styles.label)}
-              label={t(TranslationKey['Order number'])}
-              value={item.order.id}
-              placeholder={t(TranslationKey['Not available'])}
-            />
+              <Field
+                disabled
+                classes={{ input: styles.input }}
+                inputClasses={styles.inputClasses}
+                containerClasses={styles.field}
+                labelClasses={cx(styles.text, styles.label)}
+                label={t(TranslationKey['Order number'])}
+                value={item.order.id}
+                placeholder={t(TranslationKey['Not available'])}
+              />
+            </div>
 
             <Button
               className={styles.button}
@@ -128,16 +130,18 @@ export const Item: FC<ItemProps> = memo(props => {
               {t(TranslationKey['HS code'])}
             </Button>
 
-            <div>
+            <div className={styles.checkboxWrapper}>
               <div className={styles.checkboxContainer}>
-                <Checkbox disabled className={styles.checkbox} checked={barcodeChecked} />
-                <p className={styles.text}>{barcodeText}</p>
+                <Checkbox disabled className={styles.checkbox} checked={barcodeChecked}>
+                  <p className={styles.text}>{barcodeText}</p>
+                </Checkbox>
                 {item.barCode && <LabelWithCopy labelValue={item.barCode} lableLinkTitle={t(TranslationKey.View)} />}
               </div>
 
               <div className={styles.checkboxContainer}>
-                <Checkbox disabled className={styles.checkbox} checked={transparencyChecked} />
-                <p className={styles.text}>{transparencyText}</p>
+                <Checkbox disabled className={styles.checkbox} checked={transparencyChecked}>
+                  <p className={styles.text}>{transparencyText}</p>
+                </Checkbox>
                 {item.transparencyFile && (
                   <LabelWithCopy labelValue={item.transparencyFile} lableLinkTitle={t(TranslationKey.View)} />
                 )}

@@ -27,7 +27,7 @@ export const LaunchesReports: FC<LaunchesReportsProps> = observer(({ timeBeforeL
       <CustomInputNumber
         isRow
         precision={0}
-        label="Notify users of completed launches in"
+        label={'Notify users of completed launches in'}
         addonAfter={t(TranslationKey.days)}
         value={viewModel.currentTimeBeforeLaunchDeadline}
         className={styles.input}

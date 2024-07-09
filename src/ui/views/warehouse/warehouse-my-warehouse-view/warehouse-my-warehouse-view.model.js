@@ -80,6 +80,7 @@ export class WarehouseMyWarehouseViewModel {
     setDimensions: item => this.setDimensions(item),
     onEditBox: item => this.onEditBox(item),
     onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
+    onClickSaveStorage: (item, value) => this.onClickSaveStorage(item, value),
     onChangeUnitsOption: option => this.onChangeUnitsOption(option),
   }
 
@@ -219,6 +220,18 @@ export class WarehouseMyWarehouseViewModel {
     try {
       await BoxesModel.editAdditionalInfo(itemId, {
         prepId: value,
+      })
+
+      this.getBoxesMy()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onClickSaveStorage(itemId, value) {
+    try {
+      await BoxesModel.editAdditionalInfo(itemId, {
+        storage: value,
       })
 
       this.getBoxesMy()
