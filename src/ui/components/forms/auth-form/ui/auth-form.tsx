@@ -110,7 +110,7 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
           maxLength={MAX_INPUT_LENGTH}
           type="password"
           placeholder={t(TranslationKey[editUser ? 'New password' : 'Password'])}
-          autoComplete={!auth ? 'new-password' : 'new-password'}
+          autoComplete={!auth ? 'new-password' : 'on'}
           prefix={<RiLockPasswordLine />}
         />
       </Form.Item>
