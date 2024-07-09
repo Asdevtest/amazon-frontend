@@ -32,6 +32,7 @@ export const WarehouseBoxesBtnsCell: FC<WarehouseBoxesBtnsCellProps> = memo(({ r
         row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
         row.status !== BoxStatus.NEW && (
           <Button
+            isSmallButton
             tooltipAttentionContent={
               row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF
                 ? t(TranslationKey['The tariff is invalid or has been removed!'])
@@ -47,6 +48,7 @@ export const WarehouseBoxesBtnsCell: FC<WarehouseBoxesBtnsCellProps> = memo(({ r
 
       {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
         <Button
+          isSmallButton
           styleType={ButtonStyle.SUCCESS}
           disabled={row.isDraft}
           tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
