@@ -1936,7 +1936,7 @@
   "Register": "Реєстрація",
   "User is waiting for confirmation": "Користувач чекає підтвердження",
   "Invalid password or email address.": "Невірний пароль або адреса електронної пошти.",
-  "User with such email already exists.": "Користувач з такою електронною поштою вже існує.",
+  "User with such email already exist.": "Користувач з такою електронною поштою вже існує.",
   "The supplier's price does't fit": "Ціна постачальника не підходить",
   "Account replenishment": "Поповнення рахунку",
   "Write-off": "Списання коштів",
