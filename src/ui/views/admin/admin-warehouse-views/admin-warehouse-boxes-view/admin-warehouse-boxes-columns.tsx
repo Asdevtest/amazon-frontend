@@ -112,7 +112,7 @@ export const adminWarehouseBoxesColumns = () => {
       renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
       width: 200,
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.NUMBER,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
