@@ -32,7 +32,6 @@ import {
   ProductMenuItem,
   RedFlagsCellMenuItem,
   SecondsCellMenuItem,
-  ToPayCellMenuItem,
   YesNoCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 import { MultipleColumnMenu } from '../data-grid-menu-items/multiple-column-menu'
@@ -479,22 +478,6 @@ export const DataGridCustomColumnMenuComponent = props => {
       <CustomMenuContainer {...props}>
         <SecondsCellMenuItem
           data={props[currentColumn.field]}
-          field={currentColumn.field}
-          filterRequestStatus={filterRequestStatus}
-          onClickFilterBtn={onClickFilterBtn}
-          onClose={hideMenu}
-          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-          onClickAccept={onClickAccept}
-        />
-      </CustomMenuContainer>
-    )
-  }
-
-  if (currentColumn.columnKey === columnnsKeys.buyer.TO_PAY) {
-    return (
-      <CustomMenuContainer {...props}>
-        <ToPayCellMenuItem
-          data={props}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
