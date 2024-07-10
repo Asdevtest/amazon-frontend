@@ -131,6 +131,7 @@ export const adminOrdersViewColumns = () => {
         <UserLinkCell blackText name={params.row.product.client?.name} userId={params.row.product.client?._id} />
       ),
       width: 200,
+      disableCustomSort: true,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
@@ -142,6 +143,7 @@ export const adminOrdersViewColumns = () => {
 
       renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
       width: 200,
+      disableCustomSort: true,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
@@ -153,6 +155,7 @@ export const adminOrdersViewColumns = () => {
 
       width: 200,
       renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
+      disableCustomSort: true,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
@@ -164,6 +167,7 @@ export const adminOrdersViewColumns = () => {
 
       width: 140,
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      disableCustomSort: true,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },
