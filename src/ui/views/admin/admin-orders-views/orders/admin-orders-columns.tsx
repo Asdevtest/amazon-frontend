@@ -104,7 +104,7 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 190,
+      width: 200,
       renderCell: params => <DownloadAndCopyBtnsCell value={params.row.product.barCode} />,
 
       filterable: false,

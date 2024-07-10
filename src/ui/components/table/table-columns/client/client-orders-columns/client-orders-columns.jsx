@@ -158,7 +158,7 @@ export const clientOrdersViewColumns = rowHandlers => {
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-      width: 170,
+      width: 200,
       renderCell: params => (
         <DownloadAndCopyBtnsCell
           value={params.row?.product?.barCode}
