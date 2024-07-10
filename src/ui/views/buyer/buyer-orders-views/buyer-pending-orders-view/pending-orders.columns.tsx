@@ -155,7 +155,7 @@ export const pendingOrdersColumns = () => {
 
       width: 120,
       disableCustomSort: true,
-
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
@@ -226,6 +226,7 @@ export const pendingOrdersColumns = () => {
       width: 130,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
       disableCustomSort: true,
     },
 
