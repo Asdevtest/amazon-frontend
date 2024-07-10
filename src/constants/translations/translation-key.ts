@@ -1852,7 +1852,7 @@ export enum TranslationKey {
   'Close the access' = 'Close the access',
   'Storage' = 'Storage',
   'Max. weight, kg' = 'Max. weight, kg',
-  'Check of goods from resercher' = 'Check of goods from resercher',
+  'Check of goods from researcher' = 'Check of goods from researcher',
   'Finding a supplier from a client' = 'Finding a supplier from a client',
   'Add at least 1 file' = 'Add at least 1 file',
   "Buyer's product in progress" = "Buyer's product in progress",

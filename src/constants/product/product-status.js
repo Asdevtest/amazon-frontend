@@ -135,7 +135,7 @@ export const productStatusTranslateKey = status => {
       return TranslationKey.All
 
     case ProductStatus.RESEARCHER_CREATED_PRODUCT:
-      return TranslationKey['Check of goods from resercher']
+      return TranslationKey['Check of goods from researcher']
 
     case ProductStatus.RESEARCHER_FOUND_SUPPLIER:
       return TranslationKey['Researcher found supplier']
@@ -223,7 +223,7 @@ export const translateStatusForResearcher = status => {
       return TranslationKey['New product']
 
     case ProductStatus.RESEARCHER_CREATED_PRODUCT:
-      return TranslationKey['Check of goods from resercher']
+      return TranslationKey['Check of goods from researcher']
 
     case ProductStatus.RESEARCHER_FOUND_SUPPLIER:
       return TranslationKey['Researcher found supplier']
