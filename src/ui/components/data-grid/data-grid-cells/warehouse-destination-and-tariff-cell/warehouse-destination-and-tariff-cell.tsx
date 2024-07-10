@@ -66,7 +66,7 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
       <WithSearchSelect
         // @ts-ignore
         disabled={disabled}
-        width={180}
+        width={'100%'}
         selectedItemName={
           destinations.find(el => el?._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
         }
