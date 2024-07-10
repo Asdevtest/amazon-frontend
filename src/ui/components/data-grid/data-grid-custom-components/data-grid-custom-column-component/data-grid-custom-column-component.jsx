@@ -36,7 +36,6 @@ import {
   YesNoCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 import { MultipleColumnMenu } from '../data-grid-menu-items/multiple-column-menu'
-import { NumbersColumnMenu } from '../data-grid-menu-items/numbers-column-menu/numbers-column-menu'
 import { StringColumnMenu } from '../data-grid-menu-items/string-column-menu'
 
 import { CustomMenuContainer } from './components'
@@ -548,24 +547,6 @@ export const DataGridCustomColumnMenuComponent = props => {
           fields={currentColumn.fields}
           columnMenuConfig={currentColumn.columnMenuConfig}
           filterRequestStatus={filterRequestStatus}
-          onClickFilterBtn={onClickFilterBtn}
-          onClose={hideMenu}
-          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-          onClickAccept={onClickAccept}
-        />
-      </CustomMenuContainer>
-    )
-  }
-
-  if ([columnnsKeys.shared.NUMBERS].includes(currentColumn.columnKey)) {
-    return (
-      <CustomMenuContainer {...props}>
-        <NumbersColumnMenu
-          filtersData={props[currentColumn.field]}
-          fields={currentColumn.fields}
-          table={currentColumn.table}
-          filterRequestStatus={filterRequestStatus}
-          defaultOption={currentColumn?.defaultOption}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}

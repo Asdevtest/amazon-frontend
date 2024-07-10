@@ -34,6 +34,11 @@ import { t } from '@utils/translations'
 import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import {
+  productionTimeColumnMenuItems,
+  productionTimeColumnMenuValue,
+} from '@config/data-grid-column-menu/production-time'
+
 interface buyerOrdersColumnsParams {
   rowHandlers: {
     onClickPaymentMethodsCell: (row: IOrder) => void
@@ -235,22 +240,11 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
 
-      fields: [
-        {
-          label: 'Min. production time, days',
-          value: 'minProductionTerm',
-        },
-        {
-          label: 'Max. production time, days',
-          value: 'maxProductionTerm',
-        },
-      ],
+      fields: productionTimeColumnMenuItems,
+      columnMenuConfig: productionTimeColumnMenuValue,
+      columnKey: columnnsKeys.shared.MULTIPLE,
 
       width: 120,
-      sortable: false,
-
-      columnKey: columnnsKeys.shared.NUMBERS,
-      table: DataGridFilterTables.SUPPLIERS,
     },
 
     {
