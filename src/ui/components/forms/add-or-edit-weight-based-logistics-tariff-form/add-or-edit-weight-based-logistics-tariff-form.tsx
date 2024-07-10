@@ -1,8 +1,6 @@
 /* eslint-disable no-prototype-builtins */
 import { observer } from 'mobx-react'
-import { ChangeEvent, FC, memo, useState } from 'react'
-import { FaMinus } from 'react-icons/fa'
-import { FaPlus } from 'react-icons/fa6'
+import { ChangeEvent, FC, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -11,17 +9,13 @@ import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { CustomButton } from '@components/shared/custom-button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
-import { Input } from '@components/shared/input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { ClsIcon, EtaIcon, EtdIcon } from '@components/shared/svg-icons'
-import { Text } from '@components/shared/text'
 
 import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
-import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -29,6 +23,8 @@ import { IDestination, IDestinationVariation } from '@typings/shared/destination
 import { ILogicTariff } from '@typings/shared/logic-tariff'
 
 import { useStyles } from './add-or-edit-weight-based-logistics-tariff-form.style'
+
+import { DestinationVariationsContent } from './destination-variations-content/destination-variations-content'
 
 interface FormFields {
   tariffType: number
@@ -42,18 +38,6 @@ interface FormFields {
   archive: boolean
   yuanToDollarRate: number
   destinationVariations: Array<IDestinationVariation>
-}
-
-interface DestinationVariationsContentProps {
-  destinationVariations: Array<IDestinationVariation>
-  destinationData: Array<IDestination>
-  currentCurrency: string
-  destinationsFavourites: Array<Array<string>>
-  setDestinationsFavouritesItem: () => void
-  onChangeDestinationVariations: (fieldName: string) => (index: number) => (value: string | number) => void
-  onClickAddDestinationVariation: (index: number) => void
-  onClickRemoveDestinationVariation: (index: number) => void
-  onApplyMinBoxWeightToAll: (index: number) => void
 }
 
 interface AddOrEditWeightBasedLogisticsTariffFormProps {
@@ -181,30 +165,35 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       setFormFields(newFormFields)
     }
 
-    const onChangeDestinationVariations = (fieldName: string) => (index: number) => (value: string | number) => {
+    const onChangeDestinationVariations = (fieldName: string, index: number, value: string | number) => {
       setIsWeightRangeValid(true)
-      setFormFields(prevState => {
-        const newDestinationVariations = [...prevState.destinationVariations]
 
-        if (fieldName === 'pricePerKgUsd') {
-          const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          updatedDestinationVariation[fieldName] = value as number
-          updatedDestinationVariation.pricePerKgRmb = Number(value) * Number(formFields.yuanToDollarRate)
-          newDestinationVariations[index] = updatedDestinationVariation
-        } else if (fieldName === 'pricePerKgRmb') {
-          const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          updatedDestinationVariation[fieldName] = value as number
-          updatedDestinationVariation.pricePerKgUsd = Number(value) / Number(formFields.yuanToDollarRate)
-          newDestinationVariations[index] = updatedDestinationVariation
-        } else if (fieldName === 'destinationId') {
-          const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          updatedDestinationVariation.destination._id = String(value)
-        } else {
-          const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          // @ts-ignore
-          updatedDestinationVariation[fieldName] = value
-          newDestinationVariations[index] = updatedDestinationVariation
-        }
+      setFormFields(prevState => {
+        const newDestinationVariations = prevState.destinationVariations.map((variation, variationIndex) => {
+          if (variationIndex === index) {
+            const updatedDestinationVariation = { ...variation }
+
+            if (fieldName === 'pricePerKgUsd') {
+              updatedDestinationVariation[fieldName] = value as number
+              updatedDestinationVariation.pricePerKgRmb = Number(value) * Number(prevState.yuanToDollarRate)
+            } else if (fieldName === 'pricePerKgRmb') {
+              updatedDestinationVariation[fieldName] = value as number
+              updatedDestinationVariation.pricePerKgUsd = Number(value) / Number(prevState.yuanToDollarRate)
+            } else if (fieldName === 'destinationId') {
+              updatedDestinationVariation.destination = {
+                ...updatedDestinationVariation.destination,
+                _id: String(value),
+              }
+            } else {
+              // @ts-ignore
+              updatedDestinationVariation[fieldName] = value
+            }
+
+            return updatedDestinationVariation
+          }
+
+          return variation
+        })
 
         return {
           ...prevState,
@@ -559,205 +548,6 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           </Button>
         </div>
       </div>
-    )
-  },
-)
-
-const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo(
-  ({
-    destinationVariations,
-    destinationData,
-    currentCurrency,
-    destinationsFavourites,
-    setDestinationsFavouritesItem,
-    onChangeDestinationVariations,
-    onClickAddDestinationVariation,
-    onClickRemoveDestinationVariation,
-    onApplyMinBoxWeightToAll,
-  }) => {
-    const { classes: styles, cx } = useStyles()
-
-    return (
-      <>
-        {destinationVariations?.map((variant: IDestinationVariation, variantIndex: number) => (
-          <div key={variantIndex} className={styles.optionsWrapper}>
-            <Field
-              label={t(TranslationKey.Destination)}
-              inputClasses={styles.fieldInput}
-              labelClasses={styles.fieldLabel}
-              containerClasses={styles.destinationContainer}
-              inputComponent={
-                /* @ts-ignore */
-                <WithSearchSelect
-                  // @ts-ignore
-                  grayBorder
-                  blackSelectedItem
-                  darkIcon
-                  chosenItemNoHover
-                  data={destinationData}
-                  favourites={destinationsFavourites}
-                  width={'100%'}
-                  searchFields={['name']}
-                  fieldNamesWrapperStyles={styles.fieldNamesWrapperStyles}
-                  buttonStyles={styles.buttonStyles}
-                  fieldNameStyles={styles.fieldNameStyles}
-                  customItemsWrapper={styles.customItemsWrapper}
-                  customSubMainWrapper={styles.destinationWrapper}
-                  customSearchInput={styles.destinationSearchInput}
-                  selectedItemName={
-                    variant.destination?._id
-                      ? destinationData?.find(obj => obj?._id === variant?.destination?._id)?.name
-                      : t(TranslationKey.Select)
-                  }
-                  onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-                  onClickSelect={(el: IDestination) => {
-                    onChangeDestinationVariations('destinationId')(variantIndex)(el._id)
-                  }}
-                />
-              }
-            />
-
-            <Field
-              label={t(TranslationKey['Weight, kg'])}
-              labelClasses={styles.fieldLabel}
-              containerClasses={styles.weightContainer}
-              inputComponent={
-                <div className={styles.weightMainWrapper}>
-                  <div className={styles.weightItemWrapper}>
-                    <Typography className={styles.weightText}>{t(TranslationKey.From)}</Typography>
-                    <Input
-                      placeholder={'0.00'}
-                      value={toFixed(variant.minWeight, 2) || ''}
-                      inputProps={{ maxLength: 7 }}
-                      className={cx(styles.weightInput, {
-                        [styles.error]: !!variant.minWeight && Number(variant.minWeight) < 1,
-                      })}
-                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-                          onChangeDestinationVariations('minWeight')(variantIndex)(e.target.value)
-                        }
-                      }}
-                    />
-                  </div>
-
-                  <div className={styles.weightItemWrapper}>
-                    <Typography className={styles.weightText}>{t(TranslationKey.To)}</Typography>
-                    <Input
-                      placeholder={'0.00'}
-                      value={toFixed(variant.maxWeight, 2) || ''}
-                      inputProps={{ maxLength: 7 }}
-                      className={cx(styles.weightInput, {
-                        [styles.error]:
-                          !!variant.minWeight &&
-                          !!variant.maxWeight &&
-                          Number(variant.maxWeight) <= Number(variant.minWeight),
-                      })}
-                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                        const input = e.target.value
-
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input)) {
-                          onChangeDestinationVariations('maxWeight')(variantIndex)(input)
-                        }
-                      }}
-                    />
-                  </div>
-                </div>
-              }
-            />
-
-            <Field
-              label={t(TranslationKey['Minimum recommended box weight, kg'])}
-              labelClasses={cx(styles.fieldLabel, styles.minBoxWeightFieldLabel)}
-              containerClasses={styles.minBoxWeightContainer}
-              inputComponent={
-                <>
-                  <div className={styles.minBoxWeightWrapper}>
-                    <Input
-                      placeholder={'0.00'}
-                      value={toFixed(variant.minBoxWeight, 2) || ''}
-                      inputProps={{ maxLength: 7 }}
-                      className={styles.fieldInput}
-                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                        const input = e.target.value
-
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input)) {
-                          onChangeDestinationVariations('minBoxWeight')(variantIndex)(input)
-                        }
-                      }}
-                    />
-                  </div>
-
-                  <div className={styles.minBoxWeightContainerBtn}>
-                    <Text
-                      tooltipInfoContent={t(
-                        TranslationKey['Apply the value "min recommended box weight" to all variations in the tariff'],
-                      )}
-                      containerClasses={styles.applyToAll}
-                    >
-                      {t(TranslationKey['Apply to all'])}
-                    </Text>
-
-                    <Button onClick={() => onApplyMinBoxWeightToAll(variantIndex)}>{t(TranslationKey.Apply)}</Button>
-                  </div>
-                </>
-              }
-            />
-
-            <Field
-              label={t(TranslationKey['Price per kg'])}
-              labelClasses={styles.fieldLabel}
-              containerClasses={styles.regionContainer}
-              inputComponent={
-                <div className={styles.regionWrapper}>
-                  <Input
-                    placeholder={'0.00'}
-                    value={
-                      currentCurrency === currencyTypes.DOLLAR
-                        ? variant.pricePerKgUsd
-                        : currentCurrency === currencyTypes.YUAN
-                        ? variant.pricePerKgRmb
-                        : ''
-                    }
-                    inputProps={{ maxLength: 7 }}
-                    className={styles.fieldInput}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                      const input = e.target.value
-
-                      if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input) && Number(input) < 100000) {
-                        // e.target.value = toFixed(e.target.value, 2)
-                        onChangeDestinationVariations(
-                          currentCurrency === currencyTypes.DOLLAR ? 'pricePerKgUsd' : 'pricePerKgRmb',
-                        )(variantIndex)(input)
-                      }
-                    }}
-                  />
-                  <Typography className={styles.currencyStyle}>
-                    {currencyTypesToHumanFriendlyValue(currentCurrency)}
-                  </Typography>
-                </div>
-              }
-            />
-
-            <div className={styles.controlOptionsButtons}>
-              {destinationVariations.length > 1 && (
-                <CustomButton
-                  type="primary"
-                  shape="circle"
-                  icon={<FaMinus />}
-                  onClick={() => onClickRemoveDestinationVariation(variantIndex)}
-                />
-              )}
-
-              <CustomButton
-                type="primary"
-                shape="circle"
-                icon={<FaPlus />}
-                onClick={() => onClickAddDestinationVariation(variantIndex)}
-              />
-            </div>
-          </div>
-        ))}
-      </>
     )
   },
 )
