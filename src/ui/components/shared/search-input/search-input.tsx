@@ -99,7 +99,9 @@ export const SearchInput: FC<Props> = ({
               {onSubmit ? (
                 <div className={styles.searchWrapper}>
                   {internalValue ? <CloseRoundedIcon className={styles.closeIcon} onClick={onClickCloseIcon} /> : null}
-                  <Button onClick={searchAndClearSpaces}>{defaultPlaceholder}</Button>
+                  <Button isSmallButton onClick={searchAndClearSpaces}>
+                    {defaultPlaceholder}
+                  </Button>
                 </div>
               ) : (
                 <SearchIcon className={styles.icon} />

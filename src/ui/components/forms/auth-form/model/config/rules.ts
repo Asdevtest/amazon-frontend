@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { t } from '@utils/translations'
 
 export const nameValidationRules: Rule[] = [
-  { max: 30, message: t(TranslationKey['The name is too long!']) },
+  { max: 32, message: t(TranslationKey['The name is too long!']) },
   { required: true, message: t(TranslationKey['Please input your name!']) },
 ]
 
@@ -25,7 +25,7 @@ export const getPasswordValidationRules = (auth?: boolean, editUser?: boolean): 
       { required: true, message: t(TranslationKey['Please input your password!']) },
       () => ({
         validator(_, value) {
-          if (value.trim() !== value) {
+          if (value && value.trim() !== value) {
             return Promise.reject(new Error(t(TranslationKey['The password should not start or end with a space!'])))
           }
 
@@ -50,7 +50,7 @@ export const getPasswordValidationRules = (auth?: boolean, editUser?: boolean): 
     { pattern: /^[A-Za-z\d\s]*$/, message: t(TranslationKey['The password must contain only English letters!']) },
     () => ({
       validator(_, value) {
-        if (value.trim() !== value) {
+        if (value && value.trim() !== value) {
           return Promise.reject(new Error(t(TranslationKey['The password should not start or end with a space!'])))
         }
 
@@ -85,7 +85,7 @@ export const confirmValidationRules: Rule[] = [
 export const newPasswordValidationRules: Rule[] = [
   ({ getFieldValue }) => ({
     validator(_, value) {
-      if (value.trim() !== value) {
+      if (value && value.trim() !== value) {
         return Promise.reject(new Error(t(TranslationKey['The password should not start or end with a space!'])))
       }
 

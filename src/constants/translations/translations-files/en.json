@@ -1856,7 +1856,7 @@
   "Product check from a researcher": "Product check from a researcher",
   "Buyer's product in progress": "Buyer's product in progress",
   "Temporarily delayed": " Temporarily delayed",
-  "Check of goods from resercher": "Check of goods from resercher",
+  "Check of goods from researcher": "Check of goods from researcher",
   "Finding a supplier from a client": "Finding a supplier from a client",
   "Add at least 1 file": "Add at least 1 file",
   "For shipping": "For shipping",
@@ -1984,5 +1984,7 @@
   "Boxes marked in red will not be shipped because they have no dimensions or insufficient data": "Boxes marked in red will not be shipped because they have no dimensions or insufficient data",
   "The password should not start or end with a space!": "The password should not start or end with a space!",
   "Today": "Today",
-  "Last seen": "Last seen {{date}}"
+  "Last seen": "Last seen {{date}}",
+  "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses",
+  "Order quantity": "Order quantity"
 }

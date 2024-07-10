@@ -1850,7 +1850,7 @@
   "Search for supplier from client": "从客户处寻找供应商",
   "Product check from a researcher": "研究人员的产品检查",
   "Temporarily delayed": "暂时延迟",
-  "Check of goods from resercher": "研究人员的商品检查",
+  "Check of goods from researcher": "研究人员的商品检查",
   "Finding a supplier from a client": "从客户处寻找供应商",
   "Add at least 1 file": "至少添加1个文件",
   "For shipping": "用于发货",
@@ -1977,5 +1977,7 @@
   "Attention, it is necessary to add a photo of the product with glued transparency to the box": "注意，必须添加包装盒子的一张产品照片",
   "The password should not start or end with a space!": "密码不应以空格开始或结束!",
   "Today": "今天",
-  "Last seen": "最后一次查看 {{date}}"
+  "Last seen": "最后一次查看 {{date}}",
+  "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "选择最有效的费率，如果需要运送到不同的仓库，请将批次拆分为多个采购订单",
+  "Order quantity": "订单数量"
 }

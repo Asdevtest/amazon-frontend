@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   FeesValuesWithCalculateBtnCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -22,6 +23,8 @@ import { t } from '@utils/translations'
 import { IProduct } from '@typings/models/products/product'
 import { IGridColumn } from '@typings/shared/grid-column'
 import { ITag } from '@typings/shared/tag'
+
+import { productColumnMenuItems, productColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 interface IHandlers {
   onClickShowProduct: (row: IProduct) => void
@@ -59,9 +62,12 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
           />
         )
       },
-      width: 260,
 
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+      fields: productColumnMenuItems,
+      columnMenuConfig: productColumnMenuValue,
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 250,
     },
 
     {
@@ -227,6 +233,28 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       width: 130,
       sortable: false,
       columnKey: columnnsKeys.shared.RED_FLAGS,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: ({ row }) => {
+        const subUsers = row?.subUsers || []
+        const subUsersByShop = row?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.subUsers || []
+        const subUsersByShop = row?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {

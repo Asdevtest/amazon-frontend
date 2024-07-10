@@ -30,7 +30,7 @@ export class BuyerMyProductsViewModel extends DataGridFilterTableModel {
     super({
       getMainDataMethod: BuyerModel.getProductsMyPag,
       columnsModel,
-      filtersFields: getFilterFields(columnsModel),
+      filtersFields: getFilterFields(columnsModel, ['amazonTitle', 'skuByClient']),
       mainMethodURL: 'buyers/products/pag/my?',
       fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient'],
       tableKey: DataGridTablesKeys.BUYER_PRODUCTS,

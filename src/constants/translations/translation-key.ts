@@ -1852,7 +1852,7 @@ export enum TranslationKey {
   'Close the access' = 'Close the access',
   'Storage' = 'Storage',
   'Max. weight, kg' = 'Max. weight, kg',
-  'Check of goods from resercher' = 'Check of goods from resercher',
+  'Check of goods from researcher' = 'Check of goods from researcher',
   'Finding a supplier from a client' = 'Finding a supplier from a client',
   'Add at least 1 file' = 'Add at least 1 file',
   "Buyer's product in progress" = "Buyer's product in progress",
@@ -1984,4 +1984,6 @@ export enum TranslationKey {
   'The password should not start or end with a space!' = 'The password should not start or end with a space!',
   'Today' = 'Today',
   'Last seen' = 'Last seen',
+  'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses' = 'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses',
+  'Order quantity' = 'Order quantity',
 }

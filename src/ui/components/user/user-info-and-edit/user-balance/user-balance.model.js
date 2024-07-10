@@ -1,38 +1,31 @@
 import { makeObservable, runInAction } from 'mobx'
 
 import { AdministratorModel } from '@models/administrator-model'
-import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
+import { DataGridTableModel } from '@models/data-grid-table-model'
 import { OtherModel } from '@models/other-model'
 
 import { financesViewColumns } from '@views/shared/finances-view/finances-view.columns'
-
-import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { userBalanceConfig } from './user-balance.config'
 
-export class UserBalanceModel extends DataGridFilterTableModel {
+export class UserBalanceModel extends DataGridTableModel {
   user = undefined
   showReplenishModal = false
   showWithdrawModal = false
 
   constructor(userId) {
-    const columnsModel = financesViewColumns()
-    const filtersFields = getFilterFields(columnsModel)
-    const defaultGetCurrentDataOptions = () => ({
-      guid: userId,
-    })
+    const columnsModel = financesViewColumns(true)
 
     super({
       getMainDataMethod: () => OtherModel.getPaymentsByUserId(userId),
       columnsModel,
-      filtersFields,
-      defaultGetCurrentDataOptions,
     })
 
-    this.getUserInfo(userId)
+    this.sortModel = [{ field: 'createdAt', sort: 'desc' }]
     this.getDataGridState()
+    this.getUserInfo(userId)
     this.getCurrentData()
 
     makeObservable(this, userBalanceConfig)

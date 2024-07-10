@@ -21,6 +21,7 @@ export const filtersFields = [
   'minProductionTerm',
   'maxProductionTerm',
   'subUsers',
+  'logicsTariff',
 ]
 
 export const fieldsForSearch = ['amazonTitle', 'id', 'asin', 'skuByClient', 'item']

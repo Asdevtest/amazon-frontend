@@ -133,8 +133,6 @@ export const pendingOrdersColumns = () => {
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-
-      width: 140,
       renderCell: params => (
         <DownloadAndCopyBtnsCell
           value={params.row.product.barCode}
@@ -142,6 +140,8 @@ export const pendingOrdersColumns = () => {
         />
       ),
       disableCustomSort: true,
+      minWidth: 200,
+      align: 'center',
     },
 
     {
@@ -155,7 +155,7 @@ export const pendingOrdersColumns = () => {
 
       width: 120,
       disableCustomSort: true,
-
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
@@ -226,6 +226,7 @@ export const pendingOrdersColumns = () => {
       width: 130,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
       disableCustomSort: true,
     },
 

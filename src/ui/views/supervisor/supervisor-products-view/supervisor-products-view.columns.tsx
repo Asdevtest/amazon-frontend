@@ -7,6 +7,7 @@ import { productStrategyStatusesEnum } from '@constants/product/product-strategy
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ManyUserLinkCell,
   MultilineStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -189,6 +190,28 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       width: 130,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.RED_FLAGS,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: ({ row }) => {
+        const subUsers = row?.subUsers || []
+        const subUsersByShop = row?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.subUsers || []
+        const subUsersByShop = row?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {
