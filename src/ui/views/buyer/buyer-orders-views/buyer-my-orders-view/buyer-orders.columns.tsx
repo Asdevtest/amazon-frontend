@@ -198,7 +198,8 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       ),
-      width: 140,
+      minWidth: 200,
+      align: 'center',
       sortable: false,
       filterable: false,
     },
