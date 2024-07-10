@@ -55,7 +55,7 @@ export const adminOrdersViewColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
       renderCell: params => {
-        const product = params.value
+        const product = params.row.product
 
         return (
           <ProductAsinCell
