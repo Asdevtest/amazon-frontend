@@ -6,7 +6,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
     minWidth: '500px',
     flexDirection: 'column',
-    padding: 10,
   },
 
   noSettingsWarning: {

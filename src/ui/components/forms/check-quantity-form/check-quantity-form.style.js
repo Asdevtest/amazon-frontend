@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: 480,
-    padding: 10,
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',

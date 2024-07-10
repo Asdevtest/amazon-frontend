@@ -4,7 +4,6 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: 600,
     height: 510,
-    padding: 10,
     display: 'flex',
     flexDirection: 'column',
     overflowY: 'auto',

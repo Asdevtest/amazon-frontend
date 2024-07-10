@@ -8,7 +8,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '80vw',
     height: '80vh',
     overflow: 'auto',
-    padding: 10,
   },
   indicator: {
     backgroundColor: '#1da1f2',
