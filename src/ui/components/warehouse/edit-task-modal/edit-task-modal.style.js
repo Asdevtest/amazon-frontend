@@ -147,6 +147,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     gridColumn: '1 / 4',
+    gap: 20,
   },
 
   buttons: {
