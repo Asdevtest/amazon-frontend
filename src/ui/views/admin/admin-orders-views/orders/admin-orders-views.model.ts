@@ -21,9 +21,9 @@ export class AdminOrdersAllViewModel extends DataGridFilterTableModel {
     const columnsModel = adminOrdersViewColumns()
 
     const defaultFilterParams = () => ({
-      // statusGroup: {
-      //   $eq: this.activeCategory,
-      // },
+      statusGroup: {
+        $eq: this.activeCategory,
+      },
     })
 
     super({

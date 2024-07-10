@@ -437,6 +437,18 @@ export const BeforeAfterBlock = memo(props => {
     onEditBox(box)
   }
 
+  const totalOrderAmount =
+    taskType === TaskOperationType.RECEIVE
+      ? incomingBoxes?.reduce((total, box) => {
+          return (
+            total +
+            box?.items?.reduce((boxTotal, item) => {
+              return boxTotal + item?.order?.amount
+            }, 0)
+          )
+        }, 0)
+      : 0
+
   return (
     <>
       <div className={styles.currentBox}>
@@ -449,10 +461,16 @@ export const BeforeAfterBlock = memo(props => {
             {t(TranslationKey.Incoming)}
           </Text>
 
-          <Typography>{`${t(TranslationKey['Total number of boxes'])}: ${incomingBoxes.reduce(
-            (acc, cur) => (acc += cur.amount),
-            0,
-          )}`}</Typography>
+          <div className={styles.btnsWrapper}>
+            <Typography>{`${t(TranslationKey['Total number of boxes'])}: ${incomingBoxes.reduce(
+              (acc, cur) => (acc += cur.amount),
+              0,
+            )}`}</Typography>
+
+            {taskType === TaskOperationType.RECEIVE ? (
+              <Typography>{`${t(TranslationKey['Order quantity'])}: ${totalOrderAmount}`}</Typography>
+            ) : null}
+          </div>
         </div>
 
         <div className={styles.newBoxesWrapper}>

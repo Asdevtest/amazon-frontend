@@ -1983,4 +1983,5 @@ export enum TranslationKey {
   'Boxes marked in red will not be shipped because they have no dimensions or insufficient data' = 'Boxes marked in red will not be shipped because they have no dimensions or insufficient data',
   'The password should not start or end with a space!' = 'The password should not start or end with a space!',
   'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses' = 'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses',
+  'Order quantity' = 'Order quantity',
 }
