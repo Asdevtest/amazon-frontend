@@ -220,7 +220,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
       width: 150,
-      type: 'number',
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.NUMBER,
     },
 
