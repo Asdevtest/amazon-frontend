@@ -164,6 +164,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       width: 180,
       sortable: false,
 
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.PAYMENTS,
     },
 
@@ -202,6 +203,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       align: 'center',
       sortable: false,
       filterable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -215,6 +217,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {
@@ -251,6 +254,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
 
       columnKey: columnnsKeys.shared.NUMBERS,
       table: DataGridFilterTables.SUPPLIERS,
+      disableCustomSort: true,
     },
 
     {
@@ -311,6 +315,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       sortable: false,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {
@@ -323,6 +328,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {
