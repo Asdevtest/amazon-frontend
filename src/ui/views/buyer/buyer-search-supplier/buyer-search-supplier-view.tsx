@@ -54,13 +54,24 @@ export const BuyerSearchSupplierBySupervisorView = observer(() => {
               title: t(TranslationKey.Filter),
             },
             toolbar: {
+              resetFiltersBtnSettings: {
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+                onClickResetFilters: viewModel.onClickResetFilters,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
+          onFilterModelChange={viewModel.onChangeFilterModel}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}

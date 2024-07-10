@@ -4,7 +4,7 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 
 import { BuyerModel } from '@models/buyer-model'
-import { DataGridTableModel, filterModelInitialValue } from '@models/data-grid-table-model'
+import { DataGridTableModel } from '@models/data-grid-table-model'
 import { UserModel } from '@models/user-model'
 
 import { IOrder } from '@typings/models/orders/order'
@@ -15,10 +15,6 @@ import { observerConfig } from './buyer-free-orders-view.config'
 export class BuyerFreeOrdersViewModel extends DataGridTableModel {
   curOrder: IOrder | null = null
   showTwoVerticalChoicesModal = false
-
-  get isSomeFilterOn() {
-    return !!this.filterModel?.items?.length
-  }
 
   constructor() {
     const rowHandlers = {
@@ -119,9 +115,5 @@ export class BuyerFreeOrdersViewModel extends DataGridTableModel {
   onClickContinueWorkButton() {
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     this.getCurrentData()
-  }
-
-  onClickResetFilters() {
-    this.filterModel = filterModelInitialValue
   }
 }

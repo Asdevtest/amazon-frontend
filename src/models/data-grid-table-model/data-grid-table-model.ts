@@ -46,6 +46,10 @@ export class DataGridTableModel extends DefaultModel {
     }
   }
 
+  get isSomeFilterOn() {
+    return !!this.filterModel?.items?.length
+  }
+
   constructor({
     getMainDataMethod,
     columnsModel,
@@ -136,5 +140,9 @@ export class DataGridTableModel extends DefaultModel {
     columnsToHide.forEach(el => {
       this.columnVisibilityModel[el] = false
     })
+  }
+
+  onClickResetFilters() {
+    this.filterModel = filterModelInitialValue
   }
 }
