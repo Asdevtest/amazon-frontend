@@ -19,7 +19,6 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   OpenInNewTabCell,
-  OrderCell,
   PriorityAndChinaDeliverCell,
   ProductAsinCell,
   ToFixedWithKgSignCell,
@@ -29,7 +28,7 @@ import {
 import { checkIsHasHttp } from '@utils/checks'
 import { formatDate, formatNormDateTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
@@ -228,6 +227,15 @@ export const clientOrdersViewColumns = rowHandlers => {
       valueGetter: params => params.row.destination?.name,
       width: 140,
       disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
+    },
+
+    {
+      field: 'logicsTariff',
+      headerName: t(TranslationKey.Tariff),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
+      renderCell: params => <MultilineTextCell threeLines text={getNewTariffTextForBoxOrOrder(params.row)} />,
+      width: 180,
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
