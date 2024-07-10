@@ -231,7 +231,7 @@ export const pendingOrdersColumns = () => {
     },
 
     {
-      field: 'warehouses',
+      field: 'destination',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
