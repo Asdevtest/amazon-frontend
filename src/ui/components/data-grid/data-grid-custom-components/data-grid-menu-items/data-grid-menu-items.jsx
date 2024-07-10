@@ -1347,10 +1347,6 @@ export const PriorityMenuItem = memo(
 export const FreelancerToWorkConfirmationMenuItem = memo(
   withStyles(
     ({ classes: styles, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
-      useEffect(() => {
-        onClickFilterBtn(field)
-      }, [])
-
       const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
