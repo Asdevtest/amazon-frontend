@@ -17,6 +17,12 @@ import {
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import {
+  ProductColumnMenuType,
+  getProductColumnMenuValue,
+  productColumnMenuItems,
+} from '@config/data-grid-column-menu/product-column'
+
 export const clientOnCheckingIdeasColumns = rowHandlers => {
   const columns = [
     {
@@ -36,11 +42,12 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
 
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-      table: DataGridFilterTables.PRODUCTS,
+      fields: productColumnMenuItems,
+      columnMenuConfig: getProductColumnMenuValue(ProductColumnMenuType.PARENT),
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
+      width: 250,
     },
 
     {

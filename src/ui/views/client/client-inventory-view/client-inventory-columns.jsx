@@ -29,6 +29,7 @@ import {
 import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { getProductColumnMenuValue, productColumnMenuItems } from '@config/data-grid-column-menu/product-column'
 import { productionTimeColumnMenuItems } from '@config/data-grid-column-menu/production-time'
 
 import { complexCells } from './cell-types'
@@ -92,8 +93,11 @@ export const clientInventoryColumns = ({
           skuByClient={row?.skuByClient}
         />
       ),
-      width: 280,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+
+      fields: productColumnMenuItems,
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      width: 250,
     },
 
     {
