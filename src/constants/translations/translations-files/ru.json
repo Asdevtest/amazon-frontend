@@ -200,7 +200,7 @@
   "Vacant requests": "Вакантные заявки",
   "My proposals": "Мои предложения",
   "Commodity exchange": "Биржа товаров",
-  "Research Exchenge": "Биржа вилок",
+  "Research exchange": "Биржа вилок",
   "My orders": "Мои заказы",
   "Shops": "Магазины",
   "Notifications": "Уведомления",
@@ -1984,5 +1984,6 @@
   "Boxes marked in red will not be shipped because they have no dimensions or insufficient data": "Коробки помеченные красным не будут отправлены, потому что они не имеют размеров или недостаточно данных",
   "The password should not start or end with a space!": "Пароль не должен начинаться или заканчиваться пробелом!",
   "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "Выберите наиболее эффективную ставку, разделите партии на несколько покупок, если вам нужно отправить на разные склады",
-  "Order quantity": "Количество заказа"
+  "Order quantity": "Количество заказа",
+  "Are you sure you want to remove the report?": "Вы уверены, что хотите удалить отчет?"
 }

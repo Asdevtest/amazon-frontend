@@ -28,6 +28,7 @@ import { IHSCode } from '@typings/shared/hs-code'
 import { fieldsForSearch, updateOrderKeys } from './buyer-my-orders-view.constants'
 import { buyerOrdersColumns } from './buyer-orders.columns'
 import { getDataGridTableKey } from './helpers/get-data-grid-table-key'
+import { getDisableCustomSort } from './helpers/get-disable-custom-sort'
 import { getShowPartialPayment } from './helpers/get-show-partial-payment'
 import { getStatusGroup } from './helpers/get-status-group'
 import { getStatusesOrderPayment } from './helpers/get-statuses-order-payment'
@@ -70,8 +71,9 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     }
 
     const isShowPartialPayment = getShowPartialPayment(pathname)
+    const isDisableCustomSort = getDisableCustomSort(pathname)
 
-    const columnsModel = buyerOrdersColumns({ rowHandlers, isShowPartialPayment })
+    const columnsModel = buyerOrdersColumns({ rowHandlers, isShowPartialPayment, isDisableCustomSort })
 
     const statusGroup = getStatusGroup(pathname)
 
@@ -81,13 +83,20 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
       },
     })
 
+    const tableKey = getDataGridTableKey(pathname)
+
     super({
       getMainDataMethod: BuyerModel.getOrdersMyPag,
       columnsModel,
-      filtersFields: getFilterFields(columnsModel, ['amazonTitle', 'skuByClient', 'maxProductionTerm']),
+      filtersFields: getFilterFields(columnsModel, [
+        'amazonTitle',
+        'skuByClient',
+        'maxProductionTerm',
+        'partialPaymentAmountRmb',
+      ]),
       mainMethodURL: 'buyers/orders/pag/my?',
       fieldsForSearch,
-      tableKey: getDataGridTableKey(pathname),
+      tableKey,
       defaultFilterParams,
     })
 

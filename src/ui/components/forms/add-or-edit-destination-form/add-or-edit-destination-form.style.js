@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     width: '400px',
-    padding: '10px',
   },
 
   title: {

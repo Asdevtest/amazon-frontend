@@ -147,7 +147,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 190,
+      width: 200,
       renderCell: params => <DownloadAndCopyBtnsCell value={params.value} />,
 
       disableCustomSort: true,
@@ -162,6 +162,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       renderCell: params => <UserLinkCell blackText name={params?.value?.name} userId={params?.value?._id} />,
       width: 150,
 
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
     },
@@ -172,6 +173,8 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
       renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
+
+      hideEmptyObject: true,
       width: 150,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
@@ -185,6 +188,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
       width: 150,
 
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
     },
@@ -196,7 +200,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
 
       renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
       width: 150,
-
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
     },
@@ -208,7 +212,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
 
       renderCell: params => <SupplierCell supplierName={params.value?.name} supplierLink={params.value?.link} />,
       width: 150,
-
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
     },
@@ -220,7 +224,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
       width: 150,
-      type: 'number',
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.NUMBER,
     },
 

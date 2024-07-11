@@ -58,6 +58,7 @@ export const adminWarehouseBoxesColumns = () => {
         />
       ),
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
       disableCustomSort: true,
       width: 180,
     },
@@ -70,6 +71,7 @@ export const adminWarehouseBoxesColumns = () => {
         <UserMiniCell userName={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
       width: 180,
+      hideEmptyObject: true,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
@@ -112,21 +114,23 @@ export const adminWarehouseBoxesColumns = () => {
       renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
       width: 200,
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.NUMBER,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
       field: 'totalPrice',
       headerName: t(TranslationKey['Total price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.amazonPrice, 2)} />,
+      renderCell: params => (
+        <MultilineTextCell text={toFixedWithDollarSign(params.row.items?.[0]?.order?.totalPrice, 2)} />
+      ),
       width: 110,
       disableCustomSort: true,
       filterable: false,
     },
 
     {
-      field: 'finalWeight',
+      field: 'weighGrossKgSupplier',
       headerName: t(TranslationKey['Final weight']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
       renderCell: params => <MultilineTextCell text={toFixedWithKg(params.value, 2)} />,
@@ -151,7 +155,7 @@ export const adminWarehouseBoxesColumns = () => {
       field: 'trackNumberText',
       headerName: t(TranslationKey['Track number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
-      renderCell: params => <MultilineTextCell text={params.row.trackNumberText} />,
+      renderCell: params => <MultilineTextCell text={params.value} />,
       columnKey: columnnsKeys.shared.NUMBER,
       disableCustomSort: true,
       width: 150,

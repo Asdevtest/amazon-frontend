@@ -9,7 +9,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
     width: '445px',
     minHeight: '168px',
-    padding: 10,
   },
   title: {
     textAlign: 'center',

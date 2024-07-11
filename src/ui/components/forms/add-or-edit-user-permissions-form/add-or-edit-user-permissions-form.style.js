@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     overflowY: 'auto',
-    padding: 10,
+
     [theme.breakpoints.down(768)]: {
       width: '295px',
       height: '100%',

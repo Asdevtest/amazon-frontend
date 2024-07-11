@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: 600,
-    padding: 10,
   },
 
   header: {

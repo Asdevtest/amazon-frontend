@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   modalWrapper: {
     width: '425px',
-    padding: 10,
   },
 
   modalTitle: {

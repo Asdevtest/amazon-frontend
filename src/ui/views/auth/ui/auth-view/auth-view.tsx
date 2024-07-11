@@ -67,7 +67,7 @@ export const AuthView: FC<AuthViewProps> = observer(({ history, auth }) => {
             cancelText={t(TranslationKey.No)}
             onConfirm={viewModel.onClickVersion}
           >
-            <CustomButton disabled={!auth} type="link" className={styles.versionButton}>
+            <CustomButton disabled={!auth} type="link">
               {appVersion}
             </CustomButton>
           </Popconfirm>
