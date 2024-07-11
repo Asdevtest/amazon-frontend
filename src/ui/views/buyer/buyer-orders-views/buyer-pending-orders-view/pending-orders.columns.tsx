@@ -21,12 +21,9 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import {
-  productColumnMenuItems,
-  productColumnMenuValue,
-  productionTermColumnMenuItems,
-  productionTermColumnMenuValue,
-} from './column.config'
+import { productColumnMenuItems, productColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
+import { productionTermColumnMenuItems, productionTermColumnMenuValue } from './column.config'
 
 export const pendingOrdersColumns = () => {
   const columns: IGridColumn[] = [
@@ -79,10 +76,8 @@ export const pendingOrdersColumns = () => {
 
       fields: productColumnMenuItems,
       columnMenuConfig: productColumnMenuValue,
-
-      disableCustomSort: true,
-
       columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
     },
 
     {

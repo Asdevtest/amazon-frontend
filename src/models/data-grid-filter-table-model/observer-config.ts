@@ -1,4 +1,4 @@
-import { action, computed, observable, override } from 'mobx'
+import { action, observable, override } from 'mobx'
 
 export const observerConfig = {
   filtersFields: observable,
@@ -10,21 +10,19 @@ export const observerConfig = {
   operatorsSettings: observable,
   defaultFilterParams: observable,
 
-  isSomeFilterOn: computed,
-
   setColumnMenuSettings: action.bound,
   getFilters: action.bound,
   onSearchSubmit: action.bound,
   onChangeFullFieldMenuItem: action.bound,
   onClickFilterBtn: action.bound,
-  onClickResetFilters: action.bound,
   setFilterRequestStatus: action.bound,
 
   getCurrentData: override,
-
+  isSomeFilterOn: override,
   onColumnVisibilityModelChange: override,
   onChangeSortingModel: override,
   onChangeFilterModel: override,
   onPaginationModelChange: override,
   currentSearchValue: override,
+  onClickResetFilters: override,
 }

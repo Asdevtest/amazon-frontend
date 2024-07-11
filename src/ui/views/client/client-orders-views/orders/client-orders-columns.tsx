@@ -32,9 +32,22 @@ import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign, toFixedWithKg } f
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { IOrder } from '@typings/models/orders/order'
+import { IGridColumn } from '@typings/shared/grid-column'
 
-export const clientOrdersViewColumns = rowHandlers => {
-  const columns = [
+import {
+  productionTimeColumnMenuItems,
+  productionTimeColumnMenuValue,
+} from '@config/data-grid-column-menu/production-time'
+
+interface IRowHandlers {
+  onClickReorder: (item: IOrder, isPending: boolean) => void
+  onClickOpenNewTab: (id: string) => void
+  onClickWarehouseOrderButton: (guid: string) => void
+}
+
+export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
+  const columns: IGridColumn[] = [
     {
       field: 'link',
       renderHeader: () => null,
@@ -117,8 +130,8 @@ export const clientOrdersViewColumns = rowHandlers => {
       renderCell: params => (
         <MultilineTextCell
           maxLength={50}
-          text={OrderStatusTranslate(OrderStatusByCode[params.row.status])}
-          color={orderColorByStatus(OrderStatusByCode[params.row.status])}
+          text={OrderStatusTranslate(OrderStatusByCode[params.row.status as keyof typeof OrderStatusByCode])}
+          color={orderColorByStatus(OrderStatusByCode[params.row.status as keyof typeof OrderStatusByCode])}
         />
       ),
       width: 160,
@@ -132,7 +145,9 @@ export const clientOrdersViewColumns = rowHandlers => {
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
       renderCell: params => {
-        const firstButtonCondition = Number(params.row.status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
+        const firstButtonCondition =
+          Number(params.row.status) <=
+          Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT as keyof typeof OrderStatusByKey])
         const firstButtonText = firstButtonCondition ? t(TranslationKey['To order']) : t(TranslationKey['Repeat order'])
 
         return (
@@ -144,7 +159,7 @@ export const clientOrdersViewColumns = rowHandlers => {
             secondButtonVariant={ButtonVariant.OUTLINED}
             firstButtonElement={firstButtonText}
             secondButtonElement={t(TranslationKey['Warehouse and orders'])}
-            onClickFirstButton={() => rowHandlers.onClickReorder(params.row, firstButtonCondition)}
+            onClickFirstButton={() => rowHandlers.onClickReorder(params.row as IOrder, firstButtonCondition)}
             onClickSecondButton={() => rowHandlers.onClickWarehouseOrderButton(params.row.product._id)}
           />
         )
@@ -158,13 +173,14 @@ export const clientOrdersViewColumns = rowHandlers => {
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-      width: 170,
+      width: 200,
       renderCell: params => (
         <DownloadAndCopyBtnsCell
           value={params.row?.product?.barCode}
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row._id}
         />
       ),
+      // @ts-ignore
       valueFormatter: ({ row }) =>
         checkIsHasHttp(row?.product?.barCode) ? row?.product?.barCode : getAmazonImageUrl(row?.product?.barCode, true),
 
@@ -259,20 +275,13 @@ export const clientOrdersViewColumns = rowHandlers => {
 
         return `${supplier?.minProductionTerm} - ${supplier?.maxProductionTerm}`
       },
-      fields: [
-        {
-          label: 'Min. production time, days',
-          value: 'minProductionTerm',
-        },
-        {
-          label: 'Max. production time, days',
-          value: 'maxProductionTerm',
-        },
-      ],
-      width: 120,
+
+      fields: productionTimeColumnMenuItems,
+      columnMenuConfig: productionTimeColumnMenuValue,
+      columnKey: columnnsKeys.shared.MULTIPLE,
+
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.NUMBERS,
-      table: DataGridFilterTables.SUPPLIERS,
+      width: 120,
     },
 
     {

@@ -43,10 +43,6 @@ export const useStyles = makeStyles()(theme => ({
     right: 30,
   },
 
-  versionButton: {
-    color: theme.palette.primary.main,
-  },
-
   themeSelector: {
     padding: 4,
     color: theme.palette.primary.main,

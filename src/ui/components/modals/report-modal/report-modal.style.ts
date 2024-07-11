@@ -2,8 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   wrapper: {
-    padding: 10,
-    width: 1000,
+    width: 1040,
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
@@ -17,7 +16,7 @@ export const useStyles = makeStyles()(() => ({
 
   tableContainer: {
     width: '100%',
-    height: 410,
+    height: 390,
   },
 
   dataGridRoot: {

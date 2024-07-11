@@ -198,7 +198,7 @@ export enum TranslationKey {
   'Vacant requests' = 'Vacant requests',
   'My proposals' = 'My proposals',
   'Commodity exchange' = 'Commodity exchange',
-  'Research Exchenge' = 'Research Exchenge',
+  'Research exchange' = 'Research exchange',
   'My orders' = 'My orders',
   'Shops' = 'Shops',
   'Notifications' = 'Notifications',
@@ -1984,4 +1984,5 @@ export enum TranslationKey {
   'The password should not start or end with a space!' = 'The password should not start or end with a space!',
   'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses' = 'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses',
   'Order quantity' = 'Order quantity',
+  'Are you sure you want to remove the report?' = 'Are you sure you want to remove the report?',
 }

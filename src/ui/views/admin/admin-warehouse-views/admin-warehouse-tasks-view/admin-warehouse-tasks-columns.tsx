@@ -38,7 +38,7 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
 
       width: 330,
       renderCell: params => <TaskDescriptionCell task={params.row} />,
-      filterable: false,
+
       disableCustomSort: true,
     },
 
@@ -67,7 +67,6 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
           onClickFirstButton={() => handlers.setCurrentOpenedTask(params.row as ITask)}
         />
       ),
-      filterable: false,
       disableCustomSort: true,
     },
     {
@@ -92,6 +91,7 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
 
   for (const column of columns) {
     column.sortable = false
+    column.filterable = false
   }
 
   return columns

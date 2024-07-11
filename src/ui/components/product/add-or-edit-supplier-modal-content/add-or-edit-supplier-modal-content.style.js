@@ -10,7 +10,6 @@ export const useStyles = makeStyles()(theme => ({
 
   modalContainer: {
     width: '840px',
-    padding: 20,
   },
   titleDivider: {
     margin: '30px 0',

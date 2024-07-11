@@ -19,6 +19,10 @@ import { t } from '@utils/translations'
 import { IDestinationVariationWithCalculations } from '@typings/shared/destinations'
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { weightColumnMenuItems } from '@config/data-grid-column-menu/weight-column'
+
+import { weightColumnMenuValue } from './supplier-approximate-calculations.config'
+
 interface columnHandlersProps {
   isHideCalculation: boolean
 }
@@ -64,18 +68,10 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
               `${toFixed(variation?.minWeight)} - ${toFixed(variation?.maxWeight)}`,
           )
           .join(', '),
-      fields: [
-        {
-          label: 'Min. weight, kg',
-          value: 'minWeight',
-        },
-        {
-          label: 'Max. weight, kg',
-          value: 'maxWeight',
-        },
-      ],
-      table: DataGridFilterTables.STOREKEEPERS,
-      columnKey: columnnsKeys.shared.NUMBERS,
+
+      fields: weightColumnMenuItems,
+      columnMenuConfig: weightColumnMenuValue,
+      columnKey: columnnsKeys.shared.MULTIPLE,
       width: 140,
     },
 

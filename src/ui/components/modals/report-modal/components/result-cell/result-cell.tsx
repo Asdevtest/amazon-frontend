@@ -41,7 +41,7 @@ export const ResultCell: FC<ResultCellProps> = observer(props => {
         isCell
         allowClear
         disabled={disabledResultField}
-        rows={2}
+        rows={4}
         maxLength={1024}
         value={row?.result}
         onChange={onChangeCommentCellValue(row._id, 'result')}

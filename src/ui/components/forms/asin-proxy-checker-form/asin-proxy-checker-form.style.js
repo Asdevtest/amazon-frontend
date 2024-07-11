@@ -8,7 +8,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     gap: '30px',
-    padding: 10,
   },
 
   modalTitle: {

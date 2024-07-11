@@ -78,13 +78,13 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
         <CustomTextarea
           isCell
           allowClear
-          rows={2}
+          rows={4}
           maxLength={512}
           value={row.comment}
           onChange={onChangeCommentCellValue(row._id, 'comment')}
         />
       ),
-      width: 215,
+      width: 245,
     },
 
     {
@@ -94,7 +94,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <ResultCell row={row} onChangeCommentCellValue={onChangeCommentCellValue} onRemoveLaunch={onRemoveLaunch} />
       ),
-      width: 235,
+      width: 265,
     },
   ]
 

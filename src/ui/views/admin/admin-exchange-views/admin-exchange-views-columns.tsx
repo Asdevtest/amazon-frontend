@@ -106,7 +106,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
 
       renderCell: params => <UserLinkCell blackText name={params.value.name} userId={params.value._id} />,
       width: 200,
-
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
     {
@@ -118,7 +118,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
         <UserLinkCell blackText name={params.row.checkedBy?.name} userId={params.row.checkedBy?._id} />
       ),
       width: 200,
-
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
     },
@@ -130,7 +130,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
 
       renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
       width: 200,
-
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
     },

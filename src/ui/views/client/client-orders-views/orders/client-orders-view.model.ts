@@ -19,7 +19,6 @@ import { UserModel } from '@models/user-model'
 
 import { MyOrderModalSwitcherConditions } from '@components/modals/my-order-modal/components/tabs/tabs.type'
 import { ProductAndBatchModalSwitcherConditions } from '@components/modals/product-and-batch-modal/product-and-batch-modal.type'
-import { clientOrdersViewColumns } from '@components/table/table-columns/client/client-orders-columns'
 
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
@@ -35,6 +34,7 @@ import { IHSCode } from '@typings/shared/hs-code'
 import { IUploadFile } from '@typings/shared/upload-file'
 import { HistoryType } from '@typings/types/history'
 
+import { clientOrdersViewColumns } from './client-orders-columns'
 import { fieldsForSearch, filtersFields } from './client-orders-view.constants'
 import { getDataGridTableKey } from './helpers/get-data-grid-table-key'
 import { getOrderStatusGroup } from './helpers/get-order-status-group'

@@ -30,6 +30,10 @@ export const PrivateRoutes = observer(() => {
   useEffect(() => {
     if (UserModel.isAuthenticated()) {
       UserModel.getUsersInfoCounters()
+
+      if (location.pathname.includes('/dashboard')) {
+        UserModel.getUserInfo()
+      }
     }
   }, [location.pathname])
 
