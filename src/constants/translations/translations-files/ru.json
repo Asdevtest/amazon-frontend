@@ -323,7 +323,6 @@
   "Photos of the box taken at the warehouse:": "Фотографии коробки, сделанные на складе:",
   "Write a comment on the task": "Оставить комментарий к задаче",
   "The barcode is glued by the supplier": "Баркод проклеен поставщиком",
-  "Not glued!": "Не проклеен!",
   "glued": "проклеен",
   "The barcode is glued by the Storekeeper": "Баркод проклеен Сторкипером",
   "Box redistributing": "Перераспределение коробки",
@@ -1985,5 +1984,7 @@
   "The password should not start or end with a space!": "Пароль не должен начинаться или заканчиваться пробелом!",
   "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "Выберите наиболее эффективную ставку, разделите партии на несколько покупок, если вам нужно отправить на разные склады",
   "Order quantity": "Количество заказа",
-  "Are you sure you want to remove the report?": "Вы уверены, что хотите удалить отчет?"
+  "Are you sure you want to remove the report?": "Вы уверены, что хотите удалить отчет?",
+  "Barсode is not glued": "Баркод не проклеен",
+  "Transperensy сode is not glued": "Transperensy code не проклеен"
 }
