@@ -17,7 +17,11 @@ import {
 
 import { t } from '@utils/translations'
 
-import { productColumnMenuItems } from '@config/data-grid-column-menu/product-column'
+import {
+  ProductColumnMenuType,
+  getProductColumnMenuValue,
+  productColumnMenuItems,
+} from '@config/data-grid-column-menu/product-column'
 
 export const clientAddAsinIdeasColumns = rowHandlers => {
   const columns = [
@@ -52,24 +56,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       },
 
       fields: productColumnMenuItems,
-      columnMenuConfig: [
-        {
-          field: 'parentProductAsin',
-          table: DataGridFilterTables.PRODUCTS,
-          columnKey: ColumnMenuKeys.STRING,
-        },
-        {
-          field: 'parentProductSkuByClient',
-          table: DataGridFilterTables.PRODUCTS,
-          columnKey: ColumnMenuKeys.STRING,
-        },
-        {
-          field: 'parentProductAmazonTitle',
-          table: DataGridFilterTables.PRODUCTS,
-          columnKey: ColumnMenuKeys.STRING,
-        },
-      ],
-
+      columnMenuConfig: getProductColumnMenuValue(ProductColumnMenuType.PARENT),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
       width: 250,
@@ -106,23 +93,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       },
 
       fields: productColumnMenuItems,
-      columnMenuConfig: [
-        {
-          field: 'childProductAsin',
-          table: DataGridFilterTables.PRODUCTS,
-          columnKey: ColumnMenuKeys.STRING,
-        },
-        {
-          field: 'childProductSkuByClient',
-          table: DataGridFilterTables.PRODUCTS,
-          columnKey: ColumnMenuKeys.STRING,
-        },
-        {
-          field: 'childProductAmazonTitle',
-          table: DataGridFilterTables.PRODUCTS,
-          columnKey: ColumnMenuKeys.STRING,
-        },
-      ],
+      columnMenuConfig: getProductColumnMenuValue(ProductColumnMenuType.CHILD),
 
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
