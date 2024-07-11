@@ -42,9 +42,14 @@ interface buyerOrdersColumnsParams {
     onClickPaymentMethodsCell: (row: IOrder) => void
   }
   isShowPartialPayment: boolean
+  isDisableCustomSort: boolean
 }
 
-export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerOrdersColumnsParams) => {
+export const buyerOrdersColumns = ({
+  rowHandlers,
+  isShowPartialPayment,
+  isDisableCustomSort,
+}: buyerOrdersColumnsParams) => {
   const columns: IGridColumn[] = [
     {
       field: 'id',
@@ -126,7 +131,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       ),
       width: 140,
       sortable: false,
-
+      disableCustomSort: isDisableCustomSort,
       columnKey: columnnsKeys.client.ORDERS_STATUS,
     },
 
