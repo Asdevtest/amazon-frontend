@@ -2842,6 +2842,7 @@ export const NumberWithTabsMenuItem = memo(
       classes: styles,
       onClose,
       data,
+      table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
       onClickAccept,
@@ -2850,8 +2851,10 @@ export const NumberWithTabsMenuItem = memo(
     }) => {
       const [activeTab, setActiveTab] = useState(tabs[0].value)
 
+      console.log('table :>> ', table)
+
       useEffect(() => {
-        onClickFilterBtn(activeTab)
+        onClickFilterBtn(activeTab, table)
       }, [activeTab])
 
       return (
@@ -2889,54 +2892,6 @@ export const NumberWithTabsMenuItem = memo(
             onClickAccept={onClickAccept}
           />
         </div>
-      )
-    },
-    styles,
-  ),
-)
-
-const toPayCellTabs = [
-  {
-    value: 'priceInYuan',
-    label: t(TranslationKey['To pay']),
-  },
-  {
-    value: 'partialPaymentAmountRmb',
-    label: t(TranslationKey['To pay partial']),
-  },
-]
-
-export const ToPayCellMenuItem = memo(
-  withStyles(
-    ({ onClose, data, field, filterRequestStatus, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
-      const isShowTabs = ['/buyer/partially-paid-orders', '/buyer/all-orders'].includes(window.location.pathname)
-
-      return (
-        <>
-          {isShowTabs && (
-            <NumberWithTabsMenuItem
-              data={data}
-              filterRequestStatus={filterRequestStatus}
-              tabs={toPayCellTabs}
-              onClickFilterBtn={onClickFilterBtn}
-              onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-              onClickAccept={() => onClickAccept()}
-              onClose={onClose}
-            />
-          )}
-
-          {!isShowTabs && (
-            <NumberFieldMenuItem
-              data={data[field]}
-              field={field}
-              filterRequestStatus={filterRequestStatus}
-              onClickFilterBtn={onClickFilterBtn}
-              onClose={onClose}
-              onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-              onClickAccept={onClickAccept}
-            />
-          )}
-        </>
       )
     },
     styles,
