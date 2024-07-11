@@ -21,17 +21,35 @@
  */
 export interface InlineObject114 {
     /**
-     * Время закрытия заявки.
+     * Guid заявки
      * @type {string}
      * @memberof InlineObject114
      */
-    timeoutAt: string;
+    requestId?: string;
     /**
-     * Количество предложений. null без лимитов
-     * @type {number}
+     * Guid предложения
+     * @type {string}
      * @memberof InlineObject114
      */
-    maxAmountOfProposals?: number;
+    proposalId?: string;
+    /**
+     * комментарий клиента
+     * @type {string}
+     * @memberof InlineObject114
+     */
+    commentByClient?: string;
+    /**
+     * комментарий исполнителя
+     * @type {string}
+     * @memberof InlineObject114
+     */
+    commentByPerformer?: string;
+    /**
+     * Ссылка на файл
+     * @type {string}
+     * @memberof InlineObject114
+     */
+    fileLink: string;
 }
 
 

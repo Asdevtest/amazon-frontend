@@ -27,29 +27,35 @@ export interface InlineResponse200109 {
      */
     _id?: string;
     /**
+     * Название таблицы
+     * @type {string}
+     * @memberof InlineResponse200109
+     */
+    table?: string;
+    /**
      * Эндпоинт пресета
      * @type {string}
      * @memberof InlineResponse200109
      */
     endpoint?: string;
     /**
-     * Состояние  preset-options.
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse200109
+     */
+    fields?: Array<string>;
+    /**
+     * Состояние пресета.
      * @type {boolean}
      * @memberof InlineResponse200109
      */
-    activeOption?: boolean;
+    isActive?: boolean;
     /**
-     * 
-     * @type {object}
-     * @memberof InlineResponse200109
-     */
-    options?: object;
-    /**
-     * Title of preset
+     * ID юзера.
      * @type {string}
      * @memberof InlineResponse200109
      */
-    title?: string;
+    userId?: string;
     /**
      * Дата создания
      * @type {string}

@@ -15,17 +15,17 @@
 
 
 /**
- * 
+ * Успешный ответ
  * @export
  * @interface InlineResponse20116
  */
 export interface InlineResponse20116 {
     /**
-     * 
+     * guid объекта
      * @type {string}
      * @memberof InlineResponse20116
      */
-    accessToken?: string;
+    guid?: string;
 }
 
 

@@ -13,116 +13,260 @@
  */
 
 
-import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-by';
-import { InlineResponse20074EntityProduct } from './inline-response20074-entity-product';
+import { InlineResponse20042InventoryShop } from './inline-response20042-inventory-shop';
 
 /**
- * 
+ * Схема репорта amazon_data
  * @export
  * @interface InlineResponse20074Rows
  */
 export interface InlineResponse20074Rows {
     /**
-     * GUID платежа
+     * Гуид записи
      * @type {string}
      * @memberof InlineResponse20074Rows
      */
     _id?: string;
     /**
-     * Дата создания.
+     * 
+     * @type {string}
+     * @memberof InlineResponse20074Rows
+     */
+    productId?: string;
+    /**
+     * 
+     * @type {InlineResponse20042InventoryShop}
+     * @memberof InlineResponse20074Rows
+     */
+    shop?: InlineResponse20042InventoryShop;
+    /**
+     * Гуид shop-a
+     * @type {string}
+     * @memberof InlineResponse20074Rows
+     */
+    shopId?: string;
+    /**
+     * image
+     * @type {string}
+     * @memberof InlineResponse20074Rows
+     */
+    image?: string;
+    /**
+     * date_updated
+     * @type {string}
+     * @memberof InlineResponse20074Rows
+     */
+    dateUpdated?: string;
+    /**
+     * asin
+     * @type {string}
+     * @memberof InlineResponse20074Rows
+     */
+    asin?: string;
+    /**
+     * sku
+     * @type {string}
+     * @memberof InlineResponse20074Rows
+     */
+    sku?: string;
+    /**
+     * day
+     * @type {string}
+     * @memberof InlineResponse20074Rows
+     */
+    day?: string;
+    /**
+     * acos
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    acos?: number;
+    /**
+     * ppc_impressions
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    ppcImpressions?: number;
+    /**
+     * clicks
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    clicks?: number;
+    /**
+     * spend
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    spend?: number;
+    /**
+     * ppc_orders
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    ppcOrders?: number;
+    /**
+     * ppc_units
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    ppcUnits?: number;
+    /**
+     * ppc_sales
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    ppcSales?: number;
+    /**
+     * ppc_avg_units_one_order
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    ppcAvgUnitsOneOrder?: number;
+    /**
+     * order_sales_cost
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    orderSalesCost?: number;
+    /**
+     * unit_sales_cost
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    unitSalesCost?: number;
+    /**
+     * organic_sessions
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    organicSessions?: number;
+    /**
+     * organic_orders
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    organicOrders?: number;
+    /**
+     * organic_units
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    organicUnits?: number;
+    /**
+     * organic_sales
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    organicSales?: number;
+    /**
+     * organic_avg_order_price
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    organicAvgOrderPrice?: number;
+    /**
+     * organic_avg_unit_price
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    organicAvgUnitPrice?: number;
+    /**
+     * organic_avg_units_one_order
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    organicAvgUnitsOneOrder?: number;
+    /**
+     * sessions
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    sessions?: number;
+    /**
+     * orders
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    orders?: number;
+    /**
+     * units
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    units?: number;
+    /**
+     * avg_units_in_per_order
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    avgUnitsInPerOrder?: number;
+    /**
+     * sales
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    sales?: number;
+    /**
+     * avg_price_order
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    avgPriceOrder?: number;
+    /**
+     * avg_unit_price
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    avgUnitPrice?: number;
+    /**
+     * buy_box
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    buyBox?: number;
+    /**
+     * ppc_sale
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    ppcSale?: number;
+    /**
+     * organic_sale
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    organicSale?: number;
+    /**
+     * conversion
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    conversion?: number;
+    /**
+     * conversion_ppc
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    conversionPpc?: number;
+    /**
+     * conversion_organic
+     * @type {number}
+     * @memberof InlineResponse20074Rows
+     */
+    conversionOrganic?: number;
+    /**
+     * createdAt
      * @type {string}
      * @memberof InlineResponse20074Rows
      */
     createdAt?: string;
     /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20074Rows
-     */
-    createdBy?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Роль пользователя на момент инициации платежа.
-     * @type {number}
-     * @memberof InlineResponse20074Rows
-     */
-    role?: number;
-    /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20074Rows
-     */
-    subUser?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * GUID товара или услуги.
+     * updatedAt
      * @type {string}
      * @memberof InlineResponse20074Rows
      */
-    entityId?: string;
-    /**
-     * Тип товара или услуги
-     * @type {string}
-     * @memberof InlineResponse20074Rows
-     */
-    entityType?: InlineResponse20074RowsEntityTypeEnum;
-    /**
-     * Тип платежа
-     * @type {string}
-     * @memberof InlineResponse20074Rows
-     */
-    paymentType?: InlineResponse20074RowsPaymentTypeEnum;
-    /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20074Rows
-     */
-    recipient?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
-     * @type {number}
-     * @memberof InlineResponse20074Rows
-     */
-    sum?: number;
-    /**
-     * комментарий
-     * @type {string}
-     * @memberof InlineResponse20074Rows
-     */
-    comment?: string;
-    /**
-     * 
-     * @type {Array<InlineResponse20074EntityProduct>}
-     * @memberof InlineResponse20074Rows
-     */
-    entityProduct?: Array<InlineResponse20074EntityProduct>;
+    updatedAt?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20074RowsEntityTypeEnum {
-    Product = 'PRODUCT',
-    Order = 'ORDER',
-    Box = 'BOX',
-    Batch = 'BATCH',
-    User = 'USER',
-    RequestCustom = 'REQUEST-CUSTOM',
-    RequestSearchProduct = 'REQUEST-SEARCH_PRODUCT',
-    RequestSearchNiche = 'REQUEST-SEARCH_NICHE',
-    RequestProposalCustom = 'REQUEST-PROPOSAL-CUSTOM',
-    RequestProposalSearchProduct = 'REQUEST-PROPOSAL-SEARCH_PRODUCT',
-    RequestProposalSearchNiche = 'REQUEST-PROPOSAL-SEARCH_NICHE',
-    Other = 'OTHER'
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20074RowsPaymentTypeEnum {
-    Replenish = 'REPLENISH',
-    Fine = 'FINE',
-    Zero = 'ZERO'
-}
-
 
 

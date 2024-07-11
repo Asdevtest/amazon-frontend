@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20075Rows } from './inline-response20075-rows';
 
 /**
  * 
@@ -21,17 +22,17 @@
  */
 export interface InlineResponse20075 {
     /**
-     * Table name
-     * @type {string}
+     * Кол-во записей
+     * @type {number}
      * @memberof InlineResponse20075
      */
-    table?: string;
+    count?: number;
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<InlineResponse20075Rows>}
      * @memberof InlineResponse20075
      */
-    fields?: Array<string>;
+    rows?: Array<InlineResponse20075Rows>;
 }
 
 

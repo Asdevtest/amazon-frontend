@@ -13,25 +13,80 @@
  */
 
 
+import { ApiV1ShopsWithProfilesProfile } from './api-v1-shops-with-profiles-profile';
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineResponse20096
  */
 export interface InlineResponse20096 {
     /**
-     * Гуид магазина
+     * ID магазина.
      * @type {string}
      * @memberof InlineResponse20096
      */
-    _id: string;
+    _id?: string;
     /**
-     * Название магазина
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
      * @type {string}
      * @memberof InlineResponse20096
      */
-    name: string;
+    name?: string;
+    /**
+     * URL для скачивания ежедневных отчетов SellerBoard.
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    sellerBoardWarehouseReportUrlDaily?: string;
+    /**
+     * URL для скачивания отчетов SellerBoard за последний месяц.
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    sellerBoardWarehouseReportUrlMonthly?: string;
+    /**
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    reportAccountUrl?: string;
+    /**
+     * GUID, владелеца.
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    ownerId?: string;
+    /**
+     * GUID любого, кто последний создал.
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    createdById?: string;
+    /**
+     * GUID любого, кто последний редактировал.
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    lastModifiedById?: string;
+    /**
+     * 
+     * @type {ApiV1ShopsWithProfilesProfile}
+     * @memberof InlineResponse20096
+     */
+    profile?: ApiV1ShopsWithProfilesProfile;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    updatedAt?: string;
 }
 
 

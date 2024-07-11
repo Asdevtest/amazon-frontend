@@ -21,11 +21,11 @@
  */
 export interface InlineObject79 {
     /**
-     * GUID поставщика, который нужно удалить в БД.
+     * uri полный путь до файла, для скачивания
      * @type {string}
      * @memberof InlineObject79
      */
-    suppliersId?: string;
+    fileUrl: string;
 }
 
 

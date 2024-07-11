@@ -13,6 +13,9 @@
  */
 
 
+import { ApiV1IdeasByParentGuidChildProduct } from './api-v1-ideas-by-parent-guid-child-product';
+import { ApiV1IdeasByParentGuidRequestsOnCheck } from './api-v1-ideas-by-parent-guid-requests-on-check';
+import { ApiV1IdeasByParentGuidSuppliers } from './api-v1-ideas-by-parent-guid-suppliers';
 
 /**
  * 
@@ -21,11 +24,155 @@
  */
 export interface InlineResponse20061 {
     /**
-     * id созданного профайла
+     * 
      * @type {string}
      * @memberof InlineResponse20061
      */
-    profileId?: string;
+    _id?: string;
+    /**
+     * Название идеи
+     * @type {string}
+     * @memberof InlineResponse20061
+     */
+    title?: string;
+    /**
+     * Статус идеи
+     * @type {number}
+     * @memberof InlineResponse20061
+     */
+    status?: number;
+    /**
+     * Медиа идеи
+     * @type {Array<string>}
+     * @memberof InlineResponse20061
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * FBA Fee
+     * @type {number}
+     * @memberof InlineResponse20061
+     */
+    fbaFee?: number;
+    /**
+     * Ориентационная цена
+     * @type {number}
+     * @memberof InlineResponse20061
+     */
+    approximatePrice?: number;
+    /**
+     * Назавние продукта
+     * @type {string}
+     * @memberof InlineResponse20061
+     */
+    productName?: string;
+    /**
+     * Является ли продукт идеи вариацией существующего
+     * @type {boolean}
+     * @memberof InlineResponse20061
+     */
+    variation?: boolean;
+    /**
+     * 
+     * @type {ApiV1IdeasByParentGuidChildProduct}
+     * @memberof InlineResponse20061
+     */
+    childProduct?: ApiV1IdeasByParentGuidChildProduct;
+    /**
+     * 
+     * @type {Array<ApiV1IdeasByParentGuidSuppliers>}
+     * @memberof InlineResponse20061
+     */
+    suppliers?: Array<ApiV1IdeasByParentGuidSuppliers>;
+    /**
+     * 
+     * @type {Array<ApiV1IdeasByParentGuidRequestsOnCheck>}
+     * @memberof InlineResponse20061
+     */
+    requestsOnCheck?: Array<ApiV1IdeasByParentGuidRequestsOnCheck>;
+    /**
+     * 
+     * @type {Array<ApiV1IdeasByParentGuidRequestsOnCheck>}
+     * @memberof InlineResponse20061
+     */
+    requestsOnFinished?: Array<ApiV1IdeasByParentGuidRequestsOnCheck>;
+    /**
+     * Комментарии к идее
+     * @type {string}
+     * @memberof InlineResponse20061
+     */
+    comments?: string;
+    /**
+     * Комментарий байера
+     * @type {string}
+     * @memberof InlineResponse20061
+     */
+    buyerComment?: string;
+    /**
+     * Кол-во секунд идеи в статусе new(5)
+     * @type {number}
+     * @memberof InlineResponse20061
+     */
+    intervalStatusNew?: number;
+    /**
+     * Кол-во секунд идеи в статусе OnCheck(10)
+     * @type {number}
+     * @memberof InlineResponse20061
+     */
+    intervalStatusOnCheck?: number;
+    /**
+     * Кол-во секунд идеи в статусе supplierSearch(13)
+     * @type {number}
+     * @memberof InlineResponse20061
+     */
+    intervalStatusSupplierSearch?: number;
+    /**
+     * Кол-во секунд идеи в статусе supplierFound(14)
+     * @type {number}
+     * @memberof InlineResponse20061
+     */
+    intervalStatusSupplierFound?: number;
+    /**
+     * Кол-во секунд идеи в статусе supplierNotFound(15)
+     * @type {number}
+     * @memberof InlineResponse20061
+     */
+    intervalStatusSupplierNotFound?: number;
+    /**
+     * Кол-во секунд идеи в статусе productCreating(16)
+     * @type {number}
+     * @memberof InlineResponse20061
+     */
+    intervalStatusProductCreating?: number;
+    /**
+     * Кол-во секунд идеи в статусе addingAsin(18)
+     * @type {number}
+     * @memberof InlineResponse20061
+     */
+    intervalStatusAddingAsin?: number;
+    /**
+     * Кол-во секунд идеи в статусе rejected(25)
+     * @type {number}
+     * @memberof InlineResponse20061
+     */
+    intervalStatusRejected?: number;
+    /**
+     * Кол-во секунд идеи во всех статусах
+     * @type {number}
+     * @memberof InlineResponse20061
+     */
+    intervalsSum?: number;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20061
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse20061
+     */
+    updatedAt?: string;
 }
 
 

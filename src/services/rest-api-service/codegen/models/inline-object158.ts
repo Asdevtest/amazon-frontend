@@ -21,11 +21,11 @@
  */
 export interface InlineObject158 {
     /**
-     * Comment for request details.
-     * @type {string}
+     * Состояние парсера
+     * @type {boolean}
      * @memberof InlineObject158
      */
-    comment?: string;
+    isActive?: boolean;
 }
 
 

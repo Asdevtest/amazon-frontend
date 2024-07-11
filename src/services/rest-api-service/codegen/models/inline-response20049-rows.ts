@@ -14,8 +14,6 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20049ListingLaunches } from './inline-response20049-listing-launches';
-import { InlineResponse20049Product } from './inline-response20049-product';
 
 /**
  * 
@@ -24,65 +22,35 @@ import { InlineResponse20049Product } from './inline-response20049-product';
  */
 export interface InlineResponse20049Rows {
     /**
-     * GUID в базе данных
+     * Guid of shop
      * @type {string}
      * @memberof InlineResponse20049Rows
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * Name of shop
+     * @type {string}
      * @memberof InlineResponse20049Rows
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    name?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20049Rows
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {InlineResponse20049Product}
-     * @memberof InlineResponse20049Rows
-     */
-    product?: InlineResponse20049Product;
-    /**
-     * Is Actual report
-     * @type {boolean}
-     * @memberof InlineResponse20049Rows
-     */
-    isActive?: boolean;
-    /**
-     * New product price
+     * Count of shop products
      * @type {number}
      * @memberof InlineResponse20049Rows
      */
-    newProductPrice?: number;
-    /**
-     * Description of product_listing_report
-     * @type {string}
-     * @memberof InlineResponse20049Rows
-     */
-    description?: string;
+    productsCount?: number;
     /**
      * 
-     * @type {Array<InlineResponse20049ListingLaunches>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20049Rows
      */
-    listingLaunches?: Array<InlineResponse20049ListingLaunches>;
+    shopUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
-     * @type {string}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20049Rows
      */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20049Rows
-     */
-    updatedAt?: string;
+    productUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
 }
 
 

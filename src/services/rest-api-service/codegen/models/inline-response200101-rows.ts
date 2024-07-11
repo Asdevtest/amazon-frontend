@@ -13,9 +13,8 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
-import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
+import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
+import { InlineResponse200101DestinationVariations } from './inline-response200101-destination-variations';
 
 /**
  * 
@@ -24,107 +23,113 @@ import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products
  */
 export interface InlineResponse200101Rows {
     /**
-     * GUID продукта в базе данных
+     * 
      * @type {string}
      * @memberof InlineResponse200101Rows
      */
     _id?: string;
     /**
-     * ASIN продукта
+     * Тип тарифа
+     * @type {number}
+     * @memberof InlineResponse200101Rows
+     */
+    tariffType?: number;
+    /**
+     * Название тарифа
      * @type {string}
      * @memberof InlineResponse200101Rows
      */
-    asin?: string;
+    name?: string;
     /**
-     * SKU введенным клиентом.
+     * Описание тарифа
      * @type {string}
      * @memberof InlineResponse200101Rows
      */
-    skuByClient?: string;
+    description?: string;
     /**
-     * Есть ли товар в заказах
+     * Время доставки, днях
+     * @type {string}
+     * @memberof InlineResponse200101Rows
+     */
+    deliveryTimeInDay?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200101Rows
+     */
+    storekeeperId?: string;
+    /**
+     * Дата закрытия приема новых грузов.
+     * @type {string}
+     * @memberof InlineResponse200101Rows
+     */
+    cls?: string;
+    /**
+     * Ожидаема дата отбытия.
+     * @type {string}
+     * @memberof InlineResponse200101Rows
+     */
+    etd?: string;
+    /**
+     * Ожидаема дата прибытия.
+     * @type {string}
+     * @memberof InlineResponse200101Rows
+     */
+    eta?: string;
+    /**
+     * Минимальный вес, в кг
+     * @type {number}
+     * @memberof InlineResponse200101Rows
+     */
+    minWeightInKg?: number;
+    /**
+     * Заархивирован ли тариф
      * @type {boolean}
      * @memberof InlineResponse200101Rows
      */
-    ordered?: boolean;
+    archive?: boolean;
     /**
      * 
+     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
+     * @memberof InlineResponse200101Rows
+     */
+    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
+    /**
+     * Стоимость за единицу с доставкой в Китай
      * @type {number}
      * @memberof InlineResponse200101Rows
      */
-    bsr?: number;
+    costUnitWithDeliveryToChina?: number;
     /**
-     * 
+     * Average Roi
      * @type {number}
      * @memberof InlineResponse200101Rows
      */
-    amazon?: number;
+    avgRoi?: number;
     /**
-     * ФБА комиссия
+     * Average CostUnitWithDeliveryToUsa
      * @type {number}
      * @memberof InlineResponse200101Rows
      */
-    fbafee?: number;
-    /**
-     * Код текущего статуса
-     * @type {number}
-     * @memberof InlineResponse200101Rows
-     */
-    status?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse200101Rows
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse200101Rows
-     */
-    amazonTitle?: string;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineResponse200101Rows
-     */
-    strategyStatus?: number;
+    avgCostUnitWithDeliveryToUsa?: number;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
+     * @type {Array<InlineResponse200101DestinationVariations>}
      * @memberof InlineResponse200101Rows
      */
-    redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
+    destinationVariations?: Array<InlineResponse200101DestinationVariations>;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
-     * @memberof InlineResponse200101Rows
-     */
-    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200101Rows
-     */
-    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200101Rows
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse200101Rows
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
      * @type {string}
      * @memberof InlineResponse200101Rows
      */
     updatedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200101Rows
+     */
+    createdAt?: string;
 }
 
 

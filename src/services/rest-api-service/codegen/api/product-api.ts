@@ -31,21 +31,21 @@ import { ConflictInTheState } from '../models';
 // @ts-ignore
 import { InlineObject4 } from '../models';
 // @ts-ignore
+import { InlineObject90 } from '../models';
+// @ts-ignore
+import { InlineObject91 } from '../models';
+// @ts-ignore
+import { InlineObject92 } from '../models';
+// @ts-ignore
+import { InlineObject93 } from '../models';
+// @ts-ignore
 import { InlineObject94 } from '../models';
 // @ts-ignore
 import { InlineObject95 } from '../models';
 // @ts-ignore
-import { InlineObject96 } from '../models';
-// @ts-ignore
-import { InlineObject97 } from '../models';
-// @ts-ignore
-import { InlineObject98 } from '../models';
-// @ts-ignore
-import { InlineObject99 } from '../models';
-// @ts-ignore
 import { InlineResponse200 } from '../models';
 // @ts-ignore
-import { InlineResponse20041 } from '../models';
+import { InlineResponse20038 } from '../models';
 // @ts-ignore
 import { InlineResponse20082 } from '../models';
 // @ts-ignore
@@ -64,12 +64,12 @@ export const ProductApiAxiosParamCreator = function (configuration?: Configurati
          * ## Добавить магазины к продукту.   
          * @summary Добавить магазины к продукту.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject96} [body] 
+         * @param {InlineObject92} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsAddShopsGuidPost: async (guid: string, body?: InlineObject96, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ProductsAddShopsGuidPost: async (guid: string, body?: InlineObject92, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1ProductsAddShopsGuidPost', 'guid', guid)
             const localVarPath = `/api/v1/products/add_shops/{guid}`
@@ -110,12 +110,12 @@ export const ProductApiAxiosParamCreator = function (configuration?: Configurati
          * ## Добавить поставщиков к продукту.   
          * @summary Добавить поставщиков к продукту.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject94} [body] 
+         * @param {InlineObject90} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsAddSuppliersGuidPost: async (guid: string, body?: InlineObject94, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ProductsAddSuppliersGuidPost: async (guid: string, body?: InlineObject90, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1ProductsAddSuppliersGuidPost', 'guid', guid)
             const localVarPath = `/api/v1/products/add_suppliers/{guid}`
@@ -282,12 +282,12 @@ export const ProductApiAxiosParamCreator = function (configuration?: Configurati
          *  Обновления списка тегов у продукта.
          * @summary # Обновления списка тегов у продукта.
          * @param {string} guid id товара.
-         * @param {InlineObject99} [body] 
+         * @param {InlineObject95} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsGuidEditTagsPatch: async (guid: string, body?: InlineObject99, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ProductsGuidEditTagsPatch: async (guid: string, body?: InlineObject95, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1ProductsGuidEditTagsPatch', 'guid', guid)
             const localVarPath = `/api/v1/products/{guid}/edit_tags`
@@ -496,12 +496,12 @@ export const ProductApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * Поменять/убрать родительский продукт у множества продуктов, можно ставить null
          * @summary # Поменять/убрать родительский продукт у множества продуктов
-         * @param {InlineObject98} [body] 
+         * @param {InlineObject94} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsParentPatch: async (body?: InlineObject98, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ProductsParentPatch: async (body?: InlineObject94, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/products/parent`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -674,12 +674,12 @@ export const ProductApiAxiosParamCreator = function (configuration?: Configurati
          * ## Удалить магазины из продукта.   
          * @summary Удалить магазины из продукта.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject97} [body] 
+         * @param {InlineObject93} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsRemoveShopsGuidPost: async (guid: string, body?: InlineObject97, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ProductsRemoveShopsGuidPost: async (guid: string, body?: InlineObject93, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1ProductsRemoveShopsGuidPost', 'guid', guid)
             const localVarPath = `/api/v1/products/remove_shops/{guid}`
@@ -720,12 +720,12 @@ export const ProductApiAxiosParamCreator = function (configuration?: Configurati
          * ## Удалить поставщиков из продукта.   
          * @summary Удалить поставщиков из продукта.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject95} [body] 
+         * @param {InlineObject91} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsRemoveSuppliersGuidPost: async (guid: string, body?: InlineObject95, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ProductsRemoveSuppliersGuidPost: async (guid: string, body?: InlineObject91, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1ProductsRemoveSuppliersGuidPost', 'guid', guid)
             const localVarPath = `/api/v1/products/remove_suppliers/{guid}`
@@ -769,11 +769,12 @@ export const ProductApiAxiosParamCreator = function (configuration?: Configurati
          * @param {boolean} [dataFromInventory] Отдать продукты как в /my_with_pag_v2
          * @param {boolean} [preset] Включить пресеты?
          * @param {boolean} [archive] Отдать архивные продукты
+         * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsVariationsGuidGet: async (guid: string, dataFromInventory?: boolean, preset?: boolean, archive?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ProductsVariationsGuidGet: async (guid: string, dataFromInventory?: boolean, preset?: boolean, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1ProductsVariationsGuidGet', 'guid', guid)
             const localVarPath = `/api/v1/products/variations/{guid}`
@@ -802,6 +803,10 @@ export const ProductApiAxiosParamCreator = function (configuration?: Configurati
 
             if (archive !== undefined) {
                 localVarQueryParameter['archive'] = archive;
+            }
+
+            if (noCache !== undefined) {
+                localVarQueryParameter['noCache'] = noCache;
             }
 
             if (acceptEncoding !== undefined && acceptEncoding !== null) {
@@ -833,12 +838,12 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * ## Добавить магазины к продукту.   
          * @summary Добавить магазины к продукту.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject96} [body] 
+         * @param {InlineObject92} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsAddShopsGuidPost(guid: string, body?: InlineObject96, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1ProductsAddShopsGuidPost(guid: string, body?: InlineObject92, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsAddShopsGuidPost(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -846,12 +851,12 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * ## Добавить поставщиков к продукту.   
          * @summary Добавить поставщиков к продукту.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject94} [body] 
+         * @param {InlineObject90} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsAddSuppliersGuidPost(guid: string, body?: InlineObject94, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1ProductsAddSuppliersGuidPost(guid: string, body?: InlineObject90, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsAddSuppliersGuidPost(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -863,7 +868,7 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20041>>> {
+        async apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20038>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsByCreatorGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -895,12 +900,12 @@ export const ProductApiFp = function(configuration?: Configuration) {
          *  Обновления списка тегов у продукта.
          * @summary # Обновления списка тегов у продукта.
          * @param {string} guid id товара.
-         * @param {InlineObject99} [body] 
+         * @param {InlineObject95} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsGuidEditTagsPatch(guid: string, body?: InlineObject99, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1ProductsGuidEditTagsPatch(guid: string, body?: InlineObject95, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsGuidEditTagsPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -955,12 +960,12 @@ export const ProductApiFp = function(configuration?: Configuration) {
         /**
          * Поменять/убрать родительский продукт у множества продуктов, можно ставить null
          * @summary # Поменять/убрать родительский продукт у множества продуктов
-         * @param {InlineObject98} [body] 
+         * @param {InlineObject94} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsParentPatch(body?: InlineObject98, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1ProductsParentPatch(body?: InlineObject94, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsParentPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1005,12 +1010,12 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * ## Удалить магазины из продукта.   
          * @summary Удалить магазины из продукта.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject97} [body] 
+         * @param {InlineObject93} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsRemoveShopsGuidPost(guid: string, body?: InlineObject97, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1ProductsRemoveShopsGuidPost(guid: string, body?: InlineObject93, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsRemoveShopsGuidPost(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1018,12 +1023,12 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * ## Удалить поставщиков из продукта.   
          * @summary Удалить поставщиков из продукта.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject95} [body] 
+         * @param {InlineObject91} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsRemoveSuppliersGuidPost(guid: string, body?: InlineObject95, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1ProductsRemoveSuppliersGuidPost(guid: string, body?: InlineObject91, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsRemoveSuppliersGuidPost(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1034,12 +1039,13 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {boolean} [dataFromInventory] Отдать продукты как в /my_with_pag_v2
          * @param {boolean} [preset] Включить пресеты?
          * @param {boolean} [archive] Отдать архивные продукты
+         * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsVariationsGuidGet(guid: string, dataFromInventory?: boolean, preset?: boolean, archive?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsVariationsGuidGet(guid, dataFromInventory, preset, archive, acceptEncoding, options);
+        async apiV1ProductsVariationsGuidGet(guid: string, dataFromInventory?: boolean, preset?: boolean, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsVariationsGuidGet(guid, dataFromInventory, preset, archive, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1056,24 +1062,24 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * ## Добавить магазины к продукту.   
          * @summary Добавить магазины к продукту.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject96} [body] 
+         * @param {InlineObject92} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsAddShopsGuidPost(guid: string, body?: InlineObject96, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1ProductsAddShopsGuidPost(guid: string, body?: InlineObject92, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1ProductsAddShopsGuidPost(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Добавить поставщиков к продукту.   
          * @summary Добавить поставщиков к продукту.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject94} [body] 
+         * @param {InlineObject90} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsAddSuppliersGuidPost(guid: string, body?: InlineObject94, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1ProductsAddSuppliersGuidPost(guid: string, body?: InlineObject90, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1ProductsAddSuppliersGuidPost(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1084,7 +1090,7 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20041>> {
+        apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20038>> {
             return localVarFp.apiV1ProductsByCreatorGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1113,12 +1119,12 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          *  Обновления списка тегов у продукта.
          * @summary # Обновления списка тегов у продукта.
          * @param {string} guid id товара.
-         * @param {InlineObject99} [body] 
+         * @param {InlineObject95} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsGuidEditTagsPatch(guid: string, body?: InlineObject99, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1ProductsGuidEditTagsPatch(guid: string, body?: InlineObject95, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1ProductsGuidEditTagsPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1168,12 +1174,12 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
         /**
          * Поменять/убрать родительский продукт у множества продуктов, можно ставить null
          * @summary # Поменять/убрать родительский продукт у множества продуктов
-         * @param {InlineObject98} [body] 
+         * @param {InlineObject94} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsParentPatch(body?: InlineObject98, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1ProductsParentPatch(body?: InlineObject94, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1ProductsParentPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1214,24 +1220,24 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * ## Удалить магазины из продукта.   
          * @summary Удалить магазины из продукта.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject97} [body] 
+         * @param {InlineObject93} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsRemoveShopsGuidPost(guid: string, body?: InlineObject97, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1ProductsRemoveShopsGuidPost(guid: string, body?: InlineObject93, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1ProductsRemoveShopsGuidPost(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Удалить поставщиков из продукта.   
          * @summary Удалить поставщиков из продукта.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject95} [body] 
+         * @param {InlineObject91} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsRemoveSuppliersGuidPost(guid: string, body?: InlineObject95, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1ProductsRemoveSuppliersGuidPost(guid: string, body?: InlineObject91, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1ProductsRemoveSuppliersGuidPost(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1241,12 +1247,13 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {boolean} [dataFromInventory] Отдать продукты как в /my_with_pag_v2
          * @param {boolean} [preset] Включить пресеты?
          * @param {boolean} [archive] Отдать архивные продукты
+         * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsVariationsGuidGet(guid: string, dataFromInventory?: boolean, preset?: boolean, archive?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<{ [key: string]: object; }> {
-            return localVarFp.apiV1ProductsVariationsGuidGet(guid, dataFromInventory, preset, archive, acceptEncoding, options).then((request) => request(axios, basePath));
+        apiV1ProductsVariationsGuidGet(guid: string, dataFromInventory?: boolean, preset?: boolean, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.apiV1ProductsVariationsGuidGet(guid, dataFromInventory, preset, archive, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1266,10 +1273,10 @@ export interface ProductApiApiV1ProductsAddShopsGuidPostRequest {
 
     /**
      * 
-     * @type {InlineObject96}
+     * @type {InlineObject92}
      * @memberof ProductApiApiV1ProductsAddShopsGuidPost
      */
-    readonly body?: InlineObject96
+    readonly body?: InlineObject92
 
     /**
      * 
@@ -1294,10 +1301,10 @@ export interface ProductApiApiV1ProductsAddSuppliersGuidPostRequest {
 
     /**
      * 
-     * @type {InlineObject94}
+     * @type {InlineObject90}
      * @memberof ProductApiApiV1ProductsAddSuppliersGuidPost
      */
-    readonly body?: InlineObject94
+    readonly body?: InlineObject90
 
     /**
      * 
@@ -1385,10 +1392,10 @@ export interface ProductApiApiV1ProductsGuidEditTagsPatchRequest {
 
     /**
      * 
-     * @type {InlineObject99}
+     * @type {InlineObject95}
      * @memberof ProductApiApiV1ProductsGuidEditTagsPatch
      */
-    readonly body?: InlineObject99
+    readonly body?: InlineObject95
 
     /**
      * 
@@ -1490,10 +1497,10 @@ export interface ProductApiApiV1ProductsKeepaPostRequest {
 export interface ProductApiApiV1ProductsParentPatchRequest {
     /**
      * 
-     * @type {InlineObject98}
+     * @type {InlineObject94}
      * @memberof ProductApiApiV1ProductsParentPatch
      */
-    readonly body?: InlineObject98
+    readonly body?: InlineObject94
 
     /**
      * 
@@ -1588,10 +1595,10 @@ export interface ProductApiApiV1ProductsRemoveShopsGuidPostRequest {
 
     /**
      * 
-     * @type {InlineObject97}
+     * @type {InlineObject93}
      * @memberof ProductApiApiV1ProductsRemoveShopsGuidPost
      */
-    readonly body?: InlineObject97
+    readonly body?: InlineObject93
 
     /**
      * 
@@ -1616,10 +1623,10 @@ export interface ProductApiApiV1ProductsRemoveSuppliersGuidPostRequest {
 
     /**
      * 
-     * @type {InlineObject95}
+     * @type {InlineObject91}
      * @memberof ProductApiApiV1ProductsRemoveSuppliersGuidPost
      */
-    readonly body?: InlineObject95
+    readonly body?: InlineObject91
 
     /**
      * 
@@ -1662,6 +1669,13 @@ export interface ProductApiApiV1ProductsVariationsGuidGetRequest {
      * @memberof ProductApiApiV1ProductsVariationsGuidGet
      */
     readonly archive?: boolean
+
+    /**
+     * Игнорировать данные в кеше
+     * @type {boolean}
+     * @memberof ProductApiApiV1ProductsVariationsGuidGet
+     */
+    readonly noCache?: boolean
 
     /**
      * 
@@ -1879,6 +1893,6 @@ export class ProductApi extends BaseAPI {
      * @memberof ProductApi
      */
     public apiV1ProductsVariationsGuidGet(requestParameters: ProductApiApiV1ProductsVariationsGuidGetRequest, options?: any) {
-        return ProductApiFp(this.configuration).apiV1ProductsVariationsGuidGet(requestParameters.guid, requestParameters.dataFromInventory, requestParameters.preset, requestParameters.archive, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+        return ProductApiFp(this.configuration).apiV1ProductsVariationsGuidGet(requestParameters.guid, requestParameters.dataFromInventory, requestParameters.preset, requestParameters.archive, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 }

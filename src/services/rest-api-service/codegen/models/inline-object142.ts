@@ -21,17 +21,29 @@
  */
 export interface InlineObject142 {
     /**
-     * 
+     * Эндпоинт для которого надо установить пресеты
      * @type {string}
      * @memberof InlineObject142
      */
-    iconImage?: string;
+    endpoint: string;
     /**
      * 
+     * @type {object}
+     * @memberof InlineObject142
+     */
+    options: object;
+    /**
+     * Является ли активным.
+     * @type {boolean}
+     * @memberof InlineObject142
+     */
+    activeOption: boolean;
+    /**
+     * Title of preset
      * @type {string}
      * @memberof InlineObject142
      */
-    title?: string;
+    title: string;
 }
 
 

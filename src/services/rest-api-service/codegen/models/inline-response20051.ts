@@ -13,8 +13,9 @@
  */
 
 
-import { InlineResponse20050Rows } from './inline-response20050-rows';
-import { InlineResponse20051Meta } from './inline-response20051-meta';
+import { InlineResponse20051AllFiles } from './inline-response20051-all-files';
+import { InlineResponse20051AllImages } from './inline-response20051-all-images';
+import { InlineResponse20051AllVideo } from './inline-response20051-all-video';
 
 /**
  * 
@@ -23,23 +24,23 @@ import { InlineResponse20051Meta } from './inline-response20051-meta';
  */
 export interface InlineResponse20051 {
     /**
-     * Count of rows
-     * @type {number}
+     * 
+     * @type {Array<InlineResponse20051AllImages>}
      * @memberof InlineResponse20051
      */
-    count?: number;
+    allImages?: Array<InlineResponse20051AllImages>;
     /**
      * 
-     * @type {Array<InlineResponse20050Rows>}
+     * @type {Array<InlineResponse20051AllFiles>}
      * @memberof InlineResponse20051
      */
-    rows?: Array<InlineResponse20050Rows>;
+    allFiles?: Array<InlineResponse20051AllFiles>;
     /**
      * 
-     * @type {InlineResponse20051Meta}
+     * @type {Array<InlineResponse20051AllVideo>}
      * @memberof InlineResponse20051
      */
-    meta?: InlineResponse20051Meta;
+    allVideo?: Array<InlineResponse20051AllVideo>;
 }
 
 

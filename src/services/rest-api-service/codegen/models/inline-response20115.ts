@@ -26,12 +26,6 @@ export interface InlineResponse20115 {
      * @memberof InlineResponse20115
      */
     accessToken?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20115
-     */
-    refreshToken?: string;
 }
 
 
