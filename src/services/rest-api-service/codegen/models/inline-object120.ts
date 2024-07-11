@@ -13,164 +13,37 @@
  */
 
 
-import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineObject120
  */
 export interface InlineObject120 {
     /**
-     * ASIN продукта
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
      * @type {string}
      * @memberof InlineObject120
      */
-    asin: string;
+    name: string;
     /**
-     * Ссылка на этот продукт на амазоне.
+     * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
      * @type {string}
      * @memberof InlineObject120
      */
-    lamazon: string;
+    sellerBoardWarehouseReportUrlDaily: string;
     /**
-     * GUID поставщика
+     * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
      * @type {string}
      * @memberof InlineObject120
      */
-    currentSupplierId?: string;
+    sellerBoardWarehouseReportUrlMonthly: string;
     /**
-     * Категория
+     * uri полный путь до файла, для скачивания отчетов amazon_data
      * @type {string}
      * @memberof InlineObject120
      */
-    category?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject120
-     */
-    bsr?: number;
-    /**
-     * Признак fba
-     * @type {boolean}
-     * @memberof InlineObject120
-     */
-    fba?: boolean;
-    /**
-     *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
-     * @type {number}
-     * @memberof InlineObject120
-     */
-    status?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject120
-     */
-    amazon?: number;
-    /**
-     * Массив поставщиков.
-     * @type {Array<string>}
-     * @memberof InlineObject120
-     */
-    suppliersIds?: Array<string>;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineObject120
-     */
-    fbafee?: number;
-    /**
-     * Комментарии к товару.
-     * @type {string}
-     * @memberof InlineObject120
-     */
-    icomment?: string;
-    /**
-     * Массив изображений.
-     * @type {Array<string>}
-     * @memberof InlineObject120
-     */
-    images?: Array<string>;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineObject120
-     */
-    reffee?: number;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineObject120
-     */
-    strategyStatus?: number;
-    /**
-     * Ниша
-     * @type {string}
-     * @memberof InlineObject120
-     */
-    niche?: string;
-    /**
-     * Асины
-     * @type {string}
-     * @memberof InlineObject120
-     */
-    asins?: string;
-    /**
-     * Общий доход
-     * @type {string}
-     * @memberof InlineObject120
-     */
-    totalRevenue?: string;
-    /**
-     * Коэффициент прибыли
-     * @type {string}
-     * @memberof InlineObject120
-     */
-    coefficient?: string;
-    /**
-     * Средний доход
-     * @type {string}
-     * @memberof InlineObject120
-     */
-    avgRevenue?: string;
-    /**
-     * Средний BSR
-     * @type {string}
-     * @memberof InlineObject120
-     */
-    avgBSR?: string;
-    /**
-     * Средняя цена
-     * @type {string}
-     * @memberof InlineObject120
-     */
-    avgPrice?: string;
-    /**
-     * Средний отзывы
-     * @type {string}
-     * @memberof InlineObject120
-     */
-    avgReviews?: string;
-    /**
-     * Дополнительная инфа для дозакупок
-     * @type {number}
-     * @memberof InlineObject120
-     */
-    fourMonthesStock?: number;
-    /**
-     * ID магазинa продукта
-     * @type {string}
-     * @memberof InlineObject120
-     */
-    shopId?: string;
-    /**
-     * 
-     * @type {Array<ApiV1BuyersProductsGuidTags>}
-     * @memberof InlineObject120
-     */
-    tags?: Array<ApiV1BuyersProductsGuidTags>;
+    reportAccountUrl?: string;
 }
 
 

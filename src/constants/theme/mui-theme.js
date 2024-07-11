@@ -1085,6 +1085,7 @@ export const darkTheme = createTheme({
         backgroundImage: 'url(/assets/img/launches/arrows_blue_dark.svg)',
         backgroundPosition: '92% 50%',
         backgroundRepeat: 'no-repeat',
+        backgroundColor: '#fff',
         padding: '5px 23px 5px 10px',
       },
     },

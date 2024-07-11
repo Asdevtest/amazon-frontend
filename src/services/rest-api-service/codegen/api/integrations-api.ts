@@ -25,8 +25,6 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject81 } from '../models';
-// @ts-ignore
 import { InlineObject82 } from '../models';
 // @ts-ignore
 import { InlineObject83 } from '../models';
@@ -37,15 +35,11 @@ import { InlineObject85 } from '../models';
 // @ts-ignore
 import { InlineObject86 } from '../models';
 // @ts-ignore
-import { InlineResponse20065 } from '../models';
-// @ts-ignore
-import { InlineResponse20065Rows } from '../models';
-// @ts-ignore
-import { InlineResponse20066 } from '../models';
-// @ts-ignore
-import { InlineResponse20067 } from '../models';
+import { InlineObject87 } from '../models';
 // @ts-ignore
 import { InlineResponse20068 } from '../models';
+// @ts-ignore
+import { InlineResponse20068Rows } from '../models';
 // @ts-ignore
 import { InlineResponse20069 } from '../models';
 // @ts-ignore
@@ -54,6 +48,12 @@ import { InlineResponse20070 } from '../models';
 import { InlineResponse20071 } from '../models';
 // @ts-ignore
 import { InlineResponse20072 } from '../models';
+// @ts-ignore
+import { InlineResponse20073 } from '../models';
+// @ts-ignore
+import { InlineResponse20074 } from '../models';
+// @ts-ignore
+import { InlineResponse20075 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -67,12 +67,12 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
         /**
          * ## Создать, привязать товары к SKU. Спарсить данные.
          * @summary # Создать, привязать товары к SKU. Спарсить данные. 
-         * @param {InlineObject84} [body] 
+         * @param {InlineObject85} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsCreateAndLinkSkuProductsPost: async (body?: InlineObject84, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsCreateAndLinkSkuProductsPost: async (body?: InlineObject85, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/integrations/create_and_link_sku_products`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -261,12 +261,12 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
         /**
          * ## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Массив всех SKU с должны принадлежать данному магазину Только для клиента
          * @summary # Привязать к товару SKU. (Report Inventory)
-         * @param {InlineObject82} [body] 
+         * @param {InlineObject83} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportInventoryProductsLinkSkuPatch: async (body?: InlineObject82, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsReportInventoryProductsLinkSkuPatch: async (body?: InlineObject83, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/integrations/report_inventory_products_link_sku`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -294,6 +294,69 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ## Получить отчет Shipments.
+         * @summary Получить отчет Shipments.
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsReportInventoryShipmentsFromParserGet: async (limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/integrations/report_inventory_shipments/from_parser`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (sortField !== undefined) {
+                localVarQueryParameter['sortField'] = sortField;
+            }
+
+            if (sortType !== undefined) {
+                localVarQueryParameter['sortType'] = sortType;
+            }
+
+            if (noCache !== undefined) {
+                localVarQueryParameter['noCache'] = noCache;
+            }
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -507,13 +570,13 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
         /**
          * ## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Массив всех SKU с должны принадлежать данному магазину Только для клиента
          * @summary # Привязать к товару SKU. (Все таблицы)
-         * @param {InlineObject83} [body] 
+         * @param {InlineObject84} [body] 
          * @param {boolean} [queue] Background task?
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportProductsLinkSkuPatch: async (body?: InlineObject83, queue?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsReportProductsLinkSkuPatch: async (body?: InlineObject84, queue?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/integrations/report_products_link_sku`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -623,12 +686,12 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
          * ## Удалить отчеты
          * @summary Удалить отчеты
          * @param {'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'returns'} table Название таблицы
-         * @param {InlineObject86} [body] 
+         * @param {InlineObject87} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsRowsFromReportDelete: async (table: 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'returns', body?: InlineObject86, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsRowsFromReportDelete: async (table: 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'returns', body?: InlineObject87, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'table' is not null or undefined
             assertParamExists('apiV1IntegrationsRowsFromReportDelete', 'table', table)
             const localVarPath = `/api/v1/integrations/rows_from_report`;
@@ -781,12 +844,12 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
         /**
          * ## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Массив всех SKU с должны принадлежать данному магазину Только для клиента
          * @summary # Привязать к товару SKU.
-         * @param {InlineObject81} [body] 
+         * @param {InlineObject82} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch: async (body?: InlineObject81, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch: async (body?: InlineObject82, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/integrations/sellerboard_warehouse_products_link_sku`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -823,12 +886,12 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
         /**
          * ## Отвязать товар от SKU.  Нужна проверка может ли данный пользователь удалять связи!!!(пока такой проверки нет)
          * @summary # Отвязать товар от SKU.
-         * @param {InlineObject85} [body] 
+         * @param {InlineObject86} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch: async (body?: InlineObject85, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch: async (body?: InlineObject86, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/integrations/sellerboard_warehouse_products_unLink_sku`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1053,12 +1116,12 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
         /**
          * ## Создать, привязать товары к SKU. Спарсить данные.
          * @summary # Создать, привязать товары к SKU. Спарсить данные. 
-         * @param {InlineObject84} [body] 
+         * @param {InlineObject85} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsCreateAndLinkSkuProductsPost(body?: InlineObject84, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsCreateAndLinkSkuProductsPost(body?: InlineObject85, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsCreateAndLinkSkuProductsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1070,7 +1133,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsGetSkusByProductIdGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20065Rows>>> {
+        async apiV1IntegrationsGetSkusByProductIdGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20068Rows>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsGetSkusByProductIdGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1082,7 +1145,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsRefreshProductsPatch(body?: Array<string>, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20067>> {
+        async apiV1IntegrationsRefreshProductsPatch(body?: Array<string>, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20070>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsRefreshProductsPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1099,20 +1162,36 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsReportInventoryGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20068>> {
+        async apiV1IntegrationsReportInventoryGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20071>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportInventoryGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Массив всех SKU с должны принадлежать данному магазину Только для клиента
          * @summary # Привязать к товару SKU. (Report Inventory)
-         * @param {InlineObject82} [body] 
+         * @param {InlineObject83} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsReportInventoryProductsLinkSkuPatch(body?: InlineObject82, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsReportInventoryProductsLinkSkuPatch(body?: InlineObject83, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportInventoryProductsLinkSkuPatch(body, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * ## Получить отчет Shipments.
+         * @summary Получить отчет Shipments.
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1IntegrationsReportInventoryShipmentsFromParserGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportInventoryShipmentsFromParserGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1128,7 +1207,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsReportInventoryShipmentsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20069>> {
+        async apiV1IntegrationsReportInventoryShipmentsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20072>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportInventoryShipmentsGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1145,7 +1224,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsReportPpcSalesDaysGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20071>> {
+        async apiV1IntegrationsReportPpcSalesDaysGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20074>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportPpcSalesDaysGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1162,20 +1241,20 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsReportPpcSalesWeeksGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20070>> {
+        async apiV1IntegrationsReportPpcSalesWeeksGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20073>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportPpcSalesWeeksGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Массив всех SKU с должны принадлежать данному магазину Только для клиента
          * @summary # Привязать к товару SKU. (Все таблицы)
-         * @param {InlineObject83} [body] 
+         * @param {InlineObject84} [body] 
          * @param {boolean} [queue] Background task?
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsReportProductsLinkSkuPatch(body?: InlineObject83, queue?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsReportProductsLinkSkuPatch(body?: InlineObject84, queue?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportProductsLinkSkuPatch(body, queue, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1192,7 +1271,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsReportReturnsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20072>> {
+        async apiV1IntegrationsReportReturnsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20075>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportReturnsGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1200,12 +1279,12 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * ## Удалить отчеты
          * @summary Удалить отчеты
          * @param {'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'returns'} table Название таблицы
-         * @param {InlineObject86} [body] 
+         * @param {InlineObject87} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsRowsFromReportDelete(table: 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'returns', body?: InlineObject86, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsRowsFromReportDelete(table: 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'returns', body?: InlineObject87, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsRowsFromReportDelete(table, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1222,7 +1301,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20066>> {
+        async apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20069>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1241,24 +1320,24 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
         /**
          * ## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Массив всех SKU с должны принадлежать данному магазину Только для клиента
          * @summary # Привязать к товару SKU.
-         * @param {InlineObject81} [body] 
+         * @param {InlineObject82} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(body?: InlineObject81, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(body?: InlineObject82, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Отвязать товар от SKU.  Нужна проверка может ли данный пользователь удалять связи!!!(пока такой проверки нет)
          * @summary # Отвязать товар от SKU.
-         * @param {InlineObject85} [body] 
+         * @param {InlineObject86} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(body?: InlineObject85, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(body?: InlineObject86, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1275,7 +1354,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsSellerboardWarehouseStocksGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20065>> {
+        async apiV1IntegrationsSellerboardWarehouseStocksGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20068>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsSellerboardWarehouseStocksGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1304,7 +1383,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsWarehouseReportGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20065>> {
+        async apiV1IntegrationsWarehouseReportGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20068>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsWarehouseReportGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1321,12 +1400,12 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
         /**
          * ## Создать, привязать товары к SKU. Спарсить данные.
          * @summary # Создать, привязать товары к SKU. Спарсить данные. 
-         * @param {InlineObject84} [body] 
+         * @param {InlineObject85} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsCreateAndLinkSkuProductsPost(body?: InlineObject84, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IntegrationsCreateAndLinkSkuProductsPost(body?: InlineObject85, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsCreateAndLinkSkuProductsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1337,7 +1416,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsGetSkusByProductIdGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20065Rows>> {
+        apiV1IntegrationsGetSkusByProductIdGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20068Rows>> {
             return localVarFp.apiV1IntegrationsGetSkusByProductIdGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1348,7 +1427,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsRefreshProductsPatch(body?: Array<string>, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20067> {
+        apiV1IntegrationsRefreshProductsPatch(body?: Array<string>, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20070> {
             return localVarFp.apiV1IntegrationsRefreshProductsPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1364,19 +1443,34 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportInventoryGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20068> {
+        apiV1IntegrationsReportInventoryGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20071> {
             return localVarFp.apiV1IntegrationsReportInventoryGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Массив всех SKU с должны принадлежать данному магазину Только для клиента
          * @summary # Привязать к товару SKU. (Report Inventory)
-         * @param {InlineObject82} [body] 
+         * @param {InlineObject83} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportInventoryProductsLinkSkuPatch(body?: InlineObject82, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IntegrationsReportInventoryProductsLinkSkuPatch(body?: InlineObject83, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsReportInventoryProductsLinkSkuPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Получить отчет Shipments.
+         * @summary Получить отчет Shipments.
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsReportInventoryShipmentsFromParserGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.apiV1IntegrationsReportInventoryShipmentsFromParserGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Получить отчет Shipments.
@@ -1391,7 +1485,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportInventoryShipmentsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20069> {
+        apiV1IntegrationsReportInventoryShipmentsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20072> {
             return localVarFp.apiV1IntegrationsReportInventoryShipmentsGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1407,7 +1501,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportPpcSalesDaysGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20071> {
+        apiV1IntegrationsReportPpcSalesDaysGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20074> {
             return localVarFp.apiV1IntegrationsReportPpcSalesDaysGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1423,19 +1517,19 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportPpcSalesWeeksGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20070> {
+        apiV1IntegrationsReportPpcSalesWeeksGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20073> {
             return localVarFp.apiV1IntegrationsReportPpcSalesWeeksGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Массив всех SKU с должны принадлежать данному магазину Только для клиента
          * @summary # Привязать к товару SKU. (Все таблицы)
-         * @param {InlineObject83} [body] 
+         * @param {InlineObject84} [body] 
          * @param {boolean} [queue] Background task?
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportProductsLinkSkuPatch(body?: InlineObject83, queue?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IntegrationsReportProductsLinkSkuPatch(body?: InlineObject84, queue?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsReportProductsLinkSkuPatch(body, queue, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1451,19 +1545,19 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportReturnsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20072> {
+        apiV1IntegrationsReportReturnsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20075> {
             return localVarFp.apiV1IntegrationsReportReturnsGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Удалить отчеты
          * @summary Удалить отчеты
          * @param {'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'returns'} table Название таблицы
-         * @param {InlineObject86} [body] 
+         * @param {InlineObject87} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsRowsFromReportDelete(table: 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'returns', body?: InlineObject86, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IntegrationsRowsFromReportDelete(table: 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'returns', body?: InlineObject87, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsRowsFromReportDelete(table, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1479,7 +1573,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20066> {
+        apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20069> {
             return localVarFp.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1496,23 +1590,23 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
         /**
          * ## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Массив всех SKU с должны принадлежать данному магазину Только для клиента
          * @summary # Привязать к товару SKU.
-         * @param {InlineObject81} [body] 
+         * @param {InlineObject82} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(body?: InlineObject81, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(body?: InlineObject82, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Отвязать товар от SKU.  Нужна проверка может ли данный пользователь удалять связи!!!(пока такой проверки нет)
          * @summary # Отвязать товар от SKU.
-         * @param {InlineObject85} [body] 
+         * @param {InlineObject86} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(body?: InlineObject85, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(body?: InlineObject86, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1528,7 +1622,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsSellerboardWarehouseStocksGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20065> {
+        apiV1IntegrationsSellerboardWarehouseStocksGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20068> {
             return localVarFp.apiV1IntegrationsSellerboardWarehouseStocksGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1555,7 +1649,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsWarehouseReportGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20065> {
+        apiV1IntegrationsWarehouseReportGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20068> {
             return localVarFp.apiV1IntegrationsWarehouseReportGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -1569,10 +1663,10 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
 export interface IntegrationsApiApiV1IntegrationsCreateAndLinkSkuProductsPostRequest {
     /**
      * 
-     * @type {InlineObject84}
+     * @type {InlineObject85}
      * @memberof IntegrationsApiApiV1IntegrationsCreateAndLinkSkuProductsPost
      */
-    readonly body?: InlineObject84
+    readonly body?: InlineObject85
 
     /**
      * 
@@ -1688,15 +1782,64 @@ export interface IntegrationsApiApiV1IntegrationsReportInventoryGetRequest {
 export interface IntegrationsApiApiV1IntegrationsReportInventoryProductsLinkSkuPatchRequest {
     /**
      * 
-     * @type {InlineObject82}
+     * @type {InlineObject83}
      * @memberof IntegrationsApiApiV1IntegrationsReportInventoryProductsLinkSkuPatch
      */
-    readonly body?: InlineObject82
+    readonly body?: InlineObject83
 
     /**
      * 
      * @type {string}
      * @memberof IntegrationsApiApiV1IntegrationsReportInventoryProductsLinkSkuPatch
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
+ * Request parameters for apiV1IntegrationsReportInventoryShipmentsFromParserGet operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGetRequest
+ */
+export interface IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGetRequest {
+    /**
+     * Лимит записей для пагинации
+     * @type {number}
+     * @memberof IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGet
+     */
+    readonly limit?: number
+
+    /**
+     * Смещение для пагинации
+     * @type {number}
+     * @memberof IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGet
+     */
+    readonly offset?: number
+
+    /**
+     * Название поля
+     * @type {string}
+     * @memberof IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGet
+     */
+    readonly sortField?: string
+
+    /**
+     * Тип сортировки
+     * @type {'ASC' | 'DESC'}
+     * @memberof IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGet
+     */
+    readonly sortType?: 'ASC' | 'DESC'
+
+    /**
+     * Игнорировать данные в кеше
+     * @type {boolean}
+     * @memberof IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGet
+     */
+    readonly noCache?: boolean
+
+    /**
+     * 
+     * @type {string}
+     * @memberof IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGet
      */
     readonly acceptEncoding?: string
 }
@@ -1877,10 +2020,10 @@ export interface IntegrationsApiApiV1IntegrationsReportPpcSalesWeeksGetRequest {
 export interface IntegrationsApiApiV1IntegrationsReportProductsLinkSkuPatchRequest {
     /**
      * 
-     * @type {InlineObject83}
+     * @type {InlineObject84}
      * @memberof IntegrationsApiApiV1IntegrationsReportProductsLinkSkuPatch
      */
-    readonly body?: InlineObject83
+    readonly body?: InlineObject84
 
     /**
      * Background task?
@@ -1968,10 +2111,10 @@ export interface IntegrationsApiApiV1IntegrationsRowsFromReportDeleteRequest {
 
     /**
      * 
-     * @type {InlineObject86}
+     * @type {InlineObject87}
      * @memberof IntegrationsApiApiV1IntegrationsRowsFromReportDelete
      */
-    readonly body?: InlineObject86
+    readonly body?: InlineObject87
 
     /**
      * 
@@ -2066,10 +2209,10 @@ export interface IntegrationsApiApiV1IntegrationsSellerboardDashboardProductsDay
 export interface IntegrationsApiApiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatchRequest {
     /**
      * 
-     * @type {InlineObject81}
+     * @type {InlineObject82}
      * @memberof IntegrationsApiApiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch
      */
-    readonly body?: InlineObject81
+    readonly body?: InlineObject82
 
     /**
      * 
@@ -2087,10 +2230,10 @@ export interface IntegrationsApiApiV1IntegrationsSellerboardWarehouseProductsLin
 export interface IntegrationsApiApiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatchRequest {
     /**
      * 
-     * @type {InlineObject85}
+     * @type {InlineObject86}
      * @memberof IntegrationsApiApiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch
      */
-    readonly body?: InlineObject85
+    readonly body?: InlineObject86
 
     /**
      * 
@@ -2298,6 +2441,18 @@ export class IntegrationsApi extends BaseAPI {
      */
     public apiV1IntegrationsReportInventoryProductsLinkSkuPatch(requestParameters: IntegrationsApiApiV1IntegrationsReportInventoryProductsLinkSkuPatchRequest = {}, options?: any) {
         return IntegrationsApiFp(this.configuration).apiV1IntegrationsReportInventoryProductsLinkSkuPatch(requestParameters.body, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * ## Получить отчет Shipments.
+     * @summary Получить отчет Shipments.
+     * @param {IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public apiV1IntegrationsReportInventoryShipmentsFromParserGet(requestParameters: IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGetRequest = {}, options?: any) {
+        return IntegrationsApiFp(this.configuration).apiV1IntegrationsReportInventoryShipmentsFromParserGet(requestParameters.limit, requestParameters.offset, requestParameters.sortField, requestParameters.sortType, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

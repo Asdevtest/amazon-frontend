@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
-import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-storekeepers-tariff-logistics-destination-variations';
 
 /**
  * 
@@ -23,71 +21,47 @@ import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-
  */
 export interface InlineObject132 {
     /**
-     * Тип тарифа
-     * @type {number}
-     * @memberof InlineObject132
-     */
-    tariffType?: number;
-    /**
-     * Название тарифа
+     * Название склада.
      * @type {string}
      * @memberof InlineObject132
      */
-    name: string;
+    name?: string;
     /**
-     * Описание тарифа
+     * Страна.
      * @type {string}
      * @memberof InlineObject132
      */
-    description?: string;
+    country?: string;
     /**
-     * Время доставки, днях
+     * Индекс. 5 цифр.
      * @type {string}
      * @memberof InlineObject132
      */
-    deliveryTimeInDay?: string;
+    zipCode?: string;
     /**
-     * Дата закрытия приема новых грузов.
+     * Штат.
      * @type {string}
      * @memberof InlineObject132
      */
-    cls?: string;
+    state?: string;
     /**
-     * Ожидаема дата отбытия.
+     * Город.
      * @type {string}
      * @memberof InlineObject132
      */
-    etd?: string;
+    city?: string;
     /**
-     * Ожидаема дата прибытия.
+     * Адрес склада.
      * @type {string}
      * @memberof InlineObject132
      */
-    eta?: string;
+    address?: string;
     /**
-     * Минимальный вес, в кг
-     * @type {number}
+     * Цвет шрифта
+     * @type {string}
      * @memberof InlineObject132
      */
-    minWeightInKg?: number;
-    /**
-     * Заархивирован ли тариф
-     * @type {boolean}
-     * @memberof InlineObject132
-     */
-    archive?: boolean;
-    /**
-     * 
-     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
-     * @memberof InlineObject132
-     */
-    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
-    /**
-     * 
-     * @type {Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>}
-     * @memberof InlineObject132
-     */
-    destinationVariations?: Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>;
+    fontColor?: string;
 }
 
 

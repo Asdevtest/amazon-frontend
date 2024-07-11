@@ -34,14 +34,26 @@ import { t } from '@utils/translations'
 import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { productColumnMenuItems, productColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+import {
+  productionTimeColumnMenuItems,
+  productionTimeColumnMenuValue,
+} from '@config/data-grid-column-menu/production-time'
+import { payColumnMenuItems, payColumnMenuValue } from '@config/data-grid-column-menu/to-pay-column'
+
 interface buyerOrdersColumnsParams {
   rowHandlers: {
     onClickPaymentMethodsCell: (row: IOrder) => void
   }
   isShowPartialPayment: boolean
+  isDisableCustomSort: boolean
 }
 
-export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerOrdersColumnsParams) => {
+export const buyerOrdersColumns = ({
+  rowHandlers,
+  isShowPartialPayment,
+  isDisableCustomSort,
+}: buyerOrdersColumnsParams) => {
   const columns: IGridColumn[] = [
     {
       field: 'id',
@@ -89,12 +101,13 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
           />
         )
       },
-      width: 280,
-      sortable: false,
       valueGetter: params => `ASIN: ${params.row.product.asin ?? ''}, SKU: ${params.row.product.skuByClient ?? ''}`,
 
-      table: DataGridFilterTables.PRODUCTS,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+      fields: productColumnMenuItems,
+      columnMenuConfig: productColumnMenuValue,
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 250,
     },
 
     {
@@ -122,7 +135,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       ),
       width: 140,
       sortable: false,
-
+      disableCustomSort: isDisableCustomSort,
       columnKey: columnnsKeys.client.ORDERS_STATUS,
     },
 
@@ -164,6 +177,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       width: 180,
       sortable: false,
 
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.PAYMENTS,
     },
 
@@ -182,9 +196,11 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       valueGetter: params =>
         toFixed(params.row.partialPayment ? params.row.partialPaymentAmountRmb : params.row.priceInYuan, 2) || '0',
       type: 'number',
-      width: 115,
 
-      columnKey: columnnsKeys.buyer.TO_PAY,
+      fields: payColumnMenuItems,
+      columnMenuConfig: payColumnMenuValue,
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      width: 115,
     },
 
     {
@@ -202,6 +218,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       align: 'center',
       sortable: false,
       filterable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -215,6 +232,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {
@@ -235,22 +253,12 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
 
-      fields: [
-        {
-          label: 'Min. production time, days',
-          value: 'minProductionTerm',
-        },
-        {
-          label: 'Max. production time, days',
-          value: 'maxProductionTerm',
-        },
-      ],
+      fields: productionTimeColumnMenuItems,
+      columnMenuConfig: productionTimeColumnMenuValue,
+      columnKey: columnnsKeys.shared.MULTIPLE,
 
       width: 120,
-      sortable: false,
-
-      columnKey: columnnsKeys.shared.NUMBERS,
-      table: DataGridFilterTables.SUPPLIERS,
+      disableCustomSort: true,
     },
 
     {
@@ -311,6 +319,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       sortable: false,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {
@@ -323,6 +332,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {

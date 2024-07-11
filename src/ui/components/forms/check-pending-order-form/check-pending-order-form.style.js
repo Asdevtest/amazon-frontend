@@ -6,7 +6,6 @@ export const useStyles = makeStyles()(theme => ({
     minHeight: '150px',
     maxHeight: '900px',
     overflowY: 'auto',
-    padding: 10,
     display: 'flex',
     flexDirection: 'column',
   },

@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
 
 /**
  * 
@@ -21,11 +22,155 @@
  */
 export interface InlineObject116 {
     /**
-     * Причины закрытия приема предложений.
+     * ASIN продукта
      * @type {string}
      * @memberof InlineObject116
      */
-    reason?: string;
+    asin: string;
+    /**
+     * Ссылка на этот продукт на амазоне.
+     * @type {string}
+     * @memberof InlineObject116
+     */
+    lamazon: string;
+    /**
+     * GUID поставщика
+     * @type {string}
+     * @memberof InlineObject116
+     */
+    currentSupplierId?: string;
+    /**
+     * Категория
+     * @type {string}
+     * @memberof InlineObject116
+     */
+    category?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject116
+     */
+    bsr?: number;
+    /**
+     * Признак fba
+     * @type {boolean}
+     * @memberof InlineObject116
+     */
+    fba?: boolean;
+    /**
+     *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
+     * @type {number}
+     * @memberof InlineObject116
+     */
+    status?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject116
+     */
+    amazon?: number;
+    /**
+     * Массив поставщиков.
+     * @type {Array<string>}
+     * @memberof InlineObject116
+     */
+    suppliersIds?: Array<string>;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject116
+     */
+    fbafee?: number;
+    /**
+     * Комментарии к товару.
+     * @type {string}
+     * @memberof InlineObject116
+     */
+    icomment?: string;
+    /**
+     * Массив изображений.
+     * @type {Array<string>}
+     * @memberof InlineObject116
+     */
+    images?: Array<string>;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject116
+     */
+    reffee?: number;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineObject116
+     */
+    strategyStatus?: number;
+    /**
+     * Ниша
+     * @type {string}
+     * @memberof InlineObject116
+     */
+    niche?: string;
+    /**
+     * Асины
+     * @type {string}
+     * @memberof InlineObject116
+     */
+    asins?: string;
+    /**
+     * Общий доход
+     * @type {string}
+     * @memberof InlineObject116
+     */
+    totalRevenue?: string;
+    /**
+     * Коэффициент прибыли
+     * @type {string}
+     * @memberof InlineObject116
+     */
+    coefficient?: string;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineObject116
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineObject116
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineObject116
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineObject116
+     */
+    avgReviews?: string;
+    /**
+     * Дополнительная инфа для дозакупок
+     * @type {number}
+     * @memberof InlineObject116
+     */
+    fourMonthesStock?: number;
+    /**
+     * ID магазинa продукта
+     * @type {string}
+     * @memberof InlineObject116
+     */
+    shopId?: string;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @memberof InlineObject116
+     */
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
 }
 
 

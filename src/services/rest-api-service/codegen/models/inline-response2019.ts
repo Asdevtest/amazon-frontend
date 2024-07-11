@@ -21,17 +21,11 @@
  */
 export interface InlineResponse2019 {
     /**
-     * Тестовый статус запуска
+     * Имя файла для доступа к нему.
      * @type {string}
      * @memberof InlineResponse2019
      */
-    status?: string;
-    /**
-     * Строка подключения к WS соединению
-     * @type {string}
-     * @memberof InlineResponse2019
-     */
-    wsUrl?: string;
+    fileName?: string;
 }
 
 

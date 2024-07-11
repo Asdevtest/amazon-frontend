@@ -21,17 +21,29 @@
  */
 export interface InlineResponse200107 {
     /**
-     * userAgent с которым был получен токен
+     * 
      * @type {string}
      * @memberof InlineResponse200107
      */
-    device: string;
+    _id?: string;
     /**
      * 
      * @type {string}
      * @memberof InlineResponse200107
      */
-    createdAt: string;
+    title?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse200107
+     */
+    type?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineResponse200107
+     */
+    archive?: boolean;
 }
 
 

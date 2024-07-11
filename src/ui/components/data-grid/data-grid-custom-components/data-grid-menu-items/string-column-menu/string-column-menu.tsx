@@ -1,7 +1,11 @@
 import { FC, memo } from 'react'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { Checkbox } from '@components/shared/checkbox'
 import { SearchInput } from '@components/shared/search-input'
+
+import { t } from '@utils/translations'
 
 import { useStyles as useSharedStyles } from '../column-menu.style'
 
@@ -77,9 +81,11 @@ export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
             >
               <p
                 title={value}
-                className={cx(sharedStyles.filterTitle, { [sharedStyles.filterFullTitle]: isShowFullText })}
+                className={cx(sharedStyles.filterTitle, {
+                  [sharedStyles.filterFullTitle]: isShowFullText,
+                })}
               >
-                {value}
+                {value || t(TranslationKey.Empty)}
               </p>
             </Checkbox>
           )

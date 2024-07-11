@@ -16,8 +16,4 @@ export const useStyles = makeStyles()(() => ({
       transform: 'scale(0.98)',
     },
   },
-
-  modalDialogContext: {
-    padding: 0,
-  },
 }))

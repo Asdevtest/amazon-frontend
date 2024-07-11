@@ -200,7 +200,7 @@
   "Vacant requests": "Вакантные заявки",
   "My proposals": "Мои предложения",
   "Commodity exchange": "Биржа товаров",
-  "Research Exchenge": "Биржа вилок",
+  "Research exchange": "Биржа вилок",
   "My orders": "Мои заказы",
   "Shops": "Магазины",
   "Notifications": "Уведомления",
@@ -1986,5 +1986,6 @@
   "Today": "Сегодня",
   "Last seen": "Был(а) в сети {{date}}",
   "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "Выберите наиболее эффективную ставку, разделите партии на несколько покупок, если вам нужно отправить на разные склады",
-  "Order quantity": "Количество заказа"
+  "Order quantity": "Количество заказа",
+  "Are you sure you want to remove the report?": "Вы уверены, что хотите удалить отчет?"
 }

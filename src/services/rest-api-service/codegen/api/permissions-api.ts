@@ -25,9 +25,11 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject92 } from '../models';
+import { InlineObject88 } from '../models';
 // @ts-ignore
-import { InlineObject93 } from '../models';
+import { InlineObject89 } from '../models';
+// @ts-ignore
+import { InlineResponse20076 } from '../models';
 // @ts-ignore
 import { InlineResponse20077 } from '../models';
 // @ts-ignore
@@ -96,6 +98,44 @@ export const PermissionsApiAxiosParamCreator = function (configuration?: Configu
             if (noCache !== undefined) {
                 localVarQueryParameter['noCache'] = noCache;
             }
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ## Получить список permissions для SideBar
+         * @summary Получить список permissions для SideBar
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1PermissionsGroupNavGet: async (acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/permissions/group/nav`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (acceptEncoding !== undefined && acceptEncoding !== null) {
                 localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
@@ -624,12 +664,12 @@ export const PermissionsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * ## Переписать разрешения для продукта для саба.
          * @summary Переписать разрешения для продукта для саба.
-         * @param {InlineObject92} [body] 
+         * @param {InlineObject88} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsProductsPatch: async (body?: InlineObject92, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1PermissionsProductsPatch: async (body?: InlineObject88, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/permissions/products`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -754,12 +794,12 @@ export const PermissionsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * ## Переписать разрешения для магазина для юзера.
          * @summary Переписать разрешения для магазина для юзера.
-         * @param {InlineObject93} [body] 
+         * @param {InlineObject89} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsShopsPatch: async (body?: InlineObject93, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1PermissionsShopsPatch: async (body?: InlineObject89, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/permissions/shops`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -814,6 +854,17 @@ export const PermissionsApiFp = function(configuration?: Configuration) {
          */
         async apiV1PermissionsGet(role?: 10 | 20 | 30 | 35 | 40 | 45 | 60, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PermissionGetDtoSchema>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsGet(role, noCache, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * ## Получить список permissions для SideBar
+         * @summary Получить список permissions для SideBar
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1PermissionsGroupNavGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20076>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsGroupNavGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -960,12 +1011,12 @@ export const PermissionsApiFp = function(configuration?: Configuration) {
         /**
          * ## Переписать разрешения для продукта для саба.
          * @summary Переписать разрешения для продукта для саба.
-         * @param {InlineObject92} [body] 
+         * @param {InlineObject88} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1PermissionsProductsPatch(body?: InlineObject92, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1PermissionsProductsPatch(body?: InlineObject88, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsProductsPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -997,12 +1048,12 @@ export const PermissionsApiFp = function(configuration?: Configuration) {
         /**
          * ## Переписать разрешения для магазина для юзера.
          * @summary Переписать разрешения для магазина для юзера.
-         * @param {InlineObject93} [body] 
+         * @param {InlineObject89} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1PermissionsShopsPatch(body?: InlineObject93, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1PermissionsShopsPatch(body?: InlineObject89, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsShopsPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1027,6 +1078,16 @@ export const PermissionsApiFactory = function (configuration?: Configuration, ba
          */
         apiV1PermissionsGet(role?: 10 | 20 | 30 | 35 | 40 | 45 | 60, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<PermissionGetDtoSchema>> {
             return localVarFp.apiV1PermissionsGet(role, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Получить список permissions для SideBar
+         * @summary Получить список permissions для SideBar
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1PermissionsGroupNavGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20076>> {
+            return localVarFp.apiV1PermissionsGroupNavGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Получить список групп permissions.   
@@ -1161,12 +1222,12 @@ export const PermissionsApiFactory = function (configuration?: Configuration, ba
         /**
          * ## Переписать разрешения для продукта для саба.
          * @summary Переписать разрешения для продукта для саба.
-         * @param {InlineObject92} [body] 
+         * @param {InlineObject88} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsProductsPatch(body?: InlineObject92, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1PermissionsProductsPatch(body?: InlineObject88, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1PermissionsProductsPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1195,12 +1256,12 @@ export const PermissionsApiFactory = function (configuration?: Configuration, ba
         /**
          * ## Переписать разрешения для магазина для юзера.
          * @summary Переписать разрешения для магазина для юзера.
-         * @param {InlineObject93} [body] 
+         * @param {InlineObject89} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsShopsPatch(body?: InlineObject93, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1PermissionsShopsPatch(body?: InlineObject89, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1PermissionsShopsPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -1230,6 +1291,20 @@ export interface PermissionsApiApiV1PermissionsGetRequest {
      * 
      * @type {string}
      * @memberof PermissionsApiApiV1PermissionsGet
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
+ * Request parameters for apiV1PermissionsGroupNavGet operation in PermissionsApi.
+ * @export
+ * @interface PermissionsApiApiV1PermissionsGroupNavGetRequest
+ */
+export interface PermissionsApiApiV1PermissionsGroupNavGetRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof PermissionsApiApiV1PermissionsGroupNavGet
      */
     readonly acceptEncoding?: string
 }
@@ -1536,10 +1611,10 @@ export interface PermissionsApiApiV1PermissionsProductsPagGetRequest {
 export interface PermissionsApiApiV1PermissionsProductsPatchRequest {
     /**
      * 
-     * @type {InlineObject92}
+     * @type {InlineObject88}
      * @memberof PermissionsApiApiV1PermissionsProductsPatch
      */
-    readonly body?: InlineObject92
+    readonly body?: InlineObject88
 
     /**
      * 
@@ -1606,10 +1681,10 @@ export interface PermissionsApiApiV1PermissionsShopsGuidGetRequest {
 export interface PermissionsApiApiV1PermissionsShopsPatchRequest {
     /**
      * 
-     * @type {InlineObject93}
+     * @type {InlineObject89}
      * @memberof PermissionsApiApiV1PermissionsShopsPatch
      */
-    readonly body?: InlineObject93
+    readonly body?: InlineObject89
 
     /**
      * 
@@ -1636,6 +1711,18 @@ export class PermissionsApi extends BaseAPI {
      */
     public apiV1PermissionsGet(requestParameters: PermissionsApiApiV1PermissionsGetRequest = {}, options?: any) {
         return PermissionsApiFp(this.configuration).apiV1PermissionsGet(requestParameters.role, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * ## Получить список permissions для SideBar
+     * @summary Получить список permissions для SideBar
+     * @param {PermissionsApiApiV1PermissionsGroupNavGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PermissionsApi
+     */
+    public apiV1PermissionsGroupNavGet(requestParameters: PermissionsApiApiV1PermissionsGroupNavGetRequest = {}, options?: any) {
+        return PermissionsApiFp(this.configuration).apiV1PermissionsGroupNavGet(requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

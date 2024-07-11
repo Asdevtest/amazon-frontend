@@ -99,6 +99,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
 
       renderCell: params => <UserLinkCell name={params.row?.createdBy?.name} userId={params.row?.createdBy?._id} />,
       valueGetter: params => params.value.name,
+      hideEmptyObject: true,
 
       columnKey: userBalance ? undefined : columnnsKeys.shared.OBJECT_VALUE,
     },
@@ -112,6 +113,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
 
       renderCell: params => <UserLinkCell name={params.row?.recipient?.name} userId={params.row?.recipient?._id} />,
       valueGetter: params => params.value.name,
+      hideEmptyObject: true,
 
       columnKey: userBalance ? undefined : columnnsKeys.shared.OBJECT_VALUE,
     },

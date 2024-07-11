@@ -13,34 +13,19 @@
  */
 
 
-import { ApiV1RequestProposalsCustomByRequestIdGuidDetails } from './api-v1-request-proposals-custom-by-request-id-guid-details';
-import { ApiV1RequestProposalsCustomByRequestIdGuidProposal } from './api-v1-request-proposals-custom-by-request-id-guid-proposal';
-import { ApiV1RequestProposalsCustomByRequestIdGuidRequest } from './api-v1-request-proposals-custom-by-request-id-guid-request';
 
 /**
- * Схема универсального предложения
+ * 
  * @export
  * @interface InlineResponse200115
  */
 export interface InlineResponse200115 {
     /**
-     * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidProposal}
+     * Human readable password
+     * @type {string}
      * @memberof InlineResponse200115
      */
-    proposal?: ApiV1RequestProposalsCustomByRequestIdGuidProposal;
-    /**
-     * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidDetails}
-     * @memberof InlineResponse200115
-     */
-    details?: ApiV1RequestProposalsCustomByRequestIdGuidDetails;
-    /**
-     * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidRequest}
-     * @memberof InlineResponse200115
-     */
-    request?: ApiV1RequestProposalsCustomByRequestIdGuidRequest;
+    password?: string;
 }
 
 

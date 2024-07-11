@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
-import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-storekeepers-tariff-logistics-destination-variations';
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
+import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
 
 /**
  * 
@@ -23,65 +23,227 @@ import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-
  */
 export interface InlineObject133 {
     /**
-     * Название тарифа
+     * Категория
      * @type {string}
      * @memberof InlineObject133
      */
-    name?: string;
+    category?: string;
     /**
-     * Описание тарифа
+     * Ссылка на этот продукт на амазоне.
      * @type {string}
      * @memberof InlineObject133
      */
-    description?: string;
+    lamazon?: string;
     /**
-     * Время доставки, днях
-     * @type {string}
-     * @memberof InlineObject133
-     */
-    deliveryTimeInDay?: string;
-    /**
-     * Дата закрытия приема новых грузов.
-     * @type {string}
-     * @memberof InlineObject133
-     */
-    cls?: string;
-    /**
-     * Ожидаема дата отбытия.
-     * @type {string}
-     * @memberof InlineObject133
-     */
-    etd?: string;
-    /**
-     * Ожидаема дата прибытия.
-     * @type {string}
-     * @memberof InlineObject133
-     */
-    eta?: string;
-    /**
-     * Минимальный вес, в кг
+     * 
      * @type {number}
      * @memberof InlineObject133
      */
-    minWeightInKg?: number;
+    bsr?: number;
     /**
-     * Заархивирован ли тариф
+     * Признак fba
      * @type {boolean}
      * @memberof InlineObject133
      */
-    archive?: boolean;
+    fba?: boolean;
     /**
      * 
-     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
+     * @type {number}
      * @memberof InlineObject133
      */
-    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
+    amazon?: number;
     /**
      * 
-     * @type {Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>}
+     * @type {number}
      * @memberof InlineObject133
      */
-    destinationVariations?: Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>;
+    height?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject133
+     */
+    width?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject133
+     */
+    length?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject133
+     */
+    weight?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject133
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject133
+     */
+    fbafee?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineObject133
+     */
+    fbaamount?: number;
+    /**
+     * См. описание статусов например в readMe.md
+     * @type {number}
+     * @memberof InlineObject133
+     */
+    status?: number;
+    /**
+     * Комментарии к товару.
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    icomment?: string;
+    /**
+     * Массив изображений.
+     * @type {Array<string>}
+     * @memberof InlineObject133
+     */
+    images?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    amazonDescription?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    amazonDetail?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    amazonTitle?: string;
+    /**
+     * Материл продукта
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    material?: string;
+    /**
+     * Применение продукта
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    productUsage?: string;
+    /**
+     * chinese title?
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    chinaTitle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    barCode?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject133
+     */
+    minpurchase?: number;
+    /**
+     * Прибыль
+     * @type {number}
+     * @memberof InlineObject133
+     */
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject133
+     */
+    margin?: number;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineObject133
+     */
+    strategyStatus?: number;
+    /**
+     * Ниша
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    niche?: string;
+    /**
+     * Асины
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    asins?: string;
+    /**
+     * Общий доход
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    totalRevenue?: string;
+    /**
+     * Коэффициент прибыли
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    coefficient?: string;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    avgReviews?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsGuidRedFlags>}
+     * @memberof InlineObject133
+     */
+    redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @memberof InlineObject133
+     */
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
+    /**
+     * Комментарий к статусу проверки.
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    checkednotes?: string;
 }
 
 

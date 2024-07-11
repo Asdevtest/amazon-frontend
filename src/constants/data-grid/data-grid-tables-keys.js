@@ -62,6 +62,8 @@ export const DataGridTablesKeys = {
 
   BUYER_PENDING_ORDERS: 'buyerPendingOrdersDataGridState',
   BUYER_MY_ORDERS_NOT_PAID: 'buyerMyOrdersNotPaidDataGridState',
+  BUYER_MY_ORDERS_READY_FOR_PAYMENT: 'buyerMyOrdersReadyForPaymentDataGridState',
+  BUYER_MY_ORDERS_PARTIALLY_PAID: 'buyerMyOrdersPartiallyPaidDataGridState',
   BUYER_MY_ORDERS_NEED_TRACK_NUMBER: 'buyerMyOrdersNeedTrackNumberDataGridState',
   BUYER_MY_ORDERS_INBOUND: 'buyerMyOrdersInboundDataGridState',
   BUYER_MY_ORDERS_CONFIRMATION_REQUIRED: 'buyerMyOrdersConfirmationRequiredDataGridState',

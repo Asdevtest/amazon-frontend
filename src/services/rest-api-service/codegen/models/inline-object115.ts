@@ -21,35 +21,17 @@
  */
 export interface InlineObject115 {
     /**
-     * Время на выполнение, в минутах.
-     * @type {number}
-     * @memberof InlineObject115
-     */
-    execution_time?: number;
-    /**
-     * Цена предложения.
-     * @type {number}
-     * @memberof InlineObject115
-     */
-    price?: number;
-    /**
-     * Комментарий к предложению.
+     * Гуид идеи в статусе onChecked(10)
      * @type {string}
      * @memberof InlineObject115
      */
-    comment?: string;
+    onCheckedIdeaId?: string;
     /**
-     * Ссылки на медиафайлы.
-     * @type {Array<string>}
-     * @memberof InlineObject115
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * Название предложения
+     * Гуид идеи в статусе finished(20)
      * @type {string}
      * @memberof InlineObject115
      */
-    title?: string;
+    onFinishedIdeaId?: string;
 }
 
 

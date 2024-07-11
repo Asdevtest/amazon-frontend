@@ -58,6 +58,7 @@ class ProductModelStatic {
       dataFromInventory,
       preset,
       archive,
+      noCache: true,
     })
     return response.data
   }

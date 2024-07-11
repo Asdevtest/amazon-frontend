@@ -21,17 +21,11 @@
  */
 export interface InlineObject92 {
     /**
-     * 
+     * GUID магазина, которую нужно добавить к продукту
      * @type {string}
      * @memberof InlineObject92
      */
-    userId?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject92
-     */
-    productIds?: Array<string>;
+    shopId?: string;
 }
 
 

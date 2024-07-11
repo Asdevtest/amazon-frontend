@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     position: 'relative',
-    paddingRight: 10,
   },
   boxesWrapper: {
     display: 'flex',

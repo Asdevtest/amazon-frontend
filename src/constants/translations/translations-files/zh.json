@@ -200,7 +200,7 @@
   "Vacant requests": "空闲的的请求",
   "My proposals": "我的建议",
   "Commodity exchange": "商品交易所",
-  "Research Exchenge": "利润的交易所",
+  "Research exchange": "利润的交易所",
   "My orders": "我的订单",
   "Shops": "商店",
   "Notifications": "通知",
@@ -1979,5 +1979,6 @@
   "Today": "今天",
   "Last seen": "最后一次查看 {{date}}",
   "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "选择最有效的费率，如果需要运送到不同的仓库，请将批次拆分为多个采购订单",
-  "Order quantity": "订单数量"
+  "Order quantity": "订单数量",
+  "Are you sure you want to remove the report?": "您确定要删除报告吗?"
 }

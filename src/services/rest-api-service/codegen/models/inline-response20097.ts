@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse2006 } from './inline-response2006';
 
 /**
  * 
@@ -22,17 +21,17 @@ import { InlineResponse2006 } from './inline-response2006';
  */
 export interface InlineResponse20097 {
     /**
-     * Общее кол-во записей
-     * @type {number}
+     * Гуид магазина
+     * @type {string}
      * @memberof InlineResponse20097
      */
-    count?: number;
+    _id: string;
     /**
-     * 
-     * @type {Array<InlineResponse2006>}
+     * Название магазина
+     * @type {string}
      * @memberof InlineResponse20097
      */
-    rows?: Array<InlineResponse2006>;
+    name: string;
 }
 
 

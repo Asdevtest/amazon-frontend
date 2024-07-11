@@ -6,7 +6,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     width: '1140px',
     gap: 20,
-    padding: 10,
   },
   form: {
     display: 'flex',

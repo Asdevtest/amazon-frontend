@@ -24,12 +24,15 @@ export const useStyles = makeStyles()(theme => ({
 
   contentWrapper: {
     position: 'relative',
-    padding: 20, // 20 - for test, before was 30
+    padding: 10,
     background: theme.palette.background.second,
-    borderRadius: 20,
+    borderRadius: 16,
+
+    '& > div': {
+      padding: 10, // for child's box-shadow
+    },
 
     [theme.breakpoints.down(768)]: {
-      padding: 20,
       height: '100%',
       width: '100%',
       borderRadius: 0,

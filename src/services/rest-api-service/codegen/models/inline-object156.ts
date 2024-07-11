@@ -13,27 +13,19 @@
  */
 
 
-import { ApiV1RequestsCustomDetails } from './api-v1-requests-custom-details';
-import { ApiV1RequestsCustomRequest } from './api-v1-requests-custom-request';
 
 /**
- * Схема универсальной заявки.
+ * 
  * @export
  * @interface InlineObject156
  */
 export interface InlineObject156 {
     /**
-     * 
-     * @type {ApiV1RequestsCustomRequest}
+     * Shop guid
+     * @type {string}
      * @memberof InlineObject156
      */
-    request: ApiV1RequestsCustomRequest;
-    /**
-     * 
-     * @type {ApiV1RequestsCustomDetails}
-     * @memberof InlineObject156
-     */
-    details: ApiV1RequestsCustomDetails;
+    shopId: string;
 }
 
 

@@ -13,128 +13,272 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20073Request } from './inline-response20073-request';
+import { InlineResponse20042InventoryShop } from './inline-response20042-inventory-shop';
 
 /**
- * 
+ * Схема репорта amazon_data
  * @export
  * @interface InlineResponse20073Rows
  */
 export interface InlineResponse20073Rows {
     /**
-     * Guid продожения к заявке.
+     * Гуид записи
      * @type {string}
      * @memberof InlineResponse20073Rows
      */
     _id?: string;
     /**
-     * Название предложения
+     * 
      * @type {string}
      * @memberof InlineResponse20073Rows
      */
-    title?: string;
+    productId?: string;
     /**
-     * Тип предложения.
+     * 
+     * @type {InlineResponse20042InventoryShop}
+     * @memberof InlineResponse20073Rows
+     */
+    shop?: InlineResponse20042InventoryShop;
+    /**
+     * Гуид shop-a
      * @type {string}
      * @memberof InlineResponse20073Rows
      */
-    type?: string;
+    shopId?: string;
     /**
-     *  CREATED - предложение по заявке создано, с ценой и временем выполнения от исполнителя OFFER_CONDITIONS_ACCEPTED - условия предложения были приняты клиентом, после этого начиначется отсчет времени на выполнение заявки, с этого статуса можно перейти только на READY_TO_VERIFY, с этого момента начинаем учитывать этого исполнителя в счетчике людей работающих по заявке OFFER_CONDITIONS_REJECTED - условия предложения были отклонены клиентом. После изменения условий клиентом выставляется статус OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_CORRECTED - исполнитель отредактировал свои условия по предложению чтобы клиент опять их посмотрел и решил принимает или нет, после этого статуса можно опять перейти на OFFER_CONDITIONS_ACCEPTED или OFFER_CONDITIONS_REJECTED READY_TO_VERIFY - статус выставляет исполнитель, статус говорит о том что исполнитель выполнил работу и клиент/супервизор может ее проверять, после этого статуса можно выставить VERIFYING_BY_SUPERVISOR или TO_CORRECT, а так же закрывающие статусы VERIFYING_BY_SUPERVISOR - работа проверяется супервизором TO_CORRECT - отправляется на доработку от клиента/супервизора CORRECTED - исполнитель отмечает работу как исправленная CANCELED_BY_CREATOR_OF_REQUEST - предложение закрывается клиентом, обязательно с комментарием, финальный статус, может быть выставлено только при статусе OFFER_CONDITIONS_REJECTED. Думаю что тут будет еще условия но нужно это обсудить. Этот статус не очень безопасный или может привести к перегрузу админа для решения конфликтных ситуаций CANCELED_BY_SUPERVISOR - предложение закрывается супервизором, обязательно с комментарием, финальный статус, может быть выставлен в любой момент. Тут должна появиться возможность создать запрос в поддержку для решения конфликтных ситуаций, это позже обсудим. CANCELED_BY_EXECUTOR - закрыто исполнителем, обязательно с комментарием, финальный статус, может быть выставлен в любой момент ACCEPTED_BY_CLIENT - принято клиентом, происходи оплата ACCEPTED_BY_SUPERVISOR - принято супервизором, происходи оплата EXPIRED - проставляется автоматически, если время указанное в предложении от исполнителя истекло а предложение не было уже в одном из финальных статусов 
+     * asin
      * @type {string}
      * @memberof InlineResponse20073Rows
      */
-    status?: InlineResponse20073RowsStatusEnum;
+    asin?: string;
     /**
-     * Время закрытия предложения.
+     * sku
      * @type {string}
      * @memberof InlineResponse20073Rows
      */
-    timeoutAt?: string;
+    sku?: string;
     /**
-     * Уведомление о таймауте
-     * @type {boolean}
+     * period_start
+     * @type {string}
      * @memberof InlineResponse20073Rows
      */
-    timeoutNotified?: boolean;
+    periodStart?: string;
     /**
-     * Количество доработок по заявке
+     * period_end
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    periodEnd?: string;
+    /**
+     * week
      * @type {number}
      * @memberof InlineResponse20073Rows
      */
-    reworkCounter?: number;
+    week?: number;
     /**
-     * Время на выполнение, в часах.
+     * acos
      * @type {number}
      * @memberof InlineResponse20073Rows
      */
-    execution_time?: number;
+    acos?: number;
     /**
-     * Количество попыток, подать предложение или исправить результат работы.
+     * image
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    image?: string;
+    /**
+     * ppc_impressions
      * @type {number}
      * @memberof InlineResponse20073Rows
      */
-    attempts?: number;
+    ppcImpressions?: number;
     /**
-     * 
-     * @type {boolean}
+     * clicks
+     * @type {number}
      * @memberof InlineResponse20073Rows
      */
-    approvedByMaster?: boolean;
+    clicks?: number;
     /**
-     * 
-     * @type {InlineResponse20073Request}
+     * spend
+     * @type {number}
      * @memberof InlineResponse20073Rows
      */
-    request?: InlineResponse20073Request;
+    spend?: number;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * ppc_orders
+     * @type {number}
      * @memberof InlineResponse20073Rows
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    ppcOrders?: number;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * ppc_units
+     * @type {number}
      * @memberof InlineResponse20073Rows
      */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    ppcUnits?: number;
     /**
-     * Дата создания
+     * ppc_sales
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    ppcSales?: number;
+    /**
+     * order_sales_cost
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    orderSalesCost?: number;
+    /**
+     * unit_sales_cost
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    unitSalesCost?: number;
+    /**
+     * organic_sessions
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    organicSessions?: number;
+    /**
+     * organic_orders
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    organicOrders?: number;
+    /**
+     * organic_units
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    organicUnits?: number;
+    /**
+     * organic_sales
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    organicSales?: number;
+    /**
+     * organic_avg_order_price
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    organicAvgOrderPrice?: number;
+    /**
+     * organic_avg_unit_price
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    organicAvgUnitPrice?: number;
+    /**
+     * impressions
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    impressions?: number;
+    /**
+     * sessions
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    sessions?: number;
+    /**
+     * ctr
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    ctr?: number;
+    /**
+     * orders
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    orders?: number;
+    /**
+     * units
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    units?: number;
+    /**
+     * avg_units_in_per_order
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    avgUnitsInPerOrder?: number;
+    /**
+     * sales
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    sales?: number;
+    /**
+     * avg_price_order
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    avgPriceOrder?: number;
+    /**
+     * avg_unit_price
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    avgUnitPrice?: number;
+    /**
+     * buy_box
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    buyBox?: number;
+    /**
+     * ppc_sale
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    ppcSale?: number;
+    /**
+     * organic_sale
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    organicSale?: number;
+    /**
+     * conversion
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    conversion?: number;
+    /**
+     * conversion_ppc
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    conversionPpc?: number;
+    /**
+     * conversion_organic
+     * @type {number}
+     * @memberof InlineResponse20073Rows
+     */
+    conversionOrganic?: number;
+    /**
+     * date_updated
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    dateUpdated?: string;
+    /**
+     * createdAt
      * @type {string}
      * @memberof InlineResponse20073Rows
      */
     createdAt?: string;
     /**
-     * Дата изменения
+     * updatedAt
      * @type {string}
      * @memberof InlineResponse20073Rows
      */
     updatedAt?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20073RowsStatusEnum {
-    Created = 'CREATED',
-    OfferConditionsAccepted = 'OFFER_CONDITIONS_ACCEPTED',
-    ReadyToVerify = 'READY_TO_VERIFY',
-    OfferConditionsRejected = 'OFFER_CONDITIONS_REJECTED',
-    OfferConditionsCorrected = 'OFFER_CONDITIONS_CORRECTED',
-    VerifyingBySupervisor = 'VERIFYING_BY_SUPERVISOR',
-    ToCorrect = 'TO_CORRECT',
-    Corrected = 'CORRECTED',
-    CanceledByCreatorOfRequest = 'CANCELED_BY_CREATOR_OF_REQUEST',
-    CanceledBySupervisor = 'CANCELED_BY_SUPERVISOR',
-    CanceledByExecutor = 'CANCELED_BY_EXECUTOR',
-    AcceptedByClient = 'ACCEPTED_BY_CLIENT',
-    AcceptedBySupervisor = 'ACCEPTED_BY_SUPERVISOR',
-    Expired = 'EXPIRED',
-    CompleteProposalsAmountAchieved = 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED'
-}
-
 
 

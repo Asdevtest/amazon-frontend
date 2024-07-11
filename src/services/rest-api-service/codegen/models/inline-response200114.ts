@@ -13,27 +13,19 @@
  */
 
 
-import { InlineResponse200114Details } from './inline-response200114-details';
-import { InlineResponse20089Rows } from './inline-response20089-rows';
 
 /**
- * Схема детали на поиск ниш.
+ * 
  * @export
  * @interface InlineResponse200114
  */
 export interface InlineResponse200114 {
     /**
-     * 
-     * @type {InlineResponse20089Rows}
+     * id созданного профайла
+     * @type {string}
      * @memberof InlineResponse200114
      */
-    request?: InlineResponse20089Rows;
-    /**
-     * 
-     * @type {InlineResponse200114Details}
-     * @memberof InlineResponse200114
-     */
-    details?: InlineResponse200114Details;
+    profileId?: string;
 }
 
 

@@ -21,29 +21,17 @@
  */
 export interface InlineObject147 {
     /**
-     * Эндпоинт для которого надо установить пресеты
+     * Старый ароль
      * @type {string}
      * @memberof InlineObject147
      */
-    endpoint?: string;
+    oldPassword: string;
     /**
-     * Название таблицы
+     * Новый пароль
      * @type {string}
      * @memberof InlineObject147
      */
-    table?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject147
-     */
-    fields?: Array<string>;
-    /**
-     * Является ли пресет активным.
-     * @type {boolean}
-     * @memberof InlineObject147
-     */
-    isActive?: boolean;
+    newPassword: string;
 }
 
 

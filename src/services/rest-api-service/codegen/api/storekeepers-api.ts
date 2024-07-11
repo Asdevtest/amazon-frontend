@@ -31,6 +31,14 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
+import { InlineObject122 } from '../models';
+// @ts-ignore
+import { InlineObject123 } from '../models';
+// @ts-ignore
+import { InlineObject124 } from '../models';
+// @ts-ignore
+import { InlineObject125 } from '../models';
+// @ts-ignore
 import { InlineObject126 } from '../models';
 // @ts-ignore
 import { InlineObject127 } from '../models';
@@ -45,21 +53,13 @@ import { InlineObject131 } from '../models';
 // @ts-ignore
 import { InlineObject132 } from '../models';
 // @ts-ignore
-import { InlineObject133 } from '../models';
-// @ts-ignore
-import { InlineObject134 } from '../models';
-// @ts-ignore
-import { InlineObject135 } from '../models';
-// @ts-ignore
-import { InlineObject136 } from '../models';
-// @ts-ignore
 import { InlineResponse200100 } from '../models';
+// @ts-ignore
+import { InlineResponse200101 } from '../models';
 // @ts-ignore
 import { InlineResponse20037 } from '../models';
 // @ts-ignore
 import { InlineResponse2006 } from '../models';
-// @ts-ignore
-import { InlineResponse20097 } from '../models';
 // @ts-ignore
 import { InlineResponse20098 } from '../models';
 // @ts-ignore
@@ -80,12 +80,12 @@ export const StorekeepersApiAxiosParamCreator = function (configuration?: Config
          * ## Изменить комментарий коробки сторкипера.   
          * @summary # Изменить комментарий коробки сторкипера.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject131} [body] 
+         * @param {InlineObject127} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersBoxesCommentGuidPatch: async (guid: string, body?: InlineObject131, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1StorekeepersBoxesCommentGuidPatch: async (guid: string, body?: InlineObject127, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1StorekeepersBoxesCommentGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/storekeepers/boxes/comment/{guid}`
@@ -189,12 +189,12 @@ export const StorekeepersApiAxiosParamCreator = function (configuration?: Config
          * ## Изменить коробку сторкипером.   
          * @summary # Изменить коробку сторкипером.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject130} [body] 
+         * @param {InlineObject126} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersBoxesGuidPatch: async (guid: string, body?: InlineObject130, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1StorekeepersBoxesGuidPatch: async (guid: string, body?: InlineObject126, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1StorekeepersBoxesGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/storekeepers/boxes/{guid}`
@@ -234,12 +234,12 @@ export const StorekeepersApiAxiosParamCreator = function (configuration?: Config
         /**
          * ## Создать/обновить дестинейшн  Доступно для сторкипера
          * @summary # Создать/обновить дестинейшн
-         * @param {InlineObject136} [body] 
+         * @param {InlineObject132} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersDestinationPost: async (body?: InlineObject136, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1StorekeepersDestinationPost: async (body?: InlineObject132, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/storekeepers/destination`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -377,12 +377,12 @@ export const StorekeepersApiAxiosParamCreator = function (configuration?: Config
          * ## Изменить значение status  в сущности заказ.   
          * @summary # Изменить значение status в сущности заказ.
          * @param {string} guid GUID ордера, который мы хотим изменить
-         * @param {InlineObject129} [body] 
+         * @param {InlineObject125} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersOrdersSetStatusGuidPatch: async (guid: string, body?: InlineObject129, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1StorekeepersOrdersSetStatusGuidPatch: async (guid: string, body?: InlineObject125, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1StorekeepersOrdersSetStatusGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/storekeepers/orders/set_status/{guid}`
@@ -533,12 +533,12 @@ export const StorekeepersApiAxiosParamCreator = function (configuration?: Config
          * ## Редактировать тариф доставки.  Доступно для сторкипера.         у коробок с статусами: NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE, REQUESTED_SEND_TO_BATCH, IN_BATCH,         при изменении тарифа происходит пересчет стоимостей доставок.         При повышении цены ставиться статус NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE, далее нужно ожидать подтверждения от клиента.         Если вернуть цену на старое значение, то статус возвращается к REQUESTED_SEND_TO_BATCH.         При понижении цены автоматом происходит возврат разницы клиенту, статус ставится REQUESTED_SEND_TO_BATCH
          * @summary # Редактировать тариф доставки.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject133} [body] 
+         * @param {InlineObject129} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTariffLogisticsGuidPatch: async (guid: string, body?: InlineObject133, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1StorekeepersTariffLogisticsGuidPatch: async (guid: string, body?: InlineObject129, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1StorekeepersTariffLogisticsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/storekeepers/tariff-logistics/{guid}`
@@ -631,12 +631,12 @@ export const StorekeepersApiAxiosParamCreator = function (configuration?: Config
         /**
          * ## Создать тарифами доставки.  
          * @summary # Создать тарифами доставки.
-         * @param {InlineObject132} [body] 
+         * @param {InlineObject128} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTariffLogisticsPost: async (body?: InlineObject132, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1StorekeepersTariffLogisticsPost: async (body?: InlineObject128, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/storekeepers/tariff-logistics`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -716,12 +716,12 @@ export const StorekeepersApiAxiosParamCreator = function (configuration?: Config
          * ## Редактировать тариф услуг склада.  Доступно для сторкипера
          * @summary # Редактировать тариф услуг склада.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject135} [body] 
+         * @param {InlineObject131} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTariffWarehouseGuidPatch: async (guid: string, body?: InlineObject135, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1StorekeepersTariffWarehouseGuidPatch: async (guid: string, body?: InlineObject131, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1StorekeepersTariffWarehouseGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/storekeepers/tariff-warehouse/{guid}`
@@ -799,12 +799,12 @@ export const StorekeepersApiAxiosParamCreator = function (configuration?: Config
         /**
          * ## Создать тариф услуг склада.  
          * @summary # Создать тариф услуг склада.
-         * @param {InlineObject134} [body] 
+         * @param {InlineObject130} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTariffWarehousesPost: async (body?: InlineObject134, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1StorekeepersTariffWarehousesPost: async (body?: InlineObject130, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/storekeepers/tariff-warehouses`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1014,12 +1014,12 @@ export const StorekeepersApiAxiosParamCreator = function (configuration?: Config
          * ## Отметить задачу, как выполненную.  
          * @summary # Отметить задачу, как выполненную.
          * @param {string} guid GUID задачи, которую мы хотим изменить
-         * @param {InlineObject126} [body] 
+         * @param {InlineObject122} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTasksDoneGuidPost: async (guid: string, body?: InlineObject126, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1StorekeepersTasksDoneGuidPost: async (guid: string, body?: InlineObject122, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1StorekeepersTasksDoneGuidPost', 'guid', guid)
             const localVarPath = `/api/v1/storekeepers/tasks/done/{guid}`
@@ -1060,12 +1060,12 @@ export const StorekeepersApiAxiosParamCreator = function (configuration?: Config
          * ## Изменить задачу. Здесь только статус.   
          * @summary # Изменить задачу.
          * @param {string} guid GUID задачи, которую мы хотим изменить
-         * @param {InlineObject127} [body] 
+         * @param {InlineObject123} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTasksGuidPatch: async (guid: string, body?: InlineObject127, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1StorekeepersTasksGuidPatch: async (guid: string, body?: InlineObject123, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1StorekeepersTasksGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/storekeepers/tasks/{guid}`
@@ -1480,12 +1480,12 @@ export const StorekeepersApiAxiosParamCreator = function (configuration?: Config
          * ## Изменить приоритет задачи.   
          * @summary # Изменить приоритет задачи.
          * @param {string} guid GUID задачи, которую мы хотим изменить
-         * @param {InlineObject128} [body] 
+         * @param {InlineObject124} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTasksPriorityGuidPatch: async (guid: string, body?: InlineObject128, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1StorekeepersTasksPriorityGuidPatch: async (guid: string, body?: InlineObject124, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1StorekeepersTasksPriorityGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/storekeepers/tasks/priority/{guid}`
@@ -1616,12 +1616,12 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * ## Изменить комментарий коробки сторкипера.   
          * @summary # Изменить комментарий коробки сторкипера.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject131} [body] 
+         * @param {InlineObject127} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersBoxesCommentGuidPatch(guid: string, body?: InlineObject131, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1StorekeepersBoxesCommentGuidPatch(guid: string, body?: InlineObject127, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersBoxesCommentGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1645,24 +1645,24 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * ## Изменить коробку сторкипером.   
          * @summary # Изменить коробку сторкипером.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject130} [body] 
+         * @param {InlineObject126} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersBoxesGuidPatch(guid: string, body?: InlineObject130, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1StorekeepersBoxesGuidPatch(guid: string, body?: InlineObject126, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersBoxesGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Создать/обновить дестинейшн  Доступно для сторкипера
          * @summary # Создать/обновить дестинейшн
-         * @param {InlineObject136} [body] 
+         * @param {InlineObject132} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersDestinationPost(body?: InlineObject136, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+        async apiV1StorekeepersDestinationPost(body?: InlineObject132, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersDestinationPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1689,7 +1689,7 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersGet(withoutTariffs?: boolean, boxStatus?: string, tariffType?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20099>>> {
+        async apiV1StorekeepersGet(withoutTariffs?: boolean, boxStatus?: string, tariffType?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200100>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersGet(withoutTariffs, boxStatus, tariffType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1697,12 +1697,12 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * ## Изменить значение status  в сущности заказ.   
          * @summary # Изменить значение status в сущности заказ.
          * @param {string} guid GUID ордера, который мы хотим изменить
-         * @param {InlineObject129} [body] 
+         * @param {InlineObject125} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersOrdersSetStatusGuidPatch(guid: string, body?: InlineObject129, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1StorekeepersOrdersSetStatusGuidPatch(guid: string, body?: InlineObject125, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersOrdersSetStatusGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1719,7 +1719,7 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersPagBoxesGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20098>> {
+        async apiV1StorekeepersPagBoxesGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20099>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersPagBoxesGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1739,12 +1739,12 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * ## Редактировать тариф доставки.  Доступно для сторкипера.         у коробок с статусами: NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE, REQUESTED_SEND_TO_BATCH, IN_BATCH,         при изменении тарифа происходит пересчет стоимостей доставок.         При повышении цены ставиться статус NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE, далее нужно ожидать подтверждения от клиента.         Если вернуть цену на старое значение, то статус возвращается к REQUESTED_SEND_TO_BATCH.         При понижении цены автоматом происходит возврат разницы клиенту, статус ставится REQUESTED_SEND_TO_BATCH
          * @summary # Редактировать тариф доставки.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject133} [body] 
+         * @param {InlineObject129} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTariffLogisticsGuidPatch(guid: string, body?: InlineObject133, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1StorekeepersTariffLogisticsGuidPatch(guid: string, body?: InlineObject129, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTariffLogisticsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1765,12 +1765,12 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
         /**
          * ## Создать тарифами доставки.  
          * @summary # Создать тарифами доставки.
-         * @param {InlineObject132} [body] 
+         * @param {InlineObject128} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTariffLogisticsPost(body?: InlineObject132, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+        async apiV1StorekeepersTariffLogisticsPost(body?: InlineObject128, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTariffLogisticsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1790,12 +1790,12 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * ## Редактировать тариф услуг склада.  Доступно для сторкипера
          * @summary # Редактировать тариф услуг склада.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject135} [body] 
+         * @param {InlineObject131} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTariffWarehouseGuidPatch(guid: string, body?: InlineObject135, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1StorekeepersTariffWarehouseGuidPatch(guid: string, body?: InlineObject131, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTariffWarehouseGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1813,12 +1813,12 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
         /**
          * ## Создать тариф услуг склада.  
          * @summary # Создать тариф услуг склада.
-         * @param {InlineObject134} [body] 
+         * @param {InlineObject130} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTariffWarehousesPost(body?: InlineObject134, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+        async apiV1StorekeepersTariffWarehousesPost(body?: InlineObject130, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTariffWarehousesPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1839,7 +1839,7 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTariffsWithCalculationsGet(productId?: string, supplierId?: string, ideaId?: string, filters?: string, limit?: number, offset?: number, noCache?: boolean, activeTariffLogisticsId?: string, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200100>> {
+        async apiV1StorekeepersTariffsWithCalculationsGet(productId?: string, supplierId?: string, ideaId?: string, filters?: string, limit?: number, offset?: number, noCache?: boolean, activeTariffLogisticsId?: string, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200101>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTariffsWithCalculationsGet(productId, supplierId, ideaId, filters, limit, offset, noCache, activeTariffLogisticsId, sortField, sortType, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1871,12 +1871,12 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * ## Отметить задачу, как выполненную.  
          * @summary # Отметить задачу, как выполненную.
          * @param {string} guid GUID задачи, которую мы хотим изменить
-         * @param {InlineObject126} [body] 
+         * @param {InlineObject122} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTasksDoneGuidPost(guid: string, body?: InlineObject126, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1StorekeepersTasksDoneGuidPost(guid: string, body?: InlineObject122, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTasksDoneGuidPost(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1884,12 +1884,12 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * ## Изменить задачу. Здесь только статус.   
          * @summary # Изменить задачу.
          * @param {string} guid GUID задачи, которую мы хотим изменить
-         * @param {InlineObject127} [body] 
+         * @param {InlineObject123} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTasksGuidPatch(guid: string, body?: InlineObject127, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1StorekeepersTasksGuidPatch(guid: string, body?: InlineObject123, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTasksGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1921,7 +1921,7 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTasksLightPagMyGet(status?: number, offset?: number, operationType?: string, priority?: string, limit?: number, filters?: string, noCache?: boolean, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20097>> {
+        async apiV1StorekeepersTasksLightPagMyGet(status?: number, offset?: number, operationType?: string, priority?: string, limit?: number, filters?: string, noCache?: boolean, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20098>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTasksLightPagMyGet(status, offset, operationType, priority, limit, filters, noCache, sortField, sortType, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1941,7 +1941,7 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTasksLightPagVacGet(status?: number, offset?: number, limit?: number, priority?: string, operationType?: string, filters?: string, noCache?: boolean, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20097>> {
+        async apiV1StorekeepersTasksLightPagVacGet(status?: number, offset?: number, limit?: number, priority?: string, operationType?: string, filters?: string, noCache?: boolean, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20098>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTasksLightPagVacGet(status, offset, limit, priority, operationType, filters, noCache, sortField, sortType, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1996,12 +1996,12 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * ## Изменить приоритет задачи.   
          * @summary # Изменить приоритет задачи.
          * @param {string} guid GUID задачи, которую мы хотим изменить
-         * @param {InlineObject128} [body] 
+         * @param {InlineObject124} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTasksPriorityGuidPatch(guid: string, body?: InlineObject128, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1StorekeepersTasksPriorityGuidPatch(guid: string, body?: InlineObject124, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTasksPriorityGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2042,12 +2042,12 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * ## Изменить комментарий коробки сторкипера.   
          * @summary # Изменить комментарий коробки сторкипера.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject131} [body] 
+         * @param {InlineObject127} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersBoxesCommentGuidPatch(guid: string, body?: InlineObject131, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1StorekeepersBoxesCommentGuidPatch(guid: string, body?: InlineObject127, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1StorekeepersBoxesCommentGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2069,23 +2069,23 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * ## Изменить коробку сторкипером.   
          * @summary # Изменить коробку сторкипером.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject130} [body] 
+         * @param {InlineObject126} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersBoxesGuidPatch(guid: string, body?: InlineObject130, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1StorekeepersBoxesGuidPatch(guid: string, body?: InlineObject126, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1StorekeepersBoxesGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Создать/обновить дестинейшн  Доступно для сторкипера
          * @summary # Создать/обновить дестинейшн
-         * @param {InlineObject136} [body] 
+         * @param {InlineObject132} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersDestinationPost(body?: InlineObject136, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+        apiV1StorekeepersDestinationPost(body?: InlineObject132, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
             return localVarFp.apiV1StorekeepersDestinationPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2110,19 +2110,19 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersGet(withoutTariffs?: boolean, boxStatus?: string, tariffType?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20099>> {
+        apiV1StorekeepersGet(withoutTariffs?: boolean, boxStatus?: string, tariffType?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200100>> {
             return localVarFp.apiV1StorekeepersGet(withoutTariffs, boxStatus, tariffType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменить значение status  в сущности заказ.   
          * @summary # Изменить значение status в сущности заказ.
          * @param {string} guid GUID ордера, который мы хотим изменить
-         * @param {InlineObject129} [body] 
+         * @param {InlineObject125} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersOrdersSetStatusGuidPatch(guid: string, body?: InlineObject129, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1StorekeepersOrdersSetStatusGuidPatch(guid: string, body?: InlineObject125, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1StorekeepersOrdersSetStatusGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2138,7 +2138,7 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersPagBoxesGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20098> {
+        apiV1StorekeepersPagBoxesGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20099> {
             return localVarFp.apiV1StorekeepersPagBoxesGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2156,12 +2156,12 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * ## Редактировать тариф доставки.  Доступно для сторкипера.         у коробок с статусами: NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE, REQUESTED_SEND_TO_BATCH, IN_BATCH,         при изменении тарифа происходит пересчет стоимостей доставок.         При повышении цены ставиться статус NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE, далее нужно ожидать подтверждения от клиента.         Если вернуть цену на старое значение, то статус возвращается к REQUESTED_SEND_TO_BATCH.         При понижении цены автоматом происходит возврат разницы клиенту, статус ставится REQUESTED_SEND_TO_BATCH
          * @summary # Редактировать тариф доставки.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject133} [body] 
+         * @param {InlineObject129} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTariffLogisticsGuidPatch(guid: string, body?: InlineObject133, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1StorekeepersTariffLogisticsGuidPatch(guid: string, body?: InlineObject129, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1StorekeepersTariffLogisticsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2180,12 +2180,12 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
         /**
          * ## Создать тарифами доставки.  
          * @summary # Создать тарифами доставки.
-         * @param {InlineObject132} [body] 
+         * @param {InlineObject128} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTariffLogisticsPost(body?: InlineObject132, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+        apiV1StorekeepersTariffLogisticsPost(body?: InlineObject128, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
             return localVarFp.apiV1StorekeepersTariffLogisticsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2203,12 +2203,12 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * ## Редактировать тариф услуг склада.  Доступно для сторкипера
          * @summary # Редактировать тариф услуг склада.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject135} [body] 
+         * @param {InlineObject131} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTariffWarehouseGuidPatch(guid: string, body?: InlineObject135, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1StorekeepersTariffWarehouseGuidPatch(guid: string, body?: InlineObject131, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1StorekeepersTariffWarehouseGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2224,12 +2224,12 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
         /**
          * ## Создать тариф услуг склада.  
          * @summary # Создать тариф услуг склада.
-         * @param {InlineObject134} [body] 
+         * @param {InlineObject130} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTariffWarehousesPost(body?: InlineObject134, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+        apiV1StorekeepersTariffWarehousesPost(body?: InlineObject130, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
             return localVarFp.apiV1StorekeepersTariffWarehousesPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2249,7 +2249,7 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTariffsWithCalculationsGet(productId?: string, supplierId?: string, ideaId?: string, filters?: string, limit?: number, offset?: number, noCache?: boolean, activeTariffLogisticsId?: string, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200100> {
+        apiV1StorekeepersTariffsWithCalculationsGet(productId?: string, supplierId?: string, ideaId?: string, filters?: string, limit?: number, offset?: number, noCache?: boolean, activeTariffLogisticsId?: string, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200101> {
             return localVarFp.apiV1StorekeepersTariffsWithCalculationsGet(productId, supplierId, ideaId, filters, limit, offset, noCache, activeTariffLogisticsId, sortField, sortType, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2278,24 +2278,24 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * ## Отметить задачу, как выполненную.  
          * @summary # Отметить задачу, как выполненную.
          * @param {string} guid GUID задачи, которую мы хотим изменить
-         * @param {InlineObject126} [body] 
+         * @param {InlineObject122} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTasksDoneGuidPost(guid: string, body?: InlineObject126, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1StorekeepersTasksDoneGuidPost(guid: string, body?: InlineObject122, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1StorekeepersTasksDoneGuidPost(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменить задачу. Здесь только статус.   
          * @summary # Изменить задачу.
          * @param {string} guid GUID задачи, которую мы хотим изменить
-         * @param {InlineObject127} [body] 
+         * @param {InlineObject123} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTasksGuidPatch(guid: string, body?: InlineObject127, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1StorekeepersTasksGuidPatch(guid: string, body?: InlineObject123, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1StorekeepersTasksGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2325,7 +2325,7 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTasksLightPagMyGet(status?: number, offset?: number, operationType?: string, priority?: string, limit?: number, filters?: string, noCache?: boolean, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20097> {
+        apiV1StorekeepersTasksLightPagMyGet(status?: number, offset?: number, operationType?: string, priority?: string, limit?: number, filters?: string, noCache?: boolean, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20098> {
             return localVarFp.apiV1StorekeepersTasksLightPagMyGet(status, offset, operationType, priority, limit, filters, noCache, sortField, sortType, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2344,7 +2344,7 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTasksLightPagVacGet(status?: number, offset?: number, limit?: number, priority?: string, operationType?: string, filters?: string, noCache?: boolean, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20097> {
+        apiV1StorekeepersTasksLightPagVacGet(status?: number, offset?: number, limit?: number, priority?: string, operationType?: string, filters?: string, noCache?: boolean, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20098> {
             return localVarFp.apiV1StorekeepersTasksLightPagVacGet(status, offset, limit, priority, operationType, filters, noCache, sortField, sortType, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2394,12 +2394,12 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * ## Изменить приоритет задачи.   
          * @summary # Изменить приоритет задачи.
          * @param {string} guid GUID задачи, которую мы хотим изменить
-         * @param {InlineObject128} [body] 
+         * @param {InlineObject124} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTasksPriorityGuidPatch(guid: string, body?: InlineObject128, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1StorekeepersTasksPriorityGuidPatch(guid: string, body?: InlineObject124, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1StorekeepersTasksPriorityGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2441,10 +2441,10 @@ export interface StorekeepersApiApiV1StorekeepersBoxesCommentGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject131}
+     * @type {InlineObject127}
      * @memberof StorekeepersApiApiV1StorekeepersBoxesCommentGuidPatch
      */
-    readonly body?: InlineObject131
+    readonly body?: InlineObject127
 
     /**
      * 
@@ -2518,10 +2518,10 @@ export interface StorekeepersApiApiV1StorekeepersBoxesGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject130}
+     * @type {InlineObject126}
      * @memberof StorekeepersApiApiV1StorekeepersBoxesGuidPatch
      */
-    readonly body?: InlineObject130
+    readonly body?: InlineObject126
 
     /**
      * 
@@ -2539,10 +2539,10 @@ export interface StorekeepersApiApiV1StorekeepersBoxesGuidPatchRequest {
 export interface StorekeepersApiApiV1StorekeepersDestinationPostRequest {
     /**
      * 
-     * @type {InlineObject136}
+     * @type {InlineObject132}
      * @memberof StorekeepersApiApiV1StorekeepersDestinationPost
      */
-    readonly body?: InlineObject136
+    readonly body?: InlineObject132
 
     /**
      * 
@@ -2630,10 +2630,10 @@ export interface StorekeepersApiApiV1StorekeepersOrdersSetStatusGuidPatchRequest
 
     /**
      * 
-     * @type {InlineObject129}
+     * @type {InlineObject125}
      * @memberof StorekeepersApiApiV1StorekeepersOrdersSetStatusGuidPatch
      */
-    readonly body?: InlineObject129
+    readonly body?: InlineObject125
 
     /**
      * 
@@ -2735,10 +2735,10 @@ export interface StorekeepersApiApiV1StorekeepersTariffLogisticsGuidPatchRequest
 
     /**
      * 
-     * @type {InlineObject133}
+     * @type {InlineObject129}
      * @memberof StorekeepersApiApiV1StorekeepersTariffLogisticsGuidPatch
      */
-    readonly body?: InlineObject133
+    readonly body?: InlineObject129
 
     /**
      * 
@@ -2791,10 +2791,10 @@ export interface StorekeepersApiApiV1StorekeepersTariffLogisticsMyGetRequest {
 export interface StorekeepersApiApiV1StorekeepersTariffLogisticsPostRequest {
     /**
      * 
-     * @type {InlineObject132}
+     * @type {InlineObject128}
      * @memberof StorekeepersApiApiV1StorekeepersTariffLogisticsPost
      */
-    readonly body?: InlineObject132
+    readonly body?: InlineObject128
 
     /**
      * 
@@ -2840,10 +2840,10 @@ export interface StorekeepersApiApiV1StorekeepersTariffWarehouseGuidPatchRequest
 
     /**
      * 
-     * @type {InlineObject135}
+     * @type {InlineObject131}
      * @memberof StorekeepersApiApiV1StorekeepersTariffWarehouseGuidPatch
      */
-    readonly body?: InlineObject135
+    readonly body?: InlineObject131
 
     /**
      * 
@@ -2875,10 +2875,10 @@ export interface StorekeepersApiApiV1StorekeepersTariffWarehouseMyGetRequest {
 export interface StorekeepersApiApiV1StorekeepersTariffWarehousesPostRequest {
     /**
      * 
-     * @type {InlineObject134}
+     * @type {InlineObject130}
      * @memberof StorekeepersApiApiV1StorekeepersTariffWarehousesPost
      */
-    readonly body?: InlineObject134
+    readonly body?: InlineObject130
 
     /**
      * 
@@ -3029,10 +3029,10 @@ export interface StorekeepersApiApiV1StorekeepersTasksDoneGuidPostRequest {
 
     /**
      * 
-     * @type {InlineObject126}
+     * @type {InlineObject122}
      * @memberof StorekeepersApiApiV1StorekeepersTasksDoneGuidPost
      */
-    readonly body?: InlineObject126
+    readonly body?: InlineObject122
 
     /**
      * 
@@ -3057,10 +3057,10 @@ export interface StorekeepersApiApiV1StorekeepersTasksGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject127}
+     * @type {InlineObject123}
      * @memberof StorekeepersApiApiV1StorekeepersTasksGuidPatch
      */
-    readonly body?: InlineObject127
+    readonly body?: InlineObject123
 
     /**
      * 
@@ -3337,10 +3337,10 @@ export interface StorekeepersApiApiV1StorekeepersTasksPriorityGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject128}
+     * @type {InlineObject124}
      * @memberof StorekeepersApiApiV1StorekeepersTasksPriorityGuidPatch
      */
-    readonly body?: InlineObject128
+    readonly body?: InlineObject124
 
     /**
      * 
