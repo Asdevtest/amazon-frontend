@@ -14,6 +14,7 @@ export const observerConfig = {
   fieldsForSearch: observable,
 
   filteredData: computed,
+  isSomeFilterOn: computed,
 
   setDataGridState: action.bound,
   getDataGridState: action.bound,
@@ -25,4 +26,5 @@ export const observerConfig = {
   onChangeUnserverSearchValue: action.bound,
   handlePinColumn: action.bound,
   handleHideColumns: action.bound,
+  onClickResetFilters: action.bound,
 }
