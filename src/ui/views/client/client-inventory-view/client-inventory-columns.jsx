@@ -29,7 +29,10 @@ import {
 import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { productionTimeColumnMenuItems } from '@config/data-grid-column-menu/production-time'
+
 import { complexCells } from './cell-types'
+import { productionTimeColumnMenuValue } from './client-inventory-view.config'
 import { getCellType } from './helpers/get-cell-type'
 
 export const clientInventoryColumns = ({
@@ -313,20 +316,13 @@ export const clientInventoryColumns = ({
 
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
-      fields: [
-        {
-          label: 'Min. production time, days',
-          value: 'currentSupplierMinProductionTerm',
-        },
-        {
-          label: 'Max. production time, days',
-          value: 'currentSupplierMaxProductionTerm',
-        },
-      ],
-      width: 120,
+
+      fields: productionTimeColumnMenuItems,
+      columnMenuConfig: productionTimeColumnMenuValue,
+      columnKey: columnnsKeys.shared.MULTIPLE,
+
       sortable: false,
-      columnKey: columnnsKeys.shared.NUMBERS,
-      table: DataGridFilterTables.PRODUCTS,
+      width: 120,
     },
 
     {
