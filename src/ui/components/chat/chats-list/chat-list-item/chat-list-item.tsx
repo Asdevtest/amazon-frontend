@@ -153,16 +153,16 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
       {isFavoritesChat ? (
         <FavoritesIcon className={cx(styles.favoritesIcon, styles.avatar)} />
       ) : (
-        <Avatar
-          src={
-            isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0
-              ? getAmazonImageUrl(chat.info?.image)
-              : getUserAvatarSrc(oponentUser?._id)
-          }
-          className={cx(styles.avatar, {
-            [styles.onlineIcon]: isOnlineUser,
-          })}
-        />
+        <div className={cx({ [styles.onlineIcon]: isOnlineUser })}>
+          <Avatar
+            src={
+              isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0
+                ? getAmazonImageUrl(chat.info?.image)
+                : getUserAvatarSrc(oponentUser?._id)
+            }
+            className={styles.avatar}
+          />
+        </div>
       )}
 
       <div className={styles.rightSide}>

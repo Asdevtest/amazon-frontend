@@ -23,7 +23,6 @@ export const useStyles = makeStyles()(theme => ({
   avatar: {
     height: '49px !important',
     width: '49px !important',
-    overflow: 'unset',
 
     [theme.breakpoints.down(1024)]: {
       height: '30px !important',
@@ -177,6 +176,7 @@ export const useStyles = makeStyles()(theme => ({
   onlineIcon: {
     position: 'relative',
     '&:before': {
+      zIndex: 10,
       content: '""',
       position: 'absolute',
       bottom: 0,
