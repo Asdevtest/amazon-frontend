@@ -177,6 +177,7 @@ export const buyerOrdersColumns = ({
       width: 180,
       sortable: false,
 
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.PAYMENTS,
     },
 
@@ -217,6 +218,7 @@ export const buyerOrdersColumns = ({
       align: 'center',
       sortable: false,
       filterable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -230,6 +232,7 @@ export const buyerOrdersColumns = ({
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {
@@ -255,6 +258,7 @@ export const buyerOrdersColumns = ({
       columnKey: columnnsKeys.shared.MULTIPLE,
 
       width: 120,
+      disableCustomSort: true,
     },
 
     {
@@ -315,6 +319,7 @@ export const buyerOrdersColumns = ({
       sortable: false,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {
@@ -327,6 +332,7 @@ export const buyerOrdersColumns = ({
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {
