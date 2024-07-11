@@ -58,6 +58,7 @@ export const adminWarehouseBoxesColumns = () => {
         />
       ),
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
       disableCustomSort: true,
       width: 180,
     },
@@ -70,6 +71,7 @@ export const adminWarehouseBoxesColumns = () => {
         <UserMiniCell userName={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
       width: 180,
+      hideEmptyObject: true,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
