@@ -29,7 +29,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
   const [requestCount, setRequestCount] = useState<string | number>(currentRequestsCount + 1)
 
   return (
-    <div className={styles.body}>
+    <>
       <p className={styles.title}>{t(TranslationKey['Change request terms'])}</p>
       <Field
         labelClasses={styles.label}
@@ -76,6 +76,6 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
           {t(TranslationKey.Close)}
         </Button>
       </div>
-    </div>
+    </>
   )
 }

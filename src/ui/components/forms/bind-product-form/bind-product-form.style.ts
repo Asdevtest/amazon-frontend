@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   root: {
     width: '395px',
-    padding: 10,
     display: 'flex',
     flexDirection: 'column',
     gap: '25px',

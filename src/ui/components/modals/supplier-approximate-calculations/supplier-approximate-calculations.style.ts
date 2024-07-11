@@ -7,7 +7,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    padding: 10,
   },
 
   headerWrapper: {

@@ -6,7 +6,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     gap: '20px',
-    padding: 10,
   },
 
   link: {

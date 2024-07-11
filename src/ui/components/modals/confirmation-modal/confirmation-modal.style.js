@@ -21,13 +21,11 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 10,
 
     [theme.breakpoints.down(768)]: {
       width: '300px',
       minHeight: '0',
       height: '122px',
-      padding: 0,
     },
   },
 

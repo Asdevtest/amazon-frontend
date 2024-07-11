@@ -63,7 +63,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalWrapper: {
-    padding: 10,
     width: 1200,
   },
   paper: {

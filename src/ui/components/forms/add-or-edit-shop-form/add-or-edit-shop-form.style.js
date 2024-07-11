@@ -6,7 +6,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '16px',
-    padding: 10,
   },
 
   descriptionField: {

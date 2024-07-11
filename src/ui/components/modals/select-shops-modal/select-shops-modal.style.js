@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     minHeight: 150,
-    padding: 10,
   },
 
   title: {

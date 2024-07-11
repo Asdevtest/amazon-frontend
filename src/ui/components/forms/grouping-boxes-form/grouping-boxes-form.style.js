@@ -6,7 +6,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
-    padding: 10,
   },
 
   boxesWrapper: {
