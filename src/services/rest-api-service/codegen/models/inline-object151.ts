@@ -21,17 +21,17 @@
  */
 export interface InlineObject151 {
     /**
-     * Старый ароль
-     * @type {string}
+     * Оценка, целое число от 1 до 5
+     * @type {number}
      * @memberof InlineObject151
      */
-    oldPassword: string;
+    rating: number;
     /**
-     * Новый пароль
+     * Комментарий к оценке
      * @type {string}
      * @memberof InlineObject151
      */
-    newPassword: string;
+    comment?: string;
 }
 
 

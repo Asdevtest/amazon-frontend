@@ -21,23 +21,11 @@
  */
 export interface InlineObject108 {
     /**
-     * Поставить оценку юзеру
+     * Для подтверждения нужно вернуть totalCost из калькулятора.
      * @type {number}
      * @memberof InlineObject108
      */
-    rating?: number;
-    /**
-     * Комментарий причин изменения статуса.
-     * @type {string}
-     * @memberof InlineObject108
-     */
-    reason?: string;
-    /**
-     * Массив ссылок на медиафайлы.
-     * @type {Array<string>}
-     * @memberof InlineObject108
-     */
-    linksToMediaFiles?: Array<string>;
+    totalCost: number;
 }
 
 

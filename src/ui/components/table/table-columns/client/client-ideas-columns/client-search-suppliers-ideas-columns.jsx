@@ -27,6 +27,11 @@ import { checkIsMediaFileLink } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import {
+  productionTimeColumnMenuItems,
+  productionTimeColumnMenuValue,
+} from '@config/data-grid-column-menu/production-time'
+
 export const clientSearchSuppliersIdeasColumns = rowHandlers => {
   const columns = [
     {
@@ -199,21 +204,12 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           />
         )
       },
-      fields: [
-        {
-          label: 'Min. production time, days',
-          value: 'minProductionTerm',
-        },
-        {
-          label: 'Max. production time, days',
-          value: 'maxProductionTerm',
-        },
-      ],
+
+      fields: productionTimeColumnMenuItems,
+      columnMenuConfig: productionTimeColumnMenuValue,
+      columnKey: columnnsKeys.shared.MULTIPLE,
+
       width: 115,
-      type: 'number',
-      columnKey: columnnsKeys.shared.NUMBERS,
-      disableCustomSort: true,
-      table: DataGridFilterTables.SUPPLIERS,
     },
 
     {

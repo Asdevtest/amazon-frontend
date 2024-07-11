@@ -22,10 +22,16 @@
 export interface InlineObject138 {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof InlineObject138
      */
-    status: number;
+    iconImage?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject138
+     */
+    title?: string;
 }
 
 

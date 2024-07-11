@@ -267,6 +267,12 @@ export interface ApiV1BatchesBoxes {
      */
     variationTariff?: ApiV1BatchesVariationTariff;
     /**
+     * Storage in boxes
+     * @type {string}
+     * @memberof ApiV1BatchesBoxes
+     */
+    storage?: string;
+    /**
      * Массив коробок.
      * @type {Array<ApiV1BatchesItems>}
      * @memberof ApiV1BatchesBoxes

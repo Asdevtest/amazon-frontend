@@ -21,11 +21,11 @@
  */
 export interface InlineObject112 {
     /**
-     * Для подтверждения нужно вернуть totalCost из калькулятора.
-     * @type {number}
+     * Причины закрытия приема предложений.
+     * @type {string}
      * @memberof InlineObject112
      */
-    totalCost: number;
+    reason?: string;
 }
 
 

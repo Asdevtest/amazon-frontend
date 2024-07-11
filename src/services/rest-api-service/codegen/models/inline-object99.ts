@@ -21,11 +21,35 @@
  */
 export interface InlineObject99 {
     /**
-     * 
+     * Время на выполнение, в минутах.
+     * @type {number}
+     * @memberof InlineObject99
+     */
+    execution_time?: number;
+    /**
+     * Цена предложения.
+     * @type {number}
+     * @memberof InlineObject99
+     */
+    price?: number;
+    /**
+     * Комментарий к предложению.
+     * @type {string}
+     * @memberof InlineObject99
+     */
+    comment?: string;
+    /**
+     * Ссылки на медиафайлы.
      * @type {Array<string>}
      * @memberof InlineObject99
      */
-    tags: Array<string>;
+    linksToMediaFiles?: Array<string>;
+    /**
+     * Название предложения
+     * @type {string}
+     * @memberof InlineObject99
+     */
+    title?: string;
 }
 
 

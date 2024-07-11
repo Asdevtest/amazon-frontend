@@ -14,7 +14,7 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20045InventoryShop } from './inline-response20045-inventory-shop';
+import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
 
 /**
  * 
@@ -23,7 +23,7 @@ import { InlineResponse20045InventoryShop } from './inline-response20045-invento
  */
 export interface InlineResponse20047Product {
     /**
-     * GUID продукта в базе данных
+     * Гуид продукта
      * @type {string}
      * @memberof InlineResponse20047Product
      */
@@ -41,12 +41,6 @@ export interface InlineResponse20047Product {
      */
     skuByClient?: string;
     /**
-     * Вес
-     * @type {number}
-     * @memberof InlineResponse20047Product
-     */
-    weight?: number;
-    /**
      * Массив картинок.
      * @type {Array<string>}
      * @memberof InlineResponse20047Product
@@ -59,23 +53,11 @@ export interface InlineResponse20047Product {
      */
     amazonTitle?: string;
     /**
-     * Баркод
-     * @type {string}
-     * @memberof InlineResponse20047Product
-     */
-    barCode?: string;
-    /**
-     * ID магазинa для продукта
-     * @type {string}
-     * @memberof InlineResponse20047Product
-     */
-    shopId?: string;
-    /**
      * 
-     * @type {InlineResponse20045InventoryShop}
+     * @type {ApiV1AdminsGetProductsByStatusShop}
      * @memberof InlineResponse20047Product
      */
-    shop?: InlineResponse20045InventoryShop;
+    shop?: ApiV1AdminsGetProductsByStatusShop;
     /**
      * 
      * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}

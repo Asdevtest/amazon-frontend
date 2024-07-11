@@ -21,23 +21,35 @@
  */
 export interface InlineObject106 {
     /**
-     * Поставить оценку юзеру
-     * @type {number}
-     * @memberof InlineObject106
-     */
-    rating?: number;
-    /**
-     * Комментарий причин изменения статуса.
+     * Файл для записи в FreelanceSource
      * @type {string}
      * @memberof InlineObject106
      */
-    reason?: string;
+    sourceFile: string;
     /**
-     * Массив ссылок на медиафайлы.
-     * @type {Array<string>}
+     * Комментарий к файлу
+     * @type {string}
      * @memberof InlineObject106
      */
-    linksToMediaFiles?: Array<string>;
+    comment?: string;
+    /**
+     * GUID специализации фрилансера
+     * @type {string}
+     * @memberof InlineObject106
+     */
+    specId: string;
+    /**
+     * гуид продукта
+     * @type {string}
+     * @memberof InlineObject106
+     */
+    productId: string;
+    /**
+     * Гуид пропоузала
+     * @type {string}
+     * @memberof InlineObject106
+     */
+    proposalId?: string;
 }
 
 

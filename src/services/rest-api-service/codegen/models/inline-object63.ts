@@ -22,10 +22,16 @@
 export interface InlineObject63 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof InlineObject63
      */
-    productIds: Array<string>;
+    clientComment: string;
+    /**
+     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @type {number}
+     * @memberof InlineObject63
+     */
+    priceForClient: number;
 }
 
 

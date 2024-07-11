@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } from './api-v1-integrations-sellerboard-warehouse-products-link-sku-warehouse-stocks';
 
 /**
  * 
@@ -22,17 +21,17 @@ import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } f
  */
 export interface InlineObject81 {
     /**
-     * 
+     * текст отзыва/репорта
      * @type {string}
      * @memberof InlineObject81
      */
-    productId: string;
+    text: string;
     /**
-     * 
-     * @type {Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>}
+     * Прикрепленные ссылки на медиа для репорта/отзыва
+     * @type {Array<string>}
      * @memberof InlineObject81
      */
-    warehouseStocks: Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>;
+    media?: Array<string>;
 }
 
 

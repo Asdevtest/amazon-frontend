@@ -21,17 +21,11 @@
  */
 export interface InlineObject155 {
     /**
-     * Оценка, целое число от 1 до 5
-     * @type {number}
-     * @memberof InlineObject155
-     */
-    rating: number;
-    /**
-     * Комментарий к оценке
+     * id профайла
      * @type {string}
      * @memberof InlineObject155
      */
-    comment?: string;
+    profileId: string;
 }
 
 

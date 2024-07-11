@@ -38,6 +38,12 @@ export interface ApiV1BoxesClientsLightBatch {
      * @memberof ApiV1BoxesClientsLightBatch
      */
     status?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApiV1BoxesClientsLightBatch
+     */
+    arrivalDate?: string;
 }
 
 

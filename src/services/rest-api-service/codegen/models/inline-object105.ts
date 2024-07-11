@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1RequestProposalsGuidResultToCorrectMedia } from './api-v1-request-proposals-guid-result-to-correct-media';
 
 /**
  * 
@@ -22,35 +21,27 @@ import { ApiV1RequestProposalsGuidResultToCorrectMedia } from './api-v1-request-
  */
 export interface InlineObject105 {
     /**
-     * Поставить оценку юзеру
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineObject105
      */
-    rating?: number;
+    action: InlineObject105ActionEnum;
     /**
-     * Комментарий причин изменения статуса.
+     * Причина смены статуса.
      * @type {string}
      * @memberof InlineObject105
      */
     reason?: string;
-    /**
-     * Массив ссылок на медиафайлы.
-     * @type {Array<string>}
-     * @memberof InlineObject105
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject105
-     */
-    timeLimitInMinutes?: number;
-    /**
-     * 
-     * @type {Array<ApiV1RequestProposalsGuidResultToCorrectMedia>}
-     * @memberof InlineObject105
-     */
-    media?: Array<ApiV1RequestProposalsGuidResultToCorrectMedia>;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject105ActionEnum {
+    Link = 'LINK',
+    Unlink = 'UNLINK'
+}
+
 
 

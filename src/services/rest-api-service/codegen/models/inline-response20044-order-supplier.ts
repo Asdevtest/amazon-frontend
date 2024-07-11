@@ -31,7 +31,13 @@ export interface InlineResponse20044OrderSupplier {
      * @type {number}
      * @memberof InlineResponse20044OrderSupplier
      */
-    productionTerm?: number;
+    minProductionTerm?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20044OrderSupplier
+     */
+    maxProductionTerm?: number;
 }
 
 

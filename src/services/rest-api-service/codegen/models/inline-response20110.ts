@@ -21,11 +21,11 @@
  */
 export interface InlineResponse20110 {
     /**
-     * Имя файла для доступа к нему.
+     * Гуид созданного исходника
      * @type {string}
      * @memberof InlineResponse20110
      */
-    fileName?: string;
+    guid?: string;
 }
 
 

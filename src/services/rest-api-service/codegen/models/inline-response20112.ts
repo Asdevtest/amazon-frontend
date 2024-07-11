@@ -15,13 +15,13 @@
 
 
 /**
- * Успешный ответ
+ * 
  * @export
  * @interface InlineResponse20112
  */
 export interface InlineResponse20112 {
     /**
-     * guid обновленного объекта
+     * Гуид созданного медиа
      * @type {string}
      * @memberof InlineResponse20112
      */

@@ -28,7 +28,7 @@ export interface InlineResponse20074 {
      */
     count?: number;
     /**
-     * Массив оплат.
+     * 
      * @type {Array<InlineResponse20074Rows>}
      * @memberof InlineResponse20074
      */

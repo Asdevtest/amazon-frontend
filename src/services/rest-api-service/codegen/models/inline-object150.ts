@@ -21,17 +21,17 @@
  */
 export interface InlineObject150 {
     /**
-     * Гуид саба
-     * @type {string}
+     * Оценка, целое число от 1 до 5
+     * @type {number}
      * @memberof InlineObject150
      */
-    userId: string;
+    rating: number;
     /**
-     * Заметка о сабе написаная мастером
+     * Комментарий к оценке
      * @type {string}
      * @memberof InlineObject150
      */
-    comment: string;
+    comment?: string;
 }
 
 

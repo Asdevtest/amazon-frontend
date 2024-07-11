@@ -41,17 +41,17 @@ import { InlineObject106 } from '../models';
 // @ts-ignore
 import { InlineObject107 } from '../models';
 // @ts-ignore
-import { InlineObject108 } from '../models';
+import { InlineObject163 } from '../models';
 // @ts-ignore
-import { InlineObject109 } from '../models';
+import { InlineObject96 } from '../models';
 // @ts-ignore
-import { InlineObject110 } from '../models';
+import { InlineObject97 } from '../models';
 // @ts-ignore
-import { InlineObject111 } from '../models';
+import { InlineObject98 } from '../models';
 // @ts-ignore
-import { InlineObject159 } from '../models';
+import { InlineObject99 } from '../models';
 // @ts-ignore
-import { InlineResponse200115 } from '../models';
+import { InlineResponse200118 } from '../models';
 // @ts-ignore
 import { InlineResponse20084 } from '../models';
 // @ts-ignore
@@ -59,7 +59,7 @@ import { InlineResponse20085 } from '../models';
 // @ts-ignore
 import { InlineResponse20086 } from '../models';
 // @ts-ignore
-import { InlineResponse20111 } from '../models';
+import { InlineResponse20110 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -168,12 +168,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject159} [body] 
+         * @param {InlineObject163} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomGuidResultEditPatch: async (guid: string, body?: InlineObject159, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsCustomGuidResultEditPatch: async (guid: string, body?: InlineObject163, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsCustomGuidResultEditPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/custom/{guid}/result_edit`
@@ -294,12 +294,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Изменить исходник
          * @summary #  Изменить исходник.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject111} [body] 
+         * @param {InlineObject107} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsFreelanceSourcesGuidPatch: async (guid: string, body?: InlineObject111, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsFreelanceSourcesGuidPatch: async (guid: string, body?: InlineObject107, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsFreelanceSourcesGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/freelance-sources/{guid}`
@@ -339,12 +339,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
         /**
          * ## Создать исходник
          * @summary #  Создать исходник.
-         * @param {InlineObject110} [body] 
+         * @param {InlineObject106} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsFreelanceSourcesPost: async (body?: InlineObject110, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsFreelanceSourcesPost: async (body?: InlineObject106, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/request-proposals/freelance-sources`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -444,12 +444,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * Одобрить/отклонить роботу над предложением саба, может сделать только записаный в createdBy юзер
          * @summary #  Одобрить/отклонить роботу над предложением саба
          * @param {string} guid GUID в БД
-         * @param {InlineObject101} [body] 
+         * @param {InlineObject97} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidApprovePatch: async (guid: string, body?: InlineObject101, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsGuidApprovePatch: async (guid: string, body?: InlineObject97, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsGuidApprovePatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/{guid}/approve`
@@ -490,12 +490,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Отмена предложения до заключения сделки  ## Статус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли вызвавший данный метод владельцем предложения.
          * @summary # Отмена предложения до заключения сделки.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject100} [body] 
+         * @param {InlineObject96} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidCancelBeforeDealPatch: async (guid: string, body?: InlineObject100, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsGuidCancelBeforeDealPatch: async (guid: string, body?: InlineObject96, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsGuidCancelBeforeDealPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/{guid}/cancel_before_deal`
@@ -536,12 +536,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Отмена предложения после заключения сделки  Вызывает возврат замороженных средств.  ## Если вызвал исполнитель(фрилансер), стутус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY TO_CORRECT CORRECTED Является ли вызвавший данный метод владельцем предложения. ## Если вызвал клиент, статус меняется на CANCELED_BY_CREATOR_OF_REQUEST Проверки: Только  предложения со статусами:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод владельцем заявки к торой относится данное предложение. ## Если вызвал супервайзер, статус меняется на CANCELED_BY_SUPERVISOR Проверки: Только  предложения со статусами:  VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
          * @summary # Отмена предложения после заключения сделки, в зависимости от того кто вызвал ставится статус.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject108} [body] 
+         * @param {InlineObject104} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidCancelPatch: async (guid: string, body?: InlineObject108, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsGuidCancelPatch: async (guid: string, body?: InlineObject104, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsGuidCancelPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/{guid}/cancel`
@@ -582,12 +582,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Привязать  супервайзра к предложению. Статус меняется на VERIFYING_BY_SUPERVISOR В поле supervisorId вписывается id супервайзера. Устанавливается время за которое супервайзер должен принять решение. Пос истечения времени супервайзер снимается.  ## Супервайзер добавляется в чат  Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Только со статусами предложений:   VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ## Это нужно чтобы рассчитать остаток средств при закрытии заявки. Супервайзер не может отвязать от себя предложение если он не связан.
          * @summary #  Привязать или \"отвязать\" супервайзера от предложения.
          * @param {string} guid GUID в БД
-         * @param {InlineObject109} [body] 
+         * @param {InlineObject105} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch: async (guid: string, body?: InlineObject109, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch: async (guid: string, body?: InlineObject105, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/{guid}/link_or_unlink_supervisor`
@@ -674,12 +674,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Только владелец предложения может вызвать данный метод.
          * @summary # Отправить предложение обратно, после доработки.
          * @param {string} guid GUID в БД
-         * @param {InlineObject104} [body] 
+         * @param {InlineObject100} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidProposalCorrectedPatch: async (guid: string, body?: InlineObject104, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsGuidProposalCorrectedPatch: async (guid: string, body?: InlineObject100, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsGuidProposalCorrectedPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/{guid}/proposal_corrected`
@@ -720,12 +720,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Редактировать условия предложения   Данный метод может вызываться исполнителем до заключения договора, Если при первом вызове, исполнитель не ввел свои изменения (цены или времени), то данные берутся из заявки При повторном вызове, если исполнитель не ввел свои изменения (цены или времени), то данные не меняются. Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED
          * @summary #  Редактировать условия предложения.
          * @param {string} guid GUID в БД
-         * @param {InlineObject103} [body] 
+         * @param {InlineObject99} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidProposalEditPatch: async (guid: string, body?: InlineObject103, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsGuidProposalEditPatch: async (guid: string, body?: InlineObject99, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsGuidProposalEditPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/{guid}/proposal_edit`
@@ -766,12 +766,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли пользователь владельцем заявки к которой относится предложение. 
          * @summary # Отказаться от предложения.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject102} [body] 
+         * @param {InlineObject98} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidProposalRejectPatch: async (guid: string, body?: InlineObject102, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsGuidProposalRejectPatch: async (guid: string, body?: InlineObject98, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsGuidProposalRejectPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/{guid}/proposal_reject`
@@ -858,12 +858,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Принять результаты работы.   Произвести оплаты Если клиент принял предложение, то статус меняется на ACCEPTED_BY_CLIENT, Если супервайзер принял предложение, то статус меняется на ACCEPTED_BY_SUPERVISOR  ## Заявка переходит в статус COMPLETE_PROPOSALS_AMOUNT_ACHIEVED при достижении задорного количества принятых предложений. Проверки: Если вызвал СОЗДАТЕЛЬ ЗАЯВКИ принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED, READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
          * @summary #  Принять результаты работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject107} [body] 
+         * @param {InlineObject103} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidResultAcceptPatch: async (guid: string, body?: InlineObject107, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsGuidResultAcceptPatch: async (guid: string, body?: InlineObject103, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsGuidResultAcceptPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/{guid}/result_accept`
@@ -904,12 +904,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
          * @summary #  Отправить обратно на утверждение, после доработки.
          * @param {string} guid GUID в БД
-         * @param {InlineObject106} [body] 
+         * @param {InlineObject102} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidResultCorrectedPatch: async (guid: string, body?: InlineObject106, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsGuidResultCorrectedPatch: async (guid: string, body?: InlineObject102, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsGuidResultCorrectedPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/{guid}/result_corrected`
@@ -950,12 +950,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Отправить на доработку результат работы.  Ставиться статус TO_CORRECT Нужно написать в комментарии причину. Можно выставить время на доработку, в минутах. по умолчанию 120 мин. Проверки: Если вызвал СОЗДАТЕЛЬ ЗАЯВКИ принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
          * @summary # Отправить на доработку результат работы.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject105} [body] 
+         * @param {InlineObject101} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidResultToCorrectPatch: async (guid: string, body?: InlineObject105, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsGuidResultToCorrectPatch: async (guid: string, body?: InlineObject101, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsGuidResultToCorrectPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/{guid}/result_to_correct`
@@ -1079,7 +1079,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200115>>> {
+        async apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200118>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsCustomByRequestIdGuidGet(guid, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1100,12 +1100,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject159} [body] 
+         * @param {InlineObject163} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject159, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject163, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsCustomGuidResultEditPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1136,24 +1136,24 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Изменить исходник
          * @summary #  Изменить исходник.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject111} [body] 
+         * @param {InlineObject107} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsFreelanceSourcesGuidPatch(guid: string, body?: InlineObject111, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsFreelanceSourcesGuidPatch(guid: string, body?: InlineObject107, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsFreelanceSourcesGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Создать исходник
          * @summary #  Создать исходник.
-         * @param {InlineObject110} [body] 
+         * @param {InlineObject106} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsFreelanceSourcesPost(body?: InlineObject110, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20111>> {
+        async apiV1RequestProposalsFreelanceSourcesPost(body?: InlineObject106, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20110>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsFreelanceSourcesPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1176,12 +1176,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * Одобрить/отклонить роботу над предложением саба, может сделать только записаный в createdBy юзер
          * @summary #  Одобрить/отклонить роботу над предложением саба
          * @param {string} guid GUID в БД
-         * @param {InlineObject101} [body] 
+         * @param {InlineObject97} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsGuidApprovePatch(guid: string, body?: InlineObject101, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsGuidApprovePatch(guid: string, body?: InlineObject97, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGuidApprovePatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1189,12 +1189,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Отмена предложения до заключения сделки  ## Статус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли вызвавший данный метод владельцем предложения.
          * @summary # Отмена предложения до заключения сделки.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject100} [body] 
+         * @param {InlineObject96} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsGuidCancelBeforeDealPatch(guid: string, body?: InlineObject100, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsGuidCancelBeforeDealPatch(guid: string, body?: InlineObject96, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGuidCancelBeforeDealPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1202,12 +1202,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Отмена предложения после заключения сделки  Вызывает возврат замороженных средств.  ## Если вызвал исполнитель(фрилансер), стутус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY TO_CORRECT CORRECTED Является ли вызвавший данный метод владельцем предложения. ## Если вызвал клиент, статус меняется на CANCELED_BY_CREATOR_OF_REQUEST Проверки: Только  предложения со статусами:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод владельцем заявки к торой относится данное предложение. ## Если вызвал супервайзер, статус меняется на CANCELED_BY_SUPERVISOR Проверки: Только  предложения со статусами:  VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
          * @summary # Отмена предложения после заключения сделки, в зависимости от того кто вызвал ставится статус.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject108} [body] 
+         * @param {InlineObject104} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsGuidCancelPatch(guid: string, body?: InlineObject108, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsGuidCancelPatch(guid: string, body?: InlineObject104, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGuidCancelPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1215,12 +1215,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Привязать  супервайзра к предложению. Статус меняется на VERIFYING_BY_SUPERVISOR В поле supervisorId вписывается id супервайзера. Устанавливается время за которое супервайзер должен принять решение. Пос истечения времени супервайзер снимается.  ## Супервайзер добавляется в чат  Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Только со статусами предложений:   VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ## Это нужно чтобы рассчитать остаток средств при закрытии заявки. Супервайзер не может отвязать от себя предложение если он не связан.
          * @summary #  Привязать или \"отвязать\" супервайзера от предложения.
          * @param {string} guid GUID в БД
-         * @param {InlineObject109} [body] 
+         * @param {InlineObject105} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid: string, body?: InlineObject109, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid: string, body?: InlineObject105, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1241,12 +1241,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Только владелец предложения может вызвать данный метод.
          * @summary # Отправить предложение обратно, после доработки.
          * @param {string} guid GUID в БД
-         * @param {InlineObject104} [body] 
+         * @param {InlineObject100} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsGuidProposalCorrectedPatch(guid: string, body?: InlineObject104, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsGuidProposalCorrectedPatch(guid: string, body?: InlineObject100, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGuidProposalCorrectedPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1254,12 +1254,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Редактировать условия предложения   Данный метод может вызываться исполнителем до заключения договора, Если при первом вызове, исполнитель не ввел свои изменения (цены или времени), то данные берутся из заявки При повторном вызове, если исполнитель не ввел свои изменения (цены или времени), то данные не меняются. Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED
          * @summary #  Редактировать условия предложения.
          * @param {string} guid GUID в БД
-         * @param {InlineObject103} [body] 
+         * @param {InlineObject99} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsGuidProposalEditPatch(guid: string, body?: InlineObject103, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsGuidProposalEditPatch(guid: string, body?: InlineObject99, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGuidProposalEditPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1267,12 +1267,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли пользователь владельцем заявки к которой относится предложение. 
          * @summary # Отказаться от предложения.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject102} [body] 
+         * @param {InlineObject98} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsGuidProposalRejectPatch(guid: string, body?: InlineObject102, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsGuidProposalRejectPatch(guid: string, body?: InlineObject98, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGuidProposalRejectPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1293,12 +1293,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Принять результаты работы.   Произвести оплаты Если клиент принял предложение, то статус меняется на ACCEPTED_BY_CLIENT, Если супервайзер принял предложение, то статус меняется на ACCEPTED_BY_SUPERVISOR  ## Заявка переходит в статус COMPLETE_PROPOSALS_AMOUNT_ACHIEVED при достижении задорного количества принятых предложений. Проверки: Если вызвал СОЗДАТЕЛЬ ЗАЯВКИ принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED, READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
          * @summary #  Принять результаты работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject107} [body] 
+         * @param {InlineObject103} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsGuidResultAcceptPatch(guid: string, body?: InlineObject107, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsGuidResultAcceptPatch(guid: string, body?: InlineObject103, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGuidResultAcceptPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1306,12 +1306,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
          * @summary #  Отправить обратно на утверждение, после доработки.
          * @param {string} guid GUID в БД
-         * @param {InlineObject106} [body] 
+         * @param {InlineObject102} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsGuidResultCorrectedPatch(guid: string, body?: InlineObject106, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsGuidResultCorrectedPatch(guid: string, body?: InlineObject102, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGuidResultCorrectedPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1319,12 +1319,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Отправить на доработку результат работы.  Ставиться статус TO_CORRECT Нужно написать в комментарии причину. Можно выставить время на доработку, в минутах. по умолчанию 120 мин. Проверки: Если вызвал СОЗДАТЕЛЬ ЗАЯВКИ принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
          * @summary # Отправить на доработку результат работы.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject105} [body] 
+         * @param {InlineObject101} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsGuidResultToCorrectPatch(guid: string, body?: InlineObject105, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsGuidResultToCorrectPatch(guid: string, body?: InlineObject101, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGuidResultToCorrectPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1364,7 +1364,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200115>> {
+        apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200118>> {
             return localVarFp.apiV1RequestProposalsCustomByRequestIdGuidGet(guid, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1383,12 +1383,12 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject159} [body] 
+         * @param {InlineObject163} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject159, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject163, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsCustomGuidResultEditPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1416,23 +1416,23 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * ## Изменить исходник
          * @summary #  Изменить исходник.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject111} [body] 
+         * @param {InlineObject107} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsFreelanceSourcesGuidPatch(guid: string, body?: InlineObject111, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsFreelanceSourcesGuidPatch(guid: string, body?: InlineObject107, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsFreelanceSourcesGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Создать исходник
          * @summary #  Создать исходник.
-         * @param {InlineObject110} [body] 
+         * @param {InlineObject106} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsFreelanceSourcesPost(body?: InlineObject110, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20111> {
+        apiV1RequestProposalsFreelanceSourcesPost(body?: InlineObject106, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20110> {
             return localVarFp.apiV1RequestProposalsFreelanceSourcesPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1453,48 +1453,48 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * Одобрить/отклонить роботу над предложением саба, может сделать только записаный в createdBy юзер
          * @summary #  Одобрить/отклонить роботу над предложением саба
          * @param {string} guid GUID в БД
-         * @param {InlineObject101} [body] 
+         * @param {InlineObject97} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidApprovePatch(guid: string, body?: InlineObject101, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsGuidApprovePatch(guid: string, body?: InlineObject97, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsGuidApprovePatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Отмена предложения до заключения сделки  ## Статус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли вызвавший данный метод владельцем предложения.
          * @summary # Отмена предложения до заключения сделки.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject100} [body] 
+         * @param {InlineObject96} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidCancelBeforeDealPatch(guid: string, body?: InlineObject100, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsGuidCancelBeforeDealPatch(guid: string, body?: InlineObject96, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsGuidCancelBeforeDealPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Отмена предложения после заключения сделки  Вызывает возврат замороженных средств.  ## Если вызвал исполнитель(фрилансер), стутус меняется на CANCELED_BY_EXECUTOR Проверки: Только  предложения со статусами:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY TO_CORRECT CORRECTED Является ли вызвавший данный метод владельцем предложения. ## Если вызвал клиент, статус меняется на CANCELED_BY_CREATOR_OF_REQUEST Проверки: Только  предложения со статусами:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод владельцем заявки к торой относится данное предложение. ## Если вызвал супервайзер, статус меняется на CANCELED_BY_SUPERVISOR Проверки: Только  предложения со статусами:  VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
          * @summary # Отмена предложения после заключения сделки, в зависимости от того кто вызвал ставится статус.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject108} [body] 
+         * @param {InlineObject104} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidCancelPatch(guid: string, body?: InlineObject108, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsGuidCancelPatch(guid: string, body?: InlineObject104, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsGuidCancelPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Привязать  супервайзра к предложению. Статус меняется на VERIFYING_BY_SUPERVISOR В поле supervisorId вписывается id супервайзера. Устанавливается время за которое супервайзер должен принять решение. Пос истечения времени супервайзер снимается.  ## Супервайзер добавляется в чат  Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Только со статусами предложений:   VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ## Это нужно чтобы рассчитать остаток средств при закрытии заявки. Супервайзер не может отвязать от себя предложение если он не связан.
          * @summary #  Привязать или \"отвязать\" супервайзера от предложения.
          * @param {string} guid GUID в БД
-         * @param {InlineObject109} [body] 
+         * @param {InlineObject105} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid: string, body?: InlineObject109, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid: string, body?: InlineObject105, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1513,36 +1513,36 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * ##  Отправить предложение обратно, после доработки.  Статус ставится автоматом: OFFER_CONDITIONS_CORRECTED Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Только владелец предложения может вызвать данный метод.
          * @summary # Отправить предложение обратно, после доработки.
          * @param {string} guid GUID в БД
-         * @param {InlineObject104} [body] 
+         * @param {InlineObject100} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidProposalCorrectedPatch(guid: string, body?: InlineObject104, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsGuidProposalCorrectedPatch(guid: string, body?: InlineObject100, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsGuidProposalCorrectedPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Редактировать условия предложения   Данный метод может вызываться исполнителем до заключения договора, Если при первом вызове, исполнитель не ввел свои изменения (цены или времени), то данные берутся из заявки При повторном вызове, если исполнитель не ввел свои изменения (цены или времени), то данные не меняются. Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED
          * @summary #  Редактировать условия предложения.
          * @param {string} guid GUID в БД
-         * @param {InlineObject103} [body] 
+         * @param {InlineObject99} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidProposalEditPatch(guid: string, body?: InlineObject103, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsGuidProposalEditPatch(guid: string, body?: InlineObject99, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsGuidProposalEditPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Отказаться от предложения..  Ставиться статус: OFFER_CONDITIONS_REJECTED Нужно написать в комментарии причину. Проверки: Принимаются только статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED EXPIRED Является ли пользователь владельцем заявки к которой относится предложение. 
          * @summary # Отказаться от предложения.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject102} [body] 
+         * @param {InlineObject98} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidProposalRejectPatch(guid: string, body?: InlineObject102, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsGuidProposalRejectPatch(guid: string, body?: InlineObject98, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsGuidProposalRejectPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1561,36 +1561,36 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * ## Принять результаты работы.   Произвести оплаты Если клиент принял предложение, то статус меняется на ACCEPTED_BY_CLIENT, Если супервайзер принял предложение, то статус меняется на ACCEPTED_BY_SUPERVISOR  ## Заявка переходит в статус COMPLETE_PROPOSALS_AMOUNT_ACHIEVED при достижении задорного количества принятых предложений. Проверки: Если вызвал СОЗДАТЕЛЬ ЗАЯВКИ принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED, READY_TO_VERIFY, VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR, TO_CORRECT, CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
          * @summary #  Принять результаты работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject107} [body] 
+         * @param {InlineObject103} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidResultAcceptPatch(guid: string, body?: InlineObject107, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsGuidResultAcceptPatch(guid: string, body?: InlineObject103, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsGuidResultAcceptPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
          * @summary #  Отправить обратно на утверждение, после доработки.
          * @param {string} guid GUID в БД
-         * @param {InlineObject106} [body] 
+         * @param {InlineObject102} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidResultCorrectedPatch(guid: string, body?: InlineObject106, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsGuidResultCorrectedPatch(guid: string, body?: InlineObject102, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsGuidResultCorrectedPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Отправить на доработку результат работы.  Ставиться статус TO_CORRECT Нужно написать в комментарии причину. Можно выставить время на доработку, в минутах. по умолчанию 120 мин. Проверки: Если вызвал СОЗДАТЕЛЬ ЗАЯВКИ принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли пользователь владельцем заявки к которой относится предложение. Если вызвал СУПЕРВАЙЗЕР принимаются только статусы:  VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED Является ли вызвавший данный метод супервайзер ответственным за проверку данного предложения.
          * @summary # Отправить на доработку результат работы.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject105} [body] 
+         * @param {InlineObject101} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGuidResultToCorrectPatch(guid: string, body?: InlineObject105, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsGuidResultToCorrectPatch(guid: string, body?: InlineObject101, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsGuidResultToCorrectPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1683,10 +1683,10 @@ export interface RequestProposalsApiApiV1RequestProposalsCustomGuidResultEditPat
 
     /**
      * 
-     * @type {InlineObject159}
+     * @type {InlineObject163}
      * @memberof RequestProposalsApiApiV1RequestProposalsCustomGuidResultEditPatch
      */
-    readonly body?: InlineObject159
+    readonly body?: InlineObject163
 
     /**
      * 
@@ -1746,10 +1746,10 @@ export interface RequestProposalsApiApiV1RequestProposalsFreelanceSourcesGuidPat
 
     /**
      * 
-     * @type {InlineObject111}
+     * @type {InlineObject107}
      * @memberof RequestProposalsApiApiV1RequestProposalsFreelanceSourcesGuidPatch
      */
-    readonly body?: InlineObject111
+    readonly body?: InlineObject107
 
     /**
      * 
@@ -1767,10 +1767,10 @@ export interface RequestProposalsApiApiV1RequestProposalsFreelanceSourcesGuidPat
 export interface RequestProposalsApiApiV1RequestProposalsFreelanceSourcesPostRequest {
     /**
      * 
-     * @type {InlineObject110}
+     * @type {InlineObject106}
      * @memberof RequestProposalsApiApiV1RequestProposalsFreelanceSourcesPost
      */
-    readonly body?: InlineObject110
+    readonly body?: InlineObject106
 
     /**
      * 
@@ -1837,10 +1837,10 @@ export interface RequestProposalsApiApiV1RequestProposalsGuidApprovePatchRequest
 
     /**
      * 
-     * @type {InlineObject101}
+     * @type {InlineObject97}
      * @memberof RequestProposalsApiApiV1RequestProposalsGuidApprovePatch
      */
-    readonly body?: InlineObject101
+    readonly body?: InlineObject97
 
     /**
      * 
@@ -1865,10 +1865,10 @@ export interface RequestProposalsApiApiV1RequestProposalsGuidCancelBeforeDealPat
 
     /**
      * 
-     * @type {InlineObject100}
+     * @type {InlineObject96}
      * @memberof RequestProposalsApiApiV1RequestProposalsGuidCancelBeforeDealPatch
      */
-    readonly body?: InlineObject100
+    readonly body?: InlineObject96
 
     /**
      * 
@@ -1893,10 +1893,10 @@ export interface RequestProposalsApiApiV1RequestProposalsGuidCancelPatchRequest 
 
     /**
      * 
-     * @type {InlineObject108}
+     * @type {InlineObject104}
      * @memberof RequestProposalsApiApiV1RequestProposalsGuidCancelPatch
      */
-    readonly body?: InlineObject108
+    readonly body?: InlineObject104
 
     /**
      * 
@@ -1921,10 +1921,10 @@ export interface RequestProposalsApiApiV1RequestProposalsGuidLinkOrUnlinkSupervi
 
     /**
      * 
-     * @type {InlineObject109}
+     * @type {InlineObject105}
      * @memberof RequestProposalsApiApiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch
      */
-    readonly body?: InlineObject109
+    readonly body?: InlineObject105
 
     /**
      * 
@@ -1977,10 +1977,10 @@ export interface RequestProposalsApiApiV1RequestProposalsGuidProposalCorrectedPa
 
     /**
      * 
-     * @type {InlineObject104}
+     * @type {InlineObject100}
      * @memberof RequestProposalsApiApiV1RequestProposalsGuidProposalCorrectedPatch
      */
-    readonly body?: InlineObject104
+    readonly body?: InlineObject100
 
     /**
      * 
@@ -2005,10 +2005,10 @@ export interface RequestProposalsApiApiV1RequestProposalsGuidProposalEditPatchRe
 
     /**
      * 
-     * @type {InlineObject103}
+     * @type {InlineObject99}
      * @memberof RequestProposalsApiApiV1RequestProposalsGuidProposalEditPatch
      */
-    readonly body?: InlineObject103
+    readonly body?: InlineObject99
 
     /**
      * 
@@ -2033,10 +2033,10 @@ export interface RequestProposalsApiApiV1RequestProposalsGuidProposalRejectPatch
 
     /**
      * 
-     * @type {InlineObject102}
+     * @type {InlineObject98}
      * @memberof RequestProposalsApiApiV1RequestProposalsGuidProposalRejectPatch
      */
-    readonly body?: InlineObject102
+    readonly body?: InlineObject98
 
     /**
      * 
@@ -2089,10 +2089,10 @@ export interface RequestProposalsApiApiV1RequestProposalsGuidResultAcceptPatchRe
 
     /**
      * 
-     * @type {InlineObject107}
+     * @type {InlineObject103}
      * @memberof RequestProposalsApiApiV1RequestProposalsGuidResultAcceptPatch
      */
-    readonly body?: InlineObject107
+    readonly body?: InlineObject103
 
     /**
      * 
@@ -2117,10 +2117,10 @@ export interface RequestProposalsApiApiV1RequestProposalsGuidResultCorrectedPatc
 
     /**
      * 
-     * @type {InlineObject106}
+     * @type {InlineObject102}
      * @memberof RequestProposalsApiApiV1RequestProposalsGuidResultCorrectedPatch
      */
-    readonly body?: InlineObject106
+    readonly body?: InlineObject102
 
     /**
      * 
@@ -2145,10 +2145,10 @@ export interface RequestProposalsApiApiV1RequestProposalsGuidResultToCorrectPatc
 
     /**
      * 
-     * @type {InlineObject105}
+     * @type {InlineObject101}
      * @memberof RequestProposalsApiApiV1RequestProposalsGuidResultToCorrectPatch
      */
-    readonly body?: InlineObject105
+    readonly body?: InlineObject101
 
     /**
      * 

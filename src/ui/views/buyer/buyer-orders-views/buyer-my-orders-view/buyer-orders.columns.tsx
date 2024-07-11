@@ -35,6 +35,10 @@ import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { productColumnMenuItems, productColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+import {
+  productionTimeColumnMenuItems,
+  productionTimeColumnMenuValue,
+} from '@config/data-grid-column-menu/production-time'
 import { payColumnMenuItems, payColumnMenuValue } from '@config/data-grid-column-menu/to-pay-column'
 
 interface buyerOrdersColumnsParams {
@@ -173,6 +177,7 @@ export const buyerOrdersColumns = ({
       width: 180,
       sortable: false,
 
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.PAYMENTS,
     },
 
@@ -213,6 +218,7 @@ export const buyerOrdersColumns = ({
       align: 'center',
       sortable: false,
       filterable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -226,6 +232,7 @@ export const buyerOrdersColumns = ({
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {
@@ -246,22 +253,12 @@ export const buyerOrdersColumns = ({
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
 
-      fields: [
-        {
-          label: 'Min. production time, days',
-          value: 'minProductionTerm',
-        },
-        {
-          label: 'Max. production time, days',
-          value: 'maxProductionTerm',
-        },
-      ],
+      fields: productionTimeColumnMenuItems,
+      columnMenuConfig: productionTimeColumnMenuValue,
+      columnKey: columnnsKeys.shared.MULTIPLE,
 
       width: 120,
-      sortable: false,
-
-      columnKey: columnnsKeys.shared.NUMBERS,
-      table: DataGridFilterTables.SUPPLIERS,
+      disableCustomSort: true,
     },
 
     {
@@ -322,6 +319,7 @@ export const buyerOrdersColumns = ({
       sortable: false,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {
@@ -334,6 +332,7 @@ export const buyerOrdersColumns = ({
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {

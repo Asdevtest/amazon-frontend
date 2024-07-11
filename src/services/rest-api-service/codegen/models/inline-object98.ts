@@ -21,23 +21,23 @@
  */
 export interface InlineObject98 {
     /**
-     * Удалять ли пермишны(только, если parentProductId - null
-     * @type {boolean}
+     * Поставить оценку юзеру
+     * @type {number}
      * @memberof InlineObject98
      */
-    deletePermissions?: boolean;
+    rating?: number;
     /**
-     * Ключ родительского продукта
+     * Комментарий причин изменения статуса.
      * @type {string}
      * @memberof InlineObject98
      */
-    parentProductId: string;
+    reason?: string;
     /**
-     * 
+     * Массив ссылок на медиафайлы.
      * @type {Array<string>}
      * @memberof InlineObject98
      */
-    childProductIds: Array<string>;
+    linksToMediaFiles?: Array<string>;
 }
 
 
