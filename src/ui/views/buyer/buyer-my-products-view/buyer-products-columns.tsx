@@ -131,6 +131,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
 
       filterable: false,
       sortable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -223,6 +224,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       width: 160,
       sortable: false,
       columnKey: columnnsKeys.shared.TAGS,
+      disableCustomSort: true,
     },
 
     {
@@ -233,6 +235,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       width: 130,
       sortable: false,
       columnKey: columnnsKeys.shared.RED_FLAGS,
+      disableCustomSort: true,
     },
 
     {
