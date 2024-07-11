@@ -1985,4 +1985,6 @@ export enum TranslationKey {
   'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses' = 'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses',
   'Order quantity' = 'Order quantity',
   'Are you sure you want to remove the report?' = 'Are you sure you want to remove the report?',
+  'Select request ID' = 'Select request ID',
+  'Use data from an exist' = 'Use data from an exist',
 }

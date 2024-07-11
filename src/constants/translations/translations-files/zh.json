@@ -1978,5 +1978,7 @@
   "The password should not start or end with a space!": "密码不应以空格开始或结束!",
   "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "选择最有效的费率，如果需要运送到不同的仓库，请将批次拆分为多个采购订单",
   "Order quantity": "订单数量",
-  "Are you sure you want to remove the report?": "您确定要删除报告吗?"
+  "Are you sure you want to remove the report?": "您确定要删除报告吗?",
+  "Select request ID": "选择请求ID",
+  "Use data from an exist": "使用现有的数据"
 }

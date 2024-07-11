@@ -1984,5 +1984,7 @@
   "The password should not start or end with a space!": "Пароль не повинен починатися або закінчуватися пробілом!",
   "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "Виберіть найбільш ефективну ставку, розділіть партії на кілька покупок, якщо вам потрібно відправити на різні склади",
   "Order quantity": "Кількість замовлення",
-  "Are you sure you want to remove the report?": "Ви впевнені, що хочете видалити звіт?"
+  "Are you sure you want to remove the report?": "Ви впевнені, що хочете видалити звіт?",
+  "Select request ID": "Виберіть ID запиту",
+  "Use data from an exist": "Використати дані з існуючого"
 }

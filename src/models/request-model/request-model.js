@@ -1,7 +1,5 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { filterNullValues } from '@utils/object'
-
 class RequestModelStatic {
   createRequest = async body => {
     const response = await restApiService.SearchRequestApi.apiV1RequestsCustomPost({ body })
@@ -18,8 +16,8 @@ class RequestModelStatic {
     return response.data
   }
 
-  getRequests = async data => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGet(filterNullValues(data))
+  getRequests = async body => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGet(body)
     return response.data
   }
 
