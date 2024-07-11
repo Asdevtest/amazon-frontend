@@ -81,13 +81,15 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
       },
     })
 
+    const tableKey = getDataGridTableKey(pathname)
+
     super({
       getMainDataMethod: BuyerModel.getOrdersMyPag,
       columnsModel,
       filtersFields: getFilterFields(columnsModel, ['amazonTitle', 'skuByClient', 'partialPaymentAmountRmb']),
       mainMethodURL: 'buyers/orders/pag/my?',
       fieldsForSearch,
-      tableKey: getDataGridTableKey(pathname),
+      tableKey,
       defaultFilterParams,
     })
 
