@@ -326,6 +326,8 @@ export class SupervisorProductViewModel {
 
       UserModel.getUsersInfoCounters()
 
+      toast.success(t(TranslationKey['Status changed']))
+
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
