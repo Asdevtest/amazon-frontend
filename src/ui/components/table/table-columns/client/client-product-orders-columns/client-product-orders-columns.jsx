@@ -122,7 +122,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    width: 220,
+    width: 200,
     renderCell: params => (
       <DownloadAndCopyBtnsCell value={params.value} isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id} />
     ),
