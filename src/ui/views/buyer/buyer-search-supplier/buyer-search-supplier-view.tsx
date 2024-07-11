@@ -59,6 +59,12 @@ export const BuyerSearchSupplierBySupervisorView = observer(() => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
           onRowSelectionModelChange={viewModel.onSelectionModel}
