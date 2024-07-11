@@ -101,13 +101,11 @@ class UserModelStatic {
         },
       )
       const response = responseData.data
-      const platformSettings = await this.getPlatformSettings()
 
       runInAction(() => {
         this.userInfo = { ...this.userInfo, ...response }
         this.userId = response._id
         this.masterUserId = response.masterUser?._id
-        this.platformSettings = platformSettings
       })
       return response
     } catch (error) {
@@ -276,8 +274,13 @@ class UserModelStatic {
   }
 
   async getPlatformSettings() {
-    const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
-    return response.data
+    try {
+      const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
+
+      runInAction(() => (this.platformSetting = response.data))
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   async getUsersFreelanceNotices() {
