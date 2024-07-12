@@ -376,7 +376,7 @@ export const clientInventoryColumns = ({
         />
       ),
 
-      width: 200,
+      width: 210,
       columnKey: columnnsKeys.client.INVENTORY_BARCODE,
     },
 

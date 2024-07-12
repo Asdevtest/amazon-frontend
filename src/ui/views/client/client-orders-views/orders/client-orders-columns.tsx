@@ -173,7 +173,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-      width: 200,
+      width: 210,
       renderCell: params => (
         <DownloadAndCopyBtnsCell
           value={params.row?.product?.barCode}
@@ -300,7 +300,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
-      width: 180,
+      width: 140,
 
       columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
     },
