@@ -280,28 +280,24 @@ export const EditBoxForm = memo(
                 <div className={styles.productsWrapper}>
                   <CustomSlider alignButtons="end">
                     {boxFields.items.map((item, index) => {
-                      const isTransparencyFileAlreadyAttachedByTheSupplier =
-                        item?.isTransparencyFileAlreadyAttachedByTheSupplier
-
-                      const isTransparencyFileAttachedByTheStorekeeper =
-                        item?.isTransparencyFileAttachedByTheStorekeeper
-
-                      const isCheckboxVisible =
-                        isTransparencyFileAlreadyAttachedByTheSupplier && isTransparencyFileAttachedByTheStorekeeper
-                      const isCheckboxChecked =
-                        isTransparencyFileAlreadyAttachedByTheSupplier || isTransparencyFileAttachedByTheStorekeeper
-                      const checkboxText = isTransparencyFileAlreadyAttachedByTheSupplier
-                        ? t(TranslationKey['Transparency codes glued by the supplier'])
-                        : t(TranslationKey['Transparency codes are glued by storekeeper'])
-
-                      const isBarCodeAlreadyAttached =
-                        item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper
-                      const barCodeTooltipInfoContent = item.isBarCodeAlreadyAttachedByTheSupplier
-                        ? TranslationKey['The supplier has glued the barcode before shipment']
-                        : TranslationKey['The barcode was glued on when the box was accepted at the prep center']
-                      const barCodeLabel = item.isBarCodeAlreadyAttachedByTheSupplier
-                        ? TranslationKey['The barcode is glued by the supplier']
-                        : TranslationKey['The barcode is glued by the Storekeeper']
+                      const barcodeChecked =
+                        item.barCode &&
+                        (item.isBarCodeAlreadyAttachedByTheSupplier || !item.isBarCodeAttachedByTheStorekeeper)
+                      const barcodeText = barcodeChecked
+                        ? item.isBarCodeAlreadyAttachedByTheSupplier
+                          ? t(TranslationKey['BarCode is glued by supplier'])
+                          : t(TranslationKey['BarCode is glued by storekeeper'])
+                        : t(TranslationKey['Barсode is not glued'])
+                      const transparencyChecked =
+                        item.isTransparencyFileAttachedByTheStorekeeper ||
+                        item.isTransparencyFileAlreadyAttachedByTheSupplier
+                      const transparencyText = transparencyChecked
+                        ? item.isTransparencyFileAttachedByTheStorekeeper
+                          ? t(TranslationKey['Transparency codes are glued by storekeeper'])
+                          : t(TranslationKey['Transparency codes glued by the supplier'])
+                        : item.transparencyFile
+                        ? t(TranslationKey['Transperensy сode is not glued'])
+                        : null
 
                       return (
                         <div key={index} className={styles.productWrapper}>
@@ -381,27 +377,10 @@ export const EditBoxForm = memo(
                                 />
                               )}
 
-                              {!item.barCode ? (
-                                <Typography className={styles.noBarCodeGlued}>
-                                  {t(TranslationKey['Not glued!'])}
-                                </Typography>
-                              ) : null}
-
-                              {isBarCodeAlreadyAttached ? (
-                                <Field
-                                  oneLine
-                                  labelClasses={styles.standartLabel}
-                                  tooltipInfoContent={t(barCodeTooltipInfoContent)}
-                                  label={t(barCodeLabel)}
-                                  inputComponent={<Checkbox disabled checked={isBarCodeAlreadyAttached} />}
-                                />
-                              ) : null}
-
-                              {isCheckboxVisible ? (
-                                <Checkbox reverted disabled checked={isCheckboxChecked} className={styles.checkbox}>
-                                  <p className={styles.standartLabel}>{checkboxText}</p>
-                                </Checkbox>
-                              ) : null}
+                              <div>
+                                <p>{barcodeText}</p>
+                                <p>{transparencyText}</p>
+                              </div>
                             </div>
                           </div>
 

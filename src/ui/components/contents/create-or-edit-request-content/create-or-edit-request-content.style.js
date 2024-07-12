@@ -64,6 +64,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    gap: 10,
   },
 
   field: {
@@ -76,7 +77,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fieldContainer: {
-    marginBottom: 10,
+    marginBottom: 0,
   },
 
   datePicker: {
@@ -87,19 +88,16 @@ export const useStyles = makeStyles()(theme => ({
 
   label: {
     marginBottom: 5,
-    fontSize: 14,
-    lineHeight: '19px',
+    fontSize: 12,
+    lineHeight: '16px',
     color: theme.palette.text.second,
   },
 
   fields: {
     display: 'flex',
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
     gap: 20,
-
-    [theme.breakpoints.down(480)]: {
-      flexDirection: 'column',
-    },
   },
 
   deadlineErrorText: {

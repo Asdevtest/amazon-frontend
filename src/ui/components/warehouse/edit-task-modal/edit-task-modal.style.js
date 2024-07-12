@@ -134,7 +134,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   imageFileInputWrapper: {
-    width: '100%',
+    width: '50%',
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
@@ -177,6 +177,7 @@ export const useStyles = makeStyles()(theme => ({
   modalSubHeader: {
     display: 'flex',
     alignItems: 'center',
+    gap: '20px',
   },
 
   errorText: {

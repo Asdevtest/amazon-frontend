@@ -22,7 +22,6 @@ import { Specs } from '@typings/enums/specs'
 export class CreateOrEditRequestViewModel {
   history = undefined
   requestStatus = loadingStatus.IS_LOADING // for first render
-  buttonStatus = loadingStatus.SUCCESS
 
   requestToEdit = undefined
   createRequestForIdeaData = undefined
@@ -33,16 +32,10 @@ export class CreateOrEditRequestViewModel {
   announcements = []
   choosenAnnouncements = undefined
   productMedia = undefined
-  bigImagesOptions = {}
-  showImageModal = false
   showConfirmModal = false
   showGalleryModal = false
-  readyImages = []
-  progressValue = 0
-  showProgress = false
   requestId = undefined
   executor = undefined
-  showCheckRequestByTypeExists = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -225,11 +218,6 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
-  onClickThumbnail(data) {
-    this.bigImagesOptions = data
-    this.onTriggerOpenModal('showImageModal')
-  }
-
   onChangeFullFieldMenuItem(value, field) {
     this.columnMenuSettings[field].currentFilterData = value
   }
@@ -302,10 +290,6 @@ export class CreateOrEditRequestViewModel {
     this[modalState] = !this[modalState]
   }
 
-  setBigImagesOptions(data) {
-    this.bigImagesOptions = data
-  }
-
   async getSpecs() {
     try {
       const response = await UserModel.getSpecs(false)
@@ -350,9 +334,5 @@ export class CreateOrEditRequestViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
-  }
-
-  setButtonStatus(requestStatus) {
-    this.buttonStatus = requestStatus
   }
 }

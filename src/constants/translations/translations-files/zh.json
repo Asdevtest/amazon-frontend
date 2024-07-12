@@ -321,7 +321,6 @@
   "Photos of the box taken at the warehouse:": "查在仓库拍的箱子照片:",
   "Write a comment on the task": "填写任务备注",
   "The barcode is glued by the supplier": "条形码由供货方贴上",
-  "Not glued!": "没贴!",
   "glued": "贴上",
   "The barcode is glued by the Storekeeper": "条形码由仓库贴上",
   "Box redistributing": "箱子的重新分配",
@@ -1980,5 +1979,9 @@
   "Last seen": "最后一次查看 {{date}}",
   "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "选择最有效的费率，如果需要运送到不同的仓库，请将批次拆分为多个采购订单",
   "Order quantity": "订单数量",
-  "Are you sure you want to remove the report?": "您确定要删除报告吗?"
+  "Are you sure you want to remove the report?": "您确定要删除报告吗?",
+  "Select request ID": "选择请求ID",
+  "Use data from an exist": "使用现有的数据",
+  "Barсode is not glued": "条形码未粘贴",
+  "Transperensy сode is not glued": "条形码未粘贴"
 }
