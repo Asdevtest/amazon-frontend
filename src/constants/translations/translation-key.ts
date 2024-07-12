@@ -318,7 +318,6 @@ export enum TranslationKey {
   'Final weight, kg' = 'Final weight, kg',
   'Photos of the box taken at the warehouse:' = 'Photos of the box taken at the warehouse:',
   'Write a comment on the task' = 'Write a comment on the task',
-  'Not glued!' = 'Not glued!',
   'The barcode is glued by the supplier' = 'The barcode is glued by the supplier',
   'The barcode is glued by the Storekeeper' = 'The barcode is glued by the Storekeeper',
   'Box redistributing' = 'Box redistributing',
@@ -1987,4 +1986,6 @@ export enum TranslationKey {
   'Are you sure you want to remove the report?' = 'Are you sure you want to remove the report?',
   'Select request ID' = 'Select request ID',
   'Use data from an exist' = 'Use data from an exist',
+  'Barсode is not glued' = 'Barсode is not glued',
+  'Transperensy сode is not glued' = 'Transperensy сode is not glued',
 }

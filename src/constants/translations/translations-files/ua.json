@@ -323,7 +323,6 @@
   "Photos of the box taken at the warehouse:": "Фотографії коробки, зроблені на складі:",
   "Write a comment on the task": "Залишити коментар до завдання",
   "The barcode is glued by the supplier": "Штрихкод проклеєний постачальником",
-  "Not glued!": "Не проклеєно!",
   "glued": "проклеєно",
   "The barcode is glued by the Storekeeper": "Штрихкод проклеєний Сторкіпером",
   "Box redistributing": "Перерозподіл коробки",
@@ -1986,5 +1985,7 @@
   "Order quantity": "Кількість замовлення",
   "Are you sure you want to remove the report?": "Ви впевнені, що хочете видалити звіт?",
   "Select request ID": "Виберіть ID запиту",
-  "Use data from an exist": "Використати дані з існуючого"
+  "Use data from an exist": "Використати дані з існуючого",
+  "Barсode is not glued": "Баркод не проклеєний",
+  "Transperensy сode is not glued": "Transperensy code не проклеєний"
 }
