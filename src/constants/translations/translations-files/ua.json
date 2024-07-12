@@ -1992,5 +1992,6 @@
   "Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located": "Збільшення кількості коробок вимагатиме додаткової оплати в залежності від тарифів складу, на якому знаходиться товар",
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Кнопка виставлення статусу, картка товару залишається в роботі у супервізора (можно змінити)",
   "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка виставлення рахунку, картка продукту надсилається покупцю для пошуку постачальника (можна змінити до того, як покупець візьме в роботу)",
-  "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту надсилається керівнику для перевірки (можна змінити до перевірки). Немає необхідності, щоб покупець шукав постачальника"
+  "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту надсилається керівнику для перевірки (можна змінити до перевірки). Немає необхідності, щоб покупець шукав постачальника",
+  "User not found.": "Користувача не знайдено"
 }
