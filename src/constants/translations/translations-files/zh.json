@@ -1967,7 +1967,7 @@
   "Approximate calculation": "近似计算",
   "Proposals_Left": "剩余 {{num1}} 个提案，{{num2}} 个提案剩余",
   "Notify users of completed launches in": "通知已完成的执行者在",
-  "Try to research market prices and make your offer based on the amount of work and your skills.": "尝试研究市场价格，并基于工作量和技能制作您的提议。",
+  "Try to research market prices and make your offer based on the amount of work and your skills.": "尝试研究市场价格，并基于工作量和技能制作您的提议.",
   "Button to set the status, the product card is sent to the supervisor for checking (can be changed before checking)": "按钮设置状态，产品卡片发送给主管进行检查（可在检查之前更改）",
   "Client's chosen rate, region of shipment and its cost": "客户选择的费率，发货区域和其成本",
   "A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order": "实际成本变化会导致退款到客户或请求额外付款",
@@ -1981,5 +1981,9 @@
   "Select request ID": "选择请求ID",
   "Use data from an exist": "使用现有的数据",
   "Barсode is not glued": "条形码未粘贴",
-  "Transperensy сode is not glued": "条形码未粘贴"
+  "Transperensy сode is not glued": "条形码未粘贴",
+  "Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located": "根据货物所在仓库的费率，增加箱子数量需要额外付款",
+  "Button to set the status, the product card remains in the supervisor's work (can be changed)": "设置状态的按钮，产品卡片保留在主管的工作中（可以更改)",
+  "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "状态结算按钮，产品卡片发送给买家寻找供应商（在买家接手之前可以更改)",
+  "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "设置状态的按钮，产品卡片被发送给主管进行验证（在检查之前可以更改). 不需要买家寻找供应商"
 }

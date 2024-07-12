@@ -1,11 +1,12 @@
 import { compareAsc, compareDesc, format, formatDistanceStrict, formatISO, isValid, parseISO } from 'date-fns'
 import enUS from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
-import ukUa from 'date-fns/locale/uk'
 
 import { ONE_HOUR_IN_MILLISECONDS } from '@constants/time'
 
 import { SettingsModel } from '@models/settings-model'
+
+import { getLocalByLanguageTag } from '@components/shared/date-picker/helpers/get-local-by-language-tag'
 
 export const getUtcDateObject = dateString => {
   const date = new Date(dateString)
@@ -93,7 +94,7 @@ export const getDistanceBetweenDatesInSeconds = (firstDate, secondDate) => {
 export const formatDateDistanceFromNowStrict = (date, tryNow) =>
   formatDistanceStrict(parseISO(date), tryNow ? tryNow : new Date(), {
     addSuffix: true,
-    locale: SettingsModel.languageTag === 'ru' ? ruLocale : SettingsModel.languageTag === 'ua' ? ukUa : enUS,
+    locale: getLocalByLanguageTag(SettingsModel.languageTag),
     partialMethod: 'ceil',
   })
 
