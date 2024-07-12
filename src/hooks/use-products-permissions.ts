@@ -21,6 +21,7 @@ export interface IPermissionsData {
   skuByClient: string[]
   buyerId: string
   images: string[]
+  humanFriendlyId?: string
 }
 
 /*
@@ -41,19 +42,21 @@ export class UseProductsPermissions {
     sortType: 'ASC',
     filters: '',
   }
+  searchFields?: string[]
 
   permissionsData: IPermissionsData[] = []
 
   isCanLoadMore = true
   requestStatus = loadingStatus.SUCCESS
 
-  constructor(callback: ICallback, options?: IOptions) {
+  constructor(callback: ICallback, options?: IOptions, searchFields?: string[]) {
     makeObservable(this, {
       callback: observable,
       options: observable,
       permissionsData: observable,
       isCanLoadMore: observable,
       requestStatus: observable,
+      searchFields: observable,
 
       currentPermissionsData: computed,
       currentRequestStatus: computed,
@@ -66,6 +69,7 @@ export class UseProductsPermissions {
     })
 
     this.callback = callback
+    this.searchFields = searchFields
     this.setOptions(options)
   }
 
@@ -135,7 +139,9 @@ export class UseProductsPermissions {
 
       this.setOptions({
         offset: 0,
-        filters: objectToUrlQs(dataGridFiltersConverter({}, searchValue, '', [], ['skuByClient', 'asin'])),
+        filters: objectToUrlQs(
+          dataGridFiltersConverter({}, searchValue, '', [], this.searchFields || ['skuByClient', 'asin']),
+        ),
       })
 
       await this.getPermissionsData()
