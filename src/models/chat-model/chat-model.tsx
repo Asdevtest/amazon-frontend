@@ -650,6 +650,8 @@ class ChatModelStatic {
   private onReadMessage(response: OnReadMessageResponse) {
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === response.chatId)
 
+    console.log('onReadMessage', response)
+
     if (findChatIndexById !== -1) {
       runInAction(() => {
         this.chats[findChatIndexById] = {
@@ -684,7 +686,7 @@ class ChatModelStatic {
   }
 
   private removeTypingUser(chatId: string, userId: string) {
-    const typingUserToRemove = this.typingUsers.findIndex(el => el.chatId === chatId && el.userId === userId)
+    const typingUserToRemove = this.typingUsers.findIndex(el => el.chatId === chatId && el.user?._id === userId)
 
     runInAction(() => {
       this.typingUsers.splice(typingUserToRemove, 1)
@@ -692,13 +694,44 @@ class ChatModelStatic {
   }
 
   private onTypingMessage(response: OnTypingMessageResponse) {
+    console.log('response', response)
+
     runInAction(() => {
       this.typingUsers = [...this.typingUsers, response]
     })
 
     setTimeout(() => {
-      this.removeTypingUser(response.chatId, response.userId)
+      this.removeTypingUser(response.chatId, response.user._id)
     }, 10000)
+
+    const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, response.chatId)
+
+    if (
+      !chatTypeAndIndex ||
+      chatTypeAndIndex.chatType === 'chats' ||
+      this[chatTypeAndIndex.chatType][chatTypeAndIndex.index].type !== chatsType.DEFAULT
+    ) {
+      return
+    }
+
+    const { chatType, index } = chatTypeAndIndex
+
+    runInAction(() => {
+      this[chatType][index] = {
+        ...this[chatType][index],
+        users: this[chatType][index].users.map(el => {
+          if (el._id === response.user._id) {
+            console.log('el :>> ', el)
+            el.lastSeen = response.user?.lastSeen
+            el.changed = true
+          }
+
+          return el
+        }),
+      }
+    })
+
+    console.log('this[chatType][index] :>> ', this[chatType][index])
   }
 
   private onNewChat(newChat: ChatContract) {

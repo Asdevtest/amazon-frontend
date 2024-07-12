@@ -70,7 +70,12 @@ export interface OnReadMessageResponse {
 
 export interface OnTypingMessageResponse {
   chatId: string
-  userId: string
+  user: {
+    _id: string
+    name: string
+    lastSeen: string
+    rating: number
+  }
 }
 
 export interface ChatMessage<T extends ChatMessageDataUniversal = ChatMessageDataUniversal> {

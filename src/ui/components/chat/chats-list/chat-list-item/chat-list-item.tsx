@@ -178,7 +178,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
         {lastMessage && (
           <div className={styles.lastMessageWrapper}>
-            {typingUsers?.find(el => el.chatId === chat._id && el.userId === oponentUser?._id) ? (
+            {typingUsers?.find(el => el.chatId === chat._id && el.user?._id === oponentUser?._id) ? (
               <div className={styles.lastMessageSubWrapper}>
                 <p className={styles.nickName}>{oponentUser?.name}</p>
                 <p
