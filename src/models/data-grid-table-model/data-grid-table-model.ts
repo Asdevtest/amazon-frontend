@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { makeObservable } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
 
 import { GridColumnVisibilityModel, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
@@ -7,7 +7,9 @@ import { GRID_CHECKBOX_SELECTION_COL_DEF, GridPinnedColumns } from '@mui/x-data-
 
 import { DefaultModel } from '@models/default-model'
 import { TableSettingsModel } from '@models/table-settings'
+import { UserModel } from '@models/user-model'
 
+import { ITablePreset } from '@typings/models/user/table-preset'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { DataGridTableModelParams } from './data-grid-table-model.type'
@@ -33,6 +35,8 @@ export class DataGridTableModel extends DefaultModel {
     left: [GRID_CHECKBOX_SELECTION_COL_DEF.field],
     right: [],
   }
+
+  presetsTableData: ITablePreset[] = []
 
   get filteredData() {
     if (this.fieldsForSearch?.length) {
@@ -144,5 +148,32 @@ export class DataGridTableModel extends DefaultModel {
 
   onClickResetFilters() {
     this.filterModel = filterModelInitialValue
+  }
+
+  async handleCreateTableSettingsPreset(title: string) {
+    try {
+      const result = await UserModel.createTableSettingsPreset({
+        options: {},
+        title,
+        endpoint: this.tableKey,
+        activeOption: true,
+      })
+
+      console.log('result :>> ', result)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getTableSettingsPreset() {
+    try {
+      const result = await UserModel.getTableSettingsPreset(`endpoint[$eq]=${this.tableKey}`)
+
+      runInAction(() => {
+        this.presetsTableData = result as ITablePreset[]
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

@@ -135,6 +135,11 @@ export const ClientInventoryView = observer(({ history }) => {
                 getTags: () => viewModel.columnMenuSettings?.onClickFilterBtn(TAGS, DataGridFilterTables.PRODUCTS),
                 setActiveProductsTag: viewModel.setActiveProductsTag,
               },
+
+              tablePresets: {
+                presetsTableData: viewModel.presetsTableData,
+                onCreatePreset: viewModel.handleCreateTableSettingsPreset,
+              },
             },
           }}
           rowSelectionModel={viewModel.selectedRows}

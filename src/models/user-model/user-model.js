@@ -287,6 +287,16 @@ class UserModelStatic {
     const response = await restApiService.userApi.apiV1UsersFreelanceNoticesGet()
     return response.data
   }
+
+  async createTableSettingsPreset(body) {
+    const response = await restApiService.userApi.apiV1UsersPresetsOptionsPost({ body })
+    return response.data
+  }
+
+  async getTableSettingsPreset(filters) {
+    const response = await restApiService.userApi.apiV1UsersPresetsOptionsMyGet({ filters })
+    return response.data
+  }
 }
 
 export const UserModel = new UserModelStatic()

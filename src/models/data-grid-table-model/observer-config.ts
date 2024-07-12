@@ -12,6 +12,7 @@ export const observerConfig = {
   pinnedColumns: observable,
   currentSearchValue: observable,
   fieldsForSearch: observable,
+  presetsTableData: observable,
 
   filteredData: computed,
   isSomeFilterOn: computed,
@@ -27,4 +28,6 @@ export const observerConfig = {
   handlePinColumn: action.bound,
   handleHideColumns: action.bound,
   onClickResetFilters: action.bound,
+  handleCreateTableSettingsPreset: action.bound,
+  getTableSettingsPreset: action.bound,
 }
