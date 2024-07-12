@@ -7,6 +7,7 @@ import {
   DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -256,6 +257,29 @@ export const pendingOrdersColumns = () => {
       width: 200,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: ({ row }) => {
+        const subUsers = row?.product?.subUsers || []
+        const subUsersByShop = row?.product?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.product?.subUsers || []
+        const subUsersByShop = row?.product?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      filterable: false,
+      disableCustomSort: true,
+      table: DataGridFilterTables.PRODUCTS,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {
