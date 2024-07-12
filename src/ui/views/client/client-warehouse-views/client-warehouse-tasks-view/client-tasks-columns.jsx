@@ -24,11 +24,12 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-      width: 250,
+      width: 160,
 
       renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row} />,
       filterable: false,
       disableCustomSort: true,
+      align: 'center',
     },
 
     {
