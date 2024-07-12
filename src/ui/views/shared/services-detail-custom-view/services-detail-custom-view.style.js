@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'flex-end',
   },
   requestInfoWrapper: {
-    marginTop: '24px',
+    marginTop: '20px',
   },
   detailsWrapper: {
     marginTop: '20px',
