@@ -1965,7 +1965,7 @@
   "File not selected": "Файл не вибран",
   "Are you sure you want to delete ASIN?": "Ви впевнені, що хочете видалити ASIN?",
   "Try to study market prices and choose a performer and choose relevant terms and conditions": "Спробуйте вивчити ринкові ціни, вибрати виконавця та вибрати відповідні умови",
-  "The terms of the proposal do not fit, the contractor will be able to edit them and do it again": "Умови пропозиції не підходять, підрядник зможе їх відредагувати та зробити це знову",
+  "The terms of the proposal do not fit, the contractor will be able to edit them and do it again": "Умови пропозиції не підходять, виконавець зможе їх відредагувати та зробити це знову",
   "Select launch type": "Виберіть тип запуску",
   "New price": "Нова ціна",
   "Search by SKU, ASIN, Title, Launch type": "Пошук за SKU, ASIN, Назвою, Типом запуску",
@@ -1988,5 +1988,9 @@
   "Use data from an exist": "Використати дані з існуючого",
   "Barсode is not glued": "Баркод не проклеєний",
   "Transperensy сode is not glued": "Transperensy code не проклеєний",
-  "Boxes marked in red will not be shipped because they have no dimensions or insufficient data": "Коробки, позначені червоним, не будуть відправлені, тому що у них немає розмірів або недостатньо даних"
+  "Boxes marked in red will not be shipped because they have no dimensions or insufficient data": "Коробки, позначені червоним, не будуть відправлені, тому що у них немає розмірів або недостатньо даних",
+  "Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located": "Збільшення кількості коробок вимагатиме додаткової оплати в залежності від тарифів складу, на якому знаходиться товар",
+  "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Кнопка виставлення статусу, картка товару залишається в роботі у супервізора (можно змінити)",
+  "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка виставлення рахунку, картка продукту надсилається покупцю для пошуку постачальника (можна змінити до того, як покупець візьме в роботу)",
+  "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту надсилається керівнику для перевірки (можна змінити до перевірки). Немає необхідності, щоб покупець шукав постачальника"
 }

@@ -1965,13 +1965,13 @@
   "File not selected": "Файл не выбран",
   "Are you sure you want to delete ASIN?": "Вы уверены, что хотите удалить ASIN?",
   "Try to study market prices and choose a performer and choose relevant terms and conditions": "Попробуйте изучить рыночные цены, выбрать исполнителя и выбрать соответствующие условия",
-  "The terms of the proposal do not fit, the contractor will be able to edit them and do it again": "Условия предложения не подходят, подрядчик сможет их отредактировать и сделать это снова",
+  "The terms of the proposal do not fit, the contractor will be able to edit them and do it again": "Условия предложения не подходят, исполнитель сможет их отредактировать и сделать это снова",
   "Select launch type": "Выберите тип запуска",
   "New price": "Новая цена",
   "Search by SKU, ASIN, Title, Launch type": "Поиск по SKU, ASIN, Названию, Типу запуска",
   "Amazon's bestseller rating": "Рейтинг бестселлеров Амазон",
   "Calculated from the price of the product, fees and the total price of the supplier": "Вычисляется из цены продукта, сборов и общей цены поставщика",
-  "Approximate calculation": "Приблизительный расчет",
+  "Approximate calculation": "Ориентировочный расчет",
   "Proposals_Left": "Осталось {{num1}} из {{num2}} предложений",
   "Notify users of completed launches in": "Уведомлять пользователей о завершенных запусках за",
   "Try to research market prices and make your offer based on the amount of work and your skills.": "Попробуйте исследовать рыночные цены и сделать предложение на основе количества работы и ваших навыков.",
@@ -1988,5 +1988,9 @@
   "Select request ID": "Выберите ID запроса",
   "Use data from an exist": "Использовать данные из существующего",
   "Barсode is not glued": "Баркод не проклеен",
-  "Transperensy сode is not glued": "Transperensy code не проклеен"
+  "Transperensy сode is not glued": "Transperensy code не проклеен",
+  "Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located": "Увеличение количества коробок будет требовать дополнительной оплаты в зависимости от тарифов склада, на котором находится товар",
+  "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Кнопка выставления статуса, карточка товара остается в работе у супервизора (можно изменить)",
+  "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка выставления счета, карточка продукта отправляется покупателю для поиска поставщика (можно изменить до того, как покупатель возьмет в работу)",
+  "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту відправляється супервайзеру для перевірки (можно змінити до перевірки). Немає необхідності, щоб байєр шукав постачальника"
 }
