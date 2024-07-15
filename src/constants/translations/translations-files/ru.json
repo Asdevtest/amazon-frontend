@@ -1947,7 +1947,7 @@
   "Favorites": "Избранное",
   "Product not added": "Товар не добавлен!",
   "Final Status. Can't be changed once it's set": "Окончательный статус. Не может быть изменен после установки",
-  "Detailed description of the movement of the user's money": "Подробное описание движения денег пользователя",
+  "Financial history": "История финансовых операций",
   "The researcher's comment cannot be empty": "Комментарий исследователя не может быть пустым",
   "Buyer's comment cannot be empty": "Комментарий покупателя не может быть пустым",
   "Supervisor's comment cannot be empty": "Комментарий супервайзера не может быть пустым",
@@ -1993,5 +1993,7 @@
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Кнопка выставления статуса, карточка товара остается в работе у супервизора (можно изменить)",
   "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка выставления счета, карточка продукта отправляется покупателю для поиска поставщика (можно изменить до того, как покупатель возьмет в работу)",
   "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту відправляється супервайзеру для перевірки (можно змінити до перевірки). Немає необхідності, щоб байєр шукав постачальника",
-  "User not found.": "Пользователь не найден"
+  "User not found.": "Пользователь не найден",
+  "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка выставления статуса, карточка продукта отправляется покупателю для поиска поставщика (можно изменить до того, как покупатель возьмет в работу)",
+  "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту відправляється супервайзеру для перевірки (можно змінити до перевірки). Немає необхідності, щоб байєр шукав постачальника"
 }

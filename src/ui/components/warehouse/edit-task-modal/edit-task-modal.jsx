@@ -187,7 +187,7 @@ export const EditTaskModal = memo(
               )}
 
               <Typography className={styles.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
-              <Typography className={styles.typeTaskSubTitle}>{renderTypeTaskTitle(task?.operationType)}</Typography>
+              <Typography className={styles.modalTitle}>{renderTypeTaskTitle(task?.operationType)}</Typography>
             </div>
 
             {task.operationType === TaskOperationType.RECEIVE && (
@@ -198,13 +198,14 @@ export const EditTaskModal = memo(
             )}
           </div>
         </div>
+
         <div className={styles.form}>
-          <Typography paragraph className={styles.subTitle}>
+          <Typography paragraph className={styles.modalTitle}>
             {t(TranslationKey['Receipt data'])}
           </Typography>
 
           <div className={styles.commentsAndFilesWrapper}>
-            <div className={styles.commentsWrapper}>
+            <div className={styles.commentsAndFilesWrapper}>
               <div className={styles.commentsContainer}>
                 <Field
                   multiline
@@ -267,8 +268,7 @@ export const EditTaskModal = memo(
             onClickOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
             onClickApplyAllBtn={onClickApplyAllBtn}
           />
-        </div>
-        <div className={styles.buttonsMainWrapper}>
+
           {!readOnly ? (
             <div className={styles.buttonsWrapper}>
               {isNoChangesBarcodeOrTransparency ? (
@@ -286,7 +286,7 @@ export const EditTaskModal = memo(
                 </div>
               )}
 
-              <div className={styles.buttons}>
+              <div className={styles.buttonsWrapper}>
                 <Button
                   styleType={ButtonStyle.SUCCESS}
                   disabled={disableSaveButton}
@@ -309,7 +309,7 @@ export const EditTaskModal = memo(
               </div>
             </div>
           ) : (
-            <div className={styles.buttonWrapper}>
+            <div className={styles.buttonsWrapper}>
               <Button styleType={ButtonStyle.CASUAL} onClick={onClickOpenCloseModal}>
                 {t(TranslationKey.Close)}
               </Button>

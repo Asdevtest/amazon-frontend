@@ -7,7 +7,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   searchInput: {
-    width: 300,
+    width: 400,
   },
 
   tableWrapper: {

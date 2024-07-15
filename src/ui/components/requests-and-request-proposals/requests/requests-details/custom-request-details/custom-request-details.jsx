@@ -26,35 +26,33 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
   }
 
   return (
-    <div className={styles.root}>
-      <Accordion classes={{ root: styles.accordion }} expanded={showDetails} onChange={onClickToShowDetails}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <p className={styles.title}>{t(TranslationKey['Detailed application description'])}</p>
-        </AccordionSummary>
+    <Accordion classes={{ root: styles.accordion }} expanded={showDetails} onChange={onClickToShowDetails}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <p className={styles.title}>{t(TranslationKey['Detailed application description'])}</p>
+      </AccordionSummary>
 
-        <AccordionDetails classes={{ root: styles.details }} style={{ padding: 0 }}>
-          <div className={styles.mainWrapper}>
-            <div className={styles.filesWrapper}>
-              <p className={styles.title}>{t(TranslationKey.Files)}</p>
+      <AccordionDetails>
+        <div className={styles.mainWrapper}>
+          <div className={styles.filesWrapper}>
+            <p className={styles.title}>{t(TranslationKey.Files)}</p>
 
-              <SlideshowGallery slidesToShow={2} files={request?.request?.media} />
-            </div>
-
-            <div className={styles.filesWrapper}>
-              <p className={styles.title}>{t(TranslationKey.Description)}</p>
-
-              {request?.details?.conditions ? (
-                <CustomTextEditor
-                  readOnly
-                  value={request?.details?.conditions}
-                  editorClassName={styles.textEditor}
-                  editorWrapperClassName={styles.editorWrapper}
-                />
-              ) : null}
-            </div>
+            <SlideshowGallery slidesToShow={2} files={request?.request?.media} />
           </div>
-        </AccordionDetails>
-      </Accordion>
-    </div>
+
+          <div className={styles.filesWrapper}>
+            <p className={styles.title}>{t(TranslationKey.Description)}</p>
+
+            {request?.details?.conditions ? (
+              <CustomTextEditor
+                readOnly
+                value={request?.details?.conditions}
+                editorClassName={styles.textEditor}
+                editorWrapperClassName={styles.editorWrapper}
+              />
+            ) : null}
+          </div>
+        </div>
+      </AccordionDetails>
+    </Accordion>
   )
 }

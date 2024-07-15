@@ -3,28 +3,50 @@ import { makeStyles } from 'tss-react/mui'
 import { tooltipClasses } from '@mui/material/Tooltip'
 
 export const useStyles = makeStyles()(theme => ({
-  boxWrapper: {
-    padding: '20px 30px',
-    margin: '0 2px',
-
-    background: theme.palette.background.second,
-
-    borderRadius: 4,
-
-    [theme.breakpoints.down(768)]: {
-      padding: '20px 20px',
-    },
+  wrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: 20,
   },
+
+  currentBox: {},
+
+  titleWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: '20px',
+  },
+
+  sectionTitle: {
+    fontSize: '18px',
+    lineHeight: '25px',
+    fontWeight: 600,
+  },
+
+  btnsWrapper: {
+    display: 'flex',
+    gap: 20,
+  },
+
+  divider: {},
+
+  newBoxes: {},
+
+  boxWrapper: {
+    padding: 20,
+    background: theme.palette.background.second,
+    borderRadius: 4,
+  },
+
   boxWrapperWithShadow: {
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
   },
+
   boxesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     overflow: 'hidden',
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-    },
   },
 
   trackNumberPhotoWrapper: {
@@ -38,41 +60,11 @@ export const useStyles = makeStyles()(theme => ({
     textAlign: 'center',
   },
 
-  divider: {
-    gridColumn: '2 / 3',
-    margin: '0 auto',
-  },
-
-  currentBox: {
-    marginBottom: '20px',
-    width: '690px',
-    gridColumn: '1 / 2',
-
-    [theme.breakpoints.down(1282)]: {
-      width: 550,
-    },
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
-  },
-
-  newBoxes: {
-    [theme.breakpoints.down(1282)]: {
-      width: 550,
-    },
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
-  },
-
-  itemsWrapper: {
-    marginTop: '5px',
-  },
+  itemsWrapper: {},
 
   mainPaper: {
     display: 'flex',
     flexDirection: 'column',
-    marginBottom: '20px',
     width: '100%',
   },
 
@@ -80,14 +72,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '30px',
-    [theme.breakpoints.down(1282)]: {
-      width: '100%',
-      justifyContent: 'space-between',
-      paddingRight: 10,
-    },
-    [theme.breakpoints.down(768)]: {
-      gap: '10px',
-    },
   },
 
   bottomBlockWrapper: {
@@ -98,10 +82,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      gap: '20px',
-    },
   },
   noEditBtnWrapper: {
     width: '100%',
@@ -118,51 +98,24 @@ export const useStyles = makeStyles()(theme => ({
   fieldsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    [theme.breakpoints.down(768)]: {
-      margin: '0 5px',
-      flexDirection: 'column',
-    },
   },
 
   boxInfoWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: 20,
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      gap: '30px',
-    },
   },
 
   imagesWrapper: {
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-
-    [theme.breakpoints.down(1282)]: {
-      paddingLeft: 20,
-    },
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
   },
 
   photoWrapper: {
     width: '300px',
     marginLeft: '20px',
     minHeight: '120px',
-    [theme.breakpoints.down(1282)]: {
-      width: '100%',
-      minHeight: 200,
-    },
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginLeft: 0,
-    },
   },
 
   link: {
@@ -228,9 +181,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '3px',
     padding: 3,
-    [theme.breakpoints.down(768)]: {
-      width: '90px',
-    },
   },
 
   fileName: {
@@ -239,7 +189,6 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     fontSize: '9px',
-
     color: theme.palette.text.second,
   },
 
@@ -279,33 +228,11 @@ export const useStyles = makeStyles()(theme => ({
 
   greenText: {
     color: theme.palette.text.green,
-    [theme.breakpoints.down(768)]: {
-      marginLeft: '40px',
-    },
   },
 
   field: {
     width: 330,
     height: 40,
-    [theme.breakpoints.down(1282)]: {
-      width: 260,
-    },
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
-  },
-
-  sectionTitle: {
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: 600,
-    color: theme.palette.text.general,
-  },
-  sectionTitleWrapper: {
-    marginBottom: '20px',
-    [theme.breakpoints.down(768)]: {
-      marginTop: '30px',
-    },
   },
 
   tablePanelSortWrapper: {
@@ -313,12 +240,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '60px',
     cursor: 'pointer',
-    [theme.breakpoints.down(768)]: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '10px',
-      cursor: 'pointer',
-    },
   },
 
   tablePanelViewText: {
@@ -334,20 +255,12 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.general,
     fontWeight: '600',
-    [theme.breakpoints.down(768)]: {
-      width: '243px',
-      textAlign: 'center',
-    },
   },
   label: {
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.general,
     fontWeight: 400,
-
-    [theme.breakpoints.down(1282)]: {
-      width: 'fit-content',
-    },
   },
 
   footerWrapper: {
@@ -371,13 +284,6 @@ export const useStyles = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.input.customBorder}`,
     display: 'flex',
     justifyContent: 'space-between',
-    [theme.breakpoints.down(1282)]: {
-      flexDirection: 'column',
-    },
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      gap: '14px',
-    },
   },
 
   trackNum: {
@@ -398,12 +304,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.general,
     fontWeight: 600,
-    [theme.breakpoints.down(1282)]: {
-      width: '100%',
-    },
-    [theme.breakpoints.down(768)]: {
-      padding: 0,
-    },
   },
 
   barCode: {
@@ -419,17 +319,10 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
     height: 'fit-content',
-    gridColumn: '2 / 4',
     justifySelf: 'center',
     position: 'sticky',
     top: 0,
     paddingTop: 20,
-
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      padding: '50px 0',
-      marginBottom: 20,
-    },
   },
 
   boxImageContainer: {
@@ -437,32 +330,17 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'flex-end',
     gap: 15,
     marginBottom: 90,
-
-    [theme.breakpoints.down(768)]: {
-      gap: 10,
-      marginBottom: 40,
-    },
   },
 
   bigBoxSvg: {
     width: 220,
     height: 230,
-
-    [theme.breakpoints.down(768)]: {
-      width: 145,
-      height: 152,
-    },
   },
 
   boxArrowSvg: {
     width: '74px !important',
     height: '74px !important',
     color: theme.palette.primary.main,
-
-    [theme.breakpoints.down(768)]: {
-      width: '49px !important',
-      height: '49px !important',
-    },
   },
 
   receiveBoxTitle: {
@@ -470,12 +348,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '140%',
     color: theme.palette.text.general,
-
-    [theme.breakpoints.down(768)]: {
-      marginBottom: 30,
-      fontSize: 14,
-      lineHeight: 19,
-    },
   },
 
   incomingBtnWrapper: {
@@ -498,35 +370,12 @@ export const useStyles = makeStyles()(theme => ({
     marginRight: 30,
   },
 
-  smallLabel: {
-    [theme.breakpoints.down(768)]: {
-      fontSize: '14px',
-      lineHeight: '19px',
-      color: theme.palette.text.second,
-    },
-  },
-
-  titleWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-
-  btnsWrapper: {
-    display: 'flex',
-    gap: 20,
-  },
-
   countSuperBoxWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 5,
     marginBottom: 5,
-
-    [theme.breakpoints.down(1282)]: {
-      paddingRight: 10,
-    },
   },
 
   countSubWrapper: {
@@ -535,10 +384,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     gap: '25px',
     marginBottom: 5,
-    [theme.breakpoints.down(1282)]: {
-      gap: 5,
-      paddingRight: 10,
-    },
   },
 
   subTitleOne: {
