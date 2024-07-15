@@ -1985,7 +1985,7 @@
   "Order quantity": "Кількість замовлення",
   "Are you sure you want to remove the report?": "Ви впевнені, що хочете видалити звіт?",
   "Select request ID": "Виберіть ID запиту",
-  "Use data from an exist": "Використати дані з існуючого",
+  "Request templates": "Шаблони заявок",
   "Barсode is not glued": "Баркод не проклеєний",
   "Transperensy сode is not glued": "Transperensy code не проклеєний",
   "Boxes marked in red will not be shipped because they have no dimensions or insufficient data": "Коробки, позначені червоним, не будуть відправлені, тому що у них немає розмірів або недостатньо даних",
@@ -1993,7 +1993,5 @@
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Кнопка виставлення статусу, картка товару залишається в роботі у супервізора (можно змінити)",
   "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка виставлення рахунку, картка продукту надсилається покупцю для пошуку постачальника (можна змінити до того, як покупець візьме в роботу)",
   "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту надсилається керівнику для перевірки (можна змінити до перевірки). Немає необхідності, щоб покупець шукав постачальника",
-  "User not found.": "Користувача не знайдено",
-  "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка виставлення статусу, картка продукту надсилається покупцю для пошуку постачальника (можна змінити до того, як покупець візьме в роботу)",
-  "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту надсилається керівнику для перевірки (можна змінити до перевірки). Немає необхідності, щоб покупець шукав постачальника"
+  "User not found.": "Користувача не знайдено"
 }
