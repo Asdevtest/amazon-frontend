@@ -1985,5 +1985,6 @@
   "Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located": "根据货物所在仓库的费率，增加箱子数量需要额外付款",
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "设置状态的按钮，产品卡片保留在主管的工作中（可以更改)",
   "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "状态结算按钮，产品卡片发送给买家寻找供应商（在买家接手之前可以更改)",
-  "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "设置状态的按钮，产品卡片被发送给主管进行验证（在检查之前可以更改). 不需要买家寻找供应商"
+  "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "设置状态的按钮，产品卡片被发送给主管进行验证（在检查之前可以更改). 不需要买家寻找供应商",
+  "User not found.": "未找到用户"
 }
