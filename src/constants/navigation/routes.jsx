@@ -982,6 +982,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.RESEARCHER],
     crumbNameKey: TranslationKey['My users'],
+    permissionKey: permissionsKeys.researcher.SHOW_USERS_RESEARCHER,
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
