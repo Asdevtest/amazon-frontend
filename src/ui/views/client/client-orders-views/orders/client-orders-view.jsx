@@ -97,6 +97,14 @@ export const ClientOrdersView = observer(history => {
                 columnsModel: viewModel.columnsModel,
                 onSortModelChange: viewModel.onChangeSortingModel,
               },
+
+              tablePresets: {
+                presetsTableData: viewModel.presetsTableData,
+                handleSetPresetActive: viewModel.handleSetPresetActive,
+                handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+                handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+                handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              },
             },
           }}
           rowSelectionModel={viewModel.selectedRows}

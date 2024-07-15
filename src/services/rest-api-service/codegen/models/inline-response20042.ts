@@ -16,29 +16,23 @@
 import { InlineResponse20042Rows } from './inline-response20042-rows';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20042
  */
 export interface InlineResponse20042 {
     /**
-     * Всего кол-во записей в результате запроса
+     * Кол-во товаров
      * @type {number}
      * @memberof InlineResponse20042
      */
     count?: number;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
+     * Массив товаров.
      * @type {Array<InlineResponse20042Rows>}
      * @memberof InlineResponse20042
      */
     rows?: Array<InlineResponse20042Rows>;
-    /**
-     * 
-     * @type {object}
-     * @memberof InlineResponse20042
-     */
-    meta?: object;
 }
 
 

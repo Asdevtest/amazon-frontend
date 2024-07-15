@@ -49,6 +49,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     additionalPropertiesGetFilters,
     operatorsSettings,
     defaultFilterParams,
+    defaultSortModel,
+    defaultColumnsModel,
   }: DataGridFilterTableModelParams) {
     super({
       getMainDataMethod,
@@ -56,6 +58,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       tableKey,
       defaultGetCurrentDataOptions,
       fieldsForSearch,
+      defaultSortModel,
+      defaultColumnsModel,
     })
 
     this.setColumnMenuSettings(filtersFields, additionalPropertiesColumnMenuSettings)

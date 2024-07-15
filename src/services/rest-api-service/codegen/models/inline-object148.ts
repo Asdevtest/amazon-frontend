@@ -21,11 +21,29 @@
  */
 export interface InlineObject148 {
     /**
-     * Почта от аккаунта, пароль которого Вы забыли
+     * Эндпоинт для которого надо установить пресеты
      * @type {string}
      * @memberof InlineObject148
      */
-    email: string;
+    endpoint?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof InlineObject148
+     */
+    settings?: object;
+    /**
+     * Является ли пресет активным.
+     * @type {boolean}
+     * @memberof InlineObject148
+     */
+    activeSetting?: boolean;
+    /**
+     * Title of preset
+     * @type {string}
+     * @memberof InlineObject148
+     */
+    title?: string;
 }
 
 

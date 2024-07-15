@@ -15,29 +15,23 @@
 
 
 /**
- * Схема подтверждения возрата коробок на склад
+ * 
  * @export
  * @interface InlineObject64
  */
 export interface InlineObject64 {
     /**
-     * GUID коробки, который планируем изменить
+     * 
      * @type {string}
      * @memberof InlineObject64
      */
-    boxId: string;
+    clientComment: string;
     /**
-     * GUID тарифа, на которую планируем изменить
-     * @type {string}
+     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @type {number}
      * @memberof InlineObject64
      */
-    logicsTariffId: string;
-    /**
-     * GUID дестинейшена.
-     * @type {string}
-     * @memberof InlineObject64
-     */
-    destinationId?: string;
+    priceForClient: number;
 }
 
 

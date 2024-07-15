@@ -98,21 +98,23 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     super({
       getMainDataMethod: ClientModel.getOrdersPag,
       columnsModel: clientOrdersViewColumns(rowHandlers) as GridColDef[],
+      defaultColumnsModel: clientOrdersViewColumns(rowHandlers) as GridColDef[],
       filtersFields,
       mainMethodURL: 'clients/pag/orders?',
       fieldsForSearch,
       tableKey: getDataGridTableKey(history.location.pathname),
       defaultFilterParams,
+      defaultSortModel: getSortModel(history.location.pathname),
     })
 
     makeObservable(this, observerConfig)
 
-    this.sortModel = getSortModel(history.location.pathname)
     this.history = history
-    this.getDataGridState()
-    this.getCurrentData()
+    // this.getDataGridState()
+    // this.getCurrentData()
     this.getDestinations()
     this.getStorekeepers()
+    this.getTableSettingsPreset()
   }
 
   onChangeIsFormed(value: boolean) {

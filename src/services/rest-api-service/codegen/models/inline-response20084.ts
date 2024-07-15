@@ -13,12 +13,8 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1RequestProposalsCreatedBy } from './api-v1-request-proposals-created-by';
-import { ApiV1RequestProposalsDetailsCustom } from './api-v1-request-proposals-details-custom';
-import { ApiV1RequestProposalsMedia } from './api-v1-request-proposals-media';
-import { ApiV1RequestProposalsRequest } from './api-v1-request-proposals-request';
-import { ApiV1RequestProposalsSourceFiles } from './api-v1-request-proposals-source-files';
+import { ApiV1ProductsKeepaOffers } from './api-v1-products-keepa-offers';
+import { ApiV1ProductsKeepaStats } from './api-v1-products-keepa-stats';
 
 /**
  * 
@@ -27,166 +23,137 @@ import { ApiV1RequestProposalsSourceFiles } from './api-v1-request-proposals-sou
  */
 export interface InlineResponse20084 {
     /**
-     * Guid продожения к заявке.
-     * @type {string}
+     * 
+     * @type {boolean}
      * @memberof InlineResponse20084
      */
-    _id?: string;
+    isRecommended?: boolean;
     /**
-     * Guid заявки к которой относится данное предложение.
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    requestId?: string;
-    /**
-     * Тип предложения.
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    type?: string;
-    /**
-     *  CREATED - предложение по заявке создано, с ценой и временем выполнения от исполнителя OFFER_CONDITIONS_ACCEPTED - условия предложения были приняты клиентом, после этого начиначется отсчет времени на выполнение заявки, с этого статуса можно перейти только на READY_TO_VERIFY, с этого момента начинаем учитывать этого исполнителя в счетчике людей работающих по заявке OFFER_CONDITIONS_REJECTED - условия предложения были отклонены клиентом. После изменения условий клиентом выставляется статус OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_CORRECTED - исполнитель отредактировал свои условия по предложению чтобы клиент опять их посмотрел и решил принимает или нет, после этого статуса можно опять перейти на OFFER_CONDITIONS_ACCEPTED или OFFER_CONDITIONS_REJECTED READY_TO_VERIFY - статус выставляет исполнитель, статус говорит о том что исполнитель выполнил работу и клиент/супервизор может ее проверять, после этого статуса можно выставить VERIFYING_BY_SUPERVISOR или TO_CORRECT, а так же закрывающие статусы VERIFYING_BY_SUPERVISOR - работа проверяется супервизором TO_CORRECT - отправляется на доработку от клиента/супервизора CORRECTED - исполнитель отмечает работу как исправленная CANCELED_BY_CREATOR_OF_REQUEST - предложение закрывается клиентом, обязательно с комментарием, финальный статус, может быть выставлено только при статусе OFFER_CONDITIONS_REJECTED. Думаю что тут будет еще условия но нужно это обсудить. Этот статус не очень безопасный или может привести к перегрузу админа для решения конфликтных ситуаций CANCELED_BY_SUPERVISOR - предложение закрывается супервизором, обязательно с комментарием, финальный статус, может быть выставлен в любой момент. Тут должна появиться возможность создать запрос в поддержку для решения конфликтных ситуаций, это позже обсудим. CANCELED_BY_EXECUTOR - закрыто исполнителем, обязательно с комментарием, финальный статус, может быть выставлен в любой момент ACCEPTED_BY_CLIENT - принято клиентом, происходи оплата ACCEPTED_BY_SUPERVISOR - принято супервизором, происходи оплата EXPIRED - проставляется автоматически, если время указанное в предложении от исполнителя истекло а предложение не было уже в одном из финальных статусов 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    status?: InlineResponse20084StatusEnum;
-    /**
-     * Время закрытия предложения.
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    timeoutAt?: string;
-    /**
-     * Время на выполнение, в часах.
+     * 
      * @type {number}
      * @memberof InlineResponse20084
      */
-    execution_time?: number;
+    trackingSince?: number;
     /**
-     * Количество попыток, подать предложение или исправить результат работы.
+     * 
      * @type {number}
      * @memberof InlineResponse20084
      */
-    attempts?: number;
+    lastRatingUpdate?: number;
     /**
-     * Цена предложения.
+     * 
      * @type {number}
      * @memberof InlineResponse20084
      */
-    price?: number;
+    rootCategory?: number;
     /**
-     * Комментарий к предложению.
+     * 
+     * @type {Array<number>}
+     * @memberof InlineResponse20084
+     */
+    categories?: Array<number>;
+    /**
+     * 
      * @type {string}
      * @memberof InlineResponse20084
      */
-    comment?: string;
+    parentAsin?: string;
     /**
-     * Ссылки на медиафайлы.
+     * 
+     * @type {string}
+     * @memberof InlineResponse20084
+     */
+    variationCSV?: string;
+    /**
+     * 
      * @type {Array<string>}
      * @memberof InlineResponse20084
      */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * GUID клиента .
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    clientId?: string;
-    /**
-     * GUID супервизора.
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    supervisorId?: string;
-    /**
-     * GUID чата.
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    chatId?: string;
-    /**
-     * GUID любого, кто последний редактировал предложение.
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    lastModifiedById?: string;
+    frequentlyBoughtTogether?: Array<string>;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20084
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {Array<ApiV1RequestProposalsSourceFiles>}
-     * @memberof InlineResponse20084
-     */
-    sourceFiles?: Array<ApiV1RequestProposalsSourceFiles>;
-    /**
-     * 
-     * @type {Array<ApiV1RequestProposalsMedia>}
-     * @memberof InlineResponse20084
-     */
-    media?: Array<ApiV1RequestProposalsMedia>;
-    /**
-     * Дата создания
      * @type {string}
      * @memberof InlineResponse20084
      */
-    createdAt?: string;
+    manufacturer?: string;
     /**
-     * Дата изменения
+     * 
      * @type {string}
      * @memberof InlineResponse20084
      */
-    updatedAt?: string;
+    brand?: string;
     /**
-     * Название предложения
+     * 
      * @type {string}
      * @memberof InlineResponse20084
      */
-    title?: string;
+    productGroup?: string;
     /**
      * 
-     * @type {ApiV1RequestProposalsCreatedBy}
+     * @type {number}
      * @memberof InlineResponse20084
      */
-    createdBy?: ApiV1RequestProposalsCreatedBy;
+    publicationDate?: number;
     /**
      * 
-     * @type {ApiV1RequestProposalsDetailsCustom}
+     * @type {number}
      * @memberof InlineResponse20084
      */
-    detailsCustom?: ApiV1RequestProposalsDetailsCustom;
+    releaseDate?: number;
     /**
      * 
-     * @type {ApiV1RequestProposalsRequest}
+     * @type {Array<Array<number>>}
      * @memberof InlineResponse20084
      */
-    request?: ApiV1RequestProposalsRequest;
+    contributors?: Array<Array<number>>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20084
+     */
+    size?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof InlineResponse20084
+     */
+    salesRanks?: object;
+    /**
+     * 
+     * @type {Array<ApiV1ProductsKeepaOffers>}
+     * @memberof InlineResponse20084
+     */
+    offers?: Array<ApiV1ProductsKeepaOffers>;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof InlineResponse20084
+     */
+    liveOffersOrder?: Array<number>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20084
+     */
+    buyBoxSellerIdHistory?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20084
+     */
+    availabilityAmazon?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineResponse20084
+     */
+    newPriceIsMAP?: boolean;
+    /**
+     * 
+     * @type {ApiV1ProductsKeepaStats}
+     * @memberof InlineResponse20084
+     */
+    stats?: ApiV1ProductsKeepaStats;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20084StatusEnum {
-    Created = 'CREATED',
-    OfferConditionsAccepted = 'OFFER_CONDITIONS_ACCEPTED',
-    ReadyToVerify = 'READY_TO_VERIFY',
-    OfferConditionsRejected = 'OFFER_CONDITIONS_REJECTED',
-    OfferConditionsCorrected = 'OFFER_CONDITIONS_CORRECTED',
-    VerifyingBySupervisor = 'VERIFYING_BY_SUPERVISOR',
-    ToCorrect = 'TO_CORRECT',
-    Corrected = 'CORRECTED',
-    CanceledByCreatorOfRequest = 'CANCELED_BY_CREATOR_OF_REQUEST',
-    CanceledBySupervisor = 'CANCELED_BY_SUPERVISOR',
-    CanceledByExecutor = 'CANCELED_BY_EXECUTOR',
-    AcceptedByClient = 'ACCEPTED_BY_CLIENT',
-    AcceptedBySupervisor = 'ACCEPTED_BY_SUPERVISOR',
-    Expired = 'EXPIRED',
-    CompleteProposalsAmountAchieved = 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED'
-}
-
 
 

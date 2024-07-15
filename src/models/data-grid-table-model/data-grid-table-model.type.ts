@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { GridColDef } from '@mui/x-data-grid-premium'
+import { GridColDef, GridSortModel } from '@mui/x-data-grid-premium'
 
 export interface DataGridTableModelParams {
   getMainDataMethod: (...args: any) => any
@@ -7,4 +7,6 @@ export interface DataGridTableModelParams {
   tableKey?: string
   fieldsForSearch?: string[]
   defaultGetCurrentDataOptions?: any
+  columnsModelConfig?: any
+  defaultSortModel?: GridSortModel
 }

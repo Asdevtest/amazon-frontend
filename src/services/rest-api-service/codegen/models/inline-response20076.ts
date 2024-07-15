@@ -13,7 +13,7 @@
  */
 
 
-import { PermissionGetDtoSchema } from './permission-get-dto-schema';
+import { InlineResponse20076Failed } from './inline-response20076-failed';
 
 /**
  * 
@@ -22,41 +22,11 @@ import { PermissionGetDtoSchema } from './permission-get-dto-schema';
  */
 export interface InlineResponse20076 {
     /**
-     * Guid of permission group
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20076Failed>}
      * @memberof InlineResponse20076
      */
-    _id?: string;
-    /**
-     * Permission group key
-     * @type {string}
-     * @memberof InlineResponse20076
-     */
-    key?: string;
-    /**
-     * Permission group title
-     * @type {string}
-     * @memberof InlineResponse20076
-     */
-    title?: string;
-    /**
-     * Permission group description
-     * @type {string}
-     * @memberof InlineResponse20076
-     */
-    description?: string;
-    /**
-     * Permission role for users
-     * @type {number}
-     * @memberof InlineResponse20076
-     */
-    role?: number;
-    /**
-     * Массив permissions.
-     * @type {Array<PermissionGetDtoSchema>}
-     * @memberof InlineResponse20076
-     */
-    permissions?: Array<PermissionGetDtoSchema>;
+    failed?: Array<InlineResponse20076Failed>;
 }
 
 

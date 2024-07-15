@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
  * 
@@ -22,23 +21,17 @@ import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator
  */
 export interface InlineObject153 {
     /**
-     * Название профиля
+     * Токен, который юзер получает через почту
      * @type {string}
      * @memberof InlineObject153
      */
-    name?: string;
+    hash: string;
     /**
-     * Название ОС
+     * Новый пароль
      * @type {string}
      * @memberof InlineObject153
      */
-    os?: string;
-    /**
-     * 
-     * @type {ApiV1GologinProfileNavigator}
-     * @memberof InlineObject153
-     */
-    navigator?: ApiV1GologinProfileNavigator;
+    password?: string;
 }
 
 

@@ -289,12 +289,17 @@ class UserModelStatic {
   }
 
   async createTableSettingsPreset(body) {
-    const response = await restApiService.userApi.apiV1UsersPresetsOptionsPost({ body })
+    const response = await restApiService.userApi.apiV1UsersPresetsSettingsPost({ body })
+    return response.data
+  }
+
+  async patchPresetSettings(guid, body) {
+    const response = await restApiService.userApi.apiV1UsersPresetsSettingsGuidPatch({ guid, body })
     return response.data
   }
 
   async getTableSettingsPreset(filters) {
-    const response = await restApiService.userApi.apiV1UsersPresetsOptionsMyGet({ filters })
+    const response = await restApiService.userApi.apiV1UsersPresetsSettingsMyGet({ filters })
     return response.data
   }
 }

@@ -2,9 +2,14 @@
 export interface ITablePreset {
   _id: string
   endpoint: string
-  activeOption: boolean
-  options: any
+  activeSetting: boolean
+  settings: any
   title: string
   createdAt: string
   updatedAt: string
+}
+
+export interface ITablePresetSetting {
+  field: string
+  width: number
 }

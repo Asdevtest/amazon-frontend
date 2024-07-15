@@ -21,11 +21,17 @@
  */
 export interface InlineObject93 {
     /**
-     * GUIDы магазинов, которые нужно удалить.
+     * GUID юзера
+     * @type {string}
+     * @memberof InlineObject93
+     */
+    userId: string;
+    /**
+     * 
      * @type {Array<string>}
      * @memberof InlineObject93
      */
-    suppliersIds?: Array<string>;
+    shopIds: Array<string>;
 }
 
 

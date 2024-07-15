@@ -13,6 +13,8 @@ export const observerConfig = {
   currentSearchValue: observable,
   fieldsForSearch: observable,
   presetsTableData: observable,
+  defaultSortModel: observable,
+  defaultColumnsModel: observable,
 
   filteredData: computed,
   isSomeFilterOn: computed,
@@ -30,4 +32,11 @@ export const observerConfig = {
   onClickResetFilters: action.bound,
   handleCreateTableSettingsPreset: action.bound,
   getTableSettingsPreset: action.bound,
+  handleSetPresetActive: action.bound,
+  handleDeleteTableSettingsPreset: action.bound,
+  handleUpdateTableSettingsPreset: action.bound,
+  setSettingsFromActivePreset: action.bound,
+  getActivePreset: action.bound,
+  handleSetActivePreset: action.bound,
+  handleUnsetAllPresets: action.bound,
 }

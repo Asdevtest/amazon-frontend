@@ -1985,4 +1985,8 @@ export enum TranslationKey {
   'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses' = 'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses',
   'Order quantity' = 'Order quantity',
   'Are you sure you want to remove the report?' = 'Are you sure you want to remove the report?',
+  'Are you sure delete this preset?' = 'Are you sure delete this preset?',
+  'Save the state of the table to this preset?' = 'Save the state of the table to this preset?',
+  'Without preset' = 'Without preset',
+  'Add a preset' = 'Add a preset',
 }
