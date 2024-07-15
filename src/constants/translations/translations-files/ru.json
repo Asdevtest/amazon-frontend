@@ -431,7 +431,7 @@
   "New search from the client": "Новый поиск от клиента",
   "In the process of searching": "В процессе поиска",
   "Free": "Свободные",
-  "Free Orders": "Свободные заказы",
+  "Free orders": "Свободные заказы",
   "From the Supervisor": "От Супервайзера",
   "From the Researcher": "От Ресерчера",
   "From the Client": "От Клиента",
@@ -673,7 +673,6 @@
   "Stock sum": "Сумма стока",
   "Not chosen": "Не выбрано",
   "Go to order": "Перейти к заказу",
-  "Continue to work with free orders": "Продолжить работу со свободными заказами",
   "Order picked up": "Заказ взят в работу",
   "Return to Inventory": "Вернуть в Инвентарь",
   "After confirmation, the card will be moved to the Inventory. Continue?": "После подтверждения карточка будет перенесена в Инвентарь. Продолжить?",
@@ -762,7 +761,7 @@
   "To assign the order to Byer": "Закрепить заказ за Байером",
   "All orders available for pickup": "Все доступные для взятия в работу заказы",
   "Go to the order and open the \"Edit order\" window": "Перейти к заказу и открыть окно \"Редактирование заказа\"",
-  "Stay in \"Free Orders\"": "Остаться в \"Свободные заказы\"",
+  "Stay in \"Free orders\"": "Остаться в \"Свободные заказы\"",
   "Statistics on goods/orders/finances": "Статистика по товарам/заказам/финансам",
   "All available tasks for finding a supplier": "Все доступные задачи для поиска поставщика",
   "Manage the list of employees": "Управление списком сотрудников",
@@ -1993,7 +1992,5 @@
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Кнопка выставления статуса, карточка товара остается в работе у супервизора (можно изменить)",
   "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка выставления счета, карточка продукта отправляется покупателю для поиска поставщика (можно изменить до того, как покупатель возьмет в работу)",
   "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту відправляється супервайзеру для перевірки (можно змінити до перевірки). Немає необхідності, щоб байєр шукав постачальника",
-  "User not found.": "Пользователь не найден",
-  "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка выставления статуса, карточка продукта отправляется покупателю для поиска поставщика (можно изменить до того, как покупатель возьмет в работу)",
-  "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту відправляється супервайзеру для перевірки (можно змінити до перевірки). Немає необхідності, щоб байєр шукав постачальника"
+  "User not found.": "Пользователь не найден"
 }
