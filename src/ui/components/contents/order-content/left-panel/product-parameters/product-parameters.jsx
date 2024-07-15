@@ -138,7 +138,7 @@ export const ProductParameters = ({
 
       <Field
         oneLine
-        label={t(TranslationKey['Transparency codes'])}
+        label={t(TranslationKey['Transparency Codes'])}
         containerClasses={styles.parameterTableCellWrapper}
         labelClasses={styles.fieldLabel}
         inputComponent={
