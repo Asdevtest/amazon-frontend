@@ -25,7 +25,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
 
       renderCell: params => <MultilineTextCell twoLines maxLength={45} text={params.value} />,
-      width: 198,
+      minWidth: 198,
       filterable: false,
 
       columnKey: columnnsKeys.shared.STRING,
@@ -48,7 +48,7 @@ export const clientNewIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      minWidth: 260,
 
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
@@ -61,7 +61,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
-      width: 100,
+      minWidth: 100,
 
       columnKey: columnnsKeys.client.IDEA_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
@@ -74,7 +74,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
       renderCell: params => <SmallRowImageCell image={params.value?.find(el => checkIsMediaFileLink(el))} />,
-      width: 96,
+      minWidth: 96,
 
       filterable: false,
       disableCustomSort: true,
@@ -86,7 +86,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
-      width: 251,
+      minWidth: 251,
 
       columnKey: columnnsKeys.shared.STRING,
       disableCustomSort: true,
@@ -98,7 +98,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
-      width: 251,
+      minWidth: 251,
 
       columnKey: columnnsKeys.shared.STRING,
       disableCustomSort: true,
@@ -116,7 +116,7 @@ export const clientNewIdeasColumns = rowHandlers => {
         />
       ),
 
-      width: 160,
+      minWidth: 160,
       disableCustomSort: true,
       filterable: false,
     },
@@ -127,7 +127,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
       renderCell: params => <ShortDateCell value={params.value} />,
-      width: 91,
+      minWidth: 91,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -137,7 +137,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
       renderCell: params => <ShortDateCell value={params.value} />,
-      width: 91,
+      minWidth: 91,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -153,7 +153,7 @@ export const clientNewIdeasColumns = rowHandlers => {
           userId={row.sub?._id || row?.createdBy?._id}
         />
       ),
-      width: 130,
+      minWidth: 130,
 
       filterable: false,
       disableCustomSort: true,
@@ -176,7 +176,7 @@ export const clientNewIdeasColumns = rowHandlers => {
 
         return subUsers?.concat(subUsersByShop).join(', ')
       },
-      width: 187,
+      minWidth: 160,
       filterable: false,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -197,7 +197,7 @@ export const clientNewIdeasColumns = rowHandlers => {
           onClickRequestId={rowHandlers.onClickRequestId}
         />
       ),
-      width: 990,
+      minWidth: 990,
       disableCustomSort: true,
     },
   ]

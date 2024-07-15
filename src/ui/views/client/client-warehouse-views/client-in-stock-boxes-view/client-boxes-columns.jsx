@@ -39,7 +39,7 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
       renderCell: params => <MultilineTextCell text={params.value?.name} />,
-      width: 100,
+      minWidth: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
     },
@@ -51,7 +51,7 @@ export const clientBoxesViewColumns = (
 
       renderCell: params => <MultilineTextCell twoLines text={params.row.items?.[0]?.product?.shop?.name} />,
 
-      width: 100,
+      minWidth: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
@@ -62,7 +62,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-      width: 160,
+      minWidth: 160,
       renderCell: params => (
         <MultilineTextCell
           leftAlign
@@ -85,7 +85,7 @@ export const clientBoxesViewColumns = (
 
       renderCell: params => <MultilineTextCell text={params.value} />,
       type: 'number',
-      width: 60,
+      minWidth: 60,
 
       columnKey: columnnsKeys.client.WAREHOUSE_ID,
     },
@@ -96,7 +96,7 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
       renderCell: params => <MultilineTextCell text={params.row.items?.[0]?.order?.id} />,
-      width: 160,
+      minWidth: 160,
 
       columnKey: columnnsKeys.shared.QUANTITY,
       table: DataGridFilterTables.ORDERS,
@@ -108,7 +108,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-      width: 300,
+      minWidth: 300,
       renderCell: params => {
         return params.row?.items.length > 1 ? (
           <OrderManyItemsCell
@@ -162,7 +162,7 @@ export const clientBoxesViewColumns = (
           onChangeIsFormedInBox={() => handlers.onChangeIsFormedInBox(params.row)}
         />
       ),
-      width: 120,
+      minWidth: 120,
 
       filterable: false,
       valueFormatter: params => (params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)),
@@ -177,7 +177,7 @@ export const clientBoxesViewColumns = (
 
       renderCell: params => <MultilineTextCell text={params.value} />,
       type: 'number',
-      width: 95,
+      minWidth: 95,
 
       columnKey: columnnsKeys.shared.QUANTITY,
       disableCustomSort: true,
@@ -205,7 +205,7 @@ export const clientBoxesViewColumns = (
           ''
         )
       },
-      width: 215,
+      minWidth: 215,
       filterable: false,
       disableCustomSort: true,
       align: 'center',
@@ -219,7 +219,7 @@ export const clientBoxesViewColumns = (
 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
       type: 'number',
-      width: 110,
+      minWidth: 110,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -230,7 +230,7 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
       valueFormatter: params => (params.value ? formatNormDateTime(params.value) : ''),
-      width: 100,
+      minWidth: 100,
     },
 
     {
@@ -251,7 +251,7 @@ export const clientBoxesViewColumns = (
 
         return subUsers?.concat(subUsersByShop).join(', ')
       },
-      width: 187,
+      minWidth: 160,
       table: DataGridFilterTables.PRODUCTS,
       filterable: false,
       disableCustomSort: true,
@@ -311,7 +311,7 @@ export const clientBoxesViewColumns = (
       renderCell: params => (
         <Dimensions isCell isTotalWeight data={params.row} transmittedSizeSetting={getUnitsOption()} />
       ),
-      width: 210,
+      minWidth: 210,
       disableCustomSort: true,
     },
 
@@ -329,7 +329,7 @@ export const clientBoxesViewColumns = (
           onClickSubmit={handlers.onClickSavePrepId}
         />
       ),
-      width: 240,
+      minWidth: 240,
 
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -340,7 +340,7 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
       renderCell: params => <RedFlagsCell flags={params.row?.items?.[0]?.product?.redFlags} />,
       valueGetter: ({ row }) => row?.items?.[0]?.product?.redFlags?.map(el => el?.title).join(', '),
-      width: 130,
+      minWidth: 130,
       columnKey: columnnsKeys.shared.RED_FLAGS,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -352,7 +352,7 @@ export const clientBoxesViewColumns = (
 
       renderCell: params => <NormDateCell value={params.value} />,
       valueFormatter: params => formatNormDateTime(params.value),
-      width: 120,
+      minWidth: 120,
       // type: 'date',
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -363,7 +363,7 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       valueFormatter: params => formatNormDateTime(params.value),
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
+      minWidth: 120,
       // type: 'date',
       columnKey: columnnsKeys.shared.DATE,
     },

@@ -25,7 +25,7 @@ export const adminWarehouseBoxesColumns = () => {
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 105,
+      minWidth: 105,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -34,7 +34,7 @@ export const adminWarehouseBoxesColumns = () => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 105,
+      minWidth: 105,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -43,7 +43,7 @@ export const adminWarehouseBoxesColumns = () => {
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 60,
+      minWidth: 60,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
@@ -60,7 +60,7 @@ export const adminWarehouseBoxesColumns = () => {
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       hideEmptyObject: true,
       disableCustomSort: true,
-      width: 180,
+      minWidth: 180,
     },
 
     {
@@ -70,7 +70,7 @@ export const adminWarehouseBoxesColumns = () => {
       renderCell: params => (
         <UserMiniCell userName={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
-      width: 180,
+      minWidth: 180,
       hideEmptyObject: true,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -95,7 +95,7 @@ export const adminWarehouseBoxesColumns = () => {
       columnMenuConfig: productColumnMenuValue,
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      minWidth: 250,
     },
 
     {
@@ -103,7 +103,7 @@ export const adminWarehouseBoxesColumns = () => {
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
       renderCell: params => <MultilineTextCell text={String(params?.value * params?.row?.amount)} />,
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.NUMBER,
     },
 
@@ -112,7 +112,7 @@ export const adminWarehouseBoxesColumns = () => {
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
       renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
-      width: 200,
+      minWidth: 200,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
@@ -124,7 +124,7 @@ export const adminWarehouseBoxesColumns = () => {
       renderCell: params => (
         <MultilineTextCell text={toFixedWithDollarSign(params.row.items?.[0]?.order?.totalPrice, 2)} />
       ),
-      width: 110,
+      minWidth: 110,
       disableCustomSort: true,
       filterable: false,
     },
@@ -137,7 +137,7 @@ export const adminWarehouseBoxesColumns = () => {
       columnKey: columnnsKeys.shared.NUMBER,
       disableCustomSort: true,
       filterable: false,
-      width: 120,
+      minWidth: 120,
     },
 
     {
@@ -146,7 +146,7 @@ export const adminWarehouseBoxesColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Gross weight'])} />,
       renderCell: params => <MultilineTextCell text={toFixedWithKg(params.value, 2)} />,
       type: 'number',
-      width: 130,
+      minWidth: 130,
       disableCustomSort: true,
       filterable: false,
     },
@@ -158,7 +158,7 @@ export const adminWarehouseBoxesColumns = () => {
       renderCell: params => <MultilineTextCell text={params.value} />,
       columnKey: columnnsKeys.shared.NUMBER,
       disableCustomSort: true,
-      width: 150,
+      minWidth: 150,
     },
   ]
 

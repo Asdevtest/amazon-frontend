@@ -24,7 +24,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
 
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       headerName: t(TranslationKey.Created),
-      width: 90,
+      minWidth: 90,
       renderCell: params => <ShortDateCell value={params.value} />,
     },
 
@@ -32,7 +32,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       field: 'priorityAndChinaDelivery',
       headerName: 'priorityAndChinaDelivery',
       renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
-      width: 45,
+      minWidth: 45,
       renderCell: params => (
         <PriorityAndChinaDeliverCell
           priority={params.row.priority}
@@ -51,14 +51,14 @@ export const clientOrdersNotificationsViewColumns = handlers => {
 
       renderCell: params => <MultilineTextCell text={params.row.id} />,
       type: 'number',
-      width: 60,
+      minWidth: 60,
     },
 
     {
       field: 'priceChanged',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pay more'])} />,
       headerName: t(TranslationKey['Pay more']),
-      width: 100,
+      minWidth: 100,
       renderCell: params => (
         <MultilineTextCell text={toFixed(params.row.totalPriceChanged - params.row.totalPrice, 2)} />
       ),
@@ -70,7 +70,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       field: 'action',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
       headerName: t(TranslationKey.Action),
-      width: 160,
+      minWidth: 160,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -92,7 +92,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       headerName: t(TranslationKey.Orders),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Orders)} />,
 
-      width: 250,
+      minWidth: 250,
       renderCell: params => <OrderCell product={params.row.product} />,
       disableCustomSort: true,
     },
@@ -102,7 +102,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-      width: 230,
+      minWidth: 230,
       renderCell: params => {
         const statusCode = OrderStatusByCode[params.value]
 
@@ -124,7 +124,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Planned cost'])} />,
 
       type: 'number',
-      width: 130,
+      minWidth: 130,
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     },
 
@@ -134,7 +134,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Actual cost'])} />,
 
       type: 'number',
-      width: 110,
+      minWidth: 110,
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     },
 
@@ -144,7 +144,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of purchase per piece.'])} />,
 
       type: 'number',
-      width: 120,
+      minWidth: 120,
       renderCell: params => (
         <MultilineTextCell text={toFixedWithDollarSign(params.row.totalPriceChanged / params.row.amount, 2)} />
       ),
@@ -156,7 +156,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 210,
+      minWidth: 210,
       renderCell: params => <DownloadAndCopyBtnsCell value={params.row.product.barCode} />,
       disableCustomSort: true,
     },
@@ -168,7 +168,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       renderCell: params => <MultilineTextCell text={params.value} />,
 
       type: 'number',
-      width: 100,
+      minWidth: 100,
     },
 
     {
@@ -177,7 +177,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
       renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
       disableCustomSort: true,
-      width: 150,
+      minWidth: 150,
     },
 
     {
@@ -191,7 +191,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       disableCustomSort: true,
 
       type: 'number',
-      width: 100,
+      minWidth: 100,
     },
 
     {
@@ -200,7 +200,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment to order'])} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       disableCustomSort: true,
-      width: 225,
+      minWidth: 225,
     },
   ]
 

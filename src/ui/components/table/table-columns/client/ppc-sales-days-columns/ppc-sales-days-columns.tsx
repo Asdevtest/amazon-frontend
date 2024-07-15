@@ -22,7 +22,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.DATE,
@@ -34,7 +34,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell twoLines text={params.value?.name} />,
-      width: 150,
+      minWidth: 150,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -50,7 +50,7 @@ export const ppcSalesDaysColumns = () => {
       renderCell: (params: GridRenderCellParams) => (
         <ProductAsinCell withoutTitle image={params.row?.image} asin={params.row?.asin} skuByClient={params.row?.sku} />
       ),
-      width: 250,
+      minWidth: 260,
       disableCustomSort: true,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -63,7 +63,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Acos" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -75,7 +75,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="PPC Impressions" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 110,
+      minWidth: 110,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -87,7 +87,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Clicks" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -99,7 +99,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Spend" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -111,7 +111,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="PPC Orders" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -123,7 +123,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="PPC Units" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -135,7 +135,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="PPC Sales" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -147,7 +147,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="PPC Avg Units One Order" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 110,
+      minWidth: 110,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -159,7 +159,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Order Sales Cost" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -171,7 +171,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Unit Sales Cost" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -183,7 +183,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Organic Sessions" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -195,7 +195,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Organic Orders" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -207,7 +207,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Organic Units" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -219,7 +219,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Organic Sales" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -231,7 +231,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Organic Avg Order Price" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -243,7 +243,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Organic Avg Unit Price" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -255,7 +255,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Organic Avg Units One Order" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -267,7 +267,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Sessions" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -279,7 +279,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Orders" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -291,7 +291,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Units" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -303,7 +303,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Avg Units In Per Order" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -315,7 +315,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Sales" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -327,7 +327,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Avg Price Order" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -339,7 +339,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Avg Unit Price" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -351,7 +351,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Buy Box" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -363,7 +363,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="PPC Sale" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -375,7 +375,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Organic Sale" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -387,7 +387,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Conversion" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 100,
+      minWidth: 100,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -399,7 +399,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Conversion PPC" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 100,
+      minWidth: 100,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -411,7 +411,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Conversion Organic" />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 100,
+      minWidth: 100,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -422,7 +422,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.DATE,
@@ -433,7 +433,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Date Updated',
       renderHeader: () => <MultilineTextHeaderCell text="Date Updated" />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.DATE,
@@ -444,7 +444,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Day',
       renderHeader: () => <MultilineTextHeaderCell text="Day" />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
       columnKey: columnnsKeys.shared.DATE,

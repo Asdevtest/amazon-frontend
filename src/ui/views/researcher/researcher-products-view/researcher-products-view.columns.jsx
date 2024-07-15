@@ -25,7 +25,7 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
     renderCell: params => <AsinCell asin={params.row.asin} />,
-    width: 180,
+    minWidth: 180,
   },
 
   {
@@ -46,7 +46,7 @@ export const researcherProductsViewColumns = () => [
 
       return <MultilineTextCell leftAlign text={status} color={color} />
     },
-    width: 280,
+    minWidth: 280,
   },
 
   {
@@ -56,7 +56,7 @@ export const researcherProductsViewColumns = () => [
     renderCell: params => (
       <MultilineStatusCell leftAlign status={productStrategyStatusesEnum[params.row.strategyStatus]} />
     ),
-    width: 180,
+    minWidth: 180,
   },
 
   {
@@ -65,7 +65,7 @@ export const researcherProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
     renderCell: params => <ToFixedWithDollarSignCell leftAlign value={params.row.amazon} fix={2} />,
     type: 'number',
-    width: 150,
+    minWidth: 150,
   },
 
   {
@@ -83,6 +83,6 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     renderCell: params => <NormDateCell value={params.row.createdAt} />,
-    width: 115,
+    minWidth: 115,
   },
 ]

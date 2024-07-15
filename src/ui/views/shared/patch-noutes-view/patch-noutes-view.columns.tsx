@@ -33,7 +33,7 @@ export const moderatorUpdatedColumns = ({
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell threeLines leftAlign text={row.title} />,
     filterable: false,
     sortable: false,
-    width: 300,
+    minWidth: 300,
   },
 
   {
@@ -42,7 +42,7 @@ export const moderatorUpdatedColumns = ({
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell threeLines leftAlign text={row.version} />,
     filterable: false,
     sortable: false,
-    width: 160,
+    minWidth: 160,
   },
 
   {
@@ -53,7 +53,7 @@ export const moderatorUpdatedColumns = ({
     ),
     filterable: false,
     sortable: false,
-    width: 400,
+    minWidth: 400,
     flex: 1,
   },
 
@@ -63,7 +63,7 @@ export const moderatorUpdatedColumns = ({
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={Roles[row.role]} />,
     filterable: false,
     sortable: false,
-    width: 140,
+    minWidth: 140,
   },
 
   {
@@ -73,7 +73,7 @@ export const moderatorUpdatedColumns = ({
     renderCell: ({ row }: GridRowModel) => <UserLinkCell blackText name={row.author?.name} userId={row.author?._id} />,
     filterable: false,
     sortable: false,
-    width: 160,
+    minWidth: 160,
   },
 
   {
@@ -83,7 +83,7 @@ export const moderatorUpdatedColumns = ({
     renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
     filterable: false,
     sortable: false,
-    width: 115,
+    minWidth: 115,
   },
 
   {
@@ -91,7 +91,7 @@ export const moderatorUpdatedColumns = ({
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
-    width: 115,
+    minWidth: 115,
     filterable: false,
     sortable: false,
   },
@@ -116,7 +116,7 @@ export const moderatorUpdatedColumns = ({
     ),
     filterable: false,
     sortable: false,
-    width: 90,
+    minWidth: 90,
     align: 'center',
   },
 ]

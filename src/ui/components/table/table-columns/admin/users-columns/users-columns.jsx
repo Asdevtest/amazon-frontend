@@ -27,7 +27,7 @@ export const adminUsersViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       columnKey: columnnsKeys.shared.DATE,
-      width: 100,
+      minWidth: 100,
     },
 
     {
@@ -36,7 +36,7 @@ export const adminUsersViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Online)} />,
 
       renderCell: params => <UserMiniCell userId={params?.id} isOnline={params?.row?.isOnline} />,
-      width: 90,
+      minWidth: 90,
       filterable: false,
     },
 
@@ -45,7 +45,7 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey.Name),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Name)} />,
       columnKey: columnnsKeys.shared.STRING,
-      width: 150,
+      minWidth: 150,
     },
 
     {
@@ -54,7 +54,7 @@ export const adminUsersViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Balance)} />,
 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       transformValueMethod: balance => toFixedWithDollarSign(balance),
       type: 'number',
@@ -66,7 +66,7 @@ export const adminUsersViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Freeze)} />,
 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
-      width: 120,
+      minWidth: 120,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       transformValueMethod: balance => toFixedWithDollarSign(balance),
       type: 'number',
@@ -78,7 +78,7 @@ export const adminUsersViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Email)} />,
       renderCell: ({ row }) => <TextWithCopy text={row.email} justifyContent={'flex-end'} />,
       columnKey: columnnsKeys.shared.STRING,
-      width: 200,
+      minWidth: 200,
     },
 
     {
@@ -87,7 +87,7 @@ export const adminUsersViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Rate)} />,
 
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.STRING,
       type: 'number',
     },
@@ -98,7 +98,7 @@ export const adminUsersViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Role)} />,
 
       renderCell: ({ row }) => <MultilineTextCell text={userRoleTranslateKey(row?.role)} />,
-      width: 150,
+      minWidth: 150,
       transformValueMethod: userRoleTranslateKey,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -111,7 +111,7 @@ export const adminUsersViewColumns = handlers => {
       renderCell: ({ row }) => <MultilineTextCell text={userStatusTranslateKey(row?.active)} />,
       transformValueMethod: userStatusTranslateKey,
       columnKey: columnnsKeys.shared.STRING_VALUE,
-      width: 160,
+      minWidth: 160,
     },
 
     {
@@ -124,7 +124,7 @@ export const adminUsersViewColumns = handlers => {
       ),
       transformValueMethod: userSubStatusTranlateKey,
       columnKey: columnnsKeys.shared.STRING_VALUE,
-      width: 120,
+      minWidth: 120,
     },
 
     {
@@ -144,7 +144,7 @@ export const adminUsersViewColumns = handlers => {
       filterable: false,
       sortable: false,
       disableCustomSort: true,
-      width: 205,
+      minWidth: 205,
     },
   ]
 

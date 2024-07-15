@@ -17,7 +17,7 @@ export const adminBatchesViewColumns = () => [
     field: 'orders',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    width: 550,
+    minWidth: 550,
     renderCell: params => <BatchBoxesCell boxes={params.row.boxes} />,
     filterable: false,
     sortable: false,
@@ -28,7 +28,7 @@ export const adminBatchesViewColumns = () => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 150,
+    minWidth: 150,
     // type: 'date',
   },
 
@@ -39,7 +39,7 @@ export const adminBatchesViewColumns = () => [
     renderCell: params => (
       <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
     ),
-    width: 170,
+    minWidth: 170,
   },
 
   {
@@ -47,7 +47,7 @@ export const adminBatchesViewColumns = () => [
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.row.boxes[0]?.destination?.name} />,
-    width: 150,
+    minWidth: 150,
   },
 
   {
@@ -56,7 +56,7 @@ export const adminBatchesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 80,
+    minWidth: 80,
   },
 
   {
@@ -64,7 +64,7 @@ export const adminBatchesViewColumns = () => [
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 250,
+    minWidth: 250,
   },
 
   {
@@ -74,7 +74,7 @@ export const adminBatchesViewColumns = () => [
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 150,
+    minWidth: 150,
   },
 
   {
@@ -89,7 +89,7 @@ export const adminBatchesViewColumns = () => [
         eta={params.row?.boxes[0].logicsTariff?.eta}
       />
     ),
-    width: 350,
+    minWidth: 350,
     filterable: false,
     sortable: false,
   },

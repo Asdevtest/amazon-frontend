@@ -19,7 +19,7 @@ export const userPermissionsColumns = handlers => [
     headerName: t(TranslationKey.Key),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Key)} />,
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
-    width: 280,
+    minWidth: 280,
   },
 
   {
@@ -27,7 +27,7 @@ export const userPermissionsColumns = handlers => [
     headerName: t(TranslationKey.Role),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Role)} />,
     renderCell: params => <MultilineTextCell leftAlign text={UserRolePrettyMap[params.value]} />,
-    width: 140,
+    minWidth: 140,
   },
 
   {
@@ -35,7 +35,7 @@ export const userPermissionsColumns = handlers => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
     renderCell: params => <MultilineTextCell leftAlign threeLines text={params.value} />,
-    width: 300,
+    minWidth: 300,
   },
 
   {
@@ -66,7 +66,7 @@ export const userPermissionsColumns = handlers => [
     ),
     filterable: false,
     sortable: false,
-    width: 100,
+    minWidth: 100,
   },
 
   {
@@ -74,6 +74,6 @@ export const userPermissionsColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 110,
+    minWidth: 110,
   },
 ]

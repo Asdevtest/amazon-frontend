@@ -11,7 +11,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
     renderCell: params => <AsinCell asin={params.value} />,
-    width: 190,
+    minWidth: 190,
   },
 
   {
@@ -23,7 +23,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
     sortable: false,
     disableCustomSort: true,
 
-    width: 100,
+    minWidth: 100,
   },
 
   {
@@ -31,7 +31,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 200,
+    minWidth: 200,
   },
 
   {
@@ -39,7 +39,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
     renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
-    width: 200,
+    minWidth: 200,
   },
 
   {
@@ -54,7 +54,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
     headerName: t(TranslationKey['Unread messages']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Unread messages'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 200,
+    minWidth: 200,
   },
 
   {
@@ -67,6 +67,6 @@ export const clientFreelanceNotificationsColumns = handlers => [
       </Button>
     ),
     sortable: false,
-    width: 140,
+    minWidth: 140,
   },
 ]

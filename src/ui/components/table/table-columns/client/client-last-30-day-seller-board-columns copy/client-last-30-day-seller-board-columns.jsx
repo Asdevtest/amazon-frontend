@@ -19,7 +19,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
+      minWidth: 120,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
       columnKey: columnnsKeys.shared.DATE,
@@ -30,7 +30,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: params => <MultilineTextCell twoLines text={params.value?.name} />,
-      width: 150,
+      minWidth: 150,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -46,7 +46,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       renderCell: params => (
         <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
       ),
-      width: 185,
+      minWidth: 260,
       disableCustomSort: true,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
@@ -59,7 +59,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
       renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
-      width: 250,
+      minWidth: 250,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
       columnKey: columnnsKeys.shared.STRING,
@@ -81,7 +81,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       headerName: 'Unitsorganic',
       renderHeader: () => <MultilineTextHeaderCell text={'Unitsorganic'} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 200,
+      minWidth: 200,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -91,7 +91,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       headerName: 'Unitsppc',
       renderHeader: () => <MultilineTextHeaderCell text={'Unitsppc'} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 200,
+      minWidth: 200,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -101,7 +101,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       headerName: 'Netprofit',
       renderHeader: () => <MultilineTextHeaderCell text={'Netprofit'} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 250,
+      minWidth: 250,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
       columnKey: columnnsKeys.shared.QUANTITY,

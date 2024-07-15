@@ -18,7 +18,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Account),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Account)} />,
 
-    width: 150,
+    minWidth: 150,
     renderCell: params => (
       <UserLinkCell
         name={params?.row?.originalData?.storekeeper?.name}
@@ -32,7 +32,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-    width: 240,
+    minWidth: 240,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -41,7 +41,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Country),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Country)} />,
 
-    width: 120,
+    minWidth: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -50,7 +50,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey['ZIP code']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ZIP code'])} />,
 
-    width: 100,
+    minWidth: 100,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -59,7 +59,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.City),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.City)} />,
 
-    width: 140,
+    minWidth: 140,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -68,7 +68,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.State),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.State)} />,
 
-    width: 150,
+    minWidth: 150,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -77,7 +77,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Address),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Address)} />,
 
-    width: 350,
+    minWidth: 350,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -86,7 +86,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 130,
+    minWidth: 130,
     renderCell: params => (
       <ActionButtonsCell
         isFirstButton

@@ -62,7 +62,7 @@ export const buyerOrdersColumns = ({
       renderCell: params => <MultilineTextCell text={params.value} />,
 
       sortable: true,
-      width: 100,
+      minWidth: 100,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -79,7 +79,7 @@ export const buyerOrdersColumns = ({
         />
       ),
       sortable: false,
-      width: 60,
+      minWidth: 60,
 
       columnKey: columnnsKeys.buyer.ORDERS_PRIORITY,
     },
@@ -107,7 +107,7 @@ export const buyerOrdersColumns = ({
       columnMenuConfig: productColumnMenuValue,
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      minWidth: 260,
     },
 
     {
@@ -116,7 +116,7 @@ export const buyerOrdersColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment documents'])} />,
       renderCell: params => <Checkbox sx={{ pointerEvents: 'none' }} checked={params.row.paymentDetailsAttached} />,
       valueGetter: params => params.row.paymentDetailsAttached,
-      width: 120,
+      minWidth: 120,
       align: 'center',
 
       columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
@@ -133,7 +133,7 @@ export const buyerOrdersColumns = ({
           color={orderColorByStatus(OrderStatusByCode[params.row.status as keyof typeof OrderStatusByCode])}
         />
       ),
-      width: 140,
+      minWidth: 140,
       sortable: false,
       disableCustomSort: isDisableCustomSort,
       columnKey: columnnsKeys.client.ORDERS_STATUS,
@@ -144,7 +144,7 @@ export const buyerOrdersColumns = ({
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 130,
+      minWidth: 130,
       type: 'number',
       sortable: false,
 
@@ -157,7 +157,7 @@ export const buyerOrdersColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.totalPrice, 2)} />,
       valueGetter: params => toFixedWithDollarSign(params.row.totalPrice, 2),
-      width: 90,
+      minWidth: 90,
       type: 'number',
 
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -174,7 +174,7 @@ export const buyerOrdersColumns = ({
         />
       ),
       valueGetter: params => params.row.payments.map((payment: any) => payment?.paymentMethod?.title).join(', '),
-      width: 180,
+      minWidth: 180,
       sortable: false,
 
       disableCustomSort: true,
@@ -200,7 +200,7 @@ export const buyerOrdersColumns = ({
       fields: payColumnMenuItems,
       columnMenuConfig: payColumnMenuValue,
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 115,
+      minWidth: 115,
     },
 
     {
@@ -228,7 +228,7 @@ export const buyerOrdersColumns = ({
       renderCell: params => (
         <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
-      width: 120,
+      minWidth: 120,
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
@@ -257,7 +257,7 @@ export const buyerOrdersColumns = ({
       columnMenuConfig: productionTimeColumnMenuValue,
       columnKey: columnnsKeys.shared.MULTIPLE,
 
-      width: 120,
+      minWidth: 120,
       disableCustomSort: true,
     },
 
@@ -268,7 +268,7 @@ export const buyerOrdersColumns = ({
       renderCell: params =>
         params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <MultilineTextCell text={'-'} />,
       valueGetter: params => (params.row.deadline ? formatDate(params.row.deadline) : ''),
-      width: 100,
+      minWidth: 100,
 
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -292,7 +292,7 @@ export const buyerOrdersColumns = ({
         />
       ),
       valueGetter: params => formatDate(params.row.paymentDateToSupplier) ?? '',
-      width: 115,
+      minWidth: 115,
 
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -302,7 +302,7 @@ export const buyerOrdersColumns = ({
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
-      width: 140,
+      minWidth: 140,
 
       columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
     },
@@ -315,7 +315,7 @@ export const buyerOrdersColumns = ({
         <UserMiniCell userName={params.row.product.client?.name} userId={params.row.product.client?._id} />
       ),
 
-      width: 180,
+      minWidth: 180,
       sortable: false,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -328,7 +328,7 @@ export const buyerOrdersColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines text={params.row.destination?.name} />,
       valueGetter: params => params.row.destination?.name,
-      width: 130,
+      minWidth: 130,
       sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
@@ -340,7 +340,7 @@ export const buyerOrdersColumns = ({
       headerName: t(TranslationKey['Client comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
-      width: 400,
+      minWidth: 400,
       sortable: false,
 
       columnKey: columnnsKeys.shared.STRING,
@@ -351,7 +351,7 @@ export const buyerOrdersColumns = ({
       headerName: t(TranslationKey['Buyer comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
-      width: 400,
+      minWidth: 400,
       sortable: false,
 
       columnKey: columnnsKeys.shared.STRING,
@@ -373,7 +373,7 @@ export const buyerOrdersColumns = ({
 
         return subUsers?.concat(subUsersByShop).join(', ')
       },
-      width: 187,
+      minWidth: 160,
       filterable: false,
       disableCustomSort: true,
       table: DataGridFilterTables.PRODUCTS,
@@ -386,7 +386,7 @@ export const buyerOrdersColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 100,
+      minWidth: 100,
       // type: 'date',
 
       columnKey: columnnsKeys.shared.DATE,
@@ -398,7 +398,7 @@ export const buyerOrdersColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 100,
+      minWidth: 100,
       // type: 'date',
 
       columnKey: columnnsKeys.shared.DATE,
@@ -411,7 +411,7 @@ export const buyerOrdersColumns = ({
       headerName: t(TranslationKey['Paid for']) + ', Ұ',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Paid for']) + ', Ұ'} />,
       renderCell: params => <MultilineTextCell text={toFixed(params.row.partiallyPaid, 2) || '0'} />,
-      width: 110,
+      minWidth: 110,
       type: 'number',
 
       columnKey: columnnsKeys.shared.QUANTITY,

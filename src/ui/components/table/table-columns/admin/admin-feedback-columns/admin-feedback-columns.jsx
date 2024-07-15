@@ -23,7 +23,7 @@ export const adminFeedbackViewColumns = handlers => [
 
       return <UserCell userId={user?._id} name={user?.name} email={user?.email} rating={user?.rating} />
     },
-    width: 320,
+    minWidth: 320,
   },
 
   {
@@ -31,7 +31,7 @@ export const adminFeedbackViewColumns = handlers => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 100,
+    minWidth: 100,
   },
 
   {
@@ -49,7 +49,7 @@ export const adminFeedbackViewColumns = handlers => [
     renderCell: params => <FilesCell files={params.value} />,
     filterable: false,
     sortable: false,
-    width: 80,
+    minWidth: 80,
     align: 'center',
   },
 
@@ -59,7 +59,7 @@ export const adminFeedbackViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     filterable: false,
     sortable: false,
-    width: 180,
+    minWidth: 180,
     renderCell: params => (
       <ActionButtonsCell
         isFirstButton

@@ -43,7 +43,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     ),
     filterable: false,
     sortable: false,
-    width: 145,
+    minWidth: 145,
   },
 
   {
@@ -61,7 +61,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
       ),
     filterable: false,
     sortable: false,
-    width: 160,
+    minWidth: 160,
   },
 
   {
@@ -72,7 +72,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     ),
     filterable: false,
     sortable: false,
-    width: 100,
+    minWidth: 100,
   },
 
   {
@@ -81,7 +81,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={String(row.minlot)} />,
     filterable: false,
     sortable: false,
-    width: 100,
+    minWidth: 100,
   },
 
   {
@@ -92,7 +92,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     ),
     filterable: false,
     sortable: false,
-    width: 90,
+    minWidth: 90,
   },
 
   {
@@ -103,7 +103,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     ),
     filterable: false,
     sortable: false,
-    width: 100,
+    minWidth: 100,
   },
 
   {
@@ -114,7 +114,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     ),
     filterable: false,
     sortable: false,
-    width: 200,
+    minWidth: 200,
     align: 'center',
   },
 
@@ -124,7 +124,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderCell: ({ row }: GridRowModel) => <PaymentMethodsCell paymentMethods={row.paymentMethods} />,
     filterable: false,
     sortable: false,
-    width: 100,
+    minWidth: 100,
     align: 'center',
   },
 
@@ -134,7 +134,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} />,
     filterable: false,
     sortable: false,
-    width: 80,
+    minWidth: 80,
     align: 'center',
   },
 
@@ -144,7 +144,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell leftAlign threeLines maxLength={60} text={row.comment} />,
     filterable: false,
     sortable: false,
-    width: 195,
+    minWidth: 195,
   },
 
   {
@@ -153,7 +153,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.createdBy.name} userId={row.createdBy._id} />,
     filterable: false,
     sortable: false,
-    width: 175,
+    minWidth: 175,
   },
 
   {
@@ -162,6 +162,6 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatNormDateTime(row.updatedAt)} />,
     filterable: false,
     sortable: false,
-    width: 100,
+    minWidth: 100,
   },
 ]

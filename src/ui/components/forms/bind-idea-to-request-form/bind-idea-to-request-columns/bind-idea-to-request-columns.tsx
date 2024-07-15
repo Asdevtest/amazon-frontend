@@ -18,7 +18,7 @@ export const bindIdeaToRequestColumns = [
     renderCell: (params: GridCellParams) => <MultilineTextCell leftAlign text={params.row.humanFriendlyId} />,
     filterable: false,
     sortable: false,
-    width: 70,
+    minWidth: 70,
   },
 
   {
@@ -28,7 +28,7 @@ export const bindIdeaToRequestColumns = [
     renderCell: (params: GridCellParams) => <MultilineRequestStatusCell status={params.row.status} />,
     filterable: false,
     sortable: false,
-    width: 120,
+    minWidth: 120,
   },
 
   {
@@ -40,7 +40,7 @@ export const bindIdeaToRequestColumns = [
     ),
     filterable: false,
     sortable: false,
-    width: 260,
+    minWidth: 260,
   },
 
   {
@@ -50,6 +50,6 @@ export const bindIdeaToRequestColumns = [
     renderCell: (params: GridCellParams) => <MultilineTextCell threeLines text={params.row.spec?.title} />,
     filterable: false,
     sortable: false,
-    width: 110,
+    minWidth: 110,
   },
 ]

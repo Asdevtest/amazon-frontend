@@ -21,7 +21,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 60,
+    minWidth: 60,
   },
 
   {
@@ -30,7 +30,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 100,
+    minWidth: 100,
     // type: 'date',
   },
 
@@ -39,7 +39,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    width: 400,
+    minWidth: 400,
     renderCell: params =>
       params.row.originalData ? (
         params.row.originalData.items.length > 1 ? (
@@ -65,7 +65,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value * params.row.originalData.amount} />,
     type: 'number',
-    width: 100,
+    minWidth: 100,
   },
 
   {
@@ -74,7 +74,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 130,
+    minWidth: 130,
   },
 
   {
@@ -85,7 +85,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
-    width: 160,
+    minWidth: 160,
   },
 
   {
@@ -94,7 +94,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 200,
+    minWidth: 200,
   },
 
   {
@@ -104,7 +104,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
-    width: 140,
+    minWidth: 140,
   },
 
   {
@@ -114,7 +114,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 150,
+    minWidth: 150,
   },
 
   {
@@ -124,6 +124,6 @@ export const clientBoxesReadyToBatchViewColumns = () => [
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 120,
+    minWidth: 120,
   },
 ]

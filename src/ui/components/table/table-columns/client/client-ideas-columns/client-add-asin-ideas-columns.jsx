@@ -24,7 +24,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
 
       renderCell: params => <MultilineTextCell text={params.row.productName} />,
-      width: 198,
+      minWidth: 198,
       filterable: false,
 
       columnKey: columnnsKeys.shared.STRING,
@@ -47,7 +47,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      minWidth: 260,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
@@ -59,7 +59,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
-      width: 100,
+      minWidth: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.IDEA_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
@@ -82,7 +82,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      minWidth: 260,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
@@ -107,7 +107,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 200,
+      minWidth: 200,
       disableCustomSort: true,
       filterable: false,
     },
@@ -118,7 +118,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => <AddAsinIdeaActionsCell rowHandlers={rowHandlers} row={params.row} />,
-      width: 110,
+      minWidth: 110,
       disableCustomSort: true,
       filterable: false,
     },
@@ -129,7 +129,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
       renderCell: params => <ShortDateCell value={params.value} />,
-      width: 91,
+      minWidth: 91,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -145,7 +145,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
           userId={row.sub?._id || row?.createdBy?._id}
         />
       ),
-      width: 130,
+      minWidth: 130,
 
       filterable: false,
       disableCustomSort: true,
@@ -168,7 +168,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
 
         return subUsers?.concat(subUsersByShop).join(', ')
       },
-      width: 187,
+      minWidth: 160,
       table: DataGridFilterTables.PRODUCTS,
       filterable: false,
       disableCustomSort: true,
@@ -191,7 +191,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
           onClickRequestId={rowHandlers.onClickRequestId}
         />
       ),
-      width: 690,
+      minWidth: 690,
       disableCustomSort: true,
     },
   ]

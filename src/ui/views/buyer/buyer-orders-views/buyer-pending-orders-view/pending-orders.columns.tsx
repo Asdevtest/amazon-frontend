@@ -42,7 +42,7 @@ export const pendingOrdersColumns = () => {
       field: 'priority',
       headerName: t(TranslationKey.Priority),
       renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
-      width: 90,
+      minWidth: 90,
       renderCell: params => (
         <PriorityAndChinaDeliverCell
           priority={params.value}
@@ -61,7 +61,7 @@ export const pendingOrdersColumns = () => {
       headerName: 'ASIN',
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-      width: 280,
+      minWidth: 260,
       renderCell: params => {
         const product = params.row.product
 
@@ -86,7 +86,7 @@ export const pendingOrdersColumns = () => {
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-      width: 130,
+      minWidth: 130,
       renderCell: ({ value }) => {
         return (
           <MultilineTextCell
@@ -109,7 +109,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
 
-      width: 90,
+      minWidth: 90,
       columnKey: columnnsKeys.shared.NUMBER,
       disableCustomSort: true,
     },
@@ -121,7 +121,7 @@ export const pendingOrdersColumns = () => {
 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.totalPrice, 2)} />,
 
-      width: 90,
+      minWidth: 90,
       columnKey: columnnsKeys.shared.NUMBER,
     },
 
@@ -149,7 +149,7 @@ export const pendingOrdersColumns = () => {
         <UserMiniCell userName={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
 
-      width: 120,
+      minWidth: 120,
       disableCustomSort: true,
       hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -178,7 +178,7 @@ export const pendingOrdersColumns = () => {
 
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 120,
+      minWidth: 120,
     },
 
     {
@@ -188,7 +188,7 @@ export const pendingOrdersColumns = () => {
       renderCell: params =>
         params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <MultilineTextCell text={'-'} />,
       columnKey: columnnsKeys.shared.DATE,
-      width: 100,
+      minWidth: 100,
     },
 
     {
@@ -199,7 +199,7 @@ export const pendingOrdersColumns = () => {
       renderCell: params => (
         <MultilineTextCell text={formatDate(params.row.paymentDateToSupplier) || t(TranslationKey.Missing)} />
       ),
-      width: 115,
+      minWidth: 115,
     },
 
     {
@@ -207,7 +207,7 @@ export const pendingOrdersColumns = () => {
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
 
-      width: 140,
+      minWidth: 140,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
     },
 
@@ -219,7 +219,7 @@ export const pendingOrdersColumns = () => {
       renderCell: params => (
         <UserMiniCell userName={params.row.product.client?.name} userId={params.row.product.client?._id} />
       ),
-      width: 130,
+      minWidth: 130,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       hideEmptyObject: true,
@@ -233,7 +233,7 @@ export const pendingOrdersColumns = () => {
 
       renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
-      width: 130,
+      minWidth: 130,
       disableCustomSort: true,
     },
 
@@ -243,7 +243,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
       renderCell: params => <MultilineTextCell threeLines maxLength={140} text={params.value} />,
-      width: 200,
+      minWidth: 200,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
     },
@@ -254,7 +254,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
       renderCell: params => <MultilineTextCell threeLines maxLength={140} text={params.value} />,
-      width: 200,
+      minWidth: 200,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
     },
@@ -275,7 +275,7 @@ export const pendingOrdersColumns = () => {
 
         return subUsers?.concat(subUsersByShop).join(', ')
       },
-      width: 187,
+      minWidth: 160,
       filterable: false,
       disableCustomSort: true,
       table: DataGridFilterTables.PRODUCTS,
@@ -289,7 +289,7 @@ export const pendingOrdersColumns = () => {
 
       renderCell: params => <NormDateCell value={params.value} />,
       columnKey: columnnsKeys.shared.DATE,
-      width: 100,
+      minWidth: 100,
     },
 
     {
@@ -299,7 +299,7 @@ export const pendingOrdersColumns = () => {
 
       renderCell: params => <NormDateCell value={params.value} />,
       columnKey: columnnsKeys.shared.DATE,
-      width: 100,
+      minWidth: 100,
     },
   ]
 

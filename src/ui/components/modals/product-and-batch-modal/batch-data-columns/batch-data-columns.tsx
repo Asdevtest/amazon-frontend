@@ -15,7 +15,7 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
     headerName: t(TranslationKey['Batch number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.humanFriendlyId} />,
-    width: 90,
+    minWidth: 90,
   },
 
   {
@@ -23,7 +23,7 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell maxLength={18} text={row.title} />,
-    width: 120,
+    minWidth: 120,
   },
 
   {
@@ -33,7 +33,7 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
       <MultilineTextHeaderCell text={t(TranslationKey['Quantity of the selected item in the batch'])} />
     ),
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.amountInBatch} />,
-    width: 165,
+    minWidth: 165,
   },
 
   {
@@ -41,7 +41,7 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.boxes?.[0]?.destination?.name} />,
-    width: 145,
+    minWidth: 145,
   },
 
   {
@@ -49,7 +49,7 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
     headerName: t(TranslationKey['ETD (date of shipment)']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETD (date of shipment)'])} />,
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatDate(row.boxes[0].logicsTariff.etd)} />,
-    width: 110,
+    minWidth: 110,
   },
 
   {
@@ -57,7 +57,7 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
     headerName: t(TranslationKey['ETA (arrival date)']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETA (arrival date)'])} />,
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatDate(row.boxes[0].logicsTariff.eta)} />,
-    width: 110,
+    minWidth: 110,
   },
 
   {
@@ -72,7 +72,7 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
         onClickFirstButton={() => handleOpenBatchModal(row._id)}
       />
     ),
-    width: 180,
+    minWidth: 180,
     sortable: false,
     filterable: false,
     disableColumnMenu: true,

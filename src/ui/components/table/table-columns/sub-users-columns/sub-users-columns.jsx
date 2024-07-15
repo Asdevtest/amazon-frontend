@@ -20,7 +20,7 @@ export const subUsersColumns = handlers => {
       headerName: t(TranslationKey.User),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
       renderCell: ({ row }) => <UserCell userId={row?._id} name={row?.name} email={row?.email} rating={row?.rating} />,
-      width: 350,
+      minWidth: 350,
     },
 
     {
@@ -29,7 +29,7 @@ export const subUsersColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Roles)} />,
       renderCell: ({ row }) => <UserRolesCell user={row} />,
       filterable: false,
-      width: 160,
+      minWidth: 160,
     },
 
     {
@@ -53,7 +53,7 @@ export const subUsersColumns = handlers => {
           onClickSecondButton={() => handlers.onClickRemoveBtn(params.row)}
         />
       ),
-      width: 230,
+      minWidth: 230,
       filterable: false,
       disableCustomSort: true,
     },
@@ -69,7 +69,7 @@ export const subUsersColumns = handlers => {
           onClickSubmit={reason => handlers.onClickSaveComment(params.row._id, reason)}
         />
       ),
-      width: 340,
+      minWidth: 340,
       filterable: false,
       disableCustomSort: true,
     },
@@ -79,7 +79,7 @@ export const subUsersColumns = handlers => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 100,
+      minWidth: 100,
     },
   ]
 

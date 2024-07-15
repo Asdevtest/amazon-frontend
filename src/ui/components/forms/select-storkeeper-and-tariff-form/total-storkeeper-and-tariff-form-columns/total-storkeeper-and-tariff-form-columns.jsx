@@ -15,7 +15,7 @@ export const TotalTariffsColumns = () => [
     field: 'name',
     headerName: t(TranslationKey['Tariff name']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff name'])} />,
-    width: 160,
+    minWidth: 160,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -23,7 +23,7 @@ export const TotalTariffsColumns = () => [
     field: 'description',
     headerName: t(TranslationKey['Tariff description']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff description'])} />,
-    width: 300,
+    minWidth: 300,
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
   },
 
@@ -31,7 +31,7 @@ export const TotalTariffsColumns = () => [
     field: 'deliveryTimeInDay',
     headerName: t(TranslationKey['Time on the road, days']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
-    width: 180,
+    minWidth: 180,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -39,7 +39,7 @@ export const TotalTariffsColumns = () => [
     field: 'minWeightInKg',
     headerName: t(TranslationKey['Min. weight, kg']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
-    width: 120,
+    minWidth: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -48,7 +48,7 @@ export const TotalTariffsColumns = () => [
     headerName: t(TranslationKey.Region),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Region)} />,
     renderCell: () => <WarehouseTariffDestinationCell />,
-    width: 200,
+    minWidth: 200,
     filterable: false,
     sortable: false,
   },
@@ -58,7 +58,7 @@ export const TotalTariffsColumns = () => [
     headerName: t(TranslationKey.Rate) + ', $',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', $'} />,
     renderCell: params => <WarehouseTariffRatesCell conditionsByRegion={params.row.conditionsByRegion} />,
-    width: 140,
+    minWidth: 140,
     filterable: false,
     sortable: false,
   },
@@ -70,7 +70,7 @@ export const TotalTariffsColumns = () => [
     renderCell: params => (
       <WarehouseTariffDatesCell cls={params.row?.cls} etd={params.row?.etd} eta={params.row?.eta} />
     ),
-    width: 370,
+    minWidth: 370,
     filterable: false,
     sortable: false,
   },

@@ -30,7 +30,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     ),
     filterable: false,
     sortable: false,
-    width: 105,
+    minWidth: 105,
   },
 
   {
@@ -39,7 +39,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatNormDateTime(row.updatedAt)} />,
     filterable: false,
     sortable: false,
-    width: 95,
+    minWidth: 95,
   },
 
   {
@@ -55,7 +55,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     ),
     filterable: false,
     sortable: false,
-    width: 270,
+    minWidth: 260,
   },
 
   {
@@ -64,7 +64,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} />,
     filterable: false,
     sortable: false,
-    width: 60,
+    minWidth: 60,
     align: 'center',
   },
 
@@ -81,7 +81,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     },
     filterable: false,
     sortable: false,
-    width: 90,
+    minWidth: 90,
   },
 
   {
@@ -90,7 +90,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.destination?.name} />,
     filterable: false,
     sortable: false,
-    width: 100,
+    minWidth: 100,
   },
 
   {
@@ -99,7 +99,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={`ID: ${row.humanFriendlyId}`} />,
     filterable: false,
     sortable: false,
-    width: 85,
+    minWidth: 85,
   },
 
   {
@@ -108,7 +108,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={toFixedWithDollarSign(calcPriceForBox(row))} />,
     filterable: false,
     sortable: false,
-    width: 90,
+    minWidth: 90,
   },
 
   {
@@ -130,7 +130,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     ),
     filterable: false,
     sortable: false,
-    width: 90,
+    minWidth: 90,
   },
 
   {
@@ -143,6 +143,6 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     ),
     filterable: false,
     sortable: false,
-    width: 90,
+    minWidth: 90,
   },
 ]

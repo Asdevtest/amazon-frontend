@@ -37,7 +37,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
           asin={params.row.product?.asin}
         />
       ),
-      width: 300,
+      minWidth: 260,
       disableColumnMenu: true,
       filterable: false,
       sortable: false,
@@ -48,7 +48,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: (params: GridCellParams) => <MultilineTextCell twoLines text={params.row?.shop?.name} />,
-      width: 90,
+      minWidth: 90,
       columnKey: columnnsKeys.client.INVENTORY_SHOPS,
     },
 
@@ -59,7 +59,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       renderCell: (params: GridCellParams) => (
         <MultilineTextCell text={getHumanFriendlyNotificationType(params.value)} />
       ),
-      width: 115,
+      minWidth: 115,
       columnKey: columnnsKeys.shared.TYPE,
     },
 
@@ -89,7 +89,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: (params: GridCellParams) => <NormDateCell value={params.row.updatedAt} />,
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -98,7 +98,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: (params: GridCellParams) => <NormDateCell value={params.row.createdAt} />,
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
   ]
@@ -118,7 +118,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
           <MultilineTextCell text={t(TranslationKey.Missing)} />
         )
       },
-      width: 145,
+      minWidth: 145,
     })
   }
 

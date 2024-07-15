@@ -27,7 +27,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
+      minWidth: 120,
 
       columnKey: userBalance ? undefined : columnnsKeys.shared.DATE,
     },
@@ -49,7 +49,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
         )
       },
       valueGetter: params => params.row?.entityProduct?.[0]?.asin,
-      width: 280,
+      minWidth: 260,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: userBalance ? undefined : columnnsKeys.client.INVENTORY_PRODUCT,
     },
@@ -59,7 +59,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
       headerName: t(TranslationKey.Type),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-      width: 140,
+      minWidth: 140,
       renderCell: ({ value }) => {
         const color = getPaymentTypeColor(value)
         const Icon = getPaymentTypeIcon(value)
@@ -83,7 +83,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
       headerName: `${t(TranslationKey.Sum)}, $`,
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Sum)}, $`} />,
 
-      width: 110,
+      minWidth: 110,
 
       renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
 
@@ -95,7 +95,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
       headerName: t(TranslationKey.Initiator),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Initiator)} />,
 
-      width: 170,
+      minWidth: 170,
 
       renderCell: params => <UserLinkCell name={params.row?.createdBy?.name} userId={params.row?.createdBy?._id} />,
       valueGetter: params => params.value.name,
@@ -109,7 +109,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
       headerName: t(TranslationKey.Recipient),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Recipient)} />,
 
-      width: 170,
+      minWidth: 170,
 
       renderCell: params => <UserLinkCell name={params.row?.recipient?.name} userId={params.row?.recipient?._id} />,
       valueGetter: params => params.value.name,
@@ -130,7 +130,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
 
       columnKey: userBalance ? undefined : columnnsKeys.shared.STRING_VALUE,
 
-      width: 110,
+      minWidth: 110,
     },
 
     {

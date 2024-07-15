@@ -20,7 +20,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.DATE,
@@ -32,7 +32,7 @@ export const clientPPCSalesWeekColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value?.name} />,
-      width: 150,
+      minWidth: 150,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -48,7 +48,7 @@ export const clientPPCSalesWeekColumns = () => {
       renderCell: (params: GridRenderCellParams) => (
         <ProductAsinCell withoutTitle image={params.row?.image} asin={params.row?.asin} skuByClient={params.row?.sku} />
       ),
-      width: 250,
+      minWidth: 260,
       disableCustomSort: true,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
@@ -60,7 +60,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Start of Period',
       renderHeader: () => <MultilineTextHeaderCell text={'Start of Period'} />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.DATE,
@@ -71,7 +71,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'End of Period',
       renderHeader: () => <MultilineTextHeaderCell text={'End of Period'} />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.DATE,
@@ -82,7 +82,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Week',
       renderHeader: () => <MultilineTextHeaderCell text={'Week'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 83,
+      minWidth: 83,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -93,7 +93,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'ACOS',
       renderHeader: () => <MultilineTextHeaderCell text={'ACOS'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 83,
+      minWidth: 83,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -104,7 +104,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'PPC Impressions',
       renderHeader: () => <MultilineTextHeaderCell text={'PPC Impressions'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 110,
+      minWidth: 110,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -115,7 +115,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Clicks',
       renderHeader: () => <MultilineTextHeaderCell text={'Clicks'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 83,
+      minWidth: 83,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -126,7 +126,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Spend',
       renderHeader: () => <MultilineTextHeaderCell text={'Spend'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 83,
+      minWidth: 83,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -137,7 +137,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'PPC Orders',
       renderHeader: () => <MultilineTextHeaderCell text={'PPC Orders'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 83,
+      minWidth: 83,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -148,7 +148,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'PPC Units',
       renderHeader: () => <MultilineTextHeaderCell text={'PPC Units'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -159,7 +159,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'PPC sales',
       renderHeader: () => <MultilineTextHeaderCell text={'PPC sales'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -170,7 +170,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Order sales cost',
       renderHeader: () => <MultilineTextHeaderCell text={'Order sales cost'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -181,7 +181,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Unit sales cost',
       renderHeader: () => <MultilineTextHeaderCell text={'Unit sales cost'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -192,7 +192,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Organic sessions',
       renderHeader: () => <MultilineTextHeaderCell text={'Organic sessions'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -203,7 +203,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Organic orders',
       renderHeader: () => <MultilineTextHeaderCell text={'Organic orders'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -214,7 +214,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Organic units',
       renderHeader: () => <MultilineTextHeaderCell text={'Organic units'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -225,7 +225,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Organic sales',
       renderHeader: () => <MultilineTextHeaderCell text={'Organic sales'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -236,7 +236,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Organic average price order',
       renderHeader: () => <MultilineTextHeaderCell text={'Organic average price order'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 113,
+      minWidth: 113,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -247,7 +247,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Organic average price unit',
       renderHeader: () => <MultilineTextHeaderCell text={'Organic average price unit'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 113,
+      minWidth: 113,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -258,7 +258,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Impressions',
       renderHeader: () => <MultilineTextHeaderCell text={'Impressions'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -269,7 +269,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Sessions',
       renderHeader: () => <MultilineTextHeaderCell text={'Sessions'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -280,7 +280,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'CTR',
       renderHeader: () => <MultilineTextHeaderCell text={'CTR'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -291,7 +291,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Orders',
       renderHeader: () => <MultilineTextHeaderCell text={'Orders'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -302,7 +302,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Units',
       renderHeader: () => <MultilineTextHeaderCell text={'Units'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -313,7 +313,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Average units per order',
       renderHeader: () => <MultilineTextHeaderCell text={'Average units per order'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -324,7 +324,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Sales',
       renderHeader: () => <MultilineTextHeaderCell text={'Sales'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -335,7 +335,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Average price order',
       renderHeader: () => <MultilineTextHeaderCell text={'Average price order'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -346,7 +346,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Average price unit',
       renderHeader: () => <MultilineTextHeaderCell text={'Average price unit'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -357,7 +357,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Buy Box',
       renderHeader: () => <MultilineTextHeaderCell text={'Buy Box, %'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -368,7 +368,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'РРС Sale',
       renderHeader: () => <MultilineTextHeaderCell text={'РРС Sale, %'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -379,7 +379,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Organic Sale',
       renderHeader: () => <MultilineTextHeaderCell text={'Organic Sale, %'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -390,7 +390,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Conversion',
       renderHeader: () => <MultilineTextHeaderCell text={'Conversion'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -401,7 +401,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'РРС сonversion',
       renderHeader: () => <MultilineTextHeaderCell text={'РРС сonversion'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -412,7 +412,7 @@ export const clientPPCSalesWeekColumns = () => {
       headerName: 'Organic сonversion',
       renderHeader: () => <MultilineTextHeaderCell text={'Organic сonversion'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 105,
+      minWidth: 105,
 
       table: DataGridFilterTables.PPC_SALES_WEEKS,
       columnKey: columnnsKeys.shared.QUANTITY,

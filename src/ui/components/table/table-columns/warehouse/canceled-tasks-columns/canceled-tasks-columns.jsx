@@ -37,7 +37,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     ),
     filterable: false,
     sortable: false,
-    width: window.innerWidth < 1282 ? 118 : 130,
+    minWidth: window.innerWidth < 1282 ? 118 : 130,
   },
 
   {
@@ -45,7 +45,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
     renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
-    width: window.innerWidth < 1282 ? 125 : 165,
+    minWidth: window.innerWidth < 1282 ? 125 : 165,
   },
 
   {
@@ -58,7 +58,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
         text={taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[params.value])}
       />
     ),
-    width: window.innerWidth < 1282 ? 115 : 165,
+    minWidth: window.innerWidth < 1282 ? 115 : 165,
   },
 
   {
@@ -68,7 +68,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
-    width: 290,
+    minWidth: 290,
   },
 
   {
@@ -77,7 +77,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
     renderCell: params => <MultipleAsinCell asinList={params.value} />,
     sortable: false,
-    width: window.innerWidth < 1282 ? 101 : 160,
+    minWidth: window.innerWidth < 1282 ? 101 : 160,
   },
 
   {
@@ -88,7 +88,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
     sortable: false,
-    width: window.innerWidth < 1282 ? 85 : 160,
+    minWidth: window.innerWidth < 1282 ? 85 : 160,
   },
 
   {
@@ -99,7 +99,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     type: 'number',
     sortable: false,
     align: 'center',
-    width: window.innerWidth < 1282 ? 75 : 160,
+    minWidth: window.innerWidth < 1282 ? 75 : 160,
   },
 
   {
@@ -108,7 +108,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     sortable: false,
-    width: window.innerWidth < 1282 ? 54 : 150,
+    minWidth: window.innerWidth < 1282 ? 54 : 150,
   },
 
   {
@@ -116,7 +116,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    width: 105,
+    minWidth: 105,
   },
 
   {
@@ -124,6 +124,6 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    width: 115,
+    minWidth: 115,
   },
 ]

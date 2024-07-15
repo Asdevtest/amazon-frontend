@@ -22,7 +22,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
       columnKey: columnnsKeys.shared.DATE,
@@ -34,7 +34,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value?.name} />,
-      width: 150,
+      minWidth: 150,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -50,7 +50,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       renderCell: (params: GridRenderCellParams) => (
         <ProductAsinCell withoutTitle asin={params.row?.asin} image={params.row?.image} skuByClient={params.row?.sku} />
       ),
-      width: 250,
+      minWidth: 260,
       disableCustomSort: true,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
@@ -62,7 +62,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       headerName: 'Disposition',
       renderHeader: () => <MultilineTextHeaderCell text="Disposition" />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 143,
+      minWidth: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
       columnKey: columnnsKeys.shared.STRING,
@@ -73,7 +73,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       headerName: 'Order id',
       renderHeader: () => <MultilineTextHeaderCell text="Order id" />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 143,
+      minWidth: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
       columnKey: columnnsKeys.shared.STRING,
@@ -84,7 +84,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       headerName: 'Reason',
       renderHeader: () => <MultilineTextHeaderCell text="Reason" />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 143,
+      minWidth: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
       columnKey: columnnsKeys.shared.STRING,
@@ -95,7 +95,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 143,
+      minWidth: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
       columnKey: columnnsKeys.shared.STRING,
@@ -106,7 +106,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       headerName: 'Received Date',
       renderHeader: () => <MultilineTextHeaderCell text="Received Date" />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
       columnKey: columnnsKeys.shared.DATE,
@@ -117,7 +117,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       headerName: 'Returned Date',
       renderHeader: () => <MultilineTextHeaderCell text="Returned Date" />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
       columnKey: columnnsKeys.shared.DATE,
@@ -128,7 +128,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       headerName: 'Reversal Date',
       renderHeader: () => <MultilineTextHeaderCell text="Reversal Date" />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
       columnKey: columnnsKeys.shared.DATE,
@@ -139,7 +139,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       headerName: 'Date Updated',
       renderHeader: () => <MultilineTextHeaderCell text="Date Updated" />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
       columnKey: columnnsKeys.shared.DATE,
@@ -150,7 +150,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       headerName: 'Time Updated',
       renderHeader: () => <MultilineTextHeaderCell text="Time Updated" />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 143,
+      minWidth: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
       columnKey: columnnsKeys.shared.STRING,
@@ -161,7 +161,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       headerName: 'Updated At',
       renderHeader: () => <MultilineTextHeaderCell text="Updated At" />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
       columnKey: columnnsKeys.shared.DATE,

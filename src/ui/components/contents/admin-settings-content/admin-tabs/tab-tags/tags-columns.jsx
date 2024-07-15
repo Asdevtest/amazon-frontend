@@ -13,7 +13,7 @@ export const tagsColumns = handlers => [
     headerName: t(TranslationKey['Tag name']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tag name'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 300,
+    minWidth: 300,
   },
 
   {
@@ -22,7 +22,7 @@ export const tagsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of uses'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     align: 'center',
-    width: 150,
+    minWidth: 150,
   },
 
   {
@@ -47,6 +47,6 @@ export const tagsColumns = handlers => [
     filterable: false,
     sortable: false,
     align: 'center',
-    width: 130,
+    minWidth: 130,
   },
 ]

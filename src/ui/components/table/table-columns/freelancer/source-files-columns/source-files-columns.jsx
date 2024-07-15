@@ -22,7 +22,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     renderCell: params => <MultilineTextCell leftAlign twoLines maxLength={52} text={params.value || '-'} />,
-    width: 205,
+    minWidth: 205,
   },
 
   {
@@ -30,7 +30,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value || '-'} />,
-    width: 70,
+    minWidth: 70,
     headerAlign: 'center',
     align: 'center',
   },
@@ -40,14 +40,14 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 100,
+    minWidth: 100,
   },
 
   {
     field: 'performer',
     headerName: t(TranslationKey.Performer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
-    width: 180,
+    minWidth: 180,
     renderCell: params => {
       const user = params.row.sub ? params.row.sub : params.row.performer
 
@@ -59,7 +59,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     field: 'client',
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-    width: 180,
+    minWidth: 180,
     renderCell: params => <UserMiniCell userName={params.row.client?.name} userId={params.row.client?._id} />,
   },
 
@@ -67,7 +67,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-    width: 180,
+    minWidth: 180,
     renderCell: params => <AsinCell asin={params.value} />,
   },
 
@@ -75,7 +75,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     field: 'sourceFile',
     headerName: t(TranslationKey.Link),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
-    width: 250,
+    minWidth: 250,
     renderCell: params =>
       params?.row?.originalData?._id === editField?._id ? (
         <ChangeInputCommentCell
@@ -94,7 +94,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     field: 'comments',
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-    width: 240,
+    minWidth: 240,
     renderCell: params => (
       <ChangeInputCommentCell
         rowsCount={2}
@@ -124,7 +124,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
         onClickSecondButton={() => rowHandlers.onClickRemoveBtn(params.row.originalData)}
       />
     ),
-    width: 100,
+    minWidth: 100,
     filterable: false,
     sortable: false,
   },

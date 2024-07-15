@@ -29,7 +29,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Box ID'])} />,
     type: 'number',
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    minWidth: 80,
     columnKey: columnnsKeys.client.WAREHOUSE_ID,
   },
 
@@ -39,7 +39,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
 
     renderCell: params => <OrdersIdsItemsCell value={params.value} />,
-    width: 140,
+    minWidth: 140,
     sortable: false,
 
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
@@ -70,7 +70,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
         />
       )
     },
-    width: 320,
+    minWidth: 320,
     filterable: false,
 
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
@@ -120,7 +120,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     },
     filterable: false,
     sortable: false,
-    width: 280,
+    minWidth: 280,
 
     // columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },
@@ -130,7 +130,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
     renderCell: params => <MultilineTextCell text={params.value * params.row.originalData.amount} />,
-    width: 110,
+    minWidth: 110,
     type: 'number',
     sortable: false,
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -142,12 +142,12 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Destination and tariff'])} />,
     valueGetter: ({ row }) => `${row.warehouse || ''} / ${row.logicsTariff || ''}`,
     renderCell: params => (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center', width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center', minWidth: '100%' }}>
         <MultilineTextCell text={params.row.warehouse} />
         <MultilineTextCell text={params.row.logicsTariff} />
       </div>
     ),
-    width: 170,
+    minWidth: 170,
     filterable: false,
     sortable: false,
 
@@ -160,7 +160,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
     renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.client?._id} />,
-    width: 150,
+    minWidth: 150,
     sortable: false,
   },
 
@@ -175,7 +175,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
       />
     ),
     type: 'number',
-    width: 110,
+    minWidth: 110,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -197,7 +197,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     renderCell: params => (
       <Dimensions isCell isTotalWeight data={params.row.originalData} transmittedSizeSetting={getUnitsOption()} />
     ),
-    width: 210,
+    minWidth: 210,
     filterable: false,
     sortable: false,
   },
@@ -207,7 +207,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 230,
+    minWidth: 230,
 
     renderCell: params => (
       <WarehouseBoxesBtnsCell
@@ -234,7 +234,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
         onClickSubmit={handlers.onClickSavePrepId}
       />
     ),
-    width: 240,
+    minWidth: 240,
 
     columnKey: columnnsKeys.shared.STRING,
   },
@@ -253,7 +253,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
         onClickSubmit={handlers.onClickSaveStorage}
       />
     ),
-    width: 240,
+    minWidth: 240,
 
     columnKey: columnnsKeys.shared.STRING,
   },
@@ -264,7 +264,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
     renderCell: params => <RedFlagsCell flags={params.row?.originalData?.items?.[0]?.product?.redFlags} />,
     valueGetter: ({ row }) => row?.originalData?.items?.[0]?.product?.redFlags?.map(el => el?.title).join(', '),
-    width: 130,
+    minWidth: 130,
     columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 ]

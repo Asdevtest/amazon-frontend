@@ -33,7 +33,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       headerName: t(TranslationKey['Launch type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Launch type'])} />,
       renderCell: ({ row }: GridRowModel) => <LaunchCell row={row} product={product} onAddRequest={onAddRequest} />,
-      width: 170,
+      minWidth: 170,
     },
 
     {
@@ -51,7 +51,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           onChange={onChangeNumberCellValue(row._id, 'value')}
         />
       ),
-      width: 90,
+      minWidth: 90,
       align: 'center',
     },
 
@@ -67,7 +67,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           onChange={onChangeDateCellValue(row._id, 'dateFrom')} // or dateTo - same overall value
         />
       ),
-      width: 260,
+      minWidth: 260,
     },
 
     {
@@ -84,7 +84,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           onChange={onChangeCommentCellValue(row._id, 'comment')}
         />
       ),
-      width: 245,
+      minWidth: 245,
     },
 
     {
@@ -94,7 +94,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <ResultCell row={row} onChangeCommentCellValue={onChangeCommentCellValue} onRemoveLaunch={onRemoveLaunch} />
       ),
-      width: 265,
+      minWidth: 265,
     },
   ]
 

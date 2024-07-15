@@ -18,7 +18,7 @@ export const vacByUserIdExchangeColumns = () => [
     headerName: t(TranslationKey.Image),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
 
-    width: 100,
+    minWidth: 100,
     renderCell: params => <SmallRowImageCell image={params.row.images[0]} />,
     filterable: false,
     sortable: false,
@@ -40,7 +40,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 150,
+    minWidth: 150,
   },
 
   {
@@ -49,7 +49,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 140,
+    minWidth: 140,
   },
 
   {
@@ -59,7 +59,7 @@ export const vacByUserIdExchangeColumns = () => [
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
-    width: 100,
+    minWidth: 100,
   },
 
   {
@@ -69,7 +69,7 @@ export const vacByUserIdExchangeColumns = () => [
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 70,
+    minWidth: 70,
   },
 
   {
@@ -79,7 +79,7 @@ export const vacByUserIdExchangeColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 90,
+    minWidth: 90,
   },
 
   {
@@ -88,7 +88,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 130,
+    minWidth: 130,
     type: 'number',
   },
 
@@ -100,7 +100,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
     ),
-    width: 200,
+    minWidth: 200,
   },
 
   {
@@ -109,7 +109,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
     renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
-    width: 200,
+    minWidth: 200,
   },
 
   {
@@ -120,6 +120,6 @@ export const vacByUserIdExchangeColumns = () => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.checkedBy?._id} />
     ),
-    width: 200,
+    minWidth: 200,
   },
 ]

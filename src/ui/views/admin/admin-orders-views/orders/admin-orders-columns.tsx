@@ -30,14 +30,14 @@ export const adminOrdersViewColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
       columnKey: columnnsKeys.shared.NUMBER,
-      width: 100,
+      minWidth: 100,
     },
 
     {
       field: 'priorityAndChinaDelivery',
       headerName: 'priorityAndChinaDelivery',
       renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
-      width: 60,
+      minWidth: 60,
       renderCell: params => (
         <PriorityAndChinaDeliverCell
           priority={params.row.priority}
@@ -71,7 +71,7 @@ export const adminOrdersViewColumns = () => {
       columnMenuConfig: productColumnMenuValue,
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      minWidth: 260,
     },
 
     {
@@ -79,7 +79,7 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-      width: 220,
+      minWidth: 220,
       renderCell: params => {
         const orderByCode = OrderStatusByCode[params.value as keyof typeof OrderStatusByCode]
 
@@ -104,7 +104,7 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 210,
+      minWidth: 210,
       renderCell: params => <DownloadAndCopyBtnsCell value={params.row.product.barCode} />,
 
       filterable: false,
@@ -117,7 +117,7 @@ export const adminOrdersViewColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
       type: 'number',
-      width: 150,
+      minWidth: 150,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -130,7 +130,7 @@ export const adminOrdersViewColumns = () => {
       renderCell: params => (
         <UserLinkCell blackText name={params.row.product.client?.name} userId={params.row.product.client?._id} />
       ),
-      width: 200,
+      minWidth: 200,
       disableCustomSort: true,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -142,7 +142,7 @@ export const adminOrdersViewColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
       renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
-      width: 200,
+      minWidth: 200,
       disableCustomSort: true,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -153,7 +153,7 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey.Buyer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-      width: 200,
+      minWidth: 200,
       renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
       disableCustomSort: true,
 
@@ -165,7 +165,7 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey['Pay more']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pay more'])} />,
 
-      width: 140,
+      minWidth: 140,
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
       disableCustomSort: true,
 
@@ -177,7 +177,7 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey['Total price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
-      width: 150,
+      minWidth: 150,
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
 
       columnKey: columnnsKeys.shared.NUMBER,
@@ -188,7 +188,7 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey['Gross weight']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Gross weight'])} />,
 
-      width: 160,
+      minWidth: 160,
       renderCell: params => <ToFixedWithKgSignCell value={params.row.product.weight} fix={2} />,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.NUMBER,
@@ -200,7 +200,7 @@ export const adminOrdersViewColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
+      minWidth: 120,
 
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -211,7 +211,7 @@ export const adminOrdersViewColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 150,
+      minWidth: 150,
 
       columnKey: columnnsKeys.shared.DATE,
     },

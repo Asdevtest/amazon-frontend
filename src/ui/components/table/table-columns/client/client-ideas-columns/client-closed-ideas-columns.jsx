@@ -42,7 +42,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      minWidth: 260,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
@@ -54,7 +54,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
-      width: 100,
+      minWidth: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.IDEA_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
@@ -66,7 +66,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
       renderCell: params => <SmallRowImageCell image={params.value.find(el => checkIsMediaFileLink(el))} />,
-      width: 96,
+      minWidth: 96,
       disableCustomSort: true,
       filterable: false,
     },
@@ -77,7 +77,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Client comment']),
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
-      width: 250,
+      minWidth: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -88,7 +88,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Client comment']),
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
-      width: 250,
+      minWidth: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -105,7 +105,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
           color={colorByIdeaStatus(ideaStatusByCode[params.value])}
         />
       ),
-      width: 100,
+      minWidth: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.IDEAS_STATUS,
     },
@@ -116,7 +116,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.New)} />,
 
       renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
-      width: 91,
+      minWidth: 91,
       columnKey: columnnsKeys.shared.DATE_DETAILS,
     },
 
@@ -126,7 +126,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['On checking'])} />,
 
       renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
-      width: 91,
+      minWidth: 91,
       columnKey: columnnsKeys.shared.DATE_DETAILS,
     },
 
@@ -136,7 +136,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supplier search'])} />,
 
       renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
-      width: 110,
+      minWidth: 110,
       columnKey: columnnsKeys.shared.DATE_DETAILS,
     },
 
@@ -157,7 +157,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
         />
       ),
 
-      width: 105,
+      minWidth: 105,
       columnKey: columnnsKeys.shared.DATE_DETAILS,
     },
 
@@ -167,7 +167,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
       renderCell: params => <ShortDateCell value={params.value} />,
-      width: 91,
+      minWidth: 91,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -177,7 +177,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Reason for rejection']),
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
-      width: 250,
+      minWidth: 250,
       filterable: false,
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -220,7 +220,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
         },
       ],
 
-      width: 130,
+      minWidth: 130,
       filterable: false,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.MULTIPLE,
@@ -242,7 +242,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
 
         return subUsers?.concat(subUsersByShop).join(', ')
       },
-      width: 187,
+      minWidth: 160,
       table: DataGridFilterTables.PRODUCTS,
       filterable: false,
       disableCustomSort: true,
@@ -255,7 +255,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => <ClosedIdeaActionsCell row={params.row} rowHandlers={rowHandlers} />,
-      width: 150,
+      minWidth: 150,
       filterable: false,
       disableCustomSort: true,
     },

@@ -19,7 +19,7 @@ export const warehouseTariffsColumns = handlers => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-    width: 250,
+    minWidth: 250,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -29,7 +29,7 @@ export const warehouseTariffsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
+    minWidth: 120,
     // type: 'date',
   },
 
@@ -38,7 +38,7 @@ export const warehouseTariffsColumns = handlers => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 600,
+    minWidth: 600,
     renderCell: params => <ScrollingCell value={params.value} />,
   },
 
@@ -48,7 +48,7 @@ export const warehouseTariffsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service cost per kg, $'])} />,
 
     type: 'number',
-    width: 250,
+    minWidth: 250,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -57,7 +57,7 @@ export const warehouseTariffsColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 100,
+    minWidth: 100,
     renderCell: params => (
       <ActionButtonsCell
         row

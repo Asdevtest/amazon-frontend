@@ -30,7 +30,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
       field: 'name',
       headerName: t(TranslationKey.User),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-      width: 350,
+      minWidth: 350,
       renderCell: (params: GridRowParams) => {
         const user = params.row
         return <UserCell userId={user?._id} name={user?.name} email={user?.email} rating={user?.rating} />
@@ -41,7 +41,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
       field: 'roles',
       headerName: t(TranslationKey.Roles),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Roles)} />,
-      width: 215,
+      minWidth: 215,
       renderCell: (params: GridRowParams) => <UserRolesCell user={params.row} />,
       filterable: false,
     },
@@ -55,7 +55,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
 
         return <MultilineTextCell leftAlign text={stringForRender} />
       },
-      width: 110,
+      minWidth: 110,
       filterable: false,
       disableCustomSort: true,
     },
@@ -84,7 +84,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
         />
       ),
 
-      width: 230,
+      minWidth: 230,
       filterable: false,
       disableCustomSort: true,
     },
@@ -93,7 +93,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
       field: 'note',
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-      width: 335,
+      minWidth: 335,
       renderCell: (params: GridRowParams) => (
         <ChangeInputCommentCell
           rowsCount={3}
@@ -110,7 +110,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: (params: GridRowParams) => <NormDateCell value={params.row.updatedAt} />,
-      width: 100,
+      minWidth: 100,
     },
   ]
 

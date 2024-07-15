@@ -20,13 +20,13 @@ export const FreelancerFreelanceColumns = handlers => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
-    width: 160,
+    minWidth: 160,
   },
   {
     field: 'name',
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-    width: 228,
+    minWidth: 228,
     renderCell: params => (
       <UserMiniCell userName={params.row.originalData.createdBy.name} userId={params.row.originalData.createdBy._id} />
     ),
@@ -36,7 +36,7 @@ export const FreelancerFreelanceColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 116,
+    minWidth: 116,
     // type: 'date',
   },
 
@@ -45,7 +45,7 @@ export const FreelancerFreelanceColumns = handlers => [
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
-    width: 220,
+    minWidth: 220,
   },
 
   {
@@ -54,7 +54,7 @@ export const FreelancerFreelanceColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request ID'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 93,
+    minWidth: 93,
   },
 
   {
@@ -63,14 +63,14 @@ export const FreelancerFreelanceColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Cost) + ', $'} />,
     renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
     type: 'number',
-    width: 118,
+    minWidth: 118,
   },
   {
     field: 'timeoutAt',
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 134,
+    minWidth: 134,
     // type: 'date',
   },
 
@@ -87,6 +87,6 @@ export const FreelancerFreelanceColumns = handlers => [
         onClickFirstButton={() => handlers.onClickOpenButton(params.row.id)}
       />
     ),
-    width: 190,
+    minWidth: 190,
   },
 ]

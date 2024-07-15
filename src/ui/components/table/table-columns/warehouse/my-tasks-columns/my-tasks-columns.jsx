@@ -47,7 +47,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     ),
     filterable: false,
     sortable: false,
-    width: window.innerWidth < 1282 ? 115 : 165,
+    minWidth: window.innerWidth < 1282 ? 115 : 165,
   },
 
   {
@@ -61,7 +61,7 @@ export const warehouseMyTasksViewColumns = handlers => [
         onChangePriority={handlers.updateTaskPriority}
       />
     ),
-    width: window.innerWidth < 1282 ? 140 : 170,
+    minWidth: window.innerWidth < 1282 ? 140 : 170,
   },
 
   {
@@ -77,7 +77,7 @@ export const warehouseMyTasksViewColumns = handlers => [
         }
       />
     ),
-    width: 271,
+    minWidth: 271,
   },
 
   {
@@ -85,7 +85,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
     renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
-    width: window.innerWidth < 1282 ? 140 : 180,
+    minWidth: window.innerWidth < 1282 ? 140 : 180,
   },
 
   {
@@ -95,7 +95,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
-    width: 290,
+    minWidth: 290,
   },
 
   {
@@ -104,7 +104,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
     renderCell: params => <MultipleAsinCell asinList={params.value} />,
     sortable: false,
-    width: window.innerWidth < 1282 ? 100 : 160,
+    minWidth: window.innerWidth < 1282 ? 100 : 160,
   },
 
   {
@@ -116,7 +116,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     ),
     align: 'center',
     sortable: false,
-    width: window.innerWidth < 1282 ? 60 : 160,
+    minWidth: window.innerWidth < 1282 ? 60 : 160,
   },
 
   {
@@ -126,7 +126,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     type: 'number',
     sortable: false,
-    width: window.innerWidth < 1282 ? 73 : 160,
+    minWidth: window.innerWidth < 1282 ? 73 : 160,
   },
 
   {
@@ -135,7 +135,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     sortable: false,
-    width: window.innerWidth < 1282 ? 54 : 160,
+    minWidth: window.innerWidth < 1282 ? 54 : 160,
   },
 
   {
@@ -143,7 +143,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     headerName: 'barcode',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
     renderCell: params => <CheckboxCell checked={params.value} />,
-    width: window.innerWidth < 1282 ? 65 : 160,
+    minWidth: window.innerWidth < 1282 ? 65 : 160,
     type: 'boolean',
   },
 
@@ -152,7 +152,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    width: 105,
+    minWidth: 105,
   },
 
   {
@@ -160,6 +160,6 @@ export const warehouseMyTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    width: 115,
+    minWidth: 115,
   },
 ]

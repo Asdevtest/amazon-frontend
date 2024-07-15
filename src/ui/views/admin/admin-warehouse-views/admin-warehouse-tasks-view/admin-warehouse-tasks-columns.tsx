@@ -27,7 +27,7 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Type),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-      width: 180,
+      minWidth: 180,
       renderCell: params => <TaskTypeCell operationType={params.row.operationType} />,
     },
 
@@ -36,7 +36,7 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Description),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-      width: 330,
+      minWidth: 330,
       renderCell: params => <TaskDescriptionCell task={params.row} />,
 
       disableCustomSort: true,
@@ -47,7 +47,7 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Storekeeper),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
-      width: 180,
+      minWidth: 180,
       align: 'center',
       renderCell: params => <UserLinkCell blackText name={params.value.name} userId={params.value?._id} />,
     },
@@ -57,7 +57,7 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-      width: 190,
+      minWidth: 190,
       align: 'center',
       renderCell: params => (
         <ActionButtonsCell
@@ -74,7 +74,7 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-      width: 130,
+      minWidth: 130,
       align: 'center',
       renderCell: params => <TaskStatusCell status={params.value} />,
     },
@@ -84,7 +84,7 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-      width: 110,
+      minWidth: 110,
       renderCell: params => <NormDateFromUnixCell value={params.value} />,
     },
   ]

@@ -30,7 +30,7 @@ export const myRequestsViewColumns = rowHandlers => {
       field: 'priority',
       headerName: t(TranslationKey.Priority),
       renderHeader: () => <MultilineTextHeaderCell component={<img src="/assets/icons/bookmark.svg" />} />,
-      width: 80,
+      minWidth: 80,
       renderCell: params => (
         <PriorityAndChinaDeliverCell
           isRequest
@@ -59,7 +59,7 @@ export const myRequestsViewColumns = rowHandlers => {
           }}
         />
       ),
-      width: 95,
+      minWidth: 95,
       columnKey: columnnsKeys.shared.TASK_COMPLEXITY,
     },
 
@@ -68,7 +68,7 @@ export const myRequestsViewColumns = rowHandlers => {
       headerName: t(TranslationKey.Title),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
-      width: 160,
+      minWidth: 160,
 
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -79,7 +79,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <MultilineTextCell twoLines text={params.row?.product?.shop?.name} />,
-      width: 90,
+      minWidth: 90,
       columnKey: columnnsKeys.client.INVENTORY_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
       disableCustomSort: true,
@@ -102,7 +102,7 @@ export const myRequestsViewColumns = rowHandlers => {
           />
         )
       },
-      width: 270,
+      minWidth: 260,
 
       filterable: false,
 
@@ -118,7 +118,7 @@ export const myRequestsViewColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell text={params.value} />,
       type: 'number',
-      width: 62,
+      minWidth: 62,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -129,7 +129,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
       renderCell: params => <MultilineRequestStatusCell status={params.value} />,
-      width: 120,
+      minWidth: 120,
       filterable: false,
       transformValueMethod: MyRequestStatusTranslate,
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -144,7 +144,7 @@ export const myRequestsViewColumns = rowHandlers => {
       type: 'number',
       align: 'center',
       renderCell: params => <MultilineTextCell text={params.row.countProposalsByStatuses.waitedProposals} />,
-      width: 120,
+      minWidth: 120,
 
       // columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -156,7 +156,7 @@ export const myRequestsViewColumns = rowHandlers => {
       type: 'number',
       align: 'center',
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 130,
+      minWidth: 130,
     },
 
     {
@@ -171,7 +171,7 @@ export const myRequestsViewColumns = rowHandlers => {
           userId={params.row.sub ? params.row.sub?._id : params.row.createdBy?._id}
         />
       ),
-      width: 110,
+      minWidth: 110,
 
       filterable: false,
 
@@ -185,7 +185,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
 
       renderCell: params => <ManyUserLinkCell usersData={params.row.product?.subUsers} />,
-      width: 187,
+      minWidth: 160,
 
       filterable: false,
 
@@ -205,7 +205,7 @@ export const myRequestsViewColumns = rowHandlers => {
           userId={params.row.announcement?.createdBy._id}
         />
       ),
-      width: 160,
+      minWidth: 160,
 
       filterable: false,
 
@@ -218,7 +218,7 @@ export const myRequestsViewColumns = rowHandlers => {
       headerName: t(TranslationKey['Request type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
       renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
-      width: 110,
+      minWidth: 110,
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
@@ -228,7 +228,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Cost)} />,
 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-      width: 115,
+      minWidth: 115,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -244,7 +244,7 @@ export const myRequestsViewColumns = rowHandlers => {
           onClick={() => rowHandlers.onToggleUploadedToListing(params.row._id, params.value)}
         />
       ),
-      width: 115,
+      minWidth: 115,
       columnKey: columnnsKeys.client.FREELANCER_REQUEST_LISTING,
     },
 
@@ -254,7 +254,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
 
       renderCell: params => <ShortDateCell value={params.value} />,
-      width: 100,
+      minWidth: 100,
       // type: 'date',
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -263,7 +263,7 @@ export const myRequestsViewColumns = rowHandlers => {
       field: 'note',
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-      width: 335,
+      minWidth: 335,
       renderCell: ({ row }) => (
         <ChangeInputCommentCell
           rowsCount={3}
@@ -281,7 +281,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
       renderCell: params => <ShortDateCell value={params.value} />,
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -291,7 +291,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
       renderCell: params => <ShortDateCell value={params.value} />,
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
   ]

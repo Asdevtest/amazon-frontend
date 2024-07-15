@@ -36,7 +36,7 @@ export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
           />
         )
       },
-      width: 180,
+      minWidth: 180,
       filterable: false,
       disableCustomSort: true,
     },
@@ -47,7 +47,7 @@ export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Comments from the supervisor'])} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={165} text={params.value} />,
 
-      width: 400,
+      minWidth: 400,
     },
 
     {
@@ -56,7 +56,7 @@ export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
 
-      width: 100,
+      minWidth: 100,
     },
   ]
 

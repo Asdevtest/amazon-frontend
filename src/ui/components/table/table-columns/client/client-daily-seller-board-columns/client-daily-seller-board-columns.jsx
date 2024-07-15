@@ -18,7 +18,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
       columnKey: columnnsKeys.shared.DATE,
@@ -30,7 +30,7 @@ export const clientDailySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <MultilineTextCell twoLines text={params.value?.name} />,
-      width: 150,
+      minWidth: 150,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -46,7 +46,7 @@ export const clientDailySellerBoardColumns = () => {
       renderCell: params => (
         <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
       ),
-      width: 185,
+      minWidth: 260,
       disableCustomSort: true,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
@@ -59,7 +59,7 @@ export const clientDailySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={'Title'} />,
 
       renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
-      width: 250,
+      minWidth: 250,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
       columnKey: columnnsKeys.shared.STRING,
@@ -71,7 +71,7 @@ export const clientDailySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={'FBA/FBM Stock'} />,
 
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 108,
+      minWidth: 108,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -83,7 +83,7 @@ export const clientDailySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="FNSKU" />,
 
       renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
-      width: 150,
+      minWidth: 150,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
       columnKey: columnnsKeys.shared.STRING,
@@ -95,7 +95,7 @@ export const clientDailySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Marketplace" />,
 
       renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
-      width: 150,
+      minWidth: 150,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
       columnKey: columnnsKeys.shared.STRING,
@@ -107,7 +107,7 @@ export const clientDailySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={'Reserved'} />,
 
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 90,
+      minWidth: 90,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -119,7 +119,7 @@ export const clientDailySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ROI)} />,
 
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 80,
+      minWidth: 80,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -131,7 +131,7 @@ export const clientDailySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={'Comment'} />,
 
       renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
-      width: 220,
+      minWidth: 220,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
       columnKey: columnnsKeys.shared.STRING,
@@ -143,7 +143,7 @@ export const clientDailySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.DaysOfStockLeft)} />,
 
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 150,
+      minWidth: 150,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -154,7 +154,7 @@ export const clientDailySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SentToFba)} />,
 
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 108,
+      minWidth: 108,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -165,7 +165,7 @@ export const clientDailySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FbaPrepStock)} />,
 
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 120,
+      minWidth: 120,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -176,7 +176,7 @@ export const clientDailySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={'Ordered'} />,
 
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 108,
+      minWidth: 108,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
       columnKey: columnnsKeys.shared.QUANTITY,

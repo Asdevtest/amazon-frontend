@@ -19,7 +19,7 @@ export const exchangeSupplierSearchColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
+    minWidth: 120,
     // type: 'date',
   },
   {
@@ -28,7 +28,7 @@ export const exchangeSupplierSearchColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 150,
+    minWidth: 150,
     // type: 'date',
   },
 
@@ -49,7 +49,7 @@ export const exchangeSupplierSearchColumns = () => [
         />
       )
     },
-    width: 300,
+    minWidth: 260,
   },
 
   {
@@ -58,7 +58,7 @@ export const exchangeSupplierSearchColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 250,
+    minWidth: 250,
   },
   {
     field: 'amazon',
@@ -66,7 +66,7 @@ export const exchangeSupplierSearchColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 150,
+    minWidth: 150,
     type: 'number',
   },
 
@@ -78,7 +78,7 @@ export const exchangeSupplierSearchColumns = () => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
     ),
-    width: 200,
+    minWidth: 200,
   },
   {
     field: 'supervisor',
@@ -88,7 +88,7 @@ export const exchangeSupplierSearchColumns = () => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.checkedBy?._id} />
     ),
-    width: 200,
+    minWidth: 200,
   },
 
   {
@@ -97,7 +97,7 @@ export const exchangeSupplierSearchColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 150,
+    minWidth: 150,
     type: 'number',
   },
   {
@@ -106,7 +106,7 @@ export const exchangeSupplierSearchColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Margin)} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 150,
+    minWidth: 150,
     type: 'number',
   },
   {
@@ -115,7 +115,7 @@ export const exchangeSupplierSearchColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 150,
+    minWidth: 150,
     type: 'number',
   },
   {
@@ -124,7 +124,7 @@ export const exchangeSupplierSearchColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 150,
+    minWidth: 150,
     type: 'number',
   },
   {
@@ -133,7 +133,7 @@ export const exchangeSupplierSearchColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA Amount'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 150,
+    minWidth: 150,
     type: 'number',
   },
 ]

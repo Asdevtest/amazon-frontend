@@ -26,7 +26,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
       />
     ),
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 120,
+    minWidth: 120,
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -41,7 +41,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
       />
     ),
     renderCell: params => <MultilineTextCell text={String(params.value)} />,
-    width: 65,
+    minWidth: 65,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -56,7 +56,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
       />
     ),
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
-    width: 140,
+    minWidth: 140,
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
 
@@ -71,7 +71,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
       />
     ),
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
-    width: 390,
+    minWidth: 390,
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -86,7 +86,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
       />
     ),
     renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
-    width: 110,
+    minWidth: 110,
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
@@ -101,7 +101,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
       />
     ),
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 115,
+    minWidth: 115,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -110,7 +110,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 115,
+    minWidth: 115,
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -119,7 +119,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     headerName: t(TranslationKey['Total proposals']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 115,
+    minWidth: 115,
   },
 
   {
@@ -127,7 +127,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     headerName: t(TranslationKey.Accepted),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Accepted)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 90,
+    minWidth: 90,
   },
 
   {
@@ -157,6 +157,6 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     disableColumnMenu: true,
     filterable: false,
     sortable: false,
-    width: 200,
+    minWidth: 200,
   },
 ]

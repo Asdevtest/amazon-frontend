@@ -19,7 +19,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
       renderCell: ({ row }) => <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={row.request.asin} />,
-      width: 190,
+      minWidth: 190,
       disableCustomSort: true,
     },
 
@@ -29,7 +29,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }) => <MultilineTextCell twoLines text={row?.request?.product?.shop?.name} />,
       valueGetter: ({ row }) => row?.request?.product?.shop?.name,
-      width: 140,
+      minWidth: 140,
       disableCustomSort: true,
     },
 
@@ -47,7 +47,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       headerName: t(TranslationKey['Request type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
       renderCell: ({ row }) => <MultilineTextCell threeLines text={row?.request?.spec?.title} />,
-      width: 140,
+      minWidth: 140,
       disableCustomSort: true,
     },
 
@@ -64,7 +64,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       headerName: t(TranslationKey['Unread messages']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Unread messages'])} />,
       renderCell: ({ row }) => <MultilineTextCell text={String(row?.unreadMessages)} />,
-      width: 120,
+      minWidth: 120,
     },
 
     {
@@ -79,7 +79,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
           onClickFirstButton={() => handlers.onClickReplyBtn(row.request._id, row.chatId)}
         />
       ),
-      width: 140,
+      minWidth: 140,
       disableCustomSort: true,
     },
   ]

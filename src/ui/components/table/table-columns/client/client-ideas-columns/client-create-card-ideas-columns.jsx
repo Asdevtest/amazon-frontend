@@ -36,7 +36,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      minWidth: 260,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
@@ -48,7 +48,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
-      width: 100,
+      minWidth: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.IDEA_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
@@ -62,7 +62,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       renderCell: params => (
         <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
       ),
-      width: 96,
+      minWidth: 96,
       disableCustomSort: true,
       filterable: false,
     },
@@ -79,7 +79,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
           onClickSelectSupplier={rowHandlers.onClickSelectSupplier}
         />
       ),
-      width: 290,
+      minWidth: 290,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
@@ -91,7 +91,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Client comment']),
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
-      width: 250,
+      minWidth: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -102,7 +102,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Buyer comment']),
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
-      width: 250,
+      minWidth: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -113,7 +113,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Action),
 
       renderCell: params => <CreateCardIdeaActionsCell row={params.row} rowHandlers={rowHandlers} />,
-      width: 110,
+      minWidth: 110,
       disableCustomSort: true,
       filterable: false,
     },
@@ -130,7 +130,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
           userId={row.sub?._id || row?.createdBy?._id}
         />
       ),
-      width: 130,
+      minWidth: 130,
 
       filterable: false,
       disableCustomSort: true,
@@ -153,7 +153,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
 
         return subUsers?.concat(subUsersByShop).join(', ')
       },
-      width: 187,
+      minWidth: 160,
       table: DataGridFilterTables.PRODUCTS,
       filterable: false,
       disableCustomSort: true,
@@ -166,7 +166,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
       renderCell: params => <ShortDateCell value={params.value} />,
-      width: 91,
+      minWidth: 91,
       columnKey: columnnsKeys.shared.DATE,
     },
   ]

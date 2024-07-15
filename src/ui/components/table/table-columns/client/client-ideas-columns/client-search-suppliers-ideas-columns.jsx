@@ -51,7 +51,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      minWidth: 260,
 
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
@@ -69,7 +69,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           color={colorByIdeaStatus(ideaStatusByCode[params.value])}
         />
       ),
-      width: 160,
+      minWidth: 160,
       columnKey: columnnsKeys.client.IDEAS_STATUS,
     },
 
@@ -85,7 +85,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           onClickReject={() => rowHandlers.onClickReject(params.row._id)}
         />
       ),
-      width: 150,
+      minWidth: 150,
       disableCustomSort: true,
       filterable: false,
     },
@@ -96,7 +96,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
-      width: 100,
+      minWidth: 100,
 
       columnKey: columnnsKeys.client.IDEA_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
@@ -111,7 +111,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderCell: params => (
         <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
       ),
-      width: 96,
+      minWidth: 96,
       disableCustomSort: true,
       filterable: false,
     },
@@ -127,7 +127,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           onClickAddSupplier={() => rowHandlers.onClickAddSupplierButton(params.row._id)}
         />
       ),
-      width: 176,
+      minWidth: 176,
       disableCustomSort: true,
       filterable: false,
     },
@@ -154,7 +154,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           <MultilineTextCell text={t(TranslationKey['Link not available'])} />
         )
       },
-      width: 100,
+      minWidth: 100,
       disableCustomSort: true,
       filterable: false,
     },
@@ -170,7 +170,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
 
         return <MultilineTextCell text={toFixed(priceWithDelivery, 2)} />
       },
-      width: 120,
+      minWidth: 120,
       disableCustomSort: true,
       filterable: false,
     },
@@ -181,7 +181,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Min batch']),
 
       renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.minlot} />,
-      width: 80,
+      minWidth: 80,
       type: 'number',
       columnKey: columnnsKeys.shared.QUANTITY,
       table: DataGridFilterTables.SUPPLIERS,
@@ -209,7 +209,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       columnMenuConfig: productionTimeColumnMenuValue,
       columnKey: columnnsKeys.shared.MULTIPLE,
 
-      width: 115,
+      minWidth: 115,
     },
 
     {
@@ -218,7 +218,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Files),
 
       renderCell: params => <FilesCell files={params.row?.suppliers[0]?.images} />,
-      width: 80,
+      minWidth: 80,
       align: 'center',
       disableCustomSort: true,
       filterable: false,
@@ -230,7 +230,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Client comment']),
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
-      width: 250,
+      minWidth: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -241,7 +241,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Buyer comment']),
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
-      width: 250,
+      minWidth: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -258,7 +258,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           userId={row.sub?._id || row?.createdBy?._id}
         />
       ),
-      width: 130,
+      minWidth: 130,
 
       filterable: false,
       disableCustomSort: true,
@@ -281,7 +281,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
 
         return subUsers?.concat(subUsersByShop).join(', ')
       },
-      width: 187,
+      minWidth: 160,
       table: DataGridFilterTables.PRODUCTS,
       filterable: false,
       disableCustomSort: true,
@@ -309,7 +309,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
 
         return <ShortDateCell value={getDate(params.row.status)} />
       },
-      width: 91,
+      minWidth: 91,
       filterable: false,
     },
   ]

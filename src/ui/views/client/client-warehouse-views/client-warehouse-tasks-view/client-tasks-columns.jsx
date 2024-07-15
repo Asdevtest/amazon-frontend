@@ -24,7 +24,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-      width: 160,
+      minWidth: 160,
 
       renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row} />,
       filterable: false,
@@ -37,7 +37,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Priority),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
-      width: window.innerWidth < 1282 ? 140 : 170,
+      minWidth: window.innerWidth < 1282 ? 140 : 170,
       renderCell: params => (
         <TaskPriorityCell
           disabled={
@@ -56,7 +56,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-      width: 280,
+      minWidth: 280,
 
       renderCell: params => (
         <ChangeInputCommentCell
@@ -72,7 +72,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Type),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-      width: 180,
+      minWidth: 180,
       renderCell: params => <TaskTypeCell operationType={params.value} />,
     },
 
@@ -81,7 +81,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Description),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-      width: 290,
+      minWidth: 290,
       renderCell: params => <TaskDescriptionCell task={params.row} />,
       filterable: false,
       disableCustomSort: true,
@@ -105,7 +105,7 @@ export const clientTasksViewColumns = handlers => {
       ),
 
       disableCustomSort: true,
-      width: window.innerWidth < 1282 ? 100 : 160,
+      minWidth: window.innerWidth < 1282 ? 100 : 160,
     },
 
     {
@@ -116,7 +116,7 @@ export const clientTasksViewColumns = handlers => {
       renderCell: params => (
         <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
-      width: 170,
+      minWidth: 170,
       disableCustomSort: true,
     },
 
@@ -137,7 +137,7 @@ export const clientTasksViewColumns = handlers => {
       ),
       type: 'number',
       disableCustomSort: true,
-      width: window.innerWidth < 1282 ? 73 : 160,
+      minWidth: window.innerWidth < 1282 ? 73 : 160,
     },
 
     {
@@ -146,7 +146,7 @@ export const clientTasksViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
       renderCell: params => <CheckboxCell disabled checked={params.value} />,
-      width: window.innerWidth < 1282 ? 65 : 160,
+      minWidth: window.innerWidth < 1282 ? 65 : 160,
       type: 'boolean',
     },
 
@@ -166,7 +166,7 @@ export const clientTasksViewColumns = handlers => {
         />
       ),
       disableCustomSort: true,
-      width: window.innerWidth < 1282 ? 54 : 160,
+      minWidth: window.innerWidth < 1282 ? 54 : 160,
     },
 
     {
@@ -174,7 +174,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-      width: 130,
+      minWidth: 130,
       renderCell: params => <TaskStatusCell status={params.value} />,
     },
 
@@ -183,7 +183,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-      width: 130,
+      minWidth: 130,
       renderCell: params => <NormDateFromUnixCell value={params.value} />,
       // type: 'date',
     },

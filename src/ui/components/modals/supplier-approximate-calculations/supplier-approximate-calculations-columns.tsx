@@ -38,7 +38,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       ),
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.STRING,
-      width: 140,
+      minWidth: 140,
     },
 
     {
@@ -72,7 +72,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       fields: weightColumnMenuItems,
       columnMenuConfig: weightColumnMenuValue,
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 140,
+      minWidth: 140,
     },
 
     {
@@ -84,7 +84,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
         params.row?.destinationVariations
           ?.map((variation: IDestinationVariationWithCalculations) => toFixed(variation?.pricePerKgRmb))
           .join(', '),
-      width: 80,
+      minWidth: 80,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -98,7 +98,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
         params.row?.destinationVariations
           ?.map((variation: IDestinationVariationWithCalculations) => toFixed(variation?.pricePerKgUsd))
           .join(', '),
-      width: 80,
+      minWidth: 80,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -113,7 +113,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
           params.row?.etd,
         )}, eta: ${formatDateWithoutTime(params.row?.eta)}`
       },
-      width: 140,
+      minWidth: 140,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.BATCHES_SHIPPING_DATE,
     },
@@ -122,7 +122,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       field: 'deliveryTimeInDay',
       headerName: t(TranslationKey['Delivery time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery time, days'])} />,
-      width: 130,
+      minWidth: 130,
       renderCell: (params: GridValidRowModel) => <MultilineTextCell text={params.value} />,
       table: DataGridFilterTables.STOREKEEPERS,
 
@@ -137,7 +137,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       ),
       renderCell: (params: GridValidRowModel) => <MultilineTextCell text={toFixed(params.value, 2)} />,
       valueGetter: (params: GridRenderCellParams) => toFixed(params.row?.costUnitWithDeliveryToChina),
-      width: 180,
+      minWidth: 180,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -155,7 +155,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
             toFixed(variation?.destination?.costUnitWithDeliveryToUsa),
           )
           .join(', '),
-      width: 140,
+      minWidth: 140,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -169,7 +169,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
         params.row?.destinationVariations
           ?.map((variation: IDestinationVariationWithCalculations) => toFixed(variation?.destination?.roi))
           .join(', '),
-      width: 140,
+      minWidth: 140,
       align: 'center',
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.QUANTITY,

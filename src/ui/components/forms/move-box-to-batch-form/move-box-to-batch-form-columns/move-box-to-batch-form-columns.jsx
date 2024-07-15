@@ -16,7 +16,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
   {
     field: '.',
     headerName: '',
-    width: 15,
+    minWidth: 15,
     renderCell: params => (
       <Radio
         color="primary"
@@ -34,7 +34,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 110,
+    minWidth: 110,
   },
 
   {
@@ -43,7 +43,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 110,
+    minWidth: 110,
   },
 
   {
@@ -52,7 +52,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 60,
+    minWidth: 60,
   },
 
   {
@@ -61,7 +61,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 120,
+    minWidth: 120,
   },
 
   {
@@ -70,7 +70,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 100,
+    minWidth: 100,
     // type: 'date',
   },
 
@@ -81,7 +81,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 90,
+    minWidth: 90,
   },
 
   {
@@ -91,7 +91,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 120,
+    minWidth: 120,
   },
 
   {
@@ -100,7 +100,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 120,
+    minWidth: 120,
     type: 'number',
   },
 ]

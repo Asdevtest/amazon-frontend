@@ -36,7 +36,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'link',
       renderHeader: () => null,
       renderCell: ({ row }: GridRowModel) => <OpenInNewTabCell onClickOpenInNewTab={() => onClickTableRow(row?._id)} />,
-      width: 50,
+      minWidth: 50,
       sortable: false,
       filterable: false,
       disableColumnMenu: true,
@@ -54,7 +54,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
           skuByClient={row?.skuByClient}
         />
       ),
-      width: 270,
+      minWidth: 260,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
     },
 
@@ -73,7 +73,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       ),
       // @ts-ignore
       valueFormatter: ({ row }: GridRowModel) => t(productStatusTranslateKey(ProductStatusByCode[row?.status])),
-      width: 160,
+      minWidth: 160,
       columnKey: columnnsKeys.client.INVENTORY_STATUS,
     },
 
@@ -85,7 +85,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
         // @ts-ignore
         <MultilineStatusCell leftAlign status={productStrategyStatusesEnum[row?.strategyStatus]} />
       ),
-      width: 140,
+      minWidth: 140,
       align: 'center',
       columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
     },
@@ -96,7 +96,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
       renderCell: ({ row }: GridRowModel) => <ToFixedWithDollarSignCell value={row?.amazon} fix={2} />,
       valueGetter: ({ row }: GridRowModel) => (row?.amazon ? toFixedWithDollarSign(row?.amazon, 2) : '-'),
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -108,7 +108,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
         <UserMiniCell userName={row?.createdBy?.name} userId={row?.createdBy?._id} />
       ),
       valueGetter: ({ row }: GridRowModel) => row?.createdBy?.name,
-      width: 180,
+      minWidth: 180,
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
@@ -119,7 +119,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row?.buyer?.name} userId={row?.buyer?._id} />,
       valueGetter: ({ row }: GridRowModel) => row?.buyer?.name,
 
-      width: 180,
+      minWidth: 180,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
@@ -128,7 +128,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       headerName: t(TranslationKey.BSR),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.bsr} />,
-      width: 70,
+      minWidth: 70,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -166,7 +166,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
         />
       ),
       valueFormatter: ({ row }: GridRowModel) => (row?.ordered ? t(TranslationKey.Yes) : t(TranslationKey.No)),
-      width: 100,
+      minWidth: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.YES_NO,
     },
@@ -177,7 +177,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
       valueGetter: ({ row }: GridRowModel) => row?.tags?.map((el: { title: string }) => `#${el.title}`).join(),
       renderCell: ({ row }: GridRowModel) => <TagsCell tags={row?.tags} />,
-      width: 180,
+      minWidth: 180,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.TAGS,
     },
@@ -187,7 +187,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       headerName: t(TranslationKey['Red flags']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
       renderCell: ({ row }: GridRowModel) => <RedFlagsCell flags={row?.redFlags} />,
-      width: 130,
+      minWidth: 130,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.RED_FLAGS,
     },
@@ -208,7 +208,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
 
         return subUsers?.concat(subUsersByShop).join(', ')
       },
-      width: 187,
+      minWidth: 160,
       filterable: false,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -220,7 +220,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row?.createdAt} />,
       valueFormatter: ({ row }: GridRowModel) => formatNormDateTime(row?.createdAt),
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -230,7 +230,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row?.updatedAt} />,
       valueFormatter: ({ row }: GridRowModel) => formatNormDateTime(row?.updatedAt),
-      width: 115,
+      minWidth: 115,
       columnKey: columnnsKeys.shared.DATE,
     },
   ]

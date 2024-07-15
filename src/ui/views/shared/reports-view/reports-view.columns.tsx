@@ -48,7 +48,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           />
         ),
         valueGetter: ({ row }: GridRowModel) => row.product.asin,
-        width: 280,
+        minWidth: 260,
         columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
         table: DataGridFilterTables.PRODUCTS,
       }
@@ -60,7 +60,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
         renderCell: ({ row }: GridRowModel) => <MultilineTextCell twoLines text={row.product?.shop?.name} />,
         valueGetter: ({ row }: GridRowModel) => row.product?.shop?.name,
-        width: 120,
+        minWidth: 120,
         disableCustomSort: true,
         columnKey: columnnsKeys.shared.OBJECT,
         table: DataGridFilterTables.PRODUCTS,
@@ -93,7 +93,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       disableCustomSort: true,
       disableColumnMenu: true,
       filterable: false,
-      width: 95,
+      minWidth: 95,
     },
 
     shopColumn as IGridColumn,
@@ -104,7 +104,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: ({ row }: GridRowModel) => <ShortDateCell value={row.createdAt} />,
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -117,7 +117,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         row.listingLaunches
           .map((launch: ILaunch) => `${getLaunchName(launch.type, true)} - ${launch.value}%`)
           .join(', '),
-      width: 330,
+      minWidth: 330,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -128,7 +128,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <MultilineTextCell text={String(toFixedWithDollarSign(row.newProductPrice))} />
       ),
-      width: 140,
+      minWidth: 140,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -168,7 +168,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         },
       ],
 
-      width: 180,
+      minWidth: 180,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.MULTIPLE,
     },
@@ -189,7 +189,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
 
         return subUsers?.concat(subUsersByShop).join(', ')
       },
-      width: 187,
+      minWidth: 160,
       filterable: false,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -211,7 +211,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }: GridRowModel) => <ShortDateCell value={row.updatedAt} />,
-      width: 105,
+      minWidth: 105,
       columnKey: columnnsKeys.shared.DATE,
     },
   ]

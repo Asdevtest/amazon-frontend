@@ -20,7 +20,7 @@ export const linkRequestColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: (params: GridCellParams) => <MultilineTextCell leftAlign text={params.row.humanFriendlyId} />,
 
-      width: 70,
+      minWidth: 70,
     },
 
     {
@@ -28,7 +28,7 @@ export const linkRequestColumns = () => {
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: (params: GridCellParams) => <MultilineRequestStatusCell status={params.row.status} />,
-      width: 120,
+      minWidth: 120,
     },
 
     {
@@ -38,7 +38,7 @@ export const linkRequestColumns = () => {
       renderCell: (params: GridCellParams) => (
         <MultilineTextCell leftAlign twoLines maxLength={60} text={params.row.title} />
       ),
-      width: 260,
+      minWidth: 260,
     },
 
     {
@@ -46,7 +46,7 @@ export const linkRequestColumns = () => {
       headerName: t(TranslationKey['Request type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
       renderCell: (params: GridCellParams) => <MultilineTextCell threeLines text={params.row.spec?.title} />,
-      width: 110,
+      minWidth: 110,
     },
   ]
 

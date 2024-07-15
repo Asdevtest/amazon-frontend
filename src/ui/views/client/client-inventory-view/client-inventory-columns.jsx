@@ -60,7 +60,7 @@ export const clientInventoryColumns = ({
           />
         )
       },
-      width: 80,
+      minWidth: 80,
       disableCustomSort: true,
       hide: true,
     },
@@ -76,7 +76,7 @@ export const clientInventoryColumns = ({
           onClickVariationButton={() => otherHandlers.onClickVariationButton(row?.parentProductId || row?._id)}
         />
       ),
-      width: 90,
+      minWidth: 90,
       columnKey: columnnsKeys.shared.YES_NO,
     },
 
@@ -92,7 +92,7 @@ export const clientInventoryColumns = ({
           skuByClient={row?.skuByClient}
         />
       ),
-      width: 280,
+      minWidth: 260,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
     },
 
@@ -102,7 +102,7 @@ export const clientInventoryColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: params => <MultilineTextCell twoLines text={params.row?.shop?.name} />,
       valueGetter: ({ row }) => row?.shop?.name,
-      width: 90,
+      minWidth: 90,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_SHOPS,
     },
@@ -112,7 +112,7 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.Strategy),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
       renderCell: params => <MultilineStatusCell status={productStrategyStatusesEnum[params.value]} />,
-      width: 140,
+      minWidth: 140,
       columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
     },
 
@@ -121,7 +121,7 @@ export const clientInventoryColumns = ({
       headerName: 'Available',
       renderHeader: () => <MultilineTextHeaderCell text={'Available'} />,
       renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
-      width: 85,
+      minWidth: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -130,7 +130,7 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.Reserved),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
       renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
-      width: 85,
+      minWidth: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -150,7 +150,7 @@ export const clientInventoryColumns = ({
           }}
         />
       ),
-      width: 85,
+      minWidth: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -168,7 +168,7 @@ export const clientInventoryColumns = ({
           }}
         />
       ),
-      width: 85,
+      minWidth: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -186,7 +186,7 @@ export const clientInventoryColumns = ({
           onClickSubmit={stockUsHandlers.onClickSaveStockUs}
         />
       ),
-      width: 150,
+      minWidth: 150,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -206,7 +206,7 @@ export const clientInventoryColumns = ({
           }}
         />
       ),
-      width: 85,
+      minWidth: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -227,7 +227,7 @@ export const clientInventoryColumns = ({
           ?.map(el => `${el?.storekeeper?.name}: ${el?.amountInBoxes}`)
           ?.join(', ')
       },
-      width: 145,
+      minWidth: 145,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
     },
@@ -238,7 +238,7 @@ export const clientInventoryColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
       renderCell: params => <MultilineTextCell text={Math.round(params.value)} />,
       valueGetter: ({ row }) => toFixed(row?.sumStock, 2),
-      width: 120,
+      minWidth: 120,
       type: 'number',
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -249,7 +249,7 @@ export const clientInventoryColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock cost'])} />,
       renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
       valueGetter: ({ row }) => toFixed(row?.stockCost, 2),
-      width: 120,
+      minWidth: 120,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -268,7 +268,7 @@ export const clientInventoryColumns = ({
         />
       ),
 
-      width: 150,
+      minWidth: 150,
       filterable: false,
       columnKey: columnnsKeys.client.INVENTORY_PURCHASE_QUANTITY,
     },
@@ -278,7 +278,7 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey['Amazon price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
       renderCell: params => <ToFixedCell value={params.value} fix={2} />,
-      width: 80,
+      minWidth: 80,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -287,7 +287,7 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.Profit),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
       renderCell: params => <ToFixedCell value={params.value} fix={2} />,
-      width: 90,
+      minWidth: 90,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -296,7 +296,7 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.FBA),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FBA)} />,
       renderCell: params => <ToFixedCell value={params.value} fix={2} />,
-      width: 70,
+      minWidth: 70,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -322,7 +322,7 @@ export const clientInventoryColumns = ({
       columnKey: columnnsKeys.shared.MULTIPLE,
 
       sortable: false,
-      width: 120,
+      minWidth: 120,
     },
 
     {
@@ -337,7 +337,7 @@ export const clientInventoryColumns = ({
         />
       ),
       valueGetter: ({ row }) => row?.tags?.map(el => el?.title).join(', '),
-      width: 160,
+      minWidth: 160,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.TAGS,
     },
@@ -348,7 +348,7 @@ export const clientInventoryColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
       renderCell: params => <RedFlagsCell flags={params.row?.redFlags} />,
       valueGetter: ({ row }) => row?.redFlags?.map(el => el?.title).join(', '),
-      width: 130,
+      minWidth: 130,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.RED_FLAGS,
     },
@@ -358,7 +358,7 @@ export const clientInventoryColumns = ({
       headerName: 'Transparency codes',
       renderHeader: () => <MultilineTextHeaderCell text={'Transparency codes'} />,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
-      width: 135,
+      minWidth: 135,
       columnKey: columnnsKeys.shared.YES_NO,
     },
 
@@ -376,7 +376,7 @@ export const clientInventoryColumns = ({
         />
       ),
 
-      width: 210,
+      minWidth: 210,
       columnKey: columnnsKeys.client.INVENTORY_BARCODE,
     },
 
@@ -394,7 +394,7 @@ export const clientInventoryColumns = ({
         />
       ),
 
-      width: 150,
+      minWidth: 150,
       disableColumnMenu: true,
       filterable: false,
       disableCustomSort: true,
@@ -410,7 +410,7 @@ export const clientInventoryColumns = ({
           color={colorByProductStatus(ProductStatusByCode[params.row?.status])}
         />
       ),
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.client.INVENTORY_STATUS,
     },
 
@@ -419,7 +419,7 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: params => <ShortDateCell value={params.value} />,
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -428,7 +428,7 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <ShortDateCell value={params.value} />,
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -437,7 +437,7 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey['Ideas to Check']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ideas to Check'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -446,7 +446,7 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey['Closed Ideas']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Closed Ideas'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -455,7 +455,7 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey['Verified ideas']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Verified ideas'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 120,
+      minWidth: 120,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -475,7 +475,7 @@ export const clientInventoryColumns = ({
 
         return subUsers?.concat(subUsersByShop).join(', ')
       },
-      width: 187,
+      minWidth: 160,
       filterable: false,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -487,7 +487,7 @@ export const clientInventoryColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Comment of SB'])} />,
       renderCell: params => <CommentOfSbCell productsInWarehouse={params.row?.productsInWarehouse} />,
       valueGetter: ({ row }) => row?.productsInWarehouse?.map(el => el?.comment || '').join(', '),
-      width: 400,
+      minWidth: 400,
       disableColumnMenu: true,
       filterable: false,
       disableCustomSort: true,
@@ -499,7 +499,7 @@ export const clientInventoryColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       valueGetter: ({ row }) => row?.clientComment,
-      width: 400,
+      minWidth: 400,
       disableCustomSort: true,
       filterable: false,
       disableColumnMenu: true,
@@ -532,7 +532,7 @@ export const clientInventoryColumns = ({
 
           return Number(boxAmounts) || 0
         },
-        width: 145,
+        minWidth: 145,
         columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
       }
 
@@ -572,7 +572,7 @@ export const clientInventoryColumns = ({
 
           return Number(currentBoxAmounts?.toRefill) || 0
         },
-        width: 150,
+        minWidth: 150,
         filterable: false,
         columnKey: columnnsKeys.client.INVENTORY_PURCHASE_QUANTITY,
       }
@@ -603,7 +603,7 @@ export const clientInventoryColumns = ({
                 <ProductAsinCell withoutTitle image={product?.image} asin={product?.asin} skuByClient={product?.sku} />
               )
             },
-            width: 295,
+            minWidth: 260,
 
             columnKey: columnnsKeys.client.SHOP_REPORT,
           }

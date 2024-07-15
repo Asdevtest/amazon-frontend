@@ -18,7 +18,7 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
+    minWidth: 120,
     // type: 'date',
   },
 
@@ -27,7 +27,7 @@ export const financesViewColumns = () => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-    width: 90,
+    minWidth: 90,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -36,7 +36,7 @@ export const financesViewColumns = () => [
     headerName: t(TranslationKey.Sum),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Sum)} />,
 
-    width: 110,
+    minWidth: 110,
     type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
@@ -46,7 +46,7 @@ export const financesViewColumns = () => [
     headerName: t(TranslationKey.Initiator),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Initiator)} />,
 
-    width: 170,
+    minWidth: 170,
     // renderCell: params => <MultilineTextCell text={params.value} />,
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
   },
@@ -56,7 +56,7 @@ export const financesViewColumns = () => [
     headerName: t(TranslationKey.Recipient),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Recipient)} />,
 
-    width: 170,
+    minWidth: 170,
     // renderCell: params => <MultilineTextCell text={params.value} />,
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.recipient?._id} />,
   },
@@ -66,7 +66,7 @@ export const financesViewColumns = () => [
     headerName: t(TranslationKey.Category),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
-    width: 230,
+    minWidth: 230,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -75,7 +75,7 @@ export const financesViewColumns = () => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-    width: 700,
+    minWidth: 700,
     renderCell: params => (
       <ScrollingCell
         fontSize={'14px'}

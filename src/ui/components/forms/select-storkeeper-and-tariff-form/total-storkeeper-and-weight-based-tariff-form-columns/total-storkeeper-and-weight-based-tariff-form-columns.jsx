@@ -15,7 +15,7 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff name'])} />,
 
-    width: 120,
+    minWidth: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -24,7 +24,7 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 150,
+    minWidth: 150,
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
   },
 
@@ -36,7 +36,7 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
     renderCell: params => (
       <DestinationVariationsSpanningCell destinationVariations={params.row.destinationVariations} />
     ),
-    width: 149,
+    minWidth: 149,
     filterable: false,
     sortable: false,
     colSpan: 4,
@@ -47,7 +47,7 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
     headerName: t(TranslationKey['Weight, kg']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Weight, kg'])} />,
 
-    width: 200,
+    minWidth: 200,
     filterable: false,
     sortable: false,
     hideable: false,
@@ -57,7 +57,7 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
     headerName: t(TranslationKey.Rate) + ', ¥',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', ¥'} />,
 
-    width: 88,
+    minWidth: 88,
     filterable: false,
     sortable: false,
     hideable: false,
@@ -67,7 +67,7 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
     headerName: t(TranslationKey.Rate) + ', $',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', $'} />,
 
-    width: 88,
+    minWidth: 88,
     filterable: false,
     sortable: false,
   },
@@ -80,7 +80,7 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
     renderCell: params => (
       <WarehouseTariffDatesCell cls={params.row?.cls} etd={params.row?.etd} eta={params.row?.eta} />
     ),
-    width: 323,
+    minWidth: 323,
     filterable: false,
     sortable: false,
   },
@@ -91,7 +91,7 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
 
     type: 'number',
-    width: 120,
+    minWidth: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 ]

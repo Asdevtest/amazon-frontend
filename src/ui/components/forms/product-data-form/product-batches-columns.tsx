@@ -31,7 +31,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.humanFriendlyId || 0} />,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.QUANTITY,
-      width: 100,
+      minWidth: 100,
     },
 
     {
@@ -41,7 +41,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.title || '-'} />,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.STRING,
-      width: 110,
+      minWidth: 110,
     },
 
     {
@@ -53,7 +53,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.amountInBatch || 0} />,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.QUANTITY,
-      width: 110,
+      minWidth: 110,
     },
 
     {
@@ -63,7 +63,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
         <MultilineTextHeaderCell text={t(TranslationKey['Boxes and the quantity of the selected product in them'])} />
       ),
       renderCell: ({ row }: GridRowModel) => <BoxesAndQuantityCell boxesData={row?.boxes} />,
-      width: 170,
+      minWidth: 170,
     },
 
     {
@@ -73,7 +73,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.storekeeper?.name || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.OBJECT,
-      width: 180,
+      minWidth: 180,
     },
 
     {
@@ -83,7 +83,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.boxes?.[0]?.destination?.name || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.OBJECT,
-      width: 150,
+      minWidth: 150,
     },
 
     {
@@ -100,7 +100,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       ),
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.STRING,
-      width: 165,
+      minWidth: 165,
     },
 
     {
@@ -112,7 +112,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       ),
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.DATE,
-      width: 110,
+      minWidth: 110,
     },
 
     {
@@ -124,7 +124,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       ),
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.DATE,
-      width: 110,
+      minWidth: 110,
     },
 
     {
@@ -136,7 +136,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       ),
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.DATE,
-      width: 110,
+      minWidth: 110,
     },
 
     {
@@ -152,7 +152,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
         />
       ),
       disableCustomSort: true,
-      width: 190,
+      minWidth: 190,
     },
   ]
 

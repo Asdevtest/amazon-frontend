@@ -39,7 +39,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       renderCell: params => (
         <OpenInNewTabCell isFullSize onClickOpenInNewTab={() => handlers.onClickShowProduct(params.row as IProduct)} />
       ),
-      width: 80,
+      minWidth: 80,
 
       filterable: false,
       disableCustomSort: true,
@@ -67,7 +67,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       columnMenuConfig: productColumnMenuValue,
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      minWidth: 260,
     },
 
     {
@@ -75,7 +75,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-      width: 170,
+      minWidth: 170,
       renderCell: params => (
         <MultilineTextCell
           text={t(
@@ -109,7 +109,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
           )}
         />
       ),
-      width: 135,
+      minWidth: 135,
 
       columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
     },
@@ -153,7 +153,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
       type: 'number',
-      width: 90,
+      minWidth: 90,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -165,7 +165,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
 
       renderCell: params => <MultilineTextCell text={params.value} />,
       type: 'number',
-      width: 75,
+      minWidth: 75,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -187,7 +187,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey['Ideas to Check']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ideas to Check'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 100,
+      minWidth: 100,
       type: 'number',
 
       columnKey: columnnsKeys.shared.NUMBER,
@@ -198,7 +198,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey['Closed Ideas']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Closed Ideas'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 100,
+      minWidth: 100,
       type: 'number',
 
       columnKey: columnnsKeys.shared.NUMBER,
@@ -209,7 +209,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey['Realized ideas']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Realized ideas'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 125,
+      minWidth: 125,
       type: 'number',
 
       columnKey: columnnsKeys.shared.NUMBER,
@@ -221,7 +221,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
       renderCell: params => <TagsCell tags={params.row.tags} />,
       valueGetter: params => params.row.tags?.map((el: ITag) => `#${el.title}`).join(),
-      width: 160,
+      minWidth: 160,
       sortable: false,
       columnKey: columnnsKeys.shared.TAGS,
       disableCustomSort: true,
@@ -232,7 +232,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey['Red flags']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
       renderCell: params => <RedFlagsCell flags={params.row.redFlags} />,
-      width: 130,
+      minWidth: 130,
       sortable: false,
       columnKey: columnnsKeys.shared.RED_FLAGS,
       disableCustomSort: true,
@@ -254,7 +254,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
 
         return subUsers?.concat(subUsersByShop).join(', ')
       },
-      width: 187,
+      minWidth: 160,
       filterable: false,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,

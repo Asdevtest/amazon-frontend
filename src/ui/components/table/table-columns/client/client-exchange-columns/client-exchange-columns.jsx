@@ -24,7 +24,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Image),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
 
-    width: 100,
+    minWidth: 100,
     renderCell: params => <SmallRowImageCell image={params.row.images[0]} />,
     filterable: false,
     sortable: false,
@@ -37,7 +37,7 @@ export const clientExchangeViewColumns = rowHandlers => [
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
 
-    width: 140,
+    minWidth: 140,
   },
 
   {
@@ -46,7 +46,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 140,
+    minWidth: 140,
   },
 
   {
@@ -55,7 +55,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 110,
+    minWidth: 110,
     type: 'number',
   },
 
@@ -65,7 +65,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Weight)} />,
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-    width: 90,
+    minWidth: 90,
     type: 'number',
   },
 
@@ -75,7 +75,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 70,
+    minWidth: 70,
     type: 'number',
   },
 
@@ -85,7 +85,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 130,
+    minWidth: 130,
     type: 'number',
   },
 
@@ -97,7 +97,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
     ),
-    width: 160,
+    minWidth: 160,
   },
 
   {
@@ -106,7 +106,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
     renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
-    width: 150,
+    minWidth: 150,
   },
 
   {
@@ -117,7 +117,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.checkedBy?._id} />
     ),
-    width: 150,
+    minWidth: 150,
   },
 
   {
@@ -125,7 +125,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 190,
+    minWidth: 190,
     renderCell: params => (
       <Button
         styleType={ButtonStyle.SUCCESS}
@@ -141,7 +141,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey['Red flags']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
 
-    width: 130,
+    minWidth: 130,
     renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
     sortable: false,
   },
@@ -151,7 +151,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Tags),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
 
-    width: 160,
+    minWidth: 160,
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
   },
 

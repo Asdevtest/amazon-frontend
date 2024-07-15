@@ -21,7 +21,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
-    width: 400,
+    minWidth: 400,
     filterable: false,
     sortable: false,
     columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
@@ -32,7 +32,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 150,
+    minWidth: 150,
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -41,7 +41,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.row?.boxes?.[0]?.destination?.name} />,
-    width: 130,
+    minWidth: 130,
     filterable: false,
     sortable: false,
     columnKey: columnnsKeys.shared.OBJECT,
@@ -53,7 +53,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 70,
+    minWidth: 70,
     filterable: false,
     sortable: false,
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -65,7 +65,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 80,
+    minWidth: 80,
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -74,7 +74,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
     renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row.originalData.boxes[0])} />,
-    width: 250,
+    minWidth: 250,
     filterable: false,
     sortable: false,
     columnKey: columnnsKeys.shared.OBJECT,
@@ -99,7 +99,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
         />
       )
     },
-    width: 210,
+    minWidth: 210,
     filterable: false,
     sortable: false,
     columnKey: columnnsKeys.shared.BATCHES_TRACKING,
@@ -111,7 +111,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => <ToFixedWithKgSignCell value={params.row.originalData.finalWeight} fix={2} />,
     type: 'number',
-    width: 120,
+    minWidth: 120,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -121,7 +121,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
-    width: 120,
+    minWidth: 120,
     filterable: false,
     sortable: false,
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -138,7 +138,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
         eta={params.row.originalData.boxes[0].logicsTariff?.eta}
       />
     ),
-    width: 330,
+    minWidth: 330,
     filterable: false,
     sortable: false,
     columnKey: columnnsKeys.shared.BATCHES_SHIPPING_DATE,
@@ -149,7 +149,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
+    minWidth: 120,
     columnKey: columnnsKeys.shared.DATE,
   },
 ]

@@ -36,7 +36,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
         />
       ),
       renderCell: params => <BatchBoxesCell boxes={params.row.boxes} productViewMode={getProductViewMode?.()} />,
-      width: 420,
+      minWidth: 420,
       filterable: false,
       sortable: false,
       columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
@@ -49,7 +49,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       headerName: t(TranslationKey['Batch title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 150,
+      minWidth: 150,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -58,7 +58,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
       renderCell: params => <MultilineTextCell text={params.row?.boxes?.[0]?.destination?.name} />,
-      width: 130,
+      minWidth: 130,
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT,
       table: DataGridFilterTables.BOXES,
@@ -71,7 +71,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
       type: 'number',
-      width: 70,
+      minWidth: 70,
       filterable: false,
       sortable: false,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -84,7 +84,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
       type: 'number',
-      width: 80,
+      minWidth: 80,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -95,7 +95,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderCell: params => (
         <UserLinkCell blackText name={params.row?.storekeeper?.name} userId={params.row?.storekeeper?._id} />
       ),
-      width: 150,
+      minWidth: 150,
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT,
       table: DataGridFilterTables.BOXES,
@@ -120,7 +120,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
 
         return subUsers?.concat(subUsersByShop).join(', ')
       },
-      width: 187,
+      minWidth: 160,
       table: DataGridFilterTables.PRODUCTS,
       filterable: false,
       disableCustomSort: true,
@@ -132,7 +132,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       headerName: t(TranslationKey.Tariff),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
       renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row.boxes[0])} />,
-      width: 160,
+      minWidth: 160,
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT,
       table: DataGridFilterTables.BOXES,
@@ -154,7 +154,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
           trackingNumber={params.row?.trackingNumber}
         />
       ),
-      width: 200,
+      minWidth: 200,
       filterable: false,
       sortable: false,
       columnKey: columnnsKeys.shared.BATCHES_TRACKING,
@@ -167,7 +167,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
       renderCell: params => <ToFixedWithKgSignCell value={params.row.finalWeight} fix={2} />,
       type: 'number',
-      width: 100,
+      minWidth: 100,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -177,7 +177,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row?.calculatedShippingCost, 2)} />,
       type: 'number',
-      width: 110,
+      minWidth: 110,
       sortable: false,
       columnKey: columnnsKeys.shared.QUANTITY,
       table: DataGridFilterTables.BOXES,
@@ -195,7 +195,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
           eta={params.row.boxes[0].logicsTariff?.eta}
         />
       ),
-      width: 350,
+      minWidth: 350,
       filterable: false,
       sortable: false,
       columnKey: columnnsKeys.shared.BATCHES_SHIPPING_DATE,
@@ -208,7 +208,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       headerName: t(TranslationKey.Updated),
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 115,
+      minWidth: 115,
       columnKey: columnnsKeys.shared.DATE,
     },
   ]

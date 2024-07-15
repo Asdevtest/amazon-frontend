@@ -44,7 +44,7 @@ export const batchInfoModalColumn = (
 
     valueGetter: ({ row }) => row.items?.map(item => item?.product?.asin || t(TranslationKey.Missing)).join(', '),
 
-    width: 150,
+    minWidth: 150,
   },
 
   {
@@ -54,7 +54,7 @@ export const batchInfoModalColumn = (
 
     renderCell: params => <ManyItemsPriceCell withoutSku withoutAsin params={params.row} />,
     valueGetter: ({ row }) => row?.amount,
-    width: 280,
+    minWidth: 280,
   },
 
   {
@@ -66,7 +66,7 @@ export const batchInfoModalColumn = (
       <StringListCell sourceString={row.items?.map(item => item?.amount || t(TranslationKey.Missing)).join(', ')} />
     ),
     valueGetter: ({ row }) => row.items?.map(item => item?.amount || t(TranslationKey.Missing)).join(', '),
-    width: 80,
+    minWidth: 80,
   },
 
   {
@@ -77,7 +77,7 @@ export const batchInfoModalColumn = (
     renderCell: params => <MultilineTextCell text={params.value} />,
     valueGetter: ({ row }) => row?.humanFriendlyId,
     type: 'number',
-    width: 60,
+    minWidth: 60,
   },
 
   {
@@ -87,7 +87,7 @@ export const batchInfoModalColumn = (
 
     renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
     valueGetter: ({ row }) => row?.orderIdsItems || t(TranslationKey.Missing),
-    width: 140,
+    minWidth: 140,
     sortable: false,
   },
 
@@ -98,7 +98,7 @@ export const batchInfoModalColumn = (
 
     renderCell: params => <UserMiniCell userName={params.row?.client?.name} userId={params.row?.client?._id} />,
     valueGetter: ({ row }) => row?.client?.name || t(TranslationKey.Missing),
-    width: 180,
+    minWidth: 180,
   },
 
   {
@@ -128,7 +128,7 @@ export const batchInfoModalColumn = (
     },
 
     valueGetter: ({ row }) => getNewTariffTextForBoxOrOrder(row),
-    width: 200,
+    minWidth: 200,
   },
 
   {
@@ -137,7 +137,7 @@ export const batchInfoModalColumn = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
     valueGetter: ({ row }) => row.destination?.name || t(TranslationKey.Missing),
-    width: 110,
+    minWidth: 110,
   },
 
   {
@@ -146,7 +146,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell value={params.value} />,
     valueGetter: ({ row }) => row.updatedAt || t(TranslationKey.Missing),
-    width: 100,
+    minWidth: 100,
     // type: 'date',
   },
 
@@ -174,7 +174,7 @@ export const batchInfoModalColumn = (
         2,
       ) || t(TranslationKey.Missing),
     type: 'number',
-    width: 100,
+    minWidth: 100,
   },
 
   {
@@ -185,7 +185,7 @@ export const batchInfoModalColumn = (
     valueGetter: ({ row }) =>
       row.items.map(el => toFixedWithDollarSign(el.order?.totalPrice / el.order?.amount, 2)).join(', '),
     type: 'number',
-    width: 90,
+    minWidth: 90,
   },
 
   {
@@ -217,7 +217,7 @@ export const batchInfoModalColumn = (
         .join(', ')
     },
     type: 'number',
-    width: 110,
+    minWidth: 110,
   },
 
   {
@@ -254,7 +254,7 @@ export const batchInfoModalColumn = (
       return row.items.map(el => (!!actualShippingCost && toFixedWithDollarSign(getTotalCost(el), 2)) || '-').join(', ')
     },
     type: 'number',
-    width: 160,
+    minWidth: 160,
   },
 
   {
@@ -290,7 +290,7 @@ export const batchInfoModalColumn = (
       return row.items.map(el => toFixedWithDollarSign(getTotalCost(el), 2) || '-').join(', ')
     },
     type: 'number',
-    width: 170,
+    minWidth: 170,
   },
 
   {
@@ -303,7 +303,7 @@ export const batchInfoModalColumn = (
       />
     ),
     valueGetter: ({ row }) => row.items?.map(item => item?.product?.shop?.name || t(TranslationKey.Missing)).join(', '),
-    width: 100,
+    minWidth: 100,
   },
 
   {
@@ -314,6 +314,6 @@ export const batchInfoModalColumn = (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={15} sourceString={row.fbaShipment} />
     ),
     valueGetter: ({ row }) => row.fbaShipment,
-    width: 165,
+    minWidth: 165,
   },
 ]

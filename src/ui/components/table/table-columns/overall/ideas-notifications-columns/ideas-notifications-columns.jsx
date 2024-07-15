@@ -21,7 +21,7 @@ export const ideasNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <ShortDateCell value={params.value} />,
-    width: 85,
+    minWidth: 85,
     // type: 'date',
   },
 
@@ -30,7 +30,7 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 200,
+    minWidth: 200,
     renderCell: params => (
       <ActionButtonsCell
         isFirstButton
@@ -60,7 +60,7 @@ export const ideasNotificationsViewColumns = handlers => [
         />
       )
     },
-    width: 300,
+    minWidth: 260,
     // columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
@@ -72,7 +72,7 @@ export const ideasNotificationsViewColumns = handlers => [
     renderCell: params => (
       <UserLinkCell blackText name={params?.value} userId={params?.row?.originalData?.createdBy._id} />
     ),
-    width: 160,
+    minWidth: 160,
   },
 
   {
@@ -86,7 +86,7 @@ export const ideasNotificationsViewColumns = handlers => [
         color={colorByIdeaStatus(ideaStatusByCode[params.row.originalData.idea.status])}
       />
     ),
-    width: 120,
+    minWidth: 120,
   },
 
   {
@@ -95,7 +95,7 @@ export const ideasNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Name idea'])} />,
 
     renderCell: params => <MultilineTextCell leftAlign text={params?.row?.productName} />,
-    // width: 200,
+    // minWidth: 200,
     flex: 1,
   },
 ]

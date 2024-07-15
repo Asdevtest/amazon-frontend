@@ -26,7 +26,7 @@ export const WeightBasedTariffFormColumns = (
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff name'])} />,
 
-    width: 120,
+    minWidth: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -35,7 +35,7 @@ export const WeightBasedTariffFormColumns = (
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 150,
+    minWidth: 150,
     renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
   },
 
@@ -54,7 +54,7 @@ export const WeightBasedTariffFormColumns = (
         isRemovedDestinationRestriction={isRemovedDestinationRestriction}
       />
     ),
-    width: 149,
+    minWidth: 149,
     filterable: false,
     sortable: false,
     colSpan: 4,
@@ -65,7 +65,7 @@ export const WeightBasedTariffFormColumns = (
     headerName: t(TranslationKey['Weight, kg']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Weight, kg'])} />,
 
-    width: 200,
+    minWidth: 200,
     filterable: false,
     sortable: false,
     hideable: false,
@@ -75,7 +75,7 @@ export const WeightBasedTariffFormColumns = (
     headerName: t(TranslationKey.Rate) + ', ¥',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', ¥'} />,
 
-    width: 88,
+    minWidth: 88,
     filterable: false,
     sortable: false,
     hideable: false,
@@ -85,7 +85,7 @@ export const WeightBasedTariffFormColumns = (
     headerName: t(TranslationKey.Rate) + ', $',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', $'} />,
 
-    width: 88,
+    minWidth: 88,
     filterable: false,
     sortable: false,
   },
@@ -98,7 +98,7 @@ export const WeightBasedTariffFormColumns = (
     renderCell: params => (
       <WarehouseTariffDatesCell cls={params.row?.cls} etd={params.row?.etd} eta={params.row?.eta} />
     ),
-    width: 323,
+    minWidth: 323,
     filterable: false,
     sortable: false,
   },
@@ -109,7 +109,7 @@ export const WeightBasedTariffFormColumns = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
 
     type: 'number',
-    width: 100,
+    minWidth: 100,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -117,7 +117,7 @@ export const WeightBasedTariffFormColumns = (
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    width: 200,
+    minWidth: 200,
     renderCell: params => (
       <ActionButtonsCell
         isFirstButton

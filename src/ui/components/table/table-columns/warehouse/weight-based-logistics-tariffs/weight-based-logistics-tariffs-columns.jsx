@@ -21,7 +21,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff name'])} />,
 
-    width: 120,
+    minWidth: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -30,7 +30,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 190,
+    minWidth: 190,
     renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
   },
 
@@ -45,7 +45,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
         destinationData={getDestinationData()}
       />
     ),
-    width: 150,
+    minWidth: 150,
     filterable: false,
     sortable: false,
     colSpan: 4,
@@ -56,7 +56,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     headerName: t(TranslationKey['Weight, kg']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Weight, kg'])} />,
 
-    width: 175,
+    minWidth: 175,
     filterable: false,
     sortable: false,
     hideable: false,
@@ -67,7 +67,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     headerName: t(TranslationKey.Rate) + ', ¥',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', ¥'} />,
 
-    width: 88,
+    minWidth: 88,
     filterable: false,
     sortable: false,
     hideable: false,
@@ -77,7 +77,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     headerName: t(TranslationKey.Rate) + ', $',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', $'} />,
 
-    width: 88,
+    minWidth: 88,
     filterable: false,
     sortable: false,
   },
@@ -90,7 +90,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     renderCell: params => (
       <WarehouseTariffDatesCell cls={params.row?.cls} etd={params.row?.etd} eta={params.row?.eta} />
     ),
-    width: 320,
+    minWidth: 320,
     filterable: false,
     sortable: false,
   },
@@ -101,7 +101,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
 
     type: 'number',
-    width: 110,
+    minWidth: 110,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -110,7 +110,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 160,
+    minWidth: 160,
     renderCell: params => {
       const isArchive = getIsArchive()
 
@@ -148,7 +148,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
+    minWidth: 120,
     // type: 'date',
   },
 
@@ -158,7 +158,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
+    minWidth: 120,
     // type: 'date',
   },
 ]

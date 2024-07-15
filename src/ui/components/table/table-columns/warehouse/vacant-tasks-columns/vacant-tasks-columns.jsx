@@ -45,7 +45,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
           }
         />
       ),
-      width: window.innerWidth < 1282 ? 150 : 170,
+      minWidth: window.innerWidth < 1282 ? 150 : 170,
       sortable: false,
     },
 
@@ -60,7 +60,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
           onChangePriority={handlers.updateTaskPriority}
         />
       ),
-      width: window.innerWidth < 1282 ? 140 : 170,
+      minWidth: window.innerWidth < 1282 ? 140 : 170,
     },
 
     {
@@ -76,7 +76,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
           }
         />
       ),
-      width: 280,
+      minWidth: 280,
     },
 
     {
@@ -84,7 +84,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Type),
       renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Type)} />,
       renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
-      width: 165,
+      minWidth: 165,
     },
 
     {
@@ -92,7 +92,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Description),
       renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Description)} />,
       renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
-      width: 330,
+      minWidth: 330,
       sortable: false,
     },
     {
@@ -100,7 +100,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
       headerName: 'ASIN',
       renderHeader: () => <MultilineTextHeaderCell textAlignStart text={'ASIN'} />,
       renderCell: params => <MultipleAsinCell asinList={params.value} />,
-      width: window.innerWidth < 1282 ? 101 : 140,
+      minWidth: window.innerWidth < 1282 ? 101 : 140,
       sortable: false,
     },
 
@@ -111,7 +111,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
       renderCell: params => (
         <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
       ),
-      width: window.innerWidth < 1282 ? 85 : 140,
+      minWidth: window.innerWidth < 1282 ? 85 : 140,
       sortable: false,
     },
 
@@ -122,7 +122,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
       renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
       align: 'center',
       type: 'number',
-      width: window.innerWidth < 1282 ? 75 : 130,
+      minWidth: window.innerWidth < 1282 ? 75 : 130,
       sortable: false,
     },
 
@@ -131,7 +131,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
       headerName: 'barcode',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
       renderCell: params => <CheckboxCell checked={params.value} />,
-      width: 100,
+      minWidth: 100,
       type: 'boolean',
     },
 
@@ -140,7 +140,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
       headerName: 'item',
       renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
       renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
-      width: window.innerWidth < 1282 ? 54 : 100,
+      minWidth: window.innerWidth < 1282 ? 54 : 100,
       sortable: false,
     },
 
@@ -149,7 +149,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: params => <NormDateFromUnixCell value={params.value} />,
-      width: 105,
+      minWidth: 105,
     },
 
     {
@@ -157,7 +157,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateFromUnixCell value={params.value} />,
-      width: 115,
+      minWidth: 115,
     },
   ]
 

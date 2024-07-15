@@ -87,7 +87,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           />
         )
       },
-      minWidth: 280,
+      minWidth: 260,
     },
 
     {

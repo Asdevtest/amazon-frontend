@@ -5,7 +5,6 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   ShortDateCell,
-  TableDataControlsButtonsCell,
 } from '@components/data-grid/data-grid-cells'
 import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
@@ -21,7 +20,7 @@ export const shopsColumns = handlers => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-      width: 120,
+      minWidth: 120,
       renderCell: params => <ShortDateCell value={params.value} />,
     },
 
@@ -30,7 +29,7 @@ export const shopsColumns = handlers => {
       headerName: t(TranslationKey.Title),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-      width: 320,
+      minWidth: 320,
       renderCell: params => <MultilineTextCell text={params.value} />,
     },
 
@@ -39,7 +38,7 @@ export const shopsColumns = handlers => {
       headerName: 'PPC-Organic By Day',
       renderHeader: () => <MultilineTextHeaderCell text="PPC-Organic By Day" />,
 
-      width: 150,
+      minWidth: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -57,7 +56,7 @@ export const shopsColumns = handlers => {
       headerName: 'Inventory Shipments',
       renderHeader: () => <MultilineTextHeaderCell text="Inventory Shipments" />,
 
-      width: 150,
+      minWidth: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -77,7 +76,7 @@ export const shopsColumns = handlers => {
       headerName: 'Inventory',
       renderHeader: () => <MultilineTextHeaderCell text="Inventory" />,
 
-      width: 150,
+      minWidth: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -95,7 +94,7 @@ export const shopsColumns = handlers => {
       headerName: t(TranslationKey.Returns),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Returns)} />,
 
-      width: 150,
+      minWidth: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -113,7 +112,7 @@ export const shopsColumns = handlers => {
       headerName: 'PPC-Organic by Weeks',
       renderHeader: () => <MultilineTextHeaderCell text="PPC-Organic by Weeks" />,
 
-      width: 150,
+      minWidth: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -131,7 +130,7 @@ export const shopsColumns = handlers => {
       headerName: t(TranslationKey['Warehouse report']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Warehouse report'])} />,
 
-      width: 150,
+      minWidth: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -148,7 +147,7 @@ export const shopsColumns = handlers => {
       headerName: t(TranslationKey['Dashboard by goods/days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Dashboard by goods/days'])} />,
 
-      width: 150,
+      minWidth: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
@@ -165,7 +164,7 @@ export const shopsColumns = handlers => {
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-      width: 150,
+      minWidth: 150,
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton

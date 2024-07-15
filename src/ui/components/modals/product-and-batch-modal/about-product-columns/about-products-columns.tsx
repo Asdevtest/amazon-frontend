@@ -15,7 +15,7 @@ export const aboutProductsColumns = [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.ID)} />,
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.id} />,
-    width: 80,
+    minWidth: 80,
   },
 
   {
@@ -29,7 +29,7 @@ export const aboutProductsColumns = [
         color={orderColorByStatus(OrderStatus[row.status])}
       />
     ),
-    width: 240,
+    minWidth: 240,
   },
 
   {
@@ -37,7 +37,7 @@ export const aboutProductsColumns = [
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.amount} />,
-    width: 130,
+    minWidth: 130,
   },
 
   {
@@ -45,6 +45,6 @@ export const aboutProductsColumns = [
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Deadline)} />,
     renderCell: ({ row }: GridRowModel) => <DeadlineCell deadline={row.deadline} />,
-    width: 130,
+    minWidth: 130,
   },
 ]

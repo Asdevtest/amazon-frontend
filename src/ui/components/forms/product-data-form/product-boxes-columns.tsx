@@ -33,7 +33,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.humanFriendlyId || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.QUANTITY,
-      width: 60,
+      minWidth: 60,
     },
 
     {
@@ -48,7 +48,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       ),
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.STRING,
-      width: 180,
+      minWidth: 180,
     },
 
     {
@@ -58,7 +58,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.batch?.humanFriendlyId || '-'} />,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.QUANTITY,
-      width: 100,
+      minWidth: 100,
     },
 
     {
@@ -68,7 +68,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.batch?.title || '-'} />,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.STRING,
-      width: 110,
+      minWidth: 110,
     },
 
     {
@@ -81,7 +81,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       disableColumnMenu: true,
       disableCustomSort: true,
       filterable: false,
-      width: 170,
+      minWidth: 170,
     },
 
     {
@@ -92,7 +92,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.OBJECT,
       disableCustomSort: true,
-      width: 180,
+      minWidth: 180,
     },
 
     {
@@ -103,7 +103,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.OBJECT,
       disableCustomSort: true,
-      width: 150,
+      minWidth: 150,
     },
 
     {
@@ -115,7 +115,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       ),
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.STRING,
-      width: 165,
+      minWidth: 165,
     },
 
     {
@@ -126,7 +126,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.OBJECT,
       disableCustomSort: true,
-      width: 120,
+      minWidth: 120,
     },
 
     {
@@ -136,7 +136,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatDate(row?.logicsTariff?.cls) || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.DATE,
-      width: 110,
+      minWidth: 110,
     },
 
     {
@@ -146,7 +146,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatDate(row?.logicsTariff?.etd) || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.DATE,
-      width: 110,
+      minWidth: 110,
     },
 
     {
@@ -156,7 +156,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatDate(row?.logicsTariff?.eta) || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.DATE,
-      width: 110,
+      minWidth: 110,
     },
 
     {
@@ -166,7 +166,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatDate(row?.batch?.arrivalDate) || '-'} />,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.DATE,
-      width: 110,
+      minWidth: 110,
     },
 
     {
@@ -185,7 +185,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       disableColumnMenu: true,
       disableCustomSort: true,
       filterable: false,
-      width: 190,
+      minWidth: 190,
     },
   ]
 

@@ -18,7 +18,7 @@ export const supervisorSettingsViewColumns = props => {
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
       renderCell: params => <MultilineTextAlignLeftCell isAsin text={params.value} />,
-      width: 200,
+      minWidth: 200,
     },
 
     {
@@ -49,7 +49,7 @@ export const supervisorSettingsViewColumns = props => {
       ),
       disableCustomSort: true,
       disableColumnMenu: true,
-      width: 100,
+      minWidth: 100,
     },
   ]
 

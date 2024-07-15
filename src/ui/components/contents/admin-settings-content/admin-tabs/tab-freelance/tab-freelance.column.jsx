@@ -32,7 +32,7 @@ export const tabFreelanceColumns = ({
     ),
     filterable: false,
     sortable: false,
-    width: 200,
+    minWidth: 200,
   },
 
   {
@@ -64,7 +64,7 @@ export const tabFreelanceColumns = ({
     },
     filterable: false,
     sortable: false,
-    width: 100,
+    minWidth: 100,
   },
 
   {
@@ -73,7 +73,7 @@ export const tabFreelanceColumns = ({
     renderCell: ({ row }) => <MultilineTextCell leftAlign text={row.archive ? t(TranslationKey.Archive) : ''} />,
     filterable: false,
     sortable: false,
-    width: 80,
+    minWidth: 80,
   },
 
   {
@@ -81,7 +81,7 @@ export const tabFreelanceColumns = ({
     renderHeader: () => (
       <ButtonHeaderCell
         text={t(TranslationKey['New specialty'])}
-        icon={<FiPlus style={{ width: 16, height: 16 }} />}
+        icon={<FiPlus style={{ minWidth: 16, height: 16 }} />}
         onOpenModal={onClickToggleAddOrEditTextModal}
       />
     ),

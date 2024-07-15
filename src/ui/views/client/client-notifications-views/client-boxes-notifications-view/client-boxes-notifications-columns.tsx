@@ -32,7 +32,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 60,
+      minWidth: 60,
 
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -43,7 +43,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 100,
+      minWidth: 100,
 
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -53,7 +53,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-      width: 150,
+      minWidth: 150,
       renderCell: ({ row }) => (
         <ActionButtonsCell
           isFirstButton
@@ -76,7 +76,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-      width: 270,
+      minWidth: 270,
       renderCell: params => {
         return params.row.items.length > 1 ? (
           <OrderManyItemsCell box={params.row} />
@@ -99,7 +99,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
 
       renderCell: params => <MultilineTextCell text={params.value} />,
 
-      width: 100,
+      minWidth: 100,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -110,7 +110,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
       renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
-      width: 130,
+      minWidth: 130,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
     },
@@ -123,7 +123,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       renderCell: params => (
         <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
-      width: 140,
+      minWidth: 140,
       disableCustomSort: true,
       hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -135,7 +135,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
       renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
-      width: 180,
+      minWidth: 180,
 
       disableCustomSort: true,
       hideEmptyObject: true,
@@ -148,7 +148,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey['Total price'])}, $`} />,
 
       renderCell: params => <MultilineTextCell text={toFixed(params.value)} />,
-      width: 120,
+      minWidth: 120,
 
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -164,7 +164,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
 
       columnKey: columnnsKeys.shared.QUANTITY,
 
-      width: 100,
+      minWidth: 100,
     },
 
     {
@@ -178,7 +178,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
 
       columnKey: columnnsKeys.shared.QUANTITY,
 
-      width: 120,
+      minWidth: 120,
     },
   ]
 

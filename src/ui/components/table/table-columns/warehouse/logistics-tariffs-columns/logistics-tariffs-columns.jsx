@@ -24,7 +24,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff name'])} />,
 
-    width: 165,
+    minWidth: 165,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -33,7 +33,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 290,
+    minWidth: 290,
     renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
   },
 
@@ -43,7 +43,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Region)} />,
 
     renderCell: () => <WarehouseTariffDestinationCell />,
-    width: 150,
+    minWidth: 150,
     filterable: false,
     sortable: false,
   },
@@ -54,7 +54,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', ¥'} />,
 
     renderCell: params => <WarehouseTariffRatesCell inYuans conditionsByRegion={params.row.conditionsByRegion} />,
-    width: 95,
+    minWidth: 95,
     filterable: false,
     sortable: false,
   },
@@ -65,7 +65,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', $'} />,
 
     renderCell: params => <WarehouseTariffRatesCell conditionsByRegion={params.row.conditionsByRegion} />,
-    width: 95,
+    minWidth: 95,
     filterable: false,
     sortable: false,
   },
@@ -78,7 +78,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     renderCell: params => (
       <WarehouseTariffDatesCell cls={params.row?.cls} etd={params.row?.etd} eta={params.row?.eta} />
     ),
-    width: 323,
+    minWidth: 323,
     filterable: false,
     sortable: false,
   },
@@ -89,7 +89,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
 
     type: 'number',
-    width: 120,
+    minWidth: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -99,7 +99,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
 
     type: 'number',
-    width: 120,
+    minWidth: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -108,7 +108,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 145,
+    minWidth: 145,
     renderCell: params => (
       <ActionButtonsCell
         isFirstButton
@@ -139,6 +139,6 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
+    minWidth: 120,
   },
 ]

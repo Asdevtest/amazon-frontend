@@ -20,7 +20,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
       columnKey: columnnsKeys.shared.DATE,
@@ -32,7 +32,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value?.name} />,
-      width: 150,
+      minWidth: 150,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -48,7 +48,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       renderCell: (params: GridRenderCellParams) => (
         <ProductAsinCell withoutTitle withoutAsin image={params.row?.image} skuByClient={params.row?.sku} />
       ),
-      width: 250,
+      minWidth: 260,
       disableCustomSort: true,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
@@ -60,7 +60,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       headerName: 'Shipment ID',
       renderHeader: () => <MultilineTextHeaderCell text={'Shipment ID'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 143,
+      minWidth: 143,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
       columnKey: columnnsKeys.shared.STRING,
@@ -71,7 +71,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       headerName: 'Reference ID',
       renderHeader: () => <MultilineTextHeaderCell text={'Reference ID'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 108,
+      minWidth: 108,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
       columnKey: columnnsKeys.shared.STRING,
@@ -82,7 +82,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       headerName: 'Date created',
       renderHeader: () => <MultilineTextHeaderCell text={'Date created'} />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
       columnKey: columnnsKeys.shared.DATE,
@@ -93,7 +93,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       headerName: 'Date updated',
       renderHeader: () => <MultilineTextHeaderCell text={'Date updated'} />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
       columnKey: columnnsKeys.shared.DATE,
@@ -104,7 +104,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       headerName: 'Ship to',
       renderHeader: () => <MultilineTextHeaderCell text={'Ship to'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 83,
+      minWidth: 83,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
       columnKey: columnnsKeys.shared.STRING,
@@ -115,7 +115,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       headerName: 'Units expected',
       renderHeader: () => <MultilineTextHeaderCell text={'Units expected'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 83,
+      minWidth: 83,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -126,7 +126,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       headerName: 'Status',
       renderHeader: () => <MultilineTextHeaderCell text={'Status'} />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-      width: 83,
+      minWidth: 83,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
       columnKey: columnnsKeys.shared.STRING,
@@ -137,7 +137,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       headerName: 'Scheduled carrier delivery date',
       renderHeader: () => <MultilineTextHeaderCell text={'Scheduled carrier delivery date'} />,
       renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell dateWithoutTime value={params.value} />,
-      width: 155,
+      minWidth: 155,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
       columnKey: columnnsKeys.shared.DATE,
@@ -148,7 +148,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       headerName: 'Delivery window start',
       renderHeader: () => <MultilineTextHeaderCell text={'Delivery window start'} />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
       columnKey: columnnsKeys.shared.DATE,
@@ -159,7 +159,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       headerName: 'Delivery window end',
       renderHeader: () => <MultilineTextHeaderCell text={'Delivery window end'} />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-      width: 118,
+      minWidth: 118,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
       columnKey: columnnsKeys.shared.DATE,

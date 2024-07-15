@@ -99,7 +99,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     flexWrap: 'wrap',
     gap: 5,
-    padding: '5px 0',
+    padding: '10px 0',
   },
 
   paymentMethod: {
