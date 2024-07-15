@@ -680,6 +680,14 @@ class ChatModelStatic {
           lastMessage: response.messagesId.includes(this.simpleChats[findSimpleChatIndexById]?.lastMessage?._id)
             ? { ...this.simpleChats?.[findSimpleChatIndexById]?.lastMessage, isRead: true }
             : this.simpleChats?.[findSimpleChatIndexById]?.lastMessage,
+
+          users: this.simpleChats[findSimpleChatIndexById].users.map(el => {
+            if (el._id === response.user._id) {
+              el.lastSeen = response.user?.lastSeen
+            }
+
+            return el
+          }),
         }
       })
     }
@@ -694,8 +702,6 @@ class ChatModelStatic {
   }
 
   private onTypingMessage(response: OnTypingMessageResponse) {
-    console.log('response', response)
-
     runInAction(() => {
       this.typingUsers = [...this.typingUsers, response]
     })
@@ -721,17 +727,13 @@ class ChatModelStatic {
         ...this[chatType][index],
         users: this[chatType][index].users.map(el => {
           if (el._id === response.user._id) {
-            console.log('el :>> ', el)
             el.lastSeen = response.user?.lastSeen
-            el.changed = true
           }
 
           return el
         }),
       }
     })
-
-    console.log('this[chatType][index] :>> ', this[chatType][index])
   }
 
   private onNewChat(newChat: ChatContract) {
