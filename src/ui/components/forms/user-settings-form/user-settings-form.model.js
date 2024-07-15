@@ -1,12 +1,13 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserModel } from '@models/user-model'
 
-export class UserSettingsModel {
-  history = undefined
-  requestStatus = undefined
-  error = undefined
+import { t } from '@utils/translations'
 
+export class UserSettingsModel {
   get userId() {
     return UserModel.userInfo?._id
   }
@@ -15,26 +16,20 @@ export class UserSettingsModel {
   sourceUserSettings = undefined
   userSettingsAvailable = []
 
-  showSuccessModal = false
+  constructor() {
+    this.loadData()
 
-  constructor({ history }) {
-    this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async loadData() {
-    try {
-      await Promise.all([this.getUserSettingsMy(), this.getUserSettingsAvailable()])
-    } catch (error) {
-      console.error(error)
-    }
+  loadData() {
+    this.getUserSettingsMy()
+    this.getUserSettingsAvailable()
   }
 
   onChangeField = fieldName => event => {
     const newFormFields = { ...this.userSettings }
-
     newFormFields[fieldName] = event.target.value
-
     this.userSettings = newFormFields
   }
 
@@ -44,7 +39,6 @@ export class UserSettingsModel {
 
       runInAction(() => {
         this.sourceUserSettings = result.data
-
         this.userSettings = result.data
       })
     } catch (error) {
@@ -64,27 +58,23 @@ export class UserSettingsModel {
     }
   }
 
-  async createUserSettings(data) {
+  async createUserSettings() {
     try {
-      await UserModel.createUserSettings({ settingOwnerId: this.userId, data })
+      await UserModel.createUserSettings({ settingOwnerId: this.userId, ...this.userSettings })
 
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Data accepted']))
     } catch (error) {
       console.error(error)
     }
   }
 
-  async editUserSettings(data) {
+  async editUserSettings() {
     try {
-      await UserModel.editUserSettings(this.userId, { settingOwnerId: this.userId, data })
+      await UserModel.editUserSettings(this.userId, { settingOwnerId: this.userId, ...this.userSettings })
 
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Data accepted']))
     } catch (error) {
       console.error(error)
     }
-  }
-
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
   }
 }

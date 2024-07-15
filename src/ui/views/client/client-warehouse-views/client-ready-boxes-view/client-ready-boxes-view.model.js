@@ -231,9 +231,9 @@ export class ClientReadyBoxesViewModel {
         // storage: data.storage,
       })
 
-      this.loadData()
-
       toast.success(t(TranslationKey['Data saved successfully']))
+
+      this.loadData()
     } catch (error) {
       console.error(error)
     }

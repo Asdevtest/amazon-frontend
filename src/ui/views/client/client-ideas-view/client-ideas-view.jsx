@@ -22,7 +22,6 @@ import { RequestResultModal } from '@components/modals/request-result-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -225,17 +224,6 @@ export const ClientIdeasView = observer(({ history }) => {
           cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-          title={viewModel.successModalTitle}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         />
       ) : null}
 

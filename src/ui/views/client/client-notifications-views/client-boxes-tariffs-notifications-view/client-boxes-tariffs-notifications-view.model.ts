@@ -96,9 +96,9 @@ export class ClientBoxesTariffsNotificationsViewModel extends DataGridFilterTabl
         // storage: data.storage,
       })
 
-      this.getCurrentData()
-
       toast.success(t(TranslationKey['Data saved successfully']))
+
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }

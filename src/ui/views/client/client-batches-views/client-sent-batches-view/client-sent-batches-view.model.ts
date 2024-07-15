@@ -183,11 +183,11 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
         // storage: data.storage,
       })
 
+      toast.success(t(TranslationKey['Data saved successfully']))
+
       await this.getCurrentData()
 
       this.setCurrentOpenedBatch(this.curBatch?._id, true)
-
-      toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
     }

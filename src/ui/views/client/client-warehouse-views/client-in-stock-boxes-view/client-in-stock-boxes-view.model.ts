@@ -327,9 +327,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         // storage: data.storage,
       })
 
-      this.getCurrentData()
-
       toast.success(t(TranslationKey['Data saved successfully']))
+
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }

@@ -212,9 +212,9 @@ export class WarehouseAwaitingBatchesViewModel {
         // storage: data.storage,
       })
 
-      this.setCurrentOpenedBatch(this.curBatch?._id, true)
-
       toast.success(t(TranslationKey['Data saved successfully']))
+
+      this.setCurrentOpenedBatch(this.curBatch?._id, true)
     } catch (error) {
       console.error(error)
     }

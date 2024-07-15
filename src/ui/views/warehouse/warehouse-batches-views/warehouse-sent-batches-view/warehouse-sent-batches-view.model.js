@@ -163,11 +163,11 @@ export class WarehouseSentBatchesViewModel {
         // storage: data.storage,
       })
 
+      toast.success(t(TranslationKey['Data saved successfully']))
+
       await this.loadData()
 
       this.setCurrentOpenedBatch(this.curBatch?._id, true)
-
-      toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
     }

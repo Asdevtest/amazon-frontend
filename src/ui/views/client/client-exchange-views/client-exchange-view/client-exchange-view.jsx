@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal/select-shops-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -100,17 +99,6 @@ export const ClientExchangeView = observer(() => {
           cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-          title={t(TranslationKey['Order successfully created!'])}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         />
       ) : null}
     </>
