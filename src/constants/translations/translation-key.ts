@@ -318,7 +318,6 @@ export enum TranslationKey {
   'Final weight, kg' = 'Final weight, kg',
   'Photos of the box taken at the warehouse:' = 'Photos of the box taken at the warehouse:',
   'Write a comment on the task' = 'Write a comment on the task',
-  'Not glued!' = 'Not glued!',
   'The barcode is glued by the supplier' = 'The barcode is glued by the supplier',
   'The barcode is glued by the Storekeeper' = 'The barcode is glued by the Storekeeper',
   'Box redistributing' = 'Box redistributing',
@@ -1948,7 +1947,7 @@ export enum TranslationKey {
   'Favorites' = 'Favorites',
   'Product not added' = 'Product not added',
   "Final Status. Can't be changed once it's set" = "Final Status. Can't be changed once it's set",
-  "Detailed description of the movement of the user's money" = "Detailed description of the movement of the user's money",
+  'Financial history' = 'Financial history',
   "The researcher's comment cannot be empty" = "The researcher's comment cannot be empty",
   "Buyer's comment cannot be empty" = "Buyer's comment cannot be empty",
   "Supervisor's comment cannot be empty" = "Supervisor's comment cannot be empty",
@@ -1985,8 +1984,20 @@ export enum TranslationKey {
   'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses' = 'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses',
   'Order quantity' = 'Order quantity',
   'Are you sure you want to remove the report?' = 'Are you sure you want to remove the report?',
+<<<<<<< HEAD
   'Are you sure delete this preset?' = 'Are you sure delete this preset?',
   'Save the state of the table to this preset?' = 'Save the state of the table to this preset?',
   'Without preset' = 'Without preset',
   'Add a preset' = 'Add a preset',
+=======
+  'Select request ID' = 'Select request ID',
+  'Use data from an exist' = 'Use data from an exist',
+  'Barсode is not glued' = 'Barсode is not glued',
+  'Transperensy сode is not glued' = 'Transperensy сode is not glued',
+  'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located' = 'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located',
+  "Button to set the status, the product card remains in the supervisor's work (can be changed)" = "Button to set the status, the product card remains in the supervisor's work (can be changed)",
+  'Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)' = 'Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)',
+  'Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier' = 'Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier',
+  'User not found.' = 'User not found.',
+>>>>>>> dev
 }

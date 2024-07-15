@@ -115,7 +115,7 @@ export const OrderModalBodyRow = ({
   } = useTariffVariation(item.destinationId, setBoxBody(item))
 
   useEffect(() => {
-    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings.orderAmountLimit) {
+    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings?.orderAmountLimit) {
       setIsLocalPriseOutOfLimit(true)
     } else {
       setIsLocalPriseOutOfLimit(false)

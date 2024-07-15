@@ -386,7 +386,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     ordersDataState: any
     totalOrdersCost: number
   }) {
-    console.log('ordersDataState', ordersDataState)
     this.confirmModalSettings = {
       isWarning: false,
       title: t(TranslationKey['You are making an order, are you sure?']),

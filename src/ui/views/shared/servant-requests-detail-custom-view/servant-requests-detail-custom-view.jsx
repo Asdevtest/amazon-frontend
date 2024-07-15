@@ -76,6 +76,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
             <CustomSearchRequestDetails request={viewModel.request} isOpen={!viewModel.chatSelectedId} />
           </div>
         ) : null}
+
         {viewModel.chatIsConnected && viewModel.chats?.length ? (
           <div className={styles.chatWrapper}>
             <ChatRequestAndRequestProposalContext.Provider

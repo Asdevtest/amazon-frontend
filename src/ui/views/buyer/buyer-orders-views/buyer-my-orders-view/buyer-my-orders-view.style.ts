@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   searchInput: {
-    width: 400,
+    width: 500,
   },
 
   headerWrapper: {

@@ -1,10 +1,8 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: 400,
-    height: 36,
+    width: 500,
   },
 
   headerWrapper: {
