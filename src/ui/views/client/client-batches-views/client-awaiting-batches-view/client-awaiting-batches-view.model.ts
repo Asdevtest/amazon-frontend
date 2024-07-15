@@ -156,7 +156,7 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
-        storage: data.storage,
+        // storage: data.storage,
       })
 
       await this.getCurrentData()

@@ -209,7 +209,7 @@ export class WarehouseAwaitingBatchesViewModel {
         trackNumberFile: this.uploadedFiles,
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
-        storage: data.storage,
+        // storage: data.storage,
       })
 
       this.setCurrentOpenedBatch(this.curBatch?._id, true)

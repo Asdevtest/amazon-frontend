@@ -49,7 +49,7 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
   const handleSaveButton = () => {
     const filteringSelectedPayments = selectedPayments.filter(selectedPayment => selectedPayment.isChecked)
 
-    onClickSaveButton ? onClickSaveButton(filteringSelectedPayments) : undefined
+    onClickSaveButton?.(filteringSelectedPayments)
     onClickCancelButton()
   }
 

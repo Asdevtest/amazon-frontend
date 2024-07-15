@@ -123,7 +123,7 @@ export class BoxesToOrderModel {
           referenceId: box.referenceId,
           fbaNumber: box.fbaNumber,
           prepId: box.prepId,
-          storage: box.storage,
+          // storage: box.storage,
         }),
         ...(isBuyer(this.userInfo?.role) && {
           trackNumberText: box.trackNumberText,

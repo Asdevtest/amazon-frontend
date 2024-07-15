@@ -79,7 +79,7 @@ export const Select: FC<SelectProps> = memo(props => {
                   className={styles.starButton}
                   onClick={e => {
                     e.stopPropagation()
-                    setDestinationsFavouritesItem ? setDestinationsFavouritesItem(item.name) : undefined
+                    setDestinationsFavouritesItem?.(item.name)
                   }}
                 >
                   <RatingStarIcon
