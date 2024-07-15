@@ -277,7 +277,7 @@ class UserModelStatic {
     try {
       const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
 
-      runInAction(() => (this.platformSetting = response.data))
+      runInAction(() => (this.platformSettings = response.data))
     } catch (error) {
       console.error(error)
     }

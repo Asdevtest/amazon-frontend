@@ -7,7 +7,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     flexDirection: 'column',
     marginBottom: 30,
-    width: '630px',
+
     gap: '20px',
   },
 

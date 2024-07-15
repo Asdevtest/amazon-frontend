@@ -21,8 +21,6 @@ export const styles = theme => ({
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: '300px',
-    height: 36,
+    width: 400,
   },
 })

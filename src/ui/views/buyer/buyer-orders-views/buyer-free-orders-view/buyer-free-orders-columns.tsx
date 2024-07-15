@@ -118,7 +118,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       ),
-      minWidth: 200,
+      minWidth: 210,
       align: 'center',
     },
 
@@ -156,7 +156,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
       type: 'boolean',
-      minWidth: 120,
+      minWidth: 140,
     },
 
     {

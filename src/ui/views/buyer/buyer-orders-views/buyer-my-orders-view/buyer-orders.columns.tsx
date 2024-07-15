@@ -214,7 +214,7 @@ export const buyerOrdersColumns = ({
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       ),
-      minWidth: 200,
+      minWidth: 210,
       align: 'center',
       sortable: false,
       filterable: false,
@@ -302,7 +302,7 @@ export const buyerOrdersColumns = ({
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
-      width: 180,
+      width: 140,
 
       columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
     },

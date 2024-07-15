@@ -136,7 +136,7 @@ export const pendingOrdersColumns = () => {
         />
       ),
       disableCustomSort: true,
-      minWidth: 200,
+      minWidth: 210,
       align: 'center',
     },
 
@@ -207,7 +207,7 @@ export const pendingOrdersColumns = () => {
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
 
-      width: 100,
+      width: 140,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
     },
 

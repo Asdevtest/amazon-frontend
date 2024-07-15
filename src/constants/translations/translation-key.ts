@@ -1947,7 +1947,7 @@ export enum TranslationKey {
   'Favorites' = 'Favorites',
   'Product not added' = 'Product not added',
   "Final Status. Can't be changed once it's set" = "Final Status. Can't be changed once it's set",
-  "Detailed description of the movement of the user's money" = "Detailed description of the movement of the user's money",
+  'Financial history' = 'Financial history',
   "The researcher's comment cannot be empty" = "The researcher's comment cannot be empty",
   "Buyer's comment cannot be empty" = "Buyer's comment cannot be empty",
   "Supervisor's comment cannot be empty" = "Supervisor's comment cannot be empty",
@@ -1990,4 +1990,9 @@ export enum TranslationKey {
   'Use data from an exist' = 'Use data from an exist',
   'Barсode is not glued' = 'Barсode is not glued',
   'Transperensy сode is not glued' = 'Transperensy сode is not glued',
+  'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located' = 'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located',
+  "Button to set the status, the product card remains in the supervisor's work (can be changed)" = "Button to set the status, the product card remains in the supervisor's work (can be changed)",
+  'Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)' = 'Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)',
+  'Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier' = 'Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier',
+  'User not found.' = 'User not found.',
 }
