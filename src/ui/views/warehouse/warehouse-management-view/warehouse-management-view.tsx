@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react'
 import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,7 +10,12 @@ import { t } from '@utils/translations'
 import { WarehouseTariffs } from './warehouse-tariffs'
 import { WeightBasedLogisticsTariffs } from './weight-based-logistics-tariffs'
 
-export const WarehouseManagement = observer(() => {
+const switcherConfig = [
+  { label: () => t(TranslationKey['Weight-based logistics tariffs']), value: 0 },
+  { label: () => t(TranslationKey['Tariffs of warehouse services']), value: 1 },
+]
+
+export const WarehouseManagementView = () => {
   const [tabIndex, setTabIndex] = useState(0)
 
   return (
@@ -19,10 +23,7 @@ export const WarehouseManagement = observer(() => {
       <CustomSwitcher
         switchMode="medium"
         condition={tabIndex}
-        switcherSettings={[
-          { label: () => t(TranslationKey['Weight-based logistics tariffs']), value: 0 },
-          { label: () => t(TranslationKey['Tariffs of warehouse services']), value: 2 },
-        ]}
+        switcherSettings={switcherConfig}
         changeConditionHandler={setTabIndex}
       />
 
@@ -30,9 +31,9 @@ export const WarehouseManagement = observer(() => {
         <WeightBasedLogisticsTariffs />
       </TabPanel>
 
-      <TabPanel value={tabIndex} index={2}>
+      <TabPanel value={tabIndex} index={1}>
         <WarehouseTariffs />
       </TabPanel>
     </>
   )
-})
+}
