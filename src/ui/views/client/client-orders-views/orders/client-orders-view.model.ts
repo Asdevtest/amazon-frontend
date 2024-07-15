@@ -98,7 +98,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     super({
       getMainDataMethod: ClientModel.getOrdersPag,
       columnsModel: clientOrdersViewColumns(rowHandlers) as GridColDef[],
-      defaultColumnsModel: clientOrdersViewColumns(rowHandlers) as GridColDef[],
       filtersFields,
       mainMethodURL: 'clients/pag/orders?',
       fieldsForSearch,

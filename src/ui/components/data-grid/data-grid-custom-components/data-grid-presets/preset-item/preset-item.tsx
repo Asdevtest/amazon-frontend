@@ -28,6 +28,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
       {preset?.data?._id ? (
         <div className={cx(styles.buttonWrapper)}>
           <Popconfirm
+            showCancel={false}
             title={t(TranslationKey['Are you sure delete this preset?'])}
             okText={t(TranslationKey.Yes)}
             cancelText={t(TranslationKey.No)}
@@ -36,7 +37,6 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
               handleDeletePreset()
             }}
             onCancel={e => e?.stopPropagation()}
-            onPopupClick={e => e.stopPropagation()}
           >
             <CustomButton
               icon={<MdOutlineDelete size={20} title={t(TranslationKey.Delete)} className={styles.deleteIcon} />}
@@ -45,6 +45,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
           </Popconfirm>
 
           <Popconfirm
+            showCancel={false}
             title={t(TranslationKey['Save the state of the table to this preset?'])}
             okText={t(TranslationKey.Yes)}
             cancelText={t(TranslationKey.No)}
@@ -53,7 +54,6 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
               handleUpdatePreset()
             }}
             onCancel={e => e?.stopPropagation()}
-            onPopupClick={e => e.stopPropagation()}
           >
             <CustomButton
               icon={<GrUpdate title={t(TranslationKey.Update)} className={styles.updateButton} />}

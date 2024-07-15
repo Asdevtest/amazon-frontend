@@ -1985,22 +1985,21 @@
   "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "Выбирайте самый эффективный тариф, разделите партии на несколько закупок, если вам нужно отправить товар на разные склады",
   "Order quantity": "Количество заказа",
   "Are you sure you want to remove the report?": "Вы уверены, что хотите удалить отчет?",
-<<<<<<< HEAD
   "Are you sure delete this preset?": "Вы уверены, что хотите удалить этот пресет?",
   "Save the state of the table to this preset?": "Сохранить состояние таблицы в этом пресете?",
   "Without preset": "Без пресета",
-  "Add a preset": "Добавить пресет"
-=======
+  "Add a preset": "Добавить пресет",
   "Select request ID": "Выберите ID запроса",
   "Use data from an exist": "Использовать данные из существующего",
   "Barсode is not glued": "Баркод не проклеен",
   "Transperensy сode is not glued": "Transperensy code не проклеен",
   "Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located": "Увеличение количества коробок будет требовать дополнительной оплаты в зависимости от тарифов склада, на котором находится товар",
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Кнопка выставления статуса, карточка товара остается в работе у супервизора (можно изменить)",
-  "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка выставления счета, карточка продукта отправляется покупателю для поиска поставщика (можно изменить до того, как покупатель возьмет в работу)",
-  "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту відправляється супервайзеру для перевірки (можно змінити до перевірки). Немає необхідності, щоб байєр шукав постачальника",
   "User not found.": "Пользователь не найден",
   "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка выставления статуса, карточка продукта отправляется покупателю для поиска поставщика (можно изменить до того, как покупатель возьмет в работу)",
-  "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту відправляється супервайзеру для перевірки (можно змінити до перевірки). Немає необхідності, щоб байєр шукав постачальника"
->>>>>>> dev
+  "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту відправляється супервайзеру для перевірки (можно змінити до перевірки). Немає необхідності, щоб байєр шукав постачальника",
+  "Preset created": "Пресет создан",
+  "Preset deleted": "Пресет удален",
+  "Preset updated": "Пресет обновлен",
+  "Active preset changed": "Активный пресет изменен"
 }

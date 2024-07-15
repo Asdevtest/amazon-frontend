@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
+import { useGridApiRef } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
@@ -29,6 +31,8 @@ export const ClientOrdersView = observer(history => {
   const { classes: styles, cx } = useStyles()
 
   const [viewModel] = useState(() => new ClientOrdersViewModel(history))
+
+  const apiRef = useGridApiRef()
 
   return (
     <>
@@ -67,6 +71,7 @@ export const ClientOrdersView = observer(history => {
       <div className={styles.tableWrapper}>
         <CustomDataGrid
           disableRowSelectionOnClick
+          apiRef={apiRef}
           checkboxSelection={viewModel.isPendingOrdering}
           pinnedColumns={viewModel.pinnedColumns}
           rowCount={viewModel.rowCount}
@@ -77,6 +82,10 @@ export const ClientOrdersView = observer(history => {
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           getRowId={row => row._id}
+          rowSelectionModel={viewModel.selectedRows}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -107,10 +116,6 @@ export const ClientOrdersView = observer(history => {
               },
             },
           }}
-          rowSelectionModel={viewModel.selectedRows}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

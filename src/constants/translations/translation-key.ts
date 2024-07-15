@@ -1984,12 +1984,10 @@ export enum TranslationKey {
   'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses' = 'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses',
   'Order quantity' = 'Order quantity',
   'Are you sure you want to remove the report?' = 'Are you sure you want to remove the report?',
-<<<<<<< HEAD
   'Are you sure delete this preset?' = 'Are you sure delete this preset?',
   'Save the state of the table to this preset?' = 'Save the state of the table to this preset?',
   'Without preset' = 'Without preset',
   'Add a preset' = 'Add a preset',
-=======
   'Select request ID' = 'Select request ID',
   'Use data from an exist' = 'Use data from an exist',
   'Barсode is not glued' = 'Barсode is not glued',
@@ -1999,5 +1997,8 @@ export enum TranslationKey {
   'Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)' = 'Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)',
   'Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier' = 'Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier',
   'User not found.' = 'User not found.',
->>>>>>> dev
+  'Preset created' = 'Preset created',
+  'Preset deleted' = 'Preset deleted',
+  'Preset updated' = 'Preset updated',
+  'Active preset changed' = 'Active preset changed',
 }

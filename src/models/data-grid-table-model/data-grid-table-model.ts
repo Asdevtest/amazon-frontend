@@ -4,11 +4,15 @@ import { ChangeEvent } from 'react'
 import { toast } from 'react-toastify'
 
 import { GridColumnVisibilityModel, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
-import { GRID_CHECKBOX_SELECTION_COL_DEF, GridPinnedColumns } from '@mui/x-data-grid-premium'
+import { GridPinnedColumns } from '@mui/x-data-grid-premium'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DefaultModel } from '@models/default-model'
 import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
+
+import { t } from '@utils/translations'
 
 import { ITablePreset } from '@typings/models/user/table-preset'
 import { IGridColumn } from '@typings/shared/grid-column'
@@ -64,7 +68,6 @@ export class DataGridTableModel extends DefaultModel {
     defaultGetCurrentDataOptions,
     fieldsForSearch,
     defaultSortModel,
-    defaultColumnsModel,
   }: DataGridTableModelParams) {
     super({ getMainDataMethod, defaultGetCurrentDataOptions })
 
@@ -77,7 +80,7 @@ export class DataGridTableModel extends DefaultModel {
     }
 
     this.columnsModel = columnsModel
-    this.defaultColumnsModel = defaultColumnsModel
+    this.defaultColumnsModel = columnsModel
 
     this.tableKey = tableKey
 
@@ -169,10 +172,12 @@ export class DataGridTableModel extends DefaultModel {
     }
   }
 
-  async handleCreateTableSettingsPreset(title: string) {
+  async handleCreateTableSettingsPreset(title: string, colomns: IGridColumn[]) {
     try {
+      const settings = this.getPresetSettingForSave(colomns)
+
       const presetToCreate: any = {
-        settings: {},
+        settings,
         title,
         endpoint: this.tableKey,
         activeSetting: true,
@@ -191,7 +196,7 @@ export class DataGridTableModel extends DefaultModel {
         this.presetsTableData.push(presetToCreate)
       })
 
-      toast.success('Preset created successfully')
+      toast.success(t(TranslationKey['Preset created']))
     } catch (error) {
       console.error(error)
     }
@@ -204,41 +209,33 @@ export class DataGridTableModel extends DefaultModel {
       runInAction(() => {
         this.presetsTableData = result as ITablePreset[]
       })
-
-      this.setSettingsFromActivePreset()
     } catch (error) {
       console.error(error)
     }
+    this.setSettingsFromActivePreset()
   }
 
-  async handleDeleteTableSettingsPreset(presetId: string) {
+  async handleDeleteTableSettingsPreset(preset: ITablePreset) {
     try {
-      await UserModel.deleteUsersPresetsByGuid(presetId)
+      await UserModel.deleteUsersPresetsByGuid(preset?._id)
 
       runInAction(() => {
-        this.presetsTableData = this.presetsTableData.filter(preset => preset._id !== presetId)
+        this.presetsTableData = this.presetsTableData.filter(currentPreset => preset._id !== currentPreset?._id)
       })
 
-      toast.success('Preset deleted successfully')
+      if (preset?.activeSetting) {
+        await this.setSettingsFromActivePreset()
+      }
+
+      toast.success(t(TranslationKey['Preset deleted']))
     } catch (error) {
       console.error(error)
     }
   }
 
-  async handleUpdateTableSettingsPreset(presetId: string, body: any) {
+  async handleUpdateTableSettingsPreset(presetId: string, colomns: IGridColumn[]) {
     try {
-      // @ts-ignore
-      const fields = body?.map(column => ({
-        field: column.field,
-        width: column.width,
-      }))
-
-      const settings = {
-        sortModel: this?.sortModel,
-        paginationModel: this?.paginationModel,
-        pinnedColumns: this?.pinnedColumns,
-        fields,
-      }
+      const settings = this.getPresetSettingForSave(colomns)
 
       await UserModel.patchPresetSettings(presetId, { settings })
 
@@ -250,19 +247,19 @@ export class DataGridTableModel extends DefaultModel {
         }
       })
 
-      toast.success('Preset updated successfully')
+      toast.success(t(TranslationKey['Preset updated']))
     } catch (error) {
       console.error(error)
     }
   }
 
-  setSettingsFromActivePreset() {
+  async setSettingsFromActivePreset() {
     const activePreset = this.getActivePreset()
 
     if (activePreset) {
       // @ts-ignore
       this.columnsModel = activePreset?.settings?.fields?.map(item => {
-        const foundColumn = this.columnsModel.find(column => column.field === item?.field)
+        const foundColumn = this.columnsModel?.find(column => column?.field === item?.field)
 
         if (foundColumn) {
           foundColumn.width = item?.width
@@ -274,25 +271,26 @@ export class DataGridTableModel extends DefaultModel {
       this.sortModel = activePreset?.settings?.sortModel
       this.pinnedColumns = activePreset?.settings?.pinnedColumns
       this.paginationModel = activePreset?.settings?.paginationModel
+      this.columnVisibilityModel = activePreset?.settings?.columnVisibilityModel
     } else {
-      this.columnsModel = this.defaultColumnsModel.map(item => item)
+      this.onClickResetFilters()
+      this.handlePinColumn(pinnedColumnsInitialValue)
 
-      console.log('this.columnsModel :>> ', this.columnsModel)
-      console.log('this.defaultColumnsModel :>> ', this.defaultColumnsModel)
+      // Doesnt work with await and map methods
+      this.columnsModel = await this.defaultColumnsModel?.map(column => ({
+        ...column,
+      }))
 
       this.sortModel = this.defaultSortModel
-      this.pinnedColumns = {
-        left: [GRID_CHECKBOX_SELECTION_COL_DEF.field],
-        right: [],
-      }
       this.paginationModel = paginationModelInitialValue
+      this.columnVisibilityModel = {}
     }
 
     this.getCurrentData()
   }
 
   getActivePreset() {
-    return this.presetsTableData.find(preset => preset.activeSetting) as ITablePreset
+    return this.presetsTableData?.find(preset => preset?.activeSetting) as ITablePreset
   }
 
   async handleSetActivePreset(presetId: string) {
@@ -313,7 +311,7 @@ export class DataGridTableModel extends DefaultModel {
 
       this.setSettingsFromActivePreset()
 
-      toast.success('Active preset changed')
+      toast.success(t(TranslationKey['Active preset changed']))
     } catch (error) {
       console.error(error)
     }
@@ -334,12 +332,27 @@ export class DataGridTableModel extends DefaultModel {
           })
         })
 
-        toast.success('Active preset changed')
+        toast.success(t(TranslationKey['Active preset changed']))
       }
 
       this.setSettingsFromActivePreset()
     } catch (error) {
       console.error(error)
+    }
+  }
+
+  getPresetSettingForSave(colomns: IGridColumn[]) {
+    const fields = colomns?.map(column => ({
+      field: column.field,
+      width: column.width,
+    }))
+
+    return {
+      sortModel: this?.sortModel,
+      paginationModel: this?.paginationModel,
+      pinnedColumns: this?.pinnedColumns,
+      columnVisibilityModel: this?.columnVisibilityModel,
+      fields,
     }
   }
 }

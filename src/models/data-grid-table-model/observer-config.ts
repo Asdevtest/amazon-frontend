@@ -39,4 +39,5 @@ export const observerConfig = {
   getActivePreset: action.bound,
   handleSetActivePreset: action.bound,
   handleUnsetAllPresets: action.bound,
+  getPresetSettingForSave: action.bound,
 }

@@ -12,6 +12,7 @@ import { CustomSelect } from '@components/shared/custom-select'
 import { t } from '@utils/translations'
 
 import { ITablePreset } from '@typings/models/user/table-preset'
+import { IGridColumn } from '@typings/shared/grid-column'
 
 import { useStyles } from './data-grid-presets.style'
 
@@ -19,10 +20,10 @@ import { PresetItem } from './preset-item'
 
 interface PresetsMenuProps {
   presetsTableData: ITablePreset[]
-  handleCreateTableSettingsPreset: (title: string) => void
+  handleCreateTableSettingsPreset: (title: string, colomns: IGridColumn[]) => void
   handleSetPresetActive: (presetId: string) => void
-  handleDeleteTableSettingsPreset: (presetId: string) => void
-  handleUpdateTableSettingsPreset: (presetId: string, body: any) => void
+  handleDeleteTableSettingsPreset: (preset: ITablePreset) => void
+  handleUpdateTableSettingsPreset: (presetId: string, colomns: IGridColumn[]) => void
 }
 
 export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
@@ -55,7 +56,6 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
   const onClickUpdatePreset = useCallback(
     (presetId: string) => {
       handleUpdateTableSettingsPreset(presetId, apiRef.current?.getAllColumns())
-      console.log(' apiRef.current?.getAllColumns()', apiRef.current?.getAllColumns())
     },
     [apiRef],
   )
@@ -67,7 +67,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
       optionRender={preset => (
         <PresetItem
           preset={preset}
-          handleDeletePreset={() => handleDeleteTableSettingsPreset(preset?.data?._id)}
+          handleDeletePreset={() => handleDeleteTableSettingsPreset(preset?.data as ITablePreset)}
           handleUpdatePreset={() => onClickUpdatePreset(preset?.data?._id)}
         />
       )}
@@ -87,7 +87,10 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
             <CustomButton
               disabled={!createPresetTitle}
               icon={<FaPlus />}
-              onClick={() => handleCreateTableSettingsPreset(createPresetTitle)}
+              onClick={() => {
+                handleCreateTableSettingsPreset(createPresetTitle, apiRef.current?.getAllColumns())
+                setCreatePresetTitle('')
+              }}
             />
           </div>
         </>

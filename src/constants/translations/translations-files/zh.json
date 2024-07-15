@@ -1978,12 +1978,10 @@
   "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "选择最有效的费率，如果需要运送到不同的仓库，请将批次拆分为多个采购订单",
   "Order quantity": "订单数量",
   "Are you sure you want to remove the report?": "您确定要删除报告吗?",
-<<<<<<< HEAD
   "Are you sure delete this preset?": "您确定要删除此预设吗?",
   "Save the state of the table to this preset?": "将表格的状态保存到此预设？",
   "Without preset": "无预设",
-  "Add a preset": "添加预设"
-=======
+  "Add a preset": "添加预设",
   "Select request ID": "选择请求ID",
   "Use data from an exist": "使用现有的数据",
   "Barсode is not glued": "条形码未粘贴",
@@ -1992,6 +1990,9 @@
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "设置状态的按钮，产品卡片保留在主管的工作中（可以更改)",
   "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "状态结算按钮，产品卡片发送给买家寻找供应商（在买家接手之前可以更改)",
   "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "设置状态的按钮，产品卡片被发送给主管进行验证（在检查之前可以更改). 不需要买家寻找供应商",
-  "User not found.": "未找到用户"
->>>>>>> dev
+  "User not found.": "未找到用户",
+  "Preset created": "预设已创建",
+  "Preset deleted": "预设已删除",
+  "Preset updated": "预设已更新",
+  "Active preset changed": "活动预设已更改"
 }
