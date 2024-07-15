@@ -11,6 +11,10 @@ export const checkOnline = (type: string, oponentUser: ChatUserContract) => {
   const distanceBetweenDates = getDistanceBetweenDatesSeconds(new Date(), new Date(oponentUser?.lastSeen))
 
   return (
-    !isFavoritesChat && !isGroupChat && !!oponentUser?.lastSeen && !!distanceBetweenDates && distanceBetweenDates <= 10
+    !isFavoritesChat &&
+    !isGroupChat &&
+    !!oponentUser?.lastSeen &&
+    !!distanceBetweenDates &&
+    distanceBetweenDates <= 60 * 3
   )
 }
