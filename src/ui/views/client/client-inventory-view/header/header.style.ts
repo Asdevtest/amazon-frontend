@@ -20,7 +20,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   searchInput: {
-    width: '330px',
+    width: 400,
   },
 
   controlButtonsWrapper: {
