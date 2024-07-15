@@ -81,7 +81,7 @@ export const tabFreelanceColumns = ({
     renderHeader: () => (
       <ButtonHeaderCell
         text={t(TranslationKey['New specialty'])}
-        icon={<FiPlus style={{ minWidth: 16, height: 16 }} />}
+        icon={<FiPlus style={{ width: 16, height: 16 }} />}
         onOpenModal={onClickToggleAddOrEditTextModal}
       />
     ),
