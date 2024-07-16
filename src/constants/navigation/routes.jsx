@@ -1039,8 +1039,6 @@ export const privateRoutesConfigs = [
     },
   },
 
-  // ////////////////////////////////////////////////////////////////////////////////////////////////////
-
   {
     routePath: '/client/freelance',
     component: ClientFreelanceView,
@@ -3061,6 +3059,20 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
       activeSubCategory: '',
       title: () => t(TranslationKey.Settings),
+    },
+  },
+
+  {
+    routePath: '/moderator/feedback',
+    component: AdminFeedbackView,
+    exact: false,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey.Feedback,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Feedback),
     },
   },
 
