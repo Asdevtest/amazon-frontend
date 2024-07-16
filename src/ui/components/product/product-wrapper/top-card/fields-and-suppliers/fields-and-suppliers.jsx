@@ -545,7 +545,7 @@ export const FieldsAndSuppliers = memo(props => {
               checked={product?.transparency}
               onChange={e => onChangeField?.('transparency')(e.target.checked)}
             >
-              {t(TranslationKey['Transparency codes'])}
+              {t(TranslationKey['Transparency Codes'])}
             </Checkbox>
           )}
         </div>

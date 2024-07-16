@@ -281,22 +281,24 @@ export const EditBoxForm = memo(
                   <CustomSlider alignButtons="end">
                     {boxFields.items.map((item, index) => {
                       const barcodeChecked =
-                        item.barCode &&
-                        (item.isBarCodeAlreadyAttachedByTheSupplier || !item.isBarCodeAttachedByTheStorekeeper)
+                        item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper
                       const barcodeText = barcodeChecked
                         ? item.isBarCodeAlreadyAttachedByTheSupplier
                           ? t(TranslationKey['BarCode is glued by supplier'])
                           : t(TranslationKey['BarCode is glued by storekeeper'])
-                        : t(TranslationKey['Barсode is not glued'])
+                        : item.barCode
+                        ? t(TranslationKey['Barсode is not glued'])
+                        : null
+
                       const transparencyChecked =
                         item.isTransparencyFileAttachedByTheStorekeeper ||
                         item.isTransparencyFileAlreadyAttachedByTheSupplier
                       const transparencyText = transparencyChecked
                         ? item.isTransparencyFileAttachedByTheStorekeeper
-                          ? t(TranslationKey['Transparency codes are glued by storekeeper'])
-                          : t(TranslationKey['Transparency codes glued by the supplier'])
+                          ? t(TranslationKey['Transparency Codes are glued by storekeeper'])
+                          : t(TranslationKey['Transparency Codes glued by the supplier'])
                         : item.transparencyFile
-                        ? t(TranslationKey['Transperensy сode is not glued'])
+                        ? t(TranslationKey['Transparency Code is not glued'])
                         : null
 
                       return (
@@ -330,7 +332,7 @@ export const EditBoxForm = memo(
                               <Field
                                 containerClasses={styles.field}
                                 labelClasses={styles.standartLabel}
-                                label={t(TranslationKey['Transparency codes'])}
+                                label={t(TranslationKey['Transparency Codes'])}
                                 inputComponent={
                                   <ChangeChipCell
                                     isChipOutTable
@@ -681,7 +683,7 @@ export const EditBoxForm = memo(
         <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
           <SetFilesModal
             modalTitle={t(TranslationKey.Transparency)}
-            LabelTitle={t(TranslationKey['Transparency codes'])}
+            LabelTitle={t(TranslationKey['Transparency Codes'])}
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
             onClickSave={value => onClickSaveTransparencyFile(value, filesConditions.index)}

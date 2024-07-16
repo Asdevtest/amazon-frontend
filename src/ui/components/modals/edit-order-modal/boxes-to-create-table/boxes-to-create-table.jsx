@@ -135,7 +135,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
             onChange={e => handlers.onClickTransparency(itemIndex)(e)}
           >
             <p className={cx(styles.label, styles.transparencyCodesText)}>
-              {t(TranslationKey['The supplier glued the Transparency codes'])}
+              {t(TranslationKey['The supplier glued the Transparency Codes'])}
             </p>
           </Checkbox>
         )}
