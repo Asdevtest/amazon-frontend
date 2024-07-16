@@ -19,8 +19,8 @@ import { t } from '@utils/translations'
 
 import {
   ProductColumnMenuType,
+  getProductColumnMenuItems,
   getProductColumnMenuValue,
-  productColumnMenuItems,
 } from '@config/data-grid-column-menu/product-column'
 
 export const clientOnCheckingIdeasColumns = rowHandlers => {
@@ -43,7 +43,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
         )
       },
 
-      fields: productColumnMenuItems,
+      fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(ProductColumnMenuType.PARENT),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
