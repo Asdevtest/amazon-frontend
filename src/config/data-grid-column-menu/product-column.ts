@@ -7,40 +7,32 @@ export enum ProductColumnMenuType {
   PARENT = 'parent',
 }
 
-export const productColumnMenuItems = [
-  {
-    label: 'ASIN',
-    value: 0,
-  },
-  {
-    label: 'SKU',
-    value: 1,
-  },
-  {
-    label: 'Title',
-    value: 2,
-  },
-]
+export const getProductColumnMenuItems = (withoutSku?: boolean, withoutTitle?: boolean) => {
+  const productColumnMenuItems = [
+    {
+      label: 'ASIN',
+      value: 0,
+    },
+  ]
 
-export const productColumnMenuValue = [
-  {
-    field: 'asin',
-    table: DataGridFilterTables.PRODUCTS,
-    columnKey: ColumnMenuKeys.STRING,
-  },
-  {
-    field: 'skuByClient',
-    table: DataGridFilterTables.PRODUCTS,
-    columnKey: ColumnMenuKeys.STRING,
-  },
-  {
-    field: 'amazonTitle',
-    table: DataGridFilterTables.PRODUCTS,
-    columnKey: ColumnMenuKeys.STRING,
-  },
-]
+  if (!withoutSku) {
+    productColumnMenuItems.push({
+      label: 'SKU',
+      value: 1,
+    })
+  }
 
-export const getProductColumnMenuValue = (columnType?: ProductColumnMenuType) => [
+  if (!withoutTitle) {
+    productColumnMenuItems.push({
+      label: 'Title',
+      value: 2,
+    })
+  }
+
+  return productColumnMenuItems
+}
+
+export const getProductColumnMenuValue = (columnType?: ProductColumnMenuType, isSimpleSku?: boolean) => [
   {
     field:
       columnType === ProductColumnMenuType.PARENT
@@ -57,6 +49,8 @@ export const getProductColumnMenuValue = (columnType?: ProductColumnMenuType) =>
         ? 'parentProductSkuByClient'
         : columnType === ProductColumnMenuType.CHILD
         ? 'childProductSkuByClient'
+        : isSimpleSku
+        ? 'sku'
         : 'skuByClient',
     table: DataGridFilterTables.PRODUCTS,
     columnKey: ColumnMenuKeys.STRING,
