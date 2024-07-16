@@ -822,12 +822,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
 
-    crumbNameKey: TranslationKey['Free Orders'],
+    crumbNameKey: TranslationKey['Free orders'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FREE_ORDERS,
       activeSubCategory: '',
-      title: () => t(TranslationKey['Free Orders']),
+      title: () => t(TranslationKey['Free orders']),
     },
   },
 

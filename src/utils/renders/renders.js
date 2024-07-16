@@ -16,7 +16,7 @@ export const renderTooltipTitle = (categoryTitle, userRole) => {
     switch (categoryTitle) {
       case t(TranslationKey.Dashboard):
         return t(TranslationKey['Statistics on goods/orders/finances'])
-      case t(TranslationKey['Free Orders']):
+      case t(TranslationKey['Free orders']):
         return t(TranslationKey['All orders available for pickup'])
       case t(TranslationKey['Supplier search']):
         return t(TranslationKey['All available tasks for finding a supplier'])

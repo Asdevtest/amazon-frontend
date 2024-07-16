@@ -655,7 +655,7 @@ export const navbarConfig = {
 
     {
       icon: FreeOrdersIcon,
-      title: () => t(TranslationKey['Free Orders']),
+      title: () => t(TranslationKey['Free orders']),
       route: '/buyer/free-orders',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
