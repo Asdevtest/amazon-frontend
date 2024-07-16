@@ -6,10 +6,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 
-import { warehouseTariffsColumns } from '@components/forms/select-storkeeper-and-tariff-form/select-storkeeper-and-tariff-form-columns'
-
 import { t } from '@utils/translations'
 
+import { warehouseTariffsColumns } from './warehouse-tariffs.columns'
 import { warehouseTariffsConfig } from './warehouse-tariffs.config'
 
 export class WarehouseTariffModel extends DataGridTableModel {
@@ -36,7 +35,6 @@ export class WarehouseTariffModel extends DataGridTableModel {
 
   onClickEditTariff(row) {
     this.tariffToEdit = row
-
     this.onTriggerOpenModal('showAddOrEditWarehouseTariffModal')
   }
 

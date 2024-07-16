@@ -1,3 +1,5 @@
+import { GridRowModel } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -13,69 +15,65 @@ import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 
-export const warehouseTariffsColumns = handlers => [
+interface IWarehouseTariffsColumns {
+  onClickEditTariff: (row: any) => void
+  onRemoveTariff: (id: string) => void
+}
+
+export const warehouseTariffsColumns = ({ onClickEditTariff, onRemoveTariff }: IWarehouseTariffsColumns) => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
-
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.name} />,
     width: 250,
-    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-    renderCell: params => <NormDateCell value={params.value} />,
+    renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
     width: 120,
-    // type: 'date',
   },
 
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
-
+    renderCell: ({ row }: GridRowModel) => <ScrollingCell value={row.description} />,
     width: 600,
-    renderCell: params => <ScrollingCell value={params.value} />,
   },
 
   {
     field: 'price',
     headerName: t(TranslationKey['Service cost per kg, $']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service cost per kg, $'])} />,
-
-    type: 'number',
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.price} />,
     width: 250,
-    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-
-    width: 100,
-    renderCell: params => (
+    renderCell: ({ row }: GridRowModel) => (
       <ActionButtonsCell
         row
         iconButton
         isFirstButton
         isSecondButton
-        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         firstButtonTooltipText={t(TranslationKey.Edit)}
         firstButtonElement={<EditIcon />}
         firstButtonStyle={ButtonStyle.PRIMARY}
         secondButtonTooltipText={t(TranslationKey.Remove)}
         secondButtonElement={<CrossIcon />}
         secondButtonStyle={ButtonStyle.DANGER}
-        onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
-        onClickSecondButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
+        onClickFirstButton={() => onClickEditTariff(row)}
+        onClickSecondButton={() => onRemoveTariff(row._id)}
       />
     ),
-
+    width: 100,
     filterable: false,
     sortable: false,
   },
