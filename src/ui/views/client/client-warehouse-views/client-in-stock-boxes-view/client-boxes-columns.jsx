@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ChangeChipCell,
   ChangeInputCell,
+  ChangeInputCommentCell,
   DeadlineCell,
   FormedCell,
   ManyUserLinkCell,
@@ -231,6 +232,23 @@ export const clientBoxesViewColumns = (
       renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
       valueFormatter: params => (params.value ? formatNormDateTime(params.value) : ''),
       width: 100,
+    },
+
+    {
+      field: 'clientComment',
+      headerName: t(TranslationKey.Comment),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+
+      renderCell: params => (
+        <ChangeInputCommentCell
+          rowsCount={4}
+          text={params.value}
+          onClickSubmit={comment => handlers.onClickSaveClientComment(params.row._id, comment)}
+        />
+      ),
+
+      width: 280,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
