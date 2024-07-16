@@ -19,6 +19,7 @@ export const observerConfig = {
   pricePerKgUsd: observable,
 
   isStrictVariationSelect: observable,
+  isSkipWeightCheck: observable,
   boxItems: observable,
   handleSave: observable,
 
