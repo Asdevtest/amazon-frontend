@@ -16,7 +16,7 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { getProductColumnMenuValue, productColumnMenuItems } from '@config/data-grid-column-menu/product-column'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 import { getPaymentTypeColor } from './helpers/get-payment-type-color'
 import { getPaymentTypeIcon } from './helpers/get-payment-type-icon'
@@ -52,7 +52,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
       },
       valueGetter: params => params.row?.entityProduct?.[0]?.asin,
 
-      fields: productColumnMenuItems,
+      fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: userBalance ? undefined : columnnsKeys.shared.MULTIPLE,
 
