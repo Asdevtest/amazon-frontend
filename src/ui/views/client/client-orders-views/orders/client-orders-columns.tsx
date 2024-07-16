@@ -236,6 +236,15 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
     },
 
     {
+      field: 'logicsTariff',
+      headerName: t(TranslationKey.Tariff),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
+      renderCell: params => <MultilineTextCell threeLines text={getNewTariffTextForBoxOrOrder(params.row)} />,
+      width: 200,
+      columnKey: columnnsKeys.shared.OBJECT,
+    },
+
+    {
       field: 'destination',
       headerName: t(TranslationKey['Where to']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
@@ -243,15 +252,6 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       valueGetter: params => params.row.destination?.name,
       width: 140,
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.OBJECT,
-    },
-
-    {
-      field: 'logicsTariff',
-      headerName: t(TranslationKey.Tariff),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-      renderCell: params => <MultilineTextCell threeLines text={getNewTariffTextForBoxOrOrder(params.row)} />,
-      width: 180,
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
