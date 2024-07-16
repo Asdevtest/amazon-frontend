@@ -10,10 +10,22 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
+  headerSavedChat: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   chatAvatar: {
     width: '100%',
     height: '100%',
     objectFit: 'contain',
+  },
+
+  favoritesIcon: {
+    color: theme.palette.primary.main,
+    width: '100px !important',
+    height: '100px !important',
   },
 
   chatHeaderOverlay: {

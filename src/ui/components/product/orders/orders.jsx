@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -31,14 +30,12 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
     destinations,
     reorderOrder,
     selectedProduct,
-    successModalText,
     confirmModalSettings,
     getCurrentData,
     requestStatus,
     columnsModel,
     showSetBarcodeModal,
     showOrderModal,
-    showSuccessModal,
     showConfirmModal,
     paginationModel,
     onClickTableRow,
@@ -114,17 +111,6 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
           onSubmit={onConfirmSubmitOrderProductModal}
         />
       </Modal>
-
-      {showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={showSuccessModal}
-          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={successModalText}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
-        />
-      ) : null}
 
       {showConfirmModal ? (
         <ConfirmationModal

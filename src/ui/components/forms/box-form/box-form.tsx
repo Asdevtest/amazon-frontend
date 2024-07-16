@@ -96,7 +96,7 @@ export const BoxForm: FC<BoxFormProps> = memo(props => {
         isEdit={isEdit}
         disableSaveButton={disableSaveButton}
         onToggleModal={onToggleModal}
-        onSubmitChangeFields={() => (onSubmitChangeFields ? onSubmitChangeFields(formFields) : undefined)}
+        onSubmitChangeFields={() => onSubmitChangeFields?.(formFields)}
       />
     </div>
   )

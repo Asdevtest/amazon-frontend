@@ -7,7 +7,6 @@ import { ClientModel } from '@models/client-model'
 
 import { CreateOrEditRequestContent } from '@components/contents/create-or-edit-request-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 import { t } from '@utils/translations'
@@ -35,7 +34,6 @@ export const CreateOrEditRequestView = observer(({ history }) => {
           <CircularProgressWithLabel />
         ) : (
           <CreateOrEditRequestContent
-            buttonStatus={viewModel.buttonStatus}
             mainContentRef={mainContentRef}
             specs={viewModel.specs}
             executor={viewModel.executor}
@@ -44,8 +42,6 @@ export const CreateOrEditRequestView = observer(({ history }) => {
             masterUsersData={viewModel.masterUsersData}
             announcements={viewModel.announcements}
             platformSettingsData={viewModel.platformSettings}
-            progressValue={viewModel.progressValue}
-            showProgress={viewModel.showProgress}
             requestToEdit={viewModel.requestToEdit}
             showGalleryModal={viewModel.showGalleryModal}
             productMedia={viewModel.productMedia}
@@ -58,27 +54,11 @@ export const CreateOrEditRequestView = observer(({ history }) => {
             onCreateSubmit={viewModel.onSubmitCreateRequest}
             onEditSubmit={viewModel.onSubmitEditRequest}
             onClickChoosePerformer={viewModel.onClickChoosePerformer}
-            onClickThumbnail={viewModel.onClickThumbnail}
             onClickAddMediaFromProduct={viewModel.onClickAddMediaFromProduct}
             onTriggerGalleryModal={() => viewModel.onTriggerOpenModal('showGalleryModal')}
           />
         )}
       </div>
-
-      {viewModel.showImageModal ? (
-        <SlideshowGalleryModal
-          files={viewModel.bigImagesOptions.images}
-          currentFileIndex={viewModel.bigImagesOptions.imgIndex}
-          openModal={viewModel.showImageModal}
-          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-          onCurrentFileIndex={index =>
-            viewModel.setBigImagesOptions({
-              ...viewModel.bigImagesOptions,
-              imgIndex: index,
-            })
-          }
-        />
-      ) : null}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

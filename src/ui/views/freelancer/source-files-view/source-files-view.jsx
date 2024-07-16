@@ -27,7 +27,6 @@ export const SourceFilesView = observer(({ history }) => {
       <div className={styles.searchContainer}>
         <SearchInput
           placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}, ${t(TranslationKey.ASIN)}`}
-          inputClasses={styles.searchInput}
           value={viewModel.nameSearchValue}
           onChange={viewModel.onChangeNameSearchValue}
         />

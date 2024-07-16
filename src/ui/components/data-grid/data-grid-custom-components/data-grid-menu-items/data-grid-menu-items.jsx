@@ -2851,8 +2851,6 @@ export const NumberWithTabsMenuItem = memo(
     }) => {
       const [activeTab, setActiveTab] = useState(tabs[0].value)
 
-      console.log('table :>> ', table)
-
       useEffect(() => {
         onClickFilterBtn(activeTab, table)
       }, [activeTab])

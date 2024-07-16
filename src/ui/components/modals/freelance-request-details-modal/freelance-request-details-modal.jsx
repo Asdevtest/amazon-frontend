@@ -88,7 +88,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
         <div className={styles.content}>
           <div className={styles.productInfo}>
             <Typography className={styles.categoryTitle}>{t(TranslationKey.Product)}</Typography>
-            <SlideshowGallery files={request?.product?.images} slidesToShow={3} />
+            <SlideshowGallery files={request?.product?.images} slidesToShow={2} />
 
             <div className={styles.category}>
               {request?.product.asin && (
@@ -105,7 +105,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
             <div className={styles.category}>
               <Typography className={styles.categoryTitle}>{t(TranslationKey.Files)}</Typography>
 
-              <SlideshowGallery files={requestMedia} slidesToShow={3} />
+              <SlideshowGallery files={requestMedia} slidesToShow={2} />
             </div>
           </div>
 

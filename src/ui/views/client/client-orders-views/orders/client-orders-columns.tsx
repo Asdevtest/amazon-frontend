@@ -175,7 +175,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-      width: 200,
+      width: 210,
       renderCell: params => (
         <DownloadAndCopyBtnsCell
           value={params.row?.product?.barCode}
@@ -238,6 +238,15 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
     },
 
     {
+      field: 'logicsTariff',
+      headerName: t(TranslationKey.Tariff),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
+      renderCell: params => <MultilineTextCell threeLines text={getNewTariffTextForBoxOrOrder(params.row)} />,
+      width: 200,
+      columnKey: columnnsKeys.shared.OBJECT,
+    },
+
+    {
       field: 'destination',
       headerName: t(TranslationKey['Where to']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
@@ -245,15 +254,6 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       valueGetter: params => params.row.destination?.name,
       width: 140,
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.OBJECT,
-    },
-
-    {
-      field: 'logicsTariff',
-      headerName: t(TranslationKey.Tariff),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-      renderCell: params => <MultilineTextCell threeLines text={getNewTariffTextForBoxOrOrder(params.row)} />,
-      width: 180,
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
@@ -302,7 +302,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
-      width: 180,
+      width: 140,
 
       columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
     },

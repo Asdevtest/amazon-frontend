@@ -12,7 +12,7 @@ describe('Test renderTooltipTitle(categoryTitle, userRole)', () => {
       expect: t(TranslationKey['Statistics on goods/orders/finances']),
     },
     {
-      categoryTitle: t(TranslationKey['Free Orders']),
+      categoryTitle: t(TranslationKey['Free orders']),
       expect: t(TranslationKey['All orders available for pickup']),
     },
     {
@@ -25,7 +25,7 @@ describe('Test renderTooltipTitle(categoryTitle, userRole)', () => {
     },
     {
       categoryTitle: t(TranslationKey.Finances),
-      expect: t(TranslationKey["Detailed description of the movement of the user's money"]),
+      expect: t(TranslationKey['Financial history']),
     },
     {
       categoryTitle: t(TranslationKey['My products']),
@@ -58,7 +58,7 @@ describe('Test renderTooltipTitle(categoryTitle, userRole)', () => {
     },
     {
       categoryTitle: t(TranslationKey.Finances),
-      expect: t(TranslationKey["Detailed description of the movement of the user's money"]),
+      expect: t(TranslationKey['Financial history']),
     },
   ]
   checkIsResearcher.forEach(value => {
@@ -83,7 +83,7 @@ describe('Test renderTooltipTitle(categoryTitle, userRole)', () => {
     },
     {
       categoryTitle: t(TranslationKey.Finances),
-      expect: t(TranslationKey["Detailed description of the movement of the user's money"]),
+      expect: t(TranslationKey['Financial history']),
     },
     {
       categoryTitle: t(TranslationKey['My products']),
@@ -148,7 +148,7 @@ describe('Test renderTooltipTitle(categoryTitle, userRole)', () => {
     },
     {
       categoryTitle: t(TranslationKey.Finances),
-      expect: t(TranslationKey["Detailed description of the movement of the user's money"]),
+      expect: t(TranslationKey['Financial history']),
     },
     {
       categoryTitle: t(TranslationKey.Notifications),
@@ -197,7 +197,7 @@ describe('Test renderTooltipTitle(categoryTitle, userRole)', () => {
     },
     {
       categoryTitle: t(TranslationKey.Finances),
-      expect: t(TranslationKey["Detailed description of the movement of the user's money"]),
+      expect: t(TranslationKey['Financial history']),
     },
     {
       categoryTitle: t(TranslationKey['Warehouse management']),

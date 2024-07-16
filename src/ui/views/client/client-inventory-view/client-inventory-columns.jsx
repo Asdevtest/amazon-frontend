@@ -359,8 +359,8 @@ export const clientInventoryColumns = ({
 
     {
       field: 'transparency',
-      headerName: 'Transparency codes',
-      renderHeader: () => <MultilineTextHeaderCell text={'Transparency codes'} />,
+      headerName: 'Transparency Codes',
+      renderHeader: () => <MultilineTextHeaderCell text={'Transparency Codes'} />,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
       width: 135,
       columnKey: columnnsKeys.shared.YES_NO,
@@ -380,7 +380,7 @@ export const clientInventoryColumns = ({
         />
       ),
 
-      width: 200,
+      width: 210,
       columnKey: columnnsKeys.client.INVENTORY_BARCODE,
     },
 

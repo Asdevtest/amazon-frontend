@@ -72,7 +72,7 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
           ) : null}
 
           {isImageType ? (
-            <Button className={styles.button} onClick={() => (onImageEditToggle ? onImageEditToggle() : undefined)}>
+            <Button className={styles.button} onClick={() => onImageEditToggle?.()}>
               <ModeOutlinedIcon className={styles.icon} />
             </Button>
           ) : null}

@@ -312,7 +312,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitChangeBoxFields(data: IBox, inModal: boolean) {
+  async onSubmitChangeBoxFields(data: IBox) {
     try {
       // @ts-ignore
       await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
@@ -324,14 +324,12 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
-        storage: data.storage,
+        // storage: data.storage,
       })
 
-      this.getCurrentData()
-
-      !inModal && this.onTriggerOpenModal('showBoxViewModal')
-
       toast.success(t(TranslationKey['Data saved successfully']))
+
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }

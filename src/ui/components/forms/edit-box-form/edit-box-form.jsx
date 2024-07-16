@@ -280,28 +280,26 @@ export const EditBoxForm = memo(
                 <div className={styles.productsWrapper}>
                   <CustomSlider alignButtons="end">
                     {boxFields.items.map((item, index) => {
-                      const isTransparencyFileAlreadyAttachedByTheSupplier =
-                        item?.isTransparencyFileAlreadyAttachedByTheSupplier
-
-                      const isTransparencyFileAttachedByTheStorekeeper =
-                        item?.isTransparencyFileAttachedByTheStorekeeper
-
-                      const isCheckboxVisible =
-                        isTransparencyFileAlreadyAttachedByTheSupplier && isTransparencyFileAttachedByTheStorekeeper
-                      const isCheckboxChecked =
-                        isTransparencyFileAlreadyAttachedByTheSupplier || isTransparencyFileAttachedByTheStorekeeper
-                      const checkboxText = isTransparencyFileAlreadyAttachedByTheSupplier
-                        ? t(TranslationKey['Transparency codes glued by the supplier'])
-                        : t(TranslationKey['Transparency codes are glued by storekeeper'])
-
-                      const isBarCodeAlreadyAttached =
+                      const barcodeChecked =
                         item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper
-                      const barCodeTooltipInfoContent = item.isBarCodeAlreadyAttachedByTheSupplier
-                        ? TranslationKey['The supplier has glued the barcode before shipment']
-                        : TranslationKey['The barcode was glued on when the box was accepted at the prep center']
-                      const barCodeLabel = item.isBarCodeAlreadyAttachedByTheSupplier
-                        ? TranslationKey['The barcode is glued by the supplier']
-                        : TranslationKey['The barcode is glued by the Storekeeper']
+                      const barcodeText = barcodeChecked
+                        ? item.isBarCodeAlreadyAttachedByTheSupplier
+                          ? t(TranslationKey['BarCode is glued by supplier'])
+                          : t(TranslationKey['BarCode is glued by storekeeper'])
+                        : item.barCode
+                        ? t(TranslationKey['Barсode is not glued'])
+                        : null
+
+                      const transparencyChecked =
+                        item.isTransparencyFileAttachedByTheStorekeeper ||
+                        item.isTransparencyFileAlreadyAttachedByTheSupplier
+                      const transparencyText = transparencyChecked
+                        ? item.isTransparencyFileAttachedByTheStorekeeper
+                          ? t(TranslationKey['Transparency Codes are glued by storekeeper'])
+                          : t(TranslationKey['Transparency Codes glued by the supplier'])
+                        : item.transparencyFile
+                        ? t(TranslationKey['Transparency Code is not glued'])
+                        : null
 
                       return (
                         <div key={index} className={styles.productWrapper}>
@@ -334,7 +332,7 @@ export const EditBoxForm = memo(
                               <Field
                                 containerClasses={styles.field}
                                 labelClasses={styles.standartLabel}
-                                label={t(TranslationKey['Transparency codes'])}
+                                label={t(TranslationKey['Transparency Codes'])}
                                 inputComponent={
                                   <ChangeChipCell
                                     isChipOutTable
@@ -381,27 +379,10 @@ export const EditBoxForm = memo(
                                 />
                               )}
 
-                              {!item.barCode ? (
-                                <Typography className={styles.noBarCodeGlued}>
-                                  {t(TranslationKey['Not glued!'])}
-                                </Typography>
-                              ) : null}
-
-                              {isBarCodeAlreadyAttached ? (
-                                <Field
-                                  oneLine
-                                  labelClasses={styles.standartLabel}
-                                  tooltipInfoContent={t(barCodeTooltipInfoContent)}
-                                  label={t(barCodeLabel)}
-                                  inputComponent={<Checkbox disabled checked={isBarCodeAlreadyAttached} />}
-                                />
-                              ) : null}
-
-                              {isCheckboxVisible ? (
-                                <Checkbox reverted disabled checked={isCheckboxChecked} className={styles.checkbox}>
-                                  <p className={styles.standartLabel}>{checkboxText}</p>
-                                </Checkbox>
-                              ) : null}
+                              <div>
+                                <p>{barcodeText}</p>
+                                <p>{transparencyText}</p>
+                              </div>
                             </div>
                           </div>
 
@@ -702,7 +683,7 @@ export const EditBoxForm = memo(
         <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
           <SetFilesModal
             modalTitle={t(TranslationKey.Transparency)}
-            LabelTitle={t(TranslationKey['Transparency codes'])}
+            LabelTitle={t(TranslationKey['Transparency Codes'])}
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
             onClickSave={value => onClickSaveTransparencyFile(value, filesConditions.index)}

@@ -68,6 +68,14 @@ export const Header: FC<HeaderProps> = memo(props => {
     },
     [onScrollAsinSelect],
   )
+  const handleDropdownVisibleChange = useCallback(
+    (isOpen: boolean) => {
+      if (isOpen) {
+        onGetProducts()
+      }
+    },
+    [onGetProducts],
+  )
 
   const modalTitle = useMemo(
     () => `${editMode ? t(TranslationKey.Edit) : t(TranslationKey.New)} ${t(TranslationKey['report by the product'])}`,
@@ -93,7 +101,7 @@ export const Header: FC<HeaderProps> = memo(props => {
             value={defaultAsinOption}
             options={asinOptions}
             optionRender={({ data }) => <AsinOption data={data} />}
-            onDropdownVisibleChange={onGetProducts}
+            onDropdownVisibleChange={handleDropdownVisibleChange}
             onSearch={onSearchAsinSelect}
             onPopupScroll={handlePopupScroll}
             onChange={onSelectProduct}

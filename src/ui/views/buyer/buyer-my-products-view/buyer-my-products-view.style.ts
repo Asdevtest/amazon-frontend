@@ -14,7 +14,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: 320,
+    width: 450,
   },
 
   attentionRow: {

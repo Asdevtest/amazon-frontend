@@ -16,7 +16,6 @@ import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { BoxArrowIcon } from '@components/shared/svg-icons'
-import { Text } from '@components/shared/text'
 
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
@@ -114,7 +113,6 @@ const Box = memo(props => {
           disabled
           tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
           label={t(TranslationKey.Destination)}
-          labelClasses={styles.smallLabel}
           inputClasses={cx(styles.field, {
             [styles.editAccent]: needAccent && box.destination?.name !== referenceEditingBox.destination?.name,
           })}
@@ -141,20 +139,18 @@ const Box = memo(props => {
             [styles.boxWrapperWithShadow]: SettingsModel.uiTheme === UiTheme.light,
           })}
         >
-          <div className={styles.itemsWrapper}>
-            {box.items?.map((item, index) => (
-              <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
-                <ShortBoxItemCard
-                  readOnly={readOnly}
-                  taskType={taskType}
-                  item={item}
-                  boxId={box.humanFriendlyId}
-                  superCount={box.amount}
-                  onChangeBarCode={onChangeBarCode}
-                />
-              </div>
-            ))}
-          </div>
+          {box.items?.map((item, index) => (
+            <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
+              <ShortBoxItemCard
+                readOnly={readOnly}
+                taskType={taskType}
+                item={item}
+                boxId={box.humanFriendlyId}
+                superCount={box.amount}
+                onChangeBarCode={onChangeBarCode}
+              />
+            </div>
+          ))}
         </Paper>
       ) : (
         <Paper
@@ -365,42 +361,34 @@ const NewBoxes = memo(props => {
   return (
     <div className={styles.newBoxes}>
       <div className={styles.titleWrapper}>
-        <Text
-          tooltipInfoContent={t(TranslationKey['New box condition'])}
-          className={styles.sectionTitle}
-          containerClasses={styles.sectionTitleWrapper}
-        >
-          {t(TranslationKey['New boxes'])}
-        </Text>
+        <p className={styles.sectionTitle}>{t(TranslationKey['New boxes'])}</p>
 
-        <Typography>{`${t(TranslationKey['Total number of boxes'])}: ${newBoxes.reduce(
+        <p>{`${t(TranslationKey['Total number of boxes'])}: ${newBoxes.reduce(
           (acc, cur) => (acc += cur.amount),
           0,
-        )}`}</Typography>
+        )}`}</p>
       </div>
 
-      <div className={styles.newBoxesWrapper}>
-        {newBoxes.map((box, boxIndex) => (
-          <Box
-            key={boxIndex}
-            boxIndex={boxIndex}
-            readOnly={readOnly}
-            isNewBox={isNewBox}
-            referenceEditingBox={referenceEditingBoxes[boxIndex]}
-            box={box}
-            curBox={curBox}
-            setCurBox={setCurBox}
-            isEdit={isEdit}
-            taskType={taskType}
-            newBoxes={newBoxes}
-            setNewBoxes={setNewBoxes}
-            showEditBoxModal={showEditBoxModal}
-            onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
-            onClickEditBox={onClickEditBox}
-            onClickApplyAllBtn={onClickApplyAllBtn}
-          />
-        ))}
-      </div>
+      {newBoxes.map((box, boxIndex) => (
+        <Box
+          key={boxIndex}
+          boxIndex={boxIndex}
+          readOnly={readOnly}
+          isNewBox={isNewBox}
+          referenceEditingBox={referenceEditingBoxes[boxIndex]}
+          box={box}
+          curBox={curBox}
+          setCurBox={setCurBox}
+          isEdit={isEdit}
+          taskType={taskType}
+          newBoxes={newBoxes}
+          setNewBoxes={setNewBoxes}
+          showEditBoxModal={showEditBoxModal}
+          onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
+          onClickEditBox={onClickEditBox}
+          onClickApplyAllBtn={onClickApplyAllBtn}
+        />
+      ))}
 
       <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
         <EditBoxTasksForm
@@ -450,35 +438,27 @@ export const BeforeAfterBlock = memo(props => {
       : 0
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <div className={styles.currentBox}>
         <div className={styles.titleWrapper}>
-          <Text
-            tooltipInfoContent={t(TranslationKey['Previous condition of the box'])}
-            className={styles.sectionTitle}
-            containerClasses={styles.sectionTitleWrapper}
-          >
-            {t(TranslationKey.Incoming)}
-          </Text>
+          <p className={styles.sectionTitle}>{t(TranslationKey.Incoming)}</p>
 
           <div className={styles.btnsWrapper}>
-            <Typography>{`${t(TranslationKey['Total number of boxes'])}: ${incomingBoxes.reduce(
+            <p>{`${t(TranslationKey['Total number of boxes'])}: ${incomingBoxes.reduce(
               (acc, cur) => (acc += cur.amount),
               0,
-            )}`}</Typography>
+            )}`}</p>
 
             {taskType === TaskOperationType.RECEIVE ? (
-              <Typography>{`${t(TranslationKey['Order quantity'])}: ${totalOrderAmount}`}</Typography>
+              <p>{`${t(TranslationKey['Order quantity'])}: ${totalOrderAmount}`}</p>
             ) : null}
           </div>
         </div>
 
-        <div className={styles.newBoxesWrapper}>
-          {incomingBoxes &&
-            incomingBoxes.map((box, boxIndex) => (
-              <Box key={boxIndex} isCurrentBox readOnly={readOnly} box={box} taskType={taskType} />
-            ))}
-        </div>
+        {incomingBoxes &&
+          incomingBoxes.map((box, boxIndex) => (
+            <Box key={boxIndex} isCurrentBox readOnly={readOnly} box={box} taskType={taskType} />
+          ))}
       </div>
 
       {desiredBoxes.length > 0 && <Divider flexItem className={styles.divider} orientation="vertical" />}
@@ -503,6 +483,6 @@ export const BeforeAfterBlock = memo(props => {
       {taskType === TaskOperationType.RECEIVE && desiredBoxes.length === 0 && incomingBoxes.length > 0 && !readOnly && (
         <ReceiveBoxes taskType={taskType} onClickOpenModal={onClickOpenModal} />
       )}
-    </>
+    </div>
   )
 })

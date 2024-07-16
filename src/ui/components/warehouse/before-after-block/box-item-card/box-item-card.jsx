@@ -201,7 +201,7 @@ export const BoxItemCard = ({
                     <Field
                       oneLine
                       containerClasses={styles.checkboxContainer}
-                      label={t(TranslationKey['Transparency codes glued by the supplier'])}
+                      label={t(TranslationKey['Transparency Codes glued by the supplier'])}
                       labelClasses={cx(styles.label, styles.redText)}
                       inputComponent={
                         <Checkbox
@@ -220,7 +220,7 @@ export const BoxItemCard = ({
                     <Field
                       oneLine
                       containerClasses={styles.checkboxContainer}
-                      label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                      label={t(TranslationKey['Transparency Codes are glued by storekeeper'])}
                       labelClasses={cx(styles.label, styles.redText)}
                       inputComponent={
                         <Checkbox

@@ -30,44 +30,31 @@ import {
 export class BuyerProductViewModel {
   history = undefined
   requestStatus = undefined
-
   productId = undefined
-
   product = undefined
   productBase = undefined
-  curUpdateProductData = {}
-
-  hsCodeData = {}
-
+  curUpdateProductData = undefined
+  hsCodeData = undefined
   showTab = undefined
-
   showEditHSCodeModal = false
-
   showConfirmModal = false
-  showSuccessModal = false
-
   setOpenModal = undefined
   productVariations = undefined
-
   imagesForLoad = []
-
   confirmModalSettings = {
     isWarning: false,
     message: '',
     onClickOkBtn: () => this.onSaveProductData(),
   }
-
   readyImages = []
   progressValue = 0
   showProgress = false
-
   formFields = { ...formFieldsDefault }
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
   get userInfo() {
     return UserModel.userInfo
   }
-
   get currentData() {
     return this.product
   }
@@ -231,8 +218,7 @@ export class BuyerProductViewModel {
             onClickOkBtn: () => {
               this.onSaveProductData(updateDataHandler)
 
-              this.successModalTitle = `${t(TranslationKey['Status changed'])}!`
-              this.onTriggerOpenModal('showSuccessModal')
+              toast.success(`${t(TranslationKey['Status changed'])}!`)
             },
           }
         })

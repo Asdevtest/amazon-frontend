@@ -1,13 +1,8 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  root: {
-    width: '100%',
-  },
-
   mainWrapper: {
     display: 'flex',
-    padding: '0 16px 16px',
     gap: 60,
   },
 
@@ -20,26 +15,13 @@ export const useStyles = makeStyles()(theme => ({
   title: {
     fontWeight: '600',
     fontSize: '18px',
-    lineHeight: '21px',
-    color: theme.palette.text.general,
-  },
-
-  details: {
-    padding: 0,
+    lineHeight: '25px',
   },
 
   filesWrapper: {
-    width: 350,
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
-  },
-
-  files: {
-    fontWeight: 600,
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
   },
 
   editorWrapper: {

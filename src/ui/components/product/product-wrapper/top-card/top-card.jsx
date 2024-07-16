@@ -112,7 +112,7 @@ export const TopCard = memo(
                       onChangeImagesForLoad={onChangeImagesForLoad}
                     />
                   </div>
-                ) : undefined}
+                ) : null}
 
                 {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
                 !product.archive &&

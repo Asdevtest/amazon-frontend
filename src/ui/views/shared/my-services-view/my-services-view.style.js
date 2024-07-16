@@ -15,7 +15,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: 350,
+    width: 400,
   },
 
   emptyTableWrapper: {
