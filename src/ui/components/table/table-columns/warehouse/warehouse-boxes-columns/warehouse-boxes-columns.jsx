@@ -22,7 +22,7 @@ import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { getProductColumnMenuValue, productColumnMenuItems } from '@config/data-grid-column-menu/product-column'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
   {
@@ -73,7 +73,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
       )
     },
 
-    fields: productColumnMenuItems,
+    fields: getProductColumnMenuItems(),
     columnMenuConfig: getProductColumnMenuValue(),
     columnKey: columnnsKeys.shared.MULTIPLE,
     width: 320,
