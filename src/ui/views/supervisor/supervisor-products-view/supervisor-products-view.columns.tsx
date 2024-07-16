@@ -26,7 +26,7 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { getProductColumnMenuValue, productColumnMenuItems } from '@config/data-grid-column-menu/product-column'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 interface SupervisorProductsViewColumnsProps {
   onClickTableRow: (id: string) => void
@@ -57,7 +57,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
         />
       ),
 
-      fields: productColumnMenuItems,
+      fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       width: 250,
