@@ -180,14 +180,14 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
-        storage: data.storage,
+        // storage: data.storage,
       })
+
+      toast.success(t(TranslationKey['Data saved successfully']))
 
       await this.getCurrentData()
 
       this.setCurrentOpenedBatch(this.curBatch?._id, true)
-
-      toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
     }

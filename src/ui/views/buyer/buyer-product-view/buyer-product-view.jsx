@@ -5,7 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { ProductWrapper } from '@components/product/product-wrapper'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
@@ -72,17 +71,6 @@ export const BuyerProductView = observer(({ history }) => {
             viewModel.onTriggerOpenModal('showConfirmModal')
           }}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-          title={viewModel.successModalTitle}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         />
       ) : null}
     </>

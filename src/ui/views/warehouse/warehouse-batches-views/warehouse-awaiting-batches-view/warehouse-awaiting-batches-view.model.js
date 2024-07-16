@@ -209,12 +209,12 @@ export class WarehouseAwaitingBatchesViewModel {
         trackNumberFile: this.uploadedFiles,
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
-        storage: data.storage,
+        // storage: data.storage,
       })
 
-      this.setCurrentOpenedBatch(this.curBatch?._id, true)
-
       toast.success(t(TranslationKey['Data saved successfully']))
+
+      this.setCurrentOpenedBatch(this.curBatch?._id, true)
     } catch (error) {
       console.error(error)
     }
