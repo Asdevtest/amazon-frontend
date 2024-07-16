@@ -17,7 +17,11 @@ import {
 
 import { t } from '@utils/translations'
 
-import { ProductColumnMenuType, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+import {
+  ProductColumnMenuType,
+  getProductColumnMenuItems,
+  getProductColumnMenuValue,
+} from '@config/data-grid-column-menu/product-column'
 
 export const clientRealizedIdeasColumns = rowHandlers => {
   const columns = [
