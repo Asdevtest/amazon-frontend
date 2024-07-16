@@ -102,7 +102,8 @@ export const myRequestsViewColumns = rowHandlers => {
           />
         )
       },
-      width: 270,
+      width: 260,
+      minWidth: 100,
 
       filterable: false,
 

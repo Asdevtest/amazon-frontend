@@ -49,7 +49,8 @@ export const financesViewColumns = (userBalance?: boolean) => {
         )
       },
       valueGetter: params => params.row?.entityProduct?.[0]?.asin,
-      width: 280,
+      width: 260,
+      minWidth: 100,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: userBalance ? undefined : columnnsKeys.client.INVENTORY_PRODUCT,
     },

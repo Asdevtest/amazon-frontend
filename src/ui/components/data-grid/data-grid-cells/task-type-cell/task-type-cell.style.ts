@@ -8,8 +8,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     overflowY: 'auto',
-    margin: '10px 0',
-    padding: '5px 0',
+    padding: '10px 0',
   },
 
   operationTypeText: {

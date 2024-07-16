@@ -46,7 +46,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           status={params.row.status}
         />
       ),
-      minWidth: 80,
+      minWidth: 100,
       sortable: false,
       filterable: false,
       align: 'center',
@@ -87,7 +87,8 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           />
         )
       },
-      minWidth: 280,
+      width: 260,
+      minWidth: 100,
     },
 
     {

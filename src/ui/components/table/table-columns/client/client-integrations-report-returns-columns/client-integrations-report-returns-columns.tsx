@@ -50,7 +50,8 @@ export const clientIntegrationsReportReturnsColumns = () => {
       renderCell: (params: GridRenderCellParams) => (
         <ProductAsinCell withoutTitle asin={params.row?.asin} image={params.row?.image} skuByClient={params.row?.sku} />
       ),
-      width: 250,
+      width: 260,
+      minWidth: 100,
       disableCustomSort: true,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,

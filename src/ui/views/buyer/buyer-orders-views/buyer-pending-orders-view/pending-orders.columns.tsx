@@ -61,7 +61,8 @@ export const pendingOrdersColumns = () => {
       headerName: 'ASIN',
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-      width: 280,
+      width: 260,
+      minWidth: 100,
       renderCell: params => {
         const product = params.row.product
 

@@ -36,7 +36,8 @@ export const clientRealizedIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      width: 260,
+      minWidth: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
@@ -97,7 +98,8 @@ export const clientRealizedIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      width: 260,
+      minWidth: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,

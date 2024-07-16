@@ -46,7 +46,8 @@ export const clientLast30DaySellerBoardColumns = () => {
       renderCell: params => (
         <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
       ),
-      width: 185,
+      width: 260,
+      minWidth: 100,
       disableCustomSort: true,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
@@ -71,7 +72,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
 
       renderCell: params => <NormDateWithoutTimeCell value={params.value} />,
-      minWidth: 80,
+      minWidth: 100,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
       columnKey: columnnsKeys.shared.DATE,

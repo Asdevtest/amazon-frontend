@@ -92,7 +92,8 @@ export const clientInventoryColumns = ({
           skuByClient={row?.skuByClient}
         />
       ),
-      width: 280,
+      width: 260,
+      minWidth: 100,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
     },
 
@@ -603,7 +604,8 @@ export const clientInventoryColumns = ({
                 <ProductAsinCell withoutTitle image={product?.image} asin={product?.asin} skuByClient={product?.sku} />
               )
             },
-            width: 295,
+            width: 260,
+            minWidth: 100,
 
             columnKey: columnnsKeys.client.SHOP_REPORT,
           }

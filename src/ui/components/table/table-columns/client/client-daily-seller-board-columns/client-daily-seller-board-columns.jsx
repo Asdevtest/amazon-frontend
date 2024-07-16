@@ -46,7 +46,8 @@ export const clientDailySellerBoardColumns = () => {
       renderCell: params => (
         <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
       ),
-      width: 185,
+      width: 260,
+      minWidth: 100,
       disableCustomSort: true,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,

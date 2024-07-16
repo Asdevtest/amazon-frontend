@@ -50,7 +50,8 @@ export const ppcSalesDaysColumns = () => {
       renderCell: (params: GridRenderCellParams) => (
         <ProductAsinCell withoutTitle image={params.row?.image} asin={params.row?.asin} skuByClient={params.row?.sku} />
       ),
-      width: 250,
+      width: 260,
+      minWidth: 100,
       disableCustomSort: true,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,

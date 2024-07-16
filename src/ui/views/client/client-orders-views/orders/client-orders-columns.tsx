@@ -116,7 +116,8 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
           />
         )
       },
-      width: 280,
+      width: 260,
+      minWidth: 100,
 
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,

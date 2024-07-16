@@ -48,7 +48,8 @@ export const clientNewIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      width: 260,
+      minWidth: 100,
 
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,

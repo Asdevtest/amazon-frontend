@@ -67,7 +67,8 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       columnMenuConfig: productColumnMenuValue,
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {
@@ -141,7 +142,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
       valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
       type: 'number',
-      minWidth: 90,
+      minWidth: 100,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },

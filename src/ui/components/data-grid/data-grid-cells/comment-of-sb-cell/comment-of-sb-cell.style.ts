@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   commentOfSbWrapper: {
-    padding: '5px 0',
+    padding: '10px 0',
     height: '100%',
     width: '100%',
     display: 'flex',

@@ -48,7 +48,8 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           />
         ),
         valueGetter: ({ row }: GridRowModel) => row.product.asin,
-        width: 280,
+        width: 260,
+        minWidth: 100,
         columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
         table: DataGridFilterTables.PRODUCTS,
       }
