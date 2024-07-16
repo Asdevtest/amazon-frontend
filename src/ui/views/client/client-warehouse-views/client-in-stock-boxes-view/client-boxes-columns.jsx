@@ -25,7 +25,7 @@ import { formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { getProductColumnMenuValue, productColumnMenuItems } from '@config/data-grid-column-menu/product-column'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 export const clientBoxesViewColumns = (
   handlers,
@@ -145,7 +145,7 @@ export const clientBoxesViewColumns = (
           })
           .join('\n'),
 
-      fields: productColumnMenuItems,
+      fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       width: 320,
