@@ -576,7 +576,7 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if ([columnnsKeys.shared.OBJECT_VALUE].includes(currentColumn.columnKey)) {
+  if (columnnsKeys.shared.OBJECT_VALUE === currentColumn.columnKey) {
     return (
       <CustomMenuContainer {...props}>
         <ObjectColumnMenu
