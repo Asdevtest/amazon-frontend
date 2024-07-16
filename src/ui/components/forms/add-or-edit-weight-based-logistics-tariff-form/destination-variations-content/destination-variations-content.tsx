@@ -179,13 +179,13 @@ export const DestinationVariationsContent: FC<DestinationVariationsContentProps>
                 <div className={styles.regionWrapper}>
                   <Input
                     placeholder={'0.00'}
-                    value={
+                    value={toFixed(
                       currentCurrency === currencyTypes.DOLLAR
                         ? variant.pricePerKgUsd
                         : currentCurrency === currencyTypes.YUAN
                         ? variant.pricePerKgRmb
-                        : ''
-                    }
+                        : '',
+                    )}
                     inputProps={{ maxLength: 7 }}
                     className={styles.fieldInput}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => {
