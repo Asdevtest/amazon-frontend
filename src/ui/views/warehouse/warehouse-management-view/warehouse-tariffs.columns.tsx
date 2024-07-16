@@ -14,45 +14,35 @@ import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { ILogicTariff } from '@typings/shared/logic-tariff'
 
 interface IWarehouseTariffsColumns {
-  onClickEditTariff: (row: any) => void
-  onRemoveTariff: (id: string) => void
+  onClickEditTariff: (row: ILogicTariff) => void
+  onRemoveWarehouseTariff: (id: string) => void
 }
 
-export const warehouseTariffsColumns = ({ onClickEditTariff, onRemoveTariff }: IWarehouseTariffsColumns) => [
+export const warehouseTariffsColumns = ({ onClickEditTariff, onRemoveWarehouseTariff }: IWarehouseTariffsColumns) => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.name} />,
-    width: 250,
+    minWidth: 300,
   },
-
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
-    width: 120,
-  },
-
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
     renderCell: ({ row }: GridRowModel) => <ScrollingCell value={row.description} />,
-    width: 600,
+    flex: 1,
   },
-
   {
     field: 'price',
     headerName: t(TranslationKey['Service cost per kg, $']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service cost per kg, $'])} />,
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.price} />,
-    width: 250,
+    minWidth: 250,
   },
-
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
@@ -69,12 +59,20 @@ export const warehouseTariffsColumns = ({ onClickEditTariff, onRemoveTariff }: I
         secondButtonTooltipText={t(TranslationKey.Remove)}
         secondButtonElement={<CrossIcon />}
         secondButtonStyle={ButtonStyle.DANGER}
+        secondDescriptionText="Are you sure you want to delete the tariff?"
         onClickFirstButton={() => onClickEditTariff(row)}
-        onClickSecondButton={() => onRemoveTariff(row._id)}
+        onClickSecondButton={() => onRemoveWarehouseTariff(row._id)}
       />
     ),
-    width: 100,
+    minWidth: 100,
     filterable: false,
     sortable: false,
+  },
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
+    minWidth: 115,
   },
 ]
