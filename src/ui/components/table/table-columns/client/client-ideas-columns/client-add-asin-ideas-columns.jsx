@@ -56,7 +56,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       },
 
       fields: getProductColumnMenuItems(),
-      columnMenuConfig: getProductColumnMenuValue(ProductColumnMenuType.PARENT),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
       width: 250,
@@ -93,7 +93,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       },
 
       fields: getProductColumnMenuItems(),
-      columnMenuConfig: getProductColumnMenuValue(ProductColumnMenuType.CHILD),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.CHILD }),
 
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,

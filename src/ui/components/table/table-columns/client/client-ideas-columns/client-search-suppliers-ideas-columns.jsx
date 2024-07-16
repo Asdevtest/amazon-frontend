@@ -58,7 +58,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       },
 
       fields: getProductColumnMenuItems(),
-      columnMenuConfig: getProductColumnMenuValue(ProductColumnMenuType.PARENT),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
       width: 250,
