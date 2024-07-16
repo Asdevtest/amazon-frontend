@@ -13,7 +13,12 @@ export interface ProductColumnMenuValueParams {
   table?: DataGridFilterTables
 }
 
-export const getProductColumnMenuItems = (withoutSku?: boolean, withoutTitle?: boolean) => {
+export interface ProductColumnMenuItemsParams {
+  withoutSku?: boolean
+  withoutTitle?: boolean
+}
+
+export const getProductColumnMenuItems = ({ withoutSku, withoutTitle }: ProductColumnMenuItemsParams = {}) => {
   const productColumnMenuItems = [
     {
       label: 'ASIN',
