@@ -210,12 +210,11 @@ export const buyerOrdersColumns = ({
       renderCell: params => (
         <DownloadAndCopyBtnsCell
           showViewTooltip={false}
-          value={params.value}
+          value={params.row.product.barCode}
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       ),
       minWidth: 210,
-      align: 'center',
       sortable: false,
       filterable: false,
       disableCustomSort: true,
