@@ -232,9 +232,11 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     }
 
     const onSubmit = () => {
-      setIsWeightRangeValid(calcWeightRangeValid(formFields.destinationVariations))
+      const isValidWeightRange = calcWeightRangeValid(formFields.destinationVariations)
 
-      if (isWeightRangeValid) {
+      setIsWeightRangeValid(isValidWeightRange)
+
+      if (isValidWeightRange) {
         if (tariffToEdit) {
           onEditSubmit(tariffToEdit._id, formFields)
         } else {
@@ -269,6 +271,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         if (groupedByDestinationId.hasOwnProperty(destinationId)) {
           // @ts-ignore
           const group = groupedByDestinationId[destinationId]
+
           const sortedRanges = group.sort(
             (a: IDestinationVariation, b: IDestinationVariation) => a.minWeight - b.minWeight,
           )
@@ -277,7 +280,10 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
             const currentRange = sortedRanges[i]
             const nextRange = sortedRanges[i + 1]
 
-            if (currentRange.maxWeight >= nextRange.minWeight || nextRange.minWeight <= currentRange.maxWeight) {
+            if (
+              Number(currentRange.maxWeight) >= Number(nextRange.minWeight) ||
+              Number(nextRange.minWeight) <= Number(currentRange.maxWeight)
+            ) {
               return false // Found intersecting or containing ranges
             }
           }
