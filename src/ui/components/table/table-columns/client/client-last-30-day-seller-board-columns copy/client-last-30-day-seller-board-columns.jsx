@@ -71,7 +71,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
 
       renderCell: params => <NormDateWithoutTimeCell value={params.value} />,
-      minWidth: 80,
+      width: 115,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
       columnKey: columnnsKeys.shared.DATE,

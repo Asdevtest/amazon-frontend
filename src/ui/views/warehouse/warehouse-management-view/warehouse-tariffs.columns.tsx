@@ -27,7 +27,7 @@ export const warehouseTariffsColumns = ({ onClickEditTariff, onRemoveWarehouseTa
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.name} />,
-    minWidth: 300,
+    width: 300,
   },
   {
     field: 'description',
@@ -41,7 +41,7 @@ export const warehouseTariffsColumns = ({ onClickEditTariff, onRemoveWarehouseTa
     headerName: t(TranslationKey['Service cost per kg, $']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service cost per kg, $'])} />,
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.price} />,
-    minWidth: 250,
+    width: 250,
   },
   {
     field: 'action',
@@ -64,7 +64,7 @@ export const warehouseTariffsColumns = ({ onClickEditTariff, onRemoveWarehouseTa
         onClickSecondButton={() => onRemoveWarehouseTariff(row._id)}
       />
     ),
-    minWidth: 100,
+    width: 100,
     filterable: false,
     sortable: false,
   },
@@ -73,6 +73,6 @@ export const warehouseTariffsColumns = ({ onClickEditTariff, onRemoveWarehouseTa
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
-    minWidth: 115,
+    width: 115,
   },
 ]
