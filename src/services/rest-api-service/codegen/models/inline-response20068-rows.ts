@@ -13,158 +13,14 @@
  */
 
 
-import { InlineResponse20042InventoryShop } from './inline-response20042-inventory-shop';
+import { InlineResponse20049InventoryShop } from './inline-response20049-inventory-shop';
 
 /**
- * Схема репорта за 30 дней с Seller-board
+ * Схема репорта amazon_data
  * @export
  * @interface InlineResponse20068Rows
  */
 export interface InlineResponse20068Rows {
-    /**
-     * ﻿\"ASIN\"
-     * @type {string}
-     * @memberof InlineResponse20068Rows
-     */
-    asin?: string;
-    /**
-     * SKU
-     * @type {string}
-     * @memberof InlineResponse20068Rows
-     */
-    sku?: string;
-    /**
-     * Title
-     * @type {string}
-     * @memberof InlineResponse20068Rows
-     */
-    title?: string;
-    /**
-     * ROI, %
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    roi?: number;
-    /**
-     * FBA/FBM Stock
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    fbaFbmStock?: number;
-    /**
-     * Stock value
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    stockValue?: number;
-    /**
-     * Estimated Sales Velocity
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    estimatedSalesVelocity?: number;
-    /**
-     * Days  of stock  left
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    daysOfStockLeft?: number;
-    /**
-     * Recommended quantity for  reordering
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    recommendedQuantityForReordering?: number;
-    /**
-     * Running  out of stock
-     * @type {string}
-     * @memberof InlineResponse20068Rows
-     */
-    runningOutOfStock?: string;
-    /**
-     * Reserved
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    reserved?: number;
-    /**
-     * Sent  to FBA
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    sentToFba?: number;
-    /**
-     * FBA  Prep. Stock
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    fbaPrepStock?: number;
-    /**
-     * Ordered
-     * @type {string}
-     * @memberof InlineResponse20068Rows
-     */
-    ordered?: string;
-    /**
-     * Time to  reorder
-     * @type {string}
-     * @memberof InlineResponse20068Rows
-     */
-    timeToReorder?: string;
-    /**
-     * Comment
-     * @type {string}
-     * @memberof InlineResponse20068Rows
-     */
-    comment?: string;
-    /**
-     * Marketplace
-     * @type {string}
-     * @memberof InlineResponse20068Rows
-     */
-    marketplace?: string;
-    /**
-     * FNSKU
-     * @type {string}
-     * @memberof InlineResponse20068Rows
-     */
-    fnsku?: string;
-    /**
-     * Target stock range after new order days
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    targetStockRangeAfterNewOrderDays?: number;
-    /**
-     * FBA buffer days
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    fbaBufferDays?: number;
-    /**
-     * Manuf. time days
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    manufTimeDays?: number;
-    /**
-     * Use a Prep Center
-     * @type {string}
-     * @memberof InlineResponse20068Rows
-     */
-    useAPrepCenter?: string;
-    /**
-     * Shipping to Prep Center days
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    shippingToPrepCenterDays?: number;
-    /**
-     * Shipping to FBA days
-     * @type {number}
-     * @memberof InlineResponse20068Rows
-     */
-    shippingToFbaDays?: number;
     /**
      * Гуид записи
      * @type {string}
@@ -172,23 +28,257 @@ export interface InlineResponse20068Rows {
      */
     _id?: string;
     /**
-     * Дата создания
+     * 
+     * @type {string}
+     * @memberof InlineResponse20068Rows
+     */
+    productId?: string;
+    /**
+     * 
+     * @type {InlineResponse20049InventoryShop}
+     * @memberof InlineResponse20068Rows
+     */
+    shop?: InlineResponse20049InventoryShop;
+    /**
+     * Гуид shop-a
+     * @type {string}
+     * @memberof InlineResponse20068Rows
+     */
+    shopId?: string;
+    /**
+     * asin
+     * @type {string}
+     * @memberof InlineResponse20068Rows
+     */
+    asin?: string;
+    /**
+     * sku
+     * @type {string}
+     * @memberof InlineResponse20068Rows
+     */
+    sku?: string;
+    /**
+     * period_start
+     * @type {string}
+     * @memberof InlineResponse20068Rows
+     */
+    periodStart?: string;
+    /**
+     * period_end
+     * @type {string}
+     * @memberof InlineResponse20068Rows
+     */
+    periodEnd?: string;
+    /**
+     * week
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    week?: number;
+    /**
+     * acos
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    acos?: number;
+    /**
+     * image
+     * @type {string}
+     * @memberof InlineResponse20068Rows
+     */
+    image?: string;
+    /**
+     * ppc_impressions
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    ppcImpressions?: number;
+    /**
+     * clicks
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    clicks?: number;
+    /**
+     * spend
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    spend?: number;
+    /**
+     * ppc_orders
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    ppcOrders?: number;
+    /**
+     * ppc_units
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    ppcUnits?: number;
+    /**
+     * ppc_sales
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    ppcSales?: number;
+    /**
+     * order_sales_cost
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    orderSalesCost?: number;
+    /**
+     * unit_sales_cost
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    unitSalesCost?: number;
+    /**
+     * organic_sessions
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    organicSessions?: number;
+    /**
+     * organic_orders
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    organicOrders?: number;
+    /**
+     * organic_units
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    organicUnits?: number;
+    /**
+     * organic_sales
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    organicSales?: number;
+    /**
+     * organic_avg_order_price
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    organicAvgOrderPrice?: number;
+    /**
+     * organic_avg_unit_price
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    organicAvgUnitPrice?: number;
+    /**
+     * impressions
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    impressions?: number;
+    /**
+     * sessions
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    sessions?: number;
+    /**
+     * ctr
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    ctr?: number;
+    /**
+     * orders
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    orders?: number;
+    /**
+     * units
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    units?: number;
+    /**
+     * avg_units_in_per_order
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    avgUnitsInPerOrder?: number;
+    /**
+     * sales
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    sales?: number;
+    /**
+     * avg_price_order
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    avgPriceOrder?: number;
+    /**
+     * avg_unit_price
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    avgUnitPrice?: number;
+    /**
+     * buy_box
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    buyBox?: number;
+    /**
+     * ppc_sale
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    ppcSale?: number;
+    /**
+     * organic_sale
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    organicSale?: number;
+    /**
+     * conversion
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    conversion?: number;
+    /**
+     * conversion_ppc
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    conversionPpc?: number;
+    /**
+     * conversion_organic
+     * @type {number}
+     * @memberof InlineResponse20068Rows
+     */
+    conversionOrganic?: number;
+    /**
+     * date_updated
+     * @type {string}
+     * @memberof InlineResponse20068Rows
+     */
+    dateUpdated?: string;
+    /**
+     * createdAt
      * @type {string}
      * @memberof InlineResponse20068Rows
      */
     createdAt?: string;
     /**
-     * Дата обновления
+     * updatedAt
      * @type {string}
      * @memberof InlineResponse20068Rows
      */
     updatedAt?: string;
-    /**
-     * 
-     * @type {InlineResponse20042InventoryShop}
-     * @memberof InlineResponse20068Rows
-     */
-    shop?: InlineResponse20042InventoryShop;
 }
 
 

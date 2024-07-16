@@ -25,21 +25,21 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { InlineObject3 } from '../models';
 // @ts-ignore
-import { InlineObject79 } from '../models';
+import { InlineObject89 } from '../models';
 // @ts-ignore
-import { InlineObject80 } from '../models';
+import { InlineObject90 } from '../models';
 // @ts-ignore
-import { InlineObject81 } from '../models';
+import { InlineObject91 } from '../models';
 // @ts-ignore
 import { InlineResponse2005 } from '../models';
 // @ts-ignore
-import { InlineResponse20065 } from '../models';
+import { InlineResponse20074 } from '../models';
 // @ts-ignore
-import { InlineResponse20066 } from '../models';
+import { InlineResponse20075 } from '../models';
 // @ts-ignore
-import { InlineResponse20067 } from '../models';
+import { InlineResponse20076 } from '../models';
 // @ts-ignore
-import { InlineResponse2019 } from '../models';
+import { InlineResponse20110 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -176,12 +176,12 @@ export const OtherApiAxiosParamCreator = function (configuration?: Configuration
          * ## Изменение асина на проверку из списка
          * @summary # Изменение асина на проверку из списка
          * @param {string} guid 
-         * @param {InlineObject80} [body] 
+         * @param {InlineObject90} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherCheckAsinsGuidPatch: async (guid: string, body?: InlineObject80, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1OtherCheckAsinsGuidPatch: async (guid: string, body?: InlineObject90, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1OtherCheckAsinsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/other/check_asins/{guid}`
@@ -263,12 +263,12 @@ export const OtherApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * ## Отправка отзыва/репорта
          * @summary # Отправить отзыв
-         * @param {InlineObject81} [body] 
+         * @param {InlineObject91} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherFeedbackPost: async (body?: InlineObject81, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1OtherFeedbackPost: async (body?: InlineObject91, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/other/feedback`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -651,12 +651,12 @@ export const OtherApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg Доступные форматы: jpeg, jpg, png, webp, gif, avif, tiff, pdf новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
          * @summary # Загрузить изображение по ссылке.
-         * @param {InlineObject79} [body] 
+         * @param {InlineObject89} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherUploadFileByUrlPost: async (body?: InlineObject79, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1OtherUploadFileByUrlPost: async (body?: InlineObject89, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/other/upload_file_by_url`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -777,12 +777,12 @@ export const OtherApiFp = function(configuration?: Configuration) {
          * ## Изменение асина на проверку из списка
          * @summary # Изменение асина на проверку из списка
          * @param {string} guid 
-         * @param {InlineObject80} [body] 
+         * @param {InlineObject90} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherCheckAsinsGuidPatch(guid: string, body?: InlineObject80, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1OtherCheckAsinsGuidPatch(guid: string, body?: InlineObject90, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherCheckAsinsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -794,19 +794,19 @@ export const OtherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherCheckAsinsPost(body?: Array<InlineObject3>, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20067>> {
+        async apiV1OtherCheckAsinsPost(body?: Array<InlineObject3>, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20076>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherCheckAsinsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Отправка отзыва/репорта
          * @summary # Отправить отзыв
-         * @param {InlineObject81} [body] 
+         * @param {InlineObject91} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherFeedbackPost(body?: InlineObject81, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1OtherFeedbackPost(body?: InlineObject91, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherFeedbackPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -817,7 +817,7 @@ export const OtherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherFieldsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20066>>> {
+        async apiV1OtherFieldsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20075>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherFieldsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -881,7 +881,7 @@ export const OtherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherPaymentsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20065>> {
+        async apiV1OtherPaymentsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20074>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherPaymentsPagMyGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -903,19 +903,19 @@ export const OtherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherUploadAvatarPost(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2019>> {
+        async apiV1OtherUploadAvatarPost(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20110>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherUploadAvatarPost(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg Доступные форматы: jpeg, jpg, png, webp, gif, avif, tiff, pdf новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
          * @summary # Загрузить изображение по ссылке.
-         * @param {InlineObject79} [body] 
+         * @param {InlineObject89} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherUploadFileByUrlPost(body?: InlineObject79, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2019>> {
+        async apiV1OtherUploadFileByUrlPost(body?: InlineObject89, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20110>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherUploadFileByUrlPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -926,7 +926,7 @@ export const OtherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherUploadFilePost(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2019>> {
+        async apiV1OtherUploadFilePost(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20110>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherUploadFilePost(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -976,12 +976,12 @@ export const OtherApiFactory = function (configuration?: Configuration, basePath
          * ## Изменение асина на проверку из списка
          * @summary # Изменение асина на проверку из списка
          * @param {string} guid 
-         * @param {InlineObject80} [body] 
+         * @param {InlineObject90} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherCheckAsinsGuidPatch(guid: string, body?: InlineObject80, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1OtherCheckAsinsGuidPatch(guid: string, body?: InlineObject90, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1OtherCheckAsinsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -992,18 +992,18 @@ export const OtherApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherCheckAsinsPost(body?: Array<InlineObject3>, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20067> {
+        apiV1OtherCheckAsinsPost(body?: Array<InlineObject3>, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20076> {
             return localVarFp.apiV1OtherCheckAsinsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Отправка отзыва/репорта
          * @summary # Отправить отзыв
-         * @param {InlineObject81} [body] 
+         * @param {InlineObject91} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherFeedbackPost(body?: InlineObject81, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1OtherFeedbackPost(body?: InlineObject91, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1OtherFeedbackPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1013,7 +1013,7 @@ export const OtherApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherFieldsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20066>> {
+        apiV1OtherFieldsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20075>> {
             return localVarFp.apiV1OtherFieldsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1072,7 +1072,7 @@ export const OtherApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherPaymentsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20065> {
+        apiV1OtherPaymentsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20074> {
             return localVarFp.apiV1OtherPaymentsPagMyGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1092,18 +1092,18 @@ export const OtherApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherUploadAvatarPost(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2019> {
+        apiV1OtherUploadAvatarPost(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20110> {
             return localVarFp.apiV1OtherUploadAvatarPost(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg Доступные форматы: jpeg, jpg, png, webp, gif, avif, tiff, pdf новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
          * @summary # Загрузить изображение по ссылке.
-         * @param {InlineObject79} [body] 
+         * @param {InlineObject89} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherUploadFileByUrlPost(body?: InlineObject79, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2019> {
+        apiV1OtherUploadFileByUrlPost(body?: InlineObject89, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20110> {
             return localVarFp.apiV1OtherUploadFileByUrlPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1113,7 +1113,7 @@ export const OtherApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherUploadFilePost(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2019> {
+        apiV1OtherUploadFilePost(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20110> {
             return localVarFp.apiV1OtherUploadFilePost(acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -1190,10 +1190,10 @@ export interface OtherApiApiV1OtherCheckAsinsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject80}
+     * @type {InlineObject90}
      * @memberof OtherApiApiV1OtherCheckAsinsGuidPatch
      */
-    readonly body?: InlineObject80
+    readonly body?: InlineObject90
 
     /**
      * 
@@ -1232,10 +1232,10 @@ export interface OtherApiApiV1OtherCheckAsinsPostRequest {
 export interface OtherApiApiV1OtherFeedbackPostRequest {
     /**
      * 
-     * @type {InlineObject81}
+     * @type {InlineObject91}
      * @memberof OtherApiApiV1OtherFeedbackPost
      */
-    readonly body?: InlineObject81
+    readonly body?: InlineObject91
 
     /**
      * 
@@ -1428,10 +1428,10 @@ export interface OtherApiApiV1OtherUploadAvatarPostRequest {
 export interface OtherApiApiV1OtherUploadFileByUrlPostRequest {
     /**
      * 
-     * @type {InlineObject79}
+     * @type {InlineObject89}
      * @memberof OtherApiApiV1OtherUploadFileByUrlPost
      */
-    readonly body?: InlineObject79
+    readonly body?: InlineObject89
 
     /**
      * 

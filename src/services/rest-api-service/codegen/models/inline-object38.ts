@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes';
 
 /**
  * 
@@ -23,10 +22,58 @@ import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './
 export interface InlineObject38 {
     /**
      * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
+     * @type {string}
      * @memberof InlineObject38
      */
-    itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
+    clientComment?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    storekeeperComment?: string;
+    /**
+     * Storage in boxes
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    storage?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    referenceId?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    fbaNumber?: string;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    upsTrackNumber?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    trackNumberText?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject38
+     */
+    trackNumberFile?: Array<string>;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    prepId?: string;
 }
 
 

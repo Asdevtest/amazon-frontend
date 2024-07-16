@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
 
 /**
  * 
@@ -22,16 +23,58 @@
 export interface InlineObject40 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {number}
      * @memberof InlineObject40
      */
-    boxIds: Array<string>;
+    amazon?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject40
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject40
+     */
+    fbafee?: number;
+    /**
+     * ФБА кол-во
+     * @type {number}
+     * @memberof InlineObject40
+     */
+    fbaamount?: number;
+    /**
+     * Код статуса
+     * @type {number}
+     * @memberof InlineObject40
+     */
+    status?: number;
+    /**
+     * Прибыль
+     * @type {number}
+     * @memberof InlineObject40
+     */
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject40
+     */
+    margin?: number;
+    /**
+     * Примечания байера.
+     * @type {string}
+     * @memberof InlineObject40
+     */
+    buyersComment?: string;
     /**
      * 
-     * @type {Array<number>}
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
      * @memberof InlineObject40
      */
-    newAmounts: Array<number>;
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
 }
 
 

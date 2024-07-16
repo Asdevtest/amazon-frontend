@@ -13,8 +13,9 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
+import { InlineResponse20037AllFiles } from './inline-response20037-all-files';
+import { InlineResponse20037AllImages } from './inline-response20037-all-images';
+import { InlineResponse20037AllVideo } from './inline-response20037-all-video';
 
 /**
  * 
@@ -23,106 +24,23 @@ import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
  */
 export interface InlineResponse20037 {
     /**
-     * GUID
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20037AllImages>}
      * @memberof InlineResponse20037
      */
-    _id?: string;
-    /**
-     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @type {number}
-     * @memberof InlineResponse20037
-     */
-    taskId?: number;
-    /**
-     * Тип операции
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    operationType?: InlineResponse20037OperationTypeEnum;
-    /**
-     * Массив коробок которые были до переформирования коробок.
-     * @type {Array<ApiV1BatchesBoxes>}
-     * @memberof InlineResponse20037
-     */
-    boxesBefore?: Array<ApiV1BatchesBoxes>;
-    /**
-     * Массив коробок.
-     * @type {Array<ApiV1BatchesBoxes>}
-     * @memberof InlineResponse20037
-     */
-    boxes?: Array<ApiV1BatchesBoxes>;
-    /**
-     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
-     * @type {number}
-     * @memberof InlineResponse20037
-     */
-    status?: number;
-    /**
-     * Приоритет задачи
-     * @type {number}
-     * @memberof InlineResponse20037
-     */
-    priority?: number;
-    /**
-     * Комментарий работника склада.
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    storekeeperComment?: string;
-    /**
-     * Комментарий клиента.
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    clientComment?: string;
-    /**
-     * Комментарий баера.
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    buyerComment?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20037
-     */
-    images?: Array<string>;
-    /**
-     * GUID сотрудника склада, который выполняет задачу.
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    storekeeperId?: string;
+    allImages?: Array<InlineResponse20037AllImages>;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {Array<InlineResponse20037AllFiles>}
      * @memberof InlineResponse20037
      */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    allFiles?: Array<InlineResponse20037AllFiles>;
     /**
-     * Дата создания.
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20037AllVideo>}
      * @memberof InlineResponse20037
      */
-    createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    updateDate?: string;
+    allVideo?: Array<InlineResponse20037AllVideo>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20037OperationTypeEnum {
-    Merge = 'merge',
-    Split = 'split',
-    Receive = 'receive'
-}
-
 
 

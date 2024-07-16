@@ -25,7 +25,7 @@ export interface InlineObject55 {
      * @type {string}
      * @memberof InlineObject55
      */
-    storekeeperId: string;
+    storekeeperId?: string;
     /**
      * GUID баера
      * @type {string}
@@ -49,7 +49,7 @@ export interface InlineObject55 {
      * @type {string}
      * @memberof InlineObject55
      */
-    logicsTariffId: string;
+    logicsTariffId?: string;
     /**
      * Гуид вариации
      * @type {string}
@@ -73,7 +73,7 @@ export interface InlineObject55 {
      * @type {number}
      * @memberof InlineObject55
      */
-    amount: number;
+    amount?: number;
     /**
      * Стоимость доставки до склада.
      * @type {number}
@@ -86,12 +86,6 @@ export interface InlineObject55 {
      * @memberof InlineObject55
      */
     clientComment?: string;
-    /**
-     * GUID заказанного продукта
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    productId: string;
     /**
      * Массив изображений.
      * @type {Array<string>}

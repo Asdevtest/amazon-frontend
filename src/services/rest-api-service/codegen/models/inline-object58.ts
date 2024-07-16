@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
 
 /**
  * 
@@ -21,88 +22,269 @@
  */
 export interface InlineObject58 {
     /**
-     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @type {number}
-     * @memberof InlineObject58
-     */
-    taskId: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject58
-     */
-    boxesBefore?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject58
-     */
-    boxes: Array<string>;
-    /**
-     * Тип операции
+     * ASIN продукта
      * @type {string}
      * @memberof InlineObject58
      */
-    operationType: InlineObject58OperationTypeEnum;
+    asin: string;
     /**
-     * Комментарий клиента.
+     * SKU введенным клиентом.
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    skuByClient?: string;
+    /**
+     * GUID поставщика, если передать строку \"clear\" то поставщику будет сброшен (у байера и ресечера).
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    currentSupplierId?: string;
+    /**
+     * Гуид родительского продукта
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    parentProductId?: string;
+    /**
+     * Категория
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    category?: string;
+    /**
+     * Ссылка на этот продукт на амазоне.
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    lamazon?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    bsr?: number;
+    /**
+     * Признак fba
+     * @type {boolean}
+     * @memberof InlineObject58
+     */
+    fba?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    amazon?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    height?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    width?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    length?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    weight?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    fbafee?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    fbaamount?: number;
+    /**
+     * Комментарии к товару.
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    icomment?: string;
+    /**
+     * Комментарии к товару, от клиента.
      * @type {string}
      * @memberof InlineObject58
      */
     clientComment?: string;
     /**
-     * Комментарий баера.
-     * @type {string}
-     * @memberof InlineObject58
-     */
-    buyerComment?: string;
-    /**
-     * Массив картинок.
+     * Массив изображений.
      * @type {Array<string>}
      * @memberof InlineObject58
      */
-    images?: Array<string>;
+    images: Array<string>;
     /**
-     * Комментарий работника склада.
+     * 
      * @type {string}
      * @memberof InlineObject58
      */
-    storekeeperComment?: string;
+    amazonDescription?: string;
     /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * 
      * @type {string}
      * @memberof InlineObject58
      */
-    priority?: InlineObject58PriorityEnum;
+    amazonDetail?: string;
     /**
-     * Причина приоритета
+     * 
      * @type {string}
      * @memberof InlineObject58
      */
-    reason?: string;
+    amazonTitle?: string;
+    /**
+     * Материл продукта
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    material?: string;
+    /**
+     * Применение продукта
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    productUsage?: string;
+    /**
+     * chinese title?
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    chinaTitle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    barCode?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    minpurchase?: number;
+    /**
+     * Прибыль
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    margin?: number;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    strategyStatus?: number;
+    /**
+     * Признак needCheckBySupervisor
+     * @type {boolean}
+     * @memberof InlineObject58
+     */
+    needCheckBySupervisor?: boolean;
+    /**
+     * hsCode продукта.
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    hsCode?: string;
+    /**
+     * Гуид баера, Байер создал идею для продукта. Клиенту понравилась идея, он создал на основе ее карточку.
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    buyerId?: string;
+    /**
+     * Ниша
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    niche?: string;
+    /**
+     * Асины
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    asins?: string;
+    /**
+     * Общий доход
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    totalRevenue?: string;
+    /**
+     * Коэффициент прибыли
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    coefficient?: string;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    avgReviews?: string;
+    /**
+     * Поле для калькуляции дозакупок
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    fourMonthesStock?: number;
+    /**
+     * GUIDы поставщиков продукта
+     * @type {Array<string>}
+     * @memberof InlineObject58
+     */
+    suppliersIds?: Array<string>;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @memberof InlineObject58
+     */
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject58OperationTypeEnum {
-    Merge = 'merge',
-    Split = 'split',
-    Receive = 'receive',
-    Edit = 'edit'
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject58PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

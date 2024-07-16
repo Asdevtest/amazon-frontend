@@ -13,150 +13,55 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20046Destination } from './inline-response20046-destination';
-import { InlineResponse20046OrderSupplier } from './inline-response20046-order-supplier';
-import { InlineResponse20046Product } from './inline-response20046-product';
 
 /**
- * Заказ.
+ * 
  * @export
  * @interface InlineResponse20046Rows
  */
 export interface InlineResponse20046Rows {
     /**
-     * id заказ.
-     * @type {number}
-     * @memberof InlineResponse20046Rows
-     */
-    id?: number;
-    /**
-     * GUID данной записи в БД.
+     * GUID продукта в базе данных
      * @type {string}
      * @memberof InlineResponse20046Rows
      */
     _id?: string;
     /**
-     * Комментарии клиента.
+     * ASIN продукта
      * @type {string}
      * @memberof InlineResponse20046Rows
      */
-    clientComment?: string;
+    asin?: string;
     /**
-     * 
+     * ID магазинa для продукта
      * @type {string}
      * @memberof InlineResponse20046Rows
      */
-    item?: string;
+    shopId?: string;
     /**
-     * комментарии байера.
+     * Заголовок на товар с сайта амазон.
      * @type {string}
      * @memberof InlineResponse20046Rows
      */
-    buyerComment?: string;
+    amazonTitle?: string;
     /**
-     *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      needConfirmingReceiving: 27 - Этот статус промежуточный между 25 и 30     С этого статуса заказ можно переводить в статусы 25,30,35     inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
-     * @type {number}
-     * @memberof InlineResponse20046Rows
-     */
-    status?: number;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * SKU введенным клиентом.
      * @type {string}
      * @memberof InlineResponse20046Rows
      */
-    priority?: InlineResponse20046RowsPriorityEnum;
+    skuByClient?: string;
     /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
-     * @type {number}
-     * @memberof InlineResponse20046Rows
-     */
-    totalPrice?: number;
-    /**
-     * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
-     * @type {number}
-     * @memberof InlineResponse20046Rows
-     */
-    totalPriceChanged?: number;
-    /**
-     * кол-во
-     * @type {number}
-     * @memberof InlineResponse20046Rows
-     */
-    amount?: number;
-    /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
-     * @type {boolean}
-     * @memberof InlineResponse20046Rows
-     */
-    expressChinaDelivery?: boolean;
-    /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
-     * @memberof InlineResponse20046Rows
-     */
-    needsResearch?: boolean;
-    /**
-     * Дедлайн выкупа заказа
+     * GUID пользователя(байера)
      * @type {string}
      * @memberof InlineResponse20046Rows
      */
-    deadline?: string;
+    buyerId?: string;
     /**
-     * 
-     * @type {string}
+     * Массив картинок.
+     * @type {Array<string>}
      * @memberof InlineResponse20046Rows
      */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20046Rows
-     */
-    updatedAt?: string;
-    /**
-     * 
-     * @type {InlineResponse20046Destination}
-     * @memberof InlineResponse20046Rows
-     */
-    destination?: InlineResponse20046Destination;
-    /**
-     * GUID продукта
-     * @type {string}
-     * @memberof InlineResponse20046Rows
-     */
-    productId?: string;
-    /**
-     * 
-     * @type {InlineResponse20046Product}
-     * @memberof InlineResponse20046Rows
-     */
-    product?: InlineResponse20046Product;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20046Rows
-     */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {InlineResponse20046OrderSupplier}
-     * @memberof InlineResponse20046Rows
-     */
-    orderSupplier?: InlineResponse20046OrderSupplier;
+    images?: Array<string>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20046RowsPriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

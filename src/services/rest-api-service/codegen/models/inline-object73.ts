@@ -21,13 +21,25 @@
  */
 export interface InlineObject73 {
     /**
+     * Комментарий байера
+     * @type {string}
+     * @memberof InlineObject73
+     */
+    buyerComment?: string;
+    /**
+     * Гуид дочернего компонента
+     * @type {string}
+     * @memberof InlineObject73
+     */
+    childProductId?: string;
+    /**
      * Название идеи
      * @type {string}
      * @memberof InlineObject73
      */
     title?: string;
     /**
-     * Image URL
+     * Images URLs
      * @type {Array<string>}
      * @memberof InlineObject73
      */
@@ -39,17 +51,11 @@ export interface InlineObject73 {
      */
     comments?: string;
     /**
-     * Комментарий байера
-     * @type {string}
-     * @memberof InlineObject73
-     */
-    buyerComment?: string;
-    /**
      * Назавние продукта
      * @type {string}
      * @memberof InlineObject73
      */
-    productName: string;
+    productName?: string;
     /**
      * Ссылки на продукт, если есть
      * @type {Array<string>}
@@ -73,7 +79,7 @@ export interface InlineObject73 {
      * @type {number}
      * @memberof InlineObject73
      */
-    price: number;
+    price?: number;
     /**
      * FBA Fee
      * @type {number}
@@ -104,18 +110,6 @@ export interface InlineObject73 {
      * @memberof InlineObject73
      */
     length?: number;
-    /**
-     * Product ID
-     * @type {string}
-     * @memberof InlineObject73
-     */
-    productId?: string;
-    /**
-     * Гуид родительского продукта
-     * @type {string}
-     * @memberof InlineObject73
-     */
-    parentProductId?: string;
 }
 
 

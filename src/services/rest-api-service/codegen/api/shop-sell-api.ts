@@ -25,15 +25,15 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject118 } from '../models';
+import { InlineObject122 } from '../models';
 // @ts-ignore
-import { InlineObject119 } from '../models';
-// @ts-ignore
-import { InlineResponse20093 } from '../models';
+import { InlineObject123 } from '../models';
 // @ts-ignore
 import { InlineResponse20094 } from '../models';
 // @ts-ignore
-import { InlineResponse2017 } from '../models';
+import { InlineResponse20095 } from '../models';
+// @ts-ignore
+import { InlineResponse2016 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 /**
@@ -126,12 +126,12 @@ export const ShopSellApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary # Обновить магазин на продажу.
          * @param {string} guid GUID магазина на продажу в БД.
-         * @param {InlineObject119} [body] 
+         * @param {InlineObject123} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopSellGuidPatch: async (guid: string, body?: InlineObject119, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ShopSellGuidPatch: async (guid: string, body?: InlineObject123, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1ShopSellGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/shop_sell/{guid}`
@@ -171,12 +171,12 @@ export const ShopSellApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * 
          * @summary # Добавить на продажу новый магазин.
-         * @param {InlineObject118} [body] 
+         * @param {InlineObject122} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopSellPost: async (body?: InlineObject118, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ShopSellPost: async (body?: InlineObject122, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/shop_sell/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -227,7 +227,7 @@ export const ShopSellApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopSellGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20093>>> {
+        async apiV1ShopSellGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20094>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopSellGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -239,7 +239,7 @@ export const ShopSellApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopSellGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20094>> {
+        async apiV1ShopSellGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20095>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopSellGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -247,24 +247,24 @@ export const ShopSellApiFp = function(configuration?: Configuration) {
          * 
          * @summary # Обновить магазин на продажу.
          * @param {string} guid GUID магазина на продажу в БД.
-         * @param {InlineObject119} [body] 
+         * @param {InlineObject123} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopSellGuidPatch(guid: string, body?: InlineObject119, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1ShopSellGuidPatch(guid: string, body?: InlineObject123, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopSellGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary # Добавить на продажу новый магазин.
-         * @param {InlineObject118} [body] 
+         * @param {InlineObject122} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopSellPost(body?: InlineObject118, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+        async apiV1ShopSellPost(body?: InlineObject122, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2016>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopSellPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -285,7 +285,7 @@ export const ShopSellApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopSellGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20093>> {
+        apiV1ShopSellGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20094>> {
             return localVarFp.apiV1ShopSellGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -296,30 +296,30 @@ export const ShopSellApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopSellGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20094> {
+        apiV1ShopSellGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20095> {
             return localVarFp.apiV1ShopSellGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary # Обновить магазин на продажу.
          * @param {string} guid GUID магазина на продажу в БД.
-         * @param {InlineObject119} [body] 
+         * @param {InlineObject123} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopSellGuidPatch(guid: string, body?: InlineObject119, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1ShopSellGuidPatch(guid: string, body?: InlineObject123, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1ShopSellGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary # Добавить на продажу новый магазин.
-         * @param {InlineObject118} [body] 
+         * @param {InlineObject122} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopSellPost(body?: InlineObject118, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+        apiV1ShopSellPost(body?: InlineObject122, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2016> {
             return localVarFp.apiV1ShopSellPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -375,10 +375,10 @@ export interface ShopSellApiApiV1ShopSellGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject119}
+     * @type {InlineObject123}
      * @memberof ShopSellApiApiV1ShopSellGuidPatch
      */
-    readonly body?: InlineObject119
+    readonly body?: InlineObject123
 
     /**
      * 
@@ -396,10 +396,10 @@ export interface ShopSellApiApiV1ShopSellGuidPatchRequest {
 export interface ShopSellApiApiV1ShopSellPostRequest {
     /**
      * 
-     * @type {InlineObject118}
+     * @type {InlineObject122}
      * @memberof ShopSellApiApiV1ShopSellPost
      */
-    readonly body?: InlineObject118
+    readonly body?: InlineObject122
 
     /**
      * 

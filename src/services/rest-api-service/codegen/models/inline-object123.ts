@@ -13,37 +13,98 @@
  */
 
 
+import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
 
 /**
- * 
+ * Схема продажи магазина
  * @export
  * @interface InlineObject123
  */
 export interface InlineObject123 {
     /**
-     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
-     * @type {number}
-     * @memberof InlineObject123
-     */
-    status?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject123
-     */
-    images?: Array<string>;
-    /**
-     * Комментарий работника склада.
+     * Имя магазина для продажи
      * @type {string}
      * @memberof InlineObject123
      */
-    storekeeperComment?: string;
+    title?: string;
     /**
-     * Приоритет задачи
+     * Стоимость магазина
      * @type {number}
      * @memberof InlineObject123
      */
-    priority?: number;
+    price?: number;
+    /**
+     * Дата создания бизнеса
+     * @type {string}
+     * @memberof InlineObject123
+     */
+    businessStartDate?: string;
+    /**
+     * Детали магазина
+     * @type {string}
+     * @memberof InlineObject123
+     */
+    shopDetails?: string;
+    /**
+     * Активы магазина
+     * @type {Array<string>}
+     * @memberof InlineObject123
+     */
+    shopAssets?: Array<string>;
+    /**
+     * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
+     * @type {Array<string>}
+     * @memberof InlineObject123
+     */
+    files?: Array<string>;
+    /**
+     * Ссылка на сайт магазина
+     * @type {string}
+     * @memberof InlineObject123
+     */
+    shopLink?: string;
+    /**
+     * Статистика магазина по месяцам
+     * @type {Array<ApiV1ShopSellStatistics1>}
+     * @memberof InlineObject123
+     */
+    statistics?: Array<ApiV1ShopSellStatistics1>;
+    /**
+     * Возможности магазина
+     * @type {Array<string>}
+     * @memberof InlineObject123
+     */
+    opportunities?: Array<string>;
+    /**
+     * Риски магазина
+     * @type {Array<string>}
+     * @memberof InlineObject123
+     */
+    risks?: Array<string>;
+    /**
+     * Требуемые навыки
+     * @type {Array<string>}
+     * @memberof InlineObject123
+     */
+    requiredSkills?: Array<string>;
+    /**
+     * В продажу также включено
+     * @type {Array<string>}
+     * @memberof InlineObject123
+     */
+    sellIncludes?: Array<string>;
+    /**
+     * Причина продажи
+     * @type {Array<string>}
+     * @memberof InlineObject123
+     */
+    reasonForSale?: Array<string>;
+    /**
+     * Дополнительная информация
+     * @type {Array<string>}
+     * @memberof InlineObject123
+     */
+    additionalInfo?: Array<string>;
 }
 
 

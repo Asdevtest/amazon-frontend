@@ -21,11 +21,29 @@
  */
 export interface InlineObject84 {
     /**
+     * GUID спека
+     * @type {string}
+     * @memberof InlineObject84
+     */
+    specId?: string;
+    /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject84
      */
-    shopIds: Array<string>;
+    linksToMediaFiles?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject84
+     */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject84
+     */
+    description?: string;
 }
 
 

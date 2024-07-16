@@ -21,35 +21,17 @@
  */
 export interface InlineObject113 {
     /**
-     * комментарий клиента
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject113
      */
-    commentByClient?: string;
+    requestIds: Array<string>;
     /**
-     * комментарий исполнителя
-     * @type {string}
+     * 
+     * @type {boolean}
      * @memberof InlineObject113
      */
-    commentByPerformer?: string;
-    /**
-     * Ссылка на файл
-     * @type {string}
-     * @memberof InlineObject113
-     */
-    fileLink?: string;
-    /**
-     * Файл для записи в FreelanceSource
-     * @type {string}
-     * @memberof InlineObject113
-     */
-    proposalId?: string;
-    /**
-     * Комментарий к файлу
-     * @type {string}
-     * @memberof InlineObject113
-     */
-    requestId?: string;
+    uploadedToListing: boolean;
 }
 
 

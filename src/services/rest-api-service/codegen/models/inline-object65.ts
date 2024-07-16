@@ -13,31 +13,38 @@
  */
 
 
+import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
- * Схема создания/апдейта рекомендаций
+ * 
  * @export
  * @interface InlineObject65
  */
 export interface InlineObject65 {
     /**
-     * GUID продукта.
+     * Гуид продукта
      * @type {string}
      * @memberof InlineObject65
      */
     productId: string;
     /**
-     * GUID сторкипера.
-     * @type {string}
-     * @memberof InlineObject65
-     */
-    storekeeperId: string;
-    /**
-     * Рекомендуемое значение
+     * New product price
      * @type {number}
      * @memberof InlineObject65
      */
-    recommendedValue: number;
+    newProductPrice?: number;
+    /**
+     * Description of product_listing_report
+     * @type {string}
+     * @memberof InlineObject65
+     */
+    description?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
+     * @memberof InlineObject65
+     */
+    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
 }
 
 

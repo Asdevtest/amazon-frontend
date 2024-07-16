@@ -21,17 +21,29 @@
  */
 export interface InlineResponse200102Destination {
     /**
-     * GUID пользователя в БД.
+     * 
      * @type {string}
      * @memberof InlineResponse200102Destination
      */
     _id?: string;
     /**
-     * Название склада.
+     * Название дестинейшна
      * @type {string}
      * @memberof InlineResponse200102Destination
      */
     name?: string;
+    /**
+     * Стоимость за единицу с доставкой в США
+     * @type {number}
+     * @memberof InlineResponse200102Destination
+     */
+    costUnitWithDeliveryToUsa?: number;
+    /**
+     * Return on Investment
+     * @type {number}
+     * @memberof InlineResponse200102Destination
+     */
+    roi?: number;
 }
 
 

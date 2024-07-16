@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20044InventoryShop } from './inline-response20044-inventory-shop';
+import { InlineResponse20049InventoryShop } from './inline-response20049-inventory-shop';
 
 /**
  * Схема репорта amazon_data
@@ -29,10 +29,10 @@ export interface InlineResponse20067Rows {
     _id?: string;
     /**
      * 
-     * @type {InlineResponse20044InventoryShop}
+     * @type {InlineResponse20049InventoryShop}
      * @memberof InlineResponse20067Rows
      */
-    shop?: InlineResponse20044InventoryShop;
+    shop?: InlineResponse20049InventoryShop;
     /**
      * Гуид shop-a
      * @type {string}

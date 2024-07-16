@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20058 } from './inline-response20058';
 
 /**
  * 
@@ -21,23 +22,17 @@
  */
 export interface InlineResponse20059 {
     /**
-     * Гуид тега
-     * @type {string}
-     * @memberof InlineResponse20059
-     */
-    _id?: string;
-    /**
-     * Тег
-     * @type {string}
-     * @memberof InlineResponse20059
-     */
-    title?: string;
-    /**
-     * Кол-во продуктов, которые используют этот тег
+     * Count of items
      * @type {number}
      * @memberof InlineResponse20059
      */
-    productCount?: number;
+    count?: number;
+    /**
+     * 
+     * @type {Array<InlineResponse20058>}
+     * @memberof InlineResponse20059
+     */
+    rows?: Array<InlineResponse20058>;
 }
 
 

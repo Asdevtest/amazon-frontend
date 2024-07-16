@@ -13,20 +13,19 @@
  */
 
 
-import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
 
 /**
- * 
+ * Схема изменения итоговой цены, totalPriceChanged
  * @export
  * @interface InlineObject44
  */
 export interface InlineObject44 {
     /**
-     * 
-     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
+     * новое значение изменения итоговой цены.
+     * @type {number}
      * @memberof InlineObject44
      */
-    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
+    totalPriceChanged: number;
 }
 
 

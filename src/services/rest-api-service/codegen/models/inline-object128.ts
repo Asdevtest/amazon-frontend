@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
-import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-storekeepers-tariff-logistics-destination-variations';
 
 /**
  * 
@@ -23,71 +21,17 @@ import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-
  */
 export interface InlineObject128 {
     /**
-     * Тип тарифа
+     * Выставить приоритет задачи
      * @type {number}
      * @memberof InlineObject128
      */
-    tariffType?: number;
+    priority: number;
     /**
-     * Название тарифа
+     * Reason of high priority
      * @type {string}
      * @memberof InlineObject128
      */
-    name: string;
-    /**
-     * Описание тарифа
-     * @type {string}
-     * @memberof InlineObject128
-     */
-    description?: string;
-    /**
-     * Время доставки, днях
-     * @type {string}
-     * @memberof InlineObject128
-     */
-    deliveryTimeInDay?: string;
-    /**
-     * Дата закрытия приема новых грузов.
-     * @type {string}
-     * @memberof InlineObject128
-     */
-    cls?: string;
-    /**
-     * Ожидаема дата отбытия.
-     * @type {string}
-     * @memberof InlineObject128
-     */
-    etd?: string;
-    /**
-     * Ожидаема дата прибытия.
-     * @type {string}
-     * @memberof InlineObject128
-     */
-    eta?: string;
-    /**
-     * Минимальный вес, в кг
-     * @type {number}
-     * @memberof InlineObject128
-     */
-    minWeightInKg?: number;
-    /**
-     * Заархивирован ли тариф
-     * @type {boolean}
-     * @memberof InlineObject128
-     */
-    archive?: boolean;
-    /**
-     * 
-     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
-     * @memberof InlineObject128
-     */
-    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
-    /**
-     * 
-     * @type {Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>}
-     * @memberof InlineObject128
-     */
-    destinationVariations?: Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>;
+    reason?: string;
 }
 
 

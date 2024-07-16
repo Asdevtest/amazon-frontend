@@ -13,6 +13,8 @@
  */
 
 
+import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
+import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-storekeepers-tariff-logistics-destination-variations';
 
 /**
  * 
@@ -21,47 +23,71 @@
  */
 export interface InlineObject132 {
     /**
-     * Название склада.
-     * @type {string}
+     * Тип тарифа
+     * @type {number}
      * @memberof InlineObject132
      */
-    name?: string;
+    tariffType?: number;
     /**
-     * Страна.
+     * Название тарифа
      * @type {string}
      * @memberof InlineObject132
      */
-    country?: string;
+    name: string;
     /**
-     * Индекс. 5 цифр.
+     * Описание тарифа
      * @type {string}
      * @memberof InlineObject132
      */
-    zipCode?: string;
+    description?: string;
     /**
-     * Штат.
+     * Время доставки, днях
      * @type {string}
      * @memberof InlineObject132
      */
-    state?: string;
+    deliveryTimeInDay?: string;
     /**
-     * Город.
+     * Дата закрытия приема новых грузов.
      * @type {string}
      * @memberof InlineObject132
      */
-    city?: string;
+    cls?: string;
     /**
-     * Адрес склада.
+     * Ожидаема дата отбытия.
      * @type {string}
      * @memberof InlineObject132
      */
-    address?: string;
+    etd?: string;
     /**
-     * Цвет шрифта
+     * Ожидаема дата прибытия.
      * @type {string}
      * @memberof InlineObject132
      */
-    fontColor?: string;
+    eta?: string;
+    /**
+     * Минимальный вес, в кг
+     * @type {number}
+     * @memberof InlineObject132
+     */
+    minWeightInKg?: number;
+    /**
+     * Заархивирован ли тариф
+     * @type {boolean}
+     * @memberof InlineObject132
+     */
+    archive?: boolean;
+    /**
+     * 
+     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
+     * @memberof InlineObject132
+     */
+    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
+    /**
+     * 
+     * @type {Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>}
+     * @memberof InlineObject132
+     */
+    destinationVariations?: Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>;
 }
 
 

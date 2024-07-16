@@ -14,12 +14,12 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 import { ApiV1RequestsCustomProduct } from './api-v1-requests-custom-product';
-import { InlineResponse20089Announcement } from './inline-response20089-announcement';
-import { InlineResponse20089CountProposalsByStatuses } from './inline-response20089-count-proposals-by-statuses';
-import { InlineResponse20089DetailsCustom } from './inline-response20089-details-custom';
-import { InlineResponse20089Media } from './inline-response20089-media';
+import { InlineResponse20054RequestSpec } from './inline-response20054-request-spec';
+import { InlineResponse20090Announcement } from './inline-response20090-announcement';
+import { InlineResponse20090CountProposalsByStatuses } from './inline-response20090-count-proposals-by-statuses';
+import { InlineResponse20090DetailsCustom } from './inline-response20090-details-custom';
+import { InlineResponse20090Media } from './inline-response20090-media';
 
 /**
  * Схема заявки.
@@ -143,10 +143,10 @@ export interface InlineResponse200119 {
     lastModifiedById?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMySpec}
+     * @type {InlineResponse20054RequestSpec}
      * @memberof InlineResponse200119
      */
-    spec?: ApiV1AnnouncementsMySpec;
+    spec?: InlineResponse20054RequestSpec;
     /**
      * Привязанный асин
      * @type {string}
@@ -191,16 +191,16 @@ export interface InlineResponse200119 {
     uploadedToListing?: boolean;
     /**
      * 
-     * @type {Array<InlineResponse20089Media>}
+     * @type {Array<InlineResponse20090Media>}
      * @memberof InlineResponse200119
      */
-    media?: Array<InlineResponse20089Media>;
+    media?: Array<InlineResponse20090Media>;
     /**
      * 
-     * @type {InlineResponse20089Announcement}
+     * @type {InlineResponse20090Announcement}
      * @memberof InlineResponse200119
      */
-    announcement?: InlineResponse20089Announcement;
+    announcement?: InlineResponse20090Announcement;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
@@ -227,10 +227,10 @@ export interface InlineResponse200119 {
     createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
-     * @type {InlineResponse20089CountProposalsByStatuses}
+     * @type {InlineResponse20090CountProposalsByStatuses}
      * @memberof InlineResponse200119
      */
-    countProposalsByStatuses?: InlineResponse20089CountProposalsByStatuses;
+    countProposalsByStatuses?: InlineResponse20090CountProposalsByStatuses;
     /**
      * Count of unread messages
      * @type {number}
@@ -245,10 +245,10 @@ export interface InlineResponse200119 {
     product?: ApiV1RequestsCustomProduct;
     /**
      * 
-     * @type {InlineResponse20089DetailsCustom}
+     * @type {InlineResponse20090DetailsCustom}
      * @memberof InlineResponse200119
      */
-    detailsCustom?: InlineResponse20089DetailsCustom;
+    detailsCustom?: InlineResponse20090DetailsCustom;
 }
 
 /**
