@@ -7,7 +7,6 @@ import { Divider, Paper, Typography } from '@mui/material'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field'
@@ -40,9 +39,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
     userRole,
     progressValue,
     imagesFromBoxes,
-    showSuccessModal,
     showProgress,
-    onTriggerOpenModal,
     onChangeField,
     onChangeArrayField,
     setTmpListingImages,
@@ -51,7 +48,6 @@ export const Listing = observer(({ productId, onClickBack }) => {
   } = listingModel.current
 
   const userCanEdit = checkIsSupervisor(UserRoleCodeMap[userRole]) || checkIsClient(UserRoleCodeMap[userRole])
-
   const emptyArray = [1, 2, 3, 4, 5]
 
   return (
@@ -183,17 +179,6 @@ export const Listing = observer(({ productId, onClickBack }) => {
       </Paper>
 
       <UserBalanceHistory historyData={payments} title={t(TranslationKey.Transactions)} />
-
-      {showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={showSuccessModal}
-          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={t(TranslationKey['Data saved successfully'])}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
-        />
-      ) : null}
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>

@@ -21,17 +21,11 @@
  */
 export interface InlineObject70 {
     /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject70
-     */
-    userIds: Array<string>;
-    /**
-     * Название группового чата
+     * id профайла
      * @type {string}
      * @memberof InlineObject70
      */
-    title: string;
+    profileId: string;
 }
 
 

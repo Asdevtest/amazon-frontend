@@ -20,9 +20,6 @@ export class IntegrationsModel {
   product = undefined
 
   showBindInventoryGoodsToStockModal = false
-  showSuccessModal = false
-
-  successInfoModalText = ''
 
   sellerBoardDailyData = []
   sellerBoardData = []
@@ -118,8 +115,9 @@ export class IntegrationsModel {
       })
 
       this.selectedRowIds = []
-      this.successInfoModalText = t(TranslationKey['Unlink success'])
-      this.onTriggerOpenModal('showSuccessModal')
+
+      toast.success(t(TranslationKey['Unlink success']))
+
       this.loadData()
     } catch (error) {
       console.error(error)
@@ -131,8 +129,7 @@ export class IntegrationsModel {
       await SellerBoardModel.bindStockProductsBySku(data)
       this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
 
-      this.successInfoModalText = t(TranslationKey['The product is bound'])
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['The product is bound']))
 
       this.loadData()
     } catch (error) {

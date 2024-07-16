@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -27,12 +26,10 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
   }, [])
 
   const {
-    successInfoModalText,
     selectedRowIds,
     product,
     getCurrentData,
     showBindInventoryGoodsToStockModal,
-    showSuccessModal,
     requestStatus,
     columnsModel,
     paginationModel,
@@ -102,17 +99,6 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
           onSubmit={onSubmitBindStockGoods}
         />
       </Modal>
-
-      {showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={showSuccessModal}
-          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={successInfoModalText}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
-        />
-      ) : null}
     </div>
   )
 })

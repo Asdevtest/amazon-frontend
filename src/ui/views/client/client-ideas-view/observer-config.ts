@@ -4,14 +4,12 @@ export const observerConfig = {
   progressValue: observable,
   showProgress: observable,
   uploadedFiles: observable,
-
   showBarcodeOrHscodeModal: observable,
   showSetBarcodeModal: observable,
   productCardModal: observable,
   showIdeaModal: observable,
   showBindingModal: observable,
   showConfirmModal: observable,
-  showSuccessModal: observable,
   showProductLaunch: observable,
   showRequestDesignerResultModal: observable,
   showRequestBloggerResultModal: observable,
@@ -20,17 +18,14 @@ export const observerConfig = {
   showSelectionSupplierModal: observable,
   showCommentsModal: observable,
   showAddOrEditSupplierModal: observable,
-
   readyImages: observable,
   ideaList: observable,
-
   selectedProduct: observable,
   currentBarcode: observable,
   currentHscode: observable,
   storekeepers: observable,
   destinations: observable,
   ordersDataStateToSubmit: observable,
-
   selectedIdea: observable,
   selectedIdeaId: observable,
   currentProduct: observable,
@@ -41,8 +36,6 @@ export const observerConfig = {
   currentProposal: observable,
   currentRequest: observable,
   paymentMethods: observable,
-
-  successModalTitle: observable,
   isIdeaCreate: observable,
 
   userInfo: computed,
@@ -50,7 +43,6 @@ export const observerConfig = {
   destinationsFavourites: computed,
 
   getDataForIdeaModal: action.bound,
-
   onClickVariationRadioButton: action.bound,
   getSuppliersPaymentMethods: action.bound,
   getStorekeepers: action.bound,

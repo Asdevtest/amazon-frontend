@@ -78,9 +78,9 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
 
   {
     field: 'shippingLabel',
-    headerName: `Shipping label / Barcode / ${t(TranslationKey['Transparency codes'])}`,
+    headerName: `Shipping label / Barcode / ${t(TranslationKey['Transparency Codes'])}`,
     renderHeader: () => (
-      <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency codes'])}`} />
+      <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency Codes'])}`} />
     ),
 
     renderCell: params => (
@@ -103,7 +103,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
             ).type,
           },
           {
-            title: t(TranslationKey['Transparency codes']),
+            title: t(TranslationKey['Transparency Codes']),
             fileUrl: params.row.originalData.items[0].transparencyFile,
             fileName: getFileNameFromUrl(params.row.originalData.items[0].transparencyFile).name,
             fileType: getFileNameFromUrl(params.row.originalData.items[0].transparencyFile).type,

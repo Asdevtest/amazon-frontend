@@ -305,6 +305,7 @@ export const Box: FC<BoxProps> = memo(props => {
 
       {showSelectionStorekeeperAndTariffModal ? (
         <SupplierApproximateCalculationsModal
+          isSkipWeightCheck
           isTariffsSelect
           tariffModalType={TariffModal.WAREHOUSE}
           openModal={showSelectionStorekeeperAndTariffModal}

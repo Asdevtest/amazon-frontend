@@ -78,7 +78,7 @@ export class AnotherProfileViewModel {
 
   showConfirmModal = false
   showOrderModal = false
-  showSuccessModal = false
+
   showSelectShopsModal = false
 
   selectedProduct = undefined
@@ -298,7 +298,8 @@ export class AnotherProfileViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
 
       this.onTriggerOpenModal('showOrderModal')
-      this.onTriggerOpenModal('showSuccessModal')
+
+      toast.success(t(TranslationKey['Order successfully created!']))
 
       this.onTriggerOpenModal('showConfirmModal')
 

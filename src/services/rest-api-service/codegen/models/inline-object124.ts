@@ -15,23 +15,35 @@
 
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineObject124
  */
 export interface InlineObject124 {
     /**
-     * Выставить приоритет задачи
-     * @type {number}
-     * @memberof InlineObject124
-     */
-    priority: number;
-    /**
-     * Reason of high priority
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
      * @type {string}
      * @memberof InlineObject124
      */
-    reason?: string;
+    name: string;
+    /**
+     * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+     * @type {string}
+     * @memberof InlineObject124
+     */
+    sellerBoardWarehouseReportUrlDaily: string;
+    /**
+     * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+     * @type {string}
+     * @memberof InlineObject124
+     */
+    sellerBoardWarehouseReportUrlMonthly: string;
+    /**
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
+     * @memberof InlineObject124
+     */
+    reportAccountUrl?: string;
 }
 
 

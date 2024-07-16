@@ -13,272 +13,164 @@
  */
 
 
-import { InlineResponse20026InventoryShop } from './inline-response20026-inventory-shop';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { InlineResponse20019VariationTariff } from './inline-response20019-variation-tariff';
+import { InlineResponse20051Destination } from './inline-response20051-destination';
+import { InlineResponse20051LogicsTariff } from './inline-response20051-logics-tariff';
+import { InlineResponse20051OrderSupplier } from './inline-response20051-order-supplier';
+import { InlineResponse20051Product } from './inline-response20051-product';
 
 /**
- * Схема репорта amazon_data
+ * Заказ.
  * @export
  * @interface InlineResponse20051Rows
  */
 export interface InlineResponse20051Rows {
     /**
-     * Гуид записи
+     * id заказ.
+     * @type {number}
+     * @memberof InlineResponse20051Rows
+     */
+    id?: number;
+    /**
+     * GUID данной записи в БД.
      * @type {string}
      * @memberof InlineResponse20051Rows
      */
     _id?: string;
     /**
+     * Комментарии клиента.
+     * @type {string}
+     * @memberof InlineResponse20051Rows
+     */
+    clientComment?: string;
+    /**
      * 
+     * @type {string}
+     * @memberof InlineResponse20051Rows
+     */
+    item?: string;
+    /**
+     * комментарии байера.
+     * @type {string}
+     * @memberof InlineResponse20051Rows
+     */
+    buyerComment?: string;
+    /**
+     *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      needConfirmingReceiving: 27 - Этот статус промежуточный между 25 и 30     С этого статуса заказ можно переводить в статусы 25,30,35     inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
+     * @type {number}
+     * @memberof InlineResponse20051Rows
+     */
+    status?: number;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineResponse20051Rows
+     */
+    priority?: InlineResponse20051RowsPriorityEnum;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * @type {number}
+     * @memberof InlineResponse20051Rows
+     */
+    totalPrice?: number;
+    /**
+     * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
+     * @type {number}
+     * @memberof InlineResponse20051Rows
+     */
+    totalPriceChanged?: number;
+    /**
+     * кол-во
+     * @type {number}
+     * @memberof InlineResponse20051Rows
+     */
+    amount?: number;
+    /**
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * @type {boolean}
+     * @memberof InlineResponse20051Rows
+     */
+    expressChinaDelivery?: boolean;
+    /**
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineResponse20051Rows
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
+     * @type {string}
+     * @memberof InlineResponse20051Rows
+     */
+    deadline?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20051Rows
+     */
+    createdAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20051Rows
+     */
+    updatedAt?: string;
+    /**
+     * 
+     * @type {InlineResponse20051Destination}
+     * @memberof InlineResponse20051Rows
+     */
+    destination?: InlineResponse20051Destination;
+    /**
+     * GUID продукта
      * @type {string}
      * @memberof InlineResponse20051Rows
      */
     productId?: string;
     /**
      * 
-     * @type {InlineResponse20026InventoryShop}
+     * @type {InlineResponse20051Product}
      * @memberof InlineResponse20051Rows
      */
-    shop?: InlineResponse20026InventoryShop;
+    product?: InlineResponse20051Product;
     /**
-     * Гуид shop-a
-     * @type {string}
+     * 
+     * @type {InlineResponse20019VariationTariff}
      * @memberof InlineResponse20051Rows
      */
-    shopId?: string;
+    variationTariff?: InlineResponse20019VariationTariff;
     /**
-     * asin
-     * @type {string}
+     * 
+     * @type {InlineResponse20051LogicsTariff}
      * @memberof InlineResponse20051Rows
      */
-    asin?: string;
+    logicsTariff?: InlineResponse20051LogicsTariff;
     /**
-     * sku
-     * @type {string}
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20051Rows
      */
-    sku?: string;
+    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
-     * period_start
-     * @type {string}
+     * 
+     * @type {InlineResponse20051OrderSupplier}
      * @memberof InlineResponse20051Rows
      */
-    periodStart?: string;
-    /**
-     * period_end
-     * @type {string}
-     * @memberof InlineResponse20051Rows
-     */
-    periodEnd?: string;
-    /**
-     * week
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    week?: number;
-    /**
-     * acos
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    acos?: number;
-    /**
-     * image
-     * @type {string}
-     * @memberof InlineResponse20051Rows
-     */
-    image?: string;
-    /**
-     * ppc_impressions
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    ppcImpressions?: number;
-    /**
-     * clicks
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    clicks?: number;
-    /**
-     * spend
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    spend?: number;
-    /**
-     * ppc_orders
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    ppcOrders?: number;
-    /**
-     * ppc_units
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    ppcUnits?: number;
-    /**
-     * ppc_sales
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    ppcSales?: number;
-    /**
-     * order_sales_cost
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    orderSalesCost?: number;
-    /**
-     * unit_sales_cost
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    unitSalesCost?: number;
-    /**
-     * organic_sessions
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    organicSessions?: number;
-    /**
-     * organic_orders
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    organicOrders?: number;
-    /**
-     * organic_units
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    organicUnits?: number;
-    /**
-     * organic_sales
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    organicSales?: number;
-    /**
-     * organic_avg_order_price
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    organicAvgOrderPrice?: number;
-    /**
-     * organic_avg_unit_price
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    organicAvgUnitPrice?: number;
-    /**
-     * impressions
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    impressions?: number;
-    /**
-     * sessions
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    sessions?: number;
-    /**
-     * ctr
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    ctr?: number;
-    /**
-     * orders
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    orders?: number;
-    /**
-     * units
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    units?: number;
-    /**
-     * avg_units_in_per_order
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    avgUnitsInPerOrder?: number;
-    /**
-     * sales
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    sales?: number;
-    /**
-     * avg_price_order
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    avgPriceOrder?: number;
-    /**
-     * avg_unit_price
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    avgUnitPrice?: number;
-    /**
-     * buy_box
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    buyBox?: number;
-    /**
-     * ppc_sale
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    ppcSale?: number;
-    /**
-     * organic_sale
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    organicSale?: number;
-    /**
-     * conversion
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    conversion?: number;
-    /**
-     * conversion_ppc
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    conversionPpc?: number;
-    /**
-     * conversion_organic
-     * @type {number}
-     * @memberof InlineResponse20051Rows
-     */
-    conversionOrganic?: number;
-    /**
-     * date_updated
-     * @type {string}
-     * @memberof InlineResponse20051Rows
-     */
-    dateUpdated?: string;
-    /**
-     * createdAt
-     * @type {string}
-     * @memberof InlineResponse20051Rows
-     */
-    createdAt?: string;
-    /**
-     * updatedAt
-     * @type {string}
-     * @memberof InlineResponse20051Rows
-     */
-    updatedAt?: string;
+    orderSupplier?: InlineResponse20051OrderSupplier;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20051RowsPriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

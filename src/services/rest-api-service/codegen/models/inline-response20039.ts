@@ -13,7 +13,12 @@
  */
 
 
-import { InlineResponse20039Rows } from './inline-response20039-rows';
+import { InlineResponse20039Batch } from './inline-response20039-batch';
+import { InlineResponse20039Boxes } from './inline-response20039-boxes';
+import { InlineResponse20039Orders } from './inline-response20039-orders';
+import { InlineResponse20039Products } from './inline-response20039-products';
+import { InlineResponse20039Requests } from './inline-response20039-requests';
+import { InlineResponse20039Shops } from './inline-response20039-shops';
 
 /**
  * 
@@ -22,17 +27,41 @@ import { InlineResponse20039Rows } from './inline-response20039-rows';
  */
 export interface InlineResponse20039 {
     /**
-     * Кол-во товаров
-     * @type {number}
+     * 
+     * @type {InlineResponse20039Orders}
      * @memberof InlineResponse20039
      */
-    count?: number;
+    orders?: InlineResponse20039Orders;
     /**
-     * Массив товаров.
-     * @type {Array<InlineResponse20039Rows>}
+     * 
+     * @type {InlineResponse20039Shops}
      * @memberof InlineResponse20039
      */
-    rows?: Array<InlineResponse20039Rows>;
+    shops?: InlineResponse20039Shops;
+    /**
+     * 
+     * @type {InlineResponse20039Requests}
+     * @memberof InlineResponse20039
+     */
+    requests?: InlineResponse20039Requests;
+    /**
+     * 
+     * @type {InlineResponse20039Products}
+     * @memberof InlineResponse20039
+     */
+    products?: InlineResponse20039Products;
+    /**
+     * 
+     * @type {InlineResponse20039Batch}
+     * @memberof InlineResponse20039
+     */
+    batch?: InlineResponse20039Batch;
+    /**
+     * 
+     * @type {InlineResponse20039Boxes}
+     * @memberof InlineResponse20039
+     */
+    boxes?: InlineResponse20039Boxes;
 }
 
 

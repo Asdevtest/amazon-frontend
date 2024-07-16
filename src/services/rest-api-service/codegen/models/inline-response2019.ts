@@ -21,11 +21,11 @@
  */
 export interface InlineResponse2019 {
     /**
-     * Имя файла для доступа к нему.
+     * Гуид созданного анонса
      * @type {string}
      * @memberof InlineResponse2019
      */
-    fileName?: string;
+    guid?: string;
 }
 
 

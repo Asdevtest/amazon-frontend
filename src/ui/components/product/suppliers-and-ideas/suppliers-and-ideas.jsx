@@ -18,7 +18,6 @@ import { OrderProductModal } from '@components/modals/order-product-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
@@ -68,7 +67,6 @@ export const SuppliersAndIdeas = observer(props => {
     progressValue,
     showProgress,
     showConfirmModal,
-    showSuccessModal,
     confirmModalSettings,
     currentProduct,
     productToOrder,
@@ -78,7 +76,6 @@ export const SuppliersAndIdeas = observer(props => {
     showRequestBloggerResultModal,
     showBindingModal,
     requestsForProduct,
-    successModalSettings,
     showOrderModal,
     platformSettings,
     destinations,
@@ -267,17 +264,6 @@ export const SuppliersAndIdeas = observer(props => {
           cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={showSuccessModal}
-          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={successModalSettings.modalTitle}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={successModalSettings.onClickSuccessBtn}
         />
       ) : null}
 

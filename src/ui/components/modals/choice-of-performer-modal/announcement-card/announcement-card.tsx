@@ -40,13 +40,7 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
 
   return (
     <>
-      <div
-        className={cx(styles.root, { [styles.selectedCard]: selectedCard?._id === announcementData?._id })}
-        onClick={e => {
-          e.stopPropagation()
-          onClickSelectCard(announcementData)
-        }}
-      >
+      <div className={cx(styles.root, { [styles.selectedCard]: selectedCard?._id === announcementData?._id })}>
         <div className={styles.header}>
           <div className={styles.titleWrapper}>
             <p className={styles.title}>{announcementData?.title}</p>

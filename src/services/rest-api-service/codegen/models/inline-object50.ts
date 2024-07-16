@@ -21,11 +21,11 @@
  */
 export interface InlineObject50 {
     /**
-     * Сумма воврата
-     * @type {number}
+     * Массив ссылок для seo-файлов
+     * @type {Array<string>}
      * @memberof InlineObject50
      */
-    refundPrice?: number;
+    latestSeoFiles?: Array<string>;
 }
 
 

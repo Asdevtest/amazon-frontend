@@ -21,17 +21,11 @@
  */
 export interface InlineObject149 {
     /**
-     * Токен, который юзер получает через почту
-     * @type {string}
+     * Массив доступных специализаций фрилансера.
+     * @type {Array<number>}
      * @memberof InlineObject149
      */
-    hash: string;
-    /**
-     * Новый пароль
-     * @type {string}
-     * @memberof InlineObject149
-     */
-    password?: string;
+    allowedSpec: Array<number>;
 }
 
 

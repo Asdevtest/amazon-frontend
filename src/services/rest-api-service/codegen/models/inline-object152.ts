@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
  * 
@@ -22,23 +21,11 @@ import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator
  */
 export interface InlineObject152 {
     /**
-     * Название профиля
+     * Почта от аккаунта, пароль которого Вы забыли
      * @type {string}
      * @memberof InlineObject152
      */
-    name: string;
-    /**
-     * Название ОС
-     * @type {string}
-     * @memberof InlineObject152
-     */
-    os?: string;
-    /**
-     * 
-     * @type {ApiV1GologinProfileNavigator}
-     * @memberof InlineObject152
-     */
-    navigator?: ApiV1GologinProfileNavigator;
+    email: string;
 }
 
 

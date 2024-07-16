@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse200106Shop } from './inline-response200106-shop';
+import { InlineResponse200106Author } from './inline-response200106-author';
 
 /**
  * 
@@ -22,62 +22,53 @@ import { InlineResponse200106Shop } from './inline-response200106-shop';
  */
 export interface InlineResponse200106Rows {
     /**
-     * GUID нотификации в базе данных
+     * GUID пользователя в БД.
      * @type {string}
      * @memberof InlineResponse200106Rows
      */
     _id?: string;
     /**
-     * JSON нотификации
-     * @type {object}
-     * @memberof InlineResponse200106Rows
-     */
-    data?: object;
-    /**
-     * Тип нотификации
+     * Название patch_note.
      * @type {string}
      * @memberof InlineResponse200106Rows
      */
-    type?: InlineResponse200106RowsTypeEnum;
+    title?: string;
+    /**
+     * Описание patch_note.
+     * @type {string}
+     * @memberof InlineResponse200106Rows
+     */
+    description?: string;
+    /**
+     * Для какой роли
+     * @type {number}
+     * @memberof InlineResponse200106Rows
+     */
+    role?: number;
     /**
      * 
-     * @type {InlineResponse200106Shop}
+     * @type {InlineResponse200106Author}
      * @memberof InlineResponse200106Rows
      */
-    shop?: InlineResponse200106Shop;
+    author?: InlineResponse200106Author;
     /**
-     * Заархивирована ли нотификация
-     * @type {boolean}
+     * Update version
+     * @type {string}
      * @memberof InlineResponse200106Rows
      */
-    archive?: boolean;
+    version?: string;
     /**
-     * Дата создания.
+     * Дата создания склада.
      * @type {string}
      * @memberof InlineResponse200106Rows
      */
     createdAt?: string;
     /**
-     * Дата создания.
+     * Дата обновления склада.
      * @type {string}
      * @memberof InlineResponse200106Rows
      */
     updatedAt?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse200106RowsTypeEnum {
-    Box = 'box',
-    Order = 'order',
-    Product = 'product',
-    Idea = 'idea',
-    Request = 'request',
-    Shop = 'shop',
-    Launch = 'launch'
-}
-
 
 

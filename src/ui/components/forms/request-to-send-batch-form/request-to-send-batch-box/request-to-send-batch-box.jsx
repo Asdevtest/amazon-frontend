@@ -113,7 +113,7 @@ export const RequestToSendBatchBox = memo(
                             !box.items?.[0]?.transparencyFile && box.items?.[0]?.product?.transparency,
                         })}
                       >
-                        {t(TranslationKey['Transparency codes'])}
+                        {t(TranslationKey['Transparency Codes'])}
                       </Typography>
 
                       <LabelWithCopy
@@ -194,7 +194,7 @@ export const RequestToSendBatchBox = memo(
                               !box.items?.[0]?.transparencyFile && box.items?.[0]?.product?.transparency,
                           })}
                         >
-                          {t(TranslationKey['Transparency codes'])}
+                          {t(TranslationKey['Transparency Codes'])}
                         </Typography>
 
                         <LabelWithCopy

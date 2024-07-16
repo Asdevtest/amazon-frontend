@@ -13,7 +13,9 @@
  */
 
 
-import { InlineResponse20062Rows } from './inline-response20062-rows';
+import { ApiV1IdeasNotificationsCreatedBy } from './api-v1-ideas-notifications-created-by';
+import { ApiV1IdeasNotificationsIdea } from './api-v1-ideas-notifications-idea';
+import { ApiV1IdeasNotificationsProduct } from './api-v1-ideas-notifications-product';
 
 /**
  * 
@@ -22,17 +24,29 @@ import { InlineResponse20062Rows } from './inline-response20062-rows';
  */
 export interface InlineResponse20062 {
     /**
-     * Общее кол-во идей
-     * @type {number}
+     * 
+     * @type {ApiV1IdeasNotificationsProduct}
      * @memberof InlineResponse20062
      */
-    count?: number;
+    product?: ApiV1IdeasNotificationsProduct;
     /**
-     * Список идей
-     * @type {Array<InlineResponse20062Rows>}
+     * 
+     * @type {ApiV1IdeasNotificationsIdea}
      * @memberof InlineResponse20062
      */
-    rows?: Array<InlineResponse20062Rows>;
+    idea?: ApiV1IdeasNotificationsIdea;
+    /**
+     * 
+     * @type {ApiV1IdeasNotificationsCreatedBy}
+     * @memberof InlineResponse20062
+     */
+    createdBy?: ApiV1IdeasNotificationsCreatedBy;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20062
+     */
+    createdAt?: string;
 }
 
 
