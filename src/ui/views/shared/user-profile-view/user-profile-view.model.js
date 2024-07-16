@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { FeedbackModel } from '@models/feedback-model'
 import { OtherModel } from '@models/other-model'
 import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
 import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
@@ -150,39 +151,33 @@ export class ProfileViewModel {
       const { name, email, oldPassword, password } = data
 
       if (name || email) {
-        await this.changeUserNameOrEmail(data)
+        await UserModel.changeUserInfo({ name: data.name })
       }
 
       if (oldPassword && password) {
-        await this.changeUserPassword(data)
+        await UserModel.changeUserPassword({
+          oldPassword: data.oldPassword,
+          newPassword: data.password,
+        })
       }
+
+      const userModelData = SettingsModel.loadValue('UserModel')
+      const refreshToken = userModelData.refreshToken
+
+      if (!refreshToken) {
+        return
+      }
+
+      const response = await UserModel.getAccessToken(refreshToken)
+      const accessToken = response?.accessToken
+
+      await SettingsModel.saveValue('UserModel', { ...userModelData, accessToken })
+      await UserModel.setAccessToken(accessToken)
+      await UserModel.getUserInfo()
 
       this.onTriggerOpenModal('showUserInfoModal')
 
       toast.success(t(TranslationKey['Data was successfully saved']))
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async changeUserPassword(data) {
-    try {
-      await UserModel.changeUserPassword({
-        oldPassword: data.oldPassword,
-        newPassword: data.password,
-      })
-
-      await UserModel.getUserInfo()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async changeUserNameOrEmail(data) {
-    try {
-      await UserModel.changeUserInfo({ name: data.name })
-
-      await UserModel.getUserInfo()
     } catch (error) {
       console.error(error)
     }
