@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1IntegrationsCreateAndLinkSkuProductsPayload } from './api-v1-integrations-create-and-link-sku-products-payload';
 
 /**
  * 
@@ -21,17 +22,11 @@
  */
 export interface InlineObject81 {
     /**
-     * текст отзыва/репорта
-     * @type {string}
+     * 
+     * @type {Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>}
      * @memberof InlineObject81
      */
-    text: string;
-    /**
-     * Прикрепленные ссылки на медиа для репорта/отзыва
-     * @type {Array<string>}
-     * @memberof InlineObject81
-     */
-    media?: Array<string>;
+    payload?: Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>;
 }
 
 

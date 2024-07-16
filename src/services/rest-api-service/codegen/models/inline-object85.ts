@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1IntegrationsCreateAndLinkSkuProductsPayload } from './api-v1-integrations-create-and-link-sku-products-payload';
 
 /**
  * 
@@ -22,11 +21,29 @@ import { ApiV1IntegrationsCreateAndLinkSkuProductsPayload } from './api-v1-integ
  */
 export interface InlineObject85 {
     /**
-     * 
-     * @type {Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>}
+     * GUID спека
+     * @type {string}
      * @memberof InlineObject85
      */
-    payload?: Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>;
+    specId?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject85
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject85
+     */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject85
+     */
+    description?: string;
 }
 
 

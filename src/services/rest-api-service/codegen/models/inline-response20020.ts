@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * 
@@ -22,17 +21,17 @@ import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
  */
 export interface InlineResponse20020 {
     /**
-     * Count of boxes
+     * Кол-во продукта в айтеме в коробке
      * @type {number}
      * @memberof InlineResponse20020
      */
-    count?: number;
+    amount?: number;
     /**
-     * 
-     * @type {Array<ApiV1BatchesBoxes>}
+     * Номер заказа
+     * @type {number}
      * @memberof InlineResponse20020
      */
-    rows?: Array<ApiV1BatchesBoxes>;
+    id?: number;
 }
 
 

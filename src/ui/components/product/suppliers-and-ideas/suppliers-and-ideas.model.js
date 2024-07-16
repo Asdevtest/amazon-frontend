@@ -61,8 +61,6 @@ export class SuppliersAndIdeasModel {
 
   dataToCreateProduct = undefined
 
-  successModalTitle = ''
-
   readyFiles = []
   progressValue = 0
   showProgress = false

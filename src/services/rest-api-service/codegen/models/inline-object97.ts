@@ -21,11 +21,11 @@
  */
 export interface InlineObject97 {
     /**
-     * 
-     * @type {boolean}
+     * GUIDы магазинов, которые нужно удалить.
+     * @type {Array<string>}
      * @memberof InlineObject97
      */
-    approvedByMaster: boolean;
+    suppliersIds?: Array<string>;
 }
 
 

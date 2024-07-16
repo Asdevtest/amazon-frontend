@@ -13,7 +13,9 @@
  */
 
 
-import { InlineResponse20071Rows } from './inline-response20071-rows';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyRequests } from './api-v1-announcements-my-requests';
+import { InlineResponse20054RequestSpec } from './inline-response20054-request-spec';
 
 /**
  * 
@@ -22,17 +24,65 @@ import { InlineResponse20071Rows } from './inline-response20071-rows';
  */
 export interface InlineResponse20071 {
     /**
-     * Кол-во записей
-     * @type {number}
+     * GUID в базе данных
+     * @type {string}
      * @memberof InlineResponse20071
      */
-    count?: number;
+    _id?: string;
     /**
      * 
-     * @type {Array<InlineResponse20071Rows>}
+     * @type {InlineResponse20054RequestSpec}
      * @memberof InlineResponse20071
      */
-    rows?: Array<InlineResponse20071Rows>;
+    spec?: InlineResponse20054RequestSpec;
+    /**
+     * Archive
+     * @type {boolean}
+     * @memberof InlineResponse20071
+     */
+    archive?: boolean;
+    /**
+     * 
+     * @type {Array<ApiV1AnnouncementsMyRequests>}
+     * @memberof InlineResponse20071
+     */
+    requests?: Array<ApiV1AnnouncementsMyRequests>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20071
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20071
+     */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20071
+     */
+    description?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20071
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20071
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse20071
+     */
+    updatedAt?: string;
 }
 
 

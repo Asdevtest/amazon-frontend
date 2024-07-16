@@ -22,16 +22,26 @@
 export interface InlineObject109 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof InlineObject109
      */
-    requestIds: Array<string>;
+    action: InlineObject109ActionEnum;
     /**
-     * 
-     * @type {boolean}
+     * Причина смены статуса.
+     * @type {string}
      * @memberof InlineObject109
      */
-    uploadedToListing: boolean;
+    reason?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject109ActionEnum {
+    Link = 'LINK',
+    Unlink = 'UNLINK'
+}
+
 
 

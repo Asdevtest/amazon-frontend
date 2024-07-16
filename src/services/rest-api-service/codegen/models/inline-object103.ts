@@ -21,23 +21,35 @@
  */
 export interface InlineObject103 {
     /**
-     * Поставить оценку юзеру
+     * Время на выполнение, в минутах.
      * @type {number}
      * @memberof InlineObject103
      */
-    rating?: number;
+    execution_time?: number;
     /**
-     * Отзыв о работе
+     * Цена предложения.
+     * @type {number}
+     * @memberof InlineObject103
+     */
+    price?: number;
+    /**
+     * Комментарий к предложению.
      * @type {string}
      * @memberof InlineObject103
      */
-    review?: string;
+    comment?: string;
     /**
-     * Файл для записи в FreelanceSource по этому пропоузалу
+     * Ссылки на медиафайлы.
+     * @type {Array<string>}
+     * @memberof InlineObject103
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * Название предложения
      * @type {string}
      * @memberof InlineObject103
      */
-    sourceFile?: string;
+    title?: string;
 }
 
 

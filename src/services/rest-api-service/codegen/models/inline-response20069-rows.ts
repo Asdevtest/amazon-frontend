@@ -13,10 +13,10 @@
  */
 
 
-import { InlineResponse20042InventoryShop } from './inline-response20042-inventory-shop';
+import { InlineResponse20049InventoryShop } from './inline-response20049-inventory-shop';
 
 /**
- * Схема репорта за 30 дней с Seller-board
+ * Схема репорта amazon_data
  * @export
  * @interface InlineResponse20069Rows
  */
@@ -29,276 +29,240 @@ export interface InlineResponse20069Rows {
     _id?: string;
     /**
      * 
-     * @type {InlineResponse20042InventoryShop}
-     * @memberof InlineResponse20069Rows
-     */
-    shop?: InlineResponse20042InventoryShop;
-    /**
-     * ﻿\"Date\"
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
-    date?: string;
+    productId?: string;
     /**
-     * Marketplace
+     * 
+     * @type {InlineResponse20049InventoryShop}
+     * @memberof InlineResponse20069Rows
+     */
+    shop?: InlineResponse20049InventoryShop;
+    /**
+     * Гуид shop-a
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
-    marketplace?: string;
+    shopId?: string;
     /**
-     * ASIN
+     * image
+     * @type {string}
+     * @memberof InlineResponse20069Rows
+     */
+    image?: string;
+    /**
+     * date_updated
+     * @type {string}
+     * @memberof InlineResponse20069Rows
+     */
+    dateUpdated?: string;
+    /**
+     * asin
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
     asin?: string;
     /**
-     * SKU
+     * sku
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
     sku?: string;
     /**
-     * Name
+     * day
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
-    name?: string;
+    day?: string;
     /**
-     * SalesOrganic
+     * acos
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    salesorganic?: number;
+    acos?: number;
     /**
-     * SalesPPC
+     * ppc_impressions
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    salesppc?: number;
+    ppcImpressions?: number;
     /**
-     * UnitsOrganic
+     * clicks
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    unitsorganic?: number;
+    clicks?: number;
     /**
-     * UnitsPPC
+     * spend
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    unitsppc?: number;
+    spend?: number;
     /**
-     * Refunds
+     * ppc_orders
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    refunds?: number;
+    ppcOrders?: number;
     /**
-     * PromoValue
+     * ppc_units
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    promovalue?: number;
+    ppcUnits?: number;
     /**
-     * SponsoredProducts
+     * ppc_sales
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    sponsoredproducts?: number;
+    ppcSales?: number;
     /**
-     * SponsoredDisplay
+     * ppc_avg_units_one_order
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    sponsoreddisplay?: number;
+    ppcAvgUnitsOneOrder?: number;
     /**
-     * SponsoredВrands
+     * order_sales_cost
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    sponsoredRands?: number;
+    orderSalesCost?: number;
     /**
-     * SponsoredBrandsVideo
+     * unit_sales_cost
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    sponsoredbrandsvideo?: number;
+    unitSalesCost?: number;
     /**
-     * GiftWrap
+     * organic_sessions
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    giftwrap?: number;
+    organicSessions?: number;
     /**
-     * Shipping
+     * organic_orders
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    shipping?: number;
+    organicOrders?: number;
     /**
-     * RefundCost
+     * organic_units
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    refundcost?: number;
+    organicUnits?: number;
     /**
-     * Value of returned items
+     * organic_sales
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    valueOfReturnedItems?: number;
+    organicSales?: number;
     /**
-     * ProductCost Unsellable Refunds
+     * organic_avg_order_price
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    productcostUnsellableRefunds?: number;
+    organicAvgOrderPrice?: number;
     /**
-     * Commission
+     * organic_avg_unit_price
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    commission?: number;
+    organicAvgUnitPrice?: number;
     /**
-     * COMPENSATED_CLAWBACK
+     * organic_avg_units_one_order
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    compensatedClawback?: number;
+    organicAvgUnitsOneOrder?: number;
     /**
-     * FBADisposalFee
+     * sessions
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    fbadisposalfee?: number;
+    sessions?: number;
     /**
-     * FBAPerUnitFulfillmentFee
+     * orders
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    fbaperunitfulfillmentfee?: number;
+    orders?: number;
     /**
-     * FBAStorageFee
+     * units
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    fbastoragefee?: number;
+    units?: number;
     /**
-     * FREE_REPLACEMENT_REFUND_ITEMS
+     * avg_units_in_per_order
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    freeReplacementRefundItems?: number;
+    avgUnitsInPerOrder?: number;
     /**
-     * Subscription
+     * sales
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    subscription?: number;
+    sales?: number;
     /**
-     * WAREHOUSE_DAMAGE
+     * avg_price_order
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    warehouseDamage?: number;
+    avgPriceOrder?: number;
     /**
-     * WAREHOUSE_LOST
+     * avg_unit_price
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    warehouseLost?: number;
+    avgUnitPrice?: number;
     /**
-     * EstimatedPayout
+     * buy_box
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    estimatedpayout?: number;
+    buyBox?: number;
     /**
-     * ProductCost Sales
+     * ppc_sale
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    productcostSales?: number;
+    ppcSale?: number;
     /**
-     * ProductCost Non-Amazon
+     * organic_sale
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    productcostNonAmazon?: number;
+    organicSale?: number;
     /**
-     * ProductCost MultichannelCosts
+     * conversion
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    productcostMultichannelcosts?: number;
+    conversion?: number;
     /**
-     * ProductCost MissingFromInbound
+     * conversion_ppc
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    productcostMissingfrominbound?: number;
+    conversionPpc?: number;
     /**
-     * ProductCost CostOfMissingReturns
+     * conversion_organic
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    productcostCostofmissingreturns?: number;
+    conversionOrganic?: number;
     /**
-     * VAT
-     * @type {number}
-     * @memberof InlineResponse20069Rows
-     */
-    vat?: number;
-    /**
-     * GrossProfit
-     * @type {number}
-     * @memberof InlineResponse20069Rows
-     */
-    grossprofit?: number;
-    /**
-     * NetProfit
-     * @type {number}
-     * @memberof InlineResponse20069Rows
-     */
-    netprofit?: number;
-    /**
-     * Margin
-     * @type {number}
-     * @memberof InlineResponse20069Rows
-     */
-    margin?: number;
-    /**
-     * Real ACOS
-     * @type {number}
-     * @memberof InlineResponse20069Rows
-     */
-    realAcos?: number;
-    /**
-     * Adjustment_FBAPerUnitFulfillmentFee
-     * @type {number}
-     * @memberof InlineResponse20069Rows
-     */
-    adjustmentFbaperunitfulfillmentfee?: number;
-    /**
-     * AmazonFees
-     * @type {number}
-     * @memberof InlineResponse20069Rows
-     */
-    amazonfees?: number;
-    /**
-     * Cost of Goods
-     * @type {number}
-     * @memberof InlineResponse20069Rows
-     */
-    costOfGoods?: number;
-    /**
-     * Дата создания
+     * createdAt
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
     createdAt?: string;
     /**
-     * Дата обновления
+     * updatedAt
      * @type {string}
      * @memberof InlineResponse20069Rows
      */

@@ -15,23 +15,17 @@
 
 
 /**
- * 
+ * Успешный ответ
  * @export
  * @interface InlineResponse20117
  */
 export interface InlineResponse20117 {
     /**
-     * Тестовый статус запуска
+     * guid объекта
      * @type {string}
      * @memberof InlineResponse20117
      */
-    status?: string;
-    /**
-     * Строка подключения к WS соединению
-     * @type {string}
-     * @memberof InlineResponse20117
-     */
-    wsUrl?: string;
+    guid?: string;
 }
 
 

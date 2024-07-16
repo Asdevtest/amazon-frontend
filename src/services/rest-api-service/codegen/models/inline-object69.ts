@@ -13,19 +13,32 @@
  */
 
 
+import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
- * Схема редактирования в первый раз shippingLabel коробки
+ * 
  * @export
  * @interface InlineObject69
  */
 export interface InlineObject69 {
     /**
-     * shippingLabel
+     * Название профиля
      * @type {string}
      * @memberof InlineObject69
      */
-    shippingLabel: string;
+    name?: string;
+    /**
+     * Название ОС
+     * @type {string}
+     * @memberof InlineObject69
+     */
+    os?: string;
+    /**
+     * 
+     * @type {ApiV1GologinProfileNavigator}
+     * @memberof InlineObject69
+     */
+    navigator?: ApiV1GologinProfileNavigator;
 }
 
 

@@ -13,9 +13,6 @@
  */
 
 
-import { ApiV1SuppliersBoxProperties } from './api-v1-suppliers-box-properties';
-import { ApiV1SuppliersPaymentMethods } from './api-v1-suppliers-payment-methods';
-import { ApiV1SuppliersPriceVariations } from './api-v1-suppliers-price-variations';
 
 /**
  * 
@@ -24,149 +21,47 @@ import { ApiV1SuppliersPriceVariations } from './api-v1-suppliers-price-variatio
  */
 export interface InlineObject136 {
     /**
-     * Название поставщика.
+     * Название склада.
      * @type {string}
      * @memberof InlineObject136
      */
     name?: string;
     /**
-     * Ссылка на поставщика.
+     * Страна.
      * @type {string}
      * @memberof InlineObject136
      */
-    link?: string;
+    country?: string;
     /**
-     * Цена за еденицу, dollar
-     * @type {number}
-     * @memberof InlineObject136
-     */
-    price?: number;
-    /**
-     * кол-во
-     * @type {number}
-     * @memberof InlineObject136
-     */
-    amount?: number;
-    /**
-     * Минимальный лот.
-     * @type {number}
-     * @memberof InlineObject136
-     */
-    minlot?: number;
-    /**
-     * Имеет ли обязательный делитель на кол-во в заказе поставщик
-     * @type {boolean}
-     * @memberof InlineObject136
-     */
-    multiplicity?: boolean;
-    /**
-     * 
-     * @type {Array<ApiV1SuppliersPaymentMethods>}
-     * @memberof InlineObject136
-     */
-    paymentMethods?: Array<ApiV1SuppliersPaymentMethods>;
-    /**
-     * Height unit
-     * @type {number}
-     * @memberof InlineObject136
-     */
-    heightUnit?: number;
-    /**
-     * Width unit
-     * @type {number}
-     * @memberof InlineObject136
-     */
-    widthUnit?: number;
-    /**
-     * Length unit
-     * @type {number}
-     * @memberof InlineObject136
-     */
-    lengthUnit?: number;
-    /**
-     * Weigh unit
-     * @type {number}
-     * @memberof InlineObject136
-     */
-    weighUnit?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject136
-     */
-    imageUnit?: Array<string>;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject136
-     */
-    images?: Array<string>;
-    /**
-     * Комментарий
+     * Индекс. 5 цифр.
      * @type {string}
      * @memberof InlineObject136
      */
-    comment?: string;
+    zipCode?: string;
     /**
-     * Курс доллара к юаню поставщика. 
-     * @type {number}
+     * Штат.
+     * @type {string}
      * @memberof InlineObject136
      */
-    yuanRate?: number;
+    state?: string;
     /**
-     * Цена за еденицу, yuan
-     * @type {number}
+     * Город.
+     * @type {string}
      * @memberof InlineObject136
      */
-    priceInYuan?: number;
+    city?: string;
     /**
-     * Доставка партии, dollar
-     * @type {number}
+     * Адрес склада.
+     * @type {string}
      * @memberof InlineObject136
      */
-    batchDeliveryCostInDollar?: number;
+    address?: string;
     /**
-     * Доставка партии, yuan
-     * @type {number}
+     * Цвет шрифта
+     * @type {string}
      * @memberof InlineObject136
      */
-    batchDeliveryCostInYuan?: number;
-    /**
-     * Цена партии, dollar
-     * @type {number}
-     * @memberof InlineObject136
-     */
-    batchTotalCostInDollar?: number;
-    /**
-     * Цена партии, yuan
-     * @type {number}
-     * @memberof InlineObject136
-     */
-    batchTotalCostInYuan?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject136
-     */
-    minProductionTerm?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject136
-     */
-    maxProductionTerm?: number;
-    /**
-     * 
-     * @type {ApiV1SuppliersBoxProperties}
-     * @memberof InlineObject136
-     */
-    boxProperties?: ApiV1SuppliersBoxProperties;
-    /**
-     * 
-     * @type {Array<ApiV1SuppliersPriceVariations>}
-     * @memberof InlineObject136
-     */
-    priceVariations?: Array<ApiV1SuppliersPriceVariations>;
+    fontColor?: string;
 }
 
 
