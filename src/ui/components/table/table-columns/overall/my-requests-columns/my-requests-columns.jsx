@@ -26,8 +26,8 @@ import { t } from '@utils/translations'
 
 import {
   ProductColumnMenuType,
+  getProductColumnMenuItems,
   getProductColumnMenuValue,
-  productColumnMenuItems,
 } from '@config/data-grid-column-menu/product-column'
 
 export const myRequestsViewColumns = rowHandlers => {
@@ -109,7 +109,7 @@ export const myRequestsViewColumns = rowHandlers => {
         )
       },
 
-      fields: productColumnMenuItems,
+      fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
