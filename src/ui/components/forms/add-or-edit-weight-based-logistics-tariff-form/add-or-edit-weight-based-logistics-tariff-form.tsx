@@ -102,7 +102,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
     const [formFields, setFormFields] = useState<FormFields>(initialState)
 
-    const [isWeightRangeValid, setIsWeightRangeValid] = useState(true)
+    const [rangeErrorDestinationId, setRangeErrorDestinationId] = useState('')
 
     const disableSubmitBtn =
       !formFields.name ||
@@ -122,7 +122,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           (variant.minWeight && Number(variant.minWeight) < 1) ||
           (variant.minWeight && variant.maxWeight && Number(variant.maxWeight) < Number(variant.minWeight)),
       ) ||
-      !isWeightRangeValid
+      !!rangeErrorDestinationId
 
     const [selectedLogisticTariff, setSelectedLogisticTariff] = useState<ILogicTariff | undefined>(undefined)
 
@@ -166,7 +166,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     }
 
     const onChangeDestinationVariations = (fieldName: string, index: number, value: string | number) => {
-      setIsWeightRangeValid(true)
+      setRangeErrorDestinationId('')
 
       setFormFields(prevState => {
         const newDestinationVariations = prevState.destinationVariations.map((variation, variationIndex) => {
@@ -203,7 +203,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     }
 
     const onClickAddDestinationVariation = (index: number) => {
-      setIsWeightRangeValid(true)
+      setRangeErrorDestinationId('')
       // @ts-ignore
       setFormFields(prevState => {
         const firstPart = prevState.destinationVariations.slice(0, index + 1)
@@ -219,7 +219,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     }
 
     const onClickRemoveDestinationVariation = (index: number) => {
-      setIsWeightRangeValid(true)
+      setRangeErrorDestinationId('')
       setFormFields(prevState => {
         const newDestinationVariations = [...prevState.destinationVariations]
         newDestinationVariations.splice(index, 1)
@@ -232,11 +232,11 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     }
 
     const onSubmit = () => {
-      const isValidWeightRange = calcWeightRangeValid(formFields.destinationVariations)
+      const errorId = calcWeightRangeValid(formFields.destinationVariations)
 
-      setIsWeightRangeValid(isValidWeightRange)
+      setRangeErrorDestinationId(errorId)
 
-      if (isValidWeightRange) {
+      if (!errorId) {
         if (tariffToEdit) {
           onEditSubmit(tariffToEdit._id, formFields)
         } else {
@@ -284,13 +284,13 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               Number(currentRange.maxWeight) >= Number(nextRange.minWeight) ||
               Number(nextRange.minWeight) <= Number(currentRange.maxWeight)
             ) {
-              return false // Found intersecting or containing ranges
+              return destinationId // Found intersecting or containing ranges
             }
           }
         }
       }
 
-      return true // All weight ranges are valid
+      return '' // All weight ranges are valid
     }
 
     const onApplyMinBoxWeightToAll = (variantIndex: number) => {
@@ -417,6 +417,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
         <div>
           <DestinationVariationsContent
+            rangeErrorDestinationId={rangeErrorDestinationId}
             destinationVariations={formFields.destinationVariations}
             destinationData={destinationData}
             destinationsFavourites={destinationsFavourites}
@@ -428,7 +429,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
             onApplyMinBoxWeightToAll={onApplyMinBoxWeightToAll}
           />
 
-          {formFields.destinationVariations.length > 1 && !isWeightRangeValid && (
+          {formFields.destinationVariations.length > 1 && !!rangeErrorDestinationId && (
             <p className={styles.deadlineErrorText}>
               {t(TranslationKey['The intersections of the weights are found'])}
             </p>
