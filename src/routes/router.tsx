@@ -6,7 +6,7 @@ import { FallBack } from '@widgets/fallback'
 import { Layout } from '@widgets/layout'
 import { createBrowserRouter } from 'react-router-dom'
 
-import { AuthView } from '@views/auth'
+import { AuthView } from '@pages/auth'
 
 import { routerPath } from './router.path'
 

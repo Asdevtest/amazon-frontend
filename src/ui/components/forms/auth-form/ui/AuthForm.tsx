@@ -1,3 +1,4 @@
+import { cx } from '@emotion/css'
 import { Form, Input } from 'antd'
 import { FC, memo, useCallback, useEffect } from 'react'
 import { MdOutlineEmail } from 'react-icons/md'
@@ -7,11 +8,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 
-import { FieldData } from '@views/auth/model/types/field'
+import { FieldData } from '@pages/auth/model/types'
 
 import { t } from '@utils/translations'
-
-import { useStyles } from './auth-form.style'
 
 import {
   MAX_INPUT_LENGTH,
@@ -21,6 +20,8 @@ import {
   nameValidationRules,
   newPasswordValidationRules,
 } from '../model/config/rules'
+
+import classes from './AuthForm.module.scss'
 
 interface AuthFormFormProps {
   onSubmit: (values: FieldData) => void
@@ -34,7 +35,6 @@ interface AuthFormFormProps {
 export const AuthForm: FC<AuthFormFormProps> = memo(props => {
   const { onSubmit, onRedirect, auth, editUser, loading, data } = props
 
-  const { classes: styles, cx } = useStyles()
   const [form] = Form.useForm()
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
   const showConfirmPasswordField = !auth && !editUser
 
   return (
-    <Form name="registration" size="large" form={form} rootClassName={styles.form} onFinish={onFinish}>
+    <Form name="registration" size="large" form={form} rootClassName={classes.form} onFinish={onFinish}>
       {!auth ? (
         <Form.Item hasFeedback name="name" validateTrigger="onBlur" rules={nameValidationRules}>
           <Input maxLength={MAX_INPUT_LENGTH} placeholder={t(TranslationKey.Name)} prefix={<RiUser3Line />} />
@@ -131,7 +131,7 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
         </Form.Item>
       ) : null}
 
-      <div className={cx(styles.buttons, { [styles.editUser]: editUser })}>
+      <div className={cx(classes.buttons, { [classes.editUser]: editUser })}>
         <Form.Item shouldUpdate>
           <CustomButton type="primary" htmlType="submit" loading={loading} disabled={loading}>
             {buttonText}
@@ -140,7 +140,7 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
 
         <CustomButton
           type={editUser ? 'default' : 'link'}
-          className={editUser ? undefined : styles.link}
+          className={editUser ? undefined : classes.link}
           onClick={onRedirect}
         >
           {redirectText}

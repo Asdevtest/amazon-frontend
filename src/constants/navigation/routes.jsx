@@ -75,7 +75,7 @@ const AdminWarehouseView = lazy(() =>
   })),
 )
 const AuthView = lazy(() =>
-  import('@views/auth').then(module => {
+  import('@pages/auth').then(module => {
     const Component = module.AuthView
 
     return { default: props => <Component auth {...props} /> }
@@ -295,7 +295,7 @@ const ModeratorSettingsView = lazy(() =>
   import('@views/moderator/moderator-settings-view').then(module => ({ default: module.ModeratorSettingsView })),
 )
 const RegistrationView = lazy(() =>
-  import('@views/auth').then(module => {
+  import('@pages/auth').then(module => {
     const Component = module.AuthView
 
     return { default: props => <Component auth={false} {...props} /> }

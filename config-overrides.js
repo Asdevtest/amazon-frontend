@@ -23,6 +23,7 @@ module.exports = config => ({
       '@routes': path.resolve(__dirname, './src/routes'),
       '@ui': path.resolve(__dirname, './src/ui'),
       '@shared': path.resolve(__dirname, './src/shared'),
+      '@config': path.resolve(__dirname, './src/config'),
     },
   },
 })

@@ -278,7 +278,8 @@
           ["@routes", "./src/routes"],
           ["@ui", "./src/ui"],
           ["@shared", "./src/shared"],
-          ["@pages", "./src/pages"]
+          ["@pages", "./src/pages"],
+          ["@config", "./src/config"]
         ],
         "extensions": [".ts", ".js", ".jsx", ".json", ".tsx", ".d.ts"]
       }

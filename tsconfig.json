@@ -37,7 +37,8 @@
       "@widgets/*": ["./src/widgets/*"],
       "@routes/*": ["./src/routes/*"],
       "@ui/*": ["./src/ui/*"],
-      "@shared/*": ["./src/shared/*"]
+      "@shared/*": ["./src/shared/*"],
+      "@config/*": ["./src/config/*"]
     }
   },
   "exclude": ["node_modules", "build"],

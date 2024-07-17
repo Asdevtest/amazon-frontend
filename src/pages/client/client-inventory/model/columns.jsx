@@ -32,9 +32,9 @@ import { t } from '@utils/translations'
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 import { productionTimeColumnMenuItems } from '@config/data-grid-column-menu/production-time'
 
-import { complexCells } from './cell-types'
 import { productionTimeColumnMenuValue } from './client-inventory-view.config'
-import { getCellType } from './helpers/get-cell-type'
+import { complexCells } from './constants'
+import { getCellType } from './helpers'
 
 export const clientInventoryColumns = ({
   barCodeHandlers,

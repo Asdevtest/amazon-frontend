@@ -1,0 +1,23 @@
+.form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.link {
+  padding: 0;
+  margin-bottom: 20px;
+  font-size: 14;
+  line-height: 19px;
+}
+
+.editUser {
+  margin-top: auto;
+}

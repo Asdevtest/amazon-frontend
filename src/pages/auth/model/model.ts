@@ -13,7 +13,7 @@ import { t } from '@utils/translations'
 import { UiTheme } from '@typings/enums/ui-theme'
 import { IFullUser } from '@typings/shared/full-user'
 
-import { FieldData } from './types/field'
+import { FieldData } from './types'
 
 export class AuthViewModel {
   navigate?: any

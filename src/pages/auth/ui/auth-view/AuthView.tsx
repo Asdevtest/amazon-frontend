@@ -17,32 +17,31 @@ import { t } from '@utils/translations'
 
 import { UiTheme } from '@typings/enums/ui-theme'
 
-import { useStyles } from './auth-view.style'
+import { AuthViewModel } from '../../model/model'
+import { Banner } from '../Banner/Banner'
 
-import { AuthViewModel } from '../../model/auth-view.model'
-import { Banner } from '../banner/banner'
+import classes from './AuthView.module.scss'
 
 interface AuthViewProps {
   auth: boolean
 }
 
 const AuthView: FC<AuthViewProps> = observer(({ auth }) => {
-  const { classes: styles } = useStyles()
   const navigate = useNavigate()
   const [viewModel] = useState(() => new AuthViewModel({ navigate, auth }))
   const title = auth ? t(TranslationKey['Sign in']) : t(TranslationKey.Registration)
 
   return (
-    <div className={styles.root}>
+    <div className={classes.root}>
       <Banner />
 
-      <div className={styles.rightPanel}>
-        <div className={styles.formWrapper}>
-          <div className={styles.flexContainer}>
-            <p className={styles.title}>{title}</p>
+      <div className={classes.rightPanel}>
+        <div className={classes.formWrapper}>
+          <div className={classes.flexContainer}>
+            <p className={classes.title}>{title}</p>
 
-            <div className={styles.flexContainer}>
-              <CustomButton type="link" className={styles.themeSelector} onClick={viewModel.onChangeTheme}>
+            <div className={classes.flexContainer}>
+              <CustomButton type="link" className={classes.themeSelector} onClick={viewModel.onChangeTheme}>
                 {SettingsModel.uiTheme === UiTheme.light ? <IoMoonSharp size={18} /> : <IoSunnySharp size={18} />}
               </CustomButton>
 
@@ -58,7 +57,7 @@ const AuthView: FC<AuthViewProps> = observer(({ auth }) => {
           />
         </div>
 
-        <div className={styles.versionContainer}>
+        <div className={classes.versionContainer}>
           <Popconfirm
             placement="topRight"
             title={t(TranslationKey.Attention)}
