@@ -17,21 +17,15 @@
 /**
  * 
  * @export
- * @interface InlineObject151
+ * @interface InlineResponse20047LogicsTariffConditionsByRegionWest
  */
-export interface InlineObject151 {
+export interface InlineResponse20047LogicsTariffConditionsByRegionWest {
     /**
-     * Токен, который юзер получает через почту
-     * @type {string}
-     * @memberof InlineObject151
+     * Стоимость доставки в местную региональную зону, кг/$
+     * @type {number}
+     * @memberof InlineResponse20047LogicsTariffConditionsByRegionWest
      */
-    hash: string;
-    /**
-     * Новый пароль
-     * @type {string}
-     * @memberof InlineObject151
-     */
-    password?: string;
+    rate?: number;
 }
 
 

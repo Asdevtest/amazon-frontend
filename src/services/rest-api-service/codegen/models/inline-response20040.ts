@@ -13,10 +13,6 @@
  */
 
 
-import { InlineResponse20040Finances } from './inline-response20040-finances';
-import { InlineResponse20040Orders } from './inline-response20040-orders';
-import { InlineResponse20040PendingOrders } from './inline-response20040-pending-orders';
-import { InlineResponse20040Products } from './inline-response20040-products';
 
 /**
  * 
@@ -25,29 +21,29 @@ import { InlineResponse20040Products } from './inline-response20040-products';
  */
 export interface InlineResponse20040 {
     /**
-     * 
-     * @type {InlineResponse20040Products}
+     * Гуид сообщения
+     * @type {string}
      * @memberof InlineResponse20040
      */
-    products?: InlineResponse20040Products;
+    _id?: string;
+    /**
+     * Гуид чата
+     * @type {string}
+     * @memberof InlineResponse20040
+     */
+    chatId?: string;
+    /**
+     * Смещение для пагинации
+     * @type {number}
+     * @memberof InlineResponse20040
+     */
+    offset?: number;
     /**
      * 
-     * @type {InlineResponse20040Orders}
+     * @type {Array<string>}
      * @memberof InlineResponse20040
      */
-    orders?: InlineResponse20040Orders;
-    /**
-     * 
-     * @type {InlineResponse20040PendingOrders}
-     * @memberof InlineResponse20040
-     */
-    pendingOrders?: InlineResponse20040PendingOrders;
-    /**
-     * 
-     * @type {InlineResponse20040Finances}
-     * @memberof InlineResponse20040
-     */
-    finances?: InlineResponse20040Finances;
+    allMedia?: Array<string>;
 }
 
 

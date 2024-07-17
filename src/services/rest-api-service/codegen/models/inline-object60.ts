@@ -22,10 +22,10 @@
 export interface InlineObject60 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof InlineObject60
      */
-    productIds: Array<string>;
+    clientComment?: string;
 }
 
 

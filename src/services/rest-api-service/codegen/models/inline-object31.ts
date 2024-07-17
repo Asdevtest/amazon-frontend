@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesSplitNewBoxesParams } from './api-v1-boxes-split-new-boxes-params';
 
 /**
  * 
@@ -22,17 +21,11 @@ import { ApiV1BoxesSplitNewBoxesParams } from './api-v1-boxes-split-new-boxes-pa
  */
 export interface InlineObject31 {
     /**
-     * GUID коробки, которую делим
+     * GUID коробки, объединение которой нужно отменить
      * @type {string}
      * @memberof InlineObject31
      */
     guid?: string;
-    /**
-     * 
-     * @type {Array<ApiV1BoxesSplitNewBoxesParams>}
-     * @memberof InlineObject31
-     */
-    newBoxesParams?: Array<ApiV1BoxesSplitNewBoxesParams>;
 }
 
 

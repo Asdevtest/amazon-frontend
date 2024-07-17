@@ -21,114 +21,11 @@
  */
 export interface InlineObject55 {
     /**
-     * GUID storekeeper-a
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    storekeeperId?: string;
-    /**
-     * GUID баера
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    buyerId?: string;
-    /**
-     * Защита листинга
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    transparencyFile?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    item?: string;
-    /**
-     * GUID тарифа доставки
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    logicsTariffId?: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    variationTariffId?: string;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    priority?: InlineObject55PriorityEnum;
-    /**
-     * GUID пункта назначения.
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    destinationId?: string;
-    /**
-     * Кол-во продукта по этой позиции.
-     * @type {number}
-     * @memberof InlineObject55
-     */
-    amount?: number;
-    /**
-     * Стоимость доставки до склада.
-     * @type {number}
-     * @memberof InlineObject55
-     */
-    deliveryCostToTheWarehouse?: number;
-    /**
-     * Комментарии клиента.
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    clientComment?: string;
-    /**
-     * Массив изображений.
+     * массив GUIDов оплаченных товаров
      * @type {Array<string>}
      * @memberof InlineObject55
      */
-    images?: Array<string>;
-    /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
-     * @type {boolean}
-     * @memberof InlineObject55
-     */
-    expressChinaDelivery?: boolean;
-    /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
-     * @memberof InlineObject55
-     */
-    needsResearch?: boolean;
-    /**
-     * Дедлайн выкупа заказа
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    deadline?: string;
-    /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
-     * @type {number}
-     * @memberof InlineObject55
-     */
-    totalPrice?: number;
+    guids?: Array<string>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject55PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

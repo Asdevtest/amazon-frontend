@@ -15,17 +15,17 @@
 
 
 /**
- * 
+ * Схема редактирования в первый раз shippingLabel коробки
  * @export
  * @interface InlineObject70
  */
 export interface InlineObject70 {
     /**
-     * id профайла
+     * shippingLabel
      * @type {string}
      * @memberof InlineObject70
      */
-    profileId: string;
+    shippingLabel: string;
 }
 
 
