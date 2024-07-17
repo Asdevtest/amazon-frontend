@@ -1278,7 +1278,8 @@ export enum TranslationKey {
   '№ Order/ № Item' = '№ Order/ № Item',
   'Additionally' = 'Additionally',
   'Warehouse address' = 'Warehouse address',
-  'Add Address' = 'Add Address',
+  'Add address' = 'Add address',
+  'Edit address' = 'Edit address',
   'Reply to a User Feedback' = 'Reply to a User Feedback',
   'Search by ASIN, Order ID, Item' = 'Search by ASIN, Order ID, Item',
   'Search by ASIN, Order ID, Item, Track number' = 'Search by ASIN, Order ID, Item, Track number',
@@ -1993,4 +1994,5 @@ export enum TranslationKey {
   'User not found.' = 'User not found.',
   'Storekeeper selection' = 'Storekeeper selection',
   'Tariff selection' = 'Tariff selection',
+  'Create a tariff' = 'Create a tariff',
 }

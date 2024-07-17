@@ -26,29 +26,15 @@ import { useStyles } from './add-or-edit-weight-based-logistics-tariff-form.styl
 
 import { DestinationVariationsContent } from './destination-variations-content/destination-variations-content'
 
-interface FormFields {
-  tariffType: number
-  name: string
-  description: string
-  deliveryTimeInDay: string
-  cls: string | undefined
-  etd: string | undefined
-  eta: string | undefined
-  minWeightInKg: number
-  archive: boolean
-  yuanToDollarRate: number
-  destinationVariations: Array<IDestinationVariation>
-}
-
 interface AddOrEditWeightBasedLogisticsTariffFormProps {
-  tariffToEdit: ILogicTariff
+  tariffToEdit?: ILogicTariff
   sourceYuanToDollarRate: number
   logisticsTariffsData: Array<ILogicTariff>
   destinationData: Array<IDestination>
   destinationsFavourites: Array<Array<string>>
-  setDestinationsFavouritesItem: () => void
-  onCreateSubmit: (formFields: FormFields) => void
-  onEditSubmit: (id: string, formFields: FormFields) => void
+  setDestinationsFavouritesItem: (item: IDestination) => void
+  onCreateSubmit: (formFields: ILogicTariff) => void
+  onEditSubmit: (id: string, formFields: ILogicTariff) => void
   onClickClose: () => void
 }
 
@@ -87,12 +73,12 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       name: tariffToEdit?.name || '',
       description: tariffToEdit?.description || '',
       deliveryTimeInDay: tariffToEdit?.deliveryTimeInDay || '',
-      cls: tariffToEdit?.cls || undefined,
-      etd: tariffToEdit?.etd || undefined,
-      eta: tariffToEdit?.eta || undefined,
+      cls: tariffToEdit?.cls || '',
+      etd: tariffToEdit?.etd || '',
+      eta: tariffToEdit?.eta || '',
       minWeightInKg: tariffToEdit?.minWeightInKg || 0,
       archive: tariffToEdit?.archive || false,
-      yuanToDollarRate: tariffToEdit?.conditionsByRegion.yuanToDollarRate || sourceYuanToDollarRate || 6.5,
+      yuanToDollarRate: tariffToEdit?.conditionsByRegion?.yuanToDollarRate || sourceYuanToDollarRate || 6.5,
       destinationVariations: tariffToEdit?.destinationVariations?.map(variation => ({
         ...variation,
         pricePerKgUsd: variation.pricePerKgUsd,
@@ -100,7 +86,8 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       })) || [emptyDestinationVariation],
     }
 
-    const [formFields, setFormFields] = useState<FormFields>(initialState)
+    // @ts-ignore
+    const [formFields, setFormFields] = useState<ILogicTariff>(initialState)
 
     const [isWeightRangeValid, setIsWeightRangeValid] = useState(true)
 
@@ -111,7 +98,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       !formFields.cls ||
       !formFields.etd ||
       !formFields.eta ||
-      formFields.destinationVariations.some(
+      formFields.destinationVariations?.some(
         (variant: IDestinationVariation) =>
           !variant.destination._id ||
           !variant.pricePerKgRmb ||
@@ -236,7 +223,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
       if (isWeightRangeValid) {
         if (tariffToEdit) {
-          onEditSubmit(tariffToEdit._id, formFields)
+          onEditSubmit(tariffToEdit?._id, formFields)
         } else {
           onCreateSubmit(formFields)
         }

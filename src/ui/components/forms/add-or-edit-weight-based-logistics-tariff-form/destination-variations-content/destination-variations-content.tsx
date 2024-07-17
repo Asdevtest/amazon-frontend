@@ -24,7 +24,7 @@ interface DestinationVariationsContentProps {
   destinationData: Array<IDestination>
   currentCurrency: string
   destinationsFavourites: Array<Array<string>>
-  setDestinationsFavouritesItem: () => void
+  setDestinationsFavouritesItem: (item: any) => void
   onChangeDestinationVariations: (fieldName: string, index: number, value: string | number) => void
   onClickAddDestinationVariation: (index: number) => void
   onClickRemoveDestinationVariation: (index: number) => void
