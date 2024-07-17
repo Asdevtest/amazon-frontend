@@ -5,8 +5,7 @@ import { GridRowModel, GridRowParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BoxForm } from '@components/forms/box-form'
-import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { BoxModal } from '@components/modals/box-modal'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -66,26 +65,11 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(props => {
         />
       </div>
 
-      {viewModel.currentBox ? (
-        <Modal openModal={viewModel.showBoxModal} setOpenModal={() => viewModel.onToggleModal(ModalNames.BOX)}>
-          <BoxForm
-            userInfo={viewModel.userInfo}
-            box={viewModel.currentBox}
-            onToggleModal={() => viewModel.onToggleModal(ModalNames.BOX)}
-            onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
-            onClickHsCode={viewModel.onClickHsCode}
-          />
-        </Modal>
-      ) : null}
-
-      <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onToggleModal(ModalNames.EDIT_HS_CODE)}
-      >
-        <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onToggleModal(ModalNames.EDIT_HS_CODE)}
+      <Modal openModal={viewModel.showBoxModal} setOpenModal={() => viewModel.onToggleModal(ModalNames.BOX)}>
+        <BoxModal
+          boxId={viewModel.currentBox}
+          handleUpdateData={viewModel.getBoxesOfOrder}
+          onToggleModal={() => viewModel.onToggleModal(ModalNames.BOX)}
         />
       </Modal>
     </>

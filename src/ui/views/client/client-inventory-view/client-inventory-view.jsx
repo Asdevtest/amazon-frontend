@@ -24,7 +24,6 @@ import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
 import { SetFourMonthesStockModal } from '@components/modals/set-four-monthes-stock-value-modal.js'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
@@ -261,24 +260,12 @@ export const ClientInventoryView = observer(({ history }) => {
       </Modal>
 
       <Modal
-        openModal={viewModel.showSetChipValueModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSetChipValueModal')}
-      >
-        <SetChipValueModal
-          title={t(TranslationKey['Set HS code'])}
-          sourceValue={viewModel.selectedProduct?.hsCode}
-          onSubmit={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showSetChipValueModal')}
-        />
-      </Modal>
-
-      <Modal
         openModal={viewModel.showEditHSCodeModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
       >
         <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
+          productId={viewModel.selectedProduct?._id}
+          handleUpdateData={viewModel.getCurrentData}
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>

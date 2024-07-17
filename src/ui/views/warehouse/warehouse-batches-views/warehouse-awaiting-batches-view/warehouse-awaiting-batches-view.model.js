@@ -68,10 +68,6 @@ export class WarehouseAwaitingBatchesViewModel {
   progressValue = 0
   showProgress = false
 
-  hsCodeData = {}
-
-  showEditHSCodeModal = false
-
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
@@ -230,31 +226,6 @@ export class WarehouseAwaitingBatchesViewModel {
     this.nameSearchValue = searchValue
 
     this.getBatchesPagMy()
-  }
-
-  async onClickSaveHsCode(hsCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: hsCode._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    this.loadData()
-
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
-  }
-
-  async onClickHsCode(id) {
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
   async getBatchesPagMy() {

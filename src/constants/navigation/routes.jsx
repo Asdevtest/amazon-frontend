@@ -138,12 +138,6 @@ const ClientBatchesView = lazy(() =>
   })),
 )
 
-const ClientReadyBoxesView = lazy(() =>
-  import('@views/client/client-warehouse-views/client-ready-boxes-view').then(module => ({
-    default: module.ClientReadyBoxesView,
-  })),
-)
-
 const ClientWarehouseTasksView = lazy(() =>
   import('@views/client/client-warehouse-views/client-warehouse-tasks-view').then(module => ({
     default: module.ClientWarehouseTasksView,
@@ -1470,22 +1464,6 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
       activeSubCategory: '',
       title: () => t(TranslationKey.Batches),
-    },
-  },
-
-  {
-    routePath: '/client/warehouse/boxes-ready-to-batch',
-    component: ClientReadyBoxesView,
-    exact: false,
-    permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
-
-    crumbNameKey: TranslationKey['Boxes ready to send'],
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
-      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
-      title: () => t(TranslationKey['Boxes ready to send']),
     },
   },
 

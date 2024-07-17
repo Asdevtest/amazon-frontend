@@ -2,7 +2,6 @@ import { action, computed, observable } from 'mobx'
 
 export const observerConfig = {
   orders: observable,
-  hsCodeData: observable,
 
   order: observable,
   onAmazon: observable,
@@ -14,7 +13,6 @@ export const observerConfig = {
   productBatches: observable,
   showCheckPendingOrderFormModal: observable,
   showMyOrderModal: observable,
-  showEditHSCodeModal: observable,
   showProductDataModal: observable,
 
   myOrderModalSwitcherCondition: observable,
@@ -67,8 +65,6 @@ export const observerConfig = {
   getStorekeepers: action.bound,
   onClickCancelOrder: action.bound,
   onSubmitSaveOrder: action.bound,
-  onClickHsCode: action.bound,
-  onClickSaveHsCode: action.bound,
   patchActualShippingCostBatch: action.bound,
   onOpenProductDataModal: action.bound,
 }

@@ -60,8 +60,8 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
       !this.selectedRows?.length ||
       this.selectedRows?.length > 1 ||
       this.currentData
-        ?.filter(el => this.selectedRows?.includes(el?._id))
-        ?.some(box => box?.operationType !== TaskOperationType.RECEIVE)
+        ?.filter((el: any) => this.selectedRows?.includes(el?._id))
+        ?.some((box: any) => box?.operationType !== TaskOperationType.RECEIVE)
     )
   }
 

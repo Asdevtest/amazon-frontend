@@ -10,7 +10,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { OtherModel } from '@models/other-model'
 
 import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
-import { BoxForm } from '@components/forms/box-form'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -35,10 +34,12 @@ import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './batch-info-modal.style'
 
+import { BoxModal } from '../box-modal'
+
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
 export const BatchInfoModal = observer(
-  ({ openModal, setOpenModal, batch, onSubmitChangeBoxFields, onClickHsCode, patchActualShippingCostBatch }) => {
+  ({ openModal, setOpenModal, batch, onSubmitChangeBoxFields, patchActualShippingCostBatch }) => {
     const { classes: styles, cx } = useStyles()
 
     const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel(true))
@@ -383,12 +384,10 @@ export const BatchInfoModal = observer(
             openModal={viewModel.showBoxViewModal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           >
-            <BoxForm
-              userInfo={viewModel.userInfo}
-              box={viewModel.curBox}
+            <BoxModal
+              boxId={viewModel.curBox}
+              handleUpdateData={viewModel.getCurrentData}
               onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-              onSubmitChangeFields={onSubmitChangeBoxFields}
-              onClickHsCode={onClickHsCode}
             />
           </Modal>
         </div>

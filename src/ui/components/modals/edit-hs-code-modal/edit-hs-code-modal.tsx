@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { observer } from 'mobx-react'
+import { FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,14 +12,20 @@ import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './edit-hs-code-modal.style'
 
-export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal }) => {
+import { EditHSCodeModalModel } from './edit-hs-code-modal.model'
+
+interface EditHSCodeModalProps {
+  productId: string
+  onCloseModal: () => void
+  handleUpdateData?: () => void
+}
+
+export const EditHSCodeModal: FC<EditHSCodeModalProps> = observer(props => {
   const { classes: styles } = useStyles()
 
-  const [formFields, setFormFields] = useState(hsCodeData)
+  const { productId, handleUpdateData, onCloseModal } = props
 
-  const onChangeField = fieldName => event => {
-    setFormFields(prev => ({ ...prev, [fieldName]: event.target.value }))
-  }
+  const [viewModel] = useState(() => new EditHSCodeModalModel({ productId, onCloseModal, handleUpdateData }))
 
   return (
     <div className={styles.wrapper}>
@@ -30,8 +37,9 @@ export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal })
         labelClasses={styles.label}
         containerClasses={styles.field}
         inputProps={{ maxLength: 255 }}
-        value={formFields.hsCode}
-        onChange={onChangeField('hsCode')}
+        // @ts-ignore
+        value={viewModel.currentData?.hsCode}
+        onChange={viewModel.onChangeField?.('hsCode')}
       />
 
       <Field
@@ -43,8 +51,9 @@ export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal })
         className={styles.nameField}
         containerClasses={styles.field}
         inputProps={{ maxLength: 255 }}
-        value={formFields.chinaTitle}
-        onChange={onChangeField('chinaTitle')}
+        // @ts-ignore
+        value={viewModel.currentData?.chinaTitle}
+        onChange={viewModel.onChangeField?.('chinaTitle')}
       />
 
       <Field
@@ -56,8 +65,9 @@ export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal })
         labelClasses={styles.label}
         containerClasses={styles.field}
         inputProps={{ maxLength: 255 }}
-        value={formFields.material}
-        onChange={onChangeField('material')}
+        // @ts-ignore
+        value={viewModel.currentData?.material}
+        onChange={viewModel.onChangeField?.('material')}
       />
 
       <Field
@@ -69,12 +79,13 @@ export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal })
         labelClasses={styles.label}
         containerClasses={styles.field}
         inputProps={{ maxLength: 255 }}
-        value={formFields.productUsage}
-        onChange={onChangeField('productUsage')}
+        // @ts-ignore
+        value={viewModel.currentData?.productUsage}
+        onChange={viewModel.onChangeField?.('productUsage')}
       />
 
       <div className={styles.buttons}>
-        <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickSaveHsCode(formFields)}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.handleSaveHSCode}>
           {t(TranslationKey.Save)}
         </Button>
         <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
@@ -83,4 +94,4 @@ export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal })
       </div>
     </div>
   )
-}
+})
