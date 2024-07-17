@@ -1176,6 +1176,14 @@ export const navbarConfig = {
       checkHideBlock: () => true,
     },
     {
+      icon: FeedbackIcon,
+      title: () => t(TranslationKey.Feedback),
+      subtitles: null,
+      route: '/moderator/feedback',
+      key: navBarActiveCategory.NAVBAR_FEEDBACK,
+      checkHideBlock: () => true,
+    },
+    {
       icon: MessageIcon,
       title: () => t(TranslationKey.Messages),
       route: '/moderator/messages',

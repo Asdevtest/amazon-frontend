@@ -29,6 +29,7 @@ import {
 import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 import { productionTimeColumnMenuItems } from '@config/data-grid-column-menu/production-time'
 
 import { complexCells } from './cell-types'
@@ -92,8 +93,11 @@ export const clientInventoryColumns = ({
           skuByClient={row?.skuByClient}
         />
       ),
-      width: 280,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      width: 250,
     },
 
     {
@@ -603,9 +607,13 @@ export const clientInventoryColumns = ({
                 <ProductAsinCell withoutTitle image={product?.image} asin={product?.asin} skuByClient={product?.sku} />
               )
             },
-            width: 295,
 
-            columnKey: columnnsKeys.client.SHOP_REPORT,
+            fields: getProductColumnMenuItems({ withoutTitle: true }),
+            columnMenuConfig: getProductColumnMenuValue({
+              isSimpleSku: true,
+            }),
+            columnKey: columnnsKeys.shared.MULTIPLE,
+            width: 250,
           }
 
           defaultColumns.push(complexCell)

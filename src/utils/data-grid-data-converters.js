@@ -48,18 +48,6 @@ export const stockReportDataConverter = data =>
     shopName: item.shop.name,
   }))
 
-export const feedBackDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-    id: item._id,
-    _id: item._id,
-
-    files: item.media,
-    text: item.text,
-    userName: item.user.name,
-    updatedAt: item.updatedAt,
-  }))
-
 export const myRequestsDataConverter = (data, shopsData) =>
   data.map(item => ({
     originalData: item,

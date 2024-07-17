@@ -1,3 +1,5 @@
+import { GridRowModel } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -8,65 +10,66 @@ import {
   NormDateCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
+import { EyeIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { IFeedback } from '@typings/models/administrators/feedback'
 
-export const adminFeedbackViewColumns = handlers => [
+interface IAdminFeedbackViewColumns {
+  onClickOpenFeedback: (row: IFeedback) => void
+}
+
+export const adminFeedbackViewColumns = ({ onClickOpenFeedback }: IAdminFeedbackViewColumns) => [
   {
     field: 'userName',
     headerName: t(TranslationKey.User),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-    renderCell: params => {
-      const user = params.row.originalData.user
-
-      return <UserCell userId={user?._id} name={user?.name} email={user?.email} rating={user?.rating} />
-    },
+    renderCell: ({ row }: GridRowModel) => (
+      <UserCell userId={row.user?._id} name={row.user?.name} email={row.user?.email} rating={row.user?.rating} />
+    ),
     width: 320,
   },
-
   {
     field: 'updatedAt',
-    headerName: t(TranslationKey.Created),
+    headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-    renderCell: params => <NormDateCell value={params.value} />,
+    renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
     width: 100,
   },
-
   {
     field: 'text',
     headerName: t(TranslationKey.Reviews),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reviews)} />,
-    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextAlignLeftCell text={row.text} />,
     flex: 1,
   },
-
   {
     field: 'files',
     headerName: t(TranslationKey.Files),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: params => <FilesCell files={params.value} />,
+    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.files} />,
     filterable: false,
     sortable: false,
-    width: 80,
-    align: 'center',
+    width: 90,
   },
-
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-    filterable: false,
-    sortable: false,
-    width: 180,
-    renderCell: params => (
+    renderCell: ({ row }: GridRowModel) => (
       <ActionButtonsCell
         isFirstButton
-        firstButtonElement={t(TranslationKey.View)}
+        iconButton
+        fullWidth
+        firstButtonElement={<EyeIcon />}
         firstButtonStyle={ButtonStyle.PRIMARY}
-        onClickFirstButton={() => handlers.onClickOpenFeedbackBtn(params.row.originalData)}
+        onClickFirstButton={() => onClickOpenFeedback(row)}
       />
     ),
+    filterable: false,
+    sortable: false,
+    width: 90,
   },
 ]

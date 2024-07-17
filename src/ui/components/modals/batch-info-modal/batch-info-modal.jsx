@@ -42,11 +42,8 @@ export const BatchInfoModal = observer(
     const { classes: styles, cx } = useStyles()
 
     const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel(true))
-
     const [isFileDownloading, setIsFileDownloading] = useState(false)
-
     const [nameSearchValue, setNameSearchValue] = useState('')
-
     const [currentBatch, setCurrentBatch] = useState(undefined)
 
     useEffect(() => {

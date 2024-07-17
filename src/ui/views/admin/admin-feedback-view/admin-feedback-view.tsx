@@ -1,39 +1,40 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
+import { GridRowModel } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { ReplyFeedbackForm } from '@components/forms/reply-feedback-form'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { useStyles } from './supervisor-ready-to-check-view.style'
+import { useStyles } from './admin-feedback-view.style'
 
-import { SupervisorReadyToCheckViewModel } from './supervisor-ready-to-check-view.model'
+import { AdminFeedbackViewModel } from './admin-feedback-view.model'
 
-export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
+export const AdminFeedbackView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new SupervisorReadyToCheckViewModel(isCreatedByClient))
+  const [viewModel] = useState(() => new AdminFeedbackViewModel())
 
   return (
     <>
-      <div className={styles.header}>
-        <Button
-          tooltipInfoContent={t(TranslationKey['Assign several product cards to a Supervisor'])}
-          disabled={viewModel.selectedRows.length === 0}
-          onClick={viewModel.onPickUpSomeItems}
-        >
-          {t(TranslationKey['Take on the work of the selected'])}
-        </Button>
+      <div className={styles.headerWrapper}>
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={t(TranslationKey['Search by name, email'])}
+          value={viewModel.currentSearchValue}
+          onChange={viewModel.onChangeUnserverSearchValue}
+        />
       </div>
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
           sortingMode="client"
           paginationMode="client"
           rowCount={viewModel.rowCount}
@@ -46,7 +47,7 @@ export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
           paginationModel={viewModel.paginationModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           getRowHeight={() => 'auto'}
-          getRowId={({ _id }) => _id}
+          getRowId={({ _id }: GridRowModel) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -77,6 +78,17 @@ export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         />
       </div>
+
+      <Modal
+        openModal={viewModel.showReplyFeedbackModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showReplyFeedbackModal')}
+      >
+        <ReplyFeedbackForm
+          feedback={viewModel.selectedFeedback}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showReplyFeedbackModal')}
+          onSubmit={viewModel.onClickWrite}
+        />
+      </Modal>
     </>
   )
 })

@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ChangeChipCell,
   ChangeInputCell,
+  ChangeInputCommentCell,
   DeadlineCell,
   FormedCell,
   ManyUserLinkCell,
@@ -24,6 +25,8 @@ import { findTariffInStorekeepersData } from '@utils/checks'
 import { formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 export const clientBoxesViewColumns = (
   handlers,
@@ -108,7 +111,6 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-      width: 300,
       renderCell: params => {
         return params.row?.items.length > 1 ? (
           <OrderManyItemsCell
@@ -144,9 +146,10 @@ export const clientBoxesViewColumns = (
           })
           .join('\n'),
 
-      table: DataGridFilterTables.PRODUCTS,
-      filterable: false,
-      columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      width: 320,
     },
 
     {
@@ -234,6 +237,23 @@ export const clientBoxesViewColumns = (
     },
 
     {
+      field: 'clientComment',
+      headerName: t(TranslationKey.Comment),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+
+      renderCell: params => (
+        <ChangeInputCommentCell
+          rowsCount={4}
+          text={params.value}
+          onClickSubmit={comment => handlers.onClickSaveClientComment(params.row._id, comment)}
+        />
+      ),
+
+      width: 280,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
       field: 'subUsers',
       headerName: t(TranslationKey['Access to product']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
@@ -294,7 +314,7 @@ export const clientBoxesViewColumns = (
         `Shipping Label:${params.row.shippingLabel ? trimBarcode(params.row.shippingLabel) : '-'}\n FBA Shipment:${
           params.row.fbaShipment || ''
         }`,
-      minWidth: 150,
+      width: 150,
       headerAlign: 'center',
       disableCustomSort: true,
     },

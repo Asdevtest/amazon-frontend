@@ -35,7 +35,7 @@ export const WarehouseDashboardView = observer(({ history }) => {
             {viewModel.storekeeperDestination ? <p className={styles.adress}>{viewModel.adress}</p> : null}
 
             <Button onClick={viewModel.onClickAddressBtn}>
-              {viewModel.storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
+              {viewModel.storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add address'])}
             </Button>
           </div>
         </div>
