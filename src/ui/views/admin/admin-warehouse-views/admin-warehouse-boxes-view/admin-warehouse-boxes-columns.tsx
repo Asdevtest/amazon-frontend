@@ -99,12 +99,13 @@ export const adminWarehouseBoxesColumns = () => {
     },
 
     {
-      field: 'amount',
+      field: 'totalAmount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-      renderCell: params => <MultilineTextCell text={String(params?.value * params?.row?.amount)} />,
-      width: 100,
+      renderCell: params => <MultilineTextCell text={params?.value} />,
+
       columnKey: columnnsKeys.shared.NUMBER,
+      width: 100,
     },
 
     {
