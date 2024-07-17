@@ -15,6 +15,8 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 export const ppcSalesDaysColumns = () => {
   const columns: IGridColumn[] = [
     {
@@ -50,12 +52,16 @@ export const ppcSalesDaysColumns = () => {
       renderCell: (params: GridRenderCellParams) => (
         <ProductAsinCell withoutTitle image={params.row?.image} asin={params.row?.asin} skuByClient={params.row?.sku} />
       ),
+
+      fields: getProductColumnMenuItems({ withoutTitle: true }),
+      columnMenuConfig: getProductColumnMenuValue({
+        isSimpleSku: true,
+        table: DataGridFilterTables.PPC_SALES_DAYS,
+      }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
       width: 260,
       minWidth: 100,
-      disableCustomSort: true,
-
-      table: DataGridFilterTables.PPC_SALES_DAYS,
-      columnKey: columnnsKeys.client.SHOP_REPORT,
     },
 
     {

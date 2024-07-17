@@ -20,7 +20,7 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { productColumnMenuItems, productColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 export const adminOrdersViewColumns = () => {
   const columns: IGridColumn[] = [
@@ -67,8 +67,8 @@ export const adminOrdersViewColumns = () => {
         )
       },
 
-      fields: productColumnMenuItems,
-      columnMenuConfig: productColumnMenuValue,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
       width: 260,

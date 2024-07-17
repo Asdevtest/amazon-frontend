@@ -28,6 +28,11 @@ import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import {
+  ProductColumnMenuType,
+  getProductColumnMenuItems,
+  getProductColumnMenuValue,
+} from '@config/data-grid-column-menu/product-column'
+import {
   productionTimeColumnMenuItems,
   productionTimeColumnMenuValue,
 } from '@config/data-grid-column-menu/production-time'
@@ -51,12 +56,13 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           />
         )
       },
+
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
       width: 260,
       minWidth: 100,
-
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-      table: DataGridFilterTables.PRODUCTS,
-      disableCustomSort: true,
     },
 
     {

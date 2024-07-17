@@ -21,11 +21,11 @@
  */
 export interface InlineObject80 {
     /**
-     * 
-     * @type {Array<string>}
+     * Причина отклонения
+     * @type {string}
      * @memberof InlineObject80
      */
-    shopIds: Array<string>;
+    reasonReject: string;
 }
 
 

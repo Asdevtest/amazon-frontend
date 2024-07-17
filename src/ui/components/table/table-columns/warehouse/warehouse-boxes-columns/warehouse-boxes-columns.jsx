@@ -22,6 +22,8 @@ import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
   {
     field: 'humanFriendlyId',
@@ -70,10 +72,11 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
         />
       )
     },
-    width: 320,
-    filterable: false,
 
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
+    fields: getProductColumnMenuItems(),
+    columnMenuConfig: getProductColumnMenuValue(),
+    columnKey: columnnsKeys.shared.MULTIPLE,
+    width: 320,
   },
 
   {
@@ -121,8 +124,6 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     filterable: false,
     sortable: false,
     width: 280,
-
-    // columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },
 
   {

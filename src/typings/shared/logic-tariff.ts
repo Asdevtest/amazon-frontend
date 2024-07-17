@@ -19,6 +19,7 @@ export interface ILogicTariff {
   avgRoi: number
   avgCostUnitWithDeliveryToUsa: number
   costUnitWithDeliveryToChina: number
+  yuanToDollarRate?: number // remove
 }
 
 export interface IConditionsByRegion {

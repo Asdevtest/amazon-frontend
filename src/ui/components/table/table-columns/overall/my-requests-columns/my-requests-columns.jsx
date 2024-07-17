@@ -24,6 +24,8 @@ import {
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 export const myRequestsViewColumns = rowHandlers => {
   const columns = [
     {
@@ -102,14 +104,13 @@ export const myRequestsViewColumns = rowHandlers => {
           />
         )
       },
+
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
       width: 260,
       minWidth: 100,
-
-      filterable: false,
-
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-      table: DataGridFilterTables.PRODUCTS,
-      disableCustomSort: true,
     },
 
     {

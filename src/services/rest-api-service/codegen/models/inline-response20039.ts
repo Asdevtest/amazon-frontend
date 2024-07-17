@@ -13,12 +13,9 @@
  */
 
 
-import { InlineResponse20039Batch } from './inline-response20039-batch';
-import { InlineResponse20039Boxes } from './inline-response20039-boxes';
-import { InlineResponse20039Orders } from './inline-response20039-orders';
-import { InlineResponse20039Products } from './inline-response20039-products';
-import { InlineResponse20039Requests } from './inline-response20039-requests';
-import { InlineResponse20039Shops } from './inline-response20039-shops';
+import { InlineResponse20039AllFiles } from './inline-response20039-all-files';
+import { InlineResponse20039AllImages } from './inline-response20039-all-images';
+import { InlineResponse20039AllVideo } from './inline-response20039-all-video';
 
 /**
  * 
@@ -28,40 +25,22 @@ import { InlineResponse20039Shops } from './inline-response20039-shops';
 export interface InlineResponse20039 {
     /**
      * 
-     * @type {InlineResponse20039Orders}
+     * @type {Array<InlineResponse20039AllImages>}
      * @memberof InlineResponse20039
      */
-    orders?: InlineResponse20039Orders;
+    allImages?: Array<InlineResponse20039AllImages>;
     /**
      * 
-     * @type {InlineResponse20039Shops}
+     * @type {Array<InlineResponse20039AllFiles>}
      * @memberof InlineResponse20039
      */
-    shops?: InlineResponse20039Shops;
+    allFiles?: Array<InlineResponse20039AllFiles>;
     /**
      * 
-     * @type {InlineResponse20039Requests}
+     * @type {Array<InlineResponse20039AllVideo>}
      * @memberof InlineResponse20039
      */
-    requests?: InlineResponse20039Requests;
-    /**
-     * 
-     * @type {InlineResponse20039Products}
-     * @memberof InlineResponse20039
-     */
-    products?: InlineResponse20039Products;
-    /**
-     * 
-     * @type {InlineResponse20039Batch}
-     * @memberof InlineResponse20039
-     */
-    batch?: InlineResponse20039Batch;
-    /**
-     * 
-     * @type {InlineResponse20039Boxes}
-     * @memberof InlineResponse20039
-     */
-    boxes?: InlineResponse20039Boxes;
+    allVideo?: Array<InlineResponse20039AllVideo>;
 }
 
 

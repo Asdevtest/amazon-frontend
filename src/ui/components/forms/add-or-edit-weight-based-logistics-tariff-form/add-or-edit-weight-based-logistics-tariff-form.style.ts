@@ -192,7 +192,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   regionContainer: {
-    width: '80px !important',
+    width: '95px !important',
     margin: '0 !important',
   },
 

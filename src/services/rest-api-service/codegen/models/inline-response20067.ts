@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20067Rows } from './inline-response20067-rows';
 
 /**
  * 
@@ -22,17 +21,11 @@ import { InlineResponse20067Rows } from './inline-response20067-rows';
  */
 export interface InlineResponse20067 {
     /**
-     * Кол-во записей
-     * @type {number}
-     * @memberof InlineResponse20067
-     */
-    count?: number;
-    /**
      * 
-     * @type {Array<InlineResponse20067Rows>}
+     * @type {Array<string>}
      * @memberof InlineResponse20067
      */
-    rows?: Array<InlineResponse20067Rows>;
+    failed?: Array<string>;
 }
 
 

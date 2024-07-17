@@ -21,17 +21,17 @@
  */
 export interface InlineObject151 {
     /**
-     * Старый ароль
+     * Токен, который юзер получает через почту
      * @type {string}
      * @memberof InlineObject151
      */
-    oldPassword: string;
+    hash: string;
     /**
      * Новый пароль
      * @type {string}
      * @memberof InlineObject151
      */
-    newPassword: string;
+    password?: string;
 }
 
 

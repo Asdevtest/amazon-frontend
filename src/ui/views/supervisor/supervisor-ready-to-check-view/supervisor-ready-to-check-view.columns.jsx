@@ -21,7 +21,7 @@ export const supervisorReadyToCheckColumns = ({ onPickUp }) => {
           onClickFirstButton={() => onPickUp(row._id)}
         />
       ),
-      minWidth: 200,
+      width: 200,
       disableCustomSort: true,
     },
 
@@ -30,7 +30,7 @@ export const supervisorReadyToCheckColumns = ({ onPickUp }) => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
-      minWidth: 140,
+      width: 140,
     },
   ]
 

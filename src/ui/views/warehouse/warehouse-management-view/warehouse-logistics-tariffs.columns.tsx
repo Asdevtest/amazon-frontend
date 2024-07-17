@@ -1,3 +1,5 @@
+import { GridRowModel } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -14,36 +16,43 @@ import { ArrowDownOutlineIcon, ArrowUpOutlineIcon, CrossIcon, EditIcon } from '@
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { ILogicTariff } from '@typings/shared/logic-tariff'
 
-export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDestinationData) => [
+interface ILogisticsTariffsColumns {
+  isArchive: () => boolean
+  onRemoveLogisticTariff: (id: string) => void
+  onTriggerArchive: (row: ILogicTariff) => void
+  onClickEditTariff: (row: ILogicTariff) => void
+}
+
+export const logisticsTariffsColumns = ({
+  isArchive,
+  onRemoveLogisticTariff,
+  onTriggerArchive,
+  onClickEditTariff,
+}: ILogisticsTariffsColumns) => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff name'])} />,
-
-    width: 120,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.name} />,
+    width: 150,
   },
 
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
-
-    width: 190,
-    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextAlignLeftCell text={row.description} />,
+    width: 200,
   },
 
   {
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-
-    renderCell: params => (
-      <DestinationVariationsSpanningCell
-        destinationVariations={params.row.originalData.destinationVariations}
-        destinationData={getDestinationData()}
-      />
+    renderCell: ({ row }: GridRowModel) => (
+      <DestinationVariationsSpanningCell destinationVariations={row.destinationVariations} />
     ),
     width: 150,
     filterable: false,
@@ -55,7 +64,6 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     field: 'weight',
     headerName: t(TranslationKey['Weight, kg']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Weight, kg'])} />,
-
     width: 175,
     filterable: false,
     sortable: false,
@@ -66,7 +74,6 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     field: 'inYuansRates',
     headerName: t(TranslationKey.Rate) + ', ¥',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', ¥'} />,
-
     width: 88,
     filterable: false,
     sortable: false,
@@ -76,7 +83,6 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     field: 'rates',
     headerName: t(TranslationKey.Rate) + ', $',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', $'} />,
-
     width: 88,
     filterable: false,
     sortable: false,
@@ -86,10 +92,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     field: 'dates',
     headerName: t(TranslationKey.Dates),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
-
-    renderCell: params => (
-      <WarehouseTariffDatesCell cls={params.row?.cls} etd={params.row?.etd} eta={params.row?.eta} />
-    ),
+    renderCell: ({ row }: GridRowModel) => <WarehouseTariffDatesCell cls={row.cls} etd={row.etd} eta={row.eta} />,
     width: 320,
     filterable: false,
     sortable: false,
@@ -99,45 +102,42 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     field: 'deliveryTimeInDay',
     headerName: t(TranslationKey['Time on the road, days']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
-
-    type: 'number',
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.deliveryTimeInDay} />,
     width: 110,
-    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-
-    width: 160,
-    renderCell: params => {
-      const isArchive = getIsArchive()
-
-      return (
-        <ActionButtonsCell
-          row
-          iconButton
-          isFirstButton
-          isSecondButton
-          isThirdButton={isArchive}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-          firstButtonTooltipText={t(TranslationKey.Edit)}
-          firstButtonElement={<EditIcon />}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonTooltipText={isArchive ? t(TranslationKey.Restore) : t(TranslationKey['Move to archive'])}
-          secondButtonElement={isArchive ? <ArrowUpOutlineIcon /> : <ArrowDownOutlineIcon />}
-          secondButtonStyle={isArchive ? ButtonStyle.SUCCESS : ButtonStyle.DANGER}
-          thirdButtonTooltipText={t(TranslationKey.Remove)}
-          thirdButtonElement={<CrossIcon />}
-          thirdButtonStyle={ButtonStyle.DANGER}
-          onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
-          onClickSecondButton={() => handlers.onTriggerArchive(params.row.originalData)}
-          onClickThirdButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
-        />
-      )
-    },
-
+    renderCell: ({ row }: GridRowModel) => (
+      <ActionButtonsCell
+        row
+        iconButton
+        isFirstButton
+        isSecondButton
+        isThirdButton={isArchive()}
+        firstButtonTooltipText={t(TranslationKey.Edit)}
+        firstButtonElement={<EditIcon />}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonTooltipText={isArchive() ? t(TranslationKey.Restore) : t(TranslationKey['Move to archive'])}
+        secondButtonElement={isArchive() ? <ArrowUpOutlineIcon /> : <ArrowDownOutlineIcon />}
+        secondButtonStyle={isArchive() ? ButtonStyle.SUCCESS : ButtonStyle.DANGER}
+        thirdButtonTooltipText={t(TranslationKey.Remove)}
+        thirdButtonElement={<CrossIcon />}
+        thirdButtonStyle={ButtonStyle.DANGER}
+        secondDescriptionText={
+          isArchive()
+            ? 'Are you sure you want to restore the tariff?'
+            : 'Are you sure you want to move the tariff to the archive?'
+        }
+        thirdDescriptionText="Are you sure you want to delete the tariff?"
+        onClickFirstButton={() => onClickEditTariff(row)}
+        onClickSecondButton={() => onTriggerArchive(row)}
+        onClickThirdButton={() => onRemoveLogisticTariff(row._id)}
+      />
+    ),
+    width: 140,
     filterable: false,
     sortable: false,
   },
@@ -146,19 +146,15 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
-    renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
-    // type: 'date',
+    renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
+    width: 115,
   },
 
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-    renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
-    // type: 'date',
+    renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
+    width: 115,
   },
 ]

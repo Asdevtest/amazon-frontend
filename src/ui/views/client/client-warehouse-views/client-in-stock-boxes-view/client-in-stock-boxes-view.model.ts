@@ -168,6 +168,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       onClickSavePrepId: (item: string, value: string) => this.onClickSavePrepId(item, value),
 
       onChangeUnitsOption: (option: Dimensions) => this.onChangeUnitsOption(option),
+      onClickSaveClientComment: (itemId: string, value: string) => this.onClickSaveClientComment(itemId, value),
     }
 
     const columnsModel = clientBoxesViewColumns(
@@ -1928,5 +1929,17 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     this.onAmazon = onAmazon
 
     this.onTriggerOpenModal('showProductDataModal')
+  }
+
+  async onClickSaveClientComment(itemId: string, value: string) {
+    try {
+      await BoxesModel.editAdditionalInfo(itemId, {
+        clientComment: value,
+      })
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20054Finances } from './inline-response20054-finances';
 
 /**
  * 
@@ -21,11 +22,11 @@
  */
 export interface InlineResponse20057 {
     /**
-     * id созданного профайла
-     * @type {string}
+     * 
+     * @type {InlineResponse20054Finances}
      * @memberof InlineResponse20057
      */
-    profileId?: string;
+    finances?: InlineResponse20054Finances;
 }
 
 

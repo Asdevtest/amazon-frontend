@@ -23,6 +23,12 @@ import { t } from '@utils/translations'
 
 import { UiTheme } from '@typings/enums/ui-theme'
 
+import {
+  ProductColumnMenuType,
+  getProductColumnMenuItems,
+  getProductColumnMenuValue,
+} from '@config/data-grid-column-menu/product-column'
+
 export const clientClosedIdeasColumns = rowHandlers => {
   const columns = [
     {
@@ -42,11 +48,12 @@ export const clientClosedIdeasColumns = rowHandlers => {
           />
         )
       },
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
       width: 260,
       minWidth: 100,
-      disableCustomSort: true,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-      table: DataGridFilterTables.PRODUCTS,
     },
 
     {

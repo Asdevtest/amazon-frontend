@@ -13,38 +13,31 @@
  */
 
 
-import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
- * 
+ * Схема подтверждения возрата коробок на склад
  * @export
  * @interface InlineObject65
  */
 export interface InlineObject65 {
     /**
-     * Гуид продукта
+     * GUID коробки, который планируем изменить
      * @type {string}
      * @memberof InlineObject65
      */
-    productId: string;
+    boxId: string;
     /**
-     * New product price
-     * @type {number}
-     * @memberof InlineObject65
-     */
-    newProductPrice?: number;
-    /**
-     * Description of product_listing_report
+     * GUID тарифа, на которую планируем изменить
      * @type {string}
      * @memberof InlineObject65
      */
-    description?: string;
+    logicsTariffId: string;
     /**
-     * 
-     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
+     * GUID дестинейшена.
+     * @type {string}
      * @memberof InlineObject65
      */
-    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
+    destinationId?: string;
 }
 
 

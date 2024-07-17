@@ -12,6 +12,8 @@ import {
 
 import { t } from '@utils/translations'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 export const clientLast30DaySellerBoardColumns = () => {
   const columns = [
     {
@@ -46,12 +48,16 @@ export const clientLast30DaySellerBoardColumns = () => {
       renderCell: params => (
         <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
       ),
+
+      fields: getProductColumnMenuItems({ withoutTitle: true }),
+      columnMenuConfig: getProductColumnMenuValue({
+        isSimpleSku: true,
+        table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
+      }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
       width: 260,
       minWidth: 100,
-      disableCustomSort: true,
-
-      table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
-      columnKey: columnnsKeys.client.SHOP_REPORT,
     },
 
     {
@@ -72,7 +78,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
 
       renderCell: params => <NormDateWithoutTimeCell value={params.value} />,
-      minWidth: 100,
+      width: 115,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
       columnKey: columnnsKeys.shared.DATE,
