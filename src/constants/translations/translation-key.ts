@@ -1278,7 +1278,8 @@ export enum TranslationKey {
   '№ Order/ № Item' = '№ Order/ № Item',
   'Additionally' = 'Additionally',
   'Warehouse address' = 'Warehouse address',
-  'Add Address' = 'Add Address',
+  'Add address' = 'Add address',
+  'Edit address' = 'Edit address',
   'Reply to a User Feedback' = 'Reply to a User Feedback',
   'Search by ASIN, Order ID, Item' = 'Search by ASIN, Order ID, Item',
   'Search by ASIN, Order ID, Item, Track number' = 'Search by ASIN, Order ID, Item, Track number',
@@ -1991,4 +1992,5 @@ export enum TranslationKey {
   'Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)' = 'Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)',
   'Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier' = 'Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier',
   'User not found.' = 'User not found.',
+  'Create a tariff' = 'Create a tariff',
 }

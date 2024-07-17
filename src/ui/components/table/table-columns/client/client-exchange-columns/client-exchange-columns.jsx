@@ -161,7 +161,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    minWidth: 120,
+    width: 115,
     // type: 'date',
   },
 ]

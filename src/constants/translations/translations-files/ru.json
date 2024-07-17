@@ -1278,7 +1278,8 @@
   "№ Order/ № Item": "№ Заказа/ № Item",
   "Additionally": "Дополнительно",
   "Warehouse address": "Адрес склада",
-  "Add Address": "Добавить адрес",
+  "Add address": "Добавить адрес",
+  "Edit address": "Редактировать адрес",
   "Reply to a User Feedback": "Ответ на обращение пользователя",
   "Search by ASIN, Order ID, Item": "Поиск по ASIN, ID заказа, Item",
   "Search by ASIN, Order ID, Item, Track number": "Поиск по ASIN, ID заказа, Item, Трек номер",
@@ -1991,5 +1992,6 @@
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Кнопка выставления статуса, карточка товара остается в работе у супервизора (можно изменить)",
   "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка выставления счета, карточка продукта отправляется покупателю для поиска поставщика (можно изменить до того, как покупатель возьмет в работу)",
   "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту відправляється супервайзеру для перевірки (можно змінити до перевірки). Немає необхідності, щоб байєр шукав постачальника",
-  "User not found.": "Пользователь не найден"
+  "User not found.": "Пользователь не найден",
+  "Create a tariff": "Создать тариф"
 }

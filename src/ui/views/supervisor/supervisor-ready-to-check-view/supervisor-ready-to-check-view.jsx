@@ -51,7 +51,6 @@ export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
-            columnMenu: viewModel.columnMenuSettings,
             toolbar: {
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,

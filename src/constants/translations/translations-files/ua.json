@@ -1278,7 +1278,8 @@
   "№ Order/ № Item": "№ Замовлення/ № Товару",
   "Additionally": "Додатково",
   "Warehouse address": "Адреса складу",
-  "Add Address": "Додати адресу",
+  "Add address": "Додати адресу",
+  "Edit address": "Редагувати адресу",
   "Reply to a User Feedback": "Відповісти на зворотний зв'язок користувача",
   "Search by ASIN, Order ID, Item": "Пошук за ASIN, ID замовлення, Товар",
   "Search by ASIN, Order ID, Item, Track number": "Пошук за ASIN, ID замовлення, Товар, Трек номер",
@@ -1990,5 +1991,6 @@
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Кнопка виставлення статусу, картка товару залишається в роботі у супервізора (можно змінити)",
   "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка виставлення рахунку, картка продукту надсилається покупцю для пошуку постачальника (можна змінити до того, як покупець візьме в роботу)",
   "Button to set status, the product card is sent to the supervisor for verification (can be changed before checking).There is no need for the buyer to search for a supplier": "Кнопка для встановлення статусу, картка продукту надсилається керівнику для перевірки (можна змінити до перевірки). Немає необхідності, щоб покупець шукав постачальника",
-  "User not found.": "Користувача не знайдено"
+  "User not found.": "Користувача не знайдено",
+  "Create a tariff": "Створити тариф"
 }

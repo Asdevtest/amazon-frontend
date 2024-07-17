@@ -127,7 +127,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
           productId={params.row._id}
         />
       ),
-      minWidth: 110,
+      width: 110,
 
       filterable: false,
       sortable: false,
@@ -141,7 +141,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
       valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
       type: 'number',
-      minWidth: 90,
+      width: 90,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -177,7 +177,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
       renderCell: params => <MultilineTextCell text={params.value} />,
       type: 'number',
-      minWidth: 150,
+      width: 150,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -265,7 +265,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-      minWidth: 120,
+      width: 120,
       valueFormatter: params => formatNormDateTime(params.value),
       renderCell: params => <NormDateCell value={params.value} />,
 
@@ -277,7 +277,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       valueFormatter: params => formatNormDateTime(params.value),
-      minWidth: 150,
+      width: 150,
       flex: 1,
       renderCell: params => <NormDateCell value={params.value} />,
 

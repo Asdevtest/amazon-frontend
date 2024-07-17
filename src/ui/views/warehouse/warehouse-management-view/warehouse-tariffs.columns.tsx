@@ -1,3 +1,5 @@
+import { GridRowModel } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -12,71 +14,65 @@ import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { ILogicTariff } from '@typings/shared/logic-tariff'
 
-export const warehouseTariffsColumns = handlers => [
+interface IWarehouseTariffsColumns {
+  onClickEditTariff: (row: ILogicTariff) => void
+  onRemoveWarehouseTariff: (id: string) => void
+}
+
+export const warehouseTariffsColumns = ({ onClickEditTariff, onRemoveWarehouseTariff }: IWarehouseTariffsColumns) => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
-
-    width: 250,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.name} />,
+    width: 300,
   },
-
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-    renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
-    // type: 'date',
-  },
-
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
-
-    width: 600,
-    renderCell: params => <ScrollingCell value={params.value} />,
+    renderCell: ({ row }: GridRowModel) => <ScrollingCell value={row.description} />,
+    flex: 1,
   },
-
   {
     field: 'price',
     headerName: t(TranslationKey['Service cost per kg, $']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service cost per kg, $'])} />,
-
-    type: 'number',
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.price} />,
     width: 250,
-    renderCell: params => <MultilineTextCell text={params.value} />,
   },
-
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-
-    width: 100,
-    renderCell: params => (
+    renderCell: ({ row }: GridRowModel) => (
       <ActionButtonsCell
         row
         iconButton
         isFirstButton
         isSecondButton
-        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         firstButtonTooltipText={t(TranslationKey.Edit)}
         firstButtonElement={<EditIcon />}
         firstButtonStyle={ButtonStyle.PRIMARY}
         secondButtonTooltipText={t(TranslationKey.Remove)}
         secondButtonElement={<CrossIcon />}
         secondButtonStyle={ButtonStyle.DANGER}
-        onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
-        onClickSecondButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
+        secondDescriptionText="Are you sure you want to delete the tariff?"
+        onClickFirstButton={() => onClickEditTariff(row)}
+        onClickSecondButton={() => onRemoveWarehouseTariff(row._id)}
       />
     ),
-
+    width: 100,
     filterable: false,
     sortable: false,
+  },
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
+    width: 115,
   },
 ]

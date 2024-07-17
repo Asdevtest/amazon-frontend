@@ -13,11 +13,11 @@ import { IDestinationVariationApproximateCalculations } from '@typings/shared/de
 import { useStyles } from './destination-variations-spanning-cell.style'
 
 interface DestinationVariationsSpanningCellProps {
-  showCheckbox: boolean
   destinationVariations: IDestinationVariationApproximateCalculations[]
-  activeDestinationId: string
-  activeDedestinationVariationt: string
-  selectVariationTariff: (variantId: string, variantDestinationId: string, isNotValidDestination: boolean) => void
+  showCheckbox?: boolean
+  activeDestinationId?: string
+  activeDedestinationVariationt?: string
+  selectVariationTariff?: (variantId: string, variantDestinationId: string, isNotValidDestination: boolean) => void
   withoutRate?: boolean
   isRemovedDestinationRestriction?: boolean
 }
@@ -67,7 +67,7 @@ export const DestinationVariationsSpanningCell: FC<DestinationVariationsSpanning
                       checked={activeDedestinationVariationt === variant._id}
                       classes={{ root: styles.checkboxRoot }}
                       onClick={() =>
-                        selectVariationTariff(variant._id, variant?.destination?._id, isNotValidDestination)
+                        selectVariationTariff?.(variant._id, variant?.destination?._id, isNotValidDestination)
                       }
                     />
                   )}
