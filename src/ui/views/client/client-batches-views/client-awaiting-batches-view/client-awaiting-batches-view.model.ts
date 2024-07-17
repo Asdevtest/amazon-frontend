@@ -41,6 +41,7 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
   showAddOrEditBatchModal = false
 
   curBox: string = ''
+  selectedBoxId: string = ''
 
   showProgress = false
 
@@ -278,12 +279,14 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
   }
 
   setCurrentOpenedBox(row: IBox) {
-    try {
-      this.curBox = row._id
+    this.curBox = row._id
 
-      this.onTriggerOpenModal('showBoxViewModal')
-    } catch (error) {
-      console.error(error)
-    }
+    this.onTriggerOpenModal('showBoxViewModal')
+  }
+
+  setBoxId(boxId: string) {
+    this.selectedBoxId = boxId
+
+    this.onTriggerOpenModal('showBoxViewModal')
   }
 }
