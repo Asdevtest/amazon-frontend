@@ -18,6 +18,8 @@ import { DataGridSelectViewProductBatch } from '@components/data-grid/data-grid-
 import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
   const columns = [
     {
@@ -37,11 +39,14 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       ),
       renderCell: params => <BatchBoxesCell boxes={params.row.boxes} productViewMode={getProductViewMode?.()} />,
       width: 420,
+
       filterable: false,
       sortable: false,
-      columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
-      table: DataGridFilterTables.PRODUCTS,
       disableCustomSort: true,
+
+      fields: getProductColumnMenuItems({ withoutSku: true }),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {

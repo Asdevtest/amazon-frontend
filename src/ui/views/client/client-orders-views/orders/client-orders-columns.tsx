@@ -35,6 +35,7 @@ import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 import {
   productionTimeColumnMenuItems,
   productionTimeColumnMenuValue,
@@ -116,11 +117,12 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
           />
         )
       },
-      width: 280,
 
-      table: DataGridFilterTables.PRODUCTS,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
+      width: 250,
     },
 
     {

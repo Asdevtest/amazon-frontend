@@ -25,6 +25,8 @@ import { formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 export const clientBoxesViewColumns = (
   handlers,
   getStorekeepersData,
@@ -108,7 +110,6 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-      width: 300,
       renderCell: params => {
         return params.row?.items.length > 1 ? (
           <OrderManyItemsCell
@@ -144,9 +145,10 @@ export const clientBoxesViewColumns = (
           })
           .join('\n'),
 
-      table: DataGridFilterTables.PRODUCTS,
-      filterable: false,
-      columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      width: 320,
     },
 
     {

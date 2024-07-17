@@ -15,6 +15,8 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 export const clientIntegrationsReportReturnsColumns = () => {
   const columns: IGridColumn[] = [
     {
@@ -50,11 +52,15 @@ export const clientIntegrationsReportReturnsColumns = () => {
       renderCell: (params: GridRenderCellParams) => (
         <ProductAsinCell withoutTitle asin={params.row?.asin} image={params.row?.image} skuByClient={params.row?.sku} />
       ),
-      width: 250,
-      disableCustomSort: true,
 
-      table: DataGridFilterTables.INVENTORY_RETURNS,
-      columnKey: columnnsKeys.client.SHOP_REPORT,
+      fields: getProductColumnMenuItems({ withoutTitle: true }),
+      columnMenuConfig: getProductColumnMenuValue({
+        isSimpleSku: true,
+        table: DataGridFilterTables.INVENTORY_RETURNS,
+      }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 250,
     },
 
     {
