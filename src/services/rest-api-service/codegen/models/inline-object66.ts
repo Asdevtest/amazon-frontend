@@ -13,32 +13,31 @@
  */
 
 
-import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
- * 
+ * Схема создания/апдейта рекомендаций
  * @export
  * @interface InlineObject66
  */
 export interface InlineObject66 {
     /**
-     * New product price
-     * @type {number}
-     * @memberof InlineObject66
-     */
-    newProductPrice?: number;
-    /**
-     * Description of product_listing_report
+     * GUID продукта.
      * @type {string}
      * @memberof InlineObject66
      */
-    description?: string;
+    productId: string;
     /**
-     * 
-     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
+     * GUID сторкипера.
+     * @type {string}
      * @memberof InlineObject66
      */
-    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
+    storekeeperId: string;
+    /**
+     * Рекомендуемое значение
+     * @type {number}
+     * @memberof InlineObject66
+     */
+    recommendedValue: number;
 }
 
 

@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1IntegrationsCreateAndLinkSkuProductsPayload } from './api-v1-integrations-create-and-link-sku-products-payload';
+import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } from './api-v1-integrations-sellerboard-warehouse-products-link-sku-warehouse-stocks';
 
 /**
  * 
@@ -23,10 +23,16 @@ import { ApiV1IntegrationsCreateAndLinkSkuProductsPayload } from './api-v1-integ
 export interface InlineObject81 {
     /**
      * 
-     * @type {Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>}
+     * @type {string}
      * @memberof InlineObject81
      */
-    payload?: Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>;
+    productId: string;
+    /**
+     * 
+     * @type {Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>}
+     * @memberof InlineObject81
+     */
+    warehouseStocks: Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>;
 }
 
 

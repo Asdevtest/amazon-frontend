@@ -21,101 +21,11 @@
  */
 export interface InlineObject74 {
     /**
-     * Название идеи
+     * id профайла
      * @type {string}
      * @memberof InlineObject74
      */
-    title?: string;
-    /**
-     * Image URL
-     * @type {Array<string>}
-     * @memberof InlineObject74
-     */
-    media?: Array<string>;
-    /**
-     * Комментарий к идее
-     * @type {string}
-     * @memberof InlineObject74
-     */
-    comments?: string;
-    /**
-     * Комментарий байера
-     * @type {string}
-     * @memberof InlineObject74
-     */
-    buyerComment?: string;
-    /**
-     * Назавние продукта
-     * @type {string}
-     * @memberof InlineObject74
-     */
-    productName: string;
-    /**
-     * Ссылки на продукт, если есть
-     * @type {Array<string>}
-     * @memberof InlineObject74
-     */
-    productLinks?: Array<string>;
-    /**
-     * Дополнительные критерии для поиска товара
-     * @type {string}
-     * @memberof InlineObject74
-     */
-    criteria?: string;
-    /**
-     * Количество товаров
-     * @type {number}
-     * @memberof InlineObject74
-     */
-    quantity?: number;
-    /**
-     * Желаемая цена
-     * @type {number}
-     * @memberof InlineObject74
-     */
-    price: number;
-    /**
-     * FBA Fee
-     * @type {number}
-     * @memberof InlineObject74
-     */
-    fbaFee?: number;
-    /**
-     * Ориентационная цена
-     * @type {number}
-     * @memberof InlineObject74
-     */
-    approximatePrice?: number;
-    /**
-     * Ширина, см
-     * @type {number}
-     * @memberof InlineObject74
-     */
-    width?: number;
-    /**
-     * Высота, см
-     * @type {number}
-     * @memberof InlineObject74
-     */
-    height?: number;
-    /**
-     * Длина, см
-     * @type {number}
-     * @memberof InlineObject74
-     */
-    length?: number;
-    /**
-     * Product ID
-     * @type {string}
-     * @memberof InlineObject74
-     */
-    productId?: string;
-    /**
-     * Гуид родительского продукта
-     * @type {string}
-     * @memberof InlineObject74
-     */
-    parentProductId?: string;
+    profileId: string;
 }
 
 

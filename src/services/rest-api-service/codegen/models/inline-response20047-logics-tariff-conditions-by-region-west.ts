@@ -17,15 +17,15 @@
 /**
  * 
  * @export
- * @interface InlineResponse2016
+ * @interface InlineResponse20047LogicsTariffConditionsByRegionWest
  */
-export interface InlineResponse2016 {
+export interface InlineResponse20047LogicsTariffConditionsByRegionWest {
     /**
-     * guid созданного объекта
-     * @type {string}
-     * @memberof InlineResponse2016
+     * Стоимость доставки в местную региональную зону, кг/$
+     * @type {number}
+     * @memberof InlineResponse20047LogicsTariffConditionsByRegionWest
      */
-    guid?: string;
+    rate?: number;
 }
 
 

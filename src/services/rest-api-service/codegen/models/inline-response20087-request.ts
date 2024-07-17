@@ -14,7 +14,7 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20054RequestSpec } from './inline-response20054-request-spec';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 import { InlineResponse20087RequestAnnouncement } from './inline-response20087-request-announcement';
 import { InlineResponse20087RequestProduct } from './inline-response20087-request-product';
 
@@ -98,10 +98,10 @@ export interface InlineResponse20087Request {
     direction?: InlineResponse20087RequestDirectionEnum;
     /**
      * 
-     * @type {InlineResponse20054RequestSpec}
+     * @type {ApiV1AnnouncementsMySpec}
      * @memberof InlineResponse20087Request
      */
-    spec?: InlineResponse20054RequestSpec;
+    spec?: ApiV1AnnouncementsMySpec;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
