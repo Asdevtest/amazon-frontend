@@ -4,15 +4,17 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 
 import { BuyerModel } from '@models/buyer-model'
-import { DataGridTableModel } from '@models/data-grid-table-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { UserModel } from '@models/user-model'
+
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
 import { IOrder } from '@typings/models/orders/order'
 
 import { buyerFreeOrdersViewColumns } from './buyer-free-orders-columns'
 import { observerConfig } from './buyer-free-orders-view.config'
 
-export class BuyerFreeOrdersViewModel extends DataGridTableModel {
+export class BuyerFreeOrdersViewModel extends DataGridFilterTableModel {
   curOrder: IOrder | null = null
   showTwoVerticalChoicesModal = false
 
@@ -23,8 +25,10 @@ export class BuyerFreeOrdersViewModel extends DataGridTableModel {
     const columnsModel = buyerFreeOrdersViewColumns(rowHandlers)
 
     super({
-      getMainDataMethod: BuyerModel.getOrdersVacant,
+      getMainDataMethod: BuyerModel.getOrdersVacantPag,
       columnsModel,
+      filtersFields: getFilterFields(columnsModel, ['maxProductionTerm', 'amazonTitle', 'skuByClient']),
+      mainMethodURL: 'buyers/orders/vac/pag?',
       tableKey: DataGridTablesKeys.BUYER_FREE_ORDERS,
     })
 
@@ -36,16 +40,7 @@ export class BuyerFreeOrdersViewModel extends DataGridTableModel {
     const orderId = new URL(window.location.href)?.searchParams?.get('orderId')
 
     if (orderId) {
-      this.history.push(`${this.history?.location?.pathname}`)
-      this.onChangeFilterModel({
-        items: [
-          {
-            field: 'ID',
-            operator: '=',
-            value: orderId,
-          },
-        ],
-      })
+      this.onChangeFullFieldMenuItem([orderId], 'id')
     }
 
     this.getDataGridState()
