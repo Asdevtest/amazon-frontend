@@ -29,6 +29,7 @@ export const ClientExchangeView = observer(() => {
     <>
       <div className={styles.tableWrapper}>
         <CustomDataGrid
+          rowCount={viewModel.currentData?.length}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}

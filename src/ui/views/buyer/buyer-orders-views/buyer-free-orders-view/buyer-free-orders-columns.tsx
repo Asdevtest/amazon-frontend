@@ -1,3 +1,5 @@
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -20,6 +22,13 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
+import {
+  productionTermColumnMenuItems,
+  productionTermColumnMenuValue,
+} from '../buyer-pending-orders-view/column.config'
+
 interface IHandlers {
   onClickTableRowBtn: (order: IOrder) => void
 }
@@ -31,8 +40,9 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+
+      columnKey: columnnsKeys.shared.NUMBER,
       width: 65,
-      type: 'number',
     },
 
     {
@@ -46,10 +56,10 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           status={params.row.status}
         />
       ),
-      width: 80,
-      sortable: false,
+
+      disableCustomSort: true,
       filterable: false,
-      align: 'center',
+      width: 80,
     },
 
     {
@@ -66,9 +76,10 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           onClickFirstButton={() => handlers.onClickTableRowBtn(params.row as IOrder)}
         />
       ),
-      width: 180,
+
+      disableCustomSort: true,
       filterable: false,
-      sortable: false,
+      width: 180,
     },
 
     {
@@ -87,7 +98,12 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           />
         )
       },
-      width: 280,
+
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 250,
     },
 
     {
@@ -95,7 +111,8 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      type: 'number',
+
+      columnKey: columnnsKeys.shared.NUMBER,
       width: 100,
     },
 
@@ -104,7 +121,8 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Price),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-      type: 'number',
+
+      columnKey: columnnsKeys.shared.NUMBER,
       width: 110,
     },
 
@@ -118,12 +136,14 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       ),
+
+      disableCustomSort: true,
+      filterable: false,
       width: 210,
-      align: 'center',
     },
 
     {
-      field: 'productionTerm',
+      field: 'minProductionTerm',
       headerName: t(TranslationKey['Production time']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
@@ -138,8 +158,13 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
 
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
+
+      fields: productionTermColumnMenuItems,
+      columnMenuConfig: productionTermColumnMenuValue,
+
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
       width: 120,
-      sortable: false,
     },
 
     {
@@ -147,6 +172,8 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Deadline),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
+
+      columnKey: columnnsKeys.shared.DATE,
       width: 100,
     },
 
@@ -155,7 +182,9 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
-      type: 'boolean',
+
+      disableCustomSort: true,
+      filterable: false,
       width: 140,
     },
 
@@ -166,6 +195,8 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       renderCell: params => (
         <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
+
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       width: 155,
     },
 
@@ -176,14 +207,19 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       renderCell: params => (
         <UserLinkCell blackText name={params.row.product.client?.name} userId={params.row.product.client?._id} />
       ),
+
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      table: DataGridFilterTables.PRODUCTS,
       width: 120,
     },
 
     {
-      field: 'warehouses',
+      field: 'destination',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
       renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
+
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       width: 160,
     },
 
@@ -192,6 +228,8 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey['Client comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 400,
     },
 
@@ -200,9 +238,19 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
+
+      columnKey: columnnsKeys.shared.DATE,
       width: 115,
     },
   ]
+
+  for (const column of columns) {
+    if (!column.table) {
+      column.table = DataGridFilterTables.ORDERS
+    }
+
+    column.sortable = false
+  }
 
   return columns
 }
