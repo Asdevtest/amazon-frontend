@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
-
-import { GridColDef } from '@mui/x-data-grid-premium'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -31,8 +28,8 @@ import { IPermissionProduct } from '@typings/models/permissions/permission-produ
 import { IUserFreelanceSpecs } from '@typings/models/user/users-freelance-specs'
 import { IFullUser } from '@typings/shared/full-user'
 
-import { getColumnsModel } from './helpers/get-columns-model'
-import { observerConfig } from './observer-config'
+import { subUsersColumns } from './sub-users-view.columns'
+import { IColumnProps, observerConfig } from './sub-users-view.config'
 
 export class SubUsersViewModel extends DataGridTableModel {
   singlePermissions: IPermission[] = []
@@ -43,26 +40,23 @@ export class SubUsersViewModel extends DataGridTableModel {
   curUserShopsPermissions: string[] = []
   productPermissionsData = []
   selectedSubUser: IFullUser | null = null
-
   showAddSubUserModal = false
   showPermissionModal = false
-  showConfirmModal = false
 
   get userRole() {
-    // @ts-ignore
-    return UserModel?.userInfo?.role
+    return (UserModel?.userInfo as unknown as IFullUser)?.role
   }
 
-  constructor(history: any) {
-    const rowHandlers = {
-      onClickRemoveBtn: (row: IFullUser) => this.onClickRemoveBtn(row),
-      onClickEditBtn: (row: IFullUser) => this.onClickEditBtn(row),
+  constructor() {
+    const columnsProps: IColumnProps = {
+      onClickRemove: (id: string) => this.unlinkSubUser(id),
+      onClickEdit: (row: IFullUser) => this.onClickEditBtn(row),
       onClickSaveComment: (id: string, comment?: string) => this.onClickSaveComment(id, comment),
     }
 
     super({
       getMainDataMethod: UserModel.getMySubUsers,
-      columnsModel: getColumnsModel(history.location.pathname)(rowHandlers) as unknown as GridColDef[],
+      columnsModel: subUsersColumns(columnsProps),
       tableKey: DataGridTablesKeys.OVERALL_SUB_USERS,
       fieldsForSearch: ['name', 'email'],
     })
@@ -70,9 +64,7 @@ export class SubUsersViewModel extends DataGridTableModel {
     makeObservable(this, observerConfig)
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
     this.getDataGridState()
-
     this.getCurrentData()
     this.getGroupPermissions()
     this.getSinglePermissions()
@@ -202,12 +194,6 @@ export class SubUsersViewModel extends DataGridTableModel {
     }
   }
 
-  onClickRemoveBtn(row: IFullUser) {
-    this.selectedSubUser = row
-
-    this.onTriggerOpenModal('showConfirmModal')
-  }
-
   async setPermissionsForUser(id: string, data: any, allowedItems: any, currentSpec: any) {
     try {
       await PermissionsModel.setPermissionsForUser(id, data)
@@ -249,11 +235,13 @@ export class SubUsersViewModel extends DataGridTableModel {
     }
   }
 
-  async unlinkSubUser() {
+  async unlinkSubUser(userId: string) {
     try {
-      await UserModel.unlinkSubUser({ userId: this.selectedSubUser?._id })
+      await UserModel.unlinkSubUser({ userId })
 
       toast.success(t(TranslationKey['Sub-user removed']))
+
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
@@ -270,17 +258,6 @@ export class SubUsersViewModel extends DataGridTableModel {
     }
   }
 
-  async onSubmitUnlinkSubUser() {
-    try {
-      await this.unlinkSubUser()
-      this.getCurrentData()
-
-      this.onTriggerOpenModal('showConfirmModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   async getSpecs() {
     try {
       const response = await UserModel.getSpecs(false)
@@ -291,5 +268,9 @@ export class SubUsersViewModel extends DataGridTableModel {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  onToggleAddSubUserModal() {
+    this.onTriggerOpenModal('showAddSubUserModal')
   }
 }

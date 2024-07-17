@@ -151,7 +151,6 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderCell: params => (
         <BatchTrackingCell
           disabled
-          disableMultilineForTrack
           disabledArrivalDate={params.row?.status !== 'HAS_DISPATCHED'}
           rowHandlers={rowHandlers}
           id={params.row?._id}

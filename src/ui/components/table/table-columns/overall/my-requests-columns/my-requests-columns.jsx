@@ -9,8 +9,8 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ChangeInputCommentCell,
   CheckboxCell,
+  CommentCell,
   ManyUserLinkCell,
   MultilineRequestStatusCell,
   MultilineTextCell,
@@ -24,11 +24,7 @@ import {
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import {
-  ProductColumnMenuType,
-  getProductColumnMenuItems,
-  getProductColumnMenuValue,
-} from '@config/data-grid-column-menu/product-column'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 export const myRequestsViewColumns = rowHandlers => {
   const columns = [
@@ -270,8 +266,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       width: 335,
       renderCell: ({ row }) => (
-        <ChangeInputCommentCell
-          rowsCount={3}
+        <CommentCell
           text={row?.detailsCustom?.comment}
           onClickSubmit={comment => rowHandlers.onClickSaveComment(row?._id, comment)}
         />

@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ChangeChipCell,
   ChangeInputCell,
-  ChangeInputCommentCell,
+  CommentCell,
   DeadlineCell,
   FormedCell,
   ManyUserLinkCell,
@@ -242,8 +242,7 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
       renderCell: params => (
-        <ChangeInputCommentCell
-          rowsCount={4}
+        <CommentCell
           text={params.value}
           onClickSubmit={comment => handlers.onClickSaveClientComment(params.row._id, comment)}
         />
