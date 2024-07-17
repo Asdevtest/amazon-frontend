@@ -80,13 +80,13 @@ export const BuyerFreeOrdersView = observer(() => {
         <TwoVerticalChoicesModal
           // @ts-ignore
           tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
-          tooltipSecondButton={t(TranslationKey['Stay in "Free Orders"'])}
+          tooltipSecondButton={t(TranslationKey['Stay in "Free orders"'])}
           openModal={viewModel.showTwoVerticalChoicesModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
           title={t(TranslationKey['Order picked up'])}
           topBtnText={t(TranslationKey['Go to order'])}
-          bottomBtnText={t(TranslationKey['Continue to work with free orders'])}
-          onClickTopBtn={() => viewModel.goToMyOrders()}
+          bottomBtnText={t(TranslationKey['Free orders'])}
+          onClickTopBtn={viewModel.goToMyOrders}
           onClickBottomBtn={viewModel.onClickContinueWorkButton}
         />
       ) : null}

@@ -11,19 +11,12 @@ import { t } from '@utils/translations'
 
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 import { ICreatedBy } from '@typings/shared/created-by'
-import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './announcement-card.style'
-
-interface onClickThumbnailArguments {
-  images: UploadFileType[]
-  imgIndex: number
-}
 
 interface AnnouncementCardProps {
   announcementData: IAnnoucement
   selectedCard?: IAnnoucement
-  onClickThumbnail: (images: onClickThumbnailArguments) => void
   onClickSelectCard: (value: IAnnoucement) => void
   onClickSelectButton?: (selectedService?: IAnnoucement, chosenExecutor?: ICreatedBy) => void
 }
@@ -47,13 +40,7 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
 
   return (
     <>
-      <div
-        className={cx(styles.root, { [styles.selectedCard]: selectedCard?._id === announcementData?._id })}
-        onClick={e => {
-          e.stopPropagation()
-          onClickSelectCard(announcementData)
-        }}
-      >
+      <div className={cx(styles.root, { [styles.selectedCard]: selectedCard?._id === announcementData?._id })}>
         <div className={styles.header}>
           <div className={styles.titleWrapper}>
             <p className={styles.title}>{announcementData?.title}</p>

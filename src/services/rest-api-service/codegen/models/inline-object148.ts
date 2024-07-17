@@ -31,13 +31,13 @@ export interface InlineObject148 {
      * @type {object}
      * @memberof InlineObject148
      */
-    options?: object;
+    settings?: object;
     /**
      * Является ли пресет активным.
      * @type {boolean}
      * @memberof InlineObject148
      */
-    activeOption?: boolean;
+    activeSetting?: boolean;
     /**
      * Title of preset
      * @type {string}

@@ -9,7 +9,6 @@ import { userPermissionsColumns } from '@components/table/table-columns/admin/us
 export class UserEditModel {
   history = undefined
 
-  checkValidationNameOrEmail = {}
   changeFields = { email: '', name: '', oldPassword: '', newPassword: '', confirmNewPassword: '' }
   editUserFormFields = undefined
 
@@ -96,11 +95,6 @@ export class UserEditModel {
 
   async submitEditUserForm(data, sourceData) {
     try {
-      this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
-        name: this.changeFields.name,
-        email: this.changeFields.email,
-      })
-
       this.submitEditData = { ...data, permissions: data.active && data.active !== 'false' ? data.permissions : [] } // удаляем пермишены если баним юзера
 
       this.availableSubUsers = undefined
@@ -109,12 +103,7 @@ export class UserEditModel {
         this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.userData._id)).subUsers.length
       }
 
-      if (
-        this.checkValidationNameOrEmail.nameIsUnique === false ||
-        this.checkValidationNameOrEmail.emailIsUnique === false
-      ) {
-        return
-      } else if (this.availableSubUsers) {
+      if (this.availableSubUsers) {
         this.onTriggerOpenModal('showConfirmModal')
       } else {
         await this.finalStepSubmitEditUserForm()

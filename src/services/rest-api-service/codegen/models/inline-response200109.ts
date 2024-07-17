@@ -13,34 +13,25 @@
  */
 
 
-import { ApiV1RequestProposalsCustomByRequestIdGuidDetails } from './api-v1-request-proposals-custom-by-request-id-guid-details';
-import { ApiV1RequestProposalsCustomByRequestIdGuidProposal } from './api-v1-request-proposals-custom-by-request-id-guid-proposal';
-import { ApiV1RequestProposalsCustomByRequestIdGuidRequest } from './api-v1-request-proposals-custom-by-request-id-guid-request';
 
 /**
- * Схема универсального предложения
+ * 
  * @export
  * @interface InlineResponse200109
  */
 export interface InlineResponse200109 {
     /**
-     * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidProposal}
+     * userAgent с которым был получен токен
+     * @type {string}
      * @memberof InlineResponse200109
      */
-    proposal?: ApiV1RequestProposalsCustomByRequestIdGuidProposal;
+    device: string;
     /**
      * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidDetails}
+     * @type {string}
      * @memberof InlineResponse200109
      */
-    details?: ApiV1RequestProposalsCustomByRequestIdGuidDetails;
-    /**
-     * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidRequest}
-     * @memberof InlineResponse200109
-     */
-    request?: ApiV1RequestProposalsCustomByRequestIdGuidRequest;
+    createdAt: string;
 }
 
 

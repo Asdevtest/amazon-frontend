@@ -28,6 +28,7 @@ export * from './api/idea-api';
 export * from './api/integrations-api';
 export * from './api/order-api';
 export * from './api/other-api';
+export * from './api/parser-api';
 export * from './api/permissions-api';
 export * from './api/product-api';
 export * from './api/request-proposals-api';

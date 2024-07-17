@@ -103,6 +103,12 @@ export interface ApiV1BoxesClientsLightProduct {
     subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof ApiV1BoxesClientsLightProduct
+     */
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * 
      * @type {Array<ApiV1BoxesClientsLightProductRedFlags>}
      * @memberof ApiV1BoxesClientsLightProduct
      */

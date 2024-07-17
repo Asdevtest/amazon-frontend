@@ -21,17 +21,83 @@
  */
 export interface InlineObject26 {
     /**
+     * GUID пункта назначения коробки
+     * @type {string}
+     * @memberof InlineObject26
+     */
+    destinationId?: string;
+    /**
+     * GUID тарифа к сторкипера
+     * @type {string}
+     * @memberof InlineObject26
+     */
+    logicsTariffId?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject26
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject26
+     */
+    fbaNumber?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineObject26
+     */
+    clientComment?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineObject26
+     */
+    referenceId?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineObject26
+     */
+    trackNumberText?: string;
+    /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject26
      */
-    batchIds: Array<string>;
+    trackNumberFile?: Array<string>;
     /**
-     * Заархивирована ли партия
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineObject26
+     */
+    upsTrackNumber?: string;
+    /**
+     * shippingLabel коробки
+     * @type {string}
+     * @memberof InlineObject26
+     */
+    shippingLabel?: string;
+    /**
+     * shippingLabel проклеен сторкипером
      * @type {boolean}
      * @memberof InlineObject26
      */
-    archive: boolean;
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineObject26
+     */
+    prepId?: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject26
+     */
+    variationTariffId?: string;
 }
 
 

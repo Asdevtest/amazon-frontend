@@ -15,23 +15,17 @@
 
 
 /**
- * 
+ * Схема апдейта рекомендаций
  * @export
  * @interface InlineObject64
  */
 export interface InlineObject64 {
     /**
-     * 
-     * @type {string}
-     * @memberof InlineObject64
-     */
-    clientComment: string;
-    /**
-     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * Рекомендуемое значение
      * @type {number}
      * @memberof InlineObject64
      */
-    priceForClient: number;
+    recommendedValue: number;
 }
 
 

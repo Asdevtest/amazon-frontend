@@ -13,7 +13,8 @@
  */
 
 
-import { InlineResponse200101Shop } from './inline-response200101-shop';
+import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
+import { InlineResponse200101DestinationVariations } from './inline-response200101-destination-variations';
 
 /**
  * 
@@ -22,62 +23,113 @@ import { InlineResponse200101Shop } from './inline-response200101-shop';
  */
 export interface InlineResponse200101Rows {
     /**
-     * GUID нотификации в базе данных
+     * 
      * @type {string}
      * @memberof InlineResponse200101Rows
      */
     _id?: string;
     /**
-     * JSON нотификации
-     * @type {object}
+     * Тип тарифа
+     * @type {number}
      * @memberof InlineResponse200101Rows
      */
-    data?: object;
+    tariffType?: number;
     /**
-     * Тип нотификации
+     * Название тарифа
      * @type {string}
      * @memberof InlineResponse200101Rows
      */
-    type?: InlineResponse200101RowsTypeEnum;
+    name?: string;
     /**
-     * 
-     * @type {InlineResponse200101Shop}
+     * Описание тарифа
+     * @type {string}
      * @memberof InlineResponse200101Rows
      */
-    shop?: InlineResponse200101Shop;
+    description?: string;
     /**
-     * Заархивирована ли нотификация
+     * Время доставки, днях
+     * @type {string}
+     * @memberof InlineResponse200101Rows
+     */
+    deliveryTimeInDay?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200101Rows
+     */
+    storekeeperId?: string;
+    /**
+     * Дата закрытия приема новых грузов.
+     * @type {string}
+     * @memberof InlineResponse200101Rows
+     */
+    cls?: string;
+    /**
+     * Ожидаема дата отбытия.
+     * @type {string}
+     * @memberof InlineResponse200101Rows
+     */
+    etd?: string;
+    /**
+     * Ожидаема дата прибытия.
+     * @type {string}
+     * @memberof InlineResponse200101Rows
+     */
+    eta?: string;
+    /**
+     * Минимальный вес, в кг
+     * @type {number}
+     * @memberof InlineResponse200101Rows
+     */
+    minWeightInKg?: number;
+    /**
+     * Заархивирован ли тариф
      * @type {boolean}
      * @memberof InlineResponse200101Rows
      */
     archive?: boolean;
     /**
-     * Дата создания.
-     * @type {string}
+     * 
+     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
      * @memberof InlineResponse200101Rows
      */
-    createdAt?: string;
+    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
     /**
-     * Дата создания.
+     * Стоимость за единицу с доставкой в Китай
+     * @type {number}
+     * @memberof InlineResponse200101Rows
+     */
+    costUnitWithDeliveryToChina?: number;
+    /**
+     * Average Roi
+     * @type {number}
+     * @memberof InlineResponse200101Rows
+     */
+    avgRoi?: number;
+    /**
+     * Average CostUnitWithDeliveryToUsa
+     * @type {number}
+     * @memberof InlineResponse200101Rows
+     */
+    avgCostUnitWithDeliveryToUsa?: number;
+    /**
+     * 
+     * @type {Array<InlineResponse200101DestinationVariations>}
+     * @memberof InlineResponse200101Rows
+     */
+    destinationVariations?: Array<InlineResponse200101DestinationVariations>;
+    /**
+     * 
      * @type {string}
      * @memberof InlineResponse200101Rows
      */
     updatedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200101Rows
+     */
+    createdAt?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse200101RowsTypeEnum {
-    Box = 'box',
-    Order = 'order',
-    Product = 'product',
-    Idea = 'idea',
-    Request = 'request',
-    Shop = 'shop',
-    Launch = 'launch'
-}
-
 
 

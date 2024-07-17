@@ -23,7 +23,6 @@ export const observerConfig = {
   isBatches: observable,
 
   showOrderModal: observable,
-  showSuccessModal: observable,
   showCheckPendingOrderFormModal: observable,
   showSetBarcodeModal: observable,
   showSelectionSupplierModal: observable,

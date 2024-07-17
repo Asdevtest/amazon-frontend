@@ -13,27 +13,55 @@
  */
 
 
-import { InlineResponse200111Details } from './inline-response200111-details';
-import { InlineResponse20085Rows } from './inline-response20085-rows';
 
 /**
- * Схема детали на поиск ниш.
+ * 
  * @export
  * @interface InlineResponse200111
  */
 export interface InlineResponse200111 {
     /**
-     * 
-     * @type {InlineResponse20085Rows}
+     * ID пресета.
+     * @type {string}
      * @memberof InlineResponse200111
      */
-    request?: InlineResponse20085Rows;
+    _id?: string;
+    /**
+     * Эндпоинт пресета
+     * @type {string}
+     * @memberof InlineResponse200111
+     */
+    endpoint?: string;
+    /**
+     * Состояние  preset-settings.
+     * @type {boolean}
+     * @memberof InlineResponse200111
+     */
+    activeSetting?: boolean;
     /**
      * 
-     * @type {InlineResponse200111Details}
+     * @type {object}
      * @memberof InlineResponse200111
      */
-    details?: InlineResponse200111Details;
+    settings?: object;
+    /**
+     * Title of preset
+     * @type {string}
+     * @memberof InlineResponse200111
+     */
+    title?: string;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200111
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200111
+     */
+    updatedAt?: string;
 }
 
 

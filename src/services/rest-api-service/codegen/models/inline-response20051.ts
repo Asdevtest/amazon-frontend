@@ -13,55 +13,26 @@
  */
 
 
-import { InlineResponse20051Batch } from './inline-response20051-batch';
-import { InlineResponse20051Boxes } from './inline-response20051-boxes';
-import { InlineResponse20051Orders } from './inline-response20051-orders';
-import { InlineResponse20051Products } from './inline-response20051-products';
-import { InlineResponse20051Requests } from './inline-response20051-requests';
-import { InlineResponse20051Shops } from './inline-response20051-shops';
+import { InlineResponse20051Rows } from './inline-response20051-rows';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20051
  */
 export interface InlineResponse20051 {
     /**
-     * 
-     * @type {InlineResponse20051Orders}
+     * Всего кол-во записей в результате запроса
+     * @type {number}
      * @memberof InlineResponse20051
      */
-    orders?: InlineResponse20051Orders;
+    count?: number;
     /**
-     * 
-     * @type {InlineResponse20051Shops}
+     * Массив заказов c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20051Rows>}
      * @memberof InlineResponse20051
      */
-    shops?: InlineResponse20051Shops;
-    /**
-     * 
-     * @type {InlineResponse20051Requests}
-     * @memberof InlineResponse20051
-     */
-    requests?: InlineResponse20051Requests;
-    /**
-     * 
-     * @type {InlineResponse20051Products}
-     * @memberof InlineResponse20051
-     */
-    products?: InlineResponse20051Products;
-    /**
-     * 
-     * @type {InlineResponse20051Batch}
-     * @memberof InlineResponse20051
-     */
-    batch?: InlineResponse20051Batch;
-    /**
-     * 
-     * @type {InlineResponse20051Boxes}
-     * @memberof InlineResponse20051
-     */
-    boxes?: InlineResponse20051Boxes;
+    rows?: Array<InlineResponse20051Rows>;
 }
 
 

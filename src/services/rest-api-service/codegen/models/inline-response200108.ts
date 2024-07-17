@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
@@ -22,47 +21,29 @@ import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-pro
  */
 export interface InlineResponse200108 {
     /**
-     * GUID записи
+     * 
      * @type {string}
      * @memberof InlineResponse200108
      */
     _id?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200108
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Роль юзера, когда он оставлял отзыв
-     * @type {number}
-     * @memberof InlineResponse200108
-     */
-    role?: number;
-    /**
-     * Комментарий к оценке
      * @type {string}
      * @memberof InlineResponse200108
      */
-    comment?: string;
-    /**
-     * Оценка, целое число от 1 до 5
-     * @type {number}
-     * @memberof InlineResponse200108
-     */
-    rating?: number;
+    title?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {number}
      * @memberof InlineResponse200108
      */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    type?: number;
     /**
-     * Дата создания.
-     * @type {string}
+     * 
+     * @type {boolean}
      * @memberof InlineResponse200108
      */
-    createdAt?: string;
+    archive?: boolean;
 }
 
 

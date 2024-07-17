@@ -13,10 +13,10 @@ export const DashboardBalance = ({ user }) => {
       <p className={styles.title}>{t(TranslationKey['My balance'])}</p>
 
       <div className={styles.balanceWrapper}>
-        <p className={styles.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</p>
+        <p className={styles.balanceTitle}>{toFixedWithDollarSign(user?.balance, 2)}</p>
 
         {user.balanceFreeze !== 0 && (
-          <p className={styles.balanceFreeze}>{`(${toFixedWithDollarSign(user.balanceFreeze, 2)} ${t(
+          <p className={styles.balanceFreeze}>{`(${toFixedWithDollarSign(user?.balanceFreeze, 2)} ${t(
             TranslationKey.freeze,
           )})`}</p>
         )}

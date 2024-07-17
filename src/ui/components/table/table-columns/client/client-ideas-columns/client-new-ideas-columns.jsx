@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   IdeaActionsCell,
   IdeaRequestsCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
@@ -15,6 +16,12 @@ import {
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import {
+  ProductColumnMenuType,
+  getProductColumnMenuItems,
+  getProductColumnMenuValue,
+} from '@config/data-grid-column-menu/product-column'
 
 export const clientNewIdeasColumns = rowHandlers => {
   const columns = [
@@ -47,11 +54,12 @@ export const clientNewIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
 
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-      table: DataGridFilterTables.PRODUCTS,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
+      width: 250,
     },
 
     {
@@ -115,7 +123,7 @@ export const clientNewIdeasColumns = rowHandlers => {
         />
       ),
 
-      width: 150,
+      width: 160,
       disableCustomSort: true,
       filterable: false,
     },
@@ -157,6 +165,28 @@ export const clientNewIdeasColumns = rowHandlers => {
       filterable: false,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: params => {
+        const subUsers = params.row?.parentProduct?.subUsers || []
+        const subUsersByShop = params.row?.parentProduct?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.parentProduct?.subUsers || []
+        const subUsersByShop = row?.parentProduct?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {

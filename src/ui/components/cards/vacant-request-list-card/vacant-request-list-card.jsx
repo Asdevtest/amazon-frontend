@@ -65,15 +65,12 @@ export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, is
           </div>
         </div>
         <div className={styles.cardTitleBlockFooterWrapper}>
-          <Typography className={styles.cardSubTitle}>
-            {translateProposalsLeftMessage(
-              item?.maxAmountOfProposals - item?.countProposalsByStatuses?.acceptedProposals,
-              item?.maxAmountOfProposals,
-            )}
-          </Typography>
-          {/* <Typography className={styles.cardSubTitle}> */}
-          {/*   {t(TranslationKey.Updated)}: <span>{formatNormDateTimeWithParseISO(item.updatedAt)}</span> */}
-          {/* </Typography> */}
+          <p className={styles.cardSubTitle}>
+            {t(TranslationKey.Proposals_Left, {
+              num1: item?.maxAmountOfProposals - item?.countProposalsByStatuses?.acceptedProposals,
+              num2: item?.maxAmountOfProposals,
+            })}
+          </p>
         </div>
       </div>
 

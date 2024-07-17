@@ -8,6 +8,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import {
   ClosedIdeaActionsCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
@@ -21,6 +22,12 @@ import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { UiTheme } from '@typings/enums/ui-theme'
+
+import {
+  ProductColumnMenuType,
+  getProductColumnMenuItems,
+  getProductColumnMenuValue,
+} from '@config/data-grid-column-menu/product-column'
 
 export const clientClosedIdeasColumns = rowHandlers => {
   const columns = [
@@ -41,10 +48,11 @@ export const clientClosedIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-      table: DataGridFilterTables.PRODUCTS,
+      width: 250,
     },
 
     {
@@ -223,6 +231,29 @@ export const clientClosedIdeasColumns = rowHandlers => {
       filterable: false,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.MULTIPLE,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: params => {
+        const subUsers = params.row?.parentProduct?.subUsers || []
+        const subUsersByShop = params.row?.parentProduct?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.parentProduct?.subUsers || []
+        const subUsersByShop = row?.parentProduct?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      table: DataGridFilterTables.PRODUCTS,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {

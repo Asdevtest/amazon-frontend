@@ -13,26 +13,116 @@
  */
 
 
-import { InlineResponse20034 } from './inline-response20034';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20035
  */
 export interface InlineResponse20035 {
     /**
-     * Всего кол-во записей в результате запроса
+     * GUID
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    _id?: string;
+    /**
+     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
      * @type {number}
      * @memberof InlineResponse20035
      */
-    count?: number;
+    taskId?: number;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20034>}
+     * Тип операции
+     * @type {string}
      * @memberof InlineResponse20035
      */
-    rows?: Array<InlineResponse20034>;
+    operationType?: InlineResponse20035OperationTypeEnum;
+    /**
+     * Массив коробок которые были до переформирования коробок.
+     * @type {Array<ApiV1BatchesBoxes>}
+     * @memberof InlineResponse20035
+     */
+    boxesBefore?: Array<ApiV1BatchesBoxes>;
+    /**
+     * Массив коробок.
+     * @type {Array<ApiV1BatchesBoxes>}
+     * @memberof InlineResponse20035
+     */
+    boxes?: Array<ApiV1BatchesBoxes>;
+    /**
+     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    status?: number;
+    /**
+     * Приоритет задачи
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    priority?: number;
+    /**
+     * Комментарий работника склада.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    storekeeperComment?: string;
+    /**
+     * Комментарий клиента.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    clientComment?: string;
+    /**
+     * Комментарий баера.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    buyerComment?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20035
+     */
+    images?: Array<string>;
+    /**
+     * GUID сотрудника склада, который выполняет задачу.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    storekeeperId?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20035
+     */
+    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    updateDate?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20035OperationTypeEnum {
+    Merge = 'merge',
+    Split = 'split',
+    Receive = 'receive'
+}
+
 
 

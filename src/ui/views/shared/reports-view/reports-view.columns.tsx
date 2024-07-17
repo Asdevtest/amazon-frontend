@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
@@ -23,6 +24,8 @@ import { t } from '@utils/translations'
 import { ButtonStyle } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 import { ILaunch } from '@typings/shared/launch'
+
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 interface ReportsViewColumnsProps {
   onToggleReportModalEditMode: (reportId: string) => void
@@ -47,9 +50,11 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           />
         ),
         valueGetter: ({ row }: GridRowModel) => row.product.asin,
-        width: 280,
-        columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-        table: DataGridFilterTables.PRODUCTS,
+
+        fields: getProductColumnMenuItems(),
+        columnMenuConfig: getProductColumnMenuValue(),
+        columnKey: columnnsKeys.shared.MULTIPLE,
+        width: 250,
       }
     : null
   const shopColumn = subView
@@ -170,6 +175,28 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       width: 180,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.MULTIPLE,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: params => {
+        const subUsers = params.row?.product?.subUsers || []
+        const subUsersByShop = params.row?.product?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.product?.subUsers || []
+        const subUsersByShop = row?.product?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {

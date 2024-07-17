@@ -18,7 +18,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   searchInput: {
-    width: '320px',
+    width: 350,
   },
 
   header: {

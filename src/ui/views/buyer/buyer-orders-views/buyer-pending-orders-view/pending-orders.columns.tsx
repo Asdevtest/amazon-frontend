@@ -7,6 +7,7 @@ import {
   DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -21,12 +22,9 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import {
-  productColumnMenuItems,
-  productColumnMenuValue,
-  productionTermColumnMenuItems,
-  productionTermColumnMenuValue,
-} from './column.config'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
+import { productionTermColumnMenuItems, productionTermColumnMenuValue } from './column.config'
 
 export const pendingOrdersColumns = () => {
   const columns: IGridColumn[] = [
@@ -77,12 +75,10 @@ export const pendingOrdersColumns = () => {
         )
       },
 
-      fields: productColumnMenuItems,
-      columnMenuConfig: productColumnMenuValue,
-
-      disableCustomSort: true,
-
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
     },
 
     {
@@ -133,8 +129,6 @@ export const pendingOrdersColumns = () => {
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-
-      width: 140,
       renderCell: params => (
         <DownloadAndCopyBtnsCell
           value={params.row.product.barCode}
@@ -142,6 +136,8 @@ export const pendingOrdersColumns = () => {
         />
       ),
       disableCustomSort: true,
+      minWidth: 210,
+      align: 'center',
     },
 
     {
@@ -155,7 +151,7 @@ export const pendingOrdersColumns = () => {
 
       width: 120,
       disableCustomSort: true,
-
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
@@ -211,7 +207,7 @@ export const pendingOrdersColumns = () => {
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
 
-      width: 100,
+      width: 140,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
     },
 
@@ -226,11 +222,12 @@ export const pendingOrdersColumns = () => {
       width: 130,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
       disableCustomSort: true,
     },
 
     {
-      field: 'warehouses',
+      field: 'destination',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
@@ -260,6 +257,29 @@ export const pendingOrdersColumns = () => {
       width: 200,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: ({ row }) => {
+        const subUsers = row?.product?.subUsers || []
+        const subUsersByShop = row?.product?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.product?.subUsers || []
+        const subUsersByShop = row?.product?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      filterable: false,
+      disableCustomSort: true,
+      table: DataGridFilterTables.PRODUCTS,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {

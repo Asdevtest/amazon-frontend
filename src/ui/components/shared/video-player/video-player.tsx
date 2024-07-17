@@ -44,7 +44,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = memo(props => {
         width="100%"
         height={currentVideoHeight}
         className={cx(styles.videoPlayer, videoPlayerClass)}
-        onPlay={() => (setIsPlaying ? setIsPlaying(true) : undefined)} // fix a bug when changing focus from video to photo
+        onPlay={() => setIsPlaying?.(true)} // fix a bug when changing focus from video to photo
       />
     </div>
   )

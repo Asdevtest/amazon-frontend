@@ -21,23 +21,11 @@
  */
 export interface InlineResponse20057 {
     /**
-     * Гуид тега
+     * id созданного профайла
      * @type {string}
      * @memberof InlineResponse20057
      */
-    _id?: string;
-    /**
-     * Тег
-     * @type {string}
-     * @memberof InlineResponse20057
-     */
-    title?: string;
-    /**
-     * Кол-во продуктов, которые используют этот тег
-     * @type {number}
-     * @memberof InlineResponse20057
-     */
-    productCount?: number;
+    profileId?: string;
 }
 
 

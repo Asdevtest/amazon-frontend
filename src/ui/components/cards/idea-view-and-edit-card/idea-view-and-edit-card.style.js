@@ -259,6 +259,7 @@ export const useStyles = makeStyles()(theme => ({
   addOrEditBtnsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: 20,
   },
 
   input: {
@@ -270,6 +271,7 @@ export const useStyles = makeStyles()(theme => ({
   inputWrapper: {
     display: 'flex',
     alignItems: 'center',
+    gap: '10px',
     width: '100%',
   },
 
@@ -456,11 +458,6 @@ export const useStyles = makeStyles()(theme => ({
   requestsControlButtonsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-  },
-
-  plusIcon: {
-    width: '14px !important',
-    height: '14px !important',
   },
 
   statusText: {

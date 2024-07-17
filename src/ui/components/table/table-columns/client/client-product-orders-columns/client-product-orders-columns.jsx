@@ -61,7 +61,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    width: 400,
+    width: 300,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
     sortable: false,
   },
@@ -97,7 +97,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    width: 200,
+    width: 240,
     renderCell: params => {
       const isRepeatOrder =
         Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
@@ -122,7 +122,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    width: 170,
+    width: 210,
     renderCell: params => (
       <DownloadAndCopyBtnsCell value={params.value} isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id} />
     ),
@@ -137,7 +137,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderCell: params => <MultilineTextCell text={params.value} />,
 
     type: 'number',
-    width: 80,
+    width: 90,
     sortable: false,
   },
 
@@ -175,7 +175,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
         <MultilineTextCell text={`${orderSupplier?.minProductionTerm} - ${orderSupplier?.maxProductionTerm}`} />
       ) : null
     },
-    width: 120,
+    width: 160,
     sortable: false,
   },
 
@@ -197,7 +197,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey['Re-search supplier']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
 
-    width: 100,
+    width: 140,
     renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
   },
 
@@ -255,7 +255,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-    width: 120,
+    width: 115,
     renderCell: params => <NormDateCell value={params.value} />,
     // type: 'date',
   },
@@ -265,7 +265,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: 140,
+    width: 115,
     renderCell: params => <NormDateCell value={params.value} />,
     // type: 'date',
   },

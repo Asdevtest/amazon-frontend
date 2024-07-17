@@ -21,41 +21,23 @@
  */
 export interface InlineResponse200104 {
     /**
-     * ID пресета.
+     * GUID метода оплаты в базе данных
      * @type {string}
      * @memberof InlineResponse200104
      */
     _id?: string;
     /**
-     * Название таблицы
+     * 
      * @type {string}
      * @memberof InlineResponse200104
      */
-    table?: string;
-    /**
-     * Эндпоинт пресета
-     * @type {string}
-     * @memberof InlineResponse200104
-     */
-    endpoint?: string;
+    title?: string;
     /**
      * 
-     * @type {Array<string>}
-     * @memberof InlineResponse200104
-     */
-    fields?: Array<string>;
-    /**
-     * Состояние пресета.
-     * @type {boolean}
-     * @memberof InlineResponse200104
-     */
-    isActive?: boolean;
-    /**
-     * ID юзера.
      * @type {string}
      * @memberof InlineResponse200104
      */
-    userId?: string;
+    iconImage?: string;
     /**
      * Дата создания
      * @type {string}
@@ -63,7 +45,7 @@ export interface InlineResponse200104 {
      */
     createdAt?: string;
     /**
-     * Дата изменения
+     * Дата обновления.
      * @type {string}
      * @memberof InlineResponse200104
      */

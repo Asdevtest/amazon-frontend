@@ -7,6 +7,7 @@ import { productStrategyStatusesEnum } from '@constants/product/product-strategy
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ManyUserLinkCell,
   MultilineStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -24,6 +25,8 @@ import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
+
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 interface SupervisorProductsViewColumnsProps {
   onClickTableRow: (id: string) => void
@@ -53,8 +56,11 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
           skuByClient={row?.skuByClient}
         />
       ),
-      width: 270,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      width: 250,
     },
 
     {
@@ -137,7 +143,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
       valueGetter: ({ row }: GridRowModel) => (row?.fbafee ? toFixedWithDollarSign(row?.fbafee, 2) : ''),
       renderCell: ({ row }: GridRowModel) => <ToFixedWithDollarSignCell value={row?.fbafee} fix={2} />,
-      minWidth: 105,
+      width: 120,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -165,7 +171,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
         />
       ),
       valueFormatter: ({ row }: GridRowModel) => (row?.ordered ? t(TranslationKey.Yes) : t(TranslationKey.No)),
-      width: 85,
+      width: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.YES_NO,
     },
@@ -189,6 +195,28 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       width: 130,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.RED_FLAGS,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: ({ row }) => {
+        const subUsers = row?.subUsers || []
+        const subUsersByShop = row?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.subUsers || []
+        const subUsersByShop = row?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {

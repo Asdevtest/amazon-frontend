@@ -21,11 +21,46 @@
  */
 export interface InlineObject159 {
     /**
-     * Comment for request details.
+     * Profile email
      * @type {string}
      * @memberof InlineObject159
      */
-    comment?: string;
+    email: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject159
+     */
+    table?: InlineObject159TableEnum;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject159TableEnum {
+    BusinessReports = 'BUSINESS_REPORTS',
+    Orders = 'ORDERS',
+    TotalBalance = 'TOTAL_BALANCE',
+    Feedback = 'FEEDBACK',
+    Transactions = 'TRANSACTIONS',
+    Inventory = 'INVENTORY',
+    Campaigns = 'CAMPAIGNS',
+    PerfomanceNotifications = 'PERFOMANCE_NOTIFICATIONS',
+    FbaInventory = 'FBA_INVENTORY',
+    AccountHealth = 'ACCOUNT_HEALTH',
+    Returns = 'RETURNS',
+    InventoryPlanning = 'INVENTORY_PLANNING',
+    BrandsReview = 'BRANDS_REVIEW',
+    InventoryShipments = 'INVENTORY_SHIPMENTS',
+    Voice = 'VOICE',
+    FypOutOfStock = 'FYP_OUT_OF_STOCK',
+    FypSearchSuppressed = 'FYP_SEARCH_SUPPRESSED',
+    Income = 'INCOME',
+    PpcSalesWeeks = 'PPC_SALES_WEEKS',
+    PpcOrganic = 'PPC_ORGANIC',
+    All = 'ALL'
+}
+
 
 

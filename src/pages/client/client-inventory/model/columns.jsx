@@ -29,8 +29,12 @@ import {
 import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { complexCells } from './constants'
-import { getCellType } from './helpers'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+import { productionTimeColumnMenuItems } from '@config/data-grid-column-menu/production-time'
+
+import { complexCells } from './cell-types'
+import { productionTimeColumnMenuValue } from './client-inventory-view.config'
+import { getCellType } from './helpers/get-cell-type'
 
 export const clientInventoryColumns = ({
   barCodeHandlers,
@@ -89,8 +93,11 @@ export const clientInventoryColumns = ({
           skuByClient={row?.skuByClient}
         />
       ),
-      width: 280,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      width: 250,
     },
 
     {
@@ -313,20 +320,13 @@ export const clientInventoryColumns = ({
 
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
-      fields: [
-        {
-          label: 'Min. production time, days',
-          value: 'currentSupplierMinProductionTerm',
-        },
-        {
-          label: 'Max. production time, days',
-          value: 'currentSupplierMaxProductionTerm',
-        },
-      ],
-      width: 120,
+
+      fields: productionTimeColumnMenuItems,
+      columnMenuConfig: productionTimeColumnMenuValue,
+      columnKey: columnnsKeys.shared.MULTIPLE,
+
       sortable: false,
-      columnKey: columnnsKeys.shared.NUMBERS,
-      table: DataGridFilterTables.PRODUCTS,
+      width: 120,
     },
 
     {
@@ -359,8 +359,8 @@ export const clientInventoryColumns = ({
 
     {
       field: 'transparency',
-      headerName: 'Transparency codes',
-      renderHeader: () => <MultilineTextHeaderCell text={'Transparency codes'} />,
+      headerName: 'Transparency Codes',
+      renderHeader: () => <MultilineTextHeaderCell text={'Transparency Codes'} />,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
       width: 135,
       columnKey: columnnsKeys.shared.YES_NO,
@@ -380,7 +380,7 @@ export const clientInventoryColumns = ({
         />
       ),
 
-      width: 150,
+      width: 210,
       columnKey: columnnsKeys.client.INVENTORY_BARCODE,
     },
 
@@ -599,9 +599,13 @@ export const clientInventoryColumns = ({
                 <ProductAsinCell withoutTitle image={product?.image} asin={product?.asin} skuByClient={product?.sku} />
               )
             },
-            width: 295,
 
-            columnKey: columnnsKeys.client.SHOP_REPORT,
+            fields: getProductColumnMenuItems({ withoutTitle: true }),
+            columnMenuConfig: getProductColumnMenuValue({
+              isSimpleSku: true,
+            }),
+            columnKey: columnnsKeys.shared.MULTIPLE,
+            width: 250,
           }
 
           columns.push(complexCell)

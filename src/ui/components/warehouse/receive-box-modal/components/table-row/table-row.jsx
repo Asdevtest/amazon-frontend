@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, TableCell, TableRow, Typography } from '@mui/material'
@@ -8,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Input } from '@components/shared/input'
-import { PlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsValidBoxSize } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -171,12 +171,14 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
         />
       </TableCell>
       <TableCell>
-        <Button onClick={() => handlers.onAddImages(item._id)}>{buttonTextWithCounter}</Button>
+        <Button className={styles.imagesBtn} onClick={() => handlers.onAddImages(item._id)}>
+          {buttonTextWithCounter}
+        </Button>
       </TableCell>
 
       <TableCell>
         <Button onClick={() => handlers.addDouble(item._id)}>
-          <PlusIcon className={styles.plusIcon} />
+          <FiPlus style={{ width: 16, height: 16 }} />
         </Button>
       </TableCell>
 

@@ -13,6 +13,9 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyRequests } from './api-v1-announcements-my-requests';
+import { InlineResponse20054RequestSpec } from './inline-response20054-request-spec';
 
 /**
  * 
@@ -21,17 +24,65 @@
  */
 export interface InlineResponse20071 {
     /**
-     * GUID заказа
+     * GUID в базе данных
      * @type {string}
      * @memberof InlineResponse20071
      */
     _id?: string;
     /**
-     * id заказа
-     * @type {number}
+     * 
+     * @type {InlineResponse20054RequestSpec}
      * @memberof InlineResponse20071
      */
-    id?: number;
+    spec?: InlineResponse20054RequestSpec;
+    /**
+     * Archive
+     * @type {boolean}
+     * @memberof InlineResponse20071
+     */
+    archive?: boolean;
+    /**
+     * 
+     * @type {Array<ApiV1AnnouncementsMyRequests>}
+     * @memberof InlineResponse20071
+     */
+    requests?: Array<ApiV1AnnouncementsMyRequests>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20071
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20071
+     */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20071
+     */
+    description?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20071
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20071
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse20071
+     */
+    updatedAt?: string;
 }
 
 

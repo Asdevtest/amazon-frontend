@@ -41,7 +41,7 @@ export const HeaderTable = ({ viewModel }) => {
             styleType={ButtonStyle.DANGER}
             disabled={!viewModel.selectedRows.length}
             tooltipInfoContent={t(
-              TranslationKey['Returns all boxes from the selected batch to the "Boxes ready to send" section'],
+              TranslationKey["Returns all boxes from the selected batch to the 'Boxes ready to send' section"],
             )}
             onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           >

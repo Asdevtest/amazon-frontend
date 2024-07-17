@@ -5,8 +5,6 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { useStyles } from './gallery-modal.style'
-
 import { DocumentsTab, Header, MediaFilesTab } from './components'
 import { customSwitcherSettings } from './gallery-modal.config'
 import { SwitcherConditions } from './gallery-modal.type'
@@ -17,11 +15,10 @@ interface GalleryModalProps {
 }
 
 export const GalleryModal: FC<GalleryModalProps> = memo(({ files }) => {
-  const { classes: styles } = useStyles()
   const { tabValue, setTabValue, visibleSlides } = useGalleryModal(files)
 
   return (
-    <div className={styles.wrapper}>
+    <>
       <Header />
 
       <CustomSwitcher
@@ -39,6 +36,6 @@ export const GalleryModal: FC<GalleryModalProps> = memo(({ files }) => {
       <TabPanel value={tabValue} index={SwitcherConditions.DOCUMENTS}>
         <DocumentsTab files={visibleSlides} />
       </TabPanel>
-    </div>
+    </>
   )
 })

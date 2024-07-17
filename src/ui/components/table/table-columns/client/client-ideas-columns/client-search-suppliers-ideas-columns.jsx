@@ -12,6 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   FilesCell,
   IdeaSupplierCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   OnCheckingIdeaActionsCell,
@@ -25,6 +26,16 @@ import { LinkWithCopy } from '@components/shared/link-with-copy'
 import { checkIsMediaFileLink } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import {
+  ProductColumnMenuType,
+  getProductColumnMenuItems,
+  getProductColumnMenuValue,
+} from '@config/data-grid-column-menu/product-column'
+import {
+  productionTimeColumnMenuItems,
+  productionTimeColumnMenuValue,
+} from '@config/data-grid-column-menu/production-time'
 
 export const clientSearchSuppliersIdeasColumns = rowHandlers => {
   const columns = [
@@ -45,11 +56,12 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
 
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-      table: DataGridFilterTables.PRODUCTS,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
+      width: 250,
     },
 
     {
@@ -198,21 +210,12 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           />
         )
       },
-      fields: [
-        {
-          label: 'Min. production time, days',
-          value: 'minProductionTerm',
-        },
-        {
-          label: 'Max. production time, days',
-          value: 'maxProductionTerm',
-        },
-      ],
+
+      fields: productionTimeColumnMenuItems,
+      columnMenuConfig: productionTimeColumnMenuValue,
+      columnKey: columnnsKeys.shared.MULTIPLE,
+
       width: 115,
-      type: 'number',
-      columnKey: columnnsKeys.shared.NUMBERS,
-      disableCustomSort: true,
-      table: DataGridFilterTables.SUPPLIERS,
     },
 
     {
@@ -266,6 +269,29 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       filterable: false,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: params => {
+        const subUsers = params.row?.parentProduct?.subUsers || []
+        const subUsersByShop = params.row?.parentProduct?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.parentProduct?.subUsers || []
+        const subUsersByShop = row?.parentProduct?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      table: DataGridFilterTables.PRODUCTS,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {

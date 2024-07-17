@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
@@ -21,13 +22,11 @@ import { RequestResultModal } from '@components/modals/request-result-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
-import { PlusIcon } from '@components/shared/svg-icons'
 
 import { useStyles } from '@views/client/client-ideas-view/client-ideas-view.style'
 
@@ -73,7 +72,7 @@ export const ClientIdeasView = observer(({ history }) => {
 
         {['/client/ideas/new', '/client/ideas/all'].includes(viewModel.history.location.pathname) && (
           <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickProductLaunch}>
-            <PlusIcon />
+            <FiPlus style={{ width: 16, height: 16 }} />
             {t(TranslationKey['Create idea'])}
           </Button>
         )}
@@ -225,17 +224,6 @@ export const ClientIdeasView = observer(({ history }) => {
           cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-          title={viewModel.successModalTitle}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         />
       ) : null}
 

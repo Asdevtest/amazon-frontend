@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { memo, useEffect, useRef, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 
 import { Checkbox, Link, MenuItem, Select } from '@mui/material'
@@ -16,7 +17,6 @@ import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-m
 import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { DatePicker, TimePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
@@ -26,8 +26,10 @@ import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { CustomPlusIcon, FireIcon } from '@components/shared/svg-icons'
+import { FireIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+
+import { RequestSelect } from '@views/shared/create-or-edit-request-view/request-select/request-select'
 
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
@@ -36,7 +38,6 @@ import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { loadingStatus } from '@typings/enums/loading-status'
 import { Specs } from '@typings/enums/specs'
 
 import { useStyles } from './create-or-edit-request-content.style'
@@ -57,8 +58,6 @@ export const CreateOrEditRequestContent = memo(props => {
     executor,
     requestToEdit,
     platformSettingsData,
-    showProgress,
-    progressValue,
     mainContentRef,
     showGalleryModal,
     productMedia,
@@ -69,7 +68,6 @@ export const CreateOrEditRequestContent = memo(props => {
     onClickSubmitSearch,
     onClickExistingRequest,
     onClickChoosePerformer,
-    onClickThumbnail,
     onCreateSubmit,
     onEditSubmit,
     onClickAddMediaFromProduct,
@@ -387,13 +385,44 @@ export const CreateOrEditRequestContent = memo(props => {
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
     platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price ||
-    isNeedSeoInfo ||
-    buttonStatus === loadingStatus.IS_LOADING
+    isNeedSeoInfo
 
   const minDate = dayjs().add(1, 'day')
   const isFirstStep = curStep === stepVariant.STEP_ONE
   const isSecondStep = curStep === stepVariant.STEP_TWO
   const showScrollArrows = isFirstStep && (showScrollUp || showScrollDown)
+
+  const setData = request => {
+    const data = {
+      title: request?.title || '',
+      maxAmountOfProposals: request?.maxAmountOfProposals || '',
+      price: request?.price || '',
+      timeoutAt: null,
+      direction: request?.direction || 'IN',
+      timeLimitInMinutes: request?.timeLimitInMinutes || 60,
+      roles: request?.roles || [10, 35],
+      needCheckBySupervisor: request?.needCheckBySupervisor || false,
+      restrictMoreThanOneProposalFromOneAssignee: request?.restrictMoreThanOneProposalFromOneAssignee || false,
+      specId: request?.spec?._id || '',
+      asin: request?.asin || '',
+      priceAmazon: request?.priceAmazon || 0,
+      cashBackInPercent: request?.cashBackInPercent || 0,
+      announcementId: request?.announcementId || '',
+      productId: request?.productId || '',
+      withoutConfirmation: request?.withoutConfirmation || false,
+      priority: request?.priority || 20,
+      executorId: request?.executor?._id || null,
+      discountedPrice: requestToEdit
+        ? toFixed(calcNumberMinusPercent(request?.priceAmazon, request?.cashBackInPercent), 2)
+        : 0,
+      taskComplexity: request?.taskComplexity || 20,
+    }
+
+    setFormFields(prevFormFields => ({
+      ...prevFormFields,
+      request: data,
+    }))
+  }
 
   return (
     <>
@@ -425,17 +454,21 @@ export const CreateOrEditRequestContent = memo(props => {
           {isFirstStep && (
             <div className={styles.stepWrapper}>
               <div className={styles.stepContent}>
-                <Field
-                  tooltipInfoContent={t(TranslationKey['Future request title'])}
-                  inputProps={{ maxLength: 100 }}
-                  placeholder={t(TranslationKey['Request title'])}
-                  label={t(TranslationKey['Request title']) + '*'}
-                  className={styles.field}
-                  containerClasses={styles.fieldContainer}
-                  labelClasses={styles.label}
-                  value={formFields.request.title}
-                  onChange={onChangeField('request')('title')}
-                />
+                <div className={styles.fields}>
+                  <RequestSelect setData={setData} />
+
+                  <Field
+                    tooltipInfoContent={t(TranslationKey['Future request title'])}
+                    inputProps={{ maxLength: 100 }}
+                    placeholder={t(TranslationKey['Request title'])}
+                    label={t(TranslationKey['Request title']) + '*'}
+                    className={styles.field}
+                    containerClasses={styles.fieldContainer}
+                    labelClasses={styles.label}
+                    value={formFields.request.title}
+                    onChange={onChangeField('request')('title')}
+                  />
+                </div>
 
                 <div className={styles.fields}>
                   <Field
@@ -574,7 +607,7 @@ export const CreateOrEditRequestContent = memo(props => {
                     disabled={!formFields.request?.productId}
                     onClick={() => onClickAddMediaFromProduct(formFields.request?.productId)}
                   >
-                    <CustomPlusIcon />
+                    <FiPlus style={{ width: 16, height: 16 }} />
                     {t(TranslationKey['Add from product'])}
                   </Button>
                 </div>
@@ -1131,15 +1164,12 @@ export const CreateOrEditRequestContent = memo(props => {
         </div>
       </div>
 
-      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
-
       <Modal openModal={openModal} setOpenModal={() => setOpenModal(!openModal)}>
         <ChoiceOfPerformerModal
           announcements={announcementsData}
           masterUsersData={masterUsersData}
           chosenExecutor={chosenExecutor}
           chosenAnnouncement={announcement}
-          onClickThumbnail={onClickThumbnail}
           onClickSelectButton={(selectenService, chosenExecutor) => {
             if (selectenService) {
               setAnnouncement(selectenService)

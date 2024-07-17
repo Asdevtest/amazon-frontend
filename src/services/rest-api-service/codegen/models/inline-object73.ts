@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
  * 
@@ -22,23 +21,95 @@ import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator
  */
 export interface InlineObject73 {
     /**
-     * Название профиля
+     * Комментарий байера
      * @type {string}
      * @memberof InlineObject73
      */
-    name?: string;
+    buyerComment?: string;
     /**
-     * Название ОС
+     * Гуид дочернего компонента
      * @type {string}
      * @memberof InlineObject73
      */
-    os?: string;
+    childProductId?: string;
     /**
-     * 
-     * @type {ApiV1GologinProfileNavigator}
+     * Название идеи
+     * @type {string}
      * @memberof InlineObject73
      */
-    navigator?: ApiV1GologinProfileNavigator;
+    title?: string;
+    /**
+     * Images URLs
+     * @type {Array<string>}
+     * @memberof InlineObject73
+     */
+    media?: Array<string>;
+    /**
+     * Комментарий к идее
+     * @type {string}
+     * @memberof InlineObject73
+     */
+    comments?: string;
+    /**
+     * Назавние продукта
+     * @type {string}
+     * @memberof InlineObject73
+     */
+    productName?: string;
+    /**
+     * Ссылки на продукт, если есть
+     * @type {Array<string>}
+     * @memberof InlineObject73
+     */
+    productLinks?: Array<string>;
+    /**
+     * Дополнительные критерии для поиска товара
+     * @type {string}
+     * @memberof InlineObject73
+     */
+    criteria?: string;
+    /**
+     * Количество товаров
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    quantity?: number;
+    /**
+     * Желаемая цена
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    price?: number;
+    /**
+     * FBA Fee
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    fbaFee?: number;
+    /**
+     * Ориентационная цена
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    approximatePrice?: number;
+    /**
+     * Ширина, см
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    width?: number;
+    /**
+     * Высота, см
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    height?: number;
+    /**
+     * Длина, см
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    length?: number;
 }
 
 

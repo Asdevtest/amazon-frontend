@@ -87,8 +87,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: '5px',
   },
 
-  plusIcon: {
-    width: '14px !important',
-    height: '14px !important',
+  imagesBtn: {
+    whiteSpace: 'nowrap',
   },
 }))

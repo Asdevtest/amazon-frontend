@@ -13,101 +13,111 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse200102Destination } from './inline-response200102-destination';
-import { InlineResponse200102OrderSupplier } from './inline-response200102-order-supplier';
-import { InlineResponse200102Product } from './inline-response200102-product';
+import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
+import { InlineResponse200102DestinationVariations } from './inline-response200102-destination-variations';
 
 /**
- * Заказ.
+ * 
  * @export
  * @interface InlineResponse200102Rows
  */
 export interface InlineResponse200102Rows {
     /**
-     * id заказ.
-     * @type {number}
-     * @memberof InlineResponse200102Rows
-     */
-    id?: number;
-    /**
-     * GUID данной записи в БД.
+     * 
      * @type {string}
      * @memberof InlineResponse200102Rows
      */
     _id?: string;
     /**
-     * Комментарии клиента.
+     * Тип тарифа
+     * @type {number}
+     * @memberof InlineResponse200102Rows
+     */
+    tariffType?: number;
+    /**
+     * Название тарифа
      * @type {string}
      * @memberof InlineResponse200102Rows
      */
-    clientComment?: string;
+    name?: string;
+    /**
+     * Описание тарифа
+     * @type {string}
+     * @memberof InlineResponse200102Rows
+     */
+    description?: string;
+    /**
+     * Время доставки, днях
+     * @type {string}
+     * @memberof InlineResponse200102Rows
+     */
+    deliveryTimeInDay?: string;
     /**
      * 
      * @type {string}
      * @memberof InlineResponse200102Rows
      */
-    item?: string;
+    storekeeperId?: string;
     /**
-     * комментарии байера.
+     * Дата закрытия приема новых грузов.
      * @type {string}
      * @memberof InlineResponse200102Rows
      */
-    buyerComment?: string;
+    cls?: string;
     /**
-     *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      needConfirmingReceiving: 27 - Этот статус промежуточный между 25 и 30     С этого статуса заказ можно переводить в статусы 25,30,35     inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
-     * @type {number}
-     * @memberof InlineResponse200102Rows
-     */
-    status?: number;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * Ожидаема дата отбытия.
      * @type {string}
      * @memberof InlineResponse200102Rows
      */
-    priority?: InlineResponse200102RowsPriorityEnum;
+    etd?: string;
     /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * Ожидаема дата прибытия.
+     * @type {string}
+     * @memberof InlineResponse200102Rows
+     */
+    eta?: string;
+    /**
+     * Минимальный вес, в кг
      * @type {number}
      * @memberof InlineResponse200102Rows
      */
-    totalPrice?: number;
+    minWeightInKg?: number;
     /**
-     * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
-     * @type {number}
-     * @memberof InlineResponse200102Rows
-     */
-    totalPriceChanged?: number;
-    /**
-     * кол-во
-     * @type {number}
-     * @memberof InlineResponse200102Rows
-     */
-    amount?: number;
-    /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * Заархивирован ли тариф
      * @type {boolean}
      * @memberof InlineResponse200102Rows
      */
-    expressChinaDelivery?: boolean;
-    /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
-     * @memberof InlineResponse200102Rows
-     */
-    needsResearch?: boolean;
-    /**
-     * Дедлайн выкупа заказа
-     * @type {string}
-     * @memberof InlineResponse200102Rows
-     */
-    deadline?: string;
+    archive?: boolean;
     /**
      * 
-     * @type {string}
+     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
      * @memberof InlineResponse200102Rows
      */
-    createdAt?: string;
+    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
+    /**
+     * Стоимость за единицу с доставкой в Китай
+     * @type {number}
+     * @memberof InlineResponse200102Rows
+     */
+    costUnitWithDeliveryToChina?: number;
+    /**
+     * Average Roi
+     * @type {number}
+     * @memberof InlineResponse200102Rows
+     */
+    avgRoi?: number;
+    /**
+     * Average CostUnitWithDeliveryToUsa
+     * @type {number}
+     * @memberof InlineResponse200102Rows
+     */
+    avgCostUnitWithDeliveryToUsa?: number;
+    /**
+     * 
+     * @type {Array<InlineResponse200102DestinationVariations>}
+     * @memberof InlineResponse200102Rows
+     */
+    destinationVariations?: Array<InlineResponse200102DestinationVariations>;
     /**
      * 
      * @type {string}
@@ -116,47 +126,10 @@ export interface InlineResponse200102Rows {
     updatedAt?: string;
     /**
      * 
-     * @type {InlineResponse200102Destination}
-     * @memberof InlineResponse200102Rows
-     */
-    destination?: InlineResponse200102Destination;
-    /**
-     * GUID продукта
      * @type {string}
      * @memberof InlineResponse200102Rows
      */
-    productId?: string;
-    /**
-     * 
-     * @type {InlineResponse200102Product}
-     * @memberof InlineResponse200102Rows
-     */
-    product?: InlineResponse200102Product;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200102Rows
-     */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {InlineResponse200102OrderSupplier}
-     * @memberof InlineResponse200102Rows
-     */
-    orderSupplier?: InlineResponse200102OrderSupplier;
+    createdAt?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse200102RowsPriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

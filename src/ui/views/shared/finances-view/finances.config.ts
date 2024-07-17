@@ -4,7 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-export const getEntityTypeConfig = () => {
+export const getEntityTypeConfig = (showAllTypes: boolean) => {
   const defaultConfig = [
     {
       label: () => t(TranslationKey.All),
@@ -12,7 +12,13 @@ export const getEntityTypeConfig = () => {
     },
   ]
 
-  const options = Object.values(EntityType).map(item => ({
+  let allTypes = Object.values(EntityType)
+
+  if (!showAllTypes) {
+    allTypes = allTypes.slice(0, 4)
+  }
+
+  const options = allTypes.map(item => ({
     label: () => getEntityTypeTranslations(item),
     value: item,
   }))

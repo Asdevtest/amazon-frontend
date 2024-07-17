@@ -417,9 +417,9 @@ const SupervisorProductsView = lazy(() =>
   import('@views/supervisor/supervisor-products-view').then(module => ({ default: module.SupervisorProductsView })),
 )
 
-const SupervisorReadyToCheckView = lazy(() =>
-  import('@views/supervisor/supervisor-ready-to-check-view').then(module => ({
-    default: module.SupervisorReadyToCheckView,
+const SupervisorSettingsView = lazy(() =>
+  import('@views/supervisor/supervisor-settings-view').then(module => ({
+    default: module.SupervisorSettingsView,
   })),
 )
 const SupervisorReadyToCheckByClientView = lazy(() =>
@@ -429,7 +429,7 @@ const SupervisorReadyToCheckByClientView = lazy(() =>
     return { default: props => <Component isCreatedByClient {...props} /> }
   }),
 )
-const SupervisorSettingsView = lazy(() =>
+const SupervisorReadyToCheckView = lazy(() =>
   import('@views/supervisor/supervisor-ready-to-check-view').then(module => {
     const Component = module.SupervisorReadyToCheckView
 
@@ -822,12 +822,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
 
-    crumbNameKey: TranslationKey['Free Orders'],
+    crumbNameKey: TranslationKey['Free orders'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FREE_ORDERS,
       activeSubCategory: '',
-      title: () => t(TranslationKey['Free Orders']),
+      title: () => t(TranslationKey['Free orders']),
     },
   },
 
@@ -982,6 +982,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.RESEARCHER],
     crumbNameKey: TranslationKey['My users'],
+    permissionKey: permissionsKeys.researcher.SHOW_USERS_RESEARCHER,
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
@@ -1037,8 +1038,6 @@ export const privateRoutesConfigs = [
       title: () => t(TranslationKey.Dashboard),
     },
   },
-
-  // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   {
     routePath: '/client/freelance',
@@ -1433,12 +1432,12 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.client.SHOW_VACANT_CLIENT,
 
-    crumbNameKey: TranslationKey['Research Exchenge'],
+    crumbNameKey: TranslationKey['Research exchange'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
       activeSubCategory: 0,
-      title: () => t(TranslationKey['Research Exchenge']),
+      title: () => t(TranslationKey['Research exchange']),
     },
   },
   {
@@ -3060,6 +3059,20 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
       activeSubCategory: '',
       title: () => t(TranslationKey.Settings),
+    },
+  },
+
+  {
+    routePath: '/moderator/feedback',
+    component: AdminFeedbackView,
+    exact: false,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey.Feedback,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Feedback),
     },
   },
 

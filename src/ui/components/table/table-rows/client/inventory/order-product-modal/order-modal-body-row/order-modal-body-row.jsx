@@ -115,7 +115,7 @@ export const OrderModalBodyRow = ({
   } = useTariffVariation(item.destinationId, setBoxBody(item))
 
   useEffect(() => {
-    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings.orderAmountLimit) {
+    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings?.orderAmountLimit) {
       setIsLocalPriseOutOfLimit(true)
     } else {
       setIsLocalPriseOutOfLimit(false)
@@ -264,7 +264,7 @@ export const OrderModalBodyRow = ({
             />
 
             {orderState.transparency && !orderState.transparencyFile && !orderState.tmpTransparencyFile.length && (
-              <p className={styles.warningText}>{t(TranslationKey['No Transparency codes'])}</p>
+              <p className={styles.warningText}>{t(TranslationKey['No Transparency Codes'])}</p>
             )}
           </div>
         </TableCell>

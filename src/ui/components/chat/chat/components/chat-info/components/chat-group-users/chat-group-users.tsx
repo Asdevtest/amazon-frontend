@@ -1,4 +1,5 @@
 import { FC, memo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Avatar } from '@mui/material'
@@ -8,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatContract } from '@models/chat-model/contracts'
 
 import { Button } from '@components/shared/button'
-import { MemberPlusIcon } from '@components/shared/svg-icons'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -32,7 +32,7 @@ export const ChatGroupUsers: FC<ChatGroupUsersProps> = memo(props => {
       {userId === chat.info?.createdBy ? (
         <Button onClick={onClickAddUsersToGroupChat}>
           {t(TranslationKey['Add member'])}
-          <MemberPlusIcon />
+          <FiPlus />
         </Button>
       ) : null}
 

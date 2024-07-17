@@ -1,10 +1,11 @@
 import { FC, memo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { SearchInput } from '@components/shared/search-input'
-import { ArchiveIcon, PlusIcon } from '@components/shared/svg-icons'
+import { ArchiveIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -67,7 +68,7 @@ export const Header: FC<HeaderProps> = memo(props => {
             </Button>
 
             <Button styleType={ButtonStyle.SUCCESS} disabled={selectedRows.length > 1} onClick={onClickProductLaunch}>
-              <PlusIcon className={classes.icon} />
+              <FiPlus style={{ width: 16, height: 16 }} />
               {t(TranslationKey['Product launch'])}
             </Button>
 
@@ -137,12 +138,12 @@ export const Header: FC<HeaderProps> = memo(props => {
               tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
               onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
             >
-              <PlusIcon className={classes.icon} />
+              <FiPlus style={{ width: 16, height: 16 }} />
               {t(TranslationKey.Product)}
             </Button>
 
             <Button styleType={ButtonStyle.SUCCESS} onClick={() => onTriggerOpenModal('showAddSuppliersModal')}>
-              <PlusIcon className={classes.icon} />
+              <FiPlus style={{ width: 16, height: 16 }} />
               {t(TranslationKey['Supplier list'])}
             </Button>
           </div>

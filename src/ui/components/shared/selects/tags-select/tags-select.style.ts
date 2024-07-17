@@ -34,7 +34,7 @@ export const useStyles = makeStyles()(theme => ({
   menuContainer: {
     position: 'absolute',
     bottom: '0',
-    transform: 'translateY(68%)',
+    transform: 'translateY(62%)',
 
     display: 'flex',
     flexDirection: 'column',

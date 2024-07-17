@@ -15,6 +15,7 @@ import { ISwitcherSettings } from '@components/shared/custom-switcher/custom-swi
 
 import { checkIsStorekeeper } from '@utils/checks'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -42,6 +43,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   orderId: string = ''
 
   isStrictVariationSelect: boolean = true
+  isSkipWeightCheck: boolean = false
 
   boxId: string = ''
   boxData: IBox | undefined = undefined
@@ -51,6 +53,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   currentDestinationId: string | undefined = undefined
   currentLogicsTariffId: string | undefined = undefined
   variationMinBoxWeight: number | undefined = undefined
+  pricePerKgUsd: number | undefined = undefined
 
   handleSave: ((body: INewDataOfVariation) => void) | undefined
 
@@ -72,6 +75,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     box,
     isHideCalculation,
     isGetAllStorekeepers,
+    isSkipWeightCheck,
   }: {
     box?: IBox
     supplierId?: string
@@ -80,6 +84,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     boxId?: string
     isHideCalculation?: boolean
     isGetAllStorekeepers?: boolean
+    isSkipWeightCheck?: boolean
     onClickSubmit?: (body: INewDataOfVariation) => void
   }) {
     const columnHandlers = {
@@ -112,6 +117,9 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       this.handleSave = onClickSubmit
     }
 
+    if (isSkipWeightCheck) {
+      this.isSkipWeightCheck = isSkipWeightCheck
+    }
     this.sortModel = [{ field: isHideCalculation ? 'pricePerKgUsd' : 'roi', sort: SortSettingsMode.DESC }]
 
     if (checkIsStorekeeper(UserRoleCodeMap[this.role])) {
@@ -215,21 +223,35 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     this.isStrictVariationSelect = isStrictVariationSelect
   }
 
-  handleSetVariation({ variationId, destinationId, logicsTariffId, variationMinBoxWeight }: IVariationParams) {
+  handleSetVariation({
+    variationId,
+    destinationId,
+    logicsTariffId,
+    variationMinBoxWeight,
+    pricePerKgUsd,
+  }: IVariationParams) {
     this.currentVariationId = variationId
     this.currentDestinationId = destinationId
     this.currentLogicsTariffId = logicsTariffId
     this.variationMinBoxWeight = variationMinBoxWeight
+    this.pricePerKgUsd = pricePerKgUsd
   }
 
   handleCheckVariation() {
-    if (this.boxData && this.variationMinBoxWeight && this.boxData.finalWeight < this.variationMinBoxWeight) {
+    if (
+      !this.isSkipWeightCheck &&
+      this.boxData &&
+      this.variationMinBoxWeight &&
+      this.boxData.finalWeight < this.variationMinBoxWeight
+    ) {
       this.confirmModalSettings = {
         isWarning: true,
         title: t(TranslationKey.Attention),
-        message: `${t(TranslationKey['Final box weight'])} (${this.boxData.finalWeight} ${t(TranslationKey.kg)}) ${t(
-          TranslationKey['less than recommended by this tariff'],
-        )} (${this.variationMinBoxWeight} ${t(TranslationKey.kg)}). ${t(TranslationKey.Continue)}?`,
+        message: `${t(TranslationKey['Final box weight'])} (${toFixed(this.boxData.finalWeight)} ${t(
+          TranslationKey.kg,
+        )}) ${t(TranslationKey['less than recommended by this tariff'])} (${toFixed(this.variationMinBoxWeight)} ${t(
+          TranslationKey.kg,
+        )}). ${t(TranslationKey.Continue)}?`,
         onSubmit: () => this.handleSaveVariationTariff(),
         onCancel: () => this.onTriggerOpenModal('showConfirmModal', false),
       }
@@ -247,6 +269,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       destinationId: this.currentDestinationId,
       logicsTariffId: this.currentLogicsTariffId,
       storekeeperId: this.currentStorekeeperId,
+      pricePerKgUsd: this.pricePerKgUsd,
     }
 
     this.handleSave?.(data as INewDataOfVariation)

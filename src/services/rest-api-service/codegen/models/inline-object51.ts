@@ -21,17 +21,11 @@
  */
 export interface InlineObject51 {
     /**
-     * 
-     * @type {Array<string>}
+     * Зашита листинга (bool)
+     * @type {boolean}
      * @memberof InlineObject51
      */
-    userIds: Array<string>;
-    /**
-     * Название группового чата
-     * @type {string}
-     * @memberof InlineObject51
-     */
-    title: string;
+    transparency?: boolean;
 }
 
 

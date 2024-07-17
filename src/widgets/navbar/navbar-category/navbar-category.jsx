@@ -98,7 +98,7 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
 
           {Number(badge) > 0 ? (
             <div className={cx(styles.badge, { [styles.redBadge]: isRedBadge })}>{badge}</div>
-          ) : undefined}
+          ) : null}
         </ListItemIcon>
         {!shortNavbar && (
           <ListItemText

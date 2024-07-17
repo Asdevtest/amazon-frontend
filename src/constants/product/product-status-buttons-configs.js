@@ -127,7 +127,7 @@ export const productStatusButtonsConfigs = {
         },
         {
           statusKey: ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
-          label: t(TranslationKey["The supplier's price does not fit"]),
+          label: t(TranslationKey["The supplier's price does't fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -149,7 +149,7 @@ export const productStatusButtonsConfigs = {
         },
         {
           statusKey: ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
-          label: t(TranslationKey["The supplier's price does not fit"]),
+          label: t(TranslationKey["The supplier's price does't fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -172,7 +172,7 @@ export const productStatusButtonsConfigs = {
 
         {
           statusKey: ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
-          label: t(TranslationKey["The supplier's price does not fit"]),
+          label: t(TranslationKey["The supplier's price does't fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -197,7 +197,7 @@ export const productStatusButtonsConfigs = {
 
         {
           statusKey: ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
-          label: t(TranslationKey["The supplier's price does not fit"]),
+          label: t(TranslationKey["The supplier's price does't fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -229,7 +229,7 @@ export const productStatusButtonsConfigs = {
 
         {
           statusKey: ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
-          label: t(TranslationKey["The supplier's price does not fit"]),
+          label: t(TranslationKey["The supplier's price does't fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -277,7 +277,7 @@ export const productStatusButtonsConfigs = {
         },
         {
           statusKey: ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-          label: t(TranslationKey["The supplier's price does not fit"]),
+          label: t(TranslationKey["The supplier's price does't fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -301,7 +301,7 @@ export const productStatusButtonsConfigs = {
         },
         {
           statusKey: ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-          label: t(TranslationKey["The supplier's price does not fit"]),
+          label: t(TranslationKey["The supplier's price does't fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },

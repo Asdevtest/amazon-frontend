@@ -21,17 +21,29 @@
  */
 export interface InlineObject85 {
     /**
-     * 
+     * GUID спека
      * @type {string}
      * @memberof InlineObject85
      */
-    productId: string;
+    specId?: string;
     /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject85
      */
-    skus: Array<string>;
+    linksToMediaFiles?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject85
+     */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject85
+     */
+    description?: string;
 }
 
 

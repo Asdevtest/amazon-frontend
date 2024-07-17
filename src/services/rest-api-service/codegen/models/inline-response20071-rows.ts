@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20044InventoryShop } from './inline-response20044-inventory-shop';
+import { InlineResponse20042InventoryShop } from './inline-response20042-inventory-shop';
 
 /**
  * Схема репорта amazon_data
@@ -52,11 +52,53 @@ export interface InlineResponse20071Rows {
      */
     sku?: string;
     /**
+     * Price
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    price?: number;
+    /**
+     * fba_fee
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    fbaFee?: number;
+    /**
+     * ref_fee
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    refFee?: number;
+    /**
      * image
      * @type {string}
      * @memberof InlineResponse20071Rows
      */
     image?: string;
+    /**
+     * Category ABC
+     * @type {string}
+     * @memberof InlineResponse20071Rows
+     */
+    categoryAbc?: string;
+    /**
+     * available
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    available?: number;
+    /**
+     * inbound
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    inbound?: number;
+    /**
+     * reserved
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    reserved?: number;
     /**
      * Дата обновления
      * @type {string}
@@ -70,6 +112,84 @@ export interface InlineResponse20071Rows {
      */
     timeUpdated?: string;
     /**
+     * organicCv
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    organicCv?: number;
+    /**
+     * historical_days_of_supply
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    historicalDaysOfSupply?: number;
+    /**
+     * estimated_storage_cost
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    estimatedStorageCost?: number;
+    /**
+     * estimated_aged_inventory_surcharge
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    estimatedAgedInventorySurcharge?: number;
+    /**
+     * age_0_to_90_days
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    age0to90Days?: number;
+    /**
+     * age_91_to_180_days
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    age91to180Days?: number;
+    /**
+     * age_181_to_270_days
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    age181to270Days?: number;
+    /**
+     * age_271_to_365_days
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    age271to365Days?: number;
+    /**
+     * age_365_plus_days
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    age365plusDays?: number;
+    /**
+     * storage_volume
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    storageVolume?: number;
+    /**
+     * low_inventory_level_fee
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    lowInventoryLevelFee?: number;
+    /**
+     * cog
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    cog?: number;
+    /**
+     * unitProfit
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    unitProfit?: number;
+    /**
      * Дата создания
      * @type {string}
      * @memberof InlineResponse20071Rows
@@ -82,53 +202,11 @@ export interface InlineResponse20071Rows {
      */
     updatedAt?: string;
     /**
-     * Order Id
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    orderId?: string;
-    /**
-     * Reason
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    reason?: string;
-    /**
-     * Returned Date
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    returnedDate?: string;
-    /**
-     * Reversal Date
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    reversalDate?: string;
-    /**
-     * Received Date
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    receivedDate?: string;
-    /**
-     * Disposition
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    disposition?: string;
-    /**
-     * Status
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    status?: string;
-    /**
      * 
-     * @type {InlineResponse20044InventoryShop}
+     * @type {InlineResponse20042InventoryShop}
      * @memberof InlineResponse20071Rows
      */
-    shop?: InlineResponse20044InventoryShop;
+    shop?: InlineResponse20042InventoryShop;
 }
 
 

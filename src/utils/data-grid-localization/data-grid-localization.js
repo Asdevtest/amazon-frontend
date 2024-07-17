@@ -1,4 +1,4 @@
-import { enUS, ruRU, zhCN } from '@mui/x-data-grid'
+import { enUS, ruRU, ukUA, zhCN } from '@mui/x-data-grid'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -14,6 +14,9 @@ export const getLocalizationByLanguageTag = () => {
 
     case LanguageKey.ch:
       return zhCN.components.MuiDataGrid.defaultProps.localeText
+
+    case LanguageKey.ua:
+      return ukUA.components.MuiDataGrid.defaultProps.localeText
 
     default:
       return enUS.components.MuiDataGrid.defaultProps.localeText

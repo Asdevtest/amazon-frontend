@@ -78,10 +78,11 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
             <Input
               placeholder={t(TranslationKey.Link)}
               value={formFields.lamazon}
-              className={styles.input}
               onChange={onChangeField('lamazon')}
             />
+
             <Button
+              isSmallButton
               tooltipInfoContent={t(TranslationKey['Fills in the ASIN field from the added Amazon link'])}
               onClick={onClickParseBtn}
             >
@@ -95,7 +96,6 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
         inputProps={{ maxLength: 50 }}
         label={t(TranslationKey.ASIN)}
         labelClasses={styles.fieldLabel}
-        containerClasses={styles.fieldContainer}
         value={formFields.asin}
         placeholder={t(TranslationKey.ASIN)}
         onChange={onChangeField('asin')}
@@ -117,7 +117,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
       />
 
       {isNoAsin && (
-        <div>
+        <>
           <Field
             label={t(TranslationKey.SKU)}
             labelClasses={styles.fieldLabel}
@@ -128,7 +128,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
                     <div className={styles.skuItemWrapper}>
                       <p className={styles.skuItemTitle}>{formFields.skuByClient}</p>
 
-                      <IconButton className={styles.deleteBtnWrapper} onClick={() => onRemoveSku()}>
+                      <IconButton className={styles.deleteBtnWrapper} onClick={onRemoveSku}>
                         <DeleteIcon className={styles.deleteBtn} />
                       </IconButton>
                     </div>
@@ -140,11 +140,10 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
                     placeholder={t(TranslationKey.SKU)}
                     inputProps={{ maxLength: 256 }}
                     value={skuLine}
-                    className={styles.input}
                     onChange={e => setSkuLine(e.target.value)}
                   />
 
-                  <Button disabled={skuLine === '' || !!formFields.skuByClient} onClick={onClickSkuBtn}>
+                  <Button isSmallButton disabled={skuLine === '' || !!formFields.skuByClient} onClick={onClickSkuBtn}>
                     {t(TranslationKey.Add)}
                   </Button>
                 </div>
@@ -161,11 +160,12 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
           />
 
           <UploadFilesInput images={images} setImages={setImages} />
-        </div>
+        </>
       )}
 
       <div className={styles.btnsWrapper}>
         <Button
+          isSmallButton
           styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmitBtn}
           onClick={() => {

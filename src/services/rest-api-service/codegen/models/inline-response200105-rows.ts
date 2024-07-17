@@ -13,9 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse200105ListingLaunches } from './inline-response200105-listing-launches';
-import { InlineResponse200105Product } from './inline-response200105-product';
+import { InlineResponse200105Author } from './inline-response200105-author';
 
 /**
  * 
@@ -24,61 +22,49 @@ import { InlineResponse200105Product } from './inline-response200105-product';
  */
 export interface InlineResponse200105Rows {
     /**
-     * GUID в базе данных
+     * GUID пользователя в БД.
      * @type {string}
      * @memberof InlineResponse200105Rows
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * Название patch_note.
+     * @type {string}
      * @memberof InlineResponse200105Rows
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    title?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200105Rows
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {InlineResponse200105Product}
-     * @memberof InlineResponse200105Rows
-     */
-    product?: InlineResponse200105Product;
-    /**
-     * Is Actual report
-     * @type {boolean}
-     * @memberof InlineResponse200105Rows
-     */
-    isActive?: boolean;
-    /**
-     * New product price
-     * @type {number}
-     * @memberof InlineResponse200105Rows
-     */
-    newProductPrice?: number;
-    /**
-     * Description of product_listing_report
+     * Описание patch_note.
      * @type {string}
      * @memberof InlineResponse200105Rows
      */
     description?: string;
     /**
-     * 
-     * @type {Array<InlineResponse200105ListingLaunches>}
+     * Для какой роли
+     * @type {number}
      * @memberof InlineResponse200105Rows
      */
-    listingLaunches?: Array<InlineResponse200105ListingLaunches>;
+    role?: number;
     /**
      * 
+     * @type {InlineResponse200105Author}
+     * @memberof InlineResponse200105Rows
+     */
+    author?: InlineResponse200105Author;
+    /**
+     * Update version
+     * @type {string}
+     * @memberof InlineResponse200105Rows
+     */
+    version?: string;
+    /**
+     * Дата создания склада.
      * @type {string}
      * @memberof InlineResponse200105Rows
      */
     createdAt?: string;
     /**
-     * 
+     * Дата обновления склада.
      * @type {string}
      * @memberof InlineResponse200105Rows
      */

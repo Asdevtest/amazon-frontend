@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } from './api-v1-integrations-sellerboard-warehouse-products-link-sku-warehouse-stocks';
 
 /**
  * 
@@ -21,11 +22,17 @@
  */
 export interface InlineObject78 {
     /**
-     * GUIDы поставщиков, которые нужно добавить в БД.
-     * @type {Array<string>}
+     * 
+     * @type {string}
      * @memberof InlineObject78
      */
-    suppliersIds?: Array<string>;
+    productId: string;
+    /**
+     * 
+     * @type {Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>}
+     * @memberof InlineObject78
+     */
+    warehouseStocks: Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>;
 }
 
 

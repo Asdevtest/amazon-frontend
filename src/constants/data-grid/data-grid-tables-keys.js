@@ -54,12 +54,16 @@ export const DataGridTablesKeys = {
   SUPERVISOR_PRODUCTS: 'supervisorProductsDataGridState',
   SUPERVISOR_SUB_USERS: 'supervisorSubUsersDataGridState',
   SUPERVISOR_SETTINGS: 'supervisorSettingsDataGridState',
+  SUPERVISOR_CHECK_CLIENT: 'supervisorCheckClient',
+  SUPERVISOR_CHECK_RESEATCHER: 'supervisorCheckResearcher',
 
   BUYER_PRODUCTS: 'buyerProductsDataGridState',
   BUYER_MY_ORDERS_: 'buyerMyOrdersDataGridState',
 
   BUYER_PENDING_ORDERS: 'buyerPendingOrdersDataGridState',
   BUYER_MY_ORDERS_NOT_PAID: 'buyerMyOrdersNotPaidDataGridState',
+  BUYER_MY_ORDERS_READY_FOR_PAYMENT: 'buyerMyOrdersReadyForPaymentDataGridState',
+  BUYER_MY_ORDERS_PARTIALLY_PAID: 'buyerMyOrdersPartiallyPaidDataGridState',
   BUYER_MY_ORDERS_NEED_TRACK_NUMBER: 'buyerMyOrdersNeedTrackNumberDataGridState',
   BUYER_MY_ORDERS_INBOUND: 'buyerMyOrdersInboundDataGridState',
   BUYER_MY_ORDERS_CONFIRMATION_REQUIRED: 'buyerMyOrdersConfirmationRequiredDataGridState',
@@ -78,6 +82,7 @@ export const DataGridTablesKeys = {
   CLIENT_PENDING_ORDERS: 'clientPendingOrdersDataGridState',
   CLIENT_ORDERS_NOTIFICATIONS: 'clientOrdersNotificationsDataGridState',
   CLIENT_BOXES_NOTIFICATIONS: 'clientBoxesNotificationsDataGridState',
+  CLIENT_BOXES_TARIFF_NOTIFICATIONS: 'clientBoxesTariffsNotificationsDataGridState',
   CLIENT_IDEAS_NOTIFICATIONS: 'clientIdeasNotificationsDataGridState',
   CLIENT_FREELANCE_NOTIFICATIONS: 'clientFreelanceNotificationsDataGridState',
 

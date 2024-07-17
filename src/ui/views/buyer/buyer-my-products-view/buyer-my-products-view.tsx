@@ -45,7 +45,6 @@ export const BuyerMyProductsView = observer(() => {
 
       <div className={styles.dataGridWrapper}>
         <CustomDataGrid
-          checkboxSelection
           disableRowSelectionOnClick
           getRowClassName={getRowClassName}
           pinnedColumns={viewModel.pinnedColumns}

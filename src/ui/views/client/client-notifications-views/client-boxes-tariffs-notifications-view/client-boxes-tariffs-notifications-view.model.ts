@@ -66,7 +66,7 @@ export class ClientBoxesTariffsNotificationsViewModel extends DataGridFilterTabl
     super({
       getMainDataMethod: BoxesModel.getBoxesForCurClientLightPag,
       columnsModel,
-      tableKey: DataGridTablesKeys.CLIENT_BOXES_NOTIFICATIONS,
+      tableKey: DataGridTablesKeys.CLIENT_BOXES_TARIFF_NOTIFICATIONS,
       filtersFields: getFilterFields(columnsModel),
       mainMethodURL: 'boxes/pag/clients_light?',
       additionalPropertiesGetFilters,
@@ -93,14 +93,12 @@ export class ClientBoxesTariffsNotificationsViewModel extends DataGridFilterTabl
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
-        storage: data.storage,
+        // storage: data.storage,
       })
 
-      this.getCurrentData()
-
-      this.onTriggerOpenModal('showBoxViewModal')
-
       toast.success(t(TranslationKey['Data saved successfully']))
+
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
@@ -176,9 +174,7 @@ export class ClientBoxesTariffsNotificationsViewModel extends DataGridFilterTabl
 
   async onClickConfirmTarrifChangeBtn(tariffData: INewDataOfVariation) {
     try {
-      // const curBoxFinalWeight = calcFinalWeightForBox(this.curBox, this.platformSettings?.volumeWeightCoefficient)
-
-      const finalSum = (this.curBox?.finalWeight || 1) * (this.curBox?.variationTariff?.pricePerKgUsd || 1)
+      const finalSum = (this.curBox?.finalWeight || 1) * (tariffData?.pricePerKgUsd || 1)
       runInAction(() => {
         this.confirmModalSettings = {
           isWarning: false,

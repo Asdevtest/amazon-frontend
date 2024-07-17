@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   BatchBoxesCell,
   BatchTrackingCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -16,6 +17,8 @@ import { DataGridSelectViewProductBatch } from '@components/data-grid/data-grid-
 
 import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
   const columns = [
@@ -36,11 +39,14 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       ),
       renderCell: params => <BatchBoxesCell boxes={params.row.boxes} productViewMode={getProductViewMode?.()} />,
       width: 420,
+
       filterable: false,
       sortable: false,
-      columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
-      table: DataGridFilterTables.PRODUCTS,
       disableCustomSort: true,
+
+      fields: getProductColumnMenuItems({ withoutSku: true }),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
@@ -102,6 +108,31 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
     },
 
     {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: params => {
+        const product = params.row?.boxes?.[0]?.items?.[0]?.product
+        const subUsers = product?.subUsers || []
+        const subUsersByShop = product?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const product = row?.boxes?.[0]?.items?.[0]?.product
+        const subUsers = product?.subUsers || []
+        const subUsersByShop = product?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      table: DataGridFilterTables.PRODUCTS,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
+    },
+
+    {
       field: 'logicsTariff',
       headerName: t(TranslationKey.Tariff),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
@@ -121,6 +152,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
         <BatchTrackingCell
           disabled
           disableMultilineForTrack
+          disabledArrivalDate={params.row?.status !== 'HAS_DISPATCHED'}
           rowHandlers={rowHandlers}
           id={params.row?._id}
           arrivalDate={params.row?.arrivalDate}

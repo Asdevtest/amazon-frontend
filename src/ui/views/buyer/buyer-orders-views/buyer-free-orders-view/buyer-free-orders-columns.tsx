@@ -118,7 +118,8 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       ),
-      width: 130,
+      width: 210,
+      align: 'center',
     },
 
     {
@@ -155,7 +156,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
       type: 'boolean',
-      width: 120,
+      width: 140,
     },
 
     {
@@ -199,7 +200,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 100,
+      width: 115,
     },
   ]
 

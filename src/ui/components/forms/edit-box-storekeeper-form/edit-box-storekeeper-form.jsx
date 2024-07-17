@@ -409,7 +409,7 @@ export const EditBoxStorekeeperForm = memo(
                           <Field
                             containerClasses={styles.field}
                             labelClasses={styles.standartLabel}
-                            label={t(TranslationKey['Transparency codes'])}
+                            label={t(TranslationKey['Transparency Codes'])}
                             inputComponent={
                               <ChangeChipCell
                                 isChipOutTable
@@ -472,7 +472,7 @@ export const EditBoxStorekeeperForm = memo(
                               oneLine
                               labelClasses={styles.standartLabel}
                               containerClasses={styles.checkboxContainer}
-                              label={t(TranslationKey['Transparency codes glued by the supplier'])}
+                              label={t(TranslationKey['Transparency Codes glued by the supplier'])}
                               inputComponent={
                                 <Checkbox
                                   checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
@@ -491,7 +491,7 @@ export const EditBoxStorekeeperForm = memo(
                               oneLine
                               labelClasses={styles.standartLabel}
                               containerClasses={styles.checkboxContainer}
-                              label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                              label={t(TranslationKey['Transparency Codes are glued by storekeeper'])}
                               inputComponent={
                                 <Checkbox
                                   checked={item.isTransparencyFileAttachedByTheStorekeeper}
@@ -862,7 +862,7 @@ export const EditBoxStorekeeperForm = memo(
         <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
           <SetFilesModal
             modalTitle={t(TranslationKey.Transparency)}
-            LabelTitle={t(TranslationKey['Transparency codes'])}
+            LabelTitle={t(TranslationKey['Transparency Codes'])}
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
             onClickSave={value => {

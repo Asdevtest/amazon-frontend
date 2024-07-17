@@ -3,12 +3,14 @@ import { useState } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
 
+import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -44,7 +46,7 @@ export const FinancesView = observer(() => {
       <CustomSwitcher
         switchMode="medium"
         condition={viewModel?.entityType}
-        switcherSettings={getEntityTypeConfig()}
+        switcherSettings={getEntityTypeConfig(checkIsAdmin(UserRoleCodeMap[viewModel?.userRole]))}
         changeConditionHandler={viewModel?.handleSetEntityType}
       />
 

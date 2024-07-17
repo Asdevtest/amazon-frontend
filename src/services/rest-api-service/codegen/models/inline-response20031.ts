@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse2001 } from './inline-response2001';
 
 /**
  * 
@@ -21,35 +22,17 @@
  */
 export interface InlineResponse20031 {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
+     * Count of rows
+     * @type {number}
      * @memberof InlineResponse20031
      */
-    _id?: string;
+    count?: number;
     /**
-     * ASIN продукта
-     * @type {string}
+     * Массив заказов.
+     * @type {Array<InlineResponse2001>}
      * @memberof InlineResponse20031
      */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20031
-     */
-    skuByClient?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20031
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20031
-     */
-    amazonTitle?: string;
+    rows?: Array<InlineResponse2001>;
 }
 
 

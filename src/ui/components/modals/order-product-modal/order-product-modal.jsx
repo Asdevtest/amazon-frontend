@@ -323,7 +323,7 @@ export const OrderProductModal = memo(props => {
       return (
         (productsForRender[index].currentSupplier &&
           toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
-            platformSettings.orderAmountLimit) ||
+            platformSettings?.orderAmountLimit) ||
         !order.storekeeperId ||
         !order.logicsTariffId ||
         Number(order.amount) <= 0 ||
@@ -369,7 +369,9 @@ export const OrderProductModal = memo(props => {
                 <p>{t(TranslationKey['Price variations'])}</p>
               </TableCell>
               <TableCell className={styles.barCodeCell}>
-                <p>{`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency codes'])}`}</p>
+                <Text className={styles.barCodeCellBtn}>
+                  {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency Codes'])}`}
+                </Text>
               </TableCell>
               <TableCell className={styles.tariffCell}>
                 <p>{`Storekeeper ${t(TranslationKey.and)} ${t(TranslationKey.Tariff)}`}</p>
@@ -496,7 +498,7 @@ export const OrderProductModal = memo(props => {
       <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
         <SetFilesModal
           modalTitle={t(TranslationKey.Transparency)}
-          LabelTitle={t(TranslationKey['Transparency codes'])}
+          LabelTitle={t(TranslationKey['Transparency Codes'])}
           currentFiles={filesConditions.currentFiles}
           tmpFiles={filesConditions.tmpFiles}
           onClickSave={value => {

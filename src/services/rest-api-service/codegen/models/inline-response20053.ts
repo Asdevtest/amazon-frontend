@@ -13,34 +13,19 @@
  */
 
 
-import { InlineResponse20053Batches } from './inline-response20053-batches';
-import { InlineResponse20053Boxes } from './inline-response20053-boxes';
-import { InlineResponse20053Tasks } from './inline-response20053-tasks';
 
 /**
- * 
+ * цену для клиента на поиск поставщика
  * @export
  * @interface InlineResponse20053
  */
 export interface InlineResponse20053 {
     /**
      * 
-     * @type {InlineResponse20053Tasks}
+     * @type {number}
      * @memberof InlineResponse20053
      */
-    tasks?: InlineResponse20053Tasks;
-    /**
-     * 
-     * @type {InlineResponse20053Boxes}
-     * @memberof InlineResponse20053
-     */
-    boxes?: InlineResponse20053Boxes;
-    /**
-     * 
-     * @type {InlineResponse20053Batches}
-     * @memberof InlineResponse20053
-     */
-    batches?: InlineResponse20053Batches;
+    priceForClient?: number;
 }
 
 

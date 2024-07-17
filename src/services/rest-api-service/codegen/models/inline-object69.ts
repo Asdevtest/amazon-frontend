@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
+import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
  * 
@@ -22,23 +22,23 @@ import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clie
  */
 export interface InlineObject69 {
     /**
-     * New product price
-     * @type {number}
-     * @memberof InlineObject69
-     */
-    newProductPrice?: number;
-    /**
-     * Description of product_listing_report
+     * Название профиля
      * @type {string}
      * @memberof InlineObject69
      */
-    description?: string;
+    name?: string;
     /**
-     * 
-     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
+     * Название ОС
+     * @type {string}
      * @memberof InlineObject69
      */
-    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
+    os?: string;
+    /**
+     * 
+     * @type {ApiV1GologinProfileNavigator}
+     * @memberof InlineObject69
+     */
+    navigator?: ApiV1GologinProfileNavigator;
 }
 
 

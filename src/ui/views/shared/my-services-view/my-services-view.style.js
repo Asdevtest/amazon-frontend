@@ -15,7 +15,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
     width: 400,
   },
 
@@ -43,9 +42,5 @@ export const useStyles = makeStyles()(theme => ({
 
   dashboardCardWrapperList: {
     gridTemplateColumns: 'repeat(2, 1fr)',
-  },
-
-  fixWidth: {
-    width: 160,
   },
 }))

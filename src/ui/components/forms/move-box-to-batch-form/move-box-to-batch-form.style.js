@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   batchesExistBlock: {
     width: '900px',
-    padding: 10,
   },
 
   title: {

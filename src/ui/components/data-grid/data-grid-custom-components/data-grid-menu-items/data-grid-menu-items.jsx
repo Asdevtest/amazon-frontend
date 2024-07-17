@@ -1347,10 +1347,6 @@ export const PriorityMenuItem = memo(
 export const FreelancerToWorkConfirmationMenuItem = memo(
   withStyles(
     ({ classes: styles, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
-      useEffect(() => {
-        onClickFilterBtn(field)
-      }, [])
-
       const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
@@ -2846,6 +2842,7 @@ export const NumberWithTabsMenuItem = memo(
       classes: styles,
       onClose,
       data,
+      table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
       onClickAccept,
@@ -2855,7 +2852,7 @@ export const NumberWithTabsMenuItem = memo(
       const [activeTab, setActiveTab] = useState(tabs[0].value)
 
       useEffect(() => {
-        onClickFilterBtn(activeTab)
+        onClickFilterBtn(activeTab, table)
       }, [activeTab])
 
       return (
@@ -2893,54 +2890,6 @@ export const NumberWithTabsMenuItem = memo(
             onClickAccept={onClickAccept}
           />
         </div>
-      )
-    },
-    styles,
-  ),
-)
-
-const toPayCellTabs = [
-  {
-    value: 'priceInYuan',
-    label: t(TranslationKey['To pay']),
-  },
-  {
-    value: 'partialPaymentAmountRmb',
-    label: t(TranslationKey['To pay partial']),
-  },
-]
-
-export const ToPayCellMenuItem = memo(
-  withStyles(
-    ({ onClose, data, field, filterRequestStatus, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
-      const isShowTabs = ['/buyer/partially-paid-orders', '/buyer/all-orders'].includes(window.location.pathname)
-
-      return (
-        <>
-          {isShowTabs && (
-            <NumberWithTabsMenuItem
-              data={data}
-              filterRequestStatus={filterRequestStatus}
-              tabs={toPayCellTabs}
-              onClickFilterBtn={onClickFilterBtn}
-              onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-              onClickAccept={() => onClickAccept()}
-              onClose={onClose}
-            />
-          )}
-
-          {!isShowTabs && (
-            <NumberFieldMenuItem
-              data={data[field]}
-              field={field}
-              filterRequestStatus={filterRequestStatus}
-              onClickFilterBtn={onClickFilterBtn}
-              onClose={onClose}
-              onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-              onClickAccept={onClickAccept}
-            />
-          )}
-        </>
       )
     },
     styles,

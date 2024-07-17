@@ -13,61 +13,26 @@
  */
 
 
+import { InlineResponse200107Rows } from './inline-response200107-rows';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse200107
  */
 export interface InlineResponse200107 {
     /**
-     * GUID пользователя.
-     * @type {string}
-     * @memberof InlineResponse200107
-     */
-    _id?: string;
-    /**
-     * Имя пользователя.
-     * @type {string}
-     * @memberof InlineResponse200107
-     */
-    name?: string;
-    /**
-     * Рейтинг пользователя.
+     * Всего кол-во записей в результате запроса
      * @type {number}
      * @memberof InlineResponse200107
      */
-    rating?: number;
+    count?: number;
     /**
-     * Количество положительных отзыв
-     * @type {number}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse200107Rows>}
      * @memberof InlineResponse200107
      */
-    numberOfPositiveFeedbacks?: number;
-    /**
-     * Количество негативных отзыв
-     * @type {number}
-     * @memberof InlineResponse200107
-     */
-    numberOfNegativeFeedbacks?: number;
-    /**
-     * Страна
-     * @type {string}
-     * @memberof InlineResponse200107
-     */
-    country?: string;
-    /**
-     * Пользователь онлайн
-     * @type {boolean}
-     * @memberof InlineResponse200107
-     */
-    isOnline?: boolean;
-    /**
-     * Количество общих сделок
-     * @type {number}
-     * @memberof InlineResponse200107
-     */
-    countsOfDeals?: number;
+    rows?: Array<InlineResponse200107Rows>;
 }
 
 

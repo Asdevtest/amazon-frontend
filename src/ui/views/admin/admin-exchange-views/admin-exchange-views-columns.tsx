@@ -17,7 +17,7 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { productColumnMenuItems, productColumnMenuValue } from './admin-exchange-views.config'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 interface IRowHandlers {
   onClickOpenInNewTab: (id: string) => void
@@ -56,10 +56,10 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
         )
       },
 
-      fields: productColumnMenuItems,
-      columnMenuConfig: productColumnMenuValue,
-      disableCustomSort: true,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
       width: 250,
     },
 
@@ -106,7 +106,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
 
       renderCell: params => <UserLinkCell blackText name={params.value.name} userId={params.value._id} />,
       width: 200,
-
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
     {
@@ -118,7 +118,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
         <UserLinkCell blackText name={params.row.checkedBy?.name} userId={params.row.checkedBy?._id} />
       ),
       width: 200,
-
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
     },
@@ -130,7 +130,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
 
       renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
       width: 200,
-
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
     },

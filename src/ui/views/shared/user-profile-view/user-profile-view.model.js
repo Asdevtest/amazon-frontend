@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { FeedbackModel } from '@models/feedback-model'
 import { OtherModel } from '@models/other-model'
 import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
 import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
@@ -29,10 +30,7 @@ export class ProfileViewModel {
   showTabModal = false
   showConfirmWorkResultFormModal = false
 
-  checkValidationNameOrEmail = undefined
   productsVacant = []
-  isUniqueProfileData = true
-  wrongPassword = undefined
   tabHistory = 0
   selectedUser = undefined
   reviews = []
@@ -150,76 +148,36 @@ export class ProfileViewModel {
 
   async onSubmitUserInfoEdit(data) {
     try {
-      if (data) {
-        const { name, email, oldPassword, newPassword } = data
+      const { name, email, oldPassword, password } = data
 
-        if (name || email) {
-          await this.changeUserNameOrEmail(data)
-        }
+      if (name || email) {
+        await UserModel.changeUserInfo({ name: data.name })
+      }
 
-        if (oldPassword && newPassword) {
-          await this.changeUserPassword(data)
-        }
+      if (oldPassword && password) {
+        await UserModel.changeUserPassword({
+          oldPassword: data.oldPassword,
+          newPassword: data.password,
+        })
+      }
 
-        if (!this.wrongPassword && this.isUniqueProfileData) {
-          this.onTriggerOpenModal('showUserInfoModal')
+      const userModelData = SettingsModel.loadValue('UserModel')
+      const refreshToken = userModelData.refreshToken
 
-          toast.success(t(TranslationKey['Data was successfully saved']))
-        }
-      } else {
+      if (!refreshToken) {
         return
       }
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
-  clearError() {
-    if (this.wrongPassword) {
-      this.wrongPassword = undefined
-    }
-  }
+      const response = await UserModel.getAccessToken(refreshToken)
+      const accessToken = response?.accessToken
 
-  async changeUserPassword(data) {
-    try {
-      await UserModel.changeUserPassword({
-        oldPassword: data.oldPassword,
-        newPassword: data.password,
-      })
-
+      await SettingsModel.saveValue('UserModel', { ...userModelData, accessToken })
+      await UserModel.setAccessToken(accessToken)
       await UserModel.getUserInfo()
-    } catch (error) {
-      runInAction(() => {
-        if (error.body && error.body.message === 'Wrong password') {
-          this.wrongPassword = error.body.message
-        }
-      })
-    }
-  }
 
-  async changeUserNameOrEmail(data) {
-    try {
-      this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
-        name: data.name,
-        email: data.email,
-      })
+      this.onTriggerOpenModal('showUserInfoModal')
 
-      if (
-        this.checkValidationNameOrEmail.nameIsUnique === false ||
-        this.checkValidationNameOrEmail.emailIsUnique === false
-      ) {
-        runInAction(() => {
-          this.isUniqueProfileData = false
-        })
-      } else {
-        await UserModel.changeUserInfo({ name: data.name, email: data.email })
-
-        await UserModel.getUserInfo()
-
-        runInAction(() => {
-          this.isUniqueProfileData = true
-        })
-      }
+      toast.success(t(TranslationKey['Data was successfully saved']))
     } catch (error) {
       console.error(error)
     }
@@ -253,10 +211,6 @@ export class ProfileViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
-  }
-
-  resetProfileDataValidation() {
-    this.checkValidationNameOrEmail = undefined
   }
 
   async getReviews() {

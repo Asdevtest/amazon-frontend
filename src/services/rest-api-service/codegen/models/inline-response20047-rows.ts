@@ -13,6 +13,9 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { InlineResponse20047ListingLaunches } from './inline-response20047-listing-launches';
+import { InlineResponse20047Product } from './inline-response20047-product';
 
 /**
  * 
@@ -21,47 +24,65 @@
  */
 export interface InlineResponse20047Rows {
     /**
-     * GUID продукта в базе данных
+     * GUID в базе данных
      * @type {string}
      * @memberof InlineResponse20047Rows
      */
     _id?: string;
     /**
-     * ASIN продукта
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20047Rows
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20047Rows
+     */
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {InlineResponse20047Product}
+     * @memberof InlineResponse20047Rows
+     */
+    product?: InlineResponse20047Product;
+    /**
+     * Is Actual report
+     * @type {boolean}
+     * @memberof InlineResponse20047Rows
+     */
+    isActive?: boolean;
+    /**
+     * New product price
+     * @type {number}
+     * @memberof InlineResponse20047Rows
+     */
+    newProductPrice?: number;
+    /**
+     * Description of product_listing_report
      * @type {string}
      * @memberof InlineResponse20047Rows
      */
-    asin?: string;
+    description?: string;
     /**
-     * ID магазинa для продукта
+     * 
+     * @type {Array<InlineResponse20047ListingLaunches>}
+     * @memberof InlineResponse20047Rows
+     */
+    listingLaunches?: Array<InlineResponse20047ListingLaunches>;
+    /**
+     * 
      * @type {string}
      * @memberof InlineResponse20047Rows
      */
-    shopId?: string;
+    createdAt?: string;
     /**
-     * Заголовок на товар с сайта амазон.
+     * 
      * @type {string}
      * @memberof InlineResponse20047Rows
      */
-    amazonTitle?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20047Rows
-     */
-    skuByClient?: string;
-    /**
-     * GUID пользователя(байера)
-     * @type {string}
-     * @memberof InlineResponse20047Rows
-     */
-    buyerId?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20047Rows
-     */
-    images?: Array<string>;
+    updatedAt?: string;
 }
 
 

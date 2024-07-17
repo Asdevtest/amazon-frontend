@@ -16,10 +16,12 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 import { getPaymentTypeColor } from './helpers/get-payment-type-color'
 import { getPaymentTypeIcon } from './helpers/get-payment-type-icon'
 
-export const financesViewColumns = () => {
+export const financesViewColumns = (userBalance?: boolean) => {
   const columns: IGridColumn[] = [
     {
       field: 'createdAt',
@@ -29,7 +31,7 @@ export const financesViewColumns = () => {
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: userBalance ? undefined : columnnsKeys.shared.DATE,
     },
 
     {
@@ -49,9 +51,12 @@ export const financesViewColumns = () => {
         )
       },
       valueGetter: params => params.row?.entityProduct?.[0]?.asin,
-      width: 280,
-      table: DataGridFilterTables.PRODUCTS,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: userBalance ? undefined : columnnsKeys.shared.MULTIPLE,
+
+      width: 250,
     },
 
     {
@@ -75,7 +80,7 @@ export const financesViewColumns = () => {
 
       transformValueMethod: getPaymentTypeTranslations,
 
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: userBalance ? undefined : columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -87,7 +92,7 @@ export const financesViewColumns = () => {
 
       renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
 
-      columnKey: columnnsKeys.shared.NUMBER,
+      columnKey: userBalance ? undefined : columnnsKeys.shared.NUMBER,
     },
 
     {
@@ -99,8 +104,9 @@ export const financesViewColumns = () => {
 
       renderCell: params => <UserLinkCell name={params.row?.createdBy?.name} userId={params.row?.createdBy?._id} />,
       valueGetter: params => params.value.name,
+      hideEmptyObject: true,
 
-      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      columnKey: userBalance ? undefined : columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
@@ -112,8 +118,9 @@ export const financesViewColumns = () => {
 
       renderCell: params => <UserLinkCell name={params.row?.recipient?.name} userId={params.row?.recipient?._id} />,
       valueGetter: params => params.value.name,
+      hideEmptyObject: true,
 
-      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      columnKey: userBalance ? undefined : columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
@@ -126,7 +133,7 @@ export const financesViewColumns = () => {
 
       valueGetter: params => getEntityTypeTranslations(params.value),
 
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: userBalance ? undefined : columnnsKeys.shared.STRING_VALUE,
 
       width: 110,
     },
@@ -139,7 +146,7 @@ export const financesViewColumns = () => {
       flex: 1,
       renderCell: params => <MultilineTextCell leftAlign threeLines text={params.value} />,
 
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: userBalance ? undefined : columnnsKeys.shared.STRING_VALUE,
     },
   ]
 

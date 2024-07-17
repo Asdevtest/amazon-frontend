@@ -13,296 +13,116 @@
  */
 
 
-import { InlineResponse20044InventoryShop } from './inline-response20044-inventory-shop';
+import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-by';
+import { InlineResponse20065EntityProduct } from './inline-response20065-entity-product';
 
 /**
- * Схема репорта за 30 дней с Seller-board
+ * 
  * @export
  * @interface InlineResponse20065Rows
  */
 export interface InlineResponse20065Rows {
     /**
-     * Гуид записи
+     * GUID платежа
      * @type {string}
      * @memberof InlineResponse20065Rows
      */
     _id?: string;
     /**
-     * 
-     * @type {InlineResponse20044InventoryShop}
-     * @memberof InlineResponse20065Rows
-     */
-    shop?: InlineResponse20044InventoryShop;
-    /**
-     * ﻿\"Date\"
-     * @type {string}
-     * @memberof InlineResponse20065Rows
-     */
-    date?: string;
-    /**
-     * Marketplace
-     * @type {string}
-     * @memberof InlineResponse20065Rows
-     */
-    marketplace?: string;
-    /**
-     * ASIN
-     * @type {string}
-     * @memberof InlineResponse20065Rows
-     */
-    asin?: string;
-    /**
-     * SKU
-     * @type {string}
-     * @memberof InlineResponse20065Rows
-     */
-    sku?: string;
-    /**
-     * Name
-     * @type {string}
-     * @memberof InlineResponse20065Rows
-     */
-    name?: string;
-    /**
-     * SalesOrganic
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    salesorganic?: number;
-    /**
-     * SalesPPC
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    salesppc?: number;
-    /**
-     * UnitsOrganic
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    unitsorganic?: number;
-    /**
-     * UnitsPPC
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    unitsppc?: number;
-    /**
-     * Refunds
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    refunds?: number;
-    /**
-     * PromoValue
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    promovalue?: number;
-    /**
-     * SponsoredProducts
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    sponsoredproducts?: number;
-    /**
-     * SponsoredDisplay
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    sponsoreddisplay?: number;
-    /**
-     * SponsoredВrands
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    sponsoredRands?: number;
-    /**
-     * SponsoredBrandsVideo
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    sponsoredbrandsvideo?: number;
-    /**
-     * GiftWrap
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    giftwrap?: number;
-    /**
-     * Shipping
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    shipping?: number;
-    /**
-     * RefundCost
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    refundcost?: number;
-    /**
-     * Value of returned items
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    valueOfReturnedItems?: number;
-    /**
-     * ProductCost Unsellable Refunds
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    productcostUnsellableRefunds?: number;
-    /**
-     * Commission
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    commission?: number;
-    /**
-     * COMPENSATED_CLAWBACK
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    compensatedClawback?: number;
-    /**
-     * FBADisposalFee
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    fbadisposalfee?: number;
-    /**
-     * FBAPerUnitFulfillmentFee
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    fbaperunitfulfillmentfee?: number;
-    /**
-     * FBAStorageFee
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    fbastoragefee?: number;
-    /**
-     * FREE_REPLACEMENT_REFUND_ITEMS
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    freeReplacementRefundItems?: number;
-    /**
-     * Subscription
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    subscription?: number;
-    /**
-     * WAREHOUSE_DAMAGE
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    warehouseDamage?: number;
-    /**
-     * WAREHOUSE_LOST
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    warehouseLost?: number;
-    /**
-     * EstimatedPayout
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    estimatedpayout?: number;
-    /**
-     * ProductCost Sales
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    productcostSales?: number;
-    /**
-     * ProductCost Non-Amazon
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    productcostNonAmazon?: number;
-    /**
-     * ProductCost MultichannelCosts
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    productcostMultichannelcosts?: number;
-    /**
-     * ProductCost MissingFromInbound
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    productcostMissingfrominbound?: number;
-    /**
-     * ProductCost CostOfMissingReturns
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    productcostCostofmissingreturns?: number;
-    /**
-     * VAT
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    vat?: number;
-    /**
-     * GrossProfit
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    grossprofit?: number;
-    /**
-     * NetProfit
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    netprofit?: number;
-    /**
-     * Margin
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    margin?: number;
-    /**
-     * Real ACOS
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    realAcos?: number;
-    /**
-     * Adjustment_FBAPerUnitFulfillmentFee
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    adjustmentFbaperunitfulfillmentfee?: number;
-    /**
-     * AmazonFees
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    amazonfees?: number;
-    /**
-     * Cost of Goods
-     * @type {number}
-     * @memberof InlineResponse20065Rows
-     */
-    costOfGoods?: number;
-    /**
-     * Дата создания
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20065Rows
      */
     createdAt?: string;
     /**
-     * Дата обновления
+     * 
+     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @memberof InlineResponse20065Rows
+     */
+    createdBy?: ApiV1AdminsPaymentsCreatedBy;
+    /**
+     * Роль пользователя на момент инициации платежа.
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    role?: number;
+    /**
+     * 
+     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @memberof InlineResponse20065Rows
+     */
+    subUser?: ApiV1AdminsPaymentsCreatedBy;
+    /**
+     * GUID товара или услуги.
      * @type {string}
      * @memberof InlineResponse20065Rows
      */
-    updatedAt?: string;
+    entityId?: string;
+    /**
+     * Тип товара или услуги
+     * @type {string}
+     * @memberof InlineResponse20065Rows
+     */
+    entityType?: InlineResponse20065RowsEntityTypeEnum;
+    /**
+     * Тип платежа
+     * @type {string}
+     * @memberof InlineResponse20065Rows
+     */
+    paymentType?: InlineResponse20065RowsPaymentTypeEnum;
+    /**
+     * 
+     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @memberof InlineResponse20065Rows
+     */
+    recipient?: ApiV1AdminsPaymentsCreatedBy;
+    /**
+     * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    sum?: number;
+    /**
+     * комментарий
+     * @type {string}
+     * @memberof InlineResponse20065Rows
+     */
+    comment?: string;
+    /**
+     * 
+     * @type {Array<InlineResponse20065EntityProduct>}
+     * @memberof InlineResponse20065Rows
+     */
+    entityProduct?: Array<InlineResponse20065EntityProduct>;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20065RowsEntityTypeEnum {
+    Product = 'PRODUCT',
+    Order = 'ORDER',
+    Box = 'BOX',
+    Batch = 'BATCH',
+    User = 'USER',
+    RequestCustom = 'REQUEST-CUSTOM',
+    RequestSearchProduct = 'REQUEST-SEARCH_PRODUCT',
+    RequestSearchNiche = 'REQUEST-SEARCH_NICHE',
+    RequestProposalCustom = 'REQUEST-PROPOSAL-CUSTOM',
+    RequestProposalSearchProduct = 'REQUEST-PROPOSAL-SEARCH_PRODUCT',
+    RequestProposalSearchNiche = 'REQUEST-PROPOSAL-SEARCH_NICHE',
+    Other = 'OTHER'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20065RowsPaymentTypeEnum {
+    Replenish = 'REPLENISH',
+    Fine = 'FINE',
+    Zero = 'ZERO'
+}
+
 
 

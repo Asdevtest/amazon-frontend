@@ -15,16 +15,18 @@ import { t } from '@utils/translations'
 
 import { Roles } from '@typings/enums/roles'
 
+const routes = {
+  notifications: 'notifications/general-notifications-view',
+  messages: 'messages',
+  settings: 'settings',
+  management: 'management',
+}
+
 export const DashboardButtons = ({ user }) => {
   const { classes: styles } = useStyles()
   const history = useNavigate()
 
   const unreadMessages = ChatModel.unreadMessages
-
-  const routes = {
-    notifications: 'notifications/general-notifications-view',
-    messages: 'messages',
-  }
 
   const notices =
     (user.needConfirmPriceChange?.boxes || 0) +
@@ -32,9 +34,17 @@ export const DashboardButtons = ({ user }) => {
     (user.needUpdateTariff?.boxes || 0) +
     (user.freelanceNotices?.length || 0) +
     (user.notificationCounter || 0)
-
   const excludedRoles = [Roles.RESEARCHER, Roles.STOREKEEPER, Roles.ADMIN, Roles.SUPERVISOR]
   const isNotificationsShown = !excludedRoles.includes(user.role)
+  const buttonTitle = checkIsStorekeeper(UserRoleCodeMap[user.role])
+    ? t(TranslationKey['Warehouse management'])
+    : t(TranslationKey.Settings)
+  const handleClickButton = () =>
+    history.push(
+      `/${UserRoleCodeMapForRoutes[user.role]}/${
+        checkIsStorekeeper(UserRoleCodeMap[user.role]) ? routes.management : routes.settings
+      }`,
+    )
 
   return (
     <div className={styles.buttonsWrapper}>
@@ -67,18 +77,11 @@ export const DashboardButtons = ({ user }) => {
       checkIsStorekeeper(UserRoleCodeMap[user.role]) ||
       checkIsSupervisor(UserRoleCodeMap[user.role]) ? (
         <div className={styles.buttonWrapper}>
-          <button
-            className={styles.iconWrapper}
-            onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.settings}`)}
-          >
+          <button className={styles.iconWrapper} onClick={handleClickButton}>
             <SettingsIcon classes={{ root: styles.fontSizeLarge }} fontSize="large" />
           </button>
 
-          <Typography className={styles.title}>
-            {checkIsStorekeeper(UserRoleCodeMap[user.role])
-              ? t(TranslationKey['Warehouse management'])
-              : t(TranslationKey.Settings)}
-          </Typography>
+          <Typography className={styles.title}>{buttonTitle}</Typography>
         </div>
       ) : null}
     </div>

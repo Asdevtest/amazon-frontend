@@ -47,6 +47,7 @@ export const filtersFields = [
   'sub',
   'minProductionTerm',
   'maxProductionTerm',
+  'subUsers',
 ]
 
 export const fieldsForSearch = [

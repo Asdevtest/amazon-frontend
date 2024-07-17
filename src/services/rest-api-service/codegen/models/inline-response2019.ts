@@ -21,17 +21,11 @@
  */
 export interface InlineResponse2019 {
     /**
-     * Тестовый статус запуска
+     * Гуид созданного анонса
      * @type {string}
      * @memberof InlineResponse2019
      */
-    status?: string;
-    /**
-     * Строка подключения к WS соединению
-     * @type {string}
-     * @memberof InlineResponse2019
-     */
-    wsUrl?: string;
+    guid?: string;
 }
 
 

@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { Paper, Typography } from '@mui/material'
 
@@ -11,7 +12,6 @@ import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardWidgetsCard } from '@components/dashboards/dashboard-widgets-card'
 import { UserMoneyTransferModal } from '@components/modals/user-money-transfer-modal'
 import { Button } from '@components/shared/button'
-import { PlusIcon } from '@components/shared/svg-icons'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -51,7 +51,7 @@ export const ClientDashboardView = observer(({ history }) => {
                   tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
                   onClick={viewModel.onClickWithdrawMoney}
                 >
-                  <PlusIcon className={styles.icon} />
+                  <FiPlus style={{ width: 16, height: 16 }} />
                   {t(TranslationKey.Deposit)}
                 </Button>
                 <Button

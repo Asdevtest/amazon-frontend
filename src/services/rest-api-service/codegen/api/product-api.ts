@@ -45,11 +45,11 @@ import { InlineObject99 } from '../models';
 // @ts-ignore
 import { InlineResponse200 } from '../models';
 // @ts-ignore
-import { InlineResponse20040 } from '../models';
+import { InlineResponse20045 } from '../models';
 // @ts-ignore
-import { InlineResponse20078 } from '../models';
+import { InlineResponse20083 } from '../models';
 // @ts-ignore
-import { InlineResponse20079 } from '../models';
+import { InlineResponse20084 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -769,11 +769,12 @@ export const ProductApiAxiosParamCreator = function (configuration?: Configurati
          * @param {boolean} [dataFromInventory] Отдать продукты как в /my_with_pag_v2
          * @param {boolean} [preset] Включить пресеты?
          * @param {boolean} [archive] Отдать архивные продукты
+         * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsVariationsGuidGet: async (guid: string, dataFromInventory?: boolean, preset?: boolean, archive?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ProductsVariationsGuidGet: async (guid: string, dataFromInventory?: boolean, preset?: boolean, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1ProductsVariationsGuidGet', 'guid', guid)
             const localVarPath = `/api/v1/products/variations/{guid}`
@@ -802,6 +803,10 @@ export const ProductApiAxiosParamCreator = function (configuration?: Configurati
 
             if (archive !== undefined) {
                 localVarQueryParameter['archive'] = archive;
+            }
+
+            if (noCache !== undefined) {
+                localVarQueryParameter['noCache'] = noCache;
             }
 
             if (acceptEncoding !== undefined && acceptEncoding !== null) {
@@ -863,7 +868,7 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20040>>> {
+        async apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20045>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsByCreatorGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -948,7 +953,7 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsKeepaPost(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20079>>> {
+        async apiV1ProductsKeepaPost(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20084>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsKeepaPost(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -986,7 +991,7 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsParseSellercentralGet(asin: string, price?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20078>> {
+        async apiV1ProductsParseSellercentralGet(asin: string, price?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20083>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsParseSellercentralGet(asin, price, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1034,12 +1039,13 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {boolean} [dataFromInventory] Отдать продукты как в /my_with_pag_v2
          * @param {boolean} [preset] Включить пресеты?
          * @param {boolean} [archive] Отдать архивные продукты
+         * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsVariationsGuidGet(guid: string, dataFromInventory?: boolean, preset?: boolean, archive?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsVariationsGuidGet(guid, dataFromInventory, preset, archive, acceptEncoding, options);
+        async apiV1ProductsVariationsGuidGet(guid: string, dataFromInventory?: boolean, preset?: boolean, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsVariationsGuidGet(guid, dataFromInventory, preset, archive, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1084,7 +1090,7 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20040>> {
+        apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20045>> {
             return localVarFp.apiV1ProductsByCreatorGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1162,7 +1168,7 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsKeepaPost(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20079>> {
+        apiV1ProductsKeepaPost(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20084>> {
             return localVarFp.apiV1ProductsKeepaPost(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1197,7 +1203,7 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsParseSellercentralGet(asin: string, price?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20078> {
+        apiV1ProductsParseSellercentralGet(asin: string, price?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20083> {
             return localVarFp.apiV1ProductsParseSellercentralGet(asin, price, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1241,12 +1247,13 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {boolean} [dataFromInventory] Отдать продукты как в /my_with_pag_v2
          * @param {boolean} [preset] Включить пресеты?
          * @param {boolean} [archive] Отдать архивные продукты
+         * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsVariationsGuidGet(guid: string, dataFromInventory?: boolean, preset?: boolean, archive?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<{ [key: string]: object; }> {
-            return localVarFp.apiV1ProductsVariationsGuidGet(guid, dataFromInventory, preset, archive, acceptEncoding, options).then((request) => request(axios, basePath));
+        apiV1ProductsVariationsGuidGet(guid: string, dataFromInventory?: boolean, preset?: boolean, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.apiV1ProductsVariationsGuidGet(guid, dataFromInventory, preset, archive, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1664,6 +1671,13 @@ export interface ProductApiApiV1ProductsVariationsGuidGetRequest {
     readonly archive?: boolean
 
     /**
+     * Игнорировать данные в кеше
+     * @type {boolean}
+     * @memberof ProductApiApiV1ProductsVariationsGuidGet
+     */
+    readonly noCache?: boolean
+
+    /**
      * 
      * @type {string}
      * @memberof ProductApiApiV1ProductsVariationsGuidGet
@@ -1879,6 +1893,6 @@ export class ProductApi extends BaseAPI {
      * @memberof ProductApi
      */
     public apiV1ProductsVariationsGuidGet(requestParameters: ProductApiApiV1ProductsVariationsGuidGetRequest, options?: any) {
-        return ProductApiFp(this.configuration).apiV1ProductsVariationsGuidGet(requestParameters.guid, requestParameters.dataFromInventory, requestParameters.preset, requestParameters.archive, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+        return ProductApiFp(this.configuration).apiV1ProductsVariationsGuidGet(requestParameters.guid, requestParameters.dataFromInventory, requestParameters.preset, requestParameters.archive, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 }

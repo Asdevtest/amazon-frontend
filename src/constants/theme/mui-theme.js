@@ -23,38 +23,49 @@ const baseThemeSettings = {
 
 export const globalStyles = theme => ({
   '::-webkit-scrollbar': {
-    display: 'block !important',
-    width: '6px',
-    height: '6px',
+    width: '8px',
+    height: '8px',
     cursor: 'pointer',
+    transition: 'all 0.3s ease',
+  },
+  /* ':hover::-webkit-scrollbar': {
+    width: '12px',
+    height: '12px',
+  }, */
+  '::-webkit-scrollbar-thumb': {
+    borderRadius: '8px',
+    backgroundColor: theme.palette.scroll.main,
+    transition: 'all 0.3s ease',
+
+    ':hover': {
+      backgroundColor: theme.palette.scroll.hover,
+    },
   },
   '::-webkit-scrollbar-track': {
     borderRadius: '8px',
     backgroundColor: 'transparent !important',
     border: 'none !important',
   },
-  '::-webkit-scrollbar-thumb': {
-    borderRadius: '8px',
-    backgroundColor: theme.palette.text.gray,
-  },
   '::-webkit-scrollbar-corner': {
     backgroundColor: 'transparent !important',
   },
+
   '.MuiDataGrid-menuIcon, .MuiDataGrid-iconButtonContainer': {
     visibility: 'visible !important',
   },
   '.MuiDataGrid-main': {
     borderRadius: '0 0 20px 20px',
-  },
 
+    '> div:nth-child(3)': {
+      display: 'none',
+    },
+  },
   '.MuiDataGrid-columnSeparator--sideRight': {
     right: '-3px !important',
   },
-
   '.MuiDataGrid-columnSeparator--sideLeft': {
     left: '-3px !important',
   },
-
   '.MuiDataGrid-columnHeader': {
     padding: '0 5px !important',
     height: '40px !important',
@@ -292,6 +303,11 @@ export const lightTheme = createTheme({
     primary: {
       main: '#007bff',
       mainRgb: '0, 123, 255',
+    },
+
+    scroll: {
+      main: '#F0F0F0',
+      hover: '#8C8C8C',
     },
 
     text: {
@@ -843,6 +859,11 @@ export const darkTheme = createTheme({
       mainRgb: '76, 161, 222',
     },
 
+    scroll: {
+      main: '#424250',
+      hover: '#8E8E8F',
+    },
+
     text: {
       general: '#fff',
       second: '#E1E1E1',
@@ -1064,6 +1085,7 @@ export const darkTheme = createTheme({
         backgroundImage: 'url(/assets/img/launches/arrows_blue_dark.svg)',
         backgroundPosition: '92% 50%',
         backgroundRepeat: 'no-repeat',
+        backgroundColor: '#fff',
         padding: '5px 23px 5px 10px',
       },
     },

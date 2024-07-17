@@ -40,7 +40,7 @@ export const useStyles = makeStyles()(theme => ({
       borderWidth: '15px 0 15px 10px',
       borderStyle: 'solid',
       borderColor: `transparent ${theme.palette.primary.main}`,
-      zIndex: 7,
+      zIndex: 1,
     },
   },
 

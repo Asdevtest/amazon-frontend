@@ -22,10 +22,10 @@
 export interface InlineObject86 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {boolean}
      * @memberof InlineObject86
      */
-    reportIds: Array<string>;
+    archive: boolean;
 }
 
 

@@ -13,9 +13,6 @@
  */
 
 
-import { InlineResponse20038AllFiles } from './inline-response20038-all-files';
-import { InlineResponse20038AllImages } from './inline-response20038-all-images';
-import { InlineResponse20038AllVideo } from './inline-response20038-all-video';
 
 /**
  * 
@@ -24,23 +21,29 @@ import { InlineResponse20038AllVideo } from './inline-response20038-all-video';
  */
 export interface InlineResponse20038 {
     /**
-     * 
-     * @type {Array<InlineResponse20038AllImages>}
+     * Гуид сообщения
+     * @type {string}
      * @memberof InlineResponse20038
      */
-    allImages?: Array<InlineResponse20038AllImages>;
+    _id?: string;
+    /**
+     * Гуид чата
+     * @type {string}
+     * @memberof InlineResponse20038
+     */
+    chatId?: string;
+    /**
+     * Смещение для пагинации
+     * @type {number}
+     * @memberof InlineResponse20038
+     */
+    offset?: number;
     /**
      * 
-     * @type {Array<InlineResponse20038AllFiles>}
+     * @type {Array<string>}
      * @memberof InlineResponse20038
      */
-    allFiles?: Array<InlineResponse20038AllFiles>;
-    /**
-     * 
-     * @type {Array<InlineResponse20038AllVideo>}
-     * @memberof InlineResponse20038
-     */
-    allVideo?: Array<InlineResponse20038AllVideo>;
+    allMedia?: Array<string>;
 }
 
 

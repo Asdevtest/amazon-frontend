@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1UsersFreelanceNoticesRequest } from './api-v1-users-freelance-notices-request';
 
 /**
  * 
@@ -21,47 +22,29 @@
  */
 export interface InlineResponse200105 {
     /**
-     * ID пресета.
+     * GUID в базе данных
      * @type {string}
      * @memberof InlineResponse200105
      */
     _id?: string;
     /**
-     * Эндпоинт пресета
+     * Кол-во непрочитаных сообщений по заявке
+     * @type {number}
+     * @memberof InlineResponse200105
+     */
+    unreadMessages?: number;
+    /**
+     * Гуид чата
      * @type {string}
      * @memberof InlineResponse200105
      */
-    endpoint?: string;
-    /**
-     * Состояние  preset-options.
-     * @type {boolean}
-     * @memberof InlineResponse200105
-     */
-    activeOption?: boolean;
+    chatId?: string;
     /**
      * 
-     * @type {object}
+     * @type {ApiV1UsersFreelanceNoticesRequest}
      * @memberof InlineResponse200105
      */
-    options?: object;
-    /**
-     * Title of preset
-     * @type {string}
-     * @memberof InlineResponse200105
-     */
-    title?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse200105
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse200105
-     */
-    updatedAt?: string;
+    request?: ApiV1UsersFreelanceNoticesRequest;
 }
 
 

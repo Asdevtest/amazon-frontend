@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse200106Rows } from './inline-response200106-rows';
 
 /**
  * 
@@ -21,35 +22,17 @@
  */
 export interface InlineResponse200106 {
     /**
-     * Курс юаня к доллару.
+     * Кол-во записей
      * @type {number}
      * @memberof InlineResponse200106
      */
-    yuanToDollarRate?: number;
+    count?: number;
     /**
-     * Коэффициент расчета объемного веса.
-     * @type {number}
+     * 
+     * @type {Array<InlineResponse200106Rows>}
      * @memberof InlineResponse200106
      */
-    volumeWeightCoefficient?: number;
-    /**
-     * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
-     * @type {number}
-     * @memberof InlineResponse200106
-     */
-    requestMinAmountPriceOfProposal?: number;
-    /**
-     * Комиссия за оплату предложения
-     * @type {number}
-     * @memberof InlineResponse200106
-     */
-    requestPlatformMarginInPercent?: number;
-    /**
-     * Лимит на кол-во в ордере
-     * @type {number}
-     * @memberof InlineResponse200106
-     */
-    orderAmountLimit?: number;
+    rows?: Array<InlineResponse200106Rows>;
 }
 
 

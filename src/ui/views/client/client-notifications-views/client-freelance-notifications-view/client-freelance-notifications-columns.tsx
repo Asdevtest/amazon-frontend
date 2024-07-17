@@ -1,11 +1,11 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { ActionButtonsCell, MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 interface IRowHandlers {
@@ -18,7 +18,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: params => <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={params.row.request.asin} />,
+      renderCell: ({ row }) => <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={row.request.asin} />,
       width: 190,
       disableCustomSort: true,
     },
@@ -29,7 +29,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }) => <MultilineTextCell twoLines text={row?.request?.product?.shop?.name} />,
       valueGetter: ({ row }) => row?.request?.product?.shop?.name,
-      width: 90,
+      width: 140,
       disableCustomSort: true,
     },
 
@@ -37,8 +37,8 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       field: 'title',
       headerName: t(TranslationKey['Request title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-      renderCell: params => <MultilineTextCell text={params.row.request.title} />,
-      width: 200,
+      renderCell: ({ row }) => <MultilineTextCell twoLines text={row.request.title} />,
+      flex: 1,
       disableCustomSort: true,
     },
 
@@ -46,8 +46,8 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       field: 'spec',
       headerName: t(TranslationKey['Request type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-      renderCell: params => <MultilineTextCell threeLines text={params.row?.request?.spec?.title} />,
-      width: 200,
+      renderCell: ({ row }) => <MultilineTextCell threeLines text={row?.request?.spec?.title} />,
+      width: 140,
       disableCustomSort: true,
     },
 
@@ -55,7 +55,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       field: 'humanFriendlyId',
       headerName: `ID ${t(TranslationKey.Requests)}`,
       renderHeader: () => <MultilineTextHeaderCell text={`ID ${t(TranslationKey.Requests)}`} />,
-      renderCell: params => <MultilineTextCell text={params.row?.request?.humanFriendlyId} />,
+      renderCell: ({ row }) => <MultilineTextCell text={row?.request?.humanFriendlyId} />,
       disableCustomSort: true,
     },
 
@@ -63,8 +63,8 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       field: 'unreadMessages',
       headerName: t(TranslationKey['Unread messages']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Unread messages'])} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 200,
+      renderCell: ({ row }) => <MultilineTextCell text={String(row?.unreadMessages)} />,
+      width: 120,
     },
 
     {
@@ -72,8 +72,14 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
       renderCell: ({ row }) => (
-        <Button onClick={() => handlers.onClickReplyBtn(row.request._id, row.chatId)}>{t(TranslationKey.Reply)}</Button>
+        <ActionButtonsCell
+          isFirstButton
+          firstButtonElement={t(TranslationKey.Reply)}
+          firstButtonStyle={ButtonStyle.PRIMARY}
+          onClickFirstButton={() => handlers.onClickReplyBtn(row.request._id, row.chatId)}
+        />
       ),
+      width: 140,
       disableCustomSort: true,
     },
   ]

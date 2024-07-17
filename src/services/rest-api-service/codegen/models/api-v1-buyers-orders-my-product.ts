@@ -63,6 +63,18 @@ export interface ApiV1BuyersOrdersMyProduct {
      * @memberof ApiV1BuyersOrdersMyProduct
      */
     client?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof ApiV1BuyersOrdersMyProduct
+     */
+    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof ApiV1BuyersOrdersMyProduct
+     */
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
 }
 
 

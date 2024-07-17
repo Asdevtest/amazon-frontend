@@ -3,4 +3,5 @@ export interface IVariationParams {
   destinationId: string
   logicsTariffId: string
   variationMinBoxWeight: number
+  pricePerKgUsd: number
 }

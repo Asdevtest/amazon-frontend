@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20058 } from './inline-response20058';
 
 /**
  * 
@@ -21,11 +22,17 @@
  */
 export interface InlineResponse20059 {
     /**
-     * id созданного профайла
-     * @type {string}
+     * Count of items
+     * @type {number}
      * @memberof InlineResponse20059
      */
-    profileId?: string;
+    count?: number;
+    /**
+     * 
+     * @type {Array<InlineResponse20058>}
+     * @memberof InlineResponse20059
+     */
+    rows?: Array<InlineResponse20058>;
 }
 
 

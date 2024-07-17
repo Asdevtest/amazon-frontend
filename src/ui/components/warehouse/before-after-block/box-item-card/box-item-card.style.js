@@ -7,7 +7,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     flexDirection: 'column',
     marginBottom: 30,
-    width: '630px',
+
     gap: '20px',
   },
 
@@ -50,7 +50,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     color: theme.palette.text.second,
     lineHeight: '19px',
-    whiteSpace: 'nowrap',
   },
   asin: {
     fontSize: '14px',
@@ -82,12 +81,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   countSubWrapper: {
-    width: 150,
+    width: 180,
 
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '25px',
   },
 
   countSuperBoxWrapper: {

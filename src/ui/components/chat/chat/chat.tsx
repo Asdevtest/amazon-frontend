@@ -40,6 +40,7 @@ import { CurrentOpponent } from '../multiple-chats'
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './components/chat-messages-list/components/chat-messages/chat-message-designer-proposal-edited-result'
 import { ChatCurrentReplyMessage, ChatFilesInput, ChatInfo, ChatMessagesList } from './components/index'
 import { OnEmojiSelectEvent, RenderAdditionalButtonsParams } from './helpers/chat.interface'
+import { getLanguageTag } from './helpers/get-language-tag'
 import { useChatInputControl } from './hooks/use-chat-area'
 import { usePrevious } from './hooks/use-previous'
 
@@ -349,7 +350,7 @@ export const Chat: FC<ChatProps> = memo(
                     data={data}
                     perLine={isTabletResolution ? 7 : 9}
                     theme={SettingsModel.uiTheme}
-                    locale={SettingsModel.languageTag}
+                    locale={getLanguageTag(SettingsModel.languageTag)}
                     onEmojiSelect={(e: OnEmojiSelectEvent) => changeMessageAndState(message + e.native)}
                   />
                 </div>

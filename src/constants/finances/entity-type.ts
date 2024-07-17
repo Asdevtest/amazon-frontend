@@ -3,4 +3,7 @@ export enum EntityType {
   ORDER = 'ORDER',
   BOX = 'BOX',
   REQUEST_PROPOSAL_CUSTOM = 'REQUEST-PROPOSAL-CUSTOM',
+
+  DEPOSIT = 'DEPOSIT',
+  WITHDRAW = 'WITHDRAW',
 }

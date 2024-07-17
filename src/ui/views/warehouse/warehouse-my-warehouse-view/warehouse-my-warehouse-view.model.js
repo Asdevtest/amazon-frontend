@@ -63,16 +63,11 @@ export class WarehouseMyWarehouseViewModel {
   showAddOrEditHsCodeInBox = false
   showEditBoxModal = false
   showFullEditBoxModal = false
-  showSuccessInfoModal = false
   showMergeBoxModal = false
   showRedistributeBoxModal = false
   showGroupingBoxesModal = false
-
   showEditBoxModalR = false
-
   showEditMultipleBoxesModal = false
-
-  modalEditSuccessMessage = ''
 
   rowHandlers = {
     moveBox: item => this.moveBox(item),
@@ -80,6 +75,7 @@ export class WarehouseMyWarehouseViewModel {
     setDimensions: item => this.setDimensions(item),
     onEditBox: item => this.onEditBox(item),
     onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
+    onClickSaveStorage: (item, value) => this.onClickSaveStorage(item, value),
     onChangeUnitsOption: option => this.onChangeUnitsOption(option),
   }
 
@@ -227,6 +223,18 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
+  async onClickSaveStorage(itemId, value) {
+    try {
+      await BoxesModel.editAdditionalInfo(itemId, {
+        storage: value,
+      })
+
+      this.getBoxesMy()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   async onSubmitChangeBoxFields(data) {
     try {
       await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
@@ -239,18 +247,12 @@ export class WarehouseMyWarehouseViewModel {
         trackNumberFile: this.uploadedFiles,
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
-        storage: data.storage,
+        // storage: data.storage,
       })
 
       this.getBoxesMy()
 
-      runInAction(() => {
-        this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
-      })
-
-      this.onTriggerOpenModal('showSuccessInfoModal')
-
-      this.onTriggerOpenModal('showBoxViewModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
     }
@@ -396,11 +398,7 @@ export class WarehouseMyWarehouseViewModel {
         await this.onClickSubmitEditBox({ id: sourceBox._id, boxData: newBox, isMultipleEdit: true })
       }
 
-      runInAction(() => {
-        this.modalEditSuccessMessage = t(TranslationKey['Editing completed'])
-      })
-
-      this.onTriggerOpenModal('showSuccessInfoModal')
+      toast.success(t(TranslationKey['Editing completed']))
 
       this.loadData()
       this.setRequestStatus(loadingStatus.SUCCESS)
@@ -718,10 +716,7 @@ export class WarehouseMyWarehouseViewModel {
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)
 
         if (splitBoxesResult) {
-          runInAction(() => {
-            this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
-          })
-          this.onTriggerOpenModal('showSuccessInfoModal')
+          toast.success(t(TranslationKey['Data saved successfully']))
         } else {
           toast.warning(t(TranslationKey['The box is not split!']))
         }
@@ -776,10 +771,7 @@ export class WarehouseMyWarehouseViewModel {
       const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes, newBoxBody)
 
       if (mergeBoxesResult) {
-        runInAction(() => {
-          this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
-        })
-        this.onTriggerOpenModal('showSuccessInfoModal')
+        toast.success(t(TranslationKey['Data saved successfully']))
       } else {
         toast.warning(t(TranslationKey['The boxes are not joined!']))
       }

@@ -186,8 +186,8 @@ export const navbarConfig = {
       title: () => t(TranslationKey['Commodity exchange']),
       route: '/client/product-exchange',
       subtitles: [
-        { subtitle: () => t(TranslationKey['Research Exchenge']), subRoute: '/client/product-exchange/forks-exchange' },
-        { subtitle: () => 'Private Label', subRoute: '/client/product-exchange/private-label' },
+        { subtitle: () => t(TranslationKey['Research exchange']), subRoute: '/client/product-exchange/forks-exchange' },
+        { subtitle: () => 'Private label', subRoute: '/client/product-exchange/private-label' },
       ],
       key: navBarActiveCategory.NAVBAR_EXCHANGE,
       checkHideBlock: user =>
@@ -655,7 +655,7 @@ export const navbarConfig = {
 
     {
       icon: FreeOrdersIcon,
-      title: () => t(TranslationKey['Free Orders']),
+      title: () => t(TranslationKey['Free orders']),
       route: '/buyer/free-orders',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
@@ -1173,6 +1173,14 @@ export const navbarConfig = {
       subtitles: null,
       route: '/moderator/settings',
       key: navBarActiveCategory.NAVBAR_SETTINGS,
+      checkHideBlock: () => true,
+    },
+    {
+      icon: FeedbackIcon,
+      title: () => t(TranslationKey.Feedback),
+      subtitles: null,
+      route: '/moderator/feedback',
+      key: navBarActiveCategory.NAVBAR_FEEDBACK,
       checkHideBlock: () => true,
     },
     {

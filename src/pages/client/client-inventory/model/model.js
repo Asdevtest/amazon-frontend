@@ -74,7 +74,6 @@ export class ClientInventoryModel extends DataGridFilterTableModel {
 
   selectedRowId = undefined
   showOrderModal = false
-  showSuccessModal = false
   showCheckPendingOrderFormModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
@@ -100,7 +99,6 @@ export class ClientInventoryModel extends DataGridFilterTableModel {
   onAmazon = false
   isBatches = false
 
-  successModalText = ''
   confirmMessage = ''
   currentBarcode = ''
   currentHscode = ''
@@ -1100,11 +1098,7 @@ export class ClientInventoryModel extends DataGridFilterTableModel {
         })
       }
 
-      runInAction(() => {
-        this.successModalText = t(TranslationKey['Supplier added'])
-      })
-
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Supplier added']))
 
       await this.getCurrentData()
     } catch (error) {
@@ -1140,10 +1134,8 @@ export class ClientInventoryModel extends DataGridFilterTableModel {
 
       await this.getCurrentData()
 
-      runInAction(() => {
-        this.successModalText = t(TranslationKey['Products will be updated soon'])
-      })
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Products will be updated soon']))
+
       this.showCircularProgressModal = false
     } catch (error) {
       runInAction(() => {
@@ -1256,8 +1248,10 @@ export class ClientInventoryModel extends DataGridFilterTableModel {
       })
 
       await this.getCurrentData()
+      toast.success(t(TranslationKey['Data added successfully']))
     } catch (error) {
       console.error(error)
+      toast.success(t(TranslationKey['Data not added']))
     } finally {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
@@ -1391,15 +1385,16 @@ export class ClientInventoryModel extends DataGridFilterTableModel {
       runInAction(() => {
         this.showCircularProgressModal = false
 
-        this.successModalText = t(TranslationKey['Product added'])
+        toast.success(t(TranslationKey['Product added']))
       })
-      this.onTriggerOpenModal('showSuccessModal')
+
       await this.getCurrentData()
     } catch (error) {
       runInAction(() => {
         this.showCircularProgressModal = false
       })
       console.error(error)
+      toast.success(t(TranslationKey['Product not added']))
     }
   }
 
@@ -1464,10 +1459,7 @@ export class ClientInventoryModel extends DataGridFilterTableModel {
       await SellerBoardModel.bindStockProductsBySku(data)
       this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
 
-      runInAction(() => {
-        this.successModalText = t(TranslationKey['Goods are bound'])
-      })
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Goods are bound']))
 
       await this.getCurrentData()
     } catch (error) {

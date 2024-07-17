@@ -6,7 +6,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
-    padding: 10,
   },
 
   boxesWrapper: {
@@ -93,11 +92,6 @@ export const useStyles = makeStyles()(theme => ({
     margin: '15px 0 30px 0',
     color: theme.palette.primary.main,
     cursor: 'pointer',
-    transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   alertText: {

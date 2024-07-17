@@ -13,26 +13,80 @@
  */
 
 
-import { InlineResponse20097Rows } from './inline-response20097-rows';
+import { ApiV1ShopsWithProfilesProfile } from './api-v1-shops-with-profiles-profile';
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineResponse20097
  */
 export interface InlineResponse20097 {
     /**
-     * Общее кол-во записей
-     * @type {number}
+     * ID магазина.
+     * @type {string}
      * @memberof InlineResponse20097
      */
-    count?: number;
+    _id?: string;
     /**
-     * Массив товаров.
-     * @type {Array<InlineResponse20097Rows>}
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * @type {string}
      * @memberof InlineResponse20097
      */
-    rows?: Array<InlineResponse20097Rows>;
+    name?: string;
+    /**
+     * URL для скачивания ежедневных отчетов SellerBoard.
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    sellerBoardWarehouseReportUrlDaily?: string;
+    /**
+     * URL для скачивания отчетов SellerBoard за последний месяц.
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    sellerBoardWarehouseReportUrlMonthly?: string;
+    /**
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    reportAccountUrl?: string;
+    /**
+     * GUID, владелеца.
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    ownerId?: string;
+    /**
+     * GUID любого, кто последний создал.
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    createdById?: string;
+    /**
+     * GUID любого, кто последний редактировал.
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    lastModifiedById?: string;
+    /**
+     * 
+     * @type {ApiV1ShopsWithProfilesProfile}
+     * @memberof InlineResponse20097
+     */
+    profile?: ApiV1ShopsWithProfilesProfile;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    updatedAt?: string;
 }
 
 

@@ -13,26 +13,38 @@
  */
 
 
-import { InlineResponse2006 } from './inline-response2006';
+import { InlineResponse20047SupplierImage } from './inline-response20047-supplier-image';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20047
  */
 export interface InlineResponse20047 {
     /**
-     * Всего кол-во записей в результате запроса
-     * @type {number}
+     * 
+     * @type {Array<string>}
      * @memberof InlineResponse20047
      */
-    count?: number;
+    productImages?: Array<string>;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse2006>}
+     * 
+     * @type {Array<string>}
      * @memberof InlineResponse20047
      */
-    rows?: Array<InlineResponse2006>;
+    latestSeoFiles?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20047
+     */
+    currentSupplierImage?: Array<string>;
+    /**
+     * 
+     * @type {Array<InlineResponse20047SupplierImage>}
+     * @memberof InlineResponse20047
+     */
+    supplierImage?: Array<InlineResponse20047SupplierImage>;
 }
 
 

@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     width: 700,
-    padding: 10,
   },
 
   title: {
@@ -11,18 +10,12 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '25px',
     fontWeight: 600,
-    color: theme.palette.text.general,
   },
 
   fieldLabel: {
     marginBottom: 5,
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.general,
-  },
-
-  fieldContainer: {
-    marginBottom: 15,
   },
 
   checkbox: {
@@ -30,15 +23,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   inputWrapper: {
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
-    gap: 10,
-  },
-
-  input: {
-    height: '32px',
-    borderRadius: '7px',
-    width: 'calc(100% - 120px)',
+    gap: 20,
   },
 
   skuItemsWrapper: {

@@ -13,116 +13,128 @@
  */
 
 
-import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-by';
-import { InlineResponse20072EntityProduct } from './inline-response20072-entity-product';
+import { InlineResponse20042InventoryShop } from './inline-response20042-inventory-shop';
 
 /**
- * 
+ * Схема репорта amazon_data
  * @export
  * @interface InlineResponse20072Rows
  */
 export interface InlineResponse20072Rows {
     /**
-     * GUID платежа
+     * Гуид записи
      * @type {string}
      * @memberof InlineResponse20072Rows
      */
     _id?: string;
     /**
-     * Дата создания.
+     * 
+     * @type {InlineResponse20042InventoryShop}
+     * @memberof InlineResponse20072Rows
+     */
+    shop?: InlineResponse20042InventoryShop;
+    /**
+     * Гуид shop-a
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    shopId?: string;
+    /**
+     * Дате обновления
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    dateDataUpdate?: string;
+    /**
+     * Время обновления
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    timeDataUpdate?: string;
+    /**
+     * sku
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    sku?: string;
+    /**
+     * shipment_id
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    shipmentId?: string;
+    /**
+     * reference_id
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    referenceId?: string;
+    /**
+     * date_created
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    dateCreated?: string;
+    /**
+     * date_updated
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    dateUpdated?: string;
+    /**
+     * ship_to
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    shipTo?: string;
+    /**
+     * image
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    image?: string;
+    /**
+     * units_expected
+     * @type {number}
+     * @memberof InlineResponse20072Rows
+     */
+    unitsExpected?: number;
+    /**
+     * status
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    status?: string;
+    /**
+     * scheduled_carrier_delivery_data
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    scheduledCarrierDeliveryDate?: string;
+    /**
+     * delivery_window_start
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    deliveryWindowStart?: string;
+    /**
+     * delivery_window_end
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    deliveryWindowEnd?: string;
+    /**
+     * created_at
      * @type {string}
      * @memberof InlineResponse20072Rows
      */
     createdAt?: string;
     /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20072Rows
-     */
-    createdBy?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Роль пользователя на момент инициации платежа.
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    role?: number;
-    /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20072Rows
-     */
-    subUser?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * GUID товара или услуги.
+     * updated_at
      * @type {string}
      * @memberof InlineResponse20072Rows
      */
-    entityId?: string;
-    /**
-     * Тип товара или услуги
-     * @type {string}
-     * @memberof InlineResponse20072Rows
-     */
-    entityType?: InlineResponse20072RowsEntityTypeEnum;
-    /**
-     * Тип платежа
-     * @type {string}
-     * @memberof InlineResponse20072Rows
-     */
-    paymentType?: InlineResponse20072RowsPaymentTypeEnum;
-    /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20072Rows
-     */
-    recipient?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    sum?: number;
-    /**
-     * комментарий
-     * @type {string}
-     * @memberof InlineResponse20072Rows
-     */
-    comment?: string;
-    /**
-     * 
-     * @type {Array<InlineResponse20072EntityProduct>}
-     * @memberof InlineResponse20072Rows
-     */
-    entityProduct?: Array<InlineResponse20072EntityProduct>;
+    updatedAt?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20072RowsEntityTypeEnum {
-    Product = 'PRODUCT',
-    Order = 'ORDER',
-    Box = 'BOX',
-    Batch = 'BATCH',
-    User = 'USER',
-    RequestCustom = 'REQUEST-CUSTOM',
-    RequestSearchProduct = 'REQUEST-SEARCH_PRODUCT',
-    RequestSearchNiche = 'REQUEST-SEARCH_NICHE',
-    RequestProposalCustom = 'REQUEST-PROPOSAL-CUSTOM',
-    RequestProposalSearchProduct = 'REQUEST-PROPOSAL-SEARCH_PRODUCT',
-    RequestProposalSearchNiche = 'REQUEST-PROPOSAL-SEARCH_NICHE',
-    Other = 'OTHER'
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20072RowsPaymentTypeEnum {
-    Replenish = 'REPLENISH',
-    Fine = 'FINE',
-    Zero = 'ZERO'
-}
-
 
 

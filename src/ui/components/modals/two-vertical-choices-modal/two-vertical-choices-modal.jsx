@@ -26,30 +26,22 @@ export const TwoVerticalChoicesModal = memo(
 
     return (
       <Modal openModal={openModal} setOpenModal={setOpenModal}>
-        <div className={styles.modalMessageWrapper}>
+        <div className={styles.wrapper}>
           <p className={styles.title}>{title}</p>
 
-          <div className={styles.resultButtonsWrapper}>
-            <Button tooltipInfoContent={tooltipFirstButton} onClick={onClickTopBtn}>
-              {topBtnText}
+          <Button tooltipInfoContent={tooltipFirstButton} onClick={onClickTopBtn}>
+            {topBtnText}
+          </Button>
+
+          <Button tooltipInfoContent={tooltipSecondButton} variant={ButtonVariant.OUTLINED} onClick={onClickBottomBtn}>
+            {bottomBtnText}
+          </Button>
+
+          {onClickThirdBtn && thirdBtnText && (
+            <Button tooltipInfoContent={tooltipThirdButton} variant={ButtonVariant.OUTLINED} onClick={onClickThirdBtn}>
+              {thirdBtnText}
             </Button>
-            <Button
-              tooltipInfoContent={tooltipSecondButton}
-              variant={ButtonVariant.OUTLINED}
-              onClick={onClickBottomBtn}
-            >
-              {bottomBtnText}
-            </Button>
-            {onClickThirdBtn && thirdBtnText && (
-              <Button
-                tooltipInfoContent={tooltipThirdButton}
-                variant={ButtonVariant.OUTLINED}
-                onClick={onClickThirdBtn}
-              >
-                {thirdBtnText}
-              </Button>
-            )}
-          </div>
+          )}
         </div>
       </Modal>
     )

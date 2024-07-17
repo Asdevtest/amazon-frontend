@@ -1,5 +1,5 @@
 import { ClassNamesArg } from '@emotion/react'
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, KeyboardEventHandler, useEffect, useState } from 'react'
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import SearchIcon from '@mui/icons-material/Search'
@@ -24,7 +24,7 @@ interface Props {
   hideButton?: boolean
   onChange?: (value: ChangeEvent<HTMLInputElement>) => void
   onSubmit?: (value: string) => void
-  onKeyDown?: () => void
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement>
   onBlur?: () => void
   onFocus?: () => void
 }
@@ -99,7 +99,9 @@ export const SearchInput: FC<Props> = ({
               {onSubmit ? (
                 <div className={styles.searchWrapper}>
                   {internalValue ? <CloseRoundedIcon className={styles.closeIcon} onClick={onClickCloseIcon} /> : null}
-                  <Button onClick={searchAndClearSpaces}>{defaultPlaceholder}</Button>
+                  <Button isSmallButton onClick={searchAndClearSpaces}>
+                    {defaultPlaceholder}
+                  </Button>
                 </div>
               ) : (
                 <SearchIcon className={styles.icon} />

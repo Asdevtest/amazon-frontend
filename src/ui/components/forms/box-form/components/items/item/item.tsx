@@ -45,14 +45,22 @@ export const Item: FC<ItemProps> = memo(props => {
 
   const isRushOrder = Number(item.order.priority) === OrderPriority.URGENT_PRIORITY
   const barcodeChecked = item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper
-  const barcodeText = item.isBarCodeAlreadyAttachedByTheSupplier
-    ? t(TranslationKey['BarCode is glued by supplier'])
-    : t(TranslationKey['BarCode is glued by storekeeper'])
+  const barcodeText = barcodeChecked
+    ? item.isBarCodeAlreadyAttachedByTheSupplier
+      ? t(TranslationKey['BarCode is glued by supplier'])
+      : t(TranslationKey['BarCode is glued by storekeeper'])
+    : item.barCode
+    ? t(TranslationKey['Barсode is not glued'])
+    : null
   const transparencyChecked =
     item.isTransparencyFileAttachedByTheStorekeeper || item.isTransparencyFileAlreadyAttachedByTheSupplier
-  const transparencyText = item.isTransparencyFileAttachedByTheStorekeeper
-    ? t(TranslationKey['Transparency codes are glued by storekeeper'])
-    : t(TranslationKey['Transparency codes glued by the supplier'])
+  const transparencyText = transparencyChecked
+    ? item.isTransparencyFileAttachedByTheStorekeeper
+      ? t(TranslationKey['Transparency Codes are glued by storekeeper'])
+      : t(TranslationKey['Transparency Codes glued by the supplier'])
+    : item.transparencyFile
+    ? t(TranslationKey['Transparency Code is not glued'])
+    : null
 
   return (
     <div
@@ -99,49 +107,54 @@ export const Item: FC<ItemProps> = memo(props => {
 
         {isOrderInfo ? (
           <>
-            <Field
-              disabled
-              classes={{ input: styles.input }}
-              inputClasses={styles.inputClasses}
-              containerClasses={styles.field}
-              labelClasses={cx(styles.text, styles.label)}
-              label={t(TranslationKey.Quantity)}
-              value={quantity}
-              placeholder={t(TranslationKey['Not available'])}
-            />
+            <div className={styles.orderDetail}>
+              <Field
+                disabled
+                classes={{ input: styles.input }}
+                inputClasses={styles.inputClasses}
+                containerClasses={styles.field}
+                labelClasses={cx(styles.text, styles.label)}
+                label={t(TranslationKey.Quantity)}
+                value={quantity}
+                placeholder={t(TranslationKey['Not available'])}
+              />
 
-            <Field
-              disabled
-              classes={{ input: styles.input }}
-              inputClasses={styles.inputClasses}
-              containerClasses={styles.field}
-              labelClasses={cx(styles.text, styles.label)}
-              label={t(TranslationKey['Order number'])}
-              value={item.order.id}
-              placeholder={t(TranslationKey['Not available'])}
-            />
+              <Field
+                disabled
+                classes={{ input: styles.input }}
+                inputClasses={styles.inputClasses}
+                containerClasses={styles.field}
+                labelClasses={cx(styles.text, styles.label)}
+                label={t(TranslationKey['Order number'])}
+                value={item.order.id}
+                placeholder={t(TranslationKey['Not available'])}
+              />
+            </div>
 
-            <Button
-              className={styles.button}
-              onClick={() => (onClickHsCode ? onClickHsCode(item.product._id) : undefined)}
-            >
+            <Button className={styles.button} onClick={() => onClickHsCode?.(item.product._id)}>
               {t(TranslationKey['HS code'])}
             </Button>
 
-            <div>
-              <div className={styles.checkboxContainer}>
-                <Checkbox disabled className={styles.checkbox} checked={barcodeChecked} />
-                <p className={styles.text}>{barcodeText}</p>
-                {item.barCode && <LabelWithCopy labelValue={item.barCode} lableLinkTitle={t(TranslationKey.View)} />}
-              </div>
+            <div className={styles.checkboxWrapper}>
+              {barcodeText ? (
+                <div className={styles.checkboxContainer}>
+                  <Checkbox disabled className={styles.checkbox} checked={barcodeChecked}>
+                    <p className={styles.text}>{barcodeText}</p>
+                  </Checkbox>
+                  {item.barCode && <LabelWithCopy labelValue={item.barCode} lableLinkTitle={t(TranslationKey.View)} />}
+                </div>
+              ) : null}
 
-              <div className={styles.checkboxContainer}>
-                <Checkbox disabled className={styles.checkbox} checked={transparencyChecked} />
-                <p className={styles.text}>{transparencyText}</p>
-                {item.transparencyFile && (
-                  <LabelWithCopy labelValue={item.transparencyFile} lableLinkTitle={t(TranslationKey.View)} />
-                )}
-              </div>
+              {transparencyText ? (
+                <div className={styles.checkboxContainer}>
+                  <Checkbox disabled className={styles.checkbox} checked={transparencyChecked}>
+                    <p className={styles.text}>{transparencyText}</p>
+                  </Checkbox>
+                  {item.transparencyFile && (
+                    <LabelWithCopy labelValue={item.transparencyFile} lableLinkTitle={t(TranslationKey.View)} />
+                  )}
+                </div>
+              ) : null}
             </div>
           </>
         ) : null}

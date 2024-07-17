@@ -13,8 +13,10 @@
  */
 
 
-import { InlineResponse20045BoxAmounts } from './inline-response20045-box-amounts';
-import { InlineResponse20045Orders } from './inline-response20045-orders';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
+import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
+import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
 
 /**
  * 
@@ -29,6 +31,18 @@ export interface InlineResponse20045 {
      */
     _id?: string;
     /**
+     * Категория
+     * @type {string}
+     * @memberof InlineResponse20045
+     */
+    category?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045
+     */
+    bsr?: number;
+    /**
      * ASIN продукта
      * @type {string}
      * @memberof InlineResponse20045
@@ -41,11 +55,29 @@ export interface InlineResponse20045 {
      */
     skuByClient?: string;
     /**
-     * ID магазина для продукта
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineResponse20045
      */
-    shopId?: string;
+    amazon?: number;
+    /**
+     * Вес
+     * @type {number}
+     * @memberof InlineResponse20045
+     */
+    weight?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineResponse20045
+     */
+    fbaamount?: number;
+    /**
+     * Код текущего статуса
+     * @type {number}
+     * @memberof InlineResponse20045
+     */
+    status?: number;
     /**
      * Массив картинок.
      * @type {Array<string>}
@@ -53,17 +85,41 @@ export interface InlineResponse20045 {
      */
     images?: Array<string>;
     /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20045
-     */
-    amazonTitle?: string;
-    /**
-     * Сколько такого продукта находится в заказах.
+     * Цена для клиента
      * @type {number}
      * @memberof InlineResponse20045
      */
-    amountInOrders?: number;
+    priceForClient?: number;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusSuppliers}
+     * @memberof InlineResponse20045
+     */
+    currentSupplier?: ApiV1AdminsGetProductsByStatusSuppliers;
+    /**
+     * GUID поставщика в базе данных
+     * @type {string}
+     * @memberof InlineResponse20045
+     */
+    currentSupplierId?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20045
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20045
+     */
+    checkedBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20045
+     */
+    createdAt?: string;
     /**
      * Дата изменения
      * @type {string}
@@ -71,77 +127,101 @@ export interface InlineResponse20045 {
      */
     updatedAt?: string;
     /**
-     * Каков должен быть сток за 4 месяца
-     * @type {number}
+     * Дата проверки
+     * @type {string}
      * @memberof InlineResponse20045
      */
-    fourMonthesStock?: number;
-    /**
-     * “sumStock”=“boxAmounts” + ”inTransfer” + ”productsInWarehouse”(“reserved” + ”fbaFbmStock” + ”sentToFba”) + “amountInOrders“ + “stockUSA“
-     * @type {number}
-     * @memberof InlineResponse20045
-     */
-    sumStock?: number;
-    /**
-     * “purchaseQuantity”=”fourMonthesStock” - “sumStock” - меньше нуля быть не может, если отрицательное значение выставляем 0
-     * @type {number}
-     * @memberof InlineResponse20045
-     */
-    purchaseQuantity?: number;
+    checkedAt?: string;
     /**
      * 
-     * @type {number}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20045
      */
-    reservedSum?: number;
+    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
-     * Сколько такого продукта находится в заказах в статусах 0, 2, 3.
+     * Савка супервайзера.
      * @type {number}
      * @memberof InlineResponse20045
      */
-    amountInPendingOrders?: number;
+    supervisorRate?: number;
+    /**
+     * Савка байера.
+     * @type {number}
+     * @memberof InlineResponse20045
+     */
+    buyerRate?: number;
     /**
      * 
+     * @type {Array<ApiV1BoxesClientsLightProductRedFlags>}
+     * @memberof InlineResponse20045
+     */
+    redFlags?: Array<ApiV1BoxesClientsLightProductRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
+     * @memberof InlineResponse20045
+     */
+    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
      * @type {number}
      * @memberof InlineResponse20045
      */
-    sentToFbaSum?: number;
+    strategyStatus?: number;
     /**
-     * 
+     * Средний доход
+     * @type {string}
+     * @memberof InlineResponse20045
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineResponse20045
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineResponse20045
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineResponse20045
+     */
+    avgReviews?: string;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
      * @type {number}
      * @memberof InlineResponse20045
      */
-    fbaFbmStockSum?: number;
+    reffee?: number;
     /**
-     * Кол-во товаров, которые находятся в пути
+     * ФБА комиссия
      * @type {number}
      * @memberof InlineResponse20045
      */
-    inTransfer?: number;
+    fbafee?: number;
     /**
-     * Стоимость стока товара
-     * @type {number}
+     * Штрихкод продукта
+     * @type {string}
      * @memberof InlineResponse20045
      */
-    stockCost?: number;
+    barCode?: string;
     /**
-     * 
-     * @type {Array<object>}
+     * Зашита листинга (bool)
+     * @type {boolean}
      * @memberof InlineResponse20045
      */
-    productsInWarehouseSchema?: Array<object>;
+    transparency?: boolean;
     /**
-     * 
-     * @type {Array<InlineResponse20045BoxAmounts>}
+     * Title амазона
+     * @type {string}
      * @memberof InlineResponse20045
      */
-    boxAmounts?: Array<InlineResponse20045BoxAmounts>;
-    /**
-     * 
-     * @type {Array<InlineResponse20045Orders>}
-     * @memberof InlineResponse20045
-     */
-    orders?: Array<InlineResponse20045Orders>;
+    amazonTitle?: string;
 }
 
 

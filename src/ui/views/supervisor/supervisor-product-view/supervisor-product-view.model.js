@@ -194,7 +194,7 @@ export class SupervisorProductViewModel {
     }
   }
 
-  onProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
+  handleProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
     switch (actionType) {
       case 'accept':
         this.openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler)
@@ -325,6 +325,8 @@ export class SupervisorProductViewModel {
       updateDataHandler && (await updateDataHandler())
 
       UserModel.getUsersInfoCounters()
+
+      toast.success(t(TranslationKey['Status changed']))
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {

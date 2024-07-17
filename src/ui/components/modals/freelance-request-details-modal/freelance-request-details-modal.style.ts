@@ -2,9 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    width: 1370,
-    padding: 10,
-    overflowY: 'hidden',
+    width: 1120,
   },
 
   header: {
@@ -19,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
 
   headerDetails: {
     display: 'flex',
-    gap: '80px',
+    gap: '20px',
   },
 
   flexContainer: {
@@ -41,7 +39,7 @@ export const useStyles = makeStyles()(theme => ({
 
   content: {
     display: 'flex',
-    gap: '50px',
+    gap: '20px',
   },
 
   categoryTitle: {
@@ -53,12 +51,10 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
-    width: '380px',
   },
 
   category: {
     display: 'flex',
-    gap: '2px',
     flexDirection: 'column',
   },
 
@@ -86,6 +82,7 @@ export const useStyles = makeStyles()(theme => ({
   editorWrapper: {
     maxHeight: '400px !important',
     maxWidth: '920px',
+    marginBottom: 20,
   },
 
   controlsWrapper: {
@@ -93,7 +90,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '20px',
-    marginRight: 5,
   },
 
   listingText: {

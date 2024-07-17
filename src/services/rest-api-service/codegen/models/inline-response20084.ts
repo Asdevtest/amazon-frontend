@@ -13,6 +13,8 @@
  */
 
 
+import { ApiV1ProductsKeepaOffers } from './api-v1-products-keepa-offers';
+import { ApiV1ProductsKeepaStats } from './api-v1-products-keepa-stats';
 
 /**
  * 
@@ -21,17 +23,137 @@
  */
 export interface InlineResponse20084 {
     /**
-     * Гуид заявки
-     * @type {string}
+     * 
+     * @type {boolean}
      * @memberof InlineResponse20084
      */
-    _id?: string;
+    isRecommended?: boolean;
     /**
-     * удобный ключ заявки
+     * 
      * @type {number}
      * @memberof InlineResponse20084
      */
-    humanFriendlyId?: number;
+    trackingSince?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20084
+     */
+    lastRatingUpdate?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20084
+     */
+    rootCategory?: number;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof InlineResponse20084
+     */
+    categories?: Array<number>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20084
+     */
+    parentAsin?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20084
+     */
+    variationCSV?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20084
+     */
+    frequentlyBoughtTogether?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20084
+     */
+    manufacturer?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20084
+     */
+    brand?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20084
+     */
+    productGroup?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20084
+     */
+    publicationDate?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20084
+     */
+    releaseDate?: number;
+    /**
+     * 
+     * @type {Array<Array<number>>}
+     * @memberof InlineResponse20084
+     */
+    contributors?: Array<Array<number>>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20084
+     */
+    size?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof InlineResponse20084
+     */
+    salesRanks?: object;
+    /**
+     * 
+     * @type {Array<ApiV1ProductsKeepaOffers>}
+     * @memberof InlineResponse20084
+     */
+    offers?: Array<ApiV1ProductsKeepaOffers>;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof InlineResponse20084
+     */
+    liveOffersOrder?: Array<number>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20084
+     */
+    buyBoxSellerIdHistory?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20084
+     */
+    availabilityAmazon?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineResponse20084
+     */
+    newPriceIsMAP?: boolean;
+    /**
+     * 
+     * @type {ApiV1ProductsKeepaStats}
+     * @memberof InlineResponse20084
+     */
+    stats?: ApiV1ProductsKeepaStats;
 }
 
 

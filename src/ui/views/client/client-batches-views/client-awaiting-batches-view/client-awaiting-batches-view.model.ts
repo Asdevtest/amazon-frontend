@@ -156,14 +156,13 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
-        storage: data.storage,
+        // storage: data.storage,
       })
 
-      await this.getCurrentData()
-
-      this.setCurrentOpenedBatch(this.curBatch?._id, true)
-
       toast.success(t(TranslationKey['Data saved successfully']))
+
+      await this.getCurrentData()
+      this.setCurrentOpenedBatch(this.curBatch?._id, true)
     } catch (error) {
       console.error(error)
     }

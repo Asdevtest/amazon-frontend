@@ -63,7 +63,6 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
   showIdeaModal = false
   showBindingModal = false
   showConfirmModal = false
-  showSuccessModal = false
   showProductLaunch = false
   showRequestDesignerResultModal = false
   showRequestBloggerResultModal = false
@@ -100,7 +99,6 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
 
   // * Modal states
 
-  successModalTitle = ''
   isIdeaCreate = false
 
   get userInfo(): IFullUser {
@@ -442,9 +440,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       await IdeaModel.editIdea(id, data)
 
       if (!isForceUpdate) {
-        this.successModalTitle = t(TranslationKey['Idea edited'])
-
-        this.onTriggerOpenModal('showSuccessModal')
+        toast.success(t(TranslationKey['Idea edited']))
       }
     } catch (error) {
       console.error(error)
@@ -502,8 +498,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
 
       this.getCurrentData()
 
-      this.successModalTitle = t(TranslationKey['Product added'])
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Product added']))
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -699,12 +694,14 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
   }
 
   async onClickNextButton(chosenProduct: IProduct) {
-    const result = await ProductModel.getProductById(chosenProduct?._id)
+    if (chosenProduct) {
+      const result = await ProductModel.getProductById(chosenProduct?._id)
 
-    runInAction(() => {
-      this.currentProduct = result as unknown as IProduct
-      this.productId = chosenProduct?._id
-    })
+      runInAction(() => {
+        this.currentProduct = result as unknown as IProduct
+        this.productId = chosenProduct?._id
+      })
+    }
 
     if (!!chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.buyer?._id) {
       this.confirmModalSettings = {

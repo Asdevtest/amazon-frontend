@@ -49,7 +49,6 @@ export const EditTaskModal = memo(
   }) => {
     const { classes: styles, cx } = useStyles()
     const { isMobileResolution, isPcSmallResolution } = useCreateBreakpointResolutions()
-
     const [receiveBoxModal, setReceiveBoxModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
     const [storekeeperComment, setStorekeeperComment] = useState(task.storekeeperComment)
@@ -100,7 +99,6 @@ export const EditTaskModal = memo(
             widthCmWarehouse: box?.widthCmWarehouse || 0,
             heightCmWarehouse: box?.heightCmWarehouse || 0,
             weighGrossKgWarehouse: box?.weighGrossKgWarehouse || 0,
-
             isBarCodeAlreadyAttachedByTheSupplier: box?.isBarCodeAlreadyAttachedByTheSupplier || false,
             isShippingLabelAttachedByStorekeeper: box?.isShippingLabelAttachedByStorekeeper || false,
 
@@ -146,17 +144,11 @@ export const EditTaskModal = memo(
 
     const isEditTask = task?.operationType === TaskOperationType.EDIT
     const isReciveTypeTask = task.operationType === TaskOperationType.RECEIVE
-
     const isManyItemsInSomeBox = task?.boxesBefore.some(box => box.items.length > 1)
-
     const noTariffInSomeBox = task?.boxesBefore.some(box => !box.logicsTariff)
-
     const receiveNotFromBuyer = isReciveTypeTask && (isManyItemsInSomeBox || noTariffInSomeBox)
-
     const isSomeBoxHasntImageToRecive = isReciveTypeTask && newBoxes.some(box => !box?.images?.length)
-
     const isSomeBoxHasntImageToEdit = isEditTask && newBoxes.some(box => !box?.images?.length)
-
     const isTaskChangeBarcodeOrTransparency =
       isEditTask &&
       task?.boxesBefore.some(box => {
@@ -170,9 +162,7 @@ export const EditTaskModal = memo(
           })
         }
       })
-
     const isNoChangesBarcodeOrTransparency = isTaskChangeBarcodeOrTransparency && isSomeBoxHasntImageToEdit
-
     const disableSaveButton =
       !newBoxes.length ||
       requestStatus === loadingStatus.IS_LOADING ||
@@ -197,7 +187,7 @@ export const EditTaskModal = memo(
               )}
 
               <Typography className={styles.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
-              <Typography className={styles.typeTaskSubTitle}>{renderTypeTaskTitle(task?.operationType)}</Typography>
+              <Typography className={styles.modalTitle}>{renderTypeTaskTitle(task?.operationType)}</Typography>
             </div>
 
             {task.operationType === TaskOperationType.RECEIVE && (
@@ -208,28 +198,30 @@ export const EditTaskModal = memo(
             )}
           </div>
         </div>
+
         <div className={styles.form}>
-          <Typography paragraph className={styles.subTitle}>
+          <Typography paragraph className={styles.modalTitle}>
             {t(TranslationKey['Receipt data'])}
           </Typography>
 
           <div className={styles.commentsAndFilesWrapper}>
-            <div className={styles.commentsWrapper}>
-              <div>
+            <div className={styles.commentsAndFilesWrapper}>
+              <div className={styles.commentsContainer}>
                 <Field
                   multiline
                   disabled
-                  className={cx(styles.heightFieldAuto, styles.clientAndBuyerComment)}
+                  className={styles.heightFieldAuto}
                   minRows={isPcSmallResolution ? 2 : 4}
                   maxRows={isPcSmallResolution ? 2 : 4}
                   label={t(TranslationKey['Client comment'])}
                   placeholder={t(TranslationKey['Client comment on the task'])}
                   value={task.clientComment || ''}
                 />
+
                 <Field
                   multiline
                   disabled
-                  className={cx(styles.heightFieldAuto, styles.clientAndBuyerComment)}
+                  className={styles.heightFieldAuto}
                   minRows={isPcSmallResolution ? 2 : 4}
                   maxRows={isPcSmallResolution ? 2 : 4}
                   label={t(TranslationKey['Buyer comment'])}
@@ -237,9 +229,10 @@ export const EditTaskModal = memo(
                   value={task.buyerComment || ''}
                 />
               </div>
+
               <Field
                 multiline
-                className={cx(styles.heightFieldAuto, styles.storekeeperCommentField)}
+                className={styles.storekeeperCommentField}
                 disabled={readOnly}
                 minRows={isMobileResolution ? 4 : isPcSmallResolution ? 7 : 11}
                 maxRows={isMobileResolution ? 4 : isPcSmallResolution ? 7 : 11}
@@ -275,20 +268,6 @@ export const EditTaskModal = memo(
             onClickOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
             onClickApplyAllBtn={onClickApplyAllBtn}
           />
-        </div>
-        <div className={styles.buttonsMainWrapper}>
-          {!readOnly ? (
-            <div className={styles.buttonsWrapperMobile}>
-              {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
-                <Button
-                  tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-                  onClick={() => setReceiveBoxModal(!receiveBoxModal)}
-                >
-                  {t(TranslationKey.Redistribute)}
-                </Button>
-              )}
-            </div>
-          ) : null}
 
           {!readOnly ? (
             <div className={styles.buttonsWrapper}>
@@ -300,16 +279,14 @@ export const EditTaskModal = memo(
                 <div className={styles.hideButton}>
                   <Button
                     tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-                    onClick={() => {
-                      setReceiveBoxModal(!receiveBoxModal)
-                    }}
+                    onClick={() => setReceiveBoxModal(!receiveBoxModal)}
                   >
                     {t(TranslationKey.Redistribute)}
                   </Button>
                 </div>
               )}
 
-              <div className={styles.buttons}>
+              <div className={styles.buttonsWrapper}>
                 <Button
                   styleType={ButtonStyle.SUCCESS}
                   disabled={disableSaveButton}
@@ -332,7 +309,7 @@ export const EditTaskModal = memo(
               </div>
             </div>
           ) : (
-            <div className={styles.buttonWrapper}>
+            <div className={styles.buttonsWrapper}>
               <Button styleType={ButtonStyle.CASUAL} onClick={onClickOpenCloseModal}>
                 {t(TranslationKey.Close)}
               </Button>

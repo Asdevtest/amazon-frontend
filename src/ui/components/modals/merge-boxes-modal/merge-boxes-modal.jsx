@@ -459,6 +459,7 @@ export const MergeBoxesModal = ({
       {showSelectionStorekeeperAndTariffModal ? (
         <SupplierApproximateCalculationsModal
           isTariffsSelect
+          isSkipWeightCheck
           tariffModalType={TariffModal.WAREHOUSE}
           openModal={showSelectionStorekeeperAndTariffModal}
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}

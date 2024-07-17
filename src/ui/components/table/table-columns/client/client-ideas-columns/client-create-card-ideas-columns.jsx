@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   CreateCardIdeaActionsCell,
   IdeaProductCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
@@ -15,6 +16,12 @@ import {
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import {
+  ProductColumnMenuType,
+  getProductColumnMenuItems,
+  getProductColumnMenuValue,
+} from '@config/data-grid-column-menu/product-column'
 
 export const clientCreateCardIdeasColumns = rowHandlers => {
   const columns = [
@@ -35,10 +42,11 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-      table: DataGridFilterTables.PRODUCTS,
+      width: 250,
     },
 
     {
@@ -78,10 +86,11 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
           onClickSelectSupplier={rowHandlers.onClickSelectSupplier}
         />
       ),
-      width: 290,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.CHILD }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-      table: DataGridFilterTables.PRODUCTS,
+      width: 250,
     },
 
     {
@@ -134,6 +143,29 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       filterable: false,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: params => {
+        const subUsers = params.row?.parentProduct?.subUsers || []
+        const subUsersByShop = params.row?.parentProduct?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.parentProduct?.subUsers || []
+        const subUsersByShop = row?.parentProduct?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      table: DataGridFilterTables.PRODUCTS,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {

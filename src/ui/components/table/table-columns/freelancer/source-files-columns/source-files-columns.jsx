@@ -115,12 +115,9 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
         isSecondButton
         iconButton
         row
-        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        firstButtonTooltipText={t(TranslationKey['Change store name or links to reports'])}
         firstButtonElement={<EditIcon />}
         firstButtonStyle={ButtonStyle.PRIMARY}
         disabledFirstButton={params?.row?.originalData?._id === editField?._id}
-        secondButtonTooltipText={t(TranslationKey['Remove a store from your list'])}
         secondButtonElement={<CrossIcon />}
         secondButtonStyle={ButtonStyle.DANGER}
         onClickFirstButton={() => rowHandlers.onClickEditBtn(params.row.originalData)}

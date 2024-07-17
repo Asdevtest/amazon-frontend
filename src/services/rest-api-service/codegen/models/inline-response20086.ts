@@ -13,7 +13,9 @@
  */
 
 
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
+import { InlineResponse20054RequestSpec } from './inline-response20054-request-spec';
 
 /**
  * 
@@ -22,47 +24,59 @@ import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
  */
 export interface InlineResponse20086 {
     /**
-     * GUID заявки
+     * Гуид медиа
      * @type {string}
      * @memberof InlineResponse20086
      */
     _id?: string;
     /**
-     * Номер заявки
-     * @type {number}
+     * Файл для записи в FreelanceSource
+     * @type {string}
      * @memberof InlineResponse20086
      */
-    humanFriendlyId?: number;
+    sourceFile?: string;
+    /**
+     * Комментарий к файлу
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    comments?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMySpec}
+     * @type {ApiV1RequestProposalsFreelanceSourcesProposal}
      * @memberof InlineResponse20086
      */
-    spec?: ApiV1AnnouncementsMySpec;
-    /**
-     * Название заявки
-     * @type {string}
-     * @memberof InlineResponse20086
-     */
-    title?: string;
-    /**
-     * Статус заявки
-     * @type {string}
-     * @memberof InlineResponse20086
-     */
-    status?: string;
+    proposal?: ApiV1RequestProposalsFreelanceSourcesProposal;
     /**
      * 
+     * @type {InlineResponse20054RequestSpec}
+     * @memberof InlineResponse20086
+     */
+    spec?: InlineResponse20054RequestSpec;
+    /**
+     * гуид продукта
      * @type {string}
      * @memberof InlineResponse20086
      */
-    onFinishedIdeaId?: string;
+    productId?: string;
     /**
      * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20086
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20086
      */
-    onCheckedIdeaId?: string;
+    createdAt?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    updatedAt?: string;
 }
 
 

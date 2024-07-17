@@ -2,12 +2,11 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    width: '90vw',
-    height: '85vh',
+    width: '85vw',
+    height: '80vh',
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    padding: 10,
   },
 
   headerWrapper: {
@@ -37,8 +36,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    minHeight: 'calc(100% - 500px)',
     flex: 1,
+    overflowY: 'auto',
+    padding: '3px',
     width: '100%',
     paddingBottom: '3px',
   },

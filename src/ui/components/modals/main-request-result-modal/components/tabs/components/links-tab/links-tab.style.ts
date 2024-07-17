@@ -59,11 +59,4 @@ export const useStyles = makeStyles()(theme => ({
       opacity: 0.5,
     },
   },
-
-  iconPlus: {
-    padding: 2,
-    width: '16px !important',
-    height: '16px !important',
-    color: theme.palette.primary.main,
-  },
 }))

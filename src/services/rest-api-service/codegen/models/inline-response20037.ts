@@ -13,6 +13,9 @@
  */
 
 
+import { InlineResponse20037AllFiles } from './inline-response20037-all-files';
+import { InlineResponse20037AllImages } from './inline-response20037-all-images';
+import { InlineResponse20037AllVideo } from './inline-response20037-all-video';
 
 /**
  * 
@@ -21,17 +24,23 @@
  */
 export interface InlineResponse20037 {
     /**
-     * GUID в базе данных
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20037AllImages>}
      * @memberof InlineResponse20037
      */
-    _id?: string;
+    allImages?: Array<InlineResponse20037AllImages>;
     /**
-     * Имя пользователя.
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20037AllFiles>}
      * @memberof InlineResponse20037
      */
-    name?: string;
+    allFiles?: Array<InlineResponse20037AllFiles>;
+    /**
+     * 
+     * @type {Array<InlineResponse20037AllVideo>}
+     * @memberof InlineResponse20037
+     */
+    allVideo?: Array<InlineResponse20037AllVideo>;
 }
 
 
