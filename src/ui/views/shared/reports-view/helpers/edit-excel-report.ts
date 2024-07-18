@@ -1,0 +1,71 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { GridExceljsProcessInput } from '@mui/x-data-grid-premium'
+
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { t } from '@utils/translations'
+
+import { IGridColumn } from '@typings/shared/grid-column'
+
+export const editExcelReport = (
+  { worksheet }: GridExceljsProcessInput,
+  columnsModel: IGridColumn[],
+  currentData: any,
+) => {
+  for (let i = worksheet.rowCount; i >= 1; i--) {
+    worksheet.spliceRows(i, 1)
+  }
+
+  const header = []
+  for (const column of columnsModel) {
+    if (!column.disableExport) {
+      header.push(column.headerName)
+
+      if (column.field === 'launchType') {
+        header.push(`${t(TranslationKey['Launch type'])} - ${t(TranslationKey.Result)}`)
+        header.push(`${t(TranslationKey['Launch type'])} - ${t(TranslationKey.Comment)}`)
+      }
+    }
+  }
+  worksheet.addRow(header)
+
+  for (const row of currentData) {
+    const listingLaunches = row?.listingLaunches
+
+    if (listingLaunches?.length > 0) {
+      for (const launch of listingLaunches) {
+        const newRow = []
+        for (const column of columnsModel) {
+          if (column.disableExport) {
+            continue
+          }
+
+          if (column.field === 'launchType') {
+            newRow.push(column?.valueGetter?.(launch))
+            newRow.push(launch?.result)
+            newRow.push(launch?.comment)
+          } else {
+            newRow.push(column?.valueGetter ? column?.valueGetter?.(row) : row[column.field])
+          }
+        }
+        worksheet.addRow(newRow)
+      }
+    } else {
+      const newRow = []
+      for (const column of columnsModel) {
+        if (column.disableExport) {
+          continue
+        }
+
+        if (column.field === 'launchType') {
+          newRow.push('')
+          newRow.push('')
+          newRow.push('')
+        } else {
+          newRow.push(column?.valueGetter ? column?.valueGetter?.(row) : row[column.field])
+        }
+      }
+      worksheet.addRow(newRow)
+    }
+  }
+}
