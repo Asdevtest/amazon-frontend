@@ -29,12 +29,13 @@ export const editExcelReport = (
   }
   worksheet.addRow(header)
 
+  // FIXME: refactor
   for (const row of currentData) {
     const listingLaunches = row?.listingLaunches
+    let newRow = []
 
     if (listingLaunches?.length > 0) {
       for (const launch of listingLaunches) {
-        const newRow = []
         for (const column of columnsModel) {
           if (column.disableExport) {
             continue
@@ -49,9 +50,9 @@ export const editExcelReport = (
           }
         }
         worksheet.addRow(newRow)
+        newRow = []
       }
     } else {
-      const newRow = []
       for (const column of columnsModel) {
         if (column.disableExport) {
           continue
@@ -66,6 +67,7 @@ export const editExcelReport = (
         }
       }
       worksheet.addRow(newRow)
+      newRow = []
     }
   }
 }
