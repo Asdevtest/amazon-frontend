@@ -67,7 +67,8 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {
@@ -142,7 +143,6 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
       type: 'number',
       width: 90,
-
       columnKey: columnnsKeys.shared.NUMBER,
     },
 

@@ -49,7 +49,8 @@ export const exchangeSupplierSearchColumns = () => [
         />
       )
     },
-    width: 300,
+    width: 260,
+    minWidth: 100,
   },
 
   {

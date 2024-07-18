@@ -54,7 +54,8 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         fields: getProductColumnMenuItems(),
         columnMenuConfig: getProductColumnMenuValue(),
         columnKey: columnnsKeys.shared.MULTIPLE,
-        width: 250,
+        width: 260,
+        minWidth: 100,
       }
     : null
   const shopColumn = subView

@@ -2,9 +2,9 @@ import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ChangeInputCommentCell,
   CheckboxCell,
   ClientTasksActionBtnsCell,
+  CommentCell,
   MultilineTextHeaderCell,
   NormDateFromUnixCell,
   StringListCell,
@@ -59,8 +59,7 @@ export const clientTasksViewColumns = handlers => {
       width: 280,
 
       renderCell: params => (
-        <ChangeInputCommentCell
-          rowsCount={4}
+        <CommentCell
           text={params.row.reason}
           onClickSubmit={reason => handlers.updateTaskComment(params.row._id, params.row.priority, reason)}
         />

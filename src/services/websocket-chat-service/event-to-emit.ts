@@ -11,4 +11,5 @@ export enum EentToEmit {
   GET_CHAT_MESSAGES = 'Chat:user:get-chat-messages',
   GET_UNREAD_MESSAGES_COUNT = 'Chat:user:get-unread-messages',
   FIND_CHAT_MESSAGE = 'Chat:user:find-message',
+  GET_ONLINE_USERS = 'Chat:user:get-online-users',
 }

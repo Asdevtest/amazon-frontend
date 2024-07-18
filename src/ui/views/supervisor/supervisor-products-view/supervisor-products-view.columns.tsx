@@ -60,7 +60,8 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {

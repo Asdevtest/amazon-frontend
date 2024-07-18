@@ -3,8 +3,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  ChangeInputCommentCell,
   CheckboxCell,
+  CommentCell,
   MultilineTextHeaderCell,
   MultipleAsinCell,
   NormDateFromUnixCell,
@@ -68,8 +68,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Comment)} />,
       renderCell: params => (
-        <ChangeInputCommentCell
-          rowsCount={4}
+        <CommentCell
           text={params.row.originalData.reason}
           onClickSubmit={reason =>
             handlers.updateTaskComment(params.row.originalData._id, params.row.originalData.priority, reason)
