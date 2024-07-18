@@ -25,11 +25,10 @@ export class BoxModalModel extends DefaultModel {
 
   activeTab: BoxTabs = BoxTabs.BOX_INFO
 
-  handleUpdateData?: () => void
+  onUpdateData?: () => void
 
   get userInfo(): IFullUser {
-    // @ts-ignore
-    return UserModel.userInfo
+    return UserModel.userInfo as unknown as IFullUser
   }
 
   get isClient(): boolean {
@@ -52,7 +51,7 @@ export class BoxModalModel extends DefaultModel {
     return isEqual(this.currentData, {})
   }
 
-  constructor({ boxId, handleUpdateData }: { boxId: string; handleUpdateData?: () => void }) {
+  constructor({ boxId, onUpdateData }: { boxId: string; onUpdateData?: () => void }) {
     super({
       getMainDataMethod: BoxesModel.getBoxById,
       defaultGetCurrentDataOptions: () => boxId,
@@ -60,7 +59,7 @@ export class BoxModalModel extends DefaultModel {
 
     makeObservable(this, observerConfig)
 
-    this.handleUpdateData = handleUpdateData
+    this.onUpdateData = onUpdateData
 
     this.getCurrentData()
   }
@@ -100,7 +99,7 @@ export class BoxModalModel extends DefaultModel {
 
       toast.success(t(TranslationKey['Data saved successfully']))
 
-      this.handleUpdateData?.()
+      this.onUpdateData?.()
     } catch (error) {
       console.error(error)
     }

@@ -12,17 +12,17 @@ import { t } from '@utils/translations'
 import { observerConfig } from './observer-config'
 
 export class EditHSCodeModalModel extends DefaultModel {
-  handleCloseModal: () => void
-  handleUpdateData?: () => void
+  onCloseModal: () => void
+  onUpdateData?: () => void
 
   constructor({
     productId,
     onCloseModal,
-    handleUpdateData,
+    onUpdateData,
   }: {
     productId: string
     onCloseModal: () => void
-    handleUpdateData?: () => void
+    onUpdateData?: () => void
   }) {
     super({
       getMainDataMethod: ProductModel.getProductsHsCodeByGuid,
@@ -31,13 +31,13 @@ export class EditHSCodeModalModel extends DefaultModel {
 
     makeObservable(this, observerConfig)
 
-    this.handleCloseModal = onCloseModal
-    this.handleUpdateData = handleUpdateData
+    this.onCloseModal = onCloseModal
+    this.onUpdateData = onUpdateData
 
     this.getCurrentData()
   }
 
-  async handleSaveHSCode() {
+  async onSaveHSCode() {
     try {
       await ProductModel.editProductsHsCods([
         {
@@ -54,8 +54,8 @@ export class EditHSCodeModalModel extends DefaultModel {
         },
       ])
 
-      this.handleUpdateData?.()
-      this.handleCloseModal?.()
+      this.onUpdateData?.()
+      this.onCloseModal?.()
 
       toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {

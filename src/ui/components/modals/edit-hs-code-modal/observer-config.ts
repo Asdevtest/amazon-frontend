@@ -1,9 +1,9 @@
 import { action, observable } from 'mobx'
 
 export const observerConfig = {
-  handleCloseModal: observable,
-  handleUpdateData: observable,
+  onCloseModal: observable,
+  onUpdateData: observable,
 
-  handleSaveHSCode: action.bound,
+  onSaveHSCode: action.bound,
   onChangeField: action.bound,
 }

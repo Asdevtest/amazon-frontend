@@ -15,17 +15,17 @@ import { BoxTabs, switcherSettings } from './box-modal.constants'
 import { BoxModalModel } from './box-modal.model'
 import { Box, Comments, Footer, Header, Info, Order, Quantities } from './components'
 
-interface BoxFormProps {
+interface BoxModalProps {
   boxId: string
   onToggleModal: () => void
-  handleUpdateData?: () => void
+  onUpdateData?: () => void
 }
 
-export const BoxModal: FC<BoxFormProps> = observer(props => {
-  const { boxId, onToggleModal, handleUpdateData } = props
+export const BoxModal: FC<BoxModalProps> = observer(props => {
+  const { boxId, onToggleModal, onUpdateData } = props
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new BoxModalModel({ boxId, handleUpdateData }))
+  const [viewModel] = useState(() => new BoxModalModel({ boxId, onUpdateData }))
 
   return (
     <div className={styles.wrapper}>

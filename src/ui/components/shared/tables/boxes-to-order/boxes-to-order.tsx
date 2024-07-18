@@ -68,7 +68,7 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(props => {
       <Modal openModal={viewModel.showBoxModal} setOpenModal={() => viewModel.onToggleModal(ModalNames.BOX)}>
         <BoxModal
           boxId={viewModel.currentBox}
-          handleUpdateData={viewModel.getBoxesOfOrder}
+          onUpdateData={viewModel.getBoxesOfOrder}
           onToggleModal={() => viewModel.onToggleModal(ModalNames.BOX)}
         />
       </Modal>

@@ -265,7 +265,7 @@ export const ClientInventoryView = observer(({ history }) => {
       >
         <EditHSCodeModal
           productId={viewModel.selectedProduct?._id}
-          handleUpdateData={viewModel.getCurrentData}
+          onUpdateData={viewModel.getCurrentData}
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>

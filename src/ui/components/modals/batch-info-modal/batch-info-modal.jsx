@@ -386,7 +386,7 @@ export const BatchInfoModal = observer(
           >
             <BoxModal
               boxId={viewModel.curBox}
-              handleUpdateData={viewModel.getCurrentData}
+              onUpdateData={viewModel.getCurrentData}
               onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
             />
           </Modal>

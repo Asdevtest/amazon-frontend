@@ -4,7 +4,7 @@ export const observerConfig = {
   showEditHSCodeModal: observable,
 
   activeTab: observable,
-  handleUpdateData: observable,
+  onUpdateData: observable,
 
   userInfo: computed,
   isClient: computed,

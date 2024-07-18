@@ -17,15 +17,15 @@ import { EditHSCodeModalModel } from './edit-hs-code-modal.model'
 interface EditHSCodeModalProps {
   productId: string
   onCloseModal: () => void
-  handleUpdateData?: () => void
+  onUpdateData?: () => void
 }
 
 export const EditHSCodeModal: FC<EditHSCodeModalProps> = observer(props => {
   const { classes: styles } = useStyles()
 
-  const { productId, handleUpdateData, onCloseModal } = props
+  const { productId, onUpdateData, onCloseModal } = props
 
-  const [viewModel] = useState(() => new EditHSCodeModalModel({ productId, onCloseModal, handleUpdateData }))
+  const [viewModel] = useState(() => new EditHSCodeModalModel({ productId, onCloseModal, onUpdateData }))
 
   return (
     <div className={styles.wrapper}>
@@ -85,7 +85,7 @@ export const EditHSCodeModal: FC<EditHSCodeModalProps> = observer(props => {
       />
 
       <div className={styles.buttons}>
-        <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.handleSaveHSCode}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onSaveHSCode}>
           {t(TranslationKey.Save)}
         </Button>
         <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
