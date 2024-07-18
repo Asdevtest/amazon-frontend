@@ -773,7 +773,6 @@ export enum TranslationKey {
   'No documents' = 'No documents',
   'Opens a form to create a box' = 'Opens a form to create a box',
   'Allows you to use the box parameters specified when creating a supplier' = 'Allows you to use the box parameters specified when creating a supplier',
-  'Remove box' = 'Remove box',
   'Allows you to create the required number of boxes to the order' = 'Allows you to create the required number of boxes to the order',
   'Save box parameters to the current supplier' = 'Save box parameters to the current supplier',
   'Save changes to the order' = 'Save changes to the order',
