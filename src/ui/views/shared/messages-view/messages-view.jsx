@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { ONE_MINUTE_IN_MILLISECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -38,7 +39,12 @@ export const MessagesView = observer(({ history }) => {
   useEffect(() => {
     viewModel.loadData()
 
+    const intervalId = setInterval(() => {
+      viewModel.getOnlineUsers()
+    }, ONE_MINUTE_IN_MILLISECONDS)
+
     return () => {
+      clearInterval(intervalId)
       ChatModel.onChangeChatSelectedId(undefined)
     }
   }, [])

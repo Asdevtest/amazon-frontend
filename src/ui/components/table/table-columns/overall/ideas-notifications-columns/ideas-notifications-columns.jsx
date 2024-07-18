@@ -61,7 +61,8 @@ export const ideasNotificationsViewColumns = handlers => [
       )
     },
 
-    width: 300,
+    width: 260,
+    minWidth: 100,
   },
 
   {

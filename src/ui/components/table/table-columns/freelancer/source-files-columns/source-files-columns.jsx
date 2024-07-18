@@ -3,7 +3,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ActionButtonsCell,
   AsinCell,
-  ChangeInputCommentCell,
+  CommentCell,
   CopyAndEditLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -78,11 +78,8 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     width: 250,
     renderCell: params =>
       params?.row?.originalData?._id === editField?._id ? (
-        <ChangeInputCommentCell
-          rowsCount={1}
-          fieldName="sourceFile"
+        <CommentCell
           text={params.row.originalData.sourceFile}
-          onChangeText={rowHandlers.onChangeText}
           onClickSubmit={() => rowHandlers.onClickSaveBtn(params.row)}
         />
       ) : (
@@ -96,10 +93,8 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
     width: 240,
     renderCell: params => (
-      <ChangeInputCommentCell
-        rowsCount={2}
+      <CommentCell
         text={params.row.originalData.comments}
-        onChangeText={rowHandlers.onChangeText}
         onClickSubmit={() => rowHandlers.onClickSaveBtn(params.row)}
       />
     ),

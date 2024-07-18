@@ -30,8 +30,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    minWidth: 100,
-    // type: 'date',
+    width: 115,
   },
 
   {

@@ -29,7 +29,7 @@ import {
 import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { getProductColumnMenuValue, productColumnMenuItems } from '@config/data-grid-column-menu/product-column'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 import { productionTimeColumnMenuItems } from '@config/data-grid-column-menu/production-time'
 
 import { complexCells } from './cell-types'
@@ -94,10 +94,11 @@ export const clientInventoryColumns = ({
         />
       ),
 
-      fields: productColumnMenuItems,
+      fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {
@@ -359,8 +360,8 @@ export const clientInventoryColumns = ({
 
     {
       field: 'transparency',
-      headerName: 'Transparency codes',
-      renderHeader: () => <MultilineTextHeaderCell text={'Transparency codes'} />,
+      headerName: 'Transparency Codes',
+      renderHeader: () => <MultilineTextHeaderCell text={'Transparency Codes'} />,
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
       width: 135,
       columnKey: columnnsKeys.shared.YES_NO,
@@ -607,9 +608,14 @@ export const clientInventoryColumns = ({
                 <ProductAsinCell withoutTitle image={product?.image} asin={product?.asin} skuByClient={product?.sku} />
               )
             },
-            width: 295,
 
-            columnKey: columnnsKeys.client.SHOP_REPORT,
+            fields: getProductColumnMenuItems({ withoutTitle: true }),
+            columnMenuConfig: getProductColumnMenuValue({
+              isSimpleSku: true,
+            }),
+            columnKey: columnnsKeys.shared.MULTIPLE,
+            width: 260,
+            minWidth: 100,
           }
 
           defaultColumns.push(complexCell)

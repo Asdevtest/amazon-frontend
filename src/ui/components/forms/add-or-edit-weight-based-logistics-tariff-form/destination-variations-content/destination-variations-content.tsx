@@ -22,9 +22,10 @@ import { useStyles } from '../add-or-edit-weight-based-logistics-tariff-form.sty
 interface DestinationVariationsContentProps {
   destinationVariations: Array<IDestinationVariation>
   destinationData: Array<IDestination>
+  rangeErrorDestinationId: string
   currentCurrency: string
   destinationsFavourites: Array<Array<string>>
-  setDestinationsFavouritesItem: () => void
+  setDestinationsFavouritesItem: (item: any) => void
   onChangeDestinationVariations: (fieldName: string, index: number, value: string | number) => void
   onClickAddDestinationVariation: (index: number) => void
   onClickRemoveDestinationVariation: (index: number) => void
@@ -33,6 +34,7 @@ interface DestinationVariationsContentProps {
 
 export const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo(
   ({
+    rangeErrorDestinationId,
     destinationVariations,
     destinationData,
     currentCurrency,
@@ -98,7 +100,9 @@ export const DestinationVariationsContent: FC<DestinationVariationsContentProps>
                       value={toFixed(variant.minWeight, 2) || ''}
                       inputProps={{ maxLength: 7 }}
                       className={cx(styles.weightInput, {
-                        [styles.error]: !!variant.minWeight && Number(variant.minWeight) < 1,
+                        [styles.error]:
+                          (!!variant.minWeight && Number(variant.minWeight) < 1) ||
+                          rangeErrorDestinationId === variant.destination?._id,
                       })}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
@@ -116,9 +120,10 @@ export const DestinationVariationsContent: FC<DestinationVariationsContentProps>
                       inputProps={{ maxLength: 7 }}
                       className={cx(styles.weightInput, {
                         [styles.error]:
-                          !!variant.minWeight &&
-                          !!variant.maxWeight &&
-                          Number(variant.maxWeight) <= Number(variant.minWeight),
+                          (!!variant.minWeight &&
+                            !!variant.maxWeight &&
+                            Number(variant.maxWeight) <= Number(variant.minWeight)) ||
+                          rangeErrorDestinationId === variant.destination?._id,
                       })}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value
@@ -179,13 +184,13 @@ export const DestinationVariationsContent: FC<DestinationVariationsContentProps>
                 <div className={styles.regionWrapper}>
                   <Input
                     placeholder={'0.00'}
-                    value={
+                    value={toFixed(
                       currentCurrency === currencyTypes.DOLLAR
                         ? variant.pricePerKgUsd
                         : currentCurrency === currencyTypes.YUAN
                         ? variant.pricePerKgRmb
-                        : ''
-                    }
+                        : '',
+                    )}
                     inputProps={{ maxLength: 7 }}
                     className={styles.fieldInput}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => {

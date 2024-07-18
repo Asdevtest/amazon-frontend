@@ -1,11 +1,9 @@
+import { Avatar, Rate } from 'antd'
+import Link from 'antd/es/typography/Link'
+import Text from 'antd/es/typography/Text'
 import { FC, memo } from 'react'
 
-import { Avatar, Rating } from '@mui/material'
-
-import { UserLink } from '@components/user/user-link'
-
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
-import { toFixed } from '@utils/text'
 
 import { useStyles } from './user-cell.style'
 
@@ -17,27 +15,20 @@ interface UserCellProps {
 }
 
 export const UserCell: FC<UserCellProps> = memo(props => {
-  const { classes: styles } = useStyles()
   const { userId, name, email, rating } = props
 
+  const { classes: styles } = useStyles()
+
   return (
-    <div className={styles.sabUserWrapper}>
-      <Avatar src={getUserAvatarSrc(userId)} className={styles.userAvatar} />
+    <div className={styles.wrapper}>
+      <Avatar size={64} src={getUserAvatarSrc(userId)} />
 
-      <div className={styles.sabUserInfoWrapper}>
-        <UserLink
-          customStyles={{ fontWeight: 600, fontSize: '14px', lineHeight: '19px' }}
-          name={name}
-          userId={userId}
-        />
-
-        <p className={styles.userEmail}>{email}</p>
-
-        <div className={styles.sabUserRatingWrapper}>
-          <p className={styles.ratingScore}>{`Rating ${toFixed(rating, 1)}`}</p>
-
-          <Rating readOnly className={styles.sabUserRating} value={rating} />
-        </div>
+      <div className={styles.flexColumn}>
+        <Link href={`${window.location.origin}/another-user?${userId}`} target="_blank" className={styles.text}>
+          {name}
+        </Link>
+        <Text className={styles.text}>{email}</Text>
+        <Rate disabled defaultValue={rating} className={styles.text} />
       </div>
     </div>
   )

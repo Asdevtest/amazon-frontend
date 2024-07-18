@@ -21,6 +21,7 @@
  */
 export interface InlineObject150 {
     /**
+<<<<<<< HEAD
      * Гуид саба
      * @type {string}
      * @memberof InlineObject150
@@ -32,6 +33,13 @@ export interface InlineObject150 {
      * @memberof InlineObject150
      */
     comment: string;
+=======
+     * Почта от аккаунта, пароль которого Вы забыли
+     * @type {string}
+     * @memberof InlineObject150
+     */
+    email: string;
+>>>>>>> dev
 }
 
 

@@ -28,6 +28,7 @@ export interface InlineObject139 {
      * @type {string}
      * @memberof InlineObject139
      */
+<<<<<<< HEAD
     name: string;
     /**
      * Ссылка на поставщика.
@@ -167,6 +168,15 @@ export interface InlineObject139 {
      * @memberof InlineObject139
      */
     priceVariations?: Array<ApiV1SuppliersPriceVariations>;
+=======
+    title: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject139
+     */
+    iconImage?: string;
+>>>>>>> dev
 }
 
 

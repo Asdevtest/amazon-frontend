@@ -22,7 +22,8 @@ export const sourceColumns = isResearcher => [
         />
       )
     },
-    width: 550,
+    width: 260,
+    minWidth: 100,
     sortable: false,
   },
 ]

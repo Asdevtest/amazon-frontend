@@ -308,6 +308,7 @@ export * from './inline-response200111';
 export * from './inline-response200112';
 export * from './inline-response200113';
 export * from './inline-response200114';
+export * from './inline-response200114-rows';
 export * from './inline-response200115';
 export * from './inline-response200116';
 export * from './inline-response200117';

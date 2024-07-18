@@ -822,12 +822,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
 
-    crumbNameKey: TranslationKey['Free Orders'],
+    crumbNameKey: TranslationKey['Free orders'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FREE_ORDERS,
       activeSubCategory: '',
-      title: () => t(TranslationKey['Free Orders']),
+      title: () => t(TranslationKey['Free orders']),
     },
   },
 
@@ -982,6 +982,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.RESEARCHER],
     crumbNameKey: TranslationKey['My users'],
+    permissionKey: permissionsKeys.researcher.SHOW_USERS_RESEARCHER,
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
@@ -1037,8 +1038,6 @@ export const privateRoutesConfigs = [
       title: () => t(TranslationKey.Dashboard),
     },
   },
-
-  // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   {
     routePath: '/client/freelance',
@@ -3060,6 +3059,20 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
       activeSubCategory: '',
       title: () => t(TranslationKey.Settings),
+    },
+  },
+
+  {
+    routePath: '/moderator/feedback',
+    component: AdminFeedbackView,
+    exact: false,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey.Feedback,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Feedback),
     },
   },
 

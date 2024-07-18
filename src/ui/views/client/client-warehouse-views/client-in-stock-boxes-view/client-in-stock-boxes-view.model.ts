@@ -168,6 +168,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       onClickSavePrepId: (item: string, value: string) => this.onClickSavePrepId(item, value),
 
       onChangeUnitsOption: (option: Dimensions) => this.onChangeUnitsOption(option),
+      onClickSaveClientComment: (itemId: string, value: string) => this.onClickSaveClientComment(itemId, value),
     }
 
     const columnsModel = clientBoxesViewColumns(
@@ -312,7 +313,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitChangeBoxFields(data: IBox, inModal: boolean) {
+  async onSubmitChangeBoxFields(data: IBox) {
     try {
       // @ts-ignore
       await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
@@ -324,14 +325,12 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
-        storage: data.storage,
+        // storage: data.storage,
       })
 
-      this.getCurrentData()
-
-      !inModal && this.onTriggerOpenModal('showBoxViewModal')
-
       toast.success(t(TranslationKey['Data saved successfully']))
+
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
@@ -1930,5 +1929,17 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     this.onAmazon = onAmazon
 
     this.onTriggerOpenModal('showProductDataModal')
+  }
+
+  async onClickSaveClientComment(itemId: string, value: string) {
+    try {
+      await BoxesModel.editAdditionalInfo(itemId, {
+        clientComment: value,
+      })
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

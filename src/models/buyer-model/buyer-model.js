@@ -36,8 +36,8 @@ class BuyerModelStatic {
     return response.data
   }
 
-  getOrdersVacant = async () => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersVacGet()
+  getOrdersVacantPag = async options => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersVacPagGet(options)
     return response.data
   }
 

@@ -29,8 +29,8 @@ import { t } from '@utils/translations'
 
 import {
   ProductColumnMenuType,
+  getProductColumnMenuItems,
   getProductColumnMenuValue,
-  productColumnMenuItems,
 } from '@config/data-grid-column-menu/product-column'
 import {
   productionTimeColumnMenuItems,
@@ -57,11 +57,12 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         )
       },
 
-      fields: productColumnMenuItems,
-      columnMenuConfig: getProductColumnMenuValue(ProductColumnMenuType.PARENT),
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {

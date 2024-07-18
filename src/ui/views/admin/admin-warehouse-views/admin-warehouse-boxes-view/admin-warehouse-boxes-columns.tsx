@@ -16,7 +16,7 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { productColumnMenuItems, productColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 export const adminWarehouseBoxesColumns = () => {
   const columns: IGridColumn[] = [
@@ -91,20 +91,21 @@ export const adminWarehouseBoxesColumns = () => {
           />
         ),
 
-      fields: productColumnMenuItems,
-      columnMenuConfig: productColumnMenuValue,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
       width: 250,
     },
 
     {
-      field: 'amount',
+      field: 'totalAmount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-      renderCell: params => <MultilineTextCell text={String(params?.value * params?.row?.amount)} />,
-      width: 100,
+      renderCell: params => <MultilineTextCell text={params?.value} />,
+
       columnKey: columnnsKeys.shared.NUMBER,
+      width: 100,
     },
 
     {

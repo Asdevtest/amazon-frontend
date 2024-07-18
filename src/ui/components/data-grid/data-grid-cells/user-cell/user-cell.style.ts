@@ -1,46 +1,23 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  sabUserWrapper: {
-    width: '100%',
+export const useStyles = makeStyles()(() => ({
+  wrapper: {
+    padding: '10px 0px',
     display: 'flex',
     alignItems: 'center',
-    padding: '5px 0px',
+    gap: '10px',
   },
 
-  userAvatar: {
-    width: 66,
-    height: 66,
-  },
-
-  sabUserInfoWrapper: {
-    marginLeft: 20,
+  flexColumn: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 5,
+    gap: '3px',
   },
 
-  userEmail: {
-    color: theme.palette.text.general,
-
-    fontWeight: 600,
-    fontSize: 14,
-    lineHeight: '19px',
-  },
-
-  sabUserRatingWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  ratingScore: {
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
-  },
-
-  sabUserRating: {
-    marginLeft: 10,
-    opacity: '1 !important',
+  text: {
+    fontSize: '14px',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
 }))

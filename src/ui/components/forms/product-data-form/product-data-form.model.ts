@@ -30,7 +30,7 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
     const defaultGetCurrentDataOptions = () => ({
       guid: product._id,
       onAmazon,
-      batchArchive: this.batchArchive,
+      archive: this.batchArchive,
     })
     const filtersFields = getFilterFields(columnsModel, ['batchArchive'])
 

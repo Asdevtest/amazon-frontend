@@ -3,6 +3,7 @@ import { FC, memo } from 'react'
 import { Link } from '@mui/material'
 
 import { chatsType } from '@constants/keys/chats'
+import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
@@ -12,6 +13,9 @@ import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
 import { CurrentOpponent } from '@components/chat/multiple-chats'
 import { ArrowBackIcon } from '@components/shared/svg-icons'
 
+import { checkOnline } from '@utils/checks/check-online/check-online'
+import { getDistanceBetweenDatesSeconds } from '@utils/checks/get-distance-between-dates-seconds/get-distance-between-dates-seconds'
+import { formatDateTimeHourAndMinutes, formatDateWithoutTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -65,6 +69,20 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
     onChangeCurFoundedMessage(index)
   }
 
+  // @ts-ignore
+  const isOnlineUser = checkOnline(currentChat?.type, currentOpponent)
+
+  // @ts-ignore
+  const dateGap = getDistanceBetweenDatesSeconds(new Date(), new Date(currentOpponent?.lastSeen))
+
+  const lastSeenMessage =
+    dateGap > ONE_DAY_IN_SECONDS
+      ? // @ts-ignore
+
+        `${t(TranslationKey['Last seen'], { date: formatDateWithoutTime(new Date(currentOpponent?.lastSeen)) })}`
+      : // @ts-ignore
+        `${t(TranslationKey.Today)} ${formatDateTimeHourAndMinutes(new Date(currentOpponent?.lastSeen))}`
+
   return (
     <div className={styles.header}>
       {isChatSelectedAndFound && (
@@ -85,7 +103,14 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
                   >
                     <div className={styles.opponentWrapper}>
                       <img src={getUserAvatarSrc(currentOpponent?._id)} className={styles.avatar} alt="avatar" />
-                      <p className={styles.opponentName}>{currentOpponent?.name}</p>
+                      <div>
+                        <p className={styles.opponentName}>{currentOpponent?.name}</p>
+                        {isOnlineUser ? (
+                          <p className={styles.usersCount}>{t(TranslationKey.Online)}</p>
+                        ) : (
+                          <p className={styles.usersCount}>{lastSeenMessage}</p>
+                        )}
+                      </div>
                     </div>
                   </Link>
                 </div>

@@ -1,4 +1,3 @@
-import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -19,8 +18,8 @@ import { t } from '@utils/translations'
 
 import {
   ProductColumnMenuType,
+  getProductColumnMenuItems,
   getProductColumnMenuValue,
-  productColumnMenuItems,
 } from '@config/data-grid-column-menu/product-column'
 
 export const clientAddAsinIdeasColumns = rowHandlers => {
@@ -55,11 +54,12 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
         )
       },
 
-      fields: productColumnMenuItems,
-      columnMenuConfig: getProductColumnMenuValue(ProductColumnMenuType.PARENT),
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {
@@ -92,12 +92,13 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
         )
       },
 
-      fields: productColumnMenuItems,
-      columnMenuConfig: getProductColumnMenuValue(ProductColumnMenuType.CHILD),
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.CHILD }),
 
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {

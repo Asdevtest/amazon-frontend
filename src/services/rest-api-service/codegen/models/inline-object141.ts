@@ -21,17 +21,24 @@
  */
 export interface InlineObject141 {
     /**
+<<<<<<< HEAD
      * 
      * @type {string}
      * @memberof InlineObject141
      */
     title: string;
     /**
+=======
+>>>>>>> dev
      * 
      * @type {string}
      * @memberof InlineObject141
      */
+<<<<<<< HEAD
     iconImage?: string;
+=======
+    refreshToken: string;
+>>>>>>> dev
 }
 
 

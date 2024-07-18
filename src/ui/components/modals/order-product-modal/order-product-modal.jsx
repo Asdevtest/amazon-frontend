@@ -391,7 +391,7 @@ export const OrderProductModal = memo(props => {
               </TableCell>
               <TableCell className={styles.barCodeCell}>
                 <Text className={styles.barCodeCellBtn}>
-                  {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency codes'])}`}
+                  {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency Codes'])}`}
                 </Text>
               </TableCell>
               <TableCell className={styles.tariffCell}>
@@ -536,7 +536,7 @@ export const OrderProductModal = memo(props => {
       <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
         <SetFilesModal
           modalTitle={t(TranslationKey.Transparency)}
-          LabelTitle={t(TranslationKey['Transparency codes'])}
+          LabelTitle={t(TranslationKey['Transparency Codes'])}
           currentFiles={filesConditions.currentFiles}
           tmpFiles={filesConditions.tmpFiles}
           onClickSave={value => {

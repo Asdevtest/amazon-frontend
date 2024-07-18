@@ -21,6 +21,7 @@
  */
 export interface InlineObject142 {
     /**
+<<<<<<< HEAD
      * 
      * @type {string}
      * @memberof InlineObject142
@@ -32,6 +33,13 @@ export interface InlineObject142 {
      * @memberof InlineObject142
      */
     title?: string;
+=======
+     * Дата создания сессии (рефреш токена)
+     * @type {string}
+     * @memberof InlineObject142
+     */
+    sessionCreatedAt?: string;
+>>>>>>> dev
 }
 
 

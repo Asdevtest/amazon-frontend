@@ -21,6 +21,7 @@
  */
 export interface InlineObject148 {
     /**
+<<<<<<< HEAD
      * Эндпоинт для которого надо установить пресеты
      * @type {string}
      * @memberof InlineObject148
@@ -44,6 +45,19 @@ export interface InlineObject148 {
      * @memberof InlineObject148
      */
     title?: string;
+=======
+     * Гуид саба
+     * @type {string}
+     * @memberof InlineObject148
+     */
+    userId: string;
+    /**
+     * Заметка о сабе написаная мастером
+     * @type {string}
+     * @memberof InlineObject148
+     */
+    comment: string;
+>>>>>>> dev
 }
 
 

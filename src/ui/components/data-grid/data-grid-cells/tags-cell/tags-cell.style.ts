@@ -24,7 +24,8 @@ export const useStyles = makeStyles()(theme => ({
 
   activeButton: {
     color: theme.palette.primary.main,
-    ':hover': {
+
+    '&:hover': {
       transform: 'scale(1.05)',
     },
   },

@@ -2,6 +2,7 @@ import { Manager, Socket } from 'socket.io-client'
 
 import { BACKEND_WEBSOCKET_CHAT_URL } from '@constants/keys/env'
 
+import { ChatUserContract } from '@models/chat-model/contracts'
 import { ChatMessagesType } from '@models/chat-model/contracts/chat-messages-type'
 
 import { ChatHandlerName, handlerToEventMapping } from './event-handler-mappings'
@@ -218,6 +219,18 @@ export class WebsocketChatService {
           }
         },
       )
+    })
+  }
+
+  public async getOnlineUsers() {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(EentToEmit.GET_ONLINE_USERS, {}, (getChatsResponse: WebsocketChatResponse<ChatUserContract>) => {
+        if (!getChatsResponse.success || !getChatsResponse.data) {
+          reject(getChatsResponse.error)
+        } else {
+          resolve(getChatsResponse.data)
+        }
+      })
     })
   }
 }

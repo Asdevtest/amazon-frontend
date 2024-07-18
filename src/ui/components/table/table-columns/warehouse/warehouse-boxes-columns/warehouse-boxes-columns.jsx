@@ -22,7 +22,7 @@ import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { getProductColumnMenuValue, productColumnMenuItems } from '@config/data-grid-column-menu/product-column'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
   {
@@ -73,7 +73,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
       )
     },
 
-    fields: productColumnMenuItems,
+    fields: getProductColumnMenuItems(),
     columnMenuConfig: getProductColumnMenuValue(),
     columnKey: columnnsKeys.shared.MULTIPLE,
     width: 320,
@@ -81,9 +81,9 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
 
   {
     field: 'shippingLabel',
-    headerName: `Shipping label / Barcode / ${t(TranslationKey['Transparency codes'])}`,
+    headerName: `Shipping label / Barcode / ${t(TranslationKey['Transparency Codes'])}`,
     renderHeader: () => (
-      <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency codes'])}`} />
+      <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency Codes'])}`} />
     ),
 
     renderCell: params => (
@@ -106,7 +106,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
             ).type,
           },
           {
-            title: t(TranslationKey['Transparency codes']),
+            title: t(TranslationKey['Transparency Codes']),
             fileUrl: params.row.originalData.items[0].transparencyFile,
             fileName: getFileNameFromUrl(params.row.originalData.items[0].transparencyFile).name,
             fileType: getFileNameFromUrl(params.row.originalData.items[0].transparencyFile).type,

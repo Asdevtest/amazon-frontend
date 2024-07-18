@@ -20,8 +20,8 @@ import { t } from '@utils/translations'
 
 import {
   ProductColumnMenuType,
+  getProductColumnMenuItems,
   getProductColumnMenuValue,
-  productColumnMenuItems,
 } from '@config/data-grid-column-menu/product-column'
 
 export const clientAllIdeasColumns = rowHandlers => {
@@ -71,11 +71,12 @@ export const clientAllIdeasColumns = rowHandlers => {
           />
         )
       },
-      fields: productColumnMenuItems,
-      columnMenuConfig: getProductColumnMenuValue(ProductColumnMenuType.PARENT),
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {
@@ -142,11 +143,12 @@ export const clientAllIdeasColumns = rowHandlers => {
           />
         )
       },
-      fields: productColumnMenuItems,
-      columnMenuConfig: getProductColumnMenuValue(ProductColumnMenuType.CHILD),
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.CHILD }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {

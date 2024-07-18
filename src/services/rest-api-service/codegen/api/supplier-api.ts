@@ -25,15 +25,27 @@ import { ApiV1AdminsGetProductsByStatusSuppliers } from '../models';
 // @ts-ignore
 import { BadRequestError } from '../models';
 // @ts-ignore
+<<<<<<< HEAD
 import { InlineObject139 } from '../models';
 // @ts-ignore
 import { InlineObject140 } from '../models';
 // @ts-ignore
 import { InlineObject141 } from '../models';
+=======
+import { InlineObject137 } from '../models';
+>>>>>>> dev
 // @ts-ignore
 import { InlineObject142 } from '../models';
 // @ts-ignore
+<<<<<<< HEAD
 import { InlineResponse200104 } from '../models';
+=======
+import { InlineObject139 } from '../models';
+// @ts-ignore
+import { InlineObject140 } from '../models';
+// @ts-ignore
+import { InlineResponse200103 } from '../models';
+>>>>>>> dev
 // @ts-ignore
 import { InlineResponse20114 } from '../models';
 // @ts-ignore
@@ -172,12 +184,20 @@ export const SupplierApiAxiosParamCreator = function (configuration?: Configurat
          * ## Изменить  поставщика.   Байер может редактировать поставщика только если поставщик используется в карточке товара в котором является байером. 
          * @summary # Изменить поставщика.
          * @param {string} guid GUID в сущности в БД
+<<<<<<< HEAD
          * @param {InlineObject140} [body] 
+=======
+         * @param {InlineObject138} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1SuppliersGuidPatch: async (guid: string, body?: InlineObject140, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1SuppliersGuidPatch: async (guid: string, body?: InlineObject138, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1SuppliersGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/suppliers/{guid}`
@@ -256,12 +276,20 @@ export const SupplierApiAxiosParamCreator = function (configuration?: Configurat
          * ## Изменить метод оплаты
          * @summary # Изменить метод оплаты
          * @param {string} guid GUID в сущности в БД
+<<<<<<< HEAD
          * @param {InlineObject142} [body] 
+=======
+         * @param {InlineObject140} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1SuppliersPaymentMethodsGuidPatch: async (guid: string, body?: InlineObject142, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1SuppliersPaymentMethodsGuidPatch: async (guid: string, body?: InlineObject140, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1SuppliersPaymentMethodsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/suppliers/payment_methods/{guid}`
@@ -301,12 +329,20 @@ export const SupplierApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * ## Добавить метод оплаты
          * @summary # Добавить метод оплаты
+<<<<<<< HEAD
          * @param {InlineObject141} [body] 
+=======
+         * @param {InlineObject139} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1SuppliersPaymentMethodsPost: async (body?: InlineObject141, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1SuppliersPaymentMethodsPost: async (body?: InlineObject139, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             const localVarPath = `/api/v1/suppliers/payment_methods`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -343,12 +379,20 @@ export const SupplierApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * ## Добавить нового поставщика.   
          * @summary # Добавить нового поставщика.
+<<<<<<< HEAD
          * @param {InlineObject139} [body] 
+=======
+         * @param {InlineObject137} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1SuppliersPost: async (body?: InlineObject139, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1SuppliersPost: async (body?: InlineObject137, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             const localVarPath = `/api/v1/suppliers/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -431,12 +475,20 @@ export const SupplierApiFp = function(configuration?: Configuration) {
          * ## Изменить  поставщика.   Байер может редактировать поставщика только если поставщик используется в карточке товара в котором является байером. 
          * @summary # Изменить поставщика.
          * @param {string} guid GUID в сущности в БД
+<<<<<<< HEAD
          * @param {InlineObject140} [body] 
+=======
+         * @param {InlineObject138} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1SuppliersGuidPatch(guid: string, body?: InlineObject140, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1SuppliersGuidPatch(guid: string, body?: InlineObject138, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SuppliersGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -455,36 +507,60 @@ export const SupplierApiFp = function(configuration?: Configuration) {
          * ## Изменить метод оплаты
          * @summary # Изменить метод оплаты
          * @param {string} guid GUID в сущности в БД
+<<<<<<< HEAD
          * @param {InlineObject142} [body] 
+=======
+         * @param {InlineObject140} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1SuppliersPaymentMethodsGuidPatch(guid: string, body?: InlineObject142, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1SuppliersPaymentMethodsGuidPatch(guid: string, body?: InlineObject140, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SuppliersPaymentMethodsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Добавить метод оплаты
          * @summary # Добавить метод оплаты
+<<<<<<< HEAD
          * @param {InlineObject141} [body] 
+=======
+         * @param {InlineObject139} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1SuppliersPaymentMethodsPost(body?: InlineObject141, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+=======
+        async apiV1SuppliersPaymentMethodsPost(body?: InlineObject139, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SuppliersPaymentMethodsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Добавить нового поставщика.   
          * @summary # Добавить нового поставщика.
+<<<<<<< HEAD
          * @param {InlineObject139} [body] 
+=======
+         * @param {InlineObject137} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1SuppliersPost(body?: InlineObject139, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20114>> {
+=======
+        async apiV1SuppliersPost(body?: InlineObject137, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20114>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SuppliersPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -534,12 +610,20 @@ export const SupplierApiFactory = function (configuration?: Configuration, baseP
          * ## Изменить  поставщика.   Байер может редактировать поставщика только если поставщик используется в карточке товара в котором является байером. 
          * @summary # Изменить поставщика.
          * @param {string} guid GUID в сущности в БД
+<<<<<<< HEAD
          * @param {InlineObject140} [body] 
+=======
+         * @param {InlineObject138} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1SuppliersGuidPatch(guid: string, body?: InlineObject140, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1SuppliersGuidPatch(guid: string, body?: InlineObject138, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1SuppliersGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -556,34 +640,58 @@ export const SupplierApiFactory = function (configuration?: Configuration, baseP
          * ## Изменить метод оплаты
          * @summary # Изменить метод оплаты
          * @param {string} guid GUID в сущности в БД
+<<<<<<< HEAD
          * @param {InlineObject142} [body] 
+=======
+         * @param {InlineObject140} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1SuppliersPaymentMethodsGuidPatch(guid: string, body?: InlineObject142, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1SuppliersPaymentMethodsGuidPatch(guid: string, body?: InlineObject140, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1SuppliersPaymentMethodsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Добавить метод оплаты
          * @summary # Добавить метод оплаты
+<<<<<<< HEAD
          * @param {InlineObject141} [body] 
+=======
+         * @param {InlineObject139} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1SuppliersPaymentMethodsPost(body?: InlineObject141, acceptEncoding?: string, options?: any): AxiosPromise<{ [key: string]: object; }> {
+=======
+        apiV1SuppliersPaymentMethodsPost(body?: InlineObject139, acceptEncoding?: string, options?: any): AxiosPromise<{ [key: string]: object; }> {
+>>>>>>> dev
             return localVarFp.apiV1SuppliersPaymentMethodsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Добавить нового поставщика.   
          * @summary # Добавить нового поставщика.
+<<<<<<< HEAD
          * @param {InlineObject139} [body] 
+=======
+         * @param {InlineObject137} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1SuppliersPost(body?: InlineObject139, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20114> {
+=======
+        apiV1SuppliersPost(body?: InlineObject137, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20114> {
+>>>>>>> dev
             return localVarFp.apiV1SuppliersPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -660,10 +768,17 @@ export interface SupplierApiApiV1SuppliersGuidPatchRequest {
 
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject140}
      * @memberof SupplierApiApiV1SuppliersGuidPatch
      */
     readonly body?: InlineObject140
+=======
+     * @type {InlineObject138}
+     * @memberof SupplierApiApiV1SuppliersGuidPatch
+     */
+    readonly body?: InlineObject138
+>>>>>>> dev
 
     /**
      * 
@@ -702,10 +817,17 @@ export interface SupplierApiApiV1SuppliersPaymentMethodsGuidPatchRequest {
 
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject142}
      * @memberof SupplierApiApiV1SuppliersPaymentMethodsGuidPatch
      */
     readonly body?: InlineObject142
+=======
+     * @type {InlineObject140}
+     * @memberof SupplierApiApiV1SuppliersPaymentMethodsGuidPatch
+     */
+    readonly body?: InlineObject140
+>>>>>>> dev
 
     /**
      * 
@@ -723,10 +845,17 @@ export interface SupplierApiApiV1SuppliersPaymentMethodsGuidPatchRequest {
 export interface SupplierApiApiV1SuppliersPaymentMethodsPostRequest {
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject141}
      * @memberof SupplierApiApiV1SuppliersPaymentMethodsPost
      */
     readonly body?: InlineObject141
+=======
+     * @type {InlineObject139}
+     * @memberof SupplierApiApiV1SuppliersPaymentMethodsPost
+     */
+    readonly body?: InlineObject139
+>>>>>>> dev
 
     /**
      * 
@@ -744,10 +873,17 @@ export interface SupplierApiApiV1SuppliersPaymentMethodsPostRequest {
 export interface SupplierApiApiV1SuppliersPostRequest {
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject139}
      * @memberof SupplierApiApiV1SuppliersPost
      */
     readonly body?: InlineObject139
+=======
+     * @type {InlineObject137}
+     * @memberof SupplierApiApiV1SuppliersPost
+     */
+    readonly body?: InlineObject137
+>>>>>>> dev
 
     /**
      * 

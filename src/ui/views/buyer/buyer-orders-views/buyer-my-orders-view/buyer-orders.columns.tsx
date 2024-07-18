@@ -34,7 +34,7 @@ import { t } from '@utils/translations'
 import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { productColumnMenuItems, productColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 import {
   productionTimeColumnMenuItems,
   productionTimeColumnMenuValue,
@@ -103,11 +103,12 @@ export const buyerOrdersColumns = ({
       },
       valueGetter: params => `ASIN: ${params.row.product.asin ?? ''}, SKU: ${params.row.product.skuByClient ?? ''}`,
 
-      fields: productColumnMenuItems,
-      columnMenuConfig: productColumnMenuValue,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {
@@ -210,12 +211,11 @@ export const buyerOrdersColumns = ({
       renderCell: params => (
         <DownloadAndCopyBtnsCell
           showViewTooltip={false}
-          value={params.value}
+          value={params.row.product.barCode}
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       ),
       minWidth: 210,
-      align: 'center',
       sortable: false,
       filterable: false,
       disableCustomSort: true,

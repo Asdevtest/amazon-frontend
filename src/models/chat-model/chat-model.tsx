@@ -3,6 +3,7 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
 import { toast } from 'react-toastify'
 
+import { chatsType } from '@constants/keys/chats'
 import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
 import { noticeSound } from '@constants/sounds.js'
@@ -31,7 +32,7 @@ import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-ch
 import { PaginationDirection } from '@typings/enums/pagination-direction'
 import { IShutdownNotice } from '@typings/models/chats/shutdown-notice'
 
-import { ChatContract, SendMessageRequestParamsContract } from './contracts'
+import { ChatContract, ChatUserContract, SendMessageRequestParamsContract } from './contracts'
 import { ChatMessageContract, TChatMessageDataUniversal } from './contracts/chat-message.contract'
 
 const websocketChatServiceIsNotInitializedError = new Error('websocketChatService is not  onotialized')
@@ -649,6 +650,8 @@ class ChatModelStatic {
   private onReadMessage(response: OnReadMessageResponse) {
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === response.chatId)
 
+    console.log('onReadMessage', response)
+
     if (findChatIndexById !== -1) {
       runInAction(() => {
         this.chats[findChatIndexById] = {
@@ -677,13 +680,21 @@ class ChatModelStatic {
           lastMessage: response.messagesId.includes(this.simpleChats[findSimpleChatIndexById]?.lastMessage?._id)
             ? { ...this.simpleChats?.[findSimpleChatIndexById]?.lastMessage, isRead: true }
             : this.simpleChats?.[findSimpleChatIndexById]?.lastMessage,
+
+          users: this.simpleChats[findSimpleChatIndexById].users.map(el => {
+            if (el._id === response.user._id) {
+              el.lastSeen = response.user?.lastSeen
+            }
+
+            return el
+          }),
         }
       })
     }
   }
 
   private removeTypingUser(chatId: string, userId: string) {
-    const typingUserToRemove = this.typingUsers.findIndex(el => el.chatId === chatId && el.userId === userId)
+    const typingUserToRemove = this.typingUsers.findIndex(el => el.chatId === chatId && el.user?._id === userId)
 
     runInAction(() => {
       this.typingUsers.splice(typingUserToRemove, 1)
@@ -696,8 +707,33 @@ class ChatModelStatic {
     })
 
     setTimeout(() => {
-      this.removeTypingUser(response.chatId, response.userId)
+      this.removeTypingUser(response.chatId, response.user._id)
     }, 10000)
+
+    const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, response.chatId)
+
+    if (
+      !chatTypeAndIndex ||
+      chatTypeAndIndex.chatType === 'chats' ||
+      this[chatTypeAndIndex.chatType][chatTypeAndIndex.index].type !== chatsType.DEFAULT
+    ) {
+      return
+    }
+
+    const { chatType, index } = chatTypeAndIndex
+
+    runInAction(() => {
+      this[chatType][index] = {
+        ...this[chatType][index],
+        users: this[chatType][index].users.map(el => {
+          if (el._id === response.user._id) {
+            el.lastSeen = response.user?.lastSeen
+          }
+
+          return el
+        }),
+      }
+    })
   }
 
   private onNewChat(newChat: ChatContract) {
@@ -744,6 +780,35 @@ class ChatModelStatic {
   private async onGetServerSettings(data: IShutdownNotice) {
     this.toggleServerSettings = data
     toast.error(data.text, { position: 'top-right' })
+  }
+
+  public async getOnlineUsers() {
+    if (!this.websocketChatService) throw websocketChatServiceIsNotInitializedError
+    try {
+      const usersOnline = (await this.websocketChatService.getOnlineUsers()) as ChatUserContract[]
+
+      console.log('usersOnline :>> ', usersOnline)
+
+      runInAction(() => {
+        this.simpleChats = this.simpleChats.map(chat => {
+          if (chat.type === chatsType.DEFAULT) {
+            chat.users = chat.users.map(user => {
+              const findUserOnline = usersOnline.find(userOnline => userOnline?._id === user?._id)
+
+              if (findUserOnline) {
+                user.lastSeen = findUserOnline.lastSeen
+              }
+
+              return user
+            })
+          }
+
+          return chat
+        })
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 

@@ -264,7 +264,7 @@ export const OrderModalBodyRow = ({
             />
 
             {orderState.transparency && !orderState.transparencyFile && !orderState.tmpTransparencyFile.length && (
-              <p className={styles.warningText}>{t(TranslationKey['No Transparency codes'])}</p>
+              <p className={styles.warningText}>{t(TranslationKey['No Transparency Codes'])}</p>
             )}
           </div>
         </TableCell>

@@ -25,8 +25,8 @@ import { UiTheme } from '@typings/enums/ui-theme'
 
 import {
   ProductColumnMenuType,
+  getProductColumnMenuItems,
   getProductColumnMenuValue,
-  productColumnMenuItems,
 } from '@config/data-grid-column-menu/product-column'
 
 export const clientClosedIdeasColumns = rowHandlers => {
@@ -48,11 +48,12 @@ export const clientClosedIdeasColumns = rowHandlers => {
           />
         )
       },
-      fields: productColumnMenuItems,
-      columnMenuConfig: getProductColumnMenuValue(ProductColumnMenuType.PARENT),
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {

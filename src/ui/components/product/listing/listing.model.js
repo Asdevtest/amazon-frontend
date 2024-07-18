@@ -1,4 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxesModel } from '@models/boxes-model'
 import { OtherModel } from '@models/other-model'
@@ -8,9 +11,8 @@ import { UserModel } from '@models/user-model'
 
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-
-import { loadingStatus } from '@typings/enums/loading-status'
 
 const fieldsOfProductAllowedToUpdate = [
   'listingName',
@@ -23,20 +25,16 @@ const fieldsOfProductAllowedToUpdate = [
 
 export class ListingModel {
   history = undefined
-  requestStatus = undefined
 
-  listingProduct = {}
+  listingProduct = undefined
   payments = []
   boxes = []
   curImage = undefined
   imagesFromBoxes = []
 
-  bigImagesOptions = { images: [], imgIndex: 0 }
-
   progressValue = 0
 
   showImageModal = false
-  showSuccessModal = false
   showProgress = false
   showCompetitorModal = false
 
@@ -64,7 +62,7 @@ export class ListingModel {
 
       this.loadData()
 
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
     }
@@ -99,18 +97,9 @@ export class ListingModel {
   }
 
   async loadData() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      await this.getProductById()
-
-      await Promise.all([this.getBoxes(), this.getPayments()])
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-    }
+    await this.getProductById()
+    await this.getBoxes()
+    this.getPayments()
   }
 
   async getProductById() {
@@ -172,8 +161,6 @@ export class ListingModel {
     const res = []
     boxes.forEach(cur => cur.images !== null && res.push(...cur.images))
     this.imagesFromBoxes = res
-
-    // this.imagesFromBoxes = boxes.reduce((sum, cur) =>cur.images !== null && sum.push(...cur.images), []) не пойму почему это не работает(
   }
 
   async getBoxes() {
@@ -188,22 +175,5 @@ export class ListingModel {
       this.payments = []
       console.error(error)
     }
-  }
-
-  onClickImg(opt) {
-    this.onTriggerOpenModal('showImageModal')
-    this.setBigImagesOptions(opt)
-  }
-
-  setBigImagesOptions(opt) {
-    this.bigImagesOptions = { images: opt.images, imgIndex: opt.imgIndex }
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
   }
 }

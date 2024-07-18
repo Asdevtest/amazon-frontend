@@ -24,6 +24,7 @@ import { ApiV1SuppliersPriceVariations } from './api-v1-suppliers-price-variatio
  */
 export interface InlineObject140 {
     /**
+<<<<<<< HEAD
      * Название поставщика.
      * @type {string}
      * @memberof InlineObject140
@@ -167,6 +168,19 @@ export interface InlineObject140 {
      * @memberof InlineObject140
      */
     priceVariations?: Array<ApiV1SuppliersPriceVariations>;
+=======
+     * 
+     * @type {string}
+     * @memberof InlineObject140
+     */
+    iconImage?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject140
+     */
+    title?: string;
+>>>>>>> dev
 }
 
 

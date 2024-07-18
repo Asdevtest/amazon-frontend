@@ -39,6 +39,7 @@ export interface InlineResponse200110 {
      */
     endpoint?: string;
     /**
+<<<<<<< HEAD
      * 
      * @type {Array<string>}
      * @memberof InlineResponse200110
@@ -52,6 +53,21 @@ export interface InlineResponse200110 {
     isActive?: boolean;
     /**
      * ID юзера.
+=======
+     * Состояние  preset-settings.
+     * @type {boolean}
+     * @memberof InlineResponse200110
+     */
+    activeSetting?: boolean;
+    /**
+     * 
+     * @type {object}
+     * @memberof InlineResponse200110
+     */
+    settings?: object;
+    /**
+     * Title of preset
+>>>>>>> dev
      * @type {string}
      * @memberof InlineResponse200110
      */

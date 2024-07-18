@@ -37,7 +37,6 @@ export class ClientExchangeViewModel {
 
   showPrivateLabelModal = false
   showConfirmModal = false
-  showSuccessModal = false
   showSelectShopsModal = false
 
   selectedProduct = {}
@@ -274,7 +273,8 @@ export class ClientExchangeViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
 
       this.onTriggerOpenModal('showOrderModal')
-      this.onTriggerOpenModal('showSuccessModal')
+
+      toast.success(t(TranslationKey['Order successfully created!']))
 
       this.onTriggerOpenModal('showConfirmModal')
 

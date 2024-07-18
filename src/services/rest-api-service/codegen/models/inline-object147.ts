@@ -21,6 +21,7 @@
  */
 export interface InlineObject147 {
     /**
+<<<<<<< HEAD
      * Эндпоинт для которого надо установить пресеты
      * @type {string}
      * @memberof InlineObject147
@@ -44,6 +45,13 @@ export interface InlineObject147 {
      * @memberof InlineObject147
      */
     isActive?: boolean;
+=======
+     * Массив доступных специализаций фрилансера.
+     * @type {Array<number>}
+     * @memberof InlineObject147
+     */
+    allowedSpec: Array<number>;
+>>>>>>> dev
 }
 
 

@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ChangeChipCell,
   ChangeInputCell,
+  CommentCell,
   DeadlineCell,
   FormedCell,
   ManyUserLinkCell,
@@ -25,7 +26,7 @@ import { formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { getProductColumnMenuValue, productColumnMenuItems } from '@config/data-grid-column-menu/product-column'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 export const clientBoxesViewColumns = (
   handlers,
@@ -145,7 +146,7 @@ export const clientBoxesViewColumns = (
           })
           .join('\n'),
 
-      fields: productColumnMenuItems,
+      fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       width: 320,
@@ -236,6 +237,22 @@ export const clientBoxesViewColumns = (
     },
 
     {
+      field: 'clientComment',
+      headerName: t(TranslationKey.Comment),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+
+      renderCell: params => (
+        <CommentCell
+          text={params.value}
+          onClickSubmit={comment => handlers.onClickSaveClientComment(params.row._id, comment)}
+        />
+      ),
+
+      width: 280,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
       field: 'subUsers',
       headerName: t(TranslationKey['Access to product']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
@@ -296,7 +313,7 @@ export const clientBoxesViewColumns = (
         `Shipping Label:${params.row.shippingLabel ? trimBarcode(params.row.shippingLabel) : '-'}\n FBA Shipment:${
           params.row.fbaShipment || ''
         }`,
-      minWidth: 150,
+      width: 150,
       headerAlign: 'center',
       disableCustomSort: true,
     },

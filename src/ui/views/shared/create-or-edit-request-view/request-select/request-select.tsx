@@ -23,7 +23,7 @@ export const RequestSelect: FC<RequestSelectProps> = observer(({ setData }) => {
       const containerHeight = element?.clientHeight
       const contentHeight = element?.scrollHeight
 
-      if (contentHeight - (scrollTop + containerHeight) < 90) {
+      if (contentHeight - (scrollTop + containerHeight) < 128) {
         viewModel.loadMoreDataHadler()
       }
     },
@@ -47,7 +47,7 @@ export const RequestSelect: FC<RequestSelectProps> = observer(({ setData }) => {
     <CustomSelect
       showSearch
       size="large"
-      label="Use data from an exist"
+      label="Request templates"
       filterOption={false}
       defaultActiveFirstOption={false}
       placeholder="Select request ID"

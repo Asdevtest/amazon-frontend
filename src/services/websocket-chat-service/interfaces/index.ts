@@ -63,14 +63,22 @@ export interface TypingMessageRequestParams {
   chatId: string
 }
 
+export interface MessageUserInfo {
+  _id: string
+  name: string
+  lastSeen: string
+  rating: number
+}
+
 export interface OnReadMessageResponse {
   chatId: string
   messagesId: string[]
+  user: MessageUserInfo
 }
 
 export interface OnTypingMessageResponse {
   chatId: string
-  userId: string
+  user: MessageUserInfo
 }
 
 export interface ChatMessage<T extends ChatMessageDataUniversal = ChatMessageDataUniversal> {

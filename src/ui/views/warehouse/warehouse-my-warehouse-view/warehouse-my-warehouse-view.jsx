@@ -16,7 +16,6 @@ import { MoveBoxToBatchForm } from '@components/forms/move-box-to-batch-form'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
 import { StorekeeperRedistributeBox } from '@components/modals/storekeeper'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -219,17 +218,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           storekeeperWarehouseSubmit={viewModel.onSubmitEditBox}
         />
       </Modal>
-
-      {viewModel.showSuccessInfoModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
-          title={viewModel.modalEditSuccessMessage}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
-        />
-      ) : null}
 
       <Modal
         missClickModalOn

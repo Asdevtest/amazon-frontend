@@ -50,7 +50,8 @@ export const exchangeCanceledColumns = () => [
         />
       )
     },
-    width: 300,
+    width: 260,
+    minWidth: 100,
   },
   {
     field: 'strategyStatus',

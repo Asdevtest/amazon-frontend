@@ -89,7 +89,6 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
 
       return (
         <BatchTrackingCell
-          disableMultilineForTrack
           disabled={isDisabled}
           disabledArrivalDate={isDisabled}
           id={params.row?.originalData?._id}

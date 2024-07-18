@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -27,7 +28,6 @@ export class OrdersModel {
 
   productId = undefined
 
-  successModalText = ''
   nameSearchValue = ''
   orders = []
   drawerOpen = false
@@ -35,7 +35,6 @@ export class OrdersModel {
   showOrderModal = false
   showSetBarcodeModal = false
   showConfirmModal = false
-  showSuccessModal = false
 
   ordersDataStateToSubmit = undefined
   selectedProduct = undefined
@@ -319,13 +318,11 @@ export class OrdersModel {
         }
       }
 
-      runInAction(() => {
-        this.successModalText = this.isPendingOrdering
+      toast.success(
+        this.isPendingOrdering
           ? t(TranslationKey['The order has been updated'])
-          : t(TranslationKey['The order has been created'])
-      })
-
-      this.onTriggerOpenModal('showSuccessModal')
+          : t(TranslationKey['The order has been created']),
+      )
 
       this.onTriggerOpenModal('showConfirmModal')
 
