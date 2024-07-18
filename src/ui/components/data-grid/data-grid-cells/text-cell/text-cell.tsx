@@ -1,7 +1,7 @@
 import { Popconfirm } from 'antd'
 import { TextAreaProps } from 'antd/es/input'
-import Text from 'antd/es/typography/Text'
-import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
+import Paragraph from 'antd/es/typography/Paragraph'
+import { ChangeEvent, FC, MouseEvent, memo, useEffect, useState } from 'react'
 import { MdOutlineEdit } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,21 +12,22 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './text-cell.style'
 
-interface CommentCellProps extends TextAreaProps {
+interface TextCellProps extends TextAreaProps {
   text: string
   onClickSubmit: (id: string, comment?: string) => void
   editMode?: boolean
 }
 
-export const TextCell: FC<CommentCellProps> = memo(props => {
-  const { classes: styles } = useStyles()
+export const TextCell: FC<TextCellProps> = memo(props => {
   const {
     text,
-    rows = 3, // only for textarea, text - autocomplete 1-2-3 lines
+    rows = 3, // only for textarea, text - autocomplete 1-2-3 lines{}
     editMode,
     onClickSubmit,
     ...restProps
   } = props
+
+  const { classes: styles } = useStyles()
   const [value, setValue] = useState('')
 
   useEffect(() => {
@@ -43,6 +44,22 @@ export const TextCell: FC<CommentCellProps> = memo(props => {
       setValue(text)
     }
   }
+  const handleExpand = (event: MouseEvent) => {
+    event.stopPropagation()
+  }
+
+  const paragraph = (
+    <div className={styles.container}>
+      <Paragraph
+        copyable={!!value?.length}
+        ellipsis={{ expandable: true, tooltip: text, rows: 3, onExpand: handleExpand }}
+        style={{ margin: 0 }}
+      >
+        {text}
+      </Paragraph>
+      {editMode ? <MdOutlineEdit className={styles.icon} /> : null}
+    </div>
+  )
 
   return (
     <div className={styles.wrapper}>
@@ -61,15 +78,10 @@ export const TextCell: FC<CommentCellProps> = memo(props => {
           onCancel={() => setValue(text)}
           onOpenChange={handleOpenChange}
         >
-          <div className={styles.container}>
-            <Text className={styles.text}>{text}</Text>
-            <MdOutlineEdit className={styles.icon} />
-          </div>
+          {paragraph}
         </Popconfirm>
       ) : (
-        <div className={styles.container}>
-          <Text className={styles.text}>{text}</Text>
-        </div>
+        paragraph
       )}
     </div>
   )

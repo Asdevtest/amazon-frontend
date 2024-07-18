@@ -22,16 +22,6 @@ export const useStyles = makeStyles()(() => ({
     alignContent: 'center',
   },
 
-  text: {
-    width: '100%',
-    display: '-webkit-box',
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
-    overflow: 'hidden',
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
-  },
-
   icon: {
     position: 'absolute',
     top: '5px',
