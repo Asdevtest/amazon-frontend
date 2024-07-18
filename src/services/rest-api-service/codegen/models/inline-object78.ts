@@ -21,17 +21,11 @@
  */
 export interface InlineObject78 {
     /**
-     * Комментарий клиента
-     * @type {string}
+     * GUIDы поставщиков, которые нужно добавить в БД.
+     * @type {Array<string>}
      * @memberof InlineObject78
      */
-    clientComment?: string;
-    /**
-     * Комментарий баера
-     * @type {string}
-     * @memberof InlineObject78
-     */
-    buyerComment?: string;
+    suppliersIds?: Array<string>;
 }
 
 

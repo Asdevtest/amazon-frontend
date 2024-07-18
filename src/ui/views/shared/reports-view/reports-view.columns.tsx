@@ -25,6 +25,8 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 import { ILaunch } from '@typings/shared/launch'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 interface ReportsViewColumnsProps {
   onToggleReportModalEditMode: (reportId: string) => void
   onClickRemoveReport: (reportId: string) => void
@@ -48,9 +50,11 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           />
         ),
         valueGetter: ({ row }: GridRowModel) => row.product.asin,
-        width: 280,
-        columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-        table: DataGridFilterTables.PRODUCTS,
+
+        fields: getProductColumnMenuItems(),
+        columnMenuConfig: getProductColumnMenuValue(),
+        columnKey: columnnsKeys.shared.MULTIPLE,
+        width: 250,
       }
     : null
   const shopColumn = subView

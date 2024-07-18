@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse200114Rows } from './inline-response200114-rows';
 
 /**
  * 
@@ -21,11 +22,17 @@
  */
 export interface InlineResponse200114 {
     /**
-     * id созданного профайла
-     * @type {string}
+     * Общее кол-во записей
+     * @type {number}
      * @memberof InlineResponse200114
      */
-    profileId?: string;
+    count?: number;
+    /**
+     * Массив товаров.
+     * @type {Array<InlineResponse200114Rows>}
+     * @memberof InlineResponse200114
+     */
+    rows?: Array<InlineResponse200114Rows>;
 }
 
 

@@ -13,20 +13,98 @@
  */
 
 
-import { InlineObject27 } from './inline-object27';
+import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
 
 /**
- * 
+ * Схема продажи магазина
  * @export
  * @interface InlineObject122
  */
 export interface InlineObject122 {
     /**
-     * Массив дополнительных коробок которые случились при обработки.
-     * @type {Array<InlineObject27>}
+     * Имя магазина для продажи
+     * @type {string}
      * @memberof InlineObject122
      */
-    additionalBoxes?: Array<InlineObject27>;
+    title?: string;
+    /**
+     * Стоимость магазина
+     * @type {number}
+     * @memberof InlineObject122
+     */
+    price?: number;
+    /**
+     * Дата создания бизнеса
+     * @type {string}
+     * @memberof InlineObject122
+     */
+    businessStartDate?: string;
+    /**
+     * Детали магазина
+     * @type {string}
+     * @memberof InlineObject122
+     */
+    shopDetails?: string;
+    /**
+     * Активы магазина
+     * @type {Array<string>}
+     * @memberof InlineObject122
+     */
+    shopAssets?: Array<string>;
+    /**
+     * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
+     * @type {Array<string>}
+     * @memberof InlineObject122
+     */
+    files?: Array<string>;
+    /**
+     * Ссылка на сайт магазина
+     * @type {string}
+     * @memberof InlineObject122
+     */
+    shopLink?: string;
+    /**
+     * Статистика магазина по месяцам
+     * @type {Array<ApiV1ShopSellStatistics1>}
+     * @memberof InlineObject122
+     */
+    statistics?: Array<ApiV1ShopSellStatistics1>;
+    /**
+     * Возможности магазина
+     * @type {Array<string>}
+     * @memberof InlineObject122
+     */
+    opportunities?: Array<string>;
+    /**
+     * Риски магазина
+     * @type {Array<string>}
+     * @memberof InlineObject122
+     */
+    risks?: Array<string>;
+    /**
+     * Требуемые навыки
+     * @type {Array<string>}
+     * @memberof InlineObject122
+     */
+    requiredSkills?: Array<string>;
+    /**
+     * В продажу также включено
+     * @type {Array<string>}
+     * @memberof InlineObject122
+     */
+    sellIncludes?: Array<string>;
+    /**
+     * Причина продажи
+     * @type {Array<string>}
+     * @memberof InlineObject122
+     */
+    reasonForSale?: Array<string>;
+    /**
+     * Дополнительная информация
+     * @type {Array<string>}
+     * @memberof InlineObject122
+     */
+    additionalInfo?: Array<string>;
 }
 
 

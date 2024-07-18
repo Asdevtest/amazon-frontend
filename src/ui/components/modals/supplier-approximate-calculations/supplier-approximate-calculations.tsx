@@ -42,6 +42,7 @@ interface SupplierApproximateCalculationsModalProps {
   isTariffsSelect?: boolean
   isHideCalculation?: boolean
   isGetAllStorekeepers?: boolean
+  isSkipWeightCheck?: boolean
 }
 
 export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalculationsModalProps> = observer(props => {
@@ -58,6 +59,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
     isHideCalculation,
     isGetAllStorekeepers,
     tariffModalType,
+    isSkipWeightCheck,
   } = props
 
   const { classes: styles } = useStyles()
@@ -73,6 +75,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
         isHideCalculation,
         isGetAllStorekeepers,
         ideaId,
+        isSkipWeightCheck,
       }),
   )
 

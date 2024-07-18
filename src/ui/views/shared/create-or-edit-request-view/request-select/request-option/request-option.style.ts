@@ -34,7 +34,7 @@ export const useStyles = makeStyles()(theme => ({
 
   background: {
     padding: '1px 5px',
-    background: '#D9E0E8',
+    background: theme.palette.background.general,
     borderRadius: 8,
   },
 

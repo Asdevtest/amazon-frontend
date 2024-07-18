@@ -21,11 +21,11 @@
  */
 export interface InlineObject95 {
     /**
-     * 
+     * GUIDы поставщиков, которые нужно добавить в БД.
      * @type {Array<string>}
      * @memberof InlineObject95
      */
-    tags: Array<string>;
+    suppliersIds?: Array<string>;
 }
 
 

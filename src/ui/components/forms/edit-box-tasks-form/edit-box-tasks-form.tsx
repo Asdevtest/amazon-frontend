@@ -71,7 +71,7 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
     }
 
     if (isInStorekeeperWarehouse) {
-      storekeeperWarehouseSubmit ? storekeeperWarehouseSubmit(box._id, updateEditingBox) : undefined
+      storekeeperWarehouseSubmit?.(box._id, updateEditingBox)
     } else {
       const updatedNewBoxes = newBoxes.map((oldBox: IBox) =>
         oldBox._id === updateEditingBox._id ? updateEditingBox : oldBox,

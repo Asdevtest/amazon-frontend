@@ -13,6 +13,8 @@
  */
 
 
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
+import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
 
 /**
  * 
@@ -21,11 +23,227 @@
  */
 export interface InlineObject154 {
     /**
-     * id профайла
+     * Категория
      * @type {string}
      * @memberof InlineObject154
      */
-    profileId: string;
+    category?: string;
+    /**
+     * Ссылка на этот продукт на амазоне.
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    lamazon?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    bsr?: number;
+    /**
+     * Признак fba
+     * @type {boolean}
+     * @memberof InlineObject154
+     */
+    fba?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    amazon?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    height?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    width?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    length?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    weight?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    fbafee?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    fbaamount?: number;
+    /**
+     * См. описание статусов например в readMe.md
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    status?: number;
+    /**
+     * Комментарии к товару.
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    icomment?: string;
+    /**
+     * Массив изображений.
+     * @type {Array<string>}
+     * @memberof InlineObject154
+     */
+    images?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    amazonDescription?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    amazonDetail?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    amazonTitle?: string;
+    /**
+     * Материл продукта
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    material?: string;
+    /**
+     * Применение продукта
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    productUsage?: string;
+    /**
+     * chinese title?
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    chinaTitle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    barCode?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    minpurchase?: number;
+    /**
+     * Прибыль
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    margin?: number;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineObject154
+     */
+    strategyStatus?: number;
+    /**
+     * Ниша
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    niche?: string;
+    /**
+     * Асины
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    asins?: string;
+    /**
+     * Общий доход
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    totalRevenue?: string;
+    /**
+     * Коэффициент прибыли
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    coefficient?: string;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    avgReviews?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsGuidRedFlags>}
+     * @memberof InlineObject154
+     */
+    redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @memberof InlineObject154
+     */
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
+    /**
+     * Комментарий к статусу проверки.
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    checkednotes?: string;
 }
 
 

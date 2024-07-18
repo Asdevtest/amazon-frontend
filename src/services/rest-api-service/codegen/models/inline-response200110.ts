@@ -33,17 +33,17 @@ export interface InlineResponse200110 {
      */
     endpoint?: string;
     /**
-     * Состояние  preset-options.
+     * Состояние  preset-settings.
      * @type {boolean}
      * @memberof InlineResponse200110
      */
-    activeOption?: boolean;
+    activeSetting?: boolean;
     /**
      * 
      * @type {object}
      * @memberof InlineResponse200110
      */
-    options?: object;
+    settings?: object;
     /**
      * Title of preset
      * @type {string}

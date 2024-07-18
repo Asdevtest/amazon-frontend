@@ -12,7 +12,7 @@ describe('Test renderTooltipTitle(categoryTitle, userRole)', () => {
       expect: t(TranslationKey['Statistics on goods/orders/finances']),
     },
     {
-      categoryTitle: t(TranslationKey['Free Orders']),
+      categoryTitle: t(TranslationKey['Free orders']),
       expect: t(TranslationKey['All orders available for pickup']),
     },
     {

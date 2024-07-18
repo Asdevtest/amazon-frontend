@@ -143,7 +143,7 @@ export const AddOrEditDestinationForm = observer(
         </div>
 
         <div className={styles.footerWrapper}>
-          {onClickAddBtn ? (
+          {onClickAddBtn && !destinationToEdit ? (
             <Button
               styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Add a new rate'])}

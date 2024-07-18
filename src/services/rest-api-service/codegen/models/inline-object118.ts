@@ -13,98 +13,43 @@
  */
 
 
-import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
 
 /**
- * Схема продажи магазина
+ * 
  * @export
  * @interface InlineObject118
  */
 export interface InlineObject118 {
     /**
-     * Имя магазина для продажи
+     * Guid заявки
      * @type {string}
      * @memberof InlineObject118
      */
-    title?: string;
+    requestId?: string;
     /**
-     * Стоимость магазина
-     * @type {number}
-     * @memberof InlineObject118
-     */
-    price?: number;
-    /**
-     * Дата создания бизнеса
+     * Guid предложения
      * @type {string}
      * @memberof InlineObject118
      */
-    businessStartDate?: string;
+    proposalId?: string;
     /**
-     * Детали магазина
+     * комментарий клиента
      * @type {string}
      * @memberof InlineObject118
      */
-    shopDetails?: string;
+    commentByClient?: string;
     /**
-     * Активы магазина
-     * @type {Array<string>}
-     * @memberof InlineObject118
-     */
-    shopAssets?: Array<string>;
-    /**
-     * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
-     * @type {Array<string>}
-     * @memberof InlineObject118
-     */
-    files?: Array<string>;
-    /**
-     * Ссылка на сайт магазина
+     * комментарий исполнителя
      * @type {string}
      * @memberof InlineObject118
      */
-    shopLink?: string;
+    commentByPerformer?: string;
     /**
-     * Статистика магазина по месяцам
-     * @type {Array<ApiV1ShopSellStatistics1>}
+     * Ссылка на файл
+     * @type {string}
      * @memberof InlineObject118
      */
-    statistics?: Array<ApiV1ShopSellStatistics1>;
-    /**
-     * Возможности магазина
-     * @type {Array<string>}
-     * @memberof InlineObject118
-     */
-    opportunities?: Array<string>;
-    /**
-     * Риски магазина
-     * @type {Array<string>}
-     * @memberof InlineObject118
-     */
-    risks?: Array<string>;
-    /**
-     * Требуемые навыки
-     * @type {Array<string>}
-     * @memberof InlineObject118
-     */
-    requiredSkills?: Array<string>;
-    /**
-     * В продажу также включено
-     * @type {Array<string>}
-     * @memberof InlineObject118
-     */
-    sellIncludes?: Array<string>;
-    /**
-     * Причина продажи
-     * @type {Array<string>}
-     * @memberof InlineObject118
-     */
-    reasonForSale?: Array<string>;
-    /**
-     * Дополнительная информация
-     * @type {Array<string>}
-     * @memberof InlineObject118
-     */
-    additionalInfo?: Array<string>;
+    fileLink: string;
 }
 
 

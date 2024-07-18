@@ -13,116 +13,182 @@
  */
 
 
-import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-by';
-import { InlineResponse20065EntityProduct } from './inline-response20065-entity-product';
+import { InlineResponse20045InventoryShop } from './inline-response20045-inventory-shop';
 
 /**
- * 
+ * Схема репорта за 30 дней с Seller-board
  * @export
  * @interface InlineResponse20065Rows
  */
 export interface InlineResponse20065Rows {
     /**
-     * GUID платежа
+     * ﻿\"ASIN\"
      * @type {string}
      * @memberof InlineResponse20065Rows
      */
-    _id?: string;
+    asin?: string;
     /**
-     * Дата создания.
+     * SKU
      * @type {string}
      * @memberof InlineResponse20065Rows
      */
-    createdAt?: string;
+    sku?: string;
     /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * Title
+     * @type {string}
      * @memberof InlineResponse20065Rows
      */
-    createdBy?: ApiV1AdminsPaymentsCreatedBy;
+    title?: string;
     /**
-     * Роль пользователя на момент инициации платежа.
+     * ROI, %
      * @type {number}
      * @memberof InlineResponse20065Rows
      */
-    role?: number;
+    roi?: number;
     /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20065Rows
-     */
-    subUser?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * GUID товара или услуги.
-     * @type {string}
-     * @memberof InlineResponse20065Rows
-     */
-    entityId?: string;
-    /**
-     * Тип товара или услуги
-     * @type {string}
-     * @memberof InlineResponse20065Rows
-     */
-    entityType?: InlineResponse20065RowsEntityTypeEnum;
-    /**
-     * Тип платежа
-     * @type {string}
-     * @memberof InlineResponse20065Rows
-     */
-    paymentType?: InlineResponse20065RowsPaymentTypeEnum;
-    /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20065Rows
-     */
-    recipient?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+     * FBA/FBM Stock
      * @type {number}
      * @memberof InlineResponse20065Rows
      */
-    sum?: number;
+    fbaFbmStock?: number;
     /**
-     * комментарий
+     * Stock value
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    stockValue?: number;
+    /**
+     * Estimated Sales Velocity
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    estimatedSalesVelocity?: number;
+    /**
+     * Days  of stock  left
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    daysOfStockLeft?: number;
+    /**
+     * Recommended quantity for  reordering
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    recommendedQuantityForReordering?: number;
+    /**
+     * Running  out of stock
+     * @type {string}
+     * @memberof InlineResponse20065Rows
+     */
+    runningOutOfStock?: string;
+    /**
+     * Reserved
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    reserved?: number;
+    /**
+     * Sent  to FBA
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    sentToFba?: number;
+    /**
+     * FBA  Prep. Stock
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    fbaPrepStock?: number;
+    /**
+     * Ordered
+     * @type {string}
+     * @memberof InlineResponse20065Rows
+     */
+    ordered?: string;
+    /**
+     * Time to  reorder
+     * @type {string}
+     * @memberof InlineResponse20065Rows
+     */
+    timeToReorder?: string;
+    /**
+     * Comment
      * @type {string}
      * @memberof InlineResponse20065Rows
      */
     comment?: string;
     /**
-     * 
-     * @type {Array<InlineResponse20065EntityProduct>}
+     * Marketplace
+     * @type {string}
      * @memberof InlineResponse20065Rows
      */
-    entityProduct?: Array<InlineResponse20065EntityProduct>;
+    marketplace?: string;
+    /**
+     * FNSKU
+     * @type {string}
+     * @memberof InlineResponse20065Rows
+     */
+    fnsku?: string;
+    /**
+     * Target stock range after new order days
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    targetStockRangeAfterNewOrderDays?: number;
+    /**
+     * FBA buffer days
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    fbaBufferDays?: number;
+    /**
+     * Manuf. time days
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    manufTimeDays?: number;
+    /**
+     * Use a Prep Center
+     * @type {string}
+     * @memberof InlineResponse20065Rows
+     */
+    useAPrepCenter?: string;
+    /**
+     * Shipping to Prep Center days
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    shippingToPrepCenterDays?: number;
+    /**
+     * Shipping to FBA days
+     * @type {number}
+     * @memberof InlineResponse20065Rows
+     */
+    shippingToFbaDays?: number;
+    /**
+     * Гуид записи
+     * @type {string}
+     * @memberof InlineResponse20065Rows
+     */
+    _id?: string;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20065Rows
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления
+     * @type {string}
+     * @memberof InlineResponse20065Rows
+     */
+    updatedAt?: string;
+    /**
+     * 
+     * @type {InlineResponse20045InventoryShop}
+     * @memberof InlineResponse20065Rows
+     */
+    shop?: InlineResponse20045InventoryShop;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20065RowsEntityTypeEnum {
-    Product = 'PRODUCT',
-    Order = 'ORDER',
-    Box = 'BOX',
-    Batch = 'BATCH',
-    User = 'USER',
-    RequestCustom = 'REQUEST-CUSTOM',
-    RequestSearchProduct = 'REQUEST-SEARCH_PRODUCT',
-    RequestSearchNiche = 'REQUEST-SEARCH_NICHE',
-    RequestProposalCustom = 'REQUEST-PROPOSAL-CUSTOM',
-    RequestProposalSearchProduct = 'REQUEST-PROPOSAL-SEARCH_PRODUCT',
-    RequestProposalSearchNiche = 'REQUEST-PROPOSAL-SEARCH_NICHE',
-    Other = 'OTHER'
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20065RowsPaymentTypeEnum {
-    Replenish = 'REPLENISH',
-    Fine = 'FINE',
-    Zero = 'ZERO'
-}
-
 
 

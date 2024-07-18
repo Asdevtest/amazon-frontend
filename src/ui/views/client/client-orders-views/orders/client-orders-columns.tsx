@@ -35,6 +35,7 @@ import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 import {
   productionTimeColumnMenuItems,
   productionTimeColumnMenuValue,
@@ -116,11 +117,12 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
           />
         )
       },
-      width: 280,
 
-      table: DataGridFilterTables.PRODUCTS,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
+      width: 250,
     },
 
     {
@@ -236,6 +238,15 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
     },
 
     {
+      field: 'logicsTariff',
+      headerName: t(TranslationKey.Tariff),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
+      renderCell: params => <MultilineTextCell threeLines text={getNewTariffTextForBoxOrOrder(params.row)} />,
+      width: 200,
+      columnKey: columnnsKeys.shared.OBJECT,
+    },
+
+    {
       field: 'destination',
       headerName: t(TranslationKey['Where to']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
@@ -243,15 +254,6 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       valueGetter: params => params.row.destination?.name,
       width: 140,
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.OBJECT,
-    },
-
-    {
-      field: 'logicsTariff',
-      headerName: t(TranslationKey.Tariff),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-      renderCell: params => <MultilineTextCell threeLines text={getNewTariffTextForBoxOrOrder(params.row)} />,
-      width: 180,
       columnKey: columnnsKeys.shared.OBJECT,
     },
 

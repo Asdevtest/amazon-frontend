@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1ShopsWithProfilesProfile } from './api-v1-shops-with-profiles-profile';
 
 /**
  * Схема магазина.
@@ -69,12 +68,6 @@ export interface InlineResponse20096 {
      * @memberof InlineResponse20096
      */
     lastModifiedById?: string;
-    /**
-     * 
-     * @type {ApiV1ShopsWithProfilesProfile}
-     * @memberof InlineResponse20096
-     */
-    profile?: ApiV1ShopsWithProfilesProfile;
     /**
      * Дата создания
      * @type {string}

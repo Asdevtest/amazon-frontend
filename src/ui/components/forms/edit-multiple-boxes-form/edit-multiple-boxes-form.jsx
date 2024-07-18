@@ -488,7 +488,7 @@ export const EditMultipleBoxesForm = observer(
               <div>
                 <Field
                   labelClasses={styles.label}
-                  label={t(TranslationKey['Transparency codes'])}
+                  label={t(TranslationKey['Transparency Codes'])}
                   inputComponent={
                     <ChangeChipCell
                       isChipOutTable
@@ -573,7 +573,7 @@ export const EditMultipleBoxesForm = observer(
                     oneLine
                     labelClasses={styles.label}
                     containerClasses={styles.checkboxContainer}
-                    label={t(TranslationKey['Transparency codes glued by the supplier'])}
+                    label={t(TranslationKey['Transparency Codes glued by the supplier'])}
                     inputComponent={
                       <Checkbox
                         checked={sharedFields.isTransparencyFileAlreadyAttachedByTheSupplier}
@@ -586,7 +586,7 @@ export const EditMultipleBoxesForm = observer(
                     oneLine
                     labelClasses={styles.label}
                     containerClasses={styles.checkboxContainer}
-                    label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                    label={t(TranslationKey['Transparency Codes are glued by storekeeper'])}
                     inputComponent={
                       <Checkbox
                         checked={sharedFields.isTransparencyFileAttachedByTheStorekeeper}
@@ -674,7 +674,7 @@ export const EditMultipleBoxesForm = observer(
         <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
           <SetFilesModal
             modalTitle={t(TranslationKey.Transparency)}
-            LabelTitle={t(TranslationKey['Transparency codes'])}
+            LabelTitle={t(TranslationKey['Transparency Codes'])}
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
             onClickSave={value => {

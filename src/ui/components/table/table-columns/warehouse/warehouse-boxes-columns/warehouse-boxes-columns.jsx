@@ -22,6 +22,8 @@ import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
   {
     field: 'humanFriendlyId',
@@ -70,17 +72,18 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
         />
       )
     },
-    width: 320,
-    filterable: false,
 
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
+    fields: getProductColumnMenuItems(),
+    columnMenuConfig: getProductColumnMenuValue(),
+    columnKey: columnnsKeys.shared.MULTIPLE,
+    width: 320,
   },
 
   {
     field: 'shippingLabel',
-    headerName: `Shipping label / Barcode / ${t(TranslationKey['Transparency codes'])}`,
+    headerName: `Shipping label / Barcode / ${t(TranslationKey['Transparency Codes'])}`,
     renderHeader: () => (
-      <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency codes'])}`} />
+      <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency Codes'])}`} />
     ),
 
     renderCell: params => (
@@ -103,7 +106,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
             ).type,
           },
           {
-            title: t(TranslationKey['Transparency codes']),
+            title: t(TranslationKey['Transparency Codes']),
             fileUrl: params.row.originalData.items[0].transparencyFile,
             fileName: getFileNameFromUrl(params.row.originalData.items[0].transparencyFile).name,
             fileType: getFileNameFromUrl(params.row.originalData.items[0].transparencyFile).type,
@@ -121,8 +124,6 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     filterable: false,
     sortable: false,
     width: 280,
-
-    // columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },
 
   {

@@ -26,6 +26,8 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 interface SupervisorProductsViewColumnsProps {
   onClickTableRow: (id: string) => void
 }
@@ -54,8 +56,11 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
           skuByClient={row?.skuByClient}
         />
       ),
-      width: 270,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      width: 250,
     },
 
     {
@@ -138,7 +143,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
       valueGetter: ({ row }: GridRowModel) => (row?.fbafee ? toFixedWithDollarSign(row?.fbafee, 2) : ''),
       renderCell: ({ row }: GridRowModel) => <ToFixedWithDollarSignCell value={row?.fbafee} fix={2} />,
-      minWidth: 105,
+      width: 120,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 

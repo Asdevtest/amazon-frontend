@@ -45,6 +45,12 @@ export interface ApiV1BatchesBoxes {
      */
     amount?: number;
     /**
+     * Total Amount
+     * @type {number}
+     * @memberof ApiV1BatchesBoxes
+     */
+    totalAmount?: number;
+    /**
      * Статус коробки
      * @type {string}
      * @memberof ApiV1BatchesBoxes

@@ -133,14 +133,12 @@ export class ClientBoxesNotificationsViewModel extends DataGridFilterTableModel 
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
-        storage: data.storage,
+        // storage: data.storage,
       })
 
-      this.getCurrentData()
-
-      this.onTriggerOpenModal('showBoxViewModal')
-
       toast.success(t(TranslationKey['Data saved successfully']))
+
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }

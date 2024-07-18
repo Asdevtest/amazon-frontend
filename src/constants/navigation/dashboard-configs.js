@@ -560,12 +560,12 @@ export const getBuyerDashboardCardConfig = () => [
 
   {
     key: 'FREE ORDERS',
-    title: t(TranslationKey['Free Orders']),
+    title: t(TranslationKey['Free orders']),
     subTitle: t(TranslationKey['Free orders data']),
     items: [
       {
         dataKey: BuyerDashboardCardDataKey.FREE_ORDERS,
-        title: t(TranslationKey['Free Orders']),
+        title: t(TranslationKey['Free orders']),
         route: '/buyer/free-orders',
         color: '#006CFF',
       },

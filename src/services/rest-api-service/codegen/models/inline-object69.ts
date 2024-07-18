@@ -13,19 +13,32 @@
  */
 
 
+import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
- * Схема редактирования в первый раз shippingLabel коробки
+ * 
  * @export
  * @interface InlineObject69
  */
 export interface InlineObject69 {
     /**
-     * shippingLabel
+     * New product price
+     * @type {number}
+     * @memberof InlineObject69
+     */
+    newProductPrice?: number;
+    /**
+     * Description of product_listing_report
      * @type {string}
      * @memberof InlineObject69
      */
-    shippingLabel: string;
+    description?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
+     * @memberof InlineObject69
+     */
+    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
 }
 
 

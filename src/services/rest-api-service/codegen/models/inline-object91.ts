@@ -21,11 +21,17 @@
  */
 export interface InlineObject91 {
     /**
-     * GUIDы поставщиков, которые нужно добавить в БД.
+     * текст отзыва/репорта
+     * @type {string}
+     * @memberof InlineObject91
+     */
+    text: string;
+    /**
+     * Прикрепленные ссылки на медиа для репорта/отзыва
      * @type {Array<string>}
      * @memberof InlineObject91
      */
-    suppliersIds?: Array<string>;
+    media?: Array<string>;
 }
 
 

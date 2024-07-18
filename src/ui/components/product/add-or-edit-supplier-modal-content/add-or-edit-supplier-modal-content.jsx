@@ -193,8 +193,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
         boxWeighGrossKg: tmpSupplier.boxProperties.boxWeighGrossKg || 0,
       },
 
-      minProductionTerm: tmpSupplier?.minProductionTerm || '',
-      maxProductionTerm: tmpSupplier?.maxProductionTerm || '',
+      minProductionTerm: tmpSupplier?.minProductionTerm || 0,
+      maxProductionTerm: tmpSupplier?.maxProductionTerm || 0,
 
       _id: supplier?._id,
     }

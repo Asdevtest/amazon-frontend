@@ -21,11 +21,11 @@
  */
 export interface InlineObject155 {
     /**
-     * id профайла
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject155
      */
-    profileId: string;
+    status: number;
 }
 
 

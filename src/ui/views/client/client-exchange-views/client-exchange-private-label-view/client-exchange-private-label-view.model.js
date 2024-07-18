@@ -1,6 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { ProductStrategyStatus, mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 import { createOrderRequestWhiteList } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
@@ -10,6 +12,7 @@ import { UserModel } from '@models/user-model'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
@@ -24,12 +27,10 @@ export class ClientExchangePrivateLabelViewModel {
 
   productToPay = {}
   showConfirmPayModal = false
-  showSuccessModal = false
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -129,7 +130,7 @@ export class ClientExchangePrivateLabelViewModel {
       this.onTriggerOpenModal('showConfirmPayModal')
       this.onTriggerOpenModal('showOrderModal')
 
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Product paid']))
       await this.updateUserInfo()
       this.loadData()
     } catch (error) {

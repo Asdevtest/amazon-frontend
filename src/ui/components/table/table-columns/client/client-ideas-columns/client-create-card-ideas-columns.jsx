@@ -17,6 +17,12 @@ import {
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import {
+  ProductColumnMenuType,
+  getProductColumnMenuItems,
+  getProductColumnMenuValue,
+} from '@config/data-grid-column-menu/product-column'
+
 export const clientCreateCardIdeasColumns = rowHandlers => {
   const columns = [
     {
@@ -36,10 +42,11 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-      table: DataGridFilterTables.PRODUCTS,
+      width: 250,
     },
 
     {
@@ -79,10 +86,11 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
           onClickSelectSupplier={rowHandlers.onClickSelectSupplier}
         />
       ),
-      width: 290,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.CHILD }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-      table: DataGridFilterTables.PRODUCTS,
+      width: 250,
     },
 
     {
