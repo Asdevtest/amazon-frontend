@@ -3,7 +3,6 @@ import { action, computed, observable } from 'mobx'
 export const observerConfig = {
   curBox: observable,
   showBoxViewModal: observable,
-  showEditHSCodeModal: observable,
   boxes: observable,
   showConfirmModal: observable,
   uploadedFiles: observable,
