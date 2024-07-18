@@ -1,4 +1,3 @@
-import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -59,7 +58,8 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {
@@ -97,7 +97,8 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
 
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {

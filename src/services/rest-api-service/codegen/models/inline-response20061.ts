@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20061Rows } from './inline-response20061-rows';
 
 /**
  * 
@@ -22,17 +21,11 @@ import { InlineResponse20061Rows } from './inline-response20061-rows';
  */
 export interface InlineResponse20061 {
     /**
-     * Общее кол-во идей
-     * @type {number}
+     * id созданного профайла
+     * @type {string}
      * @memberof InlineResponse20061
      */
-    count?: number;
-    /**
-     * Список идей
-     * @type {Array<InlineResponse20061Rows>}
-     * @memberof InlineResponse20061
-     */
-    rows?: Array<InlineResponse20061Rows>;
+    profileId?: string;
 }
 
 

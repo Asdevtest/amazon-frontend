@@ -51,12 +51,11 @@ export const financesViewColumns = (userBalance?: boolean) => {
         )
       },
       valueGetter: params => params.row?.entityProduct?.[0]?.asin,
-
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: userBalance ? undefined : columnnsKeys.shared.MULTIPLE,
-
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {

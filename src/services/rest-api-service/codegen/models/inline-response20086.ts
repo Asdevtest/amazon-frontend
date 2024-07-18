@@ -14,8 +14,8 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
-import { InlineResponse20054RequestSpec } from './inline-response20054-request-spec';
 
 /**
  * 
@@ -49,10 +49,10 @@ export interface InlineResponse20086 {
     proposal?: ApiV1RequestProposalsFreelanceSourcesProposal;
     /**
      * 
-     * @type {InlineResponse20054RequestSpec}
+     * @type {ApiV1AnnouncementsMySpec}
      * @memberof InlineResponse20086
      */
-    spec?: InlineResponse20054RequestSpec;
+    spec?: ApiV1AnnouncementsMySpec;
     /**
      * гуид продукта
      * @type {string}

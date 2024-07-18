@@ -13,8 +13,7 @@
  */
 
 
-import { InlineResponse20050BoxAmounts } from './inline-response20050-box-amounts';
-import { InlineResponse20050Orders } from './inline-response20050-orders';
+import { InlineResponse20050Rows } from './inline-response20050-rows';
 
 /**
  * 
@@ -23,125 +22,17 @@ import { InlineResponse20050Orders } from './inline-response20050-orders';
  */
 export interface InlineResponse20050 {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
-     * @memberof InlineResponse20050
-     */
-    _id?: string;
-    /**
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineResponse20050
-     */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20050
-     */
-    skuByClient?: string;
-    /**
-     * ID магазина для продукта
-     * @type {string}
-     * @memberof InlineResponse20050
-     */
-    shopId?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20050
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20050
-     */
-    amazonTitle?: string;
-    /**
-     * Сколько такого продукта находится в заказах.
+     * Count of rows
      * @type {number}
      * @memberof InlineResponse20050
      */
-    amountInOrders?: number;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse20050
-     */
-    updatedAt?: string;
-    /**
-     * Каков должен быть сток за 4 месяца
-     * @type {number}
-     * @memberof InlineResponse20050
-     */
-    fourMonthesStock?: number;
-    /**
-     * “sumStock”=“boxAmounts” + ”inTransfer” + ”productsInWarehouse”(“reserved” + ”fbaFbmStock” + ”sentToFba”) + “amountInOrders“ + “stockUSA“
-     * @type {number}
-     * @memberof InlineResponse20050
-     */
-    sumStock?: number;
-    /**
-     * “purchaseQuantity”=”fourMonthesStock” - “sumStock” - меньше нуля быть не может, если отрицательное значение выставляем 0
-     * @type {number}
-     * @memberof InlineResponse20050
-     */
-    purchaseQuantity?: number;
+    count?: number;
     /**
      * 
-     * @type {number}
+     * @type {Array<InlineResponse20050Rows>}
      * @memberof InlineResponse20050
      */
-    reservedSum?: number;
-    /**
-     * Сколько такого продукта находится в заказах в статусах 0, 2, 3.
-     * @type {number}
-     * @memberof InlineResponse20050
-     */
-    amountInPendingOrders?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20050
-     */
-    sentToFbaSum?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20050
-     */
-    fbaFbmStockSum?: number;
-    /**
-     * Кол-во товаров, которые находятся в пути
-     * @type {number}
-     * @memberof InlineResponse20050
-     */
-    inTransfer?: number;
-    /**
-     * Стоимость стока товара
-     * @type {number}
-     * @memberof InlineResponse20050
-     */
-    stockCost?: number;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof InlineResponse20050
-     */
-    productsInWarehouseSchema?: Array<object>;
-    /**
-     * 
-     * @type {Array<InlineResponse20050BoxAmounts>}
-     * @memberof InlineResponse20050
-     */
-    boxAmounts?: Array<InlineResponse20050BoxAmounts>;
-    /**
-     * 
-     * @type {Array<InlineResponse20050Orders>}
-     * @memberof InlineResponse20050
-     */
-    orders?: Array<InlineResponse20050Orders>;
+    rows?: Array<InlineResponse20050Rows>;
 }
 
 

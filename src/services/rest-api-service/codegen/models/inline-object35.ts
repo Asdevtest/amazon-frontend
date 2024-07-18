@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes';
 
 /**
  * 
@@ -22,11 +21,11 @@ import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './
  */
 export interface InlineObject35 {
     /**
-     * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
+     * GUID коробки разделение которой отменяем.
+     * @type {string}
      * @memberof InlineObject35
      */
-    itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
+    guid?: string;
 }
 
 

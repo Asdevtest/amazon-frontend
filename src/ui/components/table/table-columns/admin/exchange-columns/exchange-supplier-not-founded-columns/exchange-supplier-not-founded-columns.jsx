@@ -49,7 +49,8 @@ export const exchangeSupplierNotFoundedColumns = () => [
         />
       )
     },
-    width: 300,
+    width: 260,
+    minWidth: 100,
   },
 
   {

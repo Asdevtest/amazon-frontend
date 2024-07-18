@@ -22,10 +22,10 @@
 export interface InlineObject18 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {boolean}
      * @memberof InlineObject18
      */
-    boxesIds: Array<string>;
+    archive: boolean;
 }
 
 

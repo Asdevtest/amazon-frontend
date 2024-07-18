@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(theme => ({
   buttons: {
     display: 'flex',
     alignItems: 'center',
-    gap: '20px',
+    gap: '10px',
   },
 
   fullWidth: {
@@ -36,7 +36,7 @@ export const useStyles = makeStyles()(theme => ({
 
   exportButton: {
     padding: '0 15px',
-    height: '30px',
+    height: '28px',
     borderRadius: '100px',
     boxShadow: theme.palette.button.defaultBoxShadow,
     border: `1px solid ${theme.palette.input.customBorder}`,

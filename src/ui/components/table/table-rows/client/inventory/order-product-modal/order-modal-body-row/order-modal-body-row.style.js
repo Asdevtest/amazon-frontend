@@ -51,7 +51,7 @@ export const useStyles = makeStyles()(theme => ({
 
   commentInput: {
     height: 70,
-    padding: '5px 0',
+    padding: '10px 0',
   },
 
   inputMultiline: {

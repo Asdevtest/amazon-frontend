@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
-import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
 
 /**
  * 
@@ -23,263 +21,88 @@ import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid
  */
 export interface InlineObject49 {
     /**
-     * ASIN продукта
-     * @type {string}
+     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @type {number}
      * @memberof InlineObject49
      */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    skuByClient?: string;
+    taskId: number;
     /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject49
      */
-    latestSeoFiles?: Array<string>;
+    boxesBefore?: Array<string>;
     /**
-     * Категория
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject49
+     */
+    boxes: Array<string>;
+    /**
+     * Тип операции
      * @type {string}
      * @memberof InlineObject49
      */
-    category?: string;
+    operationType: InlineObject49OperationTypeEnum;
     /**
-     * Ссылка на этот продукт на амазоне.
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    lamazon?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    bsr?: number;
-    /**
-     * Признак fba
-     * @type {boolean}
-     * @memberof InlineObject49
-     */
-    fba?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    amazon?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    height?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    width?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    length?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    weight?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    fbafee?: number;
-    /**
-     *  Общая сумма с фба.
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    fbaamount?: number;
-    /**
-     * Комментарии к товару.
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    icomment?: string;
-    /**
-     * Комментарии к товару, от клиента.
+     * Комментарий клиента.
      * @type {string}
      * @memberof InlineObject49
      */
     clientComment?: string;
     /**
-     * Массив изображений.
+     * Комментарий баера.
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    buyerComment?: string;
+    /**
+     * Массив картинок.
      * @type {Array<string>}
      * @memberof InlineObject49
      */
     images?: Array<string>;
     /**
-     * 
+     * Комментарий работника склада.
      * @type {string}
      * @memberof InlineObject49
      */
-    amazonDescription?: string;
+    storekeeperComment?: string;
     /**
-     * 
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
      * @type {string}
      * @memberof InlineObject49
      */
-    amazonDetail?: string;
+    priority?: InlineObject49PriorityEnum;
     /**
-     * 
+     * Причина приоритета
      * @type {string}
      * @memberof InlineObject49
      */
-    amazonTitle?: string;
-    /**
-     * Материл продукта
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    material?: string;
-    /**
-     * Применение продукта
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    productUsage?: string;
-    /**
-     * chinese title?
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    chinaTitle?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    minpurchase?: number;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    profit?: number;
-    /**
-     * Маржа
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    margin?: number;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    strategyStatus?: number;
-    /**
-     * Признак needCheckBySupervisor
-     * @type {boolean}
-     * @memberof InlineObject49
-     */
-    needCheckBySupervisor?: boolean;
-    /**
-     * Флаг указывает что продукт в архиве.
-     * @type {boolean}
-     * @memberof InlineObject49
-     */
-    archive?: boolean;
-    /**
-     * hsCode продукта.
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    hsCode?: string;
-    /**
-     * Ниша
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    niche?: string;
-    /**
-     * Асины
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    asins?: string;
-    /**
-     * Общий доход
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    totalRevenue?: string;
-    /**
-     * Коэффициент прибыли
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    coefficient?: string;
-    /**
-     * Средний доход
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    avgRevenue?: string;
-    /**
-     * Средний BSR
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    avgBSR?: string;
-    /**
-     * Средняя цена
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    avgPrice?: string;
-    /**
-     * Средний отзывы
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    avgReviews?: string;
-    /**
-     * Поле для калькуляции дозакупок
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    fourMonthesStock?: number;
-    /**
-     * ID магазинa продукта
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    shopId?: string;
-    /**
-     * 
-     * @type {Array<ApiV1ClientsProductsGuidRedFlags>}
-     * @memberof InlineObject49
-     */
-    redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
-    /**
-     * 
-     * @type {Array<ApiV1BuyersProductsGuidTags>}
-     * @memberof InlineObject49
-     */
-    tags?: Array<ApiV1BuyersProductsGuidTags>;
+    reason?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject49OperationTypeEnum {
+    Merge = 'merge',
+    Split = 'split',
+    Receive = 'receive',
+    Edit = 'edit'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject49PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

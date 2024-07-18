@@ -15,17 +15,17 @@
 
 
 /**
- * Схема редактирования в первый раз shippingLabel коробки
+ * Схема апдейта рекомендаций
  * @export
  * @interface InlineObject67
  */
 export interface InlineObject67 {
     /**
-     * shippingLabel
-     * @type {string}
+     * Рекомендуемое значение
+     * @type {number}
      * @memberof InlineObject67
      */
-    shippingLabel: string;
+    recommendedValue: number;
 }
 
 

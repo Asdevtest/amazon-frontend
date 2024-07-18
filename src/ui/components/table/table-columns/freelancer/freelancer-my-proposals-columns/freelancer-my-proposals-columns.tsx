@@ -100,7 +100,8 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
         />
       )
     },
-    width: 250,
+    width: 260,
+    minWidth: 100,
     columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
   },
 

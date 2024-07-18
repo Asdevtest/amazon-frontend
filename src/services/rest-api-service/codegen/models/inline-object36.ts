@@ -13,6 +13,7 @@
  */
 
 
+import { InlineObject27 } from './inline-object27';
 
 /**
  * 
@@ -21,35 +22,17 @@
  */
 export interface InlineObject36 {
     /**
-     * 
-     * @type {number}
+     * GUID для которой подтверждаем действие.
+     * @type {string}
      * @memberof InlineObject36
      */
-    lengthCmWarehouse?: number;
+    guid?: string;
     /**
-     * 
-     * @type {number}
+     * Массив дополнительных коробок которые случились при обработки.
+     * @type {Array<InlineObject27>}
      * @memberof InlineObject36
      */
-    widthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject36
-     */
-    heightCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject36
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Массив ссылок на фотографии.
-     * @type {Array<string>}
-     * @memberof InlineObject36
-     */
-    images?: Array<string>;
+    additionalBoxes?: Array<InlineObject27>;
 }
 
 

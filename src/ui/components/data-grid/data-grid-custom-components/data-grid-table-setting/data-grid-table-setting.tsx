@@ -43,14 +43,13 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
   return (
     <>
       <Button
-        isTableButton
+        iconButton
+        defaultButtonTooltip={t(TranslationKey.Parameters)}
         styleType={ButtonStyle.DEFAULT}
         className={styles.parametersButton}
         onClick={(event: any) => setMenuAnchor(event.currentTarget)}
       >
         <SettingsOutlinedIcon fontSize="small" />
-
-        <p className={styles.parametersButtonTitle}>{t(TranslationKey.Parameters)}</p>
       </Button>
 
       {Boolean(menuAnchor) && (
