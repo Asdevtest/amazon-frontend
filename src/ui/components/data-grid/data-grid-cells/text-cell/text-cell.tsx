@@ -52,7 +52,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
     <div className={styles.container}>
       <Paragraph
         copyable={!!value?.length}
-        ellipsis={{ expandable: true, tooltip: text, rows: 3, onExpand: handleExpand }}
+        ellipsis={{ tooltip: text, rows: 3, onExpand: handleExpand }}
         style={{ margin: 0 }}
       >
         {text}
