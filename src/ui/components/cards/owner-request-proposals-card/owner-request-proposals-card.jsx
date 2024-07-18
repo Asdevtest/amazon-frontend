@@ -217,7 +217,6 @@ export const OwnerRequestProposalsCard = ({
       {showRequestResultModal ? (
         <RequestResultModal
           // @ts-ignore
-          request={request}
           proposal={item}
           openModal={showRequestResultModal}
           setOpenModal={() => setShowRequestResultModal(!showRequestResultModal)}
