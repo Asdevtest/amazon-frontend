@@ -1,10 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  root: {
-    height: '28px',
+  header: {
     display: 'flex',
     alignItems: 'center',
-    gap: '2px',
+    justifyContent: 'space-between',
+    gap: '20px',
   },
 }))

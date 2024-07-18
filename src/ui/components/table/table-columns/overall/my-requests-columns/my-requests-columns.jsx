@@ -9,8 +9,8 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ChangeInputCommentCell,
   CheckboxCell,
+  CommentCell,
   ManyUserLinkCell,
   MultilineRequestStatusCell,
   MultilineTextCell,
@@ -267,8 +267,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       width: 335,
       renderCell: ({ row }) => (
-        <ChangeInputCommentCell
-          rowsCount={3}
+        <CommentCell
           text={row?.detailsCustom?.comment}
           onClickSubmit={comment => rowHandlers.onClickSaveComment(row?._id, comment)}
         />
