@@ -1981,6 +1981,8 @@
   "Attention, it is necessary to add a photo of the product with glued transparency to the box": "Внимание, необходимо добавить в коробку фотографию товара с transparency",
   "Boxes marked in red will not be shipped because they have no dimensions or insufficient data": "Коробки помеченные красным не будут отправлены, потому что они не имеют размеров или недостаточно данных",
   "The password should not start or end with a space!": "Пароль не должен начинаться или заканчиваться пробелом!",
+  "Today": "Сегодня",
+  "Last seen": "Был(а) в сети {{date}}",
   "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "Выбирайте самый эффективный тариф, разделите партии на несколько закупок, если вам нужно отправить товар на разные склады",
   "Order quantity": "Количество заказа",
   "Are you sure you want to remove the report?": "Вы уверены, что хотите удалить отчет?",

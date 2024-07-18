@@ -1974,6 +1974,8 @@
   "Boxes marked in red will not be shipped because they have no dimensions or insufficient data": "红色标记的箱子将不会被发货因为它们没有尺寸或不足足够的数据",
   "Attention, it is necessary to add a photo of the product with glued transparency to the box": "注意，必须添加包装盒子的一张产品照片",
   "The password should not start or end with a space!": "密码不应以空格开始或结束!",
+  "Today": "今天",
+  "Last seen": "最后一次查看 {{date}}",
   "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "选择最有效的费率，如果需要运送到不同的仓库，请将批次拆分为多个采购订单",
   "Order quantity": "订单数量",
   "Are you sure you want to remove the report?": "您确定要删除报告吗?",
