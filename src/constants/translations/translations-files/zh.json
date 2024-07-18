@@ -774,7 +774,6 @@
   "No documents": "没有文件",
   "Opens a form to create a box": "为创建箱子打开窗体",
   "Allows you to use the box parameters specified when creating a supplier": "允许你使用创建供货方时的箱子参数",
-  "Remove box": "删除箱子",
   "Allows you to create the required number of boxes to the order": "为订单创建需要的箱子数量",
   "Save box parameters to the current supplier": "保存箱子参数为当前供货方",
   "Save changes to the order": "保存订单的更改",

@@ -776,7 +776,6 @@
   "No documents": "Документів немає",
   "Opens a form to create a box": "Відкриває форму для створення коробки",
   "Allows you to use the box parameters specified when creating a supplier": "Дозволяє використовувати параметри коробок, вказані при створенні постачальника",
-  "Remove box": "Видалити коробку",
   "Allows you to create the required number of boxes to the order": "Дозволяє створити необхідну кількість коробок до замовлення",
   "Save box parameters to the current supplier": "Зберегти параметри коробки для поточного постачальника",
   "Save changes to the order": "Зберегти зміни в замовленні",

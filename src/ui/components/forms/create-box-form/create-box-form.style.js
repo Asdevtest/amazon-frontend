@@ -4,16 +4,13 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: '1140px',
+    width: '1060px',
     gap: 20,
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    border: '1px solid rgb(224, 224, 224)',
-    borderRadius: '5px',
-    padding: '20px',
   },
 
   buttonsWrapper: {
@@ -42,13 +39,16 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     width: '100%',
-    gap: '10px',
+    gap: '20px',
+  },
+
+  input: {
+    width: 160,
   },
 
   numberInputFieldsBlocksSubWrapper: {
     display: 'flex',
     alignItems: 'flex-start',
-    width: '100%',
     gap: '10px',
   },
 
@@ -71,7 +71,8 @@ export const useStyles = makeStyles()(theme => ({
   checkboxWithLabelWrapper: {
     display: 'flex',
     alignItems: 'center',
-    maxWidth: '200px',
+    justifyContent: 'flex-end',
+    width: '100%',
   },
 
   hidden: {
@@ -79,13 +80,12 @@ export const useStyles = makeStyles()(theme => ({
   },
   checkboxLabel: {
     margin: 0,
-    width: '120px',
+    fontSize: '14px',
   },
 
   checkboxLabelContainer: {
     margin: 0,
-    maxWidth: '80px',
-    marginRight: '50px',
+    width: 'max-content',
   },
 
   destinationWrapper: {

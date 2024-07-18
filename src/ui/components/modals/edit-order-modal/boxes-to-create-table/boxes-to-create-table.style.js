@@ -37,12 +37,12 @@ export const useStyles = makeStyles()(theme => ({
 
   inputWrapper: {
     borderRadius: '4px',
-    width: '100px',
-    height: '40px',
+    width: '60px',
+    height: '32px',
   },
   input: {
-    fontSize: '16px',
-    lineHeight: '22px',
+    fontSize: '14px',
+    lineHeight: '19px',
     textAlign: 'center',
     padding: '6px 8px',
   },
@@ -66,7 +66,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   sizesWrapper: {
-    minWidth: '110px',
+    minWidth: '90px',
     display: 'flex',
     gap: '5px',
     flexDirection: 'column',
