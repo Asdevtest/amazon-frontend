@@ -7,9 +7,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  CommentCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  TextCell,
   UserCell,
   UserRolesCell,
 } from '@components/data-grid/data-grid-cells'
@@ -44,7 +44,8 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       renderCell: ({ row }: GridRowModel) => (
-        <CommentCell
+        <TextCell
+          editMode
           rows={4}
           maxLength={255}
           text={row?.note?.comment}

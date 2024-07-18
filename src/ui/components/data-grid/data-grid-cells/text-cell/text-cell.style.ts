@@ -17,6 +17,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   container: {
+    minHeight: '22px',
     height: '100%',
     alignContent: 'center',
   },

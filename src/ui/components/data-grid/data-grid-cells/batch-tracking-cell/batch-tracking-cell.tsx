@@ -1,4 +1,4 @@
-import { CommentCell, DatePickerCell } from '..'
+import { DatePickerCell, TextCell } from '..'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -33,7 +33,8 @@ export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
           label={t(TranslationKey['Track number'])}
           labelClasses={styles.batchTrackingTitle}
           inputComponent={
-            <CommentCell
+            <TextCell
+              editMode
               disabled={disabled}
               maxLength={64}
               placeholder={t(TranslationKey['Enter track number'])}

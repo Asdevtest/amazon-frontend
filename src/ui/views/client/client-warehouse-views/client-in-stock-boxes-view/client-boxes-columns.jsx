@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ChangeChipCell,
   ChangeInputCell,
-  CommentCell,
   DeadlineCell,
   FormedCell,
   ManyUserLinkCell,
@@ -16,6 +15,7 @@ import {
   OrderCell,
   OrderManyItemsCell,
   RedFlagsCell,
+  TextCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells'
 import { Dimensions } from '@components/shared/dimensions'
@@ -242,7 +242,8 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
       renderCell: params => (
-        <CommentCell
+        <TextCell
+          editMode
           text={params.value}
           onClickSubmit={comment => handlers.onClickSaveClientComment(params.row._id, comment)}
         />
