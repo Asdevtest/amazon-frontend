@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse2006 } from './inline-response2006';
+import { InlineResponse20099Rows } from './inline-response20099-rows';
 
 /**
  * 
@@ -28,11 +28,11 @@ export interface InlineResponse20099 {
      */
     count?: number;
     /**
-     * 
-     * @type {Array<InlineResponse2006>}
+     * Массив товаров.
+     * @type {Array<InlineResponse20099Rows>}
      * @memberof InlineResponse20099
      */
-    rows?: Array<InlineResponse2006>;
+    rows?: Array<InlineResponse20099Rows>;
 }
 
 

@@ -21,7 +21,6 @@
  */
 export interface InlineObject155 {
     /**
-<<<<<<< HEAD
      * Оценка, целое число от 1 до 5
      * @type {number}
      * @memberof InlineObject155
@@ -33,13 +32,6 @@ export interface InlineObject155 {
      * @memberof InlineObject155
      */
     comment?: string;
-=======
-     * 
-     * @type {number}
-     * @memberof InlineObject155
-     */
-    status: number;
->>>>>>> dev
 }
 
 

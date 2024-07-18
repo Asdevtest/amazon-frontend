@@ -13,9 +13,8 @@
  */
 
 
-import { ApiV1SuppliersBoxProperties } from './api-v1-suppliers-box-properties';
-import { ApiV1SuppliersPaymentMethods } from './api-v1-suppliers-payment-methods';
-import { ApiV1SuppliersPriceVariations } from './api-v1-suppliers-price-variations';
+import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
+import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-storekeepers-tariff-logistics-destination-variations';
 
 /**
  * 
@@ -24,157 +23,71 @@ import { ApiV1SuppliersPriceVariations } from './api-v1-suppliers-price-variatio
  */
 export interface InlineObject138 {
     /**
-<<<<<<< HEAD
-     * 
+     * Тип тарифа
      * @type {number}
      * @memberof InlineObject138
      */
-    status: number;
-=======
-     * Название поставщика.
+    tariffType?: number;
+    /**
+     * Название тарифа
      * @type {string}
      * @memberof InlineObject138
      */
-    name?: string;
+    name: string;
     /**
-     * Ссылка на поставщика.
+     * Описание тарифа
      * @type {string}
      * @memberof InlineObject138
      */
-    link?: string;
+    description?: string;
     /**
-     * Цена за еденицу, dollar
+     * Время доставки, днях
+     * @type {string}
+     * @memberof InlineObject138
+     */
+    deliveryTimeInDay?: string;
+    /**
+     * Дата закрытия приема новых грузов.
+     * @type {string}
+     * @memberof InlineObject138
+     */
+    cls?: string;
+    /**
+     * Ожидаема дата отбытия.
+     * @type {string}
+     * @memberof InlineObject138
+     */
+    etd?: string;
+    /**
+     * Ожидаема дата прибытия.
+     * @type {string}
+     * @memberof InlineObject138
+     */
+    eta?: string;
+    /**
+     * Минимальный вес, в кг
      * @type {number}
      * @memberof InlineObject138
      */
-    price?: number;
+    minWeightInKg?: number;
     /**
-     * кол-во
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    amount?: number;
-    /**
-     * Минимальный лот.
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    minlot?: number;
-    /**
-     * Имеет ли обязательный делитель на кол-во в заказе поставщик
+     * Заархивирован ли тариф
      * @type {boolean}
      * @memberof InlineObject138
      */
-    multiplicity?: boolean;
+    archive?: boolean;
     /**
      * 
-     * @type {Array<ApiV1SuppliersPaymentMethods>}
+     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
      * @memberof InlineObject138
      */
-    paymentMethods?: Array<ApiV1SuppliersPaymentMethods>;
-    /**
-     * Height unit
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    heightUnit?: number;
-    /**
-     * Width unit
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    widthUnit?: number;
-    /**
-     * Length unit
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    lengthUnit?: number;
-    /**
-     * Weigh unit
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    weighUnit?: number;
+    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>}
      * @memberof InlineObject138
      */
-    imageUnit?: Array<string>;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject138
-     */
-    images?: Array<string>;
-    /**
-     * Комментарий
-     * @type {string}
-     * @memberof InlineObject138
-     */
-    comment?: string;
-    /**
-     * Курс доллара к юаню поставщика. 
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    yuanRate?: number;
-    /**
-     * Цена за еденицу, yuan
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    priceInYuan?: number;
-    /**
-     * Доставка партии, dollar
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    batchDeliveryCostInDollar?: number;
-    /**
-     * Доставка партии, yuan
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    batchDeliveryCostInYuan?: number;
-    /**
-     * Цена партии, dollar
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    batchTotalCostInDollar?: number;
-    /**
-     * Цена партии, yuan
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    batchTotalCostInYuan?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    minProductionTerm?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject138
-     */
-    maxProductionTerm?: number;
-    /**
-     * 
-     * @type {ApiV1SuppliersBoxProperties}
-     * @memberof InlineObject138
-     */
-    boxProperties?: ApiV1SuppliersBoxProperties;
-    /**
-     * 
-     * @type {Array<ApiV1SuppliersPriceVariations>}
-     * @memberof InlineObject138
-     */
-    priceVariations?: Array<ApiV1SuppliersPriceVariations>;
->>>>>>> dev
+    destinationVariations?: Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>;
 }
 
 

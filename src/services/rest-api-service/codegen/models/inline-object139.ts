@@ -13,170 +13,75 @@
  */
 
 
-import { ApiV1SuppliersBoxProperties } from './api-v1-suppliers-box-properties';
-import { ApiV1SuppliersPaymentMethods } from './api-v1-suppliers-payment-methods';
-import { ApiV1SuppliersPriceVariations } from './api-v1-suppliers-price-variations';
+import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
+import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-storekeepers-tariff-logistics-destination-variations';
 
 /**
- * Новый поставщик.
+ * 
  * @export
  * @interface InlineObject139
  */
 export interface InlineObject139 {
     /**
-     * Название поставщика.
+     * Название тарифа
      * @type {string}
      * @memberof InlineObject139
      */
-<<<<<<< HEAD
-    name: string;
+    name?: string;
     /**
-     * Ссылка на поставщика.
+     * Описание тарифа
      * @type {string}
      * @memberof InlineObject139
      */
-    link: string;
+    description?: string;
     /**
-     * Цена за еденицу, dollar
+     * Время доставки, днях
+     * @type {string}
+     * @memberof InlineObject139
+     */
+    deliveryTimeInDay?: string;
+    /**
+     * Дата закрытия приема новых грузов.
+     * @type {string}
+     * @memberof InlineObject139
+     */
+    cls?: string;
+    /**
+     * Ожидаема дата отбытия.
+     * @type {string}
+     * @memberof InlineObject139
+     */
+    etd?: string;
+    /**
+     * Ожидаема дата прибытия.
+     * @type {string}
+     * @memberof InlineObject139
+     */
+    eta?: string;
+    /**
+     * Минимальный вес, в кг
      * @type {number}
      * @memberof InlineObject139
      */
-    price: number;
+    minWeightInKg?: number;
     /**
-     * кол-во
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    amount: number;
-    /**
-     * Минимальный лот.
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    minlot: number;
-    /**
-     * Имеет ли обязательный делитель на кол-во в заказе поставщик
+     * Заархивирован ли тариф
      * @type {boolean}
      * @memberof InlineObject139
      */
-    multiplicity?: boolean;
+    archive?: boolean;
     /**
      * 
-     * @type {Array<ApiV1SuppliersPaymentMethods>}
+     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
      * @memberof InlineObject139
      */
-    paymentMethods?: Array<ApiV1SuppliersPaymentMethods>;
-    /**
-     * Height unit
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    heightUnit?: number;
-    /**
-     * Width unit
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    widthUnit?: number;
-    /**
-     * Length unit
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    lengthUnit?: number;
-    /**
-     * Weigh unit
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    weighUnit?: number;
+    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>}
      * @memberof InlineObject139
      */
-    imageUnit?: Array<string>;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject139
-     */
-    images?: Array<string>;
-    /**
-     * Комментарий
-     * @type {string}
-     * @memberof InlineObject139
-     */
-    comment: string;
-    /**
-     * Курс доллара к юаню поставщика. 
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    yuanRate?: number;
-    /**
-     * Цена за еденицу, yuan
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    priceInYuan?: number;
-    /**
-     * Доставка партии, dollar
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    batchDeliveryCostInDollar: number;
-    /**
-     * Доставка партии, yuan
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    batchDeliveryCostInYuan?: number;
-    /**
-     * Цена партии, dollar
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    batchTotalCostInDollar?: number;
-    /**
-     * Цена партии, yuan
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    batchTotalCostInYuan?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    minProductionTerm?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject139
-     */
-    maxProductionTerm?: number;
-    /**
-     * 
-     * @type {ApiV1SuppliersBoxProperties}
-     * @memberof InlineObject139
-     */
-    boxProperties?: ApiV1SuppliersBoxProperties;
-    /**
-     * 
-     * @type {Array<ApiV1SuppliersPriceVariations>}
-     * @memberof InlineObject139
-     */
-    priceVariations?: Array<ApiV1SuppliersPriceVariations>;
-=======
-    title: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject139
-     */
-    iconImage?: string;
->>>>>>> dev
+    destinationVariations?: Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>;
 }
 
 

@@ -21,7 +21,6 @@
  */
 export interface InlineObject153 {
     /**
-<<<<<<< HEAD
      * Токен, который юзер получает через почту
      * @type {string}
      * @memberof InlineObject153
@@ -33,19 +32,6 @@ export interface InlineObject153 {
      * @memberof InlineObject153
      */
     password?: string;
-=======
-     * Оценка, целое число от 1 до 5
-     * @type {number}
-     * @memberof InlineObject153
-     */
-    rating: number;
-    /**
-     * Комментарий к оценке
-     * @type {string}
-     * @memberof InlineObject153
-     */
-    comment?: string;
->>>>>>> dev
 }
 
 

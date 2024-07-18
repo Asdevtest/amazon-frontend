@@ -21,23 +21,17 @@
  */
 export interface InlineObject134 {
     /**
-     * Название услуги
-     * @type {string}
-     * @memberof InlineObject134
-     */
-    name?: string;
-    /**
-     * Описание услуги
-     * @type {string}
-     * @memberof InlineObject134
-     */
-    description?: string;
-    /**
-     * Цена услуги.
+     * Выставить приоритет задачи
      * @type {number}
      * @memberof InlineObject134
      */
-    price: number;
+    priority: number;
+    /**
+     * Reason of high priority
+     * @type {string}
+     * @memberof InlineObject134
+     */
+    reason?: string;
 }
 
 

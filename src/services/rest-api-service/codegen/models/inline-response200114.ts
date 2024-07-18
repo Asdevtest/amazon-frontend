@@ -13,11 +13,7 @@
  */
 
 
-<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-=======
-import { InlineResponse200114Rows } from './inline-response200114-rows';
->>>>>>> dev
 
 /**
  * 
@@ -26,7 +22,6 @@ import { InlineResponse200114Rows } from './inline-response200114-rows';
  */
 export interface InlineResponse200114 {
     /**
-<<<<<<< HEAD
      * GUID записи
      * @type {string}
      * @memberof InlineResponse200114
@@ -68,19 +63,6 @@ export interface InlineResponse200114 {
      * @memberof InlineResponse200114
      */
     createdAt?: string;
-=======
-     * Общее кол-во записей
-     * @type {number}
-     * @memberof InlineResponse200114
-     */
-    count?: number;
-    /**
-     * Массив товаров.
-     * @type {Array<InlineResponse200114Rows>}
-     * @memberof InlineResponse200114
-     */
-    rows?: Array<InlineResponse200114Rows>;
->>>>>>> dev
 }
 
 

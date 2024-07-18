@@ -13,7 +13,8 @@
  */
 
 
-import { InlineResponse200104Author } from './inline-response200104-author';
+import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
+import { InlineResponse200104DestinationVariations } from './inline-response200104-destination-variations';
 
 /**
  * 
@@ -22,53 +23,113 @@ import { InlineResponse200104Author } from './inline-response200104-author';
  */
 export interface InlineResponse200104Rows {
     /**
-     * GUID пользователя в БД.
+     * 
      * @type {string}
      * @memberof InlineResponse200104Rows
      */
     _id?: string;
     /**
-     * Название patch_note.
+     * Тип тарифа
+     * @type {number}
+     * @memberof InlineResponse200104Rows
+     */
+    tariffType?: number;
+    /**
+     * Название тарифа
      * @type {string}
      * @memberof InlineResponse200104Rows
      */
-    title?: string;
+    name?: string;
     /**
-     * Описание patch_note.
+     * Описание тарифа
      * @type {string}
      * @memberof InlineResponse200104Rows
      */
     description?: string;
     /**
-     * Для какой роли
+     * Время доставки, днях
+     * @type {string}
+     * @memberof InlineResponse200104Rows
+     */
+    deliveryTimeInDay?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200104Rows
+     */
+    storekeeperId?: string;
+    /**
+     * Дата закрытия приема новых грузов.
+     * @type {string}
+     * @memberof InlineResponse200104Rows
+     */
+    cls?: string;
+    /**
+     * Ожидаема дата отбытия.
+     * @type {string}
+     * @memberof InlineResponse200104Rows
+     */
+    etd?: string;
+    /**
+     * Ожидаема дата прибытия.
+     * @type {string}
+     * @memberof InlineResponse200104Rows
+     */
+    eta?: string;
+    /**
+     * Минимальный вес, в кг
      * @type {number}
      * @memberof InlineResponse200104Rows
      */
-    role?: number;
+    minWeightInKg?: number;
+    /**
+     * Заархивирован ли тариф
+     * @type {boolean}
+     * @memberof InlineResponse200104Rows
+     */
+    archive?: boolean;
     /**
      * 
-     * @type {InlineResponse200104Author}
+     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
      * @memberof InlineResponse200104Rows
      */
-    author?: InlineResponse200104Author;
+    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
     /**
-     * Update version
-     * @type {string}
+     * Стоимость за единицу с доставкой в Китай
+     * @type {number}
      * @memberof InlineResponse200104Rows
      */
-    version?: string;
+    costUnitWithDeliveryToChina?: number;
     /**
-     * Дата создания склада.
-     * @type {string}
+     * Average Roi
+     * @type {number}
      * @memberof InlineResponse200104Rows
      */
-    createdAt?: string;
+    avgRoi?: number;
     /**
-     * Дата обновления склада.
+     * Average CostUnitWithDeliveryToUsa
+     * @type {number}
+     * @memberof InlineResponse200104Rows
+     */
+    avgCostUnitWithDeliveryToUsa?: number;
+    /**
+     * 
+     * @type {Array<InlineResponse200104DestinationVariations>}
+     * @memberof InlineResponse200104Rows
+     */
+    destinationVariations?: Array<InlineResponse200104DestinationVariations>;
+    /**
+     * 
      * @type {string}
      * @memberof InlineResponse200104Rows
      */
     updatedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200104Rows
+     */
+    createdAt?: string;
 }
 
 

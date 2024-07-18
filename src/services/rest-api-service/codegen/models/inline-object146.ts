@@ -25,17 +25,12 @@ export interface InlineObject146 {
      * @type {string}
      * @memberof InlineObject146
      */
-<<<<<<< HEAD
     endpoint: string;
-=======
-    endpoint?: string;
->>>>>>> dev
     /**
      * 
      * @type {object}
      * @memberof InlineObject146
      */
-<<<<<<< HEAD
     settings: object;
     /**
      * Является ли активным.
@@ -43,25 +38,12 @@ export interface InlineObject146 {
      * @memberof InlineObject146
      */
     activeSetting: boolean;
-=======
-    settings?: object;
-    /**
-     * Является ли пресет активным.
-     * @type {boolean}
-     * @memberof InlineObject146
-     */
-    activeSetting?: boolean;
->>>>>>> dev
     /**
      * Title of preset
      * @type {string}
      * @memberof InlineObject146
      */
-<<<<<<< HEAD
     title: string;
-=======
-    title?: string;
->>>>>>> dev
 }
 
 

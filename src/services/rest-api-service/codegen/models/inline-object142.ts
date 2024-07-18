@@ -21,25 +21,47 @@
  */
 export interface InlineObject142 {
     /**
-<<<<<<< HEAD
-     * 
+     * Название склада.
      * @type {string}
      * @memberof InlineObject142
      */
-    iconImage?: string;
+    name?: string;
     /**
-     * 
+     * Страна.
      * @type {string}
      * @memberof InlineObject142
      */
-    title?: string;
-=======
-     * Дата создания сессии (рефреш токена)
+    country?: string;
+    /**
+     * Индекс. 5 цифр.
      * @type {string}
      * @memberof InlineObject142
      */
-    sessionCreatedAt?: string;
->>>>>>> dev
+    zipCode?: string;
+    /**
+     * Штат.
+     * @type {string}
+     * @memberof InlineObject142
+     */
+    state?: string;
+    /**
+     * Город.
+     * @type {string}
+     * @memberof InlineObject142
+     */
+    city?: string;
+    /**
+     * Адрес склада.
+     * @type {string}
+     * @memberof InlineObject142
+     */
+    address?: string;
+    /**
+     * Цвет шрифта
+     * @type {string}
+     * @memberof InlineObject142
+     */
+    fontColor?: string;
 }
 
 

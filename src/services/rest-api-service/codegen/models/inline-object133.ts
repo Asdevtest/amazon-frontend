@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
-import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-storekeepers-tariff-logistics-destination-variations';
 
 /**
  * 
@@ -23,65 +21,29 @@ import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-
  */
 export interface InlineObject133 {
     /**
-     * Название тарифа
-     * @type {string}
-     * @memberof InlineObject133
-     */
-    name?: string;
-    /**
-     * Описание тарифа
-     * @type {string}
-     * @memberof InlineObject133
-     */
-    description?: string;
-    /**
-     * Время доставки, днях
-     * @type {string}
-     * @memberof InlineObject133
-     */
-    deliveryTimeInDay?: string;
-    /**
-     * Дата закрытия приема новых грузов.
-     * @type {string}
-     * @memberof InlineObject133
-     */
-    cls?: string;
-    /**
-     * Ожидаема дата отбытия.
-     * @type {string}
-     * @memberof InlineObject133
-     */
-    etd?: string;
-    /**
-     * Ожидаема дата прибытия.
-     * @type {string}
-     * @memberof InlineObject133
-     */
-    eta?: string;
-    /**
-     * Минимальный вес, в кг
+     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
      * @type {number}
      * @memberof InlineObject133
      */
-    minWeightInKg?: number;
+    status?: number;
     /**
-     * Заархивирован ли тариф
-     * @type {boolean}
+     * Массив картинок.
+     * @type {Array<string>}
      * @memberof InlineObject133
      */
-    archive?: boolean;
+    images?: Array<string>;
     /**
-     * 
-     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
+     * Комментарий работника склада.
+     * @type {string}
      * @memberof InlineObject133
      */
-    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
+    storekeeperComment?: string;
     /**
-     * 
-     * @type {Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>}
+     * Приоритет задачи
+     * @type {number}
      * @memberof InlineObject133
      */
-    destinationVariations?: Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>;
+    priority?: number;
 }
 
 
