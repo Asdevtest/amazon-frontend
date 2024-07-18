@@ -1,7 +1,0 @@
-export { Box } from './box'
-export { Comments } from './comments'
-export { Footer } from './footer'
-export { Header } from './header'
-export { Info } from './info'
-export { Order } from './order'
-export { Quantities } from './quantities'

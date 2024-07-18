@@ -7,7 +7,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
 import { AddOrEditHsCodeInBox } from '@components/forms/add-or-edit-hs-code-in-box-form'
-import { BoxForm } from '@components/forms/box-form'
 import { EditBoxStorekeeperForm } from '@components/forms/edit-box-storekeeper-form'
 import { EditBoxTasksForm } from '@components/forms/edit-box-tasks-form'
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
