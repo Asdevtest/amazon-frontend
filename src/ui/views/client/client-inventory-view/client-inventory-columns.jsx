@@ -97,7 +97,8 @@ export const clientInventoryColumns = ({
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {
@@ -613,7 +614,8 @@ export const clientInventoryColumns = ({
               isSimpleSku: true,
             }),
             columnKey: columnnsKeys.shared.MULTIPLE,
-            width: 250,
+            width: 260,
+            minWidth: 100,
           }
 
           defaultColumns.push(complexCell)

@@ -48,7 +48,8 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       renderCell: (params: GridRenderCellParams) => (
         <ProductAsinCell withoutTitle withoutAsin image={params.row?.image} skuByClient={params.row?.sku} />
       ),
-      width: 250,
+      width: 260,
+      minWidth: 100,
       disableCustomSort: true,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,

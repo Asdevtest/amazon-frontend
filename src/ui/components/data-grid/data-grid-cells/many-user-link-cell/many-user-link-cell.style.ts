@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   manyUserLinkWrapper: {
     width: '100%',
-    maxWidth: 152,
     overflowX: 'auto',
     display: 'flex',
     justifyContent: 'center',

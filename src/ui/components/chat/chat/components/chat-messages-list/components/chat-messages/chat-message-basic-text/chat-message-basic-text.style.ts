@@ -77,7 +77,7 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
 
     [theme.breakpoints.down(768)]: {
-      minWidth: 80,
+      minWidth: 100,
       fontSize: 12,
       lineHeight: '16px',
       maxWidth: 220,
