@@ -22,8 +22,7 @@ export const Header: FC<HeaderProps> = memo(props => {
 
   return (
     <div className={styles.header}>
-      {/* <CustomButton type="primary">{t(TranslationKey['Assign permissions'])}</CustomButton> */}
-      <div />
+      <CustomButton type="primary">{t(TranslationKey['Assign permissions'])}</CustomButton>
       <CustomInputSearch allowClear placeholder="Search by name, email" onChange={onChangeUnserverSearchValue} />
       <CustomButton type="primary" icon={<FiPlus />} onClick={onToggleAddSubUserModal}>
         {t(TranslationKey['Add a user'])}
