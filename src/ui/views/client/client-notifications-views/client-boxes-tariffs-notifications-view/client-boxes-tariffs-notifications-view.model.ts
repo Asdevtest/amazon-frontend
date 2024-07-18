@@ -1,5 +1,4 @@
 import { makeObservable, runInAction } from 'mobx'
-import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -8,18 +7,15 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
-import { ProductModel } from '@models/product-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
-import { onSubmitPostImages } from '@utils/upload-files'
 
 import { IBox } from '@typings/models/boxes/box'
 import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
-import { IHSCode } from '@typings/shared/hs-code'
 
 import { INewDataOfVariation } from '@hooks/use-tariff-variation'
 
@@ -29,13 +25,11 @@ import { observerConfig } from './observer-config'
 export class ClientBoxesTariffsNotificationsViewModel extends DataGridFilterTableModel {
   tariffIdToChange: string = ''
   curBox: IBox | null = null
+  curBoxId: string = ''
 
   showBoxViewModal = false
   showSelectionStorekeeperAndTariffModal = false
-  showEditHSCodeModal = false
   showConfirmModal = false
-
-  hsCodeData: IHSCode | null = null
 
   storekeepersData: IStorekeeper[] = []
 
@@ -79,52 +73,6 @@ export class ClientBoxesTariffsNotificationsViewModel extends DataGridFilterTabl
     this.getDataGridState()
 
     this.getCurrentData()
-  }
-
-  async onSubmitChangeBoxFields(data: IBox) {
-    try {
-      // @ts-ignore
-      await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
-
-      await BoxesModel.editAdditionalInfo(data._id, {
-        clientComment: data.clientComment,
-        referenceId: data.referenceId,
-        fbaNumber: data.fbaNumber,
-        trackNumberText: data.trackNumberText,
-        trackNumberFile: this.uploadedFiles,
-        prepId: data.prepId,
-        // storage: data.storage,
-      })
-
-      toast.success(t(TranslationKey['Data saved successfully']))
-
-      this.getCurrentData()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickSaveHsCode(hsCode: IHSCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: hsCode._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    this.getCurrentData()
-  }
-
-  async onClickHsCode(id: string) {
-    const hsCode = await ProductModel.getProductsHsCodeByGuid(id)
-
-    this.hsCodeData = hsCode as unknown as IHSCode
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
   async getStorekeepers() {
@@ -202,13 +150,9 @@ export class ClientBoxesTariffsNotificationsViewModel extends DataGridFilterTabl
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async setCurrentOpenedBox(row: IBox) {
+  setCurrentOpenedBox(row: IBox) {
     try {
-      const box = await BoxesModel.getBoxById(row._id)
-
-      runInAction(() => {
-        this.curBox = box as IBox
-      })
+      this.curBoxId = row._id
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {

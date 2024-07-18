@@ -59,8 +59,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   paymentMethods = []
 
-  hsCodeData = {}
-
   curProduct = undefined
 
   productsToLaunch = []
@@ -80,7 +78,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showSendOwnProductModal = false
   showBindInventoryGoodsToStockModal = false
   showConfirmModal = false
-  showSetChipValueModal = false
   showBarcodeOrHscodeModal = false
   showSetFourMonthsStockValueModal = false
   showCircularProgressModal = false
@@ -223,7 +220,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     const hsCodeHandlers = {
       onClickHsCode: item => this.onClickHsCode(item),
-      onDoubleClickHsCode: item => this.onDoubleClickHsCode(item),
       onDeleteHsCode: item => this.onDeleteHsCode(item),
       showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
     }
@@ -848,25 +844,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     this.onTriggerOpenModal('showSelectionSupplierModal')
   }
 
-  async onClickSaveHsCode(hsCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: this.selectedProduct._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    await this.getCurrentData()
-
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
-  }
-
   async onClickSaveBarcode(tmpBarCode) {
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
@@ -912,20 +889,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
 
-  async onClickHsCode(item) {
-    try {
-      this.setSelectedProduct(item)
+  onClickHsCode(item) {
+    this.setSelectedProduct(item)
 
-      const response = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
-
-      runInAction(() => {
-        this.hsCodeData = response
-      })
-
-      this.onTriggerOpenModal('showEditHSCodeModal')
-    } catch (error) {
-      console.error(error)
-    }
+    this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
   async onClickSaveFourMonthesStockValue(productId, fourMonthesStock) {
@@ -1401,11 +1368,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   onDoubleClickBarcode = item => {
     this.setSelectedProduct(item)
     this.onTriggerOpenModal('showSetBarcodeModal')
-  }
-
-  onDoubleClickHsCode = item => {
-    this.setSelectedProduct(item)
-    this.onTriggerOpenModal('showSetChipValueModal')
   }
 
   async onDeleteBarcode(product) {

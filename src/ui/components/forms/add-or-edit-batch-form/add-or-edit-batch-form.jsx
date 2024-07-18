@@ -15,10 +15,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserModel } from '@models/user-model'
 
+import { BoxModal } from '@components/modals/box-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
+import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -458,6 +460,7 @@ export const AddOrEditBatchForm = observer(
 
           <div className={styles.tableWrapper}>
             <CustomDataGrid
+              disableRowSelectionOnClick
               checkboxSelection
               sortingMode="client"
               paginationMode="client"
@@ -509,6 +512,7 @@ export const AddOrEditBatchForm = observer(
               rowHeight={100}
               rowSelectionModel={boxesToAddIds}
               onRowSelectionModelChange={onSelectionAwaitingBoxes}
+              onRowDoubleClick={e => viewModel.setBoxId(e.row._id)}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             />
           </div>
@@ -569,6 +573,7 @@ export const AddOrEditBatchForm = observer(
 
           <div className={styles.tableWrapper}>
             <CustomDataGrid
+              disableRowSelectionOnClick
               checkboxSelection
               sortingMode="client"
               paginationMode="client"
@@ -600,6 +605,7 @@ export const AddOrEditBatchForm = observer(
               columns={addOrEditBatchFormColumns(isClient)}
               rowHeight={100}
               onRowSelectionModelChange={onSelectionChoosenBoxes}
+              onRowDoubleClick={e => viewModel.setBoxId(e.row._id)}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             />
           </div>
@@ -686,6 +692,16 @@ export const AddOrEditBatchForm = observer(
         </div>
 
         {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
+
+        <Modal
+          openModal={viewModel.showBoxViewModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+        >
+          <BoxModal
+            boxId={viewModel.selectedBoxId}
+            onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          />
+        </Modal>
       </div>
     )
   },

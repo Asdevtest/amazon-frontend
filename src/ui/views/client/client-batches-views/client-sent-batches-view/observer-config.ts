@@ -4,7 +4,6 @@ export const observerConfig = {
   curBatch: observable,
   currentStorekeeperId: observable,
   storekeepersData: observable,
-  hsCodeData: observable,
   productViewMode: observable,
   uploadedFiles: observable,
 
@@ -16,8 +15,6 @@ export const observerConfig = {
   onTriggerArchive: action.bound,
   onClickTriggerArchOrResetProducts: action.bound,
   onSubmitTriggerArchOrResetProducts: action.bound,
-  onClickSaveHsCode: action.bound,
-  onClickHsCode: action.bound,
   getStorekeepers: action.bound,
   onClickStorekeeperBtn: action.bound,
   onSubmitChangeBoxFields: action.bound,

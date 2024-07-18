@@ -16,7 +16,6 @@ import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { OrderModel } from '@models/order-model'
-import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
@@ -38,7 +37,6 @@ import { IProduct } from '@typings/models/products/product'
 import { IShop } from '@typings/models/shops/shop'
 import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 import { IDestination } from '@typings/shared/destinations'
-import { IHSCode } from '@typings/shared/hs-code'
 import { ILogicTariff } from '@typings/shared/logic-tariff'
 import { IUploadFile } from '@typings/shared/upload-file'
 
@@ -53,7 +51,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
   unitsOption = Dimensions.EU
 
-  curBox: IBox | null = null
+  curBox: string = ''
   isCurrentTarrifsButton = false
 
   curOpenedTask = {}
@@ -82,11 +80,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   shopsData: IShop[] = []
 
   onAmazon = false
-  hsCodeData = {}
   uploadedFiles: string[] = []
 
   showBoxViewModal = false
-  showEditHSCodeModal = false
   showMergeBoxModal = false
   showSendOwnProductModal = false
   showEditBoxModal = false
@@ -126,8 +122,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
 
     return this.currentData
-      .filter(el => this.selectedRows.includes(el._id))
-      .every(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
+      .filter((el: any) => this.selectedRows.includes(el._id))
+      .every((el: any) => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
 
   get isHaveRequestSendToBatch() {
@@ -136,8 +132,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
 
     return this.currentData
-      .filter(el => this.selectedRows.includes(el._id))
-      .some(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
+      .filter((el: any) => this.selectedRows.includes(el._id))
+      .some((el: any) => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
 
   get platformSettings() {
@@ -308,29 +304,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       })
 
       this.getDataGridState()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onSubmitChangeBoxFields(data: IBox) {
-    try {
-      // @ts-ignore
-      await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
-
-      await BoxesModel.editAdditionalInfo(data._id, {
-        clientComment: data.clientComment,
-        referenceId: data.referenceId,
-        fbaNumber: data.fbaNumber,
-        trackNumberText: data.trackNumberText,
-        trackNumberFile: this.uploadedFiles,
-        prepId: data.prepId,
-        // storage: data.storage,
-      })
-
-      toast.success(t(TranslationKey['Data saved successfully']))
-
-      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
@@ -687,31 +660,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSaveHsCode(hsCode: IHSCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: hsCode._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    this.loadData()
-
-    runInAction(() => {
-      this.selectedProduct = null
-    })
-  }
-
-  async onClickHsCode(id: string) {
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-  }
-
   async onRedistribute(
     id: string,
     updatedBoxes: any,
@@ -800,10 +748,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
   async onClickGroupingBtn() {
     try {
-      const firstBox = this.currentData.find(box => box._id === this.selectedRows[0])
+      const firstBox = this.currentData.find((box: IBox) => box._id === this.selectedRows[0])
 
       const boxesWithDifferentStorekeepers = this.selectedRows.filter(boxId => {
-        const findBox = this.currentData.find(box => box._id === boxId)
+        const findBox = this.currentData.find((box: IBox) => box._id === boxId)
 
         return findBox?.storekeeper?._id !== firstBox?.storekeeper?._id
       })
@@ -828,10 +776,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
   async onClickEditBtn() {
     try {
-      const firstBox = this.currentData.find(box => box._id === this.selectedRows[0])
+      const firstBox = this.currentData.find((box: IBox) => box._id === this.selectedRows[0])
 
       const boxesWithDifferentStorekeepers = this.selectedRows.filter(boxId => {
-        const findBox = this.currentData.find(box => box._id === boxId)
+        const findBox = this.currentData.find((box: IBox) => box._id === boxId)
 
         return findBox?.storekeeper?._id !== firstBox?.storekeeper?._id
       })
@@ -1372,10 +1320,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
   async setCurrentOpenedBox(row: IBox) {
     try {
-      const box = await BoxesModel.getBoxById(row._id)
-
       runInAction(() => {
-        this.curBox = box as IBox
+        this.curBox = row._id
       })
 
       this.onTriggerOpenModal('showBoxViewModal')
@@ -1500,7 +1446,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const boxesWithoutTariffOrDestinationIds = this.selectedRows.filter(boxId => {
-        const findBox = this.currentData.find(box => box._id === boxId)
+        const findBox = this.currentData.find((box: IBox) => box._id === boxId)
         return !findBox?.logicsTariff || !findBox?.destination
       })
 
@@ -1563,7 +1509,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   async onClickMergeBtn() {
     try {
       const isMasterBoxSelected = this.selectedRows.some(boxId => {
-        const findBox = this.currentData.find(box => box._id === boxId)
+        const findBox = this.currentData.find((box: any) => box._id === boxId)
         return findBox?.amount && findBox.amount > 1
       })
 
@@ -1600,7 +1546,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   }
 
   async onClickWarehouseOrderButton(guid: string) {
-    const selectedBox = this.currentData?.find(el => el._id === guid)
+    const selectedBox = this.currentData?.find((el: any) => el._id === guid)
     const selectedBoxItems = selectedBox?.items
 
     if (selectedBoxItems?.length > 1) {
