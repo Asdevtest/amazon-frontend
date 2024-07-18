@@ -16,7 +16,6 @@ import { observerConfig } from './observer-config'
 
 export class DataGridTableModel extends DefaultModel {
   currentSearchValue: string = ''
-
   densityModel = 'compact'
   sortModel: any = undefined
   paginationModel: GridPaginationModel = paginationModelInitialValue
@@ -24,11 +23,8 @@ export class DataGridTableModel extends DefaultModel {
   columnVisibilityModel: GridColumnVisibilityModel = {}
   selectedRows: string[] = []
   tableKey: string | undefined = undefined
-
   columnsModel: IGridColumn[] = []
-
   fieldsForSearch: string[] = []
-
   pinnedColumns: GridPinnedColumns = {
     left: [GRID_CHECKBOX_SELECTION_COL_DEF.field],
     right: [],
@@ -36,11 +32,9 @@ export class DataGridTableModel extends DefaultModel {
 
   get filteredData() {
     if (this.fieldsForSearch?.length) {
-      return this.currentData?.filter((item: any) =>
-        this.fieldsForSearch.some(field =>
-          item?.[field]?.toLowerCase().includes(this.currentSearchValue.toLowerCase()),
-        ),
-      )
+      const searchValue = this.currentSearchValue.toLowerCase()
+
+      return this.currentData?.filter((item: any) => this.checkNestedFields(item, searchValue, this.fieldsForSearch))
     } else {
       return this.currentData
     }
@@ -144,5 +138,30 @@ export class DataGridTableModel extends DefaultModel {
 
   onClickResetFilters() {
     this.filterModel = filterModelInitialValue
+  }
+
+  /**
+   * Recursively checks an object for string values starting with a specified search value,
+   * in the specified fields and all their nested objects.
+   * @param {object} obj - The object to check.
+   * @param {string} searchValue - The search value (case insensitive).
+   * @param {string[]} fieldsForSearch - Array of fields to search within.
+   * @returns {boolean} Returns true if any field of the object or its nested objects starts with the search value, otherwise false.
+   */
+  checkNestedFields(obj: any, searchValue: string, fieldsForSearch: string[]): boolean {
+    if (typeof obj !== 'object' || obj === null) {
+      return false
+    }
+
+    return Object.keys(obj).some(key => {
+      if (fieldsForSearch.includes(key) && typeof obj[key] === 'string') {
+        return obj[key].toLowerCase().startsWith(searchValue)
+      } else if (Array.isArray(obj[key])) {
+        return false
+      } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+        return this.checkNestedFields(obj[key], searchValue, fieldsForSearch)
+      }
+      return false
+    })
   }
 }

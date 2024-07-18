@@ -27,4 +27,5 @@ export const observerConfig = {
   handlePinColumn: action.bound,
   handleHideColumns: action.bound,
   onClickResetFilters: action.bound,
+  checkNestedFields: action.bound,
 }
