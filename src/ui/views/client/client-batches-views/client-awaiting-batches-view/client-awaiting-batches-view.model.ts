@@ -34,7 +34,6 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
 
   uploadedFiles = []
 
-  showEditHSCodeModal = false
   showBatchInfoModal = false
   showConfirmModal = false
   showBoxViewModal = false

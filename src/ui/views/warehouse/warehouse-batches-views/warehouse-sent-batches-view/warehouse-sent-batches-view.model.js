@@ -32,7 +32,6 @@ export class WarehouseSentBatchesViewModel {
   selectedBatches = []
   curBatch = undefined
 
-  showEditHSCodeModal = false
   showConfirmModal = false
   showBatchInfoModal = false
   uploadedFiles = []

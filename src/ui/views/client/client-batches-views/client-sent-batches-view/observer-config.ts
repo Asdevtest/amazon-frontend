@@ -8,7 +8,6 @@ export const observerConfig = {
   uploadedFiles: observable,
 
   isArchive: observable,
-  showEditHSCodeModal: observable,
   showBatchInfoModal: observable,
   showConfirmModal: observable,
 

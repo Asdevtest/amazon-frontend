@@ -11,7 +11,7 @@ import { UserModel } from '@models/user-model'
 import { IFeedback } from '@typings/models/administrators/feedback'
 import { IFullUser } from '@typings/shared/full-user'
 
-import { adminFeedbackConfig } from './admin-feedback-view.config'
+import { adminFeedbackConfig, fieldsForSearch, sortConfig } from './admin-feedback-view.config'
 import { adminFeedbackViewColumns } from './admin-feedback.columns'
 
 export class AdminFeedbackViewModel extends DataGridTableModel {
@@ -33,8 +33,9 @@ export class AdminFeedbackViewModel extends DataGridTableModel {
     super({
       getMainDataMethod: AdministratorModel.getFeedback,
       columnsModel,
+      fieldsForSearch,
     })
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+    this.sortModel = sortConfig
     this.getCurrentData()
     this.initHistory()
     makeObservable(this, adminFeedbackConfig)
