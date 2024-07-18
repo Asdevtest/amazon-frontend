@@ -17,11 +17,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 20,
-
-    [theme.breakpoints.down(1500)]: {
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-    },
   },
 
   headerColumn: {
@@ -54,17 +49,13 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     gap: 20,
-
-    [theme.breakpoints.down(480)]: {
-      flexDirection: 'column',
-    },
   },
 
   stepContent: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: 20,
   },
 
   field: {
@@ -108,7 +99,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    marginLeft: -12,
   },
 
   defaultMarginTop: {

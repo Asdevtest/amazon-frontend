@@ -2,7 +2,6 @@ import { action, computed, observable } from 'mobx'
 
 export const observerConfig = {
   curBatch: observable,
-  showEditHSCodeModal: observable,
   currentStorekeeperId: observable,
   storekeepersData: observable,
   uploadedFiles: observable,

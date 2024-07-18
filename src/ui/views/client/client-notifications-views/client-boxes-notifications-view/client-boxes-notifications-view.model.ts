@@ -22,8 +22,6 @@ export class ClientBoxesNotificationsViewModel extends DataGridFilterTableModel 
   curBox: string = ''
   showBoxViewModal = false
 
-  showEditHSCodeModal = false
-
   boxes = []
   showConfirmModal = false
 
