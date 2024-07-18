@@ -3,9 +3,8 @@ import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BoxForm } from '@components/forms/box-form'
+import { BoxModal } from '@components/modals/box-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -112,24 +111,7 @@ export const ClientBoxesNotificationsView = observer(() => {
         openModal={viewModel.showBoxViewModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
-        <BoxForm
-          userInfo={viewModel.userInfo}
-          box={viewModel.curBox}
-          onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
-        />
-      </Modal>
-
-      <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-      >
-        <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-        />
+        <BoxModal boxId={viewModel.curBox} onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')} />
       </Modal>
     </div>
   )

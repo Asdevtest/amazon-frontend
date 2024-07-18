@@ -7,13 +7,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
 import { AddOrEditHsCodeInBox } from '@components/forms/add-or-edit-hs-code-in-box-form'
-import { BoxForm } from '@components/forms/box-form'
 import { EditBoxStorekeeperForm } from '@components/forms/edit-box-storekeeper-form'
 import { EditBoxTasksForm } from '@components/forms/edit-box-tasks-form'
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
 import { MoveBoxToBatchForm } from '@components/forms/move-box-to-batch-form'
-import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { BoxModal } from '@components/modals/box-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
 import { StorekeeperRedistributeBox } from '@components/modals/storekeeper'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -110,19 +109,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
       </div>
 
       <Modal
-        openModal={viewModel.showBoxViewModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-      >
-        <BoxForm
-          userInfo={viewModel.userInfo}
-          box={viewModel.curBox}
-          onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
-        />
-      </Modal>
-
-      <Modal
         openModal={viewModel.showBoxMoveToBatchModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxMoveToBatchModal')}
       >
@@ -171,14 +157,10 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
       </Modal>
 
       <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+        openModal={viewModel.showBoxViewModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
-        <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-        />
+        <BoxModal boxId={viewModel.curBox} onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')} />
       </Modal>
 
       <Modal

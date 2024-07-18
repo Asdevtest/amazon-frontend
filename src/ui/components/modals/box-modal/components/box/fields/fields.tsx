@@ -16,7 +16,7 @@ interface FieldsProps {
   isClient: boolean
   isBuyer: boolean
   isEdit: boolean
-  onChangeField: (field: string) => (event: ChangeEvent<HTMLInputElement>) => void
+  onChangeField: (field: keyof IBox) => (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Fields: FC<FieldsProps> = memo(props => {

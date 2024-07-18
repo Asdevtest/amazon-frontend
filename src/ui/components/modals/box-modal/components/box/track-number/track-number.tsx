@@ -18,7 +18,7 @@ interface TrackNumberProps {
   isClient: boolean
   isEdit: boolean
   formFields: IBox
-  onChangeField: (field: string) => (event: ChangeEvent<HTMLInputElement>) => void
+  onChangeField: (field: keyof IBox) => (event: ChangeEvent<HTMLInputElement>) => void
   onChangeTrackNumberFile: (files: string[]) => void
 }
 

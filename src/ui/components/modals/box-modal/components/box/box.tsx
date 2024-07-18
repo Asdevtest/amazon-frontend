@@ -24,7 +24,7 @@ interface BoxProps {
   isBuyer: boolean
   isClient: boolean
   formFields: IBox
-  onChangeField: (field: string) => (event: ChangeEvent<HTMLInputElement>) => void
+  onChangeField: (field: keyof IBox) => (event: ChangeEvent<HTMLInputElement>) => void
   onChangeTrackNumberFile: (files: string[]) => void
 }
 
@@ -39,7 +39,7 @@ export const Box: FC<BoxProps> = memo(props => {
         <Items formFields={formFields} />
 
         <div className={cx(styles.info, styles.flexContainer)}>
-          <SlideshowGallery hiddenPreviews files={formFields?.images} slidesToShow={2} />
+          <SlideshowGallery hiddenPreviews files={formFields?.images || []} slidesToShow={2} />
 
           <Dimensions data={formFields} title={t(TranslationKey['Sizes from storekeeper'])} />
 

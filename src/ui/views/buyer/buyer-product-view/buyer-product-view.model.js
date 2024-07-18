@@ -34,7 +34,6 @@ export class BuyerProductViewModel {
   product = undefined
   productBase = undefined
   curUpdateProductData = undefined
-  hsCodeData = undefined
   showTab = undefined
   showEditHSCodeModal = false
   showConfirmModal = false
@@ -249,31 +248,7 @@ export class BuyerProductViewModel {
     }
   }
 
-  async onClickHsCode(id) {
-    try {
-      const response = await ProductModel.getProductsHsCodeByGuid(id)
-
-      runInAction(() => {
-        this.hsCodeData = response
-      })
-
-      this.onTriggerOpenModal('showEditHSCodeModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickSaveHsCode(hsCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: hsCode._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
+  onClickHsCode() {
     this.onTriggerOpenModal('showEditHSCodeModal')
   }
 

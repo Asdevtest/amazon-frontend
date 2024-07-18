@@ -394,7 +394,6 @@ export const clientInventoryColumns = ({
           text={t(TranslationKey['HS code'])}
           value={row?.hsCode}
           onClickChip={() => hsCodeHandlers.onClickHsCode(row)}
-          onDoubleClickChip={() => hsCodeHandlers.onDoubleClickHsCode(row)}
           onDeleteChip={!row?.hsCode ? undefined : () => hsCodeHandlers.onDeleteHsCode(row)}
         />
       ),

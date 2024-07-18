@@ -10,7 +10,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
-import { ProductModel } from '@models/product-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 
 import { t } from '@utils/translations'
@@ -19,7 +18,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 import { tableProductViewMode } from '@typings/enums/table-product-view'
 import { IBatch } from '@typings/models/batches/batch'
 import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
-import { IHSCode } from '@typings/shared/hs-code'
 
 import { clientBatchesViewColumns } from '../client-awaiting-batches-view/client-batches-columns'
 
@@ -30,12 +28,10 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
   curBatch: IBatch | null = null
   currentStorekeeperId: string = ''
   storekeepersData: IStorekeeper[] = []
-  hsCodeData: IHSCode | null = null
   productViewMode = tableProductViewMode.EXTENDED
   uploadedFiles = []
 
   isArchive = false
-  showEditHSCodeModal = false
   showBatchInfoModal = false
   showConfirmModal = false
 
@@ -113,35 +109,6 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
       this.getCurrentData()
 
       this.onTriggerOpenModal('showConfirmModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickSaveHsCode(hsCode: IHSCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: hsCode._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    this.getCurrentData()
-  }
-
-  async onClickHsCode(id: string) {
-    try {
-      const response = await ProductModel.getProductsHsCodeByGuid(id)
-
-      runInAction(() => {
-        this.hsCodeData = response as unknown as IHSCode
-      })
-
-      this.onTriggerOpenModal('showEditHSCodeModal')
     } catch (error) {
       console.error(error)
     }

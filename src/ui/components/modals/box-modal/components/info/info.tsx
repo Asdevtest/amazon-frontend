@@ -17,7 +17,7 @@ import { useStyles } from './info.style'
 interface InfoProps {
   formFields: IBox
   isStorekeeper: boolean
-  onChangeField: (field: string) => (event: ChangeEvent<HTMLInputElement>) => void
+  onChangeField: (field: keyof IBox) => (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Info: FC<InfoProps> = memo(props => {

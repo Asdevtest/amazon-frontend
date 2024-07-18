@@ -5,7 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -131,17 +130,6 @@ export const ClientSentBatchesView = observer(({ history }) => {
           onClickHsCode={viewModel.onClickHsCode}
         />
       ) : null}
-
-      <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-      >
-        <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-        />
-      </Modal>
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

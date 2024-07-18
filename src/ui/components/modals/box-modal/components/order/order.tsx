@@ -8,7 +8,7 @@ import { Items } from '../items'
 
 interface OrderProps {
   isClient: boolean
-  formFields: IBox
+  formFields?: IBox
   onClickHsCode?: (id: string) => void
 }
 

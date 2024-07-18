@@ -7,7 +7,7 @@ import { useStyles } from './items.style'
 import { Item } from './item'
 
 interface ItemsProps {
-  formFields: IBox
+  formFields?: IBox
   isClient?: boolean
   isOrderInfo?: boolean
   onClickHsCode?: (id: string) => void

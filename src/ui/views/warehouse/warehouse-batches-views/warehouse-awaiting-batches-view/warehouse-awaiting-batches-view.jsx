@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -147,17 +146,6 @@ export const WarehouseAwaitingBatchesView = observer(() => {
         />
       </Modal>
 
-      <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-      >
-        <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-        />
-      </Modal>
-
       {viewModel.showConfirmModal ? (
         <ConfirmationModal
           // @ts-ignore
@@ -181,7 +169,6 @@ export const WarehouseAwaitingBatchesView = observer(() => {
           batch={viewModel.curBatch}
           patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
           onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
         />
       ) : null}
 

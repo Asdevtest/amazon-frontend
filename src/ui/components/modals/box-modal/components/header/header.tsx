@@ -14,7 +14,7 @@ import { useStyles } from './header.style'
 interface HeaderProps {
   formFields: IBox
   disabledPrepId: boolean
-  onChangeField: (field: string) => (event: ChangeEvent<HTMLInputElement>) => void
+  onChangeField: (field: keyof IBox) => (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Header: FC<HeaderProps> = memo(props => {

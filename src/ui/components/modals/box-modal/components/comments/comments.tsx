@@ -11,10 +11,10 @@ import { IBox } from '@typings/models/boxes/box'
 import { useStyles } from './comments.style'
 
 interface CommentsProps {
-  formFields: IBox
+  formFields?: IBox
   isClient: boolean
   isStorekeeper: boolean
-  onChangeField: (field: string) => (event: ChangeEvent<HTMLInputElement>) => void
+  onChangeField: (field: keyof IBox) => (event: ChangeEvent<HTMLInputElement>) => void
   onSubmitChangeFields?: (fields: IBox) => void
 }
 

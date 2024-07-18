@@ -42,7 +42,7 @@ export class WarehouseMyWarehouseViewModel {
 
   destinations = []
 
-  curBox = undefined
+  curBox = ''
   curBoxToMove = undefined
   sourceBoxForBatch = undefined
 
@@ -52,10 +52,6 @@ export class WarehouseMyWarehouseViewModel {
 
   curOpenedTask = {}
   toCancelData = {}
-
-  hsCodeData = {}
-
-  showEditHSCodeModal = false
 
   showBoxViewModal = false
   showBoxMoveToBatchModal = false
@@ -233,56 +229,6 @@ export class WarehouseMyWarehouseViewModel {
     } catch (error) {
       console.error(error)
     }
-  }
-
-  async onSubmitChangeBoxFields(data) {
-    try {
-      await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
-
-      await BoxesModel.editAdditionalInfo(data._id, {
-        storekeeperComment: data.storekeeperComment,
-        referenceId: data.referenceId,
-        fbaNumber: data.fbaNumber,
-        trackNumberText: data.trackNumberText,
-        trackNumberFile: this.uploadedFiles,
-        upsTrackNumber: data.upsTrackNumber,
-        prepId: data.prepId,
-        // storage: data.storage,
-      })
-
-      this.getBoxesMy()
-
-      toast.success(t(TranslationKey['Data saved successfully']))
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickSaveHsCode(hsCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: hsCode._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    this.loadData()
-
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
-  }
-
-  async onClickHsCode(id) {
-    const hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
-    runInAction(() => {
-      this.hsCodeData = hsCodeData
-    })
-    this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
   async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes) {
@@ -980,11 +926,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async setCurrentOpenedBox(row) {
     try {
-      const box = await BoxesModel.getBoxById(row._id)
-
-      runInAction(() => {
-        this.curBox = box
-      })
+      this.curBox = row._id
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
