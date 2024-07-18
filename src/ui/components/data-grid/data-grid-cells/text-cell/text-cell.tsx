@@ -34,7 +34,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
     if (text) {
       setValue(text)
     }
-  }, [])
+  }, [text])
 
   const handleChangeValue = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(event.target.value)
