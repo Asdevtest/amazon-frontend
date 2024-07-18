@@ -3,11 +3,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ActionButtonsCell,
   AsinCell,
-  CommentCell,
   CopyAndEditLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ShortDateCell,
+  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
@@ -78,7 +78,8 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     width: 250,
     renderCell: params =>
       params?.row?.originalData?._id === editField?._id ? (
-        <CommentCell
+        <TextCell
+          editMode
           text={params.row.originalData.sourceFile}
           onClickSubmit={() => rowHandlers.onClickSaveBtn(params.row)}
         />
@@ -93,7 +94,8 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
     width: 240,
     renderCell: params => (
-      <CommentCell
+      <TextCell
+        editMode
         text={params.row.originalData.comments}
         onClickSubmit={() => rowHandlers.onClickSaveBtn(params.row)}
       />

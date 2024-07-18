@@ -17,18 +17,9 @@ export const useStyles = makeStyles()(() => ({
   },
 
   container: {
+    minHeight: '22px',
     height: '100%',
     alignContent: 'center',
-  },
-
-  text: {
-    width: '100%',
-    display: '-webkit-box',
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
-    overflow: 'hidden',
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
   },
 
   icon: {
