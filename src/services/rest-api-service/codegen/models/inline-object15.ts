@@ -33,7 +33,7 @@ export interface InlineObject15 {
      */
     buyerId?: string;
     /**
-     * Гуид супервизора
+     * Гуид супервайзера
      * @type {string}
      * @memberof InlineObject15
      */

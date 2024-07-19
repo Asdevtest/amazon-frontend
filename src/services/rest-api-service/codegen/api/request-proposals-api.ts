@@ -13,17 +13,15 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosInstance, AxiosPromise } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, createRequestFunction, serializeDataIfNeeded, setApiKeyToObject, setSearchParams, toPathString } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { BASE_PATH, BaseAPI, COLLECTION_FORMATS, RequestArgs, RequiredError } from '../base';
 // @ts-ignore
-import { BadRequestError } from '../models';
 // @ts-ignore
-import { ConflictInTheState } from '../models';
 // @ts-ignore
 import { InlineObject100 } from '../models';
 // @ts-ignore
@@ -61,9 +59,7 @@ import { InlineResponse20087 } from '../models';
 // @ts-ignore
 import { InlineResponse20111 } from '../models';
 // @ts-ignore
-import { InternalServerError } from '../models';
 // @ts-ignore
-import { NotFoundError } from '../models';
 /**
  * RequestProposalsApi - axios parameter creator
  * @export
@@ -71,7 +67,7 @@ import { NotFoundError } from '../models';
 export const RequestProposalsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * ## Получить список предложений по guid заявки..   Если его вызывает создатель заявки:  Эндпоинт должен отдавать список всех предложений со всеми статусами Если его вызывает исполнитель(фрилансер): Он должен отдавать предложения к заявке, только от этого исполнителя со всеми статусами Если его вызывает супервизор: Он должен отдавать предложения проверяемые данным супервайзером.
+         * ## Получить список предложений по guid заявки..   Если его вызывает создатель заявки:  Эндпоинт должен отдавать список всех предложений со всеми статусами Если его вызывает исполнитель(фрилансер): Он должен отдавать предложения к заявке, только от этого исполнителя со всеми статусами Если его вызывает супервайзер: Он должен отдавать предложения проверяемые данным супервайзером.
          * @summary Получить список предложений по guid заявки.
          * @param {string} guid GUID в сущности в БД
          * @param {boolean} [noCache] Игнорировать данные в кеше
@@ -379,8 +375,8 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
-         * ## Получить все предложения для супервизора.  
-         * @summary Получить все предложения для супервизора.
+         * ## Получить все предложения для супервайзера.  
+         * @summary Получить все предложения для супервайзера.
          * @param {'CUSTOM' | 'SEARCH_NICHE' | 'SEARCH_PRODUCT'} type Тип заявки
          * @param {'VACANT' | 'LINKED_TO_ME' | 'ALL'} kind Виды запросов:       LINKED_TO_ME - предложения которые связанны с данным пользователем,       ALL - все предложения, если в заявке требовалась проверка супервайзера,       VACANT - все доступные предложения на проверку сепервайзером. Данный запрос доступен только для роли супервайзера
          * @param {boolean} [noCache] Игнорировать данные в кеше
@@ -809,7 +805,7 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
-         * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервизором, то время не устанавливается. Проверки: Только предложения со статусом:  OFFER_CONDITIONS_ACCEPTED
+         * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервайзером, то время не устанавливается. Проверки: Только предложения со статусом:  OFFER_CONDITIONS_ACCEPTED
          * @summary #  Отправить предложение на утверждение.
          * @param {string} guid GUID в БД
          * @param {object} [body] 
@@ -901,7 +897,7 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
-         * ##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
+         * ##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервайзером, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
          * @summary #  Отправить обратно на утверждение, после доработки.
          * @param {string} guid GUID в БД
          * @param {InlineObject106} [body] 
@@ -1071,7 +1067,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = RequestProposalsApiAxiosParamCreator(configuration)
     return {
         /**
-         * ## Получить список предложений по guid заявки..   Если его вызывает создатель заявки:  Эндпоинт должен отдавать список всех предложений со всеми статусами Если его вызывает исполнитель(фрилансер): Он должен отдавать предложения к заявке, только от этого исполнителя со всеми статусами Если его вызывает супервизор: Он должен отдавать предложения проверяемые данным супервайзером.
+         * ## Получить список предложений по guid заявки..   Если его вызывает создатель заявки:  Эндпоинт должен отдавать список всех предложений со всеми статусами Если его вызывает исполнитель(фрилансер): Он должен отдавать предложения к заявке, только от этого исполнителя со всеми статусами Если его вызывает супервайзер: Он должен отдавать предложения проверяемые данным супервайзером.
          * @summary Получить список предложений по guid заявки.
          * @param {string} guid GUID в сущности в БД
          * @param {boolean} [noCache] Игнорировать данные в кеше
@@ -1158,8 +1154,8 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * ## Получить все предложения для супервизора.  
-         * @summary Получить все предложения для супервизора.
+         * ## Получить все предложения для супервайзера.  
+         * @summary Получить все предложения для супервайзера.
          * @param {'CUSTOM' | 'SEARCH_NICHE' | 'SEARCH_PRODUCT'} type Тип заявки
          * @param {'VACANT' | 'LINKED_TO_ME' | 'ALL'} kind Виды запросов:       LINKED_TO_ME - предложения которые связанны с данным пользователем,       ALL - все предложения, если в заявке требовалась проверка супервайзера,       VACANT - все доступные предложения на проверку сепервайзером. Данный запрос доступен только для роли супервайзера
          * @param {boolean} [noCache] Игнорировать данные в кеше
@@ -1277,7 +1273,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервизором, то время не устанавливается. Проверки: Только предложения со статусом:  OFFER_CONDITIONS_ACCEPTED
+         * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервайзером, то время не устанавливается. Проверки: Только предложения со статусом:  OFFER_CONDITIONS_ACCEPTED
          * @summary #  Отправить предложение на утверждение.
          * @param {string} guid GUID в БД
          * @param {object} [body] 
@@ -1303,7 +1299,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * ##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
+         * ##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервайзером, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
          * @summary #  Отправить обратно на утверждение, после доработки.
          * @param {string} guid GUID в БД
          * @param {InlineObject106} [body] 
@@ -1356,7 +1352,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
     const localVarFp = RequestProposalsApiFp(configuration)
     return {
         /**
-         * ## Получить список предложений по guid заявки..   Если его вызывает создатель заявки:  Эндпоинт должен отдавать список всех предложений со всеми статусами Если его вызывает исполнитель(фрилансер): Он должен отдавать предложения к заявке, только от этого исполнителя со всеми статусами Если его вызывает супервизор: Он должен отдавать предложения проверяемые данным супервайзером.
+         * ## Получить список предложений по guid заявки..   Если его вызывает создатель заявки:  Эндпоинт должен отдавать список всех предложений со всеми статусами Если его вызывает исполнитель(фрилансер): Он должен отдавать предложения к заявке, только от этого исполнителя со всеми статусами Если его вызывает супервайзер: Он должен отдавать предложения проверяемые данным супервайзером.
          * @summary Получить список предложений по guid заявки.
          * @param {string} guid GUID в сущности в БД
          * @param {boolean} [noCache] Игнорировать данные в кеше
@@ -1436,8 +1432,8 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
             return localVarFp.apiV1RequestProposalsFreelanceSourcesPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
-         * ## Получить все предложения для супервизора.  
-         * @summary Получить все предложения для супервизора.
+         * ## Получить все предложения для супервайзера.  
+         * @summary Получить все предложения для супервайзера.
          * @param {'CUSTOM' | 'SEARCH_NICHE' | 'SEARCH_PRODUCT'} type Тип заявки
          * @param {'VACANT' | 'LINKED_TO_ME' | 'ALL'} kind Виды запросов:       LINKED_TO_ME - предложения которые связанны с данным пользователем,       ALL - все предложения, если в заявке требовалась проверка супервайзера,       VACANT - все доступные предложения на проверку сепервайзером. Данный запрос доступен только для роли супервайзера
          * @param {boolean} [noCache] Игнорировать данные в кеше
@@ -1546,7 +1542,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
             return localVarFp.apiV1RequestProposalsGuidProposalRejectPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
-         * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервизором, то время не устанавливается. Проверки: Только предложения со статусом:  OFFER_CONDITIONS_ACCEPTED
+         * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервайзером, то время не устанавливается. Проверки: Только предложения со статусом:  OFFER_CONDITIONS_ACCEPTED
          * @summary #  Отправить предложение на утверждение.
          * @param {string} guid GUID в БД
          * @param {object} [body] 
@@ -1570,7 +1566,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
             return localVarFp.apiV1RequestProposalsGuidResultAcceptPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
-         * ##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
+         * ##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервайзером, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
          * @summary #  Отправить обратно на утверждение, после доработки.
          * @param {string} guid GUID в БД
          * @param {InlineObject106} [body] 
@@ -2222,7 +2218,7 @@ export interface RequestProposalsApiApiV1RequestProposalsPagMyGetRequest {
  */
 export class RequestProposalsApi extends BaseAPI {
     /**
-     * ## Получить список предложений по guid заявки..   Если его вызывает создатель заявки:  Эндпоинт должен отдавать список всех предложений со всеми статусами Если его вызывает исполнитель(фрилансер): Он должен отдавать предложения к заявке, только от этого исполнителя со всеми статусами Если его вызывает супервизор: Он должен отдавать предложения проверяемые данным супервайзером.
+     * ## Получить список предложений по guid заявки..   Если его вызывает создатель заявки:  Эндпоинт должен отдавать список всех предложений со всеми статусами Если его вызывает исполнитель(фрилансер): Он должен отдавать предложения к заявке, только от этого исполнителя со всеми статусами Если его вызывает супервайзер: Он должен отдавать предложения проверяемые данным супервайзером.
      * @summary Получить список предложений по guid заявки.
      * @param {RequestProposalsApiApiV1RequestProposalsCustomByRequestIdGuidGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2306,8 +2302,8 @@ export class RequestProposalsApi extends BaseAPI {
     }
 
     /**
-     * ## Получить все предложения для супервизора.  
-     * @summary Получить все предложения для супервизора.
+     * ## Получить все предложения для супервайзера.  
+     * @summary Получить все предложения для супервайзера.
      * @param {RequestProposalsApiApiV1RequestProposalsGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2414,7 +2410,7 @@ export class RequestProposalsApi extends BaseAPI {
     }
 
     /**
-     * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервизором, то время не устанавливается. Проверки: Только предложения со статусом:  OFFER_CONDITIONS_ACCEPTED
+     * ##  Отправить на утверждение.  Статус READY_TO_VERIFY ставится автоматом Устанавливается время на принятие автоматом предложения клиентом  Если в заявке было требование проверять супервайзером, то время не устанавливается. Проверки: Только предложения со статусом:  OFFER_CONDITIONS_ACCEPTED
      * @summary #  Отправить предложение на утверждение.
      * @param {RequestProposalsApiApiV1RequestProposalsGuidReadyToVerifyPatchRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2438,7 +2434,7 @@ export class RequestProposalsApi extends BaseAPI {
     }
 
     /**
-     * ##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервизором, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
+     * ##  Отправить обратно на утверждение, после доработки.  Статус ставится автоматом: CORRECTED В зависимости была ли в заявке требование проверки супервайзером, устанавливается время. После достижении времени, предложение будет принято автоматом  если была в заявке была проверка супервайзером, то сепервайзер снимается с проверки предложения. Исполнитель может написать комментарий к действию или прикрепить ссылки на медиа файлы Проверки: Только предложения со статусом: TO_CORRECT
      * @summary #  Отправить обратно на утверждение, после доработки.
      * @param {RequestProposalsApiApiV1RequestProposalsGuidResultCorrectedPatchRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

@@ -138,8 +138,8 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
 
     {
       field: 'checkednotes',
-      headerName: t(TranslationKey['Supervisor comment']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supervisor comment'])} />,
+      headerName: t(TranslationKey["Supervisor's comment"]),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey["Supervisor's comment"])} />,
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 200,
