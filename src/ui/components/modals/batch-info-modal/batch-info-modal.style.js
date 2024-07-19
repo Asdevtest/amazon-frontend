@@ -81,7 +81,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: '400px',
+    width: '230px',
     height: '32px',
 
     input: {
