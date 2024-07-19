@@ -11,7 +11,7 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 
 import { useStyles } from './custom-select.style'
 
-interface CustomSelectProps extends Omit<SelectProps, 'options'>, IDefaultPropsExtensionAntdComponent {
+export interface CustomSelectProps extends Omit<SelectProps, 'options'>, IDefaultPropsExtensionAntdComponent {
   placeholder?: string
   required?: boolean
   options: BaseOptionType[]
