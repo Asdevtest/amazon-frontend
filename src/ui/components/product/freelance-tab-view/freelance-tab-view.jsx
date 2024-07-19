@@ -105,7 +105,6 @@ export const Freelance = observer(({ productId, modal }) => {
       {viewModel.showRequestResultModal ? (
         <RequestResultModal
           // @ts-ignore
-          request={viewModel.curRequest}
           proposal={viewModel.curProposal}
           openModal={viewModel.showRequestResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}

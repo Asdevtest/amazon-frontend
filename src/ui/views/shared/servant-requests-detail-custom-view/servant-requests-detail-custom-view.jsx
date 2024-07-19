@@ -163,7 +163,6 @@ export const RequestDetailCustomView = observer(({ history }) => {
       {viewModel.showRequestResultModal ? (
         <RequestResultModal
           // @ts-ignore
-          request={viewModel.request}
           openModal={viewModel.showRequestResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
           onClickSendAsResult={viewModel.onClickSendAsResult}
