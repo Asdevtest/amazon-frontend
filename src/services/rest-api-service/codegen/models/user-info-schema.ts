@@ -269,103 +269,103 @@ export interface UserInfoSchema {
      */
     closedAndCanceled?: number;
     /**
-     * Количество продуктов супервизора во всех статусах
+     * Количество продуктов супервайзера во всех статусах
      * @type {number}
      * @memberof UserInfoSchema
      */
     allProducts?: number;
     /**
-     * Количество продуктов супервизора в 20 статусе
+     * Количество продуктов супервайзера в 20 статусе
      * @type {number}
      * @memberof UserInfoSchema
      */
     rejectedBySupervisor?: number;
     /**
-     * Количество продуктов супервизора в 5 статусе
+     * Количество продуктов супервайзера в 5 статусе
      * @type {number}
      * @memberof UserInfoSchema
      */
     vacFromResearcher?: number;
     /**
-     * Количество продуктов супервизора в 205 статусе
+     * Количество продуктов супервайзера в 205 статусе
      * @type {number}
      * @memberof UserInfoSchema
      */
     vacFromClient?: number;
     /**
-     * Количество продуктов супервизора в 25 статусе
+     * Количество продуктов супервайзера в 25 статусе
      * @type {number}
      * @memberof UserInfoSchema
      */
     temporarilyDelayed?: number;
     /**
-     * Количество продуктов супервизора в 5 статусе
+     * Количество продуктов супервайзера в 5 статусе
      * @type {number}
      * @memberof UserInfoSchema
      */
     checkingProductFromResearcher?: number;
     /**
-     * Количество продуктов супервизора в 205 статусе
+     * Количество продуктов супервайзера в 205 статусе
      * @type {number}
      * @memberof UserInfoSchema
      */
     suplierSearchFromClient?: number;
     /**
-     * Количество продуктов супервизора в 30 статусе
+     * Количество продуктов супервайзера в 30 статусе
      * @type {number}
      * @memberof UserInfoSchema
      */
     searchFromSupervisor?: number;
     /**
-     * Количество продуктов супервизора в 230 статусе
+     * Количество продуктов супервайзера в 230 статусе
      * @type {number}
      * @memberof UserInfoSchema
      */
     searchFromClient?: number;
     /**
-     * Количество продуктов супервизора в 5 и 205 статусах
+     * Количество продуктов супервайзера в 5 и 205 статусах
      * @type {number}
      * @memberof UserInfoSchema
      */
     onCheckWithSupervisor?: number;
     /**
-     * Количество продуктов супервизора в 230, 30, 235, 35 статусах
+     * Количество продуктов супервайзера в 230, 30, 235, 35 статусах
      * @type {number}
      * @memberof UserInfoSchema
      */
     atTheBuyerInWork?: number;
     /**
-     * Количество продуктов супервизора в 70, 270 статусах
+     * Количество продуктов супервайзера в 70, 270 статусах
      * @type {number}
      * @memberof UserInfoSchema
      */
     searchComplete?: number;
     /**
-     * Количество продуктов супервизора в 50, 250, 80, 280 статусах
+     * Количество продуктов супервайзера в 50, 250, 80, 280 статусах
      * @type {number}
      * @memberof UserInfoSchema
      */
     supplierWasNotFound?: number;
     /**
-     * Количество продуктов супервизора в 60, 260, 90, 290 статусах
+     * Количество продуктов супервайзера в 60, 260, 90, 290 статусах
      * @type {number}
      * @memberof UserInfoSchema
      */
     supplierPriceDoesNotFit?: number;
     /**
-     * Количество продуктов супервизора в 275, 75 статусах
+     * Количество продуктов супервайзера в 275, 75 статусах
      * @type {number}
      * @memberof UserInfoSchema
      */
     paidByTheClient?: number;
     /**
-     * Количество продуктов супервизора в 15 статусе
+     * Количество продуктов супервайзера в 15 статусе
      * @type {number}
      * @memberof UserInfoSchema
      */
     productIsAppropriate?: number;
     /**
-     * Количество продуктов супервизора в 240, 40 статусах
+     * Количество продуктов супервайзера в 240, 40 статусах
      * @type {number}
      * @memberof UserInfoSchema
      */

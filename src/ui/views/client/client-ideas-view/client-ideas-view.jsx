@@ -253,7 +253,6 @@ export const ClientIdeasView = observer(({ history }) => {
       {viewModel.showRequestBloggerResultModal ? (
         <RequestResultModal
           // @ts-ignore
-          request={viewModel.currentRequest}
           proposal={viewModel.currentProposal}
           openModal={viewModel.showRequestBloggerResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestBloggerResultModal')}

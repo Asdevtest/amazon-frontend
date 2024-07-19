@@ -3,27 +3,12 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     width: '1360px',
-
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-    },
   },
 
   modalTitle: {
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.general,
-    [theme.breakpoints.down(768)]: {
-      fontWeight: '600',
-      fontSize: '16px',
-      lineHeight: '22px',
-      color: theme.palette.text.general,
-    },
-  },
-
-  subTitle: {
-    color: theme.palette.text.general,
   },
 
   boxCounterWrapper: {
@@ -51,46 +36,28 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
   },
 
-  chosenGoodsTitle: {
-    color: theme.palette.text.general,
-  },
-
   btnsWrapper: {
-    marginTop: '30px',
+    marginTop: '20px',
     display: 'flex',
     justifyContent: 'flex-end',
     gap: '20px',
-    [theme.breakpoints.down(768)]: {
-      marginTop: '30px',
-      display: 'flex',
-      justifyContent: 'center',
-      gap: '10px',
-    },
   },
 
   filtersWrapper: {
+    marginTop: 20,
     display: 'flex',
-    margin: '20px 0 13px',
     justifyContent: 'space-between',
-    [theme.breakpoints.down(768)]: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
+    gap: '20px',
+    width: '100%',
   },
 
   filterField: {
     width: 200,
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-    },
   },
 
   sumField: {
     width: '230px',
     margin: 0,
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-    },
   },
 
   sumsWrapper: {
@@ -98,12 +65,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     width: '720px',
     gap: 10,
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      gap: '10px',
-      width: '280px',
-      marginBottom: '15px',
-    },
   },
 
   footerWrapper: {
@@ -111,19 +72,17 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'end',
     margin: '25px 0 30px',
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      alignItems: 'end',
-      margin: '25px 0 30px',
-    },
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: '380px',
-    height: 36,
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
+    width: '400px',
+    height: '32px',
+
+    input: {
+      '&::placeholder': {
+        fontSize: 14,
+        lineHeight: '19px',
+      },
     },
   },
 
@@ -131,10 +90,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      alignItems: 'start',
-    },
   },
 
   tableSubWrapper: {
@@ -142,12 +97,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     marginTop: '15px',
     marginBottom: 24,
-    [theme.breakpoints.down(768)]: {
-      display: 'flex',
-      justifyContent: 'end',
-      marginTop: '15px',
-      marginBottom: 24,
-    },
   },
 
   weigthCalcWrapper: {
@@ -159,5 +108,14 @@ export const useStyles = makeStyles()(theme => ({
   volumeWeightDivider: {
     margin: '0 40px',
     color: theme.palette.text.second,
+  },
+
+  subFieldLabel: {
+    color: theme.palette.text.second,
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: '16px',
+    whiteSpace: 'pre-wrap',
+    marginBottom: '5px !important',
   },
 }))

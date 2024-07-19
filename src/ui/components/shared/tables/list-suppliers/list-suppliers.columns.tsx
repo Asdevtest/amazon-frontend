@@ -124,7 +124,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderCell: ({ row }: GridRowModel) => <PaymentMethodsCell paymentMethods={row.paymentMethods} />,
     filterable: false,
     sortable: false,
-    width: 100,
+    width: 125,
     align: 'center',
   },
 

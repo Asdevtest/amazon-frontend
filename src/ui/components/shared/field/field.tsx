@@ -88,12 +88,7 @@ export const Field: FC<Props> = observer(
                   onClose={() => setOpenAttentionTooltip(false)}
                   onOpen={() => setOpenAttentionTooltip(true)}
                 >
-                  <div>
-                    <TooltipAttentionIcon
-                      className={cx(styles.tooltip)}
-                      onClick={() => setOpenAttentionTooltip(true)}
-                    />
-                  </div>
+                  <TooltipAttentionIcon className={styles.tooltip} onClick={() => setOpenAttentionTooltip(true)} />
                 </Tooltip>
               ) : null}
 
@@ -106,12 +101,10 @@ export const Field: FC<Props> = observer(
                   onClose={() => setOpenInfoTooltip(false)}
                   onOpen={() => setOpenInfoTooltip(true)}
                 >
-                  <div>
-                    <TooltipInfoIcon
-                      className={cx(styles.tooltip, styles.tooltipInfo)}
-                      onClick={() => setOpenInfoTooltip(true)}
-                    />
-                  </div>
+                  <TooltipInfoIcon
+                    className={cx(styles.tooltip, styles.tooltipInfo)}
+                    onClick={() => setOpenInfoTooltip(true)}
+                  />
                 </Tooltip>
               ) : null}
             </div>

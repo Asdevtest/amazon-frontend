@@ -293,7 +293,6 @@ export const SuppliersAndIdeas = observer(props => {
       {showRequestBloggerResultModal ? (
         <RequestResultModal
           // @ts-ignore
-          request={currentRequest}
           proposal={currentProposal}
           openModal={showRequestBloggerResultModal}
           setOpenModal={() => onTriggerOpenModal('showRequestBloggerResultModal')}
