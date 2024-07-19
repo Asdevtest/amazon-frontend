@@ -1991,5 +1991,7 @@
   "User not found.": "Пользователь не найден",
   "Storekeeper selection": "Выбор сторкипера",
   "Tariff selection": "Выбор тарифа",
-  "Create a tariff": "Создать тариф"
+  "Create a tariff": "Создать тариф",
+  "Start date": "Дата начала",
+  "End date": "Дата окончания"
 }

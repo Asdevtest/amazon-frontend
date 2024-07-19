@@ -1991,4 +1991,6 @@ export enum TranslationKey {
   'Storekeeper selection' = 'Storekeeper selection',
   'Tariff selection' = 'Tariff selection',
   'Create a tariff' = 'Create a tariff',
+  'Start date' = 'Start date',
+  'End date' = 'End date',
 }
