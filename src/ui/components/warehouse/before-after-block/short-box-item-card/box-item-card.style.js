@@ -126,17 +126,8 @@ export const useStyles = makeStyles()(theme => ({
 
   attributeHeaderWrapper: {
     display: 'flex',
-    width: '100%',
     justifyContent: 'space-between',
-    [theme.breakpoints.down(1282)]: {
-      gap: 5,
-      flexDirection: 'column',
-    },
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      alignItems: 'end',
-      gap: '14px',
-    },
+    gap: '10px',
   },
 
   attributeFooterWrapper: {

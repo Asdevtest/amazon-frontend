@@ -375,7 +375,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 5,
-    marginBottom: 5,
   },
 
   countSubWrapper: {

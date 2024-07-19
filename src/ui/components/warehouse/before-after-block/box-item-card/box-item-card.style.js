@@ -89,7 +89,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   countSuperBoxWrapper: {
-    marginLeft: 20,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -133,6 +132,7 @@ export const useStyles = makeStyles()(theme => ({
   attributeHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: '10px',
   },
 
   barCodeWrapper: {
