@@ -84,20 +84,15 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     field: 'trackingNumber',
     headerName: t(TranslationKey['Batch tracking']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
-    renderCell: params => {
-      const isDisabled = getStatus() !== BatchStatus.HAS_DISPATCHED
-
-      return (
-        <BatchTrackingCell
-          disabled={isDisabled}
-          disabledArrivalDate={isDisabled}
-          id={params.row?.originalData?._id}
-          arrivalDate={params.row?.originalData?.arrivalDate}
-          trackingNumber={params.row?.originalData?.trackingNumber}
-          rowHandlers={rowHandlers}
-        />
-      )
-    },
+    renderCell: params => (
+      <BatchTrackingCell
+        disabled={getStatus() !== BatchStatus.HAS_DISPATCHED}
+        id={params.row?.originalData?._id}
+        arrivalDate={params.row?.originalData?.arrivalDate}
+        trackingNumber={params.row?.originalData?.trackingNumber}
+        rowHandlers={rowHandlers}
+      />
+    ),
     width: 210,
     filterable: false,
     sortable: false,
