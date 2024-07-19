@@ -50,8 +50,7 @@ export const BuyerProductView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
       >
         <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
+          productId={viewModel.currentData?._id}
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>

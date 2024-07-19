@@ -21,35 +21,23 @@
  */
 export interface InlineObject110 {
     /**
-     * Файл для записи в FreelanceSource
-     * @type {string}
+     * Удалять ли пермишны(только, если parentProductId - null
+     * @type {boolean}
      * @memberof InlineObject110
      */
-    sourceFile: string;
+    deletePermissions?: boolean;
     /**
-     * Комментарий к файлу
+     * Ключ родительского продукта
      * @type {string}
      * @memberof InlineObject110
      */
-    comment?: string;
+    parentProductId: string;
     /**
-     * GUID специализации фрилансера
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject110
      */
-    specId: string;
-    /**
-     * гуид продукта
-     * @type {string}
-     * @memberof InlineObject110
-     */
-    productId: string;
-    /**
-     * Гуид пропоузала
-     * @type {string}
-     * @memberof InlineObject110
-     */
-    proposalId?: string;
+    childProductIds: Array<string>;
 }
 
 

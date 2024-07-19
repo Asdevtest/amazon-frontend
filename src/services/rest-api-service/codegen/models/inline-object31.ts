@@ -15,17 +15,17 @@
 
 
 /**
- * 
+ * Схема изменения итоговой цены, totalPriceChanged
  * @export
  * @interface InlineObject31
  */
 export interface InlineObject31 {
     /**
-     * GUID коробки, объединение которой нужно отменить
-     * @type {string}
+     * новое значение изменения итоговой цены.
+     * @type {number}
      * @memberof InlineObject31
      */
-    guid?: string;
+    totalPriceChanged: number;
 }
 
 

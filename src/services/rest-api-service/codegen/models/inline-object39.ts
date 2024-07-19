@@ -21,35 +21,11 @@
  */
 export interface InlineObject39 {
     /**
-     * 
-     * @type {number}
+     * GUID коробки, объединение которой нужно отменить
+     * @type {string}
      * @memberof InlineObject39
      */
-    lengthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject39
-     */
-    widthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject39
-     */
-    heightCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject39
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Массив ссылок на фотографии.
-     * @type {Array<string>}
-     * @memberof InlineObject39
-     */
-    images?: Array<string>;
+    guid?: string;
 }
 
 

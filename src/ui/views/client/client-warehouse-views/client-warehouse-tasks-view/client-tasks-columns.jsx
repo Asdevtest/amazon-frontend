@@ -4,7 +4,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   CheckboxCell,
   ClientTasksActionBtnsCell,
-  CommentCell,
   MultilineTextHeaderCell,
   NormDateFromUnixCell,
   StringListCell,
@@ -12,6 +11,7 @@ import {
   TaskPriorityCell,
   TaskStatusCell,
   TaskTypeCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -59,7 +59,8 @@ export const clientTasksViewColumns = handlers => {
       width: 280,
 
       renderCell: params => (
-        <CommentCell
+        <TextCell
+          editMode
           text={params.row.reason}
           onClickSubmit={reason => handlers.updateTaskComment(params.row._id, params.row.priority, reason)}
         />

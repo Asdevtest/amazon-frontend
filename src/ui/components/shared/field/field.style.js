@@ -60,14 +60,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tooltip: {
-    width: '18px !important',
-    height: '18px !important',
+    width: '16px !important',
+    height: '16px !important',
     color: 'red',
     transition: '.3s ease-in-out',
-    '&:hover': {
-      cursor: 'default',
-      transform: 'scale(1.1)',
-    },
   },
 
   tooltipInfo: {
@@ -77,7 +73,7 @@ export const useStyles = makeStyles()(theme => ({
 
   labelWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
 
   inputWrapper: {

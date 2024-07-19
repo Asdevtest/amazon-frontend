@@ -21,11 +21,23 @@
  */
 export interface InlineObject135 {
     /**
-     * Статус
+     * Название услуги
+     * @type {string}
+     * @memberof InlineObject135
+     */
+    name?: string;
+    /**
+     * Описание услуги
+     * @type {string}
+     * @memberof InlineObject135
+     */
+    description?: string;
+    /**
+     * Цена услуги.
      * @type {number}
      * @memberof InlineObject135
      */
-    status?: number;
+    price?: number;
 }
 
 

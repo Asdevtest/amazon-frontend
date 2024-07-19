@@ -21,11 +21,35 @@
  */
 export interface InlineObject97 {
     /**
-     * GUIDы магазинов, которые нужно удалить.
+     * Время на выполнение, в минутах.
+     * @type {number}
+     * @memberof InlineObject97
+     */
+    execution_time?: number;
+    /**
+     * Цена предложения.
+     * @type {number}
+     * @memberof InlineObject97
+     */
+    price?: number;
+    /**
+     * Комментарий к предложению.
+     * @type {string}
+     * @memberof InlineObject97
+     */
+    comment?: string;
+    /**
+     * Ссылки на медиафайлы.
      * @type {Array<string>}
      * @memberof InlineObject97
      */
-    suppliersIds?: Array<string>;
+    linksToMediaFiles?: Array<string>;
+    /**
+     * Название предложения
+     * @type {string}
+     * @memberof InlineObject97
+     */
+    title?: string;
 }
 
 

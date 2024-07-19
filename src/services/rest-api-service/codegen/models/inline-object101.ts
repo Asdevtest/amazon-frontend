@@ -21,11 +21,23 @@
  */
 export interface InlineObject101 {
     /**
-     * 
-     * @type {boolean}
+     * Поставить оценку юзеру
+     * @type {number}
      * @memberof InlineObject101
      */
-    approvedByMaster: boolean;
+    rating?: number;
+    /**
+     * Отзыв о работе
+     * @type {string}
+     * @memberof InlineObject101
+     */
+    review?: string;
+    /**
+     * Файл для записи в FreelanceSource по этому пропоузалу
+     * @type {string}
+     * @memberof InlineObject101
+     */
+    sourceFile?: string;
 }
 
 

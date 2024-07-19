@@ -12,7 +12,6 @@ import { BatchesModel } from '@models/batches-model'
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { OrderModel } from '@models/order-model'
-import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
@@ -30,7 +29,6 @@ import { IOrder } from '@typings/models/orders/order'
 import { IProduct } from '@typings/models/products/product'
 import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 import { IDestination } from '@typings/shared/destinations'
-import { IHSCode } from '@typings/shared/hs-code'
 import { IUploadFile } from '@typings/shared/upload-file'
 import { HistoryType } from '@typings/types/history'
 
@@ -43,7 +41,6 @@ import { observerConfig } from './observer-config'
 
 export class ClientOrdersViewModel extends DataGridFilterTableModel {
   orders = []
-  hsCodeData?: IHSCode = undefined
   order?: IOrder = undefined
   showOrderModal = false
   showProductModal = false
@@ -52,7 +49,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
   productBatches: IBatch[] = []
   showCheckPendingOrderFormModal = false
   showMyOrderModal = false
-  showEditHSCodeModal = false
   showProductDataModal = false
   myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
   productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
@@ -573,31 +569,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     } catch (error) {
       console.error(error)
     }
-  }
-
-  async onClickHsCode(id: string) {
-    this.hsCodeData = (await ProductModel.getProductsHsCodeByGuid(id)) as unknown as IHSCode
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-  }
-
-  async onClickSaveHsCode(hsCode: IHSCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: hsCode._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    this.getCurrentData()
-
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
   }
 
   async patchActualShippingCostBatch(id: string, cost: number) {

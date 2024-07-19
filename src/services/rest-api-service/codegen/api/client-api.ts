@@ -101,7 +101,7 @@ import { InlineResponse20052 } from '../models';
 // @ts-ignore
 import { InlineResponse2006 } from '../models';
 // @ts-ignore
-import { InlineResponse2015 } from '../models';
+import { InlineResponse2012 } from '../models';
 // @ts-ignore
 import { InlineResponse2016 } from '../models';
 // @ts-ignore
@@ -2255,6 +2255,66 @@ export const ClientApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
+         * Export shops-data
+         * @summary Export shops-data
+         * @param {'INVENTORY' | 'ORDERS' | 'BATCHES' | 'BOXES'} table Table name
+         * @param {string} [shopIds] Array of shop guids, separated by \&quot;,\&quot;
+         * @param {string} [statusGroup] Name of status group for table
+         * @param {boolean} [onAmazon] Destination flag
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1ClientsShopsExportGet: async (table: 'INVENTORY' | 'ORDERS' | 'BATCHES' | 'BOXES', shopIds?: string, statusGroup?: string, onAmazon?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'table' is not null or undefined
+            assertParamExists('apiV1ClientsShopsExportGet', 'table', table)
+            const localVarPath = `/api/v1/clients/shops/export`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (shopIds !== undefined) {
+                localVarQueryParameter['shopIds'] = shopIds;
+            }
+
+            if (table !== undefined) {
+                localVarQueryParameter['table'] = table;
+            }
+
+            if (statusGroup !== undefined) {
+                localVarQueryParameter['statusGroup'] = statusGroup;
+            }
+
+            if (onAmazon !== undefined) {
+                localVarQueryParameter['onAmazon'] = onAmazon;
+            }
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Получить все пермишшены по магазинам
          * @summary  Получить все пермишшены по магазинам
          * @param {number} [limit] Лимит записей для пагинации
@@ -2790,7 +2850,7 @@ export const ClientApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ClientsOrdersPost(body?: InlineObject56, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2015>> {
+        async apiV1ClientsOrdersPost(body?: InlineObject56, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2012>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ClientsOrdersPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3076,7 +3136,7 @@ export const ClientApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ClientsProductsListingReportsPost(body?: InlineObject68, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2015>> {
+        async apiV1ClientsProductsListingReportsPost(body?: InlineObject68, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2012>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ClientsProductsListingReportsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3170,6 +3230,21 @@ export const ClientApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Export shops-data
+         * @summary Export shops-data
+         * @param {'INVENTORY' | 'ORDERS' | 'BATCHES' | 'BOXES'} table Table name
+         * @param {string} [shopIds] Array of shop guids, separated by \&quot;,\&quot;
+         * @param {string} [statusGroup] Name of status group for table
+         * @param {boolean} [onAmazon] Destination flag
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1ClientsShopsExportGet(table: 'INVENTORY' | 'ORDERS' | 'BATCHES' | 'BOXES', shopIds?: string, statusGroup?: string, onAmazon?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1AdminsOrdersDestination>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ClientsShopsExportGet(table, shopIds, statusGroup, onAmazon, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Получить все пермишшены по магазинам
          * @summary  Получить все пермишшены по магазинам
          * @param {number} [limit] Лимит записей для пагинации
@@ -3237,7 +3312,7 @@ export const ClientApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ClientsTasksPost(body?: InlineObject59, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2015>> {
+        async apiV1ClientsTasksPost(body?: InlineObject59, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2012>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ClientsTasksPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3455,7 +3530,7 @@ export const ClientApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ClientsOrdersPost(body?: InlineObject56, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2015> {
+        apiV1ClientsOrdersPost(body?: InlineObject56, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2012> {
             return localVarFp.apiV1ClientsOrdersPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3720,7 +3795,7 @@ export const ClientApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ClientsProductsListingReportsPost(body?: InlineObject68, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2015> {
+        apiV1ClientsProductsListingReportsPost(body?: InlineObject68, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2012> {
             return localVarFp.apiV1ClientsProductsListingReportsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3807,6 +3882,20 @@ export const ClientApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.apiV1ClientsProductsVacGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
+         * Export shops-data
+         * @summary Export shops-data
+         * @param {'INVENTORY' | 'ORDERS' | 'BATCHES' | 'BOXES'} table Table name
+         * @param {string} [shopIds] Array of shop guids, separated by \&quot;,\&quot;
+         * @param {string} [statusGroup] Name of status group for table
+         * @param {boolean} [onAmazon] Destination flag
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1ClientsShopsExportGet(table: 'INVENTORY' | 'ORDERS' | 'BATCHES' | 'BOXES', shopIds?: string, statusGroup?: string, onAmazon?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1AdminsOrdersDestination>> {
+            return localVarFp.apiV1ClientsShopsExportGet(table, shopIds, statusGroup, onAmazon, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Получить все пермишшены по магазинам
          * @summary  Получить все пермишшены по магазинам
          * @param {number} [limit] Лимит записей для пагинации
@@ -3870,7 +3959,7 @@ export const ClientApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ClientsTasksPost(body?: InlineObject59, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2015> {
+        apiV1ClientsTasksPost(body?: InlineObject59, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2012> {
             return localVarFp.apiV1ClientsTasksPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5219,6 +5308,48 @@ export interface ClientApiApiV1ClientsProductsVacGetRequest {
 }
 
 /**
+ * Request parameters for apiV1ClientsShopsExportGet operation in ClientApi.
+ * @export
+ * @interface ClientApiApiV1ClientsShopsExportGetRequest
+ */
+export interface ClientApiApiV1ClientsShopsExportGetRequest {
+    /**
+     * Table name
+     * @type {'INVENTORY' | 'ORDERS' | 'BATCHES' | 'BOXES'}
+     * @memberof ClientApiApiV1ClientsShopsExportGet
+     */
+    readonly table: 'INVENTORY' | 'ORDERS' | 'BATCHES' | 'BOXES'
+
+    /**
+     * Array of shop guids, separated by \&quot;,\&quot;
+     * @type {string}
+     * @memberof ClientApiApiV1ClientsShopsExportGet
+     */
+    readonly shopIds?: string
+
+    /**
+     * Name of status group for table
+     * @type {string}
+     * @memberof ClientApiApiV1ClientsShopsExportGet
+     */
+    readonly statusGroup?: string
+
+    /**
+     * Destination flag
+     * @type {boolean}
+     * @memberof ClientApiApiV1ClientsShopsExportGet
+     */
+    readonly onAmazon?: boolean
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ClientApiApiV1ClientsShopsExportGet
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
  * Request parameters for apiV1ClientsShopsPermissionsGet operation in ClientApi.
  * @export
  * @interface ClientApiApiV1ClientsShopsPermissionsGetRequest
@@ -5968,6 +6099,18 @@ export class ClientApi extends BaseAPI {
      */
     public apiV1ClientsProductsVacGet(requestParameters: ClientApiApiV1ClientsProductsVacGetRequest = {}, options?: any) {
         return ClientApiFp(this.configuration).apiV1ClientsProductsVacGet(requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Export shops-data
+     * @summary Export shops-data
+     * @param {ClientApiApiV1ClientsShopsExportGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClientApi
+     */
+    public apiV1ClientsShopsExportGet(requestParameters: ClientApiApiV1ClientsShopsExportGetRequest, options?: any) {
+        return ClientApiFp(this.configuration).apiV1ClientsShopsExportGet(requestParameters.table, requestParameters.shopIds, requestParameters.statusGroup, requestParameters.onAmazon, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

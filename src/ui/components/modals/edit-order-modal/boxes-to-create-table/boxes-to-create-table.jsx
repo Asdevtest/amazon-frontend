@@ -160,12 +160,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
 
       <TableCell>
         <div className={styles.buttonCell}>
-          <Button
-            iconButton
-            styleType={ButtonStyle.DANGER}
-            tooltipInfoContent={t(TranslationKey['Remove box'])}
-            onClick={() => handlers.onRemoveBox(itemIndex)}
-          >
+          <Button iconButton styleType={ButtonStyle.DANGER} onClick={() => handlers.onRemoveBox(itemIndex)}>
             <CrossIcon />
           </Button>
 

@@ -18,12 +18,13 @@ import { Launches } from '@components/shared/launches'
 import { getLaunchName } from '@components/shared/launches/helpers/get-launch-name'
 import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
+import { formatShortDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { IFullUser } from '@typings/shared/full-user'
 import { IGridColumn } from '@typings/shared/grid-column'
-import { ILaunch } from '@typings/shared/launch'
 
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
@@ -49,7 +50,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
             skuByClient={row.product.skuByClient}
           />
         ),
-        valueGetter: ({ row }: GridRowModel) => row.product.asin,
+        valueGetter: (row: GridRowModel) => row?.product?.asin,
 
         fields: getProductColumnMenuItems(),
         columnMenuConfig: getProductColumnMenuValue(),
@@ -64,7 +65,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         headerName: t(TranslationKey.Shop),
         renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
         renderCell: ({ row }: GridRowModel) => <MultilineTextCell twoLines text={row.product?.shop?.name} />,
-        valueGetter: ({ row }: GridRowModel) => row.product?.shop?.name,
+        valueGetter: (row: GridRowModel) => row?.product?.shop?.name,
         width: 120,
         disableCustomSort: true,
         columnKey: columnnsKeys.shared.OBJECT,
@@ -109,6 +110,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: ({ row }: GridRowModel) => <ShortDateCell value={row.createdAt} />,
+      valueGetter: (row: GridRowModel) => formatShortDateTime(row?.createdAt),
       width: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -118,10 +120,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       headerName: t(TranslationKey['Launch type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Launch type'])} />,
       renderCell: ({ row }: GridRowModel) => <Launches isCell launches={row.listingLaunches || []} />,
-      valueGetter: ({ row }: GridRowModel) =>
-        row.listingLaunches
-          .map((launch: ILaunch) => `${getLaunchName(launch.type, true)} - ${launch.value}%`)
-          .join(', '),
+      valueGetter: (launch: GridRowModel) => `${getLaunchName(launch?.type, true)} - ${launch?.value}%`,
       width: 330,
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -144,7 +143,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <UserMiniCell userName={row.sub?.name || row.createdBy?.name} userId={row.sub?._id || row.createdBy?._id} />
       ),
-      valueGetter: ({ row }: GridRowModel) => row.sub?.name || row.createdBy?.name,
+      valueGetter: (row: GridRowModel) => row?.sub?.name || row?.createdBy?.name,
 
       fields: [
         {
@@ -188,11 +187,14 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
 
         return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
       },
-      valueGetter: ({ row }) => {
+      valueGetter: (row: GridRowModel) => {
         const subUsers = row?.product?.subUsers || []
         const subUsersByShop = row?.product?.subUsersByShop || []
 
-        return subUsers?.concat(subUsersByShop).join(', ')
+        return subUsers
+          ?.concat(subUsersByShop)
+          ?.map((user: IFullUser) => user?.name)
+          .join(', ')
       },
       width: 187,
       filterable: false,
@@ -216,6 +218,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }: GridRowModel) => <ShortDateCell value={row.updatedAt} />,
+      valueGetter: (row: GridRowModel) => formatShortDateTime(row?.updatedAt),
       width: 105,
       columnKey: columnnsKeys.shared.DATE,
     },

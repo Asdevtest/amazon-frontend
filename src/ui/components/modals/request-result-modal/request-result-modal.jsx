@@ -20,7 +20,7 @@ import { isString } from '@typings/guards'
 import { useStyles } from './request-result-modal.style'
 
 export const RequestResultModal = memo(props => {
-  const { openModal, setOpenModal, onClickSendAsResult, request, proposal, missClickModalOn } = props
+  const { openModal, setOpenModal, onClickSendAsResult, proposal, missClickModalOn } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -58,8 +58,7 @@ export const RequestResultModal = memo(props => {
     onChangeField('publicationLinks')({ target: { value: newArr } })
   }
 
-  const isBloggerTypeTask =
-    (request?.spec?.type || request?.request?.spec?.type) === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]
+  const isBloggerTypeTask = proposal.request?.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]
   const disabledSendButton =
     (isBloggerTypeTask && (!formFields.amazonOrderId || !formFields.publicationLinks.length)) ||
     (!isBloggerTypeTask && !formFields.result)

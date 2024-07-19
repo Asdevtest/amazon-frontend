@@ -171,6 +171,7 @@ export const useStyles = makeStyles()(theme => {
 
     fullWidth: {
       width: '100%',
+      minWidth: 'max-content',
     },
 
     tooltipsWrapper: {

@@ -25,13 +25,7 @@ export interface InlineObject131 {
      * @type {string}
      * @memberof InlineObject131
      */
-    iconImage?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject131
-     */
-    title?: string;
+    storekeeperComment: string;
 }
 
 

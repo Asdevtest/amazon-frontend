@@ -10,3 +10,6 @@ export const adminFeedbackConfig = {
   onClickWrite: action.bound,
   onClickOpenFeedback: action.bound,
 }
+
+export const fieldsForSearch = ['email', 'name']
+export const sortConfig = [{ field: 'updatedAt', sort: 'desc' }]

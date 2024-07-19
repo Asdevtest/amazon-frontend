@@ -15,10 +15,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserModel } from '@models/user-model'
 
+import { BoxModal } from '@components/modals/box-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
+import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -355,98 +357,91 @@ export const AddOrEditBatchForm = observer(
 
         <div className={styles.form}>
           <div className={styles.filtersWrapper}>
-            <div>
-              <Field
-                className={styles.filterField}
-                label={t(TranslationKey['Batch title'])}
-                value={batchFields.title}
-                onChange={e => changeBatchFields('title')(e.target.value)}
-              />
-            </div>
+            <Field
+              labelClasses={styles.subFieldLabel}
+              className={styles.filterField}
+              label={t(TranslationKey['Batch title'])}
+              value={batchFields.title}
+              onChange={e => changeBatchFields('title')(e.target.value)}
+            />
 
-            <div>
-              <Field
-                disabled
-                className={styles.filterField}
-                labelClasses={styles.label}
-                containerClasses={styles.filterFieldWrapper}
-                label={t(TranslationKey['CLS (batch closing date)'])}
-                value={
-                  sourceDataForFilters
-                    ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.cls)
-                    : (chosenBoxes[0]?.originalData?.logicsTariff?.cls &&
-                        formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.cls)) ||
-                      ''
-                }
-                placeholder={t(TranslationKey['dd.mm.yyyy'])}
-              />
-            </div>
+            <Field
+              disabled
+              className={styles.filterField}
+              labelClasses={styles.subFieldLabel}
+              containerClasses={styles.filterFieldWrapper}
+              label={t(TranslationKey['CLS (batch closing date)'])}
+              value={
+                sourceDataForFilters
+                  ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.cls)
+                  : (chosenBoxes[0]?.originalData?.logicsTariff?.cls &&
+                      formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.cls)) ||
+                    ''
+              }
+              placeholder={t(TranslationKey['dd.mm.yyyy'])}
+            />
 
-            <div>
-              <Field
-                disabled
-                className={styles.filterField}
-                label={t(TranslationKey['ETD (date of shipment)'])}
-                value={
-                  sourceDataForFilters
-                    ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.etd)
-                    : (chosenBoxes[0]?.originalData?.logicsTariff?.etd &&
-                        formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.etd)) ||
-                      ''
-                }
-                placeholder={t(TranslationKey['dd.mm.yyyy'])}
-              />
-            </div>
+            <Field
+              disabled
+              labelClasses={styles.subFieldLabel}
+              className={styles.filterField}
+              label={t(TranslationKey['ETD (date of shipment)'])}
+              value={
+                sourceDataForFilters
+                  ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.etd)
+                  : (chosenBoxes[0]?.originalData?.logicsTariff?.etd &&
+                      formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.etd)) ||
+                    ''
+              }
+              placeholder={t(TranslationKey['dd.mm.yyyy'])}
+            />
 
-            <div>
-              <Field
-                disabled
-                className={styles.filterField}
-                label={t(TranslationKey['ETA (arrival date)'])}
-                value={
-                  sourceDataForFilters
-                    ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.eta)
-                    : (chosenBoxes[0]?.originalData?.logicsTariff?.eta &&
-                        formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.eta)) ||
-                      ''
-                }
-                placeholder={t(TranslationKey['dd.mm.yyyy'])}
-              />
-            </div>
+            <Field
+              disabled
+              labelClasses={styles.subFieldLabel}
+              className={styles.filterField}
+              label={t(TranslationKey['ETA (arrival date)'])}
+              value={
+                sourceDataForFilters
+                  ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.eta)
+                  : (chosenBoxes[0]?.originalData?.logicsTariff?.eta &&
+                      formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.eta)) ||
+                    ''
+              }
+              placeholder={t(TranslationKey['dd.mm.yyyy'])}
+            />
 
-            <div>
-              <Field
-                disabled
-                className={styles.filterField}
-                tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
-                label={t(TranslationKey.Tariff)}
-                value={
-                  (sourceDataForFilters
-                    ? getNewTariffTextForBoxOrOrder(sourceDataForFilters)
-                    : getNewTariffTextForBoxOrOrder(chosenBoxes[0]?.originalData)) || ''
-                }
-                placeholder={t(TranslationKey['Not chosen'])}
-              />
-            </div>
+            <Field
+              disabled
+              labelClasses={styles.subFieldLabel}
+              className={styles.filterField}
+              tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
+              label={t(TranslationKey.Tariff)}
+              value={
+                (sourceDataForFilters
+                  ? getNewTariffTextForBoxOrOrder(sourceDataForFilters)
+                  : getNewTariffTextForBoxOrOrder(chosenBoxes[0]?.originalData)) || ''
+              }
+              placeholder={t(TranslationKey['Not chosen'])}
+            />
 
-            <div>
-              <Field
-                disabled
-                className={styles.filterField}
-                tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
-                label={t(TranslationKey.Destination)}
-                value={
-                  (sourceDataForFilters
-                    ? sourceDataForFilters.destination?.name
-                    : chosenBoxes[0]?.originalData?.destination?.name) || ''
-                }
-                placeholder={t(TranslationKey['Not chosen'])}
-              />
-            </div>
+            <Field
+              disabled
+              labelClasses={styles.subFieldLabel}
+              className={styles.filterField}
+              tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
+              label={t(TranslationKey.Destination)}
+              value={
+                (sourceDataForFilters
+                  ? sourceDataForFilters.destination?.name
+                  : chosenBoxes[0]?.originalData?.destination?.name) || ''
+              }
+              placeholder={t(TranslationKey['Not chosen'])}
+            />
           </div>
 
           <div className={styles.searchWrapper}>
-            <Typography className={styles.subTitle}>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
+            <Typography>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
 
             <SearchInput
               inputClasses={styles.searchInput}
@@ -458,6 +453,7 @@ export const AddOrEditBatchForm = observer(
 
           <div className={styles.tableWrapper}>
             <CustomDataGrid
+              disableRowSelectionOnClick
               checkboxSelection
               sortingMode="client"
               paginationMode="client"
@@ -509,6 +505,7 @@ export const AddOrEditBatchForm = observer(
               rowHeight={100}
               rowSelectionModel={boxesToAddIds}
               onRowSelectionModelChange={onSelectionAwaitingBoxes}
+              onRowDoubleClick={e => viewModel.setBoxId(e.row._id)}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             />
           </div>
@@ -557,7 +554,7 @@ export const AddOrEditBatchForm = observer(
           </div>
 
           <div className={styles.searchWrapper}>
-            <Typography className={styles.chosenGoodsTitle}>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
+            <Typography>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
 
             <SearchInput
               inputClasses={styles.searchInput}
@@ -569,6 +566,7 @@ export const AddOrEditBatchForm = observer(
 
           <div className={styles.tableWrapper}>
             <CustomDataGrid
+              disableRowSelectionOnClick
               checkboxSelection
               sortingMode="client"
               paginationMode="client"
@@ -600,6 +598,7 @@ export const AddOrEditBatchForm = observer(
               columns={addOrEditBatchFormColumns(isClient)}
               rowHeight={100}
               onRowSelectionModelChange={onSelectionChoosenBoxes}
+              onRowDoubleClick={e => viewModel.setBoxId(e.row._id)}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             />
           </div>
@@ -686,6 +685,16 @@ export const AddOrEditBatchForm = observer(
         </div>
 
         {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
+
+        <Modal
+          openModal={viewModel.showBoxViewModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+        >
+          <BoxModal
+            boxId={viewModel.selectedBoxId}
+            onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          />
+        </Modal>
       </div>
     )
   },

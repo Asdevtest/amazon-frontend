@@ -49,7 +49,7 @@ export const adminFeedbackViewColumns = ({ onClickOpenFeedback }: IAdminFeedback
     field: 'files',
     headerName: t(TranslationKey.Files),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.files} />,
+    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.media} />,
     filterable: false,
     sortable: false,
     width: 90,

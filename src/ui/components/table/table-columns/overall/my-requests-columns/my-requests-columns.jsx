@@ -10,7 +10,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   CheckboxCell,
-  CommentCell,
   ManyUserLinkCell,
   MultilineRequestStatusCell,
   MultilineTextCell,
@@ -18,6 +17,7 @@ import {
   PriorityAndChinaDeliverCell,
   ProductAsinCell,
   ShortDateCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -267,7 +267,8 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       width: 335,
       renderCell: ({ row }) => (
-        <CommentCell
+        <TextCell
+          editMode
           text={row?.detailsCustom?.comment}
           onClickSubmit={comment => rowHandlers.onClickSaveComment(row?._id, comment)}
         />
