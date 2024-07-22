@@ -381,8 +381,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '25px',
-    marginBottom: 5,
+    gap: '10px',
   },
 
   subTitleOne: {
