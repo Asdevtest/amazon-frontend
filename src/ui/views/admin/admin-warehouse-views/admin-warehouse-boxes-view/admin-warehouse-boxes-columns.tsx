@@ -157,7 +157,7 @@ export const adminWarehouseBoxesColumns = () => {
       headerName: t(TranslationKey['Track number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      columnKey: columnnsKeys.shared.NUMBER,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
       width: 150,
     },
