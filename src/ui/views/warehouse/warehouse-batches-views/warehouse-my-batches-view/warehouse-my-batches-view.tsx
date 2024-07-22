@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { FC, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
-import AddIcon from '@mui/icons-material/Add'
+import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,16 +16,20 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { useStyles } from './warehouse-awaiting-batches-view.style'
+import { useStyles } from './warehouse-my-batches-view.style'
 
-import { WarehouseAwaitingBatchesViewModel } from './warehouse-awaiting-batches-view.model'
+import { WarehouseAwaitingBatchesViewModel } from './warehouse-my-batches-view.model'
 
-export const WarehouseAwaitingBatchesView = observer(() => {
+interface WarehouseMyBatchesViewProps {
+  isSentBatches: boolean
+}
+
+export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(({ isSentBatches }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new WarehouseAwaitingBatchesViewModel())
+  const [viewModel] = useState(() => new WarehouseAwaitingBatchesViewModel(isSentBatches))
 
   const selectedRowsString =
     '№ ' +
@@ -32,39 +37,41 @@ export const WarehouseAwaitingBatchesView = observer(() => {
       .filter(batch => viewModel.selectedRows.includes(batch._id))
       .map(batch => batch.humanFriendlyId)
       .join(', ')
-
-  console.log('findBatch', viewModel.selectedRows, viewModel.currentData)
+  const disabledConfirmSendButton =
+    !viewModel.selectedRows.length || viewModel.isInvalidTariffBoxSelected || viewModel.isNeedConfirmPriceBoxSelected
+  const tooltipAttentionContentConfirmSendButton = viewModel.isInvalidTariffBoxSelected
+    ? t(TranslationKey['Selected a batch contains a box with an invalid tariff'])
+    : viewModel.isNeedConfirmPriceBoxSelected
+    ? t(TranslationKey['Selected lot contains a box for which you need to confirm the price change'])
+    : ''
 
   return (
     <>
       <div className={styles.flexRow}>
-        <div className={styles.flexRow}>
-          <Button
-            disabled={
-              !viewModel.selectedRows.length ||
-              viewModel.isInvalidTariffBoxSelected ||
-              viewModel.isNeedConfirmPriceBoxSelected
-            }
-            tooltipAttentionContent={
-              (viewModel.isInvalidTariffBoxSelected &&
-                t(TranslationKey['Selected a batch contains a box with an invalid tariff'])) ||
-              (viewModel.isNeedConfirmPriceBoxSelected &&
-                t(TranslationKey['Selected lot contains a box for which you need to confirm the price change']))
-            }
-            tooltipInfoContent={t(TranslationKey['After confirmation it will be impossible to return the batch'])}
-            onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-          >
-            {t(TranslationKey['Confirm send to batch'])}
+        {isSentBatches ? (
+          <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onTriggerArchive}>
+            {viewModel.isArchive ? t(TranslationKey['Actual batches']) : t(TranslationKey['Open archive'])}
           </Button>
+        ) : (
+          <div className={styles.flexRow}>
+            <Button
+              disabled={disabledConfirmSendButton}
+              tooltipAttentionContent={tooltipAttentionContentConfirmSendButton}
+              tooltipInfoContent={t(TranslationKey['After confirmation it will be impossible to return the batch'])}
+              onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+            >
+              {t(TranslationKey['Confirm send to batch'])}
+            </Button>
 
-          <Button
-            disabled={viewModel.selectedRows.length !== 1}
-            tooltipInfoContent={t(TranslationKey['Add/remove a box or files to a batch'])}
-            onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: false })}
-          >
-            {t(TranslationKey['Edit batch'])}
-          </Button>
-        </div>
+            <Button
+              disabled={viewModel.selectedRows.length !== 1}
+              tooltipInfoContent={t(TranslationKey['Add/remove a box or files to a batch'])}
+              onClick={() => viewModel.onClickAddOrEditBatch(false)}
+            >
+              {t(TranslationKey['Edit batch'])}
+            </Button>
+          </div>
+        )}
 
         <SearchInput
           inputClasses={styles.searchInput}
@@ -73,20 +80,24 @@ export const WarehouseAwaitingBatchesView = observer(() => {
           onSubmit={viewModel.onSearchSubmit}
         />
 
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          tooltipInfoContent={t(TranslationKey['Open a form to create a new batch'])}
-          onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
-        >
-          <AddIcon />
-          {t(TranslationKey['Create a batch'])}
-        </Button>
+        {isSentBatches ? (
+          <div />
+        ) : (
+          <Button
+            styleType={ButtonStyle.SUCCESS}
+            tooltipInfoContent={t(TranslationKey['Open a form to create a new batch'])}
+            onClick={() => viewModel.onClickAddOrEditBatch(true)}
+          >
+            <FiPlus />
+            {t(TranslationKey['Create a batch'])}
+          </Button>
+        )}
       </div>
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          checkboxSelection
           disableRowSelectionOnClick
+          checkboxSelection={!isSentBatches}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           pinnedColumns={viewModel.pinnedColumns}
@@ -95,7 +106,7 @@ export const WarehouseAwaitingBatchesView = observer(() => {
           columnVisibilityModel={viewModel.columnVisibilityModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
-          getRowId={({ _id }) => _id}
+          getRowId={({ _id }: GridRowModel) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -127,7 +138,7 @@ export const WarehouseAwaitingBatchesView = observer(() => {
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onRowDoubleClick={({ row }) => viewModel.setCurrentOpenedBatch(row?._id)}
+          onRowDoubleClick={({ row }: GridRowModel) => viewModel.setCurrentOpenedBatch(row?._id)}
         />
       </div>
 
@@ -137,6 +148,7 @@ export const WarehouseAwaitingBatchesView = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}
       >
         <AddOrEditBatchForm
+          // @ts-ignore
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           batchToEdit={viewModel.curBatch}
           boxesData={viewModel.boxesData}

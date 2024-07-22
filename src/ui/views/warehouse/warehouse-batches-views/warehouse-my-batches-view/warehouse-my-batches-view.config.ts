@@ -1,12 +1,13 @@
 import { action, computed, observable } from 'mobx'
 
-export const warehouseAwaitingBatchesConfig = {
+export const warehouseMyBatchesConfig = {
   boxesData: observable,
   curBatch: observable,
   showConfirmModal: observable,
   showBatchInfoModal: observable,
   showAddOrEditBatchModal: observable,
   uploadedFiles: observable,
+  isArchive: observable,
 
   isInvalidTariffBoxSelected: computed,
   isNeedConfirmPriceBoxSelected: computed,
@@ -20,6 +21,9 @@ export const warehouseAwaitingBatchesConfig = {
   patchActualShippingCostBatch: action.bound,
   confirmSendToStorekeeper: action.bound,
   onClickConfirmSendToBatchBtn: action.bound,
+  onClickSaveTrackingNumber: action.bound,
+  onClickSaveArrivalDate: action.bound,
+  onTriggerArchive: action.bound,
 }
 
 export const fieldsForSearch = ['amazonTitle', 'humanFriendlyId', 'asin', 'orderHumanFriendlyId', 'title']

@@ -1,15 +1,16 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  root: {
-    width: 200,
+  buttons: {
+    width: '200px',
     display: 'flex',
-    gap: 20,
     flexDirection: 'column',
+    gap: '20px',
   },
 
   title: {
     fontSize: '18px',
     lineHeight: '25px',
+    marginBottom: '20px',
   },
 }))

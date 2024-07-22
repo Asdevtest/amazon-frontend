@@ -27,16 +27,17 @@ export const WarehouseBatchesView: FC<WarehouseBatchesViewProps> = observer(({ h
   const handleClickSentBatches = () => history?.push({ pathname: paths.sentBatches })
 
   return (
-    <div className={styles.root}>
+    <>
       <p className={styles.title}>{t(TranslationKey['Choose a section in Batches'])}</p>
+      <div className={styles.buttons}>
+        <CustomButton block type="primary" onClick={handleClickAwaitingBatches}>
+          {t(TranslationKey['Awaiting send'])}
+        </CustomButton>
 
-      <CustomButton block type="primary" onClick={handleClickAwaitingBatches}>
-        {t(TranslationKey['Awaiting send'])}
-      </CustomButton>
-
-      <CustomButton block type="primary" onClick={handleClickSentBatches}>
-        {t(TranslationKey.Sent)}
-      </CustomButton>
-    </div>
+        <CustomButton block type="primary" onClick={handleClickSentBatches}>
+          {t(TranslationKey.Sent)}
+        </CustomButton>
+      </div>
+    </>
   )
 })

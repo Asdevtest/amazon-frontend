@@ -1,4 +1,4 @@
-import { makeObservable, runInAction } from 'mobx'
+import { makeObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -18,7 +18,7 @@ import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-f
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { fieldsForSearch, warehouseAwaitingBatchesConfig } from './warehouse-awaiting-batches-view.config'
+import { fieldsForSearch, warehouseMyBatchesConfig } from './warehouse-my-batches-view.config'
 
 export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel {
   boxesData = []
@@ -27,6 +27,7 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
   showBatchInfoModal = false
   showAddOrEditBatchModal = false
   uploadedFiles = []
+  isArchive = false
 
   get isInvalidTariffBoxSelected() {
     return this.selectedRows.some(batchId => {
@@ -49,11 +50,16 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     return UserModel.platformSettings
   }
 
-  constructor() {
+  constructor(isSentBatches) {
+    const columnsProps = {
+      onClickSaveTrackingNumber: (id, trackingNumber) => this.onClickSaveTrackingNumber(id, trackingNumber),
+      onClickSaveArrivalDate: (id, date) => this.onClickSaveArrivalDate(id, date),
+    }
     const columnsModel = batchesViewColumns()
     const filtersFields = getFilterFields(columnsModel)
     const defaultGetCurrentDataOptions = () => ({
-      status: BatchStatus.IS_BEING_COLLECTED,
+      status: isSentBatches ? BatchStatus.HAS_DISPATCHED : BatchStatus.IS_BEING_COLLECTED,
+      archive: isSentBatches ? this.isArchive : undefined,
     })
 
     super({
@@ -62,7 +68,7 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
       filtersFields,
       mainMethodURL: 'batches/with_filters?',
       fieldsForSearch,
-      tableKey: DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES,
+      tableKey: isSentBatches ? DataGridTablesKeys.WAREHOUSE_BATCHES : DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES,
       defaultGetCurrentDataOptions,
     })
 
@@ -70,7 +76,12 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     this.getDataGridState()
     this.getCurrentData()
 
-    makeObservable(this, warehouseAwaitingBatchesConfig)
+    makeObservable(this, warehouseMyBatchesConfig)
+
+    reaction(
+      () => this.isArchive,
+      () => this.getCurrentData(),
+    )
   }
 
   async onSubmitChangeBoxFields(data) {
@@ -96,10 +107,10 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     }
   }
 
-  async onClickAddOrEditBatch(setting) {
+  async onClickAddOrEditBatch(isAdding) {
     try {
       runInAction(() => {
-        if (setting.isAdding) {
+        if (isAdding) {
           this.selectedRows = []
           this.curBatch = undefined
         }
@@ -172,15 +183,15 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
       runInAction(() => {
         this.curBatch = batch
       })
+
+      this.onTriggerOpenModal('showBatchInfoModal')
     } catch (error) {
       console.error(error)
     }
   }
 
   async patchActualShippingCostBatch(id, cost) {
-    await BatchesModel.changeBatch(id, {
-      actualShippingCost: cost || '0',
-    })
+    await BatchesModel.changeBatch(id, { actualShippingCost: cost || '0' })
 
     this.setCurrentOpenedBatch(id)
   }
@@ -224,5 +235,27 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     } catch (error) {
       console.error(error)
     }
+  }
+
+  async onClickSaveTrackingNumber(id, trackingNumber) {
+    try {
+      await BatchesModel.changeBatch(id, { trackingNumber })
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onClickSaveArrivalDate(id, date) {
+    try {
+      await BatchesModel.changeBatch(id, { arrivalDate: date })
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onTriggerArchive() {
+    this.isArchive = !this.isArchive
   }
 }
