@@ -176,16 +176,16 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
     },
   ]
 
-  if (columnHandlers.isHideCalculation) {
-    // @ts-ignore
-    return columns?.slice(0, -3)
-  }
-
   for (const column of columns) {
     column.table = DataGridFilterTables.STOREKEEPERS
     column.sortable = false
     column.filterable = false
     column.resizable = false
+  }
+
+  if (columnHandlers.isHideCalculation) {
+    // @ts-ignore
+    return columns?.slice(0, -3)
   }
 
   return columns
