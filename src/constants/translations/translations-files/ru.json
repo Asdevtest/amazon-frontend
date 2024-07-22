@@ -1983,7 +1983,7 @@
   "Select request ID": "Выберите ID запроса",
   "Request templates": "Шаблоны заявок",
   "Barсode is not glued": "Баркод не проклеен",
-  "Transparency Code is not glued": "Transparency Code не проклеен",
+  "Transparency Codes is not glued": "Transparency Codes не проклеен",
   "Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located": "Увеличение количества коробок будет требовать дополнительной оплаты в зависимости от тарифов склада, на котором находится товар",
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Кнопка выставления статуса, карточка товара остается в работе у супервайзера (можно изменить)",
   "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Кнопка выставления счета, карточка продукта отправляется покупателю для поиска поставщика (можно изменить до того, как покупатель возьмет в работу)",
@@ -1991,5 +1991,7 @@
   "User not found.": "Пользователь не найден",
   "Storekeeper selection": "Выбор сторкипера",
   "Tariff selection": "Выбор тарифа",
-  "Create a tariff": "Создать тариф"
+  "Create a tariff": "Создать тариф",
+  "Start date": "Дата начала",
+  "End date": "Дата окончания"
 }

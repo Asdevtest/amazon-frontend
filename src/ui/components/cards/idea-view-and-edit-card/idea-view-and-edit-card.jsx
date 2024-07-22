@@ -337,7 +337,7 @@ export const IdeaViewAndEditCard = observer(
     const disableAcceptButton = isSupplierNotFound
 
     return (
-      <div className={cx(styles.root, isModalView && styles.rootModal)}>
+      <div className={styles.root}>
         <div className={styles.headerWrapper}>
           <IdeaProgressBar
             showStatusDuration={isModalView && curIdea}

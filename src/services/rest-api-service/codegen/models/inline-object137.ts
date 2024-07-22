@@ -13,160 +13,237 @@
  */
 
 
-import { ApiV1SuppliersBoxProperties } from './api-v1-suppliers-box-properties';
-import { ApiV1SuppliersPaymentMethods } from './api-v1-suppliers-payment-methods';
-import { ApiV1SuppliersPriceVariations } from './api-v1-suppliers-price-variations';
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
+import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
 
 /**
- * Новый поставщик.
+ * 
  * @export
  * @interface InlineObject137
  */
 export interface InlineObject137 {
     /**
-     * Название поставщика.
+     * Категория
      * @type {string}
      * @memberof InlineObject137
      */
-    name: string;
+    category?: string;
     /**
-     * Ссылка на поставщика.
+     * Ссылка на этот продукт на амазоне.
      * @type {string}
      * @memberof InlineObject137
      */
-    link: string;
+    lamazon?: string;
     /**
-     * Цена за еденицу, dollar
+     * 
      * @type {number}
      * @memberof InlineObject137
      */
-    price: number;
+    bsr?: number;
     /**
-     * кол-во
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    amount: number;
-    /**
-     * Минимальный лот.
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    minlot: number;
-    /**
-     * Имеет ли обязательный делитель на кол-во в заказе поставщик
+     * Признак fba
      * @type {boolean}
      * @memberof InlineObject137
      */
-    multiplicity?: boolean;
+    fba?: boolean;
     /**
      * 
-     * @type {Array<ApiV1SuppliersPaymentMethods>}
-     * @memberof InlineObject137
-     */
-    paymentMethods?: Array<ApiV1SuppliersPaymentMethods>;
-    /**
-     * Height unit
      * @type {number}
      * @memberof InlineObject137
      */
-    heightUnit?: number;
-    /**
-     * Width unit
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    widthUnit?: number;
-    /**
-     * Length unit
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    lengthUnit?: number;
-    /**
-     * Weigh unit
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    weighUnit?: number;
+    amazon?: number;
     /**
      * 
-     * @type {Array<string>}
+     * @type {number}
      * @memberof InlineObject137
      */
-    imageUnit?: Array<string>;
+    height?: number;
     /**
-     * Массив картинок.
+     * 
+     * @type {number}
+     * @memberof InlineObject137
+     */
+    width?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject137
+     */
+    length?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject137
+     */
+    weight?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject137
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject137
+     */
+    fbafee?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineObject137
+     */
+    fbaamount?: number;
+    /**
+     * См. описание статусов например в readMe.md
+     * @type {number}
+     * @memberof InlineObject137
+     */
+    status?: number;
+    /**
+     * Комментарии к товару.
+     * @type {string}
+     * @memberof InlineObject137
+     */
+    icomment?: string;
+    /**
+     * Массив изображений.
      * @type {Array<string>}
      * @memberof InlineObject137
      */
     images?: Array<string>;
     /**
-     * Комментарий
+     * 
      * @type {string}
      * @memberof InlineObject137
      */
-    comment: string;
+    amazonDescription?: string;
     /**
-     * Курс доллара к юаню поставщика. 
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineObject137
      */
-    yuanRate?: number;
+    amazonDetail?: string;
     /**
-     * Цена за еденицу, yuan
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineObject137
      */
-    priceInYuan?: number;
+    amazonTitle?: string;
     /**
-     * Доставка партии, dollar
-     * @type {number}
+     * Материл продукта
+     * @type {string}
      * @memberof InlineObject137
      */
-    batchDeliveryCostInDollar: number;
+    material?: string;
     /**
-     * Доставка партии, yuan
-     * @type {number}
+     * Применение продукта
+     * @type {string}
      * @memberof InlineObject137
      */
-    batchDeliveryCostInYuan?: number;
+    productUsage?: string;
     /**
-     * Цена партии, dollar
-     * @type {number}
+     * chinese title?
+     * @type {string}
      * @memberof InlineObject137
      */
-    batchTotalCostInDollar?: number;
+    chinaTitle?: string;
     /**
-     * Цена партии, yuan
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineObject137
      */
-    batchTotalCostInYuan?: number;
+    barCode?: string;
     /**
      * 
      * @type {number}
      * @memberof InlineObject137
      */
-    minProductionTerm?: number;
+    minpurchase?: number;
     /**
-     * 
+     * Прибыль
      * @type {number}
      * @memberof InlineObject137
      */
-    maxProductionTerm?: number;
+    profit?: number;
     /**
-     * 
-     * @type {ApiV1SuppliersBoxProperties}
+     * Маржа
+     * @type {number}
      * @memberof InlineObject137
      */
-    boxProperties?: ApiV1SuppliersBoxProperties;
+    margin?: number;
     /**
-     * 
-     * @type {Array<ApiV1SuppliersPriceVariations>}
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
      * @memberof InlineObject137
      */
-    priceVariations?: Array<ApiV1SuppliersPriceVariations>;
+    strategyStatus?: number;
+    /**
+     * Ниша
+     * @type {string}
+     * @memberof InlineObject137
+     */
+    niche?: string;
+    /**
+     * Асины
+     * @type {string}
+     * @memberof InlineObject137
+     */
+    asins?: string;
+    /**
+     * Общий доход
+     * @type {string}
+     * @memberof InlineObject137
+     */
+    totalRevenue?: string;
+    /**
+     * Коэффициент прибыли
+     * @type {string}
+     * @memberof InlineObject137
+     */
+    coefficient?: string;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineObject137
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineObject137
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineObject137
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineObject137
+     */
+    avgReviews?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsGuidRedFlags>}
+     * @memberof InlineObject137
+     */
+    redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @memberof InlineObject137
+     */
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
+    /**
+     * Комментарий к статусу проверки.
+     * @type {string}
+     * @memberof InlineObject137
+     */
+    checkednotes?: string;
 }
 
 

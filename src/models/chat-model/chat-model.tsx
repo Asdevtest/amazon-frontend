@@ -650,8 +650,6 @@ class ChatModelStatic {
   private onReadMessage(response: OnReadMessageResponse) {
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === response.chatId)
 
-    console.log('onReadMessage', response)
-
     if (findChatIndexById !== -1) {
       runInAction(() => {
         this.chats[findChatIndexById] = {
@@ -786,8 +784,6 @@ class ChatModelStatic {
     if (!this.websocketChatService) throw websocketChatServiceIsNotInitializedError
     try {
       const usersOnline = (await this.websocketChatService.getOnlineUsers()) as ChatUserContract[]
-
-      console.log('usersOnline :>> ', usersOnline)
 
       runInAction(() => {
         this.simpleChats = this.simpleChats.map(chat => {

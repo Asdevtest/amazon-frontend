@@ -417,9 +417,6 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
     case columnnsKeys.shared.TASK_COMPLEXITY:
       return difficultyLevelTranslate(difficultyLevelByCode[status])
 
-    case columnnsKeys.shared.TYPE:
-      return getTranslationNotificationType(status)
-
     case columnnsKeys.box.SHOP:
       return boxStatusTranslateKey(status)
 

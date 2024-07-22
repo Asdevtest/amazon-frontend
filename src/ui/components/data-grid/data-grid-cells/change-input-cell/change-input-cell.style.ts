@@ -10,10 +10,6 @@ export const useStyles = makeStyles()(theme => ({
     textAlign: 'center',
   },
 
-  error: {
-    border: `1px solid ${theme.palette.text.red} !important`,
-  },
-
   icons: {
     display: 'flex',
     alignItems: 'center',
@@ -25,10 +21,6 @@ export const useStyles = makeStyles()(theme => ({
     height: 16,
     opacity: 1,
     transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
 
     '&:disabled': {
       opacity: 0.5,

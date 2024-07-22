@@ -156,6 +156,9 @@ export const useStyles = makeStyles()(theme => ({
   cell: {
     padding: '0 5px',
   },
+  productCell: {
+    maxWidth: 260,
+  },
   deleteCell: {
     padding: '0',
   },

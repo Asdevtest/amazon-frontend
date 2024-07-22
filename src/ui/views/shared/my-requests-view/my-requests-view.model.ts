@@ -174,7 +174,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   onClickEditBtn() {
     this.history.push(
       `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request/edit-request`,
-      { requestId: this.currentRequestDetails.request._id },
+      { requestId: this.currentRequestDetails.request?._id },
     )
   }
 
@@ -217,7 +217,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   }
 
   onClickRemoveBtn(row: any) {
-    this.researchIdToRemove = row.request._id
+    this.researchIdToRemove = row.request?._id
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -264,7 +264,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
       ?.open(
         `${window.location.origin}/${
           UserRoleCodeMapForRoutes[this.userInfo.role]
-        }/freelance/my-requests/custom-request?request-id=${item._id}`,
+        }/freelance/my-requests/custom-request?request-id=${item?._id}`,
         '_blank',
       )
       ?.focus()
@@ -361,7 +361,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
 
   async onDeleteRequest() {
     try {
-      await RequestModel.deleteRequest(this.currentRequestDetails.request._id)
+      await RequestModel.deleteRequest(this.currentRequestDetails.request?._id)
 
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showRequestDetailModal')
@@ -386,7 +386,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
 
   async toPublishRequest(totalCost: number) {
     try {
-      await RequestModel.toPublishRequest(this.currentRequestDetails.request._id, { totalCost })
+      await RequestModel.toPublishRequest(this.currentRequestDetails.request?._id, { totalCost })
 
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showRequestDetailModal')
@@ -399,7 +399,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
 
   async onClickPublishBtn() {
     try {
-      const result = await RequestModel.calculateRequestCost(this.currentRequestDetails.request._id)
+      const result = await RequestModel.calculateRequestCost(this.currentRequestDetails.request?._id)
 
       runInAction(() => {
         this.confirmModalSettings = {
@@ -427,7 +427,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
     this.setRequestStatus(loadingStatus.IS_LOADING)
 
     await RequestModel.updateDeadline(
-      this.currentRequestDetails.request._id,
+      this.currentRequestDetails.request?._id,
       getLocalToUTCDate(timeoutAt),
       maxAmountOfProposals,
     )
@@ -443,7 +443,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
 
   async onSubmitAbortRequest(comment: string) {
     try {
-      await RequestModel.abortRequest(this.currentRequestDetails.request._id, { reason: comment })
+      await RequestModel.abortRequest(this.currentRequestDetails.request?._id, { reason: comment })
 
       this.onTriggerOpenModal('showConfirmWithCommentModal')
       this.onTriggerOpenModal('showRequestDetailModal')

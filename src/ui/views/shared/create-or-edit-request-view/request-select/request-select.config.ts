@@ -11,7 +11,7 @@ import { IPermissionsData } from '@hooks/use-products-permissions'
 
 export const requestSelectConfig = {
   requestTemplate: observable,
-  setData: observable,
+  onChangeData: observable,
 
   requestTemplateOptions: computed,
 
@@ -26,7 +26,7 @@ export const getRequestTemplateOptions = (requests: IPermissionsData[]) =>
     label: `${t(TranslationKey['Request ID'])}: ${request?.humanFriendlyId || t(TranslationKey.Missing)}`,
   }))
 
-export type ISetData = (data: IRequest) => void
+export type IChangeData = (data: IRequest) => void
 
 export const options = { kind: RequestSubType.MY }
 export const searchFields = ['asin', 'title', 'humanFriendlyId']

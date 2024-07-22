@@ -21,46 +21,77 @@
  */
 export interface InlineObject159 {
     /**
-     * Profile email
+     * Profile id of GoLogin
      * @type {string}
      * @memberof InlineObject159
      */
-    email: string;
+    gologinId?: string;
     /**
-     * 
+     * Name
      * @type {string}
      * @memberof InlineObject159
      */
-    table?: InlineObject159TableEnum;
+    name?: string;
+    /**
+     * Main google table id
+     * @type {string}
+     * @memberof InlineObject159
+     */
+    spreadsheetsIdMain?: string;
+    /**
+     * Perfomance google table id
+     * @type {string}
+     * @memberof InlineObject159
+     */
+    spreadsheetsIdPerformance?: string;
+    /**
+     * Import google table id
+     * @type {string}
+     * @memberof InlineObject159
+     */
+    spreadsheetsIdImport?: string;
+    /**
+     * Email
+     * @type {string}
+     * @memberof InlineObject159
+     */
+    email?: string;
+    /**
+     * Password
+     * @type {string}
+     * @memberof InlineObject159
+     */
+    password?: string;
+    /**
+     * OTP
+     * @type {string}
+     * @memberof InlineObject159
+     */
+    otp?: string;
+    /**
+     * Driver session data (JSONB object)
+     * @type {object}
+     * @memberof InlineObject159
+     */
+    driverSessionData?: object;
+    /**
+     * Parser state
+     * @type {boolean}
+     * @memberof InlineObject159
+     */
+    isActive?: boolean;
+    /**
+     * Profile access to sellercentral
+     * @type {boolean}
+     * @memberof InlineObject159
+     */
+    access?: boolean;
+    /**
+     * Port of browser
+     * @type {number}
+     * @memberof InlineObject159
+     */
+    port?: number;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject159TableEnum {
-    BusinessReports = 'BUSINESS_REPORTS',
-    Orders = 'ORDERS',
-    TotalBalance = 'TOTAL_BALANCE',
-    Feedback = 'FEEDBACK',
-    Transactions = 'TRANSACTIONS',
-    Inventory = 'INVENTORY',
-    Campaigns = 'CAMPAIGNS',
-    PerfomanceNotifications = 'PERFOMANCE_NOTIFICATIONS',
-    FbaInventory = 'FBA_INVENTORY',
-    AccountHealth = 'ACCOUNT_HEALTH',
-    Returns = 'RETURNS',
-    InventoryPlanning = 'INVENTORY_PLANNING',
-    BrandsReview = 'BRANDS_REVIEW',
-    InventoryShipments = 'INVENTORY_SHIPMENTS',
-    Voice = 'VOICE',
-    FypOutOfStock = 'FYP_OUT_OF_STOCK',
-    FypSearchSuppressed = 'FYP_SEARCH_SUPPRESSED',
-    Income = 'INCOME',
-    PpcSalesWeeks = 'PPC_SALES_WEEKS',
-    PpcOrganic = 'PPC_ORGANIC',
-    All = 'ALL'
-}
-
 
 

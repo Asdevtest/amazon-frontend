@@ -13,19 +13,27 @@
  */
 
 
+import { ApiV1RequestsCustomDetails } from './api-v1-requests-custom-details';
+import { ApiV1RequestsCustomRequest } from './api-v1-requests-custom-request';
 
 /**
- * 
+ * Схема универсальной заявки.
  * @export
  * @interface InlineObject166
  */
 export interface InlineObject166 {
     /**
-     * Comment for request details.
-     * @type {string}
+     * 
+     * @type {ApiV1RequestsCustomRequest}
      * @memberof InlineObject166
      */
-    comment?: string;
+    request: ApiV1RequestsCustomRequest;
+    /**
+     * 
+     * @type {ApiV1RequestsCustomDetails}
+     * @memberof InlineObject166
+     */
+    details: ApiV1RequestsCustomDetails;
 }
 
 

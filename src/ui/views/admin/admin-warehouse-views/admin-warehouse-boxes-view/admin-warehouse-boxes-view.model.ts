@@ -20,6 +20,10 @@ export class AdminWarehouseBoxesViewModel extends DataGridFilterTableModel {
   constructor() {
     const columnsModel = adminWarehouseBoxesColumns()
 
+    const operatorsSettings = {
+      destination: '$any',
+    }
+
     super({
       getMainDataMethod: BoxesModel.getBoxes,
       columnsModel,
@@ -27,6 +31,7 @@ export class AdminWarehouseBoxesViewModel extends DataGridFilterTableModel {
       mainMethodURL: 'boxes?',
       fieldsForSearch: ['asin', 'skuByClient', 'amazonTitle'],
       tableKey: DataGridTablesKeys.ADMIN_BOXES,
+      operatorsSettings,
     })
 
     makeObservable(this, observerConfig)
