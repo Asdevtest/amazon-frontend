@@ -1,10 +1,9 @@
-import { ChangeEvent, FC, memo } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Checkbox } from '@components/shared/checkbox'
-import { Input } from '@components/shared/input'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -60,27 +59,28 @@ export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
   return (
     <div className={sharedStyles.columnMenuWrapper}>
       <div className={styles.inputsWrapper}>
-        <Input
-          title={t(TranslationKey.From)}
-          className={styles.input}
-          classes={{ input: styles.inputInnerSpace }}
+        <CustomInputSearch
+          allowClear
           placeholder={t(TranslationKey.From)}
           value={fromSearchValue}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setFromSearchValue(e.target.value)}
+          wrapperClassName={sharedStyles.searchInput}
+          onChange={e => setFromSearchValue(e.target.value)}
         />
-        <Input
-          title={t(TranslationKey.To)}
-          className={styles.input}
-          classes={{ input: styles.inputInnerSpace }}
+
+        <CustomInputSearch
+          allowClear
           placeholder={t(TranslationKey.To)}
           value={toSearchValue}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setToSearchValue(e.target.value)}
+          wrapperClassName={sharedStyles.searchInput}
+          onChange={e => setToSearchValue(e.target.value)}
         />
       </div>
 
-      <SearchInput
+      <CustomInputSearch
+        allowClear
+        placeholder={t(TranslationKey.Search)}
         value={nameSearchValue}
-        inputClasses={sharedStyles.searchInput}
+        wrapperClassName={sharedStyles.searchInput}
         onChange={e => setNameSearchValue(e.target.value)}
       />
 

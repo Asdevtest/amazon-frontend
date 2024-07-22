@@ -3,7 +3,7 @@ import { FC, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Checkbox } from '@components/shared/checkbox'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -56,9 +56,11 @@ export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
 
   return (
     <div className={sharedStyles.columnMenuWrapper}>
-      <SearchInput
+      <CustomInputSearch
+        allowClear
         value={searchValue}
-        inputClasses={sharedStyles.searchInput}
+        wrapperClassName={sharedStyles.searchInput}
+        placeholder="Search by SKU, ASIN, Title, Launch type"
         onChange={e => setSearchValue(e.target.value)}
       />
 

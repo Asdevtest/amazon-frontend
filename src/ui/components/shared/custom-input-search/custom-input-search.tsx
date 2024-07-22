@@ -22,6 +22,7 @@ export const CustomInputSearch: FC<CustomInputSearchProps> = memo(props => {
     props
 
   const { classes: styles, cx } = useStyles()
+  const placeholderText = placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined
 
   return (
     <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
@@ -33,8 +34,9 @@ export const CustomInputSearch: FC<CustomInputSearchProps> = memo(props => {
       ) : null}
       <Search
         {...restProps}
+        title={placeholderText}
         className={cx(styles.input, className)}
-        placeholder={placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined}
+        placeholder={placeholderText}
       />
     </div>
   )
