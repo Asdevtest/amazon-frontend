@@ -120,7 +120,8 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       headerName: t(TranslationKey['Launch type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Launch type'])} />,
       renderCell: ({ row }: GridRowModel) => <Launches isCell launches={row.listingLaunches || []} />,
-      valueGetter: (launch: GridRowModel) => `${getLaunchName(launch?.type, true)} - ${launch?.value}%`,
+      valueGetter: (launch: GridRowModel) =>
+        `${getLaunchName(launch?.type, launch?.showShortName ?? true)} - ${launch?.value}%`,
       width: 330,
       columnKey: columnnsKeys.shared.STRING,
     },
