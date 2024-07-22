@@ -1,24 +1,27 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  btnsWrapper: {
+  flexRow: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '20px',
   },
 
-  leftBtnsWrapper: {
-    display: 'flex',
-    gap: 20,
-  },
-
-  datagridWrapper: {
+  tableWrapper: {
     marginTop: '20px',
     height: '80vh',
     width: '100%',
   },
 
   searchInput: {
-    width: 500,
+    width: 440,
+
+    input: {
+      '&::placeholder': {
+        fontSize: 14,
+        lineHeight: '19px',
+      },
+    },
   },
 }))

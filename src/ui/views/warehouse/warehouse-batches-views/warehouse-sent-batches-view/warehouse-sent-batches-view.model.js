@@ -35,7 +35,6 @@ export class WarehouseSentBatchesViewModel {
   showConfirmModal = false
   showBatchInfoModal = false
   uploadedFiles = []
-  status = BatchStatus.HAS_DISPATCHED
 
   rowCount = 0
   sortModel = []
@@ -46,7 +45,7 @@ export class WarehouseSentBatchesViewModel {
     onClickSaveTrackingNumber: (id, trackingNumber) => this.onClickSaveTrackingNumber(id, trackingNumber),
     onClickSaveArrivalDate: (id, date) => this.onClickSaveArrivalDate(id, date),
   }
-  columnsModel = batchesViewColumns(this.rowHandlers, () => this.status)
+  columnsModel = batchesViewColumns(this.rowHandlers, true)
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),

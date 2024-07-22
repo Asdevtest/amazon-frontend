@@ -1,5 +1,4 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { BatchStatus } from '@constants/statuses/batch-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -15,12 +14,12 @@ import {
 import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const batchesViewColumns = (rowHandlers, getStatus) => [
+export const batchesViewColumns = (rowHandlers, isSentBatches) => [
   {
     field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
+    renderCell: params => <BatchBoxesCell boxes={params.row.boxes} />,
     width: 400,
     filterable: false,
     sortable: false,
@@ -73,7 +72,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     field: 'logicsTariff',
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-    renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row.originalData.boxes[0])} />,
+    renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row.boxes[0])} />,
     width: 250,
     filterable: false,
     sortable: false,
@@ -84,20 +83,16 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     field: 'trackingNumber',
     headerName: t(TranslationKey['Batch tracking']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
-    renderCell: params => {
-      const isDisabled = getStatus() !== BatchStatus.HAS_DISPATCHED
-
-      return (
-        <BatchTrackingCell
-          disabled={isDisabled}
-          disabledArrivalDate={isDisabled}
-          id={params.row?.originalData?._id}
-          arrivalDate={params.row?.originalData?.arrivalDate}
-          trackingNumber={params.row?.originalData?.trackingNumber}
-          rowHandlers={rowHandlers}
-        />
-      )
-    },
+    renderCell: params => (
+      <BatchTrackingCell
+        disabled={isSentBatches}
+        disabledArrivalDate={isSentBatches}
+        id={params.row._id}
+        arrivalDate={params.row.arrivalDate}
+        trackingNumber={params.row.trackingNumber}
+        rowHandlers={rowHandlers}
+      />
+    ),
     width: 210,
     filterable: false,
     sortable: false,
@@ -108,7 +103,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-    renderCell: params => <ToFixedWithKgSignCell value={params.row.originalData.finalWeight} fix={2} />,
+    renderCell: params => <ToFixedWithKgSignCell value={params.row.finalWeight} fix={2} />,
     type: 'number',
     width: 120,
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -132,9 +127,9 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
     renderCell: params => (
       <WarehouseTariffDatesCell
-        cls={params.row.originalData.boxes[0].logicsTariff?.cls}
-        etd={params.row.originalData.boxes[0].logicsTariff?.etd}
-        eta={params.row.originalData.boxes[0].logicsTariff?.eta}
+        cls={params.row.boxes[0].logicsTariff?.cls}
+        etd={params.row.boxes[0].logicsTariff?.etd}
+        eta={params.row.boxes[0].logicsTariff?.eta}
       />
     ),
     width: 330,
