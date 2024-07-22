@@ -29,7 +29,11 @@ export const ProductAsinCell: FC<ProductAsinCellProps> = memo(props => {
       )}
 
       <div className={styles.fields}>
-        {!withoutTitle && <p className={styles.amazonTitle}>{amazonTitle}</p>}
+        {!withoutTitle && (
+          <p className={styles.amazonTitle} title={amazonTitle}>
+            {amazonTitle}
+          </p>
+        )}
         {!withoutAsin && <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={asin} />}
         {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={skuByClient} />}
       </div>
