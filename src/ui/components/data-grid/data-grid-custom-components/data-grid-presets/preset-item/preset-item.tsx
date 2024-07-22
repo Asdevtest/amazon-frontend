@@ -1,8 +1,10 @@
-import { Popconfirm } from 'antd'
+import { Dropdown, MenuProps, Popconfirm } from 'antd'
 import { BaseOptionType } from 'antd/es/select'
 import { FC, memo } from 'react'
+import { BsThreeDotsVertical } from 'react-icons/bs'
 import { GrUpdate } from 'react-icons/gr'
 import { MdOutlineDelete } from 'react-icons/md'
+import { TiPinOutline } from 'react-icons/ti'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,10 +24,56 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { preset, handleDeletePreset, handleUpdatePreset } = props
 
+  const items: MenuProps['items'] = [
+    {
+      key: 'quickAccess',
+      label: (
+        <CustomButton
+          className={styles.button}
+          icon={<TiPinOutline title={t(TranslationKey['Add to quick access'])} className={styles.updateButton} />}
+          onClick={e => e.stopPropagation()}
+        >
+          {t(TranslationKey['Add to quick access'])}
+        </CustomButton>
+      ),
+    },
+
+    {
+      key: 'update',
+      label: (
+        <CustomButton
+          className={styles.button}
+          icon={<GrUpdate title={t(TranslationKey.Update)} className={styles.updateButton} />}
+          onClick={e => e.stopPropagation()}
+        >
+          {t(TranslationKey.Update)}
+        </CustomButton>
+      ),
+    },
+
+    {
+      key: 'delete',
+      label: (
+        <CustomButton
+          className={styles.button}
+          icon={<MdOutlineDelete size={20} title={t(TranslationKey.Delete)} className={styles.deleteIcon} />}
+          onClick={e => e.stopPropagation()}
+        >
+          {t(TranslationKey.Delete)}
+        </CustomButton>
+      ),
+    },
+  ]
+
   return (
     <div className={styles.presetItemWrapper}>
       <p className={styles.presetTitle}>{preset?.data?.title}</p>
-      {preset?.data?._id ? (
+
+      <Dropdown menu={{ items }} placement="bottomLeft" arrow={{ pointAtCenter: true }}>
+        <BsThreeDotsVertical />
+      </Dropdown>
+
+      {/* {preset?.data?._id ? (
         <div className={cx(styles.buttonWrapper)}>
           <Popconfirm
             showCancel={false}
@@ -61,7 +109,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
             />
           </Popconfirm>
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   )
 })

@@ -84,6 +84,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
               onChange={onPresetTitleChange}
               onKeyDown={e => e.stopPropagation()}
             />
+            
             <CustomButton
               disabled={!createPresetTitle}
               icon={<FaPlus />}
@@ -95,7 +96,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
           </div>
         </>
       )}
-      onChange={handleSetPresetActive}
+      // onChange={handleSetPresetActive}
     />
   )
 })
