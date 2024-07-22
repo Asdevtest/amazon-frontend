@@ -210,7 +210,7 @@ export const OrderModalBodyRow = ({
           </Typography>
           {isLocalPriseOutOfLimit && (
             <Typography className={styles.error}>
-              {t(TranslationKey['At least'])} {platformSettings.orderAmountLimit}$
+              {t(TranslationKey['At least'])} {platformSettings?.orderAmountLimit}$
             </Typography>
           )}
         </TableCell>
