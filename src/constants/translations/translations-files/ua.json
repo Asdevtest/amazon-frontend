@@ -1988,5 +1988,7 @@
   "User not found.": "Користувача не знайдено",
   "Storekeeper selection": "Вибір сторкіпера",
   "Tariff selection": "Вибір тарифу",
-  "Create a tariff": "Створити тариф"
+  "Create a tariff": "Створити тариф",
+  "Start date": "Дата початку",
+  "End date": "Дата закінчення"
 }
