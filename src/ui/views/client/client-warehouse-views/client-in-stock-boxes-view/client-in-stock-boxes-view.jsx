@@ -40,8 +40,7 @@ import { ViewHeader } from './view-header/view-header'
 
 export const ClientInStockBoxesView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-
-  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history }))
+  const [viewModel] = useState(() => new ClientInStockBoxesViewModel(history))
 
   const getRowClassName = params =>
     (params.row.isDraft === true ||
@@ -121,7 +120,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onColumnHeaderLeave={viewModel.onLeaveColumnField}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onFilterModelChange={viewModel.onChangeFilterModel}
