@@ -39,6 +39,8 @@ export const editExcelReport = (
 
     if (listingLaunches?.length > 0) {
       for (const launch of listingLaunches) {
+        launch.showShortName = false
+
         for (const column of columnsModel) {
           if (column.disableExport) {
             continue
