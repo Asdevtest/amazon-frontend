@@ -25,12 +25,14 @@ export const useStyles = makeStyles()(theme => ({
 
   paymentMethodsContainer: {
     display: 'flex',
+    alignItems: 'center',
     gap: 20,
     margin: 0,
   },
 
   rowPaymentMethodsContainer: {
     display: 'flex',
+    alignItems: 'flex-start',
     flexDirection: 'column',
     gap: 5,
   },
