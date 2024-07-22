@@ -41,8 +41,8 @@ export const GroupingBoxesForm = memo(props => {
     if (basicBox?._id !== box._id) {
       setBasicBox(box)
 
-      const newOldBoxes = sourceOldBoxes.filter(
-        el =>
+      const newOldBoxes = sourceOldBoxes.filter(el => {
+        return (
           el.destinationId === box.destinationId &&
           el.storekeeperId === box.storekeeperId &&
           el.logicsTariffId === box.logicsTariffId &&
@@ -74,8 +74,9 @@ export const GroupingBoxesForm = memo(props => {
                   '_id',
                 ]),
               })),
-            ),
-      )
+            )
+        )
+      })
 
       setNewBoxes([
         newOldBoxes.length > 1
@@ -152,7 +153,7 @@ export const GroupingBoxesForm = memo(props => {
     !basicBox ||
     (basicBox && leftToRedistribute !== 0) ||
     JSON.stringify(oldBoxes.map(el => el.amount).sort()) === JSON.stringify(newBoxes.map(el => el.amount).sort()) ||
-    newBoxes.some(box => box.amount === 0) ||
+    newBoxes.some(box => box.amount === 0 || box?.items?.length > 1) ||
     selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK) ||
     disableSubmitBtn
 
