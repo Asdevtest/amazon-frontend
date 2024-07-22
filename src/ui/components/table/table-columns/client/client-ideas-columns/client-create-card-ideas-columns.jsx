@@ -122,7 +122,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Action),
 
       renderCell: params => <CreateCardIdeaActionsCell row={params.row} rowHandlers={rowHandlers} />,
-      width: 110,
+      width: 160,
       disableCustomSort: true,
       filterable: false,
     },

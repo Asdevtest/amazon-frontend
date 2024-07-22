@@ -111,7 +111,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
           onClickReject={() => rowHandlers.onClickReject(params.row._id)}
         />
       ),
-      width: 150,
+      width: 160,
       disableCustomSort: true,
       filterable: false,
     },
