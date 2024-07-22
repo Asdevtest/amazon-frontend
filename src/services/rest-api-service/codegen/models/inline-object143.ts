@@ -21,29 +21,11 @@
  */
 export interface InlineObject143 {
     /**
-     * Эндпоинт для которого надо установить пресеты
-     * @type {string}
-     * @memberof InlineObject143
-     */
-    endpoint: string;
-    /**
-     * Название таблицы
-     * @type {string}
-     * @memberof InlineObject143
-     */
-    table: string;
-    /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof InlineObject143
      */
-    fields: Array<string>;
-    /**
-     * Является ли пресет активным.
-     * @type {boolean}
-     * @memberof InlineObject143
-     */
-    isActive?: boolean;
+    refreshToken: string;
 }
 
 

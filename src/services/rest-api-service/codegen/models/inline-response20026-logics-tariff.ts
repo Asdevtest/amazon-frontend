@@ -17,21 +17,21 @@
 /**
  * 
  * @export
- * @interface InlineObject142
+ * @interface InlineResponse20026LogicsTariff
  */
-export interface InlineObject142 {
+export interface InlineResponse20026LogicsTariff {
     /**
-     * 
+     * GUID тарифа
      * @type {string}
-     * @memberof InlineObject142
+     * @memberof InlineResponse20026LogicsTariff
      */
-    iconImage?: string;
+    _id?: string;
     /**
-     * 
+     * Название тарифа
      * @type {string}
-     * @memberof InlineObject142
+     * @memberof InlineResponse20026LogicsTariff
      */
-    title?: string;
+    name?: string;
 }
 
 

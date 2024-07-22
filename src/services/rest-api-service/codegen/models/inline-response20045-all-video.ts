@@ -17,21 +17,21 @@
 /**
  * 
  * @export
- * @interface InlineObject142
+ * @interface InlineResponse20045AllVideo
  */
-export interface InlineObject142 {
+export interface InlineResponse20045AllVideo {
+    /**
+     * Гуид сообщения
+     * @type {string}
+     * @memberof InlineResponse20045AllVideo
+     */
+    _id?: string;
     /**
      * 
-     * @type {string}
-     * @memberof InlineObject142
+     * @type {Array<string>}
+     * @memberof InlineResponse20045AllVideo
      */
-    iconImage?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject142
-     */
-    title?: string;
+    video?: Array<string>;
 }
 
 

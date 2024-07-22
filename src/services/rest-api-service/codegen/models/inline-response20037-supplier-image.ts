@@ -17,21 +17,21 @@
 /**
  * 
  * @export
- * @interface InlineObject142
+ * @interface InlineResponse20037SupplierImage
  */
-export interface InlineObject142 {
+export interface InlineResponse20037SupplierImage {
+    /**
+     * supplier GUID
+     * @type {string}
+     * @memberof InlineResponse20037SupplierImage
+     */
+    _id?: string;
     /**
      * 
-     * @type {string}
-     * @memberof InlineObject142
+     * @type {Array<string>}
+     * @memberof InlineResponse20037SupplierImage
      */
-    iconImage?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject142
-     */
-    title?: string;
+    images?: Array<string>;
 }
 
 

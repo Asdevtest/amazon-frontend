@@ -17,21 +17,21 @@
 /**
  * 
  * @export
- * @interface InlineObject142
+ * @interface InlineResponse20039Shop
  */
-export interface InlineObject142 {
+export interface InlineResponse20039Shop {
     /**
-     * 
+     * GUID магазина
      * @type {string}
-     * @memberof InlineObject142
+     * @memberof InlineResponse20039Shop
      */
-    iconImage?: string;
+    _id?: string;
     /**
-     * 
+     * Название магазина
      * @type {string}
-     * @memberof InlineObject142
+     * @memberof InlineResponse20039Shop
      */
-    title?: string;
+    name?: string;
 }
 
 

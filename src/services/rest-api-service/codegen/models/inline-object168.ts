@@ -17,21 +17,15 @@
 /**
  * 
  * @export
- * @interface InlineObject142
+ * @interface InlineObject168
  */
-export interface InlineObject142 {
+export interface InlineObject168 {
     /**
-     * 
+     * Comment for request details.
      * @type {string}
-     * @memberof InlineObject142
+     * @memberof InlineObject168
      */
-    iconImage?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject142
-     */
-    title?: string;
+    comment?: string;
 }
 
 

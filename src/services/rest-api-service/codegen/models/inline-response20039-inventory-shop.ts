@@ -17,21 +17,21 @@
 /**
  * 
  * @export
- * @interface InlineObject142
+ * @interface InlineResponse20039InventoryShop
  */
-export interface InlineObject142 {
+export interface InlineResponse20039InventoryShop {
     /**
-     * 
+     * The shop id
      * @type {string}
-     * @memberof InlineObject142
+     * @memberof InlineResponse20039InventoryShop
      */
-    iconImage?: string;
+    _id?: string;
     /**
-     * 
+     * The shop name
      * @type {string}
-     * @memberof InlineObject142
+     * @memberof InlineResponse20039InventoryShop
      */
-    title?: string;
+    name?: string;
 }
 
 

@@ -225,6 +225,8 @@ models/inline-object163.ts
 models/inline-object164.ts
 models/inline-object165.ts
 models/inline-object166.ts
+models/inline-object167.ts
+models/inline-object168.ts
 models/inline-object17.ts
 models/inline-object18.ts
 models/inline-object19.ts
@@ -325,14 +327,15 @@ models/inline-response200102-destination-variations.ts
 models/inline-response200102-destination.ts
 models/inline-response200102-rows.ts
 models/inline-response200102.ts
+models/inline-response200103-rows.ts
 models/inline-response200103.ts
 models/inline-response200104.ts
-models/inline-response200105-author.ts
-models/inline-response200105-rows.ts
 models/inline-response200105.ts
+models/inline-response200106-author.ts
 models/inline-response200106-rows.ts
-models/inline-response200106-shop.ts
 models/inline-response200106.ts
+models/inline-response200107-rows.ts
+models/inline-response200107-shop.ts
 models/inline-response200107.ts
 models/inline-response200108.ts
 models/inline-response200109.ts
@@ -341,7 +344,6 @@ models/inline-response200110.ts
 models/inline-response200111.ts
 models/inline-response200112.ts
 models/inline-response200113.ts
-models/inline-response200114-rows.ts
 models/inline-response200114.ts
 models/inline-response200115.ts
 models/inline-response200116.ts
