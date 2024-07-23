@@ -196,10 +196,6 @@ export const useStyles = makeStyles()(theme => ({
     margin: '0 !important',
   },
 
-  deadlineError: {
-    borderBottom: '1px solid red',
-  },
-
   deadlineErrorText: {
     color: 'red',
   },
