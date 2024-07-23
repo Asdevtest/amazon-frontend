@@ -10,6 +10,6 @@ export const productionTimeColumnMenuValue = [
   {
     field: 'currentSupplierMaxProductionTerm',
     table: DataGridFilterTables.PRODUCTS,
-    columnKey: ColumnMenuKeys.STRING,
+    columnKey: ColumnMenuKeys.NUMBER,
   },
 ]
