@@ -1993,4 +1993,5 @@ export enum TranslationKey {
   'Create a tariff' = 'Create a tariff',
   'Start date' = 'Start date',
   'End date' = 'End date',
+  'Idea status changed successfully' = 'Idea status changed successfully',
 }
