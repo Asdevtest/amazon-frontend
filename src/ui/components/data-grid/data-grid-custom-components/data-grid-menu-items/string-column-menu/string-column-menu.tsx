@@ -60,7 +60,7 @@ export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
         allowClear
         value={searchValue}
         wrapperClassName={sharedStyles.searchInput}
-        placeholder="Search by SKU, ASIN, Title, Launch type"
+        placeholder="Search"
         onChange={e => setSearchValue(e.target.value)}
       />
 
