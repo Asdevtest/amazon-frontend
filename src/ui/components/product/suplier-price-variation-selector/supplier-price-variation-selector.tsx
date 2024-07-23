@@ -16,9 +16,9 @@ interface VariationType {
 }
 
 interface SupplierPriceVariationSelectorProps {
+  isEditMode: boolean
   currentVariations: VariationType[]
   updateVariationList: (newVariations: VariationType[]) => void
-  isEditMode: boolean
 }
 
 export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorProps> = ({
@@ -29,13 +29,12 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
   const { classes: styles, cx } = useStyles()
 
   const [variationList, setVariationList] = useState<VariationType[]>([])
+  const [quantity, setQuantity] = useState('')
+  const [price, setPrice] = useState('')
 
   useEffect(() => {
     setVariationList(currentVariations)
   }, [currentVariations])
-
-  const [quantity, setQuantity] = useState<string>('')
-  const [price, setPrice] = useState<string>('')
 
   const handleAddVariation = () => {
     const newList = [...variationList, { price: Number(price), quantity: Number(quantity) }]
@@ -58,6 +57,7 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
         {isEditMode && (
           <div className={styles.creationBlock}>
             <Field
+              inputProps={{ maxLength: 8 }}
               containerClasses={styles.field}
               inputClasses={styles.creationInput}
               labelClasses={styles.label}
@@ -66,16 +66,13 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
               value={quantity}
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-                  if (Number(e.target.value) > 999_999) {
-                    setQuantity(String(999_999))
-                    return
-                  }
-                  setQuantity(String(Math.trunc(Number(e.target.value))))
+                  setQuantity(e.target.value)
                 }
               }}
             />
 
             <Field
+              inputProps={{ maxLength: 8 }}
               containerClasses={styles.field}
               inputClasses={styles.creationInput}
               labelClasses={styles.label}
@@ -84,10 +81,6 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
               value={price}
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-                  if (Number(e.target.value) > 999_999.99) {
-                    setPrice(String(999_999.99))
-                    return
-                  }
                   setPrice(e.target.value)
                 }
               }}
