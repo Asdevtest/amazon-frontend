@@ -44,7 +44,7 @@ export const adminUsersViewColumns = handlers => {
       field: 'name',
       headerName: t(TranslationKey.Name),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Name)} />,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 150,
     },
 
@@ -75,7 +75,7 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Email)} />,
       renderCell: ({ row }) => <TextWithCopy text={row.email} justifyContent={'flex-end'} />,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 200,
     },
 

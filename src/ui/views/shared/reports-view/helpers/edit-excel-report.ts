@@ -3,6 +3,7 @@ import { GridExceljsProcessInput } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { formatDateWithoutTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
@@ -24,6 +25,8 @@ export const editExcelReport = (
       if (column.field === 'launchType') {
         header.push(`${t(TranslationKey['Launch type'])} - ${t(TranslationKey.Result)}`)
         header.push(`${t(TranslationKey['Launch type'])} - ${t(TranslationKey.Comment)}`)
+        header.push(`${t(TranslationKey['Launch type'])} - ${t(TranslationKey['Start date'])}`)
+        header.push(`${t(TranslationKey['Launch type'])} - ${t(TranslationKey['End date'])}`)
       }
     }
   }
@@ -36,6 +39,8 @@ export const editExcelReport = (
 
     if (listingLaunches?.length > 0) {
       for (const launch of listingLaunches) {
+        launch.showShortName = false
+
         for (const column of columnsModel) {
           if (column.disableExport) {
             continue
@@ -45,6 +50,8 @@ export const editExcelReport = (
             newRow.push(column?.valueGetter?.(launch))
             newRow.push(launch?.result)
             newRow.push(launch?.comment)
+            newRow.push(formatDateWithoutTime(launch?.dateFrom))
+            newRow.push(formatDateWithoutTime(launch?.dateTo))
           } else {
             newRow.push(column?.valueGetter ? column?.valueGetter?.(row) : row[column.field])
           }
@@ -59,6 +66,8 @@ export const editExcelReport = (
         }
 
         if (column.field === 'launchType') {
+          newRow.push('')
+          newRow.push('')
           newRow.push('')
           newRow.push('')
           newRow.push('')

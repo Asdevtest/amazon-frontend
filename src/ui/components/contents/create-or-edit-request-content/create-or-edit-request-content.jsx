@@ -393,7 +393,16 @@ export const CreateOrEditRequestContent = memo(props => {
   const isSecondStep = curStep === stepVariant.STEP_TWO
   const showScrollArrows = isFirstStep && (showScrollUp || showScrollDown)
 
-  const setData = request => {
+  const [defaultRequestTemplateSelectValue, setDefaultRequestTemplateSelectValue] = useState(null)
+
+  const handleChangeData = request => {
+    const createdDefaultRequestTemplateSelectValue = {
+      ...request,
+      value: request?._id,
+      label: `${t(TranslationKey['Request ID'])}: ${request?.humanFriendlyId || t(TranslationKey.Missing)}`,
+    }
+    setDefaultRequestTemplateSelectValue(createdDefaultRequestTemplateSelectValue)
+
     const data = {
       title: request?.title || '',
       maxAmountOfProposals: request?.maxAmountOfProposals || '',
@@ -423,6 +432,11 @@ export const CreateOrEditRequestContent = memo(props => {
       ...prevFormFields,
       request: data,
     }))
+  }
+
+  const handleClear = () => {
+    setFormFields(getSourceFormFields())
+    setDefaultRequestTemplateSelectValue(null)
   }
 
   return (
@@ -456,7 +470,11 @@ export const CreateOrEditRequestContent = memo(props => {
             <div className={styles.stepWrapper}>
               <div className={styles.stepContent}>
                 <div className={styles.fields}>
-                  <RequestSelect setData={setData} />
+                  <RequestSelect
+                    defaultValue={defaultRequestTemplateSelectValue}
+                    onChangeData={handleChangeData}
+                    onClear={handleClear}
+                  />
 
                   <Field
                     tooltipInfoContent={t(TranslationKey['Future request title'])}

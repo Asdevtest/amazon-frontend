@@ -148,7 +148,7 @@ export const OrderModalBodyRow = ({
         role="checkbox"
         className={cx(styles.row, { [styles.noCurrentSupplier]: !item.currentSupplier })}
       >
-        <TableCell className={styles.cell}>
+        <TableCell className={cx(styles.cell, styles.productCell)}>
           <ProductAsinCell
             image={item.images[0]}
             amazonTitle={item.amazonTitle}
@@ -210,7 +210,7 @@ export const OrderModalBodyRow = ({
           </Typography>
           {isLocalPriseOutOfLimit && (
             <Typography className={styles.error}>
-              {t(TranslationKey['At least'])} {platformSettings.orderAmountLimit}$
+              {t(TranslationKey['At least'])} {platformSettings?.orderAmountLimit}$
             </Typography>
           )}
         </TableCell>

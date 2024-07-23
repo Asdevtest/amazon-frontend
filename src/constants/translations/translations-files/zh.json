@@ -1980,7 +1980,7 @@
   "Select request ID": "选择请求ID",
   "Request templates": "申请模板",
   "Barсode is not glued": "条形码未粘贴",
-  "Transparency Code is not glued": "条形码未粘贴",
+  "Transparency Codes is not glued": "条形码未粘贴",
   "Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located": "根据货物所在仓库的费率，增加箱子数量需要额外付款",
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "设置状态的按钮，产品卡片保留在主管的工作中（可以更改)",
   "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "状态结算按钮，产品卡片发送给买家寻找供应商（在买家接手之前可以更改)",
@@ -1993,5 +1993,8 @@
   "Storekeeper selection": "选择仓库管理员",
   "Tariff selection": "选择关税",
   "Create a tariff": "创建关税",
-  "Add to quick access": "添加到快速访问"
+  "Add to quick access": "添加到快速访问",
+  "Start date": "开始日期",
+  "End date": "结束日期",
+  "Idea status changed successfully": "创意状态更改成功"
 }

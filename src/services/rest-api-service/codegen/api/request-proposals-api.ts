@@ -37,7 +37,19 @@ import { InlineObject104 } from '../models';
 // @ts-ignore
 import { InlineObject105 } from '../models';
 // @ts-ignore
-import { InlineObject163 } from '../models';
+import { InlineObject106 } from '../models';
+// @ts-ignore
+import { InlineObject107 } from '../models';
+// @ts-ignore
+import { InlineObject108 } from '../models';
+// @ts-ignore
+import { InlineObject109 } from '../models';
+// @ts-ignore
+import { InlineObject110 } from '../models';
+// @ts-ignore
+import { InlineObject111 } from '../models';
+// @ts-ignore
+import { InlineObject165 } from '../models';
 // @ts-ignore
 import { InlineObject94 } from '../models';
 // @ts-ignore
@@ -168,12 +180,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject163} [body] 
+         * @param {InlineObject165} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomGuidResultEditPatch: async (guid: string, body?: InlineObject163, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsCustomGuidResultEditPatch: async (guid: string, body?: InlineObject165, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsCustomGuidResultEditPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/custom/{guid}/result_edit`
@@ -1100,12 +1112,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject163} [body] 
+         * @param {InlineObject165} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject163, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject165, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsCustomGuidResultEditPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1383,12 +1395,12 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject163} [body] 
+         * @param {InlineObject165} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject163, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject165, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsCustomGuidResultEditPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1683,10 +1695,10 @@ export interface RequestProposalsApiApiV1RequestProposalsCustomGuidResultEditPat
 
     /**
      * 
-     * @type {InlineObject163}
+     * @type {InlineObject165}
      * @memberof RequestProposalsApiApiV1RequestProposalsCustomGuidResultEditPatch
      */
-    readonly body?: InlineObject163
+    readonly body?: InlineObject165
 
     /**
      * 

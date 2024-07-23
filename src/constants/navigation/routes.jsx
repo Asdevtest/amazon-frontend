@@ -430,10 +430,13 @@ const SupervisorReadyToCheckView = lazy(() =>
     return { default: props => <Component isCreatedByClient={false} {...props} /> }
   }),
 )
+
 const WarehouseAwaitingBatchesView = lazy(() =>
-  import('@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view').then(module => ({
-    default: module.WarehouseAwaitingBatchesView,
-  })),
+  import('@views/warehouse/warehouse-batches-views/warehouse-my-batches-view').then(module => {
+    const Component = module.WarehouseMyBatchesView
+
+    return { default: props => <Component isSentBatches={false} {...props} /> }
+  }),
 )
 const WarehouseBatchesView = lazy(() =>
   import('@views/warehouse/warehouse-batches-views/warehouse-batches-view').then(module => ({
@@ -441,9 +444,11 @@ const WarehouseBatchesView = lazy(() =>
   })),
 )
 const WarehouseSentBatchesView = lazy(() =>
-  import('@views/warehouse/warehouse-batches-views/warehouse-sent-batches-view/warehouse-sent-batches-view').then(
-    module => ({ default: module.WarehouseSentBatchesView }),
-  ),
+  import('@views/warehouse/warehouse-batches-views/warehouse-my-batches-view').then(module => {
+    const Component = module.WarehouseMyBatchesView
+
+    return { default: props => <Component isSentBatches {...props} /> }
+  }),
 )
 const WarehouseDashboardView = lazy(() =>
   import('@views/warehouse/warehouse-dashboard-view').then(module => ({ default: module.WarehouseDashboardView })),

@@ -2,19 +2,18 @@ import { observer } from 'mobx-react'
 import { FC, UIEvent, useCallback, useMemo, useState } from 'react'
 
 import { CustomSelect } from '@components/shared/custom-select'
-
-import { IRequest } from '@typings/models/requests/request'
+import { CustomSelectProps } from '@components/shared/custom-select/custom-select'
 
 import { RequestOption } from './request-option'
-import { getRequestTemplateOptions } from './request-select.config'
+import { IChangeData, getRequestTemplateOptions } from './request-select.config'
 import { RequestSelectModel } from './request-select.model'
 
-interface RequestSelectProps {
-  setData: (data: IRequest) => void
+interface RequestSelectProps extends CustomSelectProps {
+  onChangeData: IChangeData
 }
 
-export const RequestSelect: FC<RequestSelectProps> = observer(({ setData }) => {
-  const [viewModel] = useState(() => new RequestSelectModel(setData))
+export const RequestSelect: FC<RequestSelectProps> = observer(({ onChangeData, ...restProps }) => {
+  const [viewModel] = useState(() => new RequestSelectModel(onChangeData))
 
   const handlePopupScroll = useCallback(
     (e: UIEvent<HTMLElement>) => {
@@ -45,7 +44,9 @@ export const RequestSelect: FC<RequestSelectProps> = observer(({ setData }) => {
 
   return (
     <CustomSelect
+      {...restProps}
       showSearch
+      allowClear
       size="large"
       label="Request templates"
       filterOption={false}

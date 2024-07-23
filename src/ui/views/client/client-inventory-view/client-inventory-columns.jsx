@@ -116,9 +116,11 @@ export const clientInventoryColumns = ({
       field: 'strategyStatus',
       headerName: t(TranslationKey.Strategy),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
-      renderCell: params => <MultilineStatusCell status={productStrategyStatusesEnum[params.value]} />,
+      renderCell: params => <MultilineTextCell text={productStrategyStatusesEnum[params.value]?.replace(/_/g, ' ')} />,
+      transformValueMethod: status => productStrategyStatusesEnum[status]?.replace(/_/g, ' '),
       width: 140,
-      columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+
     },
 
     {
@@ -414,8 +416,9 @@ export const clientInventoryColumns = ({
           color={colorByProductStatus(ProductStatusByCode[params.row?.status])}
         />
       ),
+      transformValueMethod: status => t(productStatusTranslateKey(ProductStatusByCode[status])),
       width: 100,
-      columnKey: columnnsKeys.client.INVENTORY_STATUS,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {

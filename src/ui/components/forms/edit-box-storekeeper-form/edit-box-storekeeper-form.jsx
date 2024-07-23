@@ -413,6 +413,7 @@ export const EditBoxStorekeeperForm = memo(
                             label={t(TranslationKey['Transparency Codes'])}
                             inputComponent={
                               <ChangeChipCell
+                                disabled
                                 isChipOutTable
                                 text={
                                   !item.transparencyFile &&

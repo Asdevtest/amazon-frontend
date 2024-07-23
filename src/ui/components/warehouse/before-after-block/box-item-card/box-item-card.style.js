@@ -74,22 +74,14 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
   },
 
-  countWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-
   countSubWrapper: {
-    width: 180,
-
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: 10,
   },
 
   countSuperBoxWrapper: {
-    marginLeft: 20,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -99,7 +91,7 @@ export const useStyles = makeStyles()(theme => ({
   attributeFooterSubWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 15,
+    gap: 5,
   },
 
   asinWrapper: {
@@ -133,13 +125,13 @@ export const useStyles = makeStyles()(theme => ({
   attributeHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: '10px',
   },
 
   barCodeWrapper: {
     display: 'flex',
     gap: '15px',
     alignItems: 'center',
-    marginTop: '10px',
   },
   barCode: {
     display: 'flex',

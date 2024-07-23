@@ -61,7 +61,8 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
         <MultilineTextCell text={getHumanFriendlyNotificationType(params.value)} />
       ),
       width: 115,
-      columnKey: columnnsKeys.shared.TYPE,
+      transformValueMethod: getHumanFriendlyNotificationType,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {

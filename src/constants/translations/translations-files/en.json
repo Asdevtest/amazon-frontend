@@ -1987,7 +1987,7 @@
   "Select request ID": "Select request ID",
   "Request templates": "Request templates",
   "Barсode is not glued": "Barсode is not glued",
-  "Transparency Code is not glued": "Transparency Code is not glued",
+  "Transparency Codes is not glued": "Transparency Codes is not glued",
   "Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located": "Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located",
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Button to set the status, the product card remains in the supervisor's work (can be changed)",
   "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)",
@@ -2000,5 +2000,8 @@
   "Storekeeper selection": "Storekeeper selection",
   "Tariff selection": "Tariff selection",
   "Create a tariff": "Create a tariff",
-  "Add to quick access": "Add to quick access"
+  "Add to quick access": "Add to quick access",
+  "Start date": "Start date",
+  "End date": "End date",
+  "Idea status changed successfully": "Idea status changed successfully"
 }

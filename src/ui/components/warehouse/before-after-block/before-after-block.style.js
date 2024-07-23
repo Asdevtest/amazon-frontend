@@ -375,15 +375,13 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 5,
-    marginBottom: 5,
   },
 
   countSubWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '25px',
-    marginBottom: 5,
+    gap: '10px',
   },
 
   subTitleOne: {
