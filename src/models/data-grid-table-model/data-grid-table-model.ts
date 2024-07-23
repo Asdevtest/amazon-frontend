@@ -41,6 +41,7 @@ export class DataGridTableModel extends DefaultModel {
 
   pinnedColumns = pinnedColumnsInitialValue
 
+  showPresetsSelect = false
   presetsTableData: ITablePreset[] = []
 
   get filteredData() {
@@ -351,6 +352,11 @@ export class DataGridTableModel extends DefaultModel {
       fields,
     }
   }
+
+  onChangeShowPresetsSelect(value: boolean) {
+    this.onTriggerOpenModal('showPresetsSelect', value)
+  }
+
   /**
    * Recursively checks an object for string values starting with a specified search value,
    * in the specified fields and all their nested objects.

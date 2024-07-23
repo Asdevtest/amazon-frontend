@@ -15,6 +15,7 @@ export const observerConfig = {
   presetsTableData: observable,
   defaultSortModel: observable,
   defaultColumnsModel: observable,
+  showPresetsSelect: observable,
 
   filteredData: computed,
   isSomeFilterOn: computed,

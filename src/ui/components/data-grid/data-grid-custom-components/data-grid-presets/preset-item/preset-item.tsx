@@ -54,13 +54,34 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
     {
       key: 'delete',
       label: (
-        <CustomButton
-          className={styles.button}
-          icon={<MdOutlineDelete size={20} title={t(TranslationKey.Delete)} className={styles.deleteIcon} />}
-          onClick={e => e.stopPropagation()}
+        // <CustomButton
+        //   className={styles.button}
+        //   icon={<MdOutlineDelete size={20} title={t(TranslationKey.Delete)} className={styles.deleteIcon} />}
+        //   onClick={e => e.stopPropagation()}
+        // >
+        //   {t(TranslationKey.Delete)}
+        // </CustomButton>
+
+        <Popconfirm
+          getPopupContainer={() => document.getElementById('presets') as HTMLElement}
+          showCancel={false}
+          title={t(TranslationKey['Are you sure delete this preset?'])}
+          okText={t(TranslationKey.Yes)}
+          cancelText={t(TranslationKey.No)}
+          onConfirm={e => {
+            e?.stopPropagation()
+            // handleDeletePreset()
+          }}
+          onCancel={e => e?.stopPropagation()}
         >
-          {t(TranslationKey.Delete)}
-        </CustomButton>
+          <CustomButton
+            className={styles.button}
+            icon={<MdOutlineDelete size={20} title={t(TranslationKey.Delete)} className={styles.deleteIcon} />}
+            onClick={e => e.stopPropagation()}
+          >
+            {t(TranslationKey.Delete)}
+          </CustomButton>
+        </Popconfirm>
       ),
     },
   ]
@@ -69,8 +90,15 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
     <div className={styles.presetItemWrapper}>
       <p className={styles.presetTitle}>{preset?.data?.title}</p>
 
-      <Dropdown menu={{ items }} placement="bottomLeft" arrow={{ pointAtCenter: true }}>
-        <BsThreeDotsVertical />
+      <Dropdown
+        destroyPopupOnHide
+        menu={{ items }}
+        placement="bottomLeft"
+        trigger={['click']}
+        arrow={{ pointAtCenter: true }}
+        getPopupContainer={() => document.getElementById('presets') as HTMLElement}
+      >
+        <CustomButton icon={<BsThreeDotsVertical />} onClick={e => e.stopPropagation()} />
       </Dropdown>
 
       {/* {preset?.data?._id ? (
