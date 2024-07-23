@@ -21,11 +21,35 @@
  */
 export interface InlineObject144 {
     /**
-     * Дата создания сессии (рефреш токена)
+     * Эндпоинт для которого надо установить пресеты
      * @type {string}
      * @memberof InlineObject144
      */
-    sessionCreatedAt?: string;
+    endpoint: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof InlineObject144
+     */
+    settings: object;
+    /**
+     * Является ли активным.
+     * @type {boolean}
+     * @memberof InlineObject144
+     */
+    activeSetting: boolean;
+    /**
+     * Title of preset
+     * @type {string}
+     * @memberof InlineObject144
+     */
+    title: string;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineObject144
+     */
+    isFavorite?: boolean;
 }
 
 

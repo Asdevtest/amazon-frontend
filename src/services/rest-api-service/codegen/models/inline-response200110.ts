@@ -21,53 +21,53 @@
  */
 export interface InlineResponse200110 {
     /**
-     * ID пресета.
+     * GUID пользователя.
      * @type {string}
      * @memberof InlineResponse200110
      */
     _id?: string;
     /**
-     * Название таблицы
+     * Имя пользователя.
      * @type {string}
      * @memberof InlineResponse200110
      */
-    table?: string;
+    name?: string;
     /**
-     * Эндпоинт пресета
+     * Рейтинг пользователя.
+     * @type {number}
+     * @memberof InlineResponse200110
+     */
+    rating?: number;
+    /**
+     * Количество положительных отзыв
+     * @type {number}
+     * @memberof InlineResponse200110
+     */
+    numberOfPositiveFeedbacks?: number;
+    /**
+     * Количество негативных отзыв
+     * @type {number}
+     * @memberof InlineResponse200110
+     */
+    numberOfNegativeFeedbacks?: number;
+    /**
+     * Страна
      * @type {string}
      * @memberof InlineResponse200110
      */
-    endpoint?: string;
+    country?: string;
     /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse200110
-     */
-    fields?: Array<string>;
-    /**
-     * Состояние пресета.
+     * Пользователь онлайн
      * @type {boolean}
      * @memberof InlineResponse200110
      */
-    isActive?: boolean;
+    isOnline?: boolean;
     /**
-     * ID юзера.
-     * @type {string}
+     * Количество общих сделок
+     * @type {number}
      * @memberof InlineResponse200110
      */
-    userId?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse200110
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse200110
-     */
-    updatedAt?: string;
+    countsOfDeals?: number;
 }
 
 

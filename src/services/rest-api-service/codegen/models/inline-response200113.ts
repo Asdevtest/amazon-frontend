@@ -13,61 +13,80 @@
  */
 
 
+import { ApiV1ShopsWithProfilesProfile } from './api-v1-shops-with-profiles-profile';
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineResponse200113
  */
 export interface InlineResponse200113 {
     /**
-     * GUID пользователя.
+     * ID магазина.
      * @type {string}
      * @memberof InlineResponse200113
      */
     _id?: string;
     /**
-     * Имя пользователя.
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
      * @type {string}
      * @memberof InlineResponse200113
      */
     name?: string;
     /**
-     * Рейтинг пользователя.
-     * @type {number}
-     * @memberof InlineResponse200113
-     */
-    rating?: number;
-    /**
-     * Количество положительных отзыв
-     * @type {number}
-     * @memberof InlineResponse200113
-     */
-    numberOfPositiveFeedbacks?: number;
-    /**
-     * Количество негативных отзыв
-     * @type {number}
-     * @memberof InlineResponse200113
-     */
-    numberOfNegativeFeedbacks?: number;
-    /**
-     * Страна
+     * URL для скачивания ежедневных отчетов SellerBoard.
      * @type {string}
      * @memberof InlineResponse200113
      */
-    country?: string;
+    sellerBoardWarehouseReportUrlDaily?: string;
     /**
-     * Пользователь онлайн
-     * @type {boolean}
+     * URL для скачивания отчетов SellerBoard за последний месяц.
+     * @type {string}
      * @memberof InlineResponse200113
      */
-    isOnline?: boolean;
+    sellerBoardWarehouseReportUrlMonthly?: string;
     /**
-     * Количество общих сделок
-     * @type {number}
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
      * @memberof InlineResponse200113
      */
-    countsOfDeals?: number;
+    reportAccountUrl?: string;
+    /**
+     * GUID, владелеца.
+     * @type {string}
+     * @memberof InlineResponse200113
+     */
+    ownerId?: string;
+    /**
+     * GUID любого, кто последний создал.
+     * @type {string}
+     * @memberof InlineResponse200113
+     */
+    createdById?: string;
+    /**
+     * GUID любого, кто последний редактировал.
+     * @type {string}
+     * @memberof InlineResponse200113
+     */
+    lastModifiedById?: string;
+    /**
+     * 
+     * @type {ApiV1ShopsWithProfilesProfile}
+     * @memberof InlineResponse200113
+     */
+    profile?: ApiV1ShopsWithProfilesProfile;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200113
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200113
+     */
+    updatedAt?: string;
 }
 
 

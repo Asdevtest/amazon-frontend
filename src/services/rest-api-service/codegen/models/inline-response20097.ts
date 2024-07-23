@@ -13,80 +13,26 @@
  */
 
 
-import { ApiV1ShopsWithProfilesProfile } from './api-v1-shops-with-profiles-profile';
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
- * Схема магазина.
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20097
  */
 export interface InlineResponse20097 {
     /**
-     * ID магазина.
-     * @type {string}
+     * Всего кол-во записей в результате запроса
+     * @type {number}
      * @memberof InlineResponse20097
      */
-    _id?: string;
+    count?: number;
     /**
-     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
-     * @type {string}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20097
      */
-    name?: string;
-    /**
-     * URL для скачивания ежедневных отчетов SellerBoard.
-     * @type {string}
-     * @memberof InlineResponse20097
-     */
-    sellerBoardWarehouseReportUrlDaily?: string;
-    /**
-     * URL для скачивания отчетов SellerBoard за последний месяц.
-     * @type {string}
-     * @memberof InlineResponse20097
-     */
-    sellerBoardWarehouseReportUrlMonthly?: string;
-    /**
-     * uri полный путь до файла, для скачивания отчетов amazon_data
-     * @type {string}
-     * @memberof InlineResponse20097
-     */
-    reportAccountUrl?: string;
-    /**
-     * GUID, владелеца.
-     * @type {string}
-     * @memberof InlineResponse20097
-     */
-    ownerId?: string;
-    /**
-     * GUID любого, кто последний создал.
-     * @type {string}
-     * @memberof InlineResponse20097
-     */
-    createdById?: string;
-    /**
-     * GUID любого, кто последний редактировал.
-     * @type {string}
-     * @memberof InlineResponse20097
-     */
-    lastModifiedById?: string;
-    /**
-     * 
-     * @type {ApiV1ShopsWithProfilesProfile}
-     * @memberof InlineResponse20097
-     */
-    profile?: ApiV1ShopsWithProfilesProfile;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20097
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse20097
-     */
-    updatedAt?: string;
+    rows?: Array<ApiV1BatchesBoxes>;
 }
 
 
