@@ -23,6 +23,13 @@ export const useStyles = makeStyles()(theme => ({
     borderBottom: `1px solid ${theme.palette.input.customBorder}`,
     borderRight: `1px solid ${theme.palette.input.customBorder}`,
     borderLeft: `1px solid ${theme.palette.input.customBorder}`,
+
+    p: {
+      padding: '0 10px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+    },
   },
 
   badRoi: {
