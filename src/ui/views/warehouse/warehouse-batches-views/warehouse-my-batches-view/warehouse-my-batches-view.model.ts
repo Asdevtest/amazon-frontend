@@ -12,35 +12,38 @@ import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
-import { batchesViewColumns } from '@components/table/table-columns/batches-columns'
-
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { fieldsForSearch, warehouseMyBatchesConfig } from './warehouse-my-batches-view.config'
+import { IBatch } from '@typings/models/batches/batch'
+import { IBox } from '@typings/models/boxes/box'
+import { UploadFileType } from '@typings/shared/upload-file'
+
+import { warehouseMyBatchesViewColumns } from './warehouse-my-batches-view.columns'
+import { IColumnsProps, fieldsForSearch, warehouseMyBatchesConfig } from './warehouse-my-batches-view.config'
 
 export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel {
-  boxesData = []
-  curBatch = undefined
+  boxesData: IBox[] = []
+  curBatch?: IBatch
   showConfirmModal = false
   showBatchInfoModal = false
   showAddOrEditBatchModal = false
-  uploadedFiles = []
+  uploadedFiles: UploadFileType[] = []
   isArchive = false
 
   get isInvalidTariffBoxSelected() {
     return this.selectedRows.some(batchId => {
       const findBatch = this.currentData.find(batch => batch._id === batchId)
 
-      return findBatch?.boxes.some(box => box.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF)
+      return findBatch?.boxes.some((box: IBox) => box.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF)
     })
   }
   get isNeedConfirmPriceBoxSelected() {
     return this.selectedRows.some(batchId => {
       const findBatch = this.currentData.find(batch => batch._id === batchId)
 
-      return findBatch?.boxes.some(box => box.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE)
+      return findBatch?.boxes.some((box: IBox) => box.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE)
     })
   }
   get userInfo() {
@@ -50,12 +53,13 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     return UserModel.platformSettings
   }
 
-  constructor(isSentBatches) {
-    const columnsProps = {
+  constructor(isSentBatches: boolean) {
+    const columnsProps: IColumnsProps = {
       onClickSaveTrackingNumber: (id, trackingNumber) => this.onClickSaveTrackingNumber(id, trackingNumber),
       onClickSaveArrivalDate: (id, date) => this.onClickSaveArrivalDate(id, date),
+      isSentBatches,
     }
-    const columnsModel = batchesViewColumns()
+    const columnsModel = warehouseMyBatchesViewColumns(columnsProps)
     const filtersFields = getFilterFields(columnsModel)
     const defaultGetCurrentDataOptions = () => ({
       status: isSentBatches ? BatchStatus.HAS_DISPATCHED : BatchStatus.IS_BEING_COLLECTED,
@@ -84,8 +88,9 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     )
   }
 
-  async onSubmitChangeBoxFields(data) {
+  async onSubmitChangeBoxFields(data: IBox) {
     try {
+      // @ts-ignore
       await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -107,7 +112,7 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     }
   }
 
-  async onClickAddOrEditBatch(isAdding) {
+  async onClickAddOrEditBatch(isAdding: boolean) {
     try {
       runInAction(() => {
         if (isAdding) {
@@ -117,14 +122,14 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
       })
 
       if (this.selectedRows?.length) {
-        const batch = await BatchesModel.getBatchesByGuid(this.selectedRows?.[0])
+        const batch = (await BatchesModel.getBatchesByGuid(this.selectedRows?.[0])) as unknown as IBatch
 
         runInAction(() => {
           this.curBatch = batch
         })
       }
 
-      const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
+      const boxes = (await BoxesModel.getBoxesReadyToBatchStorekeeper()) as unknown as IBox[]
 
       runInAction(() => {
         this.boxesData = boxes
@@ -136,8 +141,21 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     }
   }
 
-  async onSubmitAddOrEditBatch({ boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields }) {
+  async onSubmitAddOrEditBatch({
+    boxesIds,
+    filesToAdd,
+    sourceBoxesIds,
+    batchToEdit,
+    batchFields,
+  }: {
+    boxesIds: string[]
+    filesToAdd: UploadFileType[]
+    sourceBoxesIds: string[]
+    batchToEdit?: IBatch
+    batchFields: IBatch
+  }) {
     try {
+      // @ts-ignore
       await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
 
       if (!batchToEdit) {
@@ -176,9 +194,9 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     }
   }
 
-  async setCurrentOpenedBatch(id) {
+  async setCurrentOpenedBatch(id?: string) {
     try {
-      const batch = await BatchesModel.getBatchesByGuid(id)
+      const batch = (await BatchesModel.getBatchesByGuid(id)) as unknown as IBatch
 
       runInAction(() => {
         this.curBatch = batch
@@ -190,13 +208,13 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     }
   }
 
-  async patchActualShippingCostBatch(id, cost) {
+  async patchActualShippingCostBatch(id: string, cost: string) {
     await BatchesModel.changeBatch(id, { actualShippingCost: cost || '0' })
 
     this.setCurrentOpenedBatch(id)
   }
 
-  async confirmSendToBatch(batchId) {
+  async confirmSendToBatch(batchId: string) {
     try {
       await BatchesModel.confirmSentToBatch(batchId)
     } catch (error) {
@@ -204,7 +222,7 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     }
   }
 
-  async confirmSendToStorekeeper(batchId) {
+  async confirmSendToStorekeeper(batchId: string) {
     try {
       await StorekeeperModel.confirmSendToStorekeeper(batchId)
     } catch (error) {
@@ -237,7 +255,7 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     }
   }
 
-  async onClickSaveTrackingNumber(id, trackingNumber) {
+  async onClickSaveTrackingNumber(id: string, trackingNumber: string) {
     try {
       await BatchesModel.changeBatch(id, { trackingNumber })
       this.getCurrentData()
@@ -246,7 +264,7 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     }
   }
 
-  async onClickSaveArrivalDate(id, date) {
+  async onClickSaveArrivalDate(id: string, date: string) {
     try {
       await BatchesModel.changeBatch(id, { arrivalDate: date })
       this.getCurrentData()

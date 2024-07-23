@@ -425,7 +425,7 @@ export const BeforeAfterBlock = memo(props => {
     onEditBox(box)
   }
 
-  const areOrderIdsEqual =
+  const isOrderIdsEqual =
     taskType === TaskOperationType.RECEIVE
       ? incomingBoxes?.every(box => box?.items?.[0]?.order?._id === incomingBoxes?.[0]?.items?.[0]?.order?._id)
       : false
@@ -443,7 +443,7 @@ export const BeforeAfterBlock = memo(props => {
               0,
             )}`}</p>
 
-            {areOrderIdsEqual ? <p>{orderQuantity}</p> : null}
+            {isOrderIdsEqual ? <p>{orderQuantity}</p> : null}
           </div>
         </div>
 

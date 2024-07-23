@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,7 +19,7 @@ interface WarehouseBatchesViewProps {
   history: HistoryType
 }
 
-export const WarehouseBatchesView: FC<WarehouseBatchesViewProps> = observer(({ history }) => {
+export const WarehouseBatchesView: FC<WarehouseBatchesViewProps> = memo(({ history }) => {
   const { classes: styles } = useStyles()
 
   const handleClickAwaitingBatches = () => history?.push({ pathname: paths.awaitingBatches })
