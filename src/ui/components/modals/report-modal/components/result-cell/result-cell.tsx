@@ -1,5 +1,4 @@
 import { Popconfirm } from 'antd'
-import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { FC, useCallback, useMemo } from 'react'
 
@@ -27,13 +26,21 @@ export const ResultCell: FC<ResultCellProps> = observer(props => {
   const { row, onChangeCommentCellValue, onRemoveLaunch } = props
 
   const { classes: styles } = useStyles()
-  const currentDateRange = useMemo(() => [row?.dateTo, row?.dateFrom], [])
-  const changedDateRange = useMemo(() => [row?.dateTo, row?.dateFrom], [row?.dateTo, row?.dateFrom])
-  const disabledResultField = useMemo(
-    () => !row?.expired || !isEqual(currentDateRange, changedDateRange),
-    [row?.expired, currentDateRange, changedDateRange],
-  )
+
+  const isCurrentPeriodValid = () => {
+    const today = new Date()
+    const dateToObj = new Date(row?.dateTo)
+    const dateFromObj = new Date(row?.dateFrom)
+
+    if (!row?.dateTo || !row?.dateFrom) {
+      return true
+    }
+
+    return today <= dateToObj && today >= dateFromObj
+  }
   const handleRemoveLaunch = useCallback(() => onRemoveLaunch(row._id), [onRemoveLaunch, row._id])
+
+  const disabledResultField = useMemo(() => isCurrentPeriodValid(), [row?.expired, row?.dateTo, row?.dateFrom])
 
   return (
     <div className={styles.wrapper}>
