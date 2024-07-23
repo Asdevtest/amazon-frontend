@@ -313,7 +313,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   receiveBoxWrapper: {
-    width: 'fit-content',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -322,14 +322,14 @@ export const useStyles = makeStyles()(theme => ({
     justifySelf: 'center',
     position: 'sticky',
     top: 0,
-    paddingTop: 20,
+    paddingTop: 100,
   },
 
   boxImageContainer: {
     display: 'flex',
     alignItems: 'flex-end',
     gap: 15,
-    marginBottom: 90,
+    marginBottom: 40,
   },
 
   bigBoxSvg: {
