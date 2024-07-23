@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
@@ -21,47 +22,47 @@
  */
 export interface InlineResponse200111 {
     /**
-     * ID пресета.
+     * GUID записи
      * @type {string}
      * @memberof InlineResponse200111
      */
     _id?: string;
     /**
-     * Эндпоинт пресета
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse200111
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Роль юзера, когда он оставлял отзыв
+     * @type {number}
+     * @memberof InlineResponse200111
+     */
+    role?: number;
+    /**
+     * Комментарий к оценке
      * @type {string}
      * @memberof InlineResponse200111
      */
-    endpoint?: string;
+    comment?: string;
     /**
-     * Состояние  preset-settings.
-     * @type {boolean}
+     * Оценка, целое число от 1 до 5
+     * @type {number}
      * @memberof InlineResponse200111
      */
-    activeSetting?: boolean;
+    rating?: number;
     /**
      * 
-     * @type {object}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse200111
      */
-    settings?: object;
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
-     * Title of preset
-     * @type {string}
-     * @memberof InlineResponse200111
-     */
-    title?: string;
-    /**
-     * Дата создания
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse200111
      */
     createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse200111
-     */
-    updatedAt?: string;
 }
 
 

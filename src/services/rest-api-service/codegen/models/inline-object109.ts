@@ -21,11 +21,27 @@
  */
 export interface InlineObject109 {
     /**
-     * GUIDы магазинов, которые нужно удалить.
-     * @type {Array<string>}
+     * 
+     * @type {string}
      * @memberof InlineObject109
      */
-    suppliersIds?: Array<string>;
+    action: InlineObject109ActionEnum;
+    /**
+     * Причина смены статуса.
+     * @type {string}
+     * @memberof InlineObject109
+     */
+    reason?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject109ActionEnum {
+    Link = 'LINK',
+    Unlink = 'UNLINK'
+}
+
 
 

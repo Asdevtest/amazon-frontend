@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1AdminsOrdersLogicsTariff } from './api-v1-admins-orders-logics-tariff';
-import { ApiV1StorekeepersTariffWarehouses } from './api-v1-storekeepers-tariff-warehouses';
 
 /**
  * 
@@ -23,35 +21,35 @@ import { ApiV1StorekeepersTariffWarehouses } from './api-v1-storekeepers-tariff-
  */
 export interface InlineResponse200101 {
     /**
-     * GUID сторкипера в DB
+     * GUID метода оплаты в базе данных
      * @type {string}
      * @memberof InlineResponse200101
      */
-    _id: string;
+    _id?: string;
     /**
-     * Имя сторкипера.
+     * 
      * @type {string}
      * @memberof InlineResponse200101
      */
-    name?: string;
+    title?: string;
     /**
-     * Тарифы логистики для сторкипера.
-     * @type {Array<ApiV1AdminsOrdersLogicsTariff>}
+     * 
+     * @type {string}
      * @memberof InlineResponse200101
      */
-    tariffLogistics?: Array<ApiV1AdminsOrdersLogicsTariff>;
+    iconImage?: string;
     /**
-     * Тарифы складов для сторкипера.
-     * @type {Array<ApiV1StorekeepersTariffWarehouses>}
+     * Дата создания
+     * @type {string}
      * @memberof InlineResponse200101
      */
-    tariffWarehouses?: Array<ApiV1StorekeepersTariffWarehouses>;
+    createdAt?: string;
     /**
-     * Количество коробок в сторкепере.
-     * @type {number}
+     * Дата обновления.
+     * @type {string}
      * @memberof InlineResponse200101
      */
-    boxesCount?: number;
+    updatedAt?: string;
 }
 
 

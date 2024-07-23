@@ -15,41 +15,71 @@
 
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineResponse200112
  */
 export interface InlineResponse200112 {
     /**
-     * Курс юаня к доллару.
-     * @type {number}
+     * ID магазина.
+     * @type {string}
      * @memberof InlineResponse200112
      */
-    yuanToDollarRate?: number;
+    _id?: string;
     /**
-     * Коэффициент расчета объемного веса.
-     * @type {number}
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * @type {string}
      * @memberof InlineResponse200112
      */
-    volumeWeightCoefficient?: number;
+    name?: string;
     /**
-     * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
-     * @type {number}
+     * URL для скачивания ежедневных отчетов SellerBoard.
+     * @type {string}
      * @memberof InlineResponse200112
      */
-    requestMinAmountPriceOfProposal?: number;
+    sellerBoardWarehouseReportUrlDaily?: string;
     /**
-     * Комиссия за оплату предложения
-     * @type {number}
+     * URL для скачивания отчетов SellerBoard за последний месяц.
+     * @type {string}
      * @memberof InlineResponse200112
      */
-    requestPlatformMarginInPercent?: number;
+    sellerBoardWarehouseReportUrlMonthly?: string;
     /**
-     * Лимит на кол-во в ордере
-     * @type {number}
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
      * @memberof InlineResponse200112
      */
-    orderAmountLimit?: number;
+    reportAccountUrl?: string;
+    /**
+     * GUID, владелеца.
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    ownerId?: string;
+    /**
+     * GUID любого, кто последний создал.
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    createdById?: string;
+    /**
+     * GUID любого, кто последний редактировал.
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    lastModifiedById?: string;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    updatedAt?: string;
 }
 
 

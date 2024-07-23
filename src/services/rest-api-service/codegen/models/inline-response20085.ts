@@ -13,7 +13,12 @@
  */
 
 
-import { InlineResponse20085Rows } from './inline-response20085-rows';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1RequestProposalsCreatedBy } from './api-v1-request-proposals-created-by';
+import { ApiV1RequestProposalsDetailsCustom } from './api-v1-request-proposals-details-custom';
+import { ApiV1RequestProposalsMedia } from './api-v1-request-proposals-media';
+import { ApiV1RequestProposalsRequest } from './api-v1-request-proposals-request';
+import { ApiV1RequestProposalsSourceFiles } from './api-v1-request-proposals-source-files';
 
 /**
  * 
@@ -107,10 +112,81 @@ export interface InlineResponse20085 {
     lastModifiedById?: string;
     /**
      * 
-     * @type {Array<InlineResponse20085Rows>}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20085
      */
-    rows?: Array<InlineResponse20085Rows>;
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {Array<ApiV1RequestProposalsSourceFiles>}
+     * @memberof InlineResponse20085
+     */
+    sourceFiles?: Array<ApiV1RequestProposalsSourceFiles>;
+    /**
+     * 
+     * @type {Array<ApiV1RequestProposalsMedia>}
+     * @memberof InlineResponse20085
+     */
+    media?: Array<ApiV1RequestProposalsMedia>;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20085
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20085
+     */
+    updatedAt?: string;
+    /**
+     * Название предложения
+     * @type {string}
+     * @memberof InlineResponse20085
+     */
+    title?: string;
+    /**
+     * 
+     * @type {ApiV1RequestProposalsCreatedBy}
+     * @memberof InlineResponse20085
+     */
+    createdBy?: ApiV1RequestProposalsCreatedBy;
+    /**
+     * 
+     * @type {ApiV1RequestProposalsDetailsCustom}
+     * @memberof InlineResponse20085
+     */
+    detailsCustom?: ApiV1RequestProposalsDetailsCustom;
+    /**
+     * 
+     * @type {ApiV1RequestProposalsRequest}
+     * @memberof InlineResponse20085
+     */
+    request?: ApiV1RequestProposalsRequest;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20085StatusEnum {
+    Created = 'CREATED',
+    OfferConditionsAccepted = 'OFFER_CONDITIONS_ACCEPTED',
+    ReadyToVerify = 'READY_TO_VERIFY',
+    OfferConditionsRejected = 'OFFER_CONDITIONS_REJECTED',
+    OfferConditionsCorrected = 'OFFER_CONDITIONS_CORRECTED',
+    VerifyingBySupervisor = 'VERIFYING_BY_SUPERVISOR',
+    ToCorrect = 'TO_CORRECT',
+    Corrected = 'CORRECTED',
+    CanceledByCreatorOfRequest = 'CANCELED_BY_CREATOR_OF_REQUEST',
+    CanceledBySupervisor = 'CANCELED_BY_SUPERVISOR',
+    CanceledByExecutor = 'CANCELED_BY_EXECUTOR',
+    AcceptedByClient = 'ACCEPTED_BY_CLIENT',
+    AcceptedBySupervisor = 'ACCEPTED_BY_SUPERVISOR',
+    Expired = 'EXPIRED',
+    CompleteProposalsAmountAchieved = 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED'
+}
+
 
 

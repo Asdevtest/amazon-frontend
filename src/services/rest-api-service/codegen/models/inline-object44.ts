@@ -13,7 +13,7 @@
  */
 
 
-import { InlineObject35 } from './inline-object35';
+import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
 
 /**
  * 
@@ -22,17 +22,11 @@ import { InlineObject35 } from './inline-object35';
  */
 export interface InlineObject44 {
     /**
-     * GUID для которой подтверждаем действие.
-     * @type {string}
+     * 
+     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
      * @memberof InlineObject44
      */
-    guid?: string;
-    /**
-     * Массив дополнительных коробок которые случились при обработки.
-     * @type {Array<InlineObject35>}
-     * @memberof InlineObject44
-     */
-    additionalBoxes?: Array<InlineObject35>;
+    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
 }
 
 
