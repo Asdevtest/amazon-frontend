@@ -6,14 +6,6 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-
-  input: {
-    width: 'calc(50% - 10px)',
-    height: 30,
-  },
-
-  inputInnerSpace: {
-    width: '100%',
+    gap: '10px',
   },
 }))
