@@ -131,7 +131,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => <AddAsinIdeaActionsCell rowHandlers={rowHandlers} row={params.row} />,
-      width: 110,
+      width: 160,
       disableCustomSort: true,
       filterable: false,
     },

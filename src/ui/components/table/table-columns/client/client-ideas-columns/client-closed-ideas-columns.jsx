@@ -263,7 +263,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => <ClosedIdeaActionsCell row={params.row} rowHandlers={rowHandlers} />,
-      width: 150,
+      width: 160,
       filterable: false,
       disableCustomSort: true,
     },
