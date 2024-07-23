@@ -239,9 +239,7 @@ export const Chat: FC<ChatProps> = memo(
     }, [messageToReply])
 
     useEffect(() => {
-      if (!messages.length) {
-        ChatModel.getChatMessages?.(chat?._id, PaginationDirection.START)
-      }
+      ChatModel.getChatMessages?.(chat?._id, PaginationDirection.START)
 
       setMessage(messageInitialState.message)
       setFiles(messageInitialState.files)
