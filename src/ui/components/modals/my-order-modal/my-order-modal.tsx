@@ -73,6 +73,11 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
 
   const isOrderEditable = formFields?.status <= OrderStatus.READY_FOR_BUYOUT
   const stateComparison = isEqual(getInitialOrderState(), formFields)
+  const multiplicity = formFields.orderSupplier?.multiplicity
+  const amountInBox = formFields.orderSupplier?.boxProperties?.amountInBox
+  const amount = formFields.amount
+  const isNotMultiple = multiplicity && !!amountInBox && (amount % amountInBox !== 0 || !amount)
+  const isMultiple = multiplicity && !!amountInBox && amount % amountInBox === 0 && !!amount
 
   return (
     <Modal openModal={openModal} setOpenModal={onOpenModal}>
@@ -89,6 +94,9 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
           platformSettings={platformSettings}
           switcherCondition={switcherCondition}
           destinationsFavourites={destinationsFavourites}
+          isNotMultiple={isNotMultiple}
+          isMultiple={isMultiple}
+          amountInBox={amountInBox}
           setDestinationsFavouritesItem={setDestinationsFavouritesItem}
           setFormFields={setFormFields}
           onClickChangeCondition={onClickChangeCondition}
@@ -99,6 +107,7 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
           isClient={isClient}
           formFields={formFields}
           stateComparison={stateComparison}
+          isNotMultiple={isNotMultiple}
           onClickOpenNewTab={onClickOpenNewTab}
           onClickCancelOrder={onClickCancelOrder}
           onClickReorder={onClickReorder}

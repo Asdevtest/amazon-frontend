@@ -54,7 +54,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   divider: {
-    height: 720,
+    height: 600,
   },
 
   btnsWrapper: {

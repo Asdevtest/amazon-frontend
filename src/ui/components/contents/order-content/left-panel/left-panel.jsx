@@ -22,6 +22,9 @@ export const LeftPanel = ({
   isCanChange,
   onClickBarcode,
   onDeleteBarcode,
+  isNotMultiple,
+  isMultiple,
+  amountInBox,
 }) => {
   const { classes: styles } = useStyles()
 
@@ -40,6 +43,9 @@ export const LeftPanel = ({
       </div>
 
       <ProductParameters
+        amountInBox={amountInBox}
+        isNotMultiple={isNotMultiple}
+        isMultiple={isMultiple}
         isCanChange={isCanChange}
         order={order}
         collapsed={collapsed}
