@@ -12,7 +12,7 @@ import { useStyles } from './batch-tracking-cell.style'
 interface BatchTrackingCellProps {
   rowHandlers: {
     onClickSaveTrackingNumber: (id: string, value: string) => void
-    onClickSaveArrivalDate: (value: string) => void
+    onClickSaveArrivalDate: (id: string, value: string) => void
   }
   id: string
   trackingNumber: string
@@ -48,7 +48,7 @@ export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
               disabled={disabled}
               id={id}
               arrivalDate={arrivalDate}
-              onClickSaveArrivalDate={rowHandlers?.onClickSaveArrivalDate}
+              onClickSaveArrivalDate={value => rowHandlers?.onClickSaveArrivalDate(id, value)}
             />
           }
         />

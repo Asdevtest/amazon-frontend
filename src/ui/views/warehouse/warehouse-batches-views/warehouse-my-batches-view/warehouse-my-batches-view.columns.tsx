@@ -1,3 +1,5 @@
+import { GridRowModel } from '@mui/x-data-grid-premium'
+
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,12 +16,14 @@ import {
 import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const batchesViewColumns = (rowHandlers, isSentBatches) => [
+import { IColumnsProps } from './warehouse-my-batches-view.config'
+
+export const warehouseMyBatchesViewColumns = (columnsProps: IColumnsProps) => [
   {
     field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    renderCell: params => <BatchBoxesCell boxes={params.row.boxes} />,
+    renderCell: ({ row }: GridRowModel) => <BatchBoxesCell boxes={row.boxes} />,
     width: 400,
     filterable: false,
     sortable: false,
@@ -30,7 +34,7 @@ export const batchesViewColumns = (rowHandlers, isSentBatches) => [
     field: 'title',
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.title} />,
     width: 150,
     columnKey: columnnsKeys.shared.STRING,
   },
@@ -39,7 +43,7 @@ export const batchesViewColumns = (rowHandlers, isSentBatches) => [
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-    renderCell: params => <MultilineTextCell text={params.row?.boxes?.[0]?.destination?.name} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.boxes?.[0]?.destination?.name} />,
     width: 130,
     filterable: false,
     sortable: false,
@@ -50,7 +54,7 @@ export const batchesViewColumns = (rowHandlers, isSentBatches) => [
     field: 'quantityBoxes',
     headerName: t(TranslationKey.Boxes),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.quantityBoxes} />,
     type: 'number',
     width: 70,
     filterable: false,
@@ -62,7 +66,7 @@ export const batchesViewColumns = (rowHandlers, isSentBatches) => [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.humanFriendlyId} />,
     type: 'number',
     width: 80,
     columnKey: columnnsKeys.shared.STRING,
@@ -72,7 +76,7 @@ export const batchesViewColumns = (rowHandlers, isSentBatches) => [
     field: 'logicsTariff',
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-    renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row.boxes[0])} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(row.boxes[0])} />,
     width: 250,
     filterable: false,
     sortable: false,
@@ -83,13 +87,13 @@ export const batchesViewColumns = (rowHandlers, isSentBatches) => [
     field: 'trackingNumber',
     headerName: t(TranslationKey['Batch tracking']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
-    renderCell: params => (
+    renderCell: ({ row }: GridRowModel) => (
       <BatchTrackingCell
-        disabled={!isSentBatches}
-        id={params.row?.originalData?._id}
-        arrivalDate={params.row?.originalData?.arrivalDate}
-        trackingNumber={params.row?.originalData?.trackingNumber}
-        rowHandlers={rowHandlers}
+        disabled={!columnsProps.isSentBatches}
+        id={row?._id}
+        arrivalDate={row?.arrivalDate}
+        trackingNumber={row?.trackingNumber}
+        rowHandlers={columnsProps}
       />
     ),
     width: 210,
@@ -102,8 +106,7 @@ export const batchesViewColumns = (rowHandlers, isSentBatches) => [
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-    renderCell: params => <ToFixedWithKgSignCell value={params.row.finalWeight} fix={2} />,
-    type: 'number',
+    renderCell: ({ row }: GridRowModel) => <ToFixedWithKgSignCell value={row.finalWeight} fix={2} />,
     width: 120,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -112,8 +115,9 @@ export const batchesViewColumns = (rowHandlers, isSentBatches) => [
     field: 'deliveryTotalPrice',
     headerName: t(TranslationKey['Delivery cost']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    type: 'number',
+    renderCell: ({ row }: GridRowModel) => (
+      <MultilineTextCell text={toFixedWithDollarSign(row.deliveryTotalPrice, 2)} />
+    ),
     width: 120,
     filterable: false,
     sortable: false,
@@ -124,11 +128,11 @@ export const batchesViewColumns = (rowHandlers, isSentBatches) => [
     field: 'cls',
     headerName: t(TranslationKey.Dates),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
-    renderCell: params => (
+    renderCell: ({ row }: GridRowModel) => (
       <WarehouseTariffDatesCell
-        cls={params.row.boxes[0].logicsTariff?.cls}
-        etd={params.row.boxes[0].logicsTariff?.etd}
-        eta={params.row.boxes[0].logicsTariff?.eta}
+        cls={row.boxes[0].logicsTariff?.cls}
+        etd={row.boxes[0].logicsTariff?.etd}
+        eta={row.boxes[0].logicsTariff?.eta}
       />
     ),
     width: 330,
@@ -141,7 +145,7 @@ export const batchesViewColumns = (rowHandlers, isSentBatches) => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <NormDateCell value={params.value} />,
+    renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
     width: 120,
     columnKey: columnnsKeys.shared.DATE,
   },
