@@ -354,6 +354,9 @@ export const navbarConfig = {
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_SHOPS_REPORTS_CLIENT),
         },
       ],
+
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.client.SHOW_STORES_CLIENT),
     },
 
     {
