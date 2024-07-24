@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEvent, FC, memo } from 'react'
 import { FaMinus, FaPlus } from 'react-icons/fa'
 
@@ -102,7 +103,9 @@ export const DestinationVariationsContent: FC<DestinationVariationsContentProps>
                       className={cx(styles.weightInput, {
                         [styles.error]:
                           (!!variant.minWeight && Number(variant.minWeight) < 1) ||
-                          rangeErrorDestinationId === variant.destination?._id,
+                          (rangeErrorDestinationId === variant.destination?._id &&
+                            !!variant.destination?._id &&
+                            !!rangeErrorDestinationId),
                       })}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
@@ -123,7 +126,9 @@ export const DestinationVariationsContent: FC<DestinationVariationsContentProps>
                           (!!variant.minWeight &&
                             !!variant.maxWeight &&
                             Number(variant.maxWeight) <= Number(variant.minWeight)) ||
-                          rangeErrorDestinationId === variant.destination?._id,
+                          (rangeErrorDestinationId === variant.destination?._id &&
+                            !!variant.destination?._id &&
+                            !!rangeErrorDestinationId),
                       })}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value
