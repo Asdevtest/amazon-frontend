@@ -41,30 +41,33 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
     {
       key: 'update',
       label: (
-        <CustomButton
-          className={styles.button}
-          icon={<GrUpdate title={t(TranslationKey.Update)} className={styles.updateButton} />}
-          onClick={e => e.stopPropagation()}
+        <Popconfirm
+          showCancel={false}
+          title={t(TranslationKey['Save the state of the table to this preset?'])}
+          okText={t(TranslationKey.Yes)}
+          cancelText={t(TranslationKey.No)}
+          onConfirm={e => {
+            e?.stopPropagation()
+            // handleUpdatePreset()
+          }}
+          onCancel={e => e?.stopPropagation()}
         >
-          {t(TranslationKey.Update)}
-        </CustomButton>
+          <CustomButton
+            className={styles.button}
+            icon={<GrUpdate title={t(TranslationKey.Update)} className={styles.updateButton} />}
+            onClick={e => e.stopPropagation()}
+          >
+            {t(TranslationKey.Update)}
+          </CustomButton>
+        </Popconfirm>
       ),
     },
 
     {
       key: 'delete',
       label: (
-        // <CustomButton
-        //   className={styles.button}
-        //   icon={<MdOutlineDelete size={20} title={t(TranslationKey.Delete)} className={styles.deleteIcon} />}
-        //   onClick={e => e.stopPropagation()}
-        // >
-        //   {t(TranslationKey.Delete)}
-        // </CustomButton>
-
         <Popconfirm
           getPopupContainer={() => document.getElementById('presets') as HTMLElement}
-          showCancel={false}
           title={t(TranslationKey['Are you sure delete this preset?'])}
           okText={t(TranslationKey.Yes)}
           cancelText={t(TranslationKey.No)}
