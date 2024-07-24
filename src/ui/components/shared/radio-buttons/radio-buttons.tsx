@@ -29,14 +29,18 @@ export const RadioButtons: FC<RadioButtonsProps> = observer(props => {
   const { currentValue, radioBottonsSettings, disabled, onClickRadioButton } = props
 
   return (
-    <Radio.Group value={currentValue} onChange={event => onClickRadioButton(event.target.value)}>
+    <Radio.Group
+      value={currentValue}
+      className={styles.group}
+      onChange={event => onClickRadioButton(event.target.value)}
+    >
       {radioBottonsSettings.length
         ? radioBottonsSettings.map((setting, settingIndex: number) => (
             <Radio
               key={settingIndex}
               disabled={disabled || setting?.disabled}
               value={setting.value}
-              className={styles.radioLable}
+              className={styles.radio}
             >
               {setting?.label ? t(TranslationKey[setting?.label as keyof typeof TranslationKey]) : null}
             </Radio>

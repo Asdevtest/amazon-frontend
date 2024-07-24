@@ -12,6 +12,7 @@ import { BoxesModel } from '@models/boxes-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 
+import { getUtcDateObject } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -189,7 +190,10 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
   }
 
   async onClickSaveArrivalDate(id: string, date: string) {
-    await BatchesModel.changeBatch(id, { arrivalDate: date })
+    const convertedToUTC = getUtcDateObject(date)
+    const UTCDate = new Date(convertedToUTC.UTC)
+
+    await BatchesModel.changeBatch(id, { arrivalDate: UTCDate })
     this.getCurrentData()
   }
 }

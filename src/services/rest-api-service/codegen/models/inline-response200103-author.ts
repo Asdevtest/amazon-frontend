@@ -17,21 +17,21 @@
 /**
  * 
  * @export
- * @interface InlineObject151
+ * @interface InlineResponse200103Author
  */
-export interface InlineObject151 {
+export interface InlineResponse200103Author {
     /**
-     * Токен, который юзер получает через почту
+     * Гуид автора.
      * @type {string}
-     * @memberof InlineObject151
+     * @memberof InlineResponse200103Author
      */
-    hash: string;
+    _id?: string;
     /**
-     * Новый пароль
+     * 
      * @type {string}
-     * @memberof InlineObject151
+     * @memberof InlineResponse200103Author
      */
-    password?: string;
+    name?: string;
 }
 
 

@@ -13,7 +13,8 @@
  */
 
 
-import { ApiV1StorekeepersBoxesGuidItems } from './api-v1-storekeepers-boxes-guid-items';
+import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
+import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-storekeepers-tariff-logistics-destination-variations';
 
 /**
  * 
@@ -22,125 +23,71 @@ import { ApiV1StorekeepersBoxesGuidItems } from './api-v1-storekeepers-boxes-gui
  */
 export interface InlineObject130 {
     /**
-     * Гуид вариации
+     * Тип тарифа
+     * @type {number}
+     * @memberof InlineObject130
+     */
+    tariffType?: number;
+    /**
+     * Название тарифа
      * @type {string}
      * @memberof InlineObject130
      */
-    variationTariffId?: string;
+    name: string;
     /**
-     * Значение информационного ключа
+     * Описание тарифа
      * @type {string}
      * @memberof InlineObject130
      */
-    prepId?: string;
+    description?: string;
     /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineObject130
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineObject130
-     */
-    widthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineObject130
-     */
-    heightCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineObject130
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Storage in boxes
+     * Время доставки, днях
      * @type {string}
      * @memberof InlineObject130
      */
-    storage?: string;
+    deliveryTimeInDay?: string;
     /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+     * Дата закрытия приема новых грузов.
+     * @type {string}
+     * @memberof InlineObject130
+     */
+    cls?: string;
+    /**
+     * Ожидаема дата отбытия.
+     * @type {string}
+     * @memberof InlineObject130
+     */
+    etd?: string;
+    /**
+     * Ожидаема дата прибытия.
+     * @type {string}
+     * @memberof InlineObject130
+     */
+    eta?: string;
+    /**
+     * Минимальный вес, в кг
+     * @type {number}
+     * @memberof InlineObject130
+     */
+    minWeightInKg?: number;
+    /**
+     * Заархивирован ли тариф
      * @type {boolean}
      * @memberof InlineObject130
      */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineObject130
-     */
-    storekeeperComment?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineObject130
-     */
-    referenceId?: string;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineObject130
-     */
-    trackNumberText?: string;
+    archive?: boolean;
     /**
      * 
-     * @type {Array<string>}
+     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
      * @memberof InlineObject130
      */
-    trackNumberFile?: Array<string>;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineObject130
-     */
-    upsTrackNumber?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject130
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject130
-     */
-    fbaNumber?: string;
-    /**
-     *  logicsTariff GUID
-     * @type {string}
-     * @memberof InlineObject130
-     */
-    logicsTariffId?: string;
-    /**
-     * Массив ссылок на фотографии.
-     * @type {Array<string>}
-     * @memberof InlineObject130
-     */
-    images?: Array<string>;
-    /**
-     * destination GUID 
-     * @type {string}
-     * @memberof InlineObject130
-     */
-    destinationId?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineObject130
-     */
-    storekeeperTaskComment?: string;
+    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
     /**
      * 
-     * @type {Array<ApiV1StorekeepersBoxesGuidItems>}
+     * @type {Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>}
      * @memberof InlineObject130
      */
-    items?: Array<ApiV1StorekeepersBoxesGuidItems>;
+    destinationVariations?: Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>;
 }
 
 

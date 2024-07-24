@@ -21,7 +21,6 @@ import { useStyles } from './product-parameters.style'
 
 export const ProductParameters = ({
   order,
-  collapsed,
   formFields,
   onChangeField,
   isCanChange,
@@ -155,19 +154,13 @@ export const ProductParameters = ({
         containerClasses={styles.parameterTableCellWrapper}
         labelClasses={styles.fieldLabel}
         inputComponent={
-          <>
-            <LabelWithCopy
-              lableLinkTitleSize="medium"
-              labelValue={order.transparencyFile}
-              lableLinkTitle={t(TranslationKey.View)}
-            />
-          </>
+          <LabelWithCopy
+            lableLinkTitleSize="medium"
+            labelValue={order.transparencyFile}
+            lableLinkTitle={t(TranslationKey.View)}
+          />
         }
       />
-
-      {collapsed && (
-        <OrderParameter label={t(TranslationKey['Additional parameter'])} value={t(TranslationKey.Value)} />
-      )}
     </div>
   )
 }

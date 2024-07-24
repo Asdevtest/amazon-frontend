@@ -15,23 +15,35 @@
 
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineObject154
  */
 export interface InlineObject154 {
     /**
-     * Оценка, целое число от 1 до 5
-     * @type {number}
-     * @memberof InlineObject154
-     */
-    rating: number;
-    /**
-     * Комментарий к оценке
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
      * @type {string}
      * @memberof InlineObject154
      */
-    comment?: string;
+    name: string;
+    /**
+     * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    sellerBoardWarehouseReportUrlDaily: string;
+    /**
+     * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    sellerBoardWarehouseReportUrlMonthly: string;
+    /**
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    reportAccountUrl?: string;
 }
 
 

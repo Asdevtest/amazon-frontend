@@ -432,11 +432,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               labelClasses={styles.fieldLabel}
               containerClasses={styles.blockItemContainer}
               inputComponent={
-                <div
-                  className={cx({
-                    [styles.deadlineError]: checkDateByDeadline(formFields.cls),
-                  })}
-                >
+                <div>
                   <DatePicker
                     disablePast
                     slotProps={{
@@ -461,11 +457,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               labelClasses={styles.fieldLabel}
               containerClasses={styles.blockItemContainer}
               inputComponent={
-                <div
-                  className={cx({
-                    [styles.deadlineError]: checkDateByDeadline(formFields.etd),
-                  })}
-                >
+                <div>
                   <DatePicker
                     disablePast
                     value={formFields.etd}
@@ -491,11 +483,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               labelClasses={styles.fieldLabel}
               containerClasses={styles.blockItemContainer}
               inputComponent={
-                <div
-                  className={cx({
-                    [styles.deadlineError]: checkDateByDeadline(formFields.eta),
-                  })}
-                >
+                <div>
                   <DatePicker
                     disablePast
                     value={formFields.eta}

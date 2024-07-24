@@ -45,7 +45,6 @@ export const OrderContent = ({
 }) => {
   const { classes: styles } = useStyles()
 
-  const [collapsed, setCollapsed] = useState(false)
   const [updatedOrder, setUpdatedOrder] = useState(order)
   const theme = useTheme()
   const narrow = useMediaQuery(theme.breakpoints.down(MEDIA_SCALE_POINTS))
@@ -163,9 +162,7 @@ export const OrderContent = ({
           isCanChange={isOrderEditable}
           order={updatedOrder}
           formFields={formFields}
-          collapsed={collapsed}
           narrow={narrow}
-          setCollapsed={setCollapsed}
           onChangeField={onChangeField}
           onClickBarcode={triggerBarcodeModal}
           onDeleteBarcode={() => onChangeField('barCode')('')}

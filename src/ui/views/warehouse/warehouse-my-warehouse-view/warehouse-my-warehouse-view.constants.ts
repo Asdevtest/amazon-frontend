@@ -40,4 +40,5 @@ export const filtersFields = [
   'destinationId',
   'logicsTariffId',
   'redFlags',
+  'storage',
 ]

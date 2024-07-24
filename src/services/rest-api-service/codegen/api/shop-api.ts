@@ -25,15 +25,15 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject124 } from '../models';
+import { InlineObject154 } from '../models';
 // @ts-ignore
-import { InlineObject125 } from '../models';
+import { InlineObject155 } from '../models';
 // @ts-ignore
-import { InlineResponse20096 } from '../models';
+import { InlineResponse200112 } from '../models';
 // @ts-ignore
-import { InlineResponse20097 } from '../models';
+import { InlineResponse200113 } from '../models';
 // @ts-ignore
-import { InlineResponse20098 } from '../models';
+import { InlineResponse200114 } from '../models';
 // @ts-ignore
 import { InlineResponse2017 } from '../models';
 // @ts-ignore
@@ -155,12 +155,12 @@ export const ShopApiAxiosParamCreator = function (configuration?: Configuration)
          * # Редактировать магазин. клиентом.  ## Только владелец может редактировать  Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
          * @summary # Редактировать магазин.
          * @param {string} guid GUID объекта в БД
-         * @param {InlineObject125} [body] 
+         * @param {InlineObject155} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsGuidPatch: async (guid: string, body?: InlineObject125, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ShopsGuidPatch: async (guid: string, body?: InlineObject155, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1ShopsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/shops/{guid}`
@@ -238,12 +238,12 @@ export const ShopApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * # Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops Проверки: Пользователь не может иметь два магазина с одинаковыми именами (name) Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
          * @summary # Добавить новый магазин клиентом.
-         * @param {InlineObject124} [body] 
+         * @param {InlineObject154} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsPost: async (body?: InlineObject124, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ShopsPost: async (body?: InlineObject154, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/shops/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -362,7 +362,7 @@ export const ShopApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20096>>> {
+        async apiV1ShopsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200112>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopsGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -382,12 +382,12 @@ export const ShopApiFp = function(configuration?: Configuration) {
          * # Редактировать магазин. клиентом.  ## Только владелец может редактировать  Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
          * @summary # Редактировать магазин.
          * @param {string} guid GUID объекта в БД
-         * @param {InlineObject125} [body] 
+         * @param {InlineObject155} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopsGuidPatch(guid: string, body?: InlineObject125, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1ShopsGuidPatch(guid: string, body?: InlineObject155, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -398,19 +398,19 @@ export const ShopApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopsNamesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20098>>> {
+        async apiV1ShopsNamesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200114>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopsNamesGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * # Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops Проверки: Пользователь не может иметь два магазина с одинаковыми именами (name) Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
          * @summary # Добавить новый магазин клиентом.
-         * @param {InlineObject124} [body] 
+         * @param {InlineObject154} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopsPost(body?: InlineObject124, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+        async apiV1ShopsPost(body?: InlineObject154, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -426,7 +426,7 @@ export const ShopApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopsWithProfilesGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20097>>> {
+        async apiV1ShopsWithProfilesGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200113>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopsWithProfilesGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -452,7 +452,7 @@ export const ShopApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20096>> {
+        apiV1ShopsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200112>> {
             return localVarFp.apiV1ShopsGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -470,12 +470,12 @@ export const ShopApiFactory = function (configuration?: Configuration, basePath?
          * # Редактировать магазин. клиентом.  ## Только владелец может редактировать  Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
          * @summary # Редактировать магазин.
          * @param {string} guid GUID объекта в БД
-         * @param {InlineObject125} [body] 
+         * @param {InlineObject155} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsGuidPatch(guid: string, body?: InlineObject125, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1ShopsGuidPatch(guid: string, body?: InlineObject155, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1ShopsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -485,18 +485,18 @@ export const ShopApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsNamesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20098>> {
+        apiV1ShopsNamesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200114>> {
             return localVarFp.apiV1ShopsNamesGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * # Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops Проверки: Пользователь не может иметь два магазина с одинаковыми именами (name) Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
          * @summary # Добавить новый магазин клиентом.
-         * @param {InlineObject124} [body] 
+         * @param {InlineObject154} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsPost(body?: InlineObject124, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+        apiV1ShopsPost(body?: InlineObject154, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
             return localVarFp.apiV1ShopsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -511,7 +511,7 @@ export const ShopApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsWithProfilesGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20097>> {
+        apiV1ShopsWithProfilesGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200113>> {
             return localVarFp.apiV1ShopsWithProfilesGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -602,10 +602,10 @@ export interface ShopApiApiV1ShopsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject125}
+     * @type {InlineObject155}
      * @memberof ShopApiApiV1ShopsGuidPatch
      */
-    readonly body?: InlineObject125
+    readonly body?: InlineObject155
 
     /**
      * 
@@ -637,10 +637,10 @@ export interface ShopApiApiV1ShopsNamesGetRequest {
 export interface ShopApiApiV1ShopsPostRequest {
     /**
      * 
-     * @type {InlineObject124}
+     * @type {InlineObject154}
      * @memberof ShopApiApiV1ShopsPost
      */
-    readonly body?: InlineObject124
+    readonly body?: InlineObject154
 
     /**
      * 

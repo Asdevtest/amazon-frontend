@@ -1,12 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
-
-import { t } from '@utils/translations'
 
 import { useStyles as useSharedStyles } from '../column-menu.style'
 
@@ -56,7 +52,7 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
     <div className={sharedStyles.columnMenuWrapper}>
       <CustomInputSearch
         allowClear
-        placeholder={t(TranslationKey.Search)}
+        placeholder="Search"
         value={nameSearchValue}
         wrapperClassName={sharedStyles.searchInput}
         onChange={e => setNameSearchValue(e.target.value)}

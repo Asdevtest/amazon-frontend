@@ -25,25 +25,31 @@ export interface InlineObject145 {
      * @type {string}
      * @memberof InlineObject145
      */
-    endpoint: string;
+    endpoint?: string;
     /**
      * Название таблицы
      * @type {string}
      * @memberof InlineObject145
      */
-    table: string;
+    table?: string;
     /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject145
      */
-    fields: Array<string>;
+    fields?: Array<string>;
     /**
      * Является ли пресет активным.
      * @type {boolean}
      * @memberof InlineObject145
      */
     isActive?: boolean;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineObject145
+     */
+    isFavorite?: boolean;
 }
 
 

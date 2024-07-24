@@ -18,13 +18,8 @@ import { useStyles } from './reports-view.style'
 import { Header } from './header'
 import { editExcelReport } from './helpers/edit-excel-report'
 import { Info } from './info'
+import { ReportsViewProps } from './reports-view-copy.types'
 import { ReportsViewModel } from './reports-view.model'
-
-interface ReportsViewProps {
-  productId: string
-  modal?: boolean
-  subView?: boolean
-}
 
 export const ReportsView: FC<ReportsViewProps> = observer(props => {
   const { modal, productId, subView = false } = props

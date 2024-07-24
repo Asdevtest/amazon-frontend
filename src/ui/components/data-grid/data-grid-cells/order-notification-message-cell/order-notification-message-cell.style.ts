@@ -5,4 +5,16 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.primary.main,
     cursor: 'pointer',
   },
+
+  clockIcon: {
+    fontSize: 16,
+    color: theme.palette.primary.main,
+    stroke: '#fff',
+  },
+
+  orderNotification: {
+    display: 'flex',
+    gap: 3,
+    alignItems: 'center',
+  },
 }))

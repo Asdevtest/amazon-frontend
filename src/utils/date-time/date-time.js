@@ -17,12 +17,17 @@ export const getUtcDateObject = dateString => {
   const hours = date.getUTCHours().toString().padStart(2, '0')
   const minutes = date.getUTCMinutes().toString().padStart(2, '0')
 
+  const UTC = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(),
+  date.getUTCDate(), date.getUTCHours(),
+  date.getUTCMinutes(), date.getUTCSeconds())
+
   return {
     day,
     month,
     year,
     hours,
     minutes,
+    UTC,
   }
 }
 
@@ -108,6 +113,10 @@ export const formatDateMonthYear = date => {
   )
 
   return formatedDate
+}
+
+export const convertLocalDateToUTC = date => {
+  return formatISO(date, { representation: 'date' })
 }
 
 export const formatDateMonthYearWithoutFormatISO = date =>

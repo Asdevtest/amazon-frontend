@@ -15,35 +15,35 @@
 
 
 /**
- * Схема магазина.
+ * 
  * @export
  * @interface InlineObject125
  */
 export interface InlineObject125 {
     /**
-     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
-     * @type {string}
+     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+     * @type {number}
      * @memberof InlineObject125
      */
-    name?: string;
+    status?: number;
     /**
-     * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
-     * @type {string}
+     * Массив картинок.
+     * @type {Array<string>}
      * @memberof InlineObject125
      */
-    sellerBoardWarehouseReportUrlDaily?: string;
+    images?: Array<string>;
     /**
-     * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+     * Комментарий работника склада.
      * @type {string}
      * @memberof InlineObject125
      */
-    sellerBoardWarehouseReportUrlMonthly?: string;
+    storekeeperComment?: string;
     /**
-     * uri полный путь до файла, для скачивания отчетов amazon_data
-     * @type {string}
+     * Приоритет задачи
+     * @type {number}
      * @memberof InlineObject125
      */
-    reportAccountUrl?: string;
+    priority?: number;
 }
 
 
