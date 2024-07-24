@@ -25,12 +25,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   mainCard: {
-    width: '48%',
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
   },
 
   card: {

@@ -159,6 +159,7 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
             <div className={cx(styles.weightWrapper)}>
               {tariff.destinationVariations?.map(variation => {
                 const roi = Number(variation?.destination?.roi)
+                const roiValue = toFixed(roi)
 
                 return (
                   <div key={variation?._id} className={cx(styles.destinationVariationWrapper, styles.borderBotton)}>
@@ -176,7 +177,7 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
                           [styles.goodRoi]: roi >= 130,
                         })}
                       >
-                        <p>{toFixed(variation?.destination?.roi)}</p>
+                        <p title={roiValue}>{roiValue}</p>
                       </div>
                     )}
                   </div>

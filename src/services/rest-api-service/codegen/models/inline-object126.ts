@@ -13,7 +13,6 @@
  */
 
 
-import { InlineObject27 } from './inline-object27';
 
 /**
  * 
@@ -22,11 +21,17 @@ import { InlineObject27 } from './inline-object27';
  */
 export interface InlineObject126 {
     /**
-     * Массив дополнительных коробок которые случились при обработки.
-     * @type {Array<InlineObject27>}
+     * Выставить приоритет задачи
+     * @type {number}
      * @memberof InlineObject126
      */
-    additionalBoxes?: Array<InlineObject27>;
+    priority: number;
+    /**
+     * Reason of high priority
+     * @type {string}
+     * @memberof InlineObject126
+     */
+    reason?: string;
 }
 
 

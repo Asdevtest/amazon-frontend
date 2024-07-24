@@ -14,5 +14,5 @@ export const reportsViewConfig = {
   onRemoveReport: action.bound,
 }
 
-export const additionalFilterFields = ['asin', 'amazonTitle', 'skuByClient', 'sub']
+export const additionalFilterFields = ['asin', 'amazonTitle', 'skuByClient', 'sub', 'launchDateFrom', 'launchDateTo']
 export const additionalSearchFields = ['asin', 'amazonTitle', 'skuByClient', 'launchType']
