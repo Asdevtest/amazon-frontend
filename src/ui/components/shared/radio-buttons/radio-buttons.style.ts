@@ -1,7 +1,16 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  radioLable: {
-    fontSize: '16px',
+  group: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5px',
+  },
+
+  radio: {
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '14px',
+    lineHeight: '14px',
   },
 }))

@@ -5,6 +5,8 @@ import { RiLockPasswordLine, RiUser3Line } from 'react-icons/ri'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { SettingsModel } from '@models/settings-model'
+
 import { CustomButton } from '@components/shared/custom-button'
 
 import { FieldData } from '@views/auth/model/types/field'
@@ -49,10 +51,13 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
   const onFinish = useCallback(
     (values: FieldData) => {
       onSubmit(values)
-      // form.resetFields()
     },
     [onSubmit],
   )
+
+  useEffect(() => {
+    form.resetFields()
+  }, [SettingsModel.languageTag])
 
   const buttonText = editUser ? t(TranslationKey.Save) : auth ? t(TranslationKey.Login) : t(TranslationKey.Register)
   const redirectText = editUser

@@ -154,6 +154,13 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     width: '139px',
     height: '100%',
+
+    p: {
+      padding: '0 10px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+    },
   },
 
   text: {

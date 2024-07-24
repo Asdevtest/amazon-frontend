@@ -6,6 +6,6 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    padding: '10px 20px',
+    padding: '10px 20px 0 20px',
   },
 }))

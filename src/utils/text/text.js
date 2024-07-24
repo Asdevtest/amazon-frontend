@@ -193,6 +193,7 @@ export const getTableByColumn = (column, hint) => {
       'proposalSub',
       'quantityBoxes',
       'updatedAt',
+      'storage'
     ].includes(column)
   ) {
     if (
