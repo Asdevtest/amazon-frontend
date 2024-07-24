@@ -19,7 +19,7 @@ import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 
 import { INewDataOfVariation } from '@hooks/use-tariff-variation'
 
-import { clientBoxesTariffsNotificationsViewColumns } from './client-boxes-tariffs-notifications-columns'
+import { clientBoxesTariffsNotificationsViewColumns } from './client-boxes-tariffs-notifications.columns'
 import { observerConfig } from './observer-config'
 
 export class ClientBoxesTariffsNotificationsViewModel extends DataGridFilterTableModel {

@@ -1990,5 +1990,7 @@
   "Create a tariff": "Создать тариф",
   "Start date": "Дата начала",
   "End date": "Дата окончания",
-  "Idea status changed successfully": "Статус идеи успешно изменен"
+  "Idea status changed successfully": "Статус идеи успешно изменен",
+  "Choose another tariff": "Выбрать другой тариф",
+  "The box will be returned to warehouse": "Коробка будет возвращена на склад"
 }

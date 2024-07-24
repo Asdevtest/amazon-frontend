@@ -1990,4 +1990,6 @@ export enum TranslationKey {
   'Start date' = 'Start date',
   'End date' = 'End date',
   'Idea status changed successfully' = 'Idea status changed successfully',
+  'Choose another tariff' = 'Choose another tariff',
+  'The box will be returned to warehouse' = 'The box will be returned to warehouse',
 }
