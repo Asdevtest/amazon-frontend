@@ -1,11 +1,12 @@
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineRequestStatusCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
-  ShortDateCell,
+  NormDateCell,
+  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -19,7 +20,9 @@ export const FreelancerFreelanceColumns = handlers => [
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: params => <MultilineRequestStatusCell status={params.value} />,
+    renderCell: params => (
+      <TextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
+    ),
     width: 160,
   },
   {
@@ -35,7 +38,7 @@ export const FreelancerFreelanceColumns = handlers => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <ShortDateCell value={params.value} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 116,
     // type: 'date',
   },
@@ -44,7 +47,7 @@ export const FreelancerFreelanceColumns = handlers => [
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     width: 220,
   },
 
@@ -52,7 +55,7 @@ export const FreelancerFreelanceColumns = handlers => [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Request ID']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request ID'])} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     type: 'number',
     width: 93,
   },
@@ -61,7 +64,7 @@ export const FreelancerFreelanceColumns = handlers => [
     field: 'price',
     headerName: t(TranslationKey.Cost),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Cost) + ', $'} />,
-    renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
+    renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
     type: 'number',
     width: 118,
   },
@@ -69,7 +72,7 @@ export const FreelancerFreelanceColumns = handlers => [
     field: 'timeoutAt',
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
-    renderCell: params => <ShortDateCell value={params.value} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 134,
     // type: 'date',
   },

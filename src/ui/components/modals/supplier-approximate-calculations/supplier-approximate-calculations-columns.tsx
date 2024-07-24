@@ -5,9 +5,9 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextCell,
   MultilineTextHeaderCell,
   TariffInfoCell,
+  TextCell,
   VariationTariffDateCell,
 } from '@components/data-grid/data-grid-cells'
 import { VariationTariffRoiCell } from '@components/data-grid/data-grid-cells/variation-tariff-roi-cell/variation-tariff-roi-cell'
@@ -123,7 +123,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       headerName: t(TranslationKey['Delivery time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery time, days'])} />,
       width: 130,
-      renderCell: (params: GridValidRowModel) => <MultilineTextCell text={params.value} />,
+      renderCell: (params: GridValidRowModel) => <TextCell text={params.value} />,
       table: DataGridFilterTables.STOREKEEPERS,
 
       columnKey: columnnsKeys.shared.STRING,
@@ -135,7 +135,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       renderHeader: () => (
         <MultilineTextHeaderCell text={t(TranslationKey['Cost per unit with delivery to China']) + ', $'} />
       ),
-      renderCell: (params: GridValidRowModel) => <MultilineTextCell text={toFixed(params.value, 2)} />,
+      renderCell: (params: GridValidRowModel) => <TextCell text={toFixed(params.value, 2)} />,
       valueGetter: (params: GridRenderCellParams) => toFixed(params.row?.costUnitWithDeliveryToChina),
       width: 180,
       table: DataGridFilterTables.STOREKEEPERS,
@@ -147,7 +147,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       headerName: t(TranslationKey['Cost of per unit in the U.S.']) + ', $',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of per unit in the U.S.']) + ', $'} />,
       renderCell: (params: GridValidRowModel) => (
-        <MultilineTextCell text={toFixed(params.row.avgCostUnitWithDeliveryToUsa, 2)} />
+        <TextCell text={toFixed(params.row.avgCostUnitWithDeliveryToUsa, 2)} />
       ),
       valueGetter: (params: GridRenderCellParams) =>
         params.row?.destinationVariations

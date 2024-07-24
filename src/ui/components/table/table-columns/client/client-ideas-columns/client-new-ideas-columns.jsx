@@ -6,11 +6,11 @@ import {
   IdeaActionsCell,
   IdeaRequestsCell,
   ManyUserLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
+  NormDateCell,
   ProductAsinCell,
-  ShortDateCell,
   SmallRowImageCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -30,7 +30,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Idea title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
 
-      renderCell: params => <MultilineTextCell twoLines maxLength={45} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 198,
       filterable: false,
 
@@ -68,7 +68,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
+      renderCell: params => <TextCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
 
       columnKey: columnnsKeys.client.IDEA_SHOPS,
@@ -93,7 +93,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 251,
 
       columnKey: columnnsKeys.shared.STRING,
@@ -105,7 +105,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Buyer comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 251,
 
       columnKey: columnnsKeys.shared.STRING,
@@ -134,7 +134,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Status Updated']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
-      renderCell: params => <ShortDateCell value={params.value} />,
+      renderCell: params => <NormDateCell value={params.value} />,
       width: 91,
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -144,7 +144,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-      renderCell: params => <ShortDateCell value={params.value} />,
+      renderCell: params => <NormDateCell value={params.value} />,
       width: 91,
       columnKey: columnnsKeys.shared.DATE,
     },

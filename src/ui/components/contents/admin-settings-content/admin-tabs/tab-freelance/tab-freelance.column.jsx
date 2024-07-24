@@ -5,9 +5,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ButtonHeaderCell,
   InputOrTextCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   TableDataControlsButtonsCell,
+  TextCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -70,7 +70,7 @@ export const tabFreelanceColumns = ({
   {
     field: 'archive',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Archive)} />,
-    renderCell: ({ row }) => <MultilineTextCell leftAlign text={row.archive ? t(TranslationKey.Archive) : ''} />,
+    renderCell: ({ row }) => <TextCell text={row.archive ? t(TranslationKey.Archive) : ''} />,
     filterable: false,
     sortable: false,
     width: 80,

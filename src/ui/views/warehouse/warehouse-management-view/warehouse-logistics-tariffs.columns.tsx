@@ -4,10 +4,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineTextAlignLeftCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  TextCell,
   WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells'
 import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
@@ -35,7 +34,7 @@ export const logisticsTariffsColumns = ({
     field: 'name',
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff name'])} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.name} />,
+    renderCell: ({ row }: GridRowModel) => <TextCell text={row.name} />,
     width: 150,
   },
 
@@ -43,7 +42,7 @@ export const logisticsTariffsColumns = ({
     field: 'description',
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextAlignLeftCell text={row.description} />,
+    renderCell: ({ row }: GridRowModel) => <TextCell text={row.description} />,
     width: 200,
   },
 
@@ -102,7 +101,7 @@ export const logisticsTariffsColumns = ({
     field: 'deliveryTimeInDay',
     headerName: t(TranslationKey['Time on the road, days']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.deliveryTimeInDay} />,
+    renderCell: ({ row }: GridRowModel) => <TextCell text={row.deliveryTimeInDay} />,
     width: 110,
   },
 

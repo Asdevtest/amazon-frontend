@@ -1,10 +1,11 @@
 import { Avatar, Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
-import { RequestStatus } from '@constants/requests/request-status'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
+import { TextCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
@@ -117,7 +118,10 @@ export const DealDetailsCard = ({
               <div className={styles.timeItemInfoWrapper}>
                 <Typography className={styles.text}>{t(TranslationKey.Status)}</Typography>
 
-                <RequestStatusCell status={curProposal?.proposal.status} />
+                <TextCell
+                  text={MyRequestStatusTranslate(curProposal?.proposal.status)}
+                  color={colorByStatus(curProposal?.proposal.status)}
+                />
               </div>
             </div>
             <div className={styles.rightSubBlockWrapper}>

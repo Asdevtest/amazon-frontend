@@ -9,7 +9,6 @@ import {
   DeadlineCell,
   FormedCell,
   ManyUserLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
@@ -41,7 +40,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.Storekeeper),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value?.name} />,
+      renderCell: params => <TextCell text={params.value?.name} />,
       width: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -52,7 +51,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <MultilineTextCell twoLines text={params.row.items?.[0]?.product?.shop?.name} />,
+      renderCell: params => <TextCell text={params.row.items?.[0]?.product?.shop?.name} />,
 
       width: 100,
       disableCustomSort: true,
@@ -67,12 +66,7 @@ export const clientBoxesViewColumns = (
 
       width: 160,
       renderCell: params => (
-        <MultilineTextCell
-          leftAlign
-          threeLines
-          text={boxStatusTranslateKey(params.value)}
-          customTextStyles={colorByBoxStatus(params.value)}
-        />
+        <TextCell text={boxStatusTranslateKey(params.value)} color={colorByBoxStatus(params.value)} />
       ),
       valueFormatter: params => boxStatusTranslateKey(params.value),
 
@@ -86,7 +80,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       type: 'number',
       width: 60,
 
@@ -98,7 +92,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey['№ Order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
-      renderCell: params => <MultilineTextCell text={params.row.items?.[0]?.order?.id} />,
+      renderCell: params => <TextCell text={params.row.items?.[0]?.order?.id} />,
       width: 160,
 
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -178,7 +172,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       type: 'number',
       width: 95,
 
@@ -220,7 +214,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey['Total price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
       type: 'number',
       width: 110,
       disableCustomSort: true,

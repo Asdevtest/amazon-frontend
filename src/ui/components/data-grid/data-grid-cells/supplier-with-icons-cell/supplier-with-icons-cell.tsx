@@ -1,4 +1,4 @@
-import { MultilineTextCell } from '..'
+import { TextCell } from '..'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -36,7 +36,7 @@ export const SupplierWithIconsCell: FC<SupplierWithIconsCellProps> = memo(props 
 
   return (
     <>
-      <MultilineTextCell leftAlign oneLines text={supplierName} />
+      <TextCell text={supplierName} />
 
       <div className={styles.icons}>
         {isNewSupplier && <p className={cx(styles.text, styles.uppercase)}>{t(TranslationKey.New)}</p>}

@@ -7,11 +7,11 @@ import {
   DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductAsinCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -39,7 +39,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'id',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
 
       columnKey: columnnsKeys.shared.NUMBER,
       width: 65,
@@ -111,7 +111,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'amount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
 
       columnKey: columnnsKeys.shared.NUMBER,
       width: 100,
@@ -121,7 +121,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'totalPrice',
       headerName: t(TranslationKey.Price),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
 
       columnKey: columnnsKeys.shared.NUMBER,
       width: 110,
@@ -150,9 +150,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       renderCell: params => {
         const currentSupplier = params.row?.orderSupplier
 
-        return (
-          <MultilineTextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
-        )
+        return <TextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
       },
       valueGetter: params => {
         const currentSupplier = params.row?.orderSupplier
@@ -182,7 +180,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'needsResearch',
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
-      renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+      renderCell: params => <TextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
 
       disableCustomSort: true,
       filterable: false,
@@ -218,7 +216,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'destination',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-      renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
+      renderCell: params => <TextCell text={params.row.destination?.name} />,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       width: 160,
@@ -228,7 +226,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'clientComment',
       headerName: t(TranslationKey['Client comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 400,

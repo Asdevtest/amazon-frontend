@@ -6,11 +6,11 @@ import {
   CreateCardIdeaActionsCell,
   IdeaProductCell,
   ManyUserLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
+  NormDateCell,
   ProductAsinCell,
-  ShortDateCell,
   SmallRowImageCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -55,7 +55,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
+      renderCell: params => <TextCell s text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.IDEA_SHOPS,
@@ -99,7 +99,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
       headerName: t(TranslationKey['Client comment']),
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -110,7 +110,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
       headerName: t(TranslationKey['Buyer comment']),
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -174,7 +174,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Status Updated']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
-      renderCell: params => <ShortDateCell value={params.value} />,
+      renderCell: params => <NormDateCell value={params.value} />,
       width: 91,
       columnKey: columnnsKeys.shared.DATE,
     },
