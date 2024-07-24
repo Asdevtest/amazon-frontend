@@ -1,12 +1,9 @@
 import { FC, memo } from 'react'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { toFixed } from '@utils/text'
-import { t } from '@utils/translations'
 
 import { useStyles as useSharedStyles } from '../column-menu.style'
 import { useStyles } from './number-column-menu.style'
@@ -61,7 +58,7 @@ export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
       <div className={styles.inputsWrapper}>
         <CustomInputSearch
           allowClear
-          placeholder={t(TranslationKey.From)}
+          placeholder="From"
           value={fromSearchValue}
           wrapperClassName={sharedStyles.searchInput}
           onChange={e => setFromSearchValue(e.target.value)}
@@ -69,7 +66,7 @@ export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
 
         <CustomInputSearch
           allowClear
-          placeholder={t(TranslationKey.To)}
+          placeholder="To"
           value={toSearchValue}
           wrapperClassName={sharedStyles.searchInput}
           onChange={e => setToSearchValue(e.target.value)}
@@ -78,7 +75,7 @@ export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
 
       <CustomInputSearch
         allowClear
-        placeholder={t(TranslationKey.Search)}
+        placeholder="Search"
         value={nameSearchValue}
         wrapperClassName={sharedStyles.searchInput}
         onChange={e => setNameSearchValue(e.target.value)}
