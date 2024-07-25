@@ -4,7 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-export const nameValidationRules: Rule[] = [
+export const getNameValidationRules = (): Rule[] => [
   { max: 32, message: t(TranslationKey['The name is too long!']) },
   { required: true, message: t(TranslationKey['Please input your name!']) },
 ]
@@ -66,7 +66,7 @@ export const getPasswordValidationRules = (auth?: boolean, editUser?: boolean): 
   return [...rulesWithoutRequired, { required: true, message: t(TranslationKey['Please input your password!']) }]
 }
 
-export const confirmValidationRules: Rule[] = [
+export const getConfirmPasswordValidationRules = (): Rule[] => [
   {
     required: true,
     message: t(TranslationKey['Please confirm your password!']),
@@ -82,7 +82,7 @@ export const confirmValidationRules: Rule[] = [
   }),
 ]
 
-export const newPasswordValidationRules: Rule[] = [
+export const getNewPasswordValidationRules = (): Rule[] => [
   ({ getFieldValue }) => ({
     validator(_, value) {
       if (value && value.trim() !== value) {

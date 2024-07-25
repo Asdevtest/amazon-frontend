@@ -17,11 +17,11 @@ import { useStyles } from './auth-form.style'
 
 import {
   MAX_INPUT_LENGTH,
-  confirmValidationRules,
+  getConfirmPasswordValidationRules,
   getEmailValidationRules,
+  getNameValidationRules,
+  getNewPasswordValidationRules,
   getPasswordValidationRules,
-  nameValidationRules,
-  newPasswordValidationRules,
 } from '../model/config/rules'
 
 interface AuthFormFormProps {
@@ -35,11 +35,20 @@ interface AuthFormFormProps {
 
 export const AuthForm: FC<AuthFormFormProps> = memo(props => {
   const { onSubmit, onRedirect, auth, editUser, loading, data } = props
+  console.log('data', data)
 
   const { classes: styles, cx } = useStyles()
   const [form] = Form.useForm()
 
   useEffect(() => {
+    // fix a bug with the localization of rules when changing languages
+    if (!data) {
+      form.resetFields()
+    }
+  }, [SettingsModel.languageTag])
+
+  useEffect(() => {
+    // filling out a form in user editing mode
     if (data) {
       form.setFieldsValue({
         name: data?.name || '',
@@ -55,10 +64,6 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
     [onSubmit],
   )
 
-  useEffect(() => {
-    form.resetFields()
-  }, [SettingsModel.languageTag])
-
   const buttonText = editUser ? t(TranslationKey.Save) : auth ? t(TranslationKey.Login) : t(TranslationKey.Register)
   const redirectText = editUser
     ? t(TranslationKey.Close)
@@ -67,10 +72,13 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
     : t(TranslationKey['Already have account?'])
   const passwordValidationRules = getPasswordValidationRules(auth, editUser)
   const emailValidationRules = getEmailValidationRules(auth)
+  const nameValidationRules = getNameValidationRules()
+  const confirmPasswordValidationRules = getConfirmPasswordValidationRules()
+  const newPasswordValidationRules = getNewPasswordValidationRules()
   const showConfirmPasswordField = !auth && !editUser
 
   return (
-    <Form name="registration" size="large" form={form} rootClassName={styles.form} onFinish={onFinish}>
+    <Form name="user-form" size="large" form={form} rootClassName={styles.form} onFinish={onFinish}>
       {!auth ? (
         <Form.Item hasFeedback name="name" validateTrigger="onBlur" rules={nameValidationRules}>
           <Input maxLength={MAX_INPUT_LENGTH} placeholder={t(TranslationKey.Name)} prefix={<RiUser3Line />} />
@@ -126,7 +134,7 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
           name="confirm"
           dependencies={['password']}
           validateTrigger={['onBlur', 'onChange']}
-          rules={confirmValidationRules}
+          rules={confirmPasswordValidationRules}
         >
           <Input.Password
             maxLength={MAX_INPUT_LENGTH}
