@@ -1989,5 +1989,6 @@
   "End date": "Дата закінчення",
   "Idea status changed successfully": "Статус ідеї успішно змінено",
   "Choose another tariff": "Виберіть інший тариф",
-  "The box will be returned to warehouse": "Коробка буде повернена на склад"
+  "The box will be returned to warehouse": "Коробка буде повернена на склад",
+  "Number of units": "Кількість елементів"
 }

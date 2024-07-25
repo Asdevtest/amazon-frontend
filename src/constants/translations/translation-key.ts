@@ -1992,4 +1992,5 @@ export enum TranslationKey {
   'Idea status changed successfully' = 'Idea status changed successfully',
   'Choose another tariff' = 'Choose another tariff',
   'The box will be returned to warehouse' = 'The box will be returned to warehouse',
+  'Number of units' = 'Number of units',
 }

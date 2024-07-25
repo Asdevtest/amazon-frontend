@@ -46,10 +46,8 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
 
     {
       field: 'amountInBatch',
-      headerName: t(TranslationKey['Quantity of the selected item in the batch']),
-      renderHeader: () => (
-        <MultilineTextHeaderCell text={t(TranslationKey['Quantity of the selected item in the batch'])} />
-      ),
+      headerName: t(TranslationKey['Number of units']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of units'])} />,
       renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.amountInBatch || 0} />,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.QUANTITY,
