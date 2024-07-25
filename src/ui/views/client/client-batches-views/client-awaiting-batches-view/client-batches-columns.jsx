@@ -167,7 +167,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       field: 'finalWeight',
       headerName: t(TranslationKey['Final weight']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-      renderCell: params => <TextCell copyable={false} text={toFixedWithKg(params.row.finalWeight)} />,
+      renderCell: params => <TextCell text={toFixedWithKg(params.row.finalWeight)} />,
       type: 'number',
       width: 100,
       columnKey: columnnsKeys.shared.QUANTITY,

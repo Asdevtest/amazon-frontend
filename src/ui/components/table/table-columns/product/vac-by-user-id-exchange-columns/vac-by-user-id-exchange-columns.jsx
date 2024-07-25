@@ -65,7 +65,7 @@ export const vacByUserIdExchangeColumns = () => [
     headerName: t(TranslationKey.Weight),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Weight)} />,
 
-    renderCell: params => <TextCell copyable={false} text={toFixedWithKg(params.value)} />,
+    renderCell: params => <TextCell text={toFixedWithKg(params.value)} />,
     type: 'number',
     width: 70,
   },
