@@ -29,18 +29,19 @@ export const ResultCell: FC<ResultCellProps> = observer(props => {
 
   const isCurrentPeriodValid = () => {
     const today = new Date()
+    today.setHours(0, 0, 0, 0)
     const dateToObj = new Date(row?.dateTo)
-    const dateFromObj = new Date(row?.dateFrom)
+    dateToObj.setHours(0, 0, 0, 0)
 
     if (!row?.dateTo || !row?.dateFrom) {
-      return true
+      return false
     }
 
-    return today <= dateToObj && today >= dateFromObj
+    return dateToObj < today
   }
   const handleRemoveLaunch = useCallback(() => onRemoveLaunch(row._id), [onRemoveLaunch, row._id])
 
-  const disabledResultField = useMemo(() => isCurrentPeriodValid(), [row?.expired, row?.dateTo, row?.dateFrom])
+  const disabledResultField = useMemo(() => !isCurrentPeriodValid(), [row?.dateTo])
 
   return (
     <div className={styles.wrapper}>
