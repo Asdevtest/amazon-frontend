@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   searchInput: {
-    width: 650,
+    width: 550,
   },
 
   datagridWrapper: {

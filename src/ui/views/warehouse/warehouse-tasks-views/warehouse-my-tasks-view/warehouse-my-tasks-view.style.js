@@ -13,7 +13,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: 550,
+    width: 470,
   },
 
   successRow: {

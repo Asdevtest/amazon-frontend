@@ -16,12 +16,5 @@ export const useStyles = makeStyles()(() => ({
 
   searchInput: {
     width: 440,
-
-    input: {
-      '&::placeholder': {
-        fontSize: 14,
-        lineHeight: '19px',
-      },
-    },
   },
 }))

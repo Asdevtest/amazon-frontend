@@ -48,7 +48,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     width: 305,
     height: 30,
-    border: `1px solid ${theme.palette.primary.main}`,
   },
 
   searchResult: {
