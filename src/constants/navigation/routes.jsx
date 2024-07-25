@@ -610,6 +610,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/users/sub-users',
     component: SubUsersView,
     exact: false,
+    permissionKey: permissionsKeys.buyer.SHOW_USERS_BUYER,
     permission: [UserRole.BUYER],
     crumbNameKey: TranslationKey['My users'],
 
@@ -820,6 +821,7 @@ export const privateRoutesConfigs = [
     component: BuyerFreeOrdersView,
     exact: false,
     permission: [UserRole.BUYER],
+    permissionKey: permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER,
 
     crumbNameKey: TranslationKey['Free orders'],
 
@@ -1363,7 +1365,7 @@ export const privateRoutesConfigs = [
     component: ClientInventoryView,
     exact: true,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
+    permissionKey: permissionsKeys.client.inventory.SHOW_INVENTORY_CLIENT,
     crumbNameKey: TranslationKey.Inventory,
 
     navigationInfo: {
@@ -1378,7 +1380,7 @@ export const privateRoutesConfigs = [
     component: ReportsView,
     exact: true,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_INVENTORY_LISTING_REPORTS,
+    permissionKey: permissionsKeys.client.inventory.SHOW_INVENTORY_LISTING_REPORTS,
     crumbNameKey: TranslationKey.Reports,
 
     navigationInfo: {
@@ -2035,6 +2037,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey['My users'],
+    permissionKey: permissionsKeys.supervisor.SHOW_USERS_SUPERVISOR,
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
@@ -2279,6 +2282,7 @@ export const privateRoutesConfigs = [
     component: SubUsersView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    permissionKey: permissionsKeys.storekeeper.SHOW_USERS_STOREKEEPER,
     crumbNameKey: TranslationKey['My users'],
 
     navigationInfo: {
@@ -2653,6 +2657,7 @@ export const privateRoutesConfigs = [
     component: SubUsersView,
     exact: false,
     permission: [UserRole.FREELANCER],
+    permissionKey: permissionsKeys.freelancer.SHOW_USERS_FREELANCER,
     crumbNameKey: TranslationKey['My users'],
 
     navigationInfo: {
@@ -2667,6 +2672,7 @@ export const privateRoutesConfigs = [
     component: FinancesView,
     exact: false,
     permission: [UserRole.FREELANCER],
+    permissionKey: permissionsKeys.freelancer.SHOW_PAYMENTS_FREELANCER,
     crumbNameKey: TranslationKey.Finances,
 
     navigationInfo: {
@@ -2697,6 +2703,7 @@ export const privateRoutesConfigs = [
     component: MyProposalsView,
     exact: true,
     permission: [UserRole.FREELANCER],
+    permissionKey: permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER,
     crumbNameKey: TranslationKey['My proposals'],
 
     navigationInfo: {
@@ -2711,6 +2718,7 @@ export const privateRoutesConfigs = [
     component: VacantRequestsView,
     exact: true,
     permission: [UserRole.FREELANCER],
+    permissionKey: permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER,
     crumbNameKey: TranslationKey['Vacant requests'],
 
     navigationInfo: {
@@ -2739,6 +2747,7 @@ export const privateRoutesConfigs = [
     component: SourceFilesView,
     exact: true,
     permission: [UserRole.FREELANCER],
+    permissionKey: permissionsKeys.freelancer.SHOW_SOURCES_FREELANCER,
     crumbNameKey: TranslationKey['Source Files'],
 
     navigationInfo: {
@@ -2795,6 +2804,7 @@ export const privateRoutesConfigs = [
     component: MessagesView,
     exact: false,
     permission: [UserRole.FREELANCER],
+    permissionKey: permissionsKeys.freelancer.SHOW_CHAT_FREELANCER,
     crumbNameKey: TranslationKey.Messages,
 
     navigationInfo: {
@@ -2809,6 +2819,7 @@ export const privateRoutesConfigs = [
     component: MyServicesView,
     exact: true,
     permission: [UserRole.FREELANCER],
+    permissionKey: permissionsKeys.freelancer.SHOW_ANNOUNCEMENTS_FREELANCER,
     crumbNameKey: TranslationKey['My services'],
 
     navigationInfo: {
@@ -3100,6 +3111,7 @@ export const privateRoutesConfigs = [
     component: ClientIdeasView,
     exact: true,
     permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.ideas.SHOW_NEW_IDEAS_CLIENT,
     crumbNameKey: t(TranslationKey['New ideas']),
 
     navigationInfo: {
@@ -3114,6 +3126,7 @@ export const privateRoutesConfigs = [
     component: ClientIdeasView,
     exact: true,
     permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.ideas.SHOW_ON_CHECKING_IDEAS_CLIENT,
     crumbNameKey: t(TranslationKey['On checking']),
 
     navigationInfo: {
@@ -3128,6 +3141,7 @@ export const privateRoutesConfigs = [
     component: ClientIdeasView,
     exact: true,
     permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.ideas.SHOW_SEARCH_SUPPLIER_IDEAS_CLIENT,
     crumbNameKey: t(TranslationKey['Search for suppliers']),
 
     navigationInfo: {
@@ -3142,6 +3156,7 @@ export const privateRoutesConfigs = [
     component: ClientIdeasView,
     exact: true,
     permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.ideas.SHOW_CREATE_CARD_IDEAS_CLIENT,
     crumbNameKey: t(TranslationKey['Creating a product card']),
 
     navigationInfo: {
@@ -3156,6 +3171,7 @@ export const privateRoutesConfigs = [
     component: ClientIdeasView,
     exact: true,
     permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.ideas.SHOW_ADD_ASIN_IDEAS_CLIENT,
     crumbNameKey: t(TranslationKey['Adding ASIN']),
 
     navigationInfo: {
@@ -3170,6 +3186,7 @@ export const privateRoutesConfigs = [
     component: ClientIdeasView,
     exact: true,
     permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT,
     crumbNameKey: t(TranslationKey['Realized ideas']),
 
     navigationInfo: {
@@ -3184,6 +3201,7 @@ export const privateRoutesConfigs = [
     component: ClientIdeasView,
     exact: true,
     permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.ideas.SHOW_CLOSED_IDEAS_CLIENT,
     crumbNameKey: t(TranslationKey['Rejected and closed']),
 
     navigationInfo: {
@@ -3198,6 +3216,7 @@ export const privateRoutesConfigs = [
     component: ClientIdeasView,
     exact: true,
     permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT,
     crumbNameKey: t(TranslationKey.All),
 
     navigationInfo: {

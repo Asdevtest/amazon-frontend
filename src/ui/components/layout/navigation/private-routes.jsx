@@ -60,6 +60,9 @@ export const PrivateRoutes = observer(() => {
     )
 
     const notAllowedRoute = !allowedRoutes?.some(elem => elem?.routePath === location.pathname)
+    const currentRoute = allowedRoutes?.find(elem => elem?.routePath === location.pathname)
+
+    console.log('currentRoute :>> ', currentRoute)
 
     return (
       <>
