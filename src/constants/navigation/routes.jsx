@@ -1059,7 +1059,7 @@ export const privateRoutesConfigs = [
     component: MyRequestsView,
     exact: true,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_FREELANCE_REQUESTS_CLIENT,
 
     crumbNameKey: TranslationKey['My requests'],
 
@@ -1093,7 +1093,7 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.CLIENT],
 
-    permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_FREELANCE_EXCHANGE_CLIENT,
 
     crumbNameKey: TranslationKey['Service exchange'],
 
@@ -1429,7 +1429,7 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.CLIENT],
 
-    permissionKey: permissionsKeys.client.SHOW_VACANT_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_COMEXCHANGE_RESEXCHANGE_CLIENT,
 
     crumbNameKey: TranslationKey['Research exchange'],
 
@@ -1445,7 +1445,7 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.CLIENT],
 
-    permissionKey: permissionsKeys.client.SHOW_VACANT_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_COMEXCHANGE_PRLABEL_CLIENT,
 
     crumbNameKey: TranslationKey['Private Label'],
 
@@ -1477,7 +1477,7 @@ export const privateRoutesConfigs = [
     component: ClientWarehouseTasksView,
     exact: false,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_TASKS_CLIENT,
 
     crumbNameKey: TranslationKey.Tasks,
 
@@ -1493,7 +1493,7 @@ export const privateRoutesConfigs = [
     component: ClientAwaitingBatchesView,
     exact: false,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_BATCHES_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_BATCHES_AWAITINGSEND_CLIENT,
 
     crumbNameKey: TranslationKey['Awaiting send'],
 
@@ -1509,7 +1509,7 @@ export const privateRoutesConfigs = [
     component: ClientSentBatchesView,
     exact: true,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_BATCHES_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_BATCHES_SENTBOXES_CLIENT,
 
     crumbNameKey: TranslationKey['Sent boxes'],
 
@@ -1541,7 +1541,7 @@ export const privateRoutesConfigs = [
     component: CategoryRootView,
     exact: true,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_SHOPS_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_STORES_CLIENT,
 
     crumbNameKey: TranslationKey.Shops,
 
@@ -1573,7 +1573,7 @@ export const privateRoutesConfigs = [
     component: ClientShopsReportView,
     exact: true,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_SHOPS_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_SHOPS_REPORTS_CLIENT,
 
     crumbNameKey: TranslationKey.Reports,
 
@@ -1606,7 +1606,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.CLIENT],
 
-    permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_BOXESINSTOCK_CLIENT,
 
     crumbNameKey: TranslationKey['Boxes in stock'],
 
@@ -1766,7 +1766,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.CLIENT],
 
-    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_ORDERS_CLIENT,
 
     crumbNameKey: TranslationKey['On orders'],
 
@@ -1783,7 +1783,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.CLIENT],
 
-    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_BOXES_CLIENT,
 
     crumbNameKey: TranslationKey['On boxes'],
 
@@ -1800,7 +1800,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.CLIENT],
 
-    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_BOXESTARIF_CLIENT,
 
     crumbNameKey: TranslationKey['On boxes tariffs'],
 
@@ -1817,7 +1817,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.CLIENT],
 
-    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_REQUESTS_CLIENT,
 
     crumbNameKey: TranslationKey['Request messages'],
 
@@ -1834,7 +1834,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.CLIENT],
 
-    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_GENERAL_CLIENT,
 
     crumbNameKey: TranslationKey['General notifications'],
 
@@ -2126,6 +2126,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/tasks/vacant-tasks',
     component: WarehouseVacantTasksView,
     exact: false,
+    permissionKey: permissionsKeys.storekeeper.SHOW_TASKS_NEWTASKS_STOREKEEPER,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey['New tasks'],
 
@@ -2139,6 +2140,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/tasks/my-tasks',
     component: WarehouseMyTasksView,
     exact: false,
+    permissionKey: permissionsKeys.storekeeper.SHOW_TASKS_MYTASKS_STOREKEEPER,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey['My tasks'],
 
@@ -2153,6 +2155,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/tasks/completed-tasks',
     component: WarehouseCompletedTasksView,
     exact: false,
+    permissionKey: permissionsKeys.storekeeper.SHOW_TASKS_COMPLETTASKS_STOREKEEPER,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey['Completed tasks'],
 
@@ -2167,6 +2170,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/tasks/canceled-tasks',
     component: WarehouseCanceledTasksView,
     exact: false,
+    permissionKey: permissionsKeys.storekeeper.SHOW_TASKS_CANCELTASKS_STOREKEEPER,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey['Canceled tasks'],
 
@@ -2197,6 +2201,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/batches/awaiting-batches',
     component: WarehouseAwaitingBatchesView,
     exact: false,
+    permissionKey: permissionsKeys.storekeeper.SHOW_BATCHES_AWAITINGSEND_STOREKEEPER,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey['Awaiting send'],
 
@@ -2211,6 +2216,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/batches/sent-batches',
     component: WarehouseSentBatchesView,
     exact: false,
+    permissionKey: permissionsKeys.storekeeper.SHOW_BATCHES_SENT_STOREKEEPER,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey.Sent,
 
@@ -2905,7 +2911,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.FREELANCER],
 
-    permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
+    permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_REQUESTS_FREELANCER,
 
     crumbNameKey: TranslationKey['Request messages'],
 
@@ -2922,7 +2928,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.FREELANCER],
 
-    permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
+    permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_GENERAL_FREELANCER,
 
     crumbNameKey: TranslationKey['General notifications'],
 
