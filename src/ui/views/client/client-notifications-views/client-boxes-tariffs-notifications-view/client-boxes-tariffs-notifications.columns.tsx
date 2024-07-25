@@ -57,12 +57,15 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       width: 150,
       renderCell: ({ row }) => (
         <ActionButtonsCell
+          isFirstRow
           isFirstButton
           isSecondButton
           firstButtonElement={t(TranslationKey.Confirm)}
           firstButtonStyle={ButtonStyle.PRIMARY}
           secondButtonElement={t(TranslationKey.Reject)}
           secondButtonStyle={ButtonStyle.DANGER}
+          firstButtonTooltipText={t(TranslationKey['Choose another tariff'])}
+          secondDescriptionText="The box will be returned to warehouse"
           onClickFirstButton={() => handlers.onTriggerOpenConfirmModal(row as IBox)}
           onClickSecondButton={() => handlers.onTriggerOpenRejectModal(row as IBox)}
         />
@@ -132,8 +135,15 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       headerName: t(TranslationKey.Tariff),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-      renderCell: params => <TextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
-      width: 200,
+      renderCell: params => (
+        <div>
+          <TextCell text={getNewTariffTextForBoxOrOrder(params.row)} />
+          <p style={{ color: 'red', fontSize: 12 }}>
+            {t(TranslationKey['The tariff is invalid or has been removed!'])}
+          </p>
+        </div>
+      ),
+      width: 240,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,

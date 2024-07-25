@@ -47,9 +47,7 @@ export const ClientBoxesTariffsNotificationsView = observer(() => {
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
-
             columnMenu: viewModel.columnMenuSettings,
-
             toolbar: {
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,
@@ -61,7 +59,6 @@ export const ClientBoxesTariffsNotificationsView = observer(() => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-
               sortSettings: {
                 sortModel: viewModel.sortModel,
                 columnsModel: viewModel.columnsModel,
