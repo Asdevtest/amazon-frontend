@@ -10,14 +10,12 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { filterNullValues } from '@utils/object'
 
-const persistProperties = ['accessToken', 'userInfo', 'masterUserId', 'userId', 'refreshToken', 'platformSettings']
+const persistProperties = ['accessToken', 'userInfo', 'refreshToken', 'platformSettings']
 
 class UserModelStatic {
   accessToken = undefined
   refreshToken = undefined
   userInfo = undefined
-  userId = undefined // не получилось обойти ошибку "Property '_Id' does not exist on type 'never'." в тайпскрипт, по этому создал отдельную переменнную
-  masterUserId = undefined
   platformSettings = undefined
 
   constructor() {
@@ -35,8 +33,6 @@ class UserModelStatic {
       this.accessToken = undefined
       this.refreshToken = undefined
       this.userInfo = undefined
-      this.userId = undefined
-      this.masterUserId = undefined
       this.platformSettings = undefined
     })
     SettingsModel.setAuthorizationData('', '')
@@ -99,15 +95,11 @@ class UserModelStatic {
 
       runInAction(() => {
         this.userInfo = { ...this.userInfo, ...response }
-        this.userId = response._id
-        this.masterUserId = response.masterUser?._id
       })
       return response
     } catch (error) {
       this.accessToken = undefined
       this.userInfo = undefined
-      this.userId = undefined
-      this.masterUserId = undefined
       ChatModel.disconnect()
 
       SettingsModel.setBreadcrumbsForProfile(null)
@@ -124,8 +116,6 @@ class UserModelStatic {
     } catch (error) {
       this.accessToken = undefined
       this.userInfo = undefined
-      this.userId = undefined
-      this.masterUserId = undefined
 
       ChatModel.disconnect()
 
@@ -272,7 +262,7 @@ class UserModelStatic {
     try {
       const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
 
-      runInAction(() => (this.platformSetting = response.data))
+      runInAction(() => (this.platformSettings = response.data))
     } catch (error) {
       console.error(error)
     }

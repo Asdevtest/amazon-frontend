@@ -8,6 +8,8 @@ import { UserModel } from '@models/user-model'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
+import { IFullUser } from '@typings/shared/full-user'
+
 import { useStyles } from './user-link.style'
 
 interface UserLinkProps {
@@ -47,7 +49,7 @@ export const UserLink: FC<UserLinkProps> = memo(
   }) => {
     const { classes: styles } = useStyles()
 
-    const curUserId = UserModel.userId
+    const curUserId = (UserModel.userInfo as unknown as IFullUser)?._id
 
     return (
       <>

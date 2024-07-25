@@ -30,6 +30,7 @@ import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-ch
 
 import { PaginationDirection } from '@typings/enums/pagination-direction'
 import { IShutdownNotice } from '@typings/models/chats/shutdown-notice'
+import { IFullUser } from '@typings/shared/full-user'
 
 import { ChatContract, SendMessageRequestParamsContract } from './contracts'
 import { ChatMessageContract, TChatMessageDataUniversal } from './contracts/chat-message.contract'
@@ -52,7 +53,7 @@ class ChatModelStatic {
   public toggleServerSettings?: IShutdownNotice
 
   get userId() {
-    return UserModel.userId
+    return (UserModel.userInfo as unknown as IFullUser)?._id
   }
 
   get unreadMessages() {
