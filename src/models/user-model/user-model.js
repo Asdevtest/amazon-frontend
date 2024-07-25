@@ -18,16 +18,11 @@ class UserModelStatic {
   userInfo = undefined
   userId = undefined // не получилось обойти ошибку "Property '_Id' does not exist on type 'never'." в тайпскрипт, по этому создал отдельную переменнную
   masterUserId = undefined
-  isHydrated = false
   platformSettings = undefined
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
-    makePersistable(this, { name: LOCAL_STORAGE_KEYS.USER_MODEL, properties: persistProperties }).then(persistStore => {
-      runInAction(() => {
-        this.isHydrated = persistStore.isHydrated
-      })
-    })
+    makePersistable(this, { name: LOCAL_STORAGE_KEYS.USER_MODEL, properties: persistProperties })
   }
 
   isAuthenticated() {

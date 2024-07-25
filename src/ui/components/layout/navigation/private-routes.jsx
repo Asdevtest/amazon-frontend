@@ -78,10 +78,6 @@ export const PrivateRoutes = observer(() => {
     )
   }
 
-  if (!UserModel.isHydrated) {
-    return <div />
-  }
-
   if (!UserModel.userInfo) {
     return <Redirect to={'/auth'} />
   }

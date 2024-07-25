@@ -1,13 +1,11 @@
 import axios from 'axios'
 import { compareVersions } from 'compare-versions'
-import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
 
 import { appVersion } from '@constants/app-version'
 import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
-
-import { setI18nConfig } from '@utils/translations'
 
 import { LanguageKey } from '@typings/enums/language-key'
 import { UiTheme } from '@typings/enums/ui-theme'
@@ -33,7 +31,7 @@ class SettingsModelStatic {
 
   languageTag = LanguageKey.en
   uiTheme = UiTheme.light
-  isHydrated = false
+
   breadcrumbsForProfile = null
   showHints = true
 
@@ -58,21 +56,6 @@ class SettingsModelStatic {
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
     makePersistable(this, { name: LOCAL_STORAGE_KEYS.SETTINGS_MODEL, properties: persistProperties })
-      .then(({ isHydrated }) => {
-        runInAction(() => {
-          this.isHydrated = isHydrated
-        })
-      })
-      .catch(error => console.error(error))
-    reaction(
-      () => this.isHydrated,
-
-      isHydrated => {
-        if (isHydrated) {
-          setI18nConfig()
-        }
-      },
-    )
 
     this.setIntervalCheckAppVersion()
   }

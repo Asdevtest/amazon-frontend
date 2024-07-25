@@ -56,7 +56,7 @@ export const globalStyles = theme => ({
   '.MuiDataGrid-main': {
     borderRadius: '0 0 20px 20px',
 
-    '> div:nth-child(3)': {
+    '> div:nth-of-type".(3)': {
       display: 'none',
     },
   },
