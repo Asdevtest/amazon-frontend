@@ -134,7 +134,7 @@ export const FieldsAndSuppliers = memo(props => {
                     onClickParseProductData(product)
                   }}
                 >
-                  {'Parse Product Data'}
+                  Parse Product Data
                 </Button>
               ) : null}
             </div>
@@ -272,45 +272,41 @@ export const FieldsAndSuppliers = memo(props => {
             </div>
           </div>
 
-          <Box mt={3} className={styles.strategyWrapper}>
-            <div>
-              <Field
-                tooltipInfoContent={t(TranslationKey['Choose a product strategy'])}
-                label={t(TranslationKey['Product Strategy'])}
-                inputComponent={
-                  <Select
-                    displayEmpty
-                    disabled={
-                      !(
-                        checkIsResearcher(curUserRole) ||
-                        (checkIsClient(curUserRole) &&
-                          product?.isCreatedByClient &&
-                          clientToEditStatuses.includes(productBase.status) &&
-                          checkIsClient(curUserRole) &&
-                          !product?.archive)
-                      )
-                    }
-                    value={product?.strategyStatus}
-                    className={styles.nativeSelect}
-                    onChange={onChangeField?.('strategyStatus')}
-                  >
-                    {Object.keys(productStrategyStatusesEnum).map((statusCode, statusIndex) => (
-                      <MenuItem
-                        key={statusIndex}
-                        value={statusCode}
-                        className={styles.strategyOption}
-                        disabled={
-                          checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode))
-                        }
-                      >
-                        {productStrategyStatusesEnum[statusCode]?.replace(/_/g, ' ')}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                }
-              />
-            </div>
-          </Box>
+          <div className={styles.strategyWrapper}>
+            <Field
+              tooltipInfoContent={'Choose a product strategy'}
+              label={t(TranslationKey['Product Strategy'])}
+              inputComponent={
+                <Select
+                  displayEmpty
+                  disabled={
+                    !(
+                      checkIsResearcher(curUserRole) ||
+                      (checkIsClient(curUserRole) &&
+                        product?.isCreatedByClient &&
+                        clientToEditStatuses.includes(productBase.status) &&
+                        checkIsClient(curUserRole) &&
+                        !product?.archive)
+                    )
+                  }
+                  value={product?.strategyStatus}
+                  className={styles.nativeSelect}
+                  onChange={onChangeField?.('strategyStatus')}
+                >
+                  {Object.keys(productStrategyStatusesEnum).map((statusCode, statusIndex) => (
+                    <MenuItem
+                      key={statusIndex}
+                      value={statusCode}
+                      className={styles.strategyOption}
+                      disabled={checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode))}
+                    >
+                      {productStrategyStatusesEnum[statusCode]?.replace(/_/g, ' ')}
+                    </MenuItem>
+                  ))}
+                </Select>
+              }
+            />
+          </div>
         </div>
 
         {(showActionBtns || !!product?.tags?.length) && (
@@ -545,7 +541,7 @@ export const FieldsAndSuppliers = memo(props => {
               checked={product?.transparency}
               onChange={e => onChangeField?.('transparency')(e.target.checked)}
             >
-              {t(TranslationKey['Transparency codes'])}
+              {t(TranslationKey['Transparency Codes'])}
             </Checkbox>
           )}
         </div>

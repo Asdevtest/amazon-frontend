@@ -1,3 +1,4 @@
+import { Tooltip } from 'antd'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
@@ -10,7 +11,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { OtherModel } from '@models/other-model'
 
 import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
-import { BoxForm } from '@components/forms/box-form'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -35,18 +35,17 @@ import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './batch-info-modal.style'
 
+import { BoxModal } from '../box-modal'
+
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
 export const BatchInfoModal = observer(
-  ({ openModal, setOpenModal, batch, onSubmitChangeBoxFields, onClickHsCode, patchActualShippingCostBatch }) => {
+  ({ openModal, setOpenModal, batch, onSubmitChangeBoxFields, patchActualShippingCostBatch }) => {
     const { classes: styles, cx } = useStyles()
 
     const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel(true))
-
     const [isFileDownloading, setIsFileDownloading] = useState(false)
-
     const [nameSearchValue, setNameSearchValue] = useState('')
-
     const [currentBatch, setCurrentBatch] = useState(undefined)
 
     useEffect(() => {
@@ -83,7 +82,8 @@ export const BatchInfoModal = observer(
                   String(item.order.item)?.toLowerCase().includes(nameSearchValue.toLowerCase()),
               ) ||
               String(el.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-              String(el.fbaShipment)?.toLowerCase().includes(nameSearchValue.toLowerCase()),
+              String(el.fbaShipment)?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              el.prepId?.toLowerCase().includes(nameSearchValue.toLowerCase()),
           ),
         )
       } else {
@@ -306,14 +306,20 @@ export const BatchInfoModal = observer(
               }
             />
 
-            <SearchInput
-              inputClasses={styles.searchInput}
-              value={nameSearchValue}
-              placeholder={`${t(TranslationKey.ASIN)}, ${t(TranslationKey.Title)}, ${t(TranslationKey.Order)}, ${t(
+            <Tooltip
+              title={`${t(TranslationKey.ASIN)}, ${t(TranslationKey.Title)}, ${t(TranslationKey.Order)}, ${t(
                 TranslationKey['Box ID'],
-              )}, FBA Shipment`}
-              onChange={e => setNameSearchValue(e.target.value)}
-            />
+              )}, FBA Shipment, Prep Id`}
+            >
+              <div>
+                <SearchInput
+                  inputClasses={styles.searchInput}
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey.Search)}
+                  onChange={e => setNameSearchValue(e.target.value)}
+                />
+              </div>
+            </Tooltip>
           </div>
 
           <div className={styles.tableWrapper}>
@@ -386,12 +392,10 @@ export const BatchInfoModal = observer(
             openModal={viewModel.showBoxViewModal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           >
-            <BoxForm
-              userInfo={viewModel.userInfo}
-              box={viewModel.curBox}
+            <BoxModal
+              boxId={viewModel.curBox}
+              onUpdateData={viewModel.getCurrentData}
               onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-              onSubmitChangeFields={onSubmitChangeBoxFields}
-              onClickHsCode={onClickHsCode}
             />
           </Modal>
         </div>

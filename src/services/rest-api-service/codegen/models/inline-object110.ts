@@ -21,17 +21,35 @@
  */
 export interface InlineObject110 {
     /**
-     * Время закрытия заявки.
+     * Файл для записи в FreelanceSource
      * @type {string}
      * @memberof InlineObject110
      */
-    timeoutAt: string;
+    sourceFile: string;
     /**
-     * Количество предложений. null без лимитов
-     * @type {number}
+     * Комментарий к файлу
+     * @type {string}
      * @memberof InlineObject110
      */
-    maxAmountOfProposals?: number;
+    comment?: string;
+    /**
+     * GUID специализации фрилансера
+     * @type {string}
+     * @memberof InlineObject110
+     */
+    specId: string;
+    /**
+     * гуид продукта
+     * @type {string}
+     * @memberof InlineObject110
+     */
+    productId: string;
+    /**
+     * Гуид пропоузала
+     * @type {string}
+     * @memberof InlineObject110
+     */
+    proposalId?: string;
 }
 
 

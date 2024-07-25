@@ -1,4 +1,4 @@
-import { makeObservable, runInAction } from 'mobx'
+import { makeObservable } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
@@ -15,10 +15,14 @@ import { observerConfig } from './observer-config'
 export class AdminWarehouseBoxesViewModel extends DataGridFilterTableModel {
   showBoxViewModal = false
 
-  curBox: IBox | null = null
+  curBox: string = ''
 
   constructor() {
     const columnsModel = adminWarehouseBoxesColumns()
+
+    const operatorsSettings = {
+      destination: '$any',
+    }
 
     super({
       getMainDataMethod: BoxesModel.getBoxes,
@@ -27,6 +31,7 @@ export class AdminWarehouseBoxesViewModel extends DataGridFilterTableModel {
       mainMethodURL: 'boxes?',
       fieldsForSearch: ['asin', 'skuByClient', 'amazonTitle'],
       tableKey: DataGridTablesKeys.ADMIN_BOXES,
+      operatorsSettings,
     })
 
     makeObservable(this, observerConfig)
@@ -39,11 +44,7 @@ export class AdminWarehouseBoxesViewModel extends DataGridFilterTableModel {
 
   async setCurrentOpenedBox(row: IBox) {
     try {
-      const response = await BoxesModel.getBoxById(row._id)
-
-      runInAction(() => {
-        this.curBox = response as IBox
-      })
+      this.curBox = row._id
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {

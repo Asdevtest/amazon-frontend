@@ -1,4 +1,4 @@
-import { ChangeInputCommentCell, DatePickerCell } from '..'
+import { DatePickerCell, TextCell } from '..'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,18 +12,16 @@ import { useStyles } from './batch-tracking-cell.style'
 interface BatchTrackingCellProps {
   rowHandlers: {
     onClickSaveTrackingNumber: (id: string, value: string) => void
-    onClickSaveArrivalDate: (value: string) => void
+    onClickSaveArrivalDate: (id: string, value: string) => void
   }
   id: string
   trackingNumber: string
   arrivalDate: string
   disabled?: boolean
-  disableMultilineForTrack?: boolean
-  disabledArrivalDate?: boolean
 }
 
 export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
-  ({ rowHandlers, id, trackingNumber, arrivalDate, disabled, disabledArrivalDate, disableMultilineForTrack }) => {
+  ({ rowHandlers, id, trackingNumber, arrivalDate, disabled }) => {
     const { classes: styles } = useStyles()
 
     return (
@@ -33,11 +31,8 @@ export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
           label={t(TranslationKey['Track number'])}
           labelClasses={styles.batchTrackingTitle}
           inputComponent={
-            <ChangeInputCommentCell
-              disableMultiline={disableMultilineForTrack}
-              disabled={disabled}
-              maxLength={64}
-              placeholder={t(TranslationKey['Enter track number'])}
+            <TextCell
+              editMode={!disabled}
               text={trackingNumber}
               onClickSubmit={value => rowHandlers?.onClickSaveTrackingNumber(id, value)}
             />
@@ -50,10 +45,10 @@ export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
           labelClasses={styles.batchTrackingTitle}
           inputComponent={
             <DatePickerCell
-              disabled={disabledArrivalDate}
+              disabled={disabled}
               id={id}
               arrivalDate={arrivalDate}
-              onClickSaveArrivalDate={rowHandlers?.onClickSaveArrivalDate}
+              onClickSaveArrivalDate={value => rowHandlers?.onClickSaveArrivalDate(id, value)}
             />
           }
         />

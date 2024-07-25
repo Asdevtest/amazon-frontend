@@ -39,7 +39,6 @@ export interface ProductAndBatchModalProps {
   onChangeSwitcher: () => void
   onClickMyOrderModal: (id: string) => void
   onOpenProductDataModal: (onAmazon: boolean) => void
-  onClickHsCode: (id: string) => void
   patchActualShippingCostBatch: (id: string, value: number) => void
 }
 
@@ -54,7 +53,6 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
     onChangeSwitcher,
     onClickMyOrderModal,
     onOpenProductDataModal,
-    onClickHsCode,
     patchActualShippingCostBatch,
   } = props
 
@@ -166,7 +164,6 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
           openModal={showBatchModal}
           setOpenModal={handleShowModalBatchModal}
           patchActualShippingCostBatch={patchActualShippingCostBatch}
-          onClickHsCode={onClickHsCode}
         />
       ) : null}
     </>

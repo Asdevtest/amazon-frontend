@@ -12,7 +12,7 @@ import { useStyles } from './batch-boxes-cell.style'
 
 interface BatchBoxesCellProps {
   boxes: any[]
-  productViewMode: keyof typeof tableProductViewMode
+  productViewMode?: keyof typeof tableProductViewMode
 }
 
 export const BatchBoxesCell: FC<BatchBoxesCellProps> = memo(({ boxes, productViewMode }) => {

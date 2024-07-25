@@ -14,9 +14,9 @@ import { NavbarCollapse } from '@components/layout/navbar/navbar-collapse'
 import { NavbarModel } from '@components/layout/navbar/navbar.model'
 import { FeedbackIcon } from '@components/shared/svg-icons'
 
-import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { isAdmin, isModerator } from '@typings/guards/roles'
 import { IInfoCounters } from '@typings/shared/info-counters'
 import { NavbarConfigTypes } from '@typings/shared/navbar-config'
 
@@ -81,7 +81,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
     <div className={styles.mainSubWrapper}>
       <List className={styles.categoriesWrapper}>
         {filteredCategories.map((category: NavbarConfigTypes.Route, index: number) =>
-          category.checkHideBlock(userInfo) ? (
+          category?.checkHideBlock?.(userInfo) ? (
             <Fragment key={index}>
               <NavbarCategory
                 // @ts-ignore
@@ -110,7 +110,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
 
       <div className={styles.bottomCategories}>
         {filteredBottomCategories.map((category: NavbarConfigTypes.Route, index: number) =>
-          category.checkHideBlock(userInfo) ? (
+          category?.checkHideBlock?.(userInfo) ? (
             <NavbarCategory
               key={index}
               // @ts-ignore
@@ -123,7 +123,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
           ) : null,
         )}
 
-        {!checkIsAdmin(UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap]) ? (
+        {!isAdmin(userInfo.role) && !isModerator(userInfo.role) ? (
           <div
             className={cx(styles.feedBackButton, { [styles.shortFeedBackButton]: shortNavbar })}
             onClick={() => onTriggerOpenModal('showFeedbackModal')}

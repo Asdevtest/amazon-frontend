@@ -59,8 +59,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   paymentMethods = []
 
-  hsCodeData = {}
-
   curProduct = undefined
 
   productsToLaunch = []
@@ -74,14 +72,12 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   selectedRowId = undefined
   showOrderModal = false
-  showSuccessModal = false
   showCheckPendingOrderFormModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
   showSendOwnProductModal = false
   showBindInventoryGoodsToStockModal = false
   showConfirmModal = false
-  showSetChipValueModal = false
   showBarcodeOrHscodeModal = false
   showSetFourMonthsStockValueModal = false
   showCircularProgressModal = false
@@ -100,7 +96,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   onAmazon = false
   isBatches = false
 
-  successModalText = ''
   confirmMessage = ''
   currentBarcode = ''
   currentHscode = ''
@@ -225,7 +220,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     const hsCodeHandlers = {
       onClickHsCode: item => this.onClickHsCode(item),
-      onDoubleClickHsCode: item => this.onDoubleClickHsCode(item),
       onDeleteHsCode: item => this.onDeleteHsCode(item),
       showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
     }
@@ -850,25 +844,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     this.onTriggerOpenModal('showSelectionSupplierModal')
   }
 
-  async onClickSaveHsCode(hsCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: this.selectedProduct._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    await this.getCurrentData()
-
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
-  }
-
   async onClickSaveBarcode(tmpBarCode) {
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
@@ -914,20 +889,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
 
-  async onClickHsCode(item) {
-    try {
-      this.setSelectedProduct(item)
+  onClickHsCode(item) {
+    this.setSelectedProduct(item)
 
-      const response = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
-
-      runInAction(() => {
-        this.hsCodeData = response
-      })
-
-      this.onTriggerOpenModal('showEditHSCodeModal')
-    } catch (error) {
-      console.error(error)
-    }
+    this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
   async onClickSaveFourMonthesStockValue(productId, fourMonthesStock) {
@@ -1100,11 +1065,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         })
       }
 
-      runInAction(() => {
-        this.successModalText = t(TranslationKey['Supplier added'])
-      })
-
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Supplier added']))
 
       await this.getCurrentData()
     } catch (error) {
@@ -1140,10 +1101,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       await this.getCurrentData()
 
-      runInAction(() => {
-        this.successModalText = t(TranslationKey['Products will be updated soon'])
-      })
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Products will be updated soon']))
+
       this.showCircularProgressModal = false
     } catch (error) {
       runInAction(() => {
@@ -1411,11 +1370,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
 
-  onDoubleClickHsCode = item => {
-    this.setSelectedProduct(item)
-    this.onTriggerOpenModal('showSetChipValueModal')
-  }
-
   async onDeleteBarcode(product) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
@@ -1467,10 +1421,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       await SellerBoardModel.bindStockProductsBySku(data)
       this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
 
-      runInAction(() => {
-        this.successModalText = t(TranslationKey['Goods are bound'])
-      })
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Goods are bound']))
 
       await this.getCurrentData()
     } catch (error) {

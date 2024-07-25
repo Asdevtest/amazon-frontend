@@ -2,7 +2,7 @@
 import { FC, memo } from 'react'
 
 import { Checkbox } from '@components/shared/checkbox'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { useStyles as useSharedStyles } from '../column-menu.style'
 
@@ -50,9 +50,11 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
 
   return (
     <div className={sharedStyles.columnMenuWrapper}>
-      <SearchInput
+      <CustomInputSearch
+        allowClear
+        placeholder="Search"
         value={nameSearchValue}
-        inputClasses={sharedStyles.searchInput}
+        wrapperClassName={sharedStyles.searchInput}
         onChange={e => setNameSearchValue(e.target.value)}
       />
 

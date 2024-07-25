@@ -60,11 +60,17 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['Service exchange']),
           subRoute: '/client/freelance/service-exchange',
           key: navBarActiveSubCategory.SUB_NAVBAR_SERVICE_EXCHANGE,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_FREELANCE_EXCHANGE_CLIENT),
         },
         {
           subtitle: () => t(TranslationKey['My requests']),
           subRoute: '/client/freelance/my-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_FREELANCE_REQUESTS_CLIENT),
         },
         // {
         //   subtitle: () =>  t(TranslationKey['Vacant requests']),
@@ -186,8 +192,20 @@ export const navbarConfig = {
       title: () => t(TranslationKey['Commodity exchange']),
       route: '/client/product-exchange',
       subtitles: [
-        { subtitle: () => t(TranslationKey['Research exchange']), subRoute: '/client/product-exchange/forks-exchange' },
-        { subtitle: () => 'Private label', subRoute: '/client/product-exchange/private-label' },
+        {
+          subtitle: () => t(TranslationKey['Research exchange']),
+          subRoute: '/client/product-exchange/forks-exchange',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_COMEXCHANGE_RESEXCHANGE_CLIENT),
+        },
+        {
+          subtitle: () => 'Private label',
+          subRoute: '/client/product-exchange/private-label',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_COMEXCHANGE_PRLABEL_CLIENT),
+        },
       ],
       key: navBarActiveCategory.NAVBAR_EXCHANGE,
       checkHideBlock: user =>
@@ -258,18 +276,18 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['Boxes in stock']),
           subRoute: '/client/warehouse/in-stock',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_WAREHOUSE_BOXESINSTOCK_CLIENT),
         },
-
-        // {
-        //   subtitle: () =>  t(TranslationKey['Boxes ready to send']),
-        //   subRoute: '/client/warehouse/boxes-ready-to-batch',
-        //   key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
-        // },
 
         {
           subtitle: () => t(TranslationKey.Tasks),
           subRoute: '/client/warehouse/tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_TASKS,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_WAREHOUSE_TASKS_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
@@ -286,11 +304,17 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['Awaiting send']),
           subRoute: '/client/batches/awaiting-batch',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_BATCHES_AWAITINGSEND_CLIENT),
         },
         {
           subtitle: () => t(TranslationKey['Sent boxes']),
           subRoute: '/client/batches/sent-batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BATCHES,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_BATCHES_SENTBOXES_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_BATCHES,
@@ -312,12 +336,27 @@ export const navbarConfig = {
       title: () => t(TranslationKey.Shops),
       route: '/client/shops',
       key: navBarActiveCategory.NAVBAR_SHOPS,
-      checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.client.SHOW_SHOPS_CLIENT),
       subtitles: [
-        { subtitle: () => t(TranslationKey.Shops), subRoute: '/client/shops/shops' },
-        { subtitle: () => t(TranslationKey.Reports), subRoute: '/client/shops/reports' },
+        {
+          subtitle: () => t(TranslationKey.Shops),
+          subRoute: '/client/shops/shops',
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_SHOPS_CLIENT),
+        },
+        {
+          subtitle: () => t(TranslationKey.Reports),
+          subRoute: '/client/shops/reports',
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_SHOPS_REPORTS_CLIENT),
+        },
       ],
+
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.client.SHOW_STORES_CLIENT),
     },
 
     {
@@ -335,21 +374,45 @@ export const navbarConfig = {
       title: () => t(TranslationKey.Notifications),
       route: '/client/notifications',
       subtitles: [
-        { subtitle: () => t(TranslationKey['On orders']), subRoute: '/client/notifications/orders-notifications' },
-        { subtitle: () => t(TranslationKey['On boxes']), subRoute: '/client/notifications/boxes-notifications' },
+        {
+          subtitle: () => t(TranslationKey['On orders']),
+          subRoute: '/client/notifications/orders-notifications',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_ORDERS_CLIENT),
+        },
+        {
+          subtitle: () => t(TranslationKey['On boxes']),
+          subRoute: '/client/notifications/boxes-notifications',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_BOXES_CLIENT),
+        },
         {
           subtitle: () => t(TranslationKey['On boxes tariffs']),
           subRoute: '/client/notifications/tariffs-notifications',
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_BOXESTARIF_CLIENT),
         },
         // { subtitle: () =>  t(TranslationKey['On ideas']), subRoute: '/client/notifications/ideas-notifications' },
         {
           subtitle: () => t(TranslationKey['Request messages']),
           subRoute: '/client/notifications/freelance-notifications',
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_REQUESTS_CLIENT),
         },
         {
           subtitle: () => t(TranslationKey['General notifications']),
           key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
           subRoute: '/client/notifications/general-notifications-view',
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_GENERAL_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
@@ -535,11 +598,19 @@ export const navbarConfig = {
         {
           subtitle: () => t(TranslationKey['Request messages']),
           subRoute: '/freelancer/notifications/freelance-notifications',
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_NOTIFICATIONS_REQUESTS_FREELANCER),
         },
         {
           subtitle: () => t(TranslationKey['General notifications']),
           key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
           subRoute: '/freelancer/notifications/general-notifications-view',
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_NOTIFICATIONS_GENERAL_FREELANCER),
         },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
@@ -655,7 +726,7 @@ export const navbarConfig = {
 
     {
       icon: FreeOrdersIcon,
-      title: () => t(TranslationKey['Free Orders']),
+      title: () => t(TranslationKey['Free orders']),
       route: '/buyer/free-orders',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
@@ -875,22 +946,34 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['New tasks']),
           subRoute: '/warehouse/tasks/vacant-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_VAC_TASKS,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_TASKS_NEWTASKS_STOREKEEPER),
         },
         {
           subtitle: () => t(TranslationKey['My tasks']),
           subRoute: '/warehouse/tasks/my-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_TASKS_MYTASKS_STOREKEEPER),
         },
 
         {
           subtitle: () => t(TranslationKey['Completed tasks']),
           subRoute: '/warehouse/tasks/completed-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_COMPLETED_TASKS,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_TASKS_COMPLETTASKS_STOREKEEPER),
         },
         {
           subtitle: () => t(TranslationKey['Canceled tasks']),
           subRoute: '/warehouse/tasks/canceled-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_TASKS_CANCELTASKS_STOREKEEPER),
         },
       ],
       route: '/warehouse/tasks',
@@ -921,11 +1004,19 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['Awaiting send']),
           subRoute: '/warehouse/batches/awaiting-batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES,
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_BATCHES_AWAITINGSEND_STOREKEEPER),
         },
         {
           subtitle: () => t(TranslationKey.Sent),
           subRoute: '/warehouse/batches/sent-batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BATCHES,
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_BATCHES_SENT_STOREKEEPER),
         },
       ],
 
@@ -1173,6 +1264,14 @@ export const navbarConfig = {
       subtitles: null,
       route: '/moderator/settings',
       key: navBarActiveCategory.NAVBAR_SETTINGS,
+      checkHideBlock: () => true,
+    },
+    {
+      icon: FeedbackIcon,
+      title: () => t(TranslationKey.Feedback),
+      subtitles: null,
+      route: '/moderator/feedback',
+      key: navBarActiveCategory.NAVBAR_FEEDBACK,
       checkHideBlock: () => true,
     },
     {

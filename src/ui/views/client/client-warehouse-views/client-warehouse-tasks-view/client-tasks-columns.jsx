@@ -2,7 +2,6 @@ import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ChangeInputCommentCell,
   CheckboxCell,
   ClientTasksActionBtnsCell,
   MultilineTextHeaderCell,
@@ -12,6 +11,7 @@ import {
   TaskPriorityCell,
   TaskStatusCell,
   TaskTypeCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -24,11 +24,12 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-      width: 250,
+      width: 160,
 
       renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row} />,
       filterable: false,
       disableCustomSort: true,
+      align: 'center',
     },
 
     {
@@ -58,8 +59,8 @@ export const clientTasksViewColumns = handlers => {
       width: 280,
 
       renderCell: params => (
-        <ChangeInputCommentCell
-          rowsCount={4}
+        <TextCell
+          editMode
           text={params.row.reason}
           onClickSubmit={reason => handlers.updateTaskComment(params.row._id, params.row.priority, reason)}
         />

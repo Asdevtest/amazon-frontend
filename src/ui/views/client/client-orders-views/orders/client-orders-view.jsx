@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { ProductDataForm } from '@components/forms/product-data-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { MyOrderModal } from '@components/modals/my-order-modal/my-order-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal'
@@ -125,17 +124,6 @@ export const ClientOrdersView = observer(history => {
       </Modal>
 
       <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-      >
-        <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-        />
-      </Modal>
-
-      <Modal
         openModal={viewModel.showProductModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
       >
@@ -150,7 +138,6 @@ export const ClientOrdersView = observer(history => {
           onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
           onClickMyOrderModal={viewModel.onClickMyOrderModal}
           onOpenProductDataModal={viewModel.onOpenProductDataModal}
-          onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
 

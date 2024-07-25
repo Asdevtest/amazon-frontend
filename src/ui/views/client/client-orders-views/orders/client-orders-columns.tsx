@@ -15,13 +15,12 @@ import {
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
   ManyUserLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OpenInNewTabCell,
   PriorityAndChinaDeliverCell,
   ProductAsinCell,
-  ToFixedWithKgSignCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -35,6 +34,7 @@ import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 import {
   productionTimeColumnMenuItems,
   productionTimeColumnMenuValue,
@@ -65,7 +65,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.ID) + ' / item',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
       valueGetter: params => params.row.idItem,
-      renderCell: params => <MultilineTextCell text={`${params.row.id || '-'} / ${params.row.item || '-'}`} />,
+      renderCell: params => <TextCell text={`${params.row.id || '-'} / ${params.row.item || '-'}`} />,
       width: 100,
 
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
@@ -75,7 +75,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'shopId',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: params => <MultilineTextCell twoLines text={params.row?.product?.shop?.name} />,
+      renderCell: params => <TextCell text={params.row?.product?.shop?.name} />,
       width: 100,
 
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
@@ -116,11 +116,13 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
           />
         )
       },
-      width: 280,
 
-      table: DataGridFilterTables.PRODUCTS,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
+      width: 260,
+      minWidth: 100,
     },
 
     {
@@ -128,8 +130,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: params => (
-        <MultilineTextCell
-          maxLength={50}
+        <TextCell
           text={OrderStatusTranslate(OrderStatusByCode[params.row.status as keyof typeof OrderStatusByCode])}
           color={orderColorByStatus(OrderStatusByCode[params.row.status as keyof typeof OrderStatusByCode])}
         />
@@ -173,7 +174,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-      width: 200,
+      width: 210,
       renderCell: params => (
         <DownloadAndCopyBtnsCell
           value={params.row?.product?.barCode}
@@ -192,7 +193,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'amount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 100,
       type: 'number',
 
@@ -236,22 +237,22 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
     },
 
     {
-      field: 'destination',
-      headerName: t(TranslationKey['Where to']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
-      renderCell: params => <MultilineTextCell leftAlign threeLines text={params.row.destination?.name} />,
-      valueGetter: params => params.row.destination?.name,
-      width: 140,
-      disableCustomSort: true,
+      field: 'logicsTariff',
+      headerName: t(TranslationKey.Tariff),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
+      renderCell: params => <TextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
+      width: 200,
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {
-      field: 'logicsTariff',
-      headerName: t(TranslationKey.Tariff),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-      renderCell: params => <MultilineTextCell threeLines text={getNewTariffTextForBoxOrOrder(params.row)} />,
-      width: 180,
+      field: 'destination',
+      headerName: t(TranslationKey['Where to']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
+      renderCell: params => <TextCell text={params.row.destination?.name} />,
+      valueGetter: params => params.row.destination?.name,
+      width: 140,
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
@@ -263,7 +264,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
         const supplier = params.row.orderSupplier
 
         return (
-          <MultilineTextCell
+          <TextCell
             text={
               supplier ? `${supplier?.minProductionTerm} - ${supplier?.maxProductionTerm}` : t(TranslationKey.Missing)
             }
@@ -289,7 +290,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Deadline),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: params =>
-        params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <MultilineTextCell text={'-'} />,
+        params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <TextCell text={'-'} />,
       width: 100,
       valueGetter: params => (params.value ? formatDate(params.value) : ''),
       columnKey: columnnsKeys.shared.DATE,
@@ -299,8 +300,8 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'needsResearch',
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
-      renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
-      width: 180,
+      renderCell: params => <TextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+      width: 140,
 
       columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
     },
@@ -309,7 +310,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'totalPrice',
       headerName: t(TranslationKey['Total price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
       valueFormatter: params => toFixedWithDollarSign(params.value, 2),
       width: 140,
       type: 'number',
@@ -321,7 +322,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'weight',
       headerName: t(TranslationKey['Total weight']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total weight'])} />,
-      renderCell: params => <ToFixedWithKgSignCell value={params.row.product?.weight} fix={2} />,
+      renderCell: params => <TextCell copyable={false} text={toFixedWithKg(params.row.product?.weight)} />,
       valueGetter: params => toFixedWithKg(params.row.product?.weight, 2),
       width: 110,
       type: 'number',
@@ -333,7 +334,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'buyerComment',
       headerName: t(TranslationKey['Buyer comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 200,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -343,7 +344,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'clientComment',
       headerName: t(TranslationKey['Client comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 200,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,

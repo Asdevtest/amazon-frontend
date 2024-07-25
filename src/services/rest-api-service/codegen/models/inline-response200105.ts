@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse200105Rows } from './inline-response200105-rows';
 
 /**
  * 
@@ -22,17 +21,29 @@ import { InlineResponse200105Rows } from './inline-response200105-rows';
  */
 export interface InlineResponse200105 {
     /**
-     * Кол-во записей
+     * 
+     * @type {string}
+     * @memberof InlineResponse200105
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200105
+     */
+    title?: string;
+    /**
+     * 
      * @type {number}
      * @memberof InlineResponse200105
      */
-    count?: number;
+    type?: number;
     /**
      * 
-     * @type {Array<InlineResponse200105Rows>}
+     * @type {boolean}
      * @memberof InlineResponse200105
      */
-    rows?: Array<InlineResponse200105Rows>;
+    archive?: boolean;
 }
 
 

@@ -21,29 +21,11 @@
  */
 export interface InlineObject142 {
     /**
-     * Эндпоинт для которого надо установить пресеты
+     * Дата создания сессии (рефреш токена)
      * @type {string}
      * @memberof InlineObject142
      */
-    endpoint: string;
-    /**
-     * 
-     * @type {object}
-     * @memberof InlineObject142
-     */
-    options: object;
-    /**
-     * Является ли активным.
-     * @type {boolean}
-     * @memberof InlineObject142
-     */
-    activeOption: boolean;
-    /**
-     * Title of preset
-     * @type {string}
-     * @memberof InlineObject142
-     */
-    title: string;
+    sessionCreatedAt?: string;
 }
 
 

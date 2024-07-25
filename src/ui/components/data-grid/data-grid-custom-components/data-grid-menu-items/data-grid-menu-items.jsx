@@ -21,7 +21,7 @@ import { freelanceRequestType } from '@constants/statuses/freelance-request-type
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextCell } from '@components/data-grid/data-grid-cells'
+import { TextCell } from '@components/data-grid/data-grid-cells'
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
@@ -1210,14 +1210,7 @@ export const NormalFieldMenuItem = memo(
                       return (
                         <div key={index} className={styles.shop}>
                           <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                          <MultilineTextCell
-                            leftAlign
-                            oneLines={columnKey === columnnsKeys.shared.STRING}
-                            text={value}
-                            maxLength={value?.length}
-                            // color={colorByStatus(el)}
-                            customTextClass={styles.statusText}
-                          />
+                          <TextCell text={value} />
                         </div>
                       )
                     })}
@@ -2850,8 +2843,6 @@ export const NumberWithTabsMenuItem = memo(
       tabs,
     }) => {
       const [activeTab, setActiveTab] = useState(tabs[0].value)
-
-      console.log('table :>> ', table)
 
       useEffect(() => {
         onClickFilterBtn(activeTab, table)

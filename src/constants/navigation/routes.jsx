@@ -138,12 +138,6 @@ const ClientBatchesView = lazy(() =>
   })),
 )
 
-const ClientReadyBoxesView = lazy(() =>
-  import('@views/client/client-warehouse-views/client-ready-boxes-view').then(module => ({
-    default: module.ClientReadyBoxesView,
-  })),
-)
-
 const ClientWarehouseTasksView = lazy(() =>
   import('@views/client/client-warehouse-views/client-warehouse-tasks-view').then(module => ({
     default: module.ClientWarehouseTasksView,
@@ -436,10 +430,13 @@ const SupervisorReadyToCheckView = lazy(() =>
     return { default: props => <Component isCreatedByClient={false} {...props} /> }
   }),
 )
+
 const WarehouseAwaitingBatchesView = lazy(() =>
-  import('@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view').then(module => ({
-    default: module.WarehouseAwaitingBatchesView,
-  })),
+  import('@views/warehouse/warehouse-batches-views/warehouse-my-batches-view').then(module => {
+    const Component = module.WarehouseMyBatchesView
+
+    return { default: props => <Component isSentBatches={false} {...props} /> }
+  }),
 )
 const WarehouseBatchesView = lazy(() =>
   import('@views/warehouse/warehouse-batches-views/warehouse-batches-view').then(module => ({
@@ -447,9 +444,11 @@ const WarehouseBatchesView = lazy(() =>
   })),
 )
 const WarehouseSentBatchesView = lazy(() =>
-  import('@views/warehouse/warehouse-batches-views/warehouse-sent-batches-view/warehouse-sent-batches-view').then(
-    module => ({ default: module.WarehouseSentBatchesView }),
-  ),
+  import('@views/warehouse/warehouse-batches-views/warehouse-my-batches-view').then(module => {
+    const Component = module.WarehouseMyBatchesView
+
+    return { default: props => <Component isSentBatches {...props} /> }
+  }),
 )
 const WarehouseDashboardView = lazy(() =>
   import('@views/warehouse/warehouse-dashboard-view').then(module => ({ default: module.WarehouseDashboardView })),
@@ -822,12 +821,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
 
-    crumbNameKey: TranslationKey['Free Orders'],
+    crumbNameKey: TranslationKey['Free orders'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FREE_ORDERS,
       activeSubCategory: '',
-      title: () => t(TranslationKey['Free Orders']),
+      title: () => t(TranslationKey['Free orders']),
     },
   },
 
@@ -982,6 +981,7 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.RESEARCHER],
     crumbNameKey: TranslationKey['My users'],
+    permissionKey: permissionsKeys.researcher.SHOW_USERS_RESEARCHER,
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
@@ -1037,8 +1037,6 @@ export const privateRoutesConfigs = [
       title: () => t(TranslationKey.Dashboard),
     },
   },
-
-  // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   {
     routePath: '/client/freelance',
@@ -1471,22 +1469,6 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
       activeSubCategory: '',
       title: () => t(TranslationKey.Batches),
-    },
-  },
-
-  {
-    routePath: '/client/warehouse/boxes-ready-to-batch',
-    component: ClientReadyBoxesView,
-    exact: false,
-    permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
-
-    crumbNameKey: TranslationKey['Boxes ready to send'],
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
-      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
-      title: () => t(TranslationKey['Boxes ready to send']),
     },
   },
 
@@ -3060,6 +3042,20 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
       activeSubCategory: '',
       title: () => t(TranslationKey.Settings),
+    },
+  },
+
+  {
+    routePath: '/moderator/feedback',
+    component: AdminFeedbackView,
+    exact: false,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey.Feedback,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Feedback),
     },
   },
 

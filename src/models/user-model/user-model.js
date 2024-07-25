@@ -148,7 +148,7 @@ class UserModelStatic {
   }
 
   async getMySubUsers() {
-    const response = await restApiService.userApi.apiV1UsersMySubUsersGet()
+    const response = await restApiService.userApi.apiV1UsersMySubUsersGet({ noCache: true })
     return response.data
   }
 

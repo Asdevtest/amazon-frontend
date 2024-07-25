@@ -80,7 +80,11 @@ export const translateTooltipMessageByRole = (label, role) => {
       case t(TranslationKey['Repeat search']):
         return t(TranslationKey['Repeat the search for a supplier'])
       case t(TranslationKey["Doesn't fit"]):
-        return t(TranslationKey["Final Status. Can't be changed once it's set"])
+        return t(
+          TranslationKey[
+            "Button to set the status, the product card remains in the supervisor's work (can be changed)"
+          ],
+        )
     }
   }
 }

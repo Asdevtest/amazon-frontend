@@ -4,16 +4,13 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-  NormDateCell,
-  ProductAsinCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductAsinCell, TextCell } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
+
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 export const clientIntegrationsReportReturnsColumns = () => {
   const columns: IGridColumn[] = [
@@ -33,7 +30,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value?.name} />,
+      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value?.name} />,
       width: 150,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
@@ -50,18 +47,23 @@ export const clientIntegrationsReportReturnsColumns = () => {
       renderCell: (params: GridRenderCellParams) => (
         <ProductAsinCell withoutTitle asin={params.row?.asin} image={params.row?.image} skuByClient={params.row?.sku} />
       ),
-      width: 250,
-      disableCustomSort: true,
 
-      table: DataGridFilterTables.INVENTORY_RETURNS,
-      columnKey: columnnsKeys.client.SHOP_REPORT,
+      fields: getProductColumnMenuItems({ withoutTitle: true }),
+      columnMenuConfig: getProductColumnMenuValue({
+        isSimpleSku: true,
+        table: DataGridFilterTables.INVENTORY_RETURNS,
+      }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 260,
+      minWidth: 100,
     },
 
     {
       field: 'disposition',
       headerName: 'Disposition',
       renderHeader: () => <MultilineTextHeaderCell text="Disposition" />,
-      renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
       width: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
@@ -72,7 +74,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       field: 'orderId',
       headerName: 'Order id',
       renderHeader: () => <MultilineTextHeaderCell text="Order id" />,
-      renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
       width: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
@@ -83,7 +85,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       field: 'reason',
       headerName: 'Reason',
       renderHeader: () => <MultilineTextHeaderCell text="Reason" />,
-      renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
       width: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
@@ -94,7 +96,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       field: 'status',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-      renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
       width: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
@@ -149,7 +151,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       field: 'timeUpdated',
       headerName: 'Time Updated',
       renderHeader: () => <MultilineTextHeaderCell text="Time Updated" />,
-      renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
       width: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,

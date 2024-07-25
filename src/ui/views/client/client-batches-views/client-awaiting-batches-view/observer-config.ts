@@ -2,8 +2,6 @@ import { action, computed, observable } from 'mobx'
 
 export const observerConfig = {
   curBatch: observable,
-  hsCodeData: observable,
-  showEditHSCodeModal: observable,
   currentStorekeeperId: observable,
   storekeepersData: observable,
   uploadedFiles: observable,
@@ -19,8 +17,6 @@ export const observerConfig = {
 
   userInfo: computed,
 
-  onClickSaveHsCode: action.bound,
-  onClickHsCode: action.bound,
   getStorekeepers: action.bound,
   onSubmitChangeBoxFields: action.bound,
   setCurrentOpenedBatch: action.bound,

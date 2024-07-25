@@ -171,9 +171,20 @@ export const useStyles = makeStyles()(theme => ({
     width: '18px !important',
     height: '18px !important',
     color: '#AEAEAE',
-    // '&:hover': {
-    //   cursor: 'pointer',
-    //   color: theme.palette.text.second,
-    // },
+  },
+
+  onlineIcon: {
+    position: 'relative',
+    '&:before': {
+      zIndex: 10,
+      content: '""',
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      width: 10,
+      height: 10,
+      backgroundColor: '#28a745',
+      borderRadius: '50%',
+    },
   },
 }))

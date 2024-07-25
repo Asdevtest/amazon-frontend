@@ -2,14 +2,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   BatchBoxesCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  ToFixedWithKgSignCell,
+  TextCell,
   UserLinkCell,
   WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells'
 
+import { toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const adminBatchesViewColumns = () => [
@@ -46,7 +46,7 @@ export const adminBatchesViewColumns = () => [
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-    renderCell: params => <MultilineTextCell text={params.row.boxes[0]?.destination?.name} />,
+    renderCell: params => <TextCell text={params.row.boxes[0]?.destination?.name} />,
     width: 150,
   },
 
@@ -54,7 +54,7 @@ export const adminBatchesViewColumns = () => [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     type: 'number',
     width: 80,
   },
@@ -63,7 +63,7 @@ export const adminBatchesViewColumns = () => [
     field: 'tariff',
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     width: 250,
   },
 
@@ -72,7 +72,7 @@ export const adminBatchesViewColumns = () => [
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
 
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    renderCell: params => <TextCell copyable={false} text={toFixedWithKg(params.value)} />,
     type: 'number',
     width: 150,
   },

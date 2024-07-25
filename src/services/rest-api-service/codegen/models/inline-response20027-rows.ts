@@ -13,6 +13,8 @@
  */
 
 
+import { InlineResponse20021 } from './inline-response20021';
+import { InlineResponse20027Group } from './inline-response20027-group';
 
 /**
  * 
@@ -21,29 +23,17 @@
  */
 export interface InlineResponse20027Rows {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
+     * 
+     * @type {InlineResponse20027Group}
      * @memberof InlineResponse20027Rows
      */
-    productId: string;
+    group?: InlineResponse20027Group;
     /**
-     * GUID тарифа доставки
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20021>}
      * @memberof InlineResponse20027Rows
      */
-    logicsTariffId?: string;
-    /**
-     * GUID заказа в БД
-     * @type {string}
-     * @memberof InlineResponse20027Rows
-     */
-    orderId?: string;
-    /**
-     * Кол-во продукта
-     * @type {number}
-     * @memberof InlineResponse20027Rows
-     */
-    amount?: number;
+    boxes?: Array<InlineResponse20021>;
 }
 
 

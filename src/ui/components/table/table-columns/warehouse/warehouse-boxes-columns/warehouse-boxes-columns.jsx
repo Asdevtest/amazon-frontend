@@ -4,12 +4,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ChangeInputCell,
   DownloadAndPrintFilesCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   OrderCell,
   OrderManyItemsCell,
   OrdersIdsItemsCell,
   RedFlagsCell,
+  TextCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid/data-grid-cells'
@@ -22,13 +22,15 @@ import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Box ID']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Box ID'])} />,
     type: 'number',
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     width: 80,
     columnKey: columnnsKeys.client.WAREHOUSE_ID,
   },
@@ -70,17 +72,18 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
         />
       )
     },
-    width: 320,
-    filterable: false,
 
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
+    fields: getProductColumnMenuItems(),
+    columnMenuConfig: getProductColumnMenuValue(),
+    columnKey: columnnsKeys.shared.MULTIPLE,
+    width: 320,
   },
 
   {
     field: 'shippingLabel',
-    headerName: `Shipping label / Barcode / ${t(TranslationKey['Transparency codes'])}`,
+    headerName: `Shipping label / Barcode / ${t(TranslationKey['Transparency Codes'])}`,
     renderHeader: () => (
-      <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency codes'])}`} />
+      <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency Codes'])}`} />
     ),
 
     renderCell: params => (
@@ -103,7 +106,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
             ).type,
           },
           {
-            title: t(TranslationKey['Transparency codes']),
+            title: t(TranslationKey['Transparency Codes']),
             fileUrl: params.row.originalData.items[0].transparencyFile,
             fileName: getFileNameFromUrl(params.row.originalData.items[0].transparencyFile).name,
             fileType: getFileNameFromUrl(params.row.originalData.items[0].transparencyFile).type,
@@ -121,15 +124,13 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     filterable: false,
     sortable: false,
     width: 280,
-
-    // columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },
 
   {
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-    renderCell: params => <MultilineTextCell text={params.value * params.row.originalData.amount} />,
+    renderCell: params => <TextCell text={params.value * params.row.originalData.amount} />,
     width: 110,
     type: 'number',
     sortable: false,
@@ -143,8 +144,8 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     valueGetter: ({ row }) => `${row.warehouse || ''} / ${row.logicsTariff || ''}`,
     renderCell: params => (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center', width: '100%' }}>
-        <MultilineTextCell text={params.row.warehouse} />
-        <MultilineTextCell text={params.row.logicsTariff} />
+        <TextCell text={params.row.warehouse} />
+        <TextCell text={params.row.logicsTariff} />
       </div>
     ),
     width: 170,
@@ -170,9 +171,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Batch)} />,
     valueGetter: ({ row }) => row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch']),
     renderCell: params => (
-      <MultilineTextCell
-        text={params.row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch'])}
-      />
+      <TextCell text={params.row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch'])} />
     ),
     type: 'number',
     width: 110,
@@ -236,7 +235,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     ),
     width: 240,
 
-    columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.shared.STRING_VALUE,
   },
 
   {
@@ -255,7 +254,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     ),
     width: 240,
 
-    columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.shared.STRING_VALUE,
   },
 
   {

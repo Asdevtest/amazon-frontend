@@ -14,6 +14,7 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
+import { ReportsViewProps } from './reports-view-copy.types'
 import { reportsViewColumns } from './reports-view.columns'
 import { additionalFilterFields, additionalSearchFields, reportsViewConfig } from './reports-view.config'
 
@@ -28,42 +29,27 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     return this.meta?.activeLaunches
   }
 
-  constructor({ productId, subView = false }: { productId: string; subView?: boolean }) {
+  constructor({ productId, subView = false }: ReportsViewProps) {
     const columnsProps = {
       onToggleReportModalEditMode: (reportId: string) => this.onToggleReportModalEditMode(reportId),
       onClickRemoveReport: (reportId: string) => this.onRemoveReport(reportId),
       subView,
     }
     const columnsModel = reportsViewColumns(columnsProps)
-
     const filtersFields = getFilterFields(columnsModel, additionalFilterFields)
-
     const mainMethodURL = subView
       ? 'clients/products/listing_reports?'
       : `clients/products/listing_reports_by_product_id/${productId}?`
-
     const defaultGetCurrentDataOptions = () =>
       subView
         ? undefined
         : {
             guid: productId,
           }
-
-    const additionalPropertiesGetFilters = () => {
-      const createdAtFilterData = this.columnMenuSettings?.createdAt?.currentFilterData
-
-      return {
-        ...(createdAtFilterData?.length && createdAtFilterData?.length === 2
-          ? {
-              createdAt: {
-                $gte: createdAtFilterData[0],
-                $lte: createdAtFilterData[1],
-              },
-            }
-          : {}),
-      }
+    const operatorsSettings = {
+      launchDateFrom: '$gte',
+      launchDateTo: '$lte',
     }
-
     super({
       getMainDataMethod: subView ? ClientModel.getListingReports : ClientModel.getListingReportByProductId,
       columnsModel,
@@ -72,7 +58,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
       fieldsForSearch: additionalSearchFields,
       tableKey: DataGridTablesKeys.PRODUCT_LISTING_REPORTS,
       defaultGetCurrentDataOptions,
-      additionalPropertiesGetFilters,
+      operatorsSettings,
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
@@ -84,11 +70,10 @@ export class ReportsViewModel extends DataGridFilterTableModel {
   onChangeRangeDate(dates: null | (Dayjs | null)[]) {
     if (dates?.[0] && dates?.[1]) {
       const lteDateValueForBackendPostgreSQL = dates?.[1].add(1, 'day')
-      const transformedDatesToISOString = [
-        getDateWithoutTime(dates?.[0]),
-        getDateWithoutTime(lteDateValueForBackendPostgreSQL),
-      ]
-      this.onChangeFullFieldMenuItem(transformedDatesToISOString, 'createdAt')
+      const launchDateFrom = [getDateWithoutTime(dates?.[0])]
+      const launchDateTo = [getDateWithoutTime(lteDateValueForBackendPostgreSQL)]
+      this.onChangeFullFieldMenuItem(launchDateFrom, 'launchDateFrom')
+      this.onChangeFullFieldMenuItem(launchDateTo, 'launchDateTo')
       this.onGetCurrentData()
     } else {
       this.onClickResetFilters()

@@ -18,6 +18,9 @@ interface BasicInfoProps {
   setFormFields: SetFormFieldsType
   isClient?: boolean
   isPendingOrdering?: boolean
+  isNotMultiple?: boolean
+  isMultiple?: boolean
+  amountInBox?: number
 }
 
 export const BasicInfo: FC<BasicInfoProps> = memo(props => {
@@ -29,6 +32,9 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
     destinations,
     storekeepers,
     destinationsFavourites,
+    isNotMultiple,
+    isMultiple,
+    amountInBox,
     setDestinationsFavouritesItem,
     setFormFields,
   } = props
@@ -41,6 +47,9 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
         isOrderEditable={isOrderEditable}
         isPendingOrdering={isPendingOrdering}
         formFields={formFields}
+        isNotMultiple={isNotMultiple}
+        isMultiple={isMultiple}
+        amountInBox={amountInBox}
         setFormFields={setFormFields}
       />
 

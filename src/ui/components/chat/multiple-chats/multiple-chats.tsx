@@ -41,6 +41,7 @@ export interface CurrentOpponent {
   overdraft: number
   rate: number
   _id: string
+  lastSeen: string
 }
 
 interface MultipleChatsProps {

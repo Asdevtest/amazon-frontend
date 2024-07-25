@@ -6,15 +6,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { BoxForm } from '@components/forms/box-form'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { EditBoxForm } from '@components/forms/edit-box-form'
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
 import { ProductDataForm } from '@components/forms/product-data-form'
 import { RequestToSendBatchForm } from '@components/forms/request-to-send-batch-form'
+import { BoxModal } from '@components/modals/box-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
 import { MyOrderModal } from '@components/modals/my-order-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
@@ -41,8 +40,7 @@ import { ViewHeader } from './view-header/view-header'
 
 export const ClientInStockBoxesView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-
-  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history }))
+  const [viewModel] = useState(() => new ClientInStockBoxesViewModel(history))
 
   const getRowClassName = params =>
     (params.row.isDraft === true ||
@@ -122,7 +120,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onColumnHeaderLeave={viewModel.onLeaveColumnField}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onFilterModelChange={viewModel.onChangeFilterModel}
@@ -257,16 +254,15 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
         />
       ) : null}
+
       <Modal
         openModal={viewModel.showBoxViewModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
-        <BoxForm
-          userInfo={viewModel.userInfo}
-          box={viewModel.curBox}
+        <BoxModal
+          boxId={viewModel.curBox}
+          onUpdateData={viewModel.getCurrentData}
           onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
 
@@ -279,17 +275,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           item={viewModel.selectedBox}
           onClickSaveShippingLabel={viewModel.onClickSaveShippingLabel}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSetShippingLabelModal')}
-        />
-      </Modal>
-
-      <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-      >
-        <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>
 

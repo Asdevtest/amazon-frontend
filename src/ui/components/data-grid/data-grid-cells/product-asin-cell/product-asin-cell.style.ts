@@ -3,30 +3,30 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: '100%',
-    padding: '5px 0px',
+    padding: '10px 0px',
     display: 'flex',
     alignItems: 'flex-start',
+    gap: 10,
   },
 
   fields: {
-    width: '100%',
+    width: 'calc(100% - 80px)',
+    display: 'flex',
+    flexDirection: 'column',
   },
 
   amazonTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    fontWeight: 500,
-    color: theme.palette.text.general,
     whiteSpace: 'nowrap',
-    maxWidth: '165px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    color: theme.palette.text.general,
   },
 
   img: {
     height: '58px',
     width: '58px',
-    marginRight: '16px',
     objectFit: 'contain',
     objectPosition: 'center',
     borderRadius: '4px',

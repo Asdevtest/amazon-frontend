@@ -46,7 +46,7 @@ export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props 
       openModal={openModal}
       setOpenModal={() => {
         onOpenModal()
-        onCurrentFileIndex ? onCurrentFileIndex(fileIndex) : undefined
+        onCurrentFileIndex?.(fileIndex)
         updateImagesForLoad(mediaFiles)
       }}
     >

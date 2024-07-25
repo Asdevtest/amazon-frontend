@@ -1,11 +1,12 @@
 import { compareAsc, compareDesc, format, formatDistanceStrict, formatISO, isValid, parseISO } from 'date-fns'
 import enUS from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
-import ukUa from 'date-fns/locale/uk'
 
 import { ONE_HOUR_IN_MILLISECONDS } from '@constants/time'
 
 import { SettingsModel } from '@models/settings-model'
+
+import { getLocalByLanguageTag } from '@components/shared/date-picker/helpers/get-local-by-language-tag'
 
 export const getUtcDateObject = dateString => {
   const date = new Date(dateString)
@@ -16,12 +17,17 @@ export const getUtcDateObject = dateString => {
   const hours = date.getUTCHours().toString().padStart(2, '0')
   const minutes = date.getUTCMinutes().toString().padStart(2, '0')
 
+  const UTC = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(),
+  date.getUTCDate(), date.getUTCHours(),
+  date.getUTCMinutes(), date.getUTCSeconds())
+
   return {
     day,
     month,
     year,
     hours,
     minutes,
+    UTC,
   }
 }
 
@@ -93,7 +99,7 @@ export const getDistanceBetweenDatesInSeconds = (firstDate, secondDate) => {
 export const formatDateDistanceFromNowStrict = (date, tryNow) =>
   formatDistanceStrict(parseISO(date), tryNow ? tryNow : new Date(), {
     addSuffix: true,
-    locale: SettingsModel.languageTag === 'ru' ? ruLocale : SettingsModel.languageTag === 'ua' ? ukUa : enUS,
+    locale: getLocalByLanguageTag(SettingsModel.languageTag),
     partialMethod: 'ceil',
   })
 
@@ -107,6 +113,10 @@ export const formatDateMonthYear = date => {
   )
 
   return formatedDate
+}
+
+export const convertLocalDateToUTC = date => {
+  return formatISO(date, { representation: 'date' })
 }
 
 export const formatDateMonthYearWithoutFormatISO = date =>

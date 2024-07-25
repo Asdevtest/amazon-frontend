@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20040SupplierImage } from './inline-response20040-supplier-image';
 
 /**
  * 
@@ -22,29 +21,29 @@ import { InlineResponse20040SupplierImage } from './inline-response20040-supplie
  */
 export interface InlineResponse20040 {
     /**
-     * 
-     * @type {Array<string>}
+     * Гуид сообщения
+     * @type {string}
      * @memberof InlineResponse20040
      */
-    productImages?: Array<string>;
+    _id?: string;
+    /**
+     * Гуид чата
+     * @type {string}
+     * @memberof InlineResponse20040
+     */
+    chatId?: string;
+    /**
+     * Смещение для пагинации
+     * @type {number}
+     * @memberof InlineResponse20040
+     */
+    offset?: number;
     /**
      * 
      * @type {Array<string>}
      * @memberof InlineResponse20040
      */
-    latestSeoFiles?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse20040
-     */
-    currentSupplierImage?: Array<string>;
-    /**
-     * 
-     * @type {Array<InlineResponse20040SupplierImage>}
-     * @memberof InlineResponse20040
-     */
-    supplierImage?: Array<InlineResponse20040SupplierImage>;
+    allMedia?: Array<string>;
 }
 
 

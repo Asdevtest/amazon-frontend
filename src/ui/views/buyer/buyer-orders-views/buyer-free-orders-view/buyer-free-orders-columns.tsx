@@ -1,3 +1,5 @@
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -5,11 +7,11 @@ import {
   DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductAsinCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -19,6 +21,13 @@ import { t } from '@utils/translations'
 import { ButtonStyle } from '@typings/enums/button-style'
 import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
+
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
+import {
+  productionTermColumnMenuItems,
+  productionTermColumnMenuValue,
+} from '../buyer-pending-orders-view/column.config'
 
 interface IHandlers {
   onClickTableRowBtn: (order: IOrder) => void
@@ -30,9 +39,10 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'id',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
-      minWidth: 65,
-      type: 'number',
+      renderCell: params => <TextCell text={params.value} />,
+
+      columnKey: columnnsKeys.shared.NUMBER,
+      width: 65,
     },
 
     {
@@ -46,10 +56,10 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           status={params.row.status}
         />
       ),
-      minWidth: 80,
-      sortable: false,
+
+      disableCustomSort: true,
       filterable: false,
-      align: 'center',
+      width: 80,
     },
 
     {
@@ -66,9 +76,10 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           onClickFirstButton={() => handlers.onClickTableRowBtn(params.row as IOrder)}
         />
       ),
-      minWidth: 180,
+
+      disableCustomSort: true,
       filterable: false,
-      sortable: false,
+      width: 180,
     },
 
     {
@@ -87,25 +98,33 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           />
         )
       },
-      minWidth: 280,
+
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 260,
+      minWidth: 100,
     },
 
     {
       field: 'amount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
-      type: 'number',
-      minWidth: 100,
+      renderCell: params => <TextCell text={params.value} />,
+
+      columnKey: columnnsKeys.shared.NUMBER,
+      width: 100,
     },
 
     {
       field: 'totalPrice',
       headerName: t(TranslationKey.Price),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-      type: 'number',
-      minWidth: 110,
+      renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
+
+      columnKey: columnnsKeys.shared.NUMBER,
+      width: 110,
     },
 
     {
@@ -118,28 +137,33 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       ),
-      minWidth: 200,
-      align: 'center',
+
+      disableCustomSort: true,
+      filterable: false,
+      width: 210,
     },
 
     {
-      field: 'productionTerm',
+      field: 'minProductionTerm',
       headerName: t(TranslationKey['Production time']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
         const currentSupplier = params.row?.orderSupplier
 
-        return (
-          <MultilineTextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
-        )
+        return <TextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
       },
       valueGetter: params => {
         const currentSupplier = params.row?.orderSupplier
 
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
-      minWidth: 120,
-      sortable: false,
+
+      fields: productionTermColumnMenuItems,
+      columnMenuConfig: productionTermColumnMenuValue,
+
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 120,
     },
 
     {
@@ -147,16 +171,20 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Deadline),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
-      minWidth: 100,
+
+      columnKey: columnnsKeys.shared.DATE,
+      width: 100,
     },
 
     {
       field: 'needsResearch',
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
-      renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
-      type: 'boolean',
-      minWidth: 120,
+      renderCell: params => <TextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+
+      disableCustomSort: true,
+      filterable: false,
+      width: 140,
     },
 
     {
@@ -166,7 +194,9 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       renderCell: params => (
         <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
-      minWidth: 155,
+
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      width: 155,
     },
 
     {
@@ -176,23 +206,30 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       renderCell: params => (
         <UserLinkCell blackText name={params.row.product.client?.name} userId={params.row.product.client?._id} />
       ),
-      minWidth: 120,
+
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      table: DataGridFilterTables.PRODUCTS,
+      width: 120,
     },
 
     {
-      field: 'warehouses',
+      field: 'destination',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-      renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
-      minWidth: 160,
+      renderCell: params => <TextCell text={params.row.destination?.name} />,
+
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      width: 160,
     },
 
     {
       field: 'clientComment',
       headerName: t(TranslationKey['Client comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
-      minWidth: 400,
+      renderCell: params => <TextCell text={params.value} />,
+
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+      width: 400,
     },
 
     {
@@ -200,9 +237,19 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
-      minWidth: 115,
+
+      columnKey: columnnsKeys.shared.DATE,
+      width: 115,
     },
   ]
+
+  for (const column of columns) {
+    if (!column.table) {
+      column.table = DataGridFilterTables.ORDERS
+    }
+
+    column.sortable = false
+  }
 
   return columns
 }

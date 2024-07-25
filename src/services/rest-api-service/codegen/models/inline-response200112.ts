@@ -15,59 +15,71 @@
 
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineResponse200112
  */
 export interface InlineResponse200112 {
     /**
-     * GUID пользователя.
+     * ID магазина.
      * @type {string}
      * @memberof InlineResponse200112
      */
     _id?: string;
     /**
-     * Имя пользователя.
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
      * @type {string}
      * @memberof InlineResponse200112
      */
     name?: string;
     /**
-     * Рейтинг пользователя.
-     * @type {number}
-     * @memberof InlineResponse200112
-     */
-    rating?: number;
-    /**
-     * Количество положительных отзыв
-     * @type {number}
-     * @memberof InlineResponse200112
-     */
-    numberOfPositiveFeedbacks?: number;
-    /**
-     * Количество негативных отзыв
-     * @type {number}
-     * @memberof InlineResponse200112
-     */
-    numberOfNegativeFeedbacks?: number;
-    /**
-     * Страна
+     * URL для скачивания ежедневных отчетов SellerBoard.
      * @type {string}
      * @memberof InlineResponse200112
      */
-    country?: string;
+    sellerBoardWarehouseReportUrlDaily?: string;
     /**
-     * Пользователь онлайн
-     * @type {boolean}
+     * URL для скачивания отчетов SellerBoard за последний месяц.
+     * @type {string}
      * @memberof InlineResponse200112
      */
-    isOnline?: boolean;
+    sellerBoardWarehouseReportUrlMonthly?: string;
     /**
-     * Количество общих сделок
-     * @type {number}
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
      * @memberof InlineResponse200112
      */
-    countsOfDeals?: number;
+    reportAccountUrl?: string;
+    /**
+     * GUID, владелеца.
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    ownerId?: string;
+    /**
+     * GUID любого, кто последний создал.
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    createdById?: string;
+    /**
+     * GUID любого, кто последний редактировал.
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    lastModifiedById?: string;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    updatedAt?: string;
 }
 
 

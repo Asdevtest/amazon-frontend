@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
  * 
@@ -22,23 +21,17 @@ import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator
  */
 export interface InlineObject152 {
     /**
-     * Название профиля
+     * Оценка, целое число от 1 до 5
+     * @type {number}
+     * @memberof InlineObject152
+     */
+    rating: number;
+    /**
+     * Комментарий к оценке
      * @type {string}
      * @memberof InlineObject152
      */
-    name: string;
-    /**
-     * Название ОС
-     * @type {string}
-     * @memberof InlineObject152
-     */
-    os?: string;
-    /**
-     * 
-     * @type {ApiV1GologinProfileNavigator}
-     * @memberof InlineObject152
-     */
-    navigator?: ApiV1GologinProfileNavigator;
+    comment?: string;
 }
 
 

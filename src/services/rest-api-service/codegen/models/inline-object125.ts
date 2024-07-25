@@ -21,11 +21,29 @@
  */
 export interface InlineObject125 {
     /**
-     * Статус
+     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
      * @type {number}
      * @memberof InlineObject125
      */
     status?: number;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineObject125
+     */
+    images?: Array<string>;
+    /**
+     * Комментарий работника склада.
+     * @type {string}
+     * @memberof InlineObject125
+     */
+    storekeeperComment?: string;
+    /**
+     * Приоритет задачи
+     * @type {number}
+     * @memberof InlineObject125
+     */
+    priority?: number;
 }
 
 

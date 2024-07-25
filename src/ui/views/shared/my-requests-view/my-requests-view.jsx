@@ -236,7 +236,6 @@ export const MyRequestsView = observer(() => {
       {viewModel.showRequestResultModal ? (
         <RequestResultModal
           // @ts-ignore
-          request={viewModel.currentRequestDetails}
           proposal={viewModel.curProposal}
           openModal={viewModel.showRequestResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}

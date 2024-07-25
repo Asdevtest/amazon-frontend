@@ -1,19 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-
-  searchInput: {
-    width: 300,
-  },
-
   tableWrapper: {
-    marginTop: 20,
-    height: '79vh',
+    marginTop: '20px',
+    height: '80vh',
     width: '100%',
   },
 }))

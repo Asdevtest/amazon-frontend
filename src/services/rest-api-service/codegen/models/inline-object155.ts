@@ -15,17 +15,35 @@
 
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineObject155
  */
 export interface InlineObject155 {
     /**
-     * id профайла
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
      * @type {string}
      * @memberof InlineObject155
      */
-    profileId: string;
+    name?: string;
+    /**
+     * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+     * @type {string}
+     * @memberof InlineObject155
+     */
+    sellerBoardWarehouseReportUrlDaily?: string;
+    /**
+     * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+     * @type {string}
+     * @memberof InlineObject155
+     */
+    sellerBoardWarehouseReportUrlMonthly?: string;
+    /**
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
+     * @memberof InlineObject155
+     */
+    reportAccountUrl?: string;
 }
 
 

@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
@@ -21,35 +22,47 @@
  */
 export interface InlineResponse200111 {
     /**
-     * Курс юаня к доллару.
-     * @type {number}
+     * GUID записи
+     * @type {string}
      * @memberof InlineResponse200111
      */
-    yuanToDollarRate?: number;
+    _id?: string;
     /**
-     * Коэффициент расчета объемного веса.
-     * @type {number}
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse200111
      */
-    volumeWeightCoefficient?: number;
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
-     * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
+     * Роль юзера, когда он оставлял отзыв
      * @type {number}
      * @memberof InlineResponse200111
      */
-    requestMinAmountPriceOfProposal?: number;
+    role?: number;
     /**
-     * Комиссия за оплату предложения
-     * @type {number}
+     * Комментарий к оценке
+     * @type {string}
      * @memberof InlineResponse200111
      */
-    requestPlatformMarginInPercent?: number;
+    comment?: string;
     /**
-     * Лимит на кол-во в ордере
+     * Оценка, целое число от 1 до 5
      * @type {number}
      * @memberof InlineResponse200111
      */
-    orderAmountLimit?: number;
+    rating?: number;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse200111
+     */
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse200111
+     */
+    createdAt?: string;
 }
 
 

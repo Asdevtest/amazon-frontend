@@ -5,12 +5,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
-
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-      overflow: 'hidden',
-      marginBottom: theme.spacing(1),
-    },
   },
 
   boxCounterWrapper: {
@@ -31,11 +25,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '25px',
     fontWeight: 600,
-
-    [theme.breakpoints.down(768)]: {
-      fontSize: '16px',
-      lineHeight: '22px',
-    },
   },
 
   buttonsWrapper: {
@@ -54,10 +43,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     gap: 30,
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      gap: 5,
-    },
   },
 
   datesWrapper: {
@@ -70,21 +55,11 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      gap: 5,
-    },
   },
 
   titleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      alignItems: 'start',
-      gap: 15,
-    },
   },
 
   storekeeperField: {
@@ -103,20 +78,17 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.general,
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: '440px',
-    height: 40,
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
+    width: '230px',
+    height: '32px',
 
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-      height: 36,
+    input: {
+      '&::placeholder': {
+        fontSize: 14,
+        lineHeight: '19px',
+      },
     },
   },
 
@@ -124,12 +96,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
-    [theme.breakpoints.down(768)]: {
-      fontSize: '14px',
-      lineHeight: '16px',
-      color: '#001029',
-      fontWeight: 600,
-    },
   },
   subFieldLabel: {
     color: theme.palette.text.second,
@@ -138,12 +104,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '16px',
     whiteSpace: 'pre-wrap',
     marginBottom: '5px !important',
-
-    [theme.breakpoints.down(768)]: {
-      fontSize: '14px',
-      lineHeight: '19px',
-      color: '#656565',
-    },
   },
   infoField: {
     fontSize: 14,

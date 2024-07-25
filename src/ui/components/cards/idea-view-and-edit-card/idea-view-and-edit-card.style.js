@@ -12,10 +12,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '30px',
   },
 
-  rootModal: {
-    padding: 0,
-  },
-
   cardWrapper: {
     width: '100%',
     height: '370px',
@@ -26,6 +22,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fullCardWpapper: {
+    padding: 20,
     height: 'max-content',
     overflow: 'unset',
     background: theme.palette.background.general,
@@ -135,7 +132,7 @@ export const useStyles = makeStyles()(theme => ({
   existedIdeaBtnsSubWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: '50px',
+    gap: '20px',
   },
 
   tablePanelSortWrapper: {
@@ -477,7 +474,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalContentWrapper: {
-    maxHeight: '616px',
+    maxHeight: '560px',
     overflowY: 'auto',
   },
 

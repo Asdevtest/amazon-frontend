@@ -1,12 +1,10 @@
 import { GridCellParams } from '@mui/x-data-grid'
 
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineRequestStatusCell,
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, TextCell } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
@@ -15,7 +13,7 @@ export const bindIdeaToRequestColumns = [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-    renderCell: (params: GridCellParams) => <MultilineTextCell leftAlign text={params.row.humanFriendlyId} />,
+    renderCell: (params: GridCellParams) => <TextCell text={params.row.humanFriendlyId} />,
     filterable: false,
     sortable: false,
     width: 70,
@@ -25,7 +23,9 @@ export const bindIdeaToRequestColumns = [
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: (params: GridCellParams) => <MultilineRequestStatusCell status={params.row.status} />,
+    renderCell: (params: GridCellParams) => (
+      <TextCell text={MyRequestStatusTranslate(params.row.status)} color={colorByStatus(params.row.status)} />
+    ),
     filterable: false,
     sortable: false,
     width: 120,
@@ -35,9 +35,7 @@ export const bindIdeaToRequestColumns = [
     field: 'title',
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
-    renderCell: (params: GridCellParams) => (
-      <MultilineTextCell leftAlign twoLines maxLength={60} text={params.row.title} />
-    ),
+    renderCell: (params: GridCellParams) => <TextCell text={params.row.title} />,
     filterable: false,
     sortable: false,
     width: 260,
@@ -47,7 +45,7 @@ export const bindIdeaToRequestColumns = [
     field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-    renderCell: (params: GridCellParams) => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    renderCell: (params: GridCellParams) => <TextCell text={params.row.spec?.title} />,
     filterable: false,
     sortable: false,
     width: 110,

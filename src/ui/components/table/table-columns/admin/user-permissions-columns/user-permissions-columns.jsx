@@ -3,9 +3,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
-  ShortDateCell,
+  NormDateCell,
+  TextCell,
 } from '@components/data-grid/data-grid-cells'
 import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
@@ -18,7 +18,7 @@ export const userPermissionsColumns = handlers => [
     field: 'key',
     headerName: t(TranslationKey.Key),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Key)} />,
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     width: 280,
   },
 
@@ -26,7 +26,7 @@ export const userPermissionsColumns = handlers => [
     field: 'role',
     headerName: t(TranslationKey.Role),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Role)} />,
-    renderCell: params => <MultilineTextCell leftAlign text={UserRolePrettyMap[params.value]} />,
+    renderCell: params => <TextCell text={UserRolePrettyMap[params.value]} />,
     width: 140,
   },
 
@@ -34,7 +34,7 @@ export const userPermissionsColumns = handlers => [
     field: 'title',
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
-    renderCell: params => <MultilineTextCell leftAlign threeLines text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     width: 300,
   },
 
@@ -42,7 +42,7 @@ export const userPermissionsColumns = handlers => [
     field: 'description',
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
-    renderCell: params => <MultilineTextCell leftAlign threeLines text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     flex: 1,
   },
 
@@ -73,7 +73,7 @@ export const userPermissionsColumns = handlers => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <ShortDateCell value={params.value} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 110,
   },
 ]

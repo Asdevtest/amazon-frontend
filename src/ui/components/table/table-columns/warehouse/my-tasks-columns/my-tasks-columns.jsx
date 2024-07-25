@@ -3,7 +3,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  ChangeInputCommentCell,
   CheckboxCell,
   MultilineTextHeaderCell,
   MultipleAsinCell,
@@ -12,6 +11,7 @@ import {
   TaskDescriptionCell,
   TaskPriorityCell,
   TaskTypeCell,
+  TextCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -69,8 +69,8 @@ export const warehouseMyTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
     renderCell: params => (
-      <ChangeInputCommentCell
-        rowsCount={4}
+      <TextCell
+        editMode
         text={params.row.originalData.reason}
         onClickSubmit={reason =>
           handlers.updateTaskComment(params.row.originalData._id, params.row.originalData.priority, reason)

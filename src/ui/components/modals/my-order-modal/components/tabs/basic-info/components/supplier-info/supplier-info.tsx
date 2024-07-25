@@ -14,10 +14,12 @@ import { SupplierInfoProps } from './supplier-info.type'
 import { useSupplierInfo } from './use-supplier-info'
 
 export const SupplierInfo: FC<SupplierInfoProps> = memo(props => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const { supplierInfoFieldsConfig, showSetBarCodeModal, onToggleSetBarCodeModal, onChangeBarCode } =
     useSupplierInfo(props)
+
+  const isQuantityField = (title?: string) => title?.includes(t(TranslationKey['Quantity (pcs.)']))
 
   return (
     <>
@@ -26,7 +28,7 @@ export const SupplierInfo: FC<SupplierInfoProps> = memo(props => {
 
         <Card>
           {supplierInfoFieldsConfig.map((item, index) => (
-            <div key={index} className={styles.field}>
+            <div key={index} className={cx(styles.field, { [styles.quantityField]: isQuantityField(item.title) })}>
               <p className={styles.fieldText}>{item.title}</p>
               {item.element}
               {item.text && <p className={styles.fieldText}>{item.text}</p>}

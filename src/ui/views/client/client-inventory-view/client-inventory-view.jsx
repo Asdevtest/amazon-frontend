@@ -24,10 +24,8 @@ import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
 import { SetFourMonthesStockModal } from '@components/modals/set-four-monthes-stock-value-modal.js'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -262,24 +260,12 @@ export const ClientInventoryView = observer(({ history }) => {
       </Modal>
 
       <Modal
-        openModal={viewModel.showSetChipValueModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSetChipValueModal')}
-      >
-        <SetChipValueModal
-          title={t(TranslationKey['Set HS code'])}
-          sourceValue={viewModel.selectedProduct?.hsCode}
-          onSubmit={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showSetChipValueModal')}
-        />
-      </Modal>
-
-      <Modal
         openModal={viewModel.showEditHSCodeModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
       >
         <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
+          productId={viewModel.selectedProduct?._id}
+          onUpdateData={viewModel.getCurrentData}
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>
@@ -364,17 +350,6 @@ export const ClientInventoryView = observer(({ history }) => {
           onClose={() => viewModel.onTriggerOpenModal('showGetFilesModal')}
         />
       </Modal>
-
-      {viewModel.showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-          title={viewModel.successModalText}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        />
-      ) : null}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
-import { GridRowModel } from '@mui/x-data-grid-premium'
+import { GridExceljsProcessInput, GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,20 +16,19 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { useStyles } from './reports-view.style'
 
 import { Header } from './header'
+import { editExcelReport } from './helpers/edit-excel-report'
 import { Info } from './info'
+import { ReportsViewProps } from './reports-view-copy.types'
 import { ReportsViewModel } from './reports-view.model'
-
-interface ReportsViewProps {
-  productId: string
-  modal?: boolean
-  subView?: boolean
-}
 
 export const ReportsView: FC<ReportsViewProps> = observer(props => {
   const { modal, productId, subView = false } = props
 
   const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(() => new ReportsViewModel({ productId, subView }))
+
+  const exceljsPostProcess = (excelParams: GridExceljsProcessInput) =>
+    editExcelReport(excelParams, viewModel?.columnsModel, viewModel?.currentData)
 
   return (
     <>
@@ -69,6 +68,8 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
               },
               columnMenu: viewModel.columnMenuSettings,
               toolbar: {
+                excelOptions: { exceljsPostProcess },
+
                 resetFiltersBtnSettings: {
                   onClickResetFilters: viewModel.onClickResetFilters,
                   isSomeFilterOn: viewModel.isSomeFilterOn,

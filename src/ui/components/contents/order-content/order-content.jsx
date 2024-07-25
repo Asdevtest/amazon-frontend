@@ -45,7 +45,6 @@ export const OrderContent = ({
 }) => {
   const { classes: styles } = useStyles()
 
-  const [collapsed, setCollapsed] = useState(false)
   const [updatedOrder, setUpdatedOrder] = useState(order)
   const theme = useTheme()
   const narrow = useMediaQuery(theme.breakpoints.down(MEDIA_SCALE_POINTS))
@@ -102,10 +101,16 @@ export const OrderContent = ({
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
 
+  const multiplicity = formFields.orderSupplier?.multiplicity
+  const amountInBox = formFields.orderSupplier?.boxProperties?.amountInBox
+  const amount = formFields.amount
+  const isNotMultiple = multiplicity && amountInBox && (amount % amountInBox !== 0 || !amount)
+  const isMultiple = multiplicity && amountInBox && amount % amountInBox === 0 && !!amount
   const isOrderEditable = updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
-
   const disabledSaveSubmit =
-    (!isValid(parseISO(formFields.deadline)) && isPast(parseISO(formFields.deadline))) || !formFields.amount
+    (!isValid(parseISO(formFields.deadline)) && isPast(parseISO(formFields.deadline))) ||
+    !formFields.amount ||
+    isNotMultiple
 
   return (
     <div className={styles.wrapper}>
@@ -151,19 +156,16 @@ export const OrderContent = ({
 
       <div className={styles.panelsWrapper}>
         <LeftPanel
+          amountInBox={amountInBox}
+          isNotMultiple={isNotMultiple}
+          isMultiple={isMultiple}
           isCanChange={isOrderEditable}
           order={updatedOrder}
           formFields={formFields}
-          collapsed={collapsed}
           narrow={narrow}
-          setCollapsed={setCollapsed}
           onChangeField={onChangeField}
-          onClickBarcode={() => {
-            triggerBarcodeModal()
-          }}
-          onDeleteBarcode={() => {
-            onChangeField('barCode')('')
-          }}
+          onClickBarcode={triggerBarcodeModal}
+          onDeleteBarcode={() => onChangeField('barCode')('')}
         />
 
         <Divider orientation={'vertical'} className={styles.divider} />
@@ -207,7 +209,12 @@ export const OrderContent = ({
         {isClient && isOrderEditable ? (
           <div className={styles.btnsSubWrapper}>
             {isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
-              <Button styleType={ButtonStyle.SUCCESS} className={styles.button} onClick={onClickReorder}>
+              <Button
+                disabled={isNotMultiple}
+                styleType={ButtonStyle.SUCCESS}
+                className={styles.button}
+                onClick={onClickReorder}
+              >
                 {t(TranslationKey['To order'])}
               </Button>
             )}

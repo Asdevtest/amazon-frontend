@@ -115,7 +115,7 @@ export const OrderModalBodyRow = ({
   } = useTariffVariation(item.destinationId, setBoxBody(item))
 
   useEffect(() => {
-    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings.orderAmountLimit) {
+    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings?.orderAmountLimit) {
       setIsLocalPriseOutOfLimit(true)
     } else {
       setIsLocalPriseOutOfLimit(false)
@@ -148,7 +148,7 @@ export const OrderModalBodyRow = ({
         role="checkbox"
         className={cx(styles.row, { [styles.noCurrentSupplier]: !item.currentSupplier })}
       >
-        <TableCell className={styles.cell}>
+        <TableCell className={cx(styles.cell, styles.productCell)}>
           <ProductAsinCell
             image={item.images[0]}
             amazonTitle={item.amazonTitle}
@@ -210,7 +210,7 @@ export const OrderModalBodyRow = ({
           </Typography>
           {isLocalPriseOutOfLimit && (
             <Typography className={styles.error}>
-              {t(TranslationKey['At least'])} {platformSettings.orderAmountLimit}$
+              {t(TranslationKey['At least'])} {platformSettings?.orderAmountLimit}$
             </Typography>
           )}
         </TableCell>
@@ -264,7 +264,7 @@ export const OrderModalBodyRow = ({
             />
 
             {orderState.transparency && !orderState.transparencyFile && !orderState.tmpTransparencyFile.length && (
-              <p className={styles.warningText}>{t(TranslationKey['No Transparency codes'])}</p>
+              <p className={styles.warningText}>{t(TranslationKey['No Transparency Codes'])}</p>
             )}
           </div>
         </TableCell>

@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { PrivateLabelCard } from '@components/cards/private-label-card'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { Modal } from '@components/shared/modal'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -38,15 +37,13 @@ export const ClientExchangePrivateLabelViewRaw = props => {
 
   return (
     <>
-      <div>
-        <div className={styles.mb5}>
-          <div className={styles.cardsWrapper}>
-            {viewModel.productsVacant.length > 0 ? (
-              renderProductsVacant()
-            ) : (
-              <Typography className={styles.noRows}>{t(TranslationKey['No suggestions'])}</Typography>
-            )}
-          </div>
+      <div className={styles.mb5}>
+        <div className={styles.cardsWrapper}>
+          {viewModel.productsVacant.length > 0 ? (
+            renderProductsVacant()
+          ) : (
+            <Typography className={styles.noRows}>{t(TranslationKey['No suggestions'])}</Typography>
+          )}
         </div>
       </div>
 
@@ -66,17 +63,6 @@ export const ClientExchangePrivateLabelViewRaw = props => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmPayModal')}
         />
       </Modal>
-
-      {viewModel.showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-          title={t(TranslationKey['Product paid'])}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        />
-      ) : null}
     </>
   )
 }

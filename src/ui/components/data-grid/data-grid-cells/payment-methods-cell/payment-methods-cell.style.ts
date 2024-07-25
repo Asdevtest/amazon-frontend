@@ -1,12 +1,17 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  paymentMethods: {
+  root: {
     padding: '10px 0',
+  },
+
+  paymentMethods: {
     display: 'flex',
     alignItems: 'flex-start',
     flexDirection: 'column',
     gap: 5,
+    maxHeight: '58px',
+    overflow: 'auto',
   },
 
   paymentMethod: {
@@ -17,14 +22,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   paymentMethodIcon: {
-    width: 19,
-    height: 19,
+    width: 16,
+    height: 16,
     borderRadius: '50%',
   },
 
   paymentMethodTitle: {
-    fontSize: 14,
-    lineHeight: '19px',
+    fontSize: 12,
+    lineHeight: '16px',
     color: theme.palette.primary.main,
   },
 }))

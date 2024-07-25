@@ -10,7 +10,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
-import { ProductModel } from '@models/product-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
@@ -21,7 +20,6 @@ import { tableProductViewMode } from '@typings/enums/table-product-view'
 import { IBatch } from '@typings/models/batches/batch'
 import { IBox } from '@typings/models/boxes/box'
 import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
-import { IHSCode } from '@typings/shared/hs-code'
 import { IUploadFile } from '@typings/shared/upload-file'
 
 import { fieldsForSearch, filtersFields } from './client-awaiting-batches-view.constants'
@@ -31,20 +29,18 @@ import { observerConfig } from './observer-config'
 export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
   curBatch: IBatch | null = null
 
-  hsCodeData: IHSCode | null = null
-
   currentStorekeeperId: string = ''
   storekeepersData: IStorekeeper[] = []
 
   uploadedFiles = []
 
-  showEditHSCodeModal = false
   showBatchInfoModal = false
   showConfirmModal = false
   showBoxViewModal = false
   showAddOrEditBatchModal = false
 
-  curBox: IBox | null = null
+  curBox: string = ''
+  selectedBoxId: string = ''
 
   showProgress = false
 
@@ -95,39 +91,6 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
     )
   }
 
-  async onClickSaveHsCode(hsCode: IHSCode) {
-    try {
-      await ProductModel.editProductsHsCods([
-        {
-          productId: hsCode._id,
-          chinaTitle: hsCode.chinaTitle || null,
-          hsCode: hsCode.hsCode || null,
-          material: hsCode.material || null,
-          productUsage: hsCode.productUsage || null,
-        },
-      ])
-
-      this.onTriggerOpenModal('showEditHSCodeModal')
-      this.getCurrentData()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickHsCode(id: string) {
-    try {
-      const response = await ProductModel.getProductsHsCodeByGuid(id)
-
-      runInAction(() => {
-        this.hsCodeData = response as unknown as IHSCode
-      })
-
-      this.onTriggerOpenModal('showEditHSCodeModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   async getStorekeepers() {
     try {
       const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_BATCH)
@@ -156,14 +119,13 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
-        storage: data.storage,
+        // storage: data.storage,
       })
 
-      await this.getCurrentData()
-
-      this.setCurrentOpenedBatch(this.curBatch?._id, true)
-
       toast.success(t(TranslationKey['Data saved successfully']))
+
+      await this.getCurrentData()
+      this.setCurrentOpenedBatch(this.curBatch?._id, true)
     } catch (error) {
       console.error(error)
     }
@@ -315,17 +277,15 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
     this.productViewMode = value
   }
 
-  async setCurrentOpenedBox(row: IBox) {
-    try {
-      const box = await BoxesModel.getBoxById(row._id)
+  setCurrentOpenedBox(row: IBox) {
+    this.curBox = row._id
 
-      runInAction(() => {
-        this.curBox = box as IBox
-      })
+    this.onTriggerOpenModal('showBoxViewModal')
+  }
 
-      this.onTriggerOpenModal('showBoxViewModal')
-    } catch (error) {
-      console.error(error)
-    }
+  setBoxId(boxId: string) {
+    this.selectedBoxId = boxId
+
+    this.onTriggerOpenModal('showBoxViewModal')
   }
 }

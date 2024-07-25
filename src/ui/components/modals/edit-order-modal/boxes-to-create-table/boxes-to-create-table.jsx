@@ -135,7 +135,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
             onChange={e => handlers.onClickTransparency(itemIndex)(e)}
           >
             <p className={cx(styles.label, styles.transparencyCodesText)}>
-              {t(TranslationKey['The supplier glued the Transparency codes'])}
+              {t(TranslationKey['The supplier glued the Transparency Codes'])}
             </p>
           </Checkbox>
         )}
@@ -160,12 +160,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
 
       <TableCell>
         <div className={styles.buttonCell}>
-          <Button
-            iconButton
-            styleType={ButtonStyle.DANGER}
-            tooltipInfoContent={t(TranslationKey['Remove box'])}
-            onClick={() => handlers.onRemoveBox(itemIndex)}
-          >
+          <Button iconButton styleType={ButtonStyle.DANGER} onClick={() => handlers.onRemoveBox(itemIndex)}>
             <CrossIcon />
           </Button>
 

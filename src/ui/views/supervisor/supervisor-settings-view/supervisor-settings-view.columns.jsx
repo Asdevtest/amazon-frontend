@@ -1,10 +1,6 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  ActionButtonsCell,
-  MultilineTextAlignLeftCell,
-  MultilineTextHeaderCell,
-} from '@components/data-grid/data-grid-cells'
+import { ActionButtonsCell, MultilineTextHeaderCell, TextCell } from '@components/data-grid/data-grid-cells'
 import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -17,7 +13,7 @@ export const supervisorSettingsViewColumns = props => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: params => <MultilineTextAlignLeftCell isAsin text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 200,
     },
 
@@ -25,7 +21,7 @@ export const supervisorSettingsViewColumns = props => {
       field: 'reason',
       headerName: t(TranslationKey.Reason),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reason)} />,
-      renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       flex: 1,
     },
     {

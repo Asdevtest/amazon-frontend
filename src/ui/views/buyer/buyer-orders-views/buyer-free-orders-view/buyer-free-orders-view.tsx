@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
@@ -22,17 +22,15 @@ export const BuyerFreeOrdersView = observer(() => {
   const [viewModel] = useState(() => new BuyerFreeOrdersViewModel())
 
   return (
-    <>
-      <Button disabled={viewModel.selectedRows.length === 0} onClick={viewModel.onPickupSomeItems}>
+    <div className={styles.container}>
+      <CustomButton type="primary" disabled={viewModel.selectedRows.length === 0} onClick={viewModel.onPickupSomeItems}>
         {t(TranslationKey['Take on the work of the selected'])}
-      </Button>
+      </CustomButton>
 
       <div className={styles.dataGridWrapper}>
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
-          sortingMode="client"
-          paginationMode="client"
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -49,17 +47,17 @@ export const BuyerFreeOrdersView = observer(() => {
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+            columnMenu: viewModel.columnMenuSettings,
             toolbar: {
               resetFiltersBtnSettings: {
-                isSomeFilterOn: viewModel.isSomeFilterOn,
                 onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
               },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-
               sortSettings: {
                 sortModel: viewModel.sortModel,
                 columnsModel: viewModel.columnsModel,
@@ -80,16 +78,16 @@ export const BuyerFreeOrdersView = observer(() => {
         <TwoVerticalChoicesModal
           // @ts-ignore
           tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
-          tooltipSecondButton={t(TranslationKey['Stay in "Free Orders"'])}
+          tooltipSecondButton={t(TranslationKey['Stay in "Free orders"'])}
           openModal={viewModel.showTwoVerticalChoicesModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
           title={t(TranslationKey['Order picked up'])}
           topBtnText={t(TranslationKey['Go to order'])}
-          bottomBtnText={t(TranslationKey['Continue to work with free orders'])}
+          bottomBtnText={t(TranslationKey['Free orders'])}
           onClickTopBtn={viewModel.goToMyOrders}
           onClickBottomBtn={viewModel.onClickContinueWorkButton}
         />
       ) : null}
-    </>
+    </div>
   )
 })

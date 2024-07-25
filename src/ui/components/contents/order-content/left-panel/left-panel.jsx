@@ -1,12 +1,9 @@
-import { Divider, Typography } from '@mui/material'
-
-import { TranslationKey } from '@constants/translations/translation-key'
+import { Typography } from '@mui/material'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
-import { t } from '@utils/translations'
 
 import { useStyles } from './left-panel.style'
 
@@ -14,14 +11,15 @@ import { ProductParameters } from './product-parameters'
 
 export const LeftPanel = ({
   order,
-  collapsed,
   narrow,
-  setCollapsed,
   formFields,
   onChangeField,
   isCanChange,
   onClickBarcode,
   onDeleteBarcode,
+  isNotMultiple,
+  isMultiple,
+  amountInBox,
 }) => {
   const { classes: styles } = useStyles()
 
@@ -40,22 +38,16 @@ export const LeftPanel = ({
       </div>
 
       <ProductParameters
+        amountInBox={amountInBox}
+        isNotMultiple={isNotMultiple}
+        isMultiple={isMultiple}
         isCanChange={isCanChange}
         order={order}
-        collapsed={collapsed}
         formFields={formFields}
         onChangeField={onChangeField}
         onClickBarcode={onClickBarcode}
         onDeleteBarcode={onDeleteBarcode}
       />
-
-      <div className={styles.collapsedWrapper} onClick={() => setCollapsed(!collapsed)}>
-        <Typography className={styles.containerTitle}>
-          {!collapsed ? t(TranslationKey['All product parameters']) : t(TranslationKey.Collapse)}
-        </Typography>
-      </div>
-      <Divider orientation={'horizontal'} className={styles.divider} />
-      {narrow && <Divider orientation={'horizontal'} className={styles.lastDivider} />}
     </div>
   )
 }

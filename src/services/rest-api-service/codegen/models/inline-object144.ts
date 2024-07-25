@@ -25,25 +25,31 @@ export interface InlineObject144 {
      * @type {string}
      * @memberof InlineObject144
      */
-    endpoint?: string;
+    endpoint: string;
     /**
      * 
      * @type {object}
      * @memberof InlineObject144
      */
-    options?: object;
+    settings: object;
     /**
-     * Является ли пресет активным.
+     * Является ли активным.
      * @type {boolean}
      * @memberof InlineObject144
      */
-    activeOption?: boolean;
+    activeSetting: boolean;
     /**
      * Title of preset
      * @type {string}
      * @memberof InlineObject144
      */
-    title?: string;
+    title: string;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineObject144
+     */
+    isFavorite?: boolean;
 }
 
 

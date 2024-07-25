@@ -13,7 +13,9 @@
  */
 
 
-import { InlineResponse20086Rows } from './inline-response20086-rows';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
 
 /**
  * 
@@ -22,17 +24,59 @@ import { InlineResponse20086Rows } from './inline-response20086-rows';
  */
 export interface InlineResponse20086 {
     /**
-     * 
-     * @type {number}
+     * Гуид медиа
+     * @type {string}
      * @memberof InlineResponse20086
      */
-    count?: number;
+    _id?: string;
+    /**
+     * Файл для записи в FreelanceSource
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    sourceFile?: string;
+    /**
+     * Комментарий к файлу
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    comments?: string;
     /**
      * 
-     * @type {Array<InlineResponse20086Rows>}
+     * @type {ApiV1RequestProposalsFreelanceSourcesProposal}
      * @memberof InlineResponse20086
      */
-    rows?: Array<InlineResponse20086Rows>;
+    proposal?: ApiV1RequestProposalsFreelanceSourcesProposal;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMySpec}
+     * @memberof InlineResponse20086
+     */
+    spec?: ApiV1AnnouncementsMySpec;
+    /**
+     * гуид продукта
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    productId?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20086
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    createdAt?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    updatedAt?: string;
 }
 
 

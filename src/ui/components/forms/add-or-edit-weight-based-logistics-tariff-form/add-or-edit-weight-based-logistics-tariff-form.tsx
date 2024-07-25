@@ -26,29 +26,15 @@ import { useStyles } from './add-or-edit-weight-based-logistics-tariff-form.styl
 
 import { DestinationVariationsContent } from './destination-variations-content/destination-variations-content'
 
-interface FormFields {
-  tariffType: number
-  name: string
-  description: string
-  deliveryTimeInDay: string
-  cls: string | undefined
-  etd: string | undefined
-  eta: string | undefined
-  minWeightInKg: number
-  archive: boolean
-  yuanToDollarRate: number
-  destinationVariations: Array<IDestinationVariation>
-}
-
 interface AddOrEditWeightBasedLogisticsTariffFormProps {
-  tariffToEdit: ILogicTariff
+  tariffToEdit?: ILogicTariff
   sourceYuanToDollarRate: number
   logisticsTariffsData: Array<ILogicTariff>
   destinationData: Array<IDestination>
   destinationsFavourites: Array<Array<string>>
-  setDestinationsFavouritesItem: () => void
-  onCreateSubmit: (formFields: FormFields) => void
-  onEditSubmit: (id: string, formFields: FormFields) => void
+  setDestinationsFavouritesItem: (item: IDestination) => void
+  onCreateSubmit: (formFields: ILogicTariff) => void
+  onEditSubmit: (id: string, formFields: ILogicTariff) => void
   onClickClose: () => void
 }
 
@@ -87,12 +73,12 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       name: tariffToEdit?.name || '',
       description: tariffToEdit?.description || '',
       deliveryTimeInDay: tariffToEdit?.deliveryTimeInDay || '',
-      cls: tariffToEdit?.cls || undefined,
-      etd: tariffToEdit?.etd || undefined,
-      eta: tariffToEdit?.eta || undefined,
+      cls: tariffToEdit?.cls || '',
+      etd: tariffToEdit?.etd || '',
+      eta: tariffToEdit?.eta || '',
       minWeightInKg: tariffToEdit?.minWeightInKg || 0,
       archive: tariffToEdit?.archive || false,
-      yuanToDollarRate: tariffToEdit?.conditionsByRegion.yuanToDollarRate || sourceYuanToDollarRate || 6.5,
+      yuanToDollarRate: tariffToEdit?.conditionsByRegion?.yuanToDollarRate || sourceYuanToDollarRate || 6.5,
       destinationVariations: tariffToEdit?.destinationVariations?.map(variation => ({
         ...variation,
         pricePerKgUsd: variation.pricePerKgUsd,
@@ -100,9 +86,10 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       })) || [emptyDestinationVariation],
     }
 
-    const [formFields, setFormFields] = useState<FormFields>(initialState)
+    // @ts-ignore
+    const [formFields, setFormFields] = useState<ILogicTariff>(initialState)
 
-    const [isWeightRangeValid, setIsWeightRangeValid] = useState(true)
+    const [rangeErrorDestinationId, setRangeErrorDestinationId] = useState('')
 
     const disableSubmitBtn =
       !formFields.name ||
@@ -111,7 +98,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       !formFields.cls ||
       !formFields.etd ||
       !formFields.eta ||
-      formFields.destinationVariations.some(
+      formFields.destinationVariations?.some(
         (variant: IDestinationVariation) =>
           !variant.destination._id ||
           !variant.pricePerKgRmb ||
@@ -122,7 +109,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           (variant.minWeight && Number(variant.minWeight) < 1) ||
           (variant.minWeight && variant.maxWeight && Number(variant.maxWeight) < Number(variant.minWeight)),
       ) ||
-      !isWeightRangeValid
+      !!rangeErrorDestinationId
 
     const [selectedLogisticTariff, setSelectedLogisticTariff] = useState<ILogicTariff | undefined>(undefined)
 
@@ -166,7 +153,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     }
 
     const onChangeDestinationVariations = (fieldName: string, index: number, value: string | number) => {
-      setIsWeightRangeValid(true)
+      setRangeErrorDestinationId('')
 
       setFormFields(prevState => {
         const newDestinationVariations = prevState.destinationVariations.map((variation, variationIndex) => {
@@ -203,7 +190,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     }
 
     const onClickAddDestinationVariation = (index: number) => {
-      setIsWeightRangeValid(true)
+      setRangeErrorDestinationId('')
       // @ts-ignore
       setFormFields(prevState => {
         const firstPart = prevState.destinationVariations.slice(0, index + 1)
@@ -219,7 +206,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     }
 
     const onClickRemoveDestinationVariation = (index: number) => {
-      setIsWeightRangeValid(true)
+      setRangeErrorDestinationId('')
       setFormFields(prevState => {
         const newDestinationVariations = [...prevState.destinationVariations]
         newDestinationVariations.splice(index, 1)
@@ -232,11 +219,13 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     }
 
     const onSubmit = () => {
-      setIsWeightRangeValid(calcWeightRangeValid(formFields.destinationVariations))
+      const errorId = calcWeightRangeValid(formFields.destinationVariations)
 
-      if (isWeightRangeValid) {
+      setRangeErrorDestinationId(errorId)
+
+      if (!errorId) {
         if (tariffToEdit) {
-          onEditSubmit(tariffToEdit._id, formFields)
+          onEditSubmit(tariffToEdit?._id, formFields)
         } else {
           onCreateSubmit(formFields)
         }
@@ -269,6 +258,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         if (groupedByDestinationId.hasOwnProperty(destinationId)) {
           // @ts-ignore
           const group = groupedByDestinationId[destinationId]
+
           const sortedRanges = group.sort(
             (a: IDestinationVariation, b: IDestinationVariation) => a.minWeight - b.minWeight,
           )
@@ -277,14 +267,17 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
             const currentRange = sortedRanges[i]
             const nextRange = sortedRanges[i + 1]
 
-            if (currentRange.maxWeight >= nextRange.minWeight || nextRange.minWeight <= currentRange.maxWeight) {
-              return false // Found intersecting or containing ranges
+            if (
+              Number(currentRange.maxWeight) >= Number(nextRange.minWeight) ||
+              Number(nextRange.minWeight) <= Number(currentRange.maxWeight)
+            ) {
+              return destinationId // Found intersecting or containing ranges
             }
           }
         }
       }
 
-      return true // All weight ranges are valid
+      return '' // All weight ranges are valid
     }
 
     const onApplyMinBoxWeightToAll = (variantIndex: number) => {
@@ -411,6 +404,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
         <div>
           <DestinationVariationsContent
+            rangeErrorDestinationId={rangeErrorDestinationId}
             destinationVariations={formFields.destinationVariations}
             destinationData={destinationData}
             destinationsFavourites={destinationsFavourites}
@@ -422,7 +416,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
             onApplyMinBoxWeightToAll={onApplyMinBoxWeightToAll}
           />
 
-          {formFields.destinationVariations.length > 1 && !isWeightRangeValid && (
+          {formFields.destinationVariations.length > 1 && !!rangeErrorDestinationId && (
             <p className={styles.deadlineErrorText}>
               {t(TranslationKey['The intersections of the weights are found'])}
             </p>
@@ -438,11 +432,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               labelClasses={styles.fieldLabel}
               containerClasses={styles.blockItemContainer}
               inputComponent={
-                <div
-                  className={cx({
-                    [styles.deadlineError]: checkDateByDeadline(formFields.cls),
-                  })}
-                >
+                <div>
                   <DatePicker
                     disablePast
                     slotProps={{
@@ -467,11 +457,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               labelClasses={styles.fieldLabel}
               containerClasses={styles.blockItemContainer}
               inputComponent={
-                <div
-                  className={cx({
-                    [styles.deadlineError]: checkDateByDeadline(formFields.etd),
-                  })}
-                >
+                <div>
                   <DatePicker
                     disablePast
                     value={formFields.etd}
@@ -497,11 +483,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               labelClasses={styles.fieldLabel}
               containerClasses={styles.blockItemContainer}
               inputComponent={
-                <div
-                  className={cx({
-                    [styles.deadlineError]: checkDateByDeadline(formFields.eta),
-                  })}
-                >
+                <div>
                   <DatePicker
                     disablePast
                     value={formFields.eta}

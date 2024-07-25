@@ -42,7 +42,7 @@ export class WarehouseMyWarehouseViewModel {
 
   destinations = []
 
-  curBox = undefined
+  curBox = ''
   curBoxToMove = undefined
   sourceBoxForBatch = undefined
 
@@ -53,26 +53,17 @@ export class WarehouseMyWarehouseViewModel {
   curOpenedTask = {}
   toCancelData = {}
 
-  hsCodeData = {}
-
-  showEditHSCodeModal = false
-
   showBoxViewModal = false
   showBoxMoveToBatchModal = false
   showAddBatchModal = false
   showAddOrEditHsCodeInBox = false
   showEditBoxModal = false
   showFullEditBoxModal = false
-  showSuccessInfoModal = false
   showMergeBoxModal = false
   showRedistributeBoxModal = false
   showGroupingBoxesModal = false
-
   showEditBoxModalR = false
-
   showEditMultipleBoxesModal = false
-
-  modalEditSuccessMessage = ''
 
   rowHandlers = {
     moveBox: item => this.moveBox(item),
@@ -240,62 +231,6 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onSubmitChangeBoxFields(data) {
-    try {
-      await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
-
-      await BoxesModel.editAdditionalInfo(data._id, {
-        storekeeperComment: data.storekeeperComment,
-        referenceId: data.referenceId,
-        fbaNumber: data.fbaNumber,
-        trackNumberText: data.trackNumberText,
-        trackNumberFile: this.uploadedFiles,
-        upsTrackNumber: data.upsTrackNumber,
-        prepId: data.prepId,
-        storage: data.storage,
-      })
-
-      this.getBoxesMy()
-
-      runInAction(() => {
-        this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
-      })
-
-      this.onTriggerOpenModal('showSuccessInfoModal')
-
-      this.onTriggerOpenModal('showBoxViewModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickSaveHsCode(hsCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: hsCode._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    this.loadData()
-
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
-  }
-
-  async onClickHsCode(id) {
-    const hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
-    runInAction(() => {
-      this.hsCodeData = hsCodeData
-    })
-    this.onTriggerOpenModal('showEditHSCodeModal')
-  }
-
   async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
@@ -409,11 +344,7 @@ export class WarehouseMyWarehouseViewModel {
         await this.onClickSubmitEditBox({ id: sourceBox._id, boxData: newBox, isMultipleEdit: true })
       }
 
-      runInAction(() => {
-        this.modalEditSuccessMessage = t(TranslationKey['Editing completed'])
-      })
-
-      this.onTriggerOpenModal('showSuccessInfoModal')
+      toast.success(t(TranslationKey['Editing completed']))
 
       this.loadData()
       this.setRequestStatus(loadingStatus.SUCCESS)
@@ -731,10 +662,7 @@ export class WarehouseMyWarehouseViewModel {
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)
 
         if (splitBoxesResult) {
-          runInAction(() => {
-            this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
-          })
-          this.onTriggerOpenModal('showSuccessInfoModal')
+          toast.success(t(TranslationKey['Data saved successfully']))
         } else {
           toast.warning(t(TranslationKey['The box is not split!']))
         }
@@ -789,10 +717,7 @@ export class WarehouseMyWarehouseViewModel {
       const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes, newBoxBody)
 
       if (mergeBoxesResult) {
-        runInAction(() => {
-          this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
-        })
-        this.onTriggerOpenModal('showSuccessInfoModal')
+        toast.success(t(TranslationKey['Data saved successfully']))
       } else {
         toast.warning(t(TranslationKey['The boxes are not joined!']))
       }
@@ -1001,11 +926,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async setCurrentOpenedBox(row) {
     try {
-      const box = await BoxesModel.getBoxById(row._id)
-
-      runInAction(() => {
-        this.curBox = box
-      })
+      this.curBox = row._id
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {

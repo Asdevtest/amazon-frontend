@@ -7,13 +7,13 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   FeesValuesWithCalculateBtnCell,
   ManyUserLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OpenInNewTabCell,
   ProductAsinCell,
   RedFlagsCell,
   TagsCell,
+  TextCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { formatNormDateTime } from '@utils/date-time'
@@ -24,7 +24,7 @@ import { IProduct } from '@typings/models/products/product'
 import { IGridColumn } from '@typings/shared/grid-column'
 import { ITag } from '@typings/shared/tag'
 
-import { productColumnMenuItems, productColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 interface IHandlers {
   onClickShowProduct: (row: IProduct) => void
@@ -63,11 +63,12 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
         )
       },
 
-      fields: productColumnMenuItems,
-      columnMenuConfig: productColumnMenuValue,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 260,
+      minWidth: 100,
     },
 
     {
@@ -77,7 +78,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
 
       width: 170,
       renderCell: params => (
-        <MultilineTextCell
+        <TextCell
           text={t(
             // @ts-ignore
             productStatusTranslateKey(ProductStatusByCode[params.row.status as keyof typeof ProductStatusByCode]),
@@ -102,7 +103,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
       renderCell: params => (
-        <MultilineTextCell
+        <TextCell
           text={productStrategyStatusesEnum[params.value as keyof typeof productStrategyStatusesEnum]?.replace(
             /_/g,
             ' ',
@@ -127,7 +128,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
           productId={params.row._id}
         />
       ),
-      minWidth: 110,
+      width: 110,
 
       filterable: false,
       sortable: false,
@@ -138,11 +139,10 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       field: 'amazon',
       headerName: t(TranslationKey['Amazon price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
       valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
       type: 'number',
-      minWidth: 90,
-
+      width: 90,
       columnKey: columnnsKeys.shared.NUMBER,
     },
 
@@ -151,7 +151,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Profit),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
       valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
       type: 'number',
       width: 90,
 
@@ -163,7 +163,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.BSR),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       type: 'number',
       width: 75,
 
@@ -175,9 +175,9 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey['Recommend amount']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
       valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       type: 'number',
-      minWidth: 150,
+      width: 150,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -186,7 +186,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       field: 'ideasOnCheck',
       headerName: t(TranslationKey['Ideas to Check']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ideas to Check'])} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 100,
       type: 'number',
 
@@ -197,7 +197,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       field: 'ideasClosed',
       headerName: t(TranslationKey['Closed Ideas']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Closed Ideas'])} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 100,
       type: 'number',
 
@@ -208,7 +208,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       field: 'ideasFinished',
       headerName: t(TranslationKey['Realized ideas']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Realized ideas'])} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 125,
       type: 'number',
 
@@ -265,7 +265,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-      minWidth: 120,
+      width: 120,
       valueFormatter: params => formatNormDateTime(params.value),
       renderCell: params => <NormDateCell value={params.value} />,
 
@@ -277,7 +277,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       valueFormatter: params => formatNormDateTime(params.value),
-      minWidth: 150,
+      width: 150,
       flex: 1,
       renderCell: params => <NormDateCell value={params.value} />,
 

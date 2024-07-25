@@ -279,7 +279,6 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.client.INVENTORY_STATUS,
       columnnsKeys.client.FREELANCE_MY_REQUESTS,
       columnnsKeys.shared.STRING,
-      columnnsKeys.shared.TYPE,
       columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
       columnnsKeys.client.ORDERS_STATUS,
       columnnsKeys.client.IDEAS_STATUS,
@@ -306,33 +305,6 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if (
-    [
-      columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
-      columnnsKeys.client.INVENTORY_PRODUCT,
-      columnnsKeys.client.SHOP_REPORT,
-    ].includes(currentColumn.columnKey)
-  ) {
-    const isShopReportColumn = currentColumn.columnKey === columnnsKeys.client.SHOP_REPORT
-
-    return (
-      <CustomMenuContainer {...props}>
-        <ProductMenuItem
-          withoutTitle={isShopReportColumn}
-          skuOption={isShopReportColumn}
-          field={currentColumn.field}
-          data={props}
-          table={currentColumn.table}
-          filterRequestStatus={filterRequestStatus}
-          onClose={hideMenu}
-          onClickFilterBtn={onClickFilterBtn}
-          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-          onClickAccept={onClickAccept}
-        />
-      </CustomMenuContainer>
-    )
-  }
-
   if ([columnnsKeys.shared.DATE_DETAILS].includes(currentColumn.columnKey)) {
     return (
       <CustomMenuContainer {...props}>
@@ -350,11 +322,9 @@ export const DataGridCustomColumnMenuComponent = props => {
   }
 
   if (
-    [
-      columnnsKeys.shared.BATCHES_PRODUCTS,
-      columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT,
-      columnnsKeys.client.SHOP_REPORT,
-    ].includes(currentColumn.columnKey)
+    [columnnsKeys.shared.BATCHES_PRODUCTS, columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT].includes(
+      currentColumn.columnKey,
+    )
   ) {
     return (
       <CustomMenuContainer {...props}>
@@ -576,7 +546,7 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if ([columnnsKeys.shared.OBJECT_VALUE].includes(currentColumn.columnKey)) {
+  if (columnnsKeys.shared.OBJECT_VALUE === currentColumn.columnKey) {
     return (
       <CustomMenuContainer {...props}>
         <ObjectColumnMenu

@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
@@ -60,8 +61,6 @@ export class SuppliersAndIdeasModel {
 
   dataToCreateProduct = undefined
 
-  successModalTitle = ''
-
   readyFiles = []
   progressValue = 0
   showProgress = false
@@ -69,7 +68,6 @@ export class SuppliersAndIdeasModel {
   isCreate = false
 
   showConfirmModal = false
-  showSuccessModal = false
 
   showRequestDesignerResultModal = false
   showMainRequestResultModal = false
@@ -89,11 +87,6 @@ export class SuppliersAndIdeasModel {
     isWarning: false,
     confirmMessage: '',
     onClickConfirm: () => {},
-  }
-
-  successModalSettings = {
-    modalTitle: '',
-    onClickSuccessBtn: () => {},
   }
 
   get curUser() {
@@ -192,21 +185,13 @@ export class SuppliersAndIdeasModel {
       const res = await IdeaModel.createIdea({ ...data, price: data.price || 0, quantity: data.quantity || 0 })
 
       if (!isForceUpdate) {
-        runInAction(() => {
-          this.successModalSettings = {
-            modalTitle: t(TranslationKey['Idea created']),
-            onClickSuccessBtn: () => {
-              if (this.isModalView) {
-                this.closeModalHandler()
-              } else {
-                this.onTriggerOpenModal('showSuccessModal')
-              }
-              this.updateData?.()
-            },
-          }
-        })
+        if (this.isModalView) {
+          this.closeModalHandler()
+        }
 
-        this.onTriggerOpenModal('showSuccessModal')
+        this.updateData?.()
+
+        toast.success(t(TranslationKey['Idea created']))
       }
 
       return res.guid
@@ -220,21 +205,13 @@ export class SuppliersAndIdeasModel {
       await IdeaModel.editIdea(id, data)
 
       if (!isForceUpdate) {
-        runInAction(() => {
-          this.successModalSettings = {
-            modalTitle: t(TranslationKey['Idea edited']),
-            onClickSuccessBtn: () => {
-              if (this.isModalView) {
-                this.closeModalHandler()
-              } else {
-                this.onTriggerOpenModal('showSuccessModal')
-              }
-              this.updateData?.()
-            },
-          }
-        })
+        if (this.isModalView) {
+          this.closeModalHandler()
+        }
 
-        this.onTriggerOpenModal('showSuccessModal')
+        this.updateData?.()
+
+        toast.success(t(TranslationKey['Idea edited']))
       }
     } catch (error) {
       console.error(error)
@@ -358,14 +335,7 @@ export class SuppliersAndIdeasModel {
 
       this.loadData()
 
-      runInAction(() => {
-        this.successModalSettings = {
-          modalTitle: t(TranslationKey['Product added']),
-          onClickSuccessBtn: () => this.onTriggerOpenModal('showSuccessModal'),
-        }
-      })
-
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Product added']))
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -542,6 +512,7 @@ export class SuppliersAndIdeasModel {
       onClickConfirm: () => {
         this.changeIdeaStatus(ideaData, chesenStatus)
         this.onTriggerOpenModal('showConfirmModal')
+        toast.success(t(TranslationKey['Idea status changed successfully']))
       },
     }
     this.onTriggerOpenModal('showConfirmModal')

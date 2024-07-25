@@ -13,37 +13,231 @@
  */
 
 
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
+import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
 
 /**
- * Схема магазина.
+ * 
  * @export
  * @interface InlineObject121
  */
 export interface InlineObject121 {
     /**
-     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * Категория
      * @type {string}
      * @memberof InlineObject121
      */
-    name?: string;
+    category?: string;
     /**
-     * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+     * Ссылка на этот продукт на амазоне.
      * @type {string}
      * @memberof InlineObject121
      */
-    sellerBoardWarehouseReportUrlDaily?: string;
+    lamazon?: string;
     /**
-     * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject121
      */
-    sellerBoardWarehouseReportUrlMonthly?: string;
+    bsr?: number;
     /**
-     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * Признак fba
+     * @type {boolean}
+     * @memberof InlineObject121
+     */
+    fba?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    amazon?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    height?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    width?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    length?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    weight?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    fbafee?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    fbaamount?: number;
+    /**
+     *  Статус товара. У ресечера: 0 - новый товар. 5- готов к проверке супером. 10 - новый товар с поставщиком
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    status?: number;
+    /**
+     * Комментарии к товару.
      * @type {string}
      * @memberof InlineObject121
      */
-    reportAccountUrl?: string;
+    icomment?: string;
+    /**
+     * Массив изображений.
+     * @type {Array<string>}
+     * @memberof InlineObject121
+     */
+    images?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    amazonDescription?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    amazonDetail?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    amazonTitle?: string;
+    /**
+     * Материл продукта
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    material?: string;
+    /**
+     * Применение продукта
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    productUsage?: string;
+    /**
+     * chinese title?
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    chinaTitle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    barCode?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    minpurchase?: number;
+    /**
+     * Прибыль
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    margin?: number;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    strategyStatus?: number;
+    /**
+     * Ниша
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    niche?: string;
+    /**
+     * Асины
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    asins?: string;
+    /**
+     * Общий доход
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    totalRevenue?: string;
+    /**
+     * Коэффициент прибыли
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    coefficient?: string;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    avgReviews?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsGuidRedFlags>}
+     * @memberof InlineObject121
+     */
+    redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @memberof InlineObject121
+     */
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
 }
 
 

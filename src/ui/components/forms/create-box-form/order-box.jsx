@@ -49,6 +49,8 @@ export const OrderBox = memo(props => {
             label={t(TranslationKey['Box length'])}
             error={isNormalLength}
             value={orderBox.lengthCmSupplier}
+            inputClasses={styles.input}
+            labelClasses={styles.checkboxLabel}
             onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
           />
 
@@ -57,6 +59,8 @@ export const OrderBox = memo(props => {
             label={t(TranslationKey['Box width'])}
             error={isNormalWidth}
             value={orderBox.widthCmSupplier}
+            inputClasses={styles.input}
+            labelClasses={styles.checkboxLabel}
             onChange={setFormField('widthCmSupplier', orderBoxIndex)}
           />
         </div>
@@ -67,6 +71,8 @@ export const OrderBox = memo(props => {
             label={t(TranslationKey['Box height'])}
             error={isNormalHeight}
             value={orderBox.heightCmSupplier}
+            inputClasses={styles.input}
+            labelClasses={styles.checkboxLabel}
             onChange={setFormField('heightCmSupplier', orderBoxIndex)}
           />
 
@@ -75,6 +81,8 @@ export const OrderBox = memo(props => {
             label={t(TranslationKey['Real weight'])}
             error={Number(orderBox.weighGrossKgSupplier) === 0}
             value={orderBox.weighGrossKgSupplier}
+            inputClasses={styles.input}
+            labelClasses={styles.checkboxLabel}
             onChange={setFormField('weighGrossKgSupplier', orderBoxIndex)}
           />
         </div>
@@ -84,6 +92,8 @@ export const OrderBox = memo(props => {
             disabled
             label={t(TranslationKey['Volume weight'])}
             value={toFixed(calcVolumeWeightForBox(orderBox, volumeWeightCoefficient), 2)}
+            inputClasses={styles.input}
+            labelClasses={styles.checkboxLabel}
           />
 
           <Field
@@ -97,6 +107,8 @@ export const OrderBox = memo(props => {
               ),
               2,
             )}
+            inputClasses={styles.input}
+            labelClasses={styles.checkboxLabel}
           />
         </div>
 
@@ -106,6 +118,8 @@ export const OrderBox = memo(props => {
             inputProps={{ maxLength: 3 }}
             label={t(TranslationKey['Quantity of boxes'])}
             value={orderBox.amount}
+            inputClasses={styles.input}
+            labelClasses={styles.checkboxLabel}
             onChange={setFormField('amount', orderBoxIndex)}
           />
           <Field
@@ -118,6 +132,8 @@ export const OrderBox = memo(props => {
             }
             label={t(TranslationKey['Products in a box'])}
             value={orderBox.items[0]?.amount}
+            inputClasses={styles.input}
+            labelClasses={styles.checkboxLabel}
             onChange={setAmountField(orderBoxIndex)}
           />
         </div>
@@ -141,13 +157,11 @@ export const OrderBox = memo(props => {
         />
       </div>
 
-      <Button
-        variant={ButtonVariant.OUTLINED}
-        tooltipInfoContent={t(TranslationKey['Remove box'])}
-        onClick={() => onRemoveBox(orderBoxIndex)}
-      >
-        <DeleteIcon />
-      </Button>
+      <div>
+        <Button iconButton variant={ButtonVariant.OUTLINED} onClick={() => onRemoveBox(orderBoxIndex)}>
+          <DeleteIcon />
+        </Button>
+      </div>
     </div>
   )
 })

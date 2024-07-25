@@ -1,12 +1,13 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineRequestStatusCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
-  ShortDateCell,
+  NormDateCell,
+  TextCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -25,7 +26,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <ShortDateCell value={params.value} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
     columnKey: columnnsKeys.shared.DATE,
   },
@@ -40,7 +41,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <MultilineTextCell text={String(params.value)} />,
+    renderCell: params => <TextCell text={String(params.value)} />,
     width: 65,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -55,7 +56,9 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <MultilineRequestStatusCell status={params.value} />,
+    renderCell: params => (
+      <TextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
+    ),
     width: 140,
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
@@ -70,7 +73,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     width: 390,
     columnKey: columnnsKeys.shared.STRING,
   },
@@ -85,7 +88,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    renderCell: params => <TextCell text={params.row.spec?.title} />,
     width: 110,
     columnKey: columnnsKeys.shared.OBJECT,
   },
@@ -100,7 +103,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 115,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -109,7 +112,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     field: 'timeoutAt',
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
-    renderCell: params => <ShortDateCell value={params.value} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 115,
     columnKey: columnnsKeys.shared.DATE,
   },
@@ -118,7 +121,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     field: 'allProposals',
     headerName: t(TranslationKey['Total proposals']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     width: 115,
   },
 
@@ -126,7 +129,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     field: 'acceptedProposals',
     headerName: t(TranslationKey.Accepted),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Accepted)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     width: 90,
   },
 

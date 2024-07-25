@@ -1,4 +1,6 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import {
   colorByDifficultyLevel,
   difficultyLevelByCode,
@@ -7,12 +9,11 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineRequestStatusCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
+  NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductAsinCell,
-  ShortDateCell,
+  TextCell,
   UserMiniCell,
   VacantRequestPriceCell,
 } from '@components/data-grid/data-grid-cells'
@@ -43,12 +44,9 @@ export const freelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey['Difficulty level']),
 
     renderCell: params => (
-      <MultilineTextCell
+      <TextCell
         text={difficultyLevelTranslate(difficultyLevelByCode[params.value])}
-        customTextStyles={{
-          color: colorByDifficultyLevel(difficultyLevelByCode[params.value]),
-          fontWeight: 600,
-        }}
+        color={colorByDifficultyLevel(difficultyLevelByCode[params.value])}
       />
     ),
     width: 95,
@@ -59,7 +57,7 @@ export const freelancerVacantRequestColumns = handlers => [
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <MultilineTextCell threeLines maxLength={56} text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     width: 110,
 
     columnKey: columnnsKeys.shared.STRING,
@@ -81,7 +79,8 @@ export const freelancerVacantRequestColumns = handlers => [
         />
       )
     },
-    width: 250,
+    width: 260,
+    minWidth: 100,
 
     columnKey: columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT,
   },
@@ -90,7 +89,7 @@ export const freelancerVacantRequestColumns = handlers => [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     width: 70,
 
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -111,7 +110,7 @@ export const freelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey['Request price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request price'])} />,
 
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     width: 96,
     sortable: false,
@@ -123,7 +122,9 @@ export const freelancerVacantRequestColumns = handlers => [
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: params => <MultilineRequestStatusCell status={params.value} />,
+    renderCell: params => (
+      <TextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
+    ),
     width: 120,
 
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
@@ -133,7 +134,7 @@ export const freelancerVacantRequestColumns = handlers => [
     field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-    renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    renderCell: params => <TextCell text={params.row.spec?.title} />,
     width: 110,
     sortable: false,
     columnKey: columnnsKeys.shared.OBJECT,
@@ -143,7 +144,7 @@ export const freelancerVacantRequestColumns = handlers => [
     field: 'timeoutAt',
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
-    renderCell: params => <ShortDateCell value={params.value} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 87,
 
     columnKey: columnnsKeys.shared.DATE,
@@ -154,9 +155,7 @@ export const freelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey['Time till deadline']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time till deadline'])} />,
 
-    renderCell: params => (
-      <MultilineTextCell withLineBreaks text={timeToDeadlineInDaysAndHours({ date: params.row.timeoutAt })} />
-    ),
+    renderCell: params => <TextCell text={timeToDeadlineInDaysAndHours({ date: params.row.timeoutAt })} />,
     width: 80,
   },
 
@@ -165,9 +164,7 @@ export const freelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-    renderCell: params => (
-      <MultilineTextCell threeLines text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />
-    ),
+    renderCell: params => <TextCell text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />,
     width: 110,
 
     columnKey: columnnsKeys.shared.OBJECT,
@@ -178,7 +175,7 @@ export const freelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.Announcement),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Announcement)} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.announcement?.title || t(TranslationKey.Missing)} />,
+    renderCell: params => <TextCell text={params.row.announcement?.title || t(TranslationKey.Missing)} />,
     width: 130,
 
     columnKey: columnnsKeys.shared.OBJECT,
@@ -201,7 +198,7 @@ export const freelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.CashBack),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.CashBack)} />,
 
-    renderCell: params => <MultilineTextCell text={toFixed(params.row.cashBackInPercent, 2) + ' %'} />,
+    renderCell: params => <TextCell text={toFixed(params.row.cashBackInPercent, 2) + ' %'} />,
     width: 90,
   },
 
@@ -224,7 +221,7 @@ export const freelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Remaining offers'])} />,
 
     renderCell: params => (
-      <MultilineTextCell
+      <TextCell
         text={`${params.row.maxAmountOfProposals - params.row.countProposalsByStatuses.acceptedProposals} ${t(
           TranslationKey['out of'],
         )} ${params.row.maxAmountOfProposals}`}
@@ -237,24 +234,7 @@ export const freelancerVacantRequestColumns = handlers => [
     field: 'withoutConfirmation',
     headerName: t(TranslationKey['To work without confirmation']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['To work without confirmation'])} />,
-    renderCell: params => (
-      <MultilineTextCell
-        customTextStyles={
-          params.value
-            ? {
-                background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }
-            : {
-                background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }
-        }
-        text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)}
-      />
-    ),
+    renderCell: params => <TextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
     width: 140,
     columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
   },
@@ -263,7 +243,7 @@ export const freelancerVacantRequestColumns = handlers => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <ShortDateCell value={params.value} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 105,
     columnKey: columnnsKeys.shared.DATE,
   },

@@ -22,7 +22,6 @@ export interface ChoiceOfPerformerModalProps {
   masterUsersData: Array<ICreatedBy>
   chosenExecutor: ICreatedBy
   chosenAnnouncement: IAnnoucement
-  onClickThumbnail: () => void
   onClickSelectButton: (selectedService?: IAnnoucement, chosenExecutor?: ICreatedBy) => void
   onClickResetPerformerBtn: () => void
   onClickCloseBtn: () => void
@@ -34,7 +33,6 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
     masterUsersData,
     chosenExecutor,
     chosenAnnouncement,
-    onClickThumbnail,
     onClickSelectButton,
     onClickResetPerformerBtn,
     onClickCloseBtn,
@@ -147,7 +145,6 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
             key={serviceKey}
             announcementData={service}
             selectedCard={selectedService}
-            onClickThumbnail={onClickThumbnail}
             onClickSelectCard={selectCardHandler}
             onClickSelectButton={() => onClickSelectButton(selectedService, selectedExecutor)}
           />

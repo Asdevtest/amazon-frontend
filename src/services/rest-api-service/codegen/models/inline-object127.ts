@@ -21,11 +21,11 @@
  */
 export interface InlineObject127 {
     /**
-     * 
-     * @type {string}
+     * Статус
+     * @type {number}
      * @memberof InlineObject127
      */
-    storekeeperComment: string;
+    status?: number;
 }
 
 

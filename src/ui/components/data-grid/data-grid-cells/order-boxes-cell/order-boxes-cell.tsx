@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { OrderCell, OrderManyItemsCell, SuperboxQtyCell } from '..'
+import { OrderCell, OrderManyItemsCell, TextCell } from '..'
 import { FC, memo } from 'react'
 
 import { useStyles } from './order-boxes-cell.style'
@@ -17,10 +17,11 @@ interface OrderBoxesCellProps {
 export const OrderBoxesCell: FC<OrderBoxesCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { superbox, superboxQty, qty, box, product, withoutSku, withQuantity } = props
+  const value = qty * superboxQty
 
   return superbox ? (
     <div className={styles.orderBoxesWrapper}>
-      <SuperboxQtyCell qty={qty} superbox={superboxQty} />
+      <TextCell text={String(value)} />
       <OrderManyItemsCell box={box} withoutSku={withoutSku} />
     </div>
   ) : (

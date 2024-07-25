@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     width: '436px',
     justifyContent: 'space-between',
-    marginBottom: '30px',
+    margin: 0,
     gap: 90,
   },
 
@@ -53,6 +53,20 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '16px',
   },
 
+  flexEnd: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
+
+  successText: {
+    color: theme.palette.text.green,
+  },
+
+  errorText: {
+    color: theme.palette.text.red,
+  },
+
   standartText: {
     color: theme.palette.text.second,
   },
@@ -76,6 +90,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    gap: '20px',
   },
   barCodeWrapper: {
     display: 'flex',

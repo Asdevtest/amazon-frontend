@@ -43,6 +43,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   orderId: string = ''
 
   isStrictVariationSelect: boolean = true
+  isSkipWeightCheck: boolean = false
 
   boxId: string = ''
   boxData: IBox | undefined = undefined
@@ -74,6 +75,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     box,
     isHideCalculation,
     isGetAllStorekeepers,
+    isSkipWeightCheck,
   }: {
     box?: IBox
     supplierId?: string
@@ -82,6 +84,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     boxId?: string
     isHideCalculation?: boolean
     isGetAllStorekeepers?: boolean
+    isSkipWeightCheck?: boolean
     onClickSubmit?: (body: INewDataOfVariation) => void
   }) {
     const columnHandlers = {
@@ -114,6 +117,9 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       this.handleSave = onClickSubmit
     }
 
+    if (isSkipWeightCheck) {
+      this.isSkipWeightCheck = isSkipWeightCheck
+    }
     this.sortModel = [{ field: isHideCalculation ? 'pricePerKgUsd' : 'roi', sort: SortSettingsMode.DESC }]
 
     if (checkIsStorekeeper(UserRoleCodeMap[this.role])) {
@@ -232,7 +238,12 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   }
 
   handleCheckVariation() {
-    if (this.boxData && this.variationMinBoxWeight && this.boxData.finalWeight < this.variationMinBoxWeight) {
+    if (
+      !this.isSkipWeightCheck &&
+      this.boxData &&
+      this.variationMinBoxWeight &&
+      this.boxData.finalWeight < this.variationMinBoxWeight
+    ) {
       this.confirmModalSettings = {
         isWarning: true,
         title: t(TranslationKey.Attention),

@@ -21,11 +21,17 @@
  */
 export interface InlineResponse200114 {
     /**
-     * id созданного профайла
+     * Гуид магазина
      * @type {string}
      * @memberof InlineResponse200114
      */
-    profileId?: string;
+    _id: string;
+    /**
+     * Название магазина
+     * @type {string}
+     * @memberof InlineResponse200114
+     */
+    name: string;
 }
 
 

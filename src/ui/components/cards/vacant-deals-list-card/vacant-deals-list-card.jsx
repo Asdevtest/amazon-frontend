@@ -1,9 +1,11 @@
 import { Avatar, Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
+import { TextCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
 import { UserLink } from '@components/user/user-link'
 
@@ -68,7 +70,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
               <div className={styles.timeItemInfoWrapper}>
                 <Typography className={styles.text}>{t(TranslationKey.Status)}</Typography>
 
-                <RequestStatusCell status={item.status} />
+                <TextCell text={MyRequestStatusTranslate(item.status)} color={colorByStatus(item.status)} />
               </div>
             </div>
             <div className={styles.rightSubBlockWrapper}>

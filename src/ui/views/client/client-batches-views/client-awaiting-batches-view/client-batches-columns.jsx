@@ -6,17 +6,18 @@ import {
   BatchBoxesCell,
   BatchTrackingCell,
   ManyUserLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  ToFixedWithKgSignCell,
+  TextCell,
   UserLinkCell,
   WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells'
 import { DataGridSelectViewProductBatch } from '@components/data-grid/data-grid-custom-components/data-grid-select-view-product-batch'
 
-import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
   const columns = [
@@ -37,18 +38,21 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       ),
       renderCell: params => <BatchBoxesCell boxes={params.row.boxes} productViewMode={getProductViewMode?.()} />,
       width: 420,
+
       filterable: false,
       sortable: false,
-      columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
-      table: DataGridFilterTables.PRODUCTS,
       disableCustomSort: true,
+
+      fields: getProductColumnMenuItems({ withoutSku: true }),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
       field: 'title',
       headerName: t(TranslationKey['Batch title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 150,
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -57,7 +61,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       field: 'destination',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-      renderCell: params => <MultilineTextCell text={params.row?.boxes?.[0]?.destination?.name} />,
+      renderCell: params => <TextCell text={params.row?.boxes?.[0]?.destination?.name} />,
       width: 130,
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -69,7 +73,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       field: 'quantityBoxes',
       headerName: t(TranslationKey.Boxes),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       type: 'number',
       width: 70,
       filterable: false,
@@ -82,7 +86,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       field: 'humanFriendlyId',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       type: 'number',
       width: 80,
       columnKey: columnnsKeys.shared.STRING,
@@ -131,7 +135,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       field: 'logicsTariff',
       headerName: t(TranslationKey.Tariff),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-      renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row.boxes[0])} />,
+      renderCell: params => <TextCell text={getNewTariffTextForBoxOrOrder(params.row.boxes[0])} />,
       width: 160,
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -146,8 +150,6 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderCell: params => (
         <BatchTrackingCell
           disabled
-          disableMultilineForTrack
-          disabledArrivalDate={params.row?.status !== 'HAS_DISPATCHED'}
           rowHandlers={rowHandlers}
           id={params.row?._id}
           arrivalDate={params.row?.arrivalDate}
@@ -165,7 +167,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       field: 'finalWeight',
       headerName: t(TranslationKey['Final weight']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-      renderCell: params => <ToFixedWithKgSignCell value={params.row.finalWeight} fix={2} />,
+      renderCell: params => <TextCell copyable={false} text={toFixedWithKg(params.row.finalWeight)} />,
       type: 'number',
       width: 100,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -175,7 +177,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       field: 'deliveryTotalPrice',
       headerName: t(TranslationKey['Delivery cost']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row?.calculatedShippingCost, 2)} />,
+      renderCell: params => <TextCell text={toFixedWithDollarSign(params.row?.calculatedShippingCost, 2)} />,
       type: 'number',
       width: 110,
       sortable: false,

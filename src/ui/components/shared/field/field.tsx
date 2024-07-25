@@ -1,6 +1,6 @@
 import { ClassNamesArg } from '@emotion/react'
 import { observer } from 'mobx-react'
-import { ComponentType, FC, InputHTMLAttributes, ReactElement, useContext, useState } from 'react'
+import { ComponentType, FC, InputHTMLAttributes, ReactElement, useContext } from 'react'
 
 import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
@@ -62,10 +62,6 @@ export const Field: FC<Props> = observer(
     ...restProps
   }) => {
     const { classes: styles, cx } = useStyles()
-
-    const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
-    const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
-
     const { hints } = useContext(HintsContext)
 
     return (
@@ -80,39 +76,23 @@ export const Field: FC<Props> = observer(
           {(tooltipAttentionContent || tooltipInfoContent) && label ? (
             <div className={styles.tooltipsWrapper}>
               {tooltipAttentionContent ? (
-                <Tooltip
-                  arrow
-                  open={openAttentionTooltip}
-                  title={tooltipAttentionContent}
-                  placement="top-end"
-                  onClose={() => setOpenAttentionTooltip(false)}
-                  onOpen={() => setOpenAttentionTooltip(true)}
-                >
-                  <div>
-                    <TooltipAttentionIcon
-                      className={cx(styles.tooltip)}
-                      onClick={() => setOpenAttentionTooltip(true)}
-                    />
-                  </div>
-                </Tooltip>
+                <div>
+                  <Tooltip arrow title={tooltipAttentionContent} placement="top-end">
+                    <div>
+                      <TooltipAttentionIcon className={styles.tooltip} />
+                    </div>
+                  </Tooltip>
+                </div>
               ) : null}
 
               {tooltipInfoContent && hints ? (
-                <Tooltip
-                  arrow
-                  open={openInfoTooltip}
-                  title={tooltipInfoContent}
-                  placement="top-end"
-                  onClose={() => setOpenInfoTooltip(false)}
-                  onOpen={() => setOpenInfoTooltip(true)}
-                >
-                  <div>
-                    <TooltipInfoIcon
-                      className={cx(styles.tooltip, styles.tooltipInfo)}
-                      onClick={() => setOpenInfoTooltip(true)}
-                    />
-                  </div>
-                </Tooltip>
+                <div>
+                  <Tooltip arrow title={tooltipInfoContent} placement="top-end">
+                    <div>
+                      <TooltipInfoIcon className={cx(styles.tooltip, styles.tooltipInfo)} />
+                    </div>
+                  </Tooltip>
+                </div>
               ) : null}
             </div>
           ) : null}

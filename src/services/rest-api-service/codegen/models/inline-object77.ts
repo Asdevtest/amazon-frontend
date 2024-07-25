@@ -21,132 +21,101 @@
  */
 export interface InlineObject77 {
     /**
-     * Кол-во продукта по этой позиции.
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    amount?: number;
-    /**
-     * Гуид сапплаера
+     * Название идеи
      * @type {string}
      * @memberof InlineObject77
      */
-    orderSupplierId?: string;
+    title?: string;
     /**
-     * Склад для изменения
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    storekeeperId?: string;
-    /**
-     * Пункт назначения
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    destinationId?: string;
-    /**
-     * Тариф для изменения
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    logicsTariffId?: string;
-    /**
-     * Тариф для вариации
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    variationTariffId?: string;
-    /**
-     * Массив картинок.
+     * Image URL
      * @type {Array<string>}
      * @memberof InlineObject77
      */
-    images?: Array<string>;
+    media?: Array<string>;
     /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    totalPrice?: number;
-    /**
-     * Защита листинга
+     * Комментарий к идее
      * @type {string}
      * @memberof InlineObject77
      */
-    transparencyFile?: string;
+    comments?: string;
     /**
-     * Комментарий баера
+     * Комментарий байера
      * @type {string}
      * @memberof InlineObject77
      */
     buyerComment?: string;
     /**
-     * Не настоящий ключ, используется только для нужд юзера
+     * Назавние продукта
      * @type {string}
      * @memberof InlineObject77
      */
-    item?: string;
+    productName: string;
     /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
+     * Ссылки на продукт, если есть
+     * @type {Array<string>}
      * @memberof InlineObject77
      */
-    needsResearch?: boolean;
+    productLinks?: Array<string>;
     /**
-     * Дедлайн выкупа заказа
+     * Дополнительные критерии для поиска товара
      * @type {string}
      * @memberof InlineObject77
      */
-    deadline?: string;
+    criteria?: string;
     /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    priority?: InlineObject77PriorityEnum;
-    /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
-     * @type {boolean}
-     * @memberof InlineObject77
-     */
-    expressChinaDelivery?: boolean;
-    /**
-     * Стоимость доставки до склада.
+     * Количество товаров
      * @type {number}
      * @memberof InlineObject77
      */
-    deliveryCostToTheWarehouse?: number;
+    quantity?: number;
     /**
-     * Комментарий клтента в заказе
+     * Желаемая цена
+     * @type {number}
+     * @memberof InlineObject77
+     */
+    price: number;
+    /**
+     * FBA Fee
+     * @type {number}
+     * @memberof InlineObject77
+     */
+    fbaFee?: number;
+    /**
+     * Ориентационная цена
+     * @type {number}
+     * @memberof InlineObject77
+     */
+    approximatePrice?: number;
+    /**
+     * Ширина, см
+     * @type {number}
+     * @memberof InlineObject77
+     */
+    width?: number;
+    /**
+     * Высота, см
+     * @type {number}
+     * @memberof InlineObject77
+     */
+    height?: number;
+    /**
+     * Длина, см
+     * @type {number}
+     * @memberof InlineObject77
+     */
+    length?: number;
+    /**
+     * Product ID
      * @type {string}
      * @memberof InlineObject77
      */
-    clientComment?: string;
+    productId?: string;
     /**
-     * Цена в юанях
-     * @type {number}
+     * Гуид родительского продукта
+     * @type {string}
      * @memberof InlineObject77
      */
-    priceInYuan?: number;
-    /**
-     * Цена доставки партии в юанях
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    priceBatchDeliveryInYuan?: number;
+    parentProductId?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject77PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

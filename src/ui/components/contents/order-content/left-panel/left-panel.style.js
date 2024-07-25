@@ -22,30 +22,11 @@ export const useStyles = makeStyles()(theme => ({
     objectPosition: 'center',
   },
 
-  containerTitle: {
-    fontSize: '16px',
-    fontWeight: 400,
-    lineHeight: '19px',
-    color: theme.palette.primary.main,
-  },
-
   text: {
     color: theme.palette.text.second,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '16px',
-  },
-
-  divider: {
-    margin: '10px 0',
-  },
-  lastDivider: {
-    margin: '16px 0',
-  },
-  collapsedWrapper: {
-    textAlign: 'center',
-    cursor: 'pointer',
-    marginTop: '79px',
   },
 
   productInfoWrapper: {

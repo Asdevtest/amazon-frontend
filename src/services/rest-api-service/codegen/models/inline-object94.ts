@@ -21,23 +21,11 @@
  */
 export interface InlineObject94 {
     /**
-     * Удалять ли пермишны(только, если parentProductId - null
-     * @type {boolean}
-     * @memberof InlineObject94
-     */
-    deletePermissions?: boolean;
-    /**
-     * Ключ родительского продукта
-     * @type {string}
-     * @memberof InlineObject94
-     */
-    parentProductId: string;
-    /**
-     * 
+     * GUIDы поставщиков, которые нужно добавить в БД.
      * @type {Array<string>}
      * @memberof InlineObject94
      */
-    childProductIds: Array<string>;
+    suppliersIds?: Array<string>;
 }
 
 

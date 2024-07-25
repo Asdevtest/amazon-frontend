@@ -106,7 +106,7 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
       >
         <BindStockGoodsToInventoryForm
           goodsToSelect={addIdDataConverter(
-            viewModel.currentData?.filter(item => viewModel.selectedRows?.includes(item?._id)),
+            viewModel.currentData?.filter((item: any) => viewModel.selectedRows?.includes(item?._id)),
           )}
           inventoryData={viewModel.inventoryProducts}
           updateInventoryData={viewModel.getProductsMy}

@@ -63,7 +63,6 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
   showIdeaModal = false
   showBindingModal = false
   showConfirmModal = false
-  showSuccessModal = false
   showProductLaunch = false
   showRequestDesignerResultModal = false
   showRequestBloggerResultModal = false
@@ -100,7 +99,6 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
 
   // * Modal states
 
-  successModalTitle = ''
   isIdeaCreate = false
 
   get userInfo(): IFullUser {
@@ -270,6 +268,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       onSubmit: () => {
         this.statusHandler(IdeaModel.setStatusToCheck, id)
         this.onTriggerOpenModal('showConfirmModal')
+        toast.success(t(TranslationKey['Idea status changed successfully']))
       },
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
@@ -293,6 +292,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       onSubmit: () => {
         this.statusHandler(IdeaModel.setStatusToSupplierSearch, id)
         this.onTriggerOpenModal('showConfirmModal')
+        toast.success(t(TranslationKey['Idea status changed successfully']))
       },
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
@@ -311,6 +311,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
           !ideaData?.variation && ideaData?.parentProduct?._id && ideaData,
         )
         this.onTriggerOpenModal('showConfirmModal')
+        toast.success(t(TranslationKey['Idea status changed successfully']))
       },
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
@@ -325,6 +326,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       onSubmit: () => {
         this.statusHandler(IdeaModel.setStatusToAddingAsin, id)
         this.onTriggerOpenModal('showConfirmModal')
+        toast.success(t(TranslationKey['Idea status changed successfully']))
       },
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
@@ -339,6 +341,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       onSubmit: () => {
         this.statusHandler(IdeaModel.setStatusToFinished, id)
         this.onTriggerOpenModal('showConfirmModal')
+        toast.success(t(TranslationKey['Idea status changed successfully']))
       },
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
@@ -353,6 +356,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       onSubmit: () => {
         this.statusHandler(IdeaModel.restore, id)
         this.onTriggerOpenModal('showConfirmModal')
+        toast.success(t(TranslationKey['Idea status changed successfully']))
       },
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
@@ -442,9 +446,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       await IdeaModel.editIdea(id, data)
 
       if (!isForceUpdate) {
-        this.successModalTitle = t(TranslationKey['Idea edited'])
-
-        this.onTriggerOpenModal('showSuccessModal')
+        toast.success(t(TranslationKey['Idea edited']))
       }
     } catch (error) {
       console.error(error)
@@ -502,8 +504,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
 
       this.getCurrentData()
 
-      this.successModalTitle = t(TranslationKey['Product added'])
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Product added']))
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -666,7 +667,10 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       title: '',
       isWarning: false,
       message: t(TranslationKey['Are you sure you want to create a product?']),
-      onSubmit: () => this.onSubmitCreateProduct(ideaData),
+      onSubmit: () => {
+        this.onSubmitCreateProduct(ideaData)
+        toast.success(t(TranslationKey['Data saved successfully']))
+      },
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
 
@@ -681,7 +685,10 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
         t(TranslationKey['Are you sure you want to close this idea?']) +
         '\n' +
         t(TranslationKey['Once confirmed, the idea will be closed without reopening']),
-      onSubmit: () => this.onSubmitRemoveIdea(ideaId),
+      onSubmit: () => {
+        this.onSubmitRemoveIdea(ideaId)
+        toast.success(t(TranslationKey['Idea status changed successfully']))
+      },
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
     this.onTriggerOpenModal('showConfirmModal')
@@ -810,6 +817,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       onSubmit: () => {
         this.unbindRequest(requestId)
         this.onTriggerOpenModal('showConfirmModal')
+        toast.success(t(TranslationKey['Data saved successfully']))
       },
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
@@ -832,7 +840,10 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       message: ordersDataState.some((el: any) => el.tmpIsPendingOrder)
         ? t(TranslationKey['Pending order will be created'])
         : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-      onSubmit: () => this.onSubmitOrderProductModal(),
+      onSubmit: () => {
+        this.onSubmitOrderProductModal()
+        toast.success(t(TranslationKey['Data saved successfully']))
+      },
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
 

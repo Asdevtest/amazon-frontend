@@ -6,17 +6,23 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   AllIdeasActionsCell,
   ManyUserLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
+  NormDateCell,
   ProductAsinCell,
-  ShortDateCell,
   SmallRowImageCell,
+  TextCell,
   TimeFromSecondsCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import {
+  ProductColumnMenuType,
+  getProductColumnMenuItems,
+  getProductColumnMenuValue,
+} from '@config/data-grid-column-menu/product-column'
 
 export const clientAllIdeasColumns = rowHandlers => {
   const columns = [
@@ -25,7 +31,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Idea title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 190,
 
       columnKey: columnnsKeys.shared.STRING,
@@ -38,8 +44,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Status),
 
       renderCell: params => (
-        <MultilineTextCell
-          leftAlign
+        <TextCell
           text={ideaStatusTranslate(ideaStatusByCode[params.value])}
           color={colorByIdeaStatus(ideaStatusByCode[params.value])}
         />
@@ -65,10 +70,12 @@ export const clientAllIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-      table: DataGridFilterTables.PRODUCTS,
+      width: 260,
+      minWidth: 100,
     },
 
     {
@@ -89,7 +96,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
       headerName: t(TranslationKey['Client comment']),
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -100,7 +107,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
       headerName: t(TranslationKey['Buyer comment']),
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -111,7 +118,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
+      renderCell: params => <TextCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.IDEA_SHOPS,
@@ -135,10 +142,12 @@ export const clientAllIdeasColumns = rowHandlers => {
           />
         )
       },
-      width: 265,
+      fields: getProductColumnMenuItems(),
+      columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.CHILD }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-      table: DataGridFilterTables.PRODUCTS,
+      width: 260,
+      minWidth: 100,
     },
 
     {
@@ -146,7 +155,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Reason for rejection'])} />,
       headerName: t(TranslationKey['Reason for rejection']),
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 250,
       filterable: false,
       columnKey: columnnsKeys.shared.STRING,
@@ -158,7 +167,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => <AllIdeasActionsCell row={params.row} rowHandlers={rowHandlers} />,
-      width: 150,
+      width: 160,
       disableCustomSort: true,
       filterable: false,
     },
@@ -168,7 +177,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Ordered quantity']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
 
-      renderCell: params => <MultilineTextCell text={params.row?.order?.amount} />,
+      renderCell: params => <TextCell text={params.row?.order?.amount} />,
       width: 110,
       disableCustomSort: true,
       filterable: false,
@@ -294,7 +303,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Status Updated']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
-      renderCell: params => <ShortDateCell value={params.value} />,
+      renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
       columnKey: columnnsKeys.shared.DATE,
     },

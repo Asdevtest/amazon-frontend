@@ -50,8 +50,8 @@ export const BoxItemCard = ({
         <img className={styles.img} src={getAmazonImageUrl(item.product.images[0], true)} />
 
         <div className={styles.attributeWrapper}>
-          <div className={styles.attributeHeaderWrapper}>
-            <div className={styles.countWrapper}>
+          <div className={styles.attributeFooterWrapper}>
+            <div className={styles.attributeFooterSubWrapper}>
               <div className={styles.countSubWrapper}>
                 <Text
                   tooltipInfoContent={t(TranslationKey['Number of products in the box'])}
@@ -61,29 +61,6 @@ export const BoxItemCard = ({
                 </Text>
                 <Typography className={styles.subValue}>{item.amount}</Typography>
               </div>
-            </div>
-            {superCount > 1 && (
-              <div className={styles.countSuperBoxWrapper}>
-                <Typography className={styles.subTitle}>{t(TranslationKey['Boxes in group']) + ':'}</Typography>
-                <Typography className={styles.subValue}>{`x${superCount}`}</Typography>
-              </div>
-            )}
-
-            {taskType === TaskOperationType.EDIT_BY_STOREKEEPER ||
-            (taskType === TaskOperationType.MERGE && index === 0) ||
-            (taskType === TaskOperationType.SPLIT && index === 0) ||
-            taskType === TaskOperationType.EDIT ||
-            (readOnly && taskType === TaskOperationType.RECEIVE) ||
-            (!isNewBox && taskType !== TaskOperationType.RECEIVE && index === 0) ? (
-              <div className={styles.countSubWrapper}>
-                <Typography className={styles.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
-                <Typography className={styles.subValue}>{boxId}</Typography>
-              </div>
-            ) : null}
-          </div>
-
-          <div className={styles.attributeFooterWrapper}>
-            <div className={styles.attributeFooterSubWrapper}>
               <div
                 className={cx(styles.barCodeWrapper, {
                   [styles.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
@@ -139,7 +116,27 @@ export const BoxItemCard = ({
               ) : null}
             </div>
 
-            <div>
+            <div className={styles.attributeFooterSubWrapper}>
+              <div className={styles.attributeHeaderWrapper}>
+                {superCount > 1 && (
+                  <div className={styles.countSuperBoxWrapper}>
+                    <Typography className={styles.subTitle}>{t(TranslationKey['Boxes in group']) + ':'}</Typography>
+                    <Typography className={styles.subValue}>{`x${superCount}`}</Typography>
+                  </div>
+                )}
+
+                {taskType === TaskOperationType.EDIT_BY_STOREKEEPER ||
+                (taskType === TaskOperationType.MERGE && index === 0) ||
+                (taskType === TaskOperationType.SPLIT && index === 0) ||
+                taskType === TaskOperationType.EDIT ||
+                (readOnly && taskType === TaskOperationType.RECEIVE) ||
+                (!isNewBox && taskType !== TaskOperationType.RECEIVE && index === 0) ? (
+                  <div className={styles.countSubWrapper}>
+                    <Typography className={styles.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
+                    <Typography className={styles.subValue}>{boxId}</Typography>
+                  </div>
+                ) : null}
+              </div>
               <div className={styles.chipWrapper}>
                 <div
                   className={cx(styles.barCodeActionsWrapper, {
@@ -201,7 +198,7 @@ export const BoxItemCard = ({
                     <Field
                       oneLine
                       containerClasses={styles.checkboxContainer}
-                      label={t(TranslationKey['Transparency codes glued by the supplier'])}
+                      label={t(TranslationKey['Transparency Codes glued by the supplier'])}
                       labelClasses={cx(styles.label, styles.redText)}
                       inputComponent={
                         <Checkbox
@@ -220,7 +217,7 @@ export const BoxItemCard = ({
                     <Field
                       oneLine
                       containerClasses={styles.checkboxContainer}
-                      label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                      label={t(TranslationKey['Transparency Codes are glued by storekeeper'])}
                       labelClasses={cx(styles.label, styles.redText)}
                       inputComponent={
                         <Checkbox

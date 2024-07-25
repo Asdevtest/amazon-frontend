@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react'
 
-import { Divider, Grid, Typography } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 
 import {
   inchesCoefficient,
@@ -193,8 +193,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
         boxWeighGrossKg: tmpSupplier.boxProperties.boxWeighGrossKg || 0,
       },
 
-      minProductionTerm: tmpSupplier?.minProductionTerm || '',
-      maxProductionTerm: tmpSupplier?.maxProductionTerm || '',
+      minProductionTerm: tmpSupplier?.minProductionTerm || 0,
+      maxProductionTerm: tmpSupplier?.maxProductionTerm || 0,
 
       _id: supplier?._id,
     }
@@ -605,80 +605,71 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <div>
             <Typography className={styles.modalTitle}>{'¥'}</Typography>
 
-            <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-end">
-              <Grid item>
-                <Field
-                  error={tmpSupplier.priceInYuan >= 1000000 && '> 1000000 !'}
-                  disabled={onlyRead}
-                  tooltipInfoContent={t(TranslationKey['Price per unit'])}
-                  label={t(TranslationKey['price per unit']) + ', ¥*'}
-                  inputProps={{ maxLength: 10 }}
-                  containerClasses={styles.middleContainer}
-                  labelClasses={styles.normalLabel}
-                  value={toFixed(tmpSupplier.priceInYuan, 2)}
-                  onChange={onChangeField('priceInYuan')}
-                />
-              </Grid>
+            <div className={styles.flexContainer}>
+              <Field
+                error={tmpSupplier.priceInYuan >= 1000000 && '> 1000000 !'}
+                disabled={onlyRead}
+                tooltipInfoContent={t(TranslationKey['Price per unit'])}
+                label={t(TranslationKey['price per unit']) + ', ¥*'}
+                inputProps={{ maxLength: 10 }}
+                containerClasses={styles.middleContainer}
+                labelClasses={styles.normalLabel}
+                value={toFixed(tmpSupplier.priceInYuan, 2)}
+                onChange={onChangeField('priceInYuan')}
+              />
 
-              <Grid item>
-                <Field
-                  disabled
-                  error={
-                    +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan >=
-                      1000000 && '> 1000000 !'
-                  }
-                  tooltipInfoContent={t(
-                    TranslationKey['Calculated from the price per unit multiplied by the number of purchases'],
-                  )}
-                  label={t(TranslationKey['Batch price']) + ', ¥*'}
-                  inputProps={{ maxLength: 10 }}
-                  containerClasses={styles.middleContainer}
-                  labelClasses={styles.normalLabel}
-                  value={toFixed(
-                    +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
-                    2,
-                  )}
-                />
-              </Grid>
+              <Field
+                disabled
+                error={
+                  +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan >=
+                    1000000 && '> 1000000 !'
+                }
+                tooltipInfoContent={t(
+                  TranslationKey['Calculated from the price per unit multiplied by the number of purchases'],
+                )}
+                label={t(TranslationKey['Batch price']) + ', ¥*'}
+                inputProps={{ maxLength: 10 }}
+                containerClasses={styles.middleContainer}
+                labelClasses={styles.normalLabel}
+                value={toFixed(
+                  +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
+                  2,
+                )}
+              />
 
-              <Grid item>
-                <Field
-                  disabled
-                  label={t(TranslationKey['Price with delivery per unit']) + ', ¥*'}
-                  inputProps={{ maxLength: 10 }}
-                  containerClasses={styles.middleContainer}
-                  labelClasses={styles.normalLabel}
-                  value={
-                    tmpSupplier.amount
-                      ? toFixed(
-                          toFixed(
-                            +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) +
-                              +tmpSupplier.batchDeliveryCostInYuan,
-                            2,
-                          ) / +tmpSupplier.amount,
+              <Field
+                disabled
+                label={t(TranslationKey['Price with delivery per unit']) + ', ¥*'}
+                inputProps={{ maxLength: 10 }}
+                containerClasses={styles.middleContainer}
+                labelClasses={styles.normalLabel}
+                value={
+                  tmpSupplier.amount
+                    ? toFixed(
+                        toFixed(
+                          +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
                           2,
-                        )
-                      : '-'
-                  }
-                />
-              </Grid>
+                        ) / +tmpSupplier.amount,
+                        2,
+                      )
+                    : '-'
+                }
+              />
 
-              <Grid item>
-                <Field
-                  disabled={onlyRead}
-                  error={tmpSupplier.batchDeliveryCostInYuan >= 1000000 && '> 1000000 !'}
-                  tooltipInfoContent={t(
-                    TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
-                  )}
-                  label={t(TranslationKey['Batch delivery']) + ', ¥*'}
-                  inputProps={{ maxLength: 10 }}
-                  containerClasses={styles.middleContainer}
-                  labelClasses={styles.normalLabel}
-                  value={toFixed(tmpSupplier.batchDeliveryCostInYuan, 2)}
-                  onChange={onChangeField('batchDeliveryCostInYuan')}
-                />
-              </Grid>
-            </Grid>
+              <Field
+                disabled={onlyRead}
+                error={tmpSupplier.batchDeliveryCostInYuan >= 1000000 && '> 1000000 !'}
+                tooltipInfoContent={t(
+                  TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
+                )}
+                label={t(TranslationKey['Batch delivery']) + ', ¥*'}
+                inputProps={{ maxLength: 10 }}
+                containerClasses={styles.middleContainer}
+                labelClasses={styles.normalLabel}
+                value={toFixed(tmpSupplier.batchDeliveryCostInYuan, 2)}
+                onChange={onChangeField('batchDeliveryCostInYuan')}
+              />
+            </div>
           </div>
 
           <Divider flexItem orientation="vertical" className={styles.divider} />
@@ -686,77 +677,69 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <div>
             <Typography className={styles.modalTitle}>{'$'}</Typography>
 
-            <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-end">
-              <Grid item>
-                <Field
-                  disabled={onlyRead}
-                  tooltipInfoContent={t(TranslationKey['Price per unit'])}
-                  label={t(TranslationKey['price per unit']) + ', $*'}
-                  inputProps={{ maxLength: 10 }}
-                  containerClasses={styles.middleContainer}
-                  labelClasses={styles.normalLabel}
-                  value={toFixed(tmpSupplier.price, 2)}
-                  onChange={onChangeField('price')}
-                />
-              </Grid>
+            <div className={styles.flexContainer}>
+              <Field
+                disabled={onlyRead}
+                tooltipInfoContent={t(TranslationKey['Price per unit'])}
+                label={t(TranslationKey['price per unit']) + ', $*'}
+                inputProps={{ maxLength: 10 }}
+                containerClasses={styles.middleContainer}
+                labelClasses={styles.normalLabel}
+                value={toFixed(tmpSupplier.price, 2)}
+                onChange={onChangeField('price')}
+              />
 
-              <Grid item>
-                <Field
-                  disabled
-                  error={
-                    +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar >=
-                      1000000 && '> 1000000 !'
-                  }
-                  tooltipInfoContent={t(
-                    TranslationKey['Calculated from the price per unit multiplied by the number of purchases'],
-                  )}
-                  label={t(TranslationKey['Batch price']) + ', $*'}
-                  inputProps={{ maxLength: 15 }}
-                  containerClasses={styles.middleContainer}
-                  labelClasses={styles.normalLabel}
-                  value={toFixed(
-                    +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
-                    2,
-                  )}
-                />
-              </Grid>
+              <Field
+                disabled
+                error={
+                  +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar >= 1000000 &&
+                  '> 1000000 !'
+                }
+                tooltipInfoContent={t(
+                  TranslationKey['Calculated from the price per unit multiplied by the number of purchases'],
+                )}
+                label={t(TranslationKey['Batch price']) + ', $*'}
+                inputProps={{ maxLength: 15 }}
+                containerClasses={styles.middleContainer}
+                labelClasses={styles.normalLabel}
+                value={toFixed(
+                  +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
+                  2,
+                )}
+              />
 
-              <Grid item>
-                <Field
-                  disabled
-                  label={t(TranslationKey['Price with delivery per unit']) + ', $*'}
-                  inputProps={{ maxLength: 10 }}
-                  containerClasses={styles.middleContainer}
-                  labelClasses={styles.normalLabel}
-                  value={
-                    tmpSupplier.amount
-                      ? toFixed(
-                          toFixed(
-                            +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
-                            2,
-                          ) / +tmpSupplier.amount,
+              <Field
+                disabled
+                label={t(TranslationKey['Price with delivery per unit']) + ', $*'}
+                inputProps={{ maxLength: 10 }}
+                containerClasses={styles.middleContainer}
+                labelClasses={styles.normalLabel}
+                value={
+                  tmpSupplier.amount
+                    ? toFixed(
+                        toFixed(
+                          +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
                           2,
-                        )
-                      : '-'
-                  }
-                />
-              </Grid>
+                        ) / +tmpSupplier.amount,
+                        2,
+                      )
+                    : '-'
+                }
+              />
 
-              <Grid item>
-                <Field
-                  disabled={onlyRead}
-                  tooltipInfoContent={t(
-                    TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
-                  )}
-                  label={t(TranslationKey['Batch delivery']) + ', $*'}
-                  inputProps={{ maxLength: 15 }}
-                  containerClasses={styles.middleContainer}
-                  labelClasses={styles.normalLabel}
-                  value={toFixed(tmpSupplier.batchDeliveryCostInDollar, 2)}
-                  onChange={onChangeField('batchDeliveryCostInDollar')}
-                />
-              </Grid>
-            </Grid>
+              <Field
+                disabled={onlyRead}
+                tooltipInfoContent={t(
+                  TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
+                )}
+                label={t(TranslationKey['Batch delivery']) + ', $*'}
+                inputProps={{ maxLength: 15 }}
+                containerClasses={styles.middleContainer}
+                labelClasses={styles.normalLabel}
+                value={toFixed(tmpSupplier.batchDeliveryCostInDollar, 2)}
+                onChange={onChangeField('batchDeliveryCostInDollar')}
+              />
+            </div>
           </div>
         </div>
 
@@ -955,13 +938,11 @@ export const AddOrEditSupplierModalContent = memo(props => {
         {onlyRead ? (
           <SlideshowGallery files={editPhotosOfSupplier} onChangeImagesForLoad={setEditPhotosOfSupplier} />
         ) : (
-          <div className={styles.imageFileInputWrapper}>
-            <UploadFilesInput images={editPhotosOfSupplier} setImages={setEditPhotosOfSupplier} />
-          </div>
+          <UploadFilesInput images={editPhotosOfSupplier} setImages={setEditPhotosOfSupplier} />
         )}
       </div>
 
-      <Divider className={styles.fieldsDivider} />
+      <Divider className={styles.titleDivider} />
 
       {renderFooterModalButtons()}
 

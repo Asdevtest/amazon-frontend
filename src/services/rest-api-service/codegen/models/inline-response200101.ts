@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse200101Rows } from './inline-response200101-rows';
 
 /**
  * 
@@ -22,17 +21,35 @@ import { InlineResponse200101Rows } from './inline-response200101-rows';
  */
 export interface InlineResponse200101 {
     /**
-     * Кол-во значений
-     * @type {number}
+     * GUID метода оплаты в базе данных
+     * @type {string}
      * @memberof InlineResponse200101
      */
-    count?: number;
+    _id?: string;
     /**
-     * Массив данных о складах.
-     * @type {Array<InlineResponse200101Rows>}
+     * 
+     * @type {string}
      * @memberof InlineResponse200101
      */
-    rows?: Array<InlineResponse200101Rows>;
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200101
+     */
+    iconImage?: string;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200101
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse200101
+     */
+    updatedAt?: string;
 }
 
 
