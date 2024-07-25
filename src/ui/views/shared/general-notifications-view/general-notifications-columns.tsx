@@ -2,7 +2,7 @@ import { GridCellParams } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
-import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -18,6 +18,7 @@ import { checkIsFreelancer } from '@utils/checks'
 import { getHumanFriendlyNotificationType } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { Roles } from '@typings/enums/roles'
 import { RowHandlers } from '@typings/shared/data-grid'
 
 export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
@@ -30,7 +31,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
       renderCell: (params: GridCellParams) => (
         <ProductAsinCell
-          withoutSku={!!userInfo?.role && UserRoleCodeMap[userInfo.role] === UserRole.FREELANCER}
+          withoutSku={userInfo?.role === Roles.FREELANCER}
           skuByClient={params.row.product?.skuByClient || params.row.parentProduct?.skuByClient}
           image={params.row.product?.images?.[0]}
           amazonTitle={params.row.product?.amazonTitle}

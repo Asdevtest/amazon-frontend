@@ -5,7 +5,6 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { AdministratorModel } from '@models/administrator-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
-import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
@@ -19,10 +18,6 @@ export class AdminWarehouseTasksViewModel extends DataGridFilterTableModel {
   currentTask: ITask | null = null
 
   showTaskInfoModal = false
-
-  get platformSettings() {
-    return UserModel.platformSettings
-  }
 
   constructor() {
     const rowHandlers = {

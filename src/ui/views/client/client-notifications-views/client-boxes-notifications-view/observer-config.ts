@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 export const observerConfig = {
   curBox: observable,
@@ -6,8 +6,6 @@ export const observerConfig = {
   boxes: observable,
   showConfirmModal: observable,
   uploadedFiles: observable,
-
-  userInfo: computed,
 
   onTriggerOpenConfirmModal: action.bound,
   onTriggerOpenRejectModal: action.bound,

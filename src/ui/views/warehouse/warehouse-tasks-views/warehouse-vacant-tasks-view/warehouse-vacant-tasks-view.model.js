@@ -6,6 +6,7 @@ import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
 import { BoxesModel } from '@models/boxes-model'
 import { OtherModel } from '@models/other-model'
+import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
@@ -63,7 +64,7 @@ export class WarehouseVacantViewModel {
   columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers)
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor({ history }) {

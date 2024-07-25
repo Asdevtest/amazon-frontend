@@ -14,7 +14,7 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
-import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -33,6 +33,7 @@ import { t } from '@utils/translations'
 
 import { HintsContext } from '@contexts/hints-context'
 
+import { Roles } from '@typings/enums/roles'
 import { UiTheme } from '@typings/enums/ui-theme'
 
 import { useStyles } from './header.style'
@@ -117,9 +118,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
     changeUiTheme(theme)
   }
 
-  const allowedRolesWithoutCandidate = allowedRoles?.filter(
-    (el: number) => el !== (mapUserRoleEnumToKey as { [key: string]: number })[UserRole.CANDIDATE],
-  )
+  const allowedRolesWithoutCandidate = allowedRoles?.filter((el: number) => el !== Roles.CANDIDATE)
 
   const handleNotifications = () => {
     if (isEnabledNotifications) {

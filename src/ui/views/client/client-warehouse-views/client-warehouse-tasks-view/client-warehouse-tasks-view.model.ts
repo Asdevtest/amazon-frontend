@@ -15,7 +15,6 @@ import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { OtherModel } from '@models/other-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
-import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
 
@@ -46,14 +45,6 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
   }
 
   toCancelData: any = null
-
-  get userInfo() {
-    return UserModel.userInfo
-  }
-
-  get platformSettings() {
-    return UserModel.platformSettings
-  }
 
   get isDisabledDownload() {
     return (

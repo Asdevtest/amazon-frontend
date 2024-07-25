@@ -1,10 +1,11 @@
 import { makeObservable } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { UserModel } from '@models/user-model'
+
+import { Roles } from '@typings/enums/roles'
 
 import { clientFreelanceNotificationsColumns } from './client-freelance-notifications-columns'
 import { observerConfig } from './observer-config'
@@ -36,7 +37,7 @@ export class ClientFreelanceNotificationsViewModel extends DataGridTableModel {
 
   onClickReply(requestId: string, chatId: string) {
     // @ts-ignore
-    if (UserRoleCodeMap[UserModel?.userInfo?.role] === UserRole.FREELANCER) {
+    if (UserModel?.userInfo?.role === Roles.FREELANCER) {
       this.history.push(`/freelancer/freelance/my-proposals/custom-search-request?request-id=${requestId}`, {
         chatId,
       })

@@ -46,7 +46,7 @@ export const FinancesView = observer(() => {
       <CustomSwitcher
         switchMode="medium"
         condition={viewModel?.entityType}
-        switcherSettings={getEntityTypeConfig(checkIsAdmin(UserRoleCodeMap[viewModel?.userRole]))}
+        switcherSettings={getEntityTypeConfig(checkIsAdmin(UserRoleCodeMap[viewModel.userInfo?.role]))}
         changeConditionHandler={viewModel?.handleSetEntityType}
       />
 

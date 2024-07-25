@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 export const observerConfig = {
   tariffIdToChange: observable,
@@ -9,9 +9,6 @@ export const observerConfig = {
   showConfirmModal: observable,
   storekeepersData: observable,
   uploadedFiles: observable,
-
-  userInfo: computed,
-  platformSettings: computed,
 
   getStorekeepers: action.bound,
   onTriggerOpenConfirmModal: action.bound,

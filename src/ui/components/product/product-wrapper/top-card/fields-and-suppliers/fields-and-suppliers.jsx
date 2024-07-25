@@ -3,7 +3,6 @@ import { FiPlus } from 'react-icons/fi'
 
 import { Box, Grid, Link, MenuItem, Radio, Select, Typography } from '@mui/material'
 
-import { UserRole } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import {
   ProductStrategyStatus,
@@ -32,6 +31,7 @@ import { t } from '@utils/translations'
 import { downloadFileByLink } from '@utils/upload-files'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { Roles } from '@typings/enums/roles'
 
 import { useStyles } from './fields-and-suppliers.style'
 
@@ -126,7 +126,7 @@ export const FieldsAndSuppliers = memo(props => {
               {!checkIsBuyer(curUserRole) ? (
                 <Button
                   tooltipInfoContent={t(TranslationKey['Fills the card with the necessary information'])}
-                  disabled={curUserRole === UserRole.ADMIN}
+                  disabled={curUserRole === Roles.ADMIN}
                   onClick={() => {
                     // onClickParseProductData(ProductDataParser.AMAZON, product)
                     // onClickParseProductData(ProductDataParser.SELLCENTRAL, product)

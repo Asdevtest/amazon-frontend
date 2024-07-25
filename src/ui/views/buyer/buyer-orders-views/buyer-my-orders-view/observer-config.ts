@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 export const observerConfig = {
   orderStatusDataBase: observable,
@@ -18,9 +18,6 @@ export const observerConfig = {
 
   showProgress: observable,
   progressValue: observable,
-
-  userInfo: computed,
-  platformSettings: computed,
 
   setUpdateSupplierData: action.bound,
   getBuyersOrdersPaymentByStatus: action.bound,

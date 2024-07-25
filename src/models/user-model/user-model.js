@@ -10,13 +10,12 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { filterNullValues } from '@utils/object'
 
-const persistProperties = ['accessToken', 'userInfo', 'refreshToken', 'platformSettings']
+const persistProperties = ['accessToken', 'userInfo', 'refreshToken']
 
 class UserModelStatic {
   accessToken = undefined
   refreshToken = undefined
   userInfo = undefined
-  platformSettings = undefined
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -33,7 +32,6 @@ class UserModelStatic {
       this.accessToken = undefined
       this.refreshToken = undefined
       this.userInfo = undefined
-      this.platformSettings = undefined
     })
     SettingsModel.setAuthorizationData('', '')
     ChatModel.disconnect()
@@ -256,16 +254,6 @@ class UserModelStatic {
   async getPatchNote(guid) {
     const response = await restApiService.userApi.apiV1UsersPatchNotesGuidGet({ guid, noCache: true })
     return response.data
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
-
-      runInAction(() => (this.platformSettings = response.data))
-    } catch (error) {
-      console.error(error)
-    }
   }
 
   async getUsersFreelanceNotices() {

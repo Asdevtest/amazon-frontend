@@ -70,7 +70,7 @@ export class ClientExchangeViewModel {
   }
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor() {

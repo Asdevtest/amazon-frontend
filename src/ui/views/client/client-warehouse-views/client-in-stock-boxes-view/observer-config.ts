@@ -51,10 +51,8 @@ export const observerConfig = {
   showEditPriorityData: observable,
   selectedProduct: observable,
 
-  userInfo: computed,
   isChoosenOnlySendToBatchBoxes: computed,
   isHaveRequestSendToBatch: computed,
-  platformSettings: computed,
   destinationsFavourites: computed,
 
   getDestinations: action.bound,

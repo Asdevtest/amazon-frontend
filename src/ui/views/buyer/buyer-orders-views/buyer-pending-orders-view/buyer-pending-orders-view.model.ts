@@ -11,7 +11,6 @@ import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { OrderModel } from '@models/order-model'
 import { ProductModel } from '@models/product-model'
 import { SupplierModel } from '@models/supplier-model'
-import { UserModel } from '@models/user-model'
 
 import { calcOrderTotalPrice, calcOrderTotalPriceInYuann } from '@utils/calculation'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
@@ -43,14 +42,6 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
 
   progressValue = 0
   readyImages = []
-
-  get userInfo() {
-    return UserModel.userInfo
-  }
-
-  get platformSettings() {
-    return UserModel.platformSettings
-  }
 
   constructor() {
     const columnsModel = pendingOrdersColumns()

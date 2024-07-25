@@ -3,7 +3,6 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { ClientModel } from '@models/client-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
-import { UserModel } from '@models/user-model'
 
 export class AdminOrderViewModel {
   history = undefined
@@ -15,7 +14,7 @@ export class AdminOrderViewModel {
   order = undefined
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor({ history }) {

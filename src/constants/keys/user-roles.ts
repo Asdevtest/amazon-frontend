@@ -1,5 +1,3 @@
-import { objectFlip } from '@utils/object'
-
 export const UserRole = {
   ADMIN: 'ADMIN',
   CLIENT: 'CLIENT',
@@ -35,24 +33,3 @@ export const UserRoleCodeMapForRoutes: Record<number, string> = {
   50: 'candidate',
   60: 'moderator',
 }
-
-export const UserRolePrettyMap: Record<number, string> = {
-  0: 'Admin',
-  10: 'Client',
-  20: 'Supervisor',
-  30: 'Researcher',
-  35: 'Freelancer',
-  40: 'Buyer',
-  45: 'Storekeeper',
-  50: 'Candidate',
-  60: 'Moderator',
-}
-
-export const UserRolesForAdminProduct = {
-  client: 10,
-  supervisor: 20,
-  researcher: 30,
-  buyer: 40,
-}
-
-export const mapUserRoleEnumToKey: Record<string, number> = objectFlip(UserRoleCodeMap, parseInt)

@@ -4,7 +4,6 @@ import { withStyles } from 'tss-react/mui'
 
 import { Typography } from '@mui/material'
 
-import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
@@ -18,6 +17,7 @@ import { UserProfile } from '@components/user/users-views/user-profile-view/user
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { Roles } from '@typings/enums/roles'
 
 import { styles } from './another-user-profile-view.style'
 
@@ -55,12 +55,7 @@ export const AnotherUserProfileViewRaw = props => {
           />
         )}
 
-        {viewModel.user &&
-        [
-          mapUserRoleEnumToKey[UserRole.RESEARCHER],
-          mapUserRoleEnumToKey[UserRole.SUPERVISOR],
-          mapUserRoleEnumToKey[UserRole.BUYER],
-        ].includes(viewModel.user.role) ? (
+        {viewModel.user && [Roles.RESEARCHER, Roles.SUPERVISOR, Roles.BUYER].includes(viewModel.user?.role) ? (
           <>
             <Typography variant="h6" className={styles.title}>
               {t(TranslationKey['Active offers on the commodity exchange'])}

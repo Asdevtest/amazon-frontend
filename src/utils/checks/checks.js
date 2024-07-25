@@ -5,11 +5,12 @@ import {
 } from '@constants/configs/amazon-images'
 import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { BACKEND_API_URL } from '@constants/keys/env'
-import { UserRole } from '@constants/keys/user-roles'
 import { docValidTypes } from '@constants/media/doc-types'
 import { imageValidTypes } from '@constants/media/image-types'
 import { videoValidTypes } from '@constants/media/video-types'
 import { statusesValidToShowResoult } from '@constants/requests/request-proposal-status'
+
+import { Roles } from '@typings/enums/roles'
 
 export const isNotUndefined = value => typeof value !== 'undefined'
 export const isUndefined = value => typeof value === 'undefined'
@@ -17,15 +18,15 @@ export const isUndefined = value => typeof value === 'undefined'
 export const isNull = value => value === null
 export const isNotNull = value => value !== null
 
-export const checkIsResearcher = userRole => userRole === UserRole.RESEARCHER
-export const checkIsSupervisor = userRole => userRole === UserRole.SUPERVISOR
-export const checkIsBuyer = userRole => userRole === UserRole.BUYER
-export const checkIsClient = userRole => userRole === UserRole.CLIENT
-export const checkIsAdmin = userRole => userRole === UserRole.ADMIN
-export const checkIsStorekeeper = userRole => userRole === UserRole.STOREKEEPER
-export const checkIsFreelancer = userRole => userRole === UserRole.FREELANCER
+export const checkIsResearcher = userRole => userRole === Roles.RESEARCHER
+export const checkIsSupervisor = userRole => userRole === Roles.SUPERVISOR
+export const checkIsBuyer = userRole => userRole === Roles.BUYER
+export const checkIsClient = userRole => userRole === Roles.CLIENT
+export const checkIsAdmin = userRole => userRole === Roles.ADMIN
+export const checkIsStorekeeper = userRole => userRole === Roles.STOREKEEPER
+export const checkIsFreelancer = userRole => userRole === Roles.FREELANCER
 export const checkIsWithoutProductPermissions = userRole =>
-  userRole === UserRole.STOREKEEPER || userRole === UserRole.FREELANCER
+  userRole === Roles.STOREKEEPER || userRole === Roles.FREELANCER
 
 export const checkIsAbsoluteUrl = url => new RegExp('^(?:[a-z]+:)?//', 'i').test(url)
 

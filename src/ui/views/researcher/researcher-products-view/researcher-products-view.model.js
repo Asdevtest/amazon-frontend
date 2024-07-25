@@ -6,7 +6,6 @@ import { ProductStrategyStatus, mapProductStrategyStatusEnumToKey } from '@const
 
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { ResearcherModel } from '@models/researcher-model'
-import { UserModel } from '@models/user-model'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
@@ -28,10 +27,6 @@ export class ResearcherProductsViewModel extends DataGridTableModel {
   formFields = { ...formFieldsDefault }
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
   chekedCode = undefined
-
-  get userInfo() {
-    return UserModel.userInfo
-  }
 
   constructor() {
     const columns = researcherProductsViewColumns()

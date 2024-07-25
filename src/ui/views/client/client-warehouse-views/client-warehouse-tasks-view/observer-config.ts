@@ -17,8 +17,6 @@ export const observerConfig = {
   editPriorityData: observable,
   toCancelData: observable,
 
-  userInfo: computed,
-  platformSettings: computed,
   isDisabledDownload: computed,
 
   setFilters: action.bound,

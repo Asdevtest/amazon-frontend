@@ -35,8 +35,6 @@ export const observerConfig = {
 
   destinationsFavourites: computed,
   isPendingOrdering: computed,
-  userInfo: computed,
-  platformSettings: computed,
 
   onChangeIsFormed: action.bound,
   setDestinationsFavouritesItem: action.bound,

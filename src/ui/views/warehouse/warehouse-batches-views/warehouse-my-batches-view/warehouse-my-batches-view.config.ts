@@ -11,8 +11,6 @@ export const warehouseMyBatchesConfig = {
 
   isInvalidTariffBoxSelected: computed,
   isNeedConfirmPriceBoxSelected: computed,
-  userInfo: computed,
-  platformSettings: computed,
 
   onSubmitChangeBoxFields: action.bound,
   onClickAddOrEditBatch: action.bound,

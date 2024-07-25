@@ -38,8 +38,6 @@ export const observerConfig = {
   paymentMethods: observable,
   isIdeaCreate: observable,
 
-  userInfo: computed,
-  platformSettings: computed,
   destinationsFavourites: computed,
 
   getDataForIdeaModal: action.bound,

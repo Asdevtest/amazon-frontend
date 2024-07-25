@@ -9,6 +9,7 @@ import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { BoxesModel } from '@models/boxes-model'
 import { BoxesWarehouseUpdateBoxInTaskContract } from '@models/boxes-model/boxes-model.contracts'
 import { OtherModel } from '@models/other-model'
+import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
@@ -16,7 +17,6 @@ import { UserModel } from '@models/user-model'
 import { warehouseMyTasksViewColumns } from '@components/table/table-columns/warehouse/my-tasks-columns'
 
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs } from '@utils/text'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -75,7 +75,7 @@ export class WarehouseMyTasksViewModel {
   }
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor({ history }) {

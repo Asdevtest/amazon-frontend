@@ -71,7 +71,7 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, on
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          rows={viewModel.rows}
+          rows={viewModel.currentData}
           rowCount={viewModel.rowCount}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}

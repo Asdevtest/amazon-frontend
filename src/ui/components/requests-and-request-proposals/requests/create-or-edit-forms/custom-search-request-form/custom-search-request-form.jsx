@@ -3,13 +3,15 @@ import { useState } from 'react'
 
 import { Button, Checkbox, ListItemText, MenuItem, Select, TextareaAutosize, Typography } from '@mui/material'
 
-import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
 
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
+
+import { Roles } from '@typings/enums/roles'
 
 import { useStyles } from './custom-search-request-form.style'
 
@@ -110,7 +112,7 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
               onChange={onChangeField('request')('roles')}
             >
               {Object.keys(UserRoleCodeMap)
-                .filter(role => UserRoleCodeMap[role] !== UserRole.CANDIDATE)
+                .filter(role => role !== Roles.CANDIDATE)
                 .map((role, index) => (
                   <MenuItem key={index} value={Number(role)}>
                     <Checkbox color="primary" checked={formFields.request.roles.includes(Number(role))} />

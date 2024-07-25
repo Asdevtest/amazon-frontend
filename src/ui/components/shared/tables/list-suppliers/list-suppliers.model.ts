@@ -5,6 +5,7 @@ import { GridPaginationModel, GridRowSelectionModel } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
@@ -54,7 +55,7 @@ export class ListSuppliersModel {
   }
 
   get platformSettings(): IPlatformSettings | undefined {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor(

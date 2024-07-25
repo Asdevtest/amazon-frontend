@@ -4,9 +4,9 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
 import { OtherModel } from '@models/other-model'
+import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { TableSettingsModel } from '@models/table-settings'
-import { UserModel } from '@models/user-model'
 
 import { warehouseCanceledTasksViewColumns } from '@components/table/table-columns/warehouse/canceled-tasks-columns'
 
@@ -48,7 +48,7 @@ export class WarehouseCanceledTasksViewModel {
   }
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor({ history }) {

@@ -3,7 +3,7 @@ import { memo } from 'react'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import { Avatar, Rating } from '@mui/material'
 
-import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -14,6 +14,8 @@ import { checkIsAdmin } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { Roles } from '@typings/enums/roles'
 
 import { useStyles } from './user-profile.style'
 
@@ -104,9 +106,7 @@ export const UserProfile = memo(props => {
 
         <Info headerInfoData={headerInfoData} />
 
-        {isAnotherUser || user.allowedRoles?.includes(mapUserRoleEnumToKey[UserRole.RESEARCHER]) ? (
-          <Tested user={user} />
-        ) : null}
+        {isAnotherUser || user.allowedRoles?.includes(Roles.RESEARCHER) ? <Tested user={user} /> : null}
       </div>
 
       <div className={styles.rightSideWrapper}>

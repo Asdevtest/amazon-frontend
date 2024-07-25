@@ -7,7 +7,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { Checkbox, ListItemText, MenuItem, Rating, Select, Typography } from '@mui/material'
 
-import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -25,6 +25,7 @@ import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { Roles } from '@typings/enums/roles'
 
 import { useStyles } from './admin-user-edit-content.style'
 
@@ -429,7 +430,7 @@ export const AdminUserEditContent = observer(
                         key={userRoleCode}
                         value={userRoleCode}
                         className={styles.userRoleSelect}
-                        disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[userRoleCode])}
+                        disabled={[Roles.CANDIDATE, Roles.ADMIN].includes(UserRoleCodeMap[userRoleCode])}
                       >
                         {UserRoleCodeMap[userRoleCode]}
                       </MenuItem>
@@ -488,7 +489,7 @@ export const AdminUserEditContent = observer(
                           className={styles.standartText}
                           value={Number(role)}
                           disabled={
-                            [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) ||
+                            [Roles.CANDIDATE, Roles.ADMIN].includes(UserRoleCodeMap[role]) ||
                             Number(role) === Number(formFields.role)
                           }
                         >
@@ -543,9 +544,9 @@ export const AdminUserEditContent = observer(
               }
             />
 
-            {(formFields.allowedRoles.some(item => item === mapUserRoleEnumToKey[UserRole.FREELANCER]) ||
-              selectedAllowedRoles.some(item => item === mapUserRoleEnumToKey[UserRole.FREELANCER]) ||
-              Number(formFields.role) === mapUserRoleEnumToKey[UserRole.FREELANCER]) && (
+            {(formFields.allowedRoles.some(item => item === Roles.FREELANCER) ||
+              selectedAllowedRoles.some(item => item === Roles.FREELANCER) ||
+              Number(formFields.role) === Roles.FREELANCER) && (
               <Field
                 label={t(TranslationKey['User specialties'])}
                 containerClasses={styles.allowedStrategiesContainer}
@@ -609,9 +610,7 @@ export const AdminUserEditContent = observer(
             <div className={styles.checkboxWrapper}>
               <Checkbox
                 color="primary"
-                disabled={
-                  editUserFormFields?.masterUser || Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]
-                }
+                disabled={editUserFormFields?.masterUser || Number(formFields.role) === Roles.CANDIDATE}
                 checked={formFields.fba}
                 onChange={onChangeFormField('fba')}
               />
@@ -623,7 +622,7 @@ export const AdminUserEditContent = observer(
                 color="primary"
                 disabled={
                   editUserFormFields?.masterUser ||
-                  Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
+                  Number(formFields.role) === Roles.CANDIDATE ||
                   editUserFormFields?.subUsers?.length
                 }
                 checked={formFields.canByMasterUser}
@@ -635,7 +634,7 @@ export const AdminUserEditContent = observer(
             <div className={styles.checkboxWrapper}>
               <Checkbox
                 color="primary"
-                disabled={Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+                disabled={Number(formFields.role) === Roles.CANDIDATE}
                 checked={formFields.hideSuppliers}
                 onChange={onChangeFormField('hideSuppliers')}
               />
@@ -645,7 +644,7 @@ export const AdminUserEditContent = observer(
             <div className={styles.checkboxWrapper}>
               <Checkbox
                 color="primary"
-                disabled={Number(formFields.role) !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
+                disabled={Number(formFields.role) !== Roles.STOREKEEPER}
                 checked={formFields.isUserPreprocessingCenterUSA}
                 onChange={onChangeFormField('isUserPreprocessingCenterUSA')}
               />

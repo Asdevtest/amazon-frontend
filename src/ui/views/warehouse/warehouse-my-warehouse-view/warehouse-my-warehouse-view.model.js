@@ -122,7 +122,7 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor() {

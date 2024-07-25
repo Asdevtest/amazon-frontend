@@ -8,7 +8,6 @@ export const observerConfig = {
   currentIdeaId: observable,
   sortFields: observable,
 
-  userInfo: computed,
   currentConvertedData: computed,
 
   onClickReadButton: action.bound,

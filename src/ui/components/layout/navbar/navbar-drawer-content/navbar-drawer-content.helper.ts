@@ -1,7 +1,7 @@
 import { IInfoCounters } from '@typings/shared/info-counters'
-import { NavbarConfigTypes } from '@typings/shared/navbar-config'
+import { Route } from '@typings/shared/navbar-config'
 
-export const getCategoryBadge = (category: NavbarConfigTypes.Route, userInfo: IInfoCounters) => {
+export const getCategoryBadge = (category: Route, userInfo: IInfoCounters) => {
   if (category.route?.includes('/client/notifications')) {
     return (
       userInfo?.needConfirmPriceChange?.boxes +

@@ -32,12 +32,18 @@ export const getObjectFilteredByKeyArrayBlackList = (obj, keyArr, skipUndefined,
       }
     }, {})
 
-export const objectFlip = (obj, valueFunc) =>
-  Object.entries(obj).reduce((ret, entry) => {
+export const objectFlip = (obj, valueFunc) => {
+  if (obj === null || typeof obj !== 'object') {
+    console.error('Invalid input:', obj)
+    return {}
+  }
+
+  return Object.entries(obj).reduce((ret, entry) => {
     const [key, value] = entry
     ret[value] = valueFunc ? valueFunc(key) : key
     return ret
   }, {})
+}
 
 export const getMaxObjPropertyByField = (array, objProperty) => {
   const numbArr = array.map(item => item[objProperty])

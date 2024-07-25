@@ -5,7 +5,7 @@ import { FC, useContext } from 'react'
 import { Avatar } from '@mui/material'
 
 import { chatsType } from '@constants/keys/chats'
-import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
@@ -26,6 +26,7 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
+import { Roles } from '@typings/enums/roles'
 import { IFullUser } from '@typings/shared/full-user'
 
 import { useStyles } from './chat-list-item.style'
@@ -81,9 +82,8 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
   const getUserByChatType = () => {
     if (typeOfChat === 'inWorkChat' || typeOfChat === 'solvedChat') {
       const userByChatType = users?.find((user: ChatUserContract) => {
-        const userRole = UserRoleCodeMap[Number(user.role)]
         return (
-          (checkIsClient(currentUserRole) ? userRole === UserRole.FREELANCER : userRole === UserRole.CLIENT) &&
+          (checkIsClient(currentUserRole) ? user.role === Roles.FREELANCER : user.role === Roles.CLIENT) &&
           !user.masterUser
         )
       })

@@ -8,7 +8,6 @@ import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
-import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { toFixed } from '@utils/text'
@@ -34,14 +33,6 @@ export class ClientBoxesTariffsNotificationsViewModel extends DataGridFilterTabl
   storekeepersData: IStorekeeper[] = []
 
   uploadedFiles = []
-
-  get userInfo() {
-    return UserModel.userInfo
-  }
-
-  get platformSettings() {
-    return UserModel.platformSettings
-  }
 
   constructor() {
     const rowHandlers = {

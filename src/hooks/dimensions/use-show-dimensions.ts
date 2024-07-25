@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { UserModel } from '@models/user-model'
+import { SettingsModel } from '@models/settings-model'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -67,7 +67,7 @@ export const useShowDimensions = ({
 
   useEffect(() => {
     const volumeWeightCoefficient =
-      (UserModel.platformSettings as unknown as IPlatformSettings)?.volumeWeightCoefficient ||
+      (SettingsModel.platformSettings as unknown as IPlatformSettings)?.volumeWeightCoefficient ||
       DEFAULT_VOLUME_WEIGHT_COEFFICIENT
 
     let convertedLength: number,

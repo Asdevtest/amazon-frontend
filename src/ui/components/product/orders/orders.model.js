@@ -7,6 +7,7 @@ import { createFormedOrder, createOrderRequestWhiteList } from '@constants/white
 
 import { ClientModel } from '@models/client-model'
 import { OrderModel } from '@models/order-model'
+import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
@@ -65,7 +66,7 @@ export class OrdersModel {
   isCheckedStatusByFilter = {}
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor({ productId, showAtProcessOrders }) {

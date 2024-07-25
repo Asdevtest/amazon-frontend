@@ -5,7 +5,6 @@ import { mapProductStrategyStatusEnumToKey } from '@constants/product/product-st
 
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { OtherModel } from '@models/other-model'
-import { UserModel } from '@models/user-model'
 
 import { supervisorSettingsViewColumns } from './supervisor-settings-view.columns'
 import { fieldsForSearch, supervisorSettingsConfig, tabsValues } from './supervisor-settings-view.config'
@@ -19,10 +18,6 @@ export class SupervisorSettingsViewModel extends DataGridTableModel {
   showEditAsinCheckerModal = false
   showFailedAsinsModal = false
   showConfirmCloseAsinCheckerModal = false
-
-  get userInfo() {
-    return UserModel.userInfo
-  }
 
   constructor() {
     const columnsProps = {

@@ -102,7 +102,7 @@ export class SuppliersAndIdeasModel {
   }
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor({ productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) {

@@ -1,4 +1,3 @@
-import { UserRolePrettyMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -12,6 +11,7 @@ import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { Roles } from '@typings/enums/roles'
 
 export const userPermissionsColumns = handlers => [
   {
@@ -26,7 +26,7 @@ export const userPermissionsColumns = handlers => [
     field: 'role',
     headerName: t(TranslationKey.Role),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Role)} />,
-    renderCell: params => <TextCell text={UserRolePrettyMap[params.value]} />,
+    renderCell: params => <TextCell text={Roles[Roles[params.value]]} />,
     width: 140,
   },
 

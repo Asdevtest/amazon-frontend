@@ -17,7 +17,6 @@ import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { FeedbackModel } from '@models/feedback-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
-import { UserModel } from '@models/user-model'
 
 import { myRequestsViewColumns } from '@components/table/table-columns/overall/my-requests-columns'
 
@@ -29,7 +28,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { RequestSubType } from '@typings/enums/request/request-type'
 import { ICustomRequest } from '@typings/models/requests/custom-request'
 import { IRequest } from '@typings/models/requests/request'
-import { IFullUser } from '@typings/shared/full-user'
 
 import { fieldsForSearch, filtersFields } from './my-requests-view.constants'
 import { SwitcherCondition } from './my-requests-view.type'
@@ -62,11 +60,6 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
     request: {},
     isEdit: false,
     onSubmit: (data: any) => this.onSubmitCreateCustomSearchRequest(data),
-  }
-
-  get userInfo(): IFullUser {
-    // @ts-ignore
-    return UserModel.userInfo
   }
 
   isRequestsAtWork = true

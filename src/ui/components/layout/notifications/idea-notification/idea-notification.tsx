@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { Avatar, Typography } from '@mui/material'
 
-import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -12,6 +12,7 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
+import { Roles } from '@typings/enums/roles'
 import { UiTheme } from '@typings/enums/ui-theme'
 
 import { useStyles } from './idea-notification.style'
@@ -35,10 +36,10 @@ export const IdeaNotification: FC<IdeaNotificationProps> = props => {
 
   const getRolePiceToUrl = (key: string) => {
     switch (key) {
-      case UserRole.CLIENT:
+      case Roles[Roles.CLIENT]:
         return 'client/inventory'
 
-      case UserRole.BUYER:
+      case Roles[Roles.BUYER]:
         return 'buyer/my-products'
 
       default:

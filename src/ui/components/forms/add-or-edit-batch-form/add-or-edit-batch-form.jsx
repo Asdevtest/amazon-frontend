@@ -13,7 +13,7 @@ import {
 } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { UserModel } from '@models/user-model'
+import { SettingsModel } from '@models/settings-model'
 
 import { BoxModal } from '@components/modals/box-modal'
 import { Button } from '@components/shared/button'
@@ -48,7 +48,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
 
   const { classes: styles, cx } = useStyles()
 
-  const isClient = checkIsClient(UserRoleCodeMap[UserModel.platformSettings?.role])
+  const isClient = checkIsClient(UserRoleCodeMap[SettingsModel.platformSettings?.role])
 
   const [nameSearchValueBoxesToAddData, setNameSearchValueBoxesToAddData] = useState('')
 

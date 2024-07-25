@@ -1,11 +1,12 @@
 import { action, observable } from 'mobx'
 
-import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
 
 import { t } from '@utils/translations'
+
+import { Roles } from '@typings/enums/roles'
 
 export const adminUsersViewModelConfig = {
   switcherCondition: observable,
@@ -15,16 +16,16 @@ export const adminUsersViewModelConfig = {
   onClickChangeRole: action.bound,
 }
 
-const filterableRoles = [
-  UserRole.CANDIDATE,
-  UserRole.CLIENT,
-  UserRole.RESEARCHER,
-  UserRole.STOREKEEPER,
-  UserRole.BUYER,
-  UserRole.FREELANCER,
+const filterableRoles: Roles[] = [
+  Roles.CANDIDATE,
+  Roles.CLIENT,
+  Roles.RESEARCHER,
+  Roles.STOREKEEPER,
+  Roles.BUYER,
+  Roles.FREELANCER,
 ]
 
-const getSwitcherConfig = (userRoles: string[]) => {
+const getSwitcherConfig = (userRoles: Roles[]) => {
   const defaultConfig: ISwitcherSettings[] = [
     {
       label: () => t(TranslationKey.All),
@@ -34,7 +35,7 @@ const getSwitcherConfig = (userRoles: string[]) => {
 
   const options = Object.values(userRoles).map(item => ({
     label: () => `${item}S`,
-    value: mapUserRoleEnumToKey[item],
+    value: Roles[item],
   }))
 
   return defaultConfig.concat(options)

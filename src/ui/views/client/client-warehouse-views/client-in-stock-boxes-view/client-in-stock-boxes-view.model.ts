@@ -112,10 +112,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     newPriority: null,
   }
 
-  get userInfo() {
-    return UserModel.userInfo
-  }
-
   get isChoosenOnlySendToBatchBoxes() {
     if (!this.selectedRows.length) {
       return false
@@ -134,10 +130,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     return this.currentData
       .filter((el: any) => this.selectedRows.includes(el._id))
       .some((el: any) => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
-  }
-
-  get platformSettings() {
-    return UserModel.platformSettings
   }
 
   get destinationsFavourites() {

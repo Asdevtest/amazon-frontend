@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-import { UserModel } from '@models/user-model'
+import { SettingsModel } from '@models/settings-model'
 
 import { toFixed } from '@utils/text'
 
@@ -31,7 +31,7 @@ export const useChangeDimensions = ({ data, setData, sizeSetting = Dimensions.EU
   }, [])
 
   const volumeWeightCoefficient =
-    (UserModel.platformSettings as unknown as IPlatformSettings)?.volumeWeightCoefficient ||
+    (SettingsModel.platformSettings as unknown as IPlatformSettings)?.volumeWeightCoefficient ||
     DEFAULT_VOLUME_WEIGHT_COEFFICIENT
 
   useEffect(() => {

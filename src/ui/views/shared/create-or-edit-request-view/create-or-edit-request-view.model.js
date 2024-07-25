@@ -2,12 +2,12 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
-import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { ClientModel } from '@models/client-model'
 import { RequestModel } from '@models/request-model'
+import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
@@ -17,6 +17,7 @@ import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { Roles } from '@typings/enums/roles'
 import { Specs } from '@typings/enums/specs'
 
 export class CreateOrEditRequestViewModel {
@@ -50,7 +51,7 @@ export class CreateOrEditRequestViewModel {
   }
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor({ history }) {
@@ -93,7 +94,7 @@ export class CreateOrEditRequestViewModel {
 
   async getMasterUsersData(specsType, guid = '') {
     try {
-      const response = await UserModel.getMasterUsers(mapUserRoleEnumToKey[UserRole.FREELANCER], guid, specsType)
+      const response = await UserModel.getMasterUsers(Roles.FREELANCER, guid, specsType)
 
       runInAction(() => {
         this.masterUsersData = response

@@ -1,13 +1,13 @@
-import { UserRole } from '@constants/keys/user-roles'
-
 import { t } from '@utils/translations'
+
+import { Roles } from '@typings/enums/roles'
 
 import { TranslationKey } from '../translations/translation-key'
 
 import { ProductStatus, ProductStatusByKey } from './product-status'
 
 export const productStatusButtonsConfigs = {
-  [UserRole.RESEARCHER]: curStatus => {
+  [Roles[Roles.RESEARCHER]]: curStatus => {
     if (curStatus < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) {
       return [
         {
@@ -27,7 +27,7 @@ export const productStatusButtonsConfigs = {
     }
   },
 
-  [UserRole.SUPERVISOR]: curStatus => {
+  [Roles[Roles.SUPERVISOR]]: curStatus => {
     if (curStatus === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]) {
       return
     } else if (curStatus === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP]) {
@@ -257,7 +257,7 @@ export const productStatusButtonsConfigs = {
       ]
     }
   },
-  [UserRole.BUYER]: curStatus => {
+  [Roles[Roles.BUYER]]: curStatus => {
     if (
       curStatus >= ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] &&
       curStatus < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]

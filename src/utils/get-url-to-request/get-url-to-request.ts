@@ -1,12 +1,14 @@
-import { UserRole, UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
 import { UserModel } from '@models/user-model'
 
-export const getUrlToRequest = (id: string) => {
-  // @ts-ignore
-  const userRole = UserModel?.userInfo?.role
+import { Roles } from '@typings/enums/roles'
+import { IFullUser } from '@typings/shared/full-user'
 
-  if (UserRoleCodeMap[userRole] === UserRole.FREELANCER) {
+export const getUrlToRequest = (id: string) => {
+  const userRole = (UserModel?.userInfo as unknown as IFullUser)?.role
+
+  if (userRole === Roles.FREELANCER) {
     return `/${UserRoleCodeMapForRoutes[userRole]}/freelance/my-proposals/custom-search-request?request-id=${id}`
   } else {
     return `/${UserRoleCodeMapForRoutes[userRole]}/freelance/my-requests/custom-request?request-id=${id}`

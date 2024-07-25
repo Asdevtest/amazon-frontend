@@ -3,7 +3,6 @@ import { FC, Fragment, memo, useEffect, useState } from 'react'
 import { List } from '@mui/material'
 
 import { appVersion } from '@constants/app-version'
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,9 +15,10 @@ import { FeedbackIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
+import { Roles } from '@typings/enums/roles'
 import { isAdmin, isModerator } from '@typings/guards/roles'
 import { IInfoCounters } from '@typings/shared/info-counters'
-import { NavbarConfigTypes } from '@typings/shared/navbar-config'
+import { Route } from '@typings/shared/navbar-config'
 
 import { useStyles } from './navbar-drawer-content.style'
 
@@ -26,7 +26,7 @@ import { getCategoryBadge } from './navbar-drawer-content.helper'
 
 interface NavbarDrawerContentProps {
   shortNavbar: boolean
-  curNavbar: NavbarConfigTypes.RootObject
+  curNavbar: any
   userInfo: IInfoCounters
   activeCategory: string
   unreadMessages: ChatMessageContract[]
@@ -53,18 +53,14 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
   } = props
 
   const { classes: styles, cx } = useStyles()
-  const [filteredCategories, setFilteredCategories] = useState<NavbarConfigTypes.Route[]>([])
-  const [filteredBottomCategories, setFilteredBottomCategories] = useState<NavbarConfigTypes.Route[]>([])
+  const [filteredCategories, setFilteredCategories] = useState<Route[]>([])
+  const [filteredBottomCategories, setFilteredBottomCategories] = useState<Route[]>([])
 
   const getFilteredCategories = () =>
-    curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar].filter(
-      el => !el.route?.includes('/messages'),
-    )
+    curNavbar[Roles[userInfo.role]].filter((el: any) => !el.route?.includes('/messages'))
 
   const getFilteredBottomCategories = () =>
-    curNavbar[UserRoleCodeMap[userInfo.role as keyof typeof UserRoleCodeMap] as keyof typeof curNavbar].filter(el =>
-      el.route?.includes('/messages'),
-    )
+    curNavbar[Roles[userInfo.role]].filter((el: any) => el.route?.includes('/messages'))
 
   useEffect(() => {
     setFilteredCategories(getFilteredCategories())
@@ -80,7 +76,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
   return (
     <div className={styles.mainSubWrapper}>
       <List className={styles.categoriesWrapper}>
-        {filteredCategories.map((category: NavbarConfigTypes.Route, index: number) =>
+        {filteredCategories.map((category: Route, index: number) =>
           category?.checkHideBlock?.(userInfo) ? (
             <Fragment key={index}>
               <NavbarCategory
@@ -109,7 +105,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
       </List>
 
       <div className={styles.bottomCategories}>
-        {filteredBottomCategories.map((category: NavbarConfigTypes.Route, index: number) =>
+        {filteredBottomCategories.map((category: Route, index: number) =>
           category?.checkHideBlock?.(userInfo) ? (
             <NavbarCategory
               key={index}

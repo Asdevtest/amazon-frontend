@@ -1,13 +1,15 @@
 import { makeAutoObservable } from 'mobx'
 
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
-import { UserRole, UserRoleCodeMapForRoutes, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
 import { ChatModel } from '@models/chat-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
+
+import { Roles } from '@typings/enums/roles'
 
 export class HeaderModel {
   history = undefined
@@ -122,10 +124,10 @@ export class HeaderModel {
       })
     } else {
       switch (this.role) {
-        case mapUserRoleEnumToKey[UserRole.CLIENT]:
+        case Roles.CLIENT:
           return this.history.push(`/client/freelance/my-requests/custom-request?request-id=${noticeItem.crmItemId}`)
 
-        case mapUserRoleEnumToKey[UserRole.FREELANCER]:
+        case Roles.FREELANCER:
           return this.history.push(
             `/freelancer/freelance/my-proposals/custom-search-request?request-id=${noticeItem.crmItemId}`,
           )

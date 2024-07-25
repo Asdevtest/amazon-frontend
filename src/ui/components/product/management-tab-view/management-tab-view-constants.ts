@@ -1,8 +1,3 @@
-import { UserRolesForAdminProduct } from '@constants/keys/user-roles'
+import { Roles } from '@typings/enums/roles'
 
-export const roles: number[] = [
-  UserRolesForAdminProduct.client,
-  UserRolesForAdminProduct.supervisor,
-  UserRolesForAdminProduct.researcher,
-  UserRolesForAdminProduct.buyer,
-]
+export const roles: number[] = [Roles.CLIENT, Roles.SUPERVISOR, Roles.RESEARCHER, Roles.BUYER]

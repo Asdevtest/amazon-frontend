@@ -10,7 +10,6 @@ import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
-import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { t } from '@utils/translations'
@@ -45,12 +44,6 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
 
       return findBatch?.boxes.some((box: IBox) => box.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE)
     })
-  }
-  get userInfo() {
-    return UserModel.userInfo
-  }
-  get platformSettings() {
-    return UserModel.platformSettings
   }
 
   constructor(isSentBatches: boolean) {

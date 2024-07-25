@@ -4,8 +4,8 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
 
 import { BatchesModel } from '@models/batches-model'
+import { SettingsModel } from '@models/settings-model'
 import { TableSettingsModel } from '@models/table-settings'
-import { UserModel } from '@models/user-model'
 
 import { adminBatchesViewColumns } from '@components/table/table-columns/admin/admin-batches-columns'
 
@@ -45,7 +45,7 @@ export class AdminAwaitingBatchesViewModel {
   }
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor({ history }) {

@@ -1,6 +1,5 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
-import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { userRoleTranslateKey, userStatusTranslateKey, userSubStatusTranlateKey } from '@constants/statuses/user-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,6 +17,7 @@ import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { Roles } from '@typings/enums/roles'
 
 export const adminUsersViewColumns = handlers => {
   const columns = [
@@ -132,7 +132,7 @@ export const adminUsersViewColumns = handlers => {
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
-          disabledFirstButton={params.row?.originalData?.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
+          disabledFirstButton={params.row?.originalData?.role === Roles.ADMIN}
           firstButtonElement={t(TranslationKey['Edit and balance'])}
           firstButtonStyle={ButtonStyle.PRIMARY}
           onClickFirstButton={() => handlers.onClickUser(params.row)}

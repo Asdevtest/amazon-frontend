@@ -50,9 +50,7 @@ export const observerConfig = {
   isSomeFilterOn: override,
   getCurrentData: override,
 
-  userInfo: computed,
   destinationsFavourites: computed,
-  platformSettings: computed,
 
   setSelectedProduct: action.bound,
   onSubmitBindStockGoods: action.bound,

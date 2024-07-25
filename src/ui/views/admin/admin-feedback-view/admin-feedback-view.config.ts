@@ -4,7 +4,6 @@ export const adminFeedbackConfig = {
   showReplyFeedbackModal: observable,
   selectedFeedback: observable,
 
-  userInfo: computed,
   simpleChats: computed,
 
   onClickWrite: action.bound,

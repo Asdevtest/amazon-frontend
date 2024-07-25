@@ -5,8 +5,8 @@ import { BatchStatus } from '@constants/statuses/batch-status'
 
 import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
+import { SettingsModel } from '@models/settings-model'
 import { TableSettingsModel } from '@models/table-settings'
-import { UserModel } from '@models/user-model'
 
 import { adminBatchesViewColumns } from '@components/table/table-columns/admin/admin-batches-columns'
 
@@ -39,7 +39,7 @@ export class AdminSentBatchesViewModel {
   columnVisibilityModel = {}
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   get currentData() {

@@ -4,10 +4,8 @@ import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { RequestModel } from '@models/request-model'
-import { UserModel } from '@models/user-model'
 
 import { IProduct } from '@typings/models/products/product'
-import { IFullUser } from '@typings/shared/full-user'
 
 import { linkRequestColumns } from './link-request-form.columns'
 import { linkRequestFormConfig } from './link-request-form.config'
@@ -15,9 +13,6 @@ import { linkRequestFormConfig } from './link-request-form.config'
 export class LinkRequestModel extends DataGridTableModel {
   product?: IProduct
 
-  get userInfo() {
-    return UserModel.userInfo as unknown as IFullUser
-  }
   get selectedRequest() {
     return this.currentData.find(({ _id }) => _id === this.selectedRows[0])
   }

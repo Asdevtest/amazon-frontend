@@ -2,7 +2,7 @@ import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
@@ -22,6 +22,7 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { Roles } from '@typings/enums/roles'
 import { IPermission } from '@typings/models/permissions/permission'
 import { IPermissionGroup } from '@typings/models/permissions/permission-group'
 import { IPermissionProduct } from '@typings/models/permissions/permission-product'
@@ -44,7 +45,7 @@ export class SubUsersViewModel extends DataGridTableModel {
   showPermissionModal = false
 
   get userRole() {
-    return (UserModel?.userInfo as unknown as IFullUser)?.role
+    return this.userInfo.role
   }
 
   constructor() {
@@ -142,20 +143,20 @@ export class SubUsersViewModel extends DataGridTableModel {
       }
 
       const methodByRole = () => {
-        switch (UserRoleCodeMap[this.userRole]) {
-          case UserRole.CLIENT:
+        switch (this.userRole) {
+          case Roles.CLIENT:
             return ClientModel.getProductPermissionsData({})
 
-          case UserRole.BUYER:
+          case Roles.BUYER:
             return BuyerModel.getProductsMyLight()
 
-          case UserRole.SUPERVISOR:
+          case Roles.SUPERVISOR:
             return SupervisorModel.getProductsMyLight()
 
-          case UserRole.RESEARCHER:
+          case Roles.RESEARCHER:
             return ResearcherModel.getProductsVacant()
 
-          case UserRole.FREELANCER:
+          case Roles.FREELANCER:
             return []
 
           default:

@@ -4,9 +4,9 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
 import { OtherModel } from '@models/other-model'
+import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { TableSettingsModel } from '@models/table-settings'
-import { UserModel } from '@models/user-model'
 
 import { warehouseCompletedTasksViewColumns } from '@components/table/table-columns/warehouse/completed-tasks-columns'
 
@@ -49,7 +49,7 @@ export class WarehouseCompletedViewModel {
   }
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor({ history }) {

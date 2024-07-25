@@ -7,7 +7,7 @@ import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
 
-import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -18,6 +18,7 @@ import { checkIsPositiveNum } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { Roles } from '@typings/enums/roles'
 
 import { useStyles } from './add-or-edit-group-permission-form.style'
 
@@ -254,55 +255,47 @@ export const AddOrEditGroupPermissionForm = observer(
                       onClose={() => setOpenSinglePermissions(!openSinglePermissions)}
                       onChange={handleSelectPermissionChange}
                     >
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.ADMIN}</ListSubheader>
+                      {objectSinglePermissions[Roles.ADMIN] && (
+                        <ListSubheader className={styles.listSubheader}>{Roles.ADMIN}</ListSubheader>
                       )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]].map(per => renderMenuItem(per))}
+                      {objectSinglePermissions[Roles.ADMIN] &&
+                        objectSinglePermissions[Roles.ADMIN].map(per => renderMenuItem(per))}
 
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.CLIENT}</ListSubheader>
+                      {objectSinglePermissions[Roles.CLIENT] && (
+                        <ListSubheader className={styles.listSubheader}>{Roles.CLIENT}</ListSubheader>
                       )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]].map(per => renderMenuItem(per))}
+                      {objectSinglePermissions[Roles.CLIENT] &&
+                        objectSinglePermissions[Roles.CLIENT].map(per => renderMenuItem(per))}
 
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.SUPERVISOR}</ListSubheader>
+                      {objectSinglePermissions[Roles.SUPERVISOR] && (
+                        <ListSubheader className={styles.listSubheader}>{Roles.SUPERVISOR}</ListSubheader>
                       )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]].map(per =>
-                          renderMenuItem(per),
-                        )}
+                      {objectSinglePermissions[Roles.SUPERVISOR] &&
+                        objectSinglePermissions[Roles.SUPERVISOR].map(per => renderMenuItem(per))}
 
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.RESEARCHER}</ListSubheader>
+                      {objectSinglePermissions[Roles.RESEARCHER] && (
+                        <ListSubheader className={styles.listSubheader}>{Roles.RESEARCHER}</ListSubheader>
                       )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]].map(per =>
-                          renderMenuItem(per),
-                        )}
+                      {objectSinglePermissions[Roles.RESEARCHER] &&
+                        objectSinglePermissions[Roles.RESEARCHER].map(per => renderMenuItem(per))}
 
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.BUYER}</ListSubheader>
+                      {objectSinglePermissions[Roles.BUYER] && (
+                        <ListSubheader className={styles.listSubheader}>{Roles.BUYER}</ListSubheader>
                       )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]].map(per => renderMenuItem(per))}
+                      {objectSinglePermissions[Roles.BUYER] &&
+                        objectSinglePermissions[Roles.BUYER].map(per => renderMenuItem(per))}
 
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.STOREKEEPER}</ListSubheader>
+                      {objectSinglePermissions[Roles.STOREKEEPER] && (
+                        <ListSubheader className={styles.listSubheader}>{Roles.STOREKEEPER}</ListSubheader>
                       )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]].map(per =>
-                          renderMenuItem(per),
-                        )}
+                      {objectSinglePermissions[Roles.STOREKEEPER] &&
+                        objectSinglePermissions[Roles.STOREKEEPER].map(per => renderMenuItem(per))}
 
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.FREELANCER]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.FREELANCER}</ListSubheader>
+                      {objectSinglePermissions[Roles.FREELANCER] && (
+                        <ListSubheader className={styles.listSubheader}>{Roles.FREELANCER}</ListSubheader>
                       )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.FREELANCER]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.FREELANCER]].map(per =>
-                          renderMenuItem(per),
-                        )}
+                      {objectSinglePermissions[Roles.FREELANCER] &&
+                        objectSinglePermissions[Roles.FREELANCER].map(per => renderMenuItem(per))}
                       <div className={styles.selectModalBtnsWrapper}>
                         <Button
                           styleType={ButtonStyle.CASUAL}

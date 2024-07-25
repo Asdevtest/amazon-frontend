@@ -17,7 +17,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { Notification } from '@typings/enums/notification'
 import { IProduct } from '@typings/models/products/product'
 import { RowHandlers } from '@typings/shared/data-grid'
-import { IFullUser } from '@typings/shared/full-user'
 
 import { generalNotificationsColumns } from './general-notifications-columns'
 import { observerConfig } from './general-notifications-model.config'
@@ -58,10 +57,6 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
     },
   ]
 
-  get userInfo(): IFullUser | undefined {
-    return UserModel.userInfo
-  }
-
   get currentConvertedData() {
     return notificationDataConverter(this.currentData)
   }
@@ -69,7 +64,7 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
   constructor({ history }: { history: History }) {
     const rowHandlers: RowHandlers = {
       navigateToHandler: (notification: any, type: string) => this.navigateToHandler(notification, type),
-      userInfo: () => UserModel.userInfo,
+      userInfo: () => this.userInfo,
     }
 
     const columns = generalNotificationsColumns(rowHandlers)

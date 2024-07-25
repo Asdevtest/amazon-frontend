@@ -2,7 +2,6 @@ import { FC, memo } from 'react'
 
 import Rating from '@mui/material/Rating'
 
-import { UserRolePrettyMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
@@ -11,6 +10,7 @@ import { UserLink } from '@components/user/user-link'
 import { formatShortDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
+import { Roles } from '@typings/enums/roles'
 import { IFeedback } from '@typings/models/feedbacks/feedback'
 
 import { useStyles } from './review-card.style'
@@ -39,7 +39,7 @@ export const ReviewCard: FC<ReviewCardProps> = memo(({ review }) => {
 
         <div className={styles.headerItem}>
           <p className={styles.headerItemTitle}>{`${t(TranslationKey.Role)}:`}</p>
-          <p className={cx(styles.headerItemTitle, styles.headerItemTitleBold)}>{UserRolePrettyMap[review.role]}</p>
+          <p className={cx(styles.headerItemTitle, styles.headerItemTitleBold)}>{Roles[review.role]}</p>
         </div>
 
         <div className={styles.headerItem}>

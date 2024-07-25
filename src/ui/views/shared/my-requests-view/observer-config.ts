@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 export const observerConfig = {
   showRequestForm: observable,
@@ -11,7 +11,6 @@ export const observerConfig = {
   showConfirmWorkResultFormModal: observable,
   showMainRequestResultModal: observable,
   showRequestResultModal: observable,
-
   selectedIndex: observable,
   selectedRequests: observable,
   researchIdToRemove: observable,
@@ -24,8 +23,6 @@ export const observerConfig = {
   acceptProposalResultSetting: observable,
   statusGroup: observable,
   dataGridApi: observable,
-
-  userInfo: computed,
 
   onClickChangeCatigory: action.bound,
   loadData: action.bound,

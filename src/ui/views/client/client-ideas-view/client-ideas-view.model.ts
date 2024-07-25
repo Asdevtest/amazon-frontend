@@ -42,7 +42,6 @@ import { IRequest } from '@typings/models/requests/request'
 import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 import { ISupplier } from '@typings/models/suppliers/supplier'
 import { IDestination } from '@typings/shared/destinations'
-import { IFullUser } from '@typings/shared/full-user'
 import { IPaymentMethod } from '@typings/shared/payment-method'
 import { IUploadFile } from '@typings/shared/upload-file'
 
@@ -100,15 +99,6 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
   // * Modal states
 
   isIdeaCreate = false
-
-  get userInfo(): IFullUser {
-    // @ts-ignore
-    return UserModel.userInfo
-  }
-
-  get platformSettings() {
-    return UserModel.platformSettings
-  }
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites

@@ -4,7 +4,6 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { SupervisorModel } from '@models/supervisor-model'
-import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
@@ -14,10 +13,6 @@ import { additionalFields, supervisorProductsConfig } from './supervisor-product
 export class SupervisorProductsViewModel extends DataGridFilterTableModel {
   switcherFilterStatuses = []
   showProductModal = false
-
-  get userInfo() {
-    return UserModel.userInfo
-  }
 
   get isSomeFilterOn() {
     const orderedYesNoFilterData = this.columnMenuSettings?.orderedYesNoFilterData

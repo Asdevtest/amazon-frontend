@@ -70,12 +70,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
   get isPendingOrdering() {
     return this.history.location.pathname === routsPathes.CLIENT_PENDING_ORDERS
   }
-  get userInfo() {
-    return UserModel.userInfo
-  }
-  get platformSettings() {
-    return UserModel.platformSettings
-  }
 
   constructor(history: HistoryType) {
     const rowHandlers = {

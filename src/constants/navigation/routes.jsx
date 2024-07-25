@@ -1,9 +1,10 @@
 import { lazy } from 'react'
 
-import { UserRole } from '@constants/keys/user-roles'
 import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
 
 import { t } from '@utils/translations'
+
+import { Roles } from '@typings/enums/roles'
 
 import { permissionsKeys } from '../keys/permissions'
 import { TranslationKey } from '../translations/translation-key'
@@ -549,7 +550,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/dashboard',
     component: BuyerDashboardView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_DASHBOARD_BUYER,
     crumbNameKey: TranslationKey.Dashboard,
     navigationInfo: {
@@ -563,7 +564,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/search-supplier-by-supervisor',
     component: BuyerSearchSupplierBySupervisorView,
     exact: true,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER,
 
     crumbNameKey: TranslationKey['Supplier search'],
@@ -579,7 +580,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/search-supplier-by-client',
     component: BuyerSearchSupplierBySupervisorView,
     exact: true,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER,
     crumbNameKey: TranslationKey['Supplier search'],
 
@@ -594,7 +595,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/users',
     component: UsersView,
     exact: true,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_USERS_BUYER,
 
     crumbNameKey: TranslationKey.Users,
@@ -610,7 +611,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/users/sub-users',
     component: SubUsersView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     crumbNameKey: TranslationKey['My users'],
 
     navigationInfo: {
@@ -623,7 +624,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/search-supplier-by-supervisor/product',
     component: BuyerProductView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     crumbNameKey: TranslationKey.Product,
 
     navigationInfo: {
@@ -637,7 +638,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/search-supplier-by-client/product',
     component: BuyerProductView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     crumbNameKey: TranslationKey.Product,
 
     navigationInfo: {
@@ -651,7 +652,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/my-products/product',
     component: BuyerProductView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     crumbNameKey: TranslationKey.Product,
 
     navigationInfo: {
@@ -665,7 +666,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/my-products',
     component: BuyerMyProductsView,
     exact: true,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_PRODUCTS_BUYER,
 
     crumbNameKey: TranslationKey['My products'],
@@ -681,7 +682,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/pending-orders',
     component: BuyerPendingOrdersView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_PENDING_ORDERS_BUYER,
 
     crumbNameKey: TranslationKey['Pending orders'],
@@ -697,7 +698,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/all-orders',
     component: BuyerMyOrdersView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_BUYER,
 
     crumbNameKey: TranslationKey['All orders'],
@@ -712,7 +713,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/not-paid-orders',
     component: BuyerMyOrdersView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_NOT_PAID_BUYER,
 
     crumbNameKey: TranslationKey['Not paid'],
@@ -727,7 +728,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/ready-for-payment-orders',
     component: BuyerMyOrdersView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER,
 
     crumbNameKey: TranslationKey['Ready for payment'],
@@ -742,7 +743,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/partially-paid-orders',
     component: BuyerMyOrdersView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     // permissionKey: permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER,
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_PARTIALLY_PAID_BUYER,
 
@@ -758,7 +759,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/need-track-number-orders',
     component: BuyerMyOrdersView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER,
 
     crumbNameKey: TranslationKey['Need track number'],
@@ -773,7 +774,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/inbound-orders',
     component: BuyerMyOrdersView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_INBOUND_BUYER,
 
     crumbNameKey: TranslationKey.Inbound,
@@ -788,7 +789,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/confirmation-required-orders',
     component: BuyerMyOrdersView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER,
 
     crumbNameKey: TranslationKey['Confirmation required'],
@@ -803,7 +804,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/closed-and-canceled-orders',
     component: BuyerMyOrdersView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER,
 
     crumbNameKey: TranslationKey['Closed and canceled'],
@@ -819,7 +820,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/free-orders',
     component: BuyerFreeOrdersView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
 
     crumbNameKey: TranslationKey['Free orders'],
 
@@ -834,7 +835,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/finances',
     component: FinancesView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_PAYMENTS_BUYER,
 
     crumbNameKey: TranslationKey.Finances,
@@ -850,7 +851,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/messages',
     component: MessagesView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
 
     permissionKey: permissionsKeys.buyer.SHOW_CHAT_BUYER,
 
@@ -867,7 +868,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/notifications',
     component: BuyerNotificationsView,
     exact: true,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
     permissionKey: permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER,
 
     crumbNameKey: TranslationKey.Notifications,
@@ -883,7 +884,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/notifications/ideas-notifications',
     component: BuyerIdeasNotificationsView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
 
     permissionKey: permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER,
 
@@ -900,7 +901,7 @@ export const privateRoutesConfigs = [
     routePath: '/buyer/notifications/general-notifications-view',
     component: GeneralNotificationsView,
     exact: false,
-    permission: [UserRole.BUYER],
+    permission: [Roles[Roles.BUYER]],
 
     permissionKey: permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER,
 
@@ -917,7 +918,7 @@ export const privateRoutesConfigs = [
     routePath: '/researcher/dashboard',
     component: ResearcherDashboardView,
     exact: false,
-    permission: [UserRole.RESEARCHER],
+    permission: [Roles[Roles.RESEARCHER]],
     permissionKey: permissionsKeys.researcher.SHOW_DASHBOARD_RESEARCHER,
 
     crumbNameKey: TranslationKey.Dashboard,
@@ -932,7 +933,7 @@ export const privateRoutesConfigs = [
     routePath: '/researcher/products',
     component: ResearcherProductsView,
     exact: true,
-    permission: [UserRole.RESEARCHER],
+    permission: [Roles[Roles.RESEARCHER]],
     permissionKey: permissionsKeys.researcher.SHOW_PRODUCTS_RESEARCHER,
 
     crumbNameKey: TranslationKey['My products'],
@@ -948,7 +949,7 @@ export const privateRoutesConfigs = [
     routePath: '/researcher/products/product',
     component: ResearcherProductView,
     exact: false,
-    permission: [UserRole.RESEARCHER],
+    permission: [Roles[Roles.RESEARCHER]],
 
     crumbNameKey: TranslationKey.Product,
 
@@ -963,7 +964,7 @@ export const privateRoutesConfigs = [
     routePath: '/researcher/users',
     component: UsersView,
     exact: true,
-    permission: [UserRole.RESEARCHER],
+    permission: [Roles[Roles.RESEARCHER]],
     permissionKey: permissionsKeys.researcher.SHOW_USERS_RESEARCHER,
 
     crumbNameKey: TranslationKey.Users,
@@ -979,7 +980,7 @@ export const privateRoutesConfigs = [
     routePath: '/researcher/users/sub-users',
     component: SubUsersView,
     exact: false,
-    permission: [UserRole.RESEARCHER],
+    permission: [Roles[Roles.RESEARCHER]],
     crumbNameKey: TranslationKey['My users'],
     permissionKey: permissionsKeys.researcher.SHOW_USERS_RESEARCHER,
 
@@ -994,7 +995,7 @@ export const privateRoutesConfigs = [
     routePath: '/researcher/finances',
     component: FinancesView,
     exact: false,
-    permission: [UserRole.RESEARCHER],
+    permission: [Roles[Roles.RESEARCHER]],
     permissionKey: permissionsKeys.researcher.SHOW_PAYMENTS_RESEARCHER,
 
     crumbNameKey: TranslationKey.Finances,
@@ -1010,7 +1011,7 @@ export const privateRoutesConfigs = [
     routePath: '/researcher/messages',
     component: MessagesView,
     exact: false,
-    permission: [UserRole.RESEARCHER],
+    permission: [Roles[Roles.RESEARCHER]],
     permissionKey: permissionsKeys.researcher.SHOW_CHAT_RESEARCHER,
 
     crumbNameKey: TranslationKey.Messages,
@@ -1026,7 +1027,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/dashboard',
     component: ClientDashboardView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_DASHBOARD_CLIENT,
 
     crumbNameKey: TranslationKey.Dashboard,
@@ -1042,7 +1043,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/freelance',
     component: ClientFreelanceView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey.Freelance,
@@ -1058,7 +1059,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/freelance/my-requests',
     component: MyRequestsView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey['My requests'],
@@ -1074,7 +1075,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/freelance/my-proposals',
     component: MyProposalsView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
@@ -1091,7 +1092,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/freelance/service-exchange',
     component: ServiceExchangeView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
@@ -1108,7 +1109,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/trading-shops',
     component: ClientTradingShopsView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
     crumbNameKey: TranslationKey['Trading stores'],
@@ -1124,7 +1125,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/trading-shops/buy-shops',
     component: ClientBuyShopsView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
@@ -1141,7 +1142,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/trading-shops/sell-shops',
     component: ClientSellShopsView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
@@ -1158,7 +1159,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/trading-shops/sell-shops/create-trading-traiding-shop',
     component: CreateOrEditTradingShopView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
@@ -1175,7 +1176,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/trading-shops/sell-shops/edit-trading-traiding-shop',
     component: CreateOrEditTradingShopView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
@@ -1192,7 +1193,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/trading-shops/sell-shops/traiding-shop',
     component: ClientShopView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
@@ -1209,7 +1210,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/trading-shops/buy-shops/traiding-shop',
     component: ClientShopView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
@@ -1226,7 +1227,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/freelance/my-requests/custom-request',
     component: OwnerRequestDetailCustomView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
@@ -1243,7 +1244,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/freelance/my-requests/create-request',
     component: CreateOrEditRequestView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
@@ -1260,7 +1261,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/freelance/my-requests/custom-request/edit-request',
     component: CreateOrEditRequestView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
@@ -1277,7 +1278,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/freelance/vacant-requests',
     component: VacantRequestsView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
@@ -1294,7 +1295,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/freelance/vacant-requests/custom-search-request',
     component: RequestDetailCustomView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
@@ -1311,7 +1312,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/freelance/my-proposals/custom-search-request',
     component: RequestDetailCustomView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
@@ -1328,7 +1329,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/freelance/my-proposals/edit-proposal',
     component: CreateOrEditProposalView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
@@ -1345,7 +1346,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/freelance/vacant-requests/custom-search-request/create-proposal',
     component: CreateOrEditProposalView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
@@ -1362,7 +1363,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/inventory',
     component: ClientInventoryView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
     crumbNameKey: TranslationKey.Inventory,
 
@@ -1377,7 +1378,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/inventory/reports',
     component: ReportsView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_INVENTORY_LISTING_REPORTS,
     crumbNameKey: TranslationKey.Reports,
 
@@ -1392,7 +1393,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/inventory/product',
     component: ClientProductView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
 
@@ -1410,7 +1411,7 @@ export const privateRoutesConfigs = [
     // component: ClientProductExchangeView,
     component: CategoryRootView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_VACANT_CLIENT,
 
@@ -1427,7 +1428,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/product-exchange/forks-exchange',
     component: ClientExchangeView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_VACANT_CLIENT,
 
@@ -1443,7 +1444,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/product-exchange/private-label',
     component: ClientExchangePrivateLabelView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_VACANT_CLIENT,
 
@@ -1460,7 +1461,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/batches',
     component: ClientBatchesView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_BATCHES_CLIENT,
 
     crumbNameKey: TranslationKey.Batches,
@@ -1476,7 +1477,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/warehouse/tasks',
     component: ClientWarehouseTasksView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
 
     crumbNameKey: TranslationKey.Tasks,
@@ -1492,7 +1493,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/batches/awaiting-batch',
     component: ClientAwaitingBatchesView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_BATCHES_CLIENT,
 
     crumbNameKey: TranslationKey['Awaiting send'],
@@ -1508,7 +1509,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/batches/sent-batches',
     component: ClientSentBatchesView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_BATCHES_CLIENT,
 
     crumbNameKey: TranslationKey['Sent boxes'],
@@ -1524,7 +1525,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/batches/sent-batches/archive',
     component: ClientSentBatchesView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_BATCHES_CLIENT,
 
     crumbNameKey: TranslationKey.Archive,
@@ -1540,7 +1541,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/shops',
     component: CategoryRootView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_SHOPS_CLIENT,
 
     crumbNameKey: TranslationKey.Shops,
@@ -1556,7 +1557,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/shops/shops',
     component: ClientShopsView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_SHOPS_CLIENT,
 
     crumbNameKey: TranslationKey.Shops,
@@ -1572,7 +1573,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/shops/reports',
     component: ClientShopsReportView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_SHOPS_CLIENT,
 
     crumbNameKey: TranslationKey.Reports,
@@ -1588,7 +1589,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/warehouse',
     component: ClientWarehouseView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
 
     crumbNameKey: TranslationKey['My warehouse'],
@@ -1604,7 +1605,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/warehouse/in-stock',
     component: ClientInStockBoxesView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
 
@@ -1621,7 +1622,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/my-orders',
     component: ClientMyOrdersView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_ORDERS_CLIENT,
 
     crumbNameKey: TranslationKey['My orders'],
@@ -1637,7 +1638,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/my-orders/orders',
     component: ClientOrdersView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_ORDERS_CLIENT,
 
     crumbNameKey: TranslationKey.Orders,
@@ -1653,7 +1654,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/my-orders/pending-orders',
     component: ClientOrdersView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_PENDING_ORDERS_CLIENT,
 
     crumbNameKey: TranslationKey['Pending orders'],
@@ -1669,7 +1670,7 @@ export const privateRoutesConfigs = [
   //   routePath: "/client/settings",
   //   component: ClientSettingsView,
   //   exact: true,
-  //   permission: [UserRole.CLIENT],
+  //   permission: [Roles[Roles.CLIENT]],
   //
   //   crumbNameKey: TranslationKey.Profile,
   //
@@ -1684,7 +1685,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/my-orders/orders/order',
     component: ClientOrderView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_ORDERS_CLIENT,
 
     crumbNameKey: TranslationKey.Order,
@@ -1700,7 +1701,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/my-orders/pending-orders/order',
     component: ClientOrderView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_PENDING_ORDERS_CLIENT,
 
     crumbNameKey: TranslationKey.Order,
@@ -1716,7 +1717,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/users',
     component: UsersView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_USERS_CLIENT,
 
     crumbNameKey: TranslationKey.Users,
@@ -1732,7 +1733,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/users/sub-users',
     component: SubUsersView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_USERS_CLIENT,
 
@@ -1749,7 +1750,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/notifications',
     component: CategoryRootView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
     crumbNameKey: TranslationKey.Notifications,
@@ -1764,7 +1765,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/notifications/orders-notifications',
     component: ClientOrdersNotificationsView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
@@ -1781,7 +1782,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/notifications/boxes-notifications',
     component: ClientBoxesNotificationsView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
@@ -1798,7 +1799,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/notifications/tariffs-notifications',
     component: ClientBoxesTariffsNotificationsView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
@@ -1815,7 +1816,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/notifications/freelance-notifications',
     component: ClientFreelanceNotificationsView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
@@ -1832,7 +1833,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/notifications/general-notifications-view',
     component: GeneralNotificationsView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
 
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
@@ -1849,7 +1850,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/finances',
     component: FinancesView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_PAYMENTS_CLIENT,
 
     crumbNameKey: TranslationKey.Finances,
@@ -1865,7 +1866,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/messages',
     component: MessagesView,
     exact: false,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     permissionKey: permissionsKeys.client.SHOW_CHAT_CLIENT,
 
     crumbNameKey: TranslationKey.Messages,
@@ -1881,7 +1882,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/dashboard',
     component: SupervisorDashboardView,
     exact: false,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
     permissionKey: permissionsKeys.supervisor.SHOW_DASHOBARD_SUPERVISOR,
 
     crumbNameKey: TranslationKey.Dashboard,
@@ -1897,7 +1898,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/freelance/deals-on-review',
     component: DealsOnReviewView,
     exact: true,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
     crumbNameKey: TranslationKey['Deals on review'],
 
     navigationInfo: {
@@ -1911,7 +1912,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/freelance/deals-on-review/deal-on-review',
     component: DealsOnReviewDetailsView,
     exact: true,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
     crumbNameKey: TranslationKey.Deal,
 
     navigationInfo: {
@@ -1925,7 +1926,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/products',
     component: SupervisorProductsView,
     exact: true,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
     permissionKey: permissionsKeys.supervisor.SHOW_PRODUCTS_SUPERVISOR,
 
     crumbNameKey: TranslationKey['My products'],
@@ -1941,7 +1942,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/products/product',
     component: SupervisorProductView,
     exact: false,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
     crumbNameKey: TranslationKey.Product,
 
     navigationInfo: {
@@ -1955,7 +1956,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/ready-to-check/product',
     component: SupervisorProductView,
     exact: false,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
 
     crumbNameKey: TranslationKey.Product,
 
@@ -1970,7 +1971,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/ready-to-check-by-client/product',
     component: SupervisorProductView,
     exact: false,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
 
     crumbNameKey: TranslationKey.Product,
 
@@ -1984,7 +1985,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/ready-to-check',
     component: SupervisorReadyToCheckView,
     exact: true,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
     permissionKey: permissionsKeys.supervisor.SHOW_VAC_BY_RES_SUPERVISOR,
 
     crumbNameKey: TranslationKey['Supplier search'],
@@ -2000,7 +2001,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/ready-to-check-by-client',
     component: SupervisorReadyToCheckByClientView,
     exact: true,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
 
     permissionKey: permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR,
 
@@ -2017,7 +2018,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/users',
     component: UsersView,
     exact: true,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
     permissionKey: permissionsKeys.supervisor.SHOW_USERS_SUPERVISOR,
 
     crumbNameKey: TranslationKey.Users,
@@ -2033,7 +2034,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/users/sub-users',
     component: SubUsersView,
     exact: false,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
     crumbNameKey: TranslationKey['My users'],
 
     navigationInfo: {
@@ -2046,7 +2047,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/finances',
     component: FinancesView,
     exact: false,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
     permissionKey: permissionsKeys.supervisor.SHOW_PAYMENTS_SUPERVISOR,
 
     crumbNameKey: TranslationKey.Finances,
@@ -2062,7 +2063,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/messages',
     component: MessagesView,
     exact: false,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
     permissionKey: permissionsKeys.supervisor.SHOW_CHAT_SUPERVISOR,
 
     crumbNameKey: TranslationKey.Messages,
@@ -2078,7 +2079,7 @@ export const privateRoutesConfigs = [
     routePath: '/supervisor/settings',
     component: SupervisorSettingsView,
     exact: false,
-    permission: [UserRole.SUPERVISOR],
+    permission: [Roles[Roles.SUPERVISOR]],
     permissionKey: permissionsKeys.supervisor.SHOW_SETTINGS_SUPERVISOR,
 
     crumbNameKey: TranslationKey.Settings,
@@ -2094,7 +2095,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/dashboard',
     component: WarehouseDashboardView,
     exact: false,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     permissionKey: permissionsKeys.storekeeper.SHOW_DASHBOARD_STOREKEEPER,
 
     crumbNameKey: TranslationKey.Dashboard,
@@ -2110,7 +2111,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/tasks',
     component: WarehouseTasksView,
     exact: true,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     permissionKey: permissionsKeys.storekeeper.SHOW_MY_TASKS_STOREKEEPER,
 
     crumbNameKey: TranslationKey.Tasks,
@@ -2126,7 +2127,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/tasks/vacant-tasks',
     component: WarehouseVacantTasksView,
     exact: false,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     crumbNameKey: TranslationKey['New tasks'],
 
     navigationInfo: {
@@ -2139,7 +2140,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/tasks/my-tasks',
     component: WarehouseMyTasksView,
     exact: false,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     crumbNameKey: TranslationKey['My tasks'],
 
     navigationInfo: {
@@ -2153,7 +2154,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/tasks/completed-tasks',
     component: WarehouseCompletedTasksView,
     exact: false,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     crumbNameKey: TranslationKey['Completed tasks'],
 
     navigationInfo: {
@@ -2167,7 +2168,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/tasks/canceled-tasks',
     component: WarehouseCanceledTasksView,
     exact: false,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     crumbNameKey: TranslationKey['Canceled tasks'],
 
     navigationInfo: {
@@ -2181,7 +2182,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/batches',
     component: WarehouseBatchesView,
     exact: true,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     permissionKey: permissionsKeys.storekeeper.SHOW_BATCHES_STOREKEEPER,
 
     crumbNameKey: TranslationKey.Batches,
@@ -2197,7 +2198,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/batches/awaiting-batches',
     component: WarehouseAwaitingBatchesView,
     exact: false,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     crumbNameKey: TranslationKey['Awaiting send'],
 
     navigationInfo: {
@@ -2211,7 +2212,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/batches/sent-batches',
     component: WarehouseSentBatchesView,
     exact: false,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     crumbNameKey: TranslationKey.Sent,
 
     navigationInfo: {
@@ -2224,7 +2225,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/my-warehouse',
     component: WarehouseMyWarehouseView,
     exact: false,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     permissionKey: permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER,
 
     crumbNameKey: TranslationKey['My warehouse'],
@@ -2240,7 +2241,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/management',
     component: WarehouseManagementView,
     exact: false,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     permissionKey: permissionsKeys.storekeeper.SHOW_MANAGEMENT_STOREKEEPER,
 
     crumbNameKey: TranslationKey['Warehouse management'],
@@ -2256,7 +2257,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/users',
     component: UsersView,
     exact: true,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     permissionKey: permissionsKeys.storekeeper.SHOW_USERS_STOREKEEPER,
 
     crumbNameKey: TranslationKey.Users,
@@ -2272,7 +2273,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/users/sub-users',
     component: SubUsersView,
     exact: false,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     crumbNameKey: TranslationKey['My users'],
 
     navigationInfo: {
@@ -2286,7 +2287,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/finances',
     component: FinancesView,
     exact: false,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     permissionKey: permissionsKeys.storekeeper.SHOW_PAYMENTS_STOREKEEPER,
 
     crumbNameKey: TranslationKey.Finances,
@@ -2302,7 +2303,7 @@ export const privateRoutesConfigs = [
     routePath: '/warehouse/messages',
     component: MessagesView,
     exact: false,
-    permission: [UserRole.STOREKEEPER],
+    permission: [Roles[Roles.STOREKEEPER]],
     permissionKey: permissionsKeys.storekeeper.SHOW_CHAT_STOREKEEPER,
 
     crumbNameKey: TranslationKey.Messages,
@@ -2318,7 +2319,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/dashboard',
     component: AdminDashboardView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Dashboard,
 
     navigationInfo: {
@@ -2331,7 +2332,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/exchange',
     component: AdminExchangeViews,
     exact: true,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey['Commodity exchange'],
 
     navigationInfo: {
@@ -2344,7 +2345,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/inventory',
     component: AdminInventoryView,
     exact: true,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Inventory,
 
     navigationInfo: {
@@ -2357,7 +2358,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/orders/order',
     component: AdminOrderView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Order,
 
     navigationInfo: {
@@ -2370,7 +2371,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/permissions',
     component: AdminUserPermissionsView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey['User permissions'],
 
     navigationInfo: {
@@ -2383,7 +2384,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/orders',
     component: AdminOrdersViews,
     exact: true,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Orders,
 
     navigationInfo: {
@@ -2396,7 +2397,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/exchange/product',
     component: AdminProductView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Product,
 
     navigationInfo: {
@@ -2410,7 +2411,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/inventory/product',
     component: AdminProductView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Product,
 
     navigationInfo: {
@@ -2424,7 +2425,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/warehouse',
     component: AdminWarehouseView,
     exact: true,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Warehouse,
 
     navigationInfo: {
@@ -2437,7 +2438,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/warehouse/tasks',
     component: AdminWarehouseTasksView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Tasks,
 
     navigationInfo: {
@@ -2450,7 +2451,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/warehouse/boxes',
     component: AdminWarehouseBoxesView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Boxes,
 
     navigationInfo: {
@@ -2464,7 +2465,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/warehouse/destinations',
     component: AdminDestinationsView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Destinations,
 
     navigationInfo: {
@@ -2478,7 +2479,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/batches',
     component: AdminBatchesView,
     exact: true,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Batches,
 
     navigationInfo: {
@@ -2492,7 +2493,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/batches/awaiting-batches',
     component: AdminAwaitingBatchesView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey['Awaiting send'],
 
     navigationInfo: {
@@ -2506,7 +2507,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/batches/sent-batches',
     component: AdminSentBatchesView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Sent,
 
     navigationInfo: {
@@ -2520,7 +2521,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/finances',
     component: FinancesView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Finances,
 
     navigationInfo: {
@@ -2533,7 +2534,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/users',
     component: AdminUsersView,
     exact: true,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Users,
 
     navigationInfo: {
@@ -2547,7 +2548,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/users/user',
     component: AdminUserView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.User,
 
     navigationInfo: {
@@ -2561,7 +2562,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/settings',
     component: AdminSettingsView,
     exact: true,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Settings,
 
     navigationInfo: {
@@ -2575,7 +2576,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/feedback',
     component: AdminFeedbackView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Feedback,
 
     navigationInfo: {
@@ -2589,7 +2590,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/messages',
     component: MessagesView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey.Messages,
 
     navigationInfo: {
@@ -2603,7 +2604,7 @@ export const privateRoutesConfigs = [
     routePath: '/admin/updated',
     component: PatchNoutesView,
     exact: false,
-    permission: [UserRole.ADMIN],
+    permission: [Roles[Roles.ADMIN]],
     crumbNameKey: TranslationKey['Patch notes'],
 
     navigationInfo: {
@@ -2617,7 +2618,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/dashboard',
     component: FreelancerDashboardView,
     exact: false,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     permissionKey: permissionsKeys.freelancer.SHOW_DASHBOARD_FREELANCER,
     crumbNameKey: TranslationKey.Dashboard,
 
@@ -2632,7 +2633,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/users',
     component: UsersView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey.Users,
 
     navigationInfo: {
@@ -2646,7 +2647,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/users/sub-users',
     component: SubUsersView,
     exact: false,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey['My users'],
 
     navigationInfo: {
@@ -2660,7 +2661,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/finances',
     component: FinancesView,
     exact: false,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey.Finances,
 
     navigationInfo: {
@@ -2676,7 +2677,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance',
     component: FreelancerFreelanceView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey.Freelance,
 
     navigationInfo: {
@@ -2690,7 +2691,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance/my-proposals',
     component: MyProposalsView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey['My proposals'],
 
     navigationInfo: {
@@ -2704,7 +2705,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance/vacant-requests',
     component: VacantRequestsView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey['Vacant requests'],
 
     navigationInfo: {
@@ -2718,7 +2719,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance/vacant-requests/custom-search-request',
     component: RequestDetailCustomView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey.Request,
 
     navigationInfo: {
@@ -2732,7 +2733,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance/source-files',
     component: SourceFilesView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey['Source Files'],
 
     navigationInfo: {
@@ -2746,7 +2747,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance/my-proposals/custom-search-request',
     component: RequestDetailCustomView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey.Request,
 
     navigationInfo: {
@@ -2760,7 +2761,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance/my-proposals/edit-proposal',
     component: CreateOrEditProposalView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey['Proposal Edition'],
 
     navigationInfo: {
@@ -2774,7 +2775,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance/vacant-requests/custom-search-request/create-proposal',
     component: CreateOrEditProposalView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey['Proposal Creation'],
 
     navigationInfo: {
@@ -2788,7 +2789,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/messages',
     component: MessagesView,
     exact: false,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey.Messages,
 
     navigationInfo: {
@@ -2802,7 +2803,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance/my-services',
     component: MyServicesView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey['My services'],
 
     navigationInfo: {
@@ -2816,7 +2817,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance/my-services/create-service',
     component: CreateOrEditServicesView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey['Create service'],
 
     navigationInfo: {
@@ -2830,7 +2831,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance/my-services/service-detailds',
     component: ServiceDetailsView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey['Service details'],
 
     navigationInfo: {
@@ -2844,7 +2845,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance/my-services/service-detailds/edit-service',
     component: CreateOrEditServicesView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey['Edit service'],
 
     navigationInfo: {
@@ -2858,7 +2859,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance/my-services/service-detailds/custom-service-type',
     component: ServicesDetailCustomView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey.Request,
 
     navigationInfo: {
@@ -2872,7 +2873,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/freelance/my-services/service-detailds/custom-service-type/create-proposal',
     component: CreateOrEditProposalView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
     crumbNameKey: TranslationKey['Proposal Creation'],
 
     navigationInfo: {
@@ -2886,7 +2887,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/notifications',
     component: CategoryRootView,
     exact: true,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
 
     permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
 
@@ -2903,7 +2904,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/notifications/freelance-notifications',
     component: ClientFreelanceNotificationsView,
     exact: false,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
 
     permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
 
@@ -2920,7 +2921,7 @@ export const privateRoutesConfigs = [
     routePath: '/freelancer/notifications/general-notifications-view',
     component: GeneralNotificationsView,
     exact: false,
-    permission: [UserRole.FREELANCER],
+    permission: [Roles[Roles.FREELANCER]],
 
     permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
 
@@ -2937,7 +2938,7 @@ export const privateRoutesConfigs = [
     routePath: '/moderator/dashboard',
     component: ModeratorDashboardView,
     exact: false,
-    permission: [UserRole.MODERATOR],
+    permission: [Roles[Roles.MODERATOR]],
     crumbNameKey: TranslationKey.Dashboard,
 
     navigationInfo: {
@@ -2951,7 +2952,7 @@ export const privateRoutesConfigs = [
     routePath: '/moderator/appeals',
     component: ModeratorAppealsView,
     exact: true,
-    permission: [UserRole.MODERATOR],
+    permission: [Roles[Roles.MODERATOR]],
     crumbNameKey: TranslationKey.Appeals,
 
     navigationInfo: {
@@ -2965,7 +2966,7 @@ export const privateRoutesConfigs = [
     routePath: '/moderator/appeals/appeal',
     component: ModeratorAppealView,
     exact: true,
-    permission: [UserRole.MODERATOR],
+    permission: [Roles[Roles.MODERATOR]],
     crumbNameKey: TranslationKey.Appeal,
 
     navigationInfo: {
@@ -2979,7 +2980,7 @@ export const privateRoutesConfigs = [
     routePath: '/moderator/my-products',
     component: ModeratorMyProductsView,
     exact: false,
-    permission: [UserRole.MODERATOR],
+    permission: [Roles[Roles.MODERATOR]],
     crumbNameKey: TranslationKey['My products'],
 
     navigationInfo: {
@@ -2993,7 +2994,7 @@ export const privateRoutesConfigs = [
     routePath: '/moderator/updated',
     component: PatchNoutesView,
     exact: false,
-    permission: [UserRole.MODERATOR],
+    permission: [Roles[Roles.MODERATOR]],
     crumbNameKey: TranslationKey['Patch notes'],
 
     navigationInfo: {
@@ -3007,7 +3008,7 @@ export const privateRoutesConfigs = [
     routePath: '/moderator/users',
     component: UsersView,
     exact: true,
-    permission: [UserRole.MODERATOR],
+    permission: [Roles[Roles.MODERATOR]],
     crumbNameKey: TranslationKey.Users,
 
     navigationInfo: {
@@ -3021,7 +3022,7 @@ export const privateRoutesConfigs = [
     routePath: '/moderator/users/sub-users',
     component: SubUsersView,
     exact: true,
-    permission: [UserRole.MODERATOR],
+    permission: [Roles[Roles.MODERATOR]],
     crumbNameKey: TranslationKey['My users'],
 
     navigationInfo: {
@@ -3035,7 +3036,7 @@ export const privateRoutesConfigs = [
     routePath: '/moderator/settings',
     component: ModeratorSettingsView,
     exact: true,
-    permission: [UserRole.MODERATOR],
+    permission: [Roles[Roles.MODERATOR]],
     crumbNameKey: TranslationKey.Settings,
 
     navigationInfo: {
@@ -3049,7 +3050,7 @@ export const privateRoutesConfigs = [
     routePath: '/moderator/feedback',
     component: AdminFeedbackView,
     exact: false,
-    permission: [UserRole.MODERATOR],
+    permission: [Roles[Roles.MODERATOR]],
     crumbNameKey: TranslationKey.Feedback,
 
     navigationInfo: {
@@ -3063,7 +3064,7 @@ export const privateRoutesConfigs = [
     routePath: '/moderator/messages',
     component: MessagesView,
     exact: false,
-    permission: [UserRole.MODERATOR],
+    permission: [Roles[Roles.MODERATOR]],
     crumbNameKey: TranslationKey.Messages,
 
     navigationInfo: {
@@ -3079,7 +3080,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/ideas',
     component: CategoryRootView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     crumbNameKey: TranslationKey.Ideas,
 
     navigationInfo: {
@@ -3093,7 +3094,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/ideas/new',
     component: ClientIdeasView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     crumbNameKey: t(TranslationKey['New ideas']),
 
     navigationInfo: {
@@ -3107,7 +3108,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/ideas/on-checking',
     component: ClientIdeasView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     crumbNameKey: t(TranslationKey['On checking']),
 
     navigationInfo: {
@@ -3121,7 +3122,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/ideas/search-suppliers',
     component: ClientIdeasView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     crumbNameKey: t(TranslationKey['Search for suppliers']),
 
     navigationInfo: {
@@ -3135,7 +3136,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/ideas/create-card',
     component: ClientIdeasView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     crumbNameKey: t(TranslationKey['Creating a product card']),
 
     navigationInfo: {
@@ -3149,7 +3150,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/ideas/add-asin',
     component: ClientIdeasView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     crumbNameKey: t(TranslationKey['Adding ASIN']),
 
     navigationInfo: {
@@ -3163,7 +3164,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/ideas/realized',
     component: ClientIdeasView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     crumbNameKey: t(TranslationKey['Realized ideas']),
 
     navigationInfo: {
@@ -3177,7 +3178,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/ideas/closed',
     component: ClientIdeasView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     crumbNameKey: t(TranslationKey['Rejected and closed']),
 
     navigationInfo: {
@@ -3191,7 +3192,7 @@ export const privateRoutesConfigs = [
     routePath: '/client/ideas/all',
     component: ClientIdeasView,
     exact: true,
-    permission: [UserRole.CLIENT],
+    permission: [Roles[Roles.CLIENT]],
     crumbNameKey: t(TranslationKey.All),
 
     navigationInfo: {

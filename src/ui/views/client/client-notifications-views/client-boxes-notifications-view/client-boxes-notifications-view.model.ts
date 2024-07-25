@@ -7,7 +7,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
-import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { toFixedWithDollarSign } from '@utils/text'
@@ -26,10 +25,6 @@ export class ClientBoxesNotificationsViewModel extends DataGridFilterTableModel 
   showConfirmModal = false
 
   uploadedFiles = []
-
-  get userInfo() {
-    return UserModel.userInfo
-  }
 
   constructor() {
     const rowHandlers = {

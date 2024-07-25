@@ -6,12 +6,9 @@ import { ClientModel } from '@models/client-model'
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
-import { UserModel } from '@models/user-model'
 
 import { IDestination } from '@typings/shared/destinations'
-import { IFullUser } from '@typings/shared/full-user'
 import { ILogicTariff } from '@typings/shared/logic-tariff'
-import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { logisticsTariffsColumns } from './warehouse-logistics-tariffs.columns'
 import { warehouseTariffsConfig } from './warehouse-management.config'
@@ -27,14 +24,8 @@ export class WarehouseTariffModel extends DataGridTableModel {
   showAddOrEditDestinationModal = false
   destinationData: IDestination[] = []
 
-  get userInfo() {
-    return UserModel.userInfo as unknown as IFullUser
-  }
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
-  }
-  get platformSettings() {
-    return UserModel.platformSettings as unknown as IPlatformSettings
   }
 
   constructor() {

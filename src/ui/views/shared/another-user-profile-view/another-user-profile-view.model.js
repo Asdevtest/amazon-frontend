@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { UserRole, UserRoleCodeMap, UserRoleCodeMapForRoutes, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -10,6 +10,7 @@ import { ChatsModel } from '@models/chats-model'
 import { ClientModel } from '@models/client-model'
 import { FeedbackModel } from '@models/feedback-model'
 import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { TableSettingsModel } from '@models/table-settings'
@@ -28,6 +29,7 @@ import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { Roles } from '@typings/enums/roles'
 
 export class AnotherProfileViewModel {
   history = undefined
@@ -98,9 +100,7 @@ export class AnotherProfileViewModel {
   filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel =
-    this.userInfo.role === mapUserRoleEnumToKey[UserRole.CLIENT]
-      ? clientExchangeViewColumns(this.rowHandlers)
-      : vacByUserIdExchangeColumns()
+    this.userInfo.role === Roles.CLIENT ? clientExchangeViewColumns(this.rowHandlers) : vacByUserIdExchangeColumns()
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
@@ -110,7 +110,7 @@ export class AnotherProfileViewModel {
   }
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor({ history }) {

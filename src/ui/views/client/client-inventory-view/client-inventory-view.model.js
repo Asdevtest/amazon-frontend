@@ -106,10 +106,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   getCustomSortFields = []
 
-  get userInfo() {
-    return UserModel.userInfo
-  }
-
   get isSomeFilterOn() {
     return (
       this.filtersFields.some(el => this.columnMenuSettings?.[el]?.currentFilterData?.length) ||
@@ -123,10 +119,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
-  }
-
-  get platformSettings() {
-    return UserModel.platformSettings
   }
 
   constructor() {

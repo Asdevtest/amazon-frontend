@@ -14,9 +14,7 @@ export const warehouseTariffsConfig = {
   showAddOrEditDestinationModal: observable,
   destinationData: observable,
 
-  userInfo: computed,
   destinationsFavourites: computed,
-  platformSettings: computed,
 
   onClickEditTariff: action.bound,
   onCreateWarehouseTariff: action.bound,

@@ -3,8 +3,12 @@ import { makeObservable, runInAction } from 'mobx'
 import { useHistory } from 'react-router-dom'
 
 import { ModalsModel } from '@models/model-with-modals'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IFullUser } from '@typings/shared/full-user'
+import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { DefaultModelParams } from './default-model.type'
 import { observerConfig } from './observer.config'
@@ -14,11 +18,16 @@ export class DefaultModel extends ModalsModel {
   currentData: any[] = []
   rowCount: number = 0
   meta?: any = null
-
   getMainDataMethod: any
   defaultGetCurrentDataOptions: any
-
   history: any
+
+  get platformSettings() {
+    return SettingsModel.platformSettings as unknown as IPlatformSettings // add ts to SettingsModel
+  }
+  get userInfo() {
+    return UserModel.userInfo as unknown as IFullUser // add ts to UserModel
+  }
 
   constructor({ getMainDataMethod, defaultGetCurrentDataOptions }: DefaultModelParams) {
     super()

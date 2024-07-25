@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 export const researcherProductsViewConfig = {
   error: observable,
@@ -8,8 +8,6 @@ export const researcherProductsViewConfig = {
   newProductId: observable,
   formFieldsValidationErrors: observable,
   chekedCode: observable,
-
-  userInfo: computed,
 
   createProduct: action.bound,
   onClickCheckAndAddProductBtn: action.bound,

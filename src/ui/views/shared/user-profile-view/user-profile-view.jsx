@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { CLIENT_USER_MANAGERS_LIST } from '@constants/mocks'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,6 +15,7 @@ import { UserProfile } from '@components/user/users-views/user-profile-view/user
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { Roles } from '@typings/enums/roles'
 
 import { useStyles } from './user-profile-view.style'
 
@@ -42,9 +42,7 @@ export const UserProfileView = observer(() => {
         onClickReview={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
       />
 
-      {[mapUserRoleEnumToKey[UserRole.SUPERVISOR], mapUserRoleEnumToKey[UserRole.BUYER]].includes(
-        viewModel.userInfo?.role,
-      ) ? (
+      {[Roles.SUPERVISOR, Roles.BUYER].includes(viewModel.userInfo?.role) ? (
         <>
           <p className={styles.title}>{t(TranslationKey['Active offers on the commodity exchange'])}</p>
 

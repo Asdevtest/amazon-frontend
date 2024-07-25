@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { BoxesModel } from '@models/boxes-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
-import { UserModel } from '@models/user-model'
 
 import { SortSettingsMode } from '@components/data-grid/data-grid-custom-components/sort-settings/sort-settings.type'
 import { ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
@@ -62,8 +61,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   }
 
   get role() {
-    // @ts-ignore
-    return UserModel.userInfo?.role
+    return this.userInfo?.role
   }
 
   constructor({

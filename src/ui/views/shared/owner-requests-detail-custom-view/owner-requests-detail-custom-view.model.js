@@ -88,7 +88,7 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   get platformSettings() {
-    return UserModel.platformSettings
+    return SettingsModel.platformSettings
   }
 
   constructor({ history, scrollToChat }) {

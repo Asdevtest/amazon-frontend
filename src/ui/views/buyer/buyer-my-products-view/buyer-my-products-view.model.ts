@@ -4,7 +4,6 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
 import { BuyerModel } from '@models/buyer-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
-import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
@@ -15,10 +14,6 @@ import { observerConfig } from './observer-config'
 
 export class BuyerMyProductsViewModel extends DataGridFilterTableModel {
   productCardModal = false
-
-  get userInfo() {
-    return UserModel.userInfo
-  }
 
   constructor() {
     const rowHandlers = {

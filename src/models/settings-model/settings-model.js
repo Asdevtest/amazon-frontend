@@ -7,6 +7,8 @@ import { appVersion } from '@constants/app-version'
 import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
 
+import { restApiService } from '@services/rest-api-service/rest-api-service'
+
 import { LanguageKey } from '@typings/enums/language-key'
 import { UiTheme } from '@typings/enums/ui-theme'
 
@@ -21,6 +23,7 @@ const persistProperties = [
   'isMuteChats',
   'mutedChats',
   'originMutedChats',
+  'platformSettings',
 ]
 
 class SettingsModelStatic {
@@ -28,7 +31,7 @@ class SettingsModelStatic {
   activeSubCategoryState = {}
   viewTableModeState = {}
   chatMessageState = undefined
-
+  platformSettings = undefined
   languageTag = LanguageKey.en
   uiTheme = UiTheme.light
 
@@ -200,6 +203,16 @@ class SettingsModelStatic {
   setAuthorizationData(accessToken, refreshToken) {
     const userModel = this.loadValue('UserModel')
     this.saveValue('UserModel', { ...userModel, accessToken, refreshToken })
+  }
+
+  async getPlatformSettings() {
+    try {
+      const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
+
+      runInAction(() => (this.platformSettings = response.data))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 

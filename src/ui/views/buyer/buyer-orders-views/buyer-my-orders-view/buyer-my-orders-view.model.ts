@@ -57,14 +57,6 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
   showConfirmModal = false
   showPaymentMethodsModal = false
 
-  get userInfo() {
-    return UserModel.userInfo
-  }
-
-  get platformSettings() {
-    return UserModel.platformSettings
-  }
-
   constructor({ pathname }: { pathname: string }) {
     const rowHandlers = {
       onClickPaymentMethodsCell: (row: IOrder) => this.onClickPaymentMethodsCell(row),

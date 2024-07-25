@@ -8,14 +8,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxesModel } from '@models/boxes-model'
 import { DefaultModel } from '@models/default-model'
-import { UserModel } from '@models/user-model'
 
 import { checkIsBuyer, checkIsClient, checkIsStorekeeper } from '@utils/checks'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 import { IBox } from '@typings/models/boxes/box'
-import { IFullUser } from '@typings/shared/full-user'
 
 import { BoxTabs } from './box-modal.constants'
 import { observerConfig } from './observer-config'
@@ -26,10 +24,6 @@ export class BoxModalModel extends DefaultModel {
   activeTab: BoxTabs = BoxTabs.BOX_INFO
 
   onUpdateData?: () => void
-
-  get userInfo(): IFullUser {
-    return UserModel.userInfo as unknown as IFullUser
-  }
 
   get isClient(): boolean {
     return !!this.userInfo && checkIsClient(UserRoleCodeMap[this.userInfo?.role])

@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 export const supervisorSettingsConfig = {
   condition: observable,
@@ -7,8 +7,6 @@ export const supervisorSettingsConfig = {
   showAsinCheckerModal: observable,
   showEditAsinCheckerModal: observable,
   showFailedAsinsModal: observable,
-
-  userInfo: computed,
 
   onSubmitAsins: action.bound,
   onSubmitEditAsin: action.bound,
