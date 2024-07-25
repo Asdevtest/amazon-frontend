@@ -1983,5 +1983,7 @@
   "Create a tariff": "创建关税",
   "Start date": "开始日期",
   "End date": "结束日期",
-  "Idea status changed successfully": "创意状态更改成功"
+  "Idea status changed successfully": "创意状态更改成功",
+  "Choose another tariff": "选择另一个关税",
+  "The box will be returned to warehouse": "箱子将被退回仓库"
 }
