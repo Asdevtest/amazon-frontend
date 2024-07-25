@@ -14,7 +14,7 @@ import { useStyles } from './text-cell.style'
 
 interface TextCellProps extends TextAreaProps {
   text: string
-  onClickSubmit: (id: string, comment?: string) => void
+  onClickSubmit: (comment: string) => void
   editMode?: boolean
 }
 
