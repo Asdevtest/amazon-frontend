@@ -24,6 +24,7 @@ interface FooterProps {
   onClickReorder: (order: IOrderWithAdditionalFields, isPendingOrder: boolean) => void
   onSubmitSaveOrder: (order: IOrderWithAdditionalFields) => void
   isClient?: boolean
+  isNotMultiple?: boolean
 }
 
 export const Footer: FC<FooterProps> = memo(props => {
@@ -36,6 +37,7 @@ export const Footer: FC<FooterProps> = memo(props => {
     onClickReorder,
     onSubmitSaveOrder,
     isClient,
+    isNotMultiple,
   } = props
 
   const { classes: styles } = useStyles()
@@ -46,7 +48,7 @@ export const Footer: FC<FooterProps> = memo(props => {
   const isPendingOrder = formFields?.status > OrderStatus.READY_FOR_BUYOUT
   const minDate = dayjs().startOf('day').add(2, 'day')
   const isNotValidDate = new Date(formFields.deadline as string) < new Date(minDate.toString()) && !!formFields.deadline
-  const disabledSaveSubmit = isNotValidDate || !formFields?.amount || stateComparison
+  const disabledSaveSubmit = isNotValidDate || !formFields?.amount || stateComparison || isNotMultiple
 
   return (
     <div className={styles.footer}>
@@ -64,7 +66,7 @@ export const Footer: FC<FooterProps> = memo(props => {
         {showButtons ? (
           <>
             {showToOrderButton && (
-              <Button onClick={() => onClickReorder(formFields, isPendingOrder)}>
+              <Button disabled={isNotMultiple} onClick={() => onClickReorder(formFields, isPendingOrder)}>
                 {t(TranslationKey['To order'])}
               </Button>
             )}

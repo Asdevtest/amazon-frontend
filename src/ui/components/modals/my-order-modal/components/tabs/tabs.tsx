@@ -29,6 +29,9 @@ interface TabsProps {
   onClickChangeCondition: () => void
   isClient?: boolean
   isPendingOrdering?: boolean
+  isNotMultiple?: boolean
+  isMultiple?: boolean
+  amountInBox?: number
 }
 
 export const Tabs: FC<TabsProps> = memo(props => {
@@ -42,6 +45,9 @@ export const Tabs: FC<TabsProps> = memo(props => {
     platformSettings,
     switcherCondition,
     destinationsFavourites,
+    isNotMultiple,
+    isMultiple,
+    amountInBox,
     setDestinationsFavouritesItem,
     setFormFields,
     onClickChangeCondition,
@@ -68,6 +74,9 @@ export const Tabs: FC<TabsProps> = memo(props => {
           destinations={destinations}
           storekeepers={storekeepers}
           destinationsFavourites={destinationsFavourites}
+          isNotMultiple={isNotMultiple}
+          isMultiple={isMultiple}
+          amountInBox={amountInBox}
           setDestinationsFavouritesItem={setDestinationsFavouritesItem}
           setFormFields={setFormFields}
         />

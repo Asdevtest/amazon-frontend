@@ -5,4 +5,7 @@ export interface SupplierInfoProps {
   formFields: IOrderWithAdditionalFields
   setFormFields: SetFormFieldsType
   isPendingOrdering?: boolean
+  isNotMultiple?: boolean
+  isMultiple?: boolean
+  amountInBox?: number
 }

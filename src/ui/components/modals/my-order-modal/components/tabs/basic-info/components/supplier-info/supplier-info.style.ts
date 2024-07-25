@@ -20,6 +20,10 @@ export const useStyles = makeStyles()(theme => ({
     gap: 10,
   },
 
+  quantityField: {
+    alignItems: 'flex-start',
+  },
+
   fieldText: {
     fontSize: 14,
     lineHeight: '23px',
@@ -94,5 +98,24 @@ export const useStyles = makeStyles()(theme => ({
     width: '18px !important',
     height: '18px !important',
     color: theme.palette.primary.main,
+  },
+
+  flexColumn: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    gap: '1px',
+  },
+
+  successText: {
+    fontSize: 12,
+    lineHeight: '16px',
+    color: theme.palette.text.green,
+  },
+
+  errorText: {
+    fontSize: 12,
+    lineHeight: '16px',
+    color: theme.palette.text.red,
   },
 }))
