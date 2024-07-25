@@ -12,10 +12,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '840px',
   },
   titleDivider: {
-    margin: '30px 0',
-  },
-  fieldsDivider: {
-    margin: '20px 0 20px',
+    margin: '20px 0',
   },
 
   saveBtnWrapperClient: {
@@ -41,10 +38,6 @@ export const useStyles = makeStyles()(theme => ({
   bottomWrapper: {
     display: 'flex',
     justifyContent: 'center',
-  },
-
-  imageFileInputWrapper: {
-    width: '798px',
   },
 
   makeMainSupplierСheckboxWrapper: {
@@ -136,7 +129,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   divider: {
-    margin: '35px 10px 10px 10px',
+    margin: '35px 10px 20px 10px',
   },
 
   boxInfoMainWrapper: {
@@ -215,5 +208,11 @@ export const useStyles = makeStyles()(theme => ({
 
   error: {
     borderColor: 'red',
+  },
+
+  flexContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '0 20px',
   },
 }))
