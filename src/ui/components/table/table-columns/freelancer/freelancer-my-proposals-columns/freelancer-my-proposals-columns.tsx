@@ -13,11 +13,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   FreelancerMyProposalsActionsCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
+  NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductAsinCell,
-  ShortDateCell,
+  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -62,12 +62,9 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     headerName: t(TranslationKey['Difficulty level']),
 
     renderCell: (params: GridCellParams) => (
-      <MultilineTextCell
+      <TextCell
         text={difficultyLevelTranslate(difficultyLevelByCode[params.value as number])}
-        customTextStyles={{
-          color: colorByDifficultyLevel(difficultyLevelByCode[params.value as number]),
-          fontWeight: 600,
-        }}
+        color={colorByDifficultyLevel(difficultyLevelByCode[params.value as number])}
       />
     ),
     width: 95,
@@ -79,7 +76,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     // @ts-ignore
-    renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
+    renderCell: (params: GridCellParams) => <TextCell text={params.value} />,
     width: 120,
     columnKey: columnnsKeys.shared.STRING,
   },
@@ -116,7 +113,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
       />
     ),
     // @ts-ignore
-    renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
+    renderCell: (params: GridCellParams) => <TextCell text={params.value} />,
     type: 'number',
     width: 60,
 
@@ -129,7 +126,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
     renderCell: (params: GridCellParams) => (
-      <MultilineTextCell maxLength={20} text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />
+      <TextCell text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />
     ),
     width: 100,
 
@@ -142,7 +139,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Announcement)} />,
 
     renderCell: (params: GridCellParams) => (
-      <MultilineTextCell text={params.row?.originalData?.request?.announcement?.title || t(TranslationKey.Missing)} />
+      <TextCell text={params.row?.originalData?.request?.announcement?.title || t(TranslationKey.Missing)} />
     ),
     width: 115,
 
@@ -167,7 +164,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-    renderCell: (params: GridCellParams) => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    renderCell: (params: GridCellParams) => <TextCell text={params.row.spec?.title} />,
     width: 110,
     sortable: false,
     columnKey: columnnsKeys.shared.OBJECT,
@@ -178,7 +175,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     // @ts-ignore
-    renderCell: (params: GridCellParams) => <ShortDateCell value={params.value} />,
+    renderCell: (params: GridCellParams) => <NormDateCell value={params.value} />,
     width: 80,
     columnKey: columnnsKeys.shared.DATE,
   },
@@ -188,7 +185,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     renderCell: (params: GridCellParams) => (
-      <MultilineTextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
+      <TextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
     ),
     width: 110,
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
@@ -198,7 +195,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     field: 'reworkCounter',
     headerName: t(TranslationKey['Number of rework']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of rework'])} />,
-    renderCell: (params: GridCellParams) => <MultilineTextCell text={params.row.originalData.reworkCounter} />,
+    renderCell: (params: GridCellParams) => <TextCell text={params.row.originalData.reworkCounter} />,
     width: 105,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -242,7 +239,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: (params: GridCellParams) => <ShortDateCell value={params?.row?.originalData?.updatedAt} />,
+    renderCell: (params: GridCellParams) => <NormDateCell value={params?.row?.originalData?.updatedAt} />,
     width: 100,
     columnKey: columnnsKeys.shared.DATE,
   },

@@ -2,9 +2,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineTextAlignLeftCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
+  TextCell,
   WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells'
 import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
@@ -27,7 +26,7 @@ export const WeightBasedTariffFormColumns = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff name'])} />,
 
     width: 120,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
   },
 
   {
@@ -36,7 +35,7 @@ export const WeightBasedTariffFormColumns = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
     width: 150,
-    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
   },
 
   {
@@ -110,7 +109,7 @@ export const WeightBasedTariffFormColumns = (
 
     type: 'number',
     width: 100,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
   },
 
   {

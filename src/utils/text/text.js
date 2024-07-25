@@ -2,7 +2,6 @@ import { hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes } from
 import QueryString from 'qs'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { getTranslationNotificationType } from '@constants/notifications/notification-type'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
@@ -193,7 +192,7 @@ export const getTableByColumn = (column, hint) => {
       'proposalSub',
       'quantityBoxes',
       'updatedAt',
-      'storage'
+      'storage',
     ].includes(column)
   ) {
     if (
@@ -481,7 +480,7 @@ export const getHumanFriendlyNotificationType = type => {
       return t(TranslationKey.Launches)
 
     default:
-      break
+      return ''
   }
 }
 

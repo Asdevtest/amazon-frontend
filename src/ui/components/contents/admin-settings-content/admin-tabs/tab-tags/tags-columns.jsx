@@ -1,6 +1,6 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ActionButtonsCell, MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { ActionButtonsCell, MultilineTextHeaderCell, TextCell } from '@components/data-grid/data-grid-cells'
 import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -12,7 +12,7 @@ export const tagsColumns = handlers => [
     field: 'title',
     headerName: t(TranslationKey['Tag name']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tag name'])} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     width: 300,
   },
 
@@ -20,7 +20,7 @@ export const tagsColumns = handlers => [
     field: 'productCount',
     headerName: t(TranslationKey['Number of uses']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of uses'])} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     align: 'center',
     width: 150,
   },

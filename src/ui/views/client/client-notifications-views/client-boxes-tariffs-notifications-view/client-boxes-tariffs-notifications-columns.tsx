@@ -4,11 +4,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -31,7 +31,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       type: 'number',
       width: 60,
 
@@ -97,7 +97,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 100,
 
       columnKey: columnnsKeys.shared.NUMBER,
@@ -108,7 +108,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
-      renderCell: ({ row }) => <MultilineTextCell text={row.destination?.name} />,
+      renderCell: ({ row }) => <TextCell text={row.destination?.name} />,
       width: 130,
 
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
@@ -132,7 +132,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       headerName: t(TranslationKey.Tariff),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-      renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
+      renderCell: params => <TextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
       width: 200,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -146,7 +146,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       renderHeader: () => (
         <MultilineTextHeaderCell text={`${t(TranslationKey['Final weight'])}, ${t(TranslationKey.kg)}`} />
       ),
-      renderCell: params => <MultilineTextCell text={toFixed(params.value)} />,
+      renderCell: params => <TextCell text={toFixed(params.value)} />,
       type: 'number',
       width: 130,
 
@@ -160,7 +160,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
         <MultilineTextHeaderCell text={`${t(TranslationKey['Gross weight'])}, ${t(TranslationKey.kg)}`} />
       ),
 
-      renderCell: params => <MultilineTextCell text={toFixed(params.value)} />,
+      renderCell: params => <TextCell text={toFixed(params.value)} />,
       type: 'number',
       width: 130,
 

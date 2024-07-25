@@ -1,7 +1,7 @@
 import { Popconfirm } from 'antd'
 import { TextAreaProps } from 'antd/es/input'
 import Paragraph from 'antd/es/typography/Paragraph'
-import { ChangeEvent, FC, MouseEvent, memo, useEffect, useState } from 'react'
+import { ChangeEvent, FC, MouseEvent, ReactNode, memo, useEffect, useState } from 'react'
 import { MdOutlineEdit } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,13 +14,19 @@ import { useStyles } from './text-cell.style'
 
 interface TextCellProps extends TextAreaProps {
   text: string
-  onClickSubmit: (id: string, comment?: string) => void
+  icon?: ReactNode
+  color?: string
+  copyable?: boolean
   editMode?: boolean
+  onClickSubmit?: (id: string, comment?: string) => void
 }
 
 export const TextCell: FC<TextCellProps> = memo(props => {
   const {
     text,
+    icon,
+    color,
+    copyable = true,
     rows = 3, // only for textarea, text - autocomplete 1-2-3 lines{}
     editMode,
     onClickSubmit,
@@ -28,11 +34,11 @@ export const TextCell: FC<TextCellProps> = memo(props => {
   } = props
 
   const { classes: styles } = useStyles()
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState<string>('')
 
   useEffect(() => {
     if (text) {
-      setValue(text)
+      setValue(String(text))
     }
   }, [text])
 
@@ -50,10 +56,11 @@ export const TextCell: FC<TextCellProps> = memo(props => {
 
   const paragraph = (
     <div className={styles.container}>
+      {icon ? icon : null}
       <Paragraph
-        copyable={!!value?.length}
+        copyable={!!value?.length && copyable}
         ellipsis={{ tooltip: text, rows: 3, onExpand: handleExpand }}
-        style={{ margin: 0 }}
+        style={{ margin: 0, color }}
       >
         {text}
       </Paragraph>
@@ -74,7 +81,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
           okText={t(TranslationKey.Save)}
           cancelText={t(TranslationKey.Cancel)}
           overlayClassName={styles.popconfirm}
-          onConfirm={() => onClickSubmit(value)}
+          onConfirm={() => onClickSubmit?.(value)}
           onCancel={() => setValue(text)}
           onOpenChange={handleOpenChange}
         >

@@ -7,13 +7,13 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   MultipleAsinCell,
   NormDateFromUnixCell,
   StringListCell,
   TaskDescriptionCell,
   TaskTypeCell,
+  TextCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -53,12 +53,11 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Priority),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
     renderCell: params => (
-      <MultilineTextCell
+      <TextCell
         color={colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[params.value])}
         text={taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[params.value])}
       />
     ),
-    width: window.innerWidth < 1282 ? 115 : 160,
   },
 
   {

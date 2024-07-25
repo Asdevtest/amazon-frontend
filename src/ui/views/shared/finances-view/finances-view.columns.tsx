@@ -4,10 +4,10 @@ import { getEntityTypeTranslations, getPaymentTypeTranslations } from '@constant
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   ProductAsinCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -69,8 +69,8 @@ export const financesViewColumns = (userBalance?: boolean) => {
         const Icon = getPaymentTypeIcon(value)
 
         return (
-          <MultilineTextCell
-            startIcon={Icon ? <Icon color={color} /> : null}
+          <TextCell
+            icon={Icon ? <Icon color={color} /> : null}
             text={getPaymentTypeTranslations(value)}
             color={color}
           />
@@ -89,7 +89,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
 
       width: 110,
 
-      renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
 
       columnKey: userBalance ? undefined : columnnsKeys.shared.NUMBER,
     },
@@ -127,7 +127,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
       headerName: t(TranslationKey.Category),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       transformValueMethod: getEntityTypeTranslations,
 
       valueGetter: params => getEntityTypeTranslations(params.value),
@@ -143,7 +143,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
       flex: 1,
-      renderCell: params => <MultilineTextCell leftAlign threeLines text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
 
       columnKey: userBalance ? undefined : columnnsKeys.shared.STRING_VALUE,
     },

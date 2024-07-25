@@ -2,15 +2,15 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
-import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
+import { boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
   BoxesAndQuantityCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   StringListCell,
+  TextCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { formatDate } from '@utils/date-time'
@@ -30,7 +30,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       field: 'humanFriendlyId',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.humanFriendlyId || '-'} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={row?.humanFriendlyId || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.QUANTITY,
       width: 60,
@@ -40,12 +40,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       field: 'status',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <MultilineTextCell
-          text={boxStatusTranslateKey(row?.status) || '-'}
-          customTextStyles={colorByBoxStatus(row?.status)}
-        />
-      ),
+      renderCell: ({ row }: GridRowModel) => <TextCell text={boxStatusTranslateKey(row?.status) || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.STRING,
       width: 180,
@@ -55,7 +50,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       field: 'batchHumanFriendlyId',
       headerName: t(TranslationKey['Batch number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.batch?.humanFriendlyId || '-'} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={row?.batch?.humanFriendlyId || '-'} />,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.QUANTITY,
       width: 100,
@@ -65,7 +60,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       field: 'batchTitle',
       headerName: t(TranslationKey['Batch title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.batch?.title || '-'} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={row?.batch?.title || '-'} />,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.STRING,
       width: 110,
@@ -88,7 +83,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       field: 'storekeeper',
       headerName: t(TranslationKey.Storekeeper),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.storekeeper?.name || '-'} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={row?.storekeeper?.name || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.OBJECT,
       disableCustomSort: true,
@@ -99,7 +94,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       field: 'destination',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.destination?.name || '-'} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={row?.destination?.name || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.OBJECT,
       disableCustomSort: true,
@@ -122,7 +117,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       field: 'logicsTariff',
       headerName: t(TranslationKey.Tariff),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(row) || '-'} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={getNewTariffTextForBoxOrOrder(row) || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.OBJECT,
       disableCustomSort: true,
@@ -133,7 +128,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       field: 'logicsTariffCls',
       headerName: t(TranslationKey['CLS (batch closing date)']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['CLS (batch closing date)'])} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatDate(row?.logicsTariff?.cls) || '-'} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={formatDate(row?.logicsTariff?.cls) || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.DATE,
       width: 110,
@@ -143,7 +138,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       field: 'logicsTariffEtd',
       headerName: t(TranslationKey['ETD (date of shipment)']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETD (date of shipment)'])} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatDate(row?.logicsTariff?.etd) || '-'} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={formatDate(row?.logicsTariff?.etd) || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.DATE,
       width: 110,
@@ -153,7 +148,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       field: 'logicsTariffEta',
       headerName: t(TranslationKey['ETA (arrival date)']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETA (arrival date)'])} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatDate(row?.logicsTariff?.eta) || '-'} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={formatDate(row?.logicsTariff?.eta) || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.DATE,
       width: 110,
@@ -163,7 +158,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       field: 'arrivalDate',
       headerName: t(TranslationKey['Arrival date']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Arrival date'])} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatDate(row?.batch?.arrivalDate) || '-'} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={formatDate(row?.batch?.arrivalDate) || '-'} />,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.DATE,
       width: 110,

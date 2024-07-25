@@ -2,14 +2,13 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  AsinCell,
   CopyAndEditLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
-  ShortDateCell,
+  NormDateCell,
   TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -21,7 +20,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <MultilineTextCell leftAlign twoLines maxLength={52} text={params.value || '-'} />,
+    renderCell: params => <TextCell text={params.value || '-'} />,
     width: 205,
   },
 
@@ -29,7 +28,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-    renderCell: params => <MultilineTextCell text={params.value || '-'} />,
+    renderCell: params => <TextCell text={params.value || '-'} />,
     width: 70,
     headerAlign: 'center',
     align: 'center',
@@ -39,7 +38,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <ShortDateCell value={params.value} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
   },
 
@@ -68,7 +67,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
     width: 180,
-    renderCell: params => <AsinCell asin={params.value} />,
+    renderCell: params => <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={params.value} />,
   },
 
   {

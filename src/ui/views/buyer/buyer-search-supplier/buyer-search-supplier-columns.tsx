@@ -2,9 +2,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  TextCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -45,7 +45,7 @@ export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
       field: 'checkednotes',
       headerName: t(TranslationKey["Supervisor's comment"]),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey["Supervisor's comment"])} />,
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={165} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
 
       width: 400,
     },

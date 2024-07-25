@@ -6,11 +6,11 @@ import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   NotificationMessageCell,
   ProductAsinCell,
+  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -48,7 +48,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: (params: GridCellParams) => <MultilineTextCell twoLines text={params.row?.shop?.name} />,
+      renderCell: (params: GridCellParams) => <TextCell text={params.row?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.client.INVENTORY_SHOPS,
     },
@@ -57,9 +57,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       field: 'type',
       headerName: t(TranslationKey['Notification type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Notification type'])} />,
-      renderCell: (params: GridCellParams) => (
-        <MultilineTextCell text={getHumanFriendlyNotificationType(params.value)} />
-      ),
+      renderCell: (params: GridCellParams) => <TextCell text={getHumanFriendlyNotificationType(params.value)} />,
       width: 115,
       transformValueMethod: getHumanFriendlyNotificationType,
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -117,7 +115,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
         return sub ? (
           <UserMiniCell userName={sub?.name} userId={sub?._id} />
         ) : (
-          <MultilineTextCell text={t(TranslationKey.Missing)} />
+          <TextCell text={t(TranslationKey.Missing)} />
         )
       },
       width: 145,
