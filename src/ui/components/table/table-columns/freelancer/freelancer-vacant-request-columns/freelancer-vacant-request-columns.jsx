@@ -62,7 +62,7 @@ export const freelancerVacantRequestColumns = handlers => [
     renderCell: params => <MultilineTextCell threeLines maxLength={56} text={params.value} />,
     width: 110,
 
-    columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.shared.STRING_VALUE,
   },
 
   {

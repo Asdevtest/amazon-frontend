@@ -81,7 +81,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     // @ts-ignore
     renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
     width: 120,
-    columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.shared.STRING_VALUE,
   },
 
   {
