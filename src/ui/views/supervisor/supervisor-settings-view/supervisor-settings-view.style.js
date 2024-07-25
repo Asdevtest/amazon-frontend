@@ -9,14 +9,12 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   dataGridWrapper: {
-    marginTop: 10,
+    marginTop: 20,
     height: '78vh',
     width: '100%',
   },
 
   searchInput: {
-    marginTop: 10,
-    border: `1px solid ${theme.palette.primary.main}`,
     width: 300,
     height: 36,
   },
