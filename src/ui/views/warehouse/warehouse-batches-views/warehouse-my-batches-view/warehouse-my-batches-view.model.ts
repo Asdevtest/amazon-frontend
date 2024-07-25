@@ -60,7 +60,7 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
       isSentBatches,
     }
     const columnsModel = warehouseMyBatchesViewColumns(columnsProps)
-    const filtersFields = getFilterFields(columnsModel)
+    const filtersFields = getFilterFields(columnsModel, ['amazonTitle'])
     const defaultGetCurrentDataOptions = () => ({
       status: isSentBatches ? BatchStatus.HAS_DISPATCHED : BatchStatus.IS_BEING_COLLECTED,
       archive: isSentBatches ? this.isArchive : undefined,

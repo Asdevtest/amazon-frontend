@@ -48,7 +48,7 @@ export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
               disabled={disabled}
               id={id}
               arrivalDate={arrivalDate}
-              onClickSaveArrivalDate={value => rowHandlers?.onClickSaveArrivalDate(id, value)}
+              onClickSaveArrivalDate={rowHandlers?.onClickSaveArrivalDate}
             />
           }
         />
