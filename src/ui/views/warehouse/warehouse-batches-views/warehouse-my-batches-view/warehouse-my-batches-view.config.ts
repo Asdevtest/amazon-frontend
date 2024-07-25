@@ -27,3 +27,9 @@ export const warehouseMyBatchesConfig = {
 }
 
 export const fieldsForSearch = ['amazonTitle', 'humanFriendlyId', 'asin', 'orderHumanFriendlyId', 'title']
+
+export interface IColumnsProps {
+  onClickSaveTrackingNumber: (id: string, trackingNumber: string) => void
+  onClickSaveArrivalDate: (id: string, date: string) => void
+  isSentBatches: boolean
+}
