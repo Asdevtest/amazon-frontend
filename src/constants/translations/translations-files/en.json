@@ -1308,7 +1308,6 @@
   "Storekeeper edit": "Storekeeper edit",
   "Product batches data": "Product batches data",
   "Quantity of the selected item in the batch": "Quantity of the selected item in the batch",
-  "Boxes and the quantity of the selected product in them": "Boxes and the quantity of the selected product in them",
   "Watch the batch": "Watch the batch",
   "Batch number and FBA": "Batch number and FBA",
   "Are you sure you want to move the tariff to the archive?": "Are you sure you want to move the tariff to the archive?",
@@ -1993,5 +1992,7 @@
   "Idea status changed successfully": "Idea status changed successfully",
   "Choose another tariff": "Choose another tariff",
   "The box will be returned to warehouse": "The box will be returned to warehouse",
-  "Number of units": "Number of units"
+  "Number of units": "Number of units",
+  "Stocks": "Stocks",
+  "Boxes x units": "Boxes x units"
 }

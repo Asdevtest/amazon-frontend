@@ -161,13 +161,13 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
             secondButtonStyle={ButtonStyle.PRIMARY}
             secondButtonVariant={ButtonVariant.OUTLINED}
             firstButtonElement={firstButtonText}
-            secondButtonElement={t(TranslationKey['Warehouse and orders'])}
+            secondButtonElement={t(TranslationKey.Stocks)}
             onClickFirstButton={() => rowHandlers.onClickReorder(params.row as IOrder, firstButtonCondition)}
             onClickSecondButton={() => rowHandlers.onClickWarehouseOrderButton(params.row.product._id)}
           />
         )
       },
-      width: 220,
+      width: 230,
       filterable: false,
       disableCustomSort: true,
     },

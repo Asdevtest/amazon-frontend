@@ -1308,7 +1308,6 @@
   "Storekeeper edit": "Редагування складом",
   "Product batches data": "Дані по партіям товарів",
   "Quantity of the selected item in the batch": "Кількість вибраного товару в партії",
-  "Boxes and the quantity of the selected product in them": "Коробки і кількість вибраного товару в них",
   "Watch the batch": "Переглянути партію",
   "Batch number and FBA": "Номер партії та FBA",
   "Are you sure you want to move the tariff to the archive?": "Ви впевнені, що хочете перемістити тариф в архів?",
@@ -1990,5 +1989,7 @@
   "Idea status changed successfully": "Статус ідеї успішно змінено",
   "Choose another tariff": "Виберіть інший тариф",
   "The box will be returned to warehouse": "Коробка буде повернена на склад",
-  "Number of units": "Кількість елементів"
+  "Number of units": "Кількість елементів",
+  "Stocks": "Стоки",
+  "Boxes x units": "Коробки х елементи"
 }

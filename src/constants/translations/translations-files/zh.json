@@ -1303,7 +1303,6 @@
   "Storekeeper edit": "仓库管理员编辑",
   "Product batches data": "产品批次数据",
   "Quantity of the selected item in the batch": "批次中所选项目的数量",
-  "Boxes and the quantity of the selected product in them": "盒子及其中所选产品的数量",
   "Watch the batch": "监控批次",
   "Batch number and FBA": "批次号和FBA",
   "Are you sure you want to move the tariff to the archive?": "您确定要将关税移至档案吗?",
@@ -1986,5 +1985,7 @@
   "Idea status changed successfully": "创意状态更改成功",
   "Choose another tariff": "选择另一个关税",
   "The box will be returned to warehouse": "箱子将被退回仓库",
-  "Number of units": "单位数"
+  "Number of units": "单位数",
+  "Stocks": "斯托基",
+  "Boxes x units": "箱子x单位"
 }
