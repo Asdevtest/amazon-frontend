@@ -1,3 +1,5 @@
+import { format } from 'date-fns'
+import { Dayjs } from 'dayjs'
 import { makeObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -13,7 +15,7 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
-import { getUtcDateObject } from '@utils/date-time'
+import { formatDate, getDateWithoutTime, getUtcDateObject } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -269,15 +271,16 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     }
   }
 
-  async onClickSaveArrivalDate(id: string, date: string) {
+  async onClickSaveArrivalDate(id: string, date: any) {
     try {
-      const convertedToUTC = getUtcDateObject(date)
-      const UTCDate = new Date(convertedToUTC.UTC)
+      const newDate = new Date(date)
+      newDate.setUTCHours(0)
+      newDate.setUTCSeconds(0)
+      const datePlusOneDayISO = newDate.toISOString()
 
-      console.log('date :>> ', date)
-      console.log('UTCDate :>> ', UTCDate)
+      console.log('datePlusOneDayISO :>> ', datePlusOneDayISO)
 
-      await BatchesModel.changeBatch(id, { arrivalDate: UTCDate })
+      await BatchesModel.changeBatch(id, { arrivalDate: datePlusOneDayISO })
       this.getCurrentData()
     } catch (error) {
       console.error(error)
