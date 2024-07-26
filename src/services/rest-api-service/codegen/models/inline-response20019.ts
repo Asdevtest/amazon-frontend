@@ -13,8 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1BatchesByProductGuidBoxes } from './api-v1-batches-by-product-guid-boxes';
+import { InlineResponse20018 } from './inline-response20018';
 
 /**
  * 
@@ -23,47 +22,17 @@ import { ApiV1BatchesByProductGuidBoxes } from './api-v1-batches-by-product-guid
  */
 export interface InlineResponse20019 {
     /**
-     * GUID партии.
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    _id?: string;
-    /**
-     * Человекочитаемый id партии.
+     * Count of rows
      * @type {number}
      * @memberof InlineResponse20019
      */
-    humanFriendlyId?: number;
-    /**
-     * Название партии
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    title?: string;
-    /**
-     * Заархивирована ли партия
-     * @type {boolean}
-     * @memberof InlineResponse20019
-     */
-    archive?: boolean;
+    count?: number;
     /**
      * 
-     * @type {Array<ApiV1BatchesByProductGuidBoxes>}
+     * @type {Array<InlineResponse20018>}
      * @memberof InlineResponse20019
      */
-    boxes?: Array<ApiV1BatchesByProductGuidBoxes>;
-    /**
-     * Общее кол-во продуктов
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    amountInBatch?: number;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20019
-     */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    rows?: Array<InlineResponse20018>;
 }
 
 

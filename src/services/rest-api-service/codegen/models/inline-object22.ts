@@ -25,7 +25,7 @@ export interface InlineObject22 {
      * @type {Array<string>}
      * @memberof InlineObject22
      */
-    boxesIds: Array<string>;
+    attachedDocuments: Array<string>;
 }
 
 

@@ -15,71 +15,41 @@
 
 
 /**
- * Схема магазина.
+ * 
  * @export
  * @interface InlineResponse200112
  */
 export interface InlineResponse200112 {
     /**
-     * ID магазина.
-     * @type {string}
+     * Курс юаня к доллару.
+     * @type {number}
      * @memberof InlineResponse200112
      */
-    _id?: string;
+    yuanToDollarRate?: number;
     /**
-     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
-     * @type {string}
+     * Коэффициент расчета объемного веса.
+     * @type {number}
      * @memberof InlineResponse200112
      */
-    name?: string;
+    volumeWeightCoefficient?: number;
     /**
-     * URL для скачивания ежедневных отчетов SellerBoard.
-     * @type {string}
+     * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
+     * @type {number}
      * @memberof InlineResponse200112
      */
-    sellerBoardWarehouseReportUrlDaily?: string;
+    requestMinAmountPriceOfProposal?: number;
     /**
-     * URL для скачивания отчетов SellerBoard за последний месяц.
-     * @type {string}
+     * Комиссия за оплату предложения
+     * @type {number}
      * @memberof InlineResponse200112
      */
-    sellerBoardWarehouseReportUrlMonthly?: string;
+    requestPlatformMarginInPercent?: number;
     /**
-     * uri полный путь до файла, для скачивания отчетов amazon_data
-     * @type {string}
+     * Лимит на кол-во в ордере
+     * @type {number}
      * @memberof InlineResponse200112
      */
-    reportAccountUrl?: string;
-    /**
-     * GUID, владелеца.
-     * @type {string}
-     * @memberof InlineResponse200112
-     */
-    ownerId?: string;
-    /**
-     * GUID любого, кто последний создал.
-     * @type {string}
-     * @memberof InlineResponse200112
-     */
-    createdById?: string;
-    /**
-     * GUID любого, кто последний редактировал.
-     * @type {string}
-     * @memberof InlineResponse200112
-     */
-    lastModifiedById?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse200112
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse200112
-     */
-    updatedAt?: string;
+    orderAmountLimit?: number;
 }
 
 

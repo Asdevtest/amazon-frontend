@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
@@ -22,47 +21,53 @@ import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-pro
  */
 export interface InlineResponse200111 {
     /**
-     * GUID записи
+     * ID пресета.
      * @type {string}
      * @memberof InlineResponse200111
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200111
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Роль юзера, когда он оставлял отзыв
-     * @type {number}
-     * @memberof InlineResponse200111
-     */
-    role?: number;
-    /**
-     * Комментарий к оценке
+     * Эндпоинт пресета
      * @type {string}
      * @memberof InlineResponse200111
      */
-    comment?: string;
+    endpoint?: string;
     /**
-     * Оценка, целое число от 1 до 5
-     * @type {number}
+     * Состояние  preset-settings.
+     * @type {boolean}
      * @memberof InlineResponse200111
      */
-    rating?: number;
+    activeSetting?: boolean;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {object}
      * @memberof InlineResponse200111
      */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    settings?: object;
     /**
-     * Дата создания.
+     * Title of preset
+     * @type {string}
+     * @memberof InlineResponse200111
+     */
+    title?: string;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineResponse200111
+     */
+    isFavorite?: boolean;
+    /**
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse200111
      */
     createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200111
+     */
+    updatedAt?: string;
 }
 
 

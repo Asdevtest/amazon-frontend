@@ -21,17 +21,11 @@
  */
 export interface InlineObject149 {
     /**
-     * Старый ароль
-     * @type {string}
+     * Массив доступных специализаций фрилансера.
+     * @type {Array<number>}
      * @memberof InlineObject149
      */
-    oldPassword: string;
-    /**
-     * Новый пароль
-     * @type {string}
-     * @memberof InlineObject149
-     */
-    newPassword: string;
+    allowedSpec: Array<number>;
 }
 
 

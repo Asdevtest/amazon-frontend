@@ -13,67 +13,26 @@
  */
 
 
+import { InlineResponse200107Rows } from './inline-response200107-rows';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse200107
  */
 export interface InlineResponse200107 {
     /**
-     * ID пресета.
-     * @type {string}
+     * Всего кол-во записей в результате запроса
+     * @type {number}
      * @memberof InlineResponse200107
      */
-    _id?: string;
+    count?: number;
     /**
-     * Название таблицы
-     * @type {string}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse200107Rows>}
      * @memberof InlineResponse200107
      */
-    table?: string;
-    /**
-     * Эндпоинт пресета
-     * @type {string}
-     * @memberof InlineResponse200107
-     */
-    endpoint?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse200107
-     */
-    fields?: Array<string>;
-    /**
-     * Состояние пресета.
-     * @type {boolean}
-     * @memberof InlineResponse200107
-     */
-    isActive?: boolean;
-    /**
-     * ID юзера.
-     * @type {string}
-     * @memberof InlineResponse200107
-     */
-    userId?: string;
-    /**
-     * Является ли пресет избранным.
-     * @type {boolean}
-     * @memberof InlineResponse200107
-     */
-    isFavorite?: boolean;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse200107
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse200107
-     */
-    updatedAt?: string;
+    rows?: Array<InlineResponse200107Rows>;
 }
 
 
