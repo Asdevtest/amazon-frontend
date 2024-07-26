@@ -23,6 +23,8 @@ import {
   getProductColumnMenuValue,
 } from '@config/data-grid-column-menu/product-column'
 
+import { shopColumnMenuConfig, shopFields } from '../columns-menu.config'
+
 export const clientRealizedIdeasColumns = rowHandlers => {
   const columns = [
     {
@@ -61,31 +63,8 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       width: 100,
       disableCustomSort: true,
 
-      fields: [
-        {
-          label: 'Parent product',
-          value: 0,
-        },
-        {
-          label: 'Child product',
-          value: 1,
-        },
-      ],
-
-      columnMenuConfig: [
-        {
-          field: 'parentProductShop',
-          table: DataGridFilterTables.PRODUCTS,
-          columnKey: ColumnMenuKeys.OBJECT,
-        },
-
-        {
-          field: 'childProductShop',
-          table: DataGridFilterTables.PRODUCTS,
-          columnKey: ColumnMenuKeys.OBJECT,
-        },
-      ],
-
+      fields: shopFields,
+      columnMenuConfig: shopColumnMenuConfig,
       columnKey: columnnsKeys.shared.MULTIPLE,
     },
 

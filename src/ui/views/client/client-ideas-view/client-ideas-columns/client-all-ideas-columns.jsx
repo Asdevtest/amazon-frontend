@@ -24,6 +24,8 @@ import {
   getProductColumnMenuValue,
 } from '@config/data-grid-column-menu/product-column'
 
+import { shopColumnMenuConfig, shopFields } from '../columns-menu.config'
+
 export const clientAllIdeasColumns = rowHandlers => {
   const columns = [
     {
@@ -122,8 +124,10 @@ export const clientAllIdeasColumns = rowHandlers => {
       renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.IDEA_SHOPS,
-      table: DataGridFilterTables.PRODUCTS,
+
+      fields: shopFields,
+      columnMenuConfig: shopColumnMenuConfig,
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {

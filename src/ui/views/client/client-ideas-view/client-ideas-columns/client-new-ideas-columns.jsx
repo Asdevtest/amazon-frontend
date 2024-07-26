@@ -3,11 +3,11 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  IdeaActionsCell,
   IdeaRequestsCell,
   ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  OnCheckingIdeaActionsCell,
   ProductAsinCell,
   ShortDateCell,
   SmallRowImageCell,
@@ -23,15 +23,29 @@ import {
   getProductColumnMenuValue,
 } from '@config/data-grid-column-menu/product-column'
 
-export const clientOnCheckingIdeasColumns = rowHandlers => {
+import { shopColumnMenuConfig, shopFields } from '../columns-menu.config'
+
+export const clientNewIdeasColumns = rowHandlers => {
   const columns = [
+    {
+      field: 'title',
+      headerName: t(TranslationKey['Idea title']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
+
+      renderCell: params => <MultilineTextCell twoLines maxLength={45} text={params.value} />,
+      width: 198,
+      filterable: false,
+
+      columnKey: columnnsKeys.shared.STRING,
+    },
+
     {
       field: 'parentProduct',
       headerName: t(TranslationKey['Parent product']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
 
       renderCell: params => {
-        const product = params.value
+        const product = params.row.parentProduct
 
         return (
           <ProductAsinCell
@@ -58,10 +72,11 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
-
-      columnKey: columnnsKeys.client.IDEA_SHOPS,
-      table: DataGridFilterTables.PRODUCTS,
       disableCustomSort: true,
+
+      fields: shopFields,
+      columnMenuConfig: shopColumnMenuConfig,
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
@@ -69,7 +84,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Idea),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-      renderCell: params => <SmallRowImageCell image={params.value.find(el => checkIsMediaFileLink(el))} />,
+      renderCell: params => <SmallRowImageCell image={params.value?.find(el => checkIsMediaFileLink(el))} />,
       width: 96,
 
       filterable: false,
@@ -81,7 +96,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-      renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
       width: 251,
 
       columnKey: columnnsKeys.shared.STRING,
@@ -93,7 +108,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Buyer comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-      renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
       width: 251,
 
       columnKey: columnnsKeys.shared.STRING,
@@ -106,20 +121,31 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => (
-        <OnCheckingIdeaActionsCell
-          onClickAccept={() => rowHandlers.onClickAcceptOnCheckingStatus(params.row._id)}
+        <IdeaActionsCell
+          onClickToCheck={() => rowHandlers.onClickToCheck(params.row._id)}
           onClickReject={() => rowHandlers.onClickReject(params.row._id)}
         />
       ),
+
       width: 160,
       disableCustomSort: true,
       filterable: false,
     },
 
     {
-      field: 'dateStatusOnCheck',
+      field: 'updatedAt',
       headerName: t(TranslationKey['Status Updated']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
+
+      renderCell: params => <ShortDateCell value={params.value} />,
+      width: 91,
+      columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
       renderCell: params => <ShortDateCell value={params.value} />,
       width: 91,
@@ -141,8 +167,8 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
       width: 130,
 
       filterable: false,
-      columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
       disableCustomSort: true,
+      columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
     },
 
     {
@@ -162,7 +188,6 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
         return subUsers?.concat(subUsersByShop).join(', ')
       },
       width: 187,
-      table: DataGridFilterTables.PRODUCTS,
       filterable: false,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -185,7 +210,6 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
       ),
       width: 990,
       disableCustomSort: true,
-      filterable: false,
     },
   ]
 
