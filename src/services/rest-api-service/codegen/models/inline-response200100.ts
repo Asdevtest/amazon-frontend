@@ -13,26 +13,26 @@
  */
 
 
-import { InlineResponse200100Rows } from './inline-response200100-rows';
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse200100
  */
 export interface InlineResponse200100 {
     /**
-     * Общее кол-во записей
+     * Всего кол-во записей в результате запроса
      * @type {number}
      * @memberof InlineResponse200100
      */
     count?: number;
     /**
-     * Массив товаров.
-     * @type {Array<InlineResponse200100Rows>}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse200100
      */
-    rows?: Array<InlineResponse200100Rows>;
+    rows?: Array<ApiV1BatchesBoxes>;
 }
 
 

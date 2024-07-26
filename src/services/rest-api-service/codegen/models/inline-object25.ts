@@ -21,11 +21,29 @@
  */
 export interface InlineObject25 {
     /**
+     * GUID спека
+     * @type {string}
+     * @memberof InlineObject25
+     */
+    specId?: string;
+    /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject25
      */
-    attachedDocuments: Array<string>;
+    linksToMediaFiles?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject25
+     */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject25
+     */
+    description?: string;
 }
 
 

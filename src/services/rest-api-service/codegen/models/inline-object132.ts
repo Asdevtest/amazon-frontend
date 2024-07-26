@@ -13,6 +13,8 @@
  */
 
 
+import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
+import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-storekeepers-tariff-logistics-destination-variations';
 
 /**
  * 
@@ -21,23 +23,71 @@
  */
 export interface InlineObject132 {
     /**
-     * Название услуги
+     * Тип тарифа
+     * @type {number}
+     * @memberof InlineObject132
+     */
+    tariffType?: number;
+    /**
+     * Название тарифа
      * @type {string}
      * @memberof InlineObject132
      */
-    name?: string;
+    name: string;
     /**
-     * Описание услуги
+     * Описание тарифа
      * @type {string}
      * @memberof InlineObject132
      */
     description?: string;
     /**
-     * Цена услуги.
+     * Время доставки, днях
+     * @type {string}
+     * @memberof InlineObject132
+     */
+    deliveryTimeInDay?: string;
+    /**
+     * Дата закрытия приема новых грузов.
+     * @type {string}
+     * @memberof InlineObject132
+     */
+    cls?: string;
+    /**
+     * Ожидаема дата отбытия.
+     * @type {string}
+     * @memberof InlineObject132
+     */
+    etd?: string;
+    /**
+     * Ожидаема дата прибытия.
+     * @type {string}
+     * @memberof InlineObject132
+     */
+    eta?: string;
+    /**
+     * Минимальный вес, в кг
      * @type {number}
      * @memberof InlineObject132
      */
-    price: number;
+    minWeightInKg?: number;
+    /**
+     * Заархивирован ли тариф
+     * @type {boolean}
+     * @memberof InlineObject132
+     */
+    archive?: boolean;
+    /**
+     * 
+     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
+     * @memberof InlineObject132
+     */
+    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
+    /**
+     * 
+     * @type {Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>}
+     * @memberof InlineObject132
+     */
+    destinationVariations?: Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>;
 }
 
 

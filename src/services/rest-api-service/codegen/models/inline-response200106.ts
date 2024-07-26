@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse200106Rows } from './inline-response200106-rows';
 
 /**
  * 
@@ -21,17 +22,17 @@
  */
 export interface InlineResponse200106 {
     /**
-     * userAgent с которым был получен токен
-     * @type {string}
+     * Кол-во записей
+     * @type {number}
      * @memberof InlineResponse200106
      */
-    device: string;
+    count?: number;
     /**
      * 
-     * @type {string}
+     * @type {Array<InlineResponse200106Rows>}
      * @memberof InlineResponse200106
      */
-    createdAt: string;
+    rows?: Array<InlineResponse200106Rows>;
 }
 
 

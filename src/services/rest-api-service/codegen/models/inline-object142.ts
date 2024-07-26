@@ -21,11 +21,17 @@
  */
 export interface InlineObject142 {
     /**
-     * Дата создания сессии (рефреш токена)
+     * 
      * @type {string}
      * @memberof InlineObject142
      */
-    sessionCreatedAt?: string;
+    iconImage?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject142
+     */
+    title?: string;
 }
 
 

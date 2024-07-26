@@ -61,9 +61,13 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
     }
     const columnsModel = warehouseMyBatchesViewColumns(columnsProps)
     const filtersFields = getFilterFields(columnsModel, ['amazonTitle'])
-    const defaultGetCurrentDataOptions = () => ({
-      status: isSentBatches ? BatchStatus.HAS_DISPATCHED : BatchStatus.IS_BEING_COLLECTED,
-      archive: isSentBatches ? this.isArchive : undefined,
+
+    const additionalPropertiesGetFilters = () => ({
+      status: {
+        $eq: isSentBatches ? BatchStatus.HAS_DISPATCHED : BatchStatus.IS_BEING_COLLECTED,
+      },
+
+      ...(isSentBatches ? { archive: this.isArchive } : {}),
     })
 
     super({
@@ -73,7 +77,7 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
       mainMethodURL: 'batches/with_filters?',
       fieldsForSearch,
       tableKey: isSentBatches ? DataGridTablesKeys.WAREHOUSE_BATCHES : DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES,
-      defaultGetCurrentDataOptions,
+      additionalPropertiesGetFilters,
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]

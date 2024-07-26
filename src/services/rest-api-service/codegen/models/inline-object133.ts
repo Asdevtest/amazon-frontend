@@ -13,6 +13,8 @@
  */
 
 
+import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
+import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-storekeepers-tariff-logistics-destination-variations';
 
 /**
  * 
@@ -21,23 +23,65 @@
  */
 export interface InlineObject133 {
     /**
-     * Название услуги
+     * Название тарифа
      * @type {string}
      * @memberof InlineObject133
      */
     name?: string;
     /**
-     * Описание услуги
+     * Описание тарифа
      * @type {string}
      * @memberof InlineObject133
      */
     description?: string;
     /**
-     * Цена услуги.
+     * Время доставки, днях
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    deliveryTimeInDay?: string;
+    /**
+     * Дата закрытия приема новых грузов.
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    cls?: string;
+    /**
+     * Ожидаема дата отбытия.
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    etd?: string;
+    /**
+     * Ожидаема дата прибытия.
+     * @type {string}
+     * @memberof InlineObject133
+     */
+    eta?: string;
+    /**
+     * Минимальный вес, в кг
      * @type {number}
      * @memberof InlineObject133
      */
-    price?: number;
+    minWeightInKg?: number;
+    /**
+     * Заархивирован ли тариф
+     * @type {boolean}
+     * @memberof InlineObject133
+     */
+    archive?: boolean;
+    /**
+     * 
+     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
+     * @memberof InlineObject133
+     */
+    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
+    /**
+     * 
+     * @type {Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>}
+     * @memberof InlineObject133
+     */
+    destinationVariations?: Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>;
 }
 
 
