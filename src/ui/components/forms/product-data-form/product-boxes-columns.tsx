@@ -68,10 +68,8 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
 
     {
       field: 'boxesAndQuantity',
-      headerName: t(TranslationKey['Boxes and the quantity of the selected product in them']),
-      renderHeader: () => (
-        <MultilineTextHeaderCell text={t(TranslationKey['Boxes and the quantity of the selected product in them'])} />
-      ),
+      headerName: t(TranslationKey['Boxes x units']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Boxes x units'])} />,
       renderCell: ({ row }: GridRowModel) => <BoxesAndQuantityCell boxesData={row} />,
       disableColumnMenu: true,
       disableCustomSort: true,

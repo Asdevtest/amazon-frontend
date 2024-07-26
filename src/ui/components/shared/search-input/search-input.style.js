@@ -17,10 +17,10 @@ export const useStyles = makeStyles()(theme => ({
 
   inputClass: {
     padding: '9px',
-    [theme.breakpoints.down(768)]: {
-      '&::placeholder': {
-        fontSize: 14,
-      },
+
+    '&::placeholder': {
+      fontSize: 14,
+      lineHeight: '19px',
     },
   },
 

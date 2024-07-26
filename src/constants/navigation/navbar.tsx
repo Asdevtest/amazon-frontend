@@ -388,6 +388,7 @@ export const navbarConfig = {
             !isHaveMasterUser(user) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_BOXES_CLIENT),
         },
+
         {
           subtitle: () => t(TranslationKey['On boxes tariffs']),
           subRoute: '/client/notifications/tariffs-notifications',

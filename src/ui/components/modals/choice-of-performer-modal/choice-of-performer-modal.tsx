@@ -83,7 +83,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
   return (
     <div className={styles.mainWrapper}>
       <div className={styles.supWrapper}>
-        <p className={styles.title}>{t(TranslationKey['Choice of Performer'])}</p>
+        <p className={styles.title}>{t(TranslationKey['Choice of performer'])}</p>
 
         <div className={styles.executorContainer}>
           <p className={styles.label}>{t(TranslationKey.Performer)}</p>

@@ -68,7 +68,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderCell: params => <TextCell text={params.value} />,
       width: 160,
 
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
