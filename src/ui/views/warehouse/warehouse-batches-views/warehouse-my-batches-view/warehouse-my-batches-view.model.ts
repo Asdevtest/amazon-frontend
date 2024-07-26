@@ -13,6 +13,7 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
+import { getUtcDateObject } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -60,7 +61,7 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
       isSentBatches,
     }
     const columnsModel = warehouseMyBatchesViewColumns(columnsProps)
-    const filtersFields = getFilterFields(columnsModel, ['amazonTitle'])
+    const filtersFields = getFilterFields(columnsModel, ['amazonTitle', 'arrivalDate'])
 
     const additionalPropertiesGetFilters = () => ({
       status: {
@@ -270,7 +271,13 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
 
   async onClickSaveArrivalDate(id: string, date: string) {
     try {
-      await BatchesModel.changeBatch(id, { arrivalDate: date })
+      const convertedToUTC = getUtcDateObject(date)
+      const UTCDate = new Date(convertedToUTC.UTC)
+
+      console.log('date :>> ', date)
+      console.log('UTCDate :>> ', UTCDate)
+
+      await BatchesModel.changeBatch(id, { arrivalDate: UTCDate })
       this.getCurrentData()
     } catch (error) {
       console.error(error)
