@@ -41,10 +41,19 @@ export const CreateOrEditServiceContent = memo(props => {
   }
 
   const disabledSubmitButton =
-    !formFields.title ||
-    !formFields.description ||
+    !formFields.title.trim() ||
+    !formFields.description.trim() ||
     !formFields.specId ||
     (objectDeepCompare(formFields, sourceFormFields) && !formFields.linksToMediaFiles.length)
+
+  const handleSubmit = () => {
+    const data = {
+      ...formFields,
+      title: formFields.title.trim(),
+      description: formFields.description.trim(),
+    }
+    isEdit ? onClickEditBtn(data) : onClickCreateBtn(data)
+  }
 
   return (
     <div className={styles.root}>
@@ -112,11 +121,7 @@ export const CreateOrEditServiceContent = memo(props => {
           {t(TranslationKey.Close)}
         </Button>
 
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          disabled={disabledSubmitButton}
-          onClick={() => (isEdit ? onClickEditBtn(formFields) : onClickCreateBtn(formFields))}
-        >
+        <Button styleType={ButtonStyle.SUCCESS} disabled={disabledSubmitButton} onClick={handleSubmit}>
           {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
         </Button>
       </div>
