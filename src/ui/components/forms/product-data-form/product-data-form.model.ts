@@ -45,6 +45,9 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
       defaultGetCurrentDataOptions,
     })
 
+    if (!isBatches) {
+      this.handleHideColumns(['logicsTariffCls', 'logicsTariffEtd', 'logicsTariffEta'])
+    }
     this.sortModel = [{ field: 'humanFriendlyId', sort: 'desc' }]
     this.pinnedColumns = { right: ['actions'] }
     this.onChangeFullFieldMenuItem([false], 'batchArchive')
