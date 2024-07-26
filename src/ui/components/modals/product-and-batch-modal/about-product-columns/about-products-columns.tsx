@@ -1,9 +1,9 @@
 import { GridRowModel } from '@mui/x-data-grid'
 
-import { OrderStatusTranslate, orderColorByStatus } from '@constants/orders/order-status'
+import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DeadlineCell, MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { DeadlineCell, MultilineTextHeaderCell, TextCell } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
@@ -14,7 +14,7 @@ export const aboutProductsColumns = [
     field: 'id',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.ID)} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.id} />,
+    renderCell: ({ row }: GridRowModel) => <TextCell text={row.id} />,
     width: 80,
   },
 
@@ -22,13 +22,7 @@ export const aboutProductsColumns = [
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: ({ row }: GridRowModel) => (
-      <MultilineTextCell
-        maxLength={50}
-        text={OrderStatusTranslate(OrderStatus[row.status])}
-        color={orderColorByStatus(OrderStatus[row.status])}
-      />
-    ),
+    renderCell: ({ row }: GridRowModel) => <TextCell text={OrderStatusTranslate(OrderStatus[row.status])} />,
     width: 240,
   },
 
@@ -36,7 +30,7 @@ export const aboutProductsColumns = [
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.amount} />,
+    renderCell: ({ row }: GridRowModel) => <TextCell text={row.amount} />,
     width: 130,
   },
 

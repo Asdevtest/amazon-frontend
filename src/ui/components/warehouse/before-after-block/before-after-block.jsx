@@ -425,17 +425,11 @@ export const BeforeAfterBlock = memo(props => {
     onEditBox(box)
   }
 
-  const totalOrderAmount =
+  const isOrderIdsEqual =
     taskType === TaskOperationType.RECEIVE
-      ? incomingBoxes?.reduce((total, box) => {
-          return (
-            total +
-            box?.items?.reduce((boxTotal, item) => {
-              return boxTotal + item?.order?.amount
-            }, 0)
-          )
-        }, 0)
-      : 0
+      ? incomingBoxes?.every(box => box?.items?.[0]?.order?._id === incomingBoxes?.[0]?.items?.[0]?.order?._id)
+      : false
+  const orderQuantity = `${t(TranslationKey['Order quantity'])}: ${incomingBoxes?.[0]?.items?.[0]?.order?.amount}`
 
   return (
     <div className={styles.wrapper}>
@@ -449,9 +443,7 @@ export const BeforeAfterBlock = memo(props => {
               0,
             )}`}</p>
 
-            {taskType === TaskOperationType.RECEIVE ? (
-              <p>{`${t(TranslationKey['Order quantity'])}: ${totalOrderAmount}`}</p>
-            ) : null}
+            {isOrderIdsEqual ? <p>{orderQuantity}</p> : null}
           </div>
         </div>
 

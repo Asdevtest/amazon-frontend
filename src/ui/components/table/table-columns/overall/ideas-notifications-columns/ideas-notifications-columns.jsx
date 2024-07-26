@@ -3,10 +3,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
+  NormDateCell,
   ProductAsinCell,
-  ShortDateCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -20,7 +20,7 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <ShortDateCell value={params.value} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 85,
     // type: 'date',
   },
@@ -82,10 +82,7 @@ export const ideasNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea Status'])} />,
 
     renderCell: params => (
-      <MultilineTextCell
-        text={params?.value}
-        color={colorByIdeaStatus(ideaStatusByCode[params.row.originalData.idea.status])}
-      />
+      <TextCell text={params?.value} color={colorByIdeaStatus(ideaStatusByCode[params.row.originalData.idea.status])} />
     ),
     width: 120,
   },
@@ -95,7 +92,7 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey['Name idea']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Name idea'])} />,
 
-    renderCell: params => <MultilineTextCell leftAlign text={params?.row?.productName} />,
+    renderCell: params => <TextCell text={params?.row?.productName} />,
     // width: 200,
     flex: 1,
   },

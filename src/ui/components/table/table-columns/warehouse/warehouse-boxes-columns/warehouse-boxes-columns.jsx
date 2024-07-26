@@ -4,12 +4,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ChangeInputCell,
   DownloadAndPrintFilesCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   OrderCell,
   OrderManyItemsCell,
   OrdersIdsItemsCell,
   RedFlagsCell,
+  TextCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid/data-grid-cells'
@@ -30,7 +30,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     headerName: t(TranslationKey['Box ID']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Box ID'])} />,
     type: 'number',
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
     width: 80,
     columnKey: columnnsKeys.client.WAREHOUSE_ID,
   },
@@ -130,7 +130,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-    renderCell: params => <MultilineTextCell text={params.value * params.row.originalData.amount} />,
+    renderCell: params => <TextCell text={params.value * params.row.originalData.amount} />,
     width: 110,
     type: 'number',
     sortable: false,
@@ -144,8 +144,8 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     valueGetter: ({ row }) => `${row.warehouse || ''} / ${row.logicsTariff || ''}`,
     renderCell: params => (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center', width: '100%' }}>
-        <MultilineTextCell text={params.row.warehouse} />
-        <MultilineTextCell text={params.row.logicsTariff} />
+        <TextCell text={params.row.warehouse} />
+        <TextCell text={params.row.logicsTariff} />
       </div>
     ),
     width: 170,
@@ -171,9 +171,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Batch)} />,
     valueGetter: ({ row }) => row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch']),
     renderCell: params => (
-      <MultilineTextCell
-        text={params.row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch'])}
-      />
+      <TextCell text={params.row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch'])} />
     ),
     type: 'number',
     width: 110,
@@ -237,7 +235,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     ),
     width: 240,
 
-    columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.shared.STRING_VALUE,
   },
 
   {
@@ -256,7 +254,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     ),
     width: 240,
 
-    columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.shared.STRING_VALUE,
   },
 
   {

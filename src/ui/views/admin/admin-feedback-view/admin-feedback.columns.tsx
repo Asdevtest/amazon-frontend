@@ -5,9 +5,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ActionButtonsCell,
   FilesCell,
-  MultilineTextAlignLeftCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  TextCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { EyeIcon } from '@components/shared/svg-icons'
@@ -42,7 +42,7 @@ export const adminFeedbackViewColumns = ({ onClickOpenFeedback }: IAdminFeedback
     field: 'text',
     headerName: t(TranslationKey.Reviews),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reviews)} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextAlignLeftCell text={row.text} />,
+    renderCell: ({ row }: GridRowModel) => <TextCell text={row.text} />,
     flex: 1,
   },
   {

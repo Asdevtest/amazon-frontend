@@ -44,6 +44,12 @@ export interface InlineObject146 {
      * @memberof InlineObject146
      */
     title: string;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineObject146
+     */
+    isFavorite?: boolean;
 }
 
 

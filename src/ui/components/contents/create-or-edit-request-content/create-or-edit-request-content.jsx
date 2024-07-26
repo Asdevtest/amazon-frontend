@@ -393,7 +393,16 @@ export const CreateOrEditRequestContent = memo(props => {
   const isSecondStep = curStep === stepVariant.STEP_TWO
   const showScrollArrows = isFirstStep && (showScrollUp || showScrollDown)
 
-  const setData = request => {
+  const [defaultRequestTemplateSelectValue, setDefaultRequestTemplateSelectValue] = useState(null)
+
+  const handleChangeData = request => {
+    const createdDefaultRequestTemplateSelectValue = {
+      ...request,
+      value: request?._id,
+      label: `${t(TranslationKey['Request ID'])}: ${request?.humanFriendlyId || t(TranslationKey.Missing)}`,
+    }
+    setDefaultRequestTemplateSelectValue(createdDefaultRequestTemplateSelectValue)
+
     const data = {
       title: request?.title || '',
       maxAmountOfProposals: request?.maxAmountOfProposals || '',
@@ -423,6 +432,11 @@ export const CreateOrEditRequestContent = memo(props => {
       ...prevFormFields,
       request: data,
     }))
+  }
+
+  const handleClear = () => {
+    setFormFields(getSourceFormFields())
+    setDefaultRequestTemplateSelectValue(null)
   }
 
   return (
@@ -456,7 +470,11 @@ export const CreateOrEditRequestContent = memo(props => {
             <div className={styles.stepWrapper}>
               <div className={styles.stepContent}>
                 <div className={styles.fields}>
-                  <RequestSelect setData={setData} />
+                  <RequestSelect
+                    defaultValue={defaultRequestTemplateSelectValue}
+                    onChangeData={handleChangeData}
+                    onClear={handleClear}
+                  />
 
                   <Field
                     tooltipInfoContent={t(TranslationKey['Future request title'])}
@@ -711,11 +729,9 @@ export const CreateOrEditRequestContent = memo(props => {
                     <Text
                       tooltipPosition={'corner'}
                       className={styles.subTitle}
-                      tooltipInfoContent={t(
-                        TranslationKey['Allow the performer to take the request for work without confirmation'],
-                      )}
+                      tooltipInfoContent={t(TranslationKey['Allow execution without confirmation'])}
                     >
-                      {t(TranslationKey['Allow the performer to take the request for work without confirmation'])}
+                      {t(TranslationKey['Allow execution without confirmation'])}
                     </Text>
                   </div>
 
@@ -732,7 +748,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         TranslationKey['After providing the result, the same performer may make a new proposal'],
                       )}
                     >
-                      {t(TranslationKey['Prohibit multiple performances by the same performer'])}
+                      {t(TranslationKey['Disable multiple execution'])}
                     </Text>
                   </div>
                 </div>
@@ -1078,9 +1094,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       {formFields.request.withoutConfirmation && (
                         <div className={styles.checkbox}>
                           <Checkbox checked disabled color="primary" />
-                          <p className={styles.subTitle}>
-                            {t(TranslationKey['Allow the performer to take the request for work without confirmation'])}
-                          </p>
+                          <p className={styles.subTitle}>{t(TranslationKey['Allow execution without confirmation'])}</p>
                         </div>
                       )}
                     </div>

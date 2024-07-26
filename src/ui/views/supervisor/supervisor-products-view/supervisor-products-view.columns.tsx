@@ -8,15 +8,13 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ManyUserLinkCell,
-  MultilineStatusCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OpenInNewTabCell,
   ProductAsinCell,
   RedFlagsCell,
   TagsCell,
-  ToFixedWithDollarSignCell,
+  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -69,8 +67,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: ({ row }: GridRowModel) => (
-        <MultilineTextCell
-          maxLength={48}
+        <TextCell
           // @ts-ignore
           text={t(productStatusTranslateKey(ProductStatusByCode[row?.status]))}
           // @ts-ignore
@@ -89,7 +86,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
       renderCell: ({ row }: GridRowModel) => (
         // @ts-ignore
-        <MultilineStatusCell leftAlign status={productStrategyStatusesEnum[row?.strategyStatus]} />
+        <TextCell status={productStrategyStatusesEnum[row?.strategyStatus]?.replace(/_/g, ' ')} />
       ),
       width: 140,
       align: 'center',
@@ -100,7 +97,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'amazon',
       headerName: t(TranslationKey['Amazon price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-      renderCell: ({ row }: GridRowModel) => <ToFixedWithDollarSignCell value={row?.amazon} fix={2} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={toFixedWithDollarSign(row?.amazon, 2)} />,
       valueGetter: ({ row }: GridRowModel) => (row?.amazon ? toFixedWithDollarSign(row?.amazon, 2) : '-'),
       width: 100,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -133,7 +130,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'bsr',
       headerName: t(TranslationKey.BSR),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.bsr} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={row?.bsr} />,
       width: 70,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -143,7 +140,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       headerName: t(TranslationKey['FBA fee , $']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
       valueGetter: ({ row }: GridRowModel) => (row?.fbafee ? toFixedWithDollarSign(row?.fbafee, 2) : ''),
-      renderCell: ({ row }: GridRowModel) => <ToFixedWithDollarSignCell value={row?.fbafee} fix={2} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={toFixedWithDollarSign(row?.fbafee, 2)} />,
       width: 120,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -153,20 +150,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       headerName: t(TranslationKey.Ordered),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Ordered)} />,
       renderCell: ({ row }: GridRowModel) => (
-        <MultilineTextCell
-          customTextStyles={
-            row?.ordered
-              ? {
-                  background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }
-              : {
-                  background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }
-          }
+        <TextCell
           color={row?.ordered ? '#00b746' : 'red'}
           text={row?.ordered ? t(TranslationKey.Yes) : t(TranslationKey.No)}
         />

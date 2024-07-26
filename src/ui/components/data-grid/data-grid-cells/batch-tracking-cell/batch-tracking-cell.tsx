@@ -12,18 +12,16 @@ import { useStyles } from './batch-tracking-cell.style'
 interface BatchTrackingCellProps {
   rowHandlers: {
     onClickSaveTrackingNumber: (id: string, value: string) => void
-    onClickSaveArrivalDate: (value: string) => void
+    onClickSaveArrivalDate: (id: string, value: string) => void
   }
   id: string
   trackingNumber: string
   arrivalDate: string
   disabled?: boolean
-  disableMultilineForTrack?: boolean
-  disabledArrivalDate?: boolean
 }
 
 export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
-  ({ rowHandlers, id, trackingNumber, arrivalDate, disabled, disabledArrivalDate }) => {
+  ({ rowHandlers, id, trackingNumber, arrivalDate, disabled }) => {
     const { classes: styles } = useStyles()
 
     return (
@@ -34,10 +32,7 @@ export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
           labelClasses={styles.batchTrackingTitle}
           inputComponent={
             <TextCell
-              editMode
-              disabled={disabled}
-              maxLength={64}
-              placeholder={t(TranslationKey['Enter track number'])}
+              editMode={!disabled}
               text={trackingNumber}
               onClickSubmit={value => rowHandlers?.onClickSaveTrackingNumber(id, value)}
             />
@@ -50,7 +45,7 @@ export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
           labelClasses={styles.batchTrackingTitle}
           inputComponent={
             <DatePickerCell
-              disabled={disabledArrivalDate}
+              disabled={disabled}
               id={id}
               arrivalDate={arrivalDate}
               onClickSaveArrivalDate={rowHandlers?.onClickSaveArrivalDate}

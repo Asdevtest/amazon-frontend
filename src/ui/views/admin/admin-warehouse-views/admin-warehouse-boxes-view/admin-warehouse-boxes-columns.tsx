@@ -3,11 +3,11 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
+  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -42,7 +42,7 @@ export const adminWarehouseBoxesColumns = () => {
       field: 'humanFriendlyId',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 60,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -102,7 +102,7 @@ export const adminWarehouseBoxesColumns = () => {
       field: 'totalAmount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-      renderCell: params => <MultilineTextCell text={params?.value} />,
+      renderCell: params => <TextCell text={params?.value} />,
 
       columnKey: columnnsKeys.shared.NUMBER,
       width: 100,
@@ -112,7 +112,7 @@ export const adminWarehouseBoxesColumns = () => {
       field: 'destination',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-      renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
+      renderCell: params => <TextCell text={params.row.destination?.name} />,
       width: 200,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -122,9 +122,7 @@ export const adminWarehouseBoxesColumns = () => {
       field: 'totalPrice',
       headerName: t(TranslationKey['Total price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
-      renderCell: params => (
-        <MultilineTextCell text={toFixedWithDollarSign(params.row.items?.[0]?.order?.totalPrice, 2)} />
-      ),
+      renderCell: params => <TextCell text={toFixedWithDollarSign(params.row.items?.[0]?.order?.totalPrice, 2)} />,
       width: 110,
       disableCustomSort: true,
       filterable: false,
@@ -134,7 +132,7 @@ export const adminWarehouseBoxesColumns = () => {
       field: 'weighGrossKgSupplier',
       headerName: t(TranslationKey['Final weight']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-      renderCell: params => <MultilineTextCell text={toFixedWithKg(params.value, 2)} />,
+      renderCell: params => <TextCell text={toFixedWithKg(params.value, 2)} />,
       columnKey: columnnsKeys.shared.NUMBER,
       disableCustomSort: true,
       filterable: false,
@@ -145,7 +143,7 @@ export const adminWarehouseBoxesColumns = () => {
       field: 'weighGrossKgWarehouse',
       headerName: t(TranslationKey['Gross weight']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Gross weight'])} />,
-      renderCell: params => <MultilineTextCell text={toFixedWithKg(params.value, 2)} />,
+      renderCell: params => <TextCell text={toFixedWithKg(params.value, 2)} />,
       type: 'number',
       width: 130,
       disableCustomSort: true,
@@ -156,8 +154,8 @@ export const adminWarehouseBoxesColumns = () => {
       field: 'trackNumberText',
       headerName: t(TranslationKey['Track number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
-      columnKey: columnnsKeys.shared.NUMBER,
+      renderCell: params => <TextCell text={params.value} />,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
       width: 150,
     },

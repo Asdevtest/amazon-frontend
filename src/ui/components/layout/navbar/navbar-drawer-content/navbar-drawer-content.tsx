@@ -81,7 +81,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
     <div className={styles.mainSubWrapper}>
       <List className={styles.categoriesWrapper}>
         {filteredCategories.map((category: NavbarConfigTypes.Route, index: number) =>
-          category.checkHideBlock(userInfo) ? (
+          category?.checkHideBlock?.(userInfo) ? (
             <Fragment key={index}>
               <NavbarCategory
                 // @ts-ignore
@@ -110,7 +110,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
 
       <div className={styles.bottomCategories}>
         {filteredBottomCategories.map((category: NavbarConfigTypes.Route, index: number) =>
-          category.checkHideBlock(userInfo) ? (
+          category?.checkHideBlock?.(userInfo) ? (
             <NavbarCategory
               key={index}
               // @ts-ignore

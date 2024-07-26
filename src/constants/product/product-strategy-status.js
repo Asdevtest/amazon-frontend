@@ -31,6 +31,8 @@ export const humanFriendlyStategyStatus = value => {
       return 'WHOLE SALE USA'
     case ProductStrategyStatus.NONE:
       return t(TranslationKey['Without strategy'])
+    default:
+      return ''
   }
 }
 

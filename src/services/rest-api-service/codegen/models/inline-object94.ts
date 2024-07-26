@@ -21,23 +21,11 @@
  */
 export interface InlineObject94 {
     /**
-     * Поставить оценку юзеру
-     * @type {number}
-     * @memberof InlineObject94
-     */
-    rating?: number;
-    /**
-     * Комментарий причин изменения статуса.
-     * @type {string}
-     * @memberof InlineObject94
-     */
-    reason?: string;
-    /**
-     * Массив ссылок на медиафайлы.
+     * GUIDы поставщиков, которые нужно добавить в БД.
      * @type {Array<string>}
      * @memberof InlineObject94
      */
-    linksToMediaFiles?: Array<string>;
+    suppliersIds?: Array<string>;
 }
 
 

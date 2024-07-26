@@ -512,6 +512,7 @@ export class SuppliersAndIdeasModel {
       onClickConfirm: () => {
         this.changeIdeaStatus(ideaData, chesenStatus)
         this.onTriggerOpenModal('showConfirmModal')
+        toast.success(t(TranslationKey['Idea status changed successfully']))
       },
     }
     this.onTriggerOpenModal('showConfirmModal')

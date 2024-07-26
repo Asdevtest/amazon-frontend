@@ -77,8 +77,17 @@ export class BoxModalModel extends DefaultModel {
         type: 'uploadedFiles',
       })
 
-      const { _id, clientComment, referenceId, fbaNumber, trackNumberText, prepId } = this
-        .currentData as unknown as IBox
+      const {
+        _id,
+        clientComment,
+        referenceId,
+        fbaNumber,
+        trackNumberText,
+        prepId,
+        storage,
+        storekeeperComment,
+        upsTrackNumber,
+      } = this.currentData as unknown as IBox
 
       const body = {
         clientComment,
@@ -87,7 +96,16 @@ export class BoxModalModel extends DefaultModel {
         trackNumberText,
         trackNumberFile: images,
         prepId,
-        // storage: this.currentData?.storage,
+        storage,
+        storekeeperComment,
+        upsTrackNumber,
+      }
+
+      if (this.isClient) {
+        // @ts-ignore
+        delete body.storage
+        // @ts-ignore
+        delete body.storekeeperComment
       }
 
       if (this.isStorekeeper) {

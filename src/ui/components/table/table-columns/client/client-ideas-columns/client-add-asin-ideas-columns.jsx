@@ -7,10 +7,10 @@ import {
   ChangeChipCell,
   IdeaRequestsCell,
   ManyUserLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
+  NormDateCell,
   ProductAsinCell,
-  ShortDateCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -29,7 +29,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Idea title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
 
-      renderCell: params => <MultilineTextCell text={params.row.productName} />,
+      renderCell: params => <TextCell text={params.row.productName} />,
       width: 198,
       filterable: false,
 
@@ -67,7 +67,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
+      renderCell: params => <TextCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.IDEA_SHOPS,
@@ -131,7 +131,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => <AddAsinIdeaActionsCell rowHandlers={rowHandlers} row={params.row} />,
-      width: 110,
+      width: 160,
       disableCustomSort: true,
       filterable: false,
     },
@@ -141,7 +141,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Status Updated']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
-      renderCell: params => <ShortDateCell value={params.value} />,
+      renderCell: params => <NormDateCell value={params.value} />,
       width: 91,
       columnKey: columnnsKeys.shared.DATE,
     },

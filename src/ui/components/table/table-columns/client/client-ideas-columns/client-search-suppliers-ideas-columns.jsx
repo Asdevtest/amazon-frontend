@@ -13,12 +13,12 @@ import {
   FilesCell,
   IdeaSupplierCell,
   ManyUserLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
+  NormDateCell,
   OnCheckingIdeaActionsCell,
   ProductAsinCell,
-  ShortDateCell,
   SmallRowImageCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
@@ -71,7 +71,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Status),
 
       renderCell: params => (
-        <MultilineTextCell
+        <TextCell
           text={ideaStatusTranslate(ideaStatusByCode[params.value])}
           color={colorByIdeaStatus(ideaStatusByCode[params.value])}
         />
@@ -92,7 +92,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           onClickReject={() => rowHandlers.onClickReject(params.row._id)}
         />
       ),
-      width: 150,
+      width: 160,
       disableCustomSort: true,
       filterable: false,
     },
@@ -102,7 +102,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
+      renderCell: params => <TextCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
 
       columnKey: columnnsKeys.client.IDEA_SHOPS,
@@ -148,7 +148,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         const suppliers = params.row.suppliers
 
         if (!suppliers.length) {
-          return <MultilineTextCell text="" />
+          return <TextCell text="" />
         }
 
         return suppliers[0].link ? (
@@ -158,7 +158,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
             title={t(TranslationKey.Site)}
           />
         ) : (
-          <MultilineTextCell text={t(TranslationKey['Link not available'])} />
+          <TextCell text={t(TranslationKey['Link not available'])} />
         )
       },
       width: 100,
@@ -175,7 +175,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         const supplier = params.row.suppliers?.[0]
         const priceWithDelivery = supplier?.price + supplier?.batchDeliveryCostInDollar / supplier?.amount
 
-        return <MultilineTextCell text={toFixed(priceWithDelivery, 2)} />
+        return <TextCell text={toFixed(priceWithDelivery, 2)} />
       },
       width: 120,
       disableCustomSort: true,
@@ -187,7 +187,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min batch'])} />,
       headerName: t(TranslationKey['Min batch']),
 
-      renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.minlot} />,
+      renderCell: params => <TextCell text={params.row.suppliers?.[0]?.minlot} />,
       width: 80,
       type: 'number',
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -204,7 +204,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         const supplier = row.suppliers?.[0]
 
         return (
-          <MultilineTextCell
+          <TextCell
             text={
               supplier ? `${supplier?.minProductionTerm} - ${supplier?.maxProductionTerm}` : t(TranslationKey.Missing)
             }
@@ -236,7 +236,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
       headerName: t(TranslationKey['Client comment']),
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -247,7 +247,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
       headerName: t(TranslationKey['Buyer comment']),
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -314,7 +314,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           }
         }
 
-        return <ShortDateCell value={getDate(params.row.status)} />
+        return <NormDateCell value={getDate(params.row.status)} />
       },
       width: 91,
       filterable: false,

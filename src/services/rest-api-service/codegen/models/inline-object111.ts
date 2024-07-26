@@ -21,11 +21,17 @@
  */
 export interface InlineObject111 {
     /**
-     * 
-     * @type {Array<string>}
+     * Файл для записи в FreelanceSource
+     * @type {string}
      * @memberof InlineObject111
      */
-    tags: Array<string>;
+    sourceFile?: string;
+    /**
+     * Комментарий к файлу
+     * @type {string}
+     * @memberof InlineObject111
+     */
+    comments?: string;
 }
 
 

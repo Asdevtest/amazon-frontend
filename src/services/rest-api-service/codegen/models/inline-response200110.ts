@@ -57,6 +57,12 @@ export interface InlineResponse200110 {
      */
     userId?: string;
     /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineResponse200110
+     */
+    isFavorite?: boolean;
+    /**
      * Дата создания
      * @type {string}
      * @memberof InlineResponse200110

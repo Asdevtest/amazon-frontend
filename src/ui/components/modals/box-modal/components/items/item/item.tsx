@@ -59,7 +59,7 @@ export const Item: FC<ItemProps> = memo(props => {
       ? t(TranslationKey['Transparency Codes are glued by storekeeper'])
       : t(TranslationKey['Transparency Codes glued by the supplier'])
     : item.transparencyFile
-    ? t(TranslationKey['Transparency Code is not glued'])
+    ? t(TranslationKey['Transparency Codes is not glued'])
     : null
 
   return (

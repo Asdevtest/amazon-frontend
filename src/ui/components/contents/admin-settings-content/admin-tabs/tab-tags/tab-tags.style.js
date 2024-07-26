@@ -16,7 +16,6 @@ export const useStyles = makeStyles()(theme => ({
   searchInput: {
     width: 290,
     height: 40,
-    border: `1px solid ${theme.palette.primary.main}`,
   },
 
   datagridWrapper: {

@@ -2,26 +2,24 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  AsinCell,
-  CopyAndEditLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
-  ShortDateCell,
+  NormDateCell,
   TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 
-export const sourceFilesColumns = (rowHandlers, editField) => [
+export const sourceFilesColumns = rowHandlers => [
   {
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <MultilineTextCell leftAlign twoLines maxLength={52} text={params.value || '-'} />,
+    renderCell: params => <TextCell text={params.value || '-'} />,
     width: 205,
   },
 
@@ -29,7 +27,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-    renderCell: params => <MultilineTextCell text={params.value || '-'} />,
+    renderCell: params => <TextCell text={params.value || '-'} />,
     width: 70,
     headerAlign: 'center',
     align: 'center',
@@ -39,7 +37,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <ShortDateCell value={params.value} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
   },
 
@@ -68,7 +66,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
     width: 180,
-    renderCell: params => <AsinCell asin={params.value} />,
+    renderCell: params => <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={params.value} />,
   },
 
   {
@@ -76,16 +74,13 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     headerName: t(TranslationKey.Link),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
     width: 250,
-    renderCell: params =>
-      params?.row?.originalData?._id === editField?._id ? (
-        <TextCell
-          editMode
-          text={params.row.originalData.sourceFile}
-          onClickSubmit={() => rowHandlers.onClickSaveBtn(params.row)}
-        />
-      ) : (
-        <CopyAndEditLinkCell link={params.row.originalData.sourceFile} />
-      ),
+    renderCell: params => (
+      <TextCell
+        editMode
+        text={params.row.originalData.sourceFile}
+        onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'sourceFile', value)}
+      />
+    ),
   },
 
   {
@@ -97,7 +92,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
       <TextCell
         editMode
         text={params.row.originalData.comments}
-        onClickSubmit={() => rowHandlers.onClickSaveBtn(params.row)}
+        onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'comments', value)}
       />
     ),
   },
@@ -109,16 +104,11 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     renderCell: params => (
       <ActionButtonsCell
         isFirstButton
-        isSecondButton
         iconButton
-        row
-        firstButtonElement={<EditIcon />}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        disabledFirstButton={params?.row?.originalData?._id === editField?._id}
-        secondButtonElement={<CrossIcon />}
-        secondButtonStyle={ButtonStyle.DANGER}
-        onClickFirstButton={() => rowHandlers.onClickEditBtn(params.row.originalData)}
-        onClickSecondButton={() => rowHandlers.onClickRemoveBtn(params.row.originalData)}
+        firstButtonElement={<CrossIcon />}
+        firstButtonStyle={ButtonStyle.DANGER}
+        firstDescriptionText="Do you want to delete the source file?"
+        onClickFirstButton={() => rowHandlers.onClickRemoveBtn(params.row._id)}
       />
     ),
     width: 100,

@@ -70,16 +70,14 @@ export const MyRequestsView = observer(() => {
 
         <SearchInput
           inputClasses={styles.searchInput}
-          placeholder={`${t(TranslationKey.SEARCH_BY_TITLE)}, ${t(TranslationKey.ASIN)}, ${t(TranslationKey.ID)}`}
+          placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.SEARCH_BY_TITLE)}, ${t(
+            TranslationKey.ASIN,
+          )}, ${t(TranslationKey.ID)}`}
           value={viewModel.currentSearchValue}
           onSubmit={viewModel.onSearchSubmit}
         />
 
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          tooltipInfoContent={t(TranslationKey['Opens the form to create a request'])}
-          onClick={viewModel.onClickAddBtn}
-        >
+        <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickAddBtn}>
           {t(TranslationKey['Create request'])}
         </Button>
       </div>

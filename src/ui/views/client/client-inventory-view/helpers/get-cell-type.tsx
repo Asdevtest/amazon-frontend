@@ -2,7 +2,7 @@ import { GridRenderCellParams } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
-import { MultilineTextCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, TextCell } from '@components/data-grid/data-grid-cells'
 
 import { formatCamelCaseString, toFixed } from '@utils/text'
 
@@ -24,7 +24,7 @@ export const getCellType = (column: string, table: string) => {
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
       valueGetter: (params: GridRenderCellParams) => toFixed(params.row?.[table]?.[column], 2),
       renderCell: (params: GridRenderCellParams) => {
-        return <MultilineTextCell text={params.row?.[table]?.[column]} />
+        return <TextCell text={params.row?.[table]?.[column]} />
       },
       minWidth: 150,
 
@@ -37,7 +37,7 @@ export const getCellType = (column: string, table: string) => {
       renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
       valueGetter: (params: GridRenderCellParams) => params.row?.[table]?.[column],
       renderCell: (params: GridRenderCellParams) => {
-        return <MultilineTextCell text={params.row?.[table]?.[column]} />
+        return <TextCell text={params.row?.[table]?.[column]} />
       },
       minWidth: 150,
 

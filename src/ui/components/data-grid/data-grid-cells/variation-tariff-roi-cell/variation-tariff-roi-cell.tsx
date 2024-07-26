@@ -14,6 +14,8 @@ interface VariationTariffRoiCellProps {
 export const VariationTariffRoiCell: FC<VariationTariffRoiCellProps> = memo(({ roi }) => {
   const { classes: styles, cx } = useStyles()
 
+  const roiValue = toFixed(roi)
+
   return (
     <div className={styles.wrapper}>
       {roi ? (
@@ -24,7 +26,7 @@ export const VariationTariffRoiCell: FC<VariationTariffRoiCellProps> = memo(({ r
             [styles.goodRoi]: roi >= 130,
           })}
         >
-          <p>{roi ? toFixed(roi, 2) : t(TranslationKey.Missing)}</p>
+          <p title={roiValue}>{roiValue}</p>
         </div>
       ) : (
         t(TranslationKey.Missing)

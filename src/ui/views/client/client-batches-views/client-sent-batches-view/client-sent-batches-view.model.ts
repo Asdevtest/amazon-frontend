@@ -12,6 +12,7 @@ import { BoxesModel } from '@models/boxes-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 
+import { getUtcDateObject } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -39,6 +40,8 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
     const rowHandlers = {
       changeViewModeHandler: (value: tableProductViewMode) => this.changeViewModeHandler(value),
       onClickSaveArrivalDate: (id: string, date: string) => this.onClickSaveArrivalDate(id, date),
+      onClickSaveTrackingNumber: (id: string, trackingNumber: string) =>
+        this.onClickSaveTrackingNumber(id, trackingNumber),
     }
 
     const columnsModel = clientBatchesViewColumns(rowHandlers, () => this.productViewMode)
@@ -189,7 +192,19 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
   }
 
   async onClickSaveArrivalDate(id: string, date: string) {
-    await BatchesModel.changeBatch(id, { arrivalDate: date })
+    const convertedToUTC = getUtcDateObject(date)
+    const UTCDate = new Date(convertedToUTC.UTC)
+
+    await BatchesModel.changeBatch(id, { arrivalDate: UTCDate })
     this.getCurrentData()
+  }
+
+  async onClickSaveTrackingNumber(id: string, trackingNumber: string) {
+    try {
+      await BatchesModel.changeBatch(id, { trackingNumber })
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

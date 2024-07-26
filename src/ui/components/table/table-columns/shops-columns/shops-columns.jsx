@@ -2,10 +2,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
-  ShortDateCell,
-  TableDataControlsButtonsCell,
+  NormDateCell,
+  TextCell,
 } from '@components/data-grid/data-grid-cells'
 import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
@@ -22,7 +21,7 @@ export const shopsColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
       width: 120,
-      renderCell: params => <ShortDateCell value={params.value} />,
+      renderCell: params => <NormDateCell value={params.value} />,
     },
 
     {
@@ -31,7 +30,7 @@ export const shopsColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
       width: 320,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
     },
 
     {

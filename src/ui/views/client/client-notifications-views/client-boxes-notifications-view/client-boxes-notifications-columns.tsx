@@ -4,11 +4,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
+  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -31,7 +31,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
       width: 60,
 
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -97,7 +97,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <TextCell text={params.value} />,
 
       width: 100,
 
@@ -109,7 +109,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
-      renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
+      renderCell: params => <TextCell text={params.row.destination?.name} />,
       width: 130,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
@@ -134,7 +134,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Tariff),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-      renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
+      renderCell: params => <TextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
       width: 180,
 
       disableCustomSort: true,
@@ -147,7 +147,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       headerName: `${t(TranslationKey['Total price'])}, $`,
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey['Total price'])}, $`} />,
 
-      renderCell: params => <MultilineTextCell text={toFixed(params.value)} />,
+      renderCell: params => <TextCell text={toFixed(params.value)} />,
       width: 120,
 
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -160,7 +160,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
         <MultilineTextHeaderCell text={`${t(TranslationKey['Final weight'])}, ${t(TranslationKey.kg)}`} />
       ),
 
-      renderCell: params => <MultilineTextCell text={toFixed(params.value)} />,
+      renderCell: params => <TextCell text={toFixed(params.value)} />,
 
       columnKey: columnnsKeys.shared.QUANTITY,
 
@@ -174,7 +174,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
         <MultilineTextHeaderCell text={`${t(TranslationKey['Gross weight'])}, ${t(TranslationKey.kg)}`} />
       ),
 
-      renderCell: params => <MultilineTextCell text={toFixed(params.value)} />,
+      renderCell: params => <TextCell text={toFixed(params.value)} />,
 
       columnKey: columnnsKeys.shared.QUANTITY,
 

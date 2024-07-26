@@ -313,7 +313,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   receiveBoxWrapper: {
-    width: 'fit-content',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -322,14 +322,14 @@ export const useStyles = makeStyles()(theme => ({
     justifySelf: 'center',
     position: 'sticky',
     top: 0,
-    paddingTop: 20,
+    paddingTop: 100,
   },
 
   boxImageContainer: {
     display: 'flex',
     alignItems: 'flex-end',
     gap: 15,
-    marginBottom: 90,
+    marginBottom: 40,
   },
 
   bigBoxSvg: {
@@ -375,15 +375,13 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 5,
-    marginBottom: 5,
   },
 
   countSubWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '25px',
-    marginBottom: 5,
+    gap: '10px',
   },
 
   subTitleOne: {

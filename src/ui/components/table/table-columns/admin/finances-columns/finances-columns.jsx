@@ -1,12 +1,6 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-  NormDateCell,
-  ScrollingCell,
-  UserLinkCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, TextCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -28,7 +22,7 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
     width: 90,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
   },
 
   {
@@ -38,7 +32,7 @@ export const financesViewColumns = () => [
 
     width: 110,
     type: 'number',
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
 
   {
@@ -47,7 +41,6 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Initiator)} />,
 
     width: 170,
-    // renderCell: params => <MultilineTextCell text={params.value} />,
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
   },
 
@@ -57,7 +50,6 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Recipient)} />,
 
     width: 170,
-    // renderCell: params => <MultilineTextCell text={params.value} />,
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.recipient?._id} />,
   },
 
@@ -67,7 +59,7 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
     width: 230,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TextCell text={params.value} />,
   },
 
   {
@@ -77,9 +69,8 @@ export const financesViewColumns = () => [
 
     width: 700,
     renderCell: params => (
-      <ScrollingCell
-        fontSize={'14px'}
-        value={`${params.value} ${params.row?.originalData?.product ? params.row.originalData.product?.id : ''}`}
+      <TextCell
+        text={`${params.value} ${params.row?.originalData?.product ? params.row.originalData.product?.id : ''}`}
       />
     ),
   },

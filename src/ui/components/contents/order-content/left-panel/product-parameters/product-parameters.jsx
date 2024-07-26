@@ -21,12 +21,14 @@ import { useStyles } from './product-parameters.style'
 
 export const ProductParameters = ({
   order,
-  collapsed,
   formFields,
   onChangeField,
   isCanChange,
   onClickBarcode,
   onDeleteBarcode,
+  isNotMultiple,
+  isMultiple,
+  amountInBox,
 }) => {
   const { classes: styles } = useStyles()
 
@@ -53,18 +55,28 @@ export const ProductParameters = ({
 
   return (
     <div className={styles.container}>
-      <Field
-        oneLine
-        disabled={!isCanChange}
-        inputProps={{ maxLength: 8 }}
-        label={t(TranslationKey['Quantity (pcs.)'])}
-        inputClasses={styles.amountInput}
-        classes={{ input: styles.amountInput }}
-        containerClasses={styles.parameterTableCellWrapper}
-        labelClasses={styles.fieldLabel}
-        value={formFields.amount}
-        onChange={onChangeField('amount')}
-      />
+      <div className={styles.flexEnd}>
+        <Field
+          oneLine
+          disabled={!isCanChange}
+          inputProps={{ maxLength: 8 }}
+          label={t(TranslationKey['Quantity (pcs.)'])}
+          inputClasses={styles.amountInput}
+          classes={{ input: styles.amountInput }}
+          containerClasses={styles.parameterTableCellWrapper}
+          labelClasses={styles.fieldLabel}
+          value={formFields.amount}
+          onChange={onChangeField('amount')}
+        />
+        <p>
+          <span className={styles.errorText}>
+            {isNotMultiple && ` ${t(TranslationKey['Not a multiple of'])} ${amountInBox}`}
+          </span>
+          <span className={styles.successText}>
+            {isMultiple && ` ${t(TranslationKey['Value multiple of'])} ${amountInBox}`}
+          </span>
+        </p>
+      </div>
       <OrderParameter
         label={t(TranslationKey['Purchase price'])}
         value={toFixed(order?.totalPrice / order?.amount, 2)}
@@ -142,19 +154,13 @@ export const ProductParameters = ({
         containerClasses={styles.parameterTableCellWrapper}
         labelClasses={styles.fieldLabel}
         inputComponent={
-          <>
-            <LabelWithCopy
-              lableLinkTitleSize="medium"
-              labelValue={order.transparencyFile}
-              lableLinkTitle={t(TranslationKey.View)}
-            />
-          </>
+          <LabelWithCopy
+            lableLinkTitleSize="medium"
+            labelValue={order.transparencyFile}
+            lableLinkTitle={t(TranslationKey.View)}
+          />
         }
       />
-
-      {collapsed && (
-        <OrderParameter label={t(TranslationKey['Additional parameter'])} value={t(TranslationKey.Value)} />
-      )}
     </div>
   )
 }
