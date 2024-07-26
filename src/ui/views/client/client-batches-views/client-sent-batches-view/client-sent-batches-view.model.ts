@@ -191,9 +191,9 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
 
   async onClickSaveArrivalDate(id: string, date: string) {
     const convertedToUTC = getUtcDateObject(date)
-    const UTCDate = new Date(convertedToUTC.UTC)
+    const arrivalDate = new Date(convertedToUTC.UTC)
 
-    await BatchesModel.changeBatch(id, { arrivalDate: UTCDate })
+    await BatchesModel.changeBatch(id, { arrivalDate })
     this.getCurrentData()
   }
 }
