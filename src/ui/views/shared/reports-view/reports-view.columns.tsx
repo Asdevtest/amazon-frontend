@@ -200,6 +200,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       width: 187,
       filterable: false,
       disableCustomSort: true,
+      table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
