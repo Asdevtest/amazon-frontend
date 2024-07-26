@@ -15,6 +15,7 @@ export const observerConfig = {
   presetsTableData: observable,
   defaultSortModel: observable,
   defaultColumnsModel: observable,
+  showPresetsSelect: observable,
 
   filteredData: computed,
   isSomeFilterOn: computed,
@@ -41,4 +42,5 @@ export const observerConfig = {
   handleUnsetAllPresets: action.bound,
   getPresetSettingForSave: action.bound,
   checkNestedFields: action.bound,
+  onChangeShowPresetsSelect: action.bound,
 }

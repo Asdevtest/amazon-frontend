@@ -1994,6 +1994,7 @@ export enum TranslationKey {
   'Storekeeper selection' = 'Storekeeper selection',
   'Tariff selection' = 'Tariff selection',
   'Create a tariff' = 'Create a tariff',
+  'Add to quick access' = 'Add to quick access',
   'Start date' = 'Start date',
   'End date' = 'End date',
   'Idea status changed successfully' = 'Idea status changed successfully',

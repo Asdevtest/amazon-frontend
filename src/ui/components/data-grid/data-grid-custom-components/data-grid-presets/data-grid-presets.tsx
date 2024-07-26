@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo, useCallback, useMemo, useState } from 'react'
+import { ChangeEvent, FC, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
 
 import { useGridApiContext } from '@mui/x-data-grid-premium'
@@ -19,7 +19,9 @@ import { useStyles } from './data-grid-presets.style'
 import { PresetItem } from './preset-item'
 
 interface PresetsMenuProps {
+  showPresetsSelect: boolean
   presetsTableData: ITablePreset[]
+  handleChangeSelectState: (value: boolean) => void
   handleCreateTableSettingsPreset: (title: string, colomns: IGridColumn[]) => void
   handleSetPresetActive: (presetId: string) => void
   handleDeleteTableSettingsPreset: (preset: ITablePreset) => void
@@ -29,7 +31,9 @@ interface PresetsMenuProps {
 export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const {
+    showPresetsSelect,
     presetsTableData,
+    handleChangeSelectState,
     handleCreateTableSettingsPreset,
     handleSetPresetActive,
     handleDeleteTableSettingsPreset,
@@ -37,6 +41,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
   } = props
 
   const apiRef = useGridApiContext()
+  const selectWrapperRef = useRef<HTMLDivElement | null>(null)
 
   const [createPresetTitle, setCreatePresetTitle] = useState<string>('')
 
@@ -60,42 +65,65 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
     [apiRef],
   )
 
-  return (
-    <CustomSelect
-      options={convertedPresets}
-      value={convertedPresets?.find(preset => preset?.activeSetting) || convertedPresets[0]}
-      optionRender={preset => (
-        <PresetItem
-          preset={preset}
-          handleDeletePreset={() => handleDeleteTableSettingsPreset(preset?.data as ITablePreset)}
-          handleUpdatePreset={() => onClickUpdatePreset(preset?.data?._id)}
-        />
-      )}
-      labelRender={preset => preset?.label}
-      dropdownRender={menu => (
-        <>
-          {menu}
+  useEffect(() => {
+    if (showPresetsSelect) {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (selectWrapperRef.current && !selectWrapperRef.current?.contains(event.target as Node)) {
+          handleChangeSelectState(false)
+          console.log('click outside')
+        }
+      }
 
-          <div className={cx(styles.createPresetWrapper)}>
-            <CustomInput
-              value={createPresetTitle}
-              placeholder="Add a preset"
-              maxLength={32}
-              onChange={onPresetTitleChange}
-              onKeyDown={e => e.stopPropagation()}
-            />
-            <CustomButton
-              disabled={!createPresetTitle}
-              icon={<FaPlus />}
-              onClick={() => {
-                handleCreateTableSettingsPreset(createPresetTitle, apiRef.current?.getAllColumns())
-                setCreatePresetTitle('')
-              }}
-            />
-          </div>
-        </>
-      )}
-      onChange={handleSetPresetActive}
-    />
+      document.addEventListener('mousedown', handleClickOutside)
+
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside)
+      }
+    }
+  }, [showPresetsSelect])
+
+  return (
+    <div ref={selectWrapperRef} id="presets">
+      <CustomSelect
+        getPopupContainer={() => document.getElementById('presets') as HTMLElement}
+        open={showPresetsSelect}
+        options={convertedPresets}
+        value={convertedPresets?.find(preset => preset?.activeSetting) || convertedPresets[0]}
+        optionRender={preset => (
+          <PresetItem
+            preset={preset}
+            handleDeletePreset={() => handleDeleteTableSettingsPreset(preset?.data as ITablePreset)}
+            handleUpdatePreset={() => onClickUpdatePreset(preset?.data?._id)}
+          />
+        )}
+        labelRender={preset => preset?.label}
+        dropdownRender={menu => (
+          <>
+            {menu}
+
+            <div className={cx(styles.createPresetWrapper)}>
+              <CustomInput
+                value={createPresetTitle}
+                placeholder="Add a preset"
+                maxLength={32}
+                onChange={onPresetTitleChange}
+                onKeyDown={e => e.stopPropagation()}
+              />
+
+              <CustomButton
+                disabled={!createPresetTitle}
+                icon={<FaPlus />}
+                onClick={() => {
+                  handleCreateTableSettingsPreset(createPresetTitle, apiRef.current?.getAllColumns())
+                  setCreatePresetTitle('')
+                }}
+              />
+            </div>
+          </>
+        )}
+        onFocus={() => handleChangeSelectState(true)}
+        // onChange={handleSetPresetActive}
+      />
+    </div>
   )
 })

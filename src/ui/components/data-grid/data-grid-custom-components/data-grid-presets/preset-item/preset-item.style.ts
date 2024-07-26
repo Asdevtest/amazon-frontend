@@ -8,6 +8,10 @@ export const useStyles = makeStyles()(theme => ({
     gap: '5px',
   },
 
+  button: {
+    width: '100%',
+  },
+
   buttonWrapper: {
     display: 'flex',
     gap: '5px',

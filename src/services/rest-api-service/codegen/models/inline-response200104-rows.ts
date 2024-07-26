@@ -56,19 +56,13 @@ export interface InlineResponse200104Rows {
      * @type {string}
      * @memberof InlineResponse200104Rows
      */
-    avgRoi?: number;
+    createdAt?: string;
     /**
      * Дата создания.
      * @type {string}
      * @memberof InlineResponse200104Rows
      */
     updatedAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse200104Rows
-     */
-    createdAt?: string;
 }
 
 /**
