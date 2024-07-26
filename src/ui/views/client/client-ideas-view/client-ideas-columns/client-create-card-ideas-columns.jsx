@@ -23,7 +23,7 @@ import {
   getProductColumnMenuValue,
 } from '@config/data-grid-column-menu/product-column'
 
-import { shopColumnMenuConfig, shopFields } from '../columns-menu.config'
+import { accessToProductColumnMenuConfig, shopColumnMenuConfig, shopFields } from '../columns-menu.config'
 
 export const clientCreateCardIdeasColumns = rowHandlers => {
   const columns = [
@@ -167,10 +167,12 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
         return subUsers?.concat(subUsersByShop).join(', ')
       },
       width: 187,
-      table: DataGridFilterTables.PRODUCTS,
       filterable: false,
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.OBJECT,
+
+      fields: shopFields,
+      columnMenuConfig: accessToProductColumnMenuConfig,
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {

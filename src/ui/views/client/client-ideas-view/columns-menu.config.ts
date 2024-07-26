@@ -25,3 +25,16 @@ export const shopColumnMenuConfig = [
     columnKey: ColumnMenuKeys.OBJECT,
   },
 ]
+
+export const accessToProductColumnMenuConfig = [
+  {
+    field: 'parentProductSubUsers',
+    table: DataGridFilterTables.PRODUCTS,
+    columnKey: ColumnMenuKeys.OBJECT,
+  },
+  {
+    field: 'childProductSubUsers',
+    table: DataGridFilterTables.PRODUCTS,
+    columnKey: ColumnMenuKeys.OBJECT,
+  },
+]
