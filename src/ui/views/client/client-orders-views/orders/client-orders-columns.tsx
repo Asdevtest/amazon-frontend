@@ -322,7 +322,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'weight',
       headerName: t(TranslationKey['Total weight']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total weight'])} />,
-      renderCell: params => <TextCell copyable={false} text={toFixedWithKg(params.row.product?.weight)} />,
+      renderCell: params => <TextCell text={toFixedWithKg(params.row.product?.weight)} />,
       valueGetter: params => toFixedWithKg(params.row.product?.weight, 2),
       width: 110,
       type: 'number',

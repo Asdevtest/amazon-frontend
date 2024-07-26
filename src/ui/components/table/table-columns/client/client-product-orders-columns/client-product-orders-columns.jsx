@@ -212,7 +212,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
 
     type: 'number',
     width: 110,
-    renderCell: params => <TextCell copyable={false} text={toFixedWithKg(params.value)} />,
+    renderCell: params => <TextCell text={toFixedWithKg(params.value)} />,
     sortable: false,
   },
   {

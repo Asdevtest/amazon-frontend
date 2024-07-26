@@ -10,6 +10,8 @@ import { CustomTextarea } from '@components/shared/custom-textarea'
 
 import { t } from '@utils/translations'
 
+import { useHover } from '@hooks/use-hover'
+
 import { useStyles } from './text-cell.style'
 
 interface TextCellProps extends TextAreaProps {
@@ -35,6 +37,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
 
   const { classes: styles } = useStyles()
   const [value, setValue] = useState<string>('')
+  const [isHover, onMouseFunctions] = useHover()
 
   useEffect(() => {
     if (text) {
@@ -54,11 +57,13 @@ export const TextCell: FC<TextCellProps> = memo(props => {
     event.stopPropagation()
   }
 
+  const isCopyable = !!value?.length && isHover && copyable
+
   const paragraph = (
     <div className={styles.container}>
       {icon ? icon : null}
       <Paragraph
-        copyable={!!value?.length && copyable}
+        copyable={isCopyable}
         ellipsis={{ tooltip: text, rows: 3, onExpand: handleExpand }}
         style={{ margin: 0, color }}
       >
@@ -69,7 +74,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
   )
 
   return (
-    <div className={styles.wrapper}>
+    <div {...onMouseFunctions} className={styles.wrapper}>
       {editMode ? (
         <Popconfirm
           title=""

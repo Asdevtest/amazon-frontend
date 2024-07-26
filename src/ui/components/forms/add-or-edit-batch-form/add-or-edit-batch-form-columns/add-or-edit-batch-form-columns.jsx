@@ -108,7 +108,7 @@ export const addOrEditBatchFormColumns = isClient => [
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-    renderCell: params => <TextCell copyable={false} text={toFixedWithKg(params.value)} />,
+    renderCell: params => <TextCell text={toFixedWithKg(params.value)} />,
     width: 120,
   },
 

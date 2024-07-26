@@ -111,7 +111,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
 
-    renderCell: params => <TextCell copyable={false} text={toFixedWithKg(params.value)} />,
+    renderCell: params => <TextCell text={toFixedWithKg(params.value)} />,
     type: 'number',
     width: 150,
   },
@@ -121,7 +121,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey['Total weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total weight'])} />,
 
-    renderCell: params => <TextCell copyable={false} text={toFixedWithKg(params.value)} />,
+    renderCell: params => <TextCell text={toFixedWithKg(params.value)} />,
     type: 'number',
     width: 120,
   },
