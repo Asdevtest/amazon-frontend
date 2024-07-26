@@ -19,6 +19,7 @@ export const updateBoxWhiteList = [
   'upsTrackNumber',
   'fbaNumber',
   'prepId',
+  'storage',
 ]
 
 export const filtersFields = [
