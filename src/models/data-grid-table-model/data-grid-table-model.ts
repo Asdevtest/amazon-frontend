@@ -167,6 +167,8 @@ export class DataGridTableModel extends DefaultModel {
     } else {
       this.handleUnsetAllPresets()
     }
+
+    this.onChangeShowPresetsSelect(false)
   }
 
   async handleCreateTableSettingsPreset(title: string, colomns: IGridColumn[]) {

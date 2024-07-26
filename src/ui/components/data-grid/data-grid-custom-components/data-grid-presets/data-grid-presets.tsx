@@ -122,7 +122,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
           </>
         )}
         onFocus={() => handleChangeSelectState(true)}
-        // onChange={handleSetPresetActive}
+        onChange={handleSetPresetActive}
       />
     </div>
   )

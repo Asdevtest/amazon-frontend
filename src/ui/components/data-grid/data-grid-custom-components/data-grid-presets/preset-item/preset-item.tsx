@@ -28,13 +28,25 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
     {
       key: 'quickAccess',
       label: (
-        <CustomButton
-          className={styles.button}
-          icon={<TiPinOutline title={t(TranslationKey['Add to quick access'])} className={styles.updateButton} />}
-          onClick={e => e.stopPropagation()}
+        <Popconfirm
+          getPopupContainer={() => document.getElementById('presets') as HTMLElement}
+          title={t(TranslationKey['Save the state of the table to this preset?'])}
+          okText={t(TranslationKey.Yes)}
+          cancelText={t(TranslationKey.No)}
+          onConfirm={e => {
+            e?.stopPropagation()
+            // handleUpdatePreset()
+          }}
+          onCancel={e => e?.stopPropagation()}
         >
-          {t(TranslationKey['Add to quick access'])}
-        </CustomButton>
+          <CustomButton
+            className={styles.button}
+            icon={<TiPinOutline title={t(TranslationKey['Add to quick access'])} className={styles.updateButton} />}
+            onClick={e => e.stopPropagation()}
+          >
+            {t(TranslationKey['Add to quick access'])}
+          </CustomButton>
+        </Popconfirm>
       ),
     },
 
@@ -42,13 +54,13 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
       key: 'update',
       label: (
         <Popconfirm
-          showCancel={false}
+          getPopupContainer={() => document.getElementById('presets') as HTMLElement}
           title={t(TranslationKey['Save the state of the table to this preset?'])}
           okText={t(TranslationKey.Yes)}
           cancelText={t(TranslationKey.No)}
           onConfirm={e => {
             e?.stopPropagation()
-            // handleUpdatePreset()
+            handleUpdatePreset()
           }}
           onCancel={e => e?.stopPropagation()}
         >
@@ -73,7 +85,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
           cancelText={t(TranslationKey.No)}
           onConfirm={e => {
             e?.stopPropagation()
-            // handleDeletePreset()
+            handleDeletePreset()
           }}
           onCancel={e => e?.stopPropagation()}
         >

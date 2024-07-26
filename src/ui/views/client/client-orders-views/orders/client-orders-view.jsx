@@ -108,7 +108,7 @@ export const ClientOrdersView = observer(history => {
 
               tablePresets: {
                 showPresetsSelect: viewModel.showPresetsSelect,
-                presetsTableData: viewModel.presetsTableData, 
+                presetsTableData: viewModel.presetsTableData,
                 handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
                 handleSetPresetActive: viewModel.handleSetPresetActive,
                 handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
