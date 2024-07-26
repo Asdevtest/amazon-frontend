@@ -13,7 +13,6 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
-import { getUtcDateObject } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -271,8 +270,10 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
 
   async onClickSaveArrivalDate(id: string, date: string) {
     try {
-      const convertedToUTC = getUtcDateObject(date)
-      const arrivalDate = new Date(convertedToUTC.UTC)
+      const newDate = new Date(date)
+      newDate.setUTCHours(0)
+      newDate.setUTCSeconds(0)
+      const arrivalDate = newDate.toISOString()
 
       await BatchesModel.changeBatch(id, { arrivalDate })
       this.getCurrentData()
