@@ -22,8 +22,13 @@ export const BuyerFreeOrdersView = observer(() => {
   const [viewModel] = useState(() => new BuyerFreeOrdersViewModel())
 
   return (
-    <div className={styles.container}>
-      <CustomButton type="primary" disabled={viewModel.selectedRows.length === 0} onClick={viewModel.onPickupSomeItems}>
+    <>
+      <CustomButton
+        type="primary"
+        size="large"
+        disabled={viewModel.selectedRows.length === 0}
+        onClick={viewModel.onPickupSomeItems}
+      >
         {t(TranslationKey['Take on the work of the selected'])}
       </CustomButton>
 
@@ -88,6 +93,6 @@ export const BuyerFreeOrdersView = observer(() => {
           onClickBottomBtn={viewModel.onClickContinueWorkButton}
         />
       ) : null}
-    </div>
+    </>
   )
 })

@@ -1,9 +1,9 @@
-import { ChangeEvent, FC, memo } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomButton } from '@components/shared/custom-button'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -13,35 +13,37 @@ import { useStyles } from './header.style'
 
 interface HeaderProps {
   requestStatus: string
-  unserverSearchValue: string
   selectedRows: string[]
   onClickAddBtn: () => void
   updateShops: () => void
-  onChangeUnserverSearchValue: (value: ChangeEvent<HTMLInputElement>) => void
+  onChangeUnserverSearchValue: (value: string) => void
 }
 
 export const Header: FC<HeaderProps> = memo(props => {
   const { classes: styles } = useStyles()
 
-  const { selectedRows, requestStatus, unserverSearchValue, onClickAddBtn, updateShops, onChangeUnserverSearchValue } =
-    props
+  const { selectedRows, requestStatus, onClickAddBtn, updateShops, onChangeUnserverSearchValue } = props
 
   const disableUpdateButton = !selectedRows.length || requestStatus === loadingStatus.IS_LOADING
 
   return (
     <div className={styles.headerWrapper}>
       <div className={styles.buttonsWrapper}>
-        <Button onClick={onClickAddBtn}>{t(TranslationKey['Add shop'])}</Button>
+        <CustomButton type="primary" size="large" onClick={onClickAddBtn}>
+          {t(TranslationKey['Add shop'])}
+        </CustomButton>
 
-        <Button disabled={disableUpdateButton} onClick={updateShops}>
+        <CustomButton type="primary" size="large" disabled={disableUpdateButton} onClick={updateShops}>
           {t(TranslationKey.Update)}
-        </Button>
+        </CustomButton>
       </div>
 
-      <SearchInput
-        placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}`}
-        value={unserverSearchValue}
-        onChange={onChangeUnserverSearchValue}
+      <CustomInputSearch
+        enterButton
+        allowClear
+        size="large"
+        placeholder="Search by SKU, ASIN, Title"
+        onSearch={onChangeUnserverSearchValue}
       />
 
       <div />

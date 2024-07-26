@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
@@ -23,33 +23,39 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
 
   return (
     <div className={styles.leftBtnsWrapper}>
-      <Button
-        tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
+      <CustomButton
+        type="primary"
+        size="large"
+        title={t(TranslationKey['Form for changing the box data'])}
         disabled={!selectedBoxes?.length}
         onClick={onEditBox}
       >
         {t(TranslationKey.Edit)}
-      </Button>
+      </CustomButton>
 
-      <Button
-        tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
+      <CustomButton
+        type="primary"
+        size="large"
+        title={t(TranslationKey['Form for merging several boxes'])}
         disabled={selectedBoxes.length <= 1}
         onClick={onClickMergeBtn}
       >
         {t(TranslationKey.Merge)}
-      </Button>
+      </CustomButton>
 
-      <Button
+      <CustomButton
+        type="primary"
+        size="large"
+        title={t(TranslationKey['Form for distributing to multiple boxes'])}
         disabled={selectedBoxes.length !== 1}
-        tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
         onClick={onClickSplitBtn}
       >
         {t(TranslationKey.Redistribute)}
-      </Button>
+      </CustomButton>
 
-      <Button disabled={!selectedBoxes?.length} onClick={onClickGroupingBtn}>
+      <CustomButton type="primary" size="large" disabled={!selectedBoxes?.length} onClick={onClickGroupingBtn}>
         {t(TranslationKey.Grouping)}
-      </Button>
+      </CustomButton>
     </div>
   )
 })

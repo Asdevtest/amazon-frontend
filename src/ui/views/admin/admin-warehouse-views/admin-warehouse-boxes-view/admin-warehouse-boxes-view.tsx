@@ -3,14 +3,10 @@ import { useState } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { BoxModal } from '@components/modals/box-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
-
-import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IBox } from '@typings/models/boxes/box'
@@ -26,10 +22,12 @@ export const AdminWarehouseBoxesView = observer(() => {
 
   return (
     <div className={styles.container}>
-      <SearchInput
-        inputClasses={styles.searchInput}
-        placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-        onSubmit={viewModel.onSearchSubmit}
+      <CustomInputSearch
+        enterButton
+        allowClear
+        size="large"
+        placeholder="Search by SKU, ASIN, Title"
+        onSearch={viewModel.onSearchSubmit}
       />
 
       <div className={styles.tableWrapper}>

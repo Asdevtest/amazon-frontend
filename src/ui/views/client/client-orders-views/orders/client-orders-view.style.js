@@ -1,28 +1,16 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  invis: {
-    width: 261,
-  },
-
-  topHeaderBtnsSubWrapper: {
+  flexRow: {
     display: 'flex',
-    gap: 30,
-  },
-
-  searchInput: {
-    width: 550,
-  },
-
-  topHeaderBtnsWrapper: {
-    display: 'flex',
-    width: '100%',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    gap: '20px',
   },
 
   tableWrapper: {
-    height: '79vh',
+    marginTop: 20,
+    height: '80vh',
     width: '100%',
   },
 }))

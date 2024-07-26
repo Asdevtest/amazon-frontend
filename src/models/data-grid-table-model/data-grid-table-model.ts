@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable } from 'mobx'
-import { ChangeEvent } from 'react'
 
 import { GridColumnVisibilityModel, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
 import { GRID_CHECKBOX_SELECTION_COL_DEF, GridPinnedColumns } from '@mui/x-data-grid-premium'
@@ -121,8 +120,8 @@ export class DataGridTableModel extends DefaultModel {
     this.selectedRows = selectedRows
   }
 
-  onChangeUnserverSearchValue(e: ChangeEvent<HTMLInputElement>) {
-    this.currentSearchValue = e.target.value
+  onChangeUnserverSearchValue(value: string) {
+    this.currentSearchValue = value
   }
 
   handlePinColumn(pinnedColumns: GridPinnedColumns) {

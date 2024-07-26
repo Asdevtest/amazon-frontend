@@ -110,7 +110,7 @@ export class SourceFilesViewModel {
     }
   }
 
-  onChangeNameSearchValue(e) {
-    this.nameSearchValue = e.target.value
+  onChangeNameSearchValue(value) {
+    this.nameSearchValue = value
   }
 }

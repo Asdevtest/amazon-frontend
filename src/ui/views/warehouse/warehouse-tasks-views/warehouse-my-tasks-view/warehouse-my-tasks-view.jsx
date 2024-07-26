@@ -1,16 +1,15 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-
-import FileDownloadIcon from '@mui/icons-material/FileDownload'
+import { BsDownload } from 'react-icons/bs'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
 import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
@@ -41,9 +40,12 @@ export const WarehouseMyTasksView = observer(({ history }) => {
       <div className={styles.headerWrapper}>
         <TaskPrioritySelector
           currentPriority={viewModel.curTaskPriority}
-          handleActivePriority={viewModel.onClickTaskPriorityBtn}
+          onActivePriority={viewModel.onClickTaskPriorityBtn}
         />
-        <Button
+        <CustomButton
+          size="large"
+          type="primary"
+          icon={<BsDownload />}
           disabled={
             !viewModel.selectedTasks.length ||
             viewModel.selectedTasks.length > 1 ||
@@ -53,8 +55,7 @@ export const WarehouseMyTasksView = observer(({ history }) => {
           onClick={viewModel.onClickReportBtn}
         >
           {t(TranslationKey['Download task file'])}
-          <FileDownloadIcon />
-        </Button>
+        </CustomButton>
       </div>
 
       <div className={styles.headerWrapper}>
@@ -63,11 +64,13 @@ export const WarehouseMyTasksView = observer(({ history }) => {
           onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
         />
 
-        <SearchInput
-          value={viewModel.nameSearchValue}
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          wrapperClassName={styles.searchInput}
+          placeholder="Search by ASIN, Order ID, Item, Track number"
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 

@@ -76,7 +76,7 @@ export class MyProposalsViewModel {
     _id: el,
   }))
 
-  selectedSpec = Specs.DEFAULT
+  radioButtonOption = Specs.DEFAULT
 
   showRequestDetailModal = false
   showConfirmModal = false
@@ -200,11 +200,12 @@ export class MyProposalsViewModel {
     }
   }
 
-  onClickSpec(specType) {
-    this.selectedSpec = specType
+  onChangeRadioButtonOption(event) {
+    const currentValue = event.target.value
+    this.radioButtonOption = currentValue
 
     // spec - for "_id:string", specType - for "type:number"
-    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+    this.onChangeFullFieldMenuItem(currentValue === Specs.DEFAULT ? [] : [currentValue], 'specType', true)
 
     this.getRequestsProposalsPagMy()
   }
@@ -311,7 +312,7 @@ export class MyProposalsViewModel {
     }
   }
 
-  onChangeSearchValue(value) {
+  onSearchSubmit(value) {
     this.currentSearchValue = value
     this.getRequestsProposalsPagMy()
   }
@@ -421,7 +422,7 @@ export class MyProposalsViewModel {
   }
 
   onClickResetFilters() {
-    this.selectedSpec = Specs.DEFAULT
+    this.radioButtonOption = Specs.DEFAULT
 
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
@@ -458,10 +459,11 @@ export class MyProposalsViewModel {
     this.onChangeFullFieldMenuItem(this.isInTheWork ? inTheWorkStatuses : executedStatuses, 'status')
   }
 
-  onClickChangeCatigory(value) {
-    this.switcherCondition = value
+  onClickChangeCatigory(event) {
+    const currentValue = event.target.value
+    this.switcherCondition = currentValue
 
-    if (value === switcherConditions.inTheWork) {
+    if (currentValue === switcherConditions.inTheWork) {
       this.isInTheWork = true
     } else {
       this.isInTheWork = false

@@ -12,8 +12,8 @@ import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditOrderModal } from '@components/modals/edit-order-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
@@ -42,12 +42,13 @@ export const BuyerMyOrdersView = observer(({ history }: any) => {
   return (
     <>
       <div className={styles.headerWrapper}>
-        <div className={styles.searchInput} />
-
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          wrapperClassName={styles.searchInput}
+          placeholder="Search by SKU, ASIN, Title, Order, item"
+          onSearch={viewModel.onSearchSubmit}
         />
 
         <PaymentAllSuppliers

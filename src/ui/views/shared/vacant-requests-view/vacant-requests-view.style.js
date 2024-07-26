@@ -5,19 +5,14 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-
-  searchInput: {
-    width: 400,
   },
 
   tablePanelSubWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginBottom: 10,
-    gap: 30,
+    marginTop: '20px',
+    gap: 20,
   },
 
   tablePanelSortWrapper: {

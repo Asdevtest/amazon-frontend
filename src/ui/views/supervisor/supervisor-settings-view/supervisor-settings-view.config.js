@@ -26,10 +26,10 @@ export const tabsValues = {
 }
 
 export const switcherSettings = [
-  { label: () => 'ONLINE ARBITRAGE CHINA', value: tabsValues.ONLINE_ARBITRAGE_CHINA },
-  { label: () => 'DROPSHIPPING', value: tabsValues.DROPSHIPPING },
-  { label: () => 'PRIVATE LABEL', value: tabsValues.PRIVATE_LABEL },
-  { label: () => 'WHOLE SALE USA', value: tabsValues.WHOLE_SALE_USA },
+  { label: 'ONLINE ARBITRAGE CHINA', value: tabsValues.ONLINE_ARBITRAGE_CHINA },
+  { label: 'DROPSHIPPING', value: tabsValues.DROPSHIPPING },
+  { label: 'PRIVATE LABEL', value: tabsValues.PRIVATE_LABEL },
+  { label: 'WHOLE SALE USA', value: tabsValues.WHOLE_SALE_USA },
 ]
 
 export const fieldsForSearch = ['asin', 'reason']

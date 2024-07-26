@@ -3,8 +3,6 @@ import { action, observable } from 'mobx'
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
-
 import { t } from '@utils/translations'
 
 export const adminUsersViewModelConfig = {
@@ -25,15 +23,15 @@ const filterableRoles = [
 ]
 
 const getSwitcherConfig = (userRoles: string[]) => {
-  const defaultConfig: ISwitcherSettings[] = [
+  const defaultConfig: any = [
     {
-      label: () => t(TranslationKey.All),
+      label: t(TranslationKey.All),
       value: null,
     },
   ]
 
   const options = Object.values(userRoles).map(item => ({
-    label: () => `${item}S`,
+    label: `${item}S`,
     value: mapUserRoleEnumToKey[item],
   }))
 

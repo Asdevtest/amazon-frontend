@@ -665,7 +665,6 @@ export enum TranslationKey {
   'Store created' = 'Store created',
   'Store changed' = 'Store changed',
   'The product is bound' = 'The product is bound',
-  'Selected a batch contains a box with an invalid tariff' = 'Selected a batch contains a box with an invalid tariff',
   'Stock sum' = 'Stock sum',
   'Not chosen' = 'Not chosen',
   'Go to order' = 'Go to order',
@@ -985,7 +984,7 @@ export enum TranslationKey {
   'Allowed Strategies' = 'Allowed Strategies',
   'Back to Users' = 'Back to Users',
   'Continue working with the user' = 'Continue working with the user',
-  'Selected lot contains a box for which you need to confirm the price change' = 'Selected lot contains a box for which you need to confirm the price change',
+
   'User reviews' = 'User reviews',
   'A new product card will appear in the inventory' = 'A new product card will appear in the inventory',
   'Product code field is required for this action' = 'Product code field is required for this action',

@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -24,10 +24,12 @@ export const AdminInventoryView = observer(() => {
 
   return (
     <div className={styles.wrapper}>
-      <SearchInput
-        inputClasses={styles.searchInput}
-        placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-        onSubmit={viewModel.onSearchSubmit}
+      <CustomInputSearch
+        enterButton
+        allowClear
+        size="large"
+        placeholder="Search by SKU, ASIN, Title"
+        onSearch={viewModel.onSearchSubmit}
       />
 
       <div className={styles.datagridWrapper}>

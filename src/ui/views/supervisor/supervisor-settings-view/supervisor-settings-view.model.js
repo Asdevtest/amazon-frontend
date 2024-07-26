@@ -112,7 +112,8 @@ export class SupervisorSettingsViewModel extends DataGridTableModel {
     }
   }
 
-  onChangeСondition = value => {
-    this.condition = value
+  onChangeСondition(event) {
+    const currentValue = event.target.value
+    this.condition = currentValue
   }
 }

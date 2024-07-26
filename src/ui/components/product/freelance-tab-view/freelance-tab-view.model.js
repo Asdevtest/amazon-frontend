@@ -29,7 +29,7 @@ export class FreelanceModel {
   curRequest = null
   curProposal = null
 
-  selectedSpec = Specs.DEFAULT
+  radioButtonOption = Specs.DEFAULT
 
   showRequestDesignerResultClientModal = false
   showMainRequestResultModal = false
@@ -115,11 +115,12 @@ export class FreelanceModel {
     }
   }
 
-  onClickSpec(specType) {
-    this.selectedSpec = specType
+  onChangeRadioButtonOption(event) {
+    const currentValue = event.target.value
+    this.radioButtonOption = currentValue
 
     // spec - for "_id:string", specType - for "type:number"
-    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+    this.onChangeFullFieldMenuItem(currentValue === Specs.DEFAULT ? [] : [currentValue], 'specType', true)
 
     this.getCustomRequests()
   }
@@ -189,7 +190,7 @@ export class FreelanceModel {
   }
 
   onClickResetFilters() {
-    this.selectedSpec = Specs.DEFAULT
+    this.radioButtonOption = Specs.DEFAULT
 
     this.columnMenuSettings = {
       ...this.columnMenuSettings,

@@ -11,7 +11,6 @@ export const observerConfig = {
   showConfirmWorkResultFormModal: observable,
   showMainRequestResultModal: observable,
   showRequestResultModal: observable,
-
   selectedIndex: observable,
   selectedRequests: observable,
   researchIdToRemove: observable,
@@ -24,10 +23,11 @@ export const observerConfig = {
   acceptProposalResultSetting: observable,
   statusGroup: observable,
   dataGridApi: observable,
+  radioButtonOption: observable,
 
   userInfo: computed,
 
-  onClickChangeCatigory: action.bound,
+  onChangeRadioButtonOption: action.bound,
   loadData: action.bound,
   onClickAddBtn: action.bound,
   onClickEditBtn: action.bound,

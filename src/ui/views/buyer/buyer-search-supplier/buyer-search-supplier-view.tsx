@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
@@ -22,13 +22,15 @@ export const BuyerSearchSupplierBySupervisorView = observer(() => {
 
   return (
     <div className={styles.container}>
-      <Button
+      <CustomButton
+        size="large"
+        type="primary"
         disabled={viewModel.selectedRows.length === 0}
-        tooltipInfoContent={t(TranslationKey['Assign several supplier search tasks to a Buyer'])}
+        title={t(TranslationKey['Assign several supplier search tasks to a Buyer'])}
         onClick={viewModel.onPickupSomeItems}
       >
         {t(TranslationKey['Take on the work of the selected'])}
-      </Button>
+      </CustomButton>
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid

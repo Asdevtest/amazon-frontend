@@ -8,8 +8,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { EditOrderModal } from '@components/modals/edit-order-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
@@ -28,10 +28,13 @@ export const BuyerPendingOrdersView = observer(() => {
   return (
     <>
       <div className={styles.headerWrapper}>
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          wrapperClassName={styles.searchInput}
+          placeholder="Search by SKU, ASIN, Title, Order, item"
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 

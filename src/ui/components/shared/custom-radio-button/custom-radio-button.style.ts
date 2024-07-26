@@ -1,12 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  isDraftRow: {
-    opacity: '.7',
+  startIcon: {
+    marginRight: 5,
   },
 
-  tableWrapper: {
-    marginTop: 20,
-    height: '68vh',
+  endIcon: {
+    marginLeft: 5,
   },
 }))
