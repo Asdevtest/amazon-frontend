@@ -35,7 +35,6 @@ interface AuthFormFormProps {
 
 export const AuthForm: FC<AuthFormFormProps> = memo(props => {
   const { onSubmit, onRedirect, auth, editUser, loading, data } = props
-  console.log('data', data)
 
   const { classes: styles, cx } = useStyles()
   const [form] = Form.useForm()
