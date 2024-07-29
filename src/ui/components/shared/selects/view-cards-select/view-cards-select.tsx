@@ -1,9 +1,12 @@
+import { RadioChangeEvent } from 'antd'
 import { FC, memo } from 'react'
+import { BsCardText } from 'react-icons/bs'
+import { GoRows } from 'react-icons/go'
+import { MdTableRows } from 'react-icons/md'
 
 import { tableViewMode } from '@constants/table/table-view-modes'
 
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { ViewCartsBlockIcon, ViewCartsLineIcon, ViewCartsTableIcon } from '@components/shared/svg-icons'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 
 import { useStyles } from './view-cards-select.style'
 
@@ -11,52 +14,35 @@ interface FreelanceTypeTaskSelectProps {
   withTabelView?: boolean
   withoutBlockCardView?: boolean
   viewMode: string
-  onChangeViewMode: (value: string) => void
+  onChangeViewMode: (e: RadioChangeEvent) => void
 }
 
 export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
   const { withTabelView, withoutBlockCardView, viewMode, onChangeViewMode } = props
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
+
+  const options = [
+    withTabelView && {
+      label: <MdTableRows className={styles.icon} />,
+      value: tableViewMode.TABLE,
+    },
+    !withoutBlockCardView && {
+      label: <BsCardText className={styles.icon} />,
+      value: tableViewMode.BLOCKS,
+    },
+    {
+      label: <GoRows className={styles.icon} />,
+      value: tableViewMode.LIST,
+    },
+  ].filter(option => typeof option === 'object')
 
   return (
-    <CustomSwitcher
-      circle
-      switchMode="medium"
-      condition={viewMode}
-      // @ts-ignore
-      switcherSettings={[
-        withTabelView && {
-          icon: (
-            <ViewCartsTableIcon
-              className={cx(styles.viewCart, {
-                [styles.viewCartSelected]: viewMode === tableViewMode.TABLE,
-              })}
-            />
-          ),
-          value: tableViewMode.TABLE,
-        },
-        !withoutBlockCardView && {
-          icon: (
-            <ViewCartsBlockIcon
-              className={cx(styles.viewCart, {
-                [styles.viewCartSelected]: viewMode === tableViewMode.BLOCKS,
-              })}
-            />
-          ),
-          value: tableViewMode.BLOCKS,
-        },
-        {
-          icon: (
-            <ViewCartsLineIcon
-              className={cx(styles.viewCart, {
-                [styles.viewCartSelected]: viewMode === tableViewMode.LIST,
-              })}
-            />
-          ),
-          value: tableViewMode.LIST,
-        },
-      ].filter(option => typeof option === 'object')}
-      changeConditionHandler={onChangeViewMode}
+    <CustomRadioButton
+      size="large"
+      buttonStyle="solid"
+      options={options}
+      defaultValue={viewMode}
+      onChange={onChangeViewMode}
     />
   )
 })

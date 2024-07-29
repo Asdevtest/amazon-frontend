@@ -5,16 +5,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { ArchiveIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-sent-batches-view.style'
@@ -28,49 +26,42 @@ export const ClientSentBatchesView = observer(({ history }) => {
   return (
     <>
       <div className={styles.btnsWrapper}>
-        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onTriggerArchive}>
+        <CustomButton size="large" onClick={viewModel.onTriggerArchive}>
           {t(TranslationKey[viewModel.isArchive ? 'Actual batches' : 'Open archive'])}
-        </Button>
+        </CustomButton>
 
-        <SearchInput
-          key="client_batches_awaiting-batch_search_input"
-          inputClasses={styles.searchInput}
-          value={viewModel.currentSearchValue}
-          placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by ASIN, Title, Batch ID, Order ID"
+          onSearch={viewModel.onSearchSubmit}
         />
 
-        <Button
+        <CustomButton
+          danger
+          size="large"
+          type="primary"
+          icon={<ArchiveIcon />}
           disabled={!viewModel.selectedRows.length}
-          styleType={ButtonStyle.DANGER}
-          variant={ButtonVariant.OUTLINED}
           onClick={viewModel.onClickTriggerArchOrResetProducts}
         >
-          {viewModel.isArchive ? (
-            t(TranslationKey['Relocate from archive'])
-          ) : (
-            <>
-              {t(TranslationKey['Move to archive'])}
-              {<ArchiveIcon />}
-            </>
-          )}
-        </Button>
+          {t(TranslationKey[viewModel.isArchive ? 'Relocate from archive' : 'Move to archive'])}
+        </CustomButton>
       </div>
 
-      <div className={styles.boxesFiltersWrapper}>
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel.currentStorekeeperId}
-          switcherSettings={[
-            ...viewModel.storekeepersData
-              .filter(storekeeper => storekeeper.boxesCount !== 0)
-              .sort((a, b) => a.name?.localeCompare(b.name))
-              .map(storekeeper => ({ label: () => storekeeper.name, value: storekeeper._id })),
-            { label: () => t(TranslationKey['All warehouses']), value: '' },
-          ]}
-          changeConditionHandler={viewModel.onClickStorekeeperBtn}
-        />
-      </div>
+      <CustomRadioButton
+        size="large"
+        buttonStyle="solid"
+        options={[
+          ...viewModel.storekeepersData
+            .filter(storekeeper => storekeeper.boxesCount !== 0)
+            .map(storekeeper => ({ label: storekeeper.name, value: storekeeper._id })),
+          { label: t(TranslationKey['All warehouses']), value: '' },
+        ]}
+        defaultValue={viewModel.currentStorekeeperId}
+        onChange={viewModel.onClickStorekeeperBtn}
+      />
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid

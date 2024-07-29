@@ -6,14 +6,7 @@ export const useStyles = makeStyles()(() => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 20,
-  },
-
-  searchInput: {
-    width: 550,
-  },
-
-  boxesFiltersWrapper: {
-    marginTop: 20,
+    marginBottom: 20,
   },
 
   datagridWrapper: {

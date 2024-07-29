@@ -23,16 +23,15 @@ import { SelectionSupplierModal } from '@components/modals/selection-supplier-mo
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { useStyles } from '@views/client/client-ideas-view/client-ideas-view.style'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
@@ -61,20 +60,18 @@ export const ClientIdeasView = observer(({ history }) => {
   return (
     <>
       <div className={styles.controls}>
-        <div />
-
-        <SearchInput
-          inputClasses={styles.searchInput}
-          value={viewModel.currentSearchValue}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by SKU, ASIN, Title"
+          onSearch={viewModel.onSearchSubmit}
         />
 
         {['/client/ideas/new', '/client/ideas/all'].includes(viewModel.history.location.pathname) && (
-          <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickProductLaunch}>
-            <FiPlus style={{ width: 16, height: 16 }} />
+          <CustomButton type="primary" size="large" icon={<FiPlus />} onClick={viewModel.onClickProductLaunch}>
             {t(TranslationKey['Create idea'])}
-          </Button>
+          </CustomButton>
         )}
       </div>
 

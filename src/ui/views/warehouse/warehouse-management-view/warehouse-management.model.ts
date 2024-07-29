@@ -1,3 +1,4 @@
+import { RadioChangeEvent } from 'antd'
 import { makeObservable } from 'mobx'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
@@ -109,8 +110,10 @@ export class WarehouseTariffModel extends DataGridTableModel {
     }
   }
 
-  onChangeTabIndex(tabIndex: number) {
-    this.tabIndex = tabIndex
+  onChangeTabIndex(event: RadioChangeEvent) {
+    const currentValue = event.target.value
+    this.tabIndex = currentValue
+
     const columnsProps = {
       onRemoveWarehouseTariff: (id: string) => this.onRemoveWarehouseTariff(id),
       onClickEditTariff: (row: ILogicTariff) => this.onClickEditTariff(row),

@@ -1,3 +1,4 @@
+import { RadioChangeEvent } from 'antd'
 import { makeObservable } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -48,8 +49,9 @@ export class AdminOrdersAllViewModel extends DataGridFilterTableModel {
     window?.open(`/admin/orders/order?orderId=${order._id}`, '_blank')?.focus?.()
   }
 
-  onChangeActiveCategory(value: AdminOrdersStatusGroup) {
-    this.activeCategory = value
+  onChangeActiveCategory(event: RadioChangeEvent) {
+    const currentValue = event.target.value
+    this.activeCategory = currentValue
     this.getCurrentData()
   }
 }

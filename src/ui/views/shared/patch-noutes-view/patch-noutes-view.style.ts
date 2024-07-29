@@ -13,10 +13,6 @@ export const useStyles = makeStyles()(() => ({
     height: '82vh',
   },
 
-  columnHeaderTitleContainer: {
-    padding: '0 !important',
-  },
-
   toolbar: {
     padding: '0 10px',
   },

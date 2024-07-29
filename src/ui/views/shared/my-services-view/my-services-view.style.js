@@ -14,10 +14,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 20,
   },
 
-  searchInput: {
-    width: 400,
-  },
-
   emptyTableWrapper: {
     width: '100%',
     height: '60vh',

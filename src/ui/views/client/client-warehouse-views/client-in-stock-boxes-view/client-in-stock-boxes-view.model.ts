@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RadioChangeEvent } from 'antd'
 import { makeObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -613,8 +614,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     this.showSetShippingLabelModal = false
   }
 
-  onClickDestinationBtn(curDestinationId: string) {
-    this.curDestinationId = curDestinationId
+  onClickDestinationBtn(event: RadioChangeEvent) {
+    const currentValue = event.target.value
+    this.curDestinationId = currentValue
 
     this.requestStatus = loadingStatus.IS_LOADING
     this.getCurrentData().then(() => {

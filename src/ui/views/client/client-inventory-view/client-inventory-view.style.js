@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   datagridWrapper: {
     marginTop: '20px',
-    height: '75vh',
+    height: '77vh',
     width: '100%',
   },
 

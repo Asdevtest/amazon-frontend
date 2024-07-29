@@ -7,8 +7,8 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -26,29 +26,32 @@ export const FinancesView = observer(() => {
   const [viewModel] = useState(() => new FinancesViewModel())
 
   return (
-    <div className={styles.wrapper}>
+    <>
       <div className={styles.header}>
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel?.paymentType}
-          switcherSettings={getPaymentTypeConfig()}
-          changeConditionHandler={viewModel?.handleSetPaymentType}
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={getPaymentTypeConfig()}
+          defaultValue={viewModel.paymentType}
+          onChange={viewModel.onSetPaymentType}
         />
 
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={`${t(TranslationKey.ASIN)}, ${t(TranslationKey.SKU)}, ${t(TranslationKey.Title)}`}
-          value={viewModel.currentSearchValue}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by SKU, ASIN, Title"
+          onSearch={viewModel.onSearchSubmit}
+        />
+
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={getEntityTypeConfig(checkIsAdmin(UserRoleCodeMap[viewModel?.userRole]))}
+          defaultValue={viewModel.entityType}
+          onChange={viewModel.onSetEntityType}
         />
       </div>
-
-      <CustomSwitcher
-        switchMode="medium"
-        condition={viewModel?.entityType}
-        switcherSettings={getEntityTypeConfig(checkIsAdmin(UserRoleCodeMap[viewModel?.userRole]))}
-        changeConditionHandler={viewModel?.handleSetEntityType}
-      />
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
@@ -97,6 +100,6 @@ export const FinancesView = observer(() => {
           onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
-    </div>
+    </>
   )
 })

@@ -3,13 +3,9 @@ import { useState } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { SearchInput } from '@components/shared/search-input'
-
-import { t } from '@utils/translations'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IOrder } from '@typings/models/orders/order'
@@ -25,17 +21,20 @@ export const AdminOrdersViews = observer(() => {
 
   return (
     <div className={styles.container}>
-      <SearchInput
-        inputClasses={styles.searchInput}
-        placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-        onSubmit={viewModel.onSearchSubmit}
+      <CustomInputSearch
+        enterButton
+        allowClear
+        size="large"
+        placeholder="Search by SKU, ASIN, Title"
+        onSearch={viewModel.onSearchSubmit}
       />
 
-      <CustomSwitcher
-        switchMode="medium"
-        condition={viewModel.activeCategory}
-        switcherSettings={getSwitcherConfig()}
-        changeConditionHandler={viewModel.onChangeActiveCategory}
+      <CustomRadioButton
+        size="large"
+        buttonStyle="solid"
+        options={getSwitcherConfig()}
+        defaultValue={viewModel.activeCategory}
+        onChange={viewModel.onChangeActiveCategory}
       />
 
       <div className={styles.datagridWrapper}>

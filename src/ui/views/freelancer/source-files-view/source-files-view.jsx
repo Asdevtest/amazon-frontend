@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -20,10 +20,12 @@ export const SourceFilesView = observer(() => {
   return (
     <>
       <div className={styles.searchContainer}>
-        <SearchInput
-          placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}, ${t(TranslationKey.ASIN)}`}
-          value={viewModel.nameSearchValue}
-          onChange={viewModel.onChangeNameSearchValue}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by SKU, ASIN, Title"
+          onSearch={viewModel.onChangeNameSearchValue}
         />
       </div>
 

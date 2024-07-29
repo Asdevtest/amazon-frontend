@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 
 import { t } from '@utils/translations'
 
@@ -26,18 +26,21 @@ export const AdminUsersView = observer(() => {
         <p className={styles.usersOnlineWrapper}>
           {t(TranslationKey['Users online'])}: {viewModel.meta?.onlineUsers}
         </p>
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel.switcherCondition}
-          switcherSettings={switcherConfig}
-          changeConditionHandler={viewModel.onClickChangeRole}
+
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={switcherConfig}
+          defaultValue={viewModel.switcherCondition}
+          onChange={viewModel.onClickChangeRole}
         />
 
-        <SearchInput
-          inputClasses={styles.searchInput}
-          value={viewModel.currentSearchValue}
-          placeholder={t(TranslationKey['Search by name, email'])}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by name, email"
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 

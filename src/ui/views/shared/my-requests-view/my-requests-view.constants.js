@@ -25,10 +25,19 @@ export const filtersFields = [
   'shopId',
 ]
 
-export const switcherConfig = [
-  { label: () => t(TranslationKey['Requests in progress']), value: SwitcherCondition.IN_PROGRESS },
-  { label: () => t(TranslationKey['Ready to check']), value: SwitcherCondition.READY_TO_CHECK },
-  { label: () => t(TranslationKey['Completed requests']), value: SwitcherCondition.COMPLETED },
+export const radioButtonOptions = [
+  {
+    label: t(TranslationKey['Requests in progress']),
+    value: SwitcherCondition.IN_PROGRESS,
+  },
+  {
+    label: t(TranslationKey['Ready to check']),
+    value: SwitcherCondition.READY_TO_CHECK,
+  },
+  {
+    label: t(TranslationKey['Completed requests']),
+    value: SwitcherCondition.COMPLETED,
+  },
 ]
 
 export const fieldsForSearch = ['title', 'humanFriendlyId', 'asin']

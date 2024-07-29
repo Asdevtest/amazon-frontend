@@ -1,13 +1,25 @@
+import { action, computed, observable } from 'mobx'
+
 import { EntityType } from '@constants/finances/entity-type'
 import { getEntityTypeTranslations } from '@constants/finances/get-type-translations'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
+export const observerConfig = {
+  paymentType: observable,
+  entityType: observable,
+
+  userRole: computed,
+
+  onSetPaymentType: action.bound,
+  onSetEntityType: action.bound,
+}
+
 export const getEntityTypeConfig = (showAllTypes: boolean) => {
   const defaultConfig = [
     {
-      label: () => t(TranslationKey.All),
+      label: t(TranslationKey.All),
       value: '',
     },
   ]
@@ -19,7 +31,7 @@ export const getEntityTypeConfig = (showAllTypes: boolean) => {
   }
 
   const options = allTypes.map(item => ({
-    label: () => getEntityTypeTranslations(item),
+    label: getEntityTypeTranslations(item),
     value: item,
   }))
 
@@ -28,15 +40,15 @@ export const getEntityTypeConfig = (showAllTypes: boolean) => {
 
 export const getPaymentTypeConfig = () => [
   {
-    label: () => t(TranslationKey.All),
+    label: t(TranslationKey.All),
     value: '',
   },
   {
-    label: () => t(TranslationKey.Replenish),
+    label: t(TranslationKey.Replenish),
     value: 'REPLENISH',
   },
   {
-    label: () => t(TranslationKey.Fine),
+    label: t(TranslationKey.Fine),
     value: 'FINE',
   },
 ]

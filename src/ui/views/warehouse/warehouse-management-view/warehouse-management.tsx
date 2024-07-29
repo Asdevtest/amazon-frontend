@@ -9,13 +9,14 @@ import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destinat
 import { AddOrEditWarehouseTariffForm } from '@components/forms/add-or-edit-warehouse-tariff-form'
 import { AddOrEditWeightBasedLogisticsTariffForm } from '@components/forms/add-or-edit-weight-based-logistics-tariff-form'
 import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './warehouse-management.style'
@@ -40,11 +41,12 @@ export const WarehouseManagementView = observer(() => {
   return (
     <div className={styles.root}>
       <div className={styles.flexRow}>
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel.tabIndex}
-          switcherSettings={switcherConfig}
-          changeConditionHandler={viewModel.onChangeTabIndex}
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={switcherConfig}
+          defaultValue={viewModel.tabIndex}
+          onChange={viewModel.onChangeTabIndex}
         />
 
         {viewModel.tabIndex ? (
@@ -55,13 +57,17 @@ export const WarehouseManagementView = observer(() => {
           <div className={styles.flexRow}>
             {viewModel.storekeeperDestination ? <p>{currentAddress}</p> : null}
 
-            <Button onClick={() => viewModel.onTriggerOpenModal('showAddOrEditDestinationModal')}>
+            <CustomButton
+              size="large"
+              type="primary"
+              onClick={() => viewModel.onTriggerOpenModal('showAddOrEditDestinationModal')}
+            >
               {t(TranslationKey[viewModel.storekeeperDestination ? 'Edit address' : 'Add address'])}
-            </Button>
+            </CustomButton>
 
-            <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onToggleArchive}>
+            <CustomButton size="large" onClick={viewModel.onToggleArchive}>
               {t(TranslationKey[viewModel.isArchive ? 'Current tariffs' : 'Open archive'])}
-            </Button>
+            </CustomButton>
           </div>
         )}
       </div>

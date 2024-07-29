@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
@@ -21,13 +21,15 @@ export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
   return (
     <>
       <div className={styles.header}>
-        <Button
-          tooltipInfoContent={t(TranslationKey['Assign several product cards to a Supervisor'])}
+        <CustomButton
+          size="large"
+          type="primary"
+          title={t(TranslationKey['Assign several product cards to a Supervisor'])}
           disabled={viewModel.selectedRows.length === 0}
           onClick={viewModel.onPickUpSomeItems}
         >
           {t(TranslationKey['Take on the work of the selected'])}
-        </Button>
+        </CustomButton>
       </div>
 
       <div className={styles.tableWrapper}>

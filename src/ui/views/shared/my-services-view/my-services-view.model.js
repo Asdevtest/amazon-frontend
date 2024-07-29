@@ -17,7 +17,7 @@ import { filterFields } from './my-services-view.constants'
 export class MyServicesViewModel {
   history = undefined
 
-  selectedSpec = Specs.DEFAULT
+  radioButtonOption = Specs.DEFAULT
   announcements = []
   nameSearchValue = undefined
   viewMode = tableViewMode.LIST
@@ -87,11 +87,12 @@ export class MyServicesViewModel {
     this.columnMenuSettings[field].currentFilterData = value
   }
 
-  onClickSpec(specType) {
-    this.selectedSpec = specType
+  onChangeRadioButtonOption(event) {
+    const currentValue = event.target.value
+    this.radioButtonOption = currentValue
 
     // spec - for "_id:string", specType - for "type:number"
-    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType')
+    this.onChangeFullFieldMenuItem(currentValue === Specs.DEFAULT ? [] : [currentValue], 'specType')
 
     this.getMyAnnouncements()
   }
@@ -104,8 +105,9 @@ export class MyServicesViewModel {
     this.getMyAnnouncements()
   }
 
-  onChangeViewMode(value) {
-    this.viewMode = value
+  onChangeViewMode(event) {
+    const currentValue = event.target.value
+    this.viewMode = currentValue
 
     this.setTableModeState()
   }
@@ -124,7 +126,7 @@ export class MyServicesViewModel {
     this[modalState] = !this[modalState]
   }
 
-  onSearchSubmit(e) {
-    this.nameSearchValue = e.target.value
+  onSearchSubmit(value) {
+    this.nameSearchValue = value
   }
 }
