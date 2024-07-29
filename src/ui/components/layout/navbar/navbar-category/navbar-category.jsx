@@ -1,7 +1,7 @@
 import { memo, useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Box, ListItemIcon, ListItemText, SvgIcon } from '@mui/material'
+import { Box, ListItemIcon, ListItemText } from '@mui/material'
 import MuiListItem from '@mui/material/ListItem'
 
 import { Button } from '@components/shared/button'
@@ -90,11 +90,7 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
             [styles.notSelected]: !isSelected,
           })}
         >
-          <SvgIcon
-            inheritviewbox="true"
-            className={cx(styles.icon, { [styles.selectedIcon]: isSelected })}
-            component={category.icon}
-          />
+          <category.icon className={cx(styles.icon, { [styles.selectedIcon]: isSelected })} />
 
           {Number(badge) > 0 ? (
             <div className={cx(styles.badge, { [styles.redBadge]: isRedBadge })}>{badge}</div>

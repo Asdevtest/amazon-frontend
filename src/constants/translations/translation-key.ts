@@ -1993,4 +1993,7 @@ export enum TranslationKey {
   'Number of units' = 'Number of units',
   'Stocks' = 'Stocks',
   'Boxes x units' = 'Boxes x units',
+  'Parsing' = 'Parsing',
+  'Profiles' = 'Profiles',
+  'Choose a section in Parsing' = 'Choose a section in Parsing',
 }

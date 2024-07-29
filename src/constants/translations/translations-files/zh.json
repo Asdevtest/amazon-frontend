@@ -1985,5 +1985,8 @@
   "The box will be returned to warehouse": "箱子将被退回仓库",
   "Number of units": "单位数",
   "Stocks": "斯托基",
-  "Boxes x units": "箱子x单位"
+  "Boxes x units": "箱子x单位",
+  "Parsing": "解析",
+  "Profiles": "配置文件",
+  "Choose a section in Parsing": "选择解析中的部分"
 }

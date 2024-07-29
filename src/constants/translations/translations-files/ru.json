@@ -1992,5 +1992,8 @@
   "The box will be returned to warehouse": "Коробка будет возвращена на склад",
   "Number of units": "Количество единиц",
   "Stocks": "Стоки",
-  "Boxes x units": "Коробки x единицы"
+  "Boxes x units": "Коробки x единицы",
+  "Parsing": "Парсинг",
+  "Profiles": "Профили",
+  "Choose a section in Parsing": "Выберите раздел в Парсинге"
 }
