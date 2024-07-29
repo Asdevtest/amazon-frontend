@@ -1,7 +1,9 @@
 import * as Sentry from '@sentry/react'
 import 'reflect-metadata'
 
-/* Sentry.init({
+import { appVersion } from '@constants/app-version'
+
+Sentry.init({
   dsn: 'https://9d93845486a53513477f1c4901b80625@o4507371916099584.ingest.de.sentry.io/4507446537158736', // research about process.env
   integrations: [
     // Sentry.browserTracingIntegration(),
@@ -31,11 +33,11 @@ import 'reflect-metadata'
   normalizeMaxBreadth: 200,
   sendDefaultPii: true, // for Sentry.httpClientIntegration
   denyUrls: ['localhost'], // skip URLs, research about process.env
-}) */
+})
 
-Sentry.init({
+/* Sentry.init({
   integrations: [Sentry.browserTracingIntegration()],
   // We recommend adjusting this value in production, or using tracesSampler
   // for finer control
   tracesSampleRate: 1.0,
-})
+}) */
