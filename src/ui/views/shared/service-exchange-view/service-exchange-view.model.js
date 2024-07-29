@@ -20,7 +20,7 @@ export class ServiceExchangeViewModel {
 
   announcements = []
 
-  selectedSpec = Specs.DEFAULT
+  radioButtonOption = Specs.DEFAULT
 
   showImageModal = false
 
@@ -143,11 +143,12 @@ export class ServiceExchangeViewModel {
     )
   }
 
-  onClickSpec(specType) {
-    this.selectedSpec = specType
+  onChangeRadioButtonOption(event) {
+    const currentValue = event.target.value
+    this.radioButtonOption = currentValue
 
     // spec - for "_id:string", specType - for "type:number"
-    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+    this.onChangeFullFieldMenuItem(currentValue === Specs.DEFAULT ? [] : [currentValue], 'specType', true)
 
     this.options.offset = 0
     this.options.filters = this.getFilter()
@@ -173,8 +174,9 @@ export class ServiceExchangeViewModel {
     )
   }
 
-  onChangeViewMode(value) {
-    this.viewMode = value
+  onChangeViewMode(event) {
+    const currentValue = event.target.value
+    this.viewMode = currentValue
 
     this.setTableModeState()
   }

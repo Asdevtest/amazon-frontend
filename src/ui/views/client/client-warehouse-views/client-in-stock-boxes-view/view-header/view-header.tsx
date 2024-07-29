@@ -4,8 +4,9 @@ import { FC, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Badge } from '@components/shared/badge'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
@@ -43,7 +44,6 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
   const {
     currentStorekeeperId,
     storekeepersData,
-    nameSearchValue,
     curDestinationId,
     clientDestinations,
     selectedRows,
@@ -82,26 +82,28 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
           changeConditionHandler={onClickStorekeeperBtn}
         />
 
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
-          startText={nameSearchValue}
-          onSubmit={onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          wrapperClassName={styles.searchInput}
+          size="large"
+          placeholder="Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box"
+          onSearch={onSearchSubmit}
         />
       </div>
 
-      <CustomSwitcher
-        switchMode="medium"
-        condition={curDestinationId}
-        switcherSettings={[
+      <CustomRadioButton
+        size="large"
+        buttonStyle="solid"
+        options={[
           ...clientDestinations
             .sort((a, b) => a.name?.localeCompare(b.name))
-            .map(destination => ({ label: () => destination?.name, value: destination?._id })),
-
-          { label: () => t(TranslationKey.Undistributed), value: null },
-          { label: () => t(TranslationKey.All), value: undefined },
+            .map(destination => ({ label: destination?.name, value: destination?._id })),
+          { label: t(TranslationKey.Undistributed), value: null },
+          { label: t(TranslationKey.All), value: undefined },
         ]}
-        changeConditionHandler={onClickDestinationBtn}
+        defaultValue={curDestinationId}
+        onChange={onClickDestinationBtn}
       />
 
       <ActionButtons

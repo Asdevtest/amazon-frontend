@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
@@ -35,17 +35,18 @@ export const ServiceExchangeView = observer(({ history }) => {
           <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
           <FreelanceTypeTaskSelect
-            selectedSpec={viewModel.selectedSpec}
+            selectedSpec={viewModel.radioButtonOption}
             specs={viewModel.specs}
-            onClickSpec={viewModel.onClickSpec}
+            onClickSpec={viewModel.onChangeRadioButtonOption}
           />
         </div>
 
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
-          value={viewModel.nameSearchValue}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by Performer, Title, Description"
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 

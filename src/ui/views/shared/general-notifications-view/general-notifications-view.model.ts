@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RadioChangeEvent } from 'antd'
 import { History } from 'history'
 import { makeObservable, reaction } from 'mobx'
 
@@ -174,18 +175,10 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickToChangeNotificationType(notificationType?: string) {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
+  onClickToChangeNotificationType(event: RadioChangeEvent) {
+    const currentValue = event.target.value
+    this.curNotificationType = currentValue
 
-      this.curNotificationType = notificationType
-
-      this.getCurrentData()
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (err) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(err)
-    }
+    this.getCurrentData()
   }
 }

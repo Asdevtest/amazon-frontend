@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RadioChangeEvent } from 'antd'
 import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -104,9 +105,11 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
     this.getCurrentData()
   }
 
-  setFilters(filterCategory: keyof this, filterValue: string) {
+  setFilters(filterCategory: keyof this, event: RadioChangeEvent) {
+    const currentValue = event.target.value
+
     // @ts-ignore
-    this[filterCategory] = filterValue
+    this[filterCategory] = currentValue
 
     this.getCurrentData()
   }

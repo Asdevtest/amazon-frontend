@@ -31,8 +31,8 @@ export const switcherConditions = {
 }
 
 export const customSwitcherSettings = [
-  { label: () => t(TranslationKey['In the work']), value: switcherConditions.inTheWork },
-  { label: () => t(TranslationKey.Executed), value: switcherConditions.executed },
+  { label: t(TranslationKey['In the work']), value: switcherConditions.inTheWork },
+  { label: t(TranslationKey.Executed), value: switcherConditions.executed },
 ]
 
 export const inTheWorkStatuses = [

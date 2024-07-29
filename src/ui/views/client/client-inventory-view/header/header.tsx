@@ -3,13 +3,11 @@ import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomButton } from '@components/shared/custom-button'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { ArchiveIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './header.style'
 
@@ -52,57 +50,69 @@ export const Header: FC<HeaderProps> = memo(props => {
   return (
     <div className={styles.header}>
       <div className={styles.buttonsWrapper}>
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-          onSubmit={onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by SKU, ASIN, Title"
+          onSearch={onSearchSubmit}
         />
 
         {!isArchive && (
           <div className={styles.buttonsSubWrapper}>
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              tooltipInfoContent={t(TranslationKey['To order selected products'])}
+            <CustomButton
+              type="primary"
+              size="large"
+              title="To order selected products"
               disabled={isNoSelectedRows}
               onClick={onClickOrderBtn}
             >
               {t(TranslationKey['To order'])}
-            </Button>
+            </CustomButton>
 
-            <Button styleType={ButtonStyle.SUCCESS} disabled={selectedRows.length > 1} onClick={onClickProductLaunch}>
-              <FiPlus style={{ width: 16, height: 16 }} />
+            <CustomButton
+              type="primary"
+              size="large"
+              icon={<FiPlus />}
+              disabled={selectedRows.length > 1}
+              onClick={onClickProductLaunch}
+            >
               {t(TranslationKey['Product launch'])}
-            </Button>
+            </CustomButton>
 
-            <Button
-              tooltipInfoContent={t(
-                TranslationKey['Bind the selected product from the inventory to an item from the store'],
-              )}
+            <CustomButton
+              type="primary"
+              size="large"
+              title={t(TranslationKey['Bind the selected product from the inventory to an item from the store'])}
               disabled={isSelectedRowsNotEqualOne}
               onClick={onClickBindInventoryGoodsToStockBtn}
             >
               {t(TranslationKey['Bind an product from Amazon'])}
-            </Button>
+            </CustomButton>
 
-            <Button
-              tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
+            <CustomButton
+              type="primary"
+              size="large"
+              title={t(TranslationKey['Supplier Addition Services'])}
               disabled={isNoSelectedRows}
               onClick={onClickAddSupplierBtn}
             >
               {t(TranslationKey['Supplier search'])}
-            </Button>
+            </CustomButton>
 
-            <Button disabled={isNoSelectedRows} onClick={onClickParseProductsBtn}>
+            <CustomButton type="primary" size="large" disabled={isNoSelectedRows} onClick={onClickParseProductsBtn}>
               {'Parse all'}
-            </Button>
+            </CustomButton>
 
-            <Button
-              tooltipInfoContent={t(TranslationKey['Product batches data'])}
+            <CustomButton
+              type="primary"
+              size="large"
+              title={t(TranslationKey['Product batches data'])}
               disabled={isSelectedRowsNotEqualOne}
               onClick={onClickProducDataButton}
             >
               {t(TranslationKey['Product batches data'])}
-            </Button>
+            </CustomButton>
           </div>
         )}
       </div>
@@ -110,65 +120,75 @@ export const Header: FC<HeaderProps> = memo(props => {
       <div className={styles.controlButtonsWrapper}>
         {!isArchive && (
           <div className={styles.controlButtonsSubWrapper}>
-            <Button
-              tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
-              variant={ButtonVariant.OUTLINED}
+            <CustomButton
+              block
+              size="large"
+              title={t(TranslationKey['Deleted product archive'])}
               onClick={onTriggerArchive}
             >
               {t(TranslationKey['Open archive'])}
-            </Button>
+            </CustomButton>
 
-            <Button
-              tooltipInfoContent={t(
-                TranslationKey['Delete the selected product (the product is moved to the archive)'],
-              )}
+            <CustomButton
+              danger
+              block
+              size="large"
+              title={t(TranslationKey['Delete the selected product (the product is moved to the archive)'])}
+              icon={<ArchiveIcon />}
               disabled={isNoSelectedRows}
-              styleType={ButtonStyle.DANGER}
-              variant={ButtonVariant.OUTLINED}
               onClick={onClickTriggerArchOrResetProducts}
             >
-              <ArchiveIcon />
               {t(TranslationKey.Archiving)}
-            </Button>
+            </CustomButton>
           </div>
         )}
 
         {!isArchive && (
           <div className={styles.controlButtonsSubWrapper}>
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
+            <CustomButton
+              block
+              type="primary"
+              size="large"
+              icon={<FiPlus />}
+              title={t(TranslationKey['Allows you to add your product to inventory'])}
               onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
             >
-              <FiPlus style={{ width: 16, height: 16 }} />
               {t(TranslationKey.Product)}
-            </Button>
+            </CustomButton>
 
-            <Button styleType={ButtonStyle.SUCCESS} onClick={() => onTriggerOpenModal('showAddSuppliersModal')}>
-              <FiPlus style={{ width: 16, height: 16 }} />
+            <CustomButton
+              block
+              type="primary"
+              size="large"
+              icon={<FiPlus />}
+              onClick={() => onTriggerOpenModal('showAddSuppliersModal')}
+            >
               {t(TranslationKey['Supplier list'])}
-            </Button>
+            </CustomButton>
           </div>
         )}
 
         {isArchive && (
           <div className={styles.controlButtonsSubWrapper}>
-            <Button
-              tooltipInfoContent={t(TranslationKey['Return the selected product to the inventory list'])}
-              disabled={isNoSelectedRows}
-              variant={ButtonVariant.OUTLINED}
-              onClick={onClickTriggerArchOrResetProducts}
-            >
-              {t(TranslationKey['Return to inventory'])}
-            </Button>
-
-            <Button
-              tooltipInfoContent={t(TranslationKey['Return to inventory with a list of items'])}
-              variant={ButtonVariant.OUTLINED}
+            <CustomButton
+              block
+              size="large"
+              title={t(TranslationKey['Return to inventory with a list of items'])}
               onClick={onTriggerArchive}
             >
               {t(TranslationKey['Open inventory'])}
-            </Button>
+            </CustomButton>
+
+            <CustomButton
+              block
+              type="primary"
+              size="large"
+              title={t(TranslationKey['Return the selected product to the inventory list'])}
+              disabled={isNoSelectedRows}
+              onClick={onClickTriggerArchOrResetProducts}
+            >
+              {t(TranslationKey['Return to inventory'])}
+            </CustomButton>
           </div>
         )}
       </div>

@@ -15,21 +15,20 @@ import { FreelanceRequestDetailsModal } from '@components/modals/freelance-reque
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './my-requests-view.style'
 
-import { switcherConfig } from './my-requests-view.constants'
+import { radioButtonOptions } from './my-requests-view.constants'
 import { MyRequestsViewModel } from './my-requests-view.model'
 
 export const MyRequestsView = observer(() => {
@@ -66,29 +65,26 @@ export const MyRequestsView = observer(() => {
   return (
     <>
       <div className={styles.header}>
-        <div />
-
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.SEARCH_BY_TITLE)}, ${t(
-            TranslationKey.ASIN,
-          )}, ${t(TranslationKey.ID)}`}
-          value={viewModel.currentSearchValue}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={radioButtonOptions}
+          defaultValue={viewModel.radioButtonOption}
+          onChange={viewModel.onChangeRadioButtonOption}
         />
 
-        <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickAddBtn}>
-          {t(TranslationKey['Create request'])}
-        </Button>
-      </div>
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by SKU, ASIN, Title"
+          onSearch={viewModel.onSearchSubmit}
+        />
 
-      <CustomSwitcher
-        fullWidth
-        switchMode="big"
-        condition={viewModel.switcherCondition}
-        switcherSettings={switcherConfig}
-        changeConditionHandler={viewModel.onClickChangeCatigory}
-      />
+        <CustomButton size="large" type="primary" onClick={viewModel.onClickAddBtn}>
+          {t(TranslationKey['Create request'])}
+        </CustomButton>
+      </div>
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid

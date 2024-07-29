@@ -34,12 +34,13 @@ export const Header: FC<HeaderProps> = memo(props => {
 
   return (
     <div className={styles.header}>
-      <CustomRangeDatePicker className={styles.datePicker} onChange={onChangeRangeDate} />
+      <CustomRangeDatePicker size="large" className={styles.datePicker} onChange={onChangeRangeDate} />
 
       {subView ? (
         <CustomInputSearch
           enterButton
           allowClear
+          size="large"
           loading={requestStatus === loadingStatus.IS_LOADING}
           wrapperClassName={styles.searchInput}
           placeholder="Search by SKU, ASIN, Title, Launch type"
@@ -47,11 +48,7 @@ export const Header: FC<HeaderProps> = memo(props => {
         />
       ) : null}
 
-      <CustomButton
-        type="primary"
-        icon={<FiPlus style={{ width: 16, height: 16 }} />}
-        onClick={handleToggleReportModalEditMode}
-      >
+      <CustomButton type="primary" size="large" icon={<FiPlus />} onClick={handleToggleReportModalEditMode}>
         {t(TranslationKey['New report'])}
       </CustomButton>
     </div>

@@ -116,14 +116,16 @@ export class WarehouseCanceledTasksViewModel {
     this.getTasksMy()
   }
 
-  onClickOperationTypeBtn(type) {
-    this.curTaskType = type
+  onClickOperationTypeBtn(event) {
+    const currentValue = event.target.value
+    this.curTaskType = currentValue
 
     this.getTasksMy()
   }
 
-  onClickTaskPriorityBtn(type) {
-    this.curTaskPriority = type
+  onClickTaskPriorityBtn(event) {
+    const currentValue = event.target.value
+    this.curTaskPriority = currentValue
 
     this.getTasksMy()
   }

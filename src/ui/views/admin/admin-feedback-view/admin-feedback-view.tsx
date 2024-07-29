@@ -7,8 +7,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReplyFeedbackForm } from '@components/forms/reply-feedback-form'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
@@ -25,11 +25,12 @@ export const AdminFeedbackView = observer(() => {
   return (
     <>
       <div className={styles.headerWrapper}>
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by name, email'])}
-          value={viewModel.currentSearchValue}
-          onChange={viewModel.onChangeUnserverSearchValue}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by name, email"
+          onSearch={viewModel.onChangeUnserverSearchValue}
         />
       </div>
 

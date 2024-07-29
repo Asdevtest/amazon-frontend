@@ -64,8 +64,9 @@ export class AdminUsersViewModel extends DataGridFilterTableModel {
     this.history.push('/admin/users/balance', { user: userData })
   }
 
-  onClickChangeRole(value) {
-    this.switcherCondition = value
+  onClickChangeRole(event) {
+    const currentValue = event.target.value
+    this.switcherCondition = currentValue
 
     this.getCurrentData()
   }

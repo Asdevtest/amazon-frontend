@@ -5,13 +5,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxModal } from '@components/modals/box-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-boxes-notifications-view.style'
@@ -26,17 +25,24 @@ export const ClientBoxesNotificationsView = observer(() => {
   return (
     <div className={styles.container}>
       <div className={styles.buttonsContainer}>
-        <Button disabled={viewModel.selectedRows?.length < 1} onClick={viewModel.handleChangePriceFewBoxes}>
+        <CustomButton
+          type="primary"
+          size="large"
+          disabled={viewModel.selectedRows?.length < 1}
+          onClick={viewModel.handleChangePriceFewBoxes}
+        >
           {t(TranslationKey.Confirm)}
-        </Button>
+        </CustomButton>
 
-        <Button
-          styleType={ButtonStyle.DANGER}
+        <CustomButton
+          danger
+          type="primary"
+          size="large"
           disabled={viewModel.selectedRows?.length < 1}
           onClick={viewModel.handleRejectFewBoxes}
         >
           {t(TranslationKey.Reject)}
-        </Button>
+        </CustomButton>
       </div>
 
       <div className={styles.tableWrapper}>

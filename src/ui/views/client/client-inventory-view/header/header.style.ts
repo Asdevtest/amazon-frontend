@@ -10,29 +10,25 @@ export const useStyles = makeStyles()(() => ({
   buttonsWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '12px',
+    gap: '20px',
   },
 
   buttonsSubWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: '12px',
-  },
-
-  searchInput: {
-    width: 400,
+    gap: '20px',
   },
 
   controlButtonsWrapper: {
     display: 'flex',
-    gap: '12px',
+    gap: '20px',
   },
 
   controlButtonsSubWrapper: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    gap: '12px',
+    gap: '20px',
     flexWrap: 'wrap',
   },
 }))

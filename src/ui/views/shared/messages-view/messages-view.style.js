@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(theme => ({
   leftSide: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 20,
+    gap: 16,
 
     [theme.breakpoints.down(768)]: {
       width: '100%',
@@ -99,5 +99,9 @@ export const useStyles = makeStyles()(theme => ({
 
   noticesTextNotActive: {
     color: '#c4c4c4',
+  },
+
+  searchInput: {
+    width: 320,
   },
 }))

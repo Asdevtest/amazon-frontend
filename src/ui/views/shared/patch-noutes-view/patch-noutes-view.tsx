@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { PatchNoteForm } from '@components/forms/patch-note-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -32,7 +32,9 @@ export const PatchNoutesView = observer(() => {
   return (
     <>
       <div className={styles.header}>
-        <Button onClick={viewModel.onOpenPatchNoteForm}>{t(TranslationKey['Add a patch note'])}</Button>
+        <CustomButton type="primary" size="large" onClick={viewModel.onOpenPatchNoteForm}>
+          {t(TranslationKey['Add a patch note'])}
+        </CustomButton>
       </div>
 
       <div className={styles.table}>

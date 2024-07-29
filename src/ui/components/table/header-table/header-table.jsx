@@ -1,12 +1,10 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomButton } from '@components/shared/custom-button'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './header-table.style'
 
@@ -16,58 +14,60 @@ export const HeaderTable = ({ viewModel }) => {
   const switcherSettings = viewModel.storekeepersData
     .filter(({ boxesCount }) => boxesCount !== 0)
     .sort((a, b) => a.name?.localeCompare(b.name))
-    .map(({ name, _id }) => ({ label: () => name, value: _id }))
+    .map(({ name, _id }) => ({ label: name, value: _id }))
     .concat([
       {
-        label: () => t(TranslationKey['All warehouses']),
+        label: t(TranslationKey['All warehouses']),
         value: '',
       },
     ])
 
   return (
-    <div>
-      <div className={styles.searchWrapper}>
-        <SearchInput
-          key={'client_batches_awaiting-batch_search_input'}
-          inputClasses={styles.searchInput}
-          value={viewModel.currentSearchValue}
-          placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
-          onSubmit={viewModel.onSearchSubmit}
-        />
-      </div>
-      <div className={styles.btnsWrapper}>
-        <div className={styles.btnsSubWrapper}>
-          <Button
-            styleType={ButtonStyle.DANGER}
+    <>
+      <div className={styles.flexRow}>
+        <div className={styles.flexRow}>
+          <CustomButton
+            danger
+            size="large"
+            type="primary"
             disabled={!viewModel.selectedRows.length}
-            tooltipInfoContent={t(
-              TranslationKey["Returns all boxes from the selected batch to the 'Boxes ready to send' section"],
-            )}
+            title={t(TranslationKey["Returns all boxes from the selected batch to the 'Boxes ready to send' section"])}
             onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           >
             {t(TranslationKey['Cancel Send'])}
-          </Button>
+          </CustomButton>
 
-          <CustomSwitcher
-            switchMode={'medium'}
-            condition={viewModel.currentStorekeeperId}
-            switcherSettings={switcherSettings}
-            changeConditionHandler={viewModel.onClickStorekeeperBtn}
+          <CustomRadioButton
+            size="large"
+            buttonStyle="solid"
+            options={switcherSettings}
+            defaultValue={viewModel.currentStorekeeperId}
+            onChange={viewModel.onClickStorekeeperBtn}
           />
         </div>
 
-        <div className={styles.btnsSubWrapper}>
-          <Button
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by ASIN, Title, Batch ID, Order ID"
+          onSearch={viewModel.onSearchSubmit}
+        />
+
+        <div className={styles.flexRow}>
+          <CustomButton
+            size="large"
+            type="primary"
             disabled={viewModel.selectedRows.length !== 1}
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: false })}
           >
             {t(TranslationKey['Edit batch'])}
-          </Button>
-          <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}>
+          </CustomButton>
+          <CustomButton size="large" type="primary" onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}>
             {t(TranslationKey['Create a batch'])}
-          </Button>
+          </CustomButton>
         </div>
       </div>
-    </div>
+    </>
   )
 }
