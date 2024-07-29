@@ -36,7 +36,7 @@ export const getPasswordValidationRules = (auth?: boolean, editUser?: boolean): 
   }
 
   const rulesWithoutRequired: Rule[] = [
-    { max: 32, message: t(TranslationKey['The password is too long! (Maximum 32 characters)']) },
+    { max: 62, message: t(TranslationKey['The password is too long! (Maximum 32 characters)']) },
     { min: 8, message: t(TranslationKey['The password is too short! (Minimum 8 characters)']) },
     {
       pattern: /(?=.*[A-Z])/,
@@ -47,7 +47,10 @@ export const getPasswordValidationRules = (auth?: boolean, editUser?: boolean): 
       message: t(TranslationKey['The password must contain at least one lowercase letter!']),
     },
     { pattern: /(?=.*\d)/, message: t(TranslationKey['The password must contain at least one digit!']) },
-    { pattern: /^[A-Za-z\d\s]*$/, message: t(TranslationKey['The password must contain only English letters!']) },
+    {
+      pattern: /^[A-Za-z\d\s!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]*$/,
+      message: t(TranslationKey['The password must contain only English letters!']),
+    },
     () => ({
       validator(_, value) {
         if (value && value.trim() !== value) {
