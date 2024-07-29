@@ -1,3 +1,5 @@
+import { GiCardExchange } from 'react-icons/gi'
+
 import { UserRole } from '@constants/keys/user-roles'
 
 import {
@@ -1166,6 +1168,26 @@ export const navbarConfig = {
       key: navBarActiveCategory.NAVBAR_PERMISSIONS,
       checkHideBlock: () => true,
     },
+
+    {
+      icon: GiCardExchange,
+      title: () => t(TranslationKey.Parsing),
+      route: '/admin/parsing',
+      subtitles: [
+        {
+          subtitle: () => t(TranslationKey.Profiles),
+          subRoute: '/admin/parsing/profiles',
+        },
+        {
+          subtitle: () => t(TranslationKey.Requests),
+          subRoute: '/admin/parsing/requests',
+        },
+      ],
+
+      key: navBarActiveCategory.NAVBAR_PARSING,
+      checkHideBlock: () => true,
+    },
+
     {
       icon: SettingsIcon,
       title: () => t(TranslationKey.Settings),

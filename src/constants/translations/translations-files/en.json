@@ -1992,5 +1992,20 @@
   "The box will be returned to warehouse": "The box will be returned to warehouse",
   "Number of units": "Number of units",
   "Stocks": "Stocks",
-  "Boxes x units": "Boxes x units"
+  "Boxes x units": "Boxes x units",
+  "Parsing": "Parsing",
+  "Profiles": "Profiles",
+  "Choose a section in Parsing": "Choose a section in Parsing",
+  "Add profile": "Add profile",
+  "Force start": "Force start",
+  "Add parsing profile": "Add parsing profile",
+  "Edit parsing profile": "Edit parsing profile",
+  "Gologin ID": "Gologin ID",
+  "Performance ID": "Performance ID",
+  "Import ID": "Import ID",
+  "SpeadsheetMain ID": "SpeadsheetMain ID",
+  "OTP": "OTP",
+  "Port": "Port",
+  "DriverSessionData": "DriverSessionData",
+  "Nobody is approved for this profile yet.": "Nobody is approved for this profile yet."
 }

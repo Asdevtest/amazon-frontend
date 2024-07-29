@@ -3,6 +3,10 @@ import { lazy } from 'react'
 import { UserRole } from '@constants/keys/user-roles'
 import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
 
+import { ParsingProdileView } from '@views/shared/parsing/parsing-profile-view'
+import { ParsingRequestsView } from '@views/shared/parsing/parsing-requests-view'
+import { ParsingView } from '@views/shared/parsing/parsing-view'
+
 import { t } from '@utils/translations'
 
 import { permissionsKeys } from '../keys/permissions'
@@ -2481,6 +2485,48 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
       activeSubCategory: 2,
       title: () => t(TranslationKey.Destinations),
+    },
+  },
+
+  {
+    routePath: '/admin/parsing',
+    component: ParsingView,
+    exact: true,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Parsing,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_PARSING,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Parsing),
+    },
+  },
+
+  {
+    routePath: '/admin/parsing/profiles',
+    component: ParsingProdileView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Profiles,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_PARSING,
+      activeSubCategory: 0,
+      title: () => t(TranslationKey.Profiles),
+    },
+  },
+
+  {
+    routePath: '/admin/parsing/requests',
+    component: ParsingRequestsView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Requests,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_PARSING,
+      activeSubCategory: 1,
+      title: () => t(TranslationKey.Requests),
     },
   },
 

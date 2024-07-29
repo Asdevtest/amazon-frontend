@@ -1985,5 +1985,20 @@
   "The box will be returned to warehouse": "箱子将被退回仓库",
   "Number of units": "单位数",
   "Stocks": "斯托基",
-  "Boxes x units": "箱子x单位"
+  "Boxes x units": "箱子x单位",
+  "Parsing": "解析",
+  "Profiles": "配置文件",
+  "Choose a section in Parsing": "选择解析中的部分",
+  "Add profile": "添加配置文件",
+  "Force start": "强制启动",
+  "Add parsing profile": "添加解析配置文件",
+  "Edit parsing profile": "编辑解析配置文件",
+  "Gologin ID": "Gologin ID",
+  "Performance ID": "Performance ID",
+  "Import ID": "Import ID",
+  "SpeadsheetMain ID": "SpeadsheetMain ID",
+  "OTP": "OTP",
+  "Port": "端口",
+  "DriverSessionData": "DriverSessionData",
+  "Nobody is approved for this profile yet.": "此配置文件尚未获得任何人的批准."
 }
