@@ -1,4 +1,17 @@
-export const parsingProdileViewConfig = {}
+import { action, observable } from 'mobx'
 
-export const additionalFilterFields = ['asin', 'amazonTitle', 'skuByClient', 'sub', 'launchDateFrom', 'launchDateTo']
-export const additionalSearchFields = ['asin', 'amazonTitle', 'skuByClient', 'launchType']
+import { IParsingProfile } from '@typings/models/parser/parsing-profile'
+
+export const parsingProdileViewConfig = {
+  editProfile: observable,
+  showToggleProfileModal: observable,
+
+  onEditProfileModal: action.bound,
+  onAddProfileModal: action.bound,
+}
+
+export const additionalSearchFields = ['name', 'email']
+
+export interface ColumnsProps {
+  onEditProfileModal: (row: IParsingProfile) => void
+}

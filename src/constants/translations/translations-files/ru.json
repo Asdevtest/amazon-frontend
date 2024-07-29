@@ -1995,5 +1995,17 @@
   "Boxes x units": "Коробки x единицы",
   "Parsing": "Парсинг",
   "Profiles": "Профили",
-  "Choose a section in Parsing": "Выберите раздел в Парсинге"
+  "Choose a section in Parsing": "Выберите раздел в Парсинге",
+  "Add profile": "Добавить профиль",
+  "Force start": "Принудительный запуск",
+  "Add parsing profile": "Добавить профиль парсинга",
+  "Edit parsing profile": "Редактировать профиль парсинга",
+  "Gologin ID": "Gologin ID",
+  "Performance ID": "Performance ID",
+  "Import ID": "Import ID",
+  "SpeadsheetMain ID": "SpeadsheetMain ID",
+  "OTP": "OTP",
+  "Port": "Порт",
+  "DriverSessionData": "DriverSessionData",
+  "Nobody is approved for this profile yet.": "Никто еще не утвержден для этого профиля."
 }

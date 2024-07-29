@@ -1992,5 +1992,17 @@
   "Boxes x units": "Коробки х елементи",
   "Parsing": "Парсинг",
   "Profiles": "Профілі",
-  "Choose a section in Parsing": "Виберіть розділ у Парсингу"
+  "Choose a section in Parsing": "Виберіть розділ у Парсингу",
+  "Add profile": "Додати профіль",
+  "Force start": "Примусовий запуск",
+  "Add parsing profile": "Додати профіль парсингу",
+  "Edit parsing profile": "Редагувати профіль парсингу",
+  "Gologin ID": "Gologin ID",
+  "Performance ID": "Performance ID",
+  "Import ID": "Import ID",
+  "SpeadsheetMain ID": "SpeadsheetMain ID",
+  "OTP": "OTP",
+  "Port": "Порт",
+  "DriverSessionData": "DriverSessionData",
+  "Nobody is approved for this profile yet.": "Ніхто ще не затверджений для цього профілю."
 }
