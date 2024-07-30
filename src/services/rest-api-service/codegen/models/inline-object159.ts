@@ -75,18 +75,6 @@ export interface InlineObject159 {
      */
     driverSessionData?: object;
     /**
-     * Parser state
-     * @type {boolean}
-     * @memberof InlineObject159
-     */
-    isActive?: boolean;
-    /**
-     * Profile access to sellercentral
-     * @type {boolean}
-     * @memberof InlineObject159
-     */
-    access?: boolean;
-    /**
      * Port of browser
      * @type {number}
      * @memberof InlineObject159

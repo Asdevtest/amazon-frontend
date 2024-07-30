@@ -13,182 +13,37 @@
  */
 
 
-import { InlineResponse20043InventoryShop } from './inline-response20043-inventory-shop';
 
 /**
- * Схема репорта за 30 дней с Seller-board
+ * 
  * @export
  * @interface InlineResponse20060Rows
  */
 export interface InlineResponse20060Rows {
     /**
-     * ﻿\"ASIN\"
+     * GUID продукта в базе данных
      * @type {string}
      * @memberof InlineResponse20060Rows
      */
-    asin?: string;
+    productId: string;
     /**
-     * SKU
+     * GUID тарифа доставки
      * @type {string}
      * @memberof InlineResponse20060Rows
      */
-    sku?: string;
+    logicsTariffId?: string;
     /**
-     * Title
+     * GUID заказа в БД
      * @type {string}
      * @memberof InlineResponse20060Rows
      */
-    title?: string;
+    orderId?: string;
     /**
-     * ROI, %
+     * Кол-во продукта
      * @type {number}
      * @memberof InlineResponse20060Rows
      */
-    roi?: number;
-    /**
-     * FBA/FBM Stock
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    fbaFbmStock?: number;
-    /**
-     * Stock value
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    stockValue?: number;
-    /**
-     * Estimated Sales Velocity
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    estimatedSalesVelocity?: number;
-    /**
-     * Days  of stock  left
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    daysOfStockLeft?: number;
-    /**
-     * Recommended quantity for  reordering
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    recommendedQuantityForReordering?: number;
-    /**
-     * Running  out of stock
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    runningOutOfStock?: string;
-    /**
-     * Reserved
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    reserved?: number;
-    /**
-     * Sent  to FBA
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    sentToFba?: number;
-    /**
-     * FBA  Prep. Stock
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    fbaPrepStock?: number;
-    /**
-     * Ordered
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    ordered?: string;
-    /**
-     * Time to  reorder
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    timeToReorder?: string;
-    /**
-     * Comment
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    comment?: string;
-    /**
-     * Marketplace
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    marketplace?: string;
-    /**
-     * FNSKU
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    fnsku?: string;
-    /**
-     * Target stock range after new order days
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    targetStockRangeAfterNewOrderDays?: number;
-    /**
-     * FBA buffer days
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    fbaBufferDays?: number;
-    /**
-     * Manuf. time days
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    manufTimeDays?: number;
-    /**
-     * Use a Prep Center
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    useAPrepCenter?: string;
-    /**
-     * Shipping to Prep Center days
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    shippingToPrepCenterDays?: number;
-    /**
-     * Shipping to FBA days
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    shippingToFbaDays?: number;
-    /**
-     * Гуид записи
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    _id?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    createdAt?: string;
-    /**
-     * Дата обновления
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    updatedAt?: string;
-    /**
-     * 
-     * @type {InlineResponse20043InventoryShop}
-     * @memberof InlineResponse20060Rows
-     */
-    shop?: InlineResponse20043InventoryShop;
+    amount?: number;
 }
 
 

@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy } from './api-v1-request-proposals-custom-by-request-id-guid-proposal-created-by';
 import { ApiV1RequestProposalsMedia } from './api-v1-request-proposals-media';
 import { ApiV1RequestProposalsSourceFiles } from './api-v1-request-proposals-source-files';
@@ -110,10 +110,10 @@ export interface ApiV1RequestProposalsCustomByRequestIdGuidProposal {
     lastModifiedById?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof ApiV1RequestProposalsCustomByRequestIdGuidProposal
      */
-    sub?: ApiV1AnnouncementsMyCreatedBy;
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
      * @type {Array<ApiV1RequestProposalsSourceFiles>}

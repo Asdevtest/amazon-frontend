@@ -13,104 +13,25 @@
  */
 
 
-import { ApiV1AdminsSetSettingTechPause } from './api-v1-admins-set-setting-tech-pause';
 
 /**
- * Схема динамических настроек.
+ * 
  * @export
  * @interface InlineObject8
  */
 export interface InlineObject8 {
     /**
-     * Курс юаня к доллару.
+     * Таймер на отключение в (МС)
      * @type {number}
      * @memberof InlineObject8
      */
-    yuanToDollarRate: number;
+    countdown?: number;
     /**
-     * Цена за поиск поставщика, оплата байеру, в долларах.
-     * @type {number}
+     * Текст сообщения для эмита юзерам
+     * @type {string}
      * @memberof InlineObject8
      */
-    costOfFindingSupplier: number;
-    /**
-     * Цена за поиск поставщика, оплата ресерчера, в долларах.
-     * @type {number}
-     * @memberof InlineObject8
-     */
-    costOfCheckingProduct?: number;
-    /**
-     * Дедлайна на поиск поставщика., в часах.
-     * @type {number}
-     * @memberof InlineObject8
-     */
-    deadlineForFindingSupplier: number;
-    /**
-     * Минимальная цена за предложение к заявке, в долларах.
-     * @type {number}
-     * @memberof InlineObject8
-     */
-    requestMinAmountPriceOfProposal: number;
-    /**
-     * Процент с каждого предложения, маржа платформы, в процентах.
-     * @type {number}
-     * @memberof InlineObject8
-     */
-    requestPlatformMarginInPercent: number;
-    /**
-     * Процент с каждого предложения для супервайзера, в процентах.
-     * @type {number}
-     * @memberof InlineObject8
-     */
-    requestSupervisorFeeInPercent: number;
-    /**
-     * Время после которого будет автоматом принято предложение клиентом, в часах.
-     * @type {number}
-     * @memberof InlineObject8
-     */
-    requestTimeLimitInHourForCancelingProposalsByClient: number;
-    /**
-     * Время после которого будет автоматом снят супервизор с проверки предложения, в часах.
-     * @type {number}
-     * @memberof InlineObject8
-     */
-    requestTimeLimitInHourForCheckingProposalBySuper: number;
-    /**
-     * Коэффициент расчета объемного веса.
-     * @type {number}
-     * @memberof InlineObject8
-     */
-    volumeWeightCoefficient?: number;
-    /**
-     * Работает ли сервер
-     * @type {number}
-     * @memberof InlineObject8
-     */
-    tech_pause: number;
-    /**
-     * 
-     * @type {ApiV1AdminsSetSettingTechPause}
-     * @memberof InlineObject8
-     */
-    techPause?: ApiV1AdminsSetSettingTechPause;
-    /**
-     * Интервал в часах для уведомлений по поводу дедлайнов ордеров
-     * @type {number}
-     * @memberof InlineObject8
-     */
-    timeToDeadlinePendingOrder: number;
-    /**
-     * Лимит на кол-во в ордере
-     * @type {number}
-     * @memberof InlineObject8
-     */
-    orderAmountLimit?: number;
-    /**
-     * Интервал в секундах для нотификаций product_listing_launches
-     * @type {number}
-     * @memberof InlineObject8
-     */
-    timeBeforeLaunchDeadline?: number;
+    message?: string;
 }
 
 

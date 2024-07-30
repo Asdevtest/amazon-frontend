@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
@@ -21,47 +22,35 @@
  */
 export interface InlineResponse20042Rows {
     /**
-     * GUID продукта в базе данных
+     * Guid of shop
      * @type {string}
      * @memberof InlineResponse20042Rows
      */
     _id?: string;
     /**
-     * ASIN продукта
+     * Name of shop
      * @type {string}
      * @memberof InlineResponse20042Rows
      */
-    asin?: string;
+    name?: string;
     /**
-     * ID магазинa для продукта
-     * @type {string}
+     * Count of shop products
+     * @type {number}
      * @memberof InlineResponse20042Rows
      */
-    shopId?: string;
+    productsCount?: number;
     /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20042Rows
      */
-    amazonTitle?: string;
+    shopUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
-     * SKU введенным клиентом.
-     * @type {string}
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20042Rows
      */
-    skuByClient?: string;
-    /**
-     * GUID пользователя(байера)
-     * @type {string}
-     * @memberof InlineResponse20042Rows
-     */
-    buyerId?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20042Rows
-     */
-    images?: Array<string>;
+    productUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
 }
 
 

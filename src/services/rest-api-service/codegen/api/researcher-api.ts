@@ -29,11 +29,11 @@ import { InlineObject120 } from '../models';
 // @ts-ignore
 import { InlineObject121 } from '../models';
 // @ts-ignore
-import { InlineResponse2002 } from '../models';
+import { InlineResponse200 } from '../models';
 // @ts-ignore
 import { InlineResponse20093 } from '../models';
 // @ts-ignore
-import { InlineResponse2017 } from '../models';
+import { InlineResponse2016 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -330,7 +330,7 @@ export const ResearcherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ResearchersProductsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2002>>> {
+        async apiV1ResearchersProductsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ResearchersProductsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -354,7 +354,7 @@ export const ResearcherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ResearchersProductsGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
+        async apiV1ResearchersProductsGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ResearchersProductsGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -379,7 +379,7 @@ export const ResearcherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ResearchersProductsPost(body?: InlineObject120, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+        async apiV1ResearchersProductsPost(body?: InlineObject120, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2016>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ResearchersProductsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -412,7 +412,7 @@ export const ResearcherApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ResearchersProductsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2002>> {
+        apiV1ResearchersProductsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200>> {
             return localVarFp.apiV1ResearchersProductsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -434,7 +434,7 @@ export const ResearcherApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ResearchersProductsGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2002> {
+        apiV1ResearchersProductsGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200> {
             return localVarFp.apiV1ResearchersProductsGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -457,7 +457,7 @@ export const ResearcherApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ResearchersProductsPost(body?: InlineObject120, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+        apiV1ResearchersProductsPost(body?: InlineObject120, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2016> {
             return localVarFp.apiV1ResearchersProductsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };

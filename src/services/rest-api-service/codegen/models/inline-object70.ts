@@ -15,17 +15,23 @@
 
 
 /**
- * Схема редактирования в первый раз shippingLabel коробки
+ * 
  * @export
  * @interface InlineObject70
  */
 export interface InlineObject70 {
     /**
-     * shippingLabel
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject70
      */
-    shippingLabel: string;
+    batchIds: Array<string>;
+    /**
+     * Заархивирована ли партия
+     * @type {boolean}
+     * @memberof InlineObject70
+     */
+    archive: boolean;
 }
 
 

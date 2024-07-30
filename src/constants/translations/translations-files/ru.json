@@ -951,8 +951,6 @@
   "Create/edit a store based on the data you entered": "Создать/редактировать магазин на основе введенных Вами данных",
   "Closes the store creation/editing window without saving": "Закрывает окно создания/редактирования магазина без сохранения",
   "Download the file to your device": "Скачать файл на устройство",
-  "Change store name or links to reports": "Изменить название магазина или ссылки на отчёты",
-  "Remove a store from your list": "Удалить магазин из своего списка",
   "Binds integration to the product card": "Делает привязку интеграции к карточке товара",
   "Important notifications on changes in order price, batch or irrelevant tariff": "Важные уведомления по изменению цены заказа, партии или неактуальности тарифа",
   "Notifications of required surcharges for the order": "Уведомления о необходимой доплате за заказ",
@@ -2009,5 +2007,8 @@
   "DriverSessionData": "DriverSessionData",
   "Nobody is approved for this profile yet.": "Никто еще не утвержден для этого профиля.",
   "Parsing data": "Анализ данных",
-  "Stop": "Стоп"
+  "Stop": "Стоп",
+  "Search by Title": "Поиск по названию",
+  "Parsing profile": "Анализ профиля",
+  "Request sent": "Запрос отправлен"
 }

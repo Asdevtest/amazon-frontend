@@ -34,6 +34,13 @@ class ParserModelStatic {
     })
     return response.data
   }
+
+  onCreateGoLigin = async data => {
+    const response = await restApiService.parserApi.apiV1IntegrationsParserClientsProfilesReceivingPost({
+      body: { shopId: data },
+    })
+    return response.data
+  }
 }
 
 export const ParserModel = new ParserModelStatic()

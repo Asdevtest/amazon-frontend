@@ -13,9 +13,8 @@
  */
 
 
-import { InlineResponse20055Batches } from './inline-response20055-batches';
-import { InlineResponse20055Boxes } from './inline-response20055-boxes';
-import { InlineResponse20055Tasks } from './inline-response20055-tasks';
+import { ApiV1BatchesStorekeeper } from './api-v1-batches-storekeeper';
+import { InlineResponse20016Rows } from './inline-response20016-rows';
 
 /**
  * 
@@ -24,23 +23,149 @@ import { InlineResponse20055Tasks } from './inline-response20055-tasks';
  */
 export interface InlineResponse20055 {
     /**
-     * 
-     * @type {InlineResponse20055Tasks}
+     * GUID партии.
+     * @type {string}
      * @memberof InlineResponse20055
      */
-    tasks?: InlineResponse20055Tasks;
+    _id?: string;
+    /**
+     * Человекочитаемый id партии.
+     * @type {number}
+     * @memberof InlineResponse20055
+     */
+    humanFriendlyId?: number;
+    /**
+     * Статус партии.
+     * @type {string}
+     * @memberof InlineResponse20055
+     */
+    status?: string;
+    /**
+     * id корабля.
+     * @type {string}
+     * @memberof InlineResponse20055
+     */
+    shipId?: string;
+    /**
+     * Название партии
+     * @type {string}
+     * @memberof InlineResponse20055
+     */
+    title?: string;
+    /**
+     * Стоимость доставки при расчете из коробок
+     * @type {number}
+     * @memberof InlineResponse20055
+     */
+    calculatedShippingCost?: number;
+    /**
+     * Настоящая стоимость доставки
+     * @type {number}
+     * @memberof InlineResponse20055
+     */
+    actualShippingCost?: number;
+    /**
+     * Трек номер партии
+     * @type {string}
+     * @memberof InlineResponse20055
+     */
+    trackingNumber?: string;
+    /**
+     * Массив ссылок на файлов документации к партии.
+     * @type {Array<string>}
+     * @memberof InlineResponse20055
+     */
+    attachedDocuments?: Array<string>;
+    /**
+     * Финальный вес партии, если считать все коробки как одну большую коробу.
+     * @type {number}
+     * @memberof InlineResponse20055
+     */
+    finalWeightAsOneBox?: number;
+    /**
+     * Финальный вес партии, если сложить все веса коробок по отдельности.
+     * @type {number}
+     * @memberof InlineResponse20055
+     */
+    finalWeightSumEachBoxAmount?: number;
+    /**
+     * Заархивирована ли партия
+     * @type {boolean}
+     * @memberof InlineResponse20055
+     */
+    archive?: boolean;
+    /**
+     * Массив id коробок.
+     * @type {Array<InlineResponse20016Rows>}
+     * @memberof InlineResponse20055
+     */
+    boxes?: Array<InlineResponse20016Rows>;
+    /**
+     * Метод подсчта массы партии
+     * @type {number}
+     * @memberof InlineResponse20055
+     */
+    calculationMethod?: number;
+    /**
+     * Делитель объема партии
+     * @type {number}
+     * @memberof InlineResponse20055
+     */
+    volumeWeightDivide?: number;
+    /**
+     * Масса партии
+     * @type {number}
+     * @memberof InlineResponse20055
+     */
+    finalWeight?: number;
+    /**
+     * Количество коробок в партии.
+     * @type {number}
+     * @memberof InlineResponse20055
+     */
+    quantityBoxes?: number;
+    /**
+     * Общая стоимость от поставщика заказа.
+     * @type {number}
+     * @memberof InlineResponse20055
+     */
+    totalPriceFromOrderSupplier?: number;
     /**
      * 
-     * @type {InlineResponse20055Boxes}
+     * @type {ApiV1BatchesStorekeeper}
      * @memberof InlineResponse20055
      */
-    boxes?: InlineResponse20055Boxes;
+    storekeeper?: ApiV1BatchesStorekeeper;
     /**
      * 
-     * @type {InlineResponse20055Batches}
+     * @type {ApiV1BatchesStorekeeper}
      * @memberof InlineResponse20055
      */
-    batches?: InlineResponse20055Batches;
+    createdBy?: ApiV1BatchesStorekeeper;
+    /**
+     * 
+     * @type {ApiV1BatchesStorekeeper}
+     * @memberof InlineResponse20055
+     */
+    lastModifiedBy?: ApiV1BatchesStorekeeper;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20055
+     */
+    arrivalDate?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20055
+     */
+    createdAt?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20055
+     */
+    updatedAt?: string;
 }
 
 

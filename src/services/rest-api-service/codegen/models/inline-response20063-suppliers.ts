@@ -14,8 +14,8 @@
 
 
 import { ApiV1AdminsGetProductsByStatusBoxProperties } from './api-v1-admins-get-products-by-status-box-properties';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusPriceVariations } from './api-v1-admins-get-products-by-status-price-variations';
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BuyersOrdersMyPaymentMethod } from './api-v1-buyers-orders-my-payment-method';
 
 /**
@@ -134,10 +134,10 @@ export interface InlineResponse20063Suppliers {
     paymentMethods?: Array<ApiV1BuyersOrdersMyPaymentMethod>;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20063Suppliers
      */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * Дата создания.
      * @type {string}

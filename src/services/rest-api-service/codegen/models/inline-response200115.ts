@@ -13,8 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { ApiV1IntegrationsParserAdminsProfilesClient } from './api-v1-integrations-parser-admins-profiles-client';
+import { InlineResponse200115Rows } from './inline-response200115-rows';
 
 /**
  * 
@@ -23,59 +22,17 @@ import { ApiV1IntegrationsParserAdminsProfilesClient } from './api-v1-integratio
  */
 export interface InlineResponse200115 {
     /**
-     * GUID в БД.
-     * @type {string}
+     * Count of rows
+     * @type {number}
      * @memberof InlineResponse200115
      */
-    _id?: string;
-    /**
-     * GoLogin id
-     * @type {string}
-     * @memberof InlineResponse200115
-     */
-    gologinId?: string;
-    /**
-     * Имя в профиле.
-     * @type {string}
-     * @memberof InlineResponse200115
-     */
-    name?: string;
-    /**
-     * email
-     * @type {string}
-     * @memberof InlineResponse200115
-     */
-    email?: string;
-    /**
-     * Хешированный пароль от профиля
-     * @type {string}
-     * @memberof InlineResponse200115
-     */
-    passwordHash?: string;
+    count?: number;
     /**
      * 
-     * @type {ApiV1IntegrationsParserAdminsProfilesClient}
+     * @type {Array<InlineResponse200115Rows>}
      * @memberof InlineResponse200115
      */
-    client?: ApiV1IntegrationsParserAdminsProfilesClient;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusShop}
-     * @memberof InlineResponse200115
-     */
-    shop?: ApiV1AdminsGetProductsByStatusShop;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse200115
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse200115
-     */
-    updatedAt?: string;
+    rows?: Array<InlineResponse200115Rows>;
 }
 
 

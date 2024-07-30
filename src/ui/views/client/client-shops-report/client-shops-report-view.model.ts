@@ -251,7 +251,6 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.onTriggerOpenModal('showSelectShopsModal')
-      toast.error(t(TranslationKey['Something went wrong']))
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }

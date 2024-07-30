@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20054Finances } from './inline-response20054-finances';
 
 /**
  * 
@@ -22,11 +21,41 @@ import { InlineResponse20054Finances } from './inline-response20054-finances';
  */
 export interface InlineResponse20057 {
     /**
-     * 
-     * @type {InlineResponse20054Finances}
+     * The unique identifier of the box.
+     * @type {string}
      * @memberof InlineResponse20057
      */
-    finances?: InlineResponse20054Finances;
+    guid?: string;
+    /**
+     * Объем в м ^ 3
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    cubicMeters?: number;
+    /**
+     * The delivery cost of the box.
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    deliveryCost?: number;
+    /**
+     * The volume weight of the box in kg.
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    volumeWeightKgWarehouse?: number;
+    /**
+     * The weight of the box in kg.
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    weightFinalAccountingKgWarehouse?: number;
+    /**
+     * The delivery rate of the box. $/kg
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    deliveryRate?: number;
 }
 
 

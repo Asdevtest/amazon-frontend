@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse2008 } from './inline-response2008';
+import { InlineResponse2006 } from './inline-response2006';
 
 /**
  * 
@@ -29,10 +29,10 @@ export interface InlineResponse20099 {
     count?: number;
     /**
      * 
-     * @type {Array<InlineResponse2008>}
+     * @type {Array<InlineResponse2006>}
      * @memberof InlineResponse20099
      */
-    rows?: Array<InlineResponse2008>;
+    rows?: Array<InlineResponse2006>;
 }
 
 

@@ -13,7 +13,8 @@
  */
 
 
-import { InlineResponse20052Rows } from './inline-response20052-rows';
+import { InlineResponse20050Finances } from './inline-response20050-finances';
+import { InlineResponse20052Products } from './inline-response20052-products';
 
 /**
  * 
@@ -22,17 +23,17 @@ import { InlineResponse20052Rows } from './inline-response20052-rows';
  */
 export interface InlineResponse20052 {
     /**
-     * Count of rows
-     * @type {number}
+     * 
+     * @type {InlineResponse20052Products}
      * @memberof InlineResponse20052
      */
-    count?: number;
+    products?: InlineResponse20052Products;
     /**
      * 
-     * @type {Array<InlineResponse20052Rows>}
+     * @type {InlineResponse20050Finances}
      * @memberof InlineResponse20052
      */
-    rows?: Array<InlineResponse20052Rows>;
+    finances?: InlineResponse20050Finances;
 }
 
 
