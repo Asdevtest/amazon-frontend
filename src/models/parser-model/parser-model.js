@@ -15,6 +15,11 @@ class ParserModelStatic {
     const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesGuidPatch(guid, body)
     return response.data
   }
+
+  getRequests = async body => {
+    const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(body)
+    return response.data
+  }
 }
 
 export const ParserModel = new ParserModelStatic()

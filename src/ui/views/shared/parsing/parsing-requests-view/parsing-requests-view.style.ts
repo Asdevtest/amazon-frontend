@@ -1,14 +1,16 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  wrapper: {
+  flexRow: {
     display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '20px',
   },
 
-  tableContainer: {
+  tableWrapper: {
+    marginTop: '20px',
     width: '100%',
-    height: '56vh',
+    height: '80vh',
   },
 }))

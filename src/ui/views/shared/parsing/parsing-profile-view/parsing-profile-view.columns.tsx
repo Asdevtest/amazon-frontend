@@ -1,7 +1,6 @@
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -34,7 +33,7 @@ export const parsingProdileViewColumns = ({ onEditProfileModal }: ColumnsProps) 
     {
       field: 'client',
       headerName: t(TranslationKey.Client),
-      renderHeader: r => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
       renderCell: ({ row }: GridRowModel) => (
         <UserMiniCell userName={row.createdBy?.name} userId={row.createdBy?._id} />
       ),
@@ -47,7 +46,7 @@ export const parsingProdileViewColumns = ({ onEditProfileModal }: ColumnsProps) 
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.product?.shop?.name} />,
       width: 120,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
     {
       field: 'email',
@@ -97,10 +96,6 @@ export const parsingProdileViewColumns = ({ onEditProfileModal }: ColumnsProps) 
   ]
 
   for (const column of columns) {
-    if (!column.table) {
-      column.table = DataGridFilterTables.PRODUCT_LISTING_REPORTS
-    }
-
     column.sortable = false
   }
 
