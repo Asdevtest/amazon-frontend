@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useRedFlagStyles = makeStyles()(() => ({
   flagIcon: {
+    marginLeft: '10px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
