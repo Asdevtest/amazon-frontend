@@ -8,6 +8,7 @@ export const parsingProdileViewConfig = {
 
   onEditProfileModal: action.bound,
   onAddProfileModal: action.bound,
+  onForceStart: action.bound,
 }
 
 export const additionalSearchFields = ['name', 'email']

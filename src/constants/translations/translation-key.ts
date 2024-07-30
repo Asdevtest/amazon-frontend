@@ -287,7 +287,7 @@ export enum TranslationKey {
   'Tariff name' = 'Tariff name',
   'Tariff description' = 'Tariff description',
   'Select Tariff' = 'Select Tariff',
-  'reset' = 'reset',
+  'Reset' = 'Reset',
   'Recommended' = 'Recommended',
   'or search by' = 'or search by',
   'search' = 'search',
@@ -2008,4 +2008,6 @@ export enum TranslationKey {
   'Port' = 'Port',
   'DriverSessionData' = 'DriverSessionData',
   'Nobody is approved for this profile yet.' = 'Nobody is approved for this profile yet.',
+  'Parsing data' = 'Parsing data',
+  'Stop' = 'Stop',
 }

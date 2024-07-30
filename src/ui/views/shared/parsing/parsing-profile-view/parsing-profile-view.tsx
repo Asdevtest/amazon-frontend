@@ -27,7 +27,13 @@ export const ParsingProdileView: FC = observer(() => {
   return (
     <>
       <div className={styles.flexRow}>
-        <CustomButton disabled size="large" type="primary" icon={<FaPlay size="12" />}>
+        <CustomButton
+          disabled={!viewModel.selectedRows.length}
+          size="large"
+          type="primary"
+          icon={<FaPlay size="12" />}
+          onClick={viewModel.onForceStart}
+        >
           {t(TranslationKey['Force start'])}
         </CustomButton>
 
@@ -92,7 +98,11 @@ export const ParsingProdileView: FC = observer(() => {
       </div>
 
       <Modal missClickModalOn openModal={viewModel.showToggleProfileModal} setOpenModal={viewModel.onAddProfileModal}>
-        <ParsingProfileForm profile={viewModel.editProfile} onClose={viewModel.onAddProfileModal} />
+        <ParsingProfileForm
+          profile={viewModel.editProfile}
+          onClose={viewModel.onAddProfileModal}
+          onUpdateData={viewModel.getCurrentData}
+        />
       </Modal>
     </>
   )

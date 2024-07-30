@@ -291,7 +291,7 @@
   "Tariff name": "Название тарифа",
   "Tariff description": "Описание тарифа",
   "Select Tariff": "Выбрать тариф",
-  "reset": "Сбросить",
+  "Reset": "Сбросить",
   "Recommended": "Рекомендованные",
   "or search by": "или поиск по",
   "search": "поиск",
@@ -2007,5 +2007,7 @@
   "OTP": "OTP",
   "Port": "Порт",
   "DriverSessionData": "DriverSessionData",
-  "Nobody is approved for this profile yet.": "Никто еще не утвержден для этого профиля."
+  "Nobody is approved for this profile yet.": "Никто еще не утвержден для этого профиля.",
+  "Parsing data": "Анализ данных",
+  "Stop": "Стоп"
 }

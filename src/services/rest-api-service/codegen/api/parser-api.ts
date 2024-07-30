@@ -47,8 +47,6 @@ import { InlineResponse200115 } from '../models';
 // @ts-ignore
 import { InlineResponse200116 } from '../models';
 // @ts-ignore
-import { InlineResponse200117 } from '../models';
-// @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
 import { NotFoundError } from '../models';
@@ -576,58 +574,6 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * ## Посмотреть пароль от профиля.
-         * @summary # Посмотреть пароль от профиля.
-         * @param {string} profileId Profile guid
-         * @param {string} password Hashed password
-         * @param {string} [acceptEncoding] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiV1IntegrationsParserPasswordGet: async (profileId: string, password: string, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'profileId' is not null or undefined
-            assertParamExists('apiV1IntegrationsParserPasswordGet', 'profileId', profileId)
-            // verify required parameter 'password' is not null or undefined
-            assertParamExists('apiV1IntegrationsParserPasswordGet', 'password', password)
-            const localVarPath = `/api/v1/integrations/parser/password`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication AccessTokenBearer required
-            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
-
-            if (profileId !== undefined) {
-                localVarQueryParameter['profileId'] = profileId;
-            }
-
-            if (password !== undefined) {
-                localVarQueryParameter['password'] = password;
-            }
-
-            if (acceptEncoding !== undefined && acceptEncoding !== null) {
-                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -671,7 +617,7 @@ export const ParserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserAdminsProfilesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200116>>> {
+        async apiV1IntegrationsParserAdminsProfilesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200115>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsProfilesGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -707,7 +653,7 @@ export const ParserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200117>>> {
+        async apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200116>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -785,19 +731,6 @@ export const ParserApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserClientsProfilesReceivingPost(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
-        /**
-         * ## Посмотреть пароль от профиля.
-         * @summary # Посмотреть пароль от профиля.
-         * @param {string} profileId Profile guid
-         * @param {string} password Hashed password
-         * @param {string} [acceptEncoding] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiV1IntegrationsParserPasswordGet(profileId: string, password: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200115>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserPasswordGet(profileId, password, acceptEncoding, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
     }
 };
 
@@ -839,7 +772,7 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsProfilesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200116>> {
+        apiV1IntegrationsParserAdminsProfilesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200115>> {
             return localVarFp.apiV1IntegrationsParserAdminsProfilesGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -872,7 +805,7 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200117>> {
+        apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200116>> {
             return localVarFp.apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -942,18 +875,6 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
          */
         apiV1IntegrationsParserClientsProfilesReceivingPost(guid: string, body?: InlineObject156, acceptEncoding?: string, options?: any): AxiosPromise<ParamsGuid> {
             return localVarFp.apiV1IntegrationsParserClientsProfilesReceivingPost(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * ## Посмотреть пароль от профиля.
-         * @summary # Посмотреть пароль от профиля.
-         * @param {string} profileId Profile guid
-         * @param {string} password Hashed password
-         * @param {string} [acceptEncoding] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiV1IntegrationsParserPasswordGet(profileId: string, password: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200115> {
-            return localVarFp.apiV1IntegrationsParserPasswordGet(profileId, password, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1232,34 +1153,6 @@ export interface ParserApiApiV1IntegrationsParserClientsProfilesReceivingPostReq
 }
 
 /**
- * Request parameters for apiV1IntegrationsParserPasswordGet operation in ParserApi.
- * @export
- * @interface ParserApiApiV1IntegrationsParserPasswordGetRequest
- */
-export interface ParserApiApiV1IntegrationsParserPasswordGetRequest {
-    /**
-     * Profile guid
-     * @type {string}
-     * @memberof ParserApiApiV1IntegrationsParserPasswordGet
-     */
-    readonly profileId: string
-
-    /**
-     * Hashed password
-     * @type {string}
-     * @memberof ParserApiApiV1IntegrationsParserPasswordGet
-     */
-    readonly password: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof ParserApiApiV1IntegrationsParserPasswordGet
-     */
-    readonly acceptEncoding?: string
-}
-
-/**
  * ParserApi - object-oriented interface
  * @export
  * @class ParserApi
@@ -1408,17 +1301,5 @@ export class ParserApi extends BaseAPI {
      */
     public apiV1IntegrationsParserClientsProfilesReceivingPost(requestParameters: ParserApiApiV1IntegrationsParserClientsProfilesReceivingPostRequest, options?: any) {
         return ParserApiFp(this.configuration).apiV1IntegrationsParserClientsProfilesReceivingPost(requestParameters.guid, requestParameters.body, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * ## Посмотреть пароль от профиля.
-     * @summary # Посмотреть пароль от профиля.
-     * @param {ParserApiApiV1IntegrationsParserPasswordGetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ParserApi
-     */
-    public apiV1IntegrationsParserPasswordGet(requestParameters: ParserApiApiV1IntegrationsParserPasswordGetRequest, options?: any) {
-        return ParserApiFp(this.configuration).apiV1IntegrationsParserPasswordGet(requestParameters.profileId, requestParameters.password, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 }

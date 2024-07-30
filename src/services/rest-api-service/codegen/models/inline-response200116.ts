@@ -29,29 +29,11 @@ export interface InlineResponse200116 {
      */
     _id?: string;
     /**
-     * GoLogin id
+     * Profile guid
      * @type {string}
      * @memberof InlineResponse200116
      */
-    gologinId?: string;
-    /**
-     * Имя в профиле.
-     * @type {string}
-     * @memberof InlineResponse200116
-     */
-    name?: string;
-    /**
-     * email
-     * @type {string}
-     * @memberof InlineResponse200116
-     */
-    email?: string;
-    /**
-     * Хешированный пароль от профиля
-     * @type {string}
-     * @memberof InlineResponse200116
-     */
-    passwordHash?: string;
+    profileId?: string;
     /**
      * 
      * @type {ApiV1IntegrationsParserAdminsProfilesClient}
@@ -65,17 +47,11 @@ export interface InlineResponse200116 {
      */
     shop?: ApiV1AdminsGetProductsByStatusShop;
     /**
-     * Дата создания
+     * Receiving request status
      * @type {string}
      * @memberof InlineResponse200116
      */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse200116
-     */
-    updatedAt?: string;
+    status?: string;
 }
 
 

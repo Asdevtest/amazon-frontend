@@ -27,16 +27,14 @@ export const parsingProdileViewColumns = ({ onEditProfileModal }: ColumnsProps) 
       headerName: t(TranslationKey.Name),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.name} />,
-      width: 130,
+      width: 200,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
       field: 'client',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <UserMiniCell userName={row.createdBy?.name} userId={row.createdBy?._id} />
-      ),
+      renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
       width: 160,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
@@ -44,7 +42,7 @@ export const parsingProdileViewColumns = ({ onEditProfileModal }: ColumnsProps) 
       field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: ({ row }: GridRowModel) => <TextCell text={row.product?.shop?.name} />,
+      renderCell: ({ row }: GridRowModel) => <TextCell text={row.shop?.name} />,
       width: 120,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
@@ -53,7 +51,7 @@ export const parsingProdileViewColumns = ({ onEditProfileModal }: ColumnsProps) 
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.email} />,
-      width: 160,
+      width: 240,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
@@ -84,7 +82,7 @@ export const parsingProdileViewColumns = ({ onEditProfileModal }: ColumnsProps) 
           isFirstButton
           firstButtonElement={<EditIcon />}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={() => onEditProfileModal(row._id)}
+          onClickFirstButton={() => onEditProfileModal(row)}
         />
       ),
       disableExport: true,

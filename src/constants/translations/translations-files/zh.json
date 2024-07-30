@@ -291,7 +291,7 @@
   "Tariff name": "费用名称",
   "Tariff description": "费用的描述",
   "Select Tariff": "选择费用",
-  "reset": "复位",
+  "Reset": "复位",
   "Recommended": "建议",
   "or search by": "或按关键词搜素",
   "search": "搜索",
@@ -2000,5 +2000,7 @@
   "OTP": "OTP",
   "Port": "端口",
   "DriverSessionData": "DriverSessionData",
-  "Nobody is approved for this profile yet.": "此配置文件尚未获得任何人的批准."
+  "Nobody is approved for this profile yet.": "此配置文件尚未获得任何人的批准.",
+  "Parsing data": "解析数据",
+  "Stop": "停止"
 }

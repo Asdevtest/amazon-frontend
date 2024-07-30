@@ -33,7 +33,7 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
       tableKey: DataGridTablesKeys.PARSING_PROFILES,
     })
 
-    // this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
     // this.getDataGridState()
     this.getCurrentData()
 
@@ -52,5 +52,15 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
   onAddProfileModal() {
     this.editProfile = undefined
     this.onToggleProfileModal()
+  }
+
+  async onForceStart() {
+    try {
+      await ParserModel.onForceStart(this.selectedRows)
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
