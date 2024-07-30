@@ -31,7 +31,7 @@ export interface InlineResponse20054Products {
      * @type {number}
      * @memberof InlineResponse20054Products
      */
-    success?: number;
+    publishedOnExchange?: number;
     /**
      * 
      * @type {number}
@@ -43,25 +43,7 @@ export interface InlineResponse20054Products {
      * @type {number}
      * @memberof InlineResponse20054Products
      */
-    newSearchFromSupervisor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20054Products
-     */
-    newSearchFromClient?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20054Products
-     */
-    inProcessOfSearching?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20054Products
-     */
-    canceled?: number;
+    rejected?: number;
 }
 
 

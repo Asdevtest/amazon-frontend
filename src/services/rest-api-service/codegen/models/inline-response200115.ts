@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse200115Rows } from './inline-response200115-rows';
 
 /**
  * 
@@ -21,11 +22,17 @@
  */
 export interface InlineResponse200115 {
     /**
-     * Human readable password
-     * @type {string}
+     * Count of rows
+     * @type {number}
      * @memberof InlineResponse200115
      */
-    password?: string;
+    count?: number;
+    /**
+     * 
+     * @type {Array<InlineResponse200115Rows>}
+     * @memberof InlineResponse200115
+     */
+    rows?: Array<InlineResponse200115Rows>;
 }
 
 

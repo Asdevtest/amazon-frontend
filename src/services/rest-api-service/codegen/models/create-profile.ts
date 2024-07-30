@@ -75,18 +75,6 @@ export interface CreateProfile {
      */
     driverSessionData?: object;
     /**
-     * Parser state
-     * @type {boolean}
-     * @memberof CreateProfile
-     */
-    isActive?: boolean;
-    /**
-     * Profile access to sellercentral
-     * @type {boolean}
-     * @memberof CreateProfile
-     */
-    access?: boolean;
-    /**
      * Port of browser
      * @type {number}
      * @memberof CreateProfile

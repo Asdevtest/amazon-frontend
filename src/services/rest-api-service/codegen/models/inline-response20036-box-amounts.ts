@@ -45,6 +45,18 @@ export interface InlineResponse20036BoxAmounts {
      * @memberof InlineResponse20036BoxAmounts
      */
     amountInBoxes?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20036BoxAmounts
+     */
+    recommendedValue?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20036BoxAmounts
+     */
+    toRefill?: number;
 }
 
 

@@ -1,6 +1,6 @@
 import { Form } from 'antd'
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,22 +20,37 @@ import { FieldType } from './product-data-form.type'
 interface ParsingProfileFormProps {
   profile?: IParsingProfile
   onClose?: () => void
+  onUpdateData?: () => void
 }
 
 export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props => {
-  const { profile, onClose } = props
+  const { profile, onClose, onUpdateData } = props
+
+  const isEditMode = !!profile
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ParsingProfileFormModel({ isEdit: !!profile }))
+  const [viewModel] = useState(() => new ParsingProfileFormModel())
   const [form] = Form.useForm()
 
+  useEffect(() => {
+    if (isEditMode) {
+      form.setFieldsValue({
+        name: profile?.name || '',
+        gologinId: profile?.gologinId || '',
+        email: profile?.email || '',
+        password: profile?.passwordHash || '',
+      })
+    }
+  }, [])
+
   const onFinish = (values: FieldType) => {
-    viewModel.onCreateProfile(values)
+    isEditMode ? viewModel.onEditProfile(profile?._id, values) : viewModel.onCreateProfile(values)
     form.resetFields()
     onClose?.()
+    onUpdateData?.()
   }
 
-  const title = (profile ? 'Edit' : 'Add') + ' parsing profile'
+  const title = (isEditMode ? 'Edit' : 'Add') + ' parsing profile'
 
   return (
     <div className={styles.wrapper}>
@@ -43,7 +58,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
 
       <Form name="parsing profile" autoComplete="off" form={form} onFinish={onFinish}>
         <div className={styles.container}>
-          <ParsingDataBlock isEdit={!!profile} />
+          <ParsingDataBlock profile={profile} />
           <Form.Item<FieldType> name="name" className={styles.field}>
             <CustomInput allowClear size="large" label="Name" wrapperClassName={styles.input} />
           </Form.Item>

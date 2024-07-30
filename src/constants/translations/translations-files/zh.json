@@ -291,7 +291,7 @@
   "Tariff name": "费用名称",
   "Tariff description": "费用的描述",
   "Select Tariff": "选择费用",
-  "reset": "复位",
+  "Reset": "复位",
   "Recommended": "建议",
   "or search by": "或按关键词搜素",
   "search": "搜索",
@@ -948,8 +948,6 @@
   "Create/edit a store based on the data you entered": "基于输入的数据创建/编辑商店",
   "Closes the store creation/editing window without saving": "关闭商店创建/编辑框而不保存",
   "Download the file to your device": "文件下载到您的设备上",
-  "Change store name or links to reports": "更改商店名称或向报告的链接",
-  "Remove a store from your list": "从你的列表移除此商店",
   "Binds integration to the product card": "绑定集成到产品卡",
   "Important notifications on changes in order price, batch or irrelevant tariff": "订单位价格格的改变的重要通知, 批次或无相关的费用",
   "Notifications of required surcharges for the order": "需要附加费的通知",
@@ -2000,5 +1998,10 @@
   "OTP": "OTP",
   "Port": "端口",
   "DriverSessionData": "DriverSessionData",
-  "Nobody is approved for this profile yet.": "此配置文件尚未获得任何人的批准."
+  "Nobody is approved for this profile yet.": "此配置文件尚未获得任何人的批准.",
+  "Parsing data": "解析数据",
+  "Stop": "停止",
+  "Search by Title": "按标题搜索",
+  "Parsing profile": "解析配置文件",
+  "Request sent": "请求已发送"
 }

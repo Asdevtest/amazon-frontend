@@ -51,12 +51,6 @@ export interface InlineObject161 {
      */
     otp?: string;
     /**
-     * Driver session data (JSONB object)
-     * @type {object}
-     * @memberof InlineObject161
-     */
-    driverSessionData?: object;
-    /**
      * Состояние парсера
      * @type {boolean}
      * @memberof InlineObject161

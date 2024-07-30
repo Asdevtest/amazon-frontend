@@ -315,7 +315,7 @@ export const AddOrEditGroupPermissionForm = observer(
                           disabled={!curPermissions.length}
                           onClick={() => onChangeField('permissions')({ target: { value: [] } })}
                         >
-                          {t(TranslationKey.reset)}
+                          {t(TranslationKey.Reset)}
                         </Button>
                       </div>
                     </Select>

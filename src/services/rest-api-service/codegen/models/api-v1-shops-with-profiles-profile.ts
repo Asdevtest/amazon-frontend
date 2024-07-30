@@ -32,6 +32,18 @@ export interface ApiV1ShopsWithProfilesProfile {
      * @memberof ApiV1ShopsWithProfilesProfile
      */
     isActive?: boolean;
+    /**
+     * Profile access to sellercentral
+     * @type {boolean}
+     * @memberof ApiV1ShopsWithProfilesProfile
+     */
+    access?: boolean;
+    /**
+     * Request status
+     * @type {string}
+     * @memberof ApiV1ShopsWithProfilesProfile
+     */
+    requestStatus?: string;
 }
 
 

@@ -291,7 +291,7 @@
   "Tariff name": "Назва тарифу",
   "Tariff description": "Опис тарифу",
   "Select Tariff": "Вибрати тариф",
-  "reset": "Скинути",
+  "Reset": "Скинути",
   "Recommended": "Рекомендовані",
   "or search by": "або пошук за",
   "search": "пошук",
@@ -951,8 +951,6 @@
   "Create/edit a store based on the data you entered": "Створити/редагувати магазин на основі введених Вами даних",
   "Closes the store creation/editing window without saving": "Закриває вікно створення/редагування магазину без збереження",
   "Download the file to your device": "Завантажити файл на пристрій",
-  "Change store name or links to reports": "Змінити назву магазину або посилання на звіти",
-  "Remove a store from your list": "Видалити магазин зі свого списку",
   "Binds integration to the product card": "Прив'язати інтеграцію до картки товару",
   "Important notifications on changes in order price, batch or irrelevant tariff": "Важливі сповіщення про зміни ціни замовлення, партії або неактуального тарифу",
   "Notifications of required surcharges for the order": "Сповіщення про необхідні доплати за замовлення",
@@ -2004,5 +2002,10 @@
   "OTP": "OTP",
   "Port": "Порт",
   "DriverSessionData": "DriverSessionData",
-  "Nobody is approved for this profile yet.": "Ніхто ще не затверджений для цього профілю."
+  "Nobody is approved for this profile yet.": "Ніхто ще не затверджений для цього профілю.",
+  "Parsing data": "Аналіз даних",
+  "Stop": "Стоп",
+  "Search by Title": "Пошук за назвою",
+  "Parsing profile": "Аналіз профілю",
+  "Request sent": "Запит надіслано"
 }

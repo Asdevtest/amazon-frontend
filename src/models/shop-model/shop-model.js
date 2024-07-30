@@ -25,6 +25,11 @@ class ShopModelStatic {
     const response = await restApiService.shopApi.apiV1ShopsGuidDelete({ guid })
     return response.data
   }
+
+  getShopsWithProfiles = async () => {
+    const response = await restApiService.shopApi.apiV1ShopsWithProfilesGet({ noCache: true })
+    return response.data
+  }
 }
 
 export const ShopModel = new ShopModelStatic()

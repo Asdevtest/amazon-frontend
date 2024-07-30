@@ -6,52 +6,52 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 import { DataGridTableModel } from '@models/data-grid-table-model'
+import { ParserModel } from '@models/parser-model'
 import { ShopModel } from '@models/shop-model'
-
-import { shopsColumns } from '@components/table/table-columns/shops-columns'
 
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IShop } from '@typings/models/shops/shop'
 
-import { observerConfig } from './model-config'
+import { shopsColumns } from './client-shops-view.columns'
+import { shopsViewModelConfig } from './client-shops-view.config'
+import { IColumnProps } from './client-shops-view.types'
 
 export class ShopsViewModel extends DataGridTableModel {
-  selectedShop: IShop | null = null
-
+  selectedShop?: IShop
   showAddOrEditShopModal = false
-  showConfirmModal = false
+
+  get disableUpdateButton() {
+    return !this.selectedRows.length || this.requestStatus === loadingStatus.IS_LOADING
+  }
 
   constructor() {
-    const rowHandlers = {
-      onClickRemoveBtn: (row: IShop) => this.onClickRemoveBtn(row),
-      onClickEditBtn: (row: IShop) => this.onClickEditBtn(row),
-
-      onClickSeeShopReport: (currentReport: string, row: IShop) => this.onClickSeeShopReport(currentReport, row),
+    const columnsProps: IColumnProps = {
+      onRemoveShop: id => this.onRemoveShop(id),
+      onEditShop: row => this.onEditShop(row),
+      onConfirmProfile: id => this.onConfirmProfile(id),
     }
 
     super({
-      getMainDataMethod: ShopModel.getMyShops,
-      columnsModel: shopsColumns(rowHandlers),
+      getMainDataMethod: ShopModel.getShopsWithProfiles,
+      columnsModel: shopsColumns(columnsProps),
       tableKey: DataGridTablesKeys.CLIENT_SHOPS,
       fieldsForSearch: ['name'],
     })
 
-    makeObservable(this, observerConfig)
-
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
     this.getDataGridState()
-
     this.getCurrentData()
+    this.initHistory()
+
+    makeObservable(this, shopsViewModelConfig)
   }
 
-  async updateShops() {
+  async onUpdateShops() {
     try {
       const isMoreThenThree = this.selectedRows?.length > 3
 
-      this.setRequestStatus(loadingStatus.IS_LOADING)
       await ClientModel.updateShops(this.selectedRows, isMoreThenThree)
 
       if (isMoreThenThree) {
@@ -61,31 +61,14 @@ export class ShopsViewModel extends DataGridTableModel {
       }
 
       this.selectedRows = []
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
-
-      toast.error(t(TranslationKey['Something went wrong']))
-
-      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
-  onSubmitShopForm(data: IShop, shopId: string) {
-    this.createShop(data, shopId)
-    this.onTriggerOpenModal('showAddOrEditShopModal')
-  }
-
-  async createShop(data: IShop, shopId: string) {
+  async onCreateShop(data: IShop, shopId: string) {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      if (!data.reportAccountUrl) {
-        // @ts-ignore
-        delete data.reportAccountUrl
-      }
-
       if (shopId) {
         await ShopModel.editShop(shopId, data)
 
@@ -96,63 +79,45 @@ export class ShopsViewModel extends DataGridTableModel {
         toast.success(t(TranslationKey['Store created']))
       }
 
+      this.onTriggerOpenModal('showAddOrEditShopModal')
+
       this.getCurrentData()
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-
-      toast.error(t(TranslationKey['Something went wrong']))
-    }
-  }
-
-  async removeShopById() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      await ShopModel.removeShopById(this.selectedShop?._id)
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-    }
-  }
-
-  async onSubmitRemoveShop() {
-    try {
-      await this.removeShopById()
-      this.getCurrentData()
-
-      this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.error(error)
     }
   }
 
-  onClickEditBtn(row: IShop) {
-    this.selectedShop = row
-    this.onTriggerOpenModal('showAddOrEditShopModal')
-  }
-
-  onClickRemoveBtn(row: IShop) {
-    this.selectedShop = row
-    this.confirmModalSettings = {
-      isWarning: false,
-      title: t(TranslationKey.Attention),
-      message: t(TranslationKey['Are you sure you want to delete the store?']),
-      onSubmit: () => this.onSubmitRemoveShop(),
-      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
-    }
-    this.onTriggerOpenModal('showConfirmModal')
-  }
-
-  onClickAddBtn() {
-    this.selectedShop = null
-    this.onTriggerOpenModal('showAddOrEditShopModal')
-  }
-
-  onClickSeeShopReport(currentReport: string, row: IShop) {
+  onSeeShopReport(currentReport: string, row: IShop) {
     this.history.push(`/client/shops/reports?currentReport=${currentReport}&shopId=${row?._id}`)
+  }
+
+  onEditShop(row: IShop) {
+    this.selectedShop = row
+    this.onTriggerOpenModal('showAddOrEditShopModal')
+  }
+
+  onAddShop() {
+    this.selectedShop = undefined
+    this.onTriggerOpenModal('showAddOrEditShopModal')
+  }
+
+  async onRemoveShop(id: string) {
+    try {
+      await ShopModel.removeShopById(id)
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onConfirmProfile(id: string) {
+    try {
+      await ParserModel.onCreateGoLigin(id)
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

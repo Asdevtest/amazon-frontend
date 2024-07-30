@@ -1,4 +1,5 @@
 export const parsingRequestsViewConfig = {}
 
-export const additionalFilterFields = ['asin', 'amazonTitle', 'skuByClient', 'sub', 'launchDateFrom', 'launchDateTo']
-export const additionalSearchFields = ['asin', 'amazonTitle', 'skuByClient', 'launchType']
+export const additionalSearchFields = ['name', 'email']
+
+export interface ColumnsProps {}
