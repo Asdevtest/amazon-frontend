@@ -2009,6 +2009,12 @@
   "Parsing data": "Анализ данных",
   "Stop": "Стоп",
   "Search by Title": "Поиск по названию",
-  "Parsing profile": "Анализ профиля",
-  "Request sent": "Запрос отправлен"
+  "Parsing profile": "Парсинг профиля",
+  "Request sent": "Запрос отправлен",
+  "Parsing access": "Парсинг доступа",
+  "Access": "Доступ",
+  "issued": "выдано",
+  "Parsing status": "Парсинг статуса",
+  "Profile with given guid not found!": "Профиль с указанным ID не найден!",
+  "Profile does not belongs to you!": "Профиль вам не принадлежит!"
 }

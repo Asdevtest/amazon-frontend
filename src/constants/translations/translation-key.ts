@@ -2011,4 +2011,10 @@ export enum TranslationKey {
   'Search by Title' = 'Search by Title',
   'Parsing profile' = 'Parsing profile',
   'Request sent' = 'Request sent',
+  'Parsing access' = 'Parsing access',
+  'Access' = 'Access',
+  'issued' = 'issued',
+  'Parsing status' = 'Parsing status',
+  'Profile with given guid not found!' = 'Profile with given guid not found!',
+  'Profile does not belongs to you!' = 'Profile does not belongs to you!',
 }

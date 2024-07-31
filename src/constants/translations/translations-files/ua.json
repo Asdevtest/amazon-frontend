@@ -2006,6 +2006,12 @@
   "Parsing data": "Аналіз даних",
   "Stop": "Стоп",
   "Search by Title": "Пошук за назвою",
-  "Parsing profile": "Аналіз профілю",
-  "Request sent": "Запит надіслано"
+  "Parsing profile": "Парсинг профілю",
+  "Request sent": "Запит надіслано",
+  "Parsing access": "Парсинг доступу",
+  "Access": "Доступ",
+  "issued": "видано",
+  "Parsing status": "Парсинг статусу",
+  "Profile with given guid not found!": "Профіль із зазначеним ID не знайдено!",
+  "Profile does not belongs to you!": "Профіль не належить вам!"
 }

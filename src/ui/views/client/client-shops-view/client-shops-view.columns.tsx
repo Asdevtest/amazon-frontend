@@ -16,9 +16,13 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { IColumnProps } from './client-shops-view.types'
+import { ParsingAccessCell } from './parsing-access-cell'
 import { ParsingProfileCell } from './parsing-profile-cell'
+import { ParsingStatusCell } from './parsing-status-cell'
 
-export const shopsColumns = ({ onRemoveShop, onEditShop, onConfirmProfile }: IColumnProps) => {
+export const shopsColumns = (props: IColumnProps) => {
+  const { onRemoveShop, onEditShop, onParsingProfile, onParsingAccess, onParsingStatus } = props
+
   const columns: IGridColumn[] = [
     {
       field: 'updatedAt',
@@ -32,16 +36,37 @@ export const shopsColumns = ({ onRemoveShop, onEditShop, onConfirmProfile }: ICo
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.name} />,
-      width: 180,
+      width: 240,
     },
     {
       field: 'profile',
       headerName: t(TranslationKey['Parsing profile']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing profile'])} />,
       renderCell: ({ row }: GridRowModel) => (
-        <ParsingProfileCell profile={row.profile} onConfirm={() => onConfirmProfile(row._id)} />
+        <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />
       ),
-      width: 200,
+      width: 240,
+    },
+    {
+      field: 'access',
+      headerName: t(TranslationKey['Parsing access']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing access'])} />,
+      renderCell: ({ row }: GridRowModel) => (
+        <ParsingAccessCell isActive={row.profile?.isActive} onAccess={() => onParsingAccess(row.profile?.email)} />
+      ),
+      width: 160,
+    },
+    {
+      field: 'status',
+      headerName: t(TranslationKey['Parsing status']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing status'])} />,
+      renderCell: ({ row }: GridRowModel) => (
+        <ParsingStatusCell
+          isActive={row.profile?.isActive || false}
+          onClick={() => onParsingStatus(row._id, !row.profile?.isActive)}
+        />
+      ),
+      width: 160,
     },
     {
       field: 'action',

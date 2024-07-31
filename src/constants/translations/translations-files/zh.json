@@ -2003,5 +2003,11 @@
   "Stop": "停止",
   "Search by Title": "按标题搜索",
   "Parsing profile": "解析配置文件",
-  "Request sent": "请求已发送"
+  "Request sent": "请求已发送",
+  "Parsing access": "解析访问",
+  "Access": "访问",
+  "issued": "签发",
+  "Parsing status": "解析状态",
+  "Profile with given guid not found!": "找不到具有给定ID的配置文件!",
+  "Profile does not belongs to you!": "该配置文件不属于您!"
 }

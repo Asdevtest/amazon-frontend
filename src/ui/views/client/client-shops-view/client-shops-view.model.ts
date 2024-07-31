@@ -30,7 +30,9 @@ export class ShopsViewModel extends DataGridTableModel {
     const columnsProps: IColumnProps = {
       onRemoveShop: id => this.onRemoveShop(id),
       onEditShop: row => this.onEditShop(row),
-      onConfirmProfile: id => this.onConfirmProfile(id),
+      onParsingProfile: id => this.onParsingProfile(id),
+      onParsingAccess: email => this.onParsingAccess(email),
+      onParsingStatus: (id, isActive) => this.onParsingStatus(id, isActive),
     }
 
     super({
@@ -111,13 +113,35 @@ export class ShopsViewModel extends DataGridTableModel {
     }
   }
 
-  async onConfirmProfile(id: string) {
+  async onParsingProfile(id: string) {
     try {
-      await ParserModel.onCreateGoLigin(id)
+      await ParserModel.onParsingProfile(id)
 
       this.getCurrentData()
     } catch (error) {
       console.error(error)
+    }
+  }
+
+  async onParsingAccess(email: string) {
+    try {
+      await ParserModel.onParsingAccess(email)
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+      toast.error(t(TranslationKey['Profile does not belongs to you!']))
+    }
+  }
+
+  async onParsingStatus(id: string, isActive: boolean) {
+    try {
+      await ParserModel.onParsingStatus(id, isActive)
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+      toast.error(t(TranslationKey['Profile with given guid not found!']))
     }
   }
 }
