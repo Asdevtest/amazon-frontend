@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RestoreRequestModal } from '@components/requests-and-request-proposals/restore-request-modal/'
 import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 
@@ -78,7 +79,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
                 <Button
                   fullWidth
                   styleType={ButtonStyle.DANGER}
-                  tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
+                  title={t(TranslationKey['Delete the selected request'])}
                   onClick={onClickCancelBtn}
                 >
                   {t(TranslationKey.Delete)}
@@ -86,21 +87,22 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
                 <Button
                   fullWidth
-                  tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
+                  title={t(TranslationKey['Allows you to change the selected request'])}
                   onClick={onClickEditBtn}
                 >
                   {t(TranslationKey.Edit)}
                 </Button>
 
                 {showPublishButton && (
-                  <Button
-                    fullWidth
-                    styleType={ButtonStyle.SUCCESS}
-                    tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
+                  <CustomButton
+                    block
+                    type="primary"
+                    size="large"
+                    title={t(TranslationKey['Publish the selected request on the exchange'])}
                     onClick={onClickPublishBtn}
                   >
                     {t(TranslationKey.Publish)}
-                  </Button>
+                  </CustomButton>
                 )}
               </>
             )}

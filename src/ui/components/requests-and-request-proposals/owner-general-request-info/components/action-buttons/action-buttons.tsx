@@ -69,7 +69,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
             <Button
               fullWidth
               styleType={ButtonStyle.DANGER}
-              tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
+              title={t(TranslationKey['Delete the selected request'])}
               onClick={onClickCancelBtn}
             >
               {t(TranslationKey.Delete)}
@@ -77,7 +77,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
 
             <Button
               fullWidth
-              tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
+              title={t(TranslationKey['Allows you to change the selected request'])}
               onClick={onClickEditBtn}
             >
               {t(TranslationKey.Edit)}
@@ -86,7 +86,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
           <Button
             fullWidth
             styleType={ButtonStyle.SUCCESS}
-            tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
+            title={t(TranslationKey['Publish the selected request on the exchange'])}
             onClick={onClickPublishBtn}
           >
             {t(TranslationKey.Publish)}
@@ -102,7 +102,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
                   <Button
                     fullWidth
                     styleType={ButtonStyle.DANGER}
-                    tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
+                    title={t(TranslationKey['Delete the selected request'])}
                     onClick={onClickCancelBtn}
                   >
                     {t(TranslationKey.Delete)}
@@ -112,7 +112,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
                 {status === RequestStatus.PUBLISHED && (
                   <Button
                     fullWidth
-                    tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
+                    title={t(TranslationKey['Allows you to change the selected request'])}
                     onClick={onClickEditBtn}
                   >
                     {t(TranslationKey.Edit)}
@@ -134,7 +134,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
             <div className={cx(styles.btnsRow, styles.btnsRowIsLast)}>
               <Button
                 fullWidth
-                tooltipInfoContent={
+                title={
                   status !== RequestStatus.FORBID_NEW_PROPOSALS
                     ? t(TranslationKey['Removes the visibility of the request on the exchange'])
                     : ''
