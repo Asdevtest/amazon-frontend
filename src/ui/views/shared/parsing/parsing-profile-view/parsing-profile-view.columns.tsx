@@ -1,12 +1,12 @@
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  SwitchCell,
   TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
@@ -20,15 +20,16 @@ import { IGridColumn } from '@typings/shared/grid-column'
 
 import { ColumnsProps } from './parsing-profile-view.config'
 
-export const parsingProdileViewColumns = ({ onEditProfileModal }: ColumnsProps) => {
+export const parsingProdileViewColumns = (props: ColumnsProps) => {
+  const { onEditProfileModal, onForceStart, onForceStop } = props
+
   const columns: IGridColumn[] = [
     {
       field: 'name',
       headerName: t(TranslationKey.Name),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.name} />,
-      width: 200,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      width: 240,
     },
     {
       field: 'client',
@@ -36,23 +37,42 @@ export const parsingProdileViewColumns = ({ onEditProfileModal }: ColumnsProps) 
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
       renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
       width: 160,
-      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
     {
       field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.shop?.name} />,
-      width: 120,
-      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      width: 240,
     },
     {
       field: 'email',
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.email} />,
-      width: 240,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      width: 360,
+    },
+    {
+      field: 'status',
+      headerName: t(TranslationKey.Status),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+      renderCell: ({ row }: GridRowModel) => {
+        const value = [row._id]
+        const handleSubmit = () => (row.isActive ? onForceStop(value) : onForceStart(value))
+
+        return <SwitchCell value={row.isActive} onClick={handleSubmit} />
+      },
+      width: 100,
+    },
+    {
+      field: 'access',
+      headerName: t(TranslationKey.Access),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Access)} />,
+      renderCell: ({ row }: GridRowModel) => {
+        const text = row.isActive ? t(TranslationKey.Yes) : t(TranslationKey.No)
+        return <TextCell center copyable={false} text={text} />
+      },
+      width: 100,
     },
     {
       field: 'updatedAt',
@@ -61,7 +81,6 @@ export const parsingProdileViewColumns = ({ onEditProfileModal }: ColumnsProps) 
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
       valueGetter: (row: GridRowModel) => formatShortDateTime(row?.updatedAt),
       width: 115,
-      columnKey: columnnsKeys.shared.DATE,
     },
     {
       field: 'createdAt',
@@ -70,7 +89,6 @@ export const parsingProdileViewColumns = ({ onEditProfileModal }: ColumnsProps) 
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
       valueGetter: (row: GridRowModel) => formatShortDateTime(row?.createdAt),
       width: 115,
-      columnKey: columnnsKeys.shared.DATE,
     },
     {
       field: 'action',
@@ -95,6 +113,7 @@ export const parsingProdileViewColumns = ({ onEditProfileModal }: ColumnsProps) 
 
   for (const column of columns) {
     column.sortable = false
+    column.filterable = false
   }
 
   return columns

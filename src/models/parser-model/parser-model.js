@@ -7,7 +7,7 @@ class ParserModelStatic {
   }
 
   createProfile = async body => {
-    const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesPost(body)
+    const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesPost({ body })
     return response.data
   }
 

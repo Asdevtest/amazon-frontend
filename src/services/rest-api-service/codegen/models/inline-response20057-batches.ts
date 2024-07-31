@@ -17,15 +17,21 @@
 /**
  * 
  * @export
- * @interface InlineObject24
+ * @interface InlineResponse20057Batches
  */
-export interface InlineObject24 {
+export interface InlineResponse20057Batches {
     /**
      * 
-     * @type {Array<string>}
-     * @memberof InlineObject24
+     * @type {number}
+     * @memberof InlineResponse20057Batches
      */
-    boxesIds: Array<string>;
+    awaitingSend?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20057Batches
+     */
+    sent?: number;
 }
 
 

@@ -1,6 +1,6 @@
 import { Avatar } from 'antd'
 import { FC, memo } from 'react'
-import { AiOutlineUser } from 'react-icons/ai'
+import { AiOutlineUser, AiTwotoneShop } from 'react-icons/ai'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -36,14 +36,19 @@ export const ParsingDataBlock: FC<ParsingDataBlockProps> = memo(props => {
       <p className={styles.title}>{t(TranslationKey['Parsing data'])}</p>
 
       <div className={styles.info}>
-        <TextCell text={profile?.shop?.name || ''} />
+        <div className={styles.shop}>
+          <AiTwotoneShop size="24" />
+          <TextCell copyable={false} text={profile?.shop?.name || ''} />
+        </div>
 
         <UserMiniCell userName={profile?.client?.name} userId={profile?.client?._id} />
       </div>
 
       <div className={styles.buttons}>
-        <CustomButton size="small">{t(TranslationKey.Reset)}</CustomButton>
-        <CustomButton danger size="small" type="primary">
+        <CustomButton disabled size="small">
+          {t(TranslationKey.Reset)}
+        </CustomButton>
+        <CustomButton disabled danger size="small" type="primary">
           {t(TranslationKey.Stop)}
         </CustomButton>
       </div>

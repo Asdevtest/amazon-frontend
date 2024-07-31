@@ -17,33 +17,33 @@
 /**
  * 
  * @export
- * @interface InlineObject17
+ * @interface InlineResponse20057Tasks
  */
-export interface InlineObject17 {
-    /**
-     * GUID спека
-     * @type {string}
-     * @memberof InlineObject17
-     */
-    specId?: string;
+export interface InlineResponse20057Tasks {
     /**
      * 
-     * @type {Array<string>}
-     * @memberof InlineObject17
+     * @type {number}
+     * @memberof InlineResponse20057Tasks
      */
-    linksToMediaFiles?: Array<string>;
+    vacant?: number;
     /**
      * 
-     * @type {string}
-     * @memberof InlineObject17
+     * @type {number}
+     * @memberof InlineResponse20057Tasks
      */
-    title?: string;
+    my?: number;
     /**
      * 
-     * @type {string}
-     * @memberof InlineObject17
+     * @type {number}
+     * @memberof InlineResponse20057Tasks
      */
-    description?: string;
+    completed?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20057Tasks
+     */
+    canceled?: number;
 }
 
 

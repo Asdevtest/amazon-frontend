@@ -17,45 +17,39 @@
 /**
  * 
  * @export
- * @interface InlineResponse20058Products
+ * @interface InlineResponse20060Checking
  */
-export interface InlineResponse20058Products {
+export interface InlineResponse20060Checking {
     /**
      * 
      * @type {number}
-     * @memberof InlineResponse20058Products
+     * @memberof InlineResponse20060Checking
      */
-    all?: number;
+    checkFromResearcher?: number;
     /**
      * 
      * @type {number}
-     * @memberof InlineResponse20058Products
+     * @memberof InlineResponse20060Checking
      */
-    completed?: number;
+    newSearchFromClient?: number;
     /**
      * 
      * @type {number}
-     * @memberof InlineResponse20058Products
+     * @memberof InlineResponse20060Checking
      */
-    rejected?: number;
+    onReview?: number;
     /**
      * 
      * @type {number}
-     * @memberof InlineResponse20058Products
+     * @memberof InlineResponse20060Checking
      */
-    inWork?: number;
+    waitingToCheck?: number;
     /**
      * 
      * @type {number}
-     * @memberof InlineResponse20058Products
+     * @memberof InlineResponse20060Checking
      */
-    searchSupplierFromBuyer?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20058Products
-     */
-    withoutStatus?: number;
+    inWorkBuyer?: number;
 }
 
 

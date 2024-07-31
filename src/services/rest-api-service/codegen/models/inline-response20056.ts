@@ -13,7 +13,9 @@
  */
 
 
-import { InlineResponse20054Finances } from './inline-response20054-finances';
+import { InlineResponse20056Finances } from './inline-response20056-finances';
+import { InlineResponse20056Orders } from './inline-response20056-orders';
+import { InlineResponse20056PendingOrders } from './inline-response20056-pending-orders';
 import { InlineResponse20056Products } from './inline-response20056-products';
 
 /**
@@ -30,10 +32,22 @@ export interface InlineResponse20056 {
     products?: InlineResponse20056Products;
     /**
      * 
-     * @type {InlineResponse20054Finances}
+     * @type {InlineResponse20056Orders}
      * @memberof InlineResponse20056
      */
-    finances?: InlineResponse20054Finances;
+    orders?: InlineResponse20056Orders;
+    /**
+     * 
+     * @type {InlineResponse20056PendingOrders}
+     * @memberof InlineResponse20056
+     */
+    pendingOrders?: InlineResponse20056PendingOrders;
+    /**
+     * 
+     * @type {InlineResponse20056Finances}
+     * @memberof InlineResponse20056
+     */
+    finances?: InlineResponse20056Finances;
 }
 
 

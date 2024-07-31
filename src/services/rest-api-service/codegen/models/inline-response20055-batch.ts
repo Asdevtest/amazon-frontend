@@ -17,15 +17,15 @@
 /**
  * 
  * @export
- * @interface InlineObject24
+ * @interface InlineResponse20055Batch
  */
-export interface InlineObject24 {
+export interface InlineResponse20055Batch {
     /**
      * 
-     * @type {Array<string>}
-     * @memberof InlineObject24
+     * @type {number}
+     * @memberof InlineResponse20055Batch
      */
-    boxesIds: Array<string>;
+    isBeingCollected?: number;
 }
 
 
