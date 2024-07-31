@@ -13,7 +13,7 @@
  */
 
 
-import { InlineObject19 } from './inline-object19';
+import { InlineObject27 } from './inline-object27';
 
 /**
  * 
@@ -23,10 +23,10 @@ import { InlineObject19 } from './inline-object19';
 export interface InlineObject126 {
     /**
      * Массив дополнительных коробок которые случились при обработки.
-     * @type {Array<InlineObject19>}
+     * @type {Array<InlineObject27>}
      * @memberof InlineObject126
      */
-    additionalBoxes?: Array<InlineObject19>;
+    additionalBoxes?: Array<InlineObject27>;
 }
 
 

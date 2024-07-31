@@ -13,10 +13,7 @@
  */
 
 
-import { InlineResponse20050Finances } from './inline-response20050-finances';
-import { InlineResponse20050Orders } from './inline-response20050-orders';
-import { InlineResponse20050PendingOrders } from './inline-response20050-pending-orders';
-import { InlineResponse20050Products } from './inline-response20050-products';
+import { InlineResponse20050Rows } from './inline-response20050-rows';
 
 /**
  * 
@@ -25,29 +22,17 @@ import { InlineResponse20050Products } from './inline-response20050-products';
  */
 export interface InlineResponse20050 {
     /**
-     * 
-     * @type {InlineResponse20050Products}
+     * Count of rows
+     * @type {number}
      * @memberof InlineResponse20050
      */
-    products?: InlineResponse20050Products;
+    count?: number;
     /**
      * 
-     * @type {InlineResponse20050Orders}
+     * @type {Array<InlineResponse20050Rows>}
      * @memberof InlineResponse20050
      */
-    orders?: InlineResponse20050Orders;
-    /**
-     * 
-     * @type {InlineResponse20050PendingOrders}
-     * @memberof InlineResponse20050
-     */
-    pendingOrders?: InlineResponse20050PendingOrders;
-    /**
-     * 
-     * @type {InlineResponse20050Finances}
-     * @memberof InlineResponse20050
-     */
-    finances?: InlineResponse20050Finances;
+    rows?: Array<InlineResponse20050Rows>;
 }
 
 

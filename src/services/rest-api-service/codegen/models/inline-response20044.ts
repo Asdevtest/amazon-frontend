@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse2006 } from './inline-response2006';
+import { InlineResponse20044Rows } from './inline-response20044-rows';
 
 /**
  * Результат запроса с пагинацией
@@ -29,10 +29,10 @@ export interface InlineResponse20044 {
     count?: number;
     /**
      * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse2006>}
+     * @type {Array<InlineResponse20044Rows>}
      * @memberof InlineResponse20044
      */
-    rows?: Array<InlineResponse2006>;
+    rows?: Array<InlineResponse20044Rows>;
 }
 
 

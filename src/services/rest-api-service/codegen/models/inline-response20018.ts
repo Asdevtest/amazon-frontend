@@ -13,6 +13,9 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyRequests } from './api-v1-announcements-my-requests';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 
 /**
  * 
@@ -21,17 +24,65 @@
  */
 export interface InlineResponse20018 {
     /**
-     * Кол-во продукта в айтеме в коробке
-     * @type {number}
+     * GUID в базе данных
+     * @type {string}
      * @memberof InlineResponse20018
      */
-    amount?: number;
+    _id?: string;
     /**
-     * Номер заказа
-     * @type {number}
+     * 
+     * @type {ApiV1AnnouncementsMySpec}
      * @memberof InlineResponse20018
      */
-    id?: number;
+    spec?: ApiV1AnnouncementsMySpec;
+    /**
+     * Archive
+     * @type {boolean}
+     * @memberof InlineResponse20018
+     */
+    archive?: boolean;
+    /**
+     * 
+     * @type {Array<ApiV1AnnouncementsMyRequests>}
+     * @memberof InlineResponse20018
+     */
+    requests?: Array<ApiV1AnnouncementsMyRequests>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20018
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20018
+     */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20018
+     */
+    description?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20018
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20018
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse20018
+     */
+    updatedAt?: string;
 }
 
 

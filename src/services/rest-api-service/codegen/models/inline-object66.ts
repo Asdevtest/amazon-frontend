@@ -15,17 +15,29 @@
 
 
 /**
- * 
+ * Схема создания/апдейта рекомендаций
  * @export
  * @interface InlineObject66
  */
 export interface InlineObject66 {
     /**
-     * 
-     * @type {Array<string>}
+     * GUID продукта.
+     * @type {string}
      * @memberof InlineObject66
      */
-    boxesIds: Array<string>;
+    productId: string;
+    /**
+     * GUID сторкипера.
+     * @type {string}
+     * @memberof InlineObject66
+     */
+    storekeeperId: string;
+    /**
+     * Рекомендуемое значение
+     * @type {number}
+     * @memberof InlineObject66
+     */
+    recommendedValue: number;
 }
 
 

@@ -21,11 +21,17 @@
  */
 export interface InlineObject23 {
     /**
-     * GUID коробки, объединение которой нужно отменить
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject23
      */
-    guid?: string;
+    batchIds: Array<string>;
+    /**
+     * Заархивирована ли партия
+     * @type {boolean}
+     * @memberof InlineObject23
+     */
+    archive: boolean;
 }
 
 

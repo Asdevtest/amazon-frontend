@@ -21,35 +21,17 @@
  */
 export interface InlineObject64 {
     /**
-     * Название партии
+     * 
      * @type {string}
      * @memberof InlineObject64
      */
-    title?: string;
+    clientComment: string;
     /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject64
-     */
-    boxesIds: Array<string>;
-    /**
-     * Метод подсчта массы партии
+     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
      * @type {number}
      * @memberof InlineObject64
      */
-    calculationMethod?: number;
-    /**
-     * Делитель объема партии
-     * @type {number}
-     * @memberof InlineObject64
-     */
-    volumeWeightDivide?: number;
-    /**
-     * Настоящая стоимость доставки
-     * @type {number}
-     * @memberof InlineObject64
-     */
-    actualShippingCost?: number;
+    priceForClient: number;
 }
 
 
