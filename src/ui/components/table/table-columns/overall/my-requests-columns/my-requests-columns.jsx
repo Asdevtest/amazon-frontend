@@ -7,6 +7,7 @@ import {
   difficultyLevelByCode,
   difficultyLevelTranslate,
 } from '@constants/statuses/difficulty-level'
+import { MIDDLE_COMMENT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -267,6 +268,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderCell: ({ row }) => (
         <TextCell
           editMode
+          maxLength={MIDDLE_COMMENT_VALUE}
           text={row?.detailsCustom?.comment}
           onClickSubmit={comment => rowHandlers.onClickSaveComment(row?._id, comment)}
         />
