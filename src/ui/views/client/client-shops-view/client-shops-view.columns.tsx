@@ -6,6 +6,7 @@ import {
   ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  SwitchCell,
   TextCell,
 } from '@components/data-grid/data-grid-cells'
 import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
@@ -15,10 +16,9 @@ import { t } from '@utils/translations'
 import { ButtonStyle } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { IColumnProps } from './client-shops-view.types'
+import { IColumnProps, RequestStatus } from './client-shops-view.types'
 import { ParsingAccessCell } from './components/parsing-access-cell'
 import { ParsingProfileCell } from './components/parsing-profile-cell'
-import { ParsingStatusCell } from './components/parsing-status-cell'
 
 export const shopsColumns = (props: IColumnProps) => {
   const { onRemoveShop, onEditShop, onParsingProfile, onParsingAccess, onParsingStatus } = props
@@ -60,9 +60,17 @@ export const shopsColumns = (props: IColumnProps) => {
       field: 'status',
       headerName: t(TranslationKey['Parsing status']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing status'])} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <ParsingStatusCell profile={row.profile} onClick={() => onParsingStatus(row._id, !row.profile?.isActive)} />
-      ),
+      renderCell: ({ row }: GridRowModel) => {
+        const disabled = !row.profile || row.profile?.requestStatus === RequestStatus.PENDING
+
+        return (
+          <SwitchCell
+            disabled={disabled}
+            value={row.profile?.isActive}
+            onClick={() => onParsingStatus(row._id, !row.profile?.isActive)}
+          />
+        )
+      },
       width: 160,
     },
     {

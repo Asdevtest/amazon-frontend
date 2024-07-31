@@ -13,7 +13,7 @@ import { IShop } from '@typings/models/shops/shop.js'
 
 import { useStyles } from './shop-form.style'
 
-import { linkRules, requiredLinkRules, requiredRules } from './shop-form.config'
+import { requiredLinkRules, requiredRules } from './shop-form.config'
 import { ShopFormModel } from './shop-form.model'
 import { FieldType } from './shop-form.types'
 
@@ -78,7 +78,7 @@ export const ShopForm: FC<ShopFormProps> = observer(props => {
             <CustomInput required allowClear size="large" label="Dashboard by goods/days" placeholder="Link" />
           </Form.Item>
 
-          <Form.Item<FieldType> name="reportAccountUrl" className={styles.field} rules={linkRules}>
+          <Form.Item<FieldType> name="reportAccountUrl" className={styles.field}>
             <CustomInput allowClear size="large" label="Account report" placeholder="Link" />
           </Form.Item>
         </div>

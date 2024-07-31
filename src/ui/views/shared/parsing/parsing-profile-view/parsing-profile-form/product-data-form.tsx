@@ -29,22 +29,19 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
   const isEditMode = !!profile
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ParsingProfileFormModel())
+  const [viewModel] = useState(() => new ParsingProfileFormModel(profile))
   const [form] = Form.useForm()
 
   useEffect(() => {
     if (isEditMode) {
       form.setFieldsValue({
         name: profile?.name || '',
-        gologinId: profile?.gologinId || '',
-        email: profile?.email || '',
-        password: profile?.passwordHash || '',
       })
     }
   }, [])
 
-  const onFinish = (values: FieldType) => {
-    isEditMode ? viewModel.onEditProfile(profile?._id, values) : viewModel.onCreateProfile(values)
+  const onFinish = async (values: FieldType) => {
+    isEditMode ? await viewModel.onEditProfile(profile?._id, values) : await viewModel.onCreateProfile(values)
     form.resetFields()
     onClose?.()
     onUpdateData?.()
@@ -63,18 +60,21 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
             <CustomInput allowClear size="large" label="Name" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType> name="gologinId" className={styles.field}>
-            <CustomInput allowClear size="large" label="Gologin ID" wrapperClassName={styles.input} />
+            <CustomInput disabled allowClear size="large" label="Gologin ID" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType> name="email" className={styles.field}>
-            <CustomInput allowClear size="large" label="Email" wrapperClassName={styles.input} />
+            <CustomInput disabled allowClear size="large" label="Email" wrapperClassName={styles.input} />
           </Form.Item>
-          <Form.Item<FieldType> name="password" className={styles.field} rules={[{ required: true, message: '' }]}>
+          <Form.Item<FieldType> name="password" className={styles.field}>
             <CustomInput
+              disabled
               required
+              password
               allowClear
               size="large"
               label="Password"
-              // autoComplete="new-password"
+              type="password"
+              autoComplete="new-password"
               wrapperClassName={styles.input}
             />
           </Form.Item>
@@ -91,21 +91,23 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
             <CustomInput allowClear size="large" label="OTP" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType> name="port" className={styles.field}>
-            <CustomInput allowClear size="large" label="Port" wrapperClassName={styles.input} />
+            <CustomInput disabled allowClear size="large" label="Port" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType> name="driverSessionData" className={styles.field}>
-            <CustomInput allowClear size="large" label="DriverSessionData" wrapperClassName={styles.input} />
+            <CustomInput disabled allowClear size="large" label="DriverSessionData" wrapperClassName={styles.input} />
           </Form.Item>
         </div>
 
         <div className={styles.buttons}>
           <Form.Item shouldUpdate className={styles.field}>
-            <CustomButton size="large" type="primary" htmlType="submit">
+            <CustomButton loading={viewModel.loading} size="large" type="primary" htmlType="submit">
               {t(TranslationKey.Save)}
             </CustomButton>
           </Form.Item>
 
-          <CustomButton size="large">{t(TranslationKey.Close)}</CustomButton>
+          <CustomButton size="large" onClick={onClose}>
+            {t(TranslationKey.Close)}
+          </CustomButton>
         </div>
       </Form>
     </div>

@@ -25,10 +25,29 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   info: {
+    padding: '5px 0',
+    boxShadow: theme.palette.boxShadow.box,
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    gap: '10px',
+    gap: '5px',
+    borderRadius: '12px',
+
+    div: {
+      padding: '0',
+    },
+  },
+
+  shop: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+    border: `1px solid ${theme.palette.text.gray}`,
+    borderRadius: '6px',
+
+    svg: {
+      color: theme.palette.primary.main,
+    },
   },
 
   text: {

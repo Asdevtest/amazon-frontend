@@ -17,27 +17,33 @@
 /**
  * 
  * @export
- * @interface InlineResponse20055Boxes
+ * @interface InlineResponse20060Products
  */
-export interface InlineResponse20055Boxes {
+export interface InlineResponse20060Products {
     /**
      * 
      * @type {number}
-     * @memberof InlineResponse20055Boxes
+     * @memberof InlineResponse20060Products
      */
-    inStock?: number;
+    all?: number;
     /**
      * 
      * @type {number}
-     * @memberof InlineResponse20055Boxes
+     * @memberof InlineResponse20060Products
      */
-    requestedSendToBatch?: number;
+    publishedOnExchange?: number;
     /**
      * 
      * @type {number}
-     * @memberof InlineResponse20055Boxes
+     * @memberof InlineResponse20060Products
      */
-    inBatchOnTheWay?: number;
+    paid?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20060Products
+     */
+    rejected?: number;
 }
 
 

@@ -13,26 +13,31 @@
  */
 
 
-import { InlineResponse20014 } from './inline-response20014';
 
 /**
  * 
  * @export
- * @interface InlineResponse20015
+ * @interface InlineResponse20055Orders
  */
-export interface InlineResponse20015 {
-    /**
-     * Count of rows
-     * @type {number}
-     * @memberof InlineResponse20015
-     */
-    count?: number;
+export interface InlineResponse20055Orders {
     /**
      * 
-     * @type {Array<InlineResponse20014>}
-     * @memberof InlineResponse20015
+     * @type {number}
+     * @memberof InlineResponse20055Orders
      */
-    rows?: Array<InlineResponse20014>;
+    all?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20055Orders
+     */
+    paid?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20055Orders
+     */
+    canceled?: number;
 }
 
 

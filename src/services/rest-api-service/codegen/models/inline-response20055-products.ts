@@ -17,15 +17,21 @@
 /**
  * 
  * @export
- * @interface InlineObject24
+ * @interface InlineResponse20055Products
  */
-export interface InlineObject24 {
+export interface InlineResponse20055Products {
     /**
      * 
-     * @type {Array<string>}
-     * @memberof InlineObject24
+     * @type {number}
+     * @memberof InlineResponse20055Products
      */
-    boxesIds: Array<string>;
+    all?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20055Products
+     */
+    paid?: number;
 }
 
 

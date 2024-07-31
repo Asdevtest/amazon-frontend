@@ -9,10 +9,13 @@ export const parsingProdileViewConfig = {
   onEditProfileModal: action.bound,
   onAddProfileModal: action.bound,
   onForceStart: action.bound,
+  onForceStop: action.bound,
 }
 
 export const additionalSearchFields = ['name', 'email']
 
 export interface ColumnsProps {
   onEditProfileModal: (row: IParsingProfile) => void
+  onForceStart: (ids?: string[]) => void
+  onForceStop: (ids?: string[]) => void
 }

@@ -17,15 +17,21 @@
 /**
  * 
  * @export
- * @interface InlineObject24
+ * @interface InlineResponse20056PendingOrders
  */
-export interface InlineObject24 {
+export interface InlineResponse20056PendingOrders {
     /**
      * 
-     * @type {Array<string>}
-     * @memberof InlineObject24
+     * @type {number}
+     * @memberof InlineResponse20056PendingOrders
      */
-    boxesIds: Array<string>;
+    pending?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20056PendingOrders
+     */
+    readyToBuy?: number;
 }
 
 

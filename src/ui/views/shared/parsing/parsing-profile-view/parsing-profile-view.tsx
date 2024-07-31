@@ -32,7 +32,7 @@ export const ParsingProdileView: FC = observer(() => {
           size="large"
           type="primary"
           icon={<FaPlay size="12" />}
-          onClick={viewModel.onForceStart}
+          onClick={() => viewModel.onForceStart()}
         >
           {t(TranslationKey['Force start'])}
         </CustomButton>
