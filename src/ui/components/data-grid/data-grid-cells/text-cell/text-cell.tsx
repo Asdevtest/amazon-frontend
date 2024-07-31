@@ -18,6 +18,7 @@ interface TextCellProps extends TextAreaProps {
   text: string
   icon?: ReactNode
   color?: string
+  center?: boolean
   copyable?: boolean
   editMode?: boolean
   onClickSubmit?: (id: string, comment?: string) => void
@@ -28,6 +29,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
     text,
     icon,
     color,
+    center,
     copyable = true,
     rows = 3, // only for textarea, text - autocomplete 1-2-3 lines{}
     editMode,
@@ -65,7 +67,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
       <Paragraph
         copyable={isCopyable}
         ellipsis={{ tooltip: text, rows: 3, onExpand: handleExpand }}
-        style={{ margin: 0, color }}
+        style={{ margin: 0, color, textAlign: center ? 'center' : 'left' }}
       >
         {text}
       </Paragraph>
