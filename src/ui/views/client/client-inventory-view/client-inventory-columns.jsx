@@ -611,9 +611,7 @@ export const clientInventoryColumns = ({
             },
 
             fields: getProductColumnMenuItems({ withoutTitle: true }),
-            columnMenuConfig: getProductColumnMenuValue({
-              isSimpleSku: true,
-            }),
+            columnMenuConfig: getProductColumnMenuValue(),
             columnKey: columnnsKeys.shared.MULTIPLE,
             width: 260,
             minWidth: 100,
