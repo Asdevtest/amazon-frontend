@@ -9,13 +9,15 @@ import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 
+import { IShopProfile, RequestStatus } from '../../client-shops-view.types'
+
 interface ParsingAccessCellProps {
-  isActive: boolean
+  profile: IShopProfile
   onAccess: () => void
 }
 
 export const ParsingAccessCell: FC<ParsingAccessCellProps> = memo(props => {
-  const { isActive, onAccess } = props
+  const { profile, onAccess } = props
 
   const style = {
     display: 'flex',
@@ -30,7 +32,7 @@ export const ParsingAccessCell: FC<ParsingAccessCellProps> = memo(props => {
     padding: '5px 10px',
   }
 
-  if (isActive) {
+  if (profile?.isActive) {
     return (
       <p style={style}>
         <CiCircleCheck />
@@ -39,10 +41,13 @@ export const ParsingAccessCell: FC<ParsingAccessCellProps> = memo(props => {
     )
   }
 
+  const disabled = !profile || profile?.requestStatus === RequestStatus.PENDING
+
   return (
     <ActionButtonsCell
       isFirstButton
-      firstButtonElement={t(TranslationKey.Access)}
+      disabledFirstButton={disabled}
+      firstButtonElement={t(TranslationKey.Confirm)}
       firstButtonStyle={ButtonStyle.PRIMARY}
       onClickFirstButton={onAccess}
     />

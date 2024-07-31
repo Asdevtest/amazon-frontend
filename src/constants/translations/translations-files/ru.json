@@ -335,6 +335,7 @@
   "Warehouse report": "Отчет со склада",
   "Dashboard by goods/days": "Дашборд по товарам/дням",
   "Add shop": "Добавить магазин",
+  "Edit shop": "Редактировать магазин",
   "Store name": "Название магазина",
   "Move to inventory": "Перенести в инвентарь",
   "Inventory integration": "Интеграция с инвентарем",
@@ -946,10 +947,6 @@
   "Removes the box for further addition to the batch, returns to My Warehouse": "Убирает коробку для дальнейшего добавления в партию, возвращает в раздел \"Мой склад\"",
   "Returns all boxes from the selected batch to the \"Boxes ready to send\" section": "Возвращает все коробки из выбранной партии в раздел \"Коробки, готовые к отправке\"",
   "A list of your added Amazon stores with reports on them": "Список Ваших добавленных магазинов Амазон с отчетами по ним",
-  "Enter store name": "Введите название магазина",
-  "Insert the link to the sellerboard report": "Вставьте ссылку на отчет из селлерборда",
-  "Create/edit a store based on the data you entered": "Создать/редактировать магазин на основе введенных Вами данных",
-  "Closes the store creation/editing window without saving": "Закрывает окно создания/редактирования магазина без сохранения",
   "Download the file to your device": "Скачать файл на устройство",
   "Binds integration to the product card": "Делает привязку интеграции к карточке товара",
   "Important notifications on changes in order price, batch or irrelevant tariff": "Важные уведомления по изменению цены заказа, партии или неактуальности тарифа",
@@ -2011,10 +2008,12 @@
   "Search by Title": "Поиск по названию",
   "Parsing profile": "Парсинг профиля",
   "Request sent": "Запрос отправлен",
-  "Parsing access": "Парсинг доступа",
   "Access": "Доступ",
   "issued": "выдано",
   "Parsing status": "Парсинг статуса",
   "Profile with given guid not found!": "Профиль с указанным ID не найден!",
-  "Profile does not belongs to you!": "Профиль вам не принадлежит!"
+  "Profile does not belongs to you!": "Профиль вам не принадлежит!",
+  "Ask": "Запрос",
+  "Please enter a valid URL!": "Пожалуйста, введите действительный URL!",
+  "Please input your link!": "Пожалуйста, введите вашу ссылку!"
 }

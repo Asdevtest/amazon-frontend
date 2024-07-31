@@ -333,6 +333,7 @@
   "Warehouse report": "仓库的报告",
   "Dashboard by goods/days": "显示产品/日子",
   "Add shop": "添加商店",
+  "Edit shop": "编辑商店",
   "Store name": "商店名称",
   "Move to inventory": "移到库存",
   "Inventory integration": "绑定到库存的产品",
@@ -943,10 +944,6 @@
   "Removes the box for further addition to the batch, returns to My Warehouse": "为添加到批次消除箱子, 返回到\"我仓库\"一节",
   "Returns all boxes from the selected batch to the \"Boxes ready to send\" section": "返回所有箱子从指定批次到\"准备发送箱子\" 一节",
   "A list of your added Amazon stores with reports on them": "列表你已添加了Amazon商店的列表和报告",
-  "Enter store name": "输入商店名称",
-  "Insert the link to the sellerboard report": "向sellerboard报告插入链接",
-  "Create/edit a store based on the data you entered": "基于输入的数据创建/编辑商店",
-  "Closes the store creation/editing window without saving": "关闭商店创建/编辑框而不保存",
   "Download the file to your device": "文件下载到您的设备上",
   "Binds integration to the product card": "绑定集成到产品卡",
   "Important notifications on changes in order price, batch or irrelevant tariff": "订单位价格格的改变的重要通知, 批次或无相关的费用",
@@ -2004,10 +2001,12 @@
   "Search by Title": "按标题搜索",
   "Parsing profile": "解析配置文件",
   "Request sent": "请求已发送",
-  "Parsing access": "解析访问",
   "Access": "访问",
   "issued": "签发",
   "Parsing status": "解析状态",
   "Profile with given guid not found!": "找不到具有给定ID的配置文件!",
-  "Profile does not belongs to you!": "该配置文件不属于您!"
+  "Profile does not belongs to you!": "该配置文件不属于您!",
+  "Ask": "请求",
+  "Please enter a valid URL!": "请输入有效的URL!",
+  "Please input your link!": "请输入您的链接!"
 }

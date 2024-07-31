@@ -8,7 +8,7 @@ import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 
-import { IShopProfile, RequestStatus } from '../client-shops-view.types'
+import { IShopProfile, RequestStatus } from '../../client-shops-view.types'
 
 interface ParsingProfileCellProps {
   profile: IShopProfile
@@ -29,7 +29,7 @@ export const ParsingProfileCell: FC<ParsingProfileCellProps> = memo(props => {
   return (
     <ActionButtonsCell
       isFirstButton
-      firstButtonElement={t(TranslationKey.Confirm)}
+      firstButtonElement={t(TranslationKey.Ask)}
       firstButtonStyle={ButtonStyle.PRIMARY}
       onClickFirstButton={onConfirm}
     />

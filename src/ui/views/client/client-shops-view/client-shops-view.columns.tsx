@@ -16,9 +16,9 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { IColumnProps } from './client-shops-view.types'
-import { ParsingAccessCell } from './parsing-access-cell'
-import { ParsingProfileCell } from './parsing-profile-cell'
-import { ParsingStatusCell } from './parsing-status-cell'
+import { ParsingAccessCell } from './components/parsing-access-cell'
+import { ParsingProfileCell } from './components/parsing-profile-cell'
+import { ParsingStatusCell } from './components/parsing-status-cell'
 
 export const shopsColumns = (props: IColumnProps) => {
   const { onRemoveShop, onEditShop, onParsingProfile, onParsingAccess, onParsingStatus } = props
@@ -49,10 +49,10 @@ export const shopsColumns = (props: IColumnProps) => {
     },
     {
       field: 'access',
-      headerName: t(TranslationKey['Parsing access']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing access'])} />,
+      headerName: t(TranslationKey.Access),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Access)} />,
       renderCell: ({ row }: GridRowModel) => (
-        <ParsingAccessCell isActive={row.profile?.isActive} onAccess={() => onParsingAccess(row.profile?.email)} />
+        <ParsingAccessCell profile={row.profile} onAccess={() => onParsingAccess(row.profile?.email)} />
       ),
       width: 160,
     },
@@ -61,10 +61,7 @@ export const shopsColumns = (props: IColumnProps) => {
       headerName: t(TranslationKey['Parsing status']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing status'])} />,
       renderCell: ({ row }: GridRowModel) => (
-        <ParsingStatusCell
-          isActive={row.profile?.isActive || false}
-          onClick={() => onParsingStatus(row._id, !row.profile?.isActive)}
-        />
+        <ParsingStatusCell profile={row.profile} onClick={() => onParsingStatus(row._id, !row.profile?.isActive)} />
       ),
       width: 160,
     },
