@@ -175,7 +175,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         const supplier = params.row.suppliers?.[0]
         const priceWithDelivery = supplier?.price + supplier?.batchDeliveryCostInDollar / supplier?.amount
 
-        return <TextCell text={toFixed(priceWithDelivery, 2)} />
+        return <TextCell center text={toFixed(priceWithDelivery || 0, 2)} />
       },
       width: 120,
       disableCustomSort: true,
