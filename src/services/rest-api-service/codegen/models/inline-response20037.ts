@@ -14,9 +14,7 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
-import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
-import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * 
@@ -25,59 +23,65 @@ import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-li
  */
 export interface InlineResponse20037 {
     /**
-     * GUID продукта в базе данных
+     * GUID
      * @type {string}
      * @memberof InlineResponse20037
      */
     _id?: string;
     /**
-     * Категория
+     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @type {number}
+     * @memberof InlineResponse20037
+     */
+    taskId?: number;
+    /**
+     * Тип операции
      * @type {string}
      * @memberof InlineResponse20037
      */
-    category?: string;
+    operationType?: InlineResponse20037OperationTypeEnum;
     /**
-     * 
-     * @type {number}
+     * Массив коробок которые были до переформирования коробок.
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20037
      */
-    bsr?: number;
+    boxesBefore?: Array<ApiV1BatchesBoxes>;
     /**
-     * ASIN продукта
-     * @type {string}
+     * Массив коробок.
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20037
      */
-    asin?: string;
+    boxes?: Array<ApiV1BatchesBoxes>;
     /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    skuByClient?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20037
-     */
-    amazon?: number;
-    /**
-     * Вес
-     * @type {number}
-     * @memberof InlineResponse20037
-     */
-    weight?: number;
-    /**
-     *  Общая сумма с фба.
-     * @type {number}
-     * @memberof InlineResponse20037
-     */
-    fbaamount?: number;
-    /**
-     * Код текущего статуса
+     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      * @type {number}
      * @memberof InlineResponse20037
      */
     status?: number;
+    /**
+     * Приоритет задачи
+     * @type {number}
+     * @memberof InlineResponse20037
+     */
+    priority?: number;
+    /**
+     * Комментарий работника склада.
+     * @type {string}
+     * @memberof InlineResponse20037
+     */
+    storekeeperComment?: string;
+    /**
+     * Комментарий клиента.
+     * @type {string}
+     * @memberof InlineResponse20037
+     */
+    clientComment?: string;
+    /**
+     * Комментарий баера.
+     * @type {string}
+     * @memberof InlineResponse20037
+     */
+    buyerComment?: string;
     /**
      * Массив картинок.
      * @type {Array<string>}
@@ -85,143 +89,40 @@ export interface InlineResponse20037 {
      */
     images?: Array<string>;
     /**
-     * Цена для клиента
-     * @type {number}
-     * @memberof InlineResponse20037
-     */
-    priceForClient?: number;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusSuppliers}
-     * @memberof InlineResponse20037
-     */
-    currentSupplier?: ApiV1AdminsGetProductsByStatusSuppliers;
-    /**
-     * GUID поставщика в базе данных
+     * GUID сотрудника склада, который выполняет задачу.
      * @type {string}
      * @memberof InlineResponse20037
      */
-    currentSupplierId?: string;
+    storekeeperId?: string;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20037
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20037
-     */
-    checkedBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Дата создания
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20037
      */
     createdAt?: string;
     /**
-     * Дата изменения
+     * Дата обновления.
      * @type {string}
      * @memberof InlineResponse20037
      */
-    updatedAt?: string;
-    /**
-     * Дата проверки
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    checkedAt?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20037
-     */
-    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Савка супервайзера.
-     * @type {number}
-     * @memberof InlineResponse20037
-     */
-    supervisorRate?: number;
-    /**
-     * Савка байера.
-     * @type {number}
-     * @memberof InlineResponse20037
-     */
-    buyerRate?: number;
-    /**
-     * 
-     * @type {Array<ApiV1BoxesClientsLightProductRedFlags>}
-     * @memberof InlineResponse20037
-     */
-    redFlags?: Array<ApiV1BoxesClientsLightProductRedFlags>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
-     * @memberof InlineResponse20037
-     */
-    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineResponse20037
-     */
-    strategyStatus?: number;
-    /**
-     * Средний доход
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    avgRevenue?: string;
-    /**
-     * Средний BSR
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    avgBSR?: string;
-    /**
-     * Средняя цена
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    avgPrice?: string;
-    /**
-     * Средний отзывы
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    avgReviews?: string;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineResponse20037
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineResponse20037
-     */
-    fbafee?: number;
-    /**
-     * Штрихкод продукта
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    barCode?: string;
-    /**
-     * Зашита листинга (bool)
-     * @type {boolean}
-     * @memberof InlineResponse20037
-     */
-    transparency?: boolean;
-    /**
-     * Title амазона
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    amazonTitle?: string;
+    updateDate?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20037OperationTypeEnum {
+    Merge = 'merge',
+    Split = 'split',
+    Receive = 'receive'
+}
+
 
 

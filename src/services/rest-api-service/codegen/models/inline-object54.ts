@@ -21,11 +21,11 @@
  */
 export interface InlineObject54 {
     /**
-     * 
-     * @type {Array<string>}
+     * Зашита листинга (bool)
+     * @type {boolean}
      * @memberof InlineObject54
      */
-    productIds: Array<string>;
+    transparency?: boolean;
 }
 
 

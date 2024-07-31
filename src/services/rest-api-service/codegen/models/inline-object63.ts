@@ -25,7 +25,7 @@ export interface InlineObject63 {
      * @type {Array<string>}
      * @memberof InlineObject63
      */
-    boxesIds: Array<string>;
+    productIds: Array<string>;
 }
 
 

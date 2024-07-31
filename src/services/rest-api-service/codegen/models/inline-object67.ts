@@ -15,41 +15,17 @@
 
 
 /**
- * 
+ * Схема апдейта рекомендаций
  * @export
  * @interface InlineObject67
  */
 export interface InlineObject67 {
     /**
-     * Название партии
-     * @type {string}
-     * @memberof InlineObject67
-     */
-    title?: string;
-    /**
-     * Метод подсчта массы партии
+     * Рекомендуемое значение
      * @type {number}
      * @memberof InlineObject67
      */
-    calculationMethod?: number;
-    /**
-     * Делитель объема партии
-     * @type {number}
-     * @memberof InlineObject67
-     */
-    volumeWeightDivide?: number;
-    /**
-     * Трек номер партии
-     * @type {string}
-     * @memberof InlineObject67
-     */
-    trackingNumber?: string;
-    /**
-     * Настоящая стоимость доставки
-     * @type {number}
-     * @memberof InlineObject67
-     */
-    actualShippingCost?: number;
+    recommendedValue: number;
 }
 
 
