@@ -35,9 +35,24 @@ class ParserModelStatic {
     return response.data
   }
 
-  onCreateGoLigin = async data => {
+  onParsingProfile = async data => {
     const response = await restApiService.parserApi.apiV1IntegrationsParserClientsProfilesReceivingPost({
       body: { shopId: data },
+    })
+    return response.data
+  }
+
+  onParsingAccess = async data => {
+    const response = await restApiService.parserApi.apiV1IntegrationsParserClientsProfilesCheckPatch({
+      body: { email: data },
+    })
+    return response.data
+  }
+
+  onParsingStatus = async (guid, data) => {
+    const response = await restApiService.parserApi.apiV1IntegrationsParserClientsProfilesGuidPatch({
+      guid,
+      body: { isActive: data },
     })
     return response.data
   }

@@ -3,7 +3,9 @@ import { IShop } from '@typings/models/shops/shop'
 export interface IColumnProps {
   onRemoveShop: (id: string) => void
   onEditShop: (row: IShop) => void
-  onConfirmProfile: (id: string) => void
+  onParsingProfile: (id: string) => void
+  onParsingAccess: (email: string) => void
+  onParsingStatus: (id: string, isActive: boolean) => void
 }
 
 export type RequestStatusType = 'PENDING' | 'REJECTED' | 'APPROVED'

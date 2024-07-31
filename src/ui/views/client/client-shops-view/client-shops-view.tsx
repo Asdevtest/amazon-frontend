@@ -5,7 +5,6 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AddOrEditShopForm } from '@components/forms/add-or-edit-shop-form'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
@@ -18,6 +17,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { useStyles } from './client-shops-view.style'
 
 import { ShopsViewModel } from './client-shops-view.model'
+import { ShopForm } from './components/shop-form'
 
 export const ClientShopsView = observer(() => {
   const { classes: styles } = useStyles()
@@ -93,14 +93,11 @@ export const ClientShopsView = observer(() => {
         />
       </div>
 
-      <Modal
-        openModal={viewModel.showAddOrEditShopModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditShopModal')}
-      >
-        <AddOrEditShopForm
-          shopToEdit={viewModel.selectedShop}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showAddOrEditShopModal')}
-          onSubmit={viewModel.onCreateShop}
+      <Modal openModal={viewModel.shopModal} setOpenModal={() => viewModel.onTriggerOpenModal('shopModal')}>
+        <ShopForm
+          shop={viewModel.selectedShop}
+          onClose={() => viewModel.onTriggerOpenModal('shopModal')}
+          onUpdateData={viewModel.getCurrentData}
         />
       </Modal>
     </>

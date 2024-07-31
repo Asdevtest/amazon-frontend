@@ -20,7 +20,7 @@ import { IColumnProps } from './client-shops-view.types'
 
 export class ShopsViewModel extends DataGridTableModel {
   selectedShop?: IShop
-  showAddOrEditShopModal = false
+  shopModal = false
 
   get disableUpdateButton() {
     return !this.selectedRows.length || this.requestStatus === loadingStatus.IS_LOADING
@@ -30,7 +30,9 @@ export class ShopsViewModel extends DataGridTableModel {
     const columnsProps: IColumnProps = {
       onRemoveShop: id => this.onRemoveShop(id),
       onEditShop: row => this.onEditShop(row),
-      onConfirmProfile: id => this.onConfirmProfile(id),
+      onParsingProfile: id => this.onParsingProfile(id),
+      onParsingAccess: email => this.onParsingAccess(email),
+      onParsingStatus: (id, isActive) => this.onParsingStatus(id, isActive),
     }
 
     super({
@@ -43,7 +45,6 @@ export class ShopsViewModel extends DataGridTableModel {
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
     this.getDataGridState()
     this.getCurrentData()
-    this.initHistory()
 
     makeObservable(this, shopsViewModelConfig)
   }
@@ -67,38 +68,14 @@ export class ShopsViewModel extends DataGridTableModel {
     }
   }
 
-  async onCreateShop(data: IShop, shopId: string) {
-    try {
-      if (shopId) {
-        await ShopModel.editShop(shopId, data)
-
-        toast.success(t(TranslationKey['Store changed']))
-      } else {
-        await ShopModel.createShop(data)
-
-        toast.success(t(TranslationKey['Store created']))
-      }
-
-      this.onTriggerOpenModal('showAddOrEditShopModal')
-
-      this.getCurrentData()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  onSeeShopReport(currentReport: string, row: IShop) {
-    this.history.push(`/client/shops/reports?currentReport=${currentReport}&shopId=${row?._id}`)
-  }
-
   onEditShop(row: IShop) {
     this.selectedShop = row
-    this.onTriggerOpenModal('showAddOrEditShopModal')
+    this.onTriggerOpenModal('shopModal')
   }
 
   onAddShop() {
     this.selectedShop = undefined
-    this.onTriggerOpenModal('showAddOrEditShopModal')
+    this.onTriggerOpenModal('shopModal')
   }
 
   async onRemoveShop(id: string) {
@@ -111,13 +88,35 @@ export class ShopsViewModel extends DataGridTableModel {
     }
   }
 
-  async onConfirmProfile(id: string) {
+  async onParsingProfile(id: string) {
     try {
-      await ParserModel.onCreateGoLigin(id)
+      await ParserModel.onParsingProfile(id)
 
       this.getCurrentData()
     } catch (error) {
       console.error(error)
+    }
+  }
+
+  async onParsingAccess(email: string) {
+    try {
+      await ParserModel.onParsingAccess(email)
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+      toast.error(t(TranslationKey['Profile does not belongs to you!']))
+    }
+  }
+
+  async onParsingStatus(id: string, isActive: boolean) {
+    try {
+      await ParserModel.onParsingStatus(id, isActive)
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+      toast.error(t(TranslationKey['Profile with given guid not found!']))
     }
   }
 }
