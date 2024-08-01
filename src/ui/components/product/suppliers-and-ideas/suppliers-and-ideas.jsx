@@ -150,7 +150,7 @@ export const SuppliersAndIdeas = observer(props => {
           languageTag={languageTag}
           isModalView={isModalView}
           curUser={curUser}
-          curIdea={curIdea}
+          idea={curIdea}
           currentProduct={currentProduct}
           onClickSaveBtn={onClickSaveBtn}
           onClickCancelBtn={onClickCancelBtn}
@@ -170,7 +170,6 @@ export const SuppliersAndIdeas = observer(props => {
               isModalView
               languageTag={languageTag}
               curUser={curUser}
-              curIdea={curIdea}
               inEdit={inEdit}
               idea={curIdea}
               currentProduct={currentProduct}
@@ -214,7 +213,6 @@ export const SuppliersAndIdeas = observer(props => {
               <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
                 <IdeaViewAndEditCard
                   curUser={curUser}
-                  curIdea={curIdea}
                   inEdit={inEdit}
                   idea={idea}
                   languageTag={languageTag}
