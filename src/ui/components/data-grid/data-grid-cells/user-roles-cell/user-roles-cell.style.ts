@@ -1,19 +1,22 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  userRolesWrapper: {
+  wrapper: {
+    padding: '5px',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    height: 70,
-    overflow: 'auto',
+    gap: '3px',
+    height: 73,
+    overflowY: 'auto',
     width: '100%',
   },
 
+  columnCenter: {
+    justifyContent: 'center',
+  },
+
   userRole: {
-    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-    marginBottom: 5,
   },
 }))

@@ -11,19 +11,19 @@ interface UserRolesCellProps {
 }
 
 export const UserRolesCell: FC<UserRolesCellProps> = memo(({ user }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
+
+  const allowedRoles =
+    user?.allowedRoles?.filter(el => el !== mapUserRoleEnumToKey[UserRole.CANDIDATE] && el !== user.role) || []
 
   return (
-    <div className={styles.userRolesWrapper}>
+    <div className={cx(styles.wrapper, { [styles.columnCenter]: allowedRoles.length <= 2 })}>
       <p className={styles.userRole}>{UserRolePrettyMap[user.role]}</p>
-
-      {user.allowedRoles
-        .filter(el => el !== mapUserRoleEnumToKey[UserRole.CANDIDATE] && el !== user.role)
-        .map((role, index) => (
-          <p key={index} className={styles.userRole}>
-            {UserRolePrettyMap[role]}
-          </p>
-        ))}
+      {allowedRoles.map((role, index) => (
+        <p key={index} className={styles.userRole}>
+          {UserRolePrettyMap[role]}
+        </p>
+      ))}
     </div>
   )
 })
