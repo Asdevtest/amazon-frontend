@@ -14,9 +14,10 @@ import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { RequestStatus } from '@typings/enums/request/request-status'
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { IColumnProps, RequestStatus } from './client-shops-view.types'
+import { IColumnProps } from './client-shops-view.types'
 import { ParsingAccessCell } from './components/parsing-access-cell'
 import { ParsingProfileCell } from './components/parsing-profile-cell'
 

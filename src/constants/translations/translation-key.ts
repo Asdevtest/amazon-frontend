@@ -2016,4 +2016,6 @@ export enum TranslationKey {
   'Ask' = 'Ask',
   'Please enter a valid URL!' = 'Please enter a valid URL!',
   'Please input your link!' = 'Please input your link!',
+  'Approved' = 'Approved',
+  'Approve' = 'Approve',
 }

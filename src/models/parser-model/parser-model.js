@@ -1,8 +1,8 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class ParserModelStatic {
-  getProfiles = async body => {
-    const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesGet(body)
+  getProfiles = async () => {
+    const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesGet({ noCache: true })
     return response.data
   }
 
@@ -16,8 +16,10 @@ class ParserModelStatic {
     return response.data
   }
 
-  getRequests = async body => {
-    const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(body)
+  getRequests = async () => {
+    const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet({
+      noCache: true,
+    })
     return response.data
   }
 
@@ -54,6 +56,19 @@ class ParserModelStatic {
       guid,
       body: { isActive: data },
     })
+    return response.data
+  }
+
+  onApproveProfile = async (guid, data) => {
+    const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesApproveGuidPatch({
+      guid,
+      body: { profileId: data },
+    })
+    return response.data
+  }
+
+  onRejectProfile = async guid => {
+    const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesRejectGuidPatch({ guid })
     return response.data
   }
 }

@@ -9,20 +9,24 @@ import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { IParsingProfile } from '@typings/models/parser/parsing-profile'
+import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './parsing-data-block.style'
 
 interface ParsingDataBlockProps {
-  profile?: IParsingProfile
+  onResetParsingData: () => void
+  onToggleParsingData: () => void
+  shop?: ICreatedBy | null
+  client?: ICreatedBy | null
+  isActive?: boolean
 }
 
 export const ParsingDataBlock: FC<ParsingDataBlockProps> = memo(props => {
-  const { profile } = props
+  const { onResetParsingData, onToggleParsingData, shop, client, isActive } = props
 
   const { classes: styles, cx } = useStyles()
 
-  if (!profile?.shop) {
+  if (!shop) {
     return (
       <div className={cx(styles.wrapper, styles.empty)}>
         <Avatar size={64} icon={<AiOutlineUser />} />
@@ -38,18 +42,18 @@ export const ParsingDataBlock: FC<ParsingDataBlockProps> = memo(props => {
       <div className={styles.info}>
         <div className={styles.shop}>
           <AiTwotoneShop size="24" />
-          <TextCell copyable={false} text={profile?.shop?.name || ''} />
+          <TextCell copyable={false} text={shop?.name || ''} />
         </div>
 
-        <UserMiniCell userName={profile?.client?.name} userId={profile?.client?._id} />
+        <UserMiniCell userName={client?.name} userId={client?._id} />
       </div>
 
       <div className={styles.buttons}>
-        <CustomButton disabled size="small">
+        <CustomButton size="small" onClick={onResetParsingData}>
           {t(TranslationKey.Reset)}
         </CustomButton>
-        <CustomButton disabled danger size="small" type="primary">
-          {t(TranslationKey.Stop)}
+        <CustomButton danger={isActive} size="small" type="primary" onClick={onToggleParsingData}>
+          {t(TranslationKey[isActive ? 'Stop' : 'Start'])}
         </CustomButton>
       </div>
     </div>

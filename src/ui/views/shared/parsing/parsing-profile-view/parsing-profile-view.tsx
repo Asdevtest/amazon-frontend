@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { FaPlay, FaPlus } from 'react-icons/fa'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
@@ -20,7 +20,7 @@ import { useStyles } from './parsing-profile-view.style'
 import { ParsingProfileForm } from './parsing-profile-form'
 import { ParsingProdileViewModel } from './parsing-profile-view.model'
 
-export const ParsingProdileView: FC = observer(() => {
+export const ParsingProdileView = observer(() => {
   const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new ParsingProdileViewModel())
 
@@ -99,7 +99,7 @@ export const ParsingProdileView: FC = observer(() => {
 
       <Modal missClickModalOn openModal={viewModel.showToggleProfileModal} setOpenModal={viewModel.onAddProfileModal}>
         <ParsingProfileForm
-          profile={viewModel.editProfile}
+          profile={viewModel.selectedProfile}
           onClose={viewModel.onAddProfileModal}
           onUpdateData={viewModel.getCurrentData}
         />

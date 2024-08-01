@@ -2015,5 +2015,7 @@
   "Profile does not belongs to you!": "Профиль вам не принадлежит!",
   "Ask": "Запрос",
   "Please enter a valid URL!": "Пожалуйста, введите действительный URL!",
-  "Please input your link!": "Пожалуйста, введите вашу ссылку!"
+  "Please input your link!": "Пожалуйста, введите вашу ссылку!",
+  "Approved": "Одобрено",
+  "Approve": "Одобрить"
 }

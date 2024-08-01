@@ -12,7 +12,6 @@ import {
 } from '@components/data-grid/data-grid-cells'
 import { EditIcon } from '@components/shared/svg-icons'
 
-import { formatShortDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -79,7 +78,6 @@ export const parsingProdileViewColumns = (props: ColumnsProps) => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
-      valueGetter: (row: GridRowModel) => formatShortDateTime(row?.updatedAt),
       width: 115,
     },
     {
@@ -87,7 +85,6 @@ export const parsingProdileViewColumns = (props: ColumnsProps) => {
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
-      valueGetter: (row: GridRowModel) => formatShortDateTime(row?.createdAt),
       width: 115,
     },
     {

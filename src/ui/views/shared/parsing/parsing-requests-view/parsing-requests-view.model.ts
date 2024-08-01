@@ -8,12 +8,15 @@ import { ParserModel } from '@models/parser-model'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
 import { parsingRequestsViewColumns } from './parsing-requests-view.columns'
-import { additionalSearchFields, parsingRequestsViewConfig } from './parsing-requests-view.config'
+import { ColumnsProps, additionalSearchFields, parsingRequestsViewConfig } from './parsing-requests-view.config'
 
 export class ParsingRequestsViewModel extends DataGridFilterTableModel {
   constructor() {
-    const columnsProps = {}
-    const columnsModel = parsingRequestsViewColumns()
+    const columnsProps: ColumnsProps = {
+      onApproveProfile: (id, profileId) => this.onApproveProfile(id, profileId),
+      onRejectProfile: id => this.onRejectProfile(id),
+    }
+    const columnsModel = parsingRequestsViewColumns(columnsProps)
     const filtersFields = getFilterFields(columnsModel)
     const mainMethodURL = 'integrations/parser/admins/profiles/receiving_requests?'
 
@@ -26,9 +29,29 @@ export class ParsingRequestsViewModel extends DataGridFilterTableModel {
       tableKey: DataGridTablesKeys.PARSING_REQUESTS,
     })
 
-    // this.getDataGridState()
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
     this.getCurrentData()
 
     makeObservable(this, parsingRequestsViewConfig)
+  }
+
+  async onApproveProfile(id: string, profileId: string) {
+    try {
+      await ParserModel.onApproveProfile(id, profileId)
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onRejectProfile(id: string) {
+    try {
+      await ParserModel.onRejectProfile(id)
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
