@@ -22,7 +22,6 @@ import { UiTheme } from '@typings/enums/ui-theme'
 
 import { PrivateRoutes } from './private-routes'
 import { generatePublicRoutes } from './public-routes'
-import { generateRedirects } from './redirects'
 
 export const MainNav = observer(() => {
   const [lang, setLang] = useState()
@@ -65,7 +64,6 @@ export const MainNav = observer(() => {
           <Router>
             <Suspense fallback={<CircularProgressWithLabel showBackground />}>
               <Switch>
-                {generateRedirects()}
                 {generatePublicRoutes()}
                 <PrivateRoutes />
               </Switch>
