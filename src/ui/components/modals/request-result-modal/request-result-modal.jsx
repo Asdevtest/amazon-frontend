@@ -58,14 +58,14 @@ export const RequestResultModal = memo(props => {
     onChangeField('publicationLinks')({ target: { value: newArr } })
   }
 
-  const isBloggerTypeTask = proposal.request?.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]
+  const isBloggerTypeTask = proposal?.request?.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]
   const disabledSendButton =
-    (isBloggerTypeTask && (!formFields.amazonOrderId || !formFields.publicationLinks.length)) ||
-    (!isBloggerTypeTask && !formFields.result)
+    (isBloggerTypeTask && (!formFields?.amazonOrderId || !formFields?.publicationLinks?.length)) ||
+    (!isBloggerTypeTask && !formFields?.result)
   const mediaFiles = proposal?.proposal?.media?.map(mediaFile =>
     isString(mediaFile) ? mediaFile : mediaFile?.fileLink,
   )
-  const isNotEmptyPublicationLinks = formFields.publicationLinks.length > 0
+  const isNotEmptyPublicationLinks = formFields?.publicationLinks?.length > 0
 
   return (
     <Modal missClickModalOn={missClickModalOn} openModal={openModal} setOpenModal={setOpenModal}>
