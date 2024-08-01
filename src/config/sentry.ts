@@ -34,10 +34,3 @@ Sentry.init({
   sendDefaultPii: true, // for Sentry.httpClientIntegration
   denyUrls: ['localhost'], // skip URLs, research about process.env
 })
-
-/* Sentry.init({
-  integrations: [Sentry.browserTracingIntegration()],
-  // We recommend adjusting this value in production, or using tracesSampler
-  // for finer control
-  tracesSampleRate: 1.0,
-}) */
