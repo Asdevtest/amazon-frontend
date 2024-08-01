@@ -2008,5 +2008,7 @@
   "Profile does not belongs to you!": "该配置文件不属于您!",
   "Ask": "请求",
   "Please enter a valid URL!": "请输入有效的URL!",
-  "Please input your link!": "请输入您的链接!"
+  "Please input your link!": "请输入您的链接!",
+  "Approved": "已批准",
+  "Approve": "批准"
 }

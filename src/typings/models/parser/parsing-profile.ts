@@ -1,15 +1,15 @@
 import { ICreatedBy } from '@typings/shared/created-by'
 
-import { IShop } from '../shops/shop'
-
 export interface IParsingProfile {
-  _id: string
-  gologinId: string
-  name: string
-  email: string
-  passwordHash: string
-  client: ICreatedBy
-  shop: IShop
+  access: boolean
+  client: ICreatedBy | null
   createdAt: string
+  email: string
+  gologinId: string
+  isActive: boolean
+  name: string
+  passwordHash: string
+  shop: ICreatedBy | null
   updatedAt: string
+  _id: string
 }

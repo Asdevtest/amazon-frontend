@@ -7,8 +7,9 @@ import { ActionButtonsCell, TextCell } from '@components/data-grid/data-grid-cel
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { RequestStatus } from '@typings/enums/request/request-status'
 
-import { IShopProfile, RequestStatus } from '../../client-shops-view.types'
+import { IShopProfile } from '../../client-shops-view.types'
 
 interface ParsingProfileCellProps {
   profile: IShopProfile

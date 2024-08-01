@@ -36,6 +36,8 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
     if (isEditMode) {
       form.setFieldsValue({
         name: profile?.name || '',
+        gologinId: profile?.gologinId || '',
+        email: profile?.email || '',
       })
     }
   }, [])
@@ -55,22 +57,34 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
 
       <Form name="parsing profile" autoComplete="off" form={form} onFinish={onFinish}>
         <div className={styles.container}>
-          <ParsingDataBlock profile={profile} />
+          <ParsingDataBlock
+            shop={viewModel.profile?.shop}
+            client={viewModel.profile?.client}
+            isActive={viewModel.profile?.isActive}
+            onResetParsingData={viewModel.onResetParsingData}
+            onToggleParsingData={viewModel.onToggleParsingData}
+          />
           <Form.Item<FieldType> name="name" className={styles.field}>
             <CustomInput allowClear size="large" label="Name" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType> name="gologinId" className={styles.field}>
-            <CustomInput disabled allowClear size="large" label="Gologin ID" wrapperClassName={styles.input} />
+            <CustomInput
+              allowClear
+              disabled={isEditMode}
+              size="large"
+              label="Gologin ID"
+              wrapperClassName={styles.input}
+            />
           </Form.Item>
           <Form.Item<FieldType> name="email" className={styles.field}>
-            <CustomInput disabled allowClear size="large" label="Email" wrapperClassName={styles.input} />
+            <CustomInput allowClear disabled={isEditMode} size="large" label="Email" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType> name="password" className={styles.field}>
             <CustomInput
-              disabled
-              required
-              password
               allowClear
+              password={!isEditMode}
+              required={!isEditMode}
+              disabled={isEditMode}
               size="large"
               label="Password"
               type="password"
@@ -91,10 +105,16 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
             <CustomInput allowClear size="large" label="OTP" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType> name="port" className={styles.field}>
-            <CustomInput disabled allowClear size="large" label="Port" wrapperClassName={styles.input} />
+            <CustomInput allowClear disabled={isEditMode} size="large" label="Port" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType> name="driverSessionData" className={styles.field}>
-            <CustomInput disabled allowClear size="large" label="DriverSessionData" wrapperClassName={styles.input} />
+            <CustomInput
+              allowClear
+              disabled={isEditMode}
+              size="large"
+              label="DriverSessionData"
+              wrapperClassName={styles.input}
+            />
           </Form.Item>
         </div>
 

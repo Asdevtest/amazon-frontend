@@ -3,13 +3,14 @@ import { action, observable } from 'mobx'
 import { IParsingProfile } from '@typings/models/parser/parsing-profile'
 
 export const parsingProdileViewConfig = {
-  editProfile: observable,
+  selectedProfile: observable,
   showToggleProfileModal: observable,
 
   onEditProfileModal: action.bound,
   onAddProfileModal: action.bound,
   onForceStart: action.bound,
   onForceStop: action.bound,
+  onToggleProfileModal: action.bound,
 }
 
 export const additionalSearchFields = ['name', 'email']

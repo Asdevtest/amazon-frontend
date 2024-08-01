@@ -10,12 +10,6 @@ export interface IColumnProps {
 
 export type RequestStatusType = 'PENDING' | 'REJECTED' | 'APPROVED'
 
-export enum RequestStatus {
-  PENDING = 'PENDING',
-  REJECTED = 'REJECTED',
-  APPROVED = 'APPROVED',
-}
-
 export interface IShopProfile {
   access: boolean
   email: string

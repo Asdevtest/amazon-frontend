@@ -13,7 +13,7 @@ import { parsingProdileViewColumns } from './parsing-profile-view.columns'
 import { ColumnsProps, additionalSearchFields, parsingProdileViewConfig } from './parsing-profile-view.config'
 
 export class ParsingProdileViewModel extends DataGridFilterTableModel {
-  editProfile?: IParsingProfile
+  selectedProfile?: IParsingProfile
   showToggleProfileModal = false
 
   constructor() {
@@ -36,7 +36,6 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    // this.getDataGridState()
     this.getCurrentData()
 
     makeObservable(this, parsingProdileViewConfig)
@@ -47,12 +46,12 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
   }
 
   onEditProfileModal(row: IParsingProfile) {
-    this.editProfile = row
+    this.selectedProfile = row
     this.onToggleProfileModal()
   }
 
   onAddProfileModal() {
-    this.editProfile = undefined
+    this.selectedProfile = undefined
     this.onToggleProfileModal()
   }
 

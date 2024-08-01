@@ -13,8 +13,11 @@ import { FieldType } from './product-data-form.type'
 
 export class ParsingProfileFormModel {
   loading = false
+  profile?: IParsingProfile
 
   constructor(profile?: IParsingProfile) {
+    this.profile = profile
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -22,14 +25,7 @@ export class ParsingProfileFormModel {
     try {
       this.onToggleLoading(true)
 
-      const data = {
-        name: values.name,
-        spreadsheetsIdMain: values.spreadsheetsIdMain,
-        spreadsheetsIdPerformance: values.spreadsheetsIdPerformance,
-        spreadsheetsIdImport: values.spreadsheetsIdImport,
-        otp: values.otp,
-      }
-      await ParserModel.createProfile(data)
+      await ParserModel.createProfile(values)
 
       this.onToggleLoading(false)
 
@@ -49,6 +45,9 @@ export class ParsingProfileFormModel {
         spreadsheetsIdPerformance: values.spreadsheetsIdPerformance,
         spreadsheetsIdImport: values.spreadsheetsIdImport,
         otp: values.otp,
+        isActive: this.profile?.isActive,
+        shopId: this.profile?.shop?._id || '',
+        clientId: this.profile?.client?._id || '',
       }
       await ParserModel.editProfile(id, data)
 
@@ -62,5 +61,18 @@ export class ParsingProfileFormModel {
 
   onToggleLoading(value: boolean) {
     this.loading = value
+  }
+
+  onResetParsingData() {
+    if (this.profile) {
+      this.profile.client = null
+      this.profile.shop = null
+    }
+  }
+
+  onToggleParsingData() {
+    if (this.profile) {
+      this.profile.isActive = !this.profile.isActive
+    }
   }
 }
