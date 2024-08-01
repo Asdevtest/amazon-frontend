@@ -1,4 +1,3 @@
-import { ClassNamesArg, cx } from '@emotion/css'
 import { FC, memo } from 'react'
 
 import { Avatar, Link, Tooltip, Typography } from '@mui/material'
@@ -20,7 +19,7 @@ interface UserLinkProps {
   maxNameWidth?: number
   withAvatar?: boolean
   notShowName?: boolean
-  customClassNames?: ClassNamesArg
+  customClassNames?: string
   customAvatarStyles?: React.CSSProperties
   customStyles?: React.CSSProperties
   isShortRating?: boolean
@@ -45,7 +44,7 @@ export const UserLink: FC<UserLinkProps> = memo(
     customRatingClass,
     readOnlyRating,
   }) => {
-    const { classes: styles } = useStyles()
+    const { classes: styles, cx } = useStyles()
 
     const curUserId = UserModel.userId
 
