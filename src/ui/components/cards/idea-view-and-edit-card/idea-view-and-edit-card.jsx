@@ -53,7 +53,6 @@ export const IdeaViewAndEditCard = observer(
     inEdit,
     inCreate,
     idea,
-    curIdea,
     selectedIdea,
     currentProduct,
     onClickCancelBtn,
@@ -87,7 +86,7 @@ export const IdeaViewAndEditCard = observer(
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
     const [showRequestType, setShowRequestType] = useState(
-      curIdea?.status >= 18 ? RequestSwitherType.REQUESTS_ON_FINISHED : RequestSwitherType.REQUESTS_ON_CHECK,
+      idea?.status >= 18 ? RequestSwitherType.REQUESTS_ON_FINISHED : RequestSwitherType.REQUESTS_ON_CHECK,
     )
     const [requestsToRender, setRequestsToRender] = useState([])
     const [supplierFound, setSupplierFound] = useState(undefined)
@@ -99,7 +98,7 @@ export const IdeaViewAndEditCard = observer(
       }
     }, [formFields?.media])
 
-    const isCurrentIdea = curIdea?._id === idea?._id
+    const isCurrentIdea = idea?._id === idea?._id
 
     const radioBottonsSettings = [
       {
@@ -148,25 +147,25 @@ export const IdeaViewAndEditCard = observer(
       const multiplier = sizeSetting === unitsOfChangeOptions.US ? inchesCoefficient : 1
 
       return {
-        ...curIdea,
-        status: curIdea?.status,
-        media: curIdea?.linksToMediaFiles?.length ? curIdea.linksToMediaFiles : [],
-        comments: curIdea?.comments || '',
-        buyerComment: curIdea?.buyerComment || '',
-        productName: curIdea?.productName || '',
-        productLinks: curIdea?.productLinks || [],
-        criteria: curIdea?.criteria || '',
-        quantity: curIdea?.quantity || 0,
-        price: curIdea?.price || 0,
-        width: toFixed(curIdea?.width / multiplier, 2) || 0,
-        height: toFixed(curIdea?.height / multiplier, 2) || 0,
-        length: toFixed(curIdea?.length / multiplier, 2) || 0,
-        suppliers: curIdea?.suppliers || [],
-        _id: curIdea?._id || undefined,
-        parentProduct: curIdea?.parentProduct || undefined,
-        childProduct: curIdea?.childProduct || undefined,
-        requestsOnCheck: curIdea?.requestsOnCheck || [],
-        requestsOnFinished: curIdea?.requestsOnFinished || [],
+        ...idea,
+        status: idea?.status,
+        media: idea?.linksToMediaFiles?.length ? idea?.linksToMediaFiles : [],
+        comments: idea?.comments || '',
+        buyerComment: idea?.buyerComment || '',
+        productName: idea?.productName || '',
+        productLinks: idea?.productLinks || [],
+        criteria: idea?.criteria || '',
+        quantity: idea?.quantity || 0,
+        price: idea?.price || 0,
+        width: toFixed(idea?.width / multiplier, 2) || 0,
+        height: toFixed(idea?.height / multiplier, 2) || 0,
+        length: toFixed(idea?.length / multiplier, 2) || 0,
+        suppliers: idea?.suppliers || [],
+        _id: idea?._id || undefined,
+        parentProduct: idea?.parentProduct || undefined,
+        childProduct: idea?.childProduct || undefined,
+        requestsOnCheck: idea?.requestsOnCheck || [],
+        requestsOnFinished: idea?.requestsOnFinished || [],
         approximatePrice: idea?.approximatePrice || 0,
         fbaFee: idea?.fbaFee || 0,
       }
@@ -219,7 +218,7 @@ export const IdeaViewAndEditCard = observer(
       }
 
       setImages([])
-    }, [curIdea?._id, inEdit])
+    }, [idea?._id, inEdit])
 
     useEffect(() => {
       if (!isCurrentIdea && !inCreate) {
@@ -228,7 +227,7 @@ export const IdeaViewAndEditCard = observer(
         setFormFields(getFullIdea())
         setShowFullCard(true)
       }
-    }, [curIdea, idea, languageTag])
+    }, [idea, languageTag])
 
     useEffect(() => {
       if (selectedIdea === idea?._id) {
@@ -333,14 +332,14 @@ export const IdeaViewAndEditCard = observer(
 
     const showCreateRequestButton = isNewIdea || isOnCheck || isVerified || isAddingAsin
 
-    const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
+    const disableFields = idea && !(idea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
 
     return (
       <div className={styles.root}>
         <div className={styles.headerWrapper}>
           <IdeaProgressBar
-            showStatusDuration={isModalView && curIdea}
+            showStatusDuration={isModalView && idea}
             currentStatus={formFields?.status}
             ideaData={formFields}
           />
