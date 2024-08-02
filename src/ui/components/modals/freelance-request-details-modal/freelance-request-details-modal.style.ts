@@ -20,6 +20,12 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
   },
 
+  headerTitle: {
+    maxWidth: 550,
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
+
   flexContainer: {
     display: 'flex',
     alignItems: 'center',

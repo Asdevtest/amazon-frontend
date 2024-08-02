@@ -144,6 +144,9 @@ export const useStyles = makeStyles()(theme => ({
 
   fieldsDataWrapper: {
     width: '70%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
   },
 
   fieldsData: {
@@ -225,13 +228,14 @@ export const useStyles = makeStyles()(theme => ({
   middleStepTwoWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '100%',
+    gap: '20px',
   },
 
   middleStepTwoSubWrapper: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    gap: '20px',
   },
 
   titleAndAsinWrapper: {
@@ -244,6 +248,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     fontWeight: 600,
     color: theme.palette.text.general,
+    wordBreak: 'break-word',
   },
 
   infoColumn: {
