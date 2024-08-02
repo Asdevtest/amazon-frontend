@@ -159,7 +159,7 @@ export const CreateOrEditProposalContent = memo(props => {
         <div className={styles.infoBlockWrapper}>
           <div className={styles.infoCellWrapper}>
             <p className={styles.requestTitleName}>{t(TranslationKey['Request title'])}</p>
-            <p>{request?.request?.title}</p>
+            <p className={styles.requestTitle}>{request?.request?.title}</p>
           </div>
 
           <div className={styles.infoCellWrapper}>
