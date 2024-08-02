@@ -67,6 +67,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
               requestProposals={viewModel.requestProposals}
               request={viewModel.request}
               onSubmit={viewModel.onSubmitOfferDeal}
+              onJoinChat={viewModel.onJoinChat}
             />
           </div>
         ) : null}

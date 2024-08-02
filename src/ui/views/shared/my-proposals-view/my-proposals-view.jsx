@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -24,10 +25,11 @@ import { useStyles } from './my-proposals-view.style'
 import { customSwitcherSettings } from './my-proposals-view.constants'
 import { MyProposalsViewModel } from './my-proposals-view.model'
 
-export const MyProposalsView = observer(({ history }) => {
+export const MyProposalsView = observer(({ allProposals }) => {
   const { classes: styles } = useStyles()
+  const history = useHistory()
 
-  const [viewModel] = useState(() => new MyProposalsViewModel({ history }))
+  const [viewModel] = useState(() => new MyProposalsViewModel({ history, allProposals }))
 
   useEffect(() => {
     viewModel.loadData()

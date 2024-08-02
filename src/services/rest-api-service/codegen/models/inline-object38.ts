@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes';
 
 /**
  * 
@@ -22,11 +21,53 @@ import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './
  */
 export interface InlineObject38 {
     /**
-     * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
+     * Штрихкод продукта
+     * @type {string}
      * @memberof InlineObject38
      */
-    itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
+    barCode?: string;
+    /**
+     *  logicsTariff GUID
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    logicsTariffId?: string;
+    /**
+     * GUID сотрудника склада
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    storekeeperId?: string;
+    /**
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    shippingLabel?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    fbaNumber?: string;
+    /**
+     * Гуид модели destination
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    destinationId?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject38
+     */
+    boxesIds: Array<string>;
 }
 
 

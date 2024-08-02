@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20081Rows } from './inline-response20081-rows';
 
 /**
  * 
@@ -22,17 +21,17 @@ import { InlineResponse20081Rows } from './inline-response20081-rows';
  */
 export interface InlineResponse20081 {
     /**
-     * Count of rows
-     * @type {number}
+     * Table name
+     * @type {string}
      * @memberof InlineResponse20081
      */
-    count?: number;
+    table?: string;
     /**
      * 
-     * @type {Array<InlineResponse20081Rows>}
+     * @type {Array<string>}
      * @memberof InlineResponse20081
      */
-    rows?: Array<InlineResponse20081Rows>;
+    fields?: Array<string>;
 }
 
 

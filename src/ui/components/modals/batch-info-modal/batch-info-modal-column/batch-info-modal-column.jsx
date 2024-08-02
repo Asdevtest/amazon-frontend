@@ -77,7 +77,7 @@ export const batchInfoModalColumn = (
     renderCell: params => <MultilineTextCell text={params.value} />,
     valueGetter: ({ row }) => row?.humanFriendlyId,
     type: 'number',
-    width: 60,
+    width: 80,
   },
 
   {

@@ -526,6 +526,16 @@ export const navbarConfig = {
         },
 
         {
+          subtitle: () => t(TranslationKey['All proposals']),
+          subRoute: '/freelancer/freelance/all-proposals',
+          key: navBarActiveSubCategory.SUB_NAVBAR_ALL_PROPOSALS,
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER),
+        },
+
+        {
           subtitle: () => t(TranslationKey['My services']),
           subRoute: '/freelancer/freelance/my-services',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,

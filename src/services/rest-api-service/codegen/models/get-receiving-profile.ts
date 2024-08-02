@@ -14,7 +14,8 @@
 
 
 import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { ApiV1IntegrationsParserAdminsProfilesClient } from './api-v1-integrations-parser-admins-profiles-client';
+import { InlineResponse200115Client } from './inline-response200115-client';
+import { InlineResponse200116Profile } from './inline-response200116-profile';
 
 /**
  * 
@@ -29,17 +30,17 @@ export interface GetReceivingProfile {
      */
     _id?: string;
     /**
-     * Profile guid
-     * @type {string}
+     * 
+     * @type {InlineResponse200116Profile}
      * @memberof GetReceivingProfile
      */
-    profileId?: string;
+    profile?: InlineResponse200116Profile;
     /**
      * 
-     * @type {ApiV1IntegrationsParserAdminsProfilesClient}
+     * @type {InlineResponse200115Client}
      * @memberof GetReceivingProfile
      */
-    client?: ApiV1IntegrationsParserAdminsProfilesClient;
+    client?: InlineResponse200115Client;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusShop}
@@ -52,6 +53,18 @@ export interface GetReceivingProfile {
      * @memberof GetReceivingProfile
      */
     status?: string;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof GetReceivingProfile
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof GetReceivingProfile
+     */
+    updatedAt?: string;
 }
 
 

@@ -33,7 +33,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
 
       renderCell: params => <MultilineTextCell text={params.value} />,
       type: 'number',
-      width: 60,
+      width: 80,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },

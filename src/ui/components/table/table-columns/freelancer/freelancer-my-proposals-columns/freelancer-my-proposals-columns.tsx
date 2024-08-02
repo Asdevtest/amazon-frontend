@@ -21,6 +21,8 @@ import {
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 
+import { PerformerSelect } from '@views/shared/my-proposals-view/performer-select'
+
 import { t } from '@utils/translations'
 
 interface IHandlers {
@@ -28,20 +30,14 @@ interface IHandlers {
   onClickEditButton: (requestId: string, proposalId: string) => void
   onClickResultButton: (proposalId: string) => void
   onClickOpenButton: (request: any) => void
+  onChangePerformer: (id: string, userId: string) => void
 }
 
-export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
+export const freelancerMyProposalsColumns = (handlers: IHandlers) => [
   {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        textCenter
-        component={<img src="/assets/icons/bookmark.svg" />}
-        // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell textCenter component={<img src="/assets/icons/bookmark.svg" />} />,
     width: 80,
     renderCell: (params: GridCellParams) => (
       <PriorityAndChinaDeliverCell
@@ -108,17 +104,11 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.ID)}
-        // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     // @ts-ignore
     renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 60,
+    width: 80,
 
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -207,14 +197,16 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     field: 'createdBy',
     headerName: t(TranslationKey.Performer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
-    width: 180,
+    width: 245,
     renderCell: (params: GridCellParams) => (
-      <UserMiniCell
-        userName={params?.row?.originalData?.sub?.name || params?.row?.originalData?.createdBy?.name}
-        userId={params?.row?.originalData?.sub?._id || params?.row?.originalData?.createdBy?._id}
+      <PerformerSelect
+        spec={params.row.originalData.request?.spec}
+        defaultPerformer={params.row.originalData.sub}
+        onChangeData={useId => handlers.onChangePerformer(params.row.originalData._id, useId)}
       />
     ),
-    columnKey: columnnsKeys.freelancer.FREELANCE_PROPOSALS_CREATED_BY,
+    sortable: false,
+    filterable: false,
   },
 
   {

@@ -18,7 +18,7 @@ import { ApiV1SuppliersPaymentMethods } from './api-v1-suppliers-payment-methods
 import { ApiV1SuppliersPriceVariations } from './api-v1-suppliers-price-variations';
 
 /**
- * 
+ * Новый поставщик.
  * @export
  * @interface InlineObject140
  */
@@ -28,31 +28,31 @@ export interface InlineObject140 {
      * @type {string}
      * @memberof InlineObject140
      */
-    name?: string;
+    name: string;
     /**
      * Ссылка на поставщика.
      * @type {string}
      * @memberof InlineObject140
      */
-    link?: string;
+    link: string;
     /**
      * Цена за еденицу, dollar
      * @type {number}
      * @memberof InlineObject140
      */
-    price?: number;
+    price: number;
     /**
      * кол-во
      * @type {number}
      * @memberof InlineObject140
      */
-    amount?: number;
+    amount: number;
     /**
      * Минимальный лот.
      * @type {number}
      * @memberof InlineObject140
      */
-    minlot?: number;
+    minlot: number;
     /**
      * Имеет ли обязательный делитель на кол-во в заказе поставщик
      * @type {boolean}
@@ -106,7 +106,7 @@ export interface InlineObject140 {
      * @type {string}
      * @memberof InlineObject140
      */
-    comment?: string;
+    comment: string;
     /**
      * Курс доллара к юаню поставщика. 
      * @type {number}
@@ -124,7 +124,7 @@ export interface InlineObject140 {
      * @type {number}
      * @memberof InlineObject140
      */
-    batchDeliveryCostInDollar?: number;
+    batchDeliveryCostInDollar: number;
     /**
      * Доставка партии, yuan
      * @type {number}

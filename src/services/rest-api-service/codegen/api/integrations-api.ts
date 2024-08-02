@@ -37,6 +37,8 @@ import { InlineObject85 } from '../models';
 // @ts-ignore
 import { InlineObject86 } from '../models';
 // @ts-ignore
+import { InlineResponse200117 } from '../models';
+// @ts-ignore
 import { InlineResponse20065 } from '../models';
 // @ts-ignore
 import { InlineResponse20065Rows } from '../models';
@@ -683,6 +685,81 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
+         * ## Получить отчеты парсера.  ## Это эндпоинт отдает все отчеты по магазину клиента.
+         * @summary Получить отчеты парсера.
+         * @param {'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS'} table 
+         * @param {string} [filters]                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsReportsGet: async (table: 'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS', filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'table' is not null or undefined
+            assertParamExists('apiV1IntegrationsReportsGet', 'table', table)
+            const localVarPath = `/api/v1/integrations/reports/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (table !== undefined) {
+                localVarQueryParameter['table'] = table;
+            }
+
+            if (filters !== undefined) {
+                localVarQueryParameter['filters'] = filters;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (sortField !== undefined) {
+                localVarQueryParameter['sortField'] = sortField;
+            }
+
+            if (sortType !== undefined) {
+                localVarQueryParameter['sortType'] = sortType;
+            }
+
+            if (noCache !== undefined) {
+                localVarQueryParameter['noCache'] = noCache;
+            }
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * ## Удалить отчеты
          * @summary Удалить отчеты
          * @param {'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'returns'} table Название таблицы
@@ -1276,6 +1353,24 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * ## Получить отчеты парсера.  ## Это эндпоинт отдает все отчеты по магазину клиента.
+         * @summary Получить отчеты парсера.
+         * @param {'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS'} table 
+         * @param {string} [filters]                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1IntegrationsReportsGet(table: 'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS', filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200117>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportsGet(table, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * ## Удалить отчеты
          * @summary Удалить отчеты
          * @param {'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'returns'} table Название таблицы
@@ -1547,6 +1642,23 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          */
         apiV1IntegrationsReportReturnsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20072> {
             return localVarFp.apiV1IntegrationsReportReturnsGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Получить отчеты парсера.  ## Это эндпоинт отдает все отчеты по магазину клиента.
+         * @summary Получить отчеты парсера.
+         * @param {'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS'} table 
+         * @param {string} [filters]                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsReportsGet(table: 'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS', filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200117> {
+            return localVarFp.apiV1IntegrationsReportsGet(table, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Удалить отчеты
@@ -2097,6 +2209,69 @@ export interface IntegrationsApiApiV1IntegrationsReportReturnsGetRequest {
 }
 
 /**
+ * Request parameters for apiV1IntegrationsReportsGet operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiApiV1IntegrationsReportsGetRequest
+ */
+export interface IntegrationsApiApiV1IntegrationsReportsGetRequest {
+    /**
+     * 
+     * @type {'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS'}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly table: 'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS'
+
+    /**
+     *                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+     * @type {string}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly filters?: string
+
+    /**
+     * Лимит записей для пагинации
+     * @type {number}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly limit?: number
+
+    /**
+     * Смещение для пагинации
+     * @type {number}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly offset?: number
+
+    /**
+     * Название поля
+     * @type {string}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly sortField?: string
+
+    /**
+     * Тип сортировки
+     * @type {'ASC' | 'DESC'}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly sortType?: 'ASC' | 'DESC'
+
+    /**
+     * Игнорировать данные в кеше
+     * @type {boolean}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly noCache?: boolean
+
+    /**
+     * 
+     * @type {string}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
  * Request parameters for apiV1IntegrationsRowsFromReportDelete operation in IntegrationsApi.
  * @export
  * @interface IntegrationsApiApiV1IntegrationsRowsFromReportDeleteRequest
@@ -2513,6 +2688,18 @@ export class IntegrationsApi extends BaseAPI {
      */
     public apiV1IntegrationsReportReturnsGet(requestParameters: IntegrationsApiApiV1IntegrationsReportReturnsGetRequest = {}, options?: any) {
         return IntegrationsApiFp(this.configuration).apiV1IntegrationsReportReturnsGet(requestParameters.limit, requestParameters.offset, requestParameters.sortField, requestParameters.sortType, requestParameters.filters, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * ## Получить отчеты парсера.  ## Это эндпоинт отдает все отчеты по магазину клиента.
+     * @summary Получить отчеты парсера.
+     * @param {IntegrationsApiApiV1IntegrationsReportsGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public apiV1IntegrationsReportsGet(requestParameters: IntegrationsApiApiV1IntegrationsReportsGetRequest, options?: any) {
+        return IntegrationsApiFp(this.configuration).apiV1IntegrationsReportsGet(requestParameters.table, requestParameters.filters, requestParameters.limit, requestParameters.offset, requestParameters.sortField, requestParameters.sortType, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

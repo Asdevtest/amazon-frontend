@@ -120,7 +120,7 @@ export const myRequestsViewColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell text={params.value} />,
       type: 'number',
-      width: 62,
+      width: 80,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },

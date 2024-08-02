@@ -43,7 +43,7 @@ export const adminWarehouseBoxesColumns = () => {
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
-      width: 60,
+      width: 80,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 

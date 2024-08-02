@@ -92,7 +92,7 @@ export const freelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 70,
+    width: 80,
 
     columnKey: columnnsKeys.shared.QUANTITY,
   },

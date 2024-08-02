@@ -88,7 +88,7 @@ export const clientBoxesViewColumns = (
 
       renderCell: params => <MultilineTextCell text={params.value} />,
       type: 'number',
-      width: 60,
+      width: 80,
 
       columnKey: columnnsKeys.client.WAREHOUSE_ID,
     },

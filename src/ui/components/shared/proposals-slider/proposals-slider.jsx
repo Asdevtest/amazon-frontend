@@ -13,7 +13,6 @@ import { showResultStatuses } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
@@ -32,6 +31,7 @@ export const ProposalsSlider = ({
   onClickOpenBtn,
   onClickResultBtn,
   stylesWrapper,
+  onJoinChat,
 }) => {
   const { classes: styles, cx } = useStyles()
 
@@ -113,11 +113,7 @@ export const ProposalsSlider = ({
 
         <div className={styles.performerWrapper}>
           <p className={styles.title}>{t(TranslationKey.Performer)}</p>
-          <UserLink
-            name={currentProposal?.sub?.name || currentProposal?.createdBy?.name}
-            userId={currentProposal?.sub?._id || currentProposal?.createdBy?._id}
-            customstyles={styles.customPerformerLink}
-          />
+          <p className={styles.customPerformerLink}>{currentProposal?.sub?.name || currentProposal?.createdBy?.name}</p>
         </div>
 
         {currentProposal?.comment && isComment ? <p className={styles.comment}>{currentProposal?.comment}</p> : null}
@@ -172,6 +168,12 @@ export const ProposalsSlider = ({
                 onClick={() => onClickOpenBtn(item)}
               >
                 {t(TranslationKey['Open a request'])}
+              </Button>
+            ) : null}
+
+            {currentProposal?.chatId ? (
+              <Button className={styles.button} onClick={() => onJoinChat(currentProposal?.chatId)}>
+                {t(TranslationKey['Join chat'])}
               </Button>
             ) : null}
           </div>

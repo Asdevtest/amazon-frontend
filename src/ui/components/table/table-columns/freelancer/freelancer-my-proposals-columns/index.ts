@@ -1,1 +1,1 @@
-export { FreelancerMyProposalsColumns } from './freelancer-my-proposals-columns'
+export { freelancerMyProposalsColumns } from './freelancer-my-proposals-columns'

@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
@@ -13,7 +14,7 @@ import { RequestProposalModel } from '@models/request-proposal'
 import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
-import { FreelancerMyProposalsColumns } from '@components/table/table-columns/freelancer/freelancer-my-proposals-columns'
+import { freelancerMyProposalsColumns } from '@components/table/table-columns/freelancer/freelancer-my-proposals-columns'
 
 import { myProposalsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
@@ -45,9 +46,10 @@ export class MyProposalsViewModel {
     onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),
     onClickResultButton: proposalId => this.onClickResultBtn(proposalId),
     onClickOpenButton: requestId => this.onClickOpenBtn(requestId),
+    onChangePerformer: (id, userId) => this.onChangePerformer(id, userId),
   }
 
-  columnsModel = FreelancerMyProposalsColumns(this.rowHandlers)
+  columnsModel = freelancerMyProposalsColumns(this.rowHandlers)
 
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
@@ -99,6 +101,8 @@ export class MyProposalsViewModel {
     onClickConfirm: () => {},
   }
 
+  allProposals = false
+
   get userInfo() {
     return UserModel.userInfo
   }
@@ -111,8 +115,9 @@ export class MyProposalsViewModel {
     return this.requests
   }
 
-  constructor({ history }) {
+  constructor({ history, allProposals }) {
     this.history = history
+    this.allProposals = allProposals
 
     this.setDefaultStatuses()
 
@@ -242,7 +247,11 @@ export class MyProposalsViewModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      const response = await RequestProposalModel.getRequestProposalsPagMy({
+      const method = this.allProposals
+        ? RequestProposalModel.getRequestProposalsPagMyAll
+        : RequestProposalModel.getRequestProposalsPagMy
+
+      const response = await method({
         filters: this.getFilters(),
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
@@ -353,10 +362,12 @@ export class MyProposalsViewModel {
     try {
       this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
+      const mainUrl = this.allProposals ? 'request-proposals/pag/my_all?filters=' : 'request-proposals/pag/my?filters='
+
       const data = await GeneralModel.getDataForColumn(
         this.getTableByColumn(column),
         column,
-        `request-proposals/pag/my?filters=${this.getFilters(column)}`,
+        `${mainUrl}${this.getFilters(column)}`,
       )
 
       if (this.columnMenuSettings[column]) {
@@ -530,6 +541,18 @@ export class MyProposalsViewModel {
           ],
         }),
       })
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onChangePerformer(id, userId) {
+    try {
+      await RequestProposalModel.onChangePerformer(id, userId)
+
+      toast.success(t(TranslationKey['Performer was changed successfully']))
 
       this.loadData()
     } catch (error) {

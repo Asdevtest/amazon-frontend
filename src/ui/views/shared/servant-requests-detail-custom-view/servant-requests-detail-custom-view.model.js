@@ -5,6 +5,7 @@ import { RequestProposalStatus } from '@constants/requests/request-proposal-stat
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 
 import { ChatModel } from '@models/chat-model'
+import { ChatsModel } from '@models/chats-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
@@ -225,8 +226,7 @@ export class RequestDetailCustomViewModel {
 
   async getRequestProposals() {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId) // inside the method is noCache: true
-
+      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId)
       runInAction(() => {
         this.requestProposals = result
 
@@ -440,6 +440,15 @@ export class RequestDetailCustomViewModel {
       await RequestProposalModel.requestProposalResultEdit(id, sentFields)
 
       this.getRequestProposals()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onJoinChat(id) {
+    try {
+      await ChatsModel.joinChat(id)
+      this.loadData()
     } catch (error) {
       console.error(error)
     }

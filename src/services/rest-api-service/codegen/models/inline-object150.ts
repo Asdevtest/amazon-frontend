@@ -21,17 +21,11 @@
  */
 export interface InlineObject150 {
     /**
-     * Гуид саба
-     * @type {string}
+     * Массив доступных специализаций фрилансера.
+     * @type {Array<number>}
      * @memberof InlineObject150
      */
-    userId: string;
-    /**
-     * Заметка о сабе написаная мастером
-     * @type {string}
-     * @memberof InlineObject150
-     */
-    comment: string;
+    allowedSpec: Array<number>;
 }
 
 
