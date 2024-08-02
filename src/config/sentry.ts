@@ -24,7 +24,7 @@ Sentry.init({
     // add a router when updating routing
   ],
   tracesSampleRate: 1.0,
-  // tracePropagationTargets: ['as-crm-dev.vercel.app', 'as-crm-git-sentry-test-aservs-projects.vercel.app'], // URLs for trace, research about process.env
+  // tracePropagationTargets: ['as-crm-git-sentry-test-aservs-projects.vercel.app'], // URLs for trace, research about process.env
   allowUrls: ['as-crm-dev-sdfgr.vercel.app'], // allowed URLs, research about process.env
   replaysSessionSampleRate: 0.1, // Sentry.replayIntegration
   replaysOnErrorSampleRate: 1.0, // Sentry.replayIntegration
