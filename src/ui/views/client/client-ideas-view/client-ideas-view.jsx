@@ -90,6 +90,9 @@ export const ClientIdeasView = observer(({ history }) => {
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           getRowId={({ _id }) => _id}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             columnMenu: viewModel.columnMenuSettings,
             toolbar: {
               resetFiltersBtnSettings: {
