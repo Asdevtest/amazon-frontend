@@ -105,6 +105,11 @@ export const TabFreelance = observer(props => {
                 '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,
                 '& .MuiDataGrid-columnHeaderDraggableContainer': styles.columnHeaderTitleContainer,
               }}
+              slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
+              }}
             />
 
             <div style={{ height: 40 }} />

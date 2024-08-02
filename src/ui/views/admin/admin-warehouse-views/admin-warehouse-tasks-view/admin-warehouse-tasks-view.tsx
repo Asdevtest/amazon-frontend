@@ -1,9 +1,13 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
+
+import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { ITask } from '@typings/models/tasks/task'
@@ -34,6 +38,9 @@ export const AdminWarehouseTasksView = observer(() => {
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           getRowId={({ _id }: ITask) => _id}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             columnMenu: viewModel.columnMenuSettings,
             toolbar: {
               resetFiltersBtnSettings: {

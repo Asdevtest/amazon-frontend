@@ -50,6 +50,9 @@ export const PatchNoutesView = observer(() => {
           paginationModel={viewModel.paginationModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             toolbar: {
               children: (
                 <div className={styles.toolbar}>

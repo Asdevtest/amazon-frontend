@@ -3,9 +3,13 @@ import { useState } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
+
+import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IOrder } from '@typings/models/orders/order'
@@ -52,6 +56,9 @@ export const AdminOrdersViews = observer(() => {
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           getRowId={({ _id }: IOrder) => _id}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             columnMenu: viewModel.columnMenuSettings,
             toolbar: {
               resetFiltersBtnSettings: {
