@@ -21,7 +21,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 60,
+    width: 80,
   },
 
   {

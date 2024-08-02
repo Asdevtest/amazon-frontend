@@ -29,7 +29,7 @@ export const sourceFilesColumns = rowHandlers => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value || '-'} />,
-    width: 70,
+    width: 80,
     headerAlign: 'center',
     align: 'center',
   },

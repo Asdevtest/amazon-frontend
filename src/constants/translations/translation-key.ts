@@ -1994,4 +1994,9 @@ export enum TranslationKey {
   'Number of units' = 'Number of units',
   'Stocks' = 'Stocks',
   'Boxes x units' = 'Boxes x units',
+  'All proposals' = 'All proposals',
+  'Select performer' = 'Select performer',
+  'Performer was changed successfully' = 'Performer was changed successfully',
+  'Are you sure you want to change performer?' = 'Are you sure you want to change performer?',
+  'Join chat' = 'Join chat',
 }

@@ -1987,5 +1987,10 @@
   "The box will be returned to warehouse": "箱子将被退回仓库",
   "Number of units": "单位数",
   "Stocks": "斯托基",
-  "Boxes x units": "箱子x单位"
+  "Boxes x units": "箱子x单位",
+  "All proposals": "所有提案",
+  "Select performer": "选择执行者",
+  "Performer was changed successfully": "执行者已成功更改",
+  "Are you sure you want to change performer?": "您确定要更换执行者吗?",
+  "Join chat": "加入聊天"
 }

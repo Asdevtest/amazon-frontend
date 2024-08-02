@@ -8,6 +8,10 @@ export const renderData = [
     text: 'My proposals',
   },
   {
+    link: '/freelancer/freelance/all-proposals',
+    text: 'All proposals',
+  },
+  {
     link: '/freelancer/freelance/my-services',
     text: 'My services',
   },

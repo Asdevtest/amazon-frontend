@@ -1991,5 +1991,10 @@
   "The box will be returned to warehouse": "Коробка буде повернена на склад",
   "Number of units": "Кількість елементів",
   "Stocks": "Стоки",
-  "Boxes x units": "Коробки х елементи"
+  "Boxes x units": "Коробки х елементи",
+  "All proposals": "Усі пропозиції",
+  "Select performer": "Вибрати виконавця",
+  "Performer was changed successfully": "Виконавця було успішно змінено",
+  "Are you sure you want to change performer?": "Ви впевнені, що хочете змінити виконавця?",
+  "Join chat": "Приєднатися до чату"
 }

@@ -29,8 +29,6 @@ import { ConflictInTheState } from '../models';
 // @ts-ignore
 import { ForbiddenError } from '../models';
 // @ts-ignore
-import { InlineObject143 } from '../models';
-// @ts-ignore
 import { InlineObject144 } from '../models';
 // @ts-ignore
 import { InlineObject145 } from '../models';
@@ -54,6 +52,8 @@ import { InlineObject153 } from '../models';
 import { InlineObject154 } from '../models';
 // @ts-ignore
 import { InlineObject155 } from '../models';
+// @ts-ignore
+import { InlineObject156 } from '../models';
 // @ts-ignore
 import { InlineResponse200105 } from '../models';
 // @ts-ignore
@@ -113,12 +113,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * ## Поменять пароль, если его забыли
          * @summary Поменять пароль, если его забыли
-         * @param {InlineObject153} [body] 
+         * @param {InlineObject154} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersChangeForgottenPasswordPost: async (body?: InlineObject153, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersChangeForgottenPasswordPost: async (body?: InlineObject154, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/users/change_forgotten_password`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -155,12 +155,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * ## Сменить пароль
          * @summary Сменить пароль
-         * @param {InlineObject151} [body] 
+         * @param {InlineObject152} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersChangePasswordPatch: async (body?: InlineObject151, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersChangePasswordPatch: async (body?: InlineObject152, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/users/change_password`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -421,12 +421,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * ## Изменить отзыв
          * @summary Изменить отзыв
          * @param {string} guid 
-         * @param {InlineObject155} [body] 
+         * @param {InlineObject156} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersFeedbackGuidPatch: async (guid: string, body?: InlineObject155, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersFeedbackGuidPatch: async (guid: string, body?: InlineObject156, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1UsersFeedbackGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/users/feedback/{guid}`
@@ -467,12 +467,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * ## Оставить юзеру отзыв
          * @summary Оставить юзеру отзыв
          * @param {string} guid 
-         * @param {InlineObject154} [body] 
+         * @param {InlineObject155} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersFeedbackGuidPost: async (guid: string, body?: InlineObject154, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersFeedbackGuidPost: async (guid: string, body?: InlineObject155, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1UsersFeedbackGuidPost', 'guid', guid)
             const localVarPath = `/api/v1/users/feedback/{guid}`
@@ -560,12 +560,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * ## Запросить смену пароля
          * @summary Запросить смену пароля
-         * @param {InlineObject152} [body] 
+         * @param {InlineObject153} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersForgotPasswordPost: async (body?: InlineObject152, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersForgotPasswordPost: async (body?: InlineObject153, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/users/forgot_password`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -693,12 +693,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * ## Получение токена авторизации.   ## Время жизни токена 96 часов   
          * @summary # Получение токена авторизации.
-         * @param {InlineObject143} [body] 
+         * @param {InlineObject144} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersGetAccessTokenPost: async (body?: InlineObject143, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersGetAccessTokenPost: async (body?: InlineObject144, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/users/get_access_token`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -907,12 +907,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * ## Отозвать токены
          * @summary # Отозвать токены
-         * @param {InlineObject144} [body] 
+         * @param {InlineObject145} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersLogoutPost: async (body?: InlineObject144, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersLogoutPost: async (body?: InlineObject145, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/users/logout`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1472,12 +1472,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * ## Изменение пресета
          * @summary # Изменение пресета
          * @param {string} guid 
-         * @param {InlineObject147} [body] 
+         * @param {InlineObject148} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPresetsGuidPatch: async (guid: string, body?: InlineObject147, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersPresetsGuidPatch: async (guid: string, body?: InlineObject148, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1UsersPresetsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/users/presets/{guid}`
@@ -1514,12 +1514,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * ## Создание нового пресета
          * @summary # Создание нового пресета
-         * @param {InlineObject145} [body] 
+         * @param {InlineObject146} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPresetsPost: async (body?: InlineObject145, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersPresetsPost: async (body?: InlineObject146, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/users/presets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1554,12 +1554,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * ## Изменение preset-settings
          * @summary # Изменение preset-settings
          * @param {string} guid 
-         * @param {InlineObject148} [body] 
+         * @param {InlineObject149} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPresetsSettingsGuidPatch: async (guid: string, body?: InlineObject148, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersPresetsSettingsGuidPatch: async (guid: string, body?: InlineObject149, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1UsersPresetsSettingsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/users/presets/settings/{guid}`
@@ -1641,12 +1641,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * ## Создать новый preset-settings
          * @summary # Создать новый preset-settings
-         * @param {InlineObject146} [body] 
+         * @param {InlineObject147} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPresetsSettingsPost: async (body?: InlineObject146, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersPresetsSettingsPost: async (body?: InlineObject147, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/users/presets/settings`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1681,12 +1681,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * ## Добавление определенных специализаций сабам фрилансера Принимает массив специализаций
          * @summary #  Добавление определенных специализаций сабам фрилансера
          * @param {string} guid 
-         * @param {InlineObject149} [body] 
+         * @param {InlineObject150} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersShareSpecSubGuidPost: async (guid: string, body?: InlineObject149, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersShareSpecSubGuidPost: async (guid: string, body?: InlineObject150, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1UsersShareSpecSubGuidPost', 'guid', guid)
             const localVarPath = `/api/v1/users/share_spec_sub/{guid}`
@@ -1765,12 +1765,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * ## Создание/изменение subNote, если null, то удаляется
          * @summary Создание/изменение subNote
-         * @param {InlineObject150} [body] 
+         * @param {InlineObject151} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersSubNotePatch: async (body?: InlineObject150, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersSubNotePatch: async (body?: InlineObject151, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/users/sub_note`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1902,24 +1902,24 @@ export const UserApiFp = function(configuration?: Configuration) {
         /**
          * ## Поменять пароль, если его забыли
          * @summary Поменять пароль, если его забыли
-         * @param {InlineObject153} [body] 
+         * @param {InlineObject154} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersChangeForgottenPasswordPost(body?: InlineObject153, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1UsersChangeForgottenPasswordPost(body?: InlineObject154, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersChangeForgottenPasswordPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Сменить пароль
          * @summary Сменить пароль
-         * @param {InlineObject151} [body] 
+         * @param {InlineObject152} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersChangePasswordPatch(body?: InlineObject151, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1UsersChangePasswordPatch(body?: InlineObject152, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersChangePasswordPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1990,12 +1990,12 @@ export const UserApiFp = function(configuration?: Configuration) {
          * ## Изменить отзыв
          * @summary Изменить отзыв
          * @param {string} guid 
-         * @param {InlineObject155} [body] 
+         * @param {InlineObject156} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersFeedbackGuidPatch(guid: string, body?: InlineObject155, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1UsersFeedbackGuidPatch(guid: string, body?: InlineObject156, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersFeedbackGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2003,12 +2003,12 @@ export const UserApiFp = function(configuration?: Configuration) {
          * ## Оставить юзеру отзыв
          * @summary Оставить юзеру отзыв
          * @param {string} guid 
-         * @param {InlineObject154} [body] 
+         * @param {InlineObject155} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersFeedbackGuidPost(guid: string, body?: InlineObject154, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20112>> {
+        async apiV1UsersFeedbackGuidPost(guid: string, body?: InlineObject155, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20112>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersFeedbackGuidPost(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2028,12 +2028,12 @@ export const UserApiFp = function(configuration?: Configuration) {
         /**
          * ## Запросить смену пароля
          * @summary Запросить смену пароля
-         * @param {InlineObject152} [body] 
+         * @param {InlineObject153} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersForgotPasswordPost(body?: InlineObject152, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1UsersForgotPasswordPost(body?: InlineObject153, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersForgotPasswordPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2065,12 +2065,12 @@ export const UserApiFp = function(configuration?: Configuration) {
         /**
          * ## Получение токена авторизации.   ## Время жизни токена 96 часов   
          * @summary # Получение токена авторизации.
-         * @param {InlineObject143} [body] 
+         * @param {InlineObject144} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersGetAccessTokenPost(body?: InlineObject143, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20116>> {
+        async apiV1UsersGetAccessTokenPost(body?: InlineObject144, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20116>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersGetAccessTokenPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2126,12 +2126,12 @@ export const UserApiFp = function(configuration?: Configuration) {
         /**
          * ## Отозвать токены
          * @summary # Отозвать токены
-         * @param {InlineObject144} [body] 
+         * @param {InlineObject145} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersLogoutPost(body?: InlineObject144, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1UsersLogoutPost(body?: InlineObject145, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersLogoutPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2284,24 +2284,24 @@ export const UserApiFp = function(configuration?: Configuration) {
          * ## Изменение пресета
          * @summary # Изменение пресета
          * @param {string} guid 
-         * @param {InlineObject147} [body] 
+         * @param {InlineObject148} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersPresetsGuidPatch(guid: string, body?: InlineObject147, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1UsersPresetsGuidPatch(guid: string, body?: InlineObject148, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersPresetsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Создание нового пресета
          * @summary # Создание нового пресета
-         * @param {InlineObject145} [body] 
+         * @param {InlineObject146} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersPresetsPost(body?: InlineObject145, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20117>> {
+        async apiV1UsersPresetsPost(body?: InlineObject146, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20117>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersPresetsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2309,12 +2309,12 @@ export const UserApiFp = function(configuration?: Configuration) {
          * ## Изменение preset-settings
          * @summary # Изменение preset-settings
          * @param {string} guid 
-         * @param {InlineObject148} [body] 
+         * @param {InlineObject149} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersPresetsSettingsGuidPatch(guid: string, body?: InlineObject148, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1UsersPresetsSettingsGuidPatch(guid: string, body?: InlineObject149, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersPresetsSettingsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2334,12 +2334,12 @@ export const UserApiFp = function(configuration?: Configuration) {
         /**
          * ## Создать новый preset-settings
          * @summary # Создать новый preset-settings
-         * @param {InlineObject146} [body] 
+         * @param {InlineObject147} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersPresetsSettingsPost(body?: InlineObject146, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20117>> {
+        async apiV1UsersPresetsSettingsPost(body?: InlineObject147, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20117>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersPresetsSettingsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2347,12 +2347,12 @@ export const UserApiFp = function(configuration?: Configuration) {
          * ## Добавление определенных специализаций сабам фрилансера Принимает массив специализаций
          * @summary #  Добавление определенных специализаций сабам фрилансера
          * @param {string} guid 
-         * @param {InlineObject149} [body] 
+         * @param {InlineObject150} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersShareSpecSubGuidPost(guid: string, body?: InlineObject149, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1UsersShareSpecSubGuidPost(guid: string, body?: InlineObject150, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersShareSpecSubGuidPost(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2371,12 +2371,12 @@ export const UserApiFp = function(configuration?: Configuration) {
         /**
          * ## Создание/изменение subNote, если null, то удаляется
          * @summary Создание/изменение subNote
-         * @param {InlineObject150} [body] 
+         * @param {InlineObject151} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersSubNotePatch(body?: InlineObject150, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1UsersSubNotePatch(body?: InlineObject151, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersSubNotePatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2417,23 +2417,23 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
         /**
          * ## Поменять пароль, если его забыли
          * @summary Поменять пароль, если его забыли
-         * @param {InlineObject153} [body] 
+         * @param {InlineObject154} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersChangeForgottenPasswordPost(body?: InlineObject153, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1UsersChangeForgottenPasswordPost(body?: InlineObject154, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1UsersChangeForgottenPasswordPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Сменить пароль
          * @summary Сменить пароль
-         * @param {InlineObject151} [body] 
+         * @param {InlineObject152} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersChangePasswordPatch(body?: InlineObject151, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1UsersChangePasswordPatch(body?: InlineObject152, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1UsersChangePasswordPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2498,24 +2498,24 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * ## Изменить отзыв
          * @summary Изменить отзыв
          * @param {string} guid 
-         * @param {InlineObject155} [body] 
+         * @param {InlineObject156} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersFeedbackGuidPatch(guid: string, body?: InlineObject155, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1UsersFeedbackGuidPatch(guid: string, body?: InlineObject156, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1UsersFeedbackGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Оставить юзеру отзыв
          * @summary Оставить юзеру отзыв
          * @param {string} guid 
-         * @param {InlineObject154} [body] 
+         * @param {InlineObject155} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersFeedbackGuidPost(guid: string, body?: InlineObject154, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20112> {
+        apiV1UsersFeedbackGuidPost(guid: string, body?: InlineObject155, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20112> {
             return localVarFp.apiV1UsersFeedbackGuidPost(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2533,12 +2533,12 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
         /**
          * ## Запросить смену пароля
          * @summary Запросить смену пароля
-         * @param {InlineObject152} [body] 
+         * @param {InlineObject153} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersForgotPasswordPost(body?: InlineObject152, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1UsersForgotPasswordPost(body?: InlineObject153, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1UsersForgotPasswordPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2567,12 +2567,12 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
         /**
          * ## Получение токена авторизации.   ## Время жизни токена 96 часов   
          * @summary # Получение токена авторизации.
-         * @param {InlineObject143} [body] 
+         * @param {InlineObject144} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersGetAccessTokenPost(body?: InlineObject143, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20116> {
+        apiV1UsersGetAccessTokenPost(body?: InlineObject144, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20116> {
             return localVarFp.apiV1UsersGetAccessTokenPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2623,12 +2623,12 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
         /**
          * ## Отозвать токены
          * @summary # Отозвать токены
-         * @param {InlineObject144} [body] 
+         * @param {InlineObject145} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersLogoutPost(body?: InlineObject144, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1UsersLogoutPost(body?: InlineObject145, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1UsersLogoutPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2769,35 +2769,35 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * ## Изменение пресета
          * @summary # Изменение пресета
          * @param {string} guid 
-         * @param {InlineObject147} [body] 
+         * @param {InlineObject148} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPresetsGuidPatch(guid: string, body?: InlineObject147, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1UsersPresetsGuidPatch(guid: string, body?: InlineObject148, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1UsersPresetsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Создание нового пресета
          * @summary # Создание нового пресета
-         * @param {InlineObject145} [body] 
+         * @param {InlineObject146} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPresetsPost(body?: InlineObject145, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20117> {
+        apiV1UsersPresetsPost(body?: InlineObject146, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20117> {
             return localVarFp.apiV1UsersPresetsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменение preset-settings
          * @summary # Изменение preset-settings
          * @param {string} guid 
-         * @param {InlineObject148} [body] 
+         * @param {InlineObject149} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPresetsSettingsGuidPatch(guid: string, body?: InlineObject148, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1UsersPresetsSettingsGuidPatch(guid: string, body?: InlineObject149, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1UsersPresetsSettingsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2815,24 +2815,24 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
         /**
          * ## Создать новый preset-settings
          * @summary # Создать новый preset-settings
-         * @param {InlineObject146} [body] 
+         * @param {InlineObject147} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPresetsSettingsPost(body?: InlineObject146, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20117> {
+        apiV1UsersPresetsSettingsPost(body?: InlineObject147, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20117> {
             return localVarFp.apiV1UsersPresetsSettingsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Добавление определенных специализаций сабам фрилансера Принимает массив специализаций
          * @summary #  Добавление определенных специализаций сабам фрилансера
          * @param {string} guid 
-         * @param {InlineObject149} [body] 
+         * @param {InlineObject150} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersShareSpecSubGuidPost(guid: string, body?: InlineObject149, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1UsersShareSpecSubGuidPost(guid: string, body?: InlineObject150, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1UsersShareSpecSubGuidPost(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2849,12 +2849,12 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
         /**
          * ## Создание/изменение subNote, если null, то удаляется
          * @summary Создание/изменение subNote
-         * @param {InlineObject150} [body] 
+         * @param {InlineObject151} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersSubNotePatch(body?: InlineObject150, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1UsersSubNotePatch(body?: InlineObject151, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1UsersSubNotePatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2890,10 +2890,10 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
 export interface UserApiApiV1UsersChangeForgottenPasswordPostRequest {
     /**
      * 
-     * @type {InlineObject153}
+     * @type {InlineObject154}
      * @memberof UserApiApiV1UsersChangeForgottenPasswordPost
      */
-    readonly body?: InlineObject153
+    readonly body?: InlineObject154
 
     /**
      * 
@@ -2911,10 +2911,10 @@ export interface UserApiApiV1UsersChangeForgottenPasswordPostRequest {
 export interface UserApiApiV1UsersChangePasswordPatchRequest {
     /**
      * 
-     * @type {InlineObject151}
+     * @type {InlineObject152}
      * @memberof UserApiApiV1UsersChangePasswordPatch
      */
-    readonly body?: InlineObject151
+    readonly body?: InlineObject152
 
     /**
      * 
@@ -3065,10 +3065,10 @@ export interface UserApiApiV1UsersFeedbackGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject155}
+     * @type {InlineObject156}
      * @memberof UserApiApiV1UsersFeedbackGuidPatch
      */
-    readonly body?: InlineObject155
+    readonly body?: InlineObject156
 
     /**
      * 
@@ -3093,10 +3093,10 @@ export interface UserApiApiV1UsersFeedbackGuidPostRequest {
 
     /**
      * 
-     * @type {InlineObject154}
+     * @type {InlineObject155}
      * @memberof UserApiApiV1UsersFeedbackGuidPost
      */
-    readonly body?: InlineObject154
+    readonly body?: InlineObject155
 
     /**
      * 
@@ -3142,10 +3142,10 @@ export interface UserApiApiV1UsersFeedbackMyGetRequest {
 export interface UserApiApiV1UsersForgotPasswordPostRequest {
     /**
      * 
-     * @type {InlineObject152}
+     * @type {InlineObject153}
      * @memberof UserApiApiV1UsersForgotPasswordPost
      */
-    readonly body?: InlineObject152
+    readonly body?: InlineObject153
 
     /**
      * 
@@ -3212,10 +3212,10 @@ export interface UserApiApiV1UsersFreelanceSpecsGetRequest {
 export interface UserApiApiV1UsersGetAccessTokenPostRequest {
     /**
      * 
-     * @type {InlineObject143}
+     * @type {InlineObject144}
      * @memberof UserApiApiV1UsersGetAccessTokenPost
      */
-    readonly body?: InlineObject143
+    readonly body?: InlineObject144
 
     /**
      * 
@@ -3324,10 +3324,10 @@ export interface UserApiApiV1UsersLinkSubUserPatchRequest {
 export interface UserApiApiV1UsersLogoutPostRequest {
     /**
      * 
-     * @type {InlineObject144}
+     * @type {InlineObject145}
      * @memberof UserApiApiV1UsersLogoutPost
      */
-    readonly body?: InlineObject144
+    readonly body?: InlineObject145
 
     /**
      * 
@@ -3674,10 +3674,10 @@ export interface UserApiApiV1UsersPresetsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject147}
+     * @type {InlineObject148}
      * @memberof UserApiApiV1UsersPresetsGuidPatch
      */
-    readonly body?: InlineObject147
+    readonly body?: InlineObject148
 
     /**
      * 
@@ -3695,10 +3695,10 @@ export interface UserApiApiV1UsersPresetsGuidPatchRequest {
 export interface UserApiApiV1UsersPresetsPostRequest {
     /**
      * 
-     * @type {InlineObject145}
+     * @type {InlineObject146}
      * @memberof UserApiApiV1UsersPresetsPost
      */
-    readonly body?: InlineObject145
+    readonly body?: InlineObject146
 
     /**
      * 
@@ -3723,10 +3723,10 @@ export interface UserApiApiV1UsersPresetsSettingsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject148}
+     * @type {InlineObject149}
      * @memberof UserApiApiV1UsersPresetsSettingsGuidPatch
      */
-    readonly body?: InlineObject148
+    readonly body?: InlineObject149
 
     /**
      * 
@@ -3772,10 +3772,10 @@ export interface UserApiApiV1UsersPresetsSettingsMyGetRequest {
 export interface UserApiApiV1UsersPresetsSettingsPostRequest {
     /**
      * 
-     * @type {InlineObject146}
+     * @type {InlineObject147}
      * @memberof UserApiApiV1UsersPresetsSettingsPost
      */
-    readonly body?: InlineObject146
+    readonly body?: InlineObject147
 
     /**
      * 
@@ -3800,10 +3800,10 @@ export interface UserApiApiV1UsersShareSpecSubGuidPostRequest {
 
     /**
      * 
-     * @type {InlineObject149}
+     * @type {InlineObject150}
      * @memberof UserApiApiV1UsersShareSpecSubGuidPost
      */
-    readonly body?: InlineObject149
+    readonly body?: InlineObject150
 
     /**
      * 
@@ -3842,10 +3842,10 @@ export interface UserApiApiV1UsersSignInPostRequest {
 export interface UserApiApiV1UsersSubNotePatchRequest {
     /**
      * 
-     * @type {InlineObject150}
+     * @type {InlineObject151}
      * @memberof UserApiApiV1UsersSubNotePatch
      */
-    readonly body?: InlineObject150
+    readonly body?: InlineObject151
 
     /**
      * 

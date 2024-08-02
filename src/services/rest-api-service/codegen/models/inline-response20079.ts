@@ -25,13 +25,13 @@ export interface InlineResponse20079 {
      * @type {string}
      * @memberof InlineResponse20079
      */
-    userId?: string;
+    productId?: string;
     /**
-     * 
+     * Гуид магазина
      * @type {string}
      * @memberof InlineResponse20079
      */
-    productId?: string;
+    shopId?: string;
 }
 
 

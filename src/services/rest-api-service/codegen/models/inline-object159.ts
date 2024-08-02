@@ -21,77 +21,11 @@
  */
 export interface InlineObject159 {
     /**
-     * Profile id of GoLogin
-     * @type {string}
-     * @memberof InlineObject159
-     */
-    gologinId?: string;
-    /**
-     * Name
-     * @type {string}
-     * @memberof InlineObject159
-     */
-    name?: string;
-    /**
-     * Main google table id
-     * @type {string}
-     * @memberof InlineObject159
-     */
-    spreadsheetsIdMain?: string;
-    /**
-     * Perfomance google table id
-     * @type {string}
-     * @memberof InlineObject159
-     */
-    spreadsheetsIdPerformance?: string;
-    /**
-     * Import google table id
-     * @type {string}
-     * @memberof InlineObject159
-     */
-    spreadsheetsIdImport?: string;
-    /**
-     * Email
-     * @type {string}
-     * @memberof InlineObject159
-     */
-    email?: string;
-    /**
-     * Password
-     * @type {string}
-     * @memberof InlineObject159
-     */
-    password?: string;
-    /**
-     * OTP
-     * @type {string}
-     * @memberof InlineObject159
-     */
-    otp?: string;
-    /**
-     * Driver session data (JSONB object)
-     * @type {object}
-     * @memberof InlineObject159
-     */
-    driverSessionData?: object;
-    /**
-     * Parser state
+     * Состояние парсера
      * @type {boolean}
      * @memberof InlineObject159
      */
     isActive?: boolean;
-    /**
-     * Profile access to sellercentral
-     * @type {boolean}
-     * @memberof InlineObject159
-     */
-    access?: boolean;
-    /**
-     * Port of browser
-     * @type {number}
-     * @memberof InlineObject159
-     */
-    port?: number;
 }
 
 

@@ -22,7 +22,7 @@ import { useStyles } from './servant-general-request-info.style'
 
 import { RequestDetailsItem } from './request-details-item/request-details-item'
 
-export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestProposals }) => {
+export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestProposals, onJoinChat }) => {
   const { classes: styles, cx } = useStyles()
 
   const buttonDisabled =
@@ -162,7 +162,12 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
           <>
             <Divider orientation={'vertical'} />
             <div className={styles.proposalsWrapper}>
-              <ProposalsSlider isComment proposals={requestProposals} title={t(TranslationKey.Proposal)} />
+              <ProposalsSlider
+                isComment
+                proposals={requestProposals}
+                title={t(TranslationKey.Proposal)}
+                onJoinChat={onJoinChat}
+              />
             </div>
           </>
         )}

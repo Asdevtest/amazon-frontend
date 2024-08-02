@@ -21,65 +21,47 @@
  */
 export interface InlineObject161 {
     /**
-     * Name
+     * Profile email
      * @type {string}
      * @memberof InlineObject161
      */
-    name?: string;
+    email: string;
     /**
-     * Main google table id
+     * 
      * @type {string}
      * @memberof InlineObject161
      */
-    spreadsheetsIdMain?: string;
-    /**
-     * Perfomance google table id
-     * @type {string}
-     * @memberof InlineObject161
-     */
-    spreadsheetsIdPerformance?: string;
-    /**
-     * Import google table id
-     * @type {string}
-     * @memberof InlineObject161
-     */
-    spreadsheetsIdImport?: string;
-    /**
-     * OTP
-     * @type {string}
-     * @memberof InlineObject161
-     */
-    otp?: string;
-    /**
-     * Driver session data (JSONB object)
-     * @type {object}
-     * @memberof InlineObject161
-     */
-    driverSessionData?: object;
-    /**
-     * Состояние парсера
-     * @type {boolean}
-     * @memberof InlineObject161
-     */
-    isActive?: boolean;
-    /**
-     * Profile access to sellercentral
-     * @type {boolean}
-     * @memberof InlineObject161
-     */
-    access?: boolean;
-    /**
-     * Guid of shop
-     * @type {string}
-     * @memberof InlineObject161
-     */
-    shopId?: string;
-    /**
-     * Guid of client
-     * @type {string}
-     * @memberof InlineObject161
-     */
-    clientId?: string;
+    table?: InlineObject161TableEnum;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject161TableEnum {
+    BusinessReports = 'BUSINESS_REPORTS',
+    Orders = 'ORDERS',
+    TotalBalance = 'TOTAL_BALANCE',
+    Feedback = 'FEEDBACK',
+    Transactions = 'TRANSACTIONS',
+    Inventory = 'INVENTORY',
+    Campaigns = 'CAMPAIGNS',
+    PerfomanceNotifications = 'PERFOMANCE_NOTIFICATIONS',
+    FbaInventory = 'FBA_INVENTORY',
+    AccountHealth = 'ACCOUNT_HEALTH',
+    Returns = 'RETURNS',
+    InventoryPlanning = 'INVENTORY_PLANNING',
+    BrandsReview = 'BRANDS_REVIEW',
+    InventoryShipments = 'INVENTORY_SHIPMENTS',
+    Voice = 'VOICE',
+    FypOutOfStock = 'FYP_OUT_OF_STOCK',
+    FypSearchSuppressed = 'FYP_SEARCH_SUPPRESSED',
+    Income = 'INCOME',
+    PpcSalesWeeks = 'PPC_SALES_WEEKS',
+    PpcOrganic = 'PPC_ORGANIC',
+    All = 'ALL',
+    CheckPermissions = 'CHECK_PERMISSIONS'
+}
+
 
 
