@@ -12,7 +12,7 @@ import { ShopModel } from '@models/shop-model'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IShop } from '@typings/models/shops/shop'
+import { IShop, IShopExport } from '@typings/models/shops/shop'
 
 import { shopsColumns } from './client-shops-view.columns'
 import { shopsViewModelConfig } from './client-shops-view.config'
@@ -117,6 +117,20 @@ export class ShopsViewModel extends DataGridTableModel {
     } catch (error) {
       console.error(error)
       toast.error(t(TranslationKey['Profile with given guid not found!']))
+    }
+  }
+
+  async getShopsExport(table: string, shopIds?: string, statusGroup?: string, onAmazon?: boolean) {
+    try {
+      const data = {
+        table,
+        shopIds,
+        statusGroup,
+        onAmazon,
+      }
+      const response = (await ClientModel.getShopsExport(data)) as unknown as IShopExport[]
+    } catch (error) {
+      console.error(error)
     }
   }
 }

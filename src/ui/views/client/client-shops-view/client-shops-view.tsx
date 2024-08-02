@@ -40,6 +40,10 @@ export const ClientShopsView = observer(() => {
           {t(TranslationKey.Update)}
         </CustomButton>
 
+        <CustomButton type="primary" size="large" onClick={() => viewModel.getShopsExport('INVENTORY')}>
+          {t(TranslationKey.Export)}
+        </CustomButton>
+
         <CustomInputSearch
           enterButton
           allowClear

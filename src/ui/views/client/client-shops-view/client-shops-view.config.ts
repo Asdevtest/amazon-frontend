@@ -10,4 +10,5 @@ export const shopsViewModelConfig = {
   onEditShop: action.bound,
   onAddShop: action.bound,
   onUpdateShops: action.bound,
+  getShopsExport: action.bound,
 }
