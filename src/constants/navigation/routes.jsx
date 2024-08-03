@@ -2721,7 +2721,7 @@ export const privateRoutesConfigs = [
     component: AllProposalsView,
     exact: true,
     permission: [UserRole.FREELANCER],
-    permissionKey: permissionsKeys.freelancer.SHOW_ALL_PROPOSALS_FREELANCER,
+    permissionKey: permissionsKeys.freelancer.SHOW_FREELANCE_ALLPROPOSALS_FREELANCER,
     crumbNameKey: TranslationKey['All proposals'],
 
     navigationInfo: {

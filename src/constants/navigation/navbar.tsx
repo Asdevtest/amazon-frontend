@@ -532,7 +532,7 @@ export const navbarConfig = {
 
           checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
-            user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER),
+            user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_FREELANCE_ALLPROPOSALS_FREELANCER),
         },
 
         {
@@ -565,7 +565,8 @@ export const navbarConfig = {
             item === permissionsKeys.freelancer.SHOW_SOURCES_FREELANCER ||
             item === permissionsKeys.freelancer.SHOW_ANNOUNCEMENTS_FREELANCER ||
             item === permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER ||
-            item === permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER,
+            item === permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER ||
+            item === permissionsKeys.freelancer.SHOW_FREELANCE_ALLPROPOSALS_FREELANCER,
         ),
     },
 
