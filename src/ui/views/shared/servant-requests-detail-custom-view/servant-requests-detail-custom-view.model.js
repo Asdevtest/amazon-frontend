@@ -449,6 +449,7 @@ export class RequestDetailCustomViewModel {
     try {
       await ChatsModel.joinChat(id)
       this.loadData()
+      ChatModel.getChats(this.requestId, 'REQUEST')
     } catch (error) {
       console.error(error)
     }
