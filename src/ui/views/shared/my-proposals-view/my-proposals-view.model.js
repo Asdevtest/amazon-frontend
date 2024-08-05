@@ -101,6 +101,8 @@ export class MyProposalsViewModel {
     onClickConfirm: () => {},
   }
 
+  tableKey = DataGridTablesKeys.FREELANCER_MY_PROPOSALS
+
   allProposals = false
 
   get userInfo() {
@@ -118,6 +120,9 @@ export class MyProposalsViewModel {
   constructor({ history, allProposals }) {
     this.history = history
     this.allProposals = allProposals
+    this.tableKey = allProposals
+      ? DataGridTablesKeys.FREELANCER_ALL_PROPOSALS
+      : DataGridTablesKeys.FREELANCER_MY_PROPOSALS
 
     this.setDefaultStatuses()
 

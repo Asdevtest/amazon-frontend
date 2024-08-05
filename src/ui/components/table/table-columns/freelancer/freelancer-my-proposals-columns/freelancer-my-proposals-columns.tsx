@@ -194,7 +194,7 @@ export const freelancerMyProposalsColumns = (handlers: IHandlers) => [
   },
 
   {
-    field: 'createdBy',
+    field: 'sub',
     headerName: t(TranslationKey.Performer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
     width: 245,
@@ -207,6 +207,8 @@ export const freelancerMyProposalsColumns = (handlers: IHandlers) => [
     ),
     sortable: false,
     filterable: false,
+    hideEmptyObject: true,
+    columnKey: columnnsKeys.shared.OBJECT_VALUE,
   },
 
   {
