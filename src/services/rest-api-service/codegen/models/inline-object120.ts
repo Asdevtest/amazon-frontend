@@ -21,17 +21,17 @@
  */
 export interface InlineObject120 {
     /**
-     * Гуид идеи в статусе onChecked(10)
+     * Файл для записи в FreelanceSource
      * @type {string}
      * @memberof InlineObject120
      */
-    onCheckedIdeaId?: string;
+    sourceFile?: string;
     /**
-     * Гуид идеи в статусе finished(20)
+     * Комментарий к файлу
      * @type {string}
      * @memberof InlineObject120
      */
-    onFinishedIdeaId?: string;
+    comments?: string;
 }
 
 

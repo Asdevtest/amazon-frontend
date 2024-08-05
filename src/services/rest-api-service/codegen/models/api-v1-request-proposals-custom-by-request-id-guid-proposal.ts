@@ -152,6 +152,12 @@ export interface ApiV1RequestProposalsCustomByRequestIdGuidProposal {
     approvedByMaster?: boolean;
     /**
      * 
+     * @type {boolean}
+     * @memberof ApiV1RequestProposalsCustomByRequestIdGuidProposal
+     */
+    chatMember?: boolean;
+    /**
+     * 
      * @type {ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy}
      * @memberof ApiV1RequestProposalsCustomByRequestIdGuidProposal
      */

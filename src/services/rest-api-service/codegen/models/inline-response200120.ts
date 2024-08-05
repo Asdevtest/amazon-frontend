@@ -13,27 +13,34 @@
  */
 
 
-import { InlineResponse200120Details } from './inline-response200120-details';
-import { InlineResponse20090Rows } from './inline-response20090-rows';
+import { ApiV1RequestProposalsCustomByRequestIdGuidDetails } from './api-v1-request-proposals-custom-by-request-id-guid-details';
+import { ApiV1RequestProposalsCustomByRequestIdGuidProposal } from './api-v1-request-proposals-custom-by-request-id-guid-proposal';
+import { ApiV1RequestProposalsCustomByRequestIdGuidRequest } from './api-v1-request-proposals-custom-by-request-id-guid-request';
 
 /**
- * Схема детали на поиск ниш.
+ * Схема универсального предложения
  * @export
  * @interface InlineResponse200120
  */
 export interface InlineResponse200120 {
     /**
      * 
-     * @type {InlineResponse20090Rows}
+     * @type {ApiV1RequestProposalsCustomByRequestIdGuidProposal}
      * @memberof InlineResponse200120
      */
-    request?: InlineResponse20090Rows;
+    proposal?: ApiV1RequestProposalsCustomByRequestIdGuidProposal;
     /**
      * 
-     * @type {InlineResponse200120Details}
+     * @type {ApiV1RequestProposalsCustomByRequestIdGuidDetails}
      * @memberof InlineResponse200120
      */
-    details?: InlineResponse200120Details;
+    details?: ApiV1RequestProposalsCustomByRequestIdGuidDetails;
+    /**
+     * 
+     * @type {ApiV1RequestProposalsCustomByRequestIdGuidRequest}
+     * @memberof InlineResponse200120
+     */
+    request?: ApiV1RequestProposalsCustomByRequestIdGuidRequest;
 }
 
 

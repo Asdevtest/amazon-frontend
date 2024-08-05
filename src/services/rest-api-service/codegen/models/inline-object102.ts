@@ -21,23 +21,17 @@
  */
 export interface InlineObject102 {
     /**
-     * Поставить оценку юзеру
-     * @type {number}
-     * @memberof InlineObject102
-     */
-    rating?: number;
-    /**
-     * Комментарий причин изменения статуса.
+     * Время закрытия заявки.
      * @type {string}
      * @memberof InlineObject102
      */
-    reason?: string;
+    timeoutAt: string;
     /**
-     * Массив ссылок на медиафайлы.
-     * @type {Array<string>}
+     * Количество предложений. null без лимитов
+     * @type {number}
      * @memberof InlineObject102
      */
-    linksToMediaFiles?: Array<string>;
+    maxAmountOfProposals?: number;
 }
 
 
