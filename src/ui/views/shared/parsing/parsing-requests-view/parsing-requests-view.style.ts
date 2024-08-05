@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(() => ({
   flexRow: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     gap: '20px',
   },
 

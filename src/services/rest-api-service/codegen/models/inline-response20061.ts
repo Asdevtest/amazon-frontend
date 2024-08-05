@@ -13,6 +13,9 @@
  */
 
 
+import { ApiV1IdeasNotificationsCreatedBy } from './api-v1-ideas-notifications-created-by';
+import { ApiV1IdeasNotificationsIdea } from './api-v1-ideas-notifications-idea';
+import { ApiV1IdeasNotificationsProduct } from './api-v1-ideas-notifications-product';
 
 /**
  * 
@@ -21,11 +24,29 @@
  */
 export interface InlineResponse20061 {
     /**
-     * id созданного профайла
+     * 
+     * @type {ApiV1IdeasNotificationsProduct}
+     * @memberof InlineResponse20061
+     */
+    product?: ApiV1IdeasNotificationsProduct;
+    /**
+     * 
+     * @type {ApiV1IdeasNotificationsIdea}
+     * @memberof InlineResponse20061
+     */
+    idea?: ApiV1IdeasNotificationsIdea;
+    /**
+     * 
+     * @type {ApiV1IdeasNotificationsCreatedBy}
+     * @memberof InlineResponse20061
+     */
+    createdBy?: ApiV1IdeasNotificationsCreatedBy;
+    /**
+     * 
      * @type {string}
      * @memberof InlineResponse20061
      */
-    profileId?: string;
+    createdAt?: string;
 }
 
 

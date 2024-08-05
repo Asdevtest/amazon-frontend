@@ -21,47 +21,65 @@
  */
 export interface InlineObject160 {
     /**
-     * Profile email
+     * Profile id of GoLogin
      * @type {string}
      * @memberof InlineObject160
      */
-    email: string;
+    gologinId?: string;
     /**
-     * 
+     * Name
      * @type {string}
      * @memberof InlineObject160
      */
-    table?: InlineObject160TableEnum;
+    name?: string;
+    /**
+     * Main google table id
+     * @type {string}
+     * @memberof InlineObject160
+     */
+    spreadsheetsIdMain?: string;
+    /**
+     * Perfomance google table id
+     * @type {string}
+     * @memberof InlineObject160
+     */
+    spreadsheetsIdPerformance?: string;
+    /**
+     * Import google table id
+     * @type {string}
+     * @memberof InlineObject160
+     */
+    spreadsheetsIdImport?: string;
+    /**
+     * Email
+     * @type {string}
+     * @memberof InlineObject160
+     */
+    email?: string;
+    /**
+     * Password
+     * @type {string}
+     * @memberof InlineObject160
+     */
+    password?: string;
+    /**
+     * OTP
+     * @type {string}
+     * @memberof InlineObject160
+     */
+    otp?: string;
+    /**
+     * Driver session data (JSONB object)
+     * @type {object}
+     * @memberof InlineObject160
+     */
+    driverSessionData?: object;
+    /**
+     * Port of browser
+     * @type {number}
+     * @memberof InlineObject160
+     */
+    port?: number;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject160TableEnum {
-    BusinessReports = 'BUSINESS_REPORTS',
-    Orders = 'ORDERS',
-    TotalBalance = 'TOTAL_BALANCE',
-    Feedback = 'FEEDBACK',
-    Transactions = 'TRANSACTIONS',
-    Inventory = 'INVENTORY',
-    Campaigns = 'CAMPAIGNS',
-    PerfomanceNotifications = 'PERFOMANCE_NOTIFICATIONS',
-    FbaInventory = 'FBA_INVENTORY',
-    AccountHealth = 'ACCOUNT_HEALTH',
-    Returns = 'RETURNS',
-    InventoryPlanning = 'INVENTORY_PLANNING',
-    BrandsReview = 'BRANDS_REVIEW',
-    InventoryShipments = 'INVENTORY_SHIPMENTS',
-    Voice = 'VOICE',
-    FypOutOfStock = 'FYP_OUT_OF_STOCK',
-    FypSearchSuppressed = 'FYP_SEARCH_SUPPRESSED',
-    Income = 'INCOME',
-    PpcSalesWeeks = 'PPC_SALES_WEEKS',
-    PpcOrganic = 'PPC_ORGANIC',
-    All = 'ALL',
-    CheckPermissions = 'CHECK_PERMISSIONS'
-}
-
 
 

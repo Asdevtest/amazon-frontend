@@ -13,6 +13,8 @@
  */
 
 
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
+import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
 
 /**
  * 
@@ -21,17 +23,263 @@
  */
 export interface InlineObject51 {
     /**
+     * ASIN продукта
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    asin?: string;
+    /**
+     * SKU введенным клиентом.
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    skuByClient?: string;
+    /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject51
      */
-    userIds: Array<string>;
+    latestSeoFiles?: Array<string>;
     /**
-     * Название группового чата
+     * Категория
      * @type {string}
      * @memberof InlineObject51
      */
-    title: string;
+    category?: string;
+    /**
+     * Ссылка на этот продукт на амазоне.
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    lamazon?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    bsr?: number;
+    /**
+     * Признак fba
+     * @type {boolean}
+     * @memberof InlineObject51
+     */
+    fba?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    amazon?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    height?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    width?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    length?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    weight?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    fbafee?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    fbaamount?: number;
+    /**
+     * Комментарии к товару.
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    icomment?: string;
+    /**
+     * Комментарии к товару, от клиента.
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    clientComment?: string;
+    /**
+     * Массив изображений.
+     * @type {Array<string>}
+     * @memberof InlineObject51
+     */
+    images?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    amazonDescription?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    amazonDetail?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    amazonTitle?: string;
+    /**
+     * Материл продукта
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    material?: string;
+    /**
+     * Применение продукта
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    productUsage?: string;
+    /**
+     * chinese title?
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    chinaTitle?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    minpurchase?: number;
+    /**
+     * Прибыль
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    margin?: number;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    strategyStatus?: number;
+    /**
+     * Признак needCheckBySupervisor
+     * @type {boolean}
+     * @memberof InlineObject51
+     */
+    needCheckBySupervisor?: boolean;
+    /**
+     * Флаг указывает что продукт в архиве.
+     * @type {boolean}
+     * @memberof InlineObject51
+     */
+    archive?: boolean;
+    /**
+     * hsCode продукта.
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    hsCode?: string;
+    /**
+     * Ниша
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    niche?: string;
+    /**
+     * Асины
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    asins?: string;
+    /**
+     * Общий доход
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    totalRevenue?: string;
+    /**
+     * Коэффициент прибыли
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    coefficient?: string;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    avgReviews?: string;
+    /**
+     * Поле для калькуляции дозакупок
+     * @type {number}
+     * @memberof InlineObject51
+     */
+    fourMonthesStock?: number;
+    /**
+     * ID магазинa продукта
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    shopId?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsGuidRedFlags>}
+     * @memberof InlineObject51
+     */
+    redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @memberof InlineObject51
+     */
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
 }
 
 

@@ -25,13 +25,13 @@ export interface InlineObject142 {
      * @type {string}
      * @memberof InlineObject142
      */
-    iconImage?: string;
+    title: string;
     /**
      * 
      * @type {string}
      * @memberof InlineObject142
      */
-    title?: string;
+    iconImage?: string;
 }
 
 

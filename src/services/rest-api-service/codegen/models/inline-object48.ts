@@ -21,107 +21,29 @@
  */
 export interface InlineObject48 {
     /**
-     * комментарии байера.
+     * GUID спека
      * @type {string}
      * @memberof InlineObject48
      */
-    buyerComment?: string;
-    /**
-     * GUID storekeeper-a
-     * @type {string}
-     * @memberof InlineObject48
-     */
-    storekeeperId?: string;
+    specId?: string;
     /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject48
      */
-    paymentDetails?: Array<string>;
-    /**
-     * Цена в юанях
-     * @type {number}
-     * @memberof InlineObject48
-     */
-    priceInYuan?: number;
-    /**
-     * Цена доставки партии в юанях
-     * @type {number}
-     * @memberof InlineObject48
-     */
-    priceBatchDeliveryInYuan?: number;
-    /**
-     * GUID тарифа доставки.
-     * @type {string}
-     * @memberof InlineObject48
-     */
-    logicsTariffId?: string;
-    /**
-     * GUID пункта назначения.
-     * @type {string}
-     * @memberof InlineObject48
-     */
-    destinationId?: string;
+    linksToMediaFiles?: Array<string>;
     /**
      * 
      * @type {string}
      * @memberof InlineObject48
      */
-    item?: string;
+    title?: string;
     /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject48
-     */
-    images?: Array<string>;
-    /**
-     * Курс юань доллар.
-     * @type {number}
-     * @memberof InlineObject48
-     */
-    yuanToDollarRate?: number;
-    /**
-     * Стоимость доставки до склада.
-     * @type {number}
-     * @memberof InlineObject48
-     */
-    deliveryCostToTheWarehouse?: number;
-    /**
-     * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
+     * 
      * @type {string}
      * @memberof InlineObject48
      */
-    trackingNumberChina?: string;
-    /**
-     * GUID поставщика, для данного заказа.
-     * @type {string}
-     * @memberof InlineObject48
-     */
-    orderSupplierId?: string;
-    /**
-     * Cумма частичной оплаты
-     * @type {number}
-     * @memberof InlineObject48
-     */
-    partialPaymentAmountRmb?: number;
-    /**
-     * Cумма частичной оплаты
-     * @type {number}
-     * @memberof InlineObject48
-     */
-    partiallyPaid?: number;
-    /**
-     * Оплачивается ли заказ частично
-     * @type {boolean}
-     * @memberof InlineObject48
-     */
-    partialPayment?: boolean;
-    /**
-     * Кол-во в заказе
-     * @type {number}
-     * @memberof InlineObject48
-     */
-    amount?: number;
+    description?: string;
 }
 
 

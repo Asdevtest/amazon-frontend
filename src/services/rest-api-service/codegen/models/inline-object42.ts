@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
 
 /**
  * 
@@ -21,11 +22,11 @@
  */
 export interface InlineObject42 {
     /**
-     * Сформирована ли коробка
-     * @type {boolean}
+     * 
+     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
      * @memberof InlineObject42
      */
-    isFormed: boolean;
+    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
 }
 
 

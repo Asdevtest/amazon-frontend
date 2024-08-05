@@ -13,26 +13,76 @@
  */
 
 
-import { InlineResponse20035 } from './inline-response20035';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyRequests } from './api-v1-announcements-my-requests';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20036
  */
 export interface InlineResponse20036 {
     /**
-     * Всего кол-во записей в результате запроса
-     * @type {number}
+     * GUID в базе данных
+     * @type {string}
      * @memberof InlineResponse20036
      */
-    count?: number;
+    _id?: string;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20035>}
+     * 
+     * @type {ApiV1AnnouncementsMySpec}
      * @memberof InlineResponse20036
      */
-    rows?: Array<InlineResponse20035>;
+    spec?: ApiV1AnnouncementsMySpec;
+    /**
+     * Archive
+     * @type {boolean}
+     * @memberof InlineResponse20036
+     */
+    archive?: boolean;
+    /**
+     * 
+     * @type {Array<ApiV1AnnouncementsMyRequests>}
+     * @memberof InlineResponse20036
+     */
+    requests?: Array<ApiV1AnnouncementsMyRequests>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20036
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20036
+     */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20036
+     */
+    description?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20036
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20036
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse20036
+     */
+    updatedAt?: string;
 }
 
 

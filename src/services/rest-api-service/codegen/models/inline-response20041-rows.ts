@@ -16,10 +16,9 @@
 import { ApiV1AdminsGetProductsByStatusBoxAmounts } from './api-v1-admins-get-products-by-status-box-amounts';
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
+import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
 import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
 import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
-import { InlineResponse20041Inventory } from './inline-response20041-inventory';
-import { InlineResponse20041Shop } from './inline-response20041-shop';
 
 /**
  * 
@@ -329,10 +328,10 @@ export interface InlineResponse20041Rows {
     shopId?: string;
     /**
      * 
-     * @type {InlineResponse20041Shop}
+     * @type {ApiV1AdminsGetProductsByStatusShop}
      * @memberof InlineResponse20041Rows
      */
-    shop?: InlineResponse20041Shop;
+    shop?: ApiV1AdminsGetProductsByStatusShop;
     /**
      * Савка ресечера.
      * @type {number}
@@ -549,12 +548,6 @@ export interface InlineResponse20041Rows {
      * @memberof InlineResponse20041Rows
      */
     stockCost?: number;
-    /**
-     * 
-     * @type {InlineResponse20041Inventory}
-     * @memberof InlineResponse20041Rows
-     */
-    inventory?: InlineResponse20041Inventory;
 }
 
 
