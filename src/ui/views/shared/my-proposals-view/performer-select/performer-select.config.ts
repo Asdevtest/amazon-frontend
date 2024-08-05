@@ -1,5 +1,9 @@
 import { action } from 'mobx'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { t } from '@utils/translations'
+
 import { IFullUser } from '@typings/shared/full-user'
 import { ISpec } from '@typings/shared/spec'
 
@@ -12,11 +16,14 @@ export const requestSelectConfig = {
 export const getUserOptions = (users: IPermissionsData[], spec?: ISpec) => {
   const filteredUsers = users.filter(user => user?.allowedSpec?.some(data => data?.type === spec?.type))
 
-  return filteredUsers?.map(user => ({
+  const generatedUsetOptions = filteredUsers?.map(user => ({
     ...user,
     value: user?._id,
     label: user?.name,
   }))
+  const defaultUserOption = { value: null, label: t(TranslationKey['Select performer']) }
+
+  return [defaultUserOption, ...generatedUsetOptions]
 }
 
 export const getDefaultUserOption = (defaultPerformer?: IFullUser) => {

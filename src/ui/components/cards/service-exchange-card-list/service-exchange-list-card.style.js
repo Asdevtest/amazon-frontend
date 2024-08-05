@@ -15,6 +15,7 @@ export const useStyles = makeStyles()(theme => ({
 
   image: {
     borderRadius: 16,
+    overflow: 'hidden',
   },
 
   descriptionWrapper: {

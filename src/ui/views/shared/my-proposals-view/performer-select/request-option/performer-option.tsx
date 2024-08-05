@@ -16,7 +16,7 @@ interface PerformerOptionProps {
 }
 
 export const PerformerOption: FC<PerformerOptionProps> = memo(({ data, onChangeData }) => {
-  const avatar = getUserAvatarSrc(data?._id)
+  const avatar = getUserAvatarSrc(data?.value)
 
   return (
     <Popconfirm
@@ -24,12 +24,12 @@ export const PerformerOption: FC<PerformerOptionProps> = memo(({ data, onChangeD
       title={t(TranslationKey['Are you sure you want to change performer?'])}
       okText={t(TranslationKey.Yes)}
       cancelText={t(TranslationKey.No)}
-      onConfirm={() => onChangeData(data?._id)}
+      onConfirm={() => onChangeData(data?.value)}
     >
       <Space>
-        <Avatar size={24} src={avatar} />
+        {data?.value ? <Avatar size={24} src={avatar} /> : null}
         <Text ellipsis style={{ width: '165px' }}>
-          {data?.name}
+          {data?.value ? data?.name : t(TranslationKey.Empty)}
         </Text>
       </Space>
     </Popconfirm>
