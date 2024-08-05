@@ -39,8 +39,8 @@ export const freelancerVacantRequestColumns = handlers => [
 
   {
     field: 'taskComplexity',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Difficulty level'])} />,
-    headerName: t(TranslationKey['Difficulty level']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
+    headerName: t(TranslationKey.Category),
 
     renderCell: params => (
       <MultilineTextCell

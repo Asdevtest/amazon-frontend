@@ -1755,10 +1755,6 @@ export enum TranslationKey {
   'This product has a parent product' = 'This product has a parent product',
   'Mark as completed' = 'Mark as completed',
   'Number of rework' = 'Number of rework',
-  'Difficulty level' = 'Difficulty level',
-  'Easy' = 'Easy',
-  'Normal' = 'Normal',
-  'Hard' = 'Hard',
   'Are you sure?' = 'Are you sure?',
   'Remove destination restriction' = 'Remove destination restriction',
   'Wish to change a destination?' = 'Wish to change a destination?',
@@ -1999,4 +1995,7 @@ export enum TranslationKey {
   'Performer was changed successfully' = 'Performer was changed successfully',
   'Are you sure you want to change performer?' = 'Are you sure you want to change performer?',
   'Join chat' = 'Join chat',
+  'Light' = 'Light',
+  'Standart' = 'Standart',
+  'Important' = 'Important',
 }

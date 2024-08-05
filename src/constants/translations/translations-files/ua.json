@@ -1756,10 +1756,6 @@
   "This product has a parent product": "У цього продукту є батьківський продукт",
   "Mark as completed": "Позначити як виконане",
   "Number of rework": "Кількість доопрацювань",
-  "Difficulty level": "Рівень складності",
-  "Easy": "Легкий",
-  "Normal": "Середній",
-  "Hard": "Складний",
   "Are you sure?": "Ви впевнені?",
   "Remove destination restriction": "Зняти обмеження по пункту призначення",
   "Wish to change a destination?": "Бажаєте змінити пункт призначення?",
@@ -1996,5 +1992,8 @@
   "Select performer": "Вибрати виконавця",
   "Performer was changed successfully": "Виконавця було успішно змінено",
   "Are you sure you want to change performer?": "Ви впевнені, що хочете змінити виконавця?",
-  "Join chat": "Приєднатися до чату"
+  "Join chat": "Приєднатися до чату",
+  "Light": "Лайт",
+  "Standart": "Стандарт",
+  "Important": "Важливо"
 }

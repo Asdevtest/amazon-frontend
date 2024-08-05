@@ -1756,10 +1756,6 @@
   "This product has a parent product": "У этого продукта есть родительский продукт",
   "Mark as completed": "Отметить как выполненную",
   "Number of rework": "Кол-во доработок",
-  "Difficulty level": "Уровень сложности",
-  "Easy": "Просто",
-  "Normal": "Средне",
-  "Hard": "Сложно",
   "Are you sure?": "Вы уверены?",
   "Remove destination restriction": "Снять ограничение по пункту назначения",
   "Wish to change a destination?": "Желаете изменить пункт назначения?",
@@ -1999,5 +1995,8 @@
   "Select performer": "Выбрать исполнителя",
   "Performer was changed successfully": "Исполнитель был успешно изменен",
   "Are you sure you want to change performer?": "Вы уверены, что хотите изменить исполнителя?",
-  "Join chat": "Присоединиться к чату"
+  "Join chat": "Присоединиться к чату",
+  "Light": "Лайт",
+  "Standart": "Стандарт",
+  "Important": "Важно"
 }
