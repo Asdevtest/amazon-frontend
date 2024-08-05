@@ -30,6 +30,7 @@ export class ParsingRequestsViewModel extends DataGridFilterTableModel {
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+    this.getDataGridState()
     this.getCurrentData()
 
     makeObservable(this, parsingRequestsViewConfig)

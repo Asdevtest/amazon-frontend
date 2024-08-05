@@ -25,7 +25,13 @@ export class ParsingProfileFormModel {
     try {
       this.onToggleLoading(true)
 
-      await ParserModel.createProfile(values)
+      const data = {
+        ...values,
+        driverSessionData: {},
+        port: Number(values.port),
+      }
+
+      await ParserModel.createProfile(data)
 
       this.onToggleLoading(false)
 

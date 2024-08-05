@@ -108,13 +108,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
             <CustomInput allowClear disabled={isEditMode} size="large" label="Port" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType> name="driverSessionData" className={styles.field}>
-            <CustomInput
-              allowClear
-              disabled={isEditMode}
-              size="large"
-              label="DriverSessionData"
-              wrapperClassName={styles.input}
-            />
+            <CustomInput allowClear disabled size="large" label="DriverSessionData" wrapperClassName={styles.input} />
           </Form.Item>
         </div>
 

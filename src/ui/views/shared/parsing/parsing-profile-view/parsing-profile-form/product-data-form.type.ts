@@ -8,5 +8,5 @@ export type FieldType = {
   spreadsheetsIdMain: string
   otp: string
   port: string
-  driverSessionData: string
+  driverSessionData: any // anobody knows what type
 }

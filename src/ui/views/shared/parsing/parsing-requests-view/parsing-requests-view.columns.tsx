@@ -1,5 +1,6 @@
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MultilineTextHeaderCell, NormDateCell, TextCell, UserMiniCell } from '@components/data-grid/data-grid-cells'
@@ -19,6 +20,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
       renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
       width: 160,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
     {
       field: 'shop',
@@ -26,6 +28,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.shop?.name} />,
       width: 240,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
     {
       field: 'name',
@@ -33,6 +36,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.profile?.name} />,
       width: 240,
+      columnKey: columnnsKeys.shared.STRING,
     },
     {
       field: 'email',
@@ -40,14 +44,15 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.profile?.email} />,
       width: 240,
+      columnKey: columnnsKeys.shared.STRING,
     },
     {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
-
       width: 115,
+      columnKey: columnnsKeys.shared.DATE,
     },
     {
       field: 'createdAt',
@@ -55,6 +60,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
       width: 115,
+      columnKey: columnnsKeys.shared.DATE,
     },
     {
       field: 'actions',
@@ -68,11 +74,12 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
         />
       ),
       width: 115,
+      disableCustomSort: true,
+      filterable: false,
     },
   ]
 
   for (const column of columns) {
-    column.filterable = false
     column.sortable = false
   }
 
