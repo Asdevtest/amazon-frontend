@@ -13,7 +13,9 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
 
 /**
  * 
@@ -22,17 +24,29 @@ import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
  */
 export interface InlineResponse20091 {
     /**
-     * GUID заявки
+     * Гуид медиа
      * @type {string}
      * @memberof InlineResponse20091
      */
     _id?: string;
     /**
-     * Номер заявки
-     * @type {number}
+     * Файл для записи в FreelanceSource
+     * @type {string}
      * @memberof InlineResponse20091
      */
-    humanFriendlyId?: number;
+    sourceFile?: string;
+    /**
+     * Комментарий к файлу
+     * @type {string}
+     * @memberof InlineResponse20091
+     */
+    comments?: string;
+    /**
+     * 
+     * @type {ApiV1RequestProposalsFreelanceSourcesProposal}
+     * @memberof InlineResponse20091
+     */
+    proposal?: ApiV1RequestProposalsFreelanceSourcesProposal;
     /**
      * 
      * @type {ApiV1AnnouncementsMySpec}
@@ -40,29 +54,29 @@ export interface InlineResponse20091 {
      */
     spec?: ApiV1AnnouncementsMySpec;
     /**
-     * Название заявки
+     * гуид продукта
      * @type {string}
      * @memberof InlineResponse20091
      */
-    title?: string;
-    /**
-     * Статус заявки
-     * @type {string}
-     * @memberof InlineResponse20091
-     */
-    status?: string;
+    productId?: string;
     /**
      * 
-     * @type {string}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20091
      */
-    onFinishedIdeaId?: string;
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
-     * 
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20091
      */
-    onCheckedIdeaId?: string;
+    createdAt?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20091
+     */
+    updatedAt?: string;
 }
 
 

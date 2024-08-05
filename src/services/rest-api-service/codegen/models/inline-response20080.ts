@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20080Rows } from './inline-response20080-rows';
 
 /**
  * 
@@ -22,17 +21,11 @@ import { InlineResponse20080Rows } from './inline-response20080-rows';
  */
 export interface InlineResponse20080 {
     /**
-     * Кол-во записей
-     * @type {number}
+     * 
+     * @type {Array<string>}
      * @memberof InlineResponse20080
      */
-    count?: number;
-    /**
-     * Массив оплат.
-     * @type {Array<InlineResponse20080Rows>}
-     * @memberof InlineResponse20080
-     */
-    rows?: Array<InlineResponse20080Rows>;
+    shopIds?: Array<string>;
 }
 
 

@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1RequestsCustomDetails } from './api-v1-requests-custom-details';
-import { ApiV1RequestsCustomRequest } from './api-v1-requests-custom-request';
+import { ApiV1RequestProposalsRequestDetailsCustom } from './api-v1-request-proposals-request-details-custom';
+import { ApiV1RequestsCustomGuidRequest } from './api-v1-requests-custom-guid-request';
 
 /**
  * Схема универсальной заявки.
@@ -24,16 +24,16 @@ import { ApiV1RequestsCustomRequest } from './api-v1-requests-custom-request';
 export interface InlineObject167 {
     /**
      * 
-     * @type {ApiV1RequestsCustomRequest}
+     * @type {ApiV1RequestsCustomGuidRequest}
      * @memberof InlineObject167
      */
-    request: ApiV1RequestsCustomRequest;
+    request?: ApiV1RequestsCustomGuidRequest;
     /**
      * 
-     * @type {ApiV1RequestsCustomDetails}
+     * @type {ApiV1RequestProposalsRequestDetailsCustom}
      * @memberof InlineObject167
      */
-    details: ApiV1RequestsCustomDetails;
+    details?: ApiV1RequestProposalsRequestDetailsCustom;
 }
 
 

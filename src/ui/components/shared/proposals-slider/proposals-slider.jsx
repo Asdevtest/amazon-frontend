@@ -172,7 +172,11 @@ export const ProposalsSlider = ({
             ) : null}
 
             {currentProposal?.chatId ? (
-              <Button className={styles.button} onClick={() => onJoinChat(currentProposal?.chatId)}>
+              <Button
+                disabled={currentProposal?.chatMember}
+                className={styles.button}
+                onClick={() => onJoinChat(currentProposal?.chatId)}
+              >
                 {t(TranslationKey['Join chat'])}
               </Button>
             ) : null}

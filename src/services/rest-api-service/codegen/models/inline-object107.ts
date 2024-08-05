@@ -21,23 +21,17 @@
  */
 export interface InlineObject107 {
     /**
-     * Поставить оценку юзеру
-     * @type {number}
-     * @memberof InlineObject107
-     */
-    rating?: number;
-    /**
-     * Отзыв о работе
+     * Гуид идеи в статусе onChecked(10)
      * @type {string}
      * @memberof InlineObject107
      */
-    review?: string;
+    onCheckedIdeaId?: string;
     /**
-     * Файл для записи в FreelanceSource по этому пропоузалу
+     * Гуид идеи в статусе finished(20)
      * @type {string}
      * @memberof InlineObject107
      */
-    sourceFile?: string;
+    onFinishedIdeaId?: string;
 }
 
 
