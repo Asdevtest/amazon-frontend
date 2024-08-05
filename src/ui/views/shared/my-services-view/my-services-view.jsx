@@ -56,7 +56,7 @@ export const MyServicesView = observer(({ history }) => {
         </div>
       </div>
 
-      <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
+      <div className={styles.dashboardCardWrapper}>
         {viewModel.currentData.map((service, serviceKey) =>
           isListPosition ? (
             <ServiceExchangeCardList

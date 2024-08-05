@@ -24,7 +24,7 @@ interface ServiceExchangeCardListProps {
 }
 
 export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(props => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
   const { service, choose, order, pathname, onClickButton } = props
 
   const detailDescription = service.spec?.type === 0 ? t(TranslationKey.Universal) : service.spec?.title
@@ -46,13 +46,8 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
   return (
     <>
       <div className={styles.wrapper}>
-        <div style={{ width: 300 }}>
-          <Image
-            width={300}
-            height={135}
-            src={getAmazonImageUrl(service.linksToMediaFiles[0])}
-            className={styles.image}
-          />
+        <div className={styles.image}>
+          <Image width={300} height={135} src={getAmazonImageUrl(service.linksToMediaFiles[0])} />
         </div>
 
         <div className={styles.descriptionWrapper}>
