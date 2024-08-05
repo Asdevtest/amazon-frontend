@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20045InventoryShop } from './inline-response20045-inventory-shop';
+import { InlineResponse20042InventoryShop } from './inline-response20042-inventory-shop';
 
 /**
  * Схема репорта amazon_data
@@ -29,64 +29,28 @@ export interface InlineResponse20069Rows {
     _id?: string;
     /**
      * 
-     * @type {InlineResponse20045InventoryShop}
+     * @type {string}
      * @memberof InlineResponse20069Rows
      */
-    shop?: InlineResponse20045InventoryShop;
+    productId?: string;
     /**
-     * Гуид shop-a
+     * 
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
     shopId?: string;
     /**
-     * Дате обновления
+     * The asin of product
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
-    dateDataUpdate?: string;
+    asin?: string;
     /**
-     * Время обновления
-     * @type {string}
-     * @memberof InlineResponse20069Rows
-     */
-    timeDataUpdate?: string;
-    /**
-     * sku
+     * The sku of product
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
     sku?: string;
-    /**
-     * shipment_id
-     * @type {string}
-     * @memberof InlineResponse20069Rows
-     */
-    shipmentId?: string;
-    /**
-     * reference_id
-     * @type {string}
-     * @memberof InlineResponse20069Rows
-     */
-    referenceId?: string;
-    /**
-     * date_created
-     * @type {string}
-     * @memberof InlineResponse20069Rows
-     */
-    dateCreated?: string;
-    /**
-     * date_updated
-     * @type {string}
-     * @memberof InlineResponse20069Rows
-     */
-    dateUpdated?: string;
-    /**
-     * ship_to
-     * @type {string}
-     * @memberof InlineResponse20069Rows
-     */
-    shipTo?: string;
     /**
      * image
      * @type {string}
@@ -94,47 +58,77 @@ export interface InlineResponse20069Rows {
      */
     image?: string;
     /**
-     * units_expected
-     * @type {number}
-     * @memberof InlineResponse20069Rows
-     */
-    unitsExpected?: number;
-    /**
-     * status
+     * Дата обновления
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
-    status?: string;
+    dateUpdated?: string;
     /**
-     * scheduled_carrier_delivery_data
+     * Время обновления
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
-    scheduledCarrierDeliveryDate?: string;
+    timeUpdated?: string;
     /**
-     * delivery_window_start
-     * @type {string}
-     * @memberof InlineResponse20069Rows
-     */
-    deliveryWindowStart?: string;
-    /**
-     * delivery_window_end
-     * @type {string}
-     * @memberof InlineResponse20069Rows
-     */
-    deliveryWindowEnd?: string;
-    /**
-     * created_at
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
     createdAt?: string;
     /**
-     * updated_at
+     * Дата обновления
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
     updatedAt?: string;
+    /**
+     * Order Id
+     * @type {string}
+     * @memberof InlineResponse20069Rows
+     */
+    orderId?: string;
+    /**
+     * Reason
+     * @type {string}
+     * @memberof InlineResponse20069Rows
+     */
+    reason?: string;
+    /**
+     * Returned Date
+     * @type {string}
+     * @memberof InlineResponse20069Rows
+     */
+    returnedDate?: string;
+    /**
+     * Reversal Date
+     * @type {string}
+     * @memberof InlineResponse20069Rows
+     */
+    reversalDate?: string;
+    /**
+     * Received Date
+     * @type {string}
+     * @memberof InlineResponse20069Rows
+     */
+    receivedDate?: string;
+    /**
+     * Disposition
+     * @type {string}
+     * @memberof InlineResponse20069Rows
+     */
+    disposition?: string;
+    /**
+     * Status
+     * @type {string}
+     * @memberof InlineResponse20069Rows
+     */
+    status?: string;
+    /**
+     * 
+     * @type {InlineResponse20042InventoryShop}
+     * @memberof InlineResponse20069Rows
+     */
+    shop?: InlineResponse20042InventoryShop;
 }
 
 

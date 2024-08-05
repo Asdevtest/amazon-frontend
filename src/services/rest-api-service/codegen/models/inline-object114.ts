@@ -21,17 +21,17 @@
  */
 export interface InlineObject114 {
     /**
-     * Время закрытия заявки.
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject114
      */
-    timeoutAt: string;
+    requestIds: Array<string>;
     /**
-     * Количество предложений. null без лимитов
-     * @type {number}
+     * 
+     * @type {boolean}
      * @memberof InlineObject114
      */
-    maxAmountOfProposals?: number;
+    uploadedToListing: boolean;
 }
 
 

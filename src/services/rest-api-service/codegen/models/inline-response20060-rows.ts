@@ -13,6 +13,12 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { InlineResponse20060ChildProduct } from './inline-response20060-child-product';
+import { InlineResponse20060Order } from './inline-response20060-order';
+import { InlineResponse20060ParentProduct } from './inline-response20060-parent-product';
+import { InlineResponse20060RequestsOnCheck } from './inline-response20060-requests-on-check';
+import { InlineResponse20060Suppliers } from './inline-response20060-suppliers';
 
 /**
  * 
@@ -21,29 +27,281 @@
  */
 export interface InlineResponse20060Rows {
     /**
-     * GUID продукта в базе данных
+     * 
      * @type {string}
      * @memberof InlineResponse20060Rows
      */
-    productId: string;
+    _id?: string;
     /**
-     * GUID тарифа доставки
+     * Название идеи
      * @type {string}
      * @memberof InlineResponse20060Rows
      */
-    logicsTariffId?: string;
+    title?: string;
     /**
-     * GUID заказа в БД
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    orderId?: string;
-    /**
-     * Кол-во продукта
+     * Статус идеи
      * @type {number}
      * @memberof InlineResponse20060Rows
      */
-    amount?: number;
+    status?: number;
+    /**
+     * Является ли продукт идеи вариацией существующего
+     * @type {boolean}
+     * @memberof InlineResponse20060Rows
+     */
+    variation?: boolean;
+    /**
+     * Медиа идеи
+     * @type {Array<string>}
+     * @memberof InlineResponse20060Rows
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * Комментарии к идее
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    comments?: string;
+    /**
+     * Комментарий байера
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    buyerComment?: string;
+    /**
+     * Название продукта
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    productName?: string;
+    /**
+     * Ссылки продукта
+     * @type {Array<string>}
+     * @memberof InlineResponse20060Rows
+     */
+    productLinks?: Array<string>;
+    /**
+     * Дополнительные критерии для поиска товара
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    criteria?: string;
+    /**
+     * Причина отказа
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    reasonReject?: string;
+    /**
+     * Количество товаров
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    quantity?: number;
+    /**
+     * Желаемая цена
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    price?: number;
+    /**
+     * FBA Fee
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    fbaFee?: number;
+    /**
+     * Ориентационная цена
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    approximatePrice?: number;
+    /**
+     * Ширина, см
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    width?: number;
+    /**
+     * Высота, см
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    height?: number;
+    /**
+     * Длина, см
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    length?: number;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20060Rows
+     */
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Кол-во секунд идеи в статусе new(5)
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    intervalStatusNew?: number;
+    /**
+     * Кол-во секунд идеи в статусе OnCheck(10)
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    intervalStatusOnCheck?: number;
+    /**
+     * Кол-во секунд идеи в статусе supplierSearch(13)
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    intervalStatusSupplierSearch?: number;
+    /**
+     * Кол-во секунд идеи в статусе supplierFound(14)
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    intervalStatusSupplierFound?: number;
+    /**
+     * Кол-во секунд идеи в статусе supplierNotFound(15)
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    intervalStatusSupplierNotFound?: number;
+    /**
+     * Кол-во секунд идеи в статусе productCreating(16)
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    intervalStatusProductCreating?: number;
+    /**
+     * Кол-во секунд идеи в статусе addingAsin(18)
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    intervalStatusAddingAsin?: number;
+    /**
+     * Кол-во секунд идеи в статусе rejected(25)
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    intervalStatusRejected?: number;
+    /**
+     * Кол-во секунд идеи во всех статусах
+     * @type {number}
+     * @memberof InlineResponse20060Rows
+     */
+    intervalsSum?: number;
+    /**
+     * Время перевода идеи в статус onCheck(10)
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    dateStatusOnCheck?: string;
+    /**
+     * Время перевода идеи в статус supplierSearch(13)
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    dateStatusSupplierSearch?: string;
+    /**
+     * Время перевода идеи в статус supplierFound(14)
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    dateStatusSupplierFound?: string;
+    /**
+     * Время перевода идеи в статус supplierNotFound(15)
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    dateStatusSupplierNotFound?: string;
+    /**
+     * Время перевода идеи в статус productCreating(16)
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    dateStatusProductCreating?: string;
+    /**
+     * Время перевода идеи в статус addingAsin(18)
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    dateStatusAddingAsin?: string;
+    /**
+     * Время перевода идеи в статус finished(20)
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    dateStatusFinished?: string;
+    /**
+     * Время перевода идеи в статус rejected(25)
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    dateStatusRejected?: string;
+    /**
+     * Время перевода идеи в статус closed(30)
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    dateStatusClosed?: string;
+    /**
+     * 
+     * @type {Array<InlineResponse20060Suppliers>}
+     * @memberof InlineResponse20060Rows
+     */
+    suppliers?: Array<InlineResponse20060Suppliers>;
+    /**
+     * 
+     * @type {InlineResponse20060ChildProduct}
+     * @memberof InlineResponse20060Rows
+     */
+    childProduct?: InlineResponse20060ChildProduct;
+    /**
+     * 
+     * @type {InlineResponse20060Order}
+     * @memberof InlineResponse20060Rows
+     */
+    order?: InlineResponse20060Order;
+    /**
+     * 
+     * @type {InlineResponse20060ParentProduct}
+     * @memberof InlineResponse20060Rows
+     */
+    parentProduct?: InlineResponse20060ParentProduct;
+    /**
+     * 
+     * @type {Array<InlineResponse20060RequestsOnCheck>}
+     * @memberof InlineResponse20060Rows
+     */
+    requestsOnCheck?: Array<InlineResponse20060RequestsOnCheck>;
+    /**
+     * 
+     * @type {Array<InlineResponse20060RequestsOnCheck>}
+     * @memberof InlineResponse20060Rows
+     */
+    requestsOnFinished?: Array<InlineResponse20060RequestsOnCheck>;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20060Rows
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    createdAt?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20060Rows
+     */
+    updatedAt?: string;
 }
 
 

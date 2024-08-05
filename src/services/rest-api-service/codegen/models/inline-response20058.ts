@@ -13,8 +13,6 @@
  */
 
 
-import { InlineResponse20056Finances } from './inline-response20056-finances';
-import { InlineResponse20058Products } from './inline-response20058-products';
 
 /**
  * 
@@ -23,17 +21,11 @@ import { InlineResponse20058Products } from './inline-response20058-products';
  */
 export interface InlineResponse20058 {
     /**
-     * 
-     * @type {InlineResponse20058Products}
+     * id созданного профайла
+     * @type {string}
      * @memberof InlineResponse20058
      */
-    products?: InlineResponse20058Products;
-    /**
-     * 
-     * @type {InlineResponse20056Finances}
-     * @memberof InlineResponse20058
-     */
-    finances?: InlineResponse20056Finances;
+    profileId?: string;
 }
 
 

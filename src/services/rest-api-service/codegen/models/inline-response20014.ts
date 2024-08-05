@@ -13,9 +13,8 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AnnouncementsMyRequests } from './api-v1-announcements-my-requests';
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
+import { ApiV1BatchesStorekeeper } from './api-v1-batches-storekeeper';
 
 /**
  * 
@@ -24,53 +23,137 @@ import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
  */
 export interface InlineResponse20014 {
     /**
-     * GUID в базе данных
+     * GUID партии.
      * @type {string}
      * @memberof InlineResponse20014
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AnnouncementsMySpec}
+     * Человекочитаемый id партии.
+     * @type {number}
      * @memberof InlineResponse20014
      */
-    spec?: ApiV1AnnouncementsMySpec;
+    humanFriendlyId?: number;
     /**
-     * Archive
-     * @type {boolean}
+     * Статус партии.
+     * @type {string}
      * @memberof InlineResponse20014
      */
-    archive?: boolean;
+    status?: string;
     /**
-     * 
-     * @type {Array<ApiV1AnnouncementsMyRequests>}
+     * id корабля.
+     * @type {string}
      * @memberof InlineResponse20014
      */
-    requests?: Array<ApiV1AnnouncementsMyRequests>;
+    shipId?: string;
     /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse20014
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * 
+     * Название партии
      * @type {string}
      * @memberof InlineResponse20014
      */
     title?: string;
     /**
+     * Стоимость доставки при расчете из коробок
+     * @type {number}
+     * @memberof InlineResponse20014
+     */
+    calculatedShippingCost?: number;
+    /**
+     * Настоящая стоимость доставки
+     * @type {number}
+     * @memberof InlineResponse20014
+     */
+    actualShippingCost?: number;
+    /**
+     * Трек номер партии
+     * @type {string}
+     * @memberof InlineResponse20014
+     */
+    trackingNumber?: string;
+    /**
+     * Массив ссылок на файлов документации к партии.
+     * @type {Array<string>}
+     * @memberof InlineResponse20014
+     */
+    attachedDocuments?: Array<string>;
+    /**
+     * Финальный вес партии, если считать все коробки как одну большую коробу.
+     * @type {number}
+     * @memberof InlineResponse20014
+     */
+    finalWeightAsOneBox?: number;
+    /**
+     * Финальный вес партии, если сложить все веса коробок по отдельности.
+     * @type {number}
+     * @memberof InlineResponse20014
+     */
+    finalWeightSumEachBoxAmount?: number;
+    /**
+     * Заархивирована ли партия
+     * @type {boolean}
+     * @memberof InlineResponse20014
+     */
+    archive?: boolean;
+    /**
+     * Массив id коробок.
+     * @type {Array<ApiV1BatchesBoxes>}
+     * @memberof InlineResponse20014
+     */
+    boxes?: Array<ApiV1BatchesBoxes>;
+    /**
+     * Метод подсчта массы партии
+     * @type {number}
+     * @memberof InlineResponse20014
+     */
+    calculationMethod?: number;
+    /**
+     * Делитель объема партии
+     * @type {number}
+     * @memberof InlineResponse20014
+     */
+    volumeWeightDivide?: number;
+    /**
+     * Масса партии
+     * @type {number}
+     * @memberof InlineResponse20014
+     */
+    finalWeight?: number;
+    /**
+     * Количество коробок в партии.
+     * @type {number}
+     * @memberof InlineResponse20014
+     */
+    quantityBoxes?: number;
+    /**
+     * Общая стоимость от поставщика заказа.
+     * @type {number}
+     * @memberof InlineResponse20014
+     */
+    totalPriceFromOrderSupplier?: number;
+    /**
+     * 
+     * @type {ApiV1BatchesStorekeeper}
+     * @memberof InlineResponse20014
+     */
+    storekeeper?: ApiV1BatchesStorekeeper;
+    /**
+     * 
+     * @type {ApiV1BatchesStorekeeper}
+     * @memberof InlineResponse20014
+     */
+    createdBy?: ApiV1BatchesStorekeeper;
+    /**
+     * 
+     * @type {ApiV1BatchesStorekeeper}
+     * @memberof InlineResponse20014
+     */
+    lastModifiedBy?: ApiV1BatchesStorekeeper;
+    /**
      * 
      * @type {string}
      * @memberof InlineResponse20014
      */
-    description?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20014
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    arrivalDate?: string;
     /**
      * Дата создания.
      * @type {string}
@@ -78,7 +161,7 @@ export interface InlineResponse20014 {
      */
     createdAt?: string;
     /**
-     * Дата обновления.
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20014
      */

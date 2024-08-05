@@ -13,9 +13,7 @@
  */
 
 
-import { InlineResponse20057Batches } from './inline-response20057-batches';
-import { InlineResponse20057Boxes } from './inline-response20057-boxes';
-import { InlineResponse20057Tasks } from './inline-response20057-tasks';
+import { InlineResponse20056 } from './inline-response20056';
 
 /**
  * 
@@ -24,23 +22,17 @@ import { InlineResponse20057Tasks } from './inline-response20057-tasks';
  */
 export interface InlineResponse20057 {
     /**
-     * 
-     * @type {InlineResponse20057Tasks}
+     * Count of items
+     * @type {number}
      * @memberof InlineResponse20057
      */
-    tasks?: InlineResponse20057Tasks;
+    count?: number;
     /**
      * 
-     * @type {InlineResponse20057Boxes}
+     * @type {Array<InlineResponse20056>}
      * @memberof InlineResponse20057
      */
-    boxes?: InlineResponse20057Boxes;
-    /**
-     * 
-     * @type {InlineResponse20057Batches}
-     * @memberof InlineResponse20057
-     */
-    batches?: InlineResponse20057Batches;
+    rows?: Array<InlineResponse20056>;
 }
 
 

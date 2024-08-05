@@ -28,7 +28,7 @@ export interface InlineResponse20044 {
      */
     count?: number;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
+     * Массив заказов c пагинацией(заданная страничка).
      * @type {Array<InlineResponse20044Rows>}
      * @memberof InlineResponse20044
      */

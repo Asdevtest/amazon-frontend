@@ -25,15 +25,15 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject137 } from '../models';
-// @ts-ignore
 import { InlineObject138 } from '../models';
+// @ts-ignore
+import { InlineObject139 } from '../models';
 // @ts-ignore
 import { InlineResponse200 } from '../models';
 // @ts-ignore
 import { InlineResponse200103 } from '../models';
 // @ts-ignore
-import { InlineResponse20031 } from '../models';
+import { InlineResponse20029 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -48,12 +48,12 @@ export const SupervisorApiAxiosParamCreator = function (configuration?: Configur
          * ## Изменить продукт.  ## 20, 70, 80, 90 - эти статусы запускают процесс заполнения полей для выплат в продуете.    ## 270, 280, 290 - эти статусы запускают процесс авто выплат.   ## одн из таких статусов - больше нельзя так как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,       researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,      buyerPickedUpProduct: 35,   // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      paidByClient: 75,     PLATFORMS_PRODUCT_COPY: 76, // копия товара от платформы, при покупке товара из бесплатно доступных     completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/      noPublished: 100,     PLATFORMS_FREE: 110, // продукт принадлежит платформе и распространяется бесплатно     CREATED_BY_CLIENT: 200, // товар создан клиентом     FROM_CLIENT_TO_BUYER_FOR_RESEARCH: 230, //статус говорит о том что клиент отправил товар на поиск поставщика баеру (устанавливает клиент)     FROM_CLIENT_BUYER_PICKED_PRODUCT: 235, // баер взял в работу товар клиента (устанавливает баер)     FROM_CLIENT_BUYER_FOUND_SUPPLIER: 240, // баер нашел поставщика для товара клиента     FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER: 250, // баер не нашел поставщика для товара клиента (устанавливает баер)     FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE: 260, // цена товара у поставщика не подходит для товара клиента (устанавливает баер)     FROM_CLIENT_COMPLETE_SUCCESS: 270, //  успешно найден поставщик для товара клиента (этот товар не публикуется на бирже товаров, а все так же доступен для просмотра только клиенту который создал товар) (устанавливает супервизор)       FROM_CLIENT_PAID_BY_CLIENT: 275,      FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND: 280, //  поставщик не найден для товара клиента (устанавливает супервизор)     FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE: 290, // - цена товара у поставщика не подходит для товара клиента (устанавливает супервизор)   
          * @summary # Изменить продукт.
          * @param {string} guid GUID продукта, который планируем изменить
-         * @param {InlineObject137} [body] 
+         * @param {InlineObject138} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1SupervisorsProductsGuidPatch: async (guid: string, body?: InlineObject137, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1SupervisorsProductsGuidPatch: async (guid: string, body?: InlineObject138, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1SupervisorsProductsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/supervisors/products/{guid}`
@@ -94,12 +94,12 @@ export const SupervisorApiAxiosParamCreator = function (configuration?: Configur
          * ## Изменить статус продукта на \'Временно отложен\'.
          * @summary # Изменить статус продукта.
          * @param {string} guid GUID продукта, который планируем изменить
-         * @param {InlineObject138} [body] 
+         * @param {InlineObject139} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1SupervisorsProductsGuidTemporarilyRejectedPatch: async (guid: string, body?: InlineObject138, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1SupervisorsProductsGuidTemporarilyRejectedPatch: async (guid: string, body?: InlineObject139, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1SupervisorsProductsGuidTemporarilyRejectedPatch', 'guid', guid)
             const localVarPath = `/api/v1/supervisors/products/{guid}/temporarily_rejected`
@@ -351,12 +351,12 @@ export const SupervisorApiFp = function(configuration?: Configuration) {
          * ## Изменить продукт.  ## 20, 70, 80, 90 - эти статусы запускают процесс заполнения полей для выплат в продуете.    ## 270, 280, 290 - эти статусы запускают процесс авто выплат.   ## одн из таких статусов - больше нельзя так как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,       researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,      buyerPickedUpProduct: 35,   // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      paidByClient: 75,     PLATFORMS_PRODUCT_COPY: 76, // копия товара от платформы, при покупке товара из бесплатно доступных     completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/      noPublished: 100,     PLATFORMS_FREE: 110, // продукт принадлежит платформе и распространяется бесплатно     CREATED_BY_CLIENT: 200, // товар создан клиентом     FROM_CLIENT_TO_BUYER_FOR_RESEARCH: 230, //статус говорит о том что клиент отправил товар на поиск поставщика баеру (устанавливает клиент)     FROM_CLIENT_BUYER_PICKED_PRODUCT: 235, // баер взял в работу товар клиента (устанавливает баер)     FROM_CLIENT_BUYER_FOUND_SUPPLIER: 240, // баер нашел поставщика для товара клиента     FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER: 250, // баер не нашел поставщика для товара клиента (устанавливает баер)     FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE: 260, // цена товара у поставщика не подходит для товара клиента (устанавливает баер)     FROM_CLIENT_COMPLETE_SUCCESS: 270, //  успешно найден поставщик для товара клиента (этот товар не публикуется на бирже товаров, а все так же доступен для просмотра только клиенту который создал товар) (устанавливает супервизор)       FROM_CLIENT_PAID_BY_CLIENT: 275,      FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND: 280, //  поставщик не найден для товара клиента (устанавливает супервизор)     FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE: 290, // - цена товара у поставщика не подходит для товара клиента (устанавливает супервизор)   
          * @summary # Изменить продукт.
          * @param {string} guid GUID продукта, который планируем изменить
-         * @param {InlineObject137} [body] 
+         * @param {InlineObject138} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1SupervisorsProductsGuidPatch(guid: string, body?: InlineObject137, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1SupervisorsProductsGuidPatch(guid: string, body?: InlineObject138, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SupervisorsProductsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -364,12 +364,12 @@ export const SupervisorApiFp = function(configuration?: Configuration) {
          * ## Изменить статус продукта на \'Временно отложен\'.
          * @summary # Изменить статус продукта.
          * @param {string} guid GUID продукта, который планируем изменить
-         * @param {InlineObject138} [body] 
+         * @param {InlineObject139} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1SupervisorsProductsGuidTemporarilyRejectedPatch(guid: string, body?: InlineObject138, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1SupervisorsProductsGuidTemporarilyRejectedPatch(guid: string, body?: InlineObject139, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SupervisorsProductsGuidTemporarilyRejectedPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -380,7 +380,7 @@ export const SupervisorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1SupervisorsProductsLightGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20031>>> {
+        async apiV1SupervisorsProductsLightGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20029>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SupervisorsProductsLightGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -441,24 +441,24 @@ export const SupervisorApiFactory = function (configuration?: Configuration, bas
          * ## Изменить продукт.  ## 20, 70, 80, 90 - эти статусы запускают процесс заполнения полей для выплат в продуете.    ## 270, 280, 290 - эти статусы запускают процесс авто выплат.   ## одн из таких статусов - больше нельзя так как появилась запись об оплате.     Возможные статусы продукта.      // Товар после заведения в базе ресерчером получает этот статус.      // Ресечер может дополнительно сменить его на статус 30      newProduct: 0,       researcherFoundSupplier: 10,      // Статусы, которые поставит супервайзер по итогам проверки      rejectedBySupervisorAtFistStep: 20, // Если ставит этот статус - должны заплатить супервайзеру.      toBuyerForSearch: 30,      buyerPickedUpProduct: 35,   // Статусы которые поставит байер по результатам своей работы.      buyerFoundSupplier: 40,      supplierWasNotFoundByBuyer:50,      supplierPriceWasNotAcceptable: 60,       // Статус которые проставит супервайзер по результатам второй проверки.      completeSuccess: 70,      // если был поставлен статус 70 то нужно учитывать предыдущий статус товара.      // если переходили с 10->70 оплачиваем ресечеру и супервайзеру.      // если переходили с 40->70 оплачиваем ресечеру, байеру и супервайзеру.      paidByClient: 75,     PLATFORMS_PRODUCT_COPY: 76, // копия товара от платформы, при покупке товара из бесплатно доступных     completeSupplierWasNotFund: 80,     // оплачиваем супервайзеру      completePriceWasNotAcceptable: 90      // оплачиваем только супервайзеру/      noPublished: 100,     PLATFORMS_FREE: 110, // продукт принадлежит платформе и распространяется бесплатно     CREATED_BY_CLIENT: 200, // товар создан клиентом     FROM_CLIENT_TO_BUYER_FOR_RESEARCH: 230, //статус говорит о том что клиент отправил товар на поиск поставщика баеру (устанавливает клиент)     FROM_CLIENT_BUYER_PICKED_PRODUCT: 235, // баер взял в работу товар клиента (устанавливает баер)     FROM_CLIENT_BUYER_FOUND_SUPPLIER: 240, // баер нашел поставщика для товара клиента     FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER: 250, // баер не нашел поставщика для товара клиента (устанавливает баер)     FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE: 260, // цена товара у поставщика не подходит для товара клиента (устанавливает баер)     FROM_CLIENT_COMPLETE_SUCCESS: 270, //  успешно найден поставщик для товара клиента (этот товар не публикуется на бирже товаров, а все так же доступен для просмотра только клиенту который создал товар) (устанавливает супервизор)       FROM_CLIENT_PAID_BY_CLIENT: 275,      FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND: 280, //  поставщик не найден для товара клиента (устанавливает супервизор)     FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE: 290, // - цена товара у поставщика не подходит для товара клиента (устанавливает супервизор)   
          * @summary # Изменить продукт.
          * @param {string} guid GUID продукта, который планируем изменить
-         * @param {InlineObject137} [body] 
+         * @param {InlineObject138} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1SupervisorsProductsGuidPatch(guid: string, body?: InlineObject137, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1SupervisorsProductsGuidPatch(guid: string, body?: InlineObject138, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1SupervisorsProductsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменить статус продукта на \'Временно отложен\'.
          * @summary # Изменить статус продукта.
          * @param {string} guid GUID продукта, который планируем изменить
-         * @param {InlineObject138} [body] 
+         * @param {InlineObject139} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1SupervisorsProductsGuidTemporarilyRejectedPatch(guid: string, body?: InlineObject138, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1SupervisorsProductsGuidTemporarilyRejectedPatch(guid: string, body?: InlineObject139, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1SupervisorsProductsGuidTemporarilyRejectedPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -468,7 +468,7 @@ export const SupervisorApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1SupervisorsProductsLightGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20031>> {
+        apiV1SupervisorsProductsLightGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20029>> {
             return localVarFp.apiV1SupervisorsProductsLightGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -529,10 +529,10 @@ export interface SupervisorApiApiV1SupervisorsProductsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject137}
+     * @type {InlineObject138}
      * @memberof SupervisorApiApiV1SupervisorsProductsGuidPatch
      */
-    readonly body?: InlineObject137
+    readonly body?: InlineObject138
 
     /**
      * 
@@ -557,10 +557,10 @@ export interface SupervisorApiApiV1SupervisorsProductsGuidTemporarilyRejectedPat
 
     /**
      * 
-     * @type {InlineObject138}
+     * @type {InlineObject139}
      * @memberof SupervisorApiApiV1SupervisorsProductsGuidTemporarilyRejectedPatch
      */
-    readonly body?: InlineObject138
+    readonly body?: InlineObject139
 
     /**
      * 

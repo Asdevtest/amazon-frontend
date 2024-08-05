@@ -21,7 +21,7 @@
  */
 export interface InlineResponse2015 {
     /**
-     * guid созданного объекта
+     * Гуид созданного анонса
      * @type {string}
      * @memberof InlineResponse2015
      */

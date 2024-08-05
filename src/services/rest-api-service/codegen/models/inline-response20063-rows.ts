@@ -13,291 +13,292 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20063ChildProduct } from './inline-response20063-child-product';
-import { InlineResponse20063Order } from './inline-response20063-order';
-import { InlineResponse20063ParentProduct } from './inline-response20063-parent-product';
-import { InlineResponse20063RequestsOnCheck } from './inline-response20063-requests-on-check';
-import { InlineResponse20063Suppliers } from './inline-response20063-suppliers';
+import { InlineResponse20042InventoryShop } from './inline-response20042-inventory-shop';
 
 /**
- * 
+ * Схема репорта за 30 дней с Seller-board
  * @export
  * @interface InlineResponse20063Rows
  */
 export interface InlineResponse20063Rows {
     /**
-     * 
+     * Гуид записи
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
     _id?: string;
     /**
-     * Название идеи
-     * @type {string}
-     * @memberof InlineResponse20063Rows
-     */
-    title?: string;
-    /**
-     * Статус идеи
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    status?: number;
-    /**
-     * Является ли продукт идеи вариацией существующего
-     * @type {boolean}
-     * @memberof InlineResponse20063Rows
-     */
-    variation?: boolean;
-    /**
-     * Медиа идеи
-     * @type {Array<string>}
-     * @memberof InlineResponse20063Rows
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * Комментарии к идее
-     * @type {string}
-     * @memberof InlineResponse20063Rows
-     */
-    comments?: string;
-    /**
-     * Комментарий байера
-     * @type {string}
-     * @memberof InlineResponse20063Rows
-     */
-    buyerComment?: string;
-    /**
-     * Название продукта
-     * @type {string}
-     * @memberof InlineResponse20063Rows
-     */
-    productName?: string;
-    /**
-     * Ссылки продукта
-     * @type {Array<string>}
-     * @memberof InlineResponse20063Rows
-     */
-    productLinks?: Array<string>;
-    /**
-     * Дополнительные критерии для поиска товара
-     * @type {string}
-     * @memberof InlineResponse20063Rows
-     */
-    criteria?: string;
-    /**
-     * Причина отказа
-     * @type {string}
-     * @memberof InlineResponse20063Rows
-     */
-    reasonReject?: string;
-    /**
-     * Количество товаров
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    quantity?: number;
-    /**
-     * Желаемая цена
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    price?: number;
-    /**
-     * FBA Fee
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    fbaFee?: number;
-    /**
-     * Ориентационная цена
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    approximatePrice?: number;
-    /**
-     * Ширина, см
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    width?: number;
-    /**
-     * Высота, см
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    height?: number;
-    /**
-     * Длина, см
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    length?: number;
-    /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {InlineResponse20042InventoryShop}
      * @memberof InlineResponse20063Rows
      */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    shop?: InlineResponse20042InventoryShop;
     /**
-     * Кол-во секунд идеи в статусе new(5)
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    intervalStatusNew?: number;
-    /**
-     * Кол-во секунд идеи в статусе OnCheck(10)
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    intervalStatusOnCheck?: number;
-    /**
-     * Кол-во секунд идеи в статусе supplierSearch(13)
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    intervalStatusSupplierSearch?: number;
-    /**
-     * Кол-во секунд идеи в статусе supplierFound(14)
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    intervalStatusSupplierFound?: number;
-    /**
-     * Кол-во секунд идеи в статусе supplierNotFound(15)
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    intervalStatusSupplierNotFound?: number;
-    /**
-     * Кол-во секунд идеи в статусе productCreating(16)
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    intervalStatusProductCreating?: number;
-    /**
-     * Кол-во секунд идеи в статусе addingAsin(18)
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    intervalStatusAddingAsin?: number;
-    /**
-     * Кол-во секунд идеи в статусе rejected(25)
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    intervalStatusRejected?: number;
-    /**
-     * Кол-во секунд идеи во всех статусах
-     * @type {number}
-     * @memberof InlineResponse20063Rows
-     */
-    intervalsSum?: number;
-    /**
-     * Время перевода идеи в статус onCheck(10)
+     * ﻿\"Date\"
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    dateStatusOnCheck?: string;
+    date?: string;
     /**
-     * Время перевода идеи в статус supplierSearch(13)
+     * Marketplace
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    dateStatusSupplierSearch?: string;
+    marketplace?: string;
     /**
-     * Время перевода идеи в статус supplierFound(14)
+     * ASIN
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    dateStatusSupplierFound?: string;
+    asin?: string;
     /**
-     * Время перевода идеи в статус supplierNotFound(15)
+     * SKU
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    dateStatusSupplierNotFound?: string;
+    sku?: string;
     /**
-     * Время перевода идеи в статус productCreating(16)
+     * Name
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    dateStatusProductCreating?: string;
+    name?: string;
     /**
-     * Время перевода идеи в статус addingAsin(18)
-     * @type {string}
+     * SalesOrganic
+     * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    dateStatusAddingAsin?: string;
+    salesorganic?: number;
     /**
-     * Время перевода идеи в статус finished(20)
-     * @type {string}
+     * SalesPPC
+     * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    dateStatusFinished?: string;
+    salesppc?: number;
     /**
-     * Время перевода идеи в статус rejected(25)
-     * @type {string}
+     * UnitsOrganic
+     * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    dateStatusRejected?: string;
+    unitsorganic?: number;
     /**
-     * Время перевода идеи в статус closed(30)
-     * @type {string}
+     * UnitsPPC
+     * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    dateStatusClosed?: string;
+    unitsppc?: number;
     /**
-     * 
-     * @type {Array<InlineResponse20063Suppliers>}
+     * Refunds
+     * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    suppliers?: Array<InlineResponse20063Suppliers>;
+    refunds?: number;
     /**
-     * 
-     * @type {InlineResponse20063ChildProduct}
+     * PromoValue
+     * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    childProduct?: InlineResponse20063ChildProduct;
+    promovalue?: number;
     /**
-     * 
-     * @type {InlineResponse20063Order}
+     * SponsoredProducts
+     * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    order?: InlineResponse20063Order;
+    sponsoredproducts?: number;
     /**
-     * 
-     * @type {InlineResponse20063ParentProduct}
+     * SponsoredDisplay
+     * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    parentProduct?: InlineResponse20063ParentProduct;
+    sponsoreddisplay?: number;
     /**
-     * 
-     * @type {Array<InlineResponse20063RequestsOnCheck>}
+     * SponsoredВrands
+     * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    requestsOnCheck?: Array<InlineResponse20063RequestsOnCheck>;
+    sponsoredRands?: number;
     /**
-     * 
-     * @type {Array<InlineResponse20063RequestsOnCheck>}
+     * SponsoredBrandsVideo
+     * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    requestsOnFinished?: Array<InlineResponse20063RequestsOnCheck>;
+    sponsoredbrandsvideo?: number;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * GiftWrap
+     * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    giftwrap?: number;
     /**
-     * Дата создания.
+     * Shipping
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    shipping?: number;
+    /**
+     * RefundCost
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    refundcost?: number;
+    /**
+     * Value of returned items
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    valueOfReturnedItems?: number;
+    /**
+     * ProductCost Unsellable Refunds
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    productcostUnsellableRefunds?: number;
+    /**
+     * Commission
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    commission?: number;
+    /**
+     * COMPENSATED_CLAWBACK
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    compensatedClawback?: number;
+    /**
+     * FBADisposalFee
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    fbadisposalfee?: number;
+    /**
+     * FBAPerUnitFulfillmentFee
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    fbaperunitfulfillmentfee?: number;
+    /**
+     * FBAStorageFee
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    fbastoragefee?: number;
+    /**
+     * FREE_REPLACEMENT_REFUND_ITEMS
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    freeReplacementRefundItems?: number;
+    /**
+     * Subscription
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    subscription?: number;
+    /**
+     * WAREHOUSE_DAMAGE
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    warehouseDamage?: number;
+    /**
+     * WAREHOUSE_LOST
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    warehouseLost?: number;
+    /**
+     * EstimatedPayout
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    estimatedpayout?: number;
+    /**
+     * ProductCost Sales
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    productcostSales?: number;
+    /**
+     * ProductCost Non-Amazon
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    productcostNonAmazon?: number;
+    /**
+     * ProductCost MultichannelCosts
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    productcostMultichannelcosts?: number;
+    /**
+     * ProductCost MissingFromInbound
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    productcostMissingfrominbound?: number;
+    /**
+     * ProductCost CostOfMissingReturns
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    productcostCostofmissingreturns?: number;
+    /**
+     * VAT
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    vat?: number;
+    /**
+     * GrossProfit
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    grossprofit?: number;
+    /**
+     * NetProfit
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    netprofit?: number;
+    /**
+     * Margin
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    margin?: number;
+    /**
+     * Real ACOS
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    realAcos?: number;
+    /**
+     * Adjustment_FBAPerUnitFulfillmentFee
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    adjustmentFbaperunitfulfillmentfee?: number;
+    /**
+     * AmazonFees
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    amazonfees?: number;
+    /**
+     * Cost of Goods
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    costOfGoods?: number;
+    /**
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
     createdAt?: string;
     /**
-     * Дата создания.
+     * Дата обновления
      * @type {string}
      * @memberof InlineResponse20063Rows
      */

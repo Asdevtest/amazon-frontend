@@ -21,11 +21,11 @@
  */
 export interface InlineObject79 {
     /**
-     * GUID поставщика, который нужно удалить в БД.
+     * Причина отклонения
      * @type {string}
      * @memberof InlineObject79
      */
-    suppliersId?: string;
+    reasonReject: string;
 }
 
 

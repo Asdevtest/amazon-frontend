@@ -13,68 +13,19 @@
  */
 
 
-import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
 
 /**
- * 
+ * Схема комментарии байера.
  * @export
  * @interface InlineObject43
  */
 export interface InlineObject43 {
     /**
-     * 
-     * @type {number}
-     * @memberof InlineObject43
-     */
-    amazon?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineObject43
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineObject43
-     */
-    fbafee?: number;
-    /**
-     * ФБА кол-во
-     * @type {number}
-     * @memberof InlineObject43
-     */
-    fbaamount?: number;
-    /**
-     * Код статуса
-     * @type {number}
-     * @memberof InlineObject43
-     */
-    status?: number;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineObject43
-     */
-    profit?: number;
-    /**
-     * Маржа
-     * @type {number}
-     * @memberof InlineObject43
-     */
-    margin?: number;
-    /**
-     * Примечания байера.
+     * Комментарии байера.
      * @type {string}
      * @memberof InlineObject43
      */
-    buyersComment?: string;
-    /**
-     * 
-     * @type {Array<ApiV1BuyersProductsGuidTags>}
-     * @memberof InlineObject43
-     */
-    tags?: Array<ApiV1BuyersProductsGuidTags>;
+    buyerComment: string;
 }
 
 
