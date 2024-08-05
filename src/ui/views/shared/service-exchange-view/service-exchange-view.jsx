@@ -1,12 +1,11 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
-import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
@@ -21,10 +20,6 @@ export const ServiceExchangeView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
 
   const [viewModel] = useState(() => new ServiceExchangeViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
 
@@ -50,7 +45,7 @@ export const ServiceExchangeView = observer(({ history }) => {
       </div>
 
       <div
-        className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}
+        className={styles.dashboardCardWrapper}
         onScroll={e => {
           const element = e.target
           const scrollTop = element?.scrollTop
@@ -68,17 +63,10 @@ export const ServiceExchangeView = observer(({ history }) => {
               key={service._id}
               order
               service={service}
-              onClickThumbnail={viewModel.onClickThumbnail}
               onClickButton={viewModel.onClickOrderBtn}
             />
           ) : (
-            <ServiceExchangeCard
-              key={service._id}
-              order
-              service={service}
-              onClickThumbnail={viewModel.onClickThumbnail}
-              onClickButton={viewModel.onClickOrderBtn}
-            />
+            <ServiceExchangeCard key={service._id} order service={service} onClickButton={viewModel.onClickOrderBtn} />
           ),
         )}
       </div>
@@ -88,16 +76,6 @@ export const ServiceExchangeView = observer(({ history }) => {
           <img src="/assets/icons/empty-table.svg" />
           <p className={styles.emptyTableText}>{t(TranslationKey.Missing)}</p>
         </div>
-      ) : null}
-
-      {viewModel.showImageModal ? (
-        <SlideshowGalleryModal
-          files={viewModel.bigImagesOptions.images}
-          currentFileIndex={viewModel.bigImagesOptions.imgIndex}
-          openModal={viewModel.showImageModal}
-          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-          onCurrentFileIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
-        />
       ) : null}
     </>
   )
