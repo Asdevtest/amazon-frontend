@@ -61,7 +61,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
             <Typography>
               {t(TranslationKey.ID)}: {request?.humanFriendlyId}
             </Typography>
-            <Typography className={styles.textBold}>{getShortenStringIfLongerThanCount(request?.title, 55)}</Typography>
+            <Typography className={cx(styles.textBold, styles.headerTitle)}>{request?.title}</Typography>
           </div>
           <div className={styles.headerDetails}>
             <div className={styles.flexContainer}>

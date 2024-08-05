@@ -46,6 +46,11 @@ export const AdminDestinationsViewRaw = props => {
           rowHeight={120}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+          }}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
