@@ -34,13 +34,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   dashboardCardWrapper: {
-    marginTop: 20,
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4, 390px)',
-    gap: 30,
-  },
-
-  dashboardCardWrapperList: {
-    gridTemplateColumns: 'repeat(2, 1fr)',
+    marginTop: '20px',
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 20,
+    height: '80vh',
+    overflow: 'auto',
   },
 }))
