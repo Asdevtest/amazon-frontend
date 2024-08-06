@@ -14,6 +14,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   image: {
+    minWidth: 250,
     borderRadius: 16,
     overflow: 'hidden',
   },

@@ -38,7 +38,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     gap: 20,
-    height: '80vh',
+    maxHeight: '80vh',
     overflow: 'auto',
   },
 }))
