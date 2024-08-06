@@ -45,7 +45,7 @@ export const PerformerSelect: FC<PerformerSelectProps> = observer(props => {
   )
   const defaultUserOption = useMemo(() => getDefaultUserOption(defaultPerformer), [defaultPerformer])
   const userOptions = useMemo(
-    () => getUserOptions(viewModel.currentPermissionsData, spec),
+    () => getUserOptions(viewModel.currentPermissionsData, spec, defaultPerformer),
     [viewModel.currentPermissionsData],
   )
 
