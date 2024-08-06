@@ -47,7 +47,7 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
     <>
       <div className={styles.wrapper}>
         <div className={styles.image}>
-          <Image width={300} height={135} src={getAmazonImageUrl(service.linksToMediaFiles[0])} />
+          <Image width={250} height={135} src={getAmazonImageUrl(service.linksToMediaFiles[0])} />
         </div>
 
         <div className={styles.descriptionWrapper}>
