@@ -13,8 +13,10 @@ export const requestSelectConfig = {
   onGetUsers: action.bound,
 }
 
-export const getUserOptions = (users: IPermissionsData[], spec?: ISpec) => {
-  const filteredUsers = users.filter(user => user?.allowedSpec?.some(data => data?.type === spec?.type))
+export const getUserOptions = (users: IPermissionsData[], spec?: ISpec, defaultPerformer?: IFullUser) => {
+  const filteredUsers = users.filter(
+    user => user?.allowedSpec?.some(data => data?.type === spec?.type) && user?._id !== defaultPerformer?._id,
+  )
 
   const generatedUsetOptions = filteredUsers?.map(user => ({
     ...user,
