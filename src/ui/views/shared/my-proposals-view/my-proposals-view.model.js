@@ -1,5 +1,4 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
-import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
@@ -46,7 +45,6 @@ export class MyProposalsViewModel {
     onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),
     onClickResultButton: proposalId => this.onClickResultBtn(proposalId),
     onClickOpenButton: requestId => this.onClickOpenBtn(requestId),
-    onChangePerformer: (id, userId) => this.onChangePerformer(id, userId),
   }
 
   columnsModel = freelancerMyProposalsColumns(this.rowHandlers)
@@ -78,7 +76,7 @@ export class MyProposalsViewModel {
     _id: el,
   }))
 
-  selectedSpec = Specs.DEFAULT
+  radioButtonOption = Specs.DEFAULT
 
   showRequestDetailModal = false
   showConfirmModal = false
@@ -101,10 +99,6 @@ export class MyProposalsViewModel {
     onClickConfirm: () => {},
   }
 
-  tableKey = DataGridTablesKeys.FREELANCER_MY_PROPOSALS
-
-  allProposals = false
-
   get userInfo() {
     return UserModel.userInfo
   }
@@ -117,12 +111,8 @@ export class MyProposalsViewModel {
     return this.requests
   }
 
-  constructor({ history, allProposals }) {
+  constructor({ history }) {
     this.history = history
-    this.allProposals = allProposals
-    this.tableKey = allProposals
-      ? DataGridTablesKeys.FREELANCER_ALL_PROPOSALS
-      : DataGridTablesKeys.FREELANCER_MY_PROPOSALS
 
     this.setDefaultStatuses()
 
@@ -210,11 +200,12 @@ export class MyProposalsViewModel {
     }
   }
 
-  onClickSpec(specType) {
-    this.selectedSpec = specType
+  onChangeRadioButtonOption(event) {
+    const currentValue = event.target.value
+    this.radioButtonOption = currentValue
 
     // spec - for "_id:string", specType - for "type:number"
-    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+    this.onChangeFullFieldMenuItem(currentValue === Specs.DEFAULT ? [] : [currentValue], 'specType', true)
 
     this.getRequestsProposalsPagMy()
   }
@@ -252,17 +243,12 @@ export class MyProposalsViewModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      const method = this.allProposals
-        ? RequestProposalModel.getRequestProposalsPagMyAll
-        : RequestProposalModel.getRequestProposalsPagMy
-
-      const response = await method({
+      const response = await RequestProposalModel.getRequestProposalsPagMy({
         filters: this.getFilters(),
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-        noCache: true,
       })
 
       runInAction(() => {
@@ -326,7 +312,7 @@ export class MyProposalsViewModel {
     }
   }
 
-  onChangeSearchValue(value) {
+  onSearchSubmit(value) {
     this.currentSearchValue = value
     this.getRequestsProposalsPagMy()
   }
@@ -368,12 +354,10 @@ export class MyProposalsViewModel {
     try {
       this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
-      const mainUrl = this.allProposals ? 'request-proposals/pag/my_all?filters=' : 'request-proposals/pag/my?filters='
-
       const data = await GeneralModel.getDataForColumn(
         this.getTableByColumn(column),
         column,
-        `${mainUrl}${this.getFilters(column)}`,
+        `request-proposals/pag/my?filters=${this.getFilters(column)}`,
       )
 
       if (this.columnMenuSettings[column]) {
@@ -438,7 +422,7 @@ export class MyProposalsViewModel {
   }
 
   onClickResetFilters() {
-    this.selectedSpec = Specs.DEFAULT
+    this.radioButtonOption = Specs.DEFAULT
 
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
@@ -475,10 +459,11 @@ export class MyProposalsViewModel {
     this.onChangeFullFieldMenuItem(this.isInTheWork ? inTheWorkStatuses : executedStatuses, 'status')
   }
 
-  onClickChangeCatigory(value) {
-    this.switcherCondition = value
+  onClickChangeCatigory(event) {
+    const currentValue = event.target.value
+    this.switcherCondition = currentValue
 
-    if (value === switcherConditions.inTheWork) {
+    if (currentValue === switcherConditions.inTheWork) {
       this.isInTheWork = true
     } else {
       this.isInTheWork = false
@@ -520,7 +505,7 @@ export class MyProposalsViewModel {
 
       const filesIds = files.map(el => el._id)
 
-      const curentMediaIds = this.currentProposal.proposal.media.map(el => el._id)
+      const curentMediaIds = this.currentProposal.proposal?.media?.map(el => el._id)
 
       const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
 
@@ -533,7 +518,7 @@ export class MyProposalsViewModel {
         media: this.loadedFiles.map((el, i) => ({
           fileLink: el,
           commentByPerformer: typeof files[0] === 'object' ? files[i]?.commentByPerformer : '',
-          _id: this.currentProposal.proposal.media.some(item => item._id === files[i]?._id) ? files[i]?._id : null,
+          _id: this.currentProposal.proposal?.media?.some(item => item._id === files[i]?._id) ? files[i]?._id : null,
           index: i,
         })),
         ...(amazonOrderId && { amazonOrderId }),
@@ -547,18 +532,6 @@ export class MyProposalsViewModel {
           ],
         }),
       })
-
-      this.loadData()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onChangePerformer(id, userId) {
-    try {
-      await RequestProposalModel.onChangePerformer(id, userId)
-
-      toast.success(t(TranslationKey['Performer was changed successfully']))
 
       this.loadData()
     } catch (error) {
