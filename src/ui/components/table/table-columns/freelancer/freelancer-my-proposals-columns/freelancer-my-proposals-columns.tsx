@@ -205,10 +205,7 @@ export const freelancerMyProposalsColumns = (handlers: IHandlers) => [
         onChangeData={useId => handlers.onChangePerformer(params.row.originalData._id, useId)}
       />
     ),
-    sortable: false,
-    filterable: false,
-    hideEmptyObject: true,
-    columnKey: columnnsKeys.shared.OBJECT_VALUE,
+    columnKey: columnnsKeys.freelancer.FREELANCE_PROPOSALS_CREATED_BY,
   },
 
   {
