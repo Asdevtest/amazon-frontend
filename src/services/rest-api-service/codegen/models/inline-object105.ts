@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1RequestProposalsGuidResultToCorrectMedia } from './api-v1-request-proposals-guid-result-to-correct-media';
 
 /**
  * 
@@ -21,35 +22,35 @@
  */
 export interface InlineObject105 {
     /**
-     * комментарий клиента
-     * @type {string}
+     * Поставить оценку юзеру
+     * @type {number}
      * @memberof InlineObject105
      */
-    commentByClient?: string;
+    rating?: number;
     /**
-     * комментарий исполнителя
+     * Комментарий причин изменения статуса.
      * @type {string}
      * @memberof InlineObject105
      */
-    commentByPerformer?: string;
+    reason?: string;
     /**
-     * Ссылка на файл
-     * @type {string}
+     * Массив ссылок на медиафайлы.
+     * @type {Array<string>}
      * @memberof InlineObject105
      */
-    fileLink?: string;
+    linksToMediaFiles?: Array<string>;
     /**
-     * Файл для записи в FreelanceSource
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject105
      */
-    proposalId?: string;
+    timeLimitInMinutes?: number;
     /**
-     * Комментарий к файлу
-     * @type {string}
+     * 
+     * @type {Array<ApiV1RequestProposalsGuidResultToCorrectMedia>}
      * @memberof InlineObject105
      */
-    requestId?: string;
+    media?: Array<ApiV1RequestProposalsGuidResultToCorrectMedia>;
 }
 
 

@@ -21,23 +21,17 @@
  */
 export interface InlineObject114 {
     /**
-     * Поставить оценку юзеру
-     * @type {number}
-     * @memberof InlineObject114
-     */
-    rating?: number;
-    /**
-     * Комментарий причин изменения статуса.
-     * @type {string}
-     * @memberof InlineObject114
-     */
-    reason?: string;
-    /**
-     * Массив ссылок на медиафайлы.
+     * 
      * @type {Array<string>}
      * @memberof InlineObject114
      */
-    linksToMediaFiles?: Array<string>;
+    requestIds: Array<string>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineObject114
+     */
+    uploadedToListing: boolean;
 }
 
 

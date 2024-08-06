@@ -21,11 +21,23 @@
  */
 export interface InlineObject104 {
     /**
-     * Причины закрытия приема предложений.
+     * Поставить оценку юзеру
+     * @type {number}
+     * @memberof InlineObject104
+     */
+    rating?: number;
+    /**
+     * Комментарий причин изменения статуса.
      * @type {string}
      * @memberof InlineObject104
      */
     reason?: string;
+    /**
+     * Массив ссылок на медиафайлы.
+     * @type {Array<string>}
+     * @memberof InlineObject104
+     */
+    linksToMediaFiles?: Array<string>;
 }
 
 

@@ -21,35 +21,11 @@
  */
 export interface InlineObject111 {
     /**
-     * Время на выполнение, в минутах.
-     * @type {number}
-     * @memberof InlineObject111
-     */
-    execution_time?: number;
-    /**
-     * Цена предложения.
-     * @type {number}
-     * @memberof InlineObject111
-     */
-    price?: number;
-    /**
-     * Комментарий к предложению.
+     * GUID в сущности в БД (users)
      * @type {string}
      * @memberof InlineObject111
      */
-    comment?: string;
-    /**
-     * Ссылки на медиафайлы.
-     * @type {Array<string>}
-     * @memberof InlineObject111
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * Название предложения
-     * @type {string}
-     * @memberof InlineObject111
-     */
-    title?: string;
+    subId?: string;
 }
 
 

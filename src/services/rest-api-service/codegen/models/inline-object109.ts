@@ -22,10 +22,26 @@
 export interface InlineObject109 {
     /**
      * 
-     * @type {boolean}
+     * @type {string}
      * @memberof InlineObject109
      */
-    approvedByMaster: boolean;
+    action: InlineObject109ActionEnum;
+    /**
+     * Причина смены статуса.
+     * @type {string}
+     * @memberof InlineObject109
+     */
+    reason?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject109ActionEnum {
+    Link = 'LINK',
+    Unlink = 'UNLINK'
+}
+
 
 

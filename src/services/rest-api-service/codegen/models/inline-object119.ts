@@ -21,11 +21,35 @@
  */
 export interface InlineObject119 {
     /**
-     * GUID в сущности в БД (users)
+     * Guid заявки
      * @type {string}
      * @memberof InlineObject119
      */
-    subId?: string;
+    requestId?: string;
+    /**
+     * Guid предложения
+     * @type {string}
+     * @memberof InlineObject119
+     */
+    proposalId?: string;
+    /**
+     * комментарий клиента
+     * @type {string}
+     * @memberof InlineObject119
+     */
+    commentByClient?: string;
+    /**
+     * комментарий исполнителя
+     * @type {string}
+     * @memberof InlineObject119
+     */
+    commentByPerformer?: string;
+    /**
+     * Ссылка на файл
+     * @type {string}
+     * @memberof InlineObject119
+     */
+    fileLink: string;
 }
 
 

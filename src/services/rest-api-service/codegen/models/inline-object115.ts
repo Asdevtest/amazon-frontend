@@ -21,23 +21,17 @@
  */
 export interface InlineObject115 {
     /**
-     * Поставить оценку юзеру
+     * Время закрытия заявки.
+     * @type {string}
+     * @memberof InlineObject115
+     */
+    timeoutAt: string;
+    /**
+     * Количество предложений. null без лимитов
      * @type {number}
      * @memberof InlineObject115
      */
-    rating?: number;
-    /**
-     * Отзыв о работе
-     * @type {string}
-     * @memberof InlineObject115
-     */
-    review?: string;
-    /**
-     * Файл для записи в FreelanceSource по этому пропоузалу
-     * @type {string}
-     * @memberof InlineObject115
-     */
-    sourceFile?: string;
+    maxAmountOfProposals?: number;
 }
 
 

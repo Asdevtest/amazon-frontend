@@ -21,27 +21,11 @@
  */
 export interface InlineObject117 {
     /**
-     * 
-     * @type {string}
-     * @memberof InlineObject117
-     */
-    action: InlineObject117ActionEnum;
-    /**
-     * Причина смены статуса.
+     * Причины закрытия приема предложений.
      * @type {string}
      * @memberof InlineObject117
      */
     reason?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject117ActionEnum {
-    Link = 'LINK',
-    Unlink = 'UNLINK'
-}
-
 
 

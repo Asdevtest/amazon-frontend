@@ -22,16 +22,10 @@
 export interface InlineObject101 {
     /**
      * 
-     * @type {Array<string>}
-     * @memberof InlineObject101
-     */
-    requestIds: Array<string>;
-    /**
-     * 
      * @type {boolean}
      * @memberof InlineObject101
      */
-    uploadedToListing: boolean;
+    approvedByMaster: boolean;
 }
 
 

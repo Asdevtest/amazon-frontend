@@ -21,7 +21,7 @@
  */
 export interface InlineResponse20113 {
     /**
-     * Гуид созданного исходника
+     * Гуид созданного медиа
      * @type {string}
      * @memberof InlineResponse20113
      */

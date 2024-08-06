@@ -77,7 +77,7 @@ import { InlineResponse200113 } from '../models';
 // @ts-ignore
 import { InlineResponse200114 } from '../models';
 // @ts-ignore
-import { InlineResponse20111 } from '../models';
+import { InlineResponse20112 } from '../models';
 // @ts-ignore
 import { InlineResponse20115 } from '../models';
 // @ts-ignore
@@ -2008,7 +2008,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersFeedbackGuidPost(guid: string, body?: InlineObject155, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20111>> {
+        async apiV1UsersFeedbackGuidPost(guid: string, body?: InlineObject155, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20112>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersFeedbackGuidPost(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2515,7 +2515,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersFeedbackGuidPost(guid: string, body?: InlineObject155, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20111> {
+        apiV1UsersFeedbackGuidPost(guid: string, body?: InlineObject155, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20112> {
             return localVarFp.apiV1UsersFeedbackGuidPost(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

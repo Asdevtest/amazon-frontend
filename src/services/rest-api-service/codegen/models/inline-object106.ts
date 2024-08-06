@@ -21,35 +21,23 @@
  */
 export interface InlineObject106 {
     /**
-     * Guid заявки
-     * @type {string}
+     * Поставить оценку юзеру
+     * @type {number}
      * @memberof InlineObject106
      */
-    requestId?: string;
+    rating?: number;
     /**
-     * Guid предложения
+     * Комментарий причин изменения статуса.
      * @type {string}
      * @memberof InlineObject106
      */
-    proposalId?: string;
+    reason?: string;
     /**
-     * комментарий клиента
-     * @type {string}
+     * Массив ссылок на медиафайлы.
+     * @type {Array<string>}
      * @memberof InlineObject106
      */
-    commentByClient?: string;
-    /**
-     * комментарий исполнителя
-     * @type {string}
-     * @memberof InlineObject106
-     */
-    commentByPerformer?: string;
-    /**
-     * Ссылка на файл
-     * @type {string}
-     * @memberof InlineObject106
-     */
-    fileLink: string;
+    linksToMediaFiles?: Array<string>;
 }
 
 

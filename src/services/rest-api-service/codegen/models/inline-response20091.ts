@@ -13,9 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
-import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
 
 /**
  * 
@@ -24,29 +22,17 @@ import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-
  */
 export interface InlineResponse20091 {
     /**
-     * Гуид медиа
+     * GUID заявки
      * @type {string}
      * @memberof InlineResponse20091
      */
     _id?: string;
     /**
-     * Файл для записи в FreelanceSource
-     * @type {string}
+     * Номер заявки
+     * @type {number}
      * @memberof InlineResponse20091
      */
-    sourceFile?: string;
-    /**
-     * Комментарий к файлу
-     * @type {string}
-     * @memberof InlineResponse20091
-     */
-    comments?: string;
-    /**
-     * 
-     * @type {ApiV1RequestProposalsFreelanceSourcesProposal}
-     * @memberof InlineResponse20091
-     */
-    proposal?: ApiV1RequestProposalsFreelanceSourcesProposal;
+    humanFriendlyId?: number;
     /**
      * 
      * @type {ApiV1AnnouncementsMySpec}
@@ -54,29 +40,29 @@ export interface InlineResponse20091 {
      */
     spec?: ApiV1AnnouncementsMySpec;
     /**
-     * гуид продукта
+     * Название заявки
      * @type {string}
      * @memberof InlineResponse20091
      */
-    productId?: string;
+    title?: string;
+    /**
+     * Статус заявки
+     * @type {string}
+     * @memberof InlineResponse20091
+     */
+    status?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20091
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20091
      */
-    createdAt?: string;
+    onFinishedIdeaId?: string;
     /**
-     * Дата создания.
+     * 
      * @type {string}
      * @memberof InlineResponse20091
      */
-    updatedAt?: string;
+    onCheckedIdeaId?: string;
 }
 
 

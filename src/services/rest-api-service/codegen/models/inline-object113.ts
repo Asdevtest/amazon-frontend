@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1RequestProposalsGuidResultToCorrectMedia } from './api-v1-request-proposals-guid-result-to-correct-media';
 
 /**
  * 
@@ -22,35 +21,11 @@ import { ApiV1RequestProposalsGuidResultToCorrectMedia } from './api-v1-request-
  */
 export interface InlineObject113 {
     /**
-     * Поставить оценку юзеру
+     * Для подтверждения нужно вернуть totalCost из калькулятора.
      * @type {number}
      * @memberof InlineObject113
      */
-    rating?: number;
-    /**
-     * Комментарий причин изменения статуса.
-     * @type {string}
-     * @memberof InlineObject113
-     */
-    reason?: string;
-    /**
-     * Массив ссылок на медиафайлы.
-     * @type {Array<string>}
-     * @memberof InlineObject113
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject113
-     */
-    timeLimitInMinutes?: number;
-    /**
-     * 
-     * @type {Array<ApiV1RequestProposalsGuidResultToCorrectMedia>}
-     * @memberof InlineObject113
-     */
-    media?: Array<ApiV1RequestProposalsGuidResultToCorrectMedia>;
+    totalCost: number;
 }
 
 
