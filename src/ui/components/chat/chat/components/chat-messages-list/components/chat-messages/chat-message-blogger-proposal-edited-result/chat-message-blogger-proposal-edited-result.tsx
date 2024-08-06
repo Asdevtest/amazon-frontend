@@ -38,7 +38,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
       </div>
 
       <div className={styles.mainWrapper}>
-        <p className={styles.descriptionText}>{message.data.proposal.details.result}</p>
+        <p className={styles.descriptionText}>{message?.data?.proposal?.details?.result}</p>
 
         <div className={cx(styles.infosWrapper, { [styles.infosWrapperShowChatInfo]: isShowChatInfo })}>
           <SlideshowGallery slidesToShow={2} files={files || []} />
