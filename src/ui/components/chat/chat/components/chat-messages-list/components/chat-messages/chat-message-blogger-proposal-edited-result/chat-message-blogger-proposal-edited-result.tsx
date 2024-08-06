@@ -27,8 +27,8 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  const files = chatRequestAndRequestProposal.requestProposal?.proposal?.media.map(el => el.fileLink)
-  const links = message.data.proposal.details.publicationLinks
+  const files = chatRequestAndRequestProposal?.requestProposal?.proposal?.media?.map(el => el.fileLink)
+  const links = message?.data?.proposal?.details?.publicationLinks
 
   return (
     <div className={styles.root}>
@@ -52,12 +52,12 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
                 inputComponent={
                   <div className={styles.infoItemWrapper}>
                     <p className={styles.infoItemText}>
-                      {getShortenStringIfLongerThanCount(message.data.proposal.details.amazonOrderId, 30) ||
+                      {getShortenStringIfLongerThanCount(message?.data?.proposal?.details?.amazonOrderId, 30) ||
                         t(TranslationKey.Missing)}
                     </p>
 
-                    {message.data.proposal.details.amazonOrderId && (
-                      <CopyValue text={message.data.proposal.details.amazonOrderId} />
+                    {message?.data?.proposal?.details?.amazonOrderId && (
+                      <CopyValue text={message?.data?.proposal?.details?.amazonOrderId} />
                     )}
                   </div>
                 }
