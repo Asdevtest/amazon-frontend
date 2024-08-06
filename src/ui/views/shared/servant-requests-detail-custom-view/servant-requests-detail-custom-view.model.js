@@ -290,12 +290,14 @@ export class RequestDetailCustomViewModel {
 
       const filesIds = files.map(el => el._id)
 
-      const curentMediaIds = findRequestProposalByChatSelectedId.proposal.media.map(el => el._id)
+      if (findRequestProposalByChatSelectedId.proposal?.media) {
+        const curentMediaIds = findRequestProposalByChatSelectedId.proposal?.media?.map(el => el._id)
 
-      const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
+        const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
 
-      if (mediaToRemoveIds.length) {
-        await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({ _id: el, proposalId: null })))
+        if (mediaToRemoveIds.length) {
+          await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({ _id: el, proposalId: null })))
+        }
       }
 
       await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
@@ -303,7 +305,7 @@ export class RequestDetailCustomViewModel {
         media: this.loadedFiles.map((el, i) => ({
           fileLink: el,
           commentByPerformer: typeof files[0] === 'object' ? files[i]?.commentByPerformer : '',
-          _id: findRequestProposalByChatSelectedId.proposal.media.some(item => item._id === files[i]?._id)
+          _id: findRequestProposalByChatSelectedId.proposal?.media?.some(item => item._id === files[i]?._id)
             ? files[i]?._id
             : null,
           index: i,
@@ -421,12 +423,14 @@ export class RequestDetailCustomViewModel {
 
       const filesIds = fields?.media?.map(el => el._id)
 
-      const curentMediaIds = findRequestProposalByChatSelectedId.proposal.media.map(el => el._id)
+      if (findRequestProposalByChatSelectedId.proposal?.media) {
+        const curentMediaIds = findRequestProposalByChatSelectedId.proposal?.media.map(el => el._id)
 
-      const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
+        const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
 
-      if (mediaToRemoveIds.length) {
-        await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({ _id: el, proposalId: null })))
+        if (mediaToRemoveIds.length) {
+          await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({ _id: el, proposalId: null })))
+        }
       }
 
       const sentFields = {
