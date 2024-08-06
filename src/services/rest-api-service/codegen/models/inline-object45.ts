@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
 
 /**
  * 
@@ -21,107 +22,11 @@
  */
 export interface InlineObject45 {
     /**
-     * комментарии байера.
-     * @type {string}
-     * @memberof InlineObject45
-     */
-    buyerComment?: string;
-    /**
-     * GUID storekeeper-a
-     * @type {string}
-     * @memberof InlineObject45
-     */
-    storekeeperId?: string;
-    /**
      * 
-     * @type {Array<string>}
+     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
      * @memberof InlineObject45
      */
-    paymentDetails?: Array<string>;
-    /**
-     * Цена в юанях
-     * @type {number}
-     * @memberof InlineObject45
-     */
-    priceInYuan?: number;
-    /**
-     * Цена доставки партии в юанях
-     * @type {number}
-     * @memberof InlineObject45
-     */
-    priceBatchDeliveryInYuan?: number;
-    /**
-     * GUID тарифа доставки.
-     * @type {string}
-     * @memberof InlineObject45
-     */
-    logicsTariffId?: string;
-    /**
-     * GUID пункта назначения.
-     * @type {string}
-     * @memberof InlineObject45
-     */
-    destinationId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject45
-     */
-    item?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject45
-     */
-    images?: Array<string>;
-    /**
-     * Курс юань доллар.
-     * @type {number}
-     * @memberof InlineObject45
-     */
-    yuanToDollarRate?: number;
-    /**
-     * Стоимость доставки до склада.
-     * @type {number}
-     * @memberof InlineObject45
-     */
-    deliveryCostToTheWarehouse?: number;
-    /**
-     * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
-     * @type {string}
-     * @memberof InlineObject45
-     */
-    trackingNumberChina?: string;
-    /**
-     * GUID поставщика, для данного заказа.
-     * @type {string}
-     * @memberof InlineObject45
-     */
-    orderSupplierId?: string;
-    /**
-     * Cумма частичной оплаты
-     * @type {number}
-     * @memberof InlineObject45
-     */
-    partialPaymentAmountRmb?: number;
-    /**
-     * Cумма частичной оплаты
-     * @type {number}
-     * @memberof InlineObject45
-     */
-    partiallyPaid?: number;
-    /**
-     * Оплачивается ли заказ частично
-     * @type {boolean}
-     * @memberof InlineObject45
-     */
-    partialPayment?: boolean;
-    /**
-     * Кол-во в заказе
-     * @type {number}
-     * @memberof InlineObject45
-     */
-    amount?: number;
+    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
 }
 
 

@@ -21,11 +21,11 @@
  */
 export interface InlineObject50 {
     /**
-     * 
-     * @type {boolean}
+     * Сумма воврата
+     * @type {number}
      * @memberof InlineObject50
      */
-    archive: boolean;
+    refundPrice?: number;
 }
 
 

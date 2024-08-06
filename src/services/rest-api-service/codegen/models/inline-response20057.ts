@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20056 } from './inline-response20056';
+import { InlineResponse20054Finances } from './inline-response20054-finances';
 
 /**
  * 
@@ -22,17 +22,11 @@ import { InlineResponse20056 } from './inline-response20056';
  */
 export interface InlineResponse20057 {
     /**
-     * Count of items
-     * @type {number}
-     * @memberof InlineResponse20057
-     */
-    count?: number;
-    /**
      * 
-     * @type {Array<InlineResponse20056>}
+     * @type {InlineResponse20054Finances}
      * @memberof InlineResponse20057
      */
-    rows?: Array<InlineResponse20056>;
+    finances?: InlineResponse20054Finances;
 }
 
 

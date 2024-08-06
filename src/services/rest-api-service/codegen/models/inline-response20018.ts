@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * 
@@ -22,17 +21,41 @@ import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
  */
 export interface InlineResponse20018 {
     /**
-     * Count of boxes
+     * The unique identifier of the box.
+     * @type {string}
+     * @memberof InlineResponse20018
+     */
+    guid?: string;
+    /**
+     * Объем в м ^ 3
      * @type {number}
      * @memberof InlineResponse20018
      */
-    count?: number;
+    cubicMeters?: number;
     /**
-     * 
-     * @type {Array<ApiV1BatchesBoxes>}
+     * The delivery cost of the box.
+     * @type {number}
      * @memberof InlineResponse20018
      */
-    rows?: Array<ApiV1BatchesBoxes>;
+    deliveryCost?: number;
+    /**
+     * The volume weight of the box in kg.
+     * @type {number}
+     * @memberof InlineResponse20018
+     */
+    volumeWeightKgWarehouse?: number;
+    /**
+     * The weight of the box in kg.
+     * @type {number}
+     * @memberof InlineResponse20018
+     */
+    weightFinalAccountingKgWarehouse?: number;
+    /**
+     * The delivery rate of the box. $/kg
+     * @type {number}
+     * @memberof InlineResponse20018
+     */
+    deliveryRate?: number;
 }
 
 

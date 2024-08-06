@@ -25,13 +25,7 @@ export interface InlineObject86 {
      * @type {Array<string>}
      * @memberof InlineObject86
      */
-    userIds: Array<string>;
-    /**
-     * Название группового чата
-     * @type {string}
-     * @memberof InlineObject86
-     */
-    title: string;
+    reportIds: Array<string>;
 }
 
 

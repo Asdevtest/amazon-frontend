@@ -13,9 +13,7 @@
  */
 
 
-import { InlineResponse20071AllFiles } from './inline-response20071-all-files';
-import { InlineResponse20071AllImages } from './inline-response20071-all-images';
-import { InlineResponse20071AllVideo } from './inline-response20071-all-video';
+import { InlineResponse20071Rows } from './inline-response20071-rows';
 
 /**
  * 
@@ -24,23 +22,17 @@ import { InlineResponse20071AllVideo } from './inline-response20071-all-video';
  */
 export interface InlineResponse20071 {
     /**
-     * 
-     * @type {Array<InlineResponse20071AllImages>}
+     * Кол-во записей
+     * @type {number}
      * @memberof InlineResponse20071
      */
-    allImages?: Array<InlineResponse20071AllImages>;
+    count?: number;
     /**
      * 
-     * @type {Array<InlineResponse20071AllFiles>}
+     * @type {Array<InlineResponse20071Rows>}
      * @memberof InlineResponse20071
      */
-    allFiles?: Array<InlineResponse20071AllFiles>;
-    /**
-     * 
-     * @type {Array<InlineResponse20071AllVideo>}
-     * @memberof InlineResponse20071
-     */
-    allVideo?: Array<InlineResponse20071AllVideo>;
+    rows?: Array<InlineResponse20071Rows>;
 }
 
 

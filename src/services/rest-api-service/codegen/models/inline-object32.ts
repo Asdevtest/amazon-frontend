@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
 
 /**
  * 
@@ -21,11 +22,17 @@
  */
 export interface InlineObject32 {
     /**
-     * GUID коробки разделение которой отменяем.
-     * @type {string}
+     * Массив коробок.
+     * @type {Array<string>}
      * @memberof InlineObject32
      */
-    guid?: string;
+    guids: Array<string>;
+    /**
+     * 
+     * @type {ApiV1BoxesMergeBoxBody}
+     * @memberof InlineObject32
+     */
+    boxBody: ApiV1BoxesMergeBoxBody;
 }
 
 
