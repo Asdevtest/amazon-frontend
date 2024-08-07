@@ -15,17 +15,17 @@
 
 
 /**
- * 
+ * Схема изменения итоговой цены, totalPriceChanged
  * @export
  * @interface InlineObject47
  */
 export interface InlineObject47 {
     /**
-     * Сумма воврата
+     * новое значение изменения итоговой цены.
      * @type {number}
      * @memberof InlineObject47
      */
-    refundPrice?: number;
+    totalPriceChanged: number;
 }
 
 

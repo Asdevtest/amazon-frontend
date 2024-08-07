@@ -13,12 +13,7 @@
  */
 
 
-import { InlineResponse20050Batch } from './inline-response20050-batch';
-import { InlineResponse20050Boxes } from './inline-response20050-boxes';
-import { InlineResponse20050Orders } from './inline-response20050-orders';
-import { InlineResponse20050Products } from './inline-response20050-products';
-import { InlineResponse20050Requests } from './inline-response20050-requests';
-import { InlineResponse20050Shops } from './inline-response20050-shops';
+import { InlineResponse20050Rows } from './inline-response20050-rows';
 
 /**
  * 
@@ -27,41 +22,17 @@ import { InlineResponse20050Shops } from './inline-response20050-shops';
  */
 export interface InlineResponse20050 {
     /**
-     * 
-     * @type {InlineResponse20050Orders}
+     * Count of rows
+     * @type {number}
      * @memberof InlineResponse20050
      */
-    orders?: InlineResponse20050Orders;
+    count?: number;
     /**
      * 
-     * @type {InlineResponse20050Shops}
+     * @type {Array<InlineResponse20050Rows>}
      * @memberof InlineResponse20050
      */
-    shops?: InlineResponse20050Shops;
-    /**
-     * 
-     * @type {InlineResponse20050Requests}
-     * @memberof InlineResponse20050
-     */
-    requests?: InlineResponse20050Requests;
-    /**
-     * 
-     * @type {InlineResponse20050Products}
-     * @memberof InlineResponse20050
-     */
-    products?: InlineResponse20050Products;
-    /**
-     * 
-     * @type {InlineResponse20050Batch}
-     * @memberof InlineResponse20050
-     */
-    batch?: InlineResponse20050Batch;
-    /**
-     * 
-     * @type {InlineResponse20050Boxes}
-     * @memberof InlineResponse20050
-     */
-    boxes?: InlineResponse20050Boxes;
+    rows?: Array<InlineResponse20050Rows>;
 }
 
 

@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20060Rows } from './inline-response20060-rows';
+import { InlineResponse20059 } from './inline-response20059';
 
 /**
  * 
@@ -22,17 +22,17 @@ import { InlineResponse20060Rows } from './inline-response20060-rows';
  */
 export interface InlineResponse20060 {
     /**
-     * Общее кол-во идей
+     * Count of items
      * @type {number}
      * @memberof InlineResponse20060
      */
     count?: number;
     /**
-     * Список идей
-     * @type {Array<InlineResponse20060Rows>}
+     * 
+     * @type {Array<InlineResponse20059>}
      * @memberof InlineResponse20060
      */
-    rows?: Array<InlineResponse20060Rows>;
+    rows?: Array<InlineResponse20059>;
 }
 
 

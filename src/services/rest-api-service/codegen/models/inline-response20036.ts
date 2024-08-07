@@ -13,76 +13,26 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AnnouncementsMyRequests } from './api-v1-announcements-my-requests';
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { InlineResponse20035 } from './inline-response20035';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20036
  */
 export interface InlineResponse20036 {
     /**
-     * GUID в базе данных
-     * @type {string}
+     * Всего кол-во записей в результате запроса
+     * @type {number}
      * @memberof InlineResponse20036
      */
-    _id?: string;
+    count?: number;
     /**
-     * 
-     * @type {ApiV1AnnouncementsMySpec}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20035>}
      * @memberof InlineResponse20036
      */
-    spec?: ApiV1AnnouncementsMySpec;
-    /**
-     * Archive
-     * @type {boolean}
-     * @memberof InlineResponse20036
-     */
-    archive?: boolean;
-    /**
-     * 
-     * @type {Array<ApiV1AnnouncementsMyRequests>}
-     * @memberof InlineResponse20036
-     */
-    requests?: Array<ApiV1AnnouncementsMyRequests>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse20036
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20036
-     */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20036
-     */
-    description?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20036
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse20036
-     */
-    createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse20036
-     */
-    updatedAt?: string;
+    rows?: Array<InlineResponse20035>;
 }
 
 

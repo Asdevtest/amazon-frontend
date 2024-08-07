@@ -13,6 +13,8 @@
  */
 
 
+import { InlineResponse20054Finances } from './inline-response20054-finances';
+import { InlineResponse20056Products } from './inline-response20056-products';
 
 /**
  * 
@@ -21,23 +23,17 @@
  */
 export interface InlineResponse20056 {
     /**
-     * Гуид тега
-     * @type {string}
+     * 
+     * @type {InlineResponse20056Products}
      * @memberof InlineResponse20056
      */
-    _id?: string;
+    products?: InlineResponse20056Products;
     /**
-     * Тег
-     * @type {string}
+     * 
+     * @type {InlineResponse20054Finances}
      * @memberof InlineResponse20056
      */
-    title?: string;
-    /**
-     * Кол-во продуктов, которые используют этот тег
-     * @type {number}
-     * @memberof InlineResponse20056
-     */
-    productCount?: number;
+    finances?: InlineResponse20054Finances;
 }
 
 

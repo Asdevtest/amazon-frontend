@@ -13,7 +13,6 @@
  */
 
 
-import { InlineObject24 } from './inline-object24';
 
 /**
  * 
@@ -22,17 +21,11 @@ import { InlineObject24 } from './inline-object24';
  */
 export interface InlineObject33 {
     /**
-     * GUID для которой подтверждаем действие.
+     * GUID коробки, объединение которой нужно отменить
      * @type {string}
      * @memberof InlineObject33
      */
     guid?: string;
-    /**
-     * Массив дополнительных коробок которые случились при обработки.
-     * @type {Array<InlineObject24>}
-     * @memberof InlineObject33
-     */
-    additionalBoxes?: Array<InlineObject24>;
 }
 
 

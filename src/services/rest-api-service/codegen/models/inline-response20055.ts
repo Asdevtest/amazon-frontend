@@ -13,9 +13,9 @@
  */
 
 
-import { InlineResponse20051Finances } from './inline-response20051-finances';
-import { InlineResponse20055Checking } from './inline-response20055-checking';
-import { InlineResponse20055Products } from './inline-response20055-products';
+import { InlineResponse20055Batches } from './inline-response20055-batches';
+import { InlineResponse20055Boxes } from './inline-response20055-boxes';
+import { InlineResponse20055Tasks } from './inline-response20055-tasks';
 
 /**
  * 
@@ -25,22 +25,22 @@ import { InlineResponse20055Products } from './inline-response20055-products';
 export interface InlineResponse20055 {
     /**
      * 
-     * @type {InlineResponse20055Products}
+     * @type {InlineResponse20055Tasks}
      * @memberof InlineResponse20055
      */
-    products?: InlineResponse20055Products;
+    tasks?: InlineResponse20055Tasks;
     /**
      * 
-     * @type {InlineResponse20055Checking}
+     * @type {InlineResponse20055Boxes}
      * @memberof InlineResponse20055
      */
-    checking?: InlineResponse20055Checking;
+    boxes?: InlineResponse20055Boxes;
     /**
      * 
-     * @type {InlineResponse20051Finances}
+     * @type {InlineResponse20055Batches}
      * @memberof InlineResponse20055
      */
-    finances?: InlineResponse20051Finances;
+    batches?: InlineResponse20055Batches;
 }
 
 

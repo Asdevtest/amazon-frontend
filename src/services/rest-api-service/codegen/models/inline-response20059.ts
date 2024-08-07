@@ -13,9 +13,6 @@
  */
 
 
-import { ApiV1IdeasByParentGuidChildProduct } from './api-v1-ideas-by-parent-guid-child-product';
-import { ApiV1IdeasByParentGuidRequestsOnCheck } from './api-v1-ideas-by-parent-guid-requests-on-check';
-import { ApiV1IdeasByParentGuidSuppliers } from './api-v1-ideas-by-parent-guid-suppliers';
 
 /**
  * 
@@ -24,155 +21,23 @@ import { ApiV1IdeasByParentGuidSuppliers } from './api-v1-ideas-by-parent-guid-s
  */
 export interface InlineResponse20059 {
     /**
-     * 
+     * Гуид тега
      * @type {string}
      * @memberof InlineResponse20059
      */
     _id?: string;
     /**
-     * Название идеи
+     * Тег
      * @type {string}
      * @memberof InlineResponse20059
      */
     title?: string;
     /**
-     * Статус идеи
+     * Кол-во продуктов, которые используют этот тег
      * @type {number}
      * @memberof InlineResponse20059
      */
-    status?: number;
-    /**
-     * Медиа идеи
-     * @type {Array<string>}
-     * @memberof InlineResponse20059
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * FBA Fee
-     * @type {number}
-     * @memberof InlineResponse20059
-     */
-    fbaFee?: number;
-    /**
-     * Ориентационная цена
-     * @type {number}
-     * @memberof InlineResponse20059
-     */
-    approximatePrice?: number;
-    /**
-     * Назавние продукта
-     * @type {string}
-     * @memberof InlineResponse20059
-     */
-    productName?: string;
-    /**
-     * Является ли продукт идеи вариацией существующего
-     * @type {boolean}
-     * @memberof InlineResponse20059
-     */
-    variation?: boolean;
-    /**
-     * 
-     * @type {ApiV1IdeasByParentGuidChildProduct}
-     * @memberof InlineResponse20059
-     */
-    childProduct?: ApiV1IdeasByParentGuidChildProduct;
-    /**
-     * 
-     * @type {Array<ApiV1IdeasByParentGuidSuppliers>}
-     * @memberof InlineResponse20059
-     */
-    suppliers?: Array<ApiV1IdeasByParentGuidSuppliers>;
-    /**
-     * 
-     * @type {Array<ApiV1IdeasByParentGuidRequestsOnCheck>}
-     * @memberof InlineResponse20059
-     */
-    requestsOnCheck?: Array<ApiV1IdeasByParentGuidRequestsOnCheck>;
-    /**
-     * 
-     * @type {Array<ApiV1IdeasByParentGuidRequestsOnCheck>}
-     * @memberof InlineResponse20059
-     */
-    requestsOnFinished?: Array<ApiV1IdeasByParentGuidRequestsOnCheck>;
-    /**
-     * Комментарии к идее
-     * @type {string}
-     * @memberof InlineResponse20059
-     */
-    comments?: string;
-    /**
-     * Комментарий байера
-     * @type {string}
-     * @memberof InlineResponse20059
-     */
-    buyerComment?: string;
-    /**
-     * Кол-во секунд идеи в статусе new(5)
-     * @type {number}
-     * @memberof InlineResponse20059
-     */
-    intervalStatusNew?: number;
-    /**
-     * Кол-во секунд идеи в статусе OnCheck(10)
-     * @type {number}
-     * @memberof InlineResponse20059
-     */
-    intervalStatusOnCheck?: number;
-    /**
-     * Кол-во секунд идеи в статусе supplierSearch(13)
-     * @type {number}
-     * @memberof InlineResponse20059
-     */
-    intervalStatusSupplierSearch?: number;
-    /**
-     * Кол-во секунд идеи в статусе supplierFound(14)
-     * @type {number}
-     * @memberof InlineResponse20059
-     */
-    intervalStatusSupplierFound?: number;
-    /**
-     * Кол-во секунд идеи в статусе supplierNotFound(15)
-     * @type {number}
-     * @memberof InlineResponse20059
-     */
-    intervalStatusSupplierNotFound?: number;
-    /**
-     * Кол-во секунд идеи в статусе productCreating(16)
-     * @type {number}
-     * @memberof InlineResponse20059
-     */
-    intervalStatusProductCreating?: number;
-    /**
-     * Кол-во секунд идеи в статусе addingAsin(18)
-     * @type {number}
-     * @memberof InlineResponse20059
-     */
-    intervalStatusAddingAsin?: number;
-    /**
-     * Кол-во секунд идеи в статусе rejected(25)
-     * @type {number}
-     * @memberof InlineResponse20059
-     */
-    intervalStatusRejected?: number;
-    /**
-     * Кол-во секунд идеи во всех статусах
-     * @type {number}
-     * @memberof InlineResponse20059
-     */
-    intervalsSum?: number;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse20059
-     */
-    createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse20059
-     */
-    updatedAt?: string;
+    productCount?: number;
 }
 
 
