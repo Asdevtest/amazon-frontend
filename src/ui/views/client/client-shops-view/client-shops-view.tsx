@@ -17,6 +17,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { useStyles } from './client-shops-view.style'
 
 import { ShopsViewModel } from './client-shops-view.model'
+import { ShopCascader } from './components/shop-cascader'
 import { ShopForm } from './components/shop-form'
 
 export const ClientShopsView = observer(() => {
@@ -40,9 +41,11 @@ export const ClientShopsView = observer(() => {
           {t(TranslationKey.Update)}
         </CustomButton>
 
-        <CustomButton type="primary" size="large" onClick={() => viewModel.getShopsExport('INVENTORY')}>
-          {t(TranslationKey.Export)}
-        </CustomButton>
+        <ShopCascader options={viewModel.exportOptions} onChange={viewModel.onChangeExportOprions}>
+          <CustomButton type="primary" size="large" onClick={() => viewModel.getShopsExport('INVENTORY')}>
+            {t(TranslationKey.Export)}
+          </CustomButton>
+        </ShopCascader>
 
         <CustomInputSearch
           enterButton

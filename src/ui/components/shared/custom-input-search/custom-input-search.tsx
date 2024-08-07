@@ -13,7 +13,6 @@ import { useStyles } from './custom-input-search.style'
 const { Search } = Input
 
 interface CustomInputSearchProps extends SearchProps, IDefaultPropsExtensionAntdComponent {
-  required?: boolean
   placeholder?: string
 }
 

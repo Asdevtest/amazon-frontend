@@ -10,9 +10,7 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 
 import { useStyles } from './custom-switch.style'
 
-interface CustomSwitchProps extends SwitchProps, IDefaultPropsExtensionAntdComponent {
-  required?: boolean
-}
+interface CustomSwitchProps extends SwitchProps, IDefaultPropsExtensionAntdComponent {}
 
 export const CustomSwitch: FC<CustomSwitchProps> = memo(props => {
   const { isRow, isCell, label, required, className, labelClassName, wrapperClassName, ...restProps } = props
