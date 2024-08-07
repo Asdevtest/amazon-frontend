@@ -1,5 +1,7 @@
 import { FC, memo } from 'react'
 
+import { checkCurrentPeriodValid } from '@components/modals/report-modal/helpers/check-current-period-valid'
+
 import { ILaunch } from '@typings/shared/launch'
 
 import { getLaunchStyle } from './helpers/get-launch-style'
@@ -20,15 +22,19 @@ export const Launches: FC<LaunchesProps> = memo(props => {
 
   return (
     <div className={cx(styles.wrapper, { [styles.cell]: isCell })}>
-      {launches.map((launch, index) => (
-        <p
-          key={index}
-          style={getLaunchStyle(launch.type, theme)}
-          className={cx(styles.text, { [styles.expired]: launch.expired })}
-        >
-          {`${getLaunchName(launch.type, true)} ${getLaunchValue(launch.value)}`}
-        </p>
-      ))}
+      {launches.map((launch, index) => {
+        const expired = checkCurrentPeriodValid(launch.dateTo)
+
+        return (
+          <p
+            key={index}
+            style={getLaunchStyle(launch.type, theme)}
+            className={cx(styles.text, { [styles.expired]: expired })}
+          >
+            {`${getLaunchName(launch.type, true)} ${getLaunchValue(launch.value)}`}
+          </p>
+        )
+      })}
     </div>
   )
 })
