@@ -57,7 +57,7 @@ export const exchangeСreatedColumns = () => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
-    renderCell: params => <TextCell status={params.value?.replace(/_/g, ' ')} />,
+    renderCell: params => <TextCell text={params.value?.replace(/_/g, ' ')} />,
     width: 250,
   },
 
