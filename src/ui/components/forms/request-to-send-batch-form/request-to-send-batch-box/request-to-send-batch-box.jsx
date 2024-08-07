@@ -43,7 +43,8 @@ export const RequestToSendBatchBox = memo(
       !price ||
       !box.items.some(item => item.barCode)
 
-    const isWeightMismatch = box.heightCmWarehouse < 10 && box.lengthCmWarehouse < 10 && box.widthCmWarehouse < 10
+    const isWeightMismatch =
+      Number(box.heightCmWarehouse) < 10 || Number(box.lengthCmWarehouse) < 10 || Number(box.widthCmWarehouse) < 10
 
     return (
       <tr

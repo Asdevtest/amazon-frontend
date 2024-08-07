@@ -113,7 +113,7 @@ export const RequestToSendBatchForm = observer(
               item?.product?.transparency,
           ),
       ) ||
-      boxesMy.some(box => box.heightCmWarehouse < 10 && box.lengthCmWarehouse < 10 && box.widthCmWarehouse < 10) ||
+      boxesMy.some(box => box.heightCmWarehouse < 10 || box.lengthCmWarehouse < 10 || box.widthCmWarehouse < 10) ||
       isHasTransparencyDoesntHasImages
 
     return (
