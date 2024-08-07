@@ -28,7 +28,6 @@ export const RequestToSendBatchForm = observer(
     closeModal,
     setCurrentOpenedBox,
   }) => {
-    console.log('boxesMy', boxesMy)
     const { classes: styles, cx } = useStyles()
     useEffect(() => {
       if (!selectedBoxes.length) {
