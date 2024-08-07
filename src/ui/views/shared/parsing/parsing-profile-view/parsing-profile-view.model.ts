@@ -37,6 +37,7 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
     this.getCurrentData()
+    this.getCurrentData()
 
     makeObservable(this, parsingProdileViewConfig)
   }

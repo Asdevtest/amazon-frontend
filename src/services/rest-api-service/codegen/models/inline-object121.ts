@@ -14,7 +14,6 @@
 
 
 import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
-import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
 
 /**
  * 
@@ -23,17 +22,29 @@ import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid
  */
 export interface InlineObject121 {
     /**
-     * Категория
+     * ASIN продукта
      * @type {string}
      * @memberof InlineObject121
      */
-    category?: string;
+    asin: string;
     /**
      * Ссылка на этот продукт на амазоне.
      * @type {string}
      * @memberof InlineObject121
      */
-    lamazon?: string;
+    lamazon: string;
+    /**
+     * GUID поставщика
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    currentSupplierId?: string;
+    /**
+     * Категория
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    category?: string;
     /**
      * 
      * @type {number}
@@ -47,59 +58,29 @@ export interface InlineObject121 {
      */
     fba?: boolean;
     /**
+     *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    status?: number;
+    /**
      * 
      * @type {number}
      * @memberof InlineObject121
      */
     amazon?: number;
     /**
-     * 
-     * @type {number}
+     * Массив поставщиков.
+     * @type {Array<string>}
      * @memberof InlineObject121
      */
-    height?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    width?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    length?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    weight?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    reffee?: number;
+    suppliersIds?: Array<string>;
     /**
      * ФБА комиссия
      * @type {number}
      * @memberof InlineObject121
      */
     fbafee?: number;
-    /**
-     *  Общая сумма с фба.
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    fbaamount?: number;
-    /**
-     *  Статус товара. У ресечера: 0 - новый товар. 5- готов к проверке супером. 10 - новый товар с поставщиком
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    status?: number;
     /**
      * Комментарии к товару.
      * @type {string}
@@ -113,65 +94,11 @@ export interface InlineObject121 {
      */
     images?: Array<string>;
     /**
-     * 
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    amazonDescription?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    amazonDetail?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    amazonTitle?: string;
-    /**
-     * Материл продукта
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    material?: string;
-    /**
-     * Применение продукта
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    productUsage?: string;
-    /**
-     * chinese title?
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    chinaTitle?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    barCode?: string;
-    /**
-     * 
+     * комиссия которую берет амазон за любой заказ - 15%
      * @type {number}
      * @memberof InlineObject121
      */
-    minpurchase?: number;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    profit?: number;
-    /**
-     * Маржа
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    margin?: number;
+    reffee?: number;
     /**
      * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
      * @type {number}
@@ -227,11 +154,17 @@ export interface InlineObject121 {
      */
     avgReviews?: string;
     /**
-     * 
-     * @type {Array<ApiV1ClientsProductsGuidRedFlags>}
+     * Дополнительная инфа для дозакупок
+     * @type {number}
      * @memberof InlineObject121
      */
-    redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
+    fourMonthesStock?: number;
+    /**
+     * ID магазинa продукта
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    shopId?: string;
     /**
      * 
      * @type {Array<ApiV1BuyersProductsGuidTags>}

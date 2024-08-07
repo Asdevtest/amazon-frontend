@@ -31,7 +31,19 @@ export interface InlineResponse20055Products {
      * @type {number}
      * @memberof InlineResponse20055Products
      */
+    publishedOnExchange?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20055Products
+     */
     paid?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20055Products
+     */
+    rejected?: number;
 }
 
 

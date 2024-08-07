@@ -25,6 +25,24 @@ export interface InlineResponse20051Orders {
      * @type {number}
      * @memberof InlineResponse20051Orders
      */
+    inProcess?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20051Orders
+     */
+    free?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20051Orders
+     */
+    completed?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20051Orders
+     */
     all?: number;
     /**
      * 
@@ -38,6 +56,36 @@ export interface InlineResponse20051Orders {
      * @memberof InlineResponse20051Orders
      */
     canceled?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20051Orders
+     */
+    notPaid?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20051Orders
+     */
+    needTrackNumber?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20051Orders
+     */
+    inbound?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20051Orders
+     */
+    confirmationRequired?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20051Orders
+     */
+    closedAndCanceled?: number;
 }
 
 

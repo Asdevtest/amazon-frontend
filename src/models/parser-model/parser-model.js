@@ -1,8 +1,8 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class ParserModelStatic {
-  getProfiles = async () => {
-    const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesGet({ noCache: true })
+  getProfiles = async body => {
+    const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesGet({ ...body, noCache: true })
     return response.data
   }
 
@@ -16,8 +16,9 @@ class ParserModelStatic {
     return response.data
   }
 
-  getRequests = async () => {
+  getRequests = async body => {
     const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet({
+      ...body,
       noCache: true,
     })
     return response.data

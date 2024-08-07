@@ -5,7 +5,6 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
@@ -31,10 +30,6 @@ export const ParsingRequestsView: FC = observer(() => {
           placeholder="Search by name, email"
           onSearch={viewModel.onSearchSubmit}
         />
-
-        <CustomButton disabled size="large" type="primary">
-          {t(TranslationKey.Update)}
-        </CustomButton>
       </div>
 
       <div className={styles.tableWrapper}>
