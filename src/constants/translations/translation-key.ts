@@ -1998,4 +1998,5 @@ export enum TranslationKey {
   'Light' = 'Light',
   'Standart' = 'Standart',
   'Important' = 'Important',
+  "Box dimensions don't meet carrier requirements!" = "Box dimensions don't meet carrier requirements!",
 }
