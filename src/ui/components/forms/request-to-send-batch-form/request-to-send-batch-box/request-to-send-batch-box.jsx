@@ -43,6 +43,8 @@ export const RequestToSendBatchBox = memo(
       !price ||
       !box.items.some(item => item.barCode)
 
+    const isWeightMismatch = box.heightCmWarehouse < 10 && box.lengthCmWarehouse < 10 && box.widthCmWarehouse < 10
+
     return (
       <tr
         className={cx(styles.box, styles.row, { [styles.badBox]: isBadBox })}
@@ -299,6 +301,7 @@ export const RequestToSendBatchBox = memo(
             )}
           </div>
         </td>
+
         <td className={cx(tableCellClsx, styles.pricePerAmoutCell)}>
           {box.items.map((item, index) => {
             const deliveryCostPerPcs = calculateDeliveryCostPerPcs({
@@ -327,7 +330,7 @@ export const RequestToSendBatchBox = memo(
             )
           })}
         </td>
-        {/* cx(tableCellClsx, styles.priceCell) */}
+
         {box.amount > 1 ? (
           <td className={styles.suberboxPriceCellWrapper}>
             <div className={styles.suberboxPriceCell}>
@@ -364,6 +367,10 @@ export const RequestToSendBatchBox = memo(
             X
           </Button>
         </td>
+
+        {isWeightMismatch ? (
+          <p className={styles.warningText}>{t(TranslationKey["Box dimensions don't meet carrier requirements!"])}</p>
+        ) : null}
       </tr>
     )
   },
