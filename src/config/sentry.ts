@@ -8,9 +8,9 @@ Sentry.init({
   integrations: [
     // Sentry.browserTracingIntegration(),
     // Sentry.browserProfilingIntegration(),
-    // Sentry.captureConsoleIntegration(), // tracking by all console.log
+    // Sentry.captureConsoleIntegration(), // tracking by all console.log-s
     // Sentry.contextLinesIntegration(),
-    // Sentry.debugIntegration(), // debugger-console.log in devtools
+    // Sentry.debugIntegration(), // debugger-console.log-s in devtools
     Sentry.extraErrorDataIntegration(),
     Sentry.httpClientIntegration({
       // failedRequestTargets: ['amazonapi.fvds.ru', 'amazon-socket.fvds.ru'], // URLs for tracking, by default - all
