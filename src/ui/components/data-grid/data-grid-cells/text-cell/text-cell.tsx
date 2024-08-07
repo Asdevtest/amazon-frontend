@@ -51,15 +51,19 @@ export const TextCell: FC<TextCellProps> = memo(props => {
     setValue(event.target.value)
   }
   const handleOpenChange = (open: boolean) => {
-    if (!open) {
+    if (open) {
       setValue(text)
     }
   }
   const handleExpand = (event: MouseEvent) => {
     event.stopPropagation()
   }
+  const handleSubmit = () => {
+    onClickSubmit?.(value)
+    setValue('')
+  }
 
-  const isCopyable = !!value?.length && isHover && copyable
+  const isCopyable = !!text?.length && isHover && copyable
 
   const paragraph = (
     <div className={styles.container}>
@@ -88,7 +92,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
           okText={t(TranslationKey.Save)}
           cancelText={t(TranslationKey.Cancel)}
           overlayClassName={styles.popconfirm}
-          onConfirm={() => onClickSubmit?.(value)}
+          onConfirm={handleSubmit}
           onCancel={() => setValue(text)}
           onOpenChange={handleOpenChange}
         >
