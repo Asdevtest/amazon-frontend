@@ -4,7 +4,6 @@ export const useStyles = makeStyles()(() => ({
   balanceWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
-    marginBottom: 10,
   },
 
   balanceTitle: {
