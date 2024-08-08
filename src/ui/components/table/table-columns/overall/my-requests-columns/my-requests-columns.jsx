@@ -49,8 +49,8 @@ export const myRequestsViewColumns = rowHandlers => {
 
     {
       field: 'taskComplexity',
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Difficulty level'])} />,
-      headerName: t(TranslationKey['Difficulty level']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
+      headerName: t(TranslationKey.Category),
 
       renderCell: params => (
         <TextCell
@@ -117,7 +117,7 @@ export const myRequestsViewColumns = rowHandlers => {
 
       renderCell: params => <TextCell text={params.value} />,
       type: 'number',
-      width: 62,
+      width: 80,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },

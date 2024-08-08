@@ -11,7 +11,7 @@ import {
   clientOnCheckingIdeasColumns,
   clientRealizedIdeasColumns,
   clientSearchSuppliersIdeasColumns,
-} from '@components/table/table-columns/client/client-ideas-columns'
+} from './client-ideas-columns'
 
 export const settingsByUrl = {
   '/client/ideas/new': {

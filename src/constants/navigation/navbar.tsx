@@ -528,6 +528,16 @@ export const navbarConfig = {
         },
 
         {
+          subtitle: () => t(TranslationKey['All proposals']),
+          subRoute: '/freelancer/freelance/all-proposals',
+          key: navBarActiveSubCategory.SUB_NAVBAR_ALL_PROPOSALS,
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_FREELANCE_ALLPROPOSALS_FREELANCER),
+        },
+
+        {
           subtitle: () => t(TranslationKey['My services']),
           subRoute: '/freelancer/freelance/my-services',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
@@ -557,7 +567,8 @@ export const navbarConfig = {
             item === permissionsKeys.freelancer.SHOW_SOURCES_FREELANCER ||
             item === permissionsKeys.freelancer.SHOW_ANNOUNCEMENTS_FREELANCER ||
             item === permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER ||
-            item === permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER,
+            item === permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER ||
+            item === permissionsKeys.freelancer.SHOW_FREELANCE_ALLPROPOSALS_FREELANCER,
         ),
     },
 

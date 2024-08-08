@@ -31,7 +31,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       renderCell: ({ row }: GridRowModel) => <TextCell text={row?.humanFriendlyId || 0} />,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.QUANTITY,
-      width: 100,
+      width: 80,
     },
 
     {

@@ -20,6 +20,11 @@ class ChatsModelStatic {
     const response = await restApiService.chatsApi.apiV1ChatsMediaPagGuidGet(options)
     return response.data
   }
+
+  joinChat = async guid => {
+    const response = await restApiService.chatsApi.apiV1ChatsJoinGuidPost({ guid })
+    return response.data
+  }
 }
 
 export const ChatsModel = new ChatsModelStatic()

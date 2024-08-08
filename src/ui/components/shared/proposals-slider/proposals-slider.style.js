@@ -85,8 +85,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   customPerformerLink: {
-    fontSize: 16,
-    lineHeight: '22px',
+    fontSize: 14,
+    lineHeight: '19px',
     fontWeight: 600,
     color: theme.palette.primary.main,
   },

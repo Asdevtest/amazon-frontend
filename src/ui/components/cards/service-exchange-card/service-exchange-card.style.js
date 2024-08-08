@@ -2,16 +2,19 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   cardWrapper: {
-    height: 550,
-    width: '100%',
-    padding: '35px 20px',
+    height: 450,
+    width: '24%',
+    padding: '20px',
     boxShadow: theme.palette.boxShadow.paper,
     background: theme.palette.background.general,
-    borderRadius: 7,
+    borderRadius: 16,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: '10px',
   },
 
   cardTitle: {
-    marginBottom: 10,
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
@@ -22,15 +25,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cardDescription: {
-    height: 95,
-    marginBottom: 10,
+    height: 57,
     fontSize: '14px',
     lineHeight: '19px',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
-    WebkitLineClamp: 5,
+    WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
   },
 
@@ -82,12 +84,10 @@ export const useStyles = makeStyles()(theme => ({
 
   buttonWrapper: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
 
-  gallery: {
-    margin: '20px 0',
-    display: 'flex',
-    justifyContent: 'center',
+  image: {
+    borderRadius: 16,
   },
 }))

@@ -57,7 +57,7 @@ export const FreelancerFreelanceColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request ID'])} />,
     renderCell: params => <TextCell text={params.value} />,
     type: 'number',
-    width: 93,
+    width: 80,
   },
 
   {

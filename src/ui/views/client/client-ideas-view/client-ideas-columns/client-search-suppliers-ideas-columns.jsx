@@ -37,6 +37,8 @@ import {
   productionTimeColumnMenuValue,
 } from '@config/data-grid-column-menu/production-time'
 
+import { accessToProductColumnMenuConfig, shopColumnMenuConfig, shopFields } from '../columns-menu.config'
+
 export const clientSearchSuppliersIdeasColumns = rowHandlers => {
   const columns = [
     {
@@ -104,10 +106,11 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
 
       renderCell: params => <TextCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
-
-      columnKey: columnnsKeys.client.IDEA_SHOPS,
-      table: DataGridFilterTables.PRODUCTS,
       disableCustomSort: true,
+
+      fields: shopFields,
+      columnMenuConfig: shopColumnMenuConfig,
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
@@ -289,10 +292,12 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         return subUsers?.concat(subUsersByShop).join(', ')
       },
       width: 187,
-      table: DataGridFilterTables.PRODUCTS,
       filterable: false,
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.OBJECT,
+
+      fields: shopFields,
+      columnMenuConfig: accessToProductColumnMenuConfig,
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
