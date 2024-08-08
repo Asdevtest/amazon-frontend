@@ -41,6 +41,7 @@ export const ServiceExchangeView = observer(({ history }) => {
           allowClear
           size="large"
           placeholder="Search by Performer, Title, Description"
+          wrapperClassName={styles.searchInput}
           onSearch={viewModel.onSearchSubmit}
         />
       </div>
