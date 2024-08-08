@@ -121,7 +121,9 @@ export const warehouseMyBatchesViewColumns = (columnsProps: IColumnsProps) => {
       field: 'deliveryTotalPrice',
       headerName: t(TranslationKey['Delivery cost']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
-      renderCell: ({ row }: GridRowModel) => <TextCell text={toFixedWithDollarSign(row.deliveryTotalPrice, 2)} />,
+      renderCell: ({ row }: GridRowModel) => (
+        <TextCell text={toFixedWithDollarSign(row.totalPriceFromOrderSupplier, 2)} />
+      ),
       width: 120,
       filterable: false,
       sortable: false,
