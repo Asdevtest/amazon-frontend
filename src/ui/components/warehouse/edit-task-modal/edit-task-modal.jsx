@@ -317,7 +317,7 @@ export const EditTaskModal = memo(
           )}
         </div>
 
-        <Modal openModal={receiveBoxModal} setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}>
+        <Modal missClickModalOn openModal={receiveBoxModal} setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}>
           <ReceiveBoxModal
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
