@@ -33,6 +33,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   option: {
-    width: '150px',
+    width: '200px',
   },
 }))

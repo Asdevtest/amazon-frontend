@@ -14,7 +14,7 @@ import { ShopModel } from '@models/shop-model'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IShop, IShopExport } from '@typings/models/shops/shop'
+import { IShop } from '@typings/models/shops/shop'
 
 import { shopsColumns } from './client-shops-view.columns'
 import { shopsViewModelConfig } from './client-shops-view.config'
@@ -32,7 +32,7 @@ export class ShopsViewModel extends DataGridTableModel {
   get exportOptions() {
     const generetadOptions = this.filteredData.map(({ name, _id }) => ({ label: name, value: _id }))
 
-    return getExportOptionsForShopsView(generetadOptions)
+    return getExportOptionsForShopsView(generetadOptions, this.selectedExportOptions)
   }
 
   constructor() {
@@ -137,7 +137,8 @@ export class ShopsViewModel extends DataGridTableModel {
         statusGroup,
         onAmazon,
       }
-      const response = (await ClientModel.getShopsExport(data)) as unknown as IShopExport[]
+
+      await ClientModel.getShopsExport(data)
     } catch (error) {
       console.error(error)
     }
@@ -145,6 +146,5 @@ export class ShopsViewModel extends DataGridTableModel {
 
   onChangeExportOprions: CascaderProps<DefaultOptionType, 'value', true>['onChange'] = values => {
     this.selectedExportOptions = values
-    console.log('values', values)
   }
 }

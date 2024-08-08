@@ -39,7 +39,7 @@ export const ShopCascader: FC<ShopCascaderProps> = memo(props => {
         suffixIcon={null}
         options={options}
         rootClassName={styles.cascader}
-        // expandTrigger="hover"
+        expandTrigger="hover"
         optionRender={option => (
           <div className={styles.option}>
             <Paragraph ellipsis={{ rows: 1 }} style={{ margin: 0 }}>
