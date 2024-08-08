@@ -2021,5 +2021,6 @@
   "Light": "Лайт",
   "Standart": "Стандарт",
   "Important": "Важливо",
-  "Box dimensions don't meet carrier requirements!": "Розміри коробки не відповідають вимогам перевізника!"
+  "Box dimensions don't meet carrier requirements!": "Розміри коробки не відповідають вимогам перевізника!",
+  "Time until server shutdown": "Час до вимкнення сервера"
 }

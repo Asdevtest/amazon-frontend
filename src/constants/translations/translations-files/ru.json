@@ -2024,5 +2024,6 @@
   "Light": "Лайт",
   "Standart": "Стандарт",
   "Important": "Важно",
-  "Box dimensions don't meet carrier requirements!": "Размеры коробки не соответствуют требованиям перевозчика!"
+  "Box dimensions don't meet carrier requirements!": "Размеры коробки не соответствуют требованиям перевозчика!",
+  "Time until server shutdown": "Время до завершения работы сервера"
 }
