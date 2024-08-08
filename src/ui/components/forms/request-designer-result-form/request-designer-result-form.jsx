@@ -154,12 +154,12 @@ const Slot = ({
 export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, proposal }) => {
   const { classes: styles, cx } = useStyles()
 
-  const isRework = !!proposal.proposal.media?.length
+  const isRework = !!proposal.proposal?.media?.length
 
   const [showDetails, setShowDetails] = useState(false)
   const [showImageModal, setShowImageModal] = useState(false)
-  const [sourceLink, setSourceLink] = useState(proposal.proposal.sourceFiles?.[0]?.sourceFile || '')
-  const [comment, setComment] = useState(proposal.details.result)
+  const [sourceLink, setSourceLink] = useState(proposal?.proposal?.sourceFiles?.[0]?.sourceFile || '')
+  const [comment, setComment] = useState(proposal?.details?.result)
   const sourceImagesData = isRework
     ? proposal.proposal.media.map(el => ({
         fileLink: el.fileLink,

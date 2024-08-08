@@ -491,10 +491,9 @@ export const CreateOrEditRequestContent = memo(props => {
 
                 <div className={styles.fields}>
                   <Field
-                    label={t(TranslationKey['Difficulty level'])}
+                    label={t(TranslationKey.Category)}
                     labelClasses={styles.label}
                     containerClasses={styles.fieldContainer}
-                    tooltipInfoContent={t(TranslationKey['Difficulty level'])}
                     inputComponent={
                       <Select
                         displayEmpty

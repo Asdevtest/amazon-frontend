@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
-import { InlineResponse20092DestinationVariations } from './inline-response20092-destination-variations';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { InlineResponse20092Request } from './inline-response20092-request';
 
 /**
  * 
@@ -23,101 +23,118 @@ import { InlineResponse20092DestinationVariations } from './inline-response20092
  */
 export interface InlineResponse20092Rows {
     /**
-     * 
+     * Guid продожения к заявке.
      * @type {string}
      * @memberof InlineResponse20092Rows
      */
     _id?: string;
     /**
-     * Тип тарифа
-     * @type {number}
-     * @memberof InlineResponse20092Rows
-     */
-    tariffType?: number;
-    /**
-     * Название тарифа
+     * Название предложения
      * @type {string}
      * @memberof InlineResponse20092Rows
      */
-    name?: string;
+    title?: string;
     /**
-     * Описание тарифа
+     * Тип предложения.
      * @type {string}
      * @memberof InlineResponse20092Rows
      */
-    description?: string;
+    type?: string;
     /**
-     * Время доставки, днях
+     *  CREATED - предложение по заявке создано, с ценой и временем выполнения от исполнителя OFFER_CONDITIONS_ACCEPTED - условия предложения были приняты клиентом, после этого начиначется отсчет времени на выполнение заявки, с этого статуса можно перейти только на READY_TO_VERIFY, с этого момента начинаем учитывать этого исполнителя в счетчике людей работающих по заявке OFFER_CONDITIONS_REJECTED - условия предложения были отклонены клиентом. После изменения условий клиентом выставляется статус OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_CORRECTED - исполнитель отредактировал свои условия по предложению чтобы клиент опять их посмотрел и решил принимает или нет, после этого статуса можно опять перейти на OFFER_CONDITIONS_ACCEPTED или OFFER_CONDITIONS_REJECTED READY_TO_VERIFY - статус выставляет исполнитель, статус говорит о том что исполнитель выполнил работу и клиент/супервизор может ее проверять, после этого статуса можно выставить VERIFYING_BY_SUPERVISOR или TO_CORRECT, а так же закрывающие статусы VERIFYING_BY_SUPERVISOR - работа проверяется супервизором TO_CORRECT - отправляется на доработку от клиента/супервизора CORRECTED - исполнитель отмечает работу как исправленная CANCELED_BY_CREATOR_OF_REQUEST - предложение закрывается клиентом, обязательно с комментарием, финальный статус, может быть выставлено только при статусе OFFER_CONDITIONS_REJECTED. Думаю что тут будет еще условия но нужно это обсудить. Этот статус не очень безопасный или может привести к перегрузу админа для решения конфликтных ситуаций CANCELED_BY_SUPERVISOR - предложение закрывается супервизором, обязательно с комментарием, финальный статус, может быть выставлен в любой момент. Тут должна появиться возможность создать запрос в поддержку для решения конфликтных ситуаций, это позже обсудим. CANCELED_BY_EXECUTOR - закрыто исполнителем, обязательно с комментарием, финальный статус, может быть выставлен в любой момент ACCEPTED_BY_CLIENT - принято клиентом, происходи оплата ACCEPTED_BY_SUPERVISOR - принято супервизором, происходи оплата EXPIRED - проставляется автоматически, если время указанное в предложении от исполнителя истекло а предложение не было уже в одном из финальных статусов 
      * @type {string}
      * @memberof InlineResponse20092Rows
      */
-    deliveryTimeInDay?: string;
+    status?: InlineResponse20092RowsStatusEnum;
     /**
-     * 
+     * Время закрытия предложения.
      * @type {string}
      * @memberof InlineResponse20092Rows
      */
-    storekeeperId?: string;
+    timeoutAt?: string;
     /**
-     * Дата закрытия приема новых грузов.
-     * @type {string}
-     * @memberof InlineResponse20092Rows
-     */
-    cls?: string;
-    /**
-     * Ожидаема дата отбытия.
-     * @type {string}
-     * @memberof InlineResponse20092Rows
-     */
-    etd?: string;
-    /**
-     * Ожидаема дата прибытия.
-     * @type {string}
-     * @memberof InlineResponse20092Rows
-     */
-    eta?: string;
-    /**
-     * Минимальный вес, в кг
-     * @type {number}
-     * @memberof InlineResponse20092Rows
-     */
-    minWeightInKg?: number;
-    /**
-     * Заархивирован ли тариф
+     * Уведомление о таймауте
      * @type {boolean}
      * @memberof InlineResponse20092Rows
      */
-    archive?: boolean;
+    timeoutNotified?: boolean;
     /**
-     * 
-     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
-     * @memberof InlineResponse20092Rows
-     */
-    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
-    /**
-     * Стоимость за единицу с доставкой в Китай
+     * Количество доработок по заявке
      * @type {number}
      * @memberof InlineResponse20092Rows
      */
-    costUnitWithDeliveryToChina?: number;
+    reworkCounter?: number;
     /**
-     * 
-     * @type {Array<InlineResponse20092DestinationVariations>}
+     * Время на выполнение, в часах.
+     * @type {number}
      * @memberof InlineResponse20092Rows
      */
-    destinationVariations?: Array<InlineResponse20092DestinationVariations>;
+    execution_time?: number;
     /**
-     * 
-     * @type {string}
+     * Количество попыток, подать предложение или исправить результат работы.
+     * @type {number}
      * @memberof InlineResponse20092Rows
      */
-    updatedAt?: string;
+    attempts?: number;
     /**
      * 
+     * @type {boolean}
+     * @memberof InlineResponse20092Rows
+     */
+    approvedByMaster?: boolean;
+    /**
+     * 
+     * @type {InlineResponse20092Request}
+     * @memberof InlineResponse20092Rows
+     */
+    request?: InlineResponse20092Request;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20092Rows
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20092Rows
+     */
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse20092Rows
      */
     createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20092Rows
+     */
+    updatedAt?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20092RowsStatusEnum {
+    Created = 'CREATED',
+    OfferConditionsAccepted = 'OFFER_CONDITIONS_ACCEPTED',
+    ReadyToVerify = 'READY_TO_VERIFY',
+    OfferConditionsRejected = 'OFFER_CONDITIONS_REJECTED',
+    OfferConditionsCorrected = 'OFFER_CONDITIONS_CORRECTED',
+    VerifyingBySupervisor = 'VERIFYING_BY_SUPERVISOR',
+    ToCorrect = 'TO_CORRECT',
+    Corrected = 'CORRECTED',
+    CanceledByCreatorOfRequest = 'CANCELED_BY_CREATOR_OF_REQUEST',
+    CanceledBySupervisor = 'CANCELED_BY_SUPERVISOR',
+    CanceledByExecutor = 'CANCELED_BY_EXECUTOR',
+    AcceptedByClient = 'ACCEPTED_BY_CLIENT',
+    AcceptedBySupervisor = 'ACCEPTED_BY_SUPERVISOR',
+    Expired = 'EXPIRED',
+    CompleteProposalsAmountAchieved = 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED'
+}
+
 
 

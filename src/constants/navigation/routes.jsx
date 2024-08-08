@@ -347,7 +347,19 @@ const MessagesView = lazy(() =>
 )
 
 const MyProposalsView = lazy(() =>
-  import('@views/shared/my-proposals-view').then(module => ({ default: module.MyProposalsView })),
+  import('@views/shared/my-proposals-view').then(module => {
+    const Component = module.MyProposalsView
+
+    return { default: props => <Component allProposals={false} {...props} /> }
+  }),
+)
+
+const AllProposalsView = lazy(() =>
+  import('@views/shared/my-proposals-view').then(module => {
+    const Component = module.MyProposalsView
+
+    return { default: props => <Component allProposals {...props} /> }
+  }),
 )
 
 const ServiceExchangeView = lazy(() =>
@@ -357,10 +369,6 @@ const ServiceExchangeView = lazy(() =>
 const MyRequestsView = lazy(() =>
   import('@views/shared/my-requests-view').then(module => ({ default: module.MyRequestsView })),
 )
-
-// const FreelancerMyRequestsView = lazy(() =>
-//   import('@views/freelancer/freelancer-my-requests-view').then(module => ({default: module.FreelancerMyRequestsView})),
-// )
 
 const OwnerRequestDetailCustomView = lazy(() =>
   import('@views/shared/owner-requests-detail-custom-view').then(module => ({
@@ -392,12 +400,7 @@ const UserProfileView = lazy(() =>
   import('@views/shared/user-profile-view/user-profile-view').then(module => ({ default: module.UserProfileView })),
 )
 const UsersView = lazy(() => import('@views/shared/users-view').then(module => ({ default: module.UsersView })))
-/* const VacantDealsDetailsView = lazy(() =>
-  import('@views/shared/vacant-deals-details-view').then(module => ({ default: module.VacantDealsDetailsView })),
-)
-const VacantDealsView = lazy(() =>
-  import('@views/shared/vacant-deals-view').then(module => ({ default: module.VacantDealsView })),
-) */
+
 const VacantRequestsView = lazy(() =>
   import('@views/shared/vacant-requests-view/vacant-requests-view').then(module => ({
     default: module.VacantRequestsView,
@@ -2756,6 +2759,21 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
       title: () => t(TranslationKey['My proposals']),
+    },
+  },
+
+  {
+    routePath: '/freelancer/freelance/all-proposals',
+    component: AllProposalsView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    permissionKey: permissionsKeys.freelancer.SHOW_FREELANCE_ALLPROPOSALS_FREELANCER,
+    crumbNameKey: TranslationKey['All proposals'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_ALL_PROPOSALS,
+      title: () => t(TranslationKey['All proposals']),
     },
   },
 

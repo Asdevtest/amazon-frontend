@@ -1742,10 +1742,6 @@
   "This product has a parent product": "此产品有一个主产品",
   "Mark as completed": "标记为已完成",
   "Number of rework": "返工次数",
-  "Difficulty level": "难度等级",
-  "Easy": "简单",
-  "Normal": "中等",
-  "Hard": "困难",
   "Are you sure?": "您确定吗?",
   "Remove destination restriction": "移除目的地限制",
   "Wish to change a destination?": "希望更改目的地吗?",
@@ -2012,5 +2008,14 @@
   "Approve": "批准",
   "Listings that are missing a main image will not appear in search or browse until you fix the listing.Choose images that are clear, information-rich, and attractive.": "没有主图的商品将不会出现在搜索或浏览中，直到您修复商品. 选择清晰、信息丰富且有吸引力的图片.",
   "Images must meet the following requirements:Products must fill at least 85% of the image. Images must show only the product that is for sale, with few or no props and with no logos, watermarks, or inset images. Images may only contain text that is a part of the product.Main images must have a pure white background, must be a photo (not a drawing), and must not contain excluded accessories.Images must be at least 1000 pixels on the longest side and at least 500 pixels on the shortest side to be zoom-able.Images must not exceed 10000 pixels on the longest side.JPEG is the preferred image format, but you also may use TIFF and GIF files.": "图片必须符合以下要求：产品必须至少占据图片的85%.图片只能显示要出售的产品，少量或没有道具，并且没有标志、水印或插图. 图片中只能包含产品的一部分文字. 主图必须有纯白色背景，必须是照片（不是绘图，且不得包含被排除的配件. 图片的最长边至少为1000像素，最短边至少为500像素，以便放大. 图片的最长边不得超过10000像素, JPEG是首选图片格式，但您也可以使用TIFF和GIF文件.",
-  "body.email should match format \"email\"": "无效的电子邮件地址"
+  "body.email should match format \"email\"": "无效的电子邮件地址",
+  "All proposals": "所有提案",
+  "Select performer": "选择执行者",
+  "Performer was changed successfully": "执行者已成功更改",
+  "Are you sure you want to change performer?": "您确定要更换执行者吗?",
+  "Join chat": "加入聊天",
+  "Light": "轻",
+  "Standart": "标准",
+  "Important": "重要",
+  "Box dimensions don't meet carrier requirements!": "箱子尺寸不符合承运商要求!"
 }

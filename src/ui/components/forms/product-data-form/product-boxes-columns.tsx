@@ -33,7 +33,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderCell: ({ row }: GridRowModel) => <TextCell text={row?.humanFriendlyId || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.QUANTITY,
-      width: 60,
+      width: 80,
     },
 
     {

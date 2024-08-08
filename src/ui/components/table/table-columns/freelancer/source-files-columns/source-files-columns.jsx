@@ -8,7 +8,7 @@ import {
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
+import { CrossIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 

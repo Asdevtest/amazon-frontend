@@ -1,23 +1,30 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  cardWrapper: {
+  wrapper: {
+    width: '49%',
     height: 165,
-    width: '100%',
-    padding: 20,
+    padding: 15,
     display: 'flex',
     justifyContent: 'space-between',
+    gap: '15px',
     boxShadow: theme.palette.boxShadow.paper,
     background: theme.palette.background.general,
-    borderRadius: 7,
+    borderRadius: 16,
   },
 
-  titleAndDescriptionWrapper: {
-    width: 320,
-    height: '100%',
+  image: {
+    minWidth: 250,
+    borderRadius: 16,
+    overflow: 'hidden',
+  },
+
+  descriptionWrapper: {
+    width: 250,
     display: 'flex',
     flexDirection: 'column',
-    gap: 5,
+    justifyContent: 'space-between',
+    gap: 10,
   },
 
   cardTitle: {
@@ -31,22 +38,34 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cardDescription: {
-    maxHeight: 76,
+    height: 57,
     fontSize: '14px',
     lineHeight: '19px',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
-    WebkitLineClamp: 4,
+    WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
   },
 
-  detailedDescription: {
-    width: 'max-content',
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: theme.palette.primary.main,
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+  },
+
+  detailsAndButtonWrapper: {
+    width: 230,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: 15,
+  },
+
+  detailsSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
   },
 
   detailTitle: {
@@ -56,7 +75,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   detailDescription: {
-    maxWidth: 95,
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
@@ -65,45 +83,20 @@ export const useStyles = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
   },
 
-  detailsAndButtonWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-
   detailsWrapper: {
     display: 'flex',
-    gap: 20,
-  },
-
-  detailsSubWrapper: {
-    display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: 15,
   },
 
   buttonWrapper: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
 
   detailsWrapperAll: {
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-  },
-
-  detailsSubWrapperAll: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: 5,
-  },
-
-  serviceTypeWrapper: {
-    width: '81px',
-  },
-
-  performerWrapper: {
-    width: '140px',
   },
 }))

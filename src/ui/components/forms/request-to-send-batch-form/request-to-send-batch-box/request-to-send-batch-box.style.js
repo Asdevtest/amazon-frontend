@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   box: {
+    position: 'relative',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -215,5 +216,15 @@ export const useStyles = makeStyles()(theme => ({
   asinTitle: {
     fontWeight: 400,
     fontSize: '1rem',
+  },
+
+  warningText: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    padding: '3px 5px',
+    color: theme.palette.text.red,
+    fontSize: 16,
+    lineHeight: '22px',
   },
 }))

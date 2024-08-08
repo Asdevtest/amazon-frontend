@@ -1,16 +1,17 @@
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  AddAsinIdeaActionsCell,
-  ChangeChipCell,
   IdeaRequestsCell,
   ManyUserLinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
   ProductAsinCell,
+  RealizedIdeaActionsCell,
   TextCell,
+  TimeFromSecondsCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -22,20 +23,10 @@ import {
   getProductColumnMenuValue,
 } from '@config/data-grid-column-menu/product-column'
 
-export const clientAddAsinIdeasColumns = rowHandlers => {
+import { accessToProductColumnMenuConfig, shopColumnMenuConfig, shopFields } from '../columns-menu.config'
+
+export const clientRealizedIdeasColumns = rowHandlers => {
   const columns = [
-    {
-      field: 'title',
-      headerName: t(TranslationKey['Idea title']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
-
-      renderCell: params => <TextCell text={params.row.productName} />,
-      width: 198,
-      filterable: false,
-
-      columnKey: columnnsKeys.shared.STRING,
-    },
-
     {
       field: 'parentProduct',
       headerName: t(TranslationKey['Parent product']),
@@ -68,10 +59,13 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <TextCell text={params?.row?.parentProduct?.shop?.name} />,
+
       width: 100,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.IDEA_SHOPS,
-      table: DataGridFilterTables.PRODUCTS,
+
+      fields: shopFields,
+      columnMenuConfig: shopColumnMenuConfig,
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
@@ -94,7 +88,6 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
 
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.CHILD }),
-
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
       width: 260,
@@ -102,42 +95,132 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
     },
 
     {
-      field: 'barcode',
-      headerName: t(TranslationKey.BarCode),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-
-      renderCell: params => {
-        const product = params.row.variation ? params.row?.childProduct : params.row?.parentProduct
-
-        return (
-          <ChangeChipCell
-            disabled={params.row.variation && !params.row.childProduct}
-            text={t(TranslationKey.BarCode)}
-            value={product?.barCode}
-            onClickChip={() => rowHandlers.barCodeHandlers.onClickBarcode(product)}
-            onDoubleClickChip={() => rowHandlers.barCodeHandlers.onDoubleClickBarcode(product)}
-            onDeleteChip={!product?.barCode ? undefined : () => rowHandlers.barCodeHandlers.onDeleteBarcode(product)}
-          />
-        )
-      },
-      width: 200,
-      disableCustomSort: true,
-      filterable: false,
-    },
-
-    {
       field: 'actions',
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-      renderCell: params => <AddAsinIdeaActionsCell rowHandlers={rowHandlers} row={params.row} />,
+      renderCell: params => <RealizedIdeaActionsCell rowHandlers={rowHandlers} row={params.row} />,
       width: 160,
       disableCustomSort: true,
       filterable: false,
     },
 
     {
-      field: 'dateStatusAddingAsin',
+      field: 'amount',
+      headerName: t(TranslationKey['Ordered quantity']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
+
+      renderCell: params => <TextCell text={params.row?.order?.amount} />,
+      width: 110,
+      filterable: false,
+      disableCustomSort: true,
+    },
+
+    {
+      field: 'orderedDate',
+      headerName: t(TranslationKey['Order date']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order date'])} />,
+
+      renderCell: params => <NormDateCell value={params.row?.order?.createdAt} />,
+      width: 110,
+      filterable: false,
+      disableCustomSort: true,
+    },
+
+    {
+      field: 'intervalStatusNew',
+      headerName: t(TranslationKey.New),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.New)} />,
+
+      renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
+      width: 91,
+      columnKey: columnnsKeys.shared.DATE_DETAILS,
+    },
+
+    {
+      field: 'intervalStatusOnCheck',
+      headerName: t(TranslationKey['On checking']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['On checking'])} />,
+
+      renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
+      width: 91,
+      columnKey: columnnsKeys.shared.DATE_DETAILS,
+    },
+
+    {
+      field: 'intervalStatusSupplierSearch',
+      headerName: t(TranslationKey['Supplier search']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supplier search'])} />,
+
+      renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
+      width: 110,
+      columnKey: columnnsKeys.shared.DATE_DETAILS,
+    },
+
+    {
+      field: 'intervalStatusSupplierFound',
+      headerName: t(TranslationKey['Supplier found']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supplier found'])} />,
+
+      renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
+      width: 105,
+      columnKey: columnnsKeys.shared.DATE_DETAILS,
+    },
+
+    {
+      field: 'intervalStatusProductCreating',
+      headerName: t(TranslationKey['Card creating']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Card creating'])} />,
+
+      renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
+      width: 110,
+      columnKey: columnnsKeys.shared.DATE_DETAILS,
+    },
+
+    {
+      field: 'intervalStatusAddingAsin',
+      headerName: t(TranslationKey['Adding ASIN']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Adding ASIN'])} />,
+
+      renderCell: params => <TimeFromSecondsCell seconds={params.value} />,
+      width: 105,
+      columnKey: columnnsKeys.shared.DATE_DETAILS,
+    },
+
+    {
+      field: 'intervalsSum',
+      headerName: t(TranslationKey['Elapsed time']),
+      renderHeader: () => <MultilineTextHeaderCell color="#0B903E" text={t(TranslationKey['Elapsed time'])} />,
+
+      renderCell: params => <TimeFromSecondsCell color="#0B903E" seconds={params.value} />,
+      width: 105,
+      columnKey: columnnsKeys.shared.DATE_DETAILS,
+    },
+
+    {
+      field: 'comments',
+      headerName: t(TranslationKey.Comment),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+
+      renderCell: params => <TextCell text={params.value} />,
+      width: 250,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.STRING,
+    },
+
+    {
+      field: 'buyerComment',
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
+      headerName: t(TranslationKey['Client comment']),
+
+      renderCell: params => <TextCell text={params.value} />,
+      width: 250,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.STRING,
+    },
+
+    {
+      field: 'updatedAt',
       headerName: t(TranslationKey['Status Updated']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
@@ -182,10 +265,12 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
         return subUsers?.concat(subUsersByShop).join(', ')
       },
       width: 187,
-      table: DataGridFilterTables.PRODUCTS,
       filterable: false,
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.OBJECT,
+
+      fields: shopFields,
+      columnMenuConfig: accessToProductColumnMenuConfig,
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
@@ -204,8 +289,9 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
           onClickRequestId={rowHandlers.onClickRequestId}
         />
       ),
-      width: 690,
+      width: 990,
       disableCustomSort: true,
+      filterable: false,
     },
   ]
 

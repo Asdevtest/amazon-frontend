@@ -82,7 +82,7 @@ export const clientBoxesViewColumns = (
 
       renderCell: params => <TextCell text={params.value} />,
       type: 'number',
-      width: 60,
+      width: 80,
 
       columnKey: columnnsKeys.client.WAREHOUSE_ID,
     },
