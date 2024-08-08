@@ -183,7 +183,7 @@ export const adminOrdersViewColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Gross weight'])} />,
 
       width: 160,
-      renderCell: params => <TextCell text={toFixedWithKg(params.value)} />,
+      renderCell: params => <TextCell text={toFixedWithKg(params.row.product.weight, 2)} />,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.NUMBER,
     },

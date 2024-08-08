@@ -49,7 +49,7 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
     renderCell: params => (
-      <TextCell status={productStrategyStatusesEnum[params.row.strategyStatus]?.replace(/_/g, ' ')} />
+      <TextCell text={productStrategyStatusesEnum[params.row.strategyStatus]?.replace(/_/g, ' ')} />
     ),
     width: 180,
   },
