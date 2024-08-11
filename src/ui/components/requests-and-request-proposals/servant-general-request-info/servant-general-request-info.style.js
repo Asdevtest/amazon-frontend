@@ -143,10 +143,13 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cardTitle: {
-    maxWidth: 400,
+    maxWidth: 320,
     fontSize: '18px',
     lineHeight: '25px',
     fontWeight: 600,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     color: theme.palette.text.general,
   },
 

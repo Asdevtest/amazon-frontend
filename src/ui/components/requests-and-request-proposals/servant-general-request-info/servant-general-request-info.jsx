@@ -56,7 +56,9 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
     <div className={styles.mainInfosWrapper}>
       {requestProposals.length === 0 ? null : (
         <div className={styles.headerWrapper}>
-          <p className={styles.cardTitle}>{request?.request.title}</p>
+          <p title={request?.request.title} className={styles.cardTitle}>
+            {request?.request.title}
+          </p>
 
           <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={request?.request.product.asin} />
           <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={request?.request.product.skuByClient} />
