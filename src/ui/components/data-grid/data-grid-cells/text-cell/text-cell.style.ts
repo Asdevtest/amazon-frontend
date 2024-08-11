@@ -5,6 +5,9 @@ export const useStyles = makeStyles()(() => ({
     position: 'relative',
     width: '100%',
     height: '100%',
+  },
+
+  cell: {
     padding: '10px 0 10px 5px',
   },
 

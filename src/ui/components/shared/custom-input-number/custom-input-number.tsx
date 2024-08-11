@@ -11,7 +11,6 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 import { useStyles } from './custom-input-number.style'
 
 interface CustomInputNumberProps extends InputNumberProps, IDefaultPropsExtensionAntdComponent {
-  required?: boolean
   placeholder?: string
 }
 

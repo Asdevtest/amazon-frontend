@@ -4,6 +4,8 @@ import { FC, UIEvent, useCallback, useMemo, useState } from 'react'
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSelectProps } from '@components/shared/custom-select/custom-select'
 
+import { debounce } from '@utils/debounce'
+
 import { RequestOption } from './request-option'
 import { IChangeData, getRequestTemplateOptions } from './request-select.config'
 import { RequestSelectModel } from './request-select.model'
@@ -42,6 +44,8 @@ export const RequestSelect: FC<RequestSelectProps> = observer(({ onChangeData, .
     [viewModel.requestTemplateOptions],
   )
 
+  const handleSearch = debounce((value: string) => viewModel.onClickSubmitSearch(value))
+
   return (
     <CustomSelect
       {...restProps}
@@ -55,7 +59,7 @@ export const RequestSelect: FC<RequestSelectProps> = observer(({ onChangeData, .
       options={requestTemplateOptions}
       optionRender={({ data }) => <RequestOption data={data} />}
       onDropdownVisibleChange={handleDropdownVisibleChange}
-      onSearch={viewModel.onClickSubmitSearch}
+      onSearch={handleSearch}
       onPopupScroll={handlePopupScroll}
       onChange={viewModel.onSelectProduct}
     />

@@ -16,6 +16,7 @@ import { useStyles } from './text-cell.style'
 
 interface TextCellProps extends TextAreaProps {
   text: string
+  isCell?: boolean
   icon?: ReactNode
   color?: string
   center?: boolean
@@ -27,6 +28,7 @@ interface TextCellProps extends TextAreaProps {
 export const TextCell: FC<TextCellProps> = memo(props => {
   const {
     text,
+    isCell = true,
     icon,
     color,
     center,
@@ -37,7 +39,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
     ...restProps
   } = props
 
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
   const [value, setValue] = useState<string>('')
   const [isHover, onMouseFunctions] = useHover()
 
@@ -80,7 +82,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
   )
 
   return (
-    <div {...onMouseFunctions} className={styles.wrapper}>
+    <div {...onMouseFunctions} className={cx(styles.wrapper, { [styles.cell]: isCell })}>
       {editMode ? (
         <Popconfirm
           title=""

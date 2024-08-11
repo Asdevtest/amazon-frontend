@@ -177,7 +177,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       field: 'deliveryTotalPrice',
       headerName: t(TranslationKey['Delivery cost']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
-      renderCell: params => <TextCell text={toFixedWithDollarSign(params.row?.calculatedShippingCost, 2)} />,
+      renderCell: params => <TextCell text={toFixedWithDollarSign(params.row?.totalPriceFromOrderSupplier, 2)} />,
       type: 'number',
       width: 110,
       sortable: false,

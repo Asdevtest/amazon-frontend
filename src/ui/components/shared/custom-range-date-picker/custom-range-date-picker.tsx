@@ -14,9 +14,7 @@ import { rangePresets } from './custom-range-date-picker.config'
 
 const { RangePicker } = DatePicker
 
-interface CustomRangeDatePickerProps extends RangePickerProps, IDefaultPropsExtensionAntdComponent {
-  required?: boolean
-}
+interface CustomRangeDatePickerProps extends RangePickerProps, IDefaultPropsExtensionAntdComponent {}
 
 export const CustomRangeDatePicker: FC<CustomRangeDatePickerProps> = memo(props => {
   const { isRow, isCell, label, required, className, labelClassName, wrapperClassName, ...restProps } = props

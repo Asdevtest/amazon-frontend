@@ -40,7 +40,7 @@ export class AuthViewModel {
 
   async onRegister(value: FieldData) {
     try {
-      const requestData = { name: value?.name, email: value?.email?.toLowerCase(), password: value?.password }
+      const requestData = { name: value?.name?.trim(), email: value?.email?.toLowerCase(), password: value?.password }
 
       await UserModel.signUp(requestData)
 
