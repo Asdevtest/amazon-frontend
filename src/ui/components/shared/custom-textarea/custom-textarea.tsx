@@ -14,7 +14,6 @@ const { TextArea } = Input
 
 interface CustomTextareaProps extends TextAreaProps, IDefaultPropsExtensionAntdComponent {
   resize?: boolean
-  required?: boolean
   placeholder?: string
 }
 
