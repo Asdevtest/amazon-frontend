@@ -41,7 +41,6 @@ export const MainNav = observer(() => {
     [SettingsModel.uiTheme],
   )
 
-  // test custom theme for antd
   const customTheme = {
     algorithm: SettingsModel.uiTheme === UiTheme.light ? theme.defaultAlgorithm : theme.darkAlgorithm,
     token: {
