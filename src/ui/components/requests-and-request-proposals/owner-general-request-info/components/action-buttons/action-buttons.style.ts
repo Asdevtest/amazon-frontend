@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   btnsBlockWrapper: {
-    width: 262,
+    width: 270,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',

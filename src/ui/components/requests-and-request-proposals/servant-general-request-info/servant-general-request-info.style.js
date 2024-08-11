@@ -148,12 +148,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '25px',
     fontWeight: 600,
     color: theme.palette.text.general,
-    [theme.breakpoints.down(1500)]: {
-      textOverflow: 'ellipsis',
-      textWrap: 'nowrap',
-      maxWidth: 220,
-      overflow: 'hidden',
-    },
   },
 
   mainInfosSubWrapper: {
