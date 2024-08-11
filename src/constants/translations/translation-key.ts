@@ -2026,4 +2026,5 @@ export enum TranslationKey {
   'Standart' = 'Standart',
   'Important' = 'Important',
   "Box dimensions don't meet carrier requirements!" = "Box dimensions don't meet carrier requirements!",
+  'Time until server shutdown' = 'Time until server shutdown',
 }
