@@ -22,10 +22,10 @@
 export interface InlineObject164 {
     /**
      * 
-     * @type {string}
+     * @type {Array<string>}
      * @memberof InlineObject164
      */
-    profileId?: string;
+    profileIds?: Array<string>;
 }
 
 

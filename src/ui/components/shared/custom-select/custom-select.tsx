@@ -13,7 +13,6 @@ import { useStyles } from './custom-select.style'
 
 export interface CustomSelectProps extends Omit<SelectProps, 'options'>, IDefaultPropsExtensionAntdComponent {
   placeholder?: string
-  required?: boolean
   options: BaseOptionType[]
 }
 
@@ -28,7 +27,7 @@ export const CustomSelect: FC<CustomSelectProps> = memo(props => {
       {label ? (
         <p className={cx(styles.label, labelClassName)}>
           {t(TranslationKey[label as TranslationKey])}
-          {required ? <span>{'*'}</span> : null}
+          {required ? <span>*</span> : null}
         </p>
       ) : null}
       <Select

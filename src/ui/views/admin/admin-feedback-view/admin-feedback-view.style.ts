@@ -6,10 +6,6 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'center',
   },
 
-  searchInput: {
-    width: 400,
-  },
-
   tableWrapper: {
     height: '82vh',
     width: '100%',

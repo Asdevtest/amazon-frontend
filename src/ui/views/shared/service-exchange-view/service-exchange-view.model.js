@@ -20,14 +20,11 @@ export class ServiceExchangeViewModel {
 
   announcements = []
 
-  selectedSpec = Specs.DEFAULT
-
-  showImageModal = false
+  radioButtonOption = Specs.DEFAULT
 
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
 
-  bigImagesOptions = {}
   nameSearchValue = ''
   rowCount = 0
   columnMenuSettings = {
@@ -46,18 +43,15 @@ export class ServiceExchangeViewModel {
 
   constructor({ history }) {
     this.history = history
+    this.loadData()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   loadData() {
-    try {
-      this.getSpecs()
+    this.getSpecs()
 
-      this.getNotYoursAnnouncements()
-    } catch (error) {
-      console.error(error)
-    }
+    this.getNotYoursAnnouncements()
   }
 
   async getSpecs() {
@@ -71,20 +65,6 @@ export class ServiceExchangeViewModel {
       console.error(error)
     }
   }
-
-  /* async getVacAnnouncementsData() {
-    try {
-      const result = await AnnouncementsModel.getVacAnnouncements({
-        filters: this.getFilter(),
-      })
-
-      runInAction(() => {
-        this.announcements = result
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  } */
 
   async getNotYoursAnnouncements() {
     try {
@@ -143,11 +123,12 @@ export class ServiceExchangeViewModel {
     )
   }
 
-  onClickSpec(specType) {
-    this.selectedSpec = specType
+  onChangeRadioButtonOption(event) {
+    const currentValue = event.target.value
+    this.radioButtonOption = currentValue
 
     // spec - for "_id:string", specType - for "type:number"
-    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+    this.onChangeFullFieldMenuItem(currentValue === Specs.DEFAULT ? [] : [currentValue], 'specType', true)
 
     this.options.offset = 0
     this.options.filters = this.getFilter()
@@ -173,8 +154,9 @@ export class ServiceExchangeViewModel {
     )
   }
 
-  onChangeViewMode(value) {
-    this.viewMode = value
+  onChangeViewMode(event) {
+    const currentValue = event.target.value
+    this.viewMode = currentValue
 
     this.setTableModeState()
   }
@@ -183,19 +165,5 @@ export class ServiceExchangeViewModel {
     const state = { viewMode: this.viewMode, sortMode: this.sortMode }
 
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.MY_SERVICES)
-  }
-
-  onClickThumbnail(data) {
-    this.bigImagesOptions = data
-
-    this.onTriggerOpenModal('showImageModal')
-  }
-
-  setBigImagesOptions(data) {
-    this.bigImagesOptions = data
-  }
-
-  onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
   }
 }

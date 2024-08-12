@@ -11,7 +11,6 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 import { useStyles } from './custom-input-number.style'
 
 interface CustomInputNumberProps extends InputNumberProps, IDefaultPropsExtensionAntdComponent {
-  required?: boolean
   placeholder?: string
 }
 
@@ -26,7 +25,7 @@ export const CustomInputNumber: FC<CustomInputNumberProps> = memo(props => {
       {label ? (
         <p className={cx(styles.label, labelClassName)}>
           {t(TranslationKey[label as TranslationKey])}
-          {required ? <span>{'*'}</span> : null}
+          {required ? <span>*</span> : null}
         </p>
       ) : null}
       <InputNumber

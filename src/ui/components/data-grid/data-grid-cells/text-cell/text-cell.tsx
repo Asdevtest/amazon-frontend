@@ -16,8 +16,10 @@ import { useStyles } from './text-cell.style'
 
 interface TextCellProps extends TextAreaProps {
   text: string
+  isCell?: boolean
   icon?: ReactNode
   color?: string
+  center?: boolean
   copyable?: boolean
   editMode?: boolean
   onClickSubmit?: (id: string, comment?: string) => void
@@ -26,8 +28,10 @@ interface TextCellProps extends TextAreaProps {
 export const TextCell: FC<TextCellProps> = memo(props => {
   const {
     text,
+    isCell = true,
     icon,
     color,
+    center,
     copyable = true,
     rows = 3, // only for textarea, text - autocomplete 1-2-3 lines{}
     editMode,
@@ -35,7 +39,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
     ...restProps
   } = props
 
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
   const [value, setValue] = useState<string>('')
   const [isHover, onMouseFunctions] = useHover()
 
@@ -49,15 +53,19 @@ export const TextCell: FC<TextCellProps> = memo(props => {
     setValue(event.target.value)
   }
   const handleOpenChange = (open: boolean) => {
-    if (!open) {
+    if (open) {
       setValue(text)
     }
   }
   const handleExpand = (event: MouseEvent) => {
     event.stopPropagation()
   }
+  const handleSubmit = () => {
+    onClickSubmit?.(value)
+    setValue('')
+  }
 
-  const isCopyable = !!value?.length && isHover && copyable
+  const isCopyable = !!text?.length && isHover && copyable
 
   const paragraph = (
     <div className={styles.container}>
@@ -65,7 +73,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
       <Paragraph
         copyable={isCopyable}
         ellipsis={{ tooltip: text, rows: 3, onExpand: handleExpand }}
-        style={{ margin: 0, color }}
+        style={{ margin: 0, color, textAlign: center ? 'center' : 'left' }}
       >
         {text}
       </Paragraph>
@@ -74,7 +82,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
   )
 
   return (
-    <div {...onMouseFunctions} className={styles.wrapper}>
+    <div {...onMouseFunctions} className={cx(styles.wrapper, { [styles.cell]: isCell })}>
       {editMode ? (
         <Popconfirm
           title=""
@@ -86,7 +94,7 @@ export const TextCell: FC<TextCellProps> = memo(props => {
           okText={t(TranslationKey.Save)}
           cancelText={t(TranslationKey.Cancel)}
           overlayClassName={styles.popconfirm}
-          onConfirm={() => onClickSubmit?.(value)}
+          onConfirm={handleSubmit}
           onCancel={() => setValue(text)}
           onOpenChange={handleOpenChange}
         >

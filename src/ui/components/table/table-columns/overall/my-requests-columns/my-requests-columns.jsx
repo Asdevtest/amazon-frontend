@@ -7,6 +7,7 @@ import {
   difficultyLevelByCode,
   difficultyLevelTranslate,
 } from '@constants/statuses/difficulty-level'
+import { MIDDLE_COMMENT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -48,8 +49,8 @@ export const myRequestsViewColumns = rowHandlers => {
 
     {
       field: 'taskComplexity',
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Difficulty level'])} />,
-      headerName: t(TranslationKey['Difficulty level']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
+      headerName: t(TranslationKey.Category),
 
       renderCell: params => (
         <TextCell
@@ -116,7 +117,7 @@ export const myRequestsViewColumns = rowHandlers => {
 
       renderCell: params => <TextCell text={params.value} />,
       type: 'number',
-      width: 62,
+      width: 80,
 
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -267,6 +268,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderCell: ({ row }) => (
         <TextCell
           editMode
+          maxLength={MIDDLE_COMMENT_VALUE}
           text={row?.detailsCustom?.comment}
           onClickSubmit={comment => rowHandlers.onClickSaveComment(row?._id, comment)}
         />

@@ -57,7 +57,7 @@ export const exchangeCanceledColumns = () => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    renderCell: params => <TextCell status={params.value?.replace(/_/g, ' ')} />,
+    renderCell: params => <TextCell text={params.value?.replace(/_/g, ' ')} />,
     width: 250,
   },
   {

@@ -103,7 +103,6 @@ models/api-v1-ideas-notifications-created-by.ts
 models/api-v1-ideas-notifications-idea.ts
 models/api-v1-ideas-notifications-product.ts
 models/api-v1-integrations-create-and-link-sku-products-payload.ts
-models/api-v1-integrations-parser-admins-profiles-client.ts
 models/api-v1-integrations-sellerboard-warehouse-products-link-sku-warehouse-stocks.ts
 models/api-v1-products-keepa-offers.ts
 models/api-v1-products-keepa-stats.ts
@@ -227,6 +226,7 @@ models/inline-object165.ts
 models/inline-object166.ts
 models/inline-object167.ts
 models/inline-object168.ts
+models/inline-object169.ts
 models/inline-object17.ts
 models/inline-object18.ts
 models/inline-object19.ts
@@ -345,7 +345,11 @@ models/inline-response200111.ts
 models/inline-response200112.ts
 models/inline-response200113.ts
 models/inline-response200114.ts
+models/inline-response200115-client.ts
+models/inline-response200115-rows.ts
 models/inline-response200115.ts
+models/inline-response200116-profile.ts
+models/inline-response200116-rows.ts
 models/inline-response200116.ts
 models/inline-response200117.ts
 models/inline-response200118.ts

@@ -5,6 +5,7 @@ import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { ISpec } from '@typings/shared/spec'
 
 interface ICallback {
   (options: IOptions): any
@@ -22,6 +23,8 @@ export interface IPermissionsData {
   buyerId: string
   images: string[]
   humanFriendlyId?: string
+  name?: string
+  allowedSpec?: ISpec[]
 }
 
 /*
@@ -94,7 +97,7 @@ export class UseProductsPermissions {
       const result = await this.callback(this.options)
 
       runInAction(() => {
-        this.permissionsData = result.rows
+        this.permissionsData = result.rows || result
         this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
@@ -130,6 +133,7 @@ export class UseProductsPermissions {
   }
 
   async onClickSubmitSearch(searchValue: string) {
+    console.log('searchValue', searchValue)
     if (!this.callback || this.requestStatus !== loadingStatus.SUCCESS) return
     try {
       runInAction(() => {

@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   wrapper: {
     width: 600,
     display: 'flex',
@@ -22,6 +22,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
+    scrollBehavior: 'smooth',
   },
 
   buttonContainer: {
@@ -30,23 +31,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   addButton: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-    fontSize: 14,
-    lineHeight: '19px',
-    color: theme.palette.primary.main,
-    opacity: 1,
-    transition: '.3s ease-in-out',
-
-    '&:hover': {
-      opacity: 0.8,
-    },
-
-    '&:disabled': {
-      opacity: 0.5,
-      cursor: 'unset',
-    },
+    padding: 0,
+    height: 'max-content',
   },
 
   buttons: {

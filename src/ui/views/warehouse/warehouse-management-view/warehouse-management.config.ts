@@ -35,6 +35,6 @@ export const warehouseTariffsConfig = {
 }
 
 export const switcherConfig = [
-  { label: () => t(TranslationKey['Weight-based logistics tariffs']), value: 0 },
-  { label: () => t(TranslationKey['Tariffs of warehouse services']), value: 1 },
+  { label: t(TranslationKey['Weight-based logistics tariffs']), value: 0 },
+  { label: t(TranslationKey['Tariffs of warehouse services']), value: 1 },
 ]

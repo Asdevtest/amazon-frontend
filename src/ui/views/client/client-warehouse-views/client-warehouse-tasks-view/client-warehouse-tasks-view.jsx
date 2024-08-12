@@ -1,16 +1,16 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+import { BsDownload } from 'react-icons/bs'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
-import { DownloadIcon } from '@components/shared/svg-icons'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
@@ -30,54 +30,57 @@ export const ClientWarehouseTasksView = observer(() => {
   return (
     <div className={styles.container}>
       <div className={styles.headerWrapper}>
-        <div />
-
-        <SearchInput
-          value={viewModel.nameSearchValue}
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by ASIN, Order ID, Item'])}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by ASIN, Order ID, Item"
+          onSearch={viewModel.onSearchSubmit}
         />
 
-        <Button disabled={viewModel.isDisabledDownload} onClick={viewModel.onClickReportBtn}>
+        <CustomButton
+          type="primary"
+          size="large"
+          icon={<BsDownload />}
+          disabled={viewModel.isDisabledDownload}
+          onClick={viewModel.onClickReportBtn}
+        >
           {t(TranslationKey['Download task file'])}
-          <DownloadIcon
-            className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: viewModel.isDisabledDownload })}
-          />
-        </Button>
+        </CustomButton>
       </div>
 
       <div className={styles.filters}>
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel.selectedPriority}
-          switcherSettings={getPriorityConfig()}
-          changeConditionHandler={el => viewModel.setFilters('selectedPriority', el)}
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={getPriorityConfig()}
+          defaultValue={viewModel.selectedPriority}
+          onChange={el => viewModel.setFilters('selectedPriority', el)}
         />
-
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel.selectedStatus}
-          switcherSettings={getStatusConfig()}
-          changeConditionHandler={el => viewModel.setFilters('selectedStatus', el)}
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={getStatusConfig()}
+          defaultValue={viewModel.selectedStatus}
+          onChange={el => viewModel.setFilters('selectedStatus', el)}
         />
-
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel.selectedType}
-          switcherSettings={getTypeConfig()}
-          changeConditionHandler={el => viewModel.setFilters('selectedType', el)}
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={getTypeConfig()}
+          defaultValue={viewModel.selectedType}
+          onChange={el => viewModel.setFilters('selectedType', el)}
         />
-
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel.selectedStorekeeper}
-          switcherSettings={getStorekeepersConfig(viewModel.storekeepersData)}
-          changeConditionHandler={el => viewModel.setFilters('selectedStorekeeper', el)}
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={getStorekeepersConfig(viewModel.storekeepersData)}
+          defaultValue={viewModel.selectedStorekeeper}
+          onChange={el => viewModel.setFilters('selectedStorekeeper', el)}
         />
       </div>
 
-      <div className={styles.tasksWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick

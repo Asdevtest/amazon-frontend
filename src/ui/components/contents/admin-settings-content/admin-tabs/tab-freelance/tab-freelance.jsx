@@ -105,6 +105,11 @@ export const TabFreelance = observer(props => {
                 '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,
                 '& .MuiDataGrid-columnHeaderDraggableContainer': styles.columnHeaderTitleContainer,
               }}
+              slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
+              }}
             />
 
             <div style={{ height: 40 }} />
@@ -114,6 +119,7 @@ export const TabFreelance = observer(props => {
 
       <Modal openModal={viewModel.showAddOrEditTextModal} setOpenModal={viewModel.onClickToggleAddOrEditTextModal}>
         <TextForm
+          maxLength={64}
           title={t(TranslationKey['New specialty'])}
           onClose={viewModel.onClickToggleAddOrEditTextModal}
           onSubmit={viewModel.onCreateSpec}

@@ -23,8 +23,8 @@ const baseThemeSettings = {
 
 export const globalStyles = theme => ({
   '::-webkit-scrollbar': {
-    width: '8px',
-    height: '8px',
+    width: '10px',
+    height: '10px',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
   },
@@ -43,8 +43,8 @@ export const globalStyles = theme => ({
   },
   '::-webkit-scrollbar-track': {
     borderRadius: '8px',
-    backgroundColor: 'transparent !important',
-    border: 'none !important',
+    backgroundColor: theme.palette.scroll.track,
+    border: theme.palette.scroll.border,
   },
   '::-webkit-scrollbar-corner': {
     backgroundColor: 'transparent !important',
@@ -306,8 +306,10 @@ export const lightTheme = createTheme({
     },
 
     scroll: {
-      main: '#F0F0F0',
-      hover: '#8C8C8C',
+      main: '#8F8F8F',
+      hover: '#595959',
+      track: '#E0E0E0A6',
+      border: '#D9D9D9',
     },
 
     text: {
@@ -860,8 +862,10 @@ export const darkTheme = createTheme({
     },
 
     scroll: {
-      main: '#424250',
-      hover: '#8E8E8F',
+      main: '#8E8E8F',
+      hover: '#424250',
+      track: '#21212B',
+      border: '#2B2B34',
     },
 
     text: {

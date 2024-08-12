@@ -274,7 +274,7 @@ export const FieldsAndSuppliers = memo(props => {
 
           <div className={styles.strategyWrapper}>
             <Field
-              tooltipInfoContent={'Choose a product strategy'}
+              tooltipInfoContent={t(TranslationKey['Choose a product strategy'])}
               label={t(TranslationKey['Product Strategy'])}
               inputComponent={
                 <Select

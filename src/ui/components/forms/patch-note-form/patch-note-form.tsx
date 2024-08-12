@@ -3,11 +3,9 @@ import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './patch-note-form.style'
 
@@ -23,8 +21,10 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
     patchNotes,
     patchNotesRoles,
     error,
+    disabledAddButton,
     showAddRoleButton,
     disabledSubmitButton,
+    patchNotesRef,
     onAddPatchNote,
     onRemovePatchNote,
     onChangePatchNote,
@@ -36,7 +36,7 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
     <div className={styles.wrapper}>
       <p className={styles.title}>{title}</p>
 
-      <div className={styles.patchNotes}>
+      <div ref={patchNotesRef} className={styles.patchNotes}>
         {patchNotes.map((patchNote, index) => (
           <PatchNote
             key={index}
@@ -54,20 +54,25 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
 
       {showAddRoleButton ? (
         <div className={styles.buttonContainer}>
-          <button disabled={!!editPatchNote} className={styles.addButton} onClick={onAddPatchNote}>
-            <FiPlus style={{ width: 16, height: 16 }} />
+          <CustomButton
+            type="link"
+            icon={<FiPlus />}
+            disabled={!!editPatchNote || disabledAddButton}
+            className={styles.addButton}
+            onClick={onAddPatchNote}
+          >
             {t(TranslationKey['Add role'])}
-          </button>
+          </CustomButton>
         </div>
       ) : null}
 
       <div className={styles.buttons}>
-        <Button styleType={ButtonStyle.CASUAL} onClick={onToggleModal}>
+        <CustomButton size="large" onClick={onToggleModal}>
           {t(TranslationKey.Close)}
-        </Button>
-        <Button disabled={disabledSubmitButton} onClick={onSubmit}>
+        </CustomButton>
+        <CustomButton size="large" type="primary" disabled={disabledSubmitButton} onClick={onSubmit}>
           {editPatchNote ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

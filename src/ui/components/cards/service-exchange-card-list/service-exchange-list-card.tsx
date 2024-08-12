@@ -1,12 +1,13 @@
+import { Image } from 'antd'
 import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
 import { Button } from '@components/shared/button'
-import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -23,7 +24,7 @@ interface ServiceExchangeCardListProps {
 }
 
 export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(props => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
   const { service, choose, order, pathname, onClickButton } = props
 
   const detailDescription = service.spec?.type === 0 ? t(TranslationKey.Universal) : service.spec?.title
@@ -44,30 +45,34 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
 
   return (
     <>
-      <div className={styles.cardWrapper}>
-        <SlideshowGallery hiddenPreviews files={service.linksToMediaFiles} slidesToShow={1} />
+      <div className={styles.wrapper}>
+        <div className={styles.image}>
+          <Image width={250} height={135} src={getAmazonImageUrl(service.linksToMediaFiles[0])} />
+        </div>
 
-        <div className={styles.titleAndDescriptionWrapper}>
+        <div className={styles.descriptionWrapper}>
           <p className={styles.cardTitle}>{service.title}</p>
 
           <p className={styles.cardDescription}>{service.description}</p>
 
-          <button className={styles.detailedDescription} onClick={handleToggleModal}>
-            {t(TranslationKey.Details)}
-          </button>
+          <div className={styles.buttonContainer}>
+            <Button isSmallButton onClick={handleToggleModal}>
+              {t(TranslationKey.Details)}
+            </Button>
+          </div>
         </div>
 
         <div className={styles.detailsAndButtonWrapper}>
           {isNotMyServices ? (
             <div className={styles.detailsWrapper}>
-              <div className={cx(styles.detailsSubWrapper, styles.serviceTypeWrapper)}>
+              <div className={styles.detailsSubWrapper}>
                 <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
                 <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
                   {detailDescription}
                 </p>
               </div>
 
-              <div className={cx(styles.detailsSubWrapper, styles.performerWrapper)}>
+              <div className={styles.detailsSubWrapper}>
                 <p className={styles.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
                 <UserLink
                   blackText
@@ -84,11 +89,11 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
             </div>
           ) : (
             <div className={styles.detailsWrapperAll}>
-              <div className={styles.detailsSubWrapperAll}>
+              <div className={styles.detailsSubWrapper}>
                 <p className={styles.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</p>
                 <p className={styles.detailDescription}>{service.requests.length}</p>
               </div>
-              <div className={styles.detailsSubWrapperAll}>
+              <div className={styles.detailsSubWrapper}>
                 <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
                 <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
                   {detailDescription}
@@ -99,6 +104,7 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
 
           <div className={styles.buttonWrapper}>
             <Button
+              isSmallButton
               styleType={isSuccess ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
               onClick={() => onClickButton(service)}
             >

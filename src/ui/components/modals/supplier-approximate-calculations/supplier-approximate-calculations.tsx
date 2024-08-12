@@ -235,7 +235,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
               variant={ButtonVariant.OUTLINED}
               onClick={viewModel?.handleResetVariationTariff}
             >
-              {t(TranslationKey.reset)}
+              {t(TranslationKey.Reset)}
             </Button>
           </div>
         ) : null}

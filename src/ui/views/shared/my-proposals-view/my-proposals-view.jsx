@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,9 +11,9 @@ import { FreelanceRequestDetailsModal } from '@components/modals/freelance-reque
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 
 import { t } from '@utils/translations'
@@ -24,10 +25,11 @@ import { useStyles } from './my-proposals-view.style'
 import { customSwitcherSettings } from './my-proposals-view.constants'
 import { MyProposalsViewModel } from './my-proposals-view.model'
 
-export const MyProposalsView = observer(({ history }) => {
+export const MyProposalsView = observer(({ allProposals }) => {
   const { classes: styles } = useStyles()
+  const history = useHistory()
 
-  const [viewModel] = useState(() => new MyProposalsViewModel({ history }))
+  const [viewModel] = useState(() => new MyProposalsViewModel({ history, allProposals }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -35,68 +37,65 @@ export const MyProposalsView = observer(({ history }) => {
 
   return (
     <>
-      <div className={styles.root}>
-        <div className={styles.tablePanelWrapper}>
-          <FreelanceTypeTaskSelect
-            selectedSpec={viewModel.selectedSpec}
-            specs={viewModel.userInfo?.allowedSpec}
-            onClickSpec={viewModel.onClickSpec}
-          />
-
-          <SearchInput
-            inputClasses={styles.searchInput}
-            placeholder={t(TranslationKey['Search by Title, ASIN, SKU, ID'])}
-            value={viewModel.currentSearchValue}
-            onSubmit={viewModel.onChangeSearchValue}
-          />
-
-          <div className={styles.searchInput} />
-        </div>
-
-        <CustomSwitcher
-          fullWidth
-          switchMode="big"
-          condition={viewModel.switcherCondition}
-          switcherSettings={customSwitcherSettings}
-          changeConditionHandler={viewModel.onClickChangeCatigory}
+      <div className={styles.tablePanelWrapper}>
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={customSwitcherSettings}
+          defaultValue={viewModel.switcherCondition}
+          onChange={viewModel.onClickChangeCatigory}
         />
 
-        <div className={styles.dataGridWrapper}>
-          <CustomDataGrid
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            rows={viewModel.currentData}
-            rowHeight={87}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
-              },
-              columnMenu: viewModel.columnMenuSettings,
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by Title, ASIN, SKU, ID"
+          onSearch={viewModel.onSearchSubmit}
+        />
 
-              toolbar: {
-                resetFiltersBtnSettings: {
-                  onClickResetFilters: viewModel.onClickResetFilters,
-                  isSomeFilterOn: viewModel.isSomeFilterOn,
-                },
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
+        <FreelanceTypeTaskSelect
+          specs={viewModel.userInfo?.allowedSpec}
+          selectedSpec={viewModel.radioButtonOption}
+          onClickSpec={viewModel.onChangeRadioButtonOption}
+        />
+      </div>
+
+      <div className={styles.dataGridWrapper}>
+        <CustomDataGrid
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          rowHeight={87}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: viewModel.columnMenuSettings,
+
+            toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
               },
-            }}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onPaginationModelChange}
-            onRowClick={e => viewModel.onOpenRequestDetailModal(e.row._id)}
-          />
-        </div>
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+            },
+          }}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onRowClick={e => viewModel.onOpenRequestDetailModal(e.row._id)}
+        />
       </div>
 
       {viewModel.showConfirmModal ? (

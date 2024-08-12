@@ -1,3 +1,5 @@
+import { GiCardExchange } from 'react-icons/gi'
+
 import { UserRole } from '@constants/keys/user-roles'
 
 import {
@@ -526,6 +528,16 @@ export const navbarConfig = {
         },
 
         {
+          subtitle: () => t(TranslationKey['All proposals']),
+          subRoute: '/freelancer/freelance/all-proposals',
+          key: navBarActiveSubCategory.SUB_NAVBAR_ALL_PROPOSALS,
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_FREELANCE_ALLPROPOSALS_FREELANCER),
+        },
+
+        {
           subtitle: () => t(TranslationKey['My services']),
           subRoute: '/freelancer/freelance/my-services',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
@@ -555,7 +567,8 @@ export const navbarConfig = {
             item === permissionsKeys.freelancer.SHOW_SOURCES_FREELANCER ||
             item === permissionsKeys.freelancer.SHOW_ANNOUNCEMENTS_FREELANCER ||
             item === permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER ||
-            item === permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER,
+            item === permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER ||
+            item === permissionsKeys.freelancer.SHOW_FREELANCE_ALLPROPOSALS_FREELANCER,
         ),
     },
 
@@ -1166,6 +1179,26 @@ export const navbarConfig = {
       key: navBarActiveCategory.NAVBAR_PERMISSIONS,
       checkHideBlock: () => true,
     },
+
+    {
+      icon: GiCardExchange,
+      title: () => t(TranslationKey.Parsing),
+      route: '/admin/parsing',
+      subtitles: [
+        {
+          subtitle: () => t(TranslationKey.Profiles),
+          subRoute: '/admin/parsing/profiles',
+        },
+        {
+          subtitle: () => t(TranslationKey.Requests),
+          subRoute: '/admin/parsing/requests',
+        },
+      ],
+
+      key: navBarActiveCategory.NAVBAR_PARSING,
+      checkHideBlock: () => true,
+    },
+
     {
       icon: SettingsIcon,
       title: () => t(TranslationKey.Settings),

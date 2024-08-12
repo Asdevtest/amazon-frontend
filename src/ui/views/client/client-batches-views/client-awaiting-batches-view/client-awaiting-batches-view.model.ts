@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RadioChangeEvent } from 'antd'
 import { makeObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -131,10 +132,12 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickStorekeeperBtn(currentStorekeeperId: string) {
+  onClickStorekeeperBtn(event: RadioChangeEvent) {
+    const currentValue = event.target.value
+
     this.onSelectionModel([])
 
-    this.currentStorekeeperId = currentStorekeeperId
+    this.currentStorekeeperId = currentValue
 
     this.getCurrentData()
   }

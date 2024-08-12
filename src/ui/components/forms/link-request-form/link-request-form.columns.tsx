@@ -18,7 +18,7 @@ export const linkRequestColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: (params: GridCellParams) => <TextCell text={params.row.humanFriendlyId} />,
 
-      width: 70,
+      width: 80,
     },
 
     {

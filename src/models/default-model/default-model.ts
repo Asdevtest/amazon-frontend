@@ -11,6 +11,7 @@ import { observerConfig } from './observer.config'
 
 export class DefaultModel extends ModalsModel {
   requestStatus: loadingStatus = loadingStatus.SUCCESS
+  loading: boolean = false
   currentData: any[] = []
   rowCount: number = 0
   meta?: any = null
@@ -54,6 +55,10 @@ export class DefaultModel extends ModalsModel {
 
   setRequestStatus(requestStatus: loadingStatus) {
     this.requestStatus = requestStatus
+  }
+
+  setLoading(value: boolean) {
+    this.loading = value
   }
 
   initHistory() {

@@ -21,11 +21,59 @@
  */
 export interface InlineObject162 {
     /**
-     * 
-     * @type {Array<string>}
+     * Name
+     * @type {string}
      * @memberof InlineObject162
      */
-    profileIds?: Array<string>;
+    name?: string;
+    /**
+     * Main google table id
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    spreadsheetsIdMain?: string;
+    /**
+     * Perfomance google table id
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    spreadsheetsIdPerformance?: string;
+    /**
+     * Import google table id
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    spreadsheetsIdImport?: string;
+    /**
+     * OTP
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    otp?: string;
+    /**
+     * Состояние парсера
+     * @type {boolean}
+     * @memberof InlineObject162
+     */
+    isActive?: boolean;
+    /**
+     * Profile access to sellercentral
+     * @type {boolean}
+     * @memberof InlineObject162
+     */
+    access?: boolean;
+    /**
+     * Guid of shop
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    shopId?: string;
+    /**
+     * Guid of client
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    clientId?: string;
 }
 
 

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RadioChangeEvent } from 'antd'
 import { makeObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -12,7 +13,6 @@ import { BoxesModel } from '@models/boxes-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 
-import { getUtcDateObject } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -131,9 +131,10 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickStorekeeperBtn(currentStorekeeperId: string) {
+  onClickStorekeeperBtn(event: RadioChangeEvent) {
+    const currentValue = event.target.value
     this.selectedRows = []
-    this.currentStorekeeperId = currentStorekeeperId
+    this.currentStorekeeperId = currentValue
 
     this.getCurrentData()
   }
@@ -192,10 +193,12 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
   }
 
   async onClickSaveArrivalDate(id: string, date: string) {
-    const convertedToUTC = getUtcDateObject(date)
-    const UTCDate = new Date(convertedToUTC.UTC)
+    const newDate = new Date(date)
+    newDate.setUTCHours(0)
+    newDate.setUTCSeconds(0)
+    const arrivalDate = newDate.toISOString()
 
-    await BatchesModel.changeBatch(id, { arrivalDate: UTCDate })
+    await BatchesModel.changeBatch(id, { arrivalDate })
     this.getCurrentData()
   }
 

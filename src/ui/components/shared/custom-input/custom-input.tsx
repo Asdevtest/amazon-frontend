@@ -7,27 +7,45 @@ import { t } from '@utils/translations'
 
 import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-props-extension-component-antd'
 
-import { useStyles } from './custom-input.styles'
+import { useStyles } from './custom-input.style'
 
-interface CustomInputProps extends InputProps, IDefaultPropsExtensionAntdComponent {}
+const { Password } = Input
+
+interface CustomInputProps extends InputProps, IDefaultPropsExtensionAntdComponent {
+  password?: boolean
+}
 
 export const CustomInput: FC<CustomInputProps> = memo(props => {
-  const { label, placeholder, required, labelClassName, wrapperClassName, ...restProps } = props
+  const {
+    password,
+    isRow,
+    isCell,
+    label,
+    required,
+    placeholder,
+    className,
+    labelClassName,
+    wrapperClassName,
+    ...restProps
+  } = props
 
   const { classes: styles, cx } = useStyles()
+  const placeholderText = placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined
+  const Component = password ? Password : Input
 
   return (
-    <div className={cx(styles.root, wrapperClassName)}>
+    <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
       {label ? (
         <p className={cx(styles.label, labelClassName)}>
           {t(TranslationKey[label as TranslationKey])}
-          {required ? <span>{'*'}</span> : null}
+          {required ? <span>*</span> : null}
         </p>
       ) : null}
-      <Input
+      <Component
         {...restProps}
-        placeholder={placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined}
-        onKeyDown={event => event.stopPropagation()}
+        title={placeholderText}
+        className={cx(styles.input, className)}
+        placeholder={placeholderText}
       />
     </div>
   )

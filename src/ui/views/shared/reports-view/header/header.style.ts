@@ -9,10 +9,11 @@ export const useStyles = makeStyles()(() => ({
   },
 
   datePicker: {
-    width: 290,
+    width: 320,
   },
 
   searchInput: {
+    width: 440,
     marginRight: 'auto',
   },
 }))

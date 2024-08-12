@@ -12,8 +12,8 @@ import { VacantRequestListCard } from '@components/cards/vacant-request-list-car
 import { VacantRequestShortCard } from '@components/cards/vacant-request-short-card'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomPageSwitcher } from '@components/shared/custom-page-switcher'
-import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
@@ -47,16 +47,17 @@ export const VacantRequestsView = observer(({ history }) => {
     <>
       <div className={styles.tablePanelWrapper}>
         <FreelanceTypeTaskSelect
-          selectedSpec={viewModel.selectedSpec}
+          selectedSpec={viewModel.radioButtonOption}
           specs={viewModel.userInfo?.allowedSpec}
-          onClickSpec={viewModel.onClickSpec}
+          onClickSpec={viewModel.onChangeRadioButtonOption}
         />
 
-        <SearchInput
-          placeholder={t(TranslationKey['Search by Title, ASIN, SKU, ID'])}
-          inputClasses={styles.searchInput}
-          value={viewModel.nameSearchValue}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by Title, ASIN, SKU, ID"
+          onSearch={viewModel.onSearchSubmit}
         />
 
         <ViewCardsSelect withTabelView viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />

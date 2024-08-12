@@ -14,7 +14,7 @@
 
 
 import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { ApiV1IntegrationsParserAdminsProfilesClient } from './api-v1-integrations-parser-admins-profiles-client';
+import { InlineResponse200115Client } from './inline-response200115-client';
 
 /**
  * 
@@ -54,16 +54,28 @@ export interface GetClientProfile {
     passwordHash?: string;
     /**
      * 
-     * @type {ApiV1IntegrationsParserAdminsProfilesClient}
+     * @type {InlineResponse200115Client}
      * @memberof GetClientProfile
      */
-    client?: ApiV1IntegrationsParserAdminsProfilesClient;
+    client?: InlineResponse200115Client;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusShop}
      * @memberof GetClientProfile
      */
     shop?: ApiV1AdminsGetProductsByStatusShop;
+    /**
+     * Parser state
+     * @type {boolean}
+     * @memberof GetClientProfile
+     */
+    isActive?: boolean;
+    /**
+     * Profile access to sellercentral
+     * @type {boolean}
+     * @memberof GetClientProfile
+     */
+    access?: boolean;
     /**
      * Дата создания
      * @type {string}

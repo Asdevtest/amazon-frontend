@@ -21,11 +21,11 @@
  */
 export interface InlineObject75 {
     /**
-     * Тег
+     * id профайла
      * @type {string}
      * @memberof InlineObject75
      */
-    title: string;
+    profileId: string;
 }
 
 

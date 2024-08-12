@@ -48,6 +48,8 @@ export const filtersFields = [
   'minProductionTerm',
   'maxProductionTerm',
   'subUsers',
+  'parentProductSubUsers',
+  'childProductSubUsers',
 ]
 
 export const fieldsForSearch = [

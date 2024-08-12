@@ -21,35 +21,54 @@
  */
 export interface InlineResponse20053Order {
     /**
-     * id заказ.
-     * @type {number}
-     * @memberof InlineResponse20053Order
-     */
-    id?: number;
-    /**
-     * GUID данной записи в БД.
+     * GUID ордера в базе данных
      * @type {string}
      * @memberof InlineResponse20053Order
      */
     _id?: string;
     /**
-     * кол-во
+     * id заказа
+     * @type {number}
+     * @memberof InlineResponse20053Order
+     */
+    id?: number;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineResponse20053Order
+     */
+    priority?: InlineResponse20053OrderPriorityEnum;
+    /**
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * @type {boolean}
+     * @memberof InlineResponse20053Order
+     */
+    expressChinaDelivery?: boolean;
+    /**
+     * Количества в коробке.
      * @type {number}
      * @memberof InlineResponse20053Order
      */
     amount?: number;
     /**
-     * Статус заказа
-     * @type {number}
-     * @memberof InlineResponse20053Order
-     */
-    status?: number;
-    /**
-     * 
+     * Гуид сапплаера
      * @type {string}
      * @memberof InlineResponse20053Order
      */
-    createdAt?: string;
+    orderSupplierId?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20053OrderPriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

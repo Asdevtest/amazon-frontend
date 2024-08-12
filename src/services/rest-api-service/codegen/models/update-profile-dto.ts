@@ -51,12 +51,6 @@ export interface UpdateProfileDto {
      */
     otp?: string;
     /**
-     * Driver session data (JSONB object)
-     * @type {object}
-     * @memberof UpdateProfileDto
-     */
-    driverSessionData?: object;
-    /**
      * Состояние парсера
      * @type {boolean}
      * @memberof UpdateProfileDto

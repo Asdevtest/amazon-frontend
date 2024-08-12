@@ -16,8 +16,4 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'space-between',
     marginBottom: '10px',
   },
-
-  searchInput: {
-    width: '400px',
-  },
 }))

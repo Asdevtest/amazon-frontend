@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable, runInAction } from 'mobx'
-import { ChangeEvent } from 'react'
 import { toast } from 'react-toastify'
 
 import { GridColumnVisibilityModel, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
@@ -142,8 +141,8 @@ export class DataGridTableModel extends DefaultModel {
     this.selectedRows = selectedRows
   }
 
-  onChangeUnserverSearchValue(e: ChangeEvent<HTMLInputElement>) {
-    this.currentSearchValue = e.target.value
+  onChangeUnserverSearchValue(value: string) {
+    this.currentSearchValue = value
   }
 
   handlePinColumn(pinnedColumns: GridPinnedColumns) {

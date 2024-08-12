@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RadioChangeEvent } from 'antd'
 import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -16,11 +17,11 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
+import { observerConfig } from './client-shops-report-view.config'
 import { getClassParams } from './helpers/get-class-params'
-import { observerConfig } from './observer.config'
 
 export class ClientShopsViewModel extends DataGridFilterTableModel {
-  tabKey = ShopReportsTabsValues.PPC_ORGANIC_BY_DAY
+  radioButtonOption = ShopReportsTabsValues.PPC_ORGANIC_BY_DAY
 
   inventoryProducts: any = []
 
@@ -43,7 +44,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     })
     this.history = history
 
-    this.tabKey = currentTabsValues
+    this.radioButtonOption = currentTabsValues
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
     this.getDataGridState()
@@ -52,11 +53,12 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     makeObservable(this, observerConfig)
   }
 
-  changeTabHandler = (key: ShopReportsTabsValues) => {
-    this.tabKey = key
+  onChangeRadioButtonOption(event: RadioChangeEvent) {
+    const currentValue = event.target.value
+    this.radioButtonOption = currentValue
 
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch, tableKey } =
-      getClassParams(key)
+      getClassParams(currentValue)
 
     this.getMainDataMethod = getMainDataMethod
     this.columnsModel = columnsModel()
@@ -100,7 +102,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     }
 
     if (currentReport) {
-      this.tabKey = currentReport
+      this.radioButtonOption = currentReport
       this.history.push(this.history.location.pathname)
     }
 
@@ -156,7 +158,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      await SellerBoardModel.deleteIntegrationsReport(this.tabKey, this.selectedRows)
+      await SellerBoardModel.deleteIntegrationsReport(this.radioButtonOption, this.selectedRows)
 
       await this.getCurrentData()
 
@@ -168,7 +170,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   }
 
   async bindStockGoodsToInventoryHandler() {
-    if (this.tabKey === ShopReportsTabsValues.INVENTORY) {
+    if (this.radioButtonOption === ShopReportsTabsValues.INVENTORY) {
       await this.getShopsData()
 
       this.onTriggerOpenModal('showSelectShopsModal')
@@ -249,7 +251,6 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.onTriggerOpenModal('showSelectShopsModal')
-      toast.error(t(TranslationKey['Something went wrong']))
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }

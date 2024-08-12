@@ -6,14 +6,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
-import { Button } from '@components/shared/button'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomButton } from '@components/shared/custom-button'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './my-services-view.style'
 
@@ -32,31 +30,32 @@ export const MyServicesView = observer(({ history }) => {
           <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
           <FreelanceTypeTaskSelect
-            selectedSpec={viewModel.selectedSpec}
+            selectedSpec={viewModel.radioButtonOption}
             specs={viewModel.userInfo?.allowedSpec}
-            onClickSpec={viewModel.onClickSpec}
+            onClickSpec={viewModel.onChangeRadioButtonOption}
           />
         </div>
 
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by Title, Description'])}
-          value={viewModel.nameSearchValue}
-          onChange={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by Title, Description"
+          onSearch={viewModel.onSearchSubmit}
         />
 
         <div className={styles.flexContainer}>
-          <Button onClick={() => viewModel.onToggleArchive(!viewModel.archive)}>
+          <CustomButton size="large" onClick={() => viewModel.onToggleArchive(!viewModel.archive)}>
             {t(TranslationKey[viewModel.archive ? 'To the actual' : 'Open archive'])}
-          </Button>
+          </CustomButton>
 
-          <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickCreateService}>
+          <CustomButton size="large" type="primary" onClick={viewModel.onClickCreateService}>
             {t(TranslationKey['Create a service'])}
-          </Button>
+          </CustomButton>
         </div>
       </div>
 
-      <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
+      <div className={styles.dashboardCardWrapper}>
         {viewModel.currentData.map((service, serviceKey) =>
           isListPosition ? (
             <ServiceExchangeCardList

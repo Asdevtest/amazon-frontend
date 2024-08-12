@@ -86,7 +86,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
       renderCell: ({ row }: GridRowModel) => (
         // @ts-ignore
-        <TextCell status={productStrategyStatusesEnum[row?.strategyStatus]?.replace(/_/g, ' ')} />
+        <TextCell text={productStrategyStatusesEnum[row?.strategyStatus]?.replace(/_/g, ' ')} />
       ),
       width: 140,
       align: 'center',

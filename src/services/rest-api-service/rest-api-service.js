@@ -16,6 +16,7 @@ import { IdeaApi } from './codegen/api/idea-api'
 import { IntegrationsApi } from './codegen/api/integrations-api'
 import { OrderApi } from './codegen/api/order-api'
 import { OtherApi } from './codegen/api/other-api'
+import { ParserApi } from './codegen/api/parser-api'
 import { PermissionsApi } from './codegen/api/permissions-api'
 import { ProductApi } from './codegen/api/product-api'
 import { RequestProposalsApi } from './codegen/api/request-proposals-api'
@@ -59,6 +60,7 @@ class RestApiService {
     this.chatsApi = new ChatsApi(this.openapiConfig, undefined, this.axiosInstance)
     this.orderApi = new OrderApi(this.openapiConfig, undefined, this.axiosInstance)
     this.generalApi = new GeneralApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.parserApi = new ParserApi(this.openapiConfig, undefined, this.axiosInstance)
   }
 }
 

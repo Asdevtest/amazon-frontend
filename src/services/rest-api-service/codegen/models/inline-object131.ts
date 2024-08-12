@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1StorekeepersBoxesGuidItems } from './api-v1-storekeepers-boxes-guid-items';
 
 /**
  * 
@@ -21,11 +22,125 @@
  */
 export interface InlineObject131 {
     /**
-     * 
+     * Гуид вариации
      * @type {string}
      * @memberof InlineObject131
      */
-    storekeeperComment: string;
+    variationTariffId?: string;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineObject131
+     */
+    prepId?: string;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject131
+     */
+    lengthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject131
+     */
+    widthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject131
+     */
+    heightCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject131
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Storage in boxes
+     * @type {string}
+     * @memberof InlineObject131
+     */
+    storage?: string;
+    /**
+     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+     * @type {boolean}
+     * @memberof InlineObject131
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineObject131
+     */
+    storekeeperComment?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineObject131
+     */
+    referenceId?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineObject131
+     */
+    trackNumberText?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject131
+     */
+    trackNumberFile?: Array<string>;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineObject131
+     */
+    upsTrackNumber?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject131
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject131
+     */
+    fbaNumber?: string;
+    /**
+     *  logicsTariff GUID
+     * @type {string}
+     * @memberof InlineObject131
+     */
+    logicsTariffId?: string;
+    /**
+     * Массив ссылок на фотографии.
+     * @type {Array<string>}
+     * @memberof InlineObject131
+     */
+    images?: Array<string>;
+    /**
+     * destination GUID 
+     * @type {string}
+     * @memberof InlineObject131
+     */
+    destinationId?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineObject131
+     */
+    storekeeperTaskComment?: string;
+    /**
+     * 
+     * @type {Array<ApiV1StorekeepersBoxesGuidItems>}
+     * @memberof InlineObject131
+     */
+    items?: Array<ApiV1StorekeepersBoxesGuidItems>;
 }
 
 

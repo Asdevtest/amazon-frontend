@@ -16,7 +16,7 @@ export const bindIdeaToRequestColumns = [
     renderCell: (params: GridCellParams) => <TextCell text={params.row.humanFriendlyId} />,
     filterable: false,
     sortable: false,
-    width: 70,
+    width: 80,
   },
 
   {

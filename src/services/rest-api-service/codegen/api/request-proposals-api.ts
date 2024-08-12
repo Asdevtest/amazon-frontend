@@ -49,7 +49,9 @@ import { InlineObject110 } from '../models';
 // @ts-ignore
 import { InlineObject111 } from '../models';
 // @ts-ignore
-import { InlineObject165 } from '../models';
+import { InlineObject112 } from '../models';
+// @ts-ignore
+import { InlineObject166 } from '../models';
 // @ts-ignore
 import { InlineResponse200118 } from '../models';
 // @ts-ignore
@@ -168,12 +170,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject165} [body] 
+         * @param {InlineObject166} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomGuidResultEditPatch: async (guid: string, body?: InlineObject165, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsCustomGuidResultEditPatch: async (guid: string, body?: InlineObject166, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsCustomGuidResultEditPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/custom/{guid}/result_edit`
@@ -294,12 +296,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Изменить исходник
          * @summary #  Изменить исходник.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject111} [body] 
+         * @param {InlineObject112} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsFreelanceSourcesGuidPatch: async (guid: string, body?: InlineObject111, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsFreelanceSourcesGuidPatch: async (guid: string, body?: InlineObject112, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsFreelanceSourcesGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/freelance-sources/{guid}`
@@ -545,6 +547,52 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsGuidCancelPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/{guid}/cancel`
+                .replace(`{${"guid"}}`, encodeURIComponent(String(guid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ## Изменить исполнителя
+         * @summary #  Изменить исполнителя.
+         * @param {string} guid GUID в сущности в БД
+         * @param {InlineObject111} [body] 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1RequestProposalsGuidChangePerformerPatch: async (guid: string, body?: InlineObject111, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'guid' is not null or undefined
+            assertParamExists('apiV1RequestProposalsGuidChangePerformerPatch', 'guid', guid)
+            const localVarPath = `/api/v1/request-proposals/{guid}/change_performer`
                 .replace(`{${"guid"}}`, encodeURIComponent(String(guid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -993,6 +1041,74 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
+         * Получить все предложения фрилансера с пагинацией [sub, master]
+         * @summary Получить все предложения фрилансера [sub, master].
+         * @param {string} [filters]                Возможные поля:               (Proposal) -&gt; status, createdBy, sub, updatedAt               (Request) -&gt; humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, requestCreatedBy,               (Product) -&gt; asin, amazonTitle,               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1RequestProposalsPagMyAllGet: async (filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/request-proposals/pag/my_all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (filters !== undefined) {
+                localVarQueryParameter['filters'] = filters;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (sortField !== undefined) {
+                localVarQueryParameter['sortField'] = sortField;
+            }
+
+            if (sortType !== undefined) {
+                localVarQueryParameter['sortType'] = sortType;
+            }
+
+            if (noCache !== undefined) {
+                localVarQueryParameter['noCache'] = noCache;
+            }
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Получить все предложения фрилансера с пагинацией
          * @summary Получить все предложения фрилансера.
          * @param {string} [filters]                Возможные поля:               (Proposal) -&gt; status, createdBy, sub, updatedAt               (Request) -&gt; humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, requestCreatedBy,               (Product) -&gt; asin, amazonTitle,               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
@@ -1100,12 +1216,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject165} [body] 
+         * @param {InlineObject166} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject165, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject166, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsCustomGuidResultEditPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1136,12 +1252,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Изменить исходник
          * @summary #  Изменить исходник.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject111} [body] 
+         * @param {InlineObject112} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsFreelanceSourcesGuidPatch(guid: string, body?: InlineObject111, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsFreelanceSourcesGuidPatch(guid: string, body?: InlineObject112, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsFreelanceSourcesGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1209,6 +1325,19 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          */
         async apiV1RequestProposalsGuidCancelPatch(guid: string, body?: InlineObject108, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGuidCancelPatch(guid, body, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * ## Изменить исполнителя
+         * @summary #  Изменить исполнителя.
+         * @param {string} guid GUID в сущности в БД
+         * @param {InlineObject111} [body] 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1RequestProposalsGuidChangePerformerPatch(guid: string, body?: InlineObject111, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGuidChangePerformerPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1329,6 +1458,23 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Получить все предложения фрилансера с пагинацией [sub, master]
+         * @summary Получить все предложения фрилансера [sub, master].
+         * @param {string} [filters]                Возможные поля:               (Proposal) -&gt; status, createdBy, sub, updatedAt               (Request) -&gt; humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, requestCreatedBy,               (Product) -&gt; asin, amazonTitle,               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1RequestProposalsPagMyAllGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20087>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsPagMyAllGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Получить все предложения фрилансера с пагинацией
          * @summary Получить все предложения фрилансера.
          * @param {string} [filters]                Возможные поля:               (Proposal) -&gt; status, createdBy, sub, updatedAt               (Request) -&gt; humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, requestCreatedBy,               (Product) -&gt; asin, amazonTitle,               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
@@ -1383,12 +1529,12 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject165} [body] 
+         * @param {InlineObject166} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject165, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject166, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsCustomGuidResultEditPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1416,12 +1562,12 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * ## Изменить исходник
          * @summary #  Изменить исходник.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject111} [body] 
+         * @param {InlineObject112} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsFreelanceSourcesGuidPatch(guid: string, body?: InlineObject111, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsFreelanceSourcesGuidPatch(guid: string, body?: InlineObject112, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsFreelanceSourcesGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1484,6 +1630,18 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          */
         apiV1RequestProposalsGuidCancelPatch(guid: string, body?: InlineObject108, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsGuidCancelPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Изменить исполнителя
+         * @summary #  Изменить исполнителя.
+         * @param {string} guid GUID в сущности в БД
+         * @param {InlineObject111} [body] 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1RequestProposalsGuidChangePerformerPatch(guid: string, body?: InlineObject111, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+            return localVarFp.apiV1RequestProposalsGuidChangePerformerPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Привязать  супервайзра к предложению. Статус меняется на VERIFYING_BY_SUPERVISOR В поле supervisorId вписывается id супервайзера. Устанавливается время за которое супервайзер должен принять решение. Пос истечения времени супервайзер снимается.  ## Супервайзер добавляется в чат  Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Только со статусами предложений:   VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ## Это нужно чтобы рассчитать остаток средств при закрытии заявки. Супервайзер не может отвязать от себя предложение если он не связан.
@@ -1594,6 +1752,22 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
             return localVarFp.apiV1RequestProposalsGuidResultToCorrectPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
+         * Получить все предложения фрилансера с пагинацией [sub, master]
+         * @summary Получить все предложения фрилансера [sub, master].
+         * @param {string} [filters]                Возможные поля:               (Proposal) -&gt; status, createdBy, sub, updatedAt               (Request) -&gt; humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, requestCreatedBy,               (Product) -&gt; asin, amazonTitle,               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1RequestProposalsPagMyAllGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20087> {
+            return localVarFp.apiV1RequestProposalsPagMyAllGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Получить все предложения фрилансера с пагинацией
          * @summary Получить все предложения фрилансера.
          * @param {string} [filters]                Возможные поля:               (Proposal) -&gt; status, createdBy, sub, updatedAt               (Request) -&gt; humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, requestCreatedBy,               (Product) -&gt; asin, amazonTitle,               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
@@ -1683,10 +1857,10 @@ export interface RequestProposalsApiApiV1RequestProposalsCustomGuidResultEditPat
 
     /**
      * 
-     * @type {InlineObject165}
+     * @type {InlineObject166}
      * @memberof RequestProposalsApiApiV1RequestProposalsCustomGuidResultEditPatch
      */
-    readonly body?: InlineObject165
+    readonly body?: InlineObject166
 
     /**
      * 
@@ -1746,10 +1920,10 @@ export interface RequestProposalsApiApiV1RequestProposalsFreelanceSourcesGuidPat
 
     /**
      * 
-     * @type {InlineObject111}
+     * @type {InlineObject112}
      * @memberof RequestProposalsApiApiV1RequestProposalsFreelanceSourcesGuidPatch
      */
-    readonly body?: InlineObject111
+    readonly body?: InlineObject112
 
     /**
      * 
@@ -1902,6 +2076,34 @@ export interface RequestProposalsApiApiV1RequestProposalsGuidCancelPatchRequest 
      * 
      * @type {string}
      * @memberof RequestProposalsApiApiV1RequestProposalsGuidCancelPatch
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
+ * Request parameters for apiV1RequestProposalsGuidChangePerformerPatch operation in RequestProposalsApi.
+ * @export
+ * @interface RequestProposalsApiApiV1RequestProposalsGuidChangePerformerPatchRequest
+ */
+export interface RequestProposalsApiApiV1RequestProposalsGuidChangePerformerPatchRequest {
+    /**
+     * GUID в сущности в БД
+     * @type {string}
+     * @memberof RequestProposalsApiApiV1RequestProposalsGuidChangePerformerPatch
+     */
+    readonly guid: string
+
+    /**
+     * 
+     * @type {InlineObject111}
+     * @memberof RequestProposalsApiApiV1RequestProposalsGuidChangePerformerPatch
+     */
+    readonly body?: InlineObject111
+
+    /**
+     * 
+     * @type {string}
+     * @memberof RequestProposalsApiApiV1RequestProposalsGuidChangePerformerPatch
      */
     readonly acceptEncoding?: string
 }
@@ -2159,6 +2361,62 @@ export interface RequestProposalsApiApiV1RequestProposalsGuidResultToCorrectPatc
 }
 
 /**
+ * Request parameters for apiV1RequestProposalsPagMyAllGet operation in RequestProposalsApi.
+ * @export
+ * @interface RequestProposalsApiApiV1RequestProposalsPagMyAllGetRequest
+ */
+export interface RequestProposalsApiApiV1RequestProposalsPagMyAllGetRequest {
+    /**
+     *                Возможные поля:               (Proposal) -&gt; status, createdBy, sub, updatedAt               (Request) -&gt; humanFriendlyId, priority, title, maxAmountOfProposals, timeoutAt, requestCreatedBy,               (Product) -&gt; asin, amazonTitle,               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+     * @type {string}
+     * @memberof RequestProposalsApiApiV1RequestProposalsPagMyAllGet
+     */
+    readonly filters?: string
+
+    /**
+     * Лимит записей для пагинации
+     * @type {number}
+     * @memberof RequestProposalsApiApiV1RequestProposalsPagMyAllGet
+     */
+    readonly limit?: number
+
+    /**
+     * Смещение для пагинации
+     * @type {number}
+     * @memberof RequestProposalsApiApiV1RequestProposalsPagMyAllGet
+     */
+    readonly offset?: number
+
+    /**
+     * Название поля
+     * @type {string}
+     * @memberof RequestProposalsApiApiV1RequestProposalsPagMyAllGet
+     */
+    readonly sortField?: string
+
+    /**
+     * Тип сортировки
+     * @type {'ASC' | 'DESC'}
+     * @memberof RequestProposalsApiApiV1RequestProposalsPagMyAllGet
+     */
+    readonly sortType?: 'ASC' | 'DESC'
+
+    /**
+     * Игнорировать данные в кеше
+     * @type {boolean}
+     * @memberof RequestProposalsApiApiV1RequestProposalsPagMyAllGet
+     */
+    readonly noCache?: boolean
+
+    /**
+     * 
+     * @type {string}
+     * @memberof RequestProposalsApiApiV1RequestProposalsPagMyAllGet
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
  * Request parameters for apiV1RequestProposalsPagMyGet operation in RequestProposalsApi.
  * @export
  * @interface RequestProposalsApiApiV1RequestProposalsPagMyGetRequest
@@ -2354,6 +2612,18 @@ export class RequestProposalsApi extends BaseAPI {
     }
 
     /**
+     * ## Изменить исполнителя
+     * @summary #  Изменить исполнителя.
+     * @param {RequestProposalsApiApiV1RequestProposalsGuidChangePerformerPatchRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RequestProposalsApi
+     */
+    public apiV1RequestProposalsGuidChangePerformerPatch(requestParameters: RequestProposalsApiApiV1RequestProposalsGuidChangePerformerPatchRequest, options?: any) {
+        return RequestProposalsApiFp(this.configuration).apiV1RequestProposalsGuidChangePerformerPatch(requestParameters.guid, requestParameters.body, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * ## Привязать  супервайзра к предложению. Статус меняется на VERIFYING_BY_SUPERVISOR В поле supervisorId вписывается id супервайзера. Устанавливается время за которое супервайзер должен принять решение. Пос истечения времени супервайзер снимается.  ## Супервайзер добавляется в чат  Проверки: Предложения должны быть со статусом READY_TO_VERIFY и в заявке указывалась необходимость в проверке. Взять на проверку предложение не могут создатель заявки или предложения ## Отвязать супервайзра от предложения . Статус возвращается на READY_TO_VERIFY id супервайзера удалятся из supervisorId. Проверки: Только со статусами предложений:   VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ## Это нужно чтобы рассчитать остаток средств при закрытии заявки. Супервайзер не может отвязать от себя предложение если он не связан.
      * @summary #  Привязать или \"отвязать\" супервайзера от предложения.
      * @param {RequestProposalsApiApiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatchRequest} requestParameters Request parameters.
@@ -2459,6 +2729,18 @@ export class RequestProposalsApi extends BaseAPI {
      */
     public apiV1RequestProposalsGuidResultToCorrectPatch(requestParameters: RequestProposalsApiApiV1RequestProposalsGuidResultToCorrectPatchRequest, options?: any) {
         return RequestProposalsApiFp(this.configuration).apiV1RequestProposalsGuidResultToCorrectPatch(requestParameters.guid, requestParameters.body, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Получить все предложения фрилансера с пагинацией [sub, master]
+     * @summary Получить все предложения фрилансера [sub, master].
+     * @param {RequestProposalsApiApiV1RequestProposalsPagMyAllGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RequestProposalsApi
+     */
+    public apiV1RequestProposalsPagMyAllGet(requestParameters: RequestProposalsApiApiV1RequestProposalsPagMyAllGetRequest = {}, options?: any) {
+        return RequestProposalsApiFp(this.configuration).apiV1RequestProposalsPagMyAllGet(requestParameters.filters, requestParameters.limit, requestParameters.offset, requestParameters.sortField, requestParameters.sortType, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

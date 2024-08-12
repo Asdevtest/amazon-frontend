@@ -7,8 +7,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxModal } from '@components/modals/box-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
@@ -26,10 +26,12 @@ export const AdminWarehouseBoxesView = observer(() => {
 
   return (
     <div className={styles.container}>
-      <SearchInput
-        inputClasses={styles.searchInput}
-        placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-        onSubmit={viewModel.onSearchSubmit}
+      <CustomInputSearch
+        enterButton
+        allowClear
+        size="large"
+        placeholder="Search by SKU, ASIN, Title"
+        onSearch={viewModel.onSearchSubmit}
       />
 
       <div className={styles.tableWrapper}>
@@ -47,6 +49,9 @@ export const AdminWarehouseBoxesView = observer(() => {
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           getRowId={({ _id }: IBox) => _id}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             columnMenu: viewModel.columnMenuSettings,
             toolbar: {
               resetFiltersBtnSettings: {

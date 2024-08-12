@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { ApiV1IntegrationsParserAdminsProfilesClient } from './api-v1-integrations-parser-admins-profiles-client';
 
 /**
  * 
@@ -23,35 +21,17 @@ import { ApiV1IntegrationsParserAdminsProfilesClient } from './api-v1-integratio
  */
 export interface InlineResponse200117 {
     /**
-     * GUID в БД.
-     * @type {string}
+     * Count of rows
+     * @type {number}
      * @memberof InlineResponse200117
      */
-    _id?: string;
-    /**
-     * Profile guid
-     * @type {string}
-     * @memberof InlineResponse200117
-     */
-    profileId?: string;
+    count?: number;
     /**
      * 
-     * @type {ApiV1IntegrationsParserAdminsProfilesClient}
+     * @type {Array<object>}
      * @memberof InlineResponse200117
      */
-    client?: ApiV1IntegrationsParserAdminsProfilesClient;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusShop}
-     * @memberof InlineResponse200117
-     */
-    shop?: ApiV1AdminsGetProductsByStatusShop;
-    /**
-     * Receiving request status
-     * @type {string}
-     * @memberof InlineResponse200117
-     */
-    status?: string;
+    rows?: Array<object>;
 }
 
 

@@ -14,6 +14,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './result-cell.style'
 
+import { checkCurrentPeriodValid } from '../../helpers/check-current-period-valid'
 import { ChangeCommentCellValueType } from '../../report-modal.type'
 
 interface ResultCellProps {
@@ -27,21 +28,9 @@ export const ResultCell: FC<ResultCellProps> = observer(props => {
 
   const { classes: styles } = useStyles()
 
-  const isCurrentPeriodValid = () => {
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
-    const dateToObj = new Date(row?.dateTo)
-    dateToObj.setHours(0, 0, 0, 0)
-
-    if (!row?.dateTo || !row?.dateFrom) {
-      return false
-    }
-
-    return dateToObj < today
-  }
   const handleRemoveLaunch = useCallback(() => onRemoveLaunch(row._id), [onRemoveLaunch, row._id])
 
-  const disabledResultField = useMemo(() => !isCurrentPeriodValid(), [row?.dateTo])
+  const disabledResultField = useMemo(() => !checkCurrentPeriodValid(row?.dateTo), [row?.dateTo])
 
   return (
     <div className={styles.wrapper}>

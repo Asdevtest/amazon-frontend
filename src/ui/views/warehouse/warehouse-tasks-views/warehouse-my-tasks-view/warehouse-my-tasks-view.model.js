@@ -16,7 +16,6 @@ import { UserModel } from '@models/user-model'
 import { warehouseMyTasksViewColumns } from '@components/table/table-columns/warehouse/my-tasks-columns'
 
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs } from '@utils/text'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -168,20 +167,18 @@ export class WarehouseMyTasksViewModel {
     })
   }
 
-  onClickOperationTypeBtn(type) {
-    this.curTaskType = type
+  onClickOperationTypeBtn(event) {
+    const currentValue = event.target.value
+    this.curTaskType = currentValue
 
     this.getTasksMy()
   }
 
-  onClickTaskPriorityBtn(type) {
-    this.curTaskPriority = type
+  onClickTaskPriorityBtn(event) {
+    const currentValue = event.target.value
+    this.curTaskPriority = currentValue
 
     this.getTasksMy()
-  }
-
-  onChangeNameSearchValue(e) {
-    this.nameSearchValue = e.target.value
   }
 
   loadData() {

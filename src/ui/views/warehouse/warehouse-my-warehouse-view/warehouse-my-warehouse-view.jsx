@@ -16,8 +16,8 @@ import { BoxModal } from '@components/modals/box-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
 import { StorekeeperRedistributeBox } from '@components/modals/storekeeper'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
@@ -52,10 +52,13 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           onClickGroupingBtn={viewModel.onClickGroupingBtn}
         />
 
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          wrapperClassName={styles.searchInput}
+          placeholder="Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box"
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 

@@ -21,47 +21,23 @@
  */
 export interface InlineObject136 {
     /**
-     * Название склада.
+     * Название услуги
      * @type {string}
      * @memberof InlineObject136
      */
     name?: string;
     /**
-     * Страна.
+     * Описание услуги
      * @type {string}
      * @memberof InlineObject136
      */
-    country?: string;
+    description?: string;
     /**
-     * Индекс. 5 цифр.
-     * @type {string}
+     * Цена услуги.
+     * @type {number}
      * @memberof InlineObject136
      */
-    zipCode?: string;
-    /**
-     * Штат.
-     * @type {string}
-     * @memberof InlineObject136
-     */
-    state?: string;
-    /**
-     * Город.
-     * @type {string}
-     * @memberof InlineObject136
-     */
-    city?: string;
-    /**
-     * Адрес склада.
-     * @type {string}
-     * @memberof InlineObject136
-     */
-    address?: string;
-    /**
-     * Цвет шрифта
-     * @type {string}
-     * @memberof InlineObject136
-     */
-    fontColor?: string;
+    price?: number;
 }
 
 

@@ -60,10 +60,14 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
       isSentBatches,
     }
     const columnsModel = warehouseMyBatchesViewColumns(columnsProps)
-    const filtersFields = getFilterFields(columnsModel, ['amazonTitle'])
-    const defaultGetCurrentDataOptions = () => ({
-      status: isSentBatches ? BatchStatus.HAS_DISPATCHED : BatchStatus.IS_BEING_COLLECTED,
-      archive: isSentBatches ? this.isArchive : undefined,
+    const filtersFields = getFilterFields(columnsModel, ['amazonTitle', 'arrivalDate'])
+
+    const additionalPropertiesGetFilters = () => ({
+      status: {
+        $eq: isSentBatches ? BatchStatus.HAS_DISPATCHED : BatchStatus.IS_BEING_COLLECTED,
+      },
+
+      ...(isSentBatches ? { archive: this.isArchive } : {}),
     })
 
     super({
@@ -73,7 +77,7 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
       mainMethodURL: 'batches/with_filters?',
       fieldsForSearch,
       tableKey: isSentBatches ? DataGridTablesKeys.WAREHOUSE_BATCHES : DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES,
-      defaultGetCurrentDataOptions,
+      additionalPropertiesGetFilters,
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
@@ -266,7 +270,12 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
 
   async onClickSaveArrivalDate(id: string, date: string) {
     try {
-      await BatchesModel.changeBatch(id, { arrivalDate: date })
+      const newDate = new Date(date)
+      newDate.setUTCHours(0)
+      newDate.setUTCSeconds(0)
+      const arrivalDate = newDate.toISOString()
+
+      await BatchesModel.changeBatch(id, { arrivalDate })
       this.getCurrentData()
     } catch (error) {
       console.error(error)

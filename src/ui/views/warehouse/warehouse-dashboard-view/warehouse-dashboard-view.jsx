@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-line-cards-list'
+import { TextCell } from '@components/data-grid/data-grid-cells'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
@@ -29,14 +30,16 @@ export const WarehouseDashboardView = observer(({ history }) => {
         <div className={styles.userInfoLeftWrapper}>
           <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
-          <div>
+          <div className={styles.info}>
             <DashboardBalance user={viewModel.userInfo} />
 
-            {viewModel.storekeeperDestination ? <p className={styles.adress}>{viewModel.adress}</p> : null}
+            {viewModel.storekeeperDestination ? <TextCell isCell={false} text={viewModel.adress} /> : null}
 
-            <Button onClick={viewModel.onClickAddressBtn}>
-              {viewModel.storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add address'])}
-            </Button>
+            <div>
+              <Button onClick={viewModel.onClickAddressBtn}>
+                {viewModel.storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add address'])}
+              </Button>
+            </div>
           </div>
         </div>
 

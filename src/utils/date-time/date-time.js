@@ -17,9 +17,14 @@ export const getUtcDateObject = dateString => {
   const hours = date.getUTCHours().toString().padStart(2, '0')
   const minutes = date.getUTCMinutes().toString().padStart(2, '0')
 
-  const UTC = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(),
-  date.getUTCDate(), date.getUTCHours(),
-  date.getUTCMinutes(), date.getUTCSeconds())
+  const UTC = Date.UTC(
+    date.getUTCFullYear(),
+    date.getUTCMonth(),
+    date.getUTCDate(),
+    date.getUTCHours(),
+    date.getUTCMinutes(),
+    date.getUTCSeconds(),
+  )
 
   return {
     day,

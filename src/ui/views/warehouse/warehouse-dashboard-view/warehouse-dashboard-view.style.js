@@ -10,8 +10,10 @@ export const useStyles = makeStyles()(theme => ({
     boxShadow: theme.palette.boxShadow.paper,
   },
 
-  adress: {
-    marginBottom: 10,
+  info: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
   },
 
   cardImg: {

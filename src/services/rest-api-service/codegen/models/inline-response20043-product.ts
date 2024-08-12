@@ -13,6 +13,8 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { InlineResponse20041InventoryShop } from './inline-response20041-inventory-shop';
 
 /**
  * 
@@ -68,6 +70,24 @@ export interface InlineResponse20043Product {
      * @memberof InlineResponse20043Product
      */
     shopId?: string;
+    /**
+     * 
+     * @type {InlineResponse20041InventoryShop}
+     * @memberof InlineResponse20043Product
+     */
+    shop?: InlineResponse20041InventoryShop;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse20043Product
+     */
+    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse20043Product
+     */
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
 }
 
 

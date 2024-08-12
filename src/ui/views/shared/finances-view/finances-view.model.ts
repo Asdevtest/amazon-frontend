@@ -1,3 +1,4 @@
+import { RadioChangeEvent } from 'antd'
 import { makeObservable } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -11,7 +12,7 @@ import { UserModel } from '@models/user-model'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
 import { financesViewColumns } from './finances-view.columns'
-import { observerConfig } from './observer-config'
+import { observerConfig } from './finances.config'
 
 export class FinancesViewModel extends DataGridFilterTableModel {
   paymentType: PaymentType | string = ''
@@ -54,14 +55,16 @@ export class FinancesViewModel extends DataGridFilterTableModel {
     this.getCurrentData()
   }
 
-  handleSetPaymentType(paymentType: PaymentType | string) {
-    this.paymentType = paymentType
+  onSetPaymentType(event: RadioChangeEvent) {
+    const currentValue = event.target.value
+    this.paymentType = currentValue
 
     this.getCurrentData()
   }
 
-  handleSetEntityType(entityType: EntityType | string) {
-    this.entityType = entityType
+  onSetEntityType(event: RadioChangeEvent) {
+    const currentValue = event.target.value
+    this.entityType = currentValue
 
     this.getCurrentData()
   }

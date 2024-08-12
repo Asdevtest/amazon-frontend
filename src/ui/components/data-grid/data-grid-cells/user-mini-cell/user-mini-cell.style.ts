@@ -10,8 +10,8 @@ export const useStyles = makeStyles()(() => ({
   },
 
   avatar: {
-    width: 30,
-    height: 30,
+    width: 24,
+    height: 24,
     borderRadius: '50%',
   },
 

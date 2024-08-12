@@ -7,6 +7,6 @@ export const useStyles = makeStyles()(() => ({
 
   tableWrapper: {
     marginTop: 20,
-    height: '62vh',
+    height: '68vh',
   },
 }))

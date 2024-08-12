@@ -197,8 +197,8 @@ export const clientInventoryColumns = ({
 
     {
       field: 'inTransfer',
-      headerName: 'in Transfer',
-      renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
+      headerName: 'In Transfer',
+      renderHeader: () => <MultilineTextHeaderCell text={'In Transfer'} />,
       renderCell: params => (
         <div
           type="submit"
@@ -611,9 +611,7 @@ export const clientInventoryColumns = ({
             },
 
             fields: getProductColumnMenuItems({ withoutTitle: true }),
-            columnMenuConfig: getProductColumnMenuValue({
-              isSimpleSku: true,
-            }),
+            columnMenuConfig: getProductColumnMenuValue(),
             columnKey: columnnsKeys.shared.MULTIPLE,
             width: 260,
             minWidth: 100,

@@ -22,7 +22,7 @@ import { useStyles } from './servant-general-request-info.style'
 
 import { RequestDetailsItem } from './request-details-item/request-details-item'
 
-export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestProposals }) => {
+export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestProposals, onJoinChat }) => {
   const { classes: styles, cx } = useStyles()
 
   const buttonDisabled =
@@ -56,7 +56,9 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
     <div className={styles.mainInfosWrapper}>
       {requestProposals.length === 0 ? null : (
         <div className={styles.headerWrapper}>
-          <p className={styles.cardTitle}>{request?.request.title}</p>
+          <p title={request?.request.title} className={styles.cardTitle}>
+            {request?.request.title}
+          </p>
 
           <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={request?.request.product.asin} />
           <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={request?.request.product.skuByClient} />
@@ -162,7 +164,12 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
           <>
             <Divider orientation={'vertical'} />
             <div className={styles.proposalsWrapper}>
-              <ProposalsSlider isComment proposals={requestProposals} title={t(TranslationKey.Proposal)} />
+              <ProposalsSlider
+                isComment
+                proposals={requestProposals}
+                title={t(TranslationKey.Proposal)}
+                onJoinChat={onJoinChat}
+              />
             </div>
           </>
         )}

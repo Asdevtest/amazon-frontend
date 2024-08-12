@@ -1,3 +1,5 @@
+import { CascaderProps } from 'antd'
+import { DefaultOptionType } from 'antd/es/select'
 import { makeObservable } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -6,52 +8,60 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 import { DataGridTableModel } from '@models/data-grid-table-model'
+import { ParserModel } from '@models/parser-model'
 import { ShopModel } from '@models/shop-model'
-
-import { shopsColumns } from '@components/table/table-columns/shops-columns'
 
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IShop } from '@typings/models/shops/shop'
 
-import { observerConfig } from './model-config'
+import { shopsColumns } from './client-shops-view.columns'
+import { shopsViewModelConfig } from './client-shops-view.config'
+import { IColumnProps } from './client-shops-view.types'
+import { getExportOptionsForShopsView } from './helpers/get-export-options'
 
 export class ShopsViewModel extends DataGridTableModel {
-  selectedShop: IShop | null = null
+  selectedShop?: IShop
+  shopModal = false
+  selectedExportOptions: DefaultOptionType[] = []
 
-  showAddOrEditShopModal = false
-  showConfirmModal = false
+  get disableUpdateButton() {
+    return !this.selectedRows.length || this.requestStatus === loadingStatus.IS_LOADING
+  }
+  get exportOptions() {
+    const generetadOptions = this.filteredData.map(({ name, _id }) => ({ label: name, value: _id }))
+
+    return getExportOptionsForShopsView(generetadOptions, this.selectedExportOptions)
+  }
 
   constructor() {
-    const rowHandlers = {
-      onClickRemoveBtn: (row: IShop) => this.onClickRemoveBtn(row),
-      onClickEditBtn: (row: IShop) => this.onClickEditBtn(row),
-
-      onClickSeeShopReport: (currentReport: string, row: IShop) => this.onClickSeeShopReport(currentReport, row),
+    const columnsProps: IColumnProps = {
+      onRemoveShop: id => this.onRemoveShop(id),
+      onEditShop: row => this.onEditShop(row),
+      onParsingProfile: id => this.onParsingProfile(id),
+      onParsingAccess: email => this.onParsingAccess(email),
+      onParsingStatus: (id, isActive) => this.onParsingStatus(id, isActive),
     }
 
     super({
-      getMainDataMethod: ShopModel.getMyShops,
-      columnsModel: shopsColumns(rowHandlers),
+      getMainDataMethod: ShopModel.getShopsWithProfiles,
+      columnsModel: shopsColumns(columnsProps),
       tableKey: DataGridTablesKeys.CLIENT_SHOPS,
       fieldsForSearch: ['name'],
     })
 
-    makeObservable(this, observerConfig)
-
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
     this.getDataGridState()
-
     this.getCurrentData()
+
+    makeObservable(this, shopsViewModelConfig)
   }
 
-  async updateShops() {
+  async onUpdateShops() {
     try {
       const isMoreThenThree = this.selectedRows?.length > 3
 
-      this.setRequestStatus(loadingStatus.IS_LOADING)
       await ClientModel.updateShops(this.selectedRows, isMoreThenThree)
 
       if (isMoreThenThree) {
@@ -61,98 +71,80 @@ export class ShopsViewModel extends DataGridTableModel {
       }
 
       this.selectedRows = []
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
-
-      toast.error(t(TranslationKey['Something went wrong']))
-
-      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
-  onSubmitShopForm(data: IShop, shopId: string) {
-    this.createShop(data, shopId)
-    this.onTriggerOpenModal('showAddOrEditShopModal')
+  onEditShop(row: IShop) {
+    this.selectedShop = row
+    this.onTriggerOpenModal('shopModal')
   }
 
-  async createShop(data: IShop, shopId: string) {
+  onAddShop() {
+    this.selectedShop = undefined
+    this.onTriggerOpenModal('shopModal')
+  }
+
+  async onRemoveShop(id: string) {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      if (!data.reportAccountUrl) {
-        // @ts-ignore
-        delete data.reportAccountUrl
-      }
-
-      if (shopId) {
-        await ShopModel.editShop(shopId, data)
-
-        toast.success(t(TranslationKey['Store changed']))
-      } else {
-        await ShopModel.createShop(data)
-
-        toast.success(t(TranslationKey['Store created']))
-      }
+      await ShopModel.removeShopById(id)
 
       this.getCurrentData()
-      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-
-      toast.error(t(TranslationKey['Something went wrong']))
-    }
-  }
-
-  async removeShopById() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      await ShopModel.removeShopById(this.selectedShop?._id)
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
 
-  async onSubmitRemoveShop() {
+  async onParsingProfile(id: string) {
     try {
-      await this.removeShopById()
+      await ParserModel.onParsingProfile(id)
+
       this.getCurrentData()
-
-      this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.error(error)
     }
   }
 
-  onClickEditBtn(row: IShop) {
-    this.selectedShop = row
-    this.onTriggerOpenModal('showAddOrEditShopModal')
-  }
+  async onParsingAccess(email: string) {
+    try {
+      await ParserModel.onParsingAccess(email)
 
-  onClickRemoveBtn(row: IShop) {
-    this.selectedShop = row
-    this.confirmModalSettings = {
-      isWarning: false,
-      title: t(TranslationKey.Attention),
-      message: t(TranslationKey['Are you sure you want to delete the store?']),
-      onSubmit: () => this.onSubmitRemoveShop(),
-      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+      toast.error(t(TranslationKey['Profile does not belongs to you!']))
     }
-    this.onTriggerOpenModal('showConfirmModal')
   }
 
-  onClickAddBtn() {
-    this.selectedShop = null
-    this.onTriggerOpenModal('showAddOrEditShopModal')
+  async onParsingStatus(id: string, isActive: boolean) {
+    try {
+      await ParserModel.onParsingStatus(id, isActive)
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+      toast.error(t(TranslationKey['Profile with given guid not found!']))
+    }
   }
 
-  onClickSeeShopReport(currentReport: string, row: IShop) {
-    this.history.push(`/client/shops/reports?currentReport=${currentReport}&shopId=${row?._id}`)
+  async getShopsExport(table: string, shopIds?: string, statusGroup?: string, onAmazon?: boolean) {
+    try {
+      const data = {
+        table,
+        shopIds,
+        statusGroup,
+        onAmazon,
+      }
+
+      await ClientModel.getShopsExport(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onChangeExportOprions: CascaderProps<DefaultOptionType, 'value', true>['onChange'] = values => {
+    this.selectedExportOptions = values
   }
 }

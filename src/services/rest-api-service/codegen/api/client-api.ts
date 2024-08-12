@@ -2259,7 +2259,7 @@ export const ClientApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary Export shops-data
          * @param {'INVENTORY' | 'ORDERS' | 'BATCHES' | 'BOXES'} table Table name
          * @param {string} [shopIds] Array of shop guids, separated by \&quot;,\&quot;
-         * @param {string} [statusGroup] Name of status group for table
+         * @param {string} [statusGroup] Name of status group for table or statuses separated by \&quot;,\&quot;
          * @param {boolean} [onAmazon] Destination flag
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
@@ -3234,7 +3234,7 @@ export const ClientApiFp = function(configuration?: Configuration) {
          * @summary Export shops-data
          * @param {'INVENTORY' | 'ORDERS' | 'BATCHES' | 'BOXES'} table Table name
          * @param {string} [shopIds] Array of shop guids, separated by \&quot;,\&quot;
-         * @param {string} [statusGroup] Name of status group for table
+         * @param {string} [statusGroup] Name of status group for table or statuses separated by \&quot;,\&quot;
          * @param {boolean} [onAmazon] Destination flag
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
@@ -3886,7 +3886,7 @@ export const ClientApiFactory = function (configuration?: Configuration, basePat
          * @summary Export shops-data
          * @param {'INVENTORY' | 'ORDERS' | 'BATCHES' | 'BOXES'} table Table name
          * @param {string} [shopIds] Array of shop guids, separated by \&quot;,\&quot;
-         * @param {string} [statusGroup] Name of status group for table
+         * @param {string} [statusGroup] Name of status group for table or statuses separated by \&quot;,\&quot;
          * @param {boolean} [onAmazon] Destination flag
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
@@ -5328,7 +5328,7 @@ export interface ClientApiApiV1ClientsShopsExportGetRequest {
     readonly shopIds?: string
 
     /**
-     * Name of status group for table
+     * Name of status group for table or statuses separated by \&quot;,\&quot;
      * @type {string}
      * @memberof ClientApiApiV1ClientsShopsExportGet
      */

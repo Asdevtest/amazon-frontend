@@ -213,7 +213,7 @@ export const SelectStorekeeperAndTariffForm = observer(
                   onSubmit(null, null, null, null, null, true)
                 }}
               >
-                {t(TranslationKey.reset)}
+                {t(TranslationKey.Reset)}
               </Button>
             </div>
           )}
