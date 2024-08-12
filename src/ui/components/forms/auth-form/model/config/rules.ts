@@ -6,7 +6,16 @@ import { t } from '@utils/translations'
 
 export const getNameValidationRules = (): Rule[] => [
   { max: 32, message: t(TranslationKey['The name is too long!']) },
-  { required: true, message: t(TranslationKey['Please input your name!']) },
+  // { required: true, message: t(TranslationKey['Please input your name!']) },
+  () => ({
+    validator(_, value) {
+      if (!value?.trim()) {
+        return Promise.reject(new Error(t(TranslationKey['Please input your name!'])))
+      }
+
+      return Promise.resolve()
+    },
+  }),
 ]
 
 export const getEmailValidationRules = (auth?: boolean): Rule[] => {
