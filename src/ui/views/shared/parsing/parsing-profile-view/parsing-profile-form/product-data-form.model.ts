@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ParserModel } from '@models/parser-model'
 
+import { cloneDeep } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { IParsingProfile } from '@typings/models/parser/parsing-profile'
@@ -16,7 +17,7 @@ export class ParsingProfileFormModel {
   profile?: IParsingProfile
 
   constructor(profile?: IParsingProfile) {
-    this.profile = profile
+    this.profile = profile && cloneDeep(profile)
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
