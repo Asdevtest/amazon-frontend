@@ -25,6 +25,7 @@ interface PresetsMenuProps {
   handleCreateTableSettingsPreset: (title: string, colomns: IGridColumn[]) => void
   handleSetPresetActive: (presetId: string) => void
   handleDeleteTableSettingsPreset: (preset: ITablePreset) => void
+  onClickAddQuickAccess: (preset: ITablePreset) => void
   handleUpdateTableSettingsPreset: (presetId: string, colomns: IGridColumn[]) => void
 }
 
@@ -38,6 +39,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
     handleSetPresetActive,
     handleDeleteTableSettingsPreset,
     handleUpdateTableSettingsPreset,
+    onClickAddQuickAccess,
   } = props
 
   const apiRef = useGridApiContext()
@@ -51,7 +53,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
     return defaultPreset
       .concat(presetsTableData)
       ?.map(preset => ({ ...preset, label: preset?.title, value: preset?._id }))
-  }, [presetsTableData])
+  }, [showPresetsSelect, presetsTableData])
 
   const onPresetTitleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => setCreatePresetTitle(event.target.value),
@@ -70,7 +72,6 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
       const handleClickOutside = (event: MouseEvent) => {
         if (selectWrapperRef.current && !selectWrapperRef.current?.contains(event.target as Node)) {
           handleChangeSelectState(false)
-          console.log('click outside')
         }
       }
 
@@ -94,6 +95,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
             preset={preset}
             handleDeletePreset={() => handleDeleteTableSettingsPreset(preset?.data as ITablePreset)}
             handleUpdatePreset={() => onClickUpdatePreset(preset?.data?._id)}
+            onClickAddQuickAccess={() => onClickAddQuickAccess(preset?.data as ITablePreset)}
           />
         )}
         labelRender={preset => preset?.label}

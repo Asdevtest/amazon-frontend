@@ -167,7 +167,7 @@ export class DataGridTableModel extends DefaultModel {
       this.handleUnsetAllPresets()
     }
 
-    this.onChangeShowPresetsSelect(false)
+    // this.onChangeShowPresetsSelect(false)
   }
 
   async handleCreateTableSettingsPreset(title: string, colomns: IGridColumn[]) {
@@ -354,8 +354,30 @@ export class DataGridTableModel extends DefaultModel {
     }
   }
 
+  async onClickAddQuickAccess(selectedPreset: ITablePreset) {
+    try {
+      const newFavoriteState = !selectedPreset?.isFavorite
+
+      await UserModel.patchPresetSettings(selectedPreset?._id, { isFavorite: newFavoriteState })
+
+      runInAction(() => {
+        this.presetsTableData = this.presetsTableData.map(preset => {
+          if (preset._id === selectedPreset?._id) {
+            preset.isFavorite = newFavoriteState
+          }
+
+          return preset
+        })
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   onChangeShowPresetsSelect(value: boolean) {
-    this.onTriggerOpenModal('showPresetsSelect', value)
+    if (value !== undefined) {
+      this.onTriggerOpenModal('showPresetsSelect', value)
+    }
   }
 
   /**

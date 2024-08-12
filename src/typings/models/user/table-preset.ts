@@ -3,6 +3,7 @@ export interface ITablePreset {
   _id: string
   endpoint: string
   activeSetting: boolean
+  isFavorite: boolean
   settings: any
   title: string
   createdAt: string

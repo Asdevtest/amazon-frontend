@@ -33,7 +33,7 @@ export const ClientOrdersView = observer(history => {
   const apiRef = useGridApiRef()
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.flexRow}>
         <CustomInputSearch
           enterButton
@@ -116,6 +116,7 @@ export const ClientOrdersView = observer(history => {
                 handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
                 handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
                 handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+                onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
               },
             },
           }}
@@ -231,6 +232,6 @@ export const ClientOrdersView = observer(history => {
       >
         <ProductDataForm product={viewModel.selectedWarehouseOrderProduct} onAmazon={viewModel.onAmazon} />
       </Modal>
-    </>
+    </div>
   )
 })

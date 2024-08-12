@@ -43,4 +43,5 @@ export const observerConfig = {
   getPresetSettingForSave: action.bound,
   checkNestedFields: action.bound,
   onChangeShowPresetsSelect: action.bound,
+  onClickAddQuickAccess: action.bound,
 }

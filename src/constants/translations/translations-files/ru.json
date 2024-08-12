@@ -2035,5 +2035,6 @@
   "Standart": "Стандарт",
   "Important": "Важно",
   "Box dimensions don't meet carrier requirements!": "Размеры коробки не соответствуют требованиям перевозчика!",
-  "Time until server shutdown": "Время до завершения работы сервера"
+  "Time until server shutdown": "Время до завершения работы сервера",
+  "Remove from quick access": "Удалить из быстрого доступа"
 }
