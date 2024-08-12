@@ -84,7 +84,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
   }, [showPresetsSelect])
 
   return (
-    <div ref={selectWrapperRef} id="presets">
+    <div ref={selectWrapperRef} id="presets" onClick={() => handleChangeSelectState(!showPresetsSelect)}>
       <CustomSelect
         getPopupContainer={() => document.getElementById('presets') as HTMLElement}
         open={showPresetsSelect}
@@ -123,7 +123,6 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
             </div>
           </>
         )}
-        onFocus={() => handleChangeSelectState(true)}
         onChange={handleSetPresetActive}
       />
     </div>

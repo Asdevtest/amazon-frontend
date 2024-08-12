@@ -108,7 +108,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
           destroyPopupOnHide
           menu={{ items }}
           placement="bottomLeft"
-          trigger={['click']}
+          trigger={['hover']}
           arrow={{ pointAtCenter: true }}
           getPopupContainer={() => document.getElementById('presets') as HTMLElement}
         >
