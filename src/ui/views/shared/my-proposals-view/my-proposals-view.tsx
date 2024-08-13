@@ -27,9 +27,8 @@ import { MyProposalsViewModel } from './my-proposals-view.model'
 
 export const MyProposalsView = observer(({ allProposals }) => {
   const { classes: styles } = useStyles()
-  const history = useHistory()
 
-  const [viewModel] = useState(() => new MyProposalsViewModel({ history, allProposals }))
+  const [viewModel] = useState(() => new MyProposalsViewModel({ allProposals }))
 
   useEffect(() => {
     viewModel.loadData()

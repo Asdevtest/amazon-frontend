@@ -8,6 +8,7 @@ import { freelanceRequestType } from '@constants/statuses/freelance-request-type
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
@@ -27,17 +28,7 @@ import { Specs } from '@typings/enums/specs'
 
 import { executedStatuses, filtersFields, inTheWorkStatuses, switcherConditions } from './my-proposals-view.constants'
 
-export class MyProposalsViewModel {
-  // * Pagination & Sort
-  rowCount = 0
-  sortModel = []
-  densityModel = 'compact'
-  paginationModel = { page: 0, pageSize: 15 }
-  filterModel = { items: [] }
-  selectedRowIds = []
-  // * Table settings
-  currentSettings = undefined
-  columnVisibilityModel = { requestCreatedBy: false }
+export class MyProposalsViewModel extends DataGridFilterTableModel {
   rowHandlers = {
     onClickDeleteButton: (proposalId, proposalStatus) => this.onClickDeleteBtn(proposalId, proposalStatus),
     onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),
@@ -45,23 +36,21 @@ export class MyProposalsViewModel {
     onClickOpenButton: requestId => this.onClickOpenBtn(requestId),
     onChangePerformer: (id, userId) => this.onChangePerformer(id, userId),
   }
+
   columnsModel = freelancerMyProposalsColumns(this.rowHandlers)
+
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
-      this.onLeaveColumnField()
       this.getRequestsProposalsPagMy()
     },
     filterRequestStatus: undefined,
     ...dataGridFiltersInitializer(filtersFields),
   }
-  currentSearchValue = ''
-  history = undefined
-  requestStatus = undefined
+
   currentProposal = null
   currentRequest = null
-  searchMyRequestsIds = []
   requests = []
   selectedProposalFilters = Object.keys(RequestProposalStatus).map(el => ({
     name: RequestProposalStatusTranslate(el),
@@ -81,12 +70,6 @@ export class MyProposalsViewModel {
   switcherCondition = switcherConditions.inTheWork
   viewMode = tableViewMode.TABLE
   sortMode = tableSortMode.DESK
-  confirmModalSettings = {
-    isWarning: false,
-    confirmTitle: '',
-    confirmMessage: '',
-    onClickConfirm: () => {},
-  }
   tableKey = DataGridTablesKeys.FREELANCER_MY_PROPOSALS
   allProposals = false
   get userInfo() {
@@ -98,8 +81,8 @@ export class MyProposalsViewModel {
   get currentData() {
     return this.requests
   }
-  constructor({ history, allProposals }) {
-    this.history = history
+
+  constructor({ allProposals }) {
     this.allProposals = allProposals
     this.tableKey = allProposals
       ? DataGridTablesKeys.FREELANCER_ALL_PROPOSALS
@@ -107,6 +90,7 @@ export class MyProposalsViewModel {
     this.setDefaultStatuses()
     makeAutoObservable(this, undefined, { autoBind: true })
   }
+
   onChangeViewMode(value) {
     this.viewMode = value
   }
@@ -129,18 +113,22 @@ export class MyProposalsViewModel {
     }
     this.requests = this.getFilteredRequests()
   }
+
   onClickDeleteBtn(proposalId, proposalStatus) {
     this.confirmModalSettings = {
       isWarning: true,
-      confirmTitle: t(TranslationKey.Attention),
-      confirmMessage: t(TranslationKey['Are you sure you want to cancel the proposal?']),
-      onClickConfirm: () => {
+      title: t(TranslationKey.Attention),
+      message: t(TranslationKey['Are you sure you want to cancel the proposal?']),
+      onSubmit: () => {
         this.cancelProposalHandler(proposalId, proposalStatus)
         this.onTriggerOpenModal('showConfirmModal')
       },
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
+
     this.onTriggerOpenModal('showConfirmModal')
   }
+
   async cancelProposalHandler(proposalId, proposalStatus) {
     try {
       if (
@@ -157,34 +145,15 @@ export class MyProposalsViewModel {
       console.error(error)
     }
   }
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
-    }
-    TableSettingsModel.saveTableSettings(requestState, this.tableKey)
-  }
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(this.tableKey)
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(state.filterModel)
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
-  }
 
   onChangeRadioButtonOption(event) {
     const currentValue = event.target.value
     this.radioButtonOption = currentValue
 
-    // spec - for "_id:string", specType - for "type:number"
     this.onChangeFullFieldMenuItem(currentValue === Specs.DEFAULT ? [] : [currentValue], 'specType', true)
-
     this.getRequestsProposalsPagMy()
   }
+
   onClickEditBtn(requestId, proposalId) {
     this.history.push(
       `/${
@@ -193,14 +162,16 @@ export class MyProposalsViewModel {
     )
   }
   onClickOpenBtn(requestId) {
-    const win = window.open(
-      `${window.location.origin}/${
-        UserRoleCodeMapForRoutes[this.userInfo.role]
-      }/freelance/my-proposals/custom-search-request?request-id=${requestId}`,
-      '_blank',
-    )
-    win?.focus()
+    window
+      ?.open?.(
+        `${window.location.origin}/${
+          UserRoleCodeMapForRoutes[this.userInfo.role]
+        }/freelance/my-proposals/custom-search-request?request-id=${requestId}`,
+        '_blank',
+      )
+      ?.focus?.()
   }
+
   loadData() {
     try {
       this.getDataGridState()
@@ -209,6 +180,7 @@ export class MyProposalsViewModel {
       console.error(error)
     }
   }
+
   async getRequestsProposalsPagMy() {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
@@ -228,14 +200,11 @@ export class MyProposalsViewModel {
         this.requests = myProposalsDataConverter(response.rows)
         this.rowCount = response.count
       })
+
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
-      runInAction(() => {
-        this.requests = []
-        this.rowCount = 0
-      })
     }
   }
   async getProposalById(proposalId) {
@@ -277,10 +246,6 @@ export class MyProposalsViewModel {
     }
   }
 
-  onSearchSubmit(value) {
-    this.currentSearchValue = value
-    this.getRequestsProposalsPagMy()
-  }
   getFilters(exclusion) {
     return objectToUrlQs(
       dataGridFiltersConverter(this.columnMenuSettings, this.currentSearchValue, exclusion, filtersFields, [
@@ -291,36 +256,19 @@ export class MyProposalsViewModel {
       ]),
     )
   }
-  getTableByColumn(column) {
-    if (['status', 'createdBy', 'sub', 'updatedAt', 'reworkCounter', 'requestCreatedBy'].includes(column)) {
-      return 'proposals'
-    } else if (
-      [
-        'humanFriendlyId',
-        'priority',
-        'title',
-        'maxAmountOfProposals',
-        'timeoutAt',
-        'requestCreatedBy',
-        'taskComplexity',
-        'spec',
-        'announcement',
-      ].includes(column)
-    ) {
-      return 'requests'
-    } else if (['asin', 'skuByClient', 'amazonTitle', 'shop'].includes(column)) {
-      return 'products'
-    }
-  }
+
   async onClickFilterBtn(column) {
     try {
       this.setFilterRequestStatus(loadingStatus.IS_LOADING)
+
       const mainUrl = this.allProposals ? 'request-proposals/pag/my_all?filters=' : 'request-proposals/pag/my?filters='
+
       const data = await GeneralModel.getDataForColumn(
         this.getTableByColumn(column),
         column,
         `${mainUrl}${this.getFilters(column)}`,
       )
+
       if (this.columnMenuSettings[column]) {
         runInAction(() => {
           const filterData =
@@ -344,31 +292,7 @@ export class MyProposalsViewModel {
       console.error(error)
     }
   }
-  onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings[field].currentFilterData = value
-  }
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
-  }
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-  onPaginationModelChange(model) {
-    this.paginationModel = model
-    this.getRequestsProposalsPagMy()
-  }
-  onColumnVisibilityModelChange(model) {
-    this.columnVisibilityModel = model
-    this.setDataGridState()
-  }
-  onChangeFilterModel(model) {
-    this.filterModel = model
-  }
-  onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
-    this.setDataGridState()
-    this.getRequestsProposalsPagMy()
-  }
+
   onClickResetFilters() {
     this.radioButtonOption = Specs.DEFAULT
 
@@ -379,16 +303,12 @@ export class MyProposalsViewModel {
     this.setDefaultStatuses()
     this.getRequestsProposalsPagMy()
   }
-  onLeaveColumnField() {
-    this.onHover = null
-  }
-  setFilterRequestStatus(requestStatus) {
-    this.columnMenuSettings.filterRequestStatus = requestStatus
-  }
-  onOpenRequestDetailModal(id) {
-    if (window.getSelection().toString()) {
+
+  onOpenRequestDetailModal(id: string) {
+    if (window?.getSelection?.()?.toString?.()) {
       return
     }
+
     try {
       this.getRequestById(id)
       this.onTriggerOpenModal('showRequestDetailModal')
@@ -396,6 +316,7 @@ export class MyProposalsViewModel {
       console.error(error)
     }
   }
+
   setDefaultStatuses() {
     this.onChangeFullFieldMenuItem(this.isInTheWork ? inTheWorkStatuses : executedStatuses, 'status')
   }
@@ -469,7 +390,8 @@ export class MyProposalsViewModel {
       console.error(error)
     }
   }
-  async onChangePerformer(id, userId) {
+
+  async onChangePerformer(id: string, userId: string) {
     try {
       await RequestProposalModel.onChangePerformer(id, userId)
       toast.success(t(TranslationKey['Performer was changed successfully']))
