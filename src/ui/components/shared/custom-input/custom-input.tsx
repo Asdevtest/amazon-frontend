@@ -13,6 +13,7 @@ const { Password } = Input
 
 interface CustomInputProps extends InputProps, IDefaultPropsExtensionAntdComponent {
   password?: boolean
+  fullWidth?: boolean
 }
 
 export const CustomInput: FC<CustomInputProps> = memo(props => {
@@ -26,6 +27,7 @@ export const CustomInput: FC<CustomInputProps> = memo(props => {
     className,
     labelClassName,
     wrapperClassName,
+    fullWidth,
     ...restProps
   } = props
 
@@ -34,7 +36,13 @@ export const CustomInput: FC<CustomInputProps> = memo(props => {
   const Component = password ? Password : Input
 
   return (
-    <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
+    <div
+      className={cx(
+        styles.root,
+        { [styles.cell]: isCell, [styles.row]: isRow, [styles.input]: fullWidth },
+        wrapperClassName,
+      )}
+    >
       {label ? (
         <p className={cx(styles.label, labelClassName)}>
           {t(TranslationKey[label as TranslationKey])}

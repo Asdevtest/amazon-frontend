@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ParserModel } from '@models/parser-model'
 
+import { cloneDeep } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { IParsingProfile } from '@typings/models/parser/parsing-profile'
@@ -16,7 +17,7 @@ export class ParsingProfileFormModel {
   profile?: IParsingProfile
 
   constructor(profile?: IParsingProfile) {
-    this.profile = profile
+    this.profile = profile && cloneDeep(profile)
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -52,8 +53,8 @@ export class ParsingProfileFormModel {
         spreadsheetsIdImport: values.spreadsheetsIdImport,
         otp: values.otp,
         isActive: this.profile?.isActive,
-        shopId: this.profile?.shop?._id || '',
-        clientId: this.profile?.client?._id || '',
+        shopId: this.profile?.shop?._id || null,
+        clientId: this.profile?.client?._id || null,
       }
       await ParserModel.editProfile(id, data)
 

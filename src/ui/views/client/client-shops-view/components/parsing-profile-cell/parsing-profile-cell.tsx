@@ -4,6 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell, TextCell } from '@components/data-grid/data-grid-cells'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -32,7 +33,7 @@ export const ParsingProfileCell: FC<ParsingProfileCellProps> = memo(props => {
       isFirstButton
       firstButtonElement={t(TranslationKey.Ask)}
       firstButtonStyle={ButtonStyle.PRIMARY}
-      onClickFirstButton={onConfirm}
+      onClickFirstButton={throttle(onConfirm)}
     />
   )
 })
