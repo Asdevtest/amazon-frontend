@@ -52,8 +52,8 @@ export class ParsingProfileFormModel {
         spreadsheetsIdImport: values.spreadsheetsIdImport,
         otp: values.otp,
         isActive: this.profile?.isActive,
-        shopId: this.profile?.shop?._id || '',
-        clientId: this.profile?.client?._id || '',
+        shopId: this.profile?.shop?._id || null,
+        clientId: this.profile?.client?._id || null,
       }
       await ParserModel.editProfile(id, data)
 
