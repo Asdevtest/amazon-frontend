@@ -144,7 +144,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Waiting for checks'])} />,
       type: 'number',
       align: 'center',
-      renderCell: params => <TextCell text={params.row.countProposalsByStatuses.waitedProposals} />,
+      renderCell: params => <TextCell center text={params.row.countProposalsByStatuses.waitedProposals} />,
       width: 120,
 
       // columnKey: columnnsKeys.shared.QUANTITY,
@@ -156,7 +156,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Unread messages'])} />,
       type: 'number',
       align: 'center',
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <TextCell center text={params.value} />,
       width: 130,
     },
 
