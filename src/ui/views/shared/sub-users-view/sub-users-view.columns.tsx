@@ -1,4 +1,4 @@
-import { BsPersonFillLock } from 'react-icons/bs'
+import { BsPersonFillGear } from 'react-icons/bs'
 import { RiCloseFill } from 'react-icons/ri'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
@@ -72,7 +72,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
           isFirstButton
           isSecondButton
           iconButton
-          firstButtonElement={<BsPersonFillLock />}
+          firstButtonElement={<BsPersonFillGear style={{ fill: 'currentColor' }} />}
           firstButtonStyle={ButtonStyle.PRIMARY}
           secondButtonElement={<RiCloseFill />}
           secondButtonStyle={ButtonStyle.DANGER}
