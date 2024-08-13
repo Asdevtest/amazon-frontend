@@ -81,12 +81,13 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
     <Form name="user-form" size="large" form={form} rootClassName={styles.form} onFinish={onFinish}>
       {!auth ? (
         <Form.Item hasFeedback name="name" validateTrigger="onBlur" rules={nameValidationRules}>
-          <CustomInput maxLength={MAX_INPUT_LENGTH} placeholder="Name" prefix={<RiUser3Line />} />
+          <CustomInput fullWidth={editUser} maxLength={MAX_INPUT_LENGTH} placeholder="Name" prefix={<RiUser3Line />} />
         </Form.Item>
       ) : null}
 
       <Form.Item<FieldData> hasFeedback validateTrigger="onBlur" name="email" rules={emailValidationRules}>
         <CustomInput
+          fullWidth={editUser}
           maxLength={MAX_INPUT_LENGTH}
           disabled={editUser}
           placeholder="Email"
@@ -104,6 +105,7 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
         >
           <CustomInput
             password
+            fullWidth={editUser}
             maxLength={MAX_INPUT_LENGTH}
             type="password"
             placeholder="Old password"
@@ -122,6 +124,7 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
       >
         <CustomInput
           password
+          fullWidth={editUser}
           maxLength={MAX_INPUT_LENGTH}
           type="password"
           placeholder={editUser ? 'New password' : 'Password'}
@@ -140,6 +143,7 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
         >
           <CustomInput
             password
+            fullWidth={editUser}
             maxLength={MAX_INPUT_LENGTH}
             placeholder="Confirm password"
             prefix={<RiLockPasswordLine />}
