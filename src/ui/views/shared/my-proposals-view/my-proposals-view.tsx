@@ -30,10 +30,6 @@ export const MyProposalsView = observer(({ allProposals }) => {
 
   const [viewModel] = useState(() => new MyProposalsViewModel({ allProposals }))
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   return (
     <>
       <div className={styles.tablePanelWrapper}>
@@ -55,7 +51,7 @@ export const MyProposalsView = observer(({ allProposals }) => {
 
         <FreelanceTypeTaskSelect
           specs={viewModel.userInfo?.allowedSpec}
-          selectedSpec={viewModel.radioButtonOption}
+          selectedSpec={viewModel.selectedSpecType}
           onClickSpec={viewModel.onChangeRadioButtonOption}
         />
       </div>
@@ -103,11 +99,11 @@ export const MyProposalsView = observer(({ allProposals }) => {
           isWarning
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-          title={viewModel.confirmModalSettings.confirmTitle}
-          message={viewModel.confirmModalSettings.confirmMessage}
+          title={viewModel.confirmModalSettings.title}
+          message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}

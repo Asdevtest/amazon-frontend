@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, makeObservable, runInAction, toJS } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -15,10 +15,9 @@ import { RequestProposalModel } from '@models/request-proposal'
 import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
-import { freelancerMyProposalsColumns } from '@components/table/table-columns/freelancer/freelancer-my-proposals-columns'
-
 import { myProposalsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -26,38 +25,27 @@ import { onSubmitPostImages } from '@utils/upload-files'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { Specs } from '@typings/enums/specs'
 
-import { executedStatuses, filtersFields, inTheWorkStatuses, switcherConditions } from './my-proposals-view.constants'
+import {
+  additionalFields,
+  executedStatuses,
+  fieldsForSearch,
+  filtersFields,
+  inTheWorkStatuses,
+  switcherConditions,
+} from './my-proposals-view.constants'
+import { observerConfig } from './observer-config'
+import { proposalsColumns } from './proposals-columns'
 
 export class MyProposalsViewModel extends DataGridFilterTableModel {
-  rowHandlers = {
-    onClickDeleteButton: (proposalId, proposalStatus) => this.onClickDeleteBtn(proposalId, proposalStatus),
-    onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),
-    onClickResultButton: proposalId => this.onClickResultBtn(proposalId),
-    onClickOpenButton: requestId => this.onClickOpenBtn(requestId),
-    onChangePerformer: (id, userId) => this.onChangePerformer(id, userId),
-  }
-
-  columnsModel = freelancerMyProposalsColumns(this.rowHandlers)
-
-  columnMenuSettings = {
-    onClickFilterBtn: field => this.onClickFilterBtn(field),
-    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    onClickAccept: () => {
-      this.getRequestsProposalsPagMy()
-    },
-    filterRequestStatus: undefined,
-    ...dataGridFiltersInitializer(filtersFields),
-  }
-
   currentProposal = null
   currentRequest = null
-  requests = []
+
   selectedProposalFilters = Object.keys(RequestProposalStatus).map(el => ({
     name: RequestProposalStatusTranslate(el),
     _id: el,
   }))
 
-  radioButtonOption = Specs.DEFAULT
+  selectedSpecType = Specs.DEFAULT
 
   showRequestDetailModal = false
   showConfirmModal = false
@@ -65,53 +53,62 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
   showRequestDesignerResultClientModal = false
   showMainRequestResultModal = false
   showRequestResultModal = false
-  selectedProposal = undefined
+
   isInTheWork = true
   switcherCondition = switcherConditions.inTheWork
-  viewMode = tableViewMode.TABLE
-  sortMode = tableSortMode.DESK
-  tableKey = DataGridTablesKeys.FREELANCER_MY_PROPOSALS
-  allProposals = false
+
   get userInfo() {
     return UserModel.userInfo
   }
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
-  get currentData() {
-    return this.requests
-  }
 
   constructor({ allProposals }) {
-    this.allProposals = allProposals
-    this.tableKey = allProposals
-      ? DataGridTablesKeys.FREELANCER_ALL_PROPOSALS
-      : DataGridTablesKeys.FREELANCER_MY_PROPOSALS
-    this.setDefaultStatuses()
-    makeAutoObservable(this, undefined, { autoBind: true })
-  }
+    const rowHandlers = {
+      onClickDeleteButton: (proposalId, proposalStatus) => this.onClickDeleteBtn(proposalId, proposalStatus),
+      onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),
+      onClickResultButton: proposalId => this.onClickResultBtn(proposalId),
+      onClickOpenButton: requestId => this.onClickOpenBtn(requestId),
+      onChangePerformer: (id, userId) => this.onChangePerformer(id, userId),
+    }
 
-  onChangeViewMode(value) {
-    this.viewMode = value
-  }
-  onSelectProposalFilter(item) {
-    if (this.selectedProposalFilters.some(el => el._id === item._id)) {
-      this.selectedProposalFilters = this.selectedProposalFilters.filter(el => el._id !== item._id)
-    } else {
-      this.selectedProposalFilters.push(item)
+    const columnsModel = proposalsColumns(rowHandlers)
+
+    const additionalPropertiesGetFilters = () => {
+      const specTypeFilters = this.columnMenuSettings.specType.currentFilterData
+      const isDefaultSpecType = this.selectedSpecType === Specs.DEFAULT
+
+      return {
+        ...(!isDefaultSpecType && specTypeFilters?.length === 0 ? { specType: { $eq: this.selectedSpecType } } : {}),
+      }
     }
-    this.requests = this.getFilteredRequests()
-  }
-  handleSelectAllProposalStatuses() {
-    if (this.selectedProposalFilters.length === Object.keys(RequestProposalStatus).length) {
-      this.selectedProposalFilters = []
-    } else {
-      this.selectedProposalFilters = Object.keys(RequestProposalStatus).map(el => ({
-        name: RequestProposalStatusTranslate(el),
-        _id: el,
-      }))
-    }
-    this.requests = this.getFilteredRequests()
+
+    super({
+      getMainDataMethod: allProposals
+        ? RequestProposalModel.getRequestProposalsPagMyAll
+        : RequestProposalModel.getRequestProposalsPagMy,
+      columnsModel,
+      filtersFields: getFilterFields(columnsModel, additionalFields),
+      mainMethodURL: allProposals ? 'request-proposals/pag/my_all?' : 'request-proposals/pag/my?',
+      fieldsForSearch,
+      tableKey: allProposals ? DataGridTablesKeys.FREELANCER_ALL_PROPOSALS : DataGridTablesKeys.FREELANCER_MY_PROPOSALS,
+      additionalPropertiesGetFilters,
+    })
+
+    // defaultGetCurrentDataOptions,
+    // additionalPropertiesColumnMenuSettings,
+    // additionalPropertiesGetFilters,
+    // operatorsSettings,
+    // defaultFilterParams,
+
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+
+    this.getDataGridState()
+    this.getCurrentData()
+
+    this.setDefaultStatuses()
+    makeObservable(this, observerConfig)
   }
 
   onClickDeleteBtn(proposalId, proposalStatus) {
@@ -131,27 +128,25 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
 
   async cancelProposalHandler(proposalId, proposalStatus) {
     try {
-      if (
-        proposalStatus === RequestProposalStatus.CREATED ||
-        proposalStatus === RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
-        proposalStatus === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED
-      ) {
-        await RequestProposalModel.requestProposalCancelBeforDeal(proposalId)
-      } else {
-        await RequestProposalModel.requestProposalCancel(proposalId)
+      switch (proposalStatus) {
+        case RequestProposalStatus.CREATED:
+        case RequestProposalStatus.OFFER_CONDITIONS_REJECTED:
+        case RequestProposalStatus.OFFER_CONDITIONS_CORRECTED:
+          await RequestProposalModel.requestProposalCancelBeforDeal(proposalId)
+          break
+        default:
+          await RequestProposalModel.requestProposalCancel(proposalId)
       }
-      this.loadData()
+
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
   }
 
   onChangeRadioButtonOption(event) {
-    const currentValue = event.target.value
-    this.radioButtonOption = currentValue
-
-    this.onChangeFullFieldMenuItem(currentValue === Specs.DEFAULT ? [] : [currentValue], 'specType', true)
-    this.getRequestsProposalsPagMy()
+    this.selectedSpecType = event.target.value
+    this.getCurrentData()
   }
 
   onClickEditBtn(requestId, proposalId) {
@@ -170,15 +165,6 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
         '_blank',
       )
       ?.focus?.()
-  }
-
-  loadData() {
-    try {
-      this.getDataGridState()
-      this.getRequestsProposalsPagMy()
-    } catch (error) {
-      console.error(error)
-    }
   }
 
   async getRequestsProposalsPagMy() {
@@ -293,17 +279,6 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickResetFilters() {
-    this.radioButtonOption = Specs.DEFAULT
-
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      ...dataGridFiltersInitializer(filtersFields),
-    }
-    this.setDefaultStatuses()
-    this.getRequestsProposalsPagMy()
-  }
-
   onOpenRequestDetailModal(id: string) {
     if (window?.getSelection?.()?.toString?.()) {
       return
@@ -385,7 +360,8 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
           ],
         }),
       })
-      this.loadData()
+
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
@@ -395,7 +371,8 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
     try {
       await RequestProposalModel.onChangePerformer(id, userId)
       toast.success(t(TranslationKey['Performer was changed successfully']))
-      this.loadData()
+
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }

@@ -25,6 +25,10 @@ export const filtersFields = [
   'specType',
 ]
 
+export const additionalFields = ['skuByClient', 'amazonTitle']
+
+export const fieldsForSearch = ['asin', 'title', 'humanFriendlyId', 'skuByClient']
+
 export const switcherConditions = {
   inTheWork: 'inTheWork',
   executed: 'executed',
