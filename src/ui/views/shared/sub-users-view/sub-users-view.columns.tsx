@@ -1,5 +1,5 @@
 import { BsPersonFillGear } from 'react-icons/bs'
-import { RiCloseFill } from 'react-icons/ri'
+import { MdOutlineDelete } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -74,7 +74,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
           iconButton
           firstButtonElement={<BsPersonFillGear style={{ fill: 'currentColor' }} />}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<RiCloseFill />}
+          secondButtonElement={<MdOutlineDelete size={18} />}
           secondButtonStyle={ButtonStyle.DANGER}
           secondDescriptionText="Are you sure you want to unbind the sub-user?"
           onClickFirstButton={() => onClickEdit(row)}
