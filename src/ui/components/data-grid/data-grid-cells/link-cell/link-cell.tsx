@@ -18,7 +18,7 @@ export const LinkCell: FC<LinkCellProps> = memo(({ value }) => {
   const [isHover, onMouseFunctions] = useHover()
 
   const validLink = checkIsHasHttp(value) ? value : getAmazonImageUrl(value, true)
-  const copyable = isHover ? { text: validLink, tooltips: isHover } : false
+  const copyable = isHover ? { text: validLink } : false
 
   return value ? (
     <Link
