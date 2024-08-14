@@ -788,6 +788,7 @@ export const EditOrderModal = memo(
         </div>
 
         <Modal
+          missClickModalOn
           openModal={collapseCreateOrEditBoxBlock}
           setOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
         >
