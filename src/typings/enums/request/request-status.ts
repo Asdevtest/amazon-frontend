@@ -3,3 +3,5 @@ export enum RequestStatus {
   REJECTED = 'REJECTED',
   APPROVED = 'APPROVED',
 }
+
+export type RequestStatusType = 'PENDING' | 'REJECTED' | 'APPROVED'

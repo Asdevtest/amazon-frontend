@@ -73,7 +73,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
           onRejectProfile={() => onRejectProfile(row._id)}
         />
       ),
-      width: 115,
+      width: 160,
       disableCustomSort: true,
       filterable: false,
     },
