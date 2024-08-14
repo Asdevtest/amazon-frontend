@@ -4,8 +4,8 @@ import { OrderStatusByCode, OrderStatusTranslate, orderColorByStatus } from '@co
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  BarCodeCell,
   DeadlineCell,
-  DownloadAndCopyBtnsCell,
   IconHeaderCell,
   ManyUserLinkCell,
   MultilineTextHeaderCell,
@@ -130,14 +130,9 @@ export const pendingOrdersColumns = () => {
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-      renderCell: params => (
-        <DownloadAndCopyBtnsCell
-          value={params.row.product.barCode}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        />
-      ),
+      renderCell: params => <BarCodeCell value={params.row.product.barCode} />,
       disableCustomSort: true,
-      minWidth: 210,
+      minWidth: 100,
       align: 'center',
     },
 

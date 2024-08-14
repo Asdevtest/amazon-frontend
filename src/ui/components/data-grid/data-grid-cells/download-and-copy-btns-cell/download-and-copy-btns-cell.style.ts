@@ -1,25 +1,15 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
-  shopsReportBtnsWrapper: {
+export const useStyles = makeStyles()(theme => ({
+  link: {
+    padding: '10px 0',
+    fontSize: '18px',
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
   },
 
-  downloadLink: {
-    color: 'currentColor',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '0 10px',
-
-    width: '100%',
-    height: '100%',
-  },
-
-  copyImgButton: {
-    padding: 5,
+  icon: {
+    padding: '2px',
+    border: `1px solid ${theme.palette.primary.main}`,
+    borderRadius: '50%',
   },
 }))

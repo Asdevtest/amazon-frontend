@@ -20,7 +20,7 @@ export { CreateCardIdeaActionsCell } from './create-card-idea-actions/create-car
 export { CustomDestinationsCell } from './custom-destinations-cell/custom-destinations-cell'
 export { DatePickerCell } from './date-picker-cell/date-picker-cell'
 export { DeadlineCell } from './deadline-cell/deadline-cell'
-export { DownloadAndCopyBtnsCell } from './download-and-copy-btns-cell/download-and-copy-btns-cell'
+export { BarCodeCell } from './download-and-copy-btns-cell/download-and-copy-btns-cell'
 export { DownloadAndPrintFilesCell } from './download-and-print-files-cell/download-and-print-files-cell'
 export { FeesValuesWithCalculateBtnCell } from './fees-values-with-calculate-btn-cell/fees-values-with-calculate-btn-cell'
 export { FilesCell } from './files-cell/files-cell'

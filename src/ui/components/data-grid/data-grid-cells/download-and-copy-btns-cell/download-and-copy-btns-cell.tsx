@@ -1,66 +1,35 @@
-import { FC, MouseEvent, memo } from 'react'
-
-import { TranslationKey } from '@constants/translations/translation-key'
-
-import { Button } from '@components/shared/button'
-import { CopyValue } from '@components/shared/copy-value'
+import Link from 'antd/es/typography/Link'
+import { FC, memo } from 'react'
+import { LiaExternalLinkAltSolid } from 'react-icons/lia'
 
 import { checkIsHasHttp } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { useHover } from '@hooks/use-hover'
 
 import { useStyles } from './download-and-copy-btns-cell.style'
 
-interface DownloadAndCopyBtnsCellProps {
+interface BarCodeCellProps {
   value: string
-  isFirstRow?: boolean
-  showViewTooltip?: boolean
 }
 
-export const DownloadAndCopyBtnsCell: FC<DownloadAndCopyBtnsCellProps> = memo(
-  ({ value, isFirstRow, showViewTooltip = true }) => {
-    const { classes: styles } = useStyles()
+export const BarCodeCell: FC<BarCodeCellProps> = memo(({ value }) => {
+  const { classes: styles } = useStyles()
+  const [isHover, onMouseFunctions] = useHover()
 
-    const validLink = checkIsHasHttp(value) ? value : getAmazonImageUrl(value, true)
+  const validLink = checkIsHasHttp(value) ? value : getAmazonImageUrl(value, true)
+  const copyable = isHover ? { text: validLink, tooltips: isHover } : false
 
-    const isShowViewTooltip = isFirstRow && showViewTooltip
-
-    return (
-      <>
-        {value ? (
-          <div className={styles.shopsReportBtnsWrapper}>
-            <Button
-              isTableButton
-              variant={ButtonVariant.OUTLINED}
-              tooltipInfoContent={isShowViewTooltip ? t(TranslationKey['Download the file to your device']) : ''}
-            >
-              <a
-                download
-                target="_blank"
-                rel="noreferrer noopener"
-                href={validLink}
-                className={styles.downloadLink}
-                onClick={(e: MouseEvent<HTMLElement>) => e.stopPropagation()}
-              >
-                {t(TranslationKey.View)}
-              </a>
-            </Button>
-
-            <Button
-              isTableButton
-              styleType={ButtonStyle.TRANSPARENT}
-              tooltipInfoContent={isFirstRow ? t(TranslationKey['Copy the link']) : ''}
-              className={styles.copyImgButton}
-            >
-              <CopyValue text={validLink} />
-            </Button>
-          </div>
-        ) : (
-          <p>{'-'}</p>
-        )}
-      </>
-    )
-  },
-)
+  return value ? (
+    <Link
+      {...onMouseFunctions}
+      copyable={copyable}
+      target="_blank"
+      href={validLink}
+      className={styles.link}
+      onClick={e => e.stopPropagation()}
+    >
+      <LiaExternalLinkAltSolid size={28} className={styles.icon} />
+    </Link>
+  ) : null
+})
