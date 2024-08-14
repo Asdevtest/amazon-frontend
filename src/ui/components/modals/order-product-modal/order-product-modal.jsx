@@ -389,8 +389,8 @@ export const OrderProductModal = memo(props => {
               <TableCell className={styles.totalCell}>
                 <Text className={styles.totalCellBtn}>{t(TranslationKey['Price variations'])}</Text>
               </TableCell>
-              <TableCell className={styles.LinkCell}>
-                <Text className={styles.LinkCellBtn}>
+              <TableCell className={styles.barCodeCell}>
+                <Text className={styles.barCodeCellBtn}>
                   {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency Codes'])}`}
                 </Text>
               </TableCell>
