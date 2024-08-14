@@ -1,3 +1,4 @@
+import { RequestStatus } from '@typings/enums/request/request-status'
 import { IShop } from '@typings/models/shops/shop'
 
 export interface IColumnProps {
@@ -8,11 +9,9 @@ export interface IColumnProps {
   onParsingStatus: (id: string, isActive: boolean) => void
 }
 
-export type RequestStatusType = 'PENDING' | 'REJECTED' | 'APPROVED'
-
 export interface IShopProfile {
   access: boolean
   email: string
   isActive: boolean
-  requestStatus: RequestStatusType
+  requestStatus: RequestStatus
 }

@@ -62,7 +62,8 @@ export const shopsColumns = (props: IColumnProps) => {
       headerName: t(TranslationKey['Parsing status']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing status'])} />,
       renderCell: ({ row }: GridRowModel) => {
-        const disabled = !row.profile || row.profile?.requestStatus === RequestStatus.PENDING
+        const disabled =
+          !row.profile || [RequestStatus.PENDING, RequestStatus.REJECTED].includes(row.profile?.requestStatus)
 
         return (
           <SwitchCell

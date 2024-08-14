@@ -1,9 +1,11 @@
-import { Cascader, CascaderProps } from 'antd'
+import { Cascader, CascaderProps, Divider, Space } from 'antd'
 import { DefaultOptionType } from 'antd/es/select'
 import Paragraph from 'antd/es/typography/Paragraph'
-import { FC, memo } from 'react'
+import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
@@ -19,9 +21,11 @@ export const ShopCascader: FC<ShopCascaderProps> = memo(props => {
   const { required, isRow, isCell, label, labelClassName, wrapperClassName, options, ...restProps } = props
 
   const { classes: styles, cx } = useStyles()
+  const [open, setOpen] = useState(false)
 
-  const filter = (inputValue: string, path: DefaultOptionType[]) =>
-    path.some(option => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
+  const addItem = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+    e.preventDefault()
+  }
 
   return (
     <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
@@ -35,6 +39,7 @@ export const ShopCascader: FC<ShopCascaderProps> = memo(props => {
       <Cascader
         {...restProps}
         multiple
+        open={false}
         size="large"
         suffixIcon={null}
         options={options}
@@ -48,7 +53,16 @@ export const ShopCascader: FC<ShopCascaderProps> = memo(props => {
           </div>
         )}
         dropdownMenuColumnStyle={{ height: 40 }}
-        showSearch={{ filter }}
+        dropdownRender={menu => (
+          <>
+            {menu}
+            <Divider style={{ margin: '8px 0' }} />
+            <Space style={{ padding: '8px 16px 16px' }}>
+              <CustomButton type="primary">{t(TranslationKey.Export)}</CustomButton>
+              <CustomButton>{t(TranslationKey.Cancel)}</CustomButton>
+            </Space>
+          </>
+        )}
       />
     </div>
   )

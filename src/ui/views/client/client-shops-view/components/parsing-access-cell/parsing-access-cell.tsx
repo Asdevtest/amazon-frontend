@@ -43,7 +43,7 @@ export const ParsingAccessCell: FC<ParsingAccessCellProps> = memo(props => {
     )
   }
 
-  const disabled = !profile || profile?.requestStatus === RequestStatus.PENDING
+  const disabled = !profile || [RequestStatus.PENDING, RequestStatus.REJECTED].includes(profile?.requestStatus)
 
   return (
     <ActionButtonsCell

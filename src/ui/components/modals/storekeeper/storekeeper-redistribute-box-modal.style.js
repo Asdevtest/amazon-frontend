@@ -13,11 +13,9 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
-
     position: 'sticky',
     bottom: 0,
     right: 0,
-    backgroundColor: theme.palette.background.general,
     zIndex: 8,
   },
 
