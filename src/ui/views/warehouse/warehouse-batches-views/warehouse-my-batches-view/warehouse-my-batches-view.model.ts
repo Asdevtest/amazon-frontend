@@ -67,7 +67,7 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
         $eq: isSentBatches ? BatchStatus.HAS_DISPATCHED : BatchStatus.IS_BEING_COLLECTED,
       },
 
-      ...(isSentBatches ? { archive: this.isArchive } : {}),
+      ...(isSentBatches ? { archive: { $eq: this.isArchive } } : {}),
     })
 
     super({

@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BoxesClientsInTransferGuidBatch } from './api-v1-boxes-clients-in-transfer-guid-batch';
 import { ApiV1BoxesClientsInTransferGuidLogicsTariff } from './api-v1-boxes-clients-in-transfer-guid-logics-tariff';
 import { ApiV1BoxesClientsLightDestination } from './api-v1-boxes-clients-light-destination';
@@ -226,28 +226,28 @@ export interface InlineResponse20024 {
     items?: Array<ApiV1BoxesClientsLightItems>;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20024
      */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    sub?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20024
      */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20024
      */
-    client?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    client?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20024
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
      * @type {ApiV1BoxesClientsLightDestination}

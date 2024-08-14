@@ -21,11 +21,29 @@
  */
 export interface InlineObject18 {
     /**
-     * 
-     * @type {boolean}
+     * ГУид продукта
+     * @type {string}
      * @memberof InlineObject18
      */
-    archive: boolean;
+    productId: string;
+    /**
+     * Гуид баера
+     * @type {string}
+     * @memberof InlineObject18
+     */
+    buyerId?: string;
+    /**
+     * Гуид супервизора
+     * @type {string}
+     * @memberof InlineObject18
+     */
+    checkedById?: string;
+    /**
+     * Гуид клиента
+     * @type {string}
+     * @memberof InlineObject18
+     */
+    clientId?: string;
 }
 
 

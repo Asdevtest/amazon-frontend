@@ -13,9 +13,9 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
 import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 
 /**
  * 
@@ -103,28 +103,28 @@ export interface InlineResponse200103Rows {
     tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse200103Rows
      */
-    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    buyer?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse200103Rows
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse200103Rows
      */
-    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse200103Rows
      */
-    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
     /**
      * Дата создания
      * @type {string}
