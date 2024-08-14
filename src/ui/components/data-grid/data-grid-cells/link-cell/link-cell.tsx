@@ -1,19 +1,19 @@
 import Link from 'antd/es/typography/Link'
 import { FC, memo } from 'react'
-import { LiaExternalLinkAltSolid } from 'react-icons/lia'
+import { LuExternalLink } from 'react-icons/lu'
 
 import { checkIsHasHttp } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { useHover } from '@hooks/use-hover'
 
-import { useStyles } from './download-and-copy-btns-cell.style'
+import { useStyles } from './link-cell.style'
 
-interface BarCodeCellProps {
+interface LinkCellProps {
   value: string
 }
 
-export const BarCodeCell: FC<BarCodeCellProps> = memo(({ value }) => {
+export const LinkCell: FC<LinkCellProps> = memo(({ value }) => {
   const { classes: styles } = useStyles()
   const [isHover, onMouseFunctions] = useHover()
 
@@ -29,7 +29,7 @@ export const BarCodeCell: FC<BarCodeCellProps> = memo(({ value }) => {
       className={styles.link}
       onClick={e => e.stopPropagation()}
     >
-      <LiaExternalLinkAltSolid size={28} className={styles.icon} />
+      <LuExternalLink size={28} className={styles.icon} />
     </Link>
   ) : null
 })

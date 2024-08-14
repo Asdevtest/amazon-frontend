@@ -4,9 +4,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  BarCodeCell,
   DeadlineCell,
   IconHeaderCell,
+  LinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
   PriorityAndChinaDeliverCell,
@@ -131,7 +131,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-      renderCell: params => <BarCodeCell value={params.row.product?.barCode} />,
+      renderCell: params => <LinkCell value={params.row.product?.barCode} />,
 
       disableCustomSort: true,
       filterable: false,

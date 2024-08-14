@@ -151,14 +151,14 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  barCodeCell: {
+  LinkCell: {
     width: 90,
     padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
   },
 
-  barCodeCellBtn: {
+  LinkCellBtn: {
     width: '100%',
     cursor: 'auto',
     border: 'none',

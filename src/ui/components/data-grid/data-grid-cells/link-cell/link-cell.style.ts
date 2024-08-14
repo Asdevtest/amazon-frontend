@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   icon: {
-    padding: '2px',
+    padding: '4px',
     border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: '50%',
   },
