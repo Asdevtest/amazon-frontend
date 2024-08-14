@@ -10,7 +10,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   OpenInNewTabCell,
-  ProductAsinCell,
+  ProductCell,
   RedFlagsCell,
   TagsCell,
   TextCell,
@@ -54,11 +54,11 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
         const product = params.row
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },

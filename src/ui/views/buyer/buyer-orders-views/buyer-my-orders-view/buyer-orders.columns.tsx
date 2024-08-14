@@ -21,7 +21,7 @@ import {
   NormDateCell,
   PaymentMethodsCell,
   PriorityAndChinaDeliverCell,
-  ProductAsinCell,
+  ProductCell,
   TextCell,
   UserLinkCell,
   UserMiniCell,
@@ -93,11 +93,11 @@ export const buyerOrdersColumns = ({
         const product = params.row.product
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },

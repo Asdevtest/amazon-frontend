@@ -4,7 +4,7 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, ProductAsinCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell, TextCell } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
@@ -45,7 +45,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
 
       renderCell: (params: GridRenderCellParams) => (
-        <ProductAsinCell withoutTitle asin={params.row?.asin} image={params.row?.image} skuByClient={params.row?.sku} />
+        <ProductCell asin={params.row?.asin} image={params.row?.image} sku={params.row?.sku} />
       ),
 
       fields: getProductColumnMenuItems({ withoutTitle: true }),

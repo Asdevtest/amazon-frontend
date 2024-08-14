@@ -10,7 +10,7 @@ import {
   ManyUserLinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  ProductAsinCell,
+  ProductCell,
   TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
@@ -43,11 +43,11 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         headerName: t(TranslationKey.ASIN),
         renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
         renderCell: ({ row }: GridRowModel) => (
-          <ProductAsinCell
+          <ProductCell
             image={row.product.images[0]}
-            amazonTitle={row.product.amazonTitle}
+            title={row.product.amazonTitle}
             asin={row.product.asin}
-            skuByClient={row.product.skuByClient}
+            sku={row.product.skuByClient}
           />
         ),
         valueGetter: (row: GridRowModel) => row?.product?.asin,

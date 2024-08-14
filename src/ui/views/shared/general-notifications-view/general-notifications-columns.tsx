@@ -2,14 +2,14 @@ import { GridCellParams } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
-import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
   NormDateCell,
   NotificationMessageCell,
-  ProductAsinCell,
+  ProductCell,
   TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
@@ -29,11 +29,10 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
       renderCell: (params: GridCellParams) => (
-        <ProductAsinCell
-          withoutSku={!!userInfo?.role && UserRoleCodeMap[userInfo.role] === UserRole.FREELANCER}
-          skuByClient={params.row.product?.skuByClient || params.row.parentProduct?.skuByClient}
+        <ProductCell
+          sku={params.row.product?.skuByClient || params.row.parentProduct?.skuByClient}
           image={params.row.product?.images?.[0]}
-          amazonTitle={params.row.product?.amazonTitle}
+          title={params.row.product?.amazonTitle}
           asin={params.row.product?.asin}
         />
       ),

@@ -1,6 +1,6 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ProductAsinCell } from '@components/data-grid/data-grid-cells'
+import { ProductCell } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
@@ -13,12 +13,11 @@ export const sourceColumns = isResearcher => [
       const product = params.row.originalData
 
       return (
-        <ProductAsinCell
-          withoutSku={isResearcher}
+        <ProductCell
           image={product?.images?.[0]}
-          amazonTitle={product?.amazonTitle}
+          title={product?.amazonTitle}
           asin={product?.asin}
-          skuByClient={product?.skuByClient}
+          sku={product?.skuByClient}
         />
       )
     },

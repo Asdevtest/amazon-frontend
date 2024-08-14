@@ -1,35 +1,28 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  wrapper: {
-    width: '100%',
+  root: {
+    width: '200px',
     padding: '10px 0px',
     display: 'flex',
-    alignItems: 'flex-start',
-    gap: 10,
+    flexDirection: 'column',
+    gap: '3px',
   },
 
-  fields: {
-    width: 'calc(100% - 80px)',
+  flexRow: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '5px',
+  },
+
+  flexColumn: {
     display: 'flex',
     flexDirection: 'column',
   },
 
-  amazonTitle: {
-    fontSize: '14px',
-    lineHeight: '19px',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    color: theme.palette.text.general,
-  },
-
-  img: {
-    height: '58px',
-    width: '58px',
-    objectFit: 'contain',
-    objectPosition: 'center',
+  image: {
     borderRadius: '4px',
-    border: `1px solid #E0E0E0`,
+    overflow: 'hidden',
+    boxShadow: theme.palette.boxShadow.paper,
   },
 }))

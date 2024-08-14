@@ -4,7 +4,7 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, ProductAsinCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell, TextCell } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
@@ -40,9 +40,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       headerName: t(TranslationKey.SKU),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SKU)} />,
 
-      renderCell: (params: GridRenderCellParams) => (
-        <ProductAsinCell withoutTitle withoutAsin image={params.row?.image} skuByClient={params.row?.sku} />
-      ),
+      renderCell: (params: GridRenderCellParams) => <ProductCell image={params.row?.image} sku={params.row?.sku} />,
       width: 260,
       minWidth: 100,
       disableCustomSort: true,
