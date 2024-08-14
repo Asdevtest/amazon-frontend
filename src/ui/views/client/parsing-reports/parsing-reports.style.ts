@@ -9,7 +9,7 @@ export const useStyles = makeStyles()(() => ({
     gap: '10px',
   },
 
-  tabledWrapper: {
+  tableWrapper: {
     flex: 1,
     padding: '3px',
     overflow: 'auto',
