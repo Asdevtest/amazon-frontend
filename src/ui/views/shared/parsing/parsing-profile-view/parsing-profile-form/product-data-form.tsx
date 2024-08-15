@@ -53,7 +53,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.title}>{title}</p>
+      <p className={styles.title}>{t(TranslationKey[title as TranslationKey])}</p>
 
       <Form name="parsing profile" autoComplete="off" form={form} onFinish={onFinish}>
         <div className={styles.container}>
