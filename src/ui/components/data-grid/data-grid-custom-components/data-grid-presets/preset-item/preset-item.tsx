@@ -28,7 +28,6 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
   const presetFavorite = preset?.data?.isFavorite
   const quickAccessTitle = presetFavorite ? 'Remove from quick access' : 'Add to quick access'
   const QuickAccessIcon = presetFavorite ? BsPinAngleFill : RiUnpinLine
-
   const presetId = preset?.data?._id
 
   const items: MenuProps['items'] = [
