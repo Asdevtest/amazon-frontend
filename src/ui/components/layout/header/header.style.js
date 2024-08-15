@@ -39,7 +39,7 @@ export const useStyles = makeStyles()(theme => ({
     flexGrow: 1,
     display: 'flex',
     alignItems: 'center',
-    gap: 20,
+    gap: 10,
 
     [theme.breakpoints.down(1024)]: {
       justifyContent: 'space-between',
