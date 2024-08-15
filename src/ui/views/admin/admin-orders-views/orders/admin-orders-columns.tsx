@@ -4,8 +4,8 @@ import { OrderStatusByCode, OrderStatusTranslate, orderColorByStatus } from '@co
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  DownloadAndCopyBtnsCell,
   IconHeaderCell,
+  LinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
   PriorityAndChinaDeliverCell,
@@ -98,9 +98,9 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 210,
-      renderCell: params => <DownloadAndCopyBtnsCell value={params.row.product.barCode} />,
-
+      width: 100,
+      renderCell: params => <LinkCell value={params.row.product.barCode} />,
+      align: 'center',
       filterable: false,
       disableCustomSort: true,
     },

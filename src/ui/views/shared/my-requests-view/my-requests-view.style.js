@@ -18,6 +18,11 @@ export const useStyles = makeStyles()(theme => ({
     zIndex: 7,
   },
 
+  unreadMessages: {
+    background: theme.palette.background.green,
+    zIndex: 7,
+  },
+
   deadlineBorder: {
     position: 'relative',
 

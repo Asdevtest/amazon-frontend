@@ -3,8 +3,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  DownloadAndCopyBtnsCell,
   IconHeaderCell,
+  LinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
@@ -147,8 +147,8 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 210,
-      renderCell: params => <DownloadAndCopyBtnsCell value={params.row.product.barCode} />,
+      width: 100,
+      renderCell: params => <LinkCell value={params.row.product.barCode} />,
       disableCustomSort: true,
     },
 
