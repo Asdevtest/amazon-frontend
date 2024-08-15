@@ -74,6 +74,7 @@ export class ParsingProfileFormModel {
     if (this.profile) {
       this.profile.client = null
       this.profile.shop = null
+      this.profile.isActive = false
     }
   }
 
