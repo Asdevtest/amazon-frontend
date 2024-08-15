@@ -1,15 +1,13 @@
 import { FC, memo } from 'react'
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { disabledCancelBtnStatuses, noDisabledEditBtnStatuses } from '@constants/requests/request-proposal-status'
 import { showResultStatuses } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './freelancer-my-proposals-actions-cell.style'
 
@@ -26,33 +24,22 @@ export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCe
 
   return (
     <div className={styles.proposalsActions}>
-      <Button
-        iconButton
-        isTableButton
+      <CustomButton
+        icon={<MdOutlineEdit size={18} />}
         disabled={!noDisabledEditBtnStatuses.includes(status)}
         onClick={onClickEditButton}
-      >
-        <EditIcon />
-      </Button>
+      />
 
-      <Button
-        iconButton
-        isTableButton
-        styleType={ButtonStyle.DANGER}
+      <CustomButton
+        danger
+        icon={<MdOutlineDelete size={18} />}
         disabled={disabledCancelBtnStatuses.includes(status)}
         onClick={onClickDeleteButton}
-      >
-        <CrossIcon />
-      </Button>
+      />
 
-      <Button
-        isTableButton
-        styleType={ButtonStyle.SUCCESS}
-        disabled={!showResultStatuses.includes(status)}
-        onClick={onClickResultButton}
-      >
+      <CustomButton type="primary" disabled={!showResultStatuses.includes(status)} onClick={onClickResultButton}>
         {t(TranslationKey.Result)}
-      </Button>
+      </CustomButton>
     </div>
   )
 })
