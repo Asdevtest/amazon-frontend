@@ -193,9 +193,11 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   onChangeSortingModel(sortModel: GridSortModel) {
-    this.sortModel = sortModel
-    this.getCurrentData()
-    this.setDataGridState()
+    if (sortModel.length > 0) {
+      this.sortModel = sortModel
+      this.getCurrentData()
+      this.setDataGridState()
+    }
   }
 
   onChangeFilterModel(model: GridFilterModel) {

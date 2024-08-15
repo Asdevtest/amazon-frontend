@@ -83,8 +83,11 @@ export class DataGridTableModel extends DefaultModel {
     const state = TableSettingsModel.getTableSettings(this.tableKey)
 
     if (state) {
-      // @ts-ignore
-      this.sortModel = state?.sortModel
+      const sortModel = state?.sortModel
+
+      if (sortModel?.length > 0) {
+        this.sortModel = sortModel
+      }
       // @ts-ignore
       this.filterModel = state?.filterModel
       // @ts-ignore
