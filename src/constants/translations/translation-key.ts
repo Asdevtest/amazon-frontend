@@ -2026,4 +2026,5 @@ export enum TranslationKey {
   "Box dimensions don't meet carrier requirements!" = "Box dimensions don't meet carrier requirements!",
   'Time until server shutdown' = 'Time until server shutdown',
   'Specify dimensions' = 'Specify dimensions',
+  'Error updating data' = 'Error updating data',
 }
