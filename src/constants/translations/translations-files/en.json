@@ -947,7 +947,6 @@
   "Removes the box for further addition to the batch, returns to My Warehouse": "Removes the box for further addition to the batch, returns to My Warehouse",
   "Returns all boxes from the selected batch to the \"Boxes ready to send\" section": "Returns all boxes from the selected batch to the \"Boxes ready to send\" section",
   "A list of your added Amazon stores with reports on them": "A list of your added Amazon stores with reports on them",
-  "Download the file to your device": "Download the file to your device",
   "Binds integration to the product card": "Binds integration to the product card",
   "Important notifications on changes in order price, batch or irrelevant tariff": "Important notifications on changes in order price, batch or irrelevant tariff",
   "Notifications of required surcharges for the order": "Notifications of required surcharges for the order",
@@ -1131,7 +1130,6 @@
   "For easier completion": "For easier completion",
   "download the list template": "download the list template",
   "Your ID": "Your ID",
-  "Copy the link": "Copy the link",
   "New product": "New product",
   "Researcher found supplier": "Researcher found supplier",
   "Rejected by Supervisor": "Rejected by Supervisor",
@@ -2026,5 +2024,6 @@
   "Standart": "Standart",
   "Important": "Important",
   "Box dimensions don't meet carrier requirements!": "Box dimensions don't meet carrier requirements!",
-  "Time until server shutdown": "Time until server shutdown"
+  "Time until server shutdown": "Time until server shutdown",
+  "Specify dimensions": "Specify dimensions"
 }

@@ -1,6 +1,7 @@
 import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useCallback, useMemo } from 'react'
+import { MdOutlineDelete } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -8,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomTextarea } from '@components/shared/custom-textarea'
-import { CrossIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -50,7 +50,7 @@ export const ResultCell: FC<ResultCellProps> = observer(props => {
         cancelText={t(TranslationKey.No)}
         onConfirm={handleRemoveLaunch}
       >
-        <CustomButton danger shape="circle" size="small" icon={<CrossIcon className={styles.icon} />} />
+        <CustomButton danger shape="circle" size="small" icon={<MdOutlineDelete size={16} />} />
       </Popconfirm>
     </div>
   )
