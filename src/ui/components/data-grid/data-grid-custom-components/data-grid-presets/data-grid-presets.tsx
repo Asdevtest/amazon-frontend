@@ -103,7 +103,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
           <>
             {menu}
 
-            <div className={cx(styles.createPresetWrapper)}>
+            <div className={cx(styles.createPresetWrapper)} onClick={e => e.stopPropagation()}>
               <CustomInput
                 value={createPresetTitle}
                 placeholder="Add a preset"
@@ -113,7 +113,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
               />
 
               <CustomButton
-                disabled={!createPresetTitle}
+                disabled={!createPresetTitle.trim()}
                 icon={<FaPlus />}
                 onClick={() => {
                   handleCreateTableSettingsPreset(createPresetTitle, apiRef.current?.getAllColumns())
