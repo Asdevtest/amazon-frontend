@@ -2035,5 +2035,6 @@
   "Important": "Важливо",
   "Box dimensions don't meet carrier requirements!": "Розміри коробки не відповідають вимогам перевізника!",
   "Time until server shutdown": "Час до вимкнення сервера",
-  "Remove from quick access": "Вилучити з швидкого доступу"
+  "Remove from quick access": "Вилучити з швидкого доступу",
+  "In quick access": "В швидкому доступі"
 }

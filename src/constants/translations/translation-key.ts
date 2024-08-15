@@ -2037,4 +2037,5 @@ export enum TranslationKey {
   "Box dimensions don't meet carrier requirements!" = "Box dimensions don't meet carrier requirements!",
   'Time until server shutdown' = 'Time until server shutdown',
   'Remove from quick access' = 'Remove from quick access',
+  'In quick access' = 'In quick access',
 }

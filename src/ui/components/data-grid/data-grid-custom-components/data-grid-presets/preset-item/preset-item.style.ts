@@ -32,4 +32,8 @@ export const useStyles = makeStyles()(theme => ({
   updateButton: {
     color: theme.palette.primary.main,
   },
+
+  presetEmptyFavorite: {
+    width: '32px',
+  },
 }))
