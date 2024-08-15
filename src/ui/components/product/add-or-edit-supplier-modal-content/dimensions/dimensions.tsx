@@ -28,6 +28,9 @@ interface DimensionsProps {
   onChangeLength: (value: ChangeEvent<HTMLInputElement>) => void
   onChangeWeighGross: (value: ChangeEvent<HTMLInputElement>) => void
   weighUnit?: boolean
+  errorHeight?: boolean
+  errorWidth?: boolean
+  errorLength?: boolean
 }
 
 export const Dimensions: FC<DimensionsProps> = memo(props => {
@@ -49,6 +52,9 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
     onChangeLength,
     onChangeWeighGross,
     weighUnit,
+    errorHeight = false,
+    errorWidth = false,
+    errorLength = false,
   } = props
 
   const linearUnits = getDimensionsSizesType(sizeMode)
@@ -70,6 +76,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
         <div className={styles.sizesBottomWrapper}>
           <Field
             disabled={onlyRead}
+            error={errorHeight}
             label={`${t(TranslationKey.Height)}, ${linearUnits}`}
             inputProps={{ maxLength: 6 }}
             containerClasses={styles.sizeContainer}
@@ -81,6 +88,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
 
           <Field
             disabled={onlyRead}
+            error={errorWidth}
             label={`${t(TranslationKey.Width)}, ${linearUnits}`}
             inputProps={{ maxLength: 6 }}
             containerClasses={styles.sizeContainer}
@@ -92,6 +100,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
 
           <Field
             disabled={onlyRead}
+            error={errorLength}
             label={`${t(TranslationKey.Length)}, ${linearUnits}`}
             inputProps={{ maxLength: 6 }}
             containerClasses={styles.sizeContainer}
