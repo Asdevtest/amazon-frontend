@@ -2023,5 +2023,6 @@
   "Standart": "Стандарт",
   "Important": "Важливо",
   "Box dimensions don't meet carrier requirements!": "Розміри коробки не відповідають вимогам перевізника!",
-  "Time until server shutdown": "Час до вимкнення сервера"
+  "Time until server shutdown": "Час до вимкнення сервера",
+  "Specify dimensions": "Вкажіть розміри"
 }
