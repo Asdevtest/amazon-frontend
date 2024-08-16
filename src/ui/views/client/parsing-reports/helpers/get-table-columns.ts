@@ -6,6 +6,7 @@ import { fbaInventoryColumns } from '../parsing-reports-columns/fba-inventory.co
 import { feedbackColumns } from '../parsing-reports-columns/feedback.columns'
 import { fypOutOfStockColumns } from '../parsing-reports-columns/fyp-out-of-stock.columns'
 import { fypSearchSuppressedColumns } from '../parsing-reports-columns/fyp-search-suppressed.columns'
+import { incomeColumns } from '../parsing-reports-columns/income.columns'
 import { inventoryPlanningColumns } from '../parsing-reports-columns/inventory-planning.columns'
 import { inventoryShipmentsColumns } from '../parsing-reports-columns/inventory-shipments.columns'
 import { inventoryColumns } from '../parsing-reports-columns/inventory.columns'
@@ -69,6 +70,9 @@ export const getTableColumns = (activeTable: ParsingReportsType) => {
 
     case ParsingReportsType.FYP_SEARCH_SUPPRESSED:
       return fypSearchSuppressedColumns()
+
+    case ParsingReportsType.INCOME:
+      return incomeColumns()
 
     default:
       return businessReportsColumns()
