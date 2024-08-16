@@ -148,7 +148,7 @@ export const accountHealthColumns = () => {
 
   for (const column of columns) {
     if (!column.table) {
-      column.table = ParsingReportsType.BUSINESS_REPORTS
+      column.table = ParsingReportsType.ACCOUNT_HEALTH
     }
 
     column.sortable = false
