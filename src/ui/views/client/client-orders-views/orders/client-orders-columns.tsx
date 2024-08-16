@@ -12,8 +12,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ActionButtonsCell,
   DeadlineCell,
-  DownloadAndCopyBtnsCell,
   IconHeaderCell,
+  LinkCell,
   ManyUserLinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -174,17 +174,12 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-      width: 210,
-      renderCell: params => (
-        <DownloadAndCopyBtnsCell
-          value={params.row?.product?.barCode}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row._id}
-        />
-      ),
+      width: 100,
+      renderCell: params => <LinkCell value={params.row?.product?.barCode} />,
       // @ts-ignore
       valueFormatter: ({ row }) =>
         checkIsHasHttp(row?.product?.barCode) ? row?.product?.barCode : getAmazonImageUrl(row?.product?.barCode, true),
-
+      align: 'center',
       filterable: false,
       disableCustomSort: true,
     },

@@ -175,12 +175,17 @@ export class VacantRequestsViewModel {
 
   getFilter(exclusion) {
     return objectToUrlQs(
-      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
-        'title',
-        'humanFriendlyId',
-        'asin',
-        'skuByClient',
-      ]),
+      dataGridFiltersConverter(
+        this.columnMenuSettings,
+        this.nameSearchValue,
+        exclusion,
+        filtersFields,
+        ['title', 'humanFriendlyId', 'asin', 'skuByClient'],
+        {},
+        {
+          proposalSub: '$any',
+        },
+      ),
     )
   }
 

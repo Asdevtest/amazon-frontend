@@ -39,7 +39,7 @@ export const useStyles = makeStyles()(theme => ({
     flexGrow: 1,
     display: 'flex',
     alignItems: 'center',
-    gap: 20,
+    gap: 10,
 
     [theme.breakpoints.down(1024)]: {
       justifyContent: 'space-between',
@@ -47,8 +47,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   title: {
-    fontSize: 18,
-    lineHeight: '25px',
+    fontSize: 16,
+    lineHeight: '19px',
+    fontWeight: 600,
     color: theme.palette.text.second,
 
     [theme.breakpoints.down(1024)]: {
@@ -80,6 +81,7 @@ export const useStyles = makeStyles()(theme => ({
 
   hintsTextActive: {
     fontSize: 16,
+    lineHeight: '19px',
     color: theme.palette.primary.main,
 
     [theme.breakpoints.down(1024)]: {
@@ -89,6 +91,7 @@ export const useStyles = makeStyles()(theme => ({
 
   hintsTextNoActive: {
     fontSize: 16,
+    lineHeight: '19px',
     color: '#c4c4c4',
 
     [theme.breakpoints.down(1024)]: {

@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ParserModel } from '@models/parser-model'
 
+import { cloneDeep } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { IParsingProfile } from '@typings/models/parser/parsing-profile'
@@ -16,7 +17,7 @@ export class ParsingProfileFormModel {
   profile?: IParsingProfile
 
   constructor(profile?: IParsingProfile) {
-    this.profile = profile
+    this.profile = profile && cloneDeep(profile)
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -26,9 +27,16 @@ export class ParsingProfileFormModel {
       this.onToggleLoading(true)
 
       const data = {
-        ...values,
+        name: values.name || '',
+        gologinId: values.gologinId || '',
+        email: values.email || '',
+        password: values.password || '',
+        spreadsheetsIdPerformance: values.spreadsheetsIdPerformance || '',
+        spreadsheetsIdImport: values.spreadsheetsIdImport || '',
+        spreadsheetsIdMain: values.spreadsheetsIdMain || '',
+        otp: values.otp || '',
+        port: Number(values.port) || 3000,
         driverSessionData: {},
-        port: Number(values.port),
       }
 
       await ParserModel.createProfile(data)
@@ -46,14 +54,14 @@ export class ParsingProfileFormModel {
       this.onToggleLoading(true)
 
       const data = {
-        name: values.name,
-        spreadsheetsIdMain: values.spreadsheetsIdMain,
-        spreadsheetsIdPerformance: values.spreadsheetsIdPerformance,
-        spreadsheetsIdImport: values.spreadsheetsIdImport,
-        otp: values.otp,
-        isActive: this.profile?.isActive,
-        shopId: this.profile?.shop?._id || '',
-        clientId: this.profile?.client?._id || '',
+        name: values.name || '',
+        spreadsheetsIdMain: values.spreadsheetsIdMain || '',
+        spreadsheetsIdPerformance: values.spreadsheetsIdPerformance || '',
+        spreadsheetsIdImport: values.spreadsheetsIdImport || '',
+        otp: values.otp || '',
+        isActive: this.profile?.isActive || false,
+        shopId: this.profile?.shop?._id || null,
+        clientId: this.profile?.client?._id || null,
       }
       await ParserModel.editProfile(id, data)
 
@@ -73,6 +81,7 @@ export class ParsingProfileFormModel {
     if (this.profile) {
       this.profile.client = null
       this.profile.shop = null
+      this.profile.isActive = false
     }
   }
 

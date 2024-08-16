@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
 
@@ -24,6 +24,7 @@ import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -438,6 +439,19 @@ export const AddOrEditSupplierModalContent = memo(props => {
       !tmpSupplier?.lengthUnit ||
       editPhotosOfUnit?.length < 4)
 
+  const isNormalLength = useMemo(
+    () => maxBoxSizeFromOption(sizeSetting, Number(tmpSupplier.boxProperties.boxLengthCm)),
+    [tmpSupplier.boxProperties.boxLengthCm],
+  )
+  const isNormalWidth = useMemo(
+    () => maxBoxSizeFromOption(sizeSetting, Number(tmpSupplier.boxProperties.boxWidthCm)),
+    [tmpSupplier.boxProperties.boxWidthCm],
+  )
+  const isNormalHeight = useMemo(
+    () => maxBoxSizeFromOption(sizeSetting, Number(tmpSupplier.boxProperties.boxHeightCm)),
+    [tmpSupplier.boxProperties.boxHeightCm],
+  )
+
   const diasabledSubmit =
     itHaveBigInt ||
     '' === !tmpSupplier.name ||
@@ -463,7 +477,10 @@ export const AddOrEditSupplierModalContent = memo(props => {
     isNeedUnitInfo ||
     ('' !== tmpSupplier.minProductionTerm &&
       '' !== tmpSupplier.maxProductionTerm &&
-      Number(tmpSupplier.minProductionTerm) > Number(tmpSupplier.maxProductionTerm))
+      Number(tmpSupplier.minProductionTerm) > Number(tmpSupplier.maxProductionTerm)) ||
+    isNormalHeight ||
+    isNormalWidth ||
+    isNormalLength
 
   return (
     <div className={styles.modalContainer}>
@@ -773,6 +790,9 @@ export const AddOrEditSupplierModalContent = memo(props => {
               title={t(TranslationKey.Dimensions)}
               onlyRead={onlyRead}
               sizeMode={sizeSetting}
+              errorLength={isNormalLength}
+              errorWidth={isNormalWidth}
+              errorHeight={isNormalHeight}
               height={tmpSupplier.boxProperties.boxHeightCm}
               width={tmpSupplier.boxProperties.boxWidthCm}
               length={tmpSupplier.boxProperties.boxLengthCm}

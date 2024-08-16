@@ -167,6 +167,8 @@ export const AdminUserEditContent = observer(
 
       const dataToSubmit = {
         ...formFields,
+        email: formFields.email?.trim(),
+        name: formFields.name?.trim(),
         allowedRoles: selectedAllowedRoles.includes(Number(formFields.role))
           ? [...selectedAllowedRoles]
           : [...selectedAllowedRoles, Number(formFields.role)],
@@ -188,8 +190,8 @@ export const AdminUserEditContent = observer(
 
     const disabledSubmitButton =
       !emailIsValid ||
-      formFields.name === '' ||
-      formFields.email === '' ||
+      formFields.name?.trim() === '' ||
+      formFields.email?.trim() === '' ||
       formFields.rate === '' ||
       (isEqual(changedAllowedRoles, selectedAllowedRoles) && isEqual(sourceFormFields, formFields))
 

@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell } from '@components/data-grid/data-grid-cells'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -42,7 +43,7 @@ export const ParsingAccessCell: FC<ParsingAccessCellProps> = memo(props => {
     )
   }
 
-  const disabled = !profile || profile?.requestStatus === RequestStatus.PENDING
+  const disabled = !profile || [RequestStatus.PENDING, RequestStatus.REJECTED].includes(profile?.requestStatus)
 
   return (
     <ActionButtonsCell
@@ -50,7 +51,7 @@ export const ParsingAccessCell: FC<ParsingAccessCellProps> = memo(props => {
       disabledFirstButton={disabled}
       firstButtonElement={t(TranslationKey.Confirm)}
       firstButtonStyle={ButtonStyle.PRIMARY}
-      onClickFirstButton={onAccess}
+      onClickFirstButton={throttle(onAccess)}
     />
   )
 })

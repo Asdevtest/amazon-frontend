@@ -39,19 +39,9 @@ export class SupervisorSettingsViewModel extends DataGridTableModel {
     })
 
     this.sortModel = [{ field: 'asin', sort: 'desc' }]
-    this.getDataGridState()
-    this.getCurrentData()
 
-    // tabs filter by condition on front
-    reaction(
-      () => this.condition,
-      async () => {
-        await this.getCurrentData()
-        this.currentData = this.currentData.filter(
-          item => item.strategy === mapProductStrategyStatusEnumToKey[this.condition].toString(),
-        )
-      },
-    )
+    this.getDataGridState()
+    this.onChangeСondition(this.condition)
 
     makeObservable(this, supervisorSettingsConfig)
   }
@@ -70,7 +60,7 @@ export class SupervisorSettingsViewModel extends DataGridTableModel {
 
       this.onTriggerOpenModal('showAsinCheckerModal')
 
-      this.getCurrentData()
+      this.onChangeСondition(this.condition)
     } catch (error) {
       console.error(error)
     }
@@ -112,8 +102,19 @@ export class SupervisorSettingsViewModel extends DataGridTableModel {
     }
   }
 
-  onChangeСondition(event) {
-    const currentValue = event.target.value
-    this.condition = currentValue
+  async onChangeСondition(value) {
+    const currentValue = value
+    runInAction(() => {
+      this.condition = currentValue
+    })
+
+    await this.getCurrentData()
+    this.setDataByCondition()
+  }
+
+  setDataByCondition() {
+    this.currentData = this.currentData.filter(
+      item => item.strategy === mapProductStrategyStatusEnumToKey[this.condition].toString(),
+    )
   }
 }
