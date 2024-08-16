@@ -74,6 +74,7 @@ export class ShopsViewModel extends DataGridTableModel {
       this.getCurrentData()
     } catch (error) {
       console.error(error)
+      toast.error(t(TranslationKey['Error updating data']))
     }
   }
 
