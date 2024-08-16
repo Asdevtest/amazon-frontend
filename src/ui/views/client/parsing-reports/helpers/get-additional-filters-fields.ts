@@ -8,5 +8,8 @@ export const getAdditionalFiltersFields = (activeTable: ParsingReportsType) => {
       return ['sku']
     case ParsingReportsType.INVENTORY:
       return ['title', 'asin', 'sku']
+
+    case ParsingReportsType.RETURNS:
+      return ['sku']
   }
 }

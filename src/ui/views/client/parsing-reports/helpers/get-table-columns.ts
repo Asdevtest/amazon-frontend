@@ -6,6 +6,7 @@ import { feedbackColumns } from '../parsing-reports-columns/feedback.columns'
 import { inventoryColumns } from '../parsing-reports-columns/inventory.columns'
 import { ordersColumns } from '../parsing-reports-columns/orders.columns'
 import { perfomanceNotificationsColumns } from '../parsing-reports-columns/perfomance-notifications.columns'
+import { returnsColumns } from '../parsing-reports-columns/returns.columns'
 import { totalBalanceColumns } from '../parsing-reports-columns/total-balance.columns'
 import { transactionsColumns } from '../parsing-reports-columns/transactions.columns'
 import { voiceColumns } from '../parsing-reports-columns/voice.columns'
@@ -42,6 +43,9 @@ export const getTableColumns = (activeTable: ParsingReportsType) => {
 
     case ParsingReportsType.ACCOUNT_HEALTH:
       return accountHealthColumns()
+
+    case ParsingReportsType.RETURNS:
+      return returnsColumns()
 
     case ParsingReportsType.VOICE:
       return voiceColumns()
