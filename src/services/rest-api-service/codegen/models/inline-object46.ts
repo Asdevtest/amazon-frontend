@@ -13,20 +13,19 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes';
 
 /**
- * 
+ * Схема комментарии байера.
  * @export
  * @interface InlineObject46
  */
 export interface InlineObject46 {
     /**
-     * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
+     * Комментарии байера.
+     * @type {string}
      * @memberof InlineObject46
      */
-    itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
+    buyerComment: string;
 }
 
 
