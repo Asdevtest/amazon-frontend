@@ -57,7 +57,10 @@ export const ordersColumns = () => {
       renderCell: ({ row }) => <ProductAsinCell withoutImage withoutTitle asin={row?.asin} skuByClient={row?.sku} />,
 
       fields: getProductColumnMenuItems({ withoutTitle: true }),
-      columnMenuConfig: getProductColumnMenuValue({ isSimpleSku: true }),
+      columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({
+        isSimpleSku: true,
+        table: ParsingReportsType.ORDERS,
+      }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       width: 210,
     },

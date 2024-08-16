@@ -48,6 +48,7 @@ export const transactionsColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text="Type" />,
 
       renderCell: params => <TextCell text={params.value?.replace?.(/_/g, ' ')} />,
+      transformValueMethod: value => value?.replace?.(/_/g, ' '),
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
