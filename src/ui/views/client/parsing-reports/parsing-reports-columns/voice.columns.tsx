@@ -39,7 +39,7 @@ export const voiceColumns = () => {
       ),
 
       fields: getProductColumnMenuItems(),
-      columnMenuConfig: getProductColumnMenuValue(),
+      columnMenuConfig: getProductColumnMenuValue({ isSimpleSku: true }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       width: 210,
     },
