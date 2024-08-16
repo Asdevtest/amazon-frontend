@@ -2,6 +2,8 @@ import { ParsingReportsType } from '../parsing-reports.type'
 
 export const getInitialSortModel = (activeTable: ParsingReportsType) => {
   switch (activeTable) {
+    case ParsingReportsType.PPC_ORGANIC:
+    case ParsingReportsType.PPC_SALES_WEEKS:
     case ParsingReportsType.FBA_INVENTORY:
     case ParsingReportsType.FEEDBACK:
     case ParsingReportsType.CAMPAIGNS:
