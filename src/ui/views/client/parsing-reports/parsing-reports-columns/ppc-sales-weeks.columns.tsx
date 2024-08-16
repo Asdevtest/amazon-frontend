@@ -429,3 +429,56 @@ export const ppcSalesWeeksColumns = () => {
 
   return columns
 }
+
+// {
+//   "dateUpdated": "2024-08-10T21:00:00.000Z",
+//   "asin": "B082W3XKPT",
+//   "sku": "AY-3FZK-LS3O",
+//   "month": "MAY",
+//   "startOfPeriod": "2024-05-26T21:00:00.000Z",
+//   "endOfPeriod": "2024-06-01T21:00:00.000Z",
+//   "week": 22,
+//   "day": "2024-08-09T21:00:00.000Z",
+//   "ppcAcos": 20,
+//   "ppcImpressions": 207,
+//   "ppcClicks": 3,
+//   "ppcSpend": 0.99,
+//   "ppcOrders": 1,
+//   "ppcUnits": 1,
+//   "ppcAvgUnitsPerOrder": 1,
+//   "ppcSales": 4.95,
+//   "ppcUsdPerOrder": 0.99,
+//   "ppcUsdPerUnit": 0.99,
+//   "organicSessions": 14,
+//   "organicOrders": 1,
+//   "organicUnits": 1,
+//   "organicAvgUnitsPerOrder": 1,
+//   "organicSales": 4.95,
+//   "organicUsdPerOrder": 4.95,
+//   "organicUsdPerUnit": 4.95,
+//   "ppcOrganicImpressions": 0,
+//   "ppcOrganicSessions": 17,
+//   "ppcOrganicCtr": 0,
+//   "ppcOrganicOrders": 2,
+//   "ppcOrganicUnits": 2,
+//   "ppcOrganicAvgUnitsPerOrder": 1,
+//   "ppcOrganicSales": 9.9,
+//   "ppcOrganicUsdPerOrder": 4.95,
+//   "ppcOrganicUsdPerUnit": 4.95,
+//   "ppcOrganicBuybox": 100,
+//   "specificWeightPpcPercentage": 100,
+//   "specificWeightOrganic": 50,
+//   "ppcOrganicConversion": 11.76,
+//   "ppcConversion": 33.33,
+//   "organicConversion": 7.14,
+//   "shop": {
+//       "_id": "27ac8677-8d28-4535-8284-747275be7979",
+//       "name": "Shop #123"
+//   },
+//   "client": {
+//       "_id": "219c225b-3df0-4047-ac7e-e76e2605a34a",
+//       "name": "ClientOS",
+//       "rating": 5,
+//       "lastSeen": "2024-08-16T13:29:51.943Z"
+//   }
+// }
