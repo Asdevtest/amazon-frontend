@@ -1,6 +1,7 @@
 import { accountHealthColumns } from '../parsing-reports-columns/account-health.columns'
 import { businessReportsColumns } from '../parsing-reports-columns/business-reports.columns'
 import { campaignsColumns } from '../parsing-reports-columns/campaigns.columns'
+import { fbaInventoryColumns } from '../parsing-reports-columns/fba-inventory.columns'
 import { feedbackColumns } from '../parsing-reports-columns/feedback.columns'
 import { inventoryColumns } from '../parsing-reports-columns/inventory.columns'
 import { ordersColumns } from '../parsing-reports-columns/orders.columns'
@@ -35,6 +36,9 @@ export const getTableColumns = (activeTable: ParsingReportsType) => {
 
     case ParsingReportsType.PERFOMANCE_NOTIFICATIONS:
       return perfomanceNotificationsColumns()
+
+    case ParsingReportsType.FBA_INVENTORY:
+      return fbaInventoryColumns()
 
     case ParsingReportsType.ACCOUNT_HEALTH:
       return accountHealthColumns()
