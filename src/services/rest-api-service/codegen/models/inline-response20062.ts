@@ -162,6 +162,48 @@ export interface InlineResponse20062 {
      */
     intervalsSum?: number;
     /**
+     * Criteria
+     * @type {string}
+     * @memberof InlineResponse20062
+     */
+    criteria?: string;
+    /**
+     * Ширина
+     * @type {number}
+     * @memberof InlineResponse20062
+     */
+    width?: number;
+    /**
+     * Высота
+     * @type {number}
+     * @memberof InlineResponse20062
+     */
+    height?: number;
+    /**
+     * Длина
+     * @type {number}
+     * @memberof InlineResponse20062
+     */
+    length?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20062
+     */
+    productLinks?: Array<string>;
+    /**
+     * Price
+     * @type {number}
+     * @memberof InlineResponse20062
+     */
+    price?: number;
+    /**
+     * Количество
+     * @type {number}
+     * @memberof InlineResponse20062
+     */
+    quantity?: number;
+    /**
      * Дата создания.
      * @type {string}
      * @memberof InlineResponse20062

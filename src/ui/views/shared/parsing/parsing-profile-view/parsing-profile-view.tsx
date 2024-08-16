@@ -54,6 +54,7 @@ export const ParsingProdileView = observer(() => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
+          isRowSelectable={({ row }: GridRowModel) => row.client}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           pinnedColumns={viewModel.pinnedColumns}

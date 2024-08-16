@@ -53,7 +53,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.title}>{title}</p>
+      <p className={styles.title}>{t(TranslationKey[title as TranslationKey])}</p>
 
       <Form name="parsing profile" autoComplete="off" form={form} onFinish={onFinish}>
         <div className={styles.container}>
@@ -79,7 +79,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
           <Form.Item<FieldType> name="email" className={styles.field}>
             <CustomInput allowClear disabled={isEditMode} size="large" label="Email" wrapperClassName={styles.input} />
           </Form.Item>
-          <Form.Item<FieldType> name="password" className={styles.field}>
+          <Form.Item<FieldType> name="password" className={styles.field} rules={[{ required: true, message: '' }]}>
             <CustomInput
               allowClear
               password={!isEditMode}

@@ -41,11 +41,13 @@ export const ClientShopsView = observer(() => {
           {t(TranslationKey.Update)}
         </CustomButton>
 
-        <ShopCascader options={viewModel.exportOptions} onChange={viewModel.onChangeExportOprions}>
-          <CustomButton type="primary" size="large" onClick={() => viewModel.getShopsExport('INVENTORY')}>
-            {t(TranslationKey.Export)}
-          </CustomButton>
-        </ShopCascader>
+        {viewModel.filteredData.length ? (
+          <ShopCascader data={viewModel.filteredData}>
+            <CustomButton type="primary" size="large">
+              {t(TranslationKey.Export)}
+            </CustomButton>
+          </ShopCascader>
+        ) : null}
 
         <CustomInputSearch
           enterButton

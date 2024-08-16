@@ -34,7 +34,7 @@ export const SupervisorSettingsView = observer(() => {
           buttonStyle="solid"
           options={switcherSettings}
           defaultValue={viewModel.condition}
-          onChange={viewModel.onChangeСondition}
+          onChange={event => viewModel.onChangeСondition(event.target.value)}
         />
 
         <CustomInputSearch

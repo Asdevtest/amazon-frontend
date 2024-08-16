@@ -70,7 +70,7 @@ export const shopsColumns = (props: IColumnProps) => {
           <SwitchCell
             disabled={disabled}
             value={row.profile?.isActive}
-            onClick={() => onParsingStatus(row._id, !row.profile?.isActive)}
+            onClick={() => onParsingStatus(row.profile?._id, !row.profile?.isActive)}
           />
         )
       },
