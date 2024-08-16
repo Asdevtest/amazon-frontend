@@ -1,5 +1,6 @@
 import { accountHealthColumns } from '../parsing-reports-columns/account-health.columns'
 import { businessReportsColumns } from '../parsing-reports-columns/business-reports.columns'
+import { campaignsColumns } from '../parsing-reports-columns/campaigns.columns'
 import { feedbackColumns } from '../parsing-reports-columns/feedback.columns'
 import { inventoryColumns } from '../parsing-reports-columns/inventory.columns'
 import { ordersColumns } from '../parsing-reports-columns/orders.columns'
@@ -27,6 +28,9 @@ export const getTableColumns = (activeTable: ParsingReportsType) => {
 
     case ParsingReportsType.INVENTORY:
       return inventoryColumns()
+
+    case ParsingReportsType.CAMPAIGNS:
+      return campaignsColumns()
 
     case ParsingReportsType.ACCOUNT_HEALTH:
       return accountHealthColumns()
