@@ -55,6 +55,7 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
 
     this.sortModel = sortModel
     this.paginationModel = paginationModelInitialValue
+    this.setDefaultPinnedColumns()
 
     // this.fieldsForSearch = fieldsForSearch
 
