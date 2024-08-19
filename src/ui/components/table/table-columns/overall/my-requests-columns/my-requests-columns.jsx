@@ -58,8 +58,10 @@ export const myRequestsViewColumns = rowHandlers => {
           color={colorByDifficultyLevel(difficultyLevelByCode[params.value])}
         />
       ),
+      transformValueMethod: status => difficultyLevelTranslate(difficultyLevelByCode[status]),
+
       width: 95,
-      columnKey: columnnsKeys.shared.TASK_COMPLEXITY,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
