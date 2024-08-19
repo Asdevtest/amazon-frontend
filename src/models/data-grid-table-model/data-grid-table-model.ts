@@ -22,7 +22,6 @@ import { observerConfig } from './observer-config'
 
 export class DataGridTableModel extends DefaultModel {
   currentSearchValue: string = ''
-
   densityModel = 'compact'
 
   sortModel: any = undefined
