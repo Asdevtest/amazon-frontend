@@ -33,6 +33,22 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   option: {
-    width: '200px',
+    width: '220px',
+  },
+
+  divider: {
+    margin: '8px 0',
+  },
+
+  footer: {
+    padding: '8px 16px 16px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '10px',
+  },
+
+  inputSearch: {
+    width: '140px',
   },
 }))

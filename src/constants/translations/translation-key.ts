@@ -1852,7 +1852,7 @@ export enum TranslationKey {
   'Export to file' = 'Export to file',
   'Import permissions' = 'Import permissions',
   'Permissions not exported' = 'Permissions not exported',
-  'Permissions exported successfully' = 'Permissions exported successfully',
+  'Data exported successfully' = 'Data exported successfully',
   'Permissions imported successfully' = 'Permissions imported successfully',
   'Permissions not imported' = 'Permissions not imported',
   'Please select a JSON file' = 'Please select a JSON file',
@@ -2037,4 +2037,5 @@ export enum TranslationKey {
   'Remove from quick access' = 'Remove from quick access',
   'Specify dimensions' = 'Specify dimensions',
   'Error updating data' = 'Error updating data',
+  'Error while exporting data' = 'Error while exporting data',
 }

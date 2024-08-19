@@ -1845,7 +1845,7 @@
   "Export to file": "导出到文件",
   "Import permissions": "导入权限",
   "Permissions not exported": "权限未导出",
-  "Permissions exported successfully": "权限导出成功",
+  "Data exported successfully": "数据导出成功",
   "Permissions imported successfully": "权限导入成功",
   "Permissions not imported": "权限未导入",
   "Please select a JSON file": "请选择一个JSON文件",
@@ -2029,5 +2029,6 @@
   "Time until server shutdown": "距服务器关闭的时间",
   "Remove from quick access": "从快速访问中移除",
   "Specify dimensions": "指定尺寸",
-  "Error updating data": "更新数据时出错"
+  "Error updating data": "更新数据时出错",
+  "Error while exporting data": "导出数据时出错"
 }
