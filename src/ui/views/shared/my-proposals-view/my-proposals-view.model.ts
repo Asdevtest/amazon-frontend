@@ -72,6 +72,10 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
       },
     })
 
+    const operatorsSettings = {
+      sub: '$any',
+    }
+
     super({
       getMainDataMethod: allProposals
         ? RequestProposalModel.getRequestProposalsPagMyAll
@@ -83,6 +87,7 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
       tableKey: allProposals ? DataGridTablesKeys.FREELANCER_ALL_PROPOSALS : DataGridTablesKeys.FREELANCER_MY_PROPOSALS,
       additionalPropertiesGetFilters,
       defaultFilterParams,
+      operatorsSettings,
     })
     makeObservable(this, observerConfig)
 

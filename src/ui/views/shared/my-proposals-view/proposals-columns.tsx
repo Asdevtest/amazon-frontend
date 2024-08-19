@@ -216,7 +216,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
           onChangeData={useId => handlers.onChangePerformer(params.row?._id, useId)}
         />
       ),
-      columnKey: columnnsKeys.freelancer.FREELANCE_PROPOSALS_CREATED_BY,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
