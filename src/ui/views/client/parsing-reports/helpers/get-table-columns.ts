@@ -12,6 +12,7 @@ import { inventoryShipmentsColumns } from '../parsing-reports-columns/inventory-
 import { inventoryColumns } from '../parsing-reports-columns/inventory.columns'
 import { ordersColumns } from '../parsing-reports-columns/orders.columns'
 import { perfomanceNotificationsColumns } from '../parsing-reports-columns/perfomance-notifications.columns'
+import { ppcOrganicColumns } from '../parsing-reports-columns/ppc-organic.columns'
 import { ppcSalesWeeksColumns } from '../parsing-reports-columns/ppc-sales-weeks.columns'
 import { returnsColumns } from '../parsing-reports-columns/returns.columns'
 import { totalBalanceColumns } from '../parsing-reports-columns/total-balance.columns'
@@ -77,6 +78,9 @@ export const getTableColumns = (activeTable: ParsingReportsType) => {
 
     case ParsingReportsType.PPC_SALES_WEEKS:
       return ppcSalesWeeksColumns()
+
+    case ParsingReportsType.PPC_ORGANIC:
+      return ppcOrganicColumns()
 
     default:
       return businessReportsColumns()

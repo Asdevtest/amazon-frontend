@@ -18,8 +18,18 @@ import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/da
 
 import { ParsingReportsType } from '../parsing-reports.type'
 
-export const ppcSalesWeeksColumns = () => {
+export const ppcOrganicColumns = () => {
   const columns: IGridColumn<ParsingReportsType>[] = [
+    {
+      field: 'dateUpdated',
+      headerName: 'Date updated',
+      renderHeader: () => <MultilineTextHeaderCell text="Date updated" />,
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.DATE,
+    },
+
     {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
@@ -36,36 +46,13 @@ export const ppcSalesWeeksColumns = () => {
     },
 
     {
-      field: 'shop',
-      headerName: t(TranslationKey.Shop),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+      field: 'month',
+      headerName: 'Month',
+      renderHeader: () => <MultilineTextHeaderCell text="Month" />,
 
-      renderCell: params => <TextCell text={params.row?.shop?.name} />,
-      width: 90,
-      columnKey: columnnsKeys.shared.OBJECT_VALUE,
-      disableCustomSort: true,
-    },
-
-    {
-      field: 'client',
-      headerName: t(TranslationKey['Created by']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
-
-      renderCell: params => <UserLinkCell blackText name={params.row.client?.name} userId={params.row.client?._id} />,
-      width: 110,
-
-      columnKey: columnnsKeys.shared.OBJECT_VALUE,
-      disableCustomSort: true,
-    },
-
-    {
-      field: 'dateUpdated',
-      headerName: 'Date updated',
-      renderHeader: () => <MultilineTextHeaderCell text="Date updated" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
+      renderCell: params => <TextCell text={params.value} />,
+      width: 115,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -96,6 +83,16 @@ export const ppcSalesWeeksColumns = () => {
       renderCell: params => <TextCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
+    },
+
+    {
+      field: 'day',
+      headerName: 'Day',
+      renderHeader: () => <MultilineTextHeaderCell text="Day" />,
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.DATE,
     },
 
     {
@@ -417,11 +414,34 @@ export const ppcSalesWeeksColumns = () => {
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
+
+    {
+      field: 'shop',
+      headerName: t(TranslationKey.Shop),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+
+      renderCell: params => <TextCell text={params.row?.shop?.name} />,
+      width: 90,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      disableCustomSort: true,
+    },
+
+    {
+      field: 'client',
+      headerName: t(TranslationKey['Created by']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
+
+      renderCell: params => <UserLinkCell blackText name={params.row.client?.name} userId={params.row.client?._id} />,
+      width: 110,
+
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      disableCustomSort: true,
+    },
   ]
 
   for (const column of columns) {
     if (!column.table) {
-      column.table = ParsingReportsType.PPC_SALES_WEEKS
+      column.table = ParsingReportsType.PPC_ORGANIC
     }
 
     column.sortable = false
