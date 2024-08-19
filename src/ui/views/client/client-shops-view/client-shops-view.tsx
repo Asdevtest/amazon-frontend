@@ -48,7 +48,7 @@ export const ClientShopsView = observer(() => {
           allowClear
           size="large"
           placeholder="Search by Title"
-          onSearch={viewModel.onChangeUnserverSearchValue}
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 
