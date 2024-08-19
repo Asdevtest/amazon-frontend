@@ -74,7 +74,7 @@ export const parsingProdileViewColumns = (props: ColumnsProps) => {
       headerName: t(TranslationKey.Access),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Access)} />,
       renderCell: ({ row }: GridRowModel) => {
-        const text = row.isActive ? t(TranslationKey.Yes) : t(TranslationKey.No)
+        const text = row.access ? t(TranslationKey.Yes) : t(TranslationKey.No)
         return <TextCell center copyable={false} text={text} />
       },
       width: 100,
