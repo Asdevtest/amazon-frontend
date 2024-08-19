@@ -57,7 +57,7 @@ export const parsingProdileViewColumns = (props: ColumnsProps) => {
       columnKey: columnnsKeys.shared.STRING,
     },
     {
-      field: 'status',
+      field: 'isActive',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: ({ row }: GridRowModel) => {
