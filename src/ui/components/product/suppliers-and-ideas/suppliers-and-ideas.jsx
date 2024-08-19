@@ -209,36 +209,38 @@ export const SuppliersAndIdeas = observer(props => {
           {requestStatus === loadingStatus.IS_LOADING ? (
             <CircularProgressWithLabel />
           ) : currentData?.length ? (
-            currentData.map(idea => (
-              <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
-                <IdeaViewAndEditCard
-                  curUser={curUser}
-                  inEdit={inEdit}
-                  idea={idea}
-                  languageTag={languageTag}
-                  currentProduct={currentProduct}
-                  selectedIdea={selectedIdeaId}
-                  onCreateProduct={onClickCreateProduct}
-                  onClickSaveBtn={onClickSaveBtn}
-                  onClickCancelBtn={onClickCancelBtn}
-                  onClickCreateRequestButton={onClickCreateRequestButton}
-                  onClickLinkRequestButton={onClickLinkRequestButton}
-                  onClickAcceptButton={onClickAcceptButton}
-                  onClickCloseIdea={onClickCloseIdea}
-                  onClickRejectButton={onClickRejectButton}
-                  onClickReoperButton={onClickReoperButton}
-                  onClickResultButton={onClickResultButton}
-                  onSetCurIdea={onSetCurIdea}
-                  onEditIdea={onEditIdea}
-                  onClickOpenProduct={onClickOpenProduct}
-                  onClickToOrder={onClickToOrder}
-                  onClickRequestId={onClickRequestId}
-                  onClickUnbindButton={onClickUnbindButton}
-                  onClickSaveSupplierBtn={onClickSaveSupplierBtn}
-                  onRemoveSupplier={onRemoveSupplier}
-                />
-              </div>
-            ))
+            currentData
+              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // sort by desc
+              .map(idea => (
+                <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
+                  <IdeaViewAndEditCard
+                    curUser={curUser}
+                    inEdit={inEdit}
+                    idea={idea}
+                    languageTag={languageTag}
+                    currentProduct={currentProduct}
+                    selectedIdea={selectedIdeaId}
+                    onCreateProduct={onClickCreateProduct}
+                    onClickSaveBtn={onClickSaveBtn}
+                    onClickCancelBtn={onClickCancelBtn}
+                    onClickCreateRequestButton={onClickCreateRequestButton}
+                    onClickLinkRequestButton={onClickLinkRequestButton}
+                    onClickAcceptButton={onClickAcceptButton}
+                    onClickCloseIdea={onClickCloseIdea}
+                    onClickRejectButton={onClickRejectButton}
+                    onClickReoperButton={onClickReoperButton}
+                    onClickResultButton={onClickResultButton}
+                    onSetCurIdea={onSetCurIdea}
+                    onEditIdea={onEditIdea}
+                    onClickOpenProduct={onClickOpenProduct}
+                    onClickToOrder={onClickToOrder}
+                    onClickRequestId={onClickRequestId}
+                    onClickUnbindButton={onClickUnbindButton}
+                    onClickSaveSupplierBtn={onClickSaveSupplierBtn}
+                    onRemoveSupplier={onRemoveSupplier}
+                  />
+                </div>
+              ))
           ) : (
             <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
