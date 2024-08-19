@@ -407,19 +407,3 @@ export const notificationDataConverter = data =>
     sub: item.type === Notification.Proposal ? item?.data?.[0]?.sub : undefined,
     type: item?.type,
   }))
-
-export const myProposalsDataConverter = data =>
-  data.map((item, index) => ({
-    _id: item.request._id,
-    title: item.request.title,
-    product: item.request.product,
-    priority: item.request.priority,
-    spec: item.request.spec,
-    timeoutAt: item.request.timeoutAt,
-    taskComplexity: item.request.taskComplexity,
-    status: item.status,
-    humanFriendlyId: item.request.humanFriendlyId,
-
-    originalData: item,
-    id: item._id ? item._id : index,
-  }))

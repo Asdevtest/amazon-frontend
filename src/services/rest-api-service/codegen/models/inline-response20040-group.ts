@@ -17,31 +17,31 @@
 /**
  * 
  * @export
- * @interface InlineResponse20039Rows
+ * @interface InlineResponse20040Group
  */
-export interface InlineResponse20039Rows {
+export interface InlineResponse20040Group {
     /**
      * GUID продукта в базе данных
      * @type {string}
-     * @memberof InlineResponse20039Rows
+     * @memberof InlineResponse20040Group
      */
-    productId: string;
+    productId?: string;
     /**
      * GUID тарифа доставки
      * @type {string}
-     * @memberof InlineResponse20039Rows
+     * @memberof InlineResponse20040Group
      */
     logicsTariffId?: string;
     /**
      * GUID заказа в БД
      * @type {string}
-     * @memberof InlineResponse20039Rows
+     * @memberof InlineResponse20040Group
      */
     orderId?: string;
     /**
      * Кол-во продукта
      * @type {number}
-     * @memberof InlineResponse20039Rows
+     * @memberof InlineResponse20040Group
      */
     amount?: number;
 }

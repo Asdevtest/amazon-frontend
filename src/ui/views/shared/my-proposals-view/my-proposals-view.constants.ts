@@ -3,6 +3,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
+import { ProposalsCondition } from './my-proposals-view.types'
+
 export const filtersFields = [
   'status',
   'createdBy',
@@ -29,14 +31,9 @@ export const additionalFields = ['skuByClient', 'amazonTitle']
 
 export const fieldsForSearch = ['asin', 'title', 'humanFriendlyId', 'skuByClient']
 
-export const switcherConditions = {
-  inTheWork: 'inTheWork',
-  executed: 'executed',
-}
-
 export const customSwitcherSettings = [
-  { label: t(TranslationKey['In the work']), value: switcherConditions.inTheWork },
-  { label: t(TranslationKey.Executed), value: switcherConditions.executed },
+  { label: t(TranslationKey['In the work']), value: ProposalsCondition.IN_THE_WORK },
+  { label: t(TranslationKey.Executed), value: ProposalsCondition.EXECUTED },
 ]
 
 export const inTheWorkStatuses = [

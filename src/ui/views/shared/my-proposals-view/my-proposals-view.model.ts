@@ -1,49 +1,35 @@
-import { makeAutoObservable, makeObservable, runInAction, toJS } from 'mobx'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { CheckboxChangeEvent } from 'antd/es/checkbox'
+import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { RequestProposalStatus, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
-import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
-import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
-import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
-import { myProposalsDataConverter } from '@utils/data-grid-data-converters'
-import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
-import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { loadingStatus } from '@typings/enums/loading-status'
 import { Specs } from '@typings/enums/specs'
+import { IProposal } from '@typings/models/proposals/proposal'
+import { IRequest } from '@typings/models/requests/request'
 
-import {
-  additionalFields,
-  executedStatuses,
-  fieldsForSearch,
-  filtersFields,
-  inTheWorkStatuses,
-  switcherConditions,
-} from './my-proposals-view.constants'
+import { additionalFields, executedStatuses, fieldsForSearch, inTheWorkStatuses } from './my-proposals-view.constants'
+import { ProposalsCondition } from './my-proposals-view.types'
 import { observerConfig } from './observer-config'
 import { proposalsColumns } from './proposals-columns'
 
 export class MyProposalsViewModel extends DataGridFilterTableModel {
-  currentProposal = null
-  currentRequest = null
-
-  selectedProposalFilters = Object.keys(RequestProposalStatus).map(el => ({
-    name: RequestProposalStatusTranslate(el),
-    _id: el,
-  }))
+  currentProposal: IProposal | null = null
+  currentRequest: IRequest | null = null
 
   selectedSpecType = Specs.DEFAULT
 
@@ -54,35 +40,37 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
   showMainRequestResultModal = false
   showRequestResultModal = false
 
-  isInTheWork = true
-  switcherCondition = switcherConditions.inTheWork
+  switcherCondition = ProposalsCondition.IN_THE_WORK
 
   get userInfo() {
     return UserModel.userInfo
   }
-  get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
-  }
 
-  constructor({ allProposals }) {
+  constructor({ allProposals }: { allProposals: boolean }) {
     const rowHandlers = {
-      onClickDeleteButton: (proposalId, proposalStatus) => this.onClickDeleteBtn(proposalId, proposalStatus),
-      onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),
-      onClickResultButton: proposalId => this.onClickResultBtn(proposalId),
-      onClickOpenButton: requestId => this.onClickOpenBtn(requestId),
-      onChangePerformer: (id, userId) => this.onChangePerformer(id, userId),
+      onClickDeleteButton: (proposalId: string, proposalStatus: keyof typeof RequestProposalStatus) =>
+        this.onClickDeleteBtn(proposalId, proposalStatus),
+      onClickEditButton: (requestId: string, proposalId: string) => this.onClickEditBtn(requestId, proposalId),
+      onClickResultButton: (proposalId: string) => this.onClickResultBtn(proposalId),
+      onClickOpenButton: (requestId: string) => this.onClickOpenBtn(requestId),
+      onChangePerformer: (id: string, userId: string) => this.onChangePerformer(id, userId),
     }
 
     const columnsModel = proposalsColumns(rowHandlers)
 
     const additionalPropertiesGetFilters = () => {
-      const specTypeFilters = this.columnMenuSettings.specType.currentFilterData
       const isDefaultSpecType = this.selectedSpecType === Specs.DEFAULT
 
       return {
-        ...(!isDefaultSpecType && specTypeFilters?.length === 0 ? { specType: { $eq: this.selectedSpecType } } : {}),
+        ...(!isDefaultSpecType ? { specType: { $eq: this.selectedSpecType } } : {}),
       }
     }
+
+    const defaultFilterParams = () => ({
+      statusGroup: {
+        $eq: this.switcherCondition,
+      },
+    })
 
     super({
       getMainDataMethod: allProposals
@@ -94,24 +82,18 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey: allProposals ? DataGridTablesKeys.FREELANCER_ALL_PROPOSALS : DataGridTablesKeys.FREELANCER_MY_PROPOSALS,
       additionalPropertiesGetFilters,
+      defaultFilterParams,
     })
+    makeObservable(this, observerConfig)
 
-    // defaultGetCurrentDataOptions,
-    // additionalPropertiesColumnMenuSettings,
-    // additionalPropertiesGetFilters,
-    // operatorsSettings,
-    // defaultFilterParams,
-
+    this.initHistory()
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
     this.getDataGridState()
     this.getCurrentData()
-
-    this.setDefaultStatuses()
-    makeObservable(this, observerConfig)
   }
 
-  onClickDeleteBtn(proposalId, proposalStatus) {
+  onClickDeleteBtn(proposalId: string, proposalStatus: keyof typeof RequestProposalStatus) {
     this.confirmModalSettings = {
       isWarning: true,
       title: t(TranslationKey.Attention),
@@ -126,7 +108,7 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async cancelProposalHandler(proposalId, proposalStatus) {
+  async cancelProposalHandler(proposalId: string, proposalStatus: keyof typeof RequestProposalStatus) {
     try {
       switch (proposalStatus) {
         case RequestProposalStatus.CREATED:
@@ -144,138 +126,74 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onChangeRadioButtonOption(event) {
-    this.selectedSpecType = event.target.value
+  onChangeRadioButtonOption(event: CheckboxChangeEvent) {
+    this.selectedSpecType = event?.target?.value
+
     this.getCurrentData()
   }
 
-  onClickEditBtn(requestId, proposalId) {
+  onClickEditBtn(requestId: string, proposalId: string) {
     this.history.push(
       `/${
-        UserRoleCodeMapForRoutes[this.userInfo.role]
+        // @ts-ignore
+        UserRoleCodeMapForRoutes[this.userInfo?.role]
       }/freelance/my-proposals/edit-proposal?proposalId=${proposalId}&requestId=${requestId}`,
     )
   }
-  onClickOpenBtn(requestId) {
+
+  onClickOpenBtn(requestId: string) {
     window
       ?.open?.(
         `${window.location.origin}/${
-          UserRoleCodeMapForRoutes[this.userInfo.role]
+          // @ts-ignore
+          UserRoleCodeMapForRoutes[this.userInfo?.role]
         }/freelance/my-proposals/custom-search-request?request-id=${requestId}`,
         '_blank',
       )
       ?.focus?.()
   }
 
-  async getRequestsProposalsPagMy() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-      const method = this.allProposals
-        ? RequestProposalModel.getRequestProposalsPagMyAll
-        : RequestProposalModel.getRequestProposalsPagMy
-      const response = await method({
-        filters: this.getFilters(),
-        limit: this.paginationModel.pageSize,
-        offset: this.paginationModel.page * this.paginationModel.pageSize,
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-        noCache: true,
-      })
-
-      runInAction(() => {
-        this.requests = myProposalsDataConverter(response.rows)
-        this.rowCount = response.count
-      })
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-    }
-  }
-  async getProposalById(proposalId) {
+  async getProposalById(proposalId: string) {
     try {
       const response = await RequestProposalModel.getRequestProposalsCustom(proposalId)
       runInAction(() => {
-        this.currentProposal = response
+        this.currentProposal = response as unknown as IProposal
       })
     } catch (error) {
       console.error(error)
     }
   }
-  async getRequestById(requestId) {
+
+  async getRequestById(requestId: string) {
     try {
       const response = await RequestModel.getCustomRequestById(requestId)
       runInAction(() => {
-        this.currentRequest = response
+        this.currentRequest = response as unknown as IRequest
       })
     } catch (error) {
       console.error(error)
     }
   }
-  async onClickResultBtn(proposalId) {
+  async onClickResultBtn(proposalId: string) {
     await this.getProposalById(proposalId)
+
     if (
-      executedStatuses.includes(this.currentProposal?.proposal?.status) &&
-      this.currentProposal?.request.spec?.title === freelanceRequestType.DESIGNER
+      executedStatuses.includes(this.currentProposal?.proposal?.status as string) &&
+      // @ts-ignore
+      this.currentProposal?.request?.spec?.title === freelanceRequestType.DESIGNER
     ) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
     } else if (
-      inTheWorkStatuses.includes(this.currentProposal?.proposal?.status) &&
-      this.currentProposal?.request.spec?.title === freelanceRequestType.DESIGNER
+      inTheWorkStatuses.includes(this.currentProposal?.proposal?.status as string) &&
+      // @ts-ignore
+      this.currentProposal?.request?.spec?.title === freelanceRequestType.DESIGNER
     ) {
       this.onTriggerOpenModal('showRequestDesignerResultModal')
-    } else if (this.currentProposal?.request.spec?.title === freelanceRequestType.BLOGGER) {
+      // @ts-ignore
+    } else if (this.currentProposal?.request?.spec?.title === freelanceRequestType.BLOGGER) {
       this.onTriggerOpenModal('showRequestResultModal')
     } else {
       this.onTriggerOpenModal('showMainRequestResultModal')
-    }
-  }
-
-  getFilters(exclusion) {
-    return objectToUrlQs(
-      dataGridFiltersConverter(this.columnMenuSettings, this.currentSearchValue, exclusion, filtersFields, [
-        'asin',
-        'title',
-        'humanFriendlyId',
-        'skuByClient',
-      ]),
-    )
-  }
-
-  async onClickFilterBtn(column) {
-    try {
-      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
-
-      const mainUrl = this.allProposals ? 'request-proposals/pag/my_all?filters=' : 'request-proposals/pag/my?filters='
-
-      const data = await GeneralModel.getDataForColumn(
-        this.getTableByColumn(column),
-        column,
-        `${mainUrl}${this.getFilters(column)}`,
-      )
-
-      if (this.columnMenuSettings[column]) {
-        runInAction(() => {
-          const filterData =
-            column === 'status'
-              ? data.filter(status =>
-                  this.isInTheWork ? inTheWorkStatuses.includes(status) : executedStatuses.includes(status),
-                )
-              : data
-          this.columnMenuSettings = {
-            ...this.columnMenuSettings,
-            [column]: {
-              ...this.columnMenuSettings[column],
-              filterData,
-            },
-          }
-        })
-      }
-      this.setFilterRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setFilterRequestStatus(loadingStatus.FAILED)
-      console.error(error)
     }
   }
 
@@ -292,61 +210,73 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
     }
   }
 
-  setDefaultStatuses() {
-    this.onChangeFullFieldMenuItem(this.isInTheWork ? inTheWorkStatuses : executedStatuses, 'status')
-  }
-
-  onClickChangeCatigory(event) {
-    const currentValue = event.target.value
+  onClickChangeCatigory(event: CheckboxChangeEvent) {
+    const currentValue = event?.target?.value
     this.switcherCondition = currentValue
 
-    if (currentValue === switcherConditions.inTheWork) {
-      this.isInTheWork = true
-    } else {
-      this.isInTheWork = false
-    }
-    this.setDefaultStatuses()
-    this.getRequestsProposalsPagMy()
+    this.getCurrentData()
   }
-  async onClickSendAsResult({ message, files, amazonOrderId, publicationLinks, sourceLink }) {
+
+  async onClickSendAsResult({
+    message,
+    files,
+    amazonOrderId,
+    publicationLinks,
+    sourceLink,
+  }: {
+    message: string
+    files: any[]
+    amazonOrderId: string
+    publicationLinks: string
+    sourceLink: string
+  }) {
     try {
+      let loadedFiles: string[] = []
+
       if (files.length) {
-        await onSubmitPostImages.call(this, {
+        // @ts-ignore
+        loadedFiles = await onSubmitPostImages.call(this, {
           images: typeof files[0] === 'object' && 'fileLink' in files[0] ? files.map(el => el.fileLink) : files,
           type: 'loadedFiles',
         })
       }
-      if (this.currentProposal.proposal.status === RequestProposalStatus.TO_CORRECT) {
+
+      if (this.currentProposal?.proposal?.status === RequestProposalStatus.TO_CORRECT) {
         await RequestProposalModel.requestProposalResultCorrected(this.currentProposal.proposal._id, {
           reason: message,
-          linksToMediaFiles: this.loadedFiles,
+          linksToMediaFiles: loadedFiles,
         })
       } else if (
-        this.currentProposal.proposal.status === RequestProposalStatus.CREATED ||
-        this.currentProposal.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
-        this.currentProposal.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED
+        this.currentProposal?.proposal?.status === RequestProposalStatus.CREATED ||
+        this.currentProposal?.proposal?.status === RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+        this.currentProposal?.proposal?.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED
       ) {
         await RequestProposalModel.requestProposalCorrected(this.currentProposal.proposal._id, {
           reason: message,
-          linksToMediaFiles: this.loadedFiles,
+          linksToMediaFiles: loadedFiles,
         })
       } else {
-        if (this.currentProposal.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
+        if (this.currentProposal?.proposal?.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
           await RequestProposalModel.requestProposalReadyToVerify(this.currentProposal.proposal._id)
         }
       }
-      const filesIds = files.map(el => el._id)
-      const curentMediaIds = this.currentProposal.proposal?.media?.map(el => el._id)
-      const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
-      if (mediaToRemoveIds.length) {
+
+      const filesIds = files.map((el: any) => el._id)
+
+      const curentMediaIds = this.currentProposal?.proposal?.media?.map(el => el._id)
+
+      const mediaToRemoveIds = curentMediaIds?.filter(el => !filesIds.includes(el))
+
+      if (mediaToRemoveIds?.length) {
         await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({ _id: el, proposalId: null })))
       }
-      await RequestProposalModel.requestProposalResultEdit(this.currentProposal.proposal._id, {
+
+      await RequestProposalModel.requestProposalResultEdit(this.currentProposal?.proposal?._id, {
         result: message,
-        media: this.loadedFiles.map((el, i) => ({
+        media: loadedFiles?.map((el, i) => ({
           fileLink: el,
           commentByPerformer: typeof files[0] === 'object' ? files[i]?.commentByPerformer : '',
-          _id: this.currentProposal.proposal?.media?.some(item => item._id === files[i]?._id) ? files[i]?._id : null,
+          _id: this.currentProposal?.proposal?.media?.some(item => item._id === files[i]?._id) ? files[i]?._id : null,
           index: i,
         })),
         ...(amazonOrderId && { amazonOrderId }),

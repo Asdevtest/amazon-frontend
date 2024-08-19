@@ -13,20 +13,25 @@
  */
 
 
-import { InlineObject36 } from './inline-object36';
 
 /**
  * 
  * @export
- * @interface InlineObject127
+ * @interface InlineResponse20032LogicsTariff
  */
-export interface InlineObject127 {
+export interface InlineResponse20032LogicsTariff {
     /**
-     * Массив дополнительных коробок которые случились при обработки.
-     * @type {Array<InlineObject36>}
-     * @memberof InlineObject127
+     * GUID тарифа
+     * @type {string}
+     * @memberof InlineResponse20032LogicsTariff
      */
-    additionalBoxes?: Array<InlineObject36>;
+    _id?: string;
+    /**
+     * Название тарифа
+     * @type {string}
+     * @memberof InlineResponse20032LogicsTariff
+     */
+    name?: string;
 }
 
 
