@@ -1,5 +1,4 @@
-import { Cascader, CascaderProps, Divider, Space } from 'antd'
-import { DefaultOptionType } from 'antd/es/select'
+import { Cascader, Divider, Space } from 'antd'
 import Paragraph from 'antd/es/typography/Paragraph'
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
@@ -7,6 +6,7 @@ import { FC, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -17,14 +17,12 @@ import { useStyles } from './shop-cascader.style'
 
 import { ShopsCascaderModel } from './shop-cascader.model'
 
-interface ShopCascaderProps
-  extends IDefaultPropsExtensionAntdComponent,
-    CascaderProps<DefaultOptionType, 'value', true> {
+interface ShopCascaderProps extends IDefaultPropsExtensionAntdComponent {
   data: IShop[]
 }
 
 export const ShopCascader: FC<ShopCascaderProps> = observer(props => {
-  const { required, isRow, isCell, label, labelClassName, wrapperClassName, data, ...restProps } = props
+  const { required, isRow, isCell, label, labelClassName, wrapperClassName, data } = props
 
   const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(() => new ShopsCascaderModel(data))
@@ -39,11 +37,10 @@ export const ShopCascader: FC<ShopCascaderProps> = observer(props => {
       ) : null}
 
       <Cascader
-        {...restProps}
         multiple
+        expandIcon=" " // null icon
         open={viewModel.open}
-        suffixIcon={null}
-        options={viewModel.exportOptions}
+        options={viewModel.filteredOptions}
         rootClassName={styles.cascader}
         expandTrigger="hover"
         optionRender={option => (
@@ -57,17 +54,28 @@ export const ShopCascader: FC<ShopCascaderProps> = observer(props => {
         dropdownRender={menu => (
           <>
             {menu}
-            <Divider style={{ margin: '8px 0' }} />
-            <Space style={{ padding: '8px 16px 16px' }}>
+            <Divider className={styles.divider} />
+            <Space className={styles.footer}>
+              <CustomInputSearch
+                allowClear
+                placeholder="Search"
+                wrapperClassName={styles.inputSearch}
+                onChange={viewModel.onChangeInput}
+              />
               <CustomButton type="primary" onClick={viewModel.getShopsExport}>
-                {t(TranslationKey.Export)}
+                {t(TranslationKey.Save)}
               </CustomButton>
-              <CustomButton onClick={viewModel.onClose}>{t(TranslationKey.Cancel)}</CustomButton>
             </Space>
           </>
         )}
         onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
-      />
+        // @ts-ignore
+        onChange={viewModel.onChangeExportOptions}
+      >
+        <CustomButton type="primary" size="large">
+          {t(TranslationKey.Export)}
+        </CustomButton>
+      </Cascader>
     </div>
   )
 })

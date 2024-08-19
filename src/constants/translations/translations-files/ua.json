@@ -1850,7 +1850,7 @@
   "Export to file": "Експорт у файл",
   "Import permissions": "Імпорт з файлу",
   "Permissions not exported": "Файл не експортовано",
-  "Permissions exported successfully": "Файл успішно експортовано",
+  "Data exported successfully": "Дані успішно експортовано",
   "Permissions imported successfully": "Файл успішно імпортовано",
   "Permissions not imported": "Файл не імпортовано",
   "Please select a JSON file": "Будь ласка, виберіть файл JSON",
@@ -2023,5 +2023,6 @@
   "Box dimensions don't meet carrier requirements!": "Розміри коробки не відповідають вимогам перевізника!",
   "Time until server shutdown": "Час до вимкнення сервера",
   "Specify dimensions": "Вкажіть розміри",
-  "Error updating data": "Помилка оновлення даних"
+  "Error updating data": "Помилка оновлення даних",
+  "Error while exporting data": "Помилка під час експорту даних"
 }
