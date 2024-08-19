@@ -5,10 +5,11 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
-import { DataGridTableModel } from '@models/data-grid-table-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { ParserModel } from '@models/parser-model'
 import { ShopModel } from '@models/shop-model'
 
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -18,7 +19,7 @@ import { shopsColumns } from './client-shops-view.columns'
 import { shopsViewModelConfig } from './client-shops-view.config'
 import { IColumnProps } from './client-shops-view.types'
 
-export class ShopsViewModel extends DataGridTableModel {
+export class ShopsViewModel extends DataGridFilterTableModel {
   selectedShop?: IShop
   shopModal = false
 
@@ -34,12 +35,16 @@ export class ShopsViewModel extends DataGridTableModel {
       onParsingAccess: email => this.onParsingAccess(email),
       onParsingStatus: (id, isActive) => this.onParsingStatus(id, isActive),
     }
+    const columnsModel = shopsColumns(columnsProps)
+    const filtersFields = getFilterFields(columnsModel)
 
     super({
       getMainDataMethod: ShopModel.getShopsWithProfiles,
-      columnsModel: shopsColumns(columnsProps),
+      columnsModel,
       tableKey: DataGridTablesKeys.CLIENT_SHOPS,
       fieldsForSearch: ['name'],
+      mainMethodURL: 'shops/with_profiles?',
+      filtersFields,
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]

@@ -47,7 +47,7 @@ export const shopsColumns = (props: IColumnProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />
       ),
-      width: 240,
+      width: 320,
     },
     {
       field: 'access',
@@ -57,6 +57,7 @@ export const shopsColumns = (props: IColumnProps) => {
         <ParsingAccessCell profile={row.profile} onAccess={() => onParsingAccess(row.profile?.email)} />
       ),
       width: 160,
+      disableCustomSort: true,
     },
     {
       field: 'status',
@@ -75,6 +76,7 @@ export const shopsColumns = (props: IColumnProps) => {
         )
       },
       width: 160,
+      disableCustomSort: true,
     },
     {
       field: 'action',

@@ -41,20 +41,14 @@ export const ClientShopsView = observer(() => {
           {t(TranslationKey.Update)}
         </CustomButton>
 
-        {viewModel.filteredData.length ? (
-          <ShopCascader data={viewModel.filteredData}>
-            <CustomButton type="primary" size="large">
-              {t(TranslationKey.Export)}
-            </CustomButton>
-          </ShopCascader>
-        ) : null}
+        {viewModel.filteredData.length ? <ShopCascader data={viewModel.filteredData} /> : null}
 
         <CustomInputSearch
           enterButton
           allowClear
           size="large"
           placeholder="Search by Title"
-          onSearch={viewModel.onChangeUnserverSearchValue}
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 

@@ -1851,7 +1851,7 @@
   "Export to file": "Экспорт в файл",
   "Import permissions": "Импорт из файла",
   "Permissions not exported": "Файл не экспортирован",
-  "Permissions exported successfully": "Файл успешно экспортирован",
+  "Data exported successfully": "Данные успешно экспортированы",
   "Permissions imported successfully": "Файл успешно импортирован",
   "Permissions not imported": "Файл не импортирован",
   "Please select a JSON file": "Пожалуйста, выберите файл JSON",
@@ -1999,11 +1999,11 @@
   "Parsing data": "Анализ данных",
   "Stop": "Стоп",
   "Search by Title": "Поиск по названию",
-  "Parsing profile": "Парсинг профиля",
+  "Parsing profile": "Профиль парсинга",
   "Request sent": "Запрос отправлен",
   "Access": "Доступ",
   "issued": "выдано",
-  "Parsing status": "Парсинг статуса",
+  "Parsing status": "Статус парсинга",
   "Profile with given guid not found!": "Профиль с указанным ID не найден!",
   "Profile does not belongs to you!": "Профиль вам не принадлежит!",
   "Ask": "Запрос",
@@ -2026,5 +2026,6 @@
   "Box dimensions don't meet carrier requirements!": "Размеры коробки не соответствуют требованиям перевозчика!",
   "Time until server shutdown": "Время до завершения работы сервера",
   "Specify dimensions": "Укажите размеры",
-  "Error updating data": "Ошибка обновления данных"
+  "Error updating data": "Ошибка обновления данных",
+  "Error while exporting data": "Ошибка при экспорте данных"
 }
