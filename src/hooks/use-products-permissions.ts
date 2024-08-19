@@ -133,8 +133,10 @@ export class UseProductsPermissions {
   }
 
   async onClickSubmitSearch(searchValue: string) {
-    console.log('searchValue', searchValue)
-    if (!this.callback || this.requestStatus !== loadingStatus.SUCCESS) return
+    if (!this.callback || this.requestStatus !== loadingStatus.SUCCESS) {
+      return
+    }
+
     try {
       runInAction(() => {
         this.requestStatus = loadingStatus.IS_LOADING

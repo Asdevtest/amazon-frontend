@@ -1,3 +1,5 @@
+import { MdOutlineDelete } from 'react-icons/md'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -105,7 +107,7 @@ export const sourceFilesColumns = rowHandlers => [
       <ActionButtonsCell
         isFirstButton
         iconButton
-        firstButtonElement={<CrossIcon />}
+        firstButtonElement={<MdOutlineDelete />}
         firstButtonStyle={ButtonStyle.DANGER}
         firstDescriptionText="Do you want to delete the source file?"
         onClickFirstButton={() => rowHandlers.onClickRemoveBtn(params.row._id)}

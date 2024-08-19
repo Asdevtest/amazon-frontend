@@ -1,5 +1,3 @@
-import { CascaderProps } from 'antd'
-import { DefaultOptionType } from 'antd/es/select'
 import { makeObservable } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -7,10 +5,11 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
-import { DataGridTableModel } from '@models/data-grid-table-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { ParserModel } from '@models/parser-model'
 import { ShopModel } from '@models/shop-model'
 
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -19,20 +18,13 @@ import { IShop } from '@typings/models/shops/shop'
 import { shopsColumns } from './client-shops-view.columns'
 import { shopsViewModelConfig } from './client-shops-view.config'
 import { IColumnProps } from './client-shops-view.types'
-import { getExportOptionsForShopsView } from './helpers/get-export-options'
 
-export class ShopsViewModel extends DataGridTableModel {
+export class ShopsViewModel extends DataGridFilterTableModel {
   selectedShop?: IShop
   shopModal = false
-  selectedExportOptions: DefaultOptionType[] = []
 
   get disableUpdateButton() {
     return !this.selectedRows.length || this.requestStatus === loadingStatus.IS_LOADING
-  }
-  get exportOptions() {
-    const generetadOptions = this.filteredData.map(({ name, _id }) => ({ label: name, value: _id }))
-
-    return getExportOptionsForShopsView(generetadOptions, this.selectedExportOptions)
   }
 
   constructor() {
@@ -43,12 +35,16 @@ export class ShopsViewModel extends DataGridTableModel {
       onParsingAccess: email => this.onParsingAccess(email),
       onParsingStatus: (id, isActive) => this.onParsingStatus(id, isActive),
     }
+    const columnsModel = shopsColumns(columnsProps)
+    const filtersFields = getFilterFields(columnsModel)
 
     super({
       getMainDataMethod: ShopModel.getShopsWithProfiles,
-      columnsModel: shopsColumns(columnsProps),
+      columnsModel,
       tableKey: DataGridTablesKeys.CLIENT_SHOPS,
       fieldsForSearch: ['name'],
+      mainMethodURL: 'shops/with_profiles?',
+      filtersFields,
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
@@ -74,6 +70,7 @@ export class ShopsViewModel extends DataGridTableModel {
       this.getCurrentData()
     } catch (error) {
       console.error(error)
+      toast.error(t(TranslationKey['Error updating data']))
     }
   }
 
@@ -127,24 +124,5 @@ export class ShopsViewModel extends DataGridTableModel {
       console.error(error)
       toast.error(t(TranslationKey['Profile with given guid not found!']))
     }
-  }
-
-  async getShopsExport(table: string, shopIds?: string, statusGroup?: string, onAmazon?: boolean) {
-    try {
-      const data = {
-        table,
-        shopIds,
-        statusGroup,
-        onAmazon,
-      }
-
-      await ClientModel.getShopsExport(data)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  onChangeExportOprions: CascaderProps<DefaultOptionType, 'value', true>['onChange'] = values => {
-    this.selectedExportOptions = values
   }
 }

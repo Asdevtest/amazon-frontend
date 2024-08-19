@@ -944,7 +944,6 @@
   "Removes the box for further addition to the batch, returns to My Warehouse": "为添加到批次消除箱子, 返回到\"我仓库\"一节",
   "Returns all boxes from the selected batch to the \"Boxes ready to send\" section": "返回所有箱子从指定批次到\"准备发送箱子\" 一节",
   "A list of your added Amazon stores with reports on them": "列表你已添加了Amazon商店的列表和报告",
-  "Download the file to your device": "文件下载到您的设备上",
   "Binds integration to the product card": "绑定集成到产品卡",
   "Important notifications on changes in order price, batch or irrelevant tariff": "订单位价格格的改变的重要通知, 批次或无相关的费用",
   "Notifications of required surcharges for the order": "需要附加费的通知",
@@ -1127,7 +1126,6 @@
   "For easier completion": "为更方便完成执行",
   "download the list template": "下载列表模板",
   "Your ID": "你ID",
-  "Copy the link": "复制链接",
   "New product": "新产品",
   "Researcher found supplier": "研究员找到了供货方",
   "Rejected by Supervisor": "由主管拒绝",
@@ -1847,7 +1845,7 @@
   "Export to file": "导出到文件",
   "Import permissions": "导入权限",
   "Permissions not exported": "权限未导出",
-  "Permissions exported successfully": "权限导出成功",
+  "Data exported successfully": "数据导出成功",
   "Permissions imported successfully": "权限导入成功",
   "Permissions not imported": "权限未导入",
   "Please select a JSON file": "请选择一个JSON文件",
@@ -2019,5 +2017,8 @@
   "Standart": "标准",
   "Important": "重要",
   "Box dimensions don't meet carrier requirements!": "箱子尺寸不符合承运商要求!",
-  "Time until server shutdown": "距服务器关闭的时间"
+  "Time until server shutdown": "距服务器关闭的时间",
+  "Specify dimensions": "指定尺寸",
+  "Error updating data": "更新数据时出错",
+  "Error while exporting data": "导出数据时出错"
 }

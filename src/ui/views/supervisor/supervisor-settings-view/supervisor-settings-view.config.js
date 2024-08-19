@@ -16,6 +16,7 @@ export const supervisorSettingsConfig = {
   onRemoveAsin: action.bound,
   onRemoveAsins: action.bound,
   onChangeСondition: action.bound,
+  setDataByCondition: action.bound,
 }
 
 export const tabsValues = {

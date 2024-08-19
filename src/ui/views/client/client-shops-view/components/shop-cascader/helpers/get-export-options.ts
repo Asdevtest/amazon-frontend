@@ -1,5 +1,3 @@
-import { DefaultOptionType } from 'antd/es/cascader'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
@@ -122,17 +120,22 @@ const orders = [
   },
 ]
 
-const checkDisabled = (
-  id: string | number | null | undefined,
-  table: string,
-  selectedExportOptions: DefaultOptionType[],
-) => !!selectedExportOptions.find(option => option[0] === id && !!option[1] && option[1] !== table)
+export interface IExportOption {
+  value: string
+  label: string
+  disabled?: boolean
+  children?: IExportOption[]
+}
+
+const checkDisabled = (id: string, table: string, selectedExportOptions: IExportOption[]) =>
+  !!selectedExportOptions.find(option => option?.value === String(id) && !!option?.label && option?.label !== table)
 
 export const getExportOptionsForShopsView = (
-  options: DefaultOptionType[],
-  selectedExportOptions: DefaultOptionType[],
-) => {
-  const result: DefaultOptionType[] = options.map(item => ({
+  options: IExportOption[],
+  selectedExportOptions: IExportOption[],
+  inputValue: string = '',
+): IExportOption[] => {
+  const result: IExportOption[] = options.map(item => ({
     label: item.label,
     value: item.value,
     children: [
@@ -144,7 +147,7 @@ export const getExportOptionsForShopsView = (
       {
         label: t(TranslationKey.Orders),
         value: 'ORDERS',
-        children: orders,
+        children: orders as IExportOption[],
         disabled: checkDisabled(item.value, 'ORDERS', selectedExportOptions),
       },
       {
@@ -153,23 +156,23 @@ export const getExportOptionsForShopsView = (
         children: [
           {
             label: 'On Amazon',
-            value: 1,
+            value: '1', // Convert number to string
           },
           {
             label: 'PREP_CENTR_USA',
-            value: 0,
+            value: '0', // Convert number to string
           },
-        ],
+        ] as IExportOption[], // Type assertion to IExportOption[]
         disabled: checkDisabled(item.value, 'BOXES', selectedExportOptions),
       },
       {
         label: t(TranslationKey.Batches),
         value: 'BATCHES',
-        children: batches,
-        // disabled: checkDisabled(item.value, 'BATCHES', selectedExportOptions),
+        children: batches as IExportOption[],
+        disabled: checkDisabled(item.value, 'BATCHES', selectedExportOptions),
       },
     ],
   }))
 
-  return result
+  return result.filter(option => option?.label?.toLowerCase().includes(inputValue.toLowerCase()))
 }

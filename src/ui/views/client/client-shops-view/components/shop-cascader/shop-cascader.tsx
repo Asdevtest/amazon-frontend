@@ -1,27 +1,31 @@
-import { Cascader, CascaderProps } from 'antd'
-import { DefaultOptionType } from 'antd/es/select'
+import { Cascader, Divider, Space } from 'antd'
 import Paragraph from 'antd/es/typography/Paragraph'
-import { FC, memo } from 'react'
+import { observer } from 'mobx-react'
+import { FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomButton } from '@components/shared/custom-button'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+
 import { t } from '@utils/translations'
 
+import { IShop } from '@typings/models/shops/shop'
 import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-props-extension-component-antd'
 
 import { useStyles } from './shop-cascader.style'
 
-interface ShopCascaderProps
-  extends IDefaultPropsExtensionAntdComponent,
-    CascaderProps<DefaultOptionType, 'value', true> {}
+import { ShopsCascaderModel } from './shop-cascader.model'
 
-export const ShopCascader: FC<ShopCascaderProps> = memo(props => {
-  const { required, isRow, isCell, label, labelClassName, wrapperClassName, options, ...restProps } = props
+interface ShopCascaderProps extends IDefaultPropsExtensionAntdComponent {
+  data: IShop[]
+}
+
+export const ShopCascader: FC<ShopCascaderProps> = observer(props => {
+  const { required, isRow, isCell, label, labelClassName, wrapperClassName, data } = props
 
   const { classes: styles, cx } = useStyles()
-
-  const filter = (inputValue: string, path: DefaultOptionType[]) =>
-    path.some(option => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
+  const [viewModel] = useState(() => new ShopsCascaderModel(data))
 
   return (
     <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
@@ -33,11 +37,10 @@ export const ShopCascader: FC<ShopCascaderProps> = memo(props => {
       ) : null}
 
       <Cascader
-        {...restProps}
         multiple
-        size="large"
-        suffixIcon={null}
-        options={options}
+        expandIcon=" " // null icon
+        open={viewModel.open}
+        options={viewModel.filteredOptions}
         rootClassName={styles.cascader}
         expandTrigger="hover"
         optionRender={option => (
@@ -48,8 +51,31 @@ export const ShopCascader: FC<ShopCascaderProps> = memo(props => {
           </div>
         )}
         dropdownMenuColumnStyle={{ height: 40 }}
-        showSearch={{ filter }}
-      />
+        dropdownRender={menu => (
+          <>
+            {menu}
+            <Divider className={styles.divider} />
+            <Space className={styles.footer}>
+              <CustomInputSearch
+                allowClear
+                placeholder="Search"
+                wrapperClassName={styles.inputSearch}
+                onChange={viewModel.onChangeInput}
+              />
+              <CustomButton type="primary" onClick={viewModel.getShopsExport}>
+                {t(TranslationKey.Save)}
+              </CustomButton>
+            </Space>
+          </>
+        )}
+        onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
+        // @ts-ignore
+        onChange={viewModel.onChangeExportOptions}
+      >
+        <CustomButton type="primary" size="large">
+          {t(TranslationKey.Export)}
+        </CustomButton>
+      </Cascader>
     </div>
   )
 })

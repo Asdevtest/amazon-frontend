@@ -187,10 +187,13 @@ export const freelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
     width: 145,
     renderCell: ({ row }) => (
-      <UserMiniCell userName={row.proposals?.[0]?.sub?.name} userId={row.proposals?.[0]?.sub?._id} />
+      <UserMiniCell
+        userName={row.proposals?.[0]?.sub?.name || row.announcement?.createdBy?.name}
+        userId={row.proposals?.[0]?.sub?._id || row.announcement?.createdBy?._id}
+      />
     ),
 
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.shared.OBJECT_VALUE,
   },
 
   {

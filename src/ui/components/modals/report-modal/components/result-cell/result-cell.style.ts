@@ -6,9 +6,4 @@ export const useStyles = makeStyles()(() => ({
     alignItems: 'center',
     gap: 10,
   },
-
-  icon: {
-    width: '12px !important',
-    height: '12px !important',
-  },
 }))

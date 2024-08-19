@@ -5,8 +5,8 @@ import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@consta
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  DownloadAndCopyBtnsCell,
   FeesValuesWithCalculateBtnCell,
+  LinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OpenInNewTabCell,
@@ -148,9 +148,9 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 210,
-      renderCell: params => <DownloadAndCopyBtnsCell value={params.value} />,
-
+      width: 100,
+      renderCell: params => <LinkCell value={params.value} />,
+      align: 'center',
       disableCustomSort: true,
       filterable: false,
     },

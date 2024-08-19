@@ -39,11 +39,12 @@ export const MyRequestsView = observer(() => {
   const [viewModel] = useState(() => new MyRequestsViewModel({ dataGridApi: apiRef }))
 
   const getCellClassName = params => {
-    if (
-      (params.row.countProposalsByStatuses.waitedProposals && params.field === 'waitedProposals') ||
-      (params.field === 'freelanceNotices' && params.row.freelanceNotices > 0)
-    ) {
+    if (params.row.countProposalsByStatuses.waitedProposals && params.field === 'waitedProposals') {
       return styles.waitingCheckedBacklighting
+    }
+
+    if (params.field === 'freelanceNotices' && params.row.freelanceNotices > 0) {
+      return styles.unreadMessages
     }
   }
 

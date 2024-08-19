@@ -1,3 +1,5 @@
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
+
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -9,7 +11,6 @@ import {
   SwitchCell,
   TextCell,
 } from '@components/data-grid/data-grid-cells'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -46,7 +47,7 @@ export const shopsColumns = (props: IColumnProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />
       ),
-      width: 240,
+      width: 320,
     },
     {
       field: 'access',
@@ -56,23 +57,26 @@ export const shopsColumns = (props: IColumnProps) => {
         <ParsingAccessCell profile={row.profile} onAccess={() => onParsingAccess(row.profile?.email)} />
       ),
       width: 160,
+      disableCustomSort: true,
     },
     {
       field: 'status',
       headerName: t(TranslationKey['Parsing status']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing status'])} />,
       renderCell: ({ row }: GridRowModel) => {
-        const disabled = !row.profile || row.profile?.requestStatus === RequestStatus.PENDING
+        const disabled =
+          !row.profile || [RequestStatus.PENDING, RequestStatus.REJECTED].includes(row.profile?.requestStatus)
 
         return (
           <SwitchCell
             disabled={disabled}
             value={row.profile?.isActive}
-            onClick={() => onParsingStatus(row._id, !row.profile?.isActive)}
+            onClick={() => onParsingStatus(row.profile?._id, !row.profile?.isActive)}
           />
         )
       },
       width: 160,
+      disableCustomSort: true,
     },
     {
       field: 'action',
@@ -84,9 +88,9 @@ export const shopsColumns = (props: IColumnProps) => {
           iconButton
           isFirstButton
           isSecondButton
-          firstButtonElement={<EditIcon />}
+          firstButtonElement={<MdOutlineEdit style={{ fill: 'currentcolor' }} />}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<CrossIcon />}
+          secondButtonElement={<MdOutlineDelete />}
           secondButtonStyle={ButtonStyle.DANGER}
           secondDescriptionText="Are you sure you want to delete the store?"
           onClickFirstButton={() => onEditShop(row)}
