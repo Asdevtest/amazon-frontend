@@ -16,28 +16,48 @@ import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './admin-balance-modal.style'
 
+interface User {
+  id?: string
+  _id?: string
+  name: string
+}
+
+interface AdminBalanceModalProps {
+  user: User
+  isWithdraw: boolean
+  onTriggerParentModal: () => void
+  onSubmit: (data: { entityType: string; recipientId: string; sum: number; comment: string }) => void
+}
+
 const paymentTypeSettings = {
   DEPOSIT: 'DEPOSIT',
   WITHDRAW: 'WITHDRAW',
   FINE: 'FINE',
-}
+} as const
 
-export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSubmit }) => {
+export const AdminBalanceModal: React.FC<AdminBalanceModalProps> = ({
+  user,
+  isWithdraw,
+  onTriggerParentModal,
+  onSubmit,
+}) => {
   const { classes: styles } = useStyles()
 
-  const [balanceValue, setBalanceValue] = useState('')
+  const [balanceValue, setBalanceValue] = useState<string>('')
+  const [reasonValue, setReasonValue] = useState<string>('')
+  const [entityType, setPaymentType] = useState<string>(
+    isWithdraw ? paymentTypeSettings.WITHDRAW : paymentTypeSettings.DEPOSIT,
+  )
+  const [showConfirmModal, setConfirmModal] = useState<boolean>(false)
 
-  const [reasonValue, setReasonValue] = useState('')
+  const balance = balanceValue || '...'
 
-  const [entityType, setPaymentType] = useState(isWithdraw ? paymentTypeSettings.WITHDRAW : paymentTypeSettings.DEPOSIT)
-
-  const [showConfirmModal, setConfirmModal] = useState(false)
   const onTriggerConfirmModal = () => setConfirmModal(prevState => !prevState)
 
   const onConfirm = () => {
     const data = {
       entityType,
-      recipientId: user.id || user._id,
+      recipientId: user.id || user._id || '',
       sum: isWithdraw ? Number(-balanceValue) : Number(balanceValue),
       comment: reasonValue,
     }
@@ -45,6 +65,7 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
     onTriggerConfirmModal()
     onTriggerParentModal()
   }
+
   const onDecline = () => {
     onTriggerConfirmModal()
     onTriggerParentModal()
@@ -54,7 +75,7 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
     <div className={styles.positiveMsg}>
       {`${t(TranslationKey['The balance of the user'])} ${user.name} ${t(
         TranslationKey['will be replenished by'],
-      )} ${balanceValue}`}
+      )} ${balance}`}
     </div>
   )
 
@@ -62,7 +83,7 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
     <div className={styles.negativeMsg}>
       {`${t(TranslationKey['From the balance of the user'])} ${user.name} ${t(
         TranslationKey['will be debited by'],
-      )} ${balanceValue}`}
+      )} ${balance}`}
     </div>
   )
 
