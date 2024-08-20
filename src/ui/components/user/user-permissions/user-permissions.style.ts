@@ -2,14 +2,12 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   wrapper: {
-    marginTop: 20,
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
-  },
 
-  customSwitcherContainer: {
-    width: '30%',
+    width: '100%',
+    height: '100%',
   },
 
   buttons: {
@@ -20,7 +18,13 @@ export const useStyles = makeStyles()(() => ({
   },
 
   datagridWrapper: {
-    height: 'calc(100vh - 200px)',
+    flex: 1,
+    padding: '3px',
+    overflow: 'hidden',
     width: '100%',
+  },
+
+  searchInput: {
+    width: 400,
   },
 }))

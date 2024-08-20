@@ -2029,4 +2029,5 @@ export enum TranslationKey {
   'Error updating data' = 'Error updating data',
   'Error while exporting data' = 'Error while exporting data',
   'Destination, Tariff name' = 'Destination, Tariff name',
+  'Title, Key, URL' = 'Title, Key, URL',
 }

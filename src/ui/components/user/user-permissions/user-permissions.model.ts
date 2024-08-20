@@ -1,32 +1,34 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { format } from 'date-fns'
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
-import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
+import { DataGridTableModel } from '@models/data-grid-table-model'
 import { OtherModel } from '@models/other-model'
 import { PermissionsModel } from '@models/permissions-model'
-import { SettingsModel } from '@models/settings-model'
 
-import { userPermissionsColumns } from '@components/table/table-columns/admin/user-permissions-columns'
-
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { loadingStatus } from '@typings/enums/loading-status'
+import { IPermission } from '@typings/models/permissions/permission'
+import { IPermissionGroup } from '@typings/models/permissions/permission-group'
 
-import { ITabsIndex } from './user-permissions.config'
+import { getModelSettings } from './helpers/get-model-settings'
+import { observerConfig } from './observer-config'
+import { userPermissionsColumns } from './user-permissions-columns'
+import { PermissionsTypes } from './user-permissions.types'
 
-export class UserPermissionsModel {
-  requestStatus = undefined
-  groupPermissions = []
-  singlePermissions = []
-  newPermissionIds = []
-  tabIndex = ITabsIndex.GROUP_PERMISSIONS
-  permissionIdToRemove = undefined
+export class UserPermissionsModel extends DataGridTableModel {
+  groupPermissions: IPermissionGroup[] = []
+  singlePermissions: IPermission[] = []
+  newPermissionIds: string[] = []
+
+  tabIndex = PermissionsTypes.GROUP_PERMISSIONS
+
+  permissionIdToRemove: string = ''
   exportPermissions = undefined
 
   showAddOrEditGroupPermissionModal = false
@@ -36,149 +38,67 @@ export class UserPermissionsModel {
   addOrEditPermissionSettings = {
     permission: {},
     isEdit: false,
-    onSubmit: (data, newSinglePermissions) =>
-      this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
+    onSubmit: (data: any, permissionId: string, newSinglePermissions: any) =>
+      this.tabIndex === PermissionsTypes.GROUP_PERMISSIONS
         ? this.onSubmitCreateGroupPermission(data, newSinglePermissions)
         : this.onSubmitCreateSinglePermission(data),
   }
-  confirmModalSettings = {
-    isWarning: false,
-    message: '',
-    onClickSuccess: () => {},
-  }
-
-  rowHandlers = {
-    onClickRemoveBtn: row => this.onClickRemoveBtn(row),
-    onClickEditBtn: row => this.onClickEditBtn(row),
-  }
-  sortModel = []
-  filterModel = { items: [] }
-  columnsModel = userPermissionsColumns(this.rowHandlers)
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
-
-  get currentData() {
-    return this.tabIndex === ITabsIndex.GROUP_PERMISSIONS ? this.groupPermissions : this.singlePermissions
-  }
-
-  get tableKey() {
-    return this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
-      ? DataGridTablesKeys.ADMIN_GROUP_PERMISSIONS
-      : DataGridTablesKeys.ADMIN_SINGLE_PERMISSIONS
-  }
 
   constructor() {
-    this.getDataGridState()
-    this.getGroupPermissions()
+    const rowHandlers = {
+      onClickRemoveBtn: (row: IPermission | IPermissionGroup) => this.onClickRemoveBtn(row),
+      onClickEditBtn: (row: IPermission | IPermissionGroup) => this.onClickEditBtn(row),
+    }
+
+    const columnsModel = userPermissionsColumns(rowHandlers)
+
+    const { getMainDataMethod, tableKey } = getModelSettings(PermissionsTypes.GROUP_PERMISSIONS)
+
+    super({
+      getMainDataMethod,
+      columnsModel,
+      tableKey,
+      fieldsForSearch: ['title', 'key', 'url'],
+    })
+
+    // getMainDataMethod,
+    // columnsModel,
+    // tableKey,
+    // defaultGetCurrentDataOptions,
+    // fieldsForSearch,
+
     this.getSinglePermissions()
 
-    makeAutoObservable(this, undefined, { autoBind: true })
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
-    }
-
-    SettingsModel.setDataGridState(requestState, this.tableKey)
-  }
-
-  getDataGridState() {
-    const state = SettingsModel.dataGridState[this.tableKey]
-
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onPaginationModelChange(model) {
-    this.paginationModel = model
-    this.setDataGridState()
-  }
-
-  onColumnVisibilityModelChange(model) {
-    this.columnVisibilityModel = model
-    this.setDataGridState()
-  }
-
-  onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
-    this.setDataGridState()
-  }
-
-  onSelectionModel(model) {
-    this.rowSelectionModel = model
-  }
-
-  onChangeFilterModel(model) {
-    this.filterModel = model
-    this.setDataGridState()
-  }
-
-  loadData() {
     this.getDataGridState()
+    this.getCurrentData()
 
-    this.tabIndex === ITabsIndex.GROUP_PERMISSIONS ? this.getGroupPermissions() : this.getSinglePermissions()
+    makeObservable(this, observerConfig)
   }
 
-  async getGroupPermissions() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
+  onChangeTabIndex(tabIndex: PermissionsTypes) {
+    this.tabIndex = tabIndex
 
-      const response = await PermissionsModel.getGroupPermissions()
+    const { getMainDataMethod, tableKey } = getModelSettings(tabIndex)
 
-      runInAction(() => {
-        this.groupPermissions = response.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-      })
+    this.getMainDataMethod = getMainDataMethod
+    this.tableKey = tableKey
+    this.setDefaultPinnedColumns()
 
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      console.error(error)
-
-      this.setRequestStatus(loadingStatus.FAILED)
-    }
+    this.getDataGridState()
+    this.getCurrentData()
   }
 
-  async getSinglePermissions() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      const response = await PermissionsModel.getSinglePermissions()
-
-      runInAction(() => {
-        this.singlePermissions = response.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-      })
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
-    }
-  }
-
-  async createPermission(data) {
+  async createPermission(data: IPermission | IPermissionGroup) {
     try {
       const newPermissionId = await PermissionsModel.createSinglePermission(data)
 
-      this.newPermissionIds = [...this.newPermissionIds, newPermissionId.guid]
+      this.newPermissionIds = [...this.newPermissionIds, newPermissionId.guid] as string[]
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onCreateGroupPermission(newSinglePermissions) {
+  async onCreateGroupPermission(newSinglePermissions: any) {
     try {
       this.newPermissionIds = []
 
@@ -190,7 +110,7 @@ export class UserPermissionsModel {
     }
   }
 
-  async updateSinglePermission(data, permissionId) {
+  async updateSinglePermission(data: any, permissionId: string) {
     try {
       const allowData = getObjectFilteredByKeyArrayWhiteList(data, [
         'title',
@@ -206,7 +126,7 @@ export class UserPermissionsModel {
     }
   }
 
-  async updateGroupPermission(data, permissionId) {
+  async updateGroupPermission(data: any, permissionId: string) {
     try {
       const allowData = getObjectFilteredByKeyArrayWhiteList(data, ['title', 'description', 'permissions', 'hierarchy'])
 
@@ -220,7 +140,7 @@ export class UserPermissionsModel {
     try {
       await PermissionsModel.removeSinglePermission(this.permissionIdToRemove)
       this.onTriggerOpenModal('showConfirmModal')
-      this.loadData()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
@@ -230,24 +150,24 @@ export class UserPermissionsModel {
     try {
       await PermissionsModel.removeGroupPermission(this.permissionIdToRemove)
       this.onTriggerOpenModal('showConfirmModal')
-      this.loadData()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onSubmitCreateSinglePermission(data) {
+  async onSubmitCreateSinglePermission(data: any) {
     try {
       await PermissionsModel.createSinglePermission(data)
 
       this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
-      this.loadData()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onSubmitCreateGroupPermission(data, newSinglePermissions) {
+  async onSubmitCreateGroupPermission(data: any, newSinglePermissions: any) {
     try {
       if (newSinglePermissions.length > 0) {
         await this.onCreateGroupPermission(newSinglePermissions)
@@ -257,24 +177,24 @@ export class UserPermissionsModel {
       await PermissionsModel.createGroupPermission(data)
 
       this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
-      this.loadData()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onSubmitUpdateSinglePermission(data, permissionId) {
+  async onSubmitUpdateSinglePermission(data: any, permissionId: string) {
     try {
       await this.updateSinglePermission(data, permissionId)
 
       this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
-      this.loadData()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onSubmitUpdateGroupPermission(data, permissionId, newSinglePermissions) {
+  async onSubmitUpdateGroupPermission(data: any, permissionId: string, newSinglePermissions: any) {
     try {
       if (newSinglePermissions.length > 0) {
         await this.onCreateGroupPermission(newSinglePermissions)
@@ -284,7 +204,7 @@ export class UserPermissionsModel {
       await this.updateGroupPermission(data, permissionId)
 
       this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
-      this.loadData()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
@@ -294,26 +214,26 @@ export class UserPermissionsModel {
     this.addOrEditPermissionSettings = {
       permission: {},
       isEdit: false,
-      onSubmit: (data, _, newSinglePermissions) =>
-        this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
+      onSubmit: (data: any, permissionId: string, newSinglePermissions: any) =>
+        this.tabIndex === PermissionsTypes.GROUP_PERMISSIONS
           ? this.onSubmitCreateGroupPermission(data, newSinglePermissions)
           : this.onSubmitCreateSinglePermission(data),
     }
-    this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
+    this.tabIndex === PermissionsTypes.GROUP_PERMISSIONS
       ? this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
       : this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
   }
 
-  onClickEditBtn(row) {
+  onClickEditBtn(row: IPermission | IPermissionGroup) {
     this.addOrEditPermissionSettings = {
       permission: row,
       isEdit: true,
-      onSubmit: (data, permissionId, newSinglePermissions) =>
-        this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
+      onSubmit: (data: any, permissionId: string, newSinglePermissions: any) =>
+        this.tabIndex === PermissionsTypes.GROUP_PERMISSIONS
           ? this.onSubmitUpdateGroupPermission(data, permissionId, newSinglePermissions)
           : this.onSubmitUpdateSinglePermission(data, permissionId),
     }
-    this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
+    this.tabIndex === PermissionsTypes.GROUP_PERMISSIONS
       ? this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
       : this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
   }
@@ -321,49 +241,45 @@ export class UserPermissionsModel {
   onClickCancelBtn() {
     this.confirmModalSettings = {
       isWarning: false,
+      title: '',
       message: t(TranslationKey['The data will not be saved!']),
-      onClickSuccess: () => this.cancelTheOrder(),
+      onSubmit: () => this.cancelTheOrder(),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  onClickRemoveBtn(row) {
+  onClickRemoveBtn(row: IPermission | IPermissionGroup) {
     this.permissionIdToRemove = row._id
 
     this.confirmModalSettings = {
       isWarning: true,
+      title: '',
       message:
-        this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
+        this.tabIndex === PermissionsTypes.GROUP_PERMISSIONS
           ? t(TranslationKey['Are you sure you want to delete the group?'])
           : t(TranslationKey['Are you sure you want to delete the permission?']),
-      onClickSuccess: () =>
-        this.tabIndex === ITabsIndex.GROUP_PERMISSIONS ? this.removeGroupPermission() : this.removeSinglePermission(),
+      onSubmit: () =>
+        this.tabIndex === PermissionsTypes.GROUP_PERMISSIONS
+          ? this.removeGroupPermission()
+          : this.removeSinglePermission(),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   cancelTheOrder() {
-    this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
+    this.tabIndex === PermissionsTypes.GROUP_PERMISSIONS
       ? this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
       : this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  onChangeTabIndex(tabIndex) {
-    this.tabIndex = tabIndex
-
-    this.loadData()
-  }
-
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
-  }
-
   async onClickExportPermissions() {
     try {
-      const response = await AdministratorModel.exportPermissions()
+      const response = (await AdministratorModel.exportPermissions()) as any
 
       if (response) {
         const jsonData = JSON.stringify(response)
@@ -394,7 +310,7 @@ export class UserPermissionsModel {
       input.accept = 'application/json'
 
       input.addEventListener('change', async () => {
-        const file = input.files[0]
+        const file = input?.files?.[0]
 
         if (!file || file.type !== 'application/json') {
           toast.error(t(TranslationKey['Please select a JSON file']))
@@ -406,13 +322,37 @@ export class UserPermissionsModel {
 
         toast.success(t(TranslationKey['Permissions imported successfully']))
 
-        this.loadData()
+        this.getCurrentData()
       })
 
       input.click()
     } catch (error) {
       console.error(error)
       toast.error(t(TranslationKey['Permissions not imported']))
+    }
+  }
+
+  async getGroupPermissions() {
+    try {
+      const response = await PermissionsModel.getGroupPermissions()
+
+      runInAction(() => {
+        this.groupPermissions = response as IPermissionGroup[]
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getSinglePermissions() {
+    try {
+      const response = await PermissionsModel.getSinglePermissions()
+
+      runInAction(() => {
+        this.singlePermissions = response as IPermission[]
+      })
+    } catch (error) {
+      console.error(error)
     }
   }
 }
