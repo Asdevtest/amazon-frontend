@@ -2028,4 +2028,5 @@ export enum TranslationKey {
   'Specify dimensions' = 'Specify dimensions',
   'Error updating data' = 'Error updating data',
   'Error while exporting data' = 'Error while exporting data',
+  'Parsing reports' = 'Parsing reports',
 }

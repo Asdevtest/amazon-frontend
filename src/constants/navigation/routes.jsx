@@ -1604,7 +1604,7 @@ export const privateRoutesConfigs = [
     permission: [UserRole.CLIENT],
     permissionKey: permissionsKeys.client.SHOW_SHOPS_CLIENT,
 
-    crumbNameKey: TranslationKey.Shops,
+    crumbNameKey: TranslationKey['Parsing reports'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_SHOPS,
