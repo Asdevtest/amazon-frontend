@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * 
@@ -21,35 +22,17 @@
  */
 export interface InlineResponse20031 {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
+     * Count of boxes
+     * @type {number}
      * @memberof InlineResponse20031
      */
-    _id?: string;
+    count?: number;
     /**
-     * ASIN продукта
-     * @type {string}
+     * 
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20031
      */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20031
-     */
-    skuByClient?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20031
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20031
-     */
-    amazonTitle?: string;
+    rows?: Array<ApiV1BatchesBoxes>;
 }
 
 

@@ -14,7 +14,7 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20021VariationTariff } from './inline-response20021-variation-tariff';
+import { InlineResponse20032VariationTariff } from './inline-response20032-variation-tariff';
 import { InlineResponse20047Destination } from './inline-response20047-destination';
 import { InlineResponse20047LogicsTariff } from './inline-response20047-logics-tariff';
 import { InlineResponse20047OrderSupplier } from './inline-response20047-order-supplier';
@@ -136,10 +136,10 @@ export interface InlineResponse20047Rows {
     product?: InlineResponse20047Product;
     /**
      * 
-     * @type {InlineResponse20021VariationTariff}
+     * @type {InlineResponse20032VariationTariff}
      * @memberof InlineResponse20047Rows
      */
-    variationTariff?: InlineResponse20021VariationTariff;
+    variationTariff?: InlineResponse20032VariationTariff;
     /**
      * 
      * @type {InlineResponse20047LogicsTariff}

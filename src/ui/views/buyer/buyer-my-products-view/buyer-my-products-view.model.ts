@@ -35,6 +35,7 @@ export class BuyerMyProductsViewModel extends DataGridFilterTableModel {
       fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient'],
       tableKey: DataGridTablesKeys.BUYER_PRODUCTS,
     })
+
     makeObservable(this, observerConfig)
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]

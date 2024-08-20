@@ -21,35 +21,53 @@
  */
 export interface InlineObject39 {
     /**
-     * 
-     * @type {number}
+     * Штрихкод продукта
+     * @type {string}
      * @memberof InlineObject39
      */
-    lengthCmWarehouse?: number;
+    barCode?: string;
     /**
-     * 
-     * @type {number}
+     *  logicsTariff GUID
+     * @type {string}
      * @memberof InlineObject39
      */
-    widthCmWarehouse?: number;
+    logicsTariffId?: string;
     /**
-     * 
-     * @type {number}
+     * GUID сотрудника склада
+     * @type {string}
      * @memberof InlineObject39
      */
-    heightCmWarehouse?: number;
+    storekeeperId?: string;
     /**
-     * 
-     * @type {number}
+     * Ссылка на наклейку для коробки
+     * @type {string}
      * @memberof InlineObject39
      */
-    weighGrossKgWarehouse?: number;
+    shippingLabel?: string;
     /**
-     * Массив ссылок на фотографии.
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject39
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject39
+     */
+    fbaNumber?: string;
+    /**
+     * Гуид модели destination
+     * @type {string}
+     * @memberof InlineObject39
+     */
+    destinationId?: string;
+    /**
+     * 
      * @type {Array<string>}
      * @memberof InlineObject39
      */
-    images?: Array<string>;
+    boxesIds: Array<string>;
 }
 
 
