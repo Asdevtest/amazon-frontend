@@ -18,13 +18,14 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     gap: 20,
     width: '100%',
-
+    paddingLeft: '10px',
     [theme.breakpoints.down(1024)]: {
       justifyContent: 'space-between',
     },
 
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column-reverse',
+      paddingLeft: '0',
     },
   },
 
@@ -108,7 +109,6 @@ export const useStyles = makeStyles()(theme => ({
     cursor: 'pointer',
     transition: '.3s ease',
     borderRadius: '50%',
-
     '&:hover': {
       transform: 'scale(1.01)',
       opacity: '0.8',
