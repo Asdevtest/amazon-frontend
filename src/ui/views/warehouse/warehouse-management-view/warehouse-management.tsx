@@ -11,6 +11,7 @@ import { AddOrEditWeightBasedLogisticsTariffForm } from '@components/forms/add-o
 import { Button } from '@components/shared/button'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 
@@ -49,13 +50,26 @@ export const WarehouseManagementView = observer(() => {
           onChange={viewModel.onChangeTabIndex}
         />
 
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          wrapperClassName={styles.searchInput}
+          placeholder="Destination, Tariff name"
+          onSearch={viewModel.onChangeUnserverSearchValue}
+        />
+
         {viewModel.tabIndex ? (
           <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickAddWarehouseTariff}>
             {t(TranslationKey['Create a tariff'])}
           </Button>
         ) : (
           <div className={styles.flexRow}>
-            {viewModel.storekeeperDestination ? <p>{currentAddress}</p> : null}
+            {viewModel.storekeeperDestination ? (
+              <p className={styles.currentAddress} title={currentAddress}>
+                {currentAddress}
+              </p>
+            ) : null}
 
             <CustomButton
               size="large"

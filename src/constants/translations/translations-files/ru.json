@@ -2027,5 +2027,6 @@
   "Time until server shutdown": "Время до завершения работы сервера",
   "Specify dimensions": "Укажите размеры",
   "Error updating data": "Ошибка обновления данных",
-  "Error while exporting data": "Ошибка при экспорте данных"
+  "Error while exporting data": "Ошибка при экспорте данных",
+  "Destination, Tariff name": "Пункт назначения, Название тарифа"
 }
