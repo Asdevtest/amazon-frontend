@@ -22,7 +22,6 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
 
   const [userDataForRender, setUserDataForRender] = useState([])
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
-
   const [formFields, setFormFields] = useState({ chosenUsers: [], title: '', images: [] })
 
   const disableSubmit =
