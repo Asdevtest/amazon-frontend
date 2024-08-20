@@ -9,7 +9,7 @@ import {
   NormDateCell,
   TextCell,
 } from '@components/data-grid/data-grid-cells'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
+import { EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
