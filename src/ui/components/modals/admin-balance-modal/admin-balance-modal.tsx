@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 import { Container, MenuItem, Select, Typography } from '@mui/material'
 
@@ -13,40 +13,26 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/che
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { PaymentTypeSettings } from '@typings/enums/payment-type-settings'
+import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './admin-balance-modal.style'
 
-interface User {
-  id?: string
-  _id?: string
-  name: string
-}
-
 interface AdminBalanceModalProps {
-  user: User
+  user: ICreatedBy
   isWithdraw: boolean
   onTriggerParentModal: () => void
-  onSubmit: (data: { entityType: string; recipientId: string; sum: number; comment: string }) => void
+  onSubmit: (data: { entityType: PaymentTypeSettings; recipientId: string; sum: number; comment: string }) => void
 }
 
-const paymentTypeSettings = {
-  DEPOSIT: 'DEPOSIT',
-  WITHDRAW: 'WITHDRAW',
-  FINE: 'FINE',
-} as const
-
-export const AdminBalanceModal: React.FC<AdminBalanceModalProps> = ({
-  user,
-  isWithdraw,
-  onTriggerParentModal,
-  onSubmit,
-}) => {
+export const AdminBalanceModal: FC<AdminBalanceModalProps> = ({ user, isWithdraw, onTriggerParentModal, onSubmit }) => {
   const { classes: styles } = useStyles()
 
   const [balanceValue, setBalanceValue] = useState<string>('')
   const [reasonValue, setReasonValue] = useState<string>('')
-  const [entityType, setPaymentType] = useState<string>(
-    isWithdraw ? paymentTypeSettings.WITHDRAW : paymentTypeSettings.DEPOSIT,
+
+  const [entityType, setPaymentType] = useState<PaymentTypeSettings>(
+    isWithdraw ? PaymentTypeSettings.WITHDRAW : PaymentTypeSettings.DEPOSIT,
   )
   const [showConfirmModal, setConfirmModal] = useState<boolean>(false)
 
@@ -57,7 +43,7 @@ export const AdminBalanceModal: React.FC<AdminBalanceModalProps> = ({
   const onConfirm = () => {
     const data = {
       entityType,
-      recipientId: user.id || user._id || '',
+      recipientId: user._id,
       sum: isWithdraw ? Number(-balanceValue) : Number(balanceValue),
       comment: reasonValue,
     }
@@ -111,9 +97,9 @@ export const AdminBalanceModal: React.FC<AdminBalanceModalProps> = ({
                 input={<Input fullWidth />}
                 variant="filled"
                 value={entityType}
-                onChange={e => setPaymentType(e.target.value)}
+                onChange={e => setPaymentType(e.target.value as PaymentTypeSettings)}
               >
-                {[paymentTypeSettings.WITHDRAW, paymentTypeSettings.FINE].map(type => (
+                {[PaymentTypeSettings.WITHDRAW, PaymentTypeSettings.FINE].map(type => (
                   <MenuItem key={type} value={type}>
                     {type}
                   </MenuItem>
