@@ -75,8 +75,10 @@ export const proposalsColumns = (handlers: IHandlers) => {
         )
       },
 
+      transformValueMethod: status => difficultyLevelTranslate(difficultyLevelByCode[status]),
+
       width: 95,
-      columnKey: columnnsKeys.shared.TASK_COMPLEXITY,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       table: DataGridFilterTables.REQUESTS,
     },
 
