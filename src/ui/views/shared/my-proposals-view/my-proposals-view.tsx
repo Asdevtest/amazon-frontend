@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useState } from 'react'
+
+import { GridRowParams } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,24 +20,20 @@ import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-ty
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IProposal } from '@typings/models/proposals/proposal'
 
 import { useStyles } from './my-proposals-view.style'
 
 import { customSwitcherSettings } from './my-proposals-view.constants'
 import { MyProposalsViewModel } from './my-proposals-view.model'
 
-export const MyProposalsView = observer(({ allProposals }) => {
+export const MyProposalsView = observer(({ allProposals }: { allProposals: boolean }) => {
   const { classes: styles } = useStyles()
-  const history = useHistory()
 
-  const [viewModel] = useState(() => new MyProposalsViewModel({ history, allProposals }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+  const [viewModel] = useState(() => new MyProposalsViewModel({ allProposals }))
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.tablePanelWrapper}>
         <CustomRadioButton
           size="large"
@@ -55,8 +52,9 @@ export const MyProposalsView = observer(({ allProposals }) => {
         />
 
         <FreelanceTypeTaskSelect
+          // @ts-ignore
           specs={viewModel.userInfo?.allowedSpec}
-          selectedSpec={viewModel.radioButtonOption}
+          selectedSpec={viewModel.selectedSpecType}
           onClickSpec={viewModel.onChangeRadioButtonOption}
         />
       </div>
@@ -68,33 +66,43 @@ export const MyProposalsView = observer(({ allProposals }) => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
+          pinnedColumns={viewModel.pinnedColumns}
           rows={viewModel.currentData}
-          rowHeight={87}
+          getRowHeight={() => 'auto'}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          getRowId={({ _id }: IProposal) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
             columnMenu: viewModel.columnMenuSettings,
-
             toolbar: {
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,
                 isSomeFilterOn: viewModel.isSomeFilterOn,
               },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
           onSortModelChange={viewModel.onChangeSortingModel}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowClick={e => viewModel.onOpenRequestDetailModal(e.row._id)}
+          onRowClick={(params: GridRowParams) => viewModel.onOpenRequestDetailModal(params.row._id)}
         />
       </div>
 
@@ -104,11 +112,11 @@ export const MyProposalsView = observer(({ allProposals }) => {
           isWarning
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-          title={viewModel.confirmModalSettings.confirmTitle}
-          message={viewModel.confirmModalSettings.confirmMessage}
+          title={viewModel.confirmModalSettings.title}
+          message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
@@ -118,6 +126,7 @@ export const MyProposalsView = observer(({ allProposals }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
       >
         <RequestDesignerResultClientForm
+          // @ts-ignore
           onlyRead
           userInfo={viewModel.userInfo}
           request={viewModel.currentRequest}
@@ -140,7 +149,9 @@ export const MyProposalsView = observer(({ allProposals }) => {
       {viewModel.showMainRequestResultModal ? (
         <MainRequestResultModal
           readOnly
+          // @ts-ignore
           customProposal={viewModel.currentProposal}
+          // @ts-ignore
           userInfo={viewModel.userInfo}
           openModal={viewModel.showMainRequestResultModal}
           onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
@@ -160,12 +171,14 @@ export const MyProposalsView = observer(({ allProposals }) => {
         <FreelanceRequestDetailsModal
           // @ts-ignore
           openModal={viewModel.showRequestDetailModal}
+          // @ts-ignore
           request={viewModel.currentRequest?.request}
+          // @ts-ignore
           details={viewModel.currentRequest?.details}
           handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
           onClickOpenNewTab={viewModel.onClickOpenBtn}
         />
       ) : null}
-    </>
+    </div>
   )
 })

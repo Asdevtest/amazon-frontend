@@ -1,3 +1,5 @@
+import { MdOutlineDelete } from 'react-icons/md'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -95,7 +97,7 @@ export const destinationsColumns = handlers => [
         row
         firstButtonElement={<EditIcon />}
         firstButtonStyle={ButtonStyle.PRIMARY}
-        secondButtonElement={<CrossIcon />}
+        secondButtonElement={<MdOutlineDelete size={18} />}
         secondButtonStyle={ButtonStyle.DANGER}
         onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
         onClickSecondButton={() => handlers.onClickRemoveBtn(params.row.originalData)}

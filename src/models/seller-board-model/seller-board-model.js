@@ -104,6 +104,11 @@ class SellerBoardModelStatic {
     })
     return response.data
   }
+
+  getIntegrationsReports = async options => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsReportsGet(options)
+    return response.data
+  }
 }
 
 export const SellerBoardModel = new SellerBoardModelStatic()

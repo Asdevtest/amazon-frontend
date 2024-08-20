@@ -25,43 +25,25 @@ export interface InlineResponse20039Rows {
      * @type {string}
      * @memberof InlineResponse20039Rows
      */
-    _id?: string;
+    productId: string;
     /**
-     * ASIN продукта
+     * GUID тарифа доставки
      * @type {string}
      * @memberof InlineResponse20039Rows
      */
-    asin?: string;
+    logicsTariffId?: string;
     /**
-     * ID магазинa для продукта
+     * GUID заказа в БД
      * @type {string}
      * @memberof InlineResponse20039Rows
      */
-    shopId?: string;
+    orderId?: string;
     /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
+     * Кол-во продукта
+     * @type {number}
      * @memberof InlineResponse20039Rows
      */
-    amazonTitle?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20039Rows
-     */
-    skuByClient?: string;
-    /**
-     * GUID пользователя(байера)
-     * @type {string}
-     * @memberof InlineResponse20039Rows
-     */
-    buyerId?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20039Rows
-     */
-    images?: Array<string>;
+    amount?: number;
 }
 
 

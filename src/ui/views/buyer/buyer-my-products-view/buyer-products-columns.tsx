@@ -277,8 +277,8 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       valueFormatter: params => formatNormDateTime(params.value),
-      width: 150,
-      flex: 1,
+      width: 115,
+      // flex: 1,
       renderCell: params => <NormDateCell value={params.value} />,
 
       columnKey: columnnsKeys.shared.DATE,

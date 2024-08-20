@@ -231,6 +231,10 @@ const ClientShopsReportView = lazy(() =>
   import('@views/client/client-shops-report').then(module => ({ default: module.ClientShopsReportView })),
 )
 
+const ParsingReports = lazy(() =>
+  import('@views/client/parsing-reports').then(module => ({ default: module.ParsingReports })),
+)
+
 const ClientBuyShopsView = lazy(() =>
   import('@views/client/client-trading-shops-views/client-buy-shops-view').then(module => ({
     default: module.ClientBuyShopsView,
@@ -1590,6 +1594,22 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_SHOPS,
       activeSubCategory: 1,
       title: () => t(TranslationKey.Reports),
+    },
+  },
+
+  {
+    routePath: '/client/shops/parsing-reports',
+    component: ParsingReports,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.SHOW_SHOPS_CLIENT,
+
+    crumbNameKey: TranslationKey.Shops,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_SHOPS,
+      activeSubCategory: 2,
+      title: () => 'Parsing reports',
     },
   },
 
