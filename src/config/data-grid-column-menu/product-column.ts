@@ -7,10 +7,11 @@ export enum ProductColumnMenuType {
   PARENT = 'parent',
 }
 
-export interface ProductColumnMenuValueParams {
+export interface ProductColumnMenuValueParams<T = DataGridFilterTables> {
   columnType?: ProductColumnMenuType
   isSimpleSku?: boolean
-  table?: DataGridFilterTables
+  table?: T
+  customTitleField?: string
 }
 
 export interface ProductColumnMenuItemsParams {
@@ -43,37 +44,50 @@ export const getProductColumnMenuItems = ({ withoutSku, withoutTitle }: ProductC
   return productColumnMenuItems
 }
 
-export const getProductColumnMenuValue = ({ columnType, isSimpleSku, table }: ProductColumnMenuValueParams = {}) => [
-  {
-    field:
-      columnType === ProductColumnMenuType.PARENT
-        ? 'parentProductAsin'
-        : columnType === ProductColumnMenuType.CHILD
-        ? 'childProductAsin'
-        : 'asin',
-    table: table || DataGridFilterTables.PRODUCTS,
-    columnKey: ColumnMenuKeys.STRING,
-  },
-  {
-    field:
-      columnType === ProductColumnMenuType.PARENT
-        ? 'parentProductSkuByClient'
-        : columnType === ProductColumnMenuType.CHILD
-        ? 'childProductSkuByClient'
-        : isSimpleSku
-        ? 'sku'
-        : 'skuByClient',
-    table: table || DataGridFilterTables.PRODUCTS,
-    columnKey: ColumnMenuKeys.STRING,
-  },
-  {
-    field:
-      columnType === ProductColumnMenuType.PARENT
-        ? 'parentProductAmazonTitle'
-        : columnType === ProductColumnMenuType.CHILD
-        ? 'childProductAmazonTitle'
-        : 'amazonTitle',
-    table: table || DataGridFilterTables.PRODUCTS,
-    columnKey: ColumnMenuKeys.STRING,
-  },
-]
+export const getProductColumnMenuValue = <T>({
+  columnType,
+  isSimpleSku,
+  table,
+  customTitleField,
+}: ProductColumnMenuValueParams<T> = {}) => {
+  const asinField =
+    columnType === ProductColumnMenuType.PARENT
+      ? 'parentProductAsin'
+      : columnType === ProductColumnMenuType.CHILD
+      ? 'childProductAsin'
+      : 'asin'
+
+  const skuField =
+    columnType === ProductColumnMenuType.PARENT
+      ? 'parentProductSkuByClient'
+      : columnType === ProductColumnMenuType.CHILD
+      ? 'childProductSkuByClient'
+      : isSimpleSku
+      ? 'sku'
+      : 'skuByClient'
+
+  const titleField =
+    customTitleField || columnType === ProductColumnMenuType.PARENT
+      ? 'parentProductAmazonTitle'
+      : columnType === ProductColumnMenuType.CHILD
+      ? 'childProductAmazonTitle'
+      : 'amazonTitle'
+
+  return [
+    {
+      field: asinField,
+      table: table || DataGridFilterTables.PRODUCTS,
+      columnKey: ColumnMenuKeys.STRING,
+    },
+    {
+      field: skuField,
+      table: table || DataGridFilterTables.PRODUCTS,
+      columnKey: ColumnMenuKeys.STRING,
+    },
+    {
+      field: titleField,
+      table: table || DataGridFilterTables.PRODUCTS,
+      columnKey: ColumnMenuKeys.STRING,
+    },
+  ]
+}

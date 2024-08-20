@@ -28,4 +28,5 @@ export const observerConfig = {
   handleHideColumns: action.bound,
   onClickResetFilters: action.bound,
   checkNestedFields: action.bound,
+  setDefaultPinnedColumns: action.bound,
 }

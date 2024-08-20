@@ -2,7 +2,7 @@
 import { makeObservable } from 'mobx'
 
 import { GridColumnVisibilityModel, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
-import { GRID_CHECKBOX_SELECTION_COL_DEF, GridPinnedColumns } from '@mui/x-data-grid-premium'
+import { GridPinnedColumns } from '@mui/x-data-grid-premium'
 
 import { DefaultModel } from '@models/default-model'
 import { TableSettingsModel } from '@models/table-settings'
@@ -10,7 +10,7 @@ import { TableSettingsModel } from '@models/table-settings'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { DataGridTableModelParams } from './data-grid-table-model.type'
-import { filterModelInitialValue, paginationModelInitialValue } from './model-config'
+import { defaultPinnedColumns, filterModelInitialValue, paginationModelInitialValue } from './model-config'
 import { observerConfig } from './observer-config'
 
 export class DataGridTableModel extends DefaultModel {
@@ -24,10 +24,7 @@ export class DataGridTableModel extends DefaultModel {
   tableKey: string | undefined = undefined
   columnsModel: IGridColumn[] = []
   fieldsForSearch: string[] = []
-  pinnedColumns: GridPinnedColumns = {
-    left: [GRID_CHECKBOX_SELECTION_COL_DEF.field],
-    right: [],
-  }
+  pinnedColumns: GridPinnedColumns = defaultPinnedColumns
 
   get filteredData() {
     if (this.fieldsForSearch?.length) {
@@ -83,8 +80,11 @@ export class DataGridTableModel extends DefaultModel {
     const state = TableSettingsModel.getTableSettings(this.tableKey)
 
     if (state) {
-      // @ts-ignore
-      this.sortModel = state?.sortModel
+      const sortModel = state?.sortModel
+
+      if (sortModel?.length > 0) {
+        this.sortModel = sortModel
+      }
       // @ts-ignore
       this.filterModel = state?.filterModel
       // @ts-ignore
@@ -137,6 +137,10 @@ export class DataGridTableModel extends DefaultModel {
 
   onClickResetFilters() {
     this.filterModel = filterModelInitialValue
+  }
+
+  setDefaultPinnedColumns() {
+    this.pinnedColumns = defaultPinnedColumns
   }
 
   /**

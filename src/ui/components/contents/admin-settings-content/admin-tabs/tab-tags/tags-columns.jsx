@@ -1,3 +1,5 @@
+import { MdOutlineDelete } from 'react-icons/md'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell, MultilineTextHeaderCell, TextCell } from '@components/data-grid/data-grid-cells'
@@ -37,7 +39,7 @@ export const tagsColumns = handlers => [
         isSecondButton
         firstButtonElement={<EditIcon />}
         firstButtonStyle={ButtonStyle.PRIMARY}
-        secondButtonElement={<CrossIcon />}
+        secondButtonElement={<MdOutlineDelete size={18} />}
         secondButtonStyle={ButtonStyle.DANGER}
         onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
         onClickSecondButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
