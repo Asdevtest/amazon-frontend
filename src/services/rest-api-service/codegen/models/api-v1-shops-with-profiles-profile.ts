@@ -21,6 +21,12 @@
  */
 export interface ApiV1ShopsWithProfilesProfile {
     /**
+     * Profile guid
+     * @type {string}
+     * @memberof ApiV1ShopsWithProfilesProfile
+     */
+    _id?: string;
+    /**
      * Email of profile
      * @type {string}
      * @memberof ApiV1ShopsWithProfilesProfile

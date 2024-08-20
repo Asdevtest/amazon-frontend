@@ -21,35 +21,17 @@
  */
 export interface InlineObject90 {
     /**
-     * ASIN продукта
+     * 
      * @type {string}
      * @memberof InlineObject90
      */
-    asin?: string;
+    userId?: string;
     /**
-     * Причина
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject90
      */
-    reason?: string;
-    /**
-     * Стратегия
-     * @type {string}
-     * @memberof InlineObject90
-     */
-    strategy?: InlineObject90StrategyEnum;
+    productIds?: Array<string>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject90StrategyEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40'
-}
-
 
 
