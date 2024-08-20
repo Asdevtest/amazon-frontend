@@ -1,3 +1,5 @@
+import { MdOutlineDelete } from 'react-icons/md'
+
 import { GridRowModel } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -9,7 +11,7 @@ import {
   TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
-import { DeleteIcon, EditIcon } from '@components/shared/svg-icons'
+import { EditIcon } from '@components/shared/svg-icons'
 
 import { parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
@@ -106,7 +108,7 @@ export const moderatorUpdatedColumns = ({
         isSecondButton
         firstButtonElement={<EditIcon />}
         firstButtonStyle={ButtonStyle.PRIMARY}
-        secondButtonElement={<DeleteIcon />}
+        secondButtonElement={<MdOutlineDelete size={18} />}
         secondButtonStyle={ButtonStyle.DANGER}
         onClickFirstButton={() => onToggleEditPatchNote(row)}
         onClickSecondButton={() => onClickRemovePatchNote(row._id)}

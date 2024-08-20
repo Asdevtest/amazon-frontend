@@ -1,3 +1,5 @@
+import { MdOutlineDelete } from 'react-icons/md'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell, MultilineTextHeaderCell, TextCell } from '@components/data-grid/data-grid-cells'
@@ -36,7 +38,7 @@ export const supervisorSettingsViewColumns = props => {
           isSecondButton
           firstButtonElement={<EditIcon />}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<CrossIcon />}
+          secondButtonElement={<MdOutlineDelete size={18} />}
           secondButtonStyle={ButtonStyle.DANGER}
           secondDescriptionText="Are you sure you want to delete ASIN?"
           onClickFirstButton={() => props.onEditAsin(row)}
