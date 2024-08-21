@@ -160,8 +160,8 @@ export const clientIntegrationsReportReturnsColumns = () => {
 
     {
       field: 'updatedAt',
-      headerName: 'Updated At',
-      renderHeader: () => <MultilineTextHeaderCell text="Updated At" />,
+      headerName: t(TranslationKey.Updated),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
       width: 118,
 

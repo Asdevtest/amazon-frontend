@@ -18,11 +18,32 @@ export const useStyles = makeStyles()(theme => ({
 
   cascader: {
     '.ant-cascader-menu': {
-      height: '410px',
+      height: '140px',
+      width: '280px',
+      paddingBottom: 8,
     },
 
     '.ant-cascader-checkbox-inner': {
       borderRadius: '4px !important',
+    },
+  },
+
+  cascaderPanel: {
+    display: 'block',
+    border: 'none',
+    borderRadius: 0,
+
+    '.ant-cascader-menu': {
+      height: '204px',
+    },
+
+    '.ant-cascader-menu-item-content': {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+
+    '.ant-cascader-menus': {
+      width: '100%',
     },
   },
 
@@ -37,11 +58,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   divider: {
-    margin: '8px 0',
+    margin: 0,
   },
 
   footer: {
-    padding: '8px 16px 16px',
+    padding: '8px 16px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -49,6 +70,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   inputSearch: {
-    width: '140px',
+    width: '160px',
   },
 }))

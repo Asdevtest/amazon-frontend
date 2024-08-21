@@ -21,29 +21,17 @@
  */
 export interface InlineResponse20030 {
     /**
-     * Гуид сообщения
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    _id?: string;
-    /**
-     * Гуид чата
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    chatId?: string;
-    /**
-     * Смещение для пагинации
+     * Кол-во продукта в айтеме в коробке
      * @type {number}
      * @memberof InlineResponse20030
      */
-    offset?: number;
+    amount?: number;
     /**
-     * 
-     * @type {Array<string>}
+     * Номер заказа
+     * @type {number}
      * @memberof InlineResponse20030
      */
-    allMedia?: Array<string>;
+    id?: number;
 }
 
 

@@ -21,17 +21,11 @@
  */
 export interface InlineObject92 {
     /**
-     * 
-     * @type {string}
-     * @memberof InlineObject92
-     */
-    userId?: string;
-    /**
-     * 
+     * GUIDы поставщиков, которые нужно добавить в БД.
      * @type {Array<string>}
      * @memberof InlineObject92
      */
-    productIds?: Array<string>;
+    suppliersIds?: Array<string>;
 }
 
 

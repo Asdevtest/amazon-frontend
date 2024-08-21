@@ -14,11 +14,11 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1BoxesClientsInTransferGuidBatch } from './api-v1-boxes-clients-in-transfer-guid-batch';
-import { ApiV1BoxesClientsInTransferGuidLogicsTariff } from './api-v1-boxes-clients-in-transfer-guid-logics-tariff';
-import { ApiV1BoxesClientsLightDestination } from './api-v1-boxes-clients-light-destination';
-import { ApiV1BoxesClientsLightItems } from './api-v1-boxes-clients-light-items';
-import { InlineResponse20032VariationTariff } from './inline-response20032-variation-tariff';
+import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
+import { ApiV1AdminsOrdersLogicsTariff } from './api-v1-admins-orders-logics-tariff';
+import { ApiV1AdminsTasksLightVariationTariff } from './api-v1-admins-tasks-light-variation-tariff';
+import { ApiV1BatchesBatch } from './api-v1-batches-batch';
+import { ApiV1BoxesStorekeepersSentToBatchItems } from './api-v1-boxes-storekeepers-sent-to-batch-items';
 
 /**
  * 
@@ -39,35 +39,17 @@ export interface InlineResponse20035 {
      */
     humanFriendlyId?: number;
     /**
-     * ККоличества в коробке.
+     * Количества в коробке.
      * @type {number}
      * @memberof InlineResponse20035
      */
     amount?: number;
     /**
-     * Total Amount
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    totalAmount?: number;
-    /**
-     * Total Price
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    totalPrice?: number;
-    /**
-     * Final weight
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    finalWeight?: number;
-    /**
      * Статус коробки
      * @type {string}
      * @memberof InlineResponse20035
      */
-    status?: string;
+    status?: InlineResponse20035StatusEnum;
     /**
      * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
      * @type {boolean}
@@ -86,54 +68,6 @@ export interface InlineResponse20035 {
      * @memberof InlineResponse20035
      */
     isFormed?: boolean;
-    /**
-     * Ссылка на наклейку для коробки
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    shippingLabel?: string;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    trackNumberText?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse20035
-     */
-    trackNumberFile?: Array<string>;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    prepId?: string;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    upsTrackNumber?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    referenceId?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    clientComment?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    storekeeperComment?: string;
     /**
      * Что фактически пришло на склад. Кладовщик.
      * @type {number}
@@ -159,24 +93,6 @@ export interface InlineResponse20035 {
      */
     weighGrossKgWarehouse?: number;
     /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineResponse20035
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    fbaNumber?: string;
-    /**
      * Итого за доставку.
      * @type {number}
      * @memberof InlineResponse20035
@@ -189,17 +105,59 @@ export interface InlineResponse20035 {
      */
     deliveryTotalPriceChanged?: number;
     /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20035
-     */
-    images?: Array<string>;
-    /**
-     * Nullable ISO Date
+     * id склада - склады куда отправляют 
      * @type {string}
      * @memberof InlineResponse20035
      */
-    deadline?: string;
+    destinationId?: string;
+    /**
+     * GUID тарифа доставки 
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    logicsTariffId?: string;
+    /**
+     * Сторкипер взявший коробку в работу.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    batchId?: string;
+    /**
+     * Сторкипер взявший коробку в работу.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    storekeeperId?: string;
+    /**
+     * Клиент владелец товара в коробке в работу.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    clientId?: string;
+    /**
+     * Клиент создавший заказ и коробку.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    createdById?: string;
+    /**
+     * GUID любого, кто последний редактировал коробку.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    lastModifiedById?: string;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    prepId?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsTasksLightVariationTariff}
+     * @memberof InlineResponse20035
+     */
+    variationTariff?: ApiV1AdminsTasksLightVariationTariff;
     /**
      * 
      * @type {string}
@@ -213,23 +171,11 @@ export interface InlineResponse20035 {
      */
     updatedAt?: string;
     /**
-     * 
-     * @type {InlineResponse20032VariationTariff}
-     * @memberof InlineResponse20035
-     */
-    variationTariff?: InlineResponse20032VariationTariff;
-    /**
      * Массив коробок.
-     * @type {Array<ApiV1BoxesClientsLightItems>}
+     * @type {Array<ApiV1BoxesStorekeepersSentToBatchItems>}
      * @memberof InlineResponse20035
      */
-    items?: Array<ApiV1BoxesClientsLightItems>;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20035
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    items?: Array<ApiV1BoxesStorekeepersSentToBatchItems>;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
@@ -250,22 +196,45 @@ export interface InlineResponse20035 {
     createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
-     * @type {ApiV1BoxesClientsLightDestination}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20035
      */
-    destination?: ApiV1BoxesClientsLightDestination;
+    lastModifiedBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
-     * @type {ApiV1BoxesClientsInTransferGuidLogicsTariff}
+     * @type {ApiV1AdminsOrdersDestination}
      * @memberof InlineResponse20035
      */
-    logicsTariff?: ApiV1BoxesClientsInTransferGuidLogicsTariff;
+    destination?: ApiV1AdminsOrdersDestination;
     /**
      * 
-     * @type {ApiV1BoxesClientsInTransferGuidBatch}
+     * @type {ApiV1AdminsOrdersLogicsTariff}
      * @memberof InlineResponse20035
      */
-    batch?: ApiV1BoxesClientsInTransferGuidBatch;
+    logicsTariff?: ApiV1AdminsOrdersLogicsTariff;
+    /**
+     * 
+     * @type {ApiV1BatchesBatch}
+     * @memberof InlineResponse20035
+     */
+    batch?: ApiV1BatchesBatch;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20035StatusEnum {
+    New = 'NEW',
+    InStock = 'IN_STOCK',
+    RequestedSendToBatch = 'REQUESTED_SEND_TO_BATCH',
+    NeedConfirmingToDeliveryPriceChange = 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE',
+    InBatch = 'IN_BATCH',
+    NeedToUpdateTheTariff = 'NEED_TO_UPDATE_THE_TARIFF',
+    InBatchOnTheWay = 'IN_BATCH_ON_THE_WAY',
+    FinishPrepCentrUsa = 'FINISH_PREP_CENTR_USA',
+    AcceptedInProcessing = 'ACCEPTED_IN_PROCESSING'
+}
+
 
 

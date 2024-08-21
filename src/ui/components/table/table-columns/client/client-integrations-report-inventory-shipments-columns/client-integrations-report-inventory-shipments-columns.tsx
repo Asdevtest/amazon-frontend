@@ -119,8 +119,8 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
 
     {
       field: 'status',
-      headerName: 'Status',
-      renderHeader: () => <MultilineTextHeaderCell text={'Status'} />,
+      headerName: t(TranslationKey.Status),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
       width: 83,
 
