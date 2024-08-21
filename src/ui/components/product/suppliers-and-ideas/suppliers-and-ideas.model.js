@@ -98,7 +98,7 @@ export class SuppliersAndIdeasModel {
   }
 
   get currentData() {
-    return this.ideasData?.toSorted(sortObjectsArrayByFiledDateWithParseISO('updatedAt')) // sort by desc
+    return this.ideasData?.toSorted(sortObjectsArrayByFiledDateWithParseISO('updatedAt')) // ideas sort by desc
   }
 
   get platformSettings() {
