@@ -67,11 +67,6 @@ export class ClientExchangeViewModel extends DataGridTableModel {
     })
 
     makeObservable(this, observerConfig)
-    // getMainDataMethod,
-    // columnsModel,
-    // tableKey,
-    // defaultGetCurrentDataOptions,
-    // fieldsForSearch,
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
