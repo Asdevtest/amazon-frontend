@@ -2028,6 +2028,7 @@
   "Specify dimensions": "Укажите размеры",
   "Error updating data": "Ошибка обновления данных",
   "Error while exporting data": "Ошибка при экспорте данных",
+  "Parsing reports": "Отчеты по парсингу",
   "Destination, Tariff name": "Пункт назначения, Название тарифа",
   "Title, Key, URL": "Название, Ключ, URL"
 }

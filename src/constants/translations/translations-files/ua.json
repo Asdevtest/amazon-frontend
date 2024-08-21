@@ -2025,6 +2025,7 @@
   "Specify dimensions": "Вкажіть розміри",
   "Error updating data": "Помилка оновлення даних",
   "Error while exporting data": "Помилка під час експорту даних",
+  "Parsing reports": "Звіти з парсингу",
   "Destination, Tariff name": "Місце призначення, назва тарифу",
   "Title, Key, URL": "Назва, ключ, URL"
 }
