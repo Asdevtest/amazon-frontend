@@ -57,6 +57,7 @@ export class WarehouseTariffModel extends DataGridTableModel {
     super({
       getMainDataMethod,
       columnsModel: logisticsTariffsColumns(columnsProps),
+      fieldsForSearch: ['name'],
     })
 
     this.getDataGridState()
