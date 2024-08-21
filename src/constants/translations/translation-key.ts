@@ -2030,5 +2030,5 @@ export enum TranslationKey {
   'Error while exporting data' = 'Error while exporting data',
   'Parsing reports' = 'Parsing reports',
   'Destination, Tariff name' = 'Destination, Tariff name',
-  'Title, Key, URL' = 'Title, Key, URL'
+  'Title, Key, URL' = 'Title, Key, URL',
 }
