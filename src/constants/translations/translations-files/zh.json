@@ -2023,5 +2023,7 @@
   "Error while exporting data": "导出数据时出错",
   "Parsing reports": "Parsing reports",
   "Destination, Tariff name": "目的地，计费名称",
-  "Title, Key, URL": "标题，键，URL"
+  "Title, Key, URL": "标题，键，URL",
+  "Final": "最终",
+  "Volume": "体积"
 }

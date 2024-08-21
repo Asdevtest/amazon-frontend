@@ -7,6 +7,7 @@ import {
   ChangeChipCell,
   ChangeInputCell,
   DeadlineCell,
+  DimensionsCell,
   FormedCell,
   ManyUserLinkCell,
   MultilineTextHeaderCell,
@@ -17,7 +18,6 @@ import {
   TextCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells'
-import { Dimensions } from '@components/shared/dimensions'
 import { SizeSwitcher } from '@components/shared/size-switcher'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
@@ -323,9 +323,9 @@ export const clientBoxesViewColumns = (
         />
       ),
       renderCell: params => (
-        <Dimensions isCell isTotalWeight data={params.row} transmittedSizeSetting={getUnitsOption()} />
+        <DimensionsCell isCell isTotalWeight data={params.row} transmittedSizeSetting={getUnitsOption()} />
       ),
-      width: 210,
+      width: 230,
       disableCustomSort: true,
     },
 

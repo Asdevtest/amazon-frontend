@@ -2031,4 +2031,6 @@ export enum TranslationKey {
   'Parsing reports' = 'Parsing reports',
   'Destination, Tariff name' = 'Destination, Tariff name',
   'Title, Key, URL' = 'Title, Key, URL',
+  'Final' = 'Final',
+  'Volume' = 'Volume',
 }
