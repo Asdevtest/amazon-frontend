@@ -13,50 +13,43 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
  * @export
- * @interface InlineResponse20080Rows
+ * @interface InlineResponse20073EntityProduct
  */
-export interface InlineResponse20080Rows {
+export interface InlineResponse20073EntityProduct {
     /**
-     * 
+     * GUID продукта в базе данных
      * @type {string}
-     * @memberof InlineResponse20080Rows
+     * @memberof InlineResponse20073EntityProduct
      */
     _id?: string;
     /**
      * ASIN продукта
      * @type {string}
-     * @memberof InlineResponse20080Rows
+     * @memberof InlineResponse20073EntityProduct
      */
     asin?: string;
     /**
      * SKU введенным клиентом.
      * @type {string}
-     * @memberof InlineResponse20080Rows
+     * @memberof InlineResponse20073EntityProduct
      */
     skuByClient?: string;
     /**
      * Массив картинок.
      * @type {Array<string>}
-     * @memberof InlineResponse20080Rows
+     * @memberof InlineResponse20073EntityProduct
      */
     images?: Array<string>;
     /**
-     * Заголовок на товар с сайта амазон.
+     * Описание amazon title
      * @type {string}
-     * @memberof InlineResponse20080Rows
+     * @memberof InlineResponse20073EntityProduct
      */
     amazonTitle?: string;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
-     * @memberof InlineResponse20080Rows
-     */
-    users?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
 }
 
 

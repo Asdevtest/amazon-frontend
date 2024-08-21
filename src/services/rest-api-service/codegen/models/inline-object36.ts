@@ -46,12 +46,6 @@ export interface InlineObject36 {
      */
     lengthCmSupplier?: number;
     /**
-     * Ссылка на наклейку для коробки
-     * @type {string}
-     * @memberof InlineObject36
-     */
-    shippingLabel?: string;
-    /**
      * Текст трек номера
      * @type {string}
      * @memberof InlineObject36
@@ -166,7 +160,7 @@ export interface InlineObject36 {
      */
     destinationId?: string;
     /**
-     *  logicsTariff GUID
+     * GUID тарифа доставки 
      * @type {string}
      * @memberof InlineObject36
      */
@@ -183,6 +177,12 @@ export interface InlineObject36 {
      * @memberof InlineObject36
      */
     prepId?: string;
+    /**
+     * GUID сторкипера
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    storekeeperId?: string;
 }
 
 

@@ -12,7 +12,7 @@ import { useStyles } from './header.style'
 
 interface HeaderProps {
   onChangeUnserverSearchValue: (value: string) => void
-  onToggleAddSubUserModal: VoidFunction
+  onToggleAddSubUserModal: () => void
 }
 
 export const Header: FC<HeaderProps> = memo(props => {
@@ -28,7 +28,7 @@ export const Header: FC<HeaderProps> = memo(props => {
         enterButton
         allowClear
         size="large"
-        placeholder="Search by SKU, ASIN, Title"
+        placeholder="Search by name, email"
         onSearch={onChangeUnserverSearchValue}
       />
       <CustomButton type="primary" size="large" icon={<FiPlus />} onClick={onToggleAddSubUserModal}>

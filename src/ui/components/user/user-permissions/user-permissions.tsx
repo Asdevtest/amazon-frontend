@@ -1,3 +1,4 @@
+import { RadioChangeEvent } from 'antd'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
@@ -8,13 +9,15 @@ import { AddOrEditSinglePermissionForm } from '@components/forms/add-or-edit-sin
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IPermission } from '@typings/models/permissions/permission'
 
 import { useStyles } from './user-permissions.style'
 
@@ -29,15 +32,22 @@ export const UserPermissions = observer(() => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.buttons}>
-        <div className={styles.customSwitcherContainer}>
-          <CustomSwitcher
-            fullWidth
-            switchMode="medium"
-            condition={viewModel.tabIndex}
-            switcherSettings={switcherSettings}
-            changeConditionHandler={viewModel.onChangeTabIndex}
-          />
-        </div>
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={switcherSettings}
+          defaultValue={viewModel.tabIndex}
+          onChange={(e: RadioChangeEvent) => viewModel.onChangeTabIndex(e.target.value)}
+        />
+
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          wrapperClassName={styles.searchInput}
+          placeholder="Title, Key, URL"
+          onSearch={viewModel.onChangeUnserverSearchValue}
+        />
 
         <div className={styles.buttons}>
           <Button onClick={viewModel.onClickExportPermissions}>{t(TranslationKey['Export to file'])}</Button>
@@ -50,20 +60,28 @@ export const UserPermissions = observer(() => {
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
           sortingMode="client"
           paginationMode="client"
-          columnVisibilityModel={viewModel.columnVisibilityModel}
+          rowCount={viewModel.rowCount}
+          rows={viewModel.filteredData}
+          sortModel={viewModel.sortModel}
+          columns={viewModel.columnsModel}
+          filterModel={viewModel.filterModel}
+          pinnedColumns={viewModel.pinnedColumns}
+          rowSelectionModel={viewModel.selectedRows}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
           getRowHeight={() => 'auto'}
-          getRowId={({ _id }) => _id}
+          getRowId={({ _id }: IPermission) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -71,11 +89,13 @@ export const UserPermissions = observer(() => {
               },
             },
           }}
-          columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
           onSortModelChange={viewModel.onChangeSortingModel}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         />
       </div>
 
@@ -100,7 +120,7 @@ export const UserPermissions = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSinglePermissionModal')}
       >
         <AddOrEditSinglePermissionForm
-          existingSinglePermissions={viewModel.singlePermissions}
+          existingSinglePermissions={viewModel.currentData}
           permissionToEdit={viewModel.addOrEditPermissionSettings.permission}
           isEdit={viewModel.addOrEditPermissionSettings.isEdit}
           onCloseModal={viewModel.onClickCancelBtn}
@@ -118,7 +138,7 @@ export const UserPermissions = observer(() => {
           message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}

@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes';
 
 /**
  * 
@@ -23,10 +22,34 @@ import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './
 export interface InlineObject47 {
     /**
      * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
+     * @type {number}
      * @memberof InlineObject47
      */
-    itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
+    lengthCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject47
+     */
+    widthCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject47
+     */
+    heightCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject47
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Массив ссылок на фотографии.
+     * @type {Array<string>}
+     * @memberof InlineObject47
+     */
+    images?: Array<string>;
 }
 
 

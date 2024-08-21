@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * 
@@ -21,17 +22,17 @@
  */
 export interface InlineResponse20028 {
     /**
-     * GUID в базе данных
-     * @type {string}
+     * Count of boxes
+     * @type {number}
      * @memberof InlineResponse20028
      */
-    _id?: string;
+    count?: number;
     /**
-     * Имя пользователя.
-     * @type {string}
+     * 
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20028
      */
-    name?: string;
+    rows?: Array<ApiV1BatchesBoxes>;
 }
 
 
