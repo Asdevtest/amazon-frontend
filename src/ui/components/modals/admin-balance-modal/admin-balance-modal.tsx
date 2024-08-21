@@ -2,6 +2,7 @@ import { FC, useState } from 'react'
 
 import { Container, MenuItem, Select, Typography } from '@mui/material'
 
+import { EntityType } from '@constants/finances/entity-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -13,7 +14,6 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/che
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { PaymentTypeSettings } from '@typings/enums/payment-type-settings'
 import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './admin-balance-modal.style'
@@ -22,7 +22,7 @@ interface AdminBalanceModalProps {
   user: ICreatedBy
   isWithdraw: boolean
   onTriggerParentModal: () => void
-  onSubmit: (data: { entityType: PaymentTypeSettings; recipientId: string; sum: number; comment: string }) => void
+  onSubmit: (data: { entityType: EntityType; recipientId: string; sum: number; comment: string }) => void
 }
 
 export const AdminBalanceModal: FC<AdminBalanceModalProps> = ({ user, isWithdraw, onTriggerParentModal, onSubmit }) => {
@@ -31,9 +31,7 @@ export const AdminBalanceModal: FC<AdminBalanceModalProps> = ({ user, isWithdraw
   const [balanceValue, setBalanceValue] = useState<string>('')
   const [reasonValue, setReasonValue] = useState<string>('')
 
-  const [entityType, setPaymentType] = useState<PaymentTypeSettings>(
-    isWithdraw ? PaymentTypeSettings.WITHDRAW : PaymentTypeSettings.DEPOSIT,
-  )
+  const [entityType, setPaymentType] = useState<EntityType>(isWithdraw ? EntityType.WITHDRAW : EntityType.DEPOSIT)
   const [showConfirmModal, setConfirmModal] = useState<boolean>(false)
 
   const balance = balanceValue || '...'
@@ -97,9 +95,9 @@ export const AdminBalanceModal: FC<AdminBalanceModalProps> = ({ user, isWithdraw
                 input={<Input fullWidth />}
                 variant="filled"
                 value={entityType}
-                onChange={e => setPaymentType(e.target.value as PaymentTypeSettings)}
+                onChange={e => setPaymentType(e.target.value as EntityType)}
               >
-                {[PaymentTypeSettings.WITHDRAW, PaymentTypeSettings.FINE].map(type => (
+                {[EntityType.WITHDRAW, EntityType.FINE].map(type => (
                   <MenuItem key={type} value={type}>
                     {type}
                   </MenuItem>

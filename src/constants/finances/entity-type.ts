@@ -6,4 +6,5 @@ export enum EntityType {
 
   DEPOSIT = 'DEPOSIT',
   WITHDRAW = 'WITHDRAW',
+  FINE = 'FINE',
 }
