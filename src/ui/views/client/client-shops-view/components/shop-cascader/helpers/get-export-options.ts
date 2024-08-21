@@ -2,6 +2,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
+import { IShop } from '@typings/models/shops/shop'
+
 const batches = [
   {
     value: 'NEW',
@@ -121,58 +123,56 @@ const orders = [
 ]
 
 export interface IExportOption {
-  value: string
+  value: string | number
   label: string
   disabled?: boolean
   children?: IExportOption[]
 }
 
-const checkDisabled = (id: string, table: string, selectedExportOptions: IExportOption[]) =>
-  !!selectedExportOptions.find(option => option?.value === String(id) && !!option?.label && option?.label !== table)
+const checkDisabled = (table: string, options: string[][]) =>
+  !!options.find(option => option?.[0] && option?.[0] !== table)
 
-export const getExportOptionsForShopsView = (
-  options: IExportOption[],
-  selectedExportOptions: IExportOption[],
-  inputValue: string = '',
-): IExportOption[] => {
-  const result: IExportOption[] = options.map(item => ({
-    label: item.label,
-    value: item.value,
-    children: [
-      {
-        label: t(TranslationKey.Products),
-        value: 'INVENTORY',
-        disabled: checkDisabled(item.value, 'INVENTORY', selectedExportOptions),
-      },
-      {
-        label: t(TranslationKey.Orders),
-        value: 'ORDERS',
-        children: orders as IExportOption[],
-        disabled: checkDisabled(item.value, 'ORDERS', selectedExportOptions),
-      },
-      {
-        label: t(TranslationKey.Boxes),
-        value: 'BOXES',
-        children: [
-          {
-            label: 'On Amazon',
-            value: '1', // Convert number to string
-          },
-          {
-            label: 'PREP_CENTR_USA',
-            value: '0', // Convert number to string
-          },
-        ] as IExportOption[], // Type assertion to IExportOption[]
-        disabled: checkDisabled(item.value, 'BOXES', selectedExportOptions),
-      },
-      {
-        label: t(TranslationKey.Batches),
-        value: 'BATCHES',
-        children: batches as IExportOption[],
-        disabled: checkDisabled(item.value, 'BATCHES', selectedExportOptions),
-      },
-    ],
-  }))
+export const getShopsOptions = (options: IShop[], inputValue: string = ''): IExportOption[] => {
+  const result: IExportOption[] = options.map(({ name, _id }) => ({ label: name, value: _id }))
 
   return result.filter(option => option?.label?.toLowerCase().includes(inputValue.toLowerCase()))
+}
+
+export const getTableOptions = (selectedTableOptions: string[][]): IExportOption[] => {
+  const result: IExportOption[] = [
+    {
+      label: t(TranslationKey.Products),
+      value: 'INVENTORY',
+      disabled: checkDisabled('INVENTORY', selectedTableOptions),
+    },
+    {
+      label: t(TranslationKey.Orders),
+      value: 'ORDERS',
+      children: orders,
+      disabled: checkDisabled('ORDERS', selectedTableOptions),
+    },
+    {
+      label: t(TranslationKey.Boxes),
+      value: 'BOXES',
+      children: batches,
+      disabled: checkDisabled('BOXES', selectedTableOptions),
+    },
+    {
+      label: t(TranslationKey.Batches),
+      value: 'BATCHES',
+      children: [
+        {
+          label: 'On Amazon',
+          value: 1, // Convert number to string
+        },
+        {
+          label: 'PREP_CENTR_USA',
+          value: 0, // Convert number to string
+        },
+      ],
+      disabled: checkDisabled('BATCHES', selectedTableOptions),
+    },
+  ]
+
+  return result
 }
