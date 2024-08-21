@@ -22,4 +22,15 @@ export const useStyles = makeStyles()(theme => ({
   seconndText: {
     color: theme.palette.text.second,
   },
+
+  currentAddress: {
+    width: 250,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+
+  searchInput: {
+    width: 440,
+  },
 }))

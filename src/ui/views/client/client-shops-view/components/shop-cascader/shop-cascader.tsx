@@ -1,7 +1,7 @@
 import { Cascader, Divider, Space } from 'antd'
 import Paragraph from 'antd/es/typography/Paragraph'
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, ReactElement, useCallback, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -27,6 +27,39 @@ export const ShopCascader: FC<ShopCascaderProps> = observer(props => {
   const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(() => new ShopsCascaderModel(data))
 
+  const dropdownRender = useCallback(
+    (menu: ReactElement) => (
+      <>
+        {menu}
+        <Divider className={styles.divider} />
+
+        <Cascader.Panel
+          multiple
+          options={viewModel.shopOptions}
+          className={styles.cascaderPanel}
+          value={viewModel.selectedShopsOptions}
+          // @ts-ignore
+          onChange={viewModel.onChangeShopsOptions}
+        />
+
+        <Divider className={styles.divider} />
+
+        <Space className={styles.footer}>
+          <CustomInputSearch
+            allowClear
+            placeholder="Search"
+            wrapperClassName={styles.inputSearch}
+            onChange={viewModel.onChangeInput}
+          />
+          <CustomButton disabled={viewModel.disabledExportButton} type="primary" onClick={viewModel.getShopsExport}>
+            {t(TranslationKey.Export)}
+          </CustomButton>
+        </Space>
+      </>
+    ),
+    [viewModel.inputValue, viewModel.selectedShopsOptions],
+  )
+
   return (
     <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
       {label ? (
@@ -40,7 +73,7 @@ export const ShopCascader: FC<ShopCascaderProps> = observer(props => {
         multiple
         expandIcon=" " // null icon
         open={viewModel.open}
-        options={viewModel.filteredOptions}
+        options={viewModel.tableOptions}
         rootClassName={styles.cascader}
         expandTrigger="hover"
         optionRender={option => (
@@ -50,27 +83,10 @@ export const ShopCascader: FC<ShopCascaderProps> = observer(props => {
             </Paragraph>
           </div>
         )}
-        dropdownMenuColumnStyle={{ height: 40 }}
-        dropdownRender={menu => (
-          <>
-            {menu}
-            <Divider className={styles.divider} />
-            <Space className={styles.footer}>
-              <CustomInputSearch
-                allowClear
-                placeholder="Search"
-                wrapperClassName={styles.inputSearch}
-                onChange={viewModel.onChangeInput}
-              />
-              <CustomButton type="primary" onClick={viewModel.getShopsExport}>
-                {t(TranslationKey.Save)}
-              </CustomButton>
-            </Space>
-          </>
-        )}
+        dropdownRender={dropdownRender}
         onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
         // @ts-ignore
-        onChange={viewModel.onChangeExportOptions}
+        onChange={viewModel.onChangeTableOptions}
       >
         <CustomButton type="primary" size="large">
           {t(TranslationKey.Export)}

@@ -12,6 +12,8 @@ export const getAdditionalFiltersFields = (activeTable: ParsingReportsType) => {
     case ParsingReportsType.PPC_SALES_WEEKS:
     case ParsingReportsType.RETURNS:
     case ParsingReportsType.FYP_OUT_OF_STOCK:
+    case ParsingReportsType.FYP_SEARCH_SUPPRESSED:
+    case ParsingReportsType.PPC_ORGANIC:
       return ['sku']
   }
 }

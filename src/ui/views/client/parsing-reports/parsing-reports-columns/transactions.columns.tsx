@@ -71,6 +71,7 @@ export const transactionsColumns = () => {
       renderCell: params => <TextCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
+      disableCustomSort: true,
     },
 
     {
