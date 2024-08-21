@@ -19,9 +19,6 @@ export const useStyles = makeStyles()(theme => ({
 
   input: {
     width: '100%',
-    '& .ant-input::placeholder': {
-      fontSize: 14,
-    },
   },
 
   label: {
