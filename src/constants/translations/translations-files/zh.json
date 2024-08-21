@@ -1998,7 +1998,7 @@
   "issued": "签发",
   "Parsing status": "解析状态",
   "Profile with given guid not found!": "找不到具有给定ID的配置文件!",
-  "Profile does not belongs to you!": "该配置文件不属于您!",
+  "Access Denied: Insufficient Rights": "访问被拒绝：权限不足",
   "Ask": "请求",
   "Please enter a valid URL!": "请输入有效的URL!",
   "Please input your link!": "请输入您的链接!",
