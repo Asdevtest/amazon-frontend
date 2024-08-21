@@ -13,7 +13,6 @@
  */
 
 
-import { InlineObject35 } from './inline-object35';
 
 /**
  * 
@@ -22,17 +21,11 @@ import { InlineObject35 } from './inline-object35';
  */
 export interface InlineObject44 {
     /**
-     * GUID для которой подтверждаем действие.
+     * GUID коробки разделение которой отменяем.
      * @type {string}
      * @memberof InlineObject44
      */
     guid?: string;
-    /**
-     * Массив дополнительных коробок которые случились при обработки.
-     * @type {Array<InlineObject35>}
-     * @memberof InlineObject44
-     */
-    additionalBoxes?: Array<InlineObject35>;
 }
 
 

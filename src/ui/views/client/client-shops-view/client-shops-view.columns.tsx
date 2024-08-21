@@ -2,6 +2,8 @@ import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -32,6 +34,7 @@ export const shopsColumns = (props: IColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
       width: 115,
+      columnKey: columnnsKeys.shared.DATE,
     },
     {
       field: 'name',
@@ -39,6 +42,7 @@ export const shopsColumns = (props: IColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.name} />,
       width: 240,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
       field: 'profile',
@@ -48,6 +52,7 @@ export const shopsColumns = (props: IColumnProps) => {
         <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />
       ),
       width: 320,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
     {
       field: 'access',
@@ -58,6 +63,7 @@ export const shopsColumns = (props: IColumnProps) => {
       ),
       width: 160,
       disableCustomSort: true,
+      filterable: false,
     },
     {
       field: 'status',
@@ -77,6 +83,7 @@ export const shopsColumns = (props: IColumnProps) => {
       },
       width: 160,
       disableCustomSort: true,
+      filterable: false,
     },
     {
       field: 'action',
@@ -98,12 +105,16 @@ export const shopsColumns = (props: IColumnProps) => {
         />
       ),
       width: 100,
-      filterable: false,
       disableCustomSort: true,
+      filterable: false,
     },
   ]
 
   for (const column of columns) {
+    if (!column.table) {
+      column.table = DataGridFilterTables.SHOPS
+    }
+
     column.sortable = false
   }
 

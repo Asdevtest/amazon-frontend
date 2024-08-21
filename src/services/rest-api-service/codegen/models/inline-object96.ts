@@ -21,23 +21,11 @@
  */
 export interface InlineObject96 {
     /**
-     * Удалять ли пермишны(только, если parentProductId - null
-     * @type {boolean}
-     * @memberof InlineObject96
-     */
-    deletePermissions?: boolean;
-    /**
-     * Ключ родительского продукта
+     * GUID магазина, которую нужно добавить к продукту
      * @type {string}
      * @memberof InlineObject96
      */
-    parentProductId: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject96
-     */
-    childProductIds: Array<string>;
+    shopId?: string;
 }
 
 

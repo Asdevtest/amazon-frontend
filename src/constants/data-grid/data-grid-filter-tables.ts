@@ -8,7 +8,6 @@ export enum DataGridFilterTables {
   INVENTORY_SHIPMENTS = 'inventoryShipments',
   INVENTORY_RETURNS = 'inventoryReturns',
   PPC_SALES_DAYS = 'ppcSalesDays',
-
   PRODUCTS = 'products',
   USERS = 'users',
   STOREKEEPERS = 'storekeepers',
@@ -22,4 +21,5 @@ export enum DataGridFilterTables {
   PRODUCT_LISTING_REPORTS = 'productListingReports',
   PAYMENTS = 'payments',
   PROPOSALS = 'proposals',
+  SHOPS = 'shops',
 }

@@ -26,8 +26,8 @@ class ShopModelStatic {
     return response.data
   }
 
-  getShopsWithProfiles = async () => {
-    const response = await restApiService.shopApi.apiV1ShopsWithProfilesGet({ noCache: true })
+  getShopsWithProfiles = async body => {
+    const response = await restApiService.shopApi.apiV1ShopsWithProfilesGet({ ...body, noCache: true })
     return response.data
   }
 }
