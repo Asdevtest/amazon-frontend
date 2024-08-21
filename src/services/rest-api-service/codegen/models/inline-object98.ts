@@ -21,23 +21,132 @@
  */
 export interface InlineObject98 {
     /**
-     * Удалять ли пермишны(только, если parentProductId - null
-     * @type {boolean}
+     * Кол-во продукта по этой позиции.
+     * @type {number}
      * @memberof InlineObject98
      */
-    deletePermissions?: boolean;
+    amount?: number;
     /**
-     * Ключ родительского продукта
+     * Гуид сапплаера
      * @type {string}
      * @memberof InlineObject98
      */
-    parentProductId: string;
+    orderSupplierId?: string;
     /**
-     * 
+     * Склад для изменения
+     * @type {string}
+     * @memberof InlineObject98
+     */
+    storekeeperId?: string;
+    /**
+     * Пункт назначения
+     * @type {string}
+     * @memberof InlineObject98
+     */
+    destinationId?: string;
+    /**
+     * Тариф для изменения
+     * @type {string}
+     * @memberof InlineObject98
+     */
+    logicsTariffId?: string;
+    /**
+     * Тариф для вариации
+     * @type {string}
+     * @memberof InlineObject98
+     */
+    variationTariffId?: string;
+    /**
+     * Массив картинок.
      * @type {Array<string>}
      * @memberof InlineObject98
      */
-    childProductIds: Array<string>;
+    images?: Array<string>;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * @type {number}
+     * @memberof InlineObject98
+     */
+    totalPrice?: number;
+    /**
+     * Защита листинга
+     * @type {string}
+     * @memberof InlineObject98
+     */
+    transparencyFile?: string;
+    /**
+     * Комментарий баера
+     * @type {string}
+     * @memberof InlineObject98
+     */
+    buyerComment?: string;
+    /**
+     * Не настоящий ключ, используется только для нужд юзера
+     * @type {string}
+     * @memberof InlineObject98
+     */
+    item?: string;
+    /**
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineObject98
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
+     * @type {string}
+     * @memberof InlineObject98
+     */
+    deadline?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject98
+     */
+    priority?: InlineObject98PriorityEnum;
+    /**
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * @type {boolean}
+     * @memberof InlineObject98
+     */
+    expressChinaDelivery?: boolean;
+    /**
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineObject98
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Комментарий клтента в заказе
+     * @type {string}
+     * @memberof InlineObject98
+     */
+    clientComment?: string;
+    /**
+     * Цена в юанях
+     * @type {number}
+     * @memberof InlineObject98
+     */
+    priceInYuan?: number;
+    /**
+     * Цена доставки партии в юанях
+     * @type {number}
+     * @memberof InlineObject98
+     */
+    priceBatchDeliveryInYuan?: number;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject98PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

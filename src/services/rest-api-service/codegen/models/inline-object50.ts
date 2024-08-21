@@ -21,59 +21,11 @@
  */
 export interface InlineObject50 {
     /**
-     * 
-     * @type {string}
+     * Сформирована ли коробка
+     * @type {boolean}
      * @memberof InlineObject50
      */
-    clientComment?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject50
-     */
-    storekeeperComment?: string;
-    /**
-     * Storage in boxes
-     * @type {string}
-     * @memberof InlineObject50
-     */
-    storage?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineObject50
-     */
-    referenceId?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject50
-     */
-    fbaNumber?: string;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineObject50
-     */
-    upsTrackNumber?: string;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineObject50
-     */
-    trackNumberText?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject50
-     */
-    trackNumberFile?: Array<string>;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineObject50
-     */
-    prepId?: string;
+    isFormed: boolean;
 }
 
 
