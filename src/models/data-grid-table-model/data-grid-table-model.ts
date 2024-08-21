@@ -160,7 +160,7 @@ export class DataGridTableModel extends DefaultModel {
       if (fieldsForSearch.includes(key) && typeof obj[key] === 'string') {
         return obj[key].toLowerCase().startsWith(searchValue)
       } else if (Array.isArray(obj[key])) {
-        return false
+        return obj[key].some((item: any) => this.checkNestedFields(item, searchValue, fieldsForSearch))
       } else if (typeof obj[key] === 'object' && obj[key] !== null) {
         return this.checkNestedFields(obj[key], searchValue, fieldsForSearch)
       }

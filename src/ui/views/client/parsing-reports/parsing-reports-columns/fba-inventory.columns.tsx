@@ -362,16 +362,6 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'storageVolume',
-      headerName: 'Storage volume',
-      renderHeader: () => <MultilineTextHeaderCell text="Storage volume" />,
-
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
       field: 'marketplace',
       headerName: 'Marketplace',
       renderHeader: () => <MultilineTextHeaderCell text="Marketplace" />,
