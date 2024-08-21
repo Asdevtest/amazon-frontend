@@ -110,7 +110,6 @@ export const useStyles = makeStyles()(theme => ({
     transition: '.3s ease',
     borderRadius: '50%',
     '&:hover': {
-      transform: 'scale(1.01)',
       opacity: '0.8',
     },
   },
