@@ -181,9 +181,7 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
   }
   async onClickResultBtn(proposalId: string) {
     await this.getProposalById(proposalId)
-    runInAction(() => {
-      this.showRequestDetailModal = false
-    })
+
     if (
       executedStatuses.includes(this.currentProposal?.proposal?.status as string) &&
       // @ts-ignore
@@ -205,7 +203,8 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
   }
 
   onOpenRequestDetailModal(id: string) {
-    if (window?.getSelection?.()?.toString?.() || this.showConfirmModal) {
+    event?.stopPropagation()
+    if (window?.getSelection?.()?.toString?.()) {
       return
     }
 
