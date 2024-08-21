@@ -108,6 +108,8 @@ export class ShopsViewModel extends DataGridFilterTableModel {
     try {
       await ParserModel.onParsingAccess(email)
 
+      toast.success(t(TranslationKey['Access confirmation request sent successfully']))
+
       this.getCurrentData()
     } catch (error) {
       console.error(error)

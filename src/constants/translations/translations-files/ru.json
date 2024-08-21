@@ -2002,7 +2002,7 @@
   "Parsing profile": "Профиль парсинга",
   "Request sent": "Запрос отправлен",
   "Access": "Доступ",
-  "issued": "выдано",
+  "Issued": "Выдано",
   "Parsing status": "Статус парсинга",
   "Profile with given guid not found!": "Профиль с указанным ID не найден!",
   "Profile does not belongs to you!": "Профиль вам не принадлежит!",
@@ -2030,5 +2030,6 @@
   "Error while exporting data": "Ошибка при экспорте данных",
   "Parsing reports": "Отчеты по парсингу",
   "Destination, Tariff name": "Пункт назначения, Название тарифа",
-  "Title, Key, URL": "Название, Ключ, URL"
+  "Title, Key, URL": "Название, Ключ, URL",
+  "Access confirmation request sent successfully": "Запрос на подтверждение доступа успешно отправлен"
 }

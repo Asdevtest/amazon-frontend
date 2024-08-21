@@ -97,7 +97,7 @@ export const shopsColumns = (props: IColumnProps) => {
           onClickSecondButton={() => onRemoveShop(row._id)}
         />
       ),
-      width: 100,
+      minWidth: 90,
       filterable: false,
       disableCustomSort: true,
     },
