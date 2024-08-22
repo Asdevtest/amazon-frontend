@@ -59,7 +59,7 @@ export const ShopForm: FC<ShopFormProps> = observer(props => {
       <Form name="parsing profile" autoComplete="off" form={form} onFinish={onFinish}>
         <div className={styles.container}>
           <Form.Item<FieldType> name="name" className={styles.field} rules={getRequiredRules()}>
-            <CustomInput required allowClear size="large" label="Name" placeholder="Store name" />
+            <CustomInput required allowClear size="large" label="Store name" placeholder="Store" />
           </Form.Item>
 
           <Form.Item<FieldType>
