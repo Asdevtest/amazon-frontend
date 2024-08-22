@@ -150,7 +150,6 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
       renderCell: params => (
         <BatchTrackingCell
-          // disabled
           disabled={params.row?.status !== BatchStatus.HAS_DISPATCHED}
           rowHandlers={rowHandlers}
           id={params.row?._id}
