@@ -96,6 +96,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
       setUpdatedAsinsAndReasonsData(filteredData)
     } else {
       const filteredData = updatedAsinsAndReasonsData.filter(item => item.asin !== asin)
+      setAsinsAndReasonsData(filteredData)
       setUpdatedAsinsAndReasonsData(filteredData)
     }
   }
