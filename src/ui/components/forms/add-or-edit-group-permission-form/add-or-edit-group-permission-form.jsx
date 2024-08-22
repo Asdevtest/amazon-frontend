@@ -70,7 +70,7 @@ export const AddOrEditGroupPermissionForm = observer(
       if (fieldName === 'key') {
         setOnKeyFieldEditing(true)
         newFormFields[fieldName] = event.target.value.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '')
-      } else if (fieldName === 'hierarchy' && !checkIsPositiveNum(event.target.value)) {
+      } else if ((fieldName === 'hierarchy' && !checkIsPositiveNum(event.target.value)) || event.target.value > 200) {
         return
       } else {
         newFormFields[fieldName] = event.target.value
