@@ -1,5 +1,6 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
+import { BatchStatus } from '@constants/statuses/batch-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -149,7 +150,8 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
       renderCell: params => (
         <BatchTrackingCell
-          disabled
+          // disabled
+          disabled={params.row?.status !== BatchStatus.HAS_DISPATCHED}
           rowHandlers={rowHandlers}
           id={params.row?._id}
           arrivalDate={params.row?.arrivalDate}
