@@ -345,6 +345,8 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
     setSubmitIsClicked(true)
   }
 
+  const columnsModel = addOrEditBatchFormColumns(isClient)
+
   return (
     <div className={styles.root}>
       <Typography className={styles.modalTitle}>
@@ -465,7 +467,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
               },
               toolbar: {
                 columsBtnSettings: {
-                  columnsModel: addOrEditBatchFormColumns(isClient),
+                  columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
                   onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
@@ -497,7 +499,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             }}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             rows={boxesToAddData}
-            columns={addOrEditBatchFormColumns(isClient)}
+            columns={columnsModel}
             rowHeight={100}
             rowSelectionModel={boxesToAddIds}
             onRowSelectionModelChange={onSelectionAwaitingBoxes}
@@ -572,7 +574,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
               },
               toolbar: {
                 columsBtnSettings: {
-                  columnsModel: addOrEditBatchFormColumns(isClient),
+                  columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
                   onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
@@ -589,7 +591,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
               },
             }}
             rows={chosenBoxes || []}
-            columns={addOrEditBatchFormColumns(isClient)}
+            columns={columnsModel}
             rowHeight={100}
             onRowSelectionModelChange={onSelectionChoosenBoxes}
             onRowDoubleClick={e => viewModel.setBoxId(e.row._id)}
