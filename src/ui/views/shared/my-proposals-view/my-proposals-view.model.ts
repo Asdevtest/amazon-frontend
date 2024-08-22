@@ -203,7 +203,6 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
   }
 
   onOpenRequestDetailModal(id: string) {
-    event?.stopPropagation()
     if (window?.getSelection?.()?.toString?.()) {
       return
     }
