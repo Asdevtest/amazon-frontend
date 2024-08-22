@@ -1,67 +1,50 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
+import { DataGridTableModel } from '@models/data-grid-table-model'
 import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
-import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
-import { clientExchangeViewColumns } from '@components/table/table-columns/client/client-exchange-columns'
+import { IShop } from '@components/data-grid/data-grid-cells/shop-notification-message-cell/shop-notification.type'
 
-import { addIdDataConverter, clientProductsDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IOrder } from '@typings/models/orders/order'
+import { IProduct } from '@typings/models/products/product'
+import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
+import { IDestination } from '@typings/shared/destinations'
 
-export class ClientExchangeViewModel {
-  requestStatus = undefined
+import { clientExchangeColumns } from './client-exchange.columns'
+import { observerConfig } from './observer-config'
 
-  productsVacant = []
-  storekeepers = []
-  shopsData = []
+export class ClientExchangeViewModel extends DataGridTableModel {
+  productsVacant: IProduct[] = []
+  storekeepers: IStorekeeper[] = []
+  shopsData: IShop[] = []
 
-  destinations = []
+  destinations: IDestination[] = []
 
-  ordersDataStateToSubmit = undefined
+  ordersDataStateToSubmit: IOrder | null = null
 
   showConfirmModal = false
   showSelectShopsModal = false
-
-  selectedProduct = {}
-  selectedShopId = ''
-  product = {}
-  uploadedFiles = []
-
-  rowHandlers = {
-    onClickLaunchPrivateLabelBtn: item => this.onClickLaunchPrivateLabelBtn(item),
-  }
-
-  sortModel = []
-  filterModel = { items: [] }
-  densityModel = 'compact'
-  columnsModel = clientExchangeViewColumns(this.rowHandlers)
-
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
-
   showOrderModal = false
 
-  confirmModalSettings = {
-    isWarning: false,
-    confirmTitle: '',
-    confirmMessage: '',
-    onClickConfirm: () => {},
-  }
+  selectedProduct: IProduct | null = null
+  selectedShopId = ''
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
@@ -72,130 +55,61 @@ export class ClientExchangeViewModel {
   }
 
   constructor() {
-    makeAutoObservable(this, undefined, { autoBind: true })
+    const rowHandlers = {
+      onClickLaunchPrivateLabelBtn: (product: IProduct) => this.onClickLaunchPrivateLabelBtn(product),
+    }
+    const columnsModel = clientExchangeColumns(rowHandlers)
+
+    super({
+      getMainDataMethod: ClientModel.getProductsVacant,
+      columnsModel,
+      tableKey: DataGridTablesKeys.CLIENT_EXCHANGE,
+    })
+
+    makeObservable(this, observerConfig)
+
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+
+    this.getShops()
+    this.getDataGridState()
+    this.getCurrentData()
   }
 
-  onChangeFilterModel(model) {
-    this.filterModel = model
-
-    this.setDataGridState()
-  }
-
-  onDoubleClickBarcode = item => {
-    this.setSelectedProduct(item)
+  onDoubleClickBarcode = () => {
     this.onTriggerOpenModal('showSetBarcodeModal')
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
-    }
-
-    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.CLIENT_EXCHANGE)
-  }
-
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.CLIENT_EXCHANGE)
-
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
-  }
-
-  onPaginationModelChange(model) {
-    this.paginationModel = model
-
-    this.setDataGridState()
-  }
-
-  onColumnVisibilityModelChange(model) {
-    this.columnVisibilityModel = model
-
-    this.setDataGridState()
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
-
-    this.setDataGridState()
-  }
-
-  onSelectionModel(model) {
-    this.rowSelectionModel = model
-  }
-
-  get currentData() {
-    return this.productsVacant
-  }
-
-  async loadData() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-      this.getDataGridState()
-
-      this.getProductsVacant()
-      this.getShops()
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-    }
   }
 
   async updateUserInfo() {
     await UserModel.getUserInfo()
   }
 
-  setDestinationsFavouritesItem(item) {
+  setDestinationsFavouritesItem(item: string) {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  async getProductsVacant() {
-    try {
-      const result = await ClientModel.getProductsVacant()
-      runInAction(() => {
-        this.productsVacant = clientProductsDataConverter(result).sort(
-          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-        )
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async getProductById(productId) {
+  async getProductById(productId: string) {
     try {
       const result = await ProductModel.getProductById(productId)
 
       runInAction(() => {
-        this.product = result
-        this.selectedProduct = result
+        this.selectedProduct = result as unknown as IProduct
       })
     } catch (error) {
       console.error(error)
     }
   }
 
-  onClickLaunchPrivateLabelBtn(product) {
+  onClickLaunchPrivateLabelBtn(product: IProduct) {
     this.selectedProduct = product
+
     this.confirmModalSettings = {
       isWarning: false,
-      confirmTitle: t(TranslationKey['Purchasing a product card']),
-      confirmMessage: `${t(TranslationKey['You will be charged'])} ${
-        this.selectedProduct && toFixedWithDollarSign(this.selectedProduct.priceForClient, 2)
+      title: t(TranslationKey['Purchasing a product card']),
+      message: `${t(TranslationKey['You will be charged'])} ${
+        this.selectedProduct && toFixedWithDollarSign(this.selectedProduct?.priceForClient, 2)
       }`,
-      onClickConfirm: () => this.onClickBuyProductBtn(),
+      onSubmit: () => this.onClickBuyProductBtn(),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
 
     this.onTriggerOpenModal('showSelectShopsModal')
@@ -212,17 +126,20 @@ export class ClientExchangeViewModel {
     }
   }
 
-  async createOrder(orderObject) {
+  async createOrder(orderObject: any) {
     try {
-      if (orderObject.tmpBarCode.length) {
-        await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
-      } else if (!orderObject.barCode) {
+      let uploadedFiles = []
+
+      if (orderObject?.tmpBarCode?.length) {
+        // @ts-ignore
+        uploadedFiles = await onSubmitPostImages?.call(this, { images: orderObject?.tmpBarCode, type: 'uploadedFiles' })
+      } else if (!orderObject?.barCode) {
         await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
       }
 
       const createorderData = {
         amount: orderObject.amount,
-        deliveryMethod: orderObject.deliveryMethod,
+        deliveryMethod: orderObject?.deliveryMethod,
         warehouse: orderObject.warehouse,
         clientComment: orderObject.clientComment,
         productId: orderObject.productId,
@@ -244,12 +161,12 @@ export class ClientExchangeViewModel {
         await ClientModel.createOrder(createorderData)
       }
 
-      if (this.uploadedFiles.length) {
-        await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
+      if (uploadedFiles?.length) {
+        await ClientModel.updateProductBarCode(orderObject.productId, { barCode: uploadedFiles?.[0] })
       }
 
       runInAction(() => {
-        this.selectedProduct = {}
+        this.selectedProduct = null
       })
       await this.updateUserInfo()
     } catch (error) {
@@ -276,7 +193,7 @@ export class ClientExchangeViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.loadData()
+      this.getCurrentData()
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
@@ -288,12 +205,13 @@ export class ClientExchangeViewModel {
       const [storekeepers, destinations] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        this.getProductById(this.selectedProduct._id),
+        // @ts-ignore
+        this.getProductById(this.selectedProduct?._id),
       ])
 
       runInAction(() => {
-        this.storekeepers = storekeepers
-        this.destinations = destinations
+        this.storekeepers = storekeepers as IStorekeeper[]
+        this.destinations = destinations as IDestination[]
       })
 
       this.onTriggerOpenModal('showOrderModal')
@@ -302,12 +220,12 @@ export class ClientExchangeViewModel {
     }
   }
 
-  async onClickBuyProductBtn(shop) {
+  async onClickBuyProductBtn(shop?: IShop) {
     try {
-      await ClientModel.makePayments([this.selectedProduct._id])
+      await ClientModel.makePayments([this.selectedProduct?._id])
 
       runInAction(() => {
-        this.selectedShopId = shop?._id
+        this.selectedShopId = shop?._id || ''
       })
 
       await this.onSaveProductData()
@@ -316,7 +234,7 @@ export class ClientExchangeViewModel {
       this.openCreateOrder()
 
       this.updateUserInfo()
-      this.loadData()
+      this.getCurrentData()
     } catch (error) {
       toast.error(t(TranslationKey["You can't buy the product"]))
 
@@ -329,7 +247,7 @@ export class ClientExchangeViewModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.updateProduct(
-        this.selectedProduct._id,
+        this.selectedProduct?._id,
         getObjectFilteredByKeyArrayBlackList(
           {
             shopId: this.selectedShopId,
@@ -344,28 +262,32 @@ export class ClientExchangeViewModel {
     }
   }
 
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
-  }
-
   onClickCancelBtn = () => {
     this.onTriggerOpenModal('showOrderModal')
 
-    this.selectedProduct = undefined
+    this.selectedProduct = null
 
     toast.warning(t(TranslationKey['This item has been moved to Inventory']))
   }
 
-  onClickOrderNowBtn = ({ ordersDataState, totalOrdersCost }) => {
-    this.ordersDataStateToSubmit = ordersDataState[0]
+  onClickOrderNowBtn = ({
+    ordersDataState,
+    totalOrdersCost,
+  }: {
+    ordersDataState: IOrder[]
+    totalOrdersCost: number
+  }) => {
+    this.ordersDataStateToSubmit = ordersDataState?.[0]
 
     this.confirmModalSettings = {
       isWarning: false,
-      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+      title: t(TranslationKey['You are making an order, are you sure?']),
+      // @ts-ignore
+      message: ordersDataState.some(el => el?.tmpIsPendingOrder)
         ? t(TranslationKey['Pending order will be created'])
         : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-      onClickConfirm: () => this.onLaunchPrivateLabel(),
+      onSubmit: () => this.onLaunchPrivateLabel(),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
 
     this.onTriggerOpenModal('showConfirmModal')

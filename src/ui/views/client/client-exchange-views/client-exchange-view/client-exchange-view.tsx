@@ -1,5 +1,7 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
+
+import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,48 +20,61 @@ import { useStyles } from './client-exchange-view.style'
 import { ClientExchangeViewModel } from './client-exchange-view.model'
 
 export const ClientExchangeView = observer(() => {
-  const [viewModel] = useState(() => new ClientExchangeViewModel())
+  const viewModel = useMemo(() => new ClientExchangeViewModel(), [])
   const { classes: styles } = useStyles()
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   return (
     <>
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          rowCount={viewModel.currentData?.length}
+          sortingMode="client"
+          paginationMode="client"
+          rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
+          pinnedColumns={viewModel.pinnedColumns}
           rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          getRowId={({ _id }: GridRowModel) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          getRowHeight={() => 'auto'}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
       <Modal openModal={viewModel.showOrderModal} setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
+          // @ts-ignore
           platformSettings={viewModel.platformSettings}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}
@@ -79,9 +94,10 @@ export const ClientExchangeView = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
       >
         <SelectShopsModal
+          // @ts-ignore
           isNotDisabled
-          title={viewModel.confirmModalSettings.confirmTitle}
-          message={viewModel.confirmModalSettings.confirmMessage}
+          title={viewModel.confirmModalSettings.title}
+          message={viewModel.confirmModalSettings.message}
           shops={viewModel.shopsData}
           onClickSuccessBtn={viewModel.onClickBuyProductBtn}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
@@ -94,11 +110,11 @@ export const ClientExchangeView = observer(() => {
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           isWarning={viewModel.confirmModalSettings?.isWarning}
-          title={viewModel.confirmModalSettings.confirmTitle}
-          message={viewModel.confirmModalSettings.confirmMessage}
+          title={viewModel.confirmModalSettings.title}
+          message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.Close)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
