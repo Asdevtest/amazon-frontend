@@ -2005,7 +2005,7 @@
   "issued": "выдано",
   "Parsing status": "Статус парсинга",
   "Profile with given guid not found!": "Профиль с указанным ID не найден!",
-  "Profile does not belongs to you!": "Профиль вам не принадлежит!",
+  "Access Denied: Insufficient Rights": "Доступ запрещен: недостаточно прав",
   "Ask": "Запрос",
   "Please enter a valid URL!": "Пожалуйста, введите действительный URL!",
   "Please input your link!": "Пожалуйста, введите вашу ссылку!",

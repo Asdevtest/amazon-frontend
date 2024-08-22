@@ -111,7 +111,7 @@ export class ShopsViewModel extends DataGridFilterTableModel {
       this.getCurrentData()
     } catch (error) {
       console.error(error)
-      toast.error(t(TranslationKey['Profile does not belongs to you!']))
+      toast.error(t(TranslationKey['Access Denied: Insufficient Rights']))
     }
   }
 

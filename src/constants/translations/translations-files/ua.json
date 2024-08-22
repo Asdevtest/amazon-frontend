@@ -2002,7 +2002,7 @@
   "issued": "видано",
   "Parsing status": "Статус парсингу",
   "Profile with given guid not found!": "Профіль із зазначеним ID не знайдено!",
-  "Profile does not belongs to you!": "Профіль не належить вам!",
+  "Access Denied: Insufficient Rights": "Доступ заборонено: недостатньо прав",
   "Ask": "Запит",
   "Please enter a valid URL!": "Будь ласка, введіть дійсну URL-адресу!",
   "Please input your link!": "Будь ласка, введіть ваше посилання!",
