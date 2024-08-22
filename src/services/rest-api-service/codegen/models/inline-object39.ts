@@ -21,11 +21,53 @@
  */
 export interface InlineObject39 {
     /**
-     * GUID коробки, объединение которой нужно отменить
+     * Штрихкод продукта
      * @type {string}
      * @memberof InlineObject39
      */
-    guid?: string;
+    barCode?: string;
+    /**
+     *  logicsTariff GUID
+     * @type {string}
+     * @memberof InlineObject39
+     */
+    logicsTariffId?: string;
+    /**
+     * GUID сотрудника склада
+     * @type {string}
+     * @memberof InlineObject39
+     */
+    storekeeperId?: string;
+    /**
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineObject39
+     */
+    shippingLabel?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject39
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject39
+     */
+    fbaNumber?: string;
+    /**
+     * Гуид модели destination
+     * @type {string}
+     * @memberof InlineObject39
+     */
+    destinationId?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject39
+     */
+    boxesIds: Array<string>;
 }
 
 

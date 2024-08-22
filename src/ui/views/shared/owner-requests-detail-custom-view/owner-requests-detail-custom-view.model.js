@@ -308,12 +308,11 @@ export class OwnerRequestDetailCustomViewModel {
           imagesData,
         })
         this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+        this.readOnlyRequestDesignerResultClientForm = true
       },
     }
 
     this.onTriggerOpenModal('showConfirmModal')
-
-    this.readOnlyRequestDesignerResultClientForm = true
   }
 
   async getCustomProposalsForRequestCur() {

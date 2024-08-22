@@ -14,11 +14,11 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1BoxesClientsInTransferGuidBatch } from './api-v1-boxes-clients-in-transfer-guid-batch';
-import { ApiV1BoxesClientsInTransferGuidLogicsTariff } from './api-v1-boxes-clients-in-transfer-guid-logics-tariff';
-import { ApiV1BoxesClientsLightDestination } from './api-v1-boxes-clients-light-destination';
-import { ApiV1BoxesClientsLightItems } from './api-v1-boxes-clients-light-items';
-import { InlineResponse20029VariationTariff } from './inline-response20029-variation-tariff';
+import { ApiV1BatchesBatch } from './api-v1-batches-batch';
+import { InlineResponse20032Destination } from './inline-response20032-destination';
+import { InlineResponse20032Items } from './inline-response20032-items';
+import { InlineResponse20032LogicsTariff } from './inline-response20032-logics-tariff';
+import { InlineResponse20032VariationTariff } from './inline-response20032-variation-tariff';
 
 /**
  * 
@@ -39,23 +39,17 @@ export interface InlineResponse20032 {
      */
     humanFriendlyId?: number;
     /**
-     * ККоличества в коробке.
+     * Количества в коробке.
      * @type {number}
      * @memberof InlineResponse20032
      */
     amount?: number;
     /**
-     * Total Amount
-     * @type {number}
+     * Статус коробки
+     * @type {string}
      * @memberof InlineResponse20032
      */
-    totalAmount?: number;
-    /**
-     * Total Price
-     * @type {number}
-     * @memberof InlineResponse20032
-     */
-    totalPrice?: number;
+    status?: InlineResponse20032StatusEnum;
     /**
      * Final weight
      * @type {number}
@@ -63,11 +57,11 @@ export interface InlineResponse20032 {
      */
     finalWeight?: number;
     /**
-     * Статус коробки
+     * Storage in boxes
      * @type {string}
      * @memberof InlineResponse20032
      */
-    status?: string;
+    storage?: string;
     /**
      * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
      * @type {boolean}
@@ -177,35 +171,17 @@ export interface InlineResponse20032 {
      */
     fbaNumber?: string;
     /**
-     * Итого за доставку.
+     * Рейт за кг из тарифа
      * @type {number}
      * @memberof InlineResponse20032
      */
-    deliveryTotalPrice?: number;
-    /**
-     * Обновление итога за доставку.
-     * @type {number}
-     * @memberof InlineResponse20032
-     */
-    deliveryTotalPriceChanged?: number;
+    lastRateTariff?: number;
     /**
      * Массив картинок.
      * @type {Array<string>}
      * @memberof InlineResponse20032
      */
     images?: Array<string>;
-    /**
-     * Nullable ISO Date
-     * @type {string}
-     * @memberof InlineResponse20032
-     */
-    deadline?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20032
-     */
-    createdAt?: string;
     /**
      * 
      * @type {string}
@@ -214,16 +190,16 @@ export interface InlineResponse20032 {
     updatedAt?: string;
     /**
      * 
-     * @type {InlineResponse20029VariationTariff}
+     * @type {InlineResponse20032VariationTariff}
      * @memberof InlineResponse20032
      */
-    variationTariff?: InlineResponse20029VariationTariff;
+    variationTariff?: InlineResponse20032VariationTariff;
     /**
      * Массив коробок.
-     * @type {Array<ApiV1BoxesClientsLightItems>}
+     * @type {Array<InlineResponse20032Items>}
      * @memberof InlineResponse20032
      */
-    items?: Array<ApiV1BoxesClientsLightItems>;
+    items?: Array<InlineResponse20032Items>;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
@@ -244,28 +220,39 @@ export interface InlineResponse20032 {
     client?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {InlineResponse20032Destination}
      * @memberof InlineResponse20032
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    destination?: InlineResponse20032Destination;
     /**
      * 
-     * @type {ApiV1BoxesClientsLightDestination}
+     * @type {InlineResponse20032LogicsTariff}
      * @memberof InlineResponse20032
      */
-    destination?: ApiV1BoxesClientsLightDestination;
+    logicsTariff?: InlineResponse20032LogicsTariff;
     /**
      * 
-     * @type {ApiV1BoxesClientsInTransferGuidLogicsTariff}
+     * @type {ApiV1BatchesBatch}
      * @memberof InlineResponse20032
      */
-    logicsTariff?: ApiV1BoxesClientsInTransferGuidLogicsTariff;
-    /**
-     * 
-     * @type {ApiV1BoxesClientsInTransferGuidBatch}
-     * @memberof InlineResponse20032
-     */
-    batch?: ApiV1BoxesClientsInTransferGuidBatch;
+    batch?: ApiV1BatchesBatch;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20032StatusEnum {
+    New = 'NEW',
+    InStock = 'IN_STOCK',
+    RequestedSendToBatch = 'REQUESTED_SEND_TO_BATCH',
+    NeedConfirmingToDeliveryPriceChange = 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE',
+    InBatch = 'IN_BATCH',
+    NeedToUpdateTheTariff = 'NEED_TO_UPDATE_THE_TARIFF',
+    InBatchOnTheWay = 'IN_BATCH_ON_THE_WAY',
+    FinishPrepCentrUsa = 'FINISH_PREP_CENTR_USA',
+    AcceptedInProcessing = 'ACCEPTED_IN_PROCESSING'
+}
+
 
 

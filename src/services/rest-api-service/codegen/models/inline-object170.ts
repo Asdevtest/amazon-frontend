@@ -17,21 +17,15 @@
 /**
  * 
  * @export
- * @interface InlineObject91
+ * @interface InlineObject170
  */
-export interface InlineObject91 {
+export interface InlineObject170 {
     /**
-     * текст отзыва/репорта
+     * Comment for request details.
      * @type {string}
-     * @memberof InlineObject91
+     * @memberof InlineObject170
      */
-    text: string;
-    /**
-     * Прикрепленные ссылки на медиа для репорта/отзыва
-     * @type {Array<string>}
-     * @memberof InlineObject91
-     */
-    media?: Array<string>;
+    comment?: string;
 }
 
 
