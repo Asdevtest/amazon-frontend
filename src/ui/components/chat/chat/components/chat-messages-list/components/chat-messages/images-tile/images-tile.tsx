@@ -33,7 +33,13 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
             {checkIsVideoLink(el) ? (
               <VideoPreloader wrapperClassName={styles.image} videoSource={getAmazonImageUrl(el)} />
             ) : (
-              <img className={styles.image} src={getAmazonImageUrl(el, true)} alt={index.toString()} loading="lazy" />
+              <img
+                className={styles.image}
+                src={getAmazonImageUrl(el, true)}
+                alt={index.toString()}
+                loading="lazy"
+                onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
+              />
             )}
           </div>
         ))}
