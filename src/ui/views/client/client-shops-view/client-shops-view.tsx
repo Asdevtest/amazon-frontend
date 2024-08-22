@@ -56,20 +56,19 @@ export const ClientShopsView = observer(() => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
-          sortingMode="client"
-          paginationMode="client"
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           pinnedColumns={viewModel.pinnedColumns}
-          rows={viewModel.filteredData}
+          rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           getRowId={({ _id }: GridRowModel) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+            columnMenu: viewModel.columnMenuSettings,
             toolbar: {
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,

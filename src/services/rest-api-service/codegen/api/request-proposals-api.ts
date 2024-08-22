@@ -51,7 +51,7 @@ import { InlineObject111 } from '../models';
 // @ts-ignore
 import { InlineObject112 } from '../models';
 // @ts-ignore
-import { InlineObject166 } from '../models';
+import { InlineObject167 } from '../models';
 // @ts-ignore
 import { InlineResponse200118 } from '../models';
 // @ts-ignore
@@ -170,12 +170,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject166} [body] 
+         * @param {InlineObject167} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomGuidResultEditPatch: async (guid: string, body?: InlineObject166, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsCustomGuidResultEditPatch: async (guid: string, body?: InlineObject167, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsCustomGuidResultEditPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/custom/{guid}/result_edit`
@@ -1216,12 +1216,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject166} [body] 
+         * @param {InlineObject167} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject166, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject167, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsCustomGuidResultEditPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1529,12 +1529,12 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject166} [body] 
+         * @param {InlineObject167} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject166, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject167, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsCustomGuidResultEditPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1857,10 +1857,10 @@ export interface RequestProposalsApiApiV1RequestProposalsCustomGuidResultEditPat
 
     /**
      * 
-     * @type {InlineObject166}
+     * @type {InlineObject167}
      * @memberof RequestProposalsApiApiV1RequestProposalsCustomGuidResultEditPatch
      */
-    readonly body?: InlineObject166
+    readonly body?: InlineObject167
 
     /**
      * 

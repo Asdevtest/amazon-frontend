@@ -21,29 +21,17 @@
  */
 export interface InlineObject38 {
     /**
-     * Штрихкод продукта
+     * GUID пункта назначения коробки
      * @type {string}
      * @memberof InlineObject38
      */
-    barCode?: string;
+    destinationId?: string;
     /**
-     *  logicsTariff GUID
+     * GUID тарифа к сторкипера
      * @type {string}
      * @memberof InlineObject38
      */
     logicsTariffId?: string;
-    /**
-     * GUID сотрудника склада
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    storekeeperId?: string;
-    /**
-     * Ссылка на наклейку для коробки
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    shippingLabel?: string;
     /**
      * Это номер конкретной коробки при отправке в амазон.
      * @type {string}
@@ -57,17 +45,59 @@ export interface InlineObject38 {
      */
     fbaNumber?: string;
     /**
-     * Гуид модели destination
+     * Комментарии к коробке
      * @type {string}
      * @memberof InlineObject38
      */
-    destinationId?: string;
+    clientComment?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    referenceId?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    trackNumberText?: string;
     /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject38
      */
-    boxesIds: Array<string>;
+    trackNumberFile?: Array<string>;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    upsTrackNumber?: string;
+    /**
+     * shippingLabel коробки
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    shippingLabel?: string;
+    /**
+     * shippingLabel проклеен сторкипером
+     * @type {boolean}
+     * @memberof InlineObject38
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    prepId?: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    variationTariffId?: string;
 }
 
 

@@ -41,10 +41,10 @@ export class ShopsViewModel extends DataGridFilterTableModel {
     super({
       getMainDataMethod: ShopModel.getShopsWithProfiles,
       columnsModel,
-      tableKey: DataGridTablesKeys.CLIENT_SHOPS,
-      fieldsForSearch: ['name'],
-      mainMethodURL: 'shops/with_profiles?',
       filtersFields,
+      mainMethodURL: 'shops/with_profiles?',
+      fieldsForSearch: ['name'],
+      tableKey: DataGridTablesKeys.CLIENT_SHOPS,
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]

@@ -13,49 +13,38 @@
  */
 
 
+import { ApiV1BoxesItems } from './api-v1-boxes-items';
 
 /**
- * 
+ * Коробка
  * @export
  * @interface InlineObject37
  */
 export interface InlineObject37 {
     /**
-     * GUID пункта назначения коробки
-     * @type {string}
+     * Сколько таких же коробок в одной коробке
+     * @type {number}
      * @memberof InlineObject37
      */
-    destinationId?: string;
+    amount?: number;
     /**
-     * GUID тарифа к сторкипера
-     * @type {string}
+     * true - если создаем черновик заказа.
+     * @type {boolean}
      * @memberof InlineObject37
      */
-    logicsTariffId?: string;
+    isDraft?: boolean;
     /**
-     * Это номер конкретной коробки при отправке в амазон.
+     * Storage in boxes
      * @type {string}
      * @memberof InlineObject37
      */
-    fbaShipment?: string;
+    storage?: string;
     /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
+     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+     * @type {number}
      * @memberof InlineObject37
      */
-    fbaNumber?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineObject37
-     */
-    clientComment?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineObject37
-     */
-    referenceId?: string;
+    lengthCmSupplier?: number;
     /**
      * Текст трек номера
      * @type {string}
@@ -75,17 +64,113 @@ export interface InlineObject37 {
      */
     upsTrackNumber?: string;
     /**
-     * shippingLabel коробки
-     * @type {string}
+     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+     * @type {number}
      * @memberof InlineObject37
      */
-    shippingLabel?: string;
+    widthCmSupplier?: number;
     /**
-     * shippingLabel проклеен сторкипером
+     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+     * @type {number}
+     * @memberof InlineObject37
+     */
+    heightCmSupplier?: number;
+    /**
+     * Общий вес кг коробки который назвал поставщик.
+     * @type {number}
+     * @memberof InlineObject37
+     */
+    weighGrossKgSupplier?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject37
+     */
+    lengthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject37
+     */
+    widthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject37
+     */
+    heightCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject37
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
      * @type {boolean}
      * @memberof InlineObject37
      */
     isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    clientComment?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    referenceId?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    storekeeperComment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    fbaNumber?: string;
+    /**
+     * Массив коробок.
+     * @type {Array<ApiV1BoxesItems>}
+     * @memberof InlineObject37
+     */
+    items: Array<ApiV1BoxesItems>;
+    /**
+     * Массив ссылок на фотографии.
+     * @type {Array<string>}
+     * @memberof InlineObject37
+     */
+    images?: Array<string>;
+    /**
+     * destination GUID 
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    destinationId?: string;
+    /**
+     * GUID тарифа доставки 
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    logicsTariffId?: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    variationTariffId?: string;
     /**
      * Значение информационного ключа
      * @type {string}
@@ -93,11 +178,11 @@ export interface InlineObject37 {
      */
     prepId?: string;
     /**
-     * Гуид вариации
+     * GUID сторкипера
      * @type {string}
      * @memberof InlineObject37
      */
-    variationTariffId?: string;
+    storekeeperId?: string;
 }
 
 
