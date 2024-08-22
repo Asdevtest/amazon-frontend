@@ -34,6 +34,7 @@ export const SelectFields = ({
   yuanToDollarRate,
   usePriceInDollars,
   isPendingOrder,
+  isOrderInactive,
   disableSubmit,
   photosToLoad,
   order,
@@ -350,6 +351,7 @@ export const SelectFields = ({
 
           <Field
             multiline
+            disabled={isOrderInactive}
             minRows={4}
             maxRows={4}
             inputProps={{ maxLength: 500 }}
@@ -391,6 +393,7 @@ export const SelectFields = ({
           </Box>
           <div className={styles.supplierPaymentButtonWrapper}>
             <Button
+              disabled={isOrderInactive}
               variant={editPaymentDetailsPhotos.length ? ButtonVariant.CONTAINED : ButtonVariant.OUTLINED}
               onClick={onClickSupplierPaymentButton}
             >
@@ -404,6 +407,7 @@ export const SelectFields = ({
           <div className={styles.partialPaymentWrapper}>
             <div className={styles.partialPaymentCheckbox}>
               <Checkbox
+                disabled={isOrderInactive}
                 className={styles.checkbox}
                 checked={orderFields.partialPayment}
                 color="primary"
@@ -461,6 +465,7 @@ export const SelectFields = ({
         <Box my={3} className={styles.formItem}>
           <Field
             multiline
+            disabled={isOrderInactive}
             minRows={2}
             maxRows={2}
             label={'产品中文品名'}
@@ -473,6 +478,7 @@ export const SelectFields = ({
 
           <Field
             multiline
+            disabled={isOrderInactive}
             minRows={2}
             maxRows={2}
             label={t(TranslationKey.Material)}
@@ -487,6 +493,7 @@ export const SelectFields = ({
         <Box my={3}>
           <Field
             multiline
+            disabled={isOrderInactive}
             minRows={2}
             maxRows={2}
             label={t(TranslationKey['Product usage'])}
@@ -501,6 +508,7 @@ export const SelectFields = ({
         <Box my={3} className={styles.formItem}>
           <Field
             label="HS Code"
+            disabled={isOrderInactive}
             labelClasses={styles.label}
             inputClasses={styles.input}
             inputProps={{ maxLength: 255 }}
