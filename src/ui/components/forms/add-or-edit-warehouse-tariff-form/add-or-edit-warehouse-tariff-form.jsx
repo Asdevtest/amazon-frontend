@@ -9,6 +9,7 @@ import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -104,7 +105,7 @@ export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSu
       </div>
 
       <div className={styles.btnsWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
+        <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
           {t(TranslationKey.Add)}
         </Button>
 

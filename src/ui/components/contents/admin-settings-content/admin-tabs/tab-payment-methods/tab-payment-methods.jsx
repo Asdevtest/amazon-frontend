@@ -12,12 +12,13 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { UploadIcon } from '@components/shared/svg-icons'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { useStyles } from './tab-payment-methods.style'
@@ -110,9 +111,14 @@ export const TabPaymentMethods = observer(() => {
               ))}
           </div>
 
-          <Button disabled={!isDisableButton} onClick={viewModel.onSubmitPaymentMethod}>
+          <CustomButton
+            type="primary"
+            size="large"
+            disabled={!isDisableButton}
+            onClick={throttle(viewModel.onSubmitPaymentMethod)}
+          >
             {t(TranslationKey.Save)}
-          </Button>
+          </CustomButton>
         </div>
       )}
 

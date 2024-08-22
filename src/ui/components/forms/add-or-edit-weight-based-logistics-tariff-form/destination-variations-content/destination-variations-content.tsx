@@ -14,6 +14,7 @@ import { Text } from '@components/shared/text'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { toFixed } from '@utils/text'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { IDestination, IDestinationVariation } from '@typings/shared/destinations'
@@ -175,7 +176,9 @@ export const DestinationVariationsContent: FC<DestinationVariationsContentProps>
                       {t(TranslationKey['Apply to all'])}
                     </Text>
 
-                    <Button onClick={() => onApplyMinBoxWeightToAll(variantIndex)}>{t(TranslationKey.Apply)}</Button>
+                    <Button onClick={() => throttle(() => onApplyMinBoxWeightToAll(variantIndex))}>
+                      {t(TranslationKey.Apply)}
+                    </Button>
                   </div>
                 </>
               }

@@ -16,6 +16,7 @@ import {
 } from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -73,7 +74,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           firstButtonTooltipText={t(TranslationKey['To assign the order to Byer'])}
           firstButtonElement={t(TranslationKey['Get to work'])}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={() => handlers.onClickTableRowBtn(params.row as IOrder)}
+          onClickFirstButton={() => throttle(() => handlers.onClickTableRowBtn(params.row as IOrder))}
         />
       ),
 
