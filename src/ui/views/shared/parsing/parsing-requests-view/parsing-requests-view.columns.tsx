@@ -21,7 +21,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
       renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
       width: 160,
-      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
     {
       field: 'shop',
@@ -29,7 +29,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.shop?.name} />,
       width: 240,
-      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
     {
       field: 'name',
@@ -37,7 +37,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.profile?.name} />,
       width: 240,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
     {
       field: 'email',
@@ -45,7 +45,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.profile?.email} />,
       width: 240,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
     {
       field: 'updatedAt',
