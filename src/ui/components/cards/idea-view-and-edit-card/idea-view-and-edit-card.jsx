@@ -335,8 +335,6 @@ export const IdeaViewAndEditCard = observer(
     const disableFields = idea && !(idea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
 
-    console.log('showFullCard', showFullCard)
-
     return (
       <div className={styles.root}>
         <div className={styles.headerWrapper}>
