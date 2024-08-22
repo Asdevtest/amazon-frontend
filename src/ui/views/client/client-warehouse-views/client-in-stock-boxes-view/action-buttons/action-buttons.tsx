@@ -113,7 +113,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         </CustomButton>
       </div>
 
-      <CustomButton type="primary" size="large" disabled={!storekeepersData} onClick={() => onClickCurrentTariffsBtn()}>
+      <CustomButton type="primary" size="large" disabled={!storekeepersData} onClick={onClickCurrentTariffsBtn}>
         {t(TranslationKey['Current tariffs'])}
       </CustomButton>
     </div>

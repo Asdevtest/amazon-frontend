@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { useStyles } from './patch-note-form.style'
@@ -70,7 +71,7 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
         <CustomButton size="large" onClick={onToggleModal}>
           {t(TranslationKey.Close)}
         </CustomButton>
-        <CustomButton size="large" type="primary" disabled={disabledSubmitButton} onClick={onSubmit}>
+        <CustomButton size="large" type="primary" disabled={disabledSubmitButton} onClick={throttle(onSubmit)}>
           {editPatchNote ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
         </CustomButton>
       </div>
