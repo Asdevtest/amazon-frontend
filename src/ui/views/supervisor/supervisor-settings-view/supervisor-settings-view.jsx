@@ -73,7 +73,7 @@ export const SupervisorSettingsView = observer(() => {
           disableRowSelectionOnClick
           sortingMode="client"
           paginationMode="client"
-          rowCount={viewModel.rowCount}
+          rowCount={viewModel.currentData?.length}
           rows={viewModel.filteredData}
           sortModel={viewModel.sortModel}
           columns={viewModel.columnsModel}

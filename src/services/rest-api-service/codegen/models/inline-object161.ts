@@ -60,7 +60,9 @@ export enum InlineObject161TableEnum {
     PpcSalesWeeks = 'PPC_SALES_WEEKS',
     PpcOrganic = 'PPC_ORGANIC',
     All = 'ALL',
-    CheckPermissions = 'CHECK_PERMISSIONS'
+    CheckPermissions = 'CHECK_PERMISSIONS',
+    Profile = 'PROFILE',
+    ReceivingRequests = 'RECEIVING_REQUESTS'
 }
 
 

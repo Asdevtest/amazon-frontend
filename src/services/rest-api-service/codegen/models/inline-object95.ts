@@ -21,7 +21,7 @@
  */
 export interface InlineObject95 {
     /**
-     * GUIDы магазинов, которые нужно удалить.
+     * GUIDы поставщиков, которые нужно добавить в БД.
      * @type {Array<string>}
      * @memberof InlineObject95
      */
