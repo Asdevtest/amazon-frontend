@@ -21,16 +21,11 @@ import { observerConfig } from './observer-config'
 
 export class DataGridFilterTableModel extends DataGridTableModel {
   filtersFields: string[]
-
   mainMethodURL: string
-
   columnMenuSettings: any = undefined
-
-  additionalPropertiesColumnMenuSettings: any = {}
-
+  additionalPropertiesColumnMenuSettings: any = undefined
   additionalPropertiesGetFilters: any = undefined
   defaultFilterParams: any = undefined
-
   operatorsSettings: any = undefined
 
   get isSomeFilterOn() {
