@@ -72,7 +72,7 @@ export class WarehouseMyWarehouseViewModel {
     onEditBox: item => this.onEditBox(item),
     onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
     onClickSaveStorage: (item, value) => this.onClickSaveStorage(item, value),
-    onChangeUnitsOption: option => this.onChangeUnitsOption(option),
+    onChangeUnitsOption: (option, allColumns) => this.onChangeUnitsOption(option, allColumns),
   }
 
   uploadedImages = []
@@ -89,7 +89,7 @@ export class WarehouseMyWarehouseViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
   densityModel = 'compact'
-  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, () => this.unitsOption)
+  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.unitsOption)
 
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
@@ -1042,9 +1042,16 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  onChangeUnitsOption(option) {
+  onChangeUnitsOption(option, allColumns) {
     this.unitsOption = option
-    this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, () => this.unitsOption)
+
+    this.columnsModel = allColumns.map(column => {
+      if (column.field === 'dimansions') {
+        column.dimensions = option
+      }
+
+      return column
+    })
   }
 
   onChangeFullFieldMenuItem(value, field) {

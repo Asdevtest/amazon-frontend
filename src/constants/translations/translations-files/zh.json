@@ -1995,10 +1995,10 @@
   "Parsing profile": "解析配置文件",
   "Request sent": "请求已发送",
   "Access": "访问",
-  "issued": "签发",
+  "Issued": "签发",
   "Parsing status": "解析状态",
   "Profile with given guid not found!": "找不到具有给定ID的配置文件!",
-  "Profile does not belongs to you!": "该配置文件不属于您!",
+  "Access Denied: Insufficient Rights": "访问被拒绝：权限不足",
   "Ask": "请求",
   "Please enter a valid URL!": "请输入有效的URL!",
   "Please input your link!": "请输入您的链接!",
@@ -2021,7 +2021,8 @@
   "Specify dimensions": "指定尺寸",
   "Error updating data": "更新数据时出错",
   "Error while exporting data": "导出数据时出错",
-  "Parsing reports": "Parsing reports",
+  "Parsing reports": "解析报告",
   "Destination, Tariff name": "目的地，计费名称",
-  "Title, Key, URL": "标题，键，URL"
+  "Title, Key, URL": "标题，键，URL",
+  "Access confirmation request sent successfully": "访问确认请求已成功发送"
 }

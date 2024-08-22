@@ -9,8 +9,8 @@ import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-f
 
 import { IParsingProfile } from '@typings/models/parser/parsing-profile'
 
-import { parsingProdileViewColumns } from './parsing-profile-view.columns'
-import { ColumnsProps, additionalSearchFields, parsingProdileViewConfig } from './parsing-profile-view.config'
+import { parsingProfileViewColumns } from './parsing-profile-view.columns'
+import { ColumnsProps, fieldsForSearch, parsingProfileViewConfig } from './parsing-profile-view.config'
 
 export class ParsingProdileViewModel extends DataGridFilterTableModel {
   selectedProfile?: IParsingProfile
@@ -22,7 +22,7 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
       onForceStart: ids => this.onForceStart(ids),
       onForceStop: ids => this.onForceStop(ids),
     }
-    const columnsModel = parsingProdileViewColumns(columnsProps)
+    const columnsModel = parsingProfileViewColumns(columnsProps)
     const filtersFields = getFilterFields(columnsModel)
     const mainMethodURL = 'integrations/parser/admins/profiles?'
 
@@ -31,7 +31,7 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
       columnsModel,
       filtersFields,
       mainMethodURL,
-      fieldsForSearch: additionalSearchFields,
+      fieldsForSearch,
       tableKey: DataGridTablesKeys.PARSING_PROFILES,
     })
 
@@ -39,7 +39,7 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
     this.getDataGridState()
     this.getCurrentData()
 
-    makeObservable(this, parsingProdileViewConfig)
+    makeObservable(this, parsingProfileViewConfig)
   }
 
   onToggleProfileModal() {

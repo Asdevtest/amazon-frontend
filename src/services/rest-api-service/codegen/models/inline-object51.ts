@@ -21,17 +21,11 @@
  */
 export interface InlineObject51 {
     /**
-     * 
-     * @type {Array<string>}
+     * Сформирована ли коробка
+     * @type {boolean}
      * @memberof InlineObject51
      */
-    userIds: Array<string>;
-    /**
-     * Название группового чата
-     * @type {string}
-     * @memberof InlineObject51
-     */
-    title: string;
+    isFormed: boolean;
 }
 
 
