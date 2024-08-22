@@ -38,12 +38,8 @@ export const BottomCard = observer(
       clientToEditStatuses.includes(productBase.status) &&
       !product.archive
 
-    const defaultFieldDisable = !(
-      checkIsResearcher(curUserRole) ||
-      // || checkIsSupervisor(curUserRole)
-      clientCanEdit
-    )
-
+    const defaultFieldDisable = !(checkIsResearcher(curUserRole) || clientCanEdit)
+    console.log(curUserRole)
     return (
       <>
         <Grid container spacing={2}>
