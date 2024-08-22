@@ -31,7 +31,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: 50,
   },
   modalContainer: {
-    minWidth: '460px',
+    minWidth: '543px',
   },
   confirmModal: {
     width: '360px',

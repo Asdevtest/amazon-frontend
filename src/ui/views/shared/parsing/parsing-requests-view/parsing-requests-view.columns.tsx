@@ -1,6 +1,7 @@
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MultilineTextHeaderCell, NormDateCell, TextCell, UserMiniCell } from '@components/data-grid/data-grid-cells'
@@ -36,7 +37,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.profile?.name} />,
       width: 240,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
       field: 'email',
@@ -44,7 +45,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.profile?.email} />,
       width: 240,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
       field: 'updatedAt',
@@ -80,6 +81,10 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
   ]
 
   for (const column of columns) {
+    if (!column.table) {
+      column.table = DataGridFilterTables.PARSING_REQUESTS
+    }
+
     column.sortable = false
   }
 
