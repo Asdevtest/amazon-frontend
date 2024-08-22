@@ -465,7 +465,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
               },
               toolbar: {
                 columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
+                  columnsModel: addOrEditBatchFormColumns(isClient),
                   columnVisibilityModel: viewModel.columnVisibilityModel,
                   onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
@@ -572,7 +572,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
               },
               toolbar: {
                 columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
+                  columnsModel: addOrEditBatchFormColumns(isClient),
                   columnVisibilityModel: viewModel.columnVisibilityModel,
                   onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
