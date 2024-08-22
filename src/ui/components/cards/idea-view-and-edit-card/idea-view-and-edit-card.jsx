@@ -225,7 +225,7 @@ export const IdeaViewAndEditCard = observer(
         setFormFields(getShortIdea())
       } else {
         setFormFields(getFullIdea())
-        setShowFullCard(true)
+        // setShowFullCard(true) // 10527
       }
     }, [idea, languageTag])
 
@@ -334,6 +334,8 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(idea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
+
+    console.log('showFullCard', showFullCard)
 
     return (
       <div className={styles.root}>
