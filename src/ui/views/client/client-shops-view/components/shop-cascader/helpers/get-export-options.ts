@@ -134,8 +134,11 @@ const checkDisabled = (table: string, options: string[][]) =>
 
 export const getShopsOptions = (options: IShop[], inputValue: string = ''): IExportOption[] => {
   const result: IExportOption[] = options.map(({ name, _id }) => ({ label: name, value: _id }))
+  const filteredOptions = result.filter(option => option?.label?.toLowerCase().includes(inputValue.toLowerCase()))
+  const selectAllOption =
+    filteredOptions.length > 2 ? { label: t(TranslationKey['Select all']), value: 'select-all' } : null
 
-  return result.filter(option => option?.label?.toLowerCase().includes(inputValue.toLowerCase()))
+  return selectAllOption ? [selectAllOption, ...filteredOptions] : filteredOptions
 }
 
 export const getTableOptions = (selectedTableOptions: string[][]): IExportOption[] => {
@@ -166,7 +169,7 @@ export const getTableOptions = (selectedTableOptions: string[][]): IExportOption
           value: 1, // Convert number to string
         },
         {
-          label: 'PREP_CENTR_USA',
+          label: 'Prep-center',
           value: 0, // Convert number to string
         },
       ],
