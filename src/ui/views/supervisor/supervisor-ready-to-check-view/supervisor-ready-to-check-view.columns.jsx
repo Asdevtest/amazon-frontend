@@ -2,6 +2,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -18,7 +19,7 @@ export const supervisorReadyToCheckColumns = ({ onPickUp }) => {
           firstButtonTooltipText={t(TranslationKey['Assign a product card to a supervisor'])}
           firstButtonElement={t(TranslationKey['Get to work'])}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={() => onPickUp(row._id)}
+          onClickFirstButton={() => throttle(onPickUp(row._id))}
         />
       ),
       width: 200,

@@ -9,6 +9,7 @@ import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { UserLink } from '@components/user/user-link'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -147,14 +148,14 @@ export const AddOrEditDestinationForm = observer(
             <Button
               styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Add a new rate'])}
-              onClick={onClickAddBtn}
+              onClick={throttle(onClickAddBtn)}
             >
               {t(TranslationKey.Add)}
             </Button>
           ) : null}
 
           <div className={styles.btnsWrapper}>
-            <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
+            <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
               {t(TranslationKey.Save)}
             </Button>
 

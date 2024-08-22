@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: 20,
   },
 
   buttons: {
@@ -18,8 +18,8 @@ export const useStyles = makeStyles()(theme => ({
     height: 40,
   },
 
-  datagridWrapper: {
-    height: '70vh',
+  tableWrapper: {
+    height: '77vh',
     width: '100%',
   },
 }))

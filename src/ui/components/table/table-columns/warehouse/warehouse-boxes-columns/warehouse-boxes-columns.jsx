@@ -1,3 +1,5 @@
+import { useGridApiContext } from '@mui/x-data-grid-premium'
+
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -181,21 +183,41 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
   {
     field: 'dimansions',
     headerName: t(TranslationKey.Dimensions),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Dimensions)}
-        component={<SizeSwitcher condition={getUnitsOption()} onChangeCondition={handlers.onChangeUnitsOption} />}
+    dimensions: getUnitsOption,
+    renderHeader: params => {
+      const apiRef = useGridApiContext()
+
+      return (
+        <MultilineTextHeaderCell
+          text={t(TranslationKey.Dimensions)}
+          component={
+            <SizeSwitcher
+              condition={params?.colDef?.dimensions}
+              onChangeCondition={option => {
+                handlers.onChangeUnitsOption(option, apiRef.current.getAllColumns())
+              }}
+            />
+          }
+        />
+      )
+    },
+
+    renderCell: params => (
+      <Dimensions
+        isCell
+        isTotalWeight
+        data={params.row.originalData}
+        transmittedSizeSetting={params?.colDef?.dimensions}
       />
     ),
+
     valueGetter: ({ row }) => {
       const box = row.originalData
 
       const boxFinalWeight = toFixed(calcFinalWeightForBox(box, row.volumeWeightCoefficient), 2)
       return `L:${box?.lengthCmWarehouse}, W:${box?.widthCmWarehouse}, H:${box?.heightCmWarehouse}, FW:${boxFinalWeight}`
     },
-    renderCell: params => (
-      <Dimensions isCell isTotalWeight data={params.row.originalData} transmittedSizeSetting={getUnitsOption()} />
-    ),
+
     width: 210,
     filterable: false,
     sortable: false,

@@ -7,6 +7,7 @@ import {
   TextCell,
 } from '@components/data-grid/data-grid-cells'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -32,7 +33,7 @@ export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
             firstButtonTooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
             firstButtonElement={t(TranslationKey['Get to work'])}
             firstButtonStyle={ButtonStyle.PRIMARY}
-            onClickFirstButton={() => handlers.onPickUp(params.row as IProduct)}
+            onClickFirstButton={() => throttle(() => handlers.onPickUp(params.row as IProduct))}
           />
         )
       },

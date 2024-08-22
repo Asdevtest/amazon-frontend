@@ -33,7 +33,7 @@ export const ParsingProfileCell: FC<ParsingProfileCellProps> = memo(props => {
       isFirstButton
       firstButtonElement={t(TranslationKey.Ask)}
       firstButtonStyle={ButtonStyle.PRIMARY}
-      onClickFirstButton={throttle(onConfirm)}
+      onClickFirstButton={throttle(onConfirm, 2000)}
     />
   )
 })

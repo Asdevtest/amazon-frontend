@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -30,10 +30,9 @@ export const ChatGroupUsers: FC<ChatGroupUsersProps> = memo(props => {
   return (
     <div className={styles.groupSettingsWrapper}>
       {userId === chat.info?.createdBy ? (
-        <Button onClick={onClickAddUsersToGroupChat}>
+        <CustomButton type="primary" size="large" icon={<FiPlus />} onClick={onClickAddUsersToGroupChat}>
           {t(TranslationKey['Add member'])}
-          <FiPlus />
-        </Button>
+        </CustomButton>
       ) : null}
 
       <div className={styles.membersWrapper}>

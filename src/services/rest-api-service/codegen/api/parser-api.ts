@@ -43,6 +43,8 @@ import { InlineObject164 } from '../models';
 // @ts-ignore
 import { InlineObject165 } from '../models';
 // @ts-ignore
+import { InlineObject166 } from '../models';
+// @ts-ignore
 import { InlineResponse200115 } from '../models';
 // @ts-ignore
 import { InlineResponse200116 } from '../models';
@@ -501,6 +503,48 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
+         * ## Привязать к товару SKU. Проверки:  Только для клиента  Только магазины клиента
+         * @summary # Привязать к товару SKU. (Все таблицы или выброчно)
+         * @param {InlineObject166} [body] 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsParserClientsProductsLinkSkuPatch: async (body?: InlineObject166, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/integrations/parser/clients/products_link_sku`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * ## Сигнал на проверку почты к доступам sellercentral
          * @summary # Сигнал на проверку.
          * @param {InlineObject158} [body] 
@@ -762,6 +806,18 @@ export const ParserApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * ## Привязать к товару SKU. Проверки:  Только для клиента  Только магазины клиента
+         * @summary # Привязать к товару SKU. (Все таблицы или выброчно)
+         * @param {InlineObject166} [body] 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1IntegrationsParserClientsProductsLinkSkuPatch(body?: InlineObject166, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserClientsProductsLinkSkuPatch(body, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * ## Сигнал на проверку почты к доступам sellercentral
          * @summary # Сигнал на проверку.
          * @param {InlineObject158} [body] 
@@ -919,6 +975,17 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
          */
         apiV1IntegrationsParserAdminsProfilesStopPatch(body?: InlineObject163, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsParserAdminsProfilesStopPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Привязать к товару SKU. Проверки:  Только для клиента  Только магазины клиента
+         * @summary # Привязать к товару SKU. (Все таблицы или выброчно)
+         * @param {InlineObject166} [body] 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsParserClientsProductsLinkSkuPatch(body?: InlineObject166, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+            return localVarFp.apiV1IntegrationsParserClientsProductsLinkSkuPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Сигнал на проверку почты к доступам sellercentral
@@ -1238,6 +1305,27 @@ export interface ParserApiApiV1IntegrationsParserAdminsProfilesStopPatchRequest 
 }
 
 /**
+ * Request parameters for apiV1IntegrationsParserClientsProductsLinkSkuPatch operation in ParserApi.
+ * @export
+ * @interface ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatchRequest
+ */
+export interface ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatchRequest {
+    /**
+     * 
+     * @type {InlineObject166}
+     * @memberof ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatch
+     */
+    readonly body?: InlineObject166
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatch
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
  * Request parameters for apiV1IntegrationsParserClientsProfilesCheckPatch operation in ParserApi.
  * @export
  * @interface ParserApiApiV1IntegrationsParserClientsProfilesCheckPatchRequest
@@ -1420,6 +1508,18 @@ export class ParserApi extends BaseAPI {
      */
     public apiV1IntegrationsParserAdminsProfilesStopPatch(requestParameters: ParserApiApiV1IntegrationsParserAdminsProfilesStopPatchRequest = {}, options?: any) {
         return ParserApiFp(this.configuration).apiV1IntegrationsParserAdminsProfilesStopPatch(requestParameters.body, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * ## Привязать к товару SKU. Проверки:  Только для клиента  Только магазины клиента
+     * @summary # Привязать к товару SKU. (Все таблицы или выброчно)
+     * @param {ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatchRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ParserApi
+     */
+    public apiV1IntegrationsParserClientsProductsLinkSkuPatch(requestParameters: ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatchRequest = {}, options?: any) {
+        return ParserApiFp(this.configuration).apiV1IntegrationsParserClientsProductsLinkSkuPatch(requestParameters.body, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

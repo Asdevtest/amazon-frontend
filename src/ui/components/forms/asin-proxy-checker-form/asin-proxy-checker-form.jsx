@@ -53,11 +53,13 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
     } else {
       asinsData.length &&
         asinsData.forEach((item, index) => {
-          data.push({
-            asin: item.trim(),
-            reason: reasonsData[index] || '',
-            strategy: mapProductStrategyStatusEnumToKey[strategy],
-          })
+          if (item) {
+            data.push({
+              asin: item.trim(),
+              reason: reasonsData[index] || '',
+              strategy: mapProductStrategyStatusEnumToKey[strategy],
+            })
+          }
         })
     }
 
@@ -94,6 +96,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
       setUpdatedAsinsAndReasonsData(filteredData)
     } else {
       const filteredData = updatedAsinsAndReasonsData.filter(item => item.asin !== asin)
+      setAsinsAndReasonsData(filteredData)
       setUpdatedAsinsAndReasonsData(filteredData)
     }
   }
