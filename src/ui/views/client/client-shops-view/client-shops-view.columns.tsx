@@ -109,7 +109,6 @@ export const shopsColumns = (props: IColumnProps) => {
       minWidth: 90,
       filterable: false,
       disableCustomSort: true,
-      filterable: false,
     },
   ]
 
