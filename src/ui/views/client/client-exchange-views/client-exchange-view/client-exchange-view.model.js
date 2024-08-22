@@ -27,7 +27,6 @@ export class ClientExchangeViewModel {
   requestStatus = undefined
 
   productsVacant = []
-  dataToPay = {}
   storekeepers = []
   shopsData = []
 
@@ -35,7 +34,6 @@ export class ClientExchangeViewModel {
 
   ordersDataStateToSubmit = undefined
 
-  showPrivateLabelModal = false
   showConfirmModal = false
   showSelectShopsModal = false
 
