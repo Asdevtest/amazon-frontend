@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 import { Container, MenuItem, Select, Typography } from '@mui/material'
 
+import { EntityType } from '@constants/finances/entity-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -13,31 +14,34 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/che
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './admin-balance-modal.style'
 
-const paymentTypeSettings = {
-  DEPOSIT: 'DEPOSIT',
-  WITHDRAW: 'WITHDRAW',
-  FINE: 'FINE',
+interface AdminBalanceModalProps {
+  user: ICreatedBy
+  isWithdraw: boolean
+  onTriggerParentModal: () => void
+  onSubmit: (data: { entityType: EntityType; recipientId: string; sum: number; comment: string }) => void
 }
 
-export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSubmit }) => {
+export const AdminBalanceModal: FC<AdminBalanceModalProps> = ({ user, isWithdraw, onTriggerParentModal, onSubmit }) => {
   const { classes: styles } = useStyles()
 
-  const [balanceValue, setBalanceValue] = useState('')
+  const [balanceValue, setBalanceValue] = useState<string>('')
+  const [reasonValue, setReasonValue] = useState<string>('')
 
-  const [reasonValue, setReasonValue] = useState('')
+  const [entityType, setPaymentType] = useState<EntityType>(isWithdraw ? EntityType.WITHDRAW : EntityType.DEPOSIT)
+  const [showConfirmModal, setConfirmModal] = useState<boolean>(false)
 
-  const [entityType, setPaymentType] = useState(isWithdraw ? paymentTypeSettings.WITHDRAW : paymentTypeSettings.DEPOSIT)
+  const balance = balanceValue || '...'
 
-  const [showConfirmModal, setConfirmModal] = useState(false)
   const onTriggerConfirmModal = () => setConfirmModal(prevState => !prevState)
 
   const onConfirm = () => {
     const data = {
       entityType,
-      recipientId: user.id || user._id,
+      recipientId: user._id,
       sum: isWithdraw ? Number(-balanceValue) : Number(balanceValue),
       comment: reasonValue,
     }
@@ -45,6 +49,7 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
     onTriggerConfirmModal()
     onTriggerParentModal()
   }
+
   const onDecline = () => {
     onTriggerConfirmModal()
     onTriggerParentModal()
@@ -54,7 +59,7 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
     <div className={styles.positiveMsg}>
       {`${t(TranslationKey['The balance of the user'])} ${user.name} ${t(
         TranslationKey['will be replenished by'],
-      )} ${balanceValue}`}
+      )} ${balance}`}
     </div>
   )
 
@@ -62,7 +67,7 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
     <div className={styles.negativeMsg}>
       {`${t(TranslationKey['From the balance of the user'])} ${user.name} ${t(
         TranslationKey['will be debited by'],
-      )} ${balanceValue}`}
+      )} ${balance}`}
     </div>
   )
 
@@ -90,9 +95,9 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
                 input={<Input fullWidth />}
                 variant="filled"
                 value={entityType}
-                onChange={e => setPaymentType(e.target.value)}
+                onChange={e => setPaymentType(e.target.value as EntityType)}
               >
-                {[paymentTypeSettings.WITHDRAW, paymentTypeSettings.FINE].map(type => (
+                {[EntityType.WITHDRAW, EntityType.FINE].map(type => (
                   <MenuItem key={type} value={type}>
                     {type}
                   </MenuItem>
