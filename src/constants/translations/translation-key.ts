@@ -2002,7 +2002,7 @@ export enum TranslationKey {
   'Parsing profile' = 'Parsing profile',
   'Request sent' = 'Request sent',
   'Access' = 'Access',
-  'issued' = 'issued',
+  'Issued' = 'Issued',
   'Parsing status' = 'Parsing status',
   'Profile with given guid not found!' = 'Profile with given guid not found!',
   'Access Denied: Insufficient Rights' = 'Access Denied: Insufficient Rights',
@@ -2031,4 +2031,5 @@ export enum TranslationKey {
   'Parsing reports' = 'Parsing reports',
   'Destination, Tariff name' = 'Destination, Tariff name',
   'Title, Key, URL' = 'Title, Key, URL',
+  'Access confirmation request sent successfully' = 'Access confirmation request sent successfully',
 }

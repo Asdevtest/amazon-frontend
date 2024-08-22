@@ -1999,7 +1999,7 @@
   "Parsing profile": "Профіль парсингу",
   "Request sent": "Запит надіслано",
   "Access": "Доступ",
-  "issued": "видано",
+  "Issued": "Видано",
   "Parsing status": "Статус парсингу",
   "Profile with given guid not found!": "Профіль із зазначеним ID не знайдено!",
   "Access Denied: Insufficient Rights": "Доступ заборонено: недостатньо прав",
@@ -2027,5 +2027,6 @@
   "Error while exporting data": "Помилка під час експорту даних",
   "Parsing reports": "Звіти з парсингу",
   "Destination, Tariff name": "Місце призначення, назва тарифу",
-  "Title, Key, URL": "Назва, ключ, URL"
+  "Title, Key, URL": "Назва, ключ, URL",
+  "Access confirmation request sent successfully": "Запит на підтвердження доступу успішно надіслано"
 }
