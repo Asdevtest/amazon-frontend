@@ -9,6 +9,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: 435,
+    width: 450,
   },
 }))

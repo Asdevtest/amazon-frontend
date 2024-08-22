@@ -49,7 +49,7 @@ export const HeaderTable = ({ viewModel }) => {
         <CustomInputSearch
           enterButton
           allowClear
-          className={styles.searchInput}
+          wrapperClassName={styles.searchInput}
           size="large"
           placeholder="Search by ASIN, Title, Batch ID, Order ID"
           onSearch={viewModel.onSearchSubmit}
