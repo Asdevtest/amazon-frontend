@@ -152,10 +152,23 @@ export const SuppliersAndIdeas = observer(props => {
           curUser={curUser}
           idea={curIdea}
           currentProduct={currentProduct}
+          onCreateProduct={onClickCreateProduct}
           onClickSaveBtn={onClickSaveBtn}
           onClickCancelBtn={onClickCancelBtn}
+          onClickCreateRequestButton={onClickCreateRequestButton}
+          onClickLinkRequestButton={onClickLinkRequestButton}
+          onClickAcceptButton={onClickAcceptButton}
+          onClickCloseIdea={onClickCloseIdea}
+          onClickRejectButton={onClickRejectButton}
+          onClickReoperButton={onClickReoperButton}
+          onClickResultButton={onClickResultButton}
           onSetCurIdea={onSetCurIdea}
+          onEditIdea={onEditIdea}
+          onClickOpenNewTab={onClickOpenNewTab}
           onClickOpenProduct={onClickOpenProduct}
+          onClickToOrder={onClickToOrder}
+          onClickRequestId={onClickRequestId}
+          onClickUnbindButton={onClickUnbindButton}
           onClickSaveSupplierBtn={onClickSaveSupplierBtn}
           onRemoveSupplier={onRemoveSupplier}
         />
