@@ -444,7 +444,7 @@ export const AdminUserEditContent = observer(
               {!editUserFormFields?.masterUser ? (
                 <CustomInputNumber
                   labelClassName={styles.allowedRoleWrapperTitle}
-                  label={t(TranslationKey.Rate)}
+                  label="Rate"
                   value={formFields.rate}
                   maxLength={8}
                   onChange={onChangeFormField('rate')}
