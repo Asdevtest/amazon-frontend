@@ -432,11 +432,15 @@ export const CreateOrEditRequestContent = memo(props => {
       ...prevFormFields,
       request: data,
     }))
+    setAnnouncement(undefined)
+    setChosenExecutor(undefined)
   }
 
   const handleClear = () => {
     setFormFields(getSourceFormFields())
     setDefaultRequestTemplateSelectValue(null)
+    setAnnouncement(undefined)
+    setChosenExecutor(undefined)
   }
 
   return (
