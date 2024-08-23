@@ -2004,7 +2004,6 @@ export enum TranslationKey {
   'Access' = 'Access',
   'Issued' = 'Issued',
   'Parsing status' = 'Parsing status',
-  'Profile with given guid not found!' = 'Profile with given guid not found!',
   'Access Denied: Insufficient Rights' = 'Access Denied: Insufficient Rights',
   'Ask' = 'Ask',
   'Please enter a valid URL!' = 'Please enter a valid URL!',
@@ -2033,4 +2032,5 @@ export enum TranslationKey {
   'Title, Key, URL' = 'Title, Key, URL',
   'Access confirmation request sent successfully' = 'Access confirmation request sent successfully',
   'Tables' = 'Tables',
+  'Please input shop name!' = 'Please input shop name!',
 }

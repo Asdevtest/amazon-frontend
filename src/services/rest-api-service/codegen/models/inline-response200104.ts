@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1UsersFreelanceNoticesRequest } from './api-v1-users-freelance-notices-request';
 
 /**
  * 
@@ -21,35 +22,29 @@
  */
 export interface InlineResponse200104 {
     /**
-     * GUID метода оплаты в базе данных
+     * GUID в базе данных
      * @type {string}
      * @memberof InlineResponse200104
      */
     _id?: string;
     /**
-     * 
+     * Кол-во непрочитаных сообщений по заявке
+     * @type {number}
+     * @memberof InlineResponse200104
+     */
+    unreadMessages?: number;
+    /**
+     * Гуид чата
      * @type {string}
      * @memberof InlineResponse200104
      */
-    title?: string;
+    chatId?: string;
     /**
      * 
-     * @type {string}
+     * @type {ApiV1UsersFreelanceNoticesRequest}
      * @memberof InlineResponse200104
      */
-    iconImage?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse200104
-     */
-    createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse200104
-     */
-    updatedAt?: string;
+    request?: ApiV1UsersFreelanceNoticesRequest;
 }
 
 
