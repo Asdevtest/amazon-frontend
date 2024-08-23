@@ -41,10 +41,10 @@ export class ShopsViewModel extends DataGridFilterTableModel {
     super({
       getMainDataMethod: ShopModel.getShopsWithProfiles,
       columnsModel,
-      tableKey: DataGridTablesKeys.CLIENT_SHOPS,
-      fieldsForSearch: ['name'],
-      mainMethodURL: 'shops/with_profiles?',
       filtersFields,
+      mainMethodURL: 'shops/with_profiles?',
+      fieldsForSearch: ['name'],
+      tableKey: DataGridTablesKeys.CLIENT_SHOPS,
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
@@ -108,10 +108,12 @@ export class ShopsViewModel extends DataGridFilterTableModel {
     try {
       await ParserModel.onParsingAccess(email)
 
+      toast.success(t(TranslationKey['Access confirmation request sent successfully']))
+
       this.getCurrentData()
     } catch (error) {
       console.error(error)
-      toast.error(t(TranslationKey['Profile does not belongs to you!']))
+      toast.error(t(TranslationKey['Access Denied: Insufficient Rights']))
     }
   }
 
@@ -122,7 +124,7 @@ export class ShopsViewModel extends DataGridFilterTableModel {
       this.getCurrentData()
     } catch (error) {
       console.error(error)
-      toast.error(t(TranslationKey['Profile with given guid not found!']))
+      toast.error(t(TranslationKey['Access Denied: Insufficient Rights']))
     }
   }
 }

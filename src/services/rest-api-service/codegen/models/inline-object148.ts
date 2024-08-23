@@ -21,35 +21,11 @@
  */
 export interface InlineObject148 {
     /**
-     * Эндпоинт для которого надо установить пресеты
-     * @type {string}
+     * Массив доступных специализаций фрилансера.
+     * @type {Array<number>}
      * @memberof InlineObject148
      */
-    endpoint?: string;
-    /**
-     * Название таблицы
-     * @type {string}
-     * @memberof InlineObject148
-     */
-    table?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject148
-     */
-    fields?: Array<string>;
-    /**
-     * Является ли пресет активным.
-     * @type {boolean}
-     * @memberof InlineObject148
-     */
-    isActive?: boolean;
-    /**
-     * Является ли пресет избранным.
-     * @type {boolean}
-     * @memberof InlineObject148
-     */
-    isFavorite?: boolean;
+    allowedSpec: Array<number>;
 }
 
 

@@ -79,7 +79,11 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
           <Form.Item<FieldType> name="email" className={styles.field}>
             <CustomInput allowClear disabled={isEditMode} size="large" label="Email" wrapperClassName={styles.input} />
           </Form.Item>
-          <Form.Item<FieldType> name="password" className={styles.field} rules={[{ required: true, message: '' }]}>
+          <Form.Item<FieldType>
+            name="password"
+            className={styles.field}
+            rules={[{ required: !isEditMode, message: '' }]}
+          >
             <CustomInput
               allowClear
               password={!isEditMode}

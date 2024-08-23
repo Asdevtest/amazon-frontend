@@ -1,28 +1,46 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 5,
-  },
-
-  cell: {
-    padding: '10px 0',
-  },
-
-  row: {
-    alignItems: 'center',
-    flexDirection: 'row',
+  title: {
+    padding: '8px 16px 0',
   },
 
   cascader: {
     '.ant-cascader-menu': {
-      height: '410px',
+      height: '140px',
+      width: '280px',
+      paddingBottom: 8,
     },
 
     '.ant-cascader-checkbox-inner': {
       borderRadius: '4px !important',
+    },
+  },
+
+  cascaderPanel: {
+    display: 'block',
+    border: 'none',
+    borderRadius: 0,
+
+    '.ant-cascader-menu': {
+      height: '204px',
+    },
+
+    '.ant-empty-small': {
+      height: '180px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+    },
+
+    '.ant-cascader-menu-item-content': {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+
+    '.ant-cascader-menus': {
+      width: '100%',
     },
   },
 
@@ -37,11 +55,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   divider: {
-    margin: '8px 0',
+    margin: 0,
   },
 
   footer: {
-    padding: '8px 16px 16px',
+    padding: '8px 16px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -49,6 +67,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   inputSearch: {
-    width: '140px',
+    width: '160px',
   },
 }))

@@ -14,167 +14,192 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
-import { ApiV1BuyersOrdersMyOrderSupplier } from './api-v1-buyers-orders-my-order-supplier';
-import { ApiV1BuyersOrdersMyPayments } from './api-v1-buyers-orders-my-payments';
-import { ApiV1BuyersOrdersMyProduct } from './api-v1-buyers-orders-my-product';
+import { ApiV1BoxesClientsInTransferGuidBatch } from './api-v1-boxes-clients-in-transfer-guid-batch';
+import { ApiV1BoxesClientsInTransferGuidLogicsTariff } from './api-v1-boxes-clients-in-transfer-guid-logics-tariff';
+import { ApiV1BoxesClientsLightDestination } from './api-v1-boxes-clients-light-destination';
+import { ApiV1BoxesClientsLightItems } from './api-v1-boxes-clients-light-items';
+import { InlineResponse20032VariationTariff } from './inline-response20032-variation-tariff';
 
 /**
- * Заказ.
+ * 
  * @export
  * @interface InlineResponse20035
  */
 export interface InlineResponse20035 {
     /**
-     * id заказ.
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    id?: number;
-    /**
-     * GUID данной записи в БД.
+     * GUID коробки.
      * @type {string}
      * @memberof InlineResponse20035
      */
     _id?: string;
     /**
-     * кол-во
+     * Номер коробки.
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    humanFriendlyId?: number;
+    /**
+     * ККоличества в коробке.
      * @type {number}
      * @memberof InlineResponse20035
      */
     amount?: number;
     /**
-     * Комментарии клиента.
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    clientComment?: string;
-    /**
-     * комментарии байера.
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    buyerComment?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsOrdersDestination}
-     * @memberof InlineResponse20035
-     */
-    destination?: ApiV1AdminsOrdersDestination;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    item?: string;
-    /**
-     * Цена в юанях
+     * Total Amount
      * @type {number}
      * @memberof InlineResponse20035
      */
-    priceInYuan?: number;
+    totalAmount?: number;
     /**
-     * Сумма частичной оплаты
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    partialPaymentAmountRmb?: number;
-    /**
-     * Используется ли частичная оплата
-     * @type {boolean}
-     * @memberof InlineResponse20035
-     */
-    partialPayment?: boolean;
-    /**
-     * Есть ли реквизиты в ордере
-     * @type {boolean}
-     * @memberof InlineResponse20035
-     */
-    paymentDetailsAttached?: boolean;
-    /**
-     * Cумма частичной оплаты
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    partiallyPaid?: number;
-    /**
-     * 
-     * @type {Array<ApiV1BuyersOrdersMyPayments>}
-     * @memberof InlineResponse20035
-     */
-    payments?: Array<ApiV1BuyersOrdersMyPayments>;
-    /**
-     * 
-     * @type {ApiV1BuyersOrdersMyOrderSupplier}
-     * @memberof InlineResponse20035
-     */
-    orderSupplier?: ApiV1BuyersOrdersMyOrderSupplier;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    priority?: InlineResponse20035PriorityEnum;
-    /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
-     * @type {boolean}
-     * @memberof InlineResponse20035
-     */
-    expressChinaDelivery?: boolean;
-    /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
-     * @memberof InlineResponse20035
-     */
-    needsResearch?: boolean;
-    /**
-     * Дедлайн выкупа заказа
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    deadline?: string;
-    /**
-     * Дата оплаты поставщтку
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    paymentDateToSupplier?: string;
-    /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * Total Price
      * @type {number}
      * @memberof InlineResponse20035
      */
     totalPrice?: number;
     /**
-     * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
+     * Final weight
      * @type {number}
      * @memberof InlineResponse20035
      */
-    totalPriceChanged?: number;
+    finalWeight?: number;
     /**
-     * 
+     * Статус коробки
      * @type {string}
      * @memberof InlineResponse20035
      */
-    createdById?: string;
+    status?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
+     * @type {boolean}
      * @memberof InlineResponse20035
      */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    isActual?: boolean;
     /**
-     * 
-     * @type {ApiV1BuyersOrdersMyProduct}
+     * Если true - значит коробку черновик.
+     * @type {boolean}
      * @memberof InlineResponse20035
      */
-    product?: ApiV1BuyersOrdersMyProduct;
+    isDraft?: boolean;
     /**
-     *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      needConfirmingReceiving: 27 - Этот статус промежуточный между 25 и 30     С этого статуса заказ можно переводить в статусы 25,30,35     inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
+     * Сформирована ли коробка
+     * @type {boolean}
+     * @memberof InlineResponse20035
+     */
+    isFormed?: boolean;
+    /**
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    shippingLabel?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    trackNumberText?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20035
+     */
+    trackNumberFile?: Array<string>;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    prepId?: string;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    upsTrackNumber?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    referenceId?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    clientComment?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    storekeeperComment?: string;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
      * @type {number}
      * @memberof InlineResponse20035
      */
-    status?: number;
+    lengthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    widthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    heightCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+     * @type {boolean}
+     * @memberof InlineResponse20035
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    fbaNumber?: string;
+    /**
+     * Итого за доставку.
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    deliveryTotalPrice?: number;
+    /**
+     * Обновление итога за доставку.
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    deliveryTotalPriceChanged?: number;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20035
+     */
+    images?: Array<string>;
+    /**
+     * Nullable ISO Date
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    deadline?: string;
     /**
      * 
      * @type {string}
@@ -187,19 +212,60 @@ export interface InlineResponse20035 {
      * @memberof InlineResponse20035
      */
     updatedAt?: string;
+    /**
+     * 
+     * @type {InlineResponse20032VariationTariff}
+     * @memberof InlineResponse20035
+     */
+    variationTariff?: InlineResponse20032VariationTariff;
+    /**
+     * Массив коробок.
+     * @type {Array<ApiV1BoxesClientsLightItems>}
+     * @memberof InlineResponse20035
+     */
+    items?: Array<ApiV1BoxesClientsLightItems>;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20035
+     */
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20035
+     */
+    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20035
+     */
+    client?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20035
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1BoxesClientsLightDestination}
+     * @memberof InlineResponse20035
+     */
+    destination?: ApiV1BoxesClientsLightDestination;
+    /**
+     * 
+     * @type {ApiV1BoxesClientsInTransferGuidLogicsTariff}
+     * @memberof InlineResponse20035
+     */
+    logicsTariff?: ApiV1BoxesClientsInTransferGuidLogicsTariff;
+    /**
+     * 
+     * @type {ApiV1BoxesClientsInTransferGuidBatch}
+     * @memberof InlineResponse20035
+     */
+    batch?: ApiV1BoxesClientsInTransferGuidBatch;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20035PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

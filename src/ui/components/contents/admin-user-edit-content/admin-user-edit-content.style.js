@@ -119,7 +119,7 @@ export const useStyles = makeStyles()(theme => ({
 
   allowedRoleWrapperTitle: {
     fontSize: '18px',
-    lineHeight: '140%',
+    lineHeight: '120%',
     fontWeight: '400',
     color: theme.palette.text.general,
     marginBottom: '10px',

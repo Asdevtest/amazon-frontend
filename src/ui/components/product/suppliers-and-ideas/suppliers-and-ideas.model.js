@@ -26,7 +26,7 @@ import { UserModel } from '@models/user-model'
 
 import { checkIsBuyer, checkIsClient, checkIsSupervisor, checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -98,7 +98,7 @@ export class SuppliersAndIdeasModel {
   }
 
   get currentData() {
-    return this.ideasData?.toSorted(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+    return this.ideasData?.toSorted(sortObjectsArrayByFiledDateWithParseISO('updatedAt')) // ideas sort by desc
   }
 
   get platformSettings() {
@@ -123,15 +123,13 @@ export class SuppliersAndIdeasModel {
 
   async loadData() {
     try {
-      if (!this.isCreateModal) {
-        if (this.isModalView && this.currentIdeaId) {
-          await this.getIdea(this.currentIdeaId)
-          if (this.updateData) {
-            this.updateData?.()
-          }
-        } else {
-          await this.getIdeas()
+      if (this.isModalView && this.currentIdeaId) {
+        await this.getIdea(this.currentIdeaId)
+        if (this.updateData) {
+          this.updateData?.()
         }
+      } else {
+        await this.getIdeas()
       }
 
       this.getStorekeepers()

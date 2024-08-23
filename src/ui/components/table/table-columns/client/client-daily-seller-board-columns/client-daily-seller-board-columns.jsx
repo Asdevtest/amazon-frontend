@@ -57,8 +57,8 @@ export const clientDailySellerBoardColumns = () => {
 
     {
       field: 'title',
-      headerName: 'Title',
-      renderHeader: () => <MultilineTextHeaderCell text={'Title'} />,
+      headerName: t(TranslationKey.Title),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
       renderCell: params => <TextCell text={params.value} />,
       width: 250,
@@ -129,8 +129,8 @@ export const clientDailySellerBoardColumns = () => {
 
     {
       field: 'comment',
-      headerName: 'Comment',
-      renderHeader: () => <MultilineTextHeaderCell text={'Comment'} />,
+      headerName: t(TranslationKey.Comment),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
       renderCell: params => <TextCell text={params.value} />,
       width: 220,
@@ -174,8 +174,8 @@ export const clientDailySellerBoardColumns = () => {
     },
     {
       field: 'ordered',
-      headerName: 'Ordered',
-      renderHeader: () => <MultilineTextHeaderCell text={'Ordered'} />,
+      headerName: t(TranslationKey.Ordered),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Ordered)} />,
 
       renderCell: params => <TextCell text={params.value} />,
       width: 108,

@@ -12,6 +12,7 @@ import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSwitch } from '@components/shared/custom-switch'
 import { CustomTextarea } from '@components/shared/custom-textarea'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ITechPause } from '@typings/models/administrators/tech-pause'
@@ -96,7 +97,7 @@ export const Shutdown: FC<ShutdownProps> = observer(({ techPause }) => {
             <CustomButton
               type="primary"
               disabled={viewModel.disabledSendButton}
-              onClick={() => viewModel.onToggleServer()}
+              onClick={throttle(viewModel.onToggleServer)}
             >
               {t(TranslationKey.Send)}
             </CustomButton>

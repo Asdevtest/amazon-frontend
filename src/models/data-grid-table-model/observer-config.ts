@@ -44,4 +44,5 @@ export const observerConfig = {
   checkNestedFields: action.bound,
   onChangeShowPresetsSelect: action.bound,
   onClickAddQuickAccess: action.bound,
+  setDefaultPinnedColumns: action.bound,
 }

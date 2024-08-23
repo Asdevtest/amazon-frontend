@@ -17,7 +17,7 @@ import { ITablePreset } from '@typings/models/user/table-preset'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { DataGridTableModelParams } from './data-grid-table-model.type'
-import { filterModelInitialValue, paginationModelInitialValue, pinnedColumnsInitialValue } from './model-config'
+import { defaultPinnedColumns, filterModelInitialValue, paginationModelInitialValue } from './model-config'
 import { observerConfig } from './observer-config'
 
 export class DataGridTableModel extends DefaultModel {
@@ -38,10 +38,9 @@ export class DataGridTableModel extends DefaultModel {
 
   fieldsForSearch: string[] = []
 
-  pinnedColumns = pinnedColumnsInitialValue
-
   showPresetsSelect = false
   presetsTableData: ITablePreset[] = []
+  pinnedColumns: GridPinnedColumns = defaultPinnedColumns
 
   get filteredData() {
     if (this.fieldsForSearch?.length) {
@@ -104,8 +103,11 @@ export class DataGridTableModel extends DefaultModel {
     const state = TableSettingsModel.getTableSettings(this.tableKey)
 
     if (state) {
-      // @ts-ignore
-      this.sortModel = state?.sortModel
+      const sortModel = state?.sortModel
+
+      if (sortModel?.length > 0) {
+        this.sortModel = sortModel
+      }
       // @ts-ignore
       this.filterModel = state?.filterModel
       // @ts-ignore
@@ -272,7 +274,7 @@ export class DataGridTableModel extends DefaultModel {
       this.columnVisibilityModel = activePreset?.settings?.columnVisibilityModel
     } else {
       this.onClickResetFilters()
-      this.handlePinColumn(pinnedColumnsInitialValue)
+      this.handlePinColumn(defaultPinnedColumns)
 
       // Doesnt work with await and map methods
       this.columnsModel = await this.defaultColumnsModel?.map(column => ({
@@ -379,6 +381,9 @@ export class DataGridTableModel extends DefaultModel {
       this.onTriggerOpenModal('showPresetsSelect', value)
     }
   }
+  setDefaultPinnedColumns() {
+    this.pinnedColumns = defaultPinnedColumns
+  }
 
   /**
    * Recursively checks an object for string values starting with a specified search value,
@@ -397,7 +402,7 @@ export class DataGridTableModel extends DefaultModel {
       if (fieldsForSearch.includes(key) && typeof obj[key] === 'string') {
         return obj[key].toLowerCase().startsWith(searchValue)
       } else if (Array.isArray(obj[key])) {
-        return false
+        return obj[key].some((item: any) => this.checkNestedFields(item, searchValue, fieldsForSearch))
       } else if (typeof obj[key] === 'object' && obj[key] !== null) {
         return this.checkNestedFields(obj[key], searchValue, fieldsForSearch)
       }

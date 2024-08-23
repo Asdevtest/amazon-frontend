@@ -79,11 +79,7 @@ export const minsToTime = mins => {
           ? Math.floor(hours) + ' ' + t(TranslationKey.hour)
           : Math.floor(hours % 24) + ' ' + t(TranslationKey.hour)
         : ''
-    } ${
-      Math.floor(lastMins) === 0
-        ? Math.floor(lastMins * 60) + ' ' + t(TranslationKey.sec)
-        : Math.floor(lastMins) + ' ' + t(TranslationKey.minute) + '.'
-    }`
+    } ${Math.floor(lastMins) + ' ' + t(TranslationKey.minute) + '.'}`
   } else {
     return null
   }
@@ -505,4 +501,10 @@ export const formatCamelCaseString = str =>
     .replace(/([a-z])([A-Z])/g, '$1 $2')
     .replaceAll(/([a-zA-Z])(\d)/g, '$1 $2')
     .replaceAll(/(\d)([a-zA-Z])/g, '$1 $2')
+    .replace(/\b\w/g, c => c.toUpperCase())
+
+export const formatSnakeCaseString = str =>
+  str
+    .toLowerCase()
+    .replaceAll('_', ' ')
     .replace(/\b\w/g, c => c.toUpperCase())

@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1RequestProposalsCustomGuidResultEditMedia } from './api-v1-request-proposals-custom-guid-result-edit-media';
-import { ApiV1RequestProposalsCustomGuidResultEditSourceFiles } from './api-v1-request-proposals-custom-guid-result-edit-source-files';
 
 /**
  * 
@@ -23,41 +21,17 @@ import { ApiV1RequestProposalsCustomGuidResultEditSourceFiles } from './api-v1-r
  */
 export interface InlineObject166 {
     /**
-     * Результат работы исполнителя.
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject166
      */
-    result?: string;
+    shopIds?: Array<string>;
     /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject166
      */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * 
-     * @type {Array<ApiV1RequestProposalsCustomGuidResultEditMedia>}
-     * @memberof InlineObject166
-     */
-    media?: Array<ApiV1RequestProposalsCustomGuidResultEditMedia>;
-    /**
-     * ключ с Амазона
-     * @type {string}
-     * @memberof InlineObject166
-     */
-    amazonOrderId?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject166
-     */
-    publicationLinks?: Array<string>;
-    /**
-     * 
-     * @type {Array<ApiV1RequestProposalsCustomGuidResultEditSourceFiles>}
-     * @memberof InlineObject166
-     */
-    sourceFiles?: Array<ApiV1RequestProposalsCustomGuidResultEditSourceFiles>;
+    tables?: Array<string>;
 }
 
 

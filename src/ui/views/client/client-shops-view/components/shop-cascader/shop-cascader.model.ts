@@ -11,30 +11,51 @@ import { t } from '@utils/translations'
 
 import { IShop } from '@typings/models/shops/shop'
 
-import { IExportOption, getExportOptionsForShopsView } from './helpers/get-export-options'
+import { getShopsOptions, getTableOptions } from './helpers/get-export-options'
 
 export class ShopsCascaderModel {
-  data: IShop[]
+  shops: IShop[]
   open = false
   inputValue = ''
-  exportOptions: IExportOption[] = []
-  selectedExportOptions: IExportOption[] = []
+  selectedTableOptions: string[][] = []
+  selectedShopsOptions: string[][] = []
 
-  get filteredOptions() {
-    const generetadOptions: IExportOption[] = this.data?.map(({ name, _id }) => ({ label: name, value: _id }))
-
-    return getExportOptionsForShopsView(generetadOptions, this.selectedExportOptions, this.inputValue)
+  get shopOptions() {
+    return getShopsOptions(this.shops, this.inputValue)
+  }
+  get tableOptions() {
+    return this.open ? getTableOptions(this.selectedTableOptions) : []
+  }
+  get disabledExportButton() {
+    return !this.selectedTableOptions?.some(option => option?.[0]) || !this.selectedShopsOptions?.length
   }
 
   constructor(data: IShop[]) {
-    this.data = data
-
+    this.shops = data
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async getShopsExport() {
     try {
-      const response = await ClientModel.getShopsExport(this.selectedExportOptions)
+      const shopIds = this.selectedShopsOptions.length > 0 ? this.selectedShopsOptions?.join(', ') : undefined
+      const table = this.selectedTableOptions?.[0][0]
+      const statusGroup = this.selectedTableOptions?.find(option => option?.[0] !== 'BATCHES')
+        ? this.selectedTableOptions?.[0][1]
+          ? this.selectedTableOptions?.map(option => option[1])?.join(', ')
+          : undefined
+        : undefined
+      const onAmazon = this.selectedTableOptions?.find(option => option?.[0] === 'BATCHES')
+        ? this.selectedTableOptions?.[0][1]
+          ? Boolean(this.selectedTableOptions[0][0])
+          : undefined
+        : undefined
+      const data = {
+        shopIds,
+        table,
+        statusGroup,
+        onAmazon,
+      }
+      const response = await ClientModel.getShopsExport(data)
 
       if (response) {
         const jsonData = JSON.stringify(response)
@@ -43,7 +64,7 @@ export class ShopsCascaderModel {
         const link = document.createElement('a')
         link.href = href
         const formattedDate = format(new Date(), 'yyyy-MM-dd_HH-mm-ss')
-        link.download = `permissions-${formattedDate}.json`
+        link.download = `store_report_${formattedDate}.json`
         document.body.appendChild(link)
         link.click()
         document.body.removeChild(link)
@@ -54,21 +75,45 @@ export class ShopsCascaderModel {
       }
     } catch (error) {
       console.error(error)
-      toast.success(t(TranslationKey['Data exported successfully']))
+      toast.error(t(TranslationKey['Error while exporting data']))
     } finally {
       this.open = false
+      this.clearSelection()
     }
   }
 
-  onChangeExportOptions = (value: IExportOption[], selectOptions: IExportOption[]) => {
-    this.selectedExportOptions = value
+  onChangeTableOptions = (value: string[][]) => {
+    this.selectedTableOptions = value
+  }
+
+  onChangeShopsOptions = (value: string[][]) => {
+    const hasAllOption = value.some(item => item.includes('select-all'))
+    const allOptionSelected = this.selectedShopsOptions.some(item => item.includes('select-all'))
+
+    if (hasAllOption && !allOptionSelected) {
+      const shopsOptions = this.shops.map(shop => [shop._id])
+      this.selectedShopsOptions = shopsOptions.concat([['select-all']])
+    } else if (!hasAllOption && allOptionSelected) {
+      this.selectedShopsOptions = []
+    } else {
+      this.selectedShopsOptions = value
+    }
   }
 
   onDropdownVisibleChange(value: boolean) {
     this.open = value
+
+    if (!value) {
+      this.clearSelection()
+    }
   }
 
   onChangeInput(event: ChangeEvent<HTMLInputElement>) {
     this.inputValue = event.target.value
+  }
+
+  clearSelection() {
+    this.selectedShopsOptions = []
+    this.selectedTableOptions = []
   }
 }
