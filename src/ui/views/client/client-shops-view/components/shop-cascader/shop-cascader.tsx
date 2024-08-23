@@ -24,7 +24,6 @@ interface ShopCascaderProps {
 export const ShopCascader: FC<ShopCascaderProps> = observer(({ shops }) => {
   const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new ShopsCascaderModel(shops))
-  // console.log('viewModel.shopOptions', viewModel.shopOptions)
 
   const dropdownRender = useCallback(
     (menu: ReactElement) => (
