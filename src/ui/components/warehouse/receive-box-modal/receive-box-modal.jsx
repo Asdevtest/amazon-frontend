@@ -1,20 +1,20 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import AddIcon from '@mui/icons-material/Add'
-import { Divider, Typography } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddFilesForm } from '@components/forms/add-files-form'
 import { CheckQuantityForm } from '@components/forms/check-quantity-form'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './receive-box-modal.style'
 
@@ -22,7 +22,6 @@ import { CurrentBox, NewBoxes } from './components'
 
 export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoefficient, boxesBefore }) => {
   const { classes: styles, cx } = useStyles()
-  const [showNoDimensionsErrorModal, setShowNoDimensionsErrorModal] = useState(false)
   const [showAddImagesModal, setShowAddImagesModal] = useState(false)
 
   const [showCheckQuantityModal, setShowCheckQuantityModal] = useState(false)
@@ -46,8 +45,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
       weighGrossKgWarehouse: emptyBox?.weighGrossKgWarehouse || '',
       volumeWeightKgWarehouse: emptyBox?.volumeWeightKgWarehouse || '',
       weightFinalAccountingKgWarehouse: emptyBox?.weightFinalAccountingKgWarehouse || '',
-      tmpImages: [],
-      images: (emptyBox?.images === null ? [] : emptyBox?.images) || [],
+      images: emptyBox?.images || [],
     }
 
     return emptyBoxWithDemensions
@@ -75,12 +73,9 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         widthCmWarehouse: el?.widthCmSupplier || '',
         heightCmWarehouse: el?.heightCmSupplier || '',
         weighGrossKgWarehouse: el?.weighGrossKgSupplier || '',
-
         volumeWeightKgWarehouse: volumeWeight || '',
-
         weightFinalAccountingKgWarehouse: weightFinalAccountingKg || '',
-        tmpImages: [],
-        images: (startBox?.images === null ? [] : startBox?.images) || [],
+        images: startBox?.images || [],
       }
 
       return startBoxWithDemensions
@@ -150,7 +145,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
   const addDouble = boxId => {
     const foundedBox = newBoxes.find(box => box._id === boxId)
 
-    const copyedBox = { ...JSON.parse(JSON.stringify(foundedBox)), tmpImages: foundedBox.tmpImages }
+    const copyedBox = { ...JSON.parse(JSON.stringify(foundedBox)), images: foundedBox.images }
 
     const updatedNewBoxes = [...newBoxes, { ...copyedBox, _id: `${copyedBox._id} + 'double' ${Date.now()}` }]
     setNewBoxes(updatedNewBoxes)
@@ -186,16 +181,17 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         weighGrossKgWarehouse: parseFloat(el?.weighGrossKgWarehouse) || '',
         volumeWeightKgWarehouse: parseFloat(el?.volumeWeightKgWarehouse) || '',
         weightFinalAccountingKgWarehouse: parseFloat(el?.weightFinalAccountingKgWarehouse) || '',
+        images: el.images,
       }))
 
       setSourceBoxes(newBoxesWithoutNumberFields)
       setOpenModal()
     } catch (error) {
-      setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)
+      toast.error(t(TranslationKey['Enter the dimensions of all the boxes']))
     }
   }
 
-  const isSomeBoxHasntImage = newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length)
+  const isSomeBoxHasntImage = newBoxes.some(box => !box?.images?.length)
 
   const isSomeBoxesHasCorrectSizes = newBoxes.some(
     box =>
@@ -208,24 +204,20 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
     newBoxes.some(box => box.amount === '') ||
     (isSomeBoxHasntImage && !receiveNotFromBuyer) ||
     isSomeBoxesHasCorrectSizes
+
   return (
     <div className={styles.root}>
       <div className={styles.modalHeaderWrapper}>
-        <Typography className={styles.modalTitle}>{t(TranslationKey['Receive and distribute'])}</Typography>
+        <p className={styles.modalTitle}>{t(TranslationKey['Receive and distribute'])}</p>
 
         {!receiveNotFromBuyer && (
-          <div className={styles.addButtonWrapper}>
-            <Button
-              className={styles.addButton}
-              tooltipInfoContent={t(TranslationKey['Add a box'])}
-              onClick={() => {
-                setNewBoxes(newBoxes.concat(getEmptyBox()))
-              }}
-            >
-              {t(TranslationKey['New box'])}
-              <AddIcon fontSize="small" className={styles.icon} />
-            </Button>
-          </div>
+          <Button
+            tooltipInfoContent={t(TranslationKey['Add a box'])}
+            onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
+          >
+            {t(TranslationKey['New box'])}
+            <AddIcon fontSize="small" className={styles.icon} />
+          </Button>
         )}
       </div>
 
@@ -251,17 +243,6 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         />
       </div>
 
-      <div className={styles.addButtonWrapperMobile}>
-        <Button
-          className={styles.addButtonMobile}
-          tooltipInfoContent={t(TranslationKey['Add a box'])}
-          onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
-        >
-          {t(TranslationKey['New box'])}
-          <AddIcon fontSize="small" className={styles.icon} />
-        </Button>
-      </div>
-
       <div className={styles.buttonsWrapper}>
         {isSomeBoxHasntImage && (
           <p className={styles.noImageText}>{t(TranslationKey['Be sure to add a photo to the box'])}</p>
@@ -270,7 +251,6 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         <Button
           styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmit}
-          className={styles.button}
           onClick={() => {
             receiveNotFromBuyer
               ? onClickRedistributeBtn()
@@ -282,31 +262,12 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button
-          variant={ButtonVariant.OUTLINED}
-          className={cx(styles.button, styles.cancelButton)}
-          onClick={setOpenModal}
-        >
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
 
-      {showNoDimensionsErrorModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={showNoDimensionsErrorModal}
-          setOpenModal={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
-          title={t(TranslationKey['Enter the dimensions of all the boxes'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
-        />
-      ) : null}
-
-      <Modal
-        openModal={showAddImagesModal}
-        setOpenModal={() => setShowAddImagesModal(!showAddImagesModal)}
-        onCloseModal={() => setShowAddImagesModal(!showAddImagesModal)}
-      >
+      <Modal openModal={showAddImagesModal} setOpenModal={() => setShowAddImagesModal(!showAddImagesModal)}>
         <AddFilesForm
           item={boxForImageEdit}
           allItemsArray={newBoxes}
@@ -320,7 +281,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           title={t(TranslationKey['Confirmation of goods quantity'])}
           description={t(TranslationKey['Enter the amount of goods that came into the warehouse']) + ':'}
           acceptText={t(TranslationKey.Save) + '?'}
-          comparisonQuantity={actuallyAssembled}
+          deliveredQuantity={actuallyAssembled}
           onClose={() => setShowCheckQuantityModal(!showCheckQuantityModal)}
           onSubmit={onClickRedistributeBtn}
         />

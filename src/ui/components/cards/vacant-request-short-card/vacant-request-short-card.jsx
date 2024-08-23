@@ -1,6 +1,5 @@
 import Typography from '@mui/material/Typography'
 
-import { requestPriority } from '@constants/requests/request-priority'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
@@ -16,6 +15,8 @@ import { formatNormDateTime, formatNormDateTimeWithParseISO, getDistanceBetweenD
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
+
+import { RequestPriority } from '@typings/enums/request/request-priority'
 
 import { useStyles } from './vacant-request-short-card.style'
 
@@ -62,7 +63,7 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
             <Typography className={cx(styles.idTitle, styles.idText)}>{item.humanFriendlyId}</Typography>
           </div>
 
-          {Number(item?.priority) === requestPriority.urgentPriority && (
+          {Number(item?.priority) === RequestPriority.urgentPriority && (
             <img className={styles.priorityIcon} src="/assets/icons/fire.svg" />
           )}
         </div>
@@ -157,9 +158,7 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
               containerClasses={styles.fieldContainer}
               label={t(TranslationKey['Request type'])}
               inputComponent={
-                <Typography className={cx(styles.accentText, styles.rightText, styles.capitalize)}>
-                  {item.spec?.title}
-                </Typography>
+                <Typography className={cx(styles.accentText, styles.rightText)}>{item.spec?.title}</Typography>
               }
             />
             <Field
@@ -177,17 +176,16 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
 
         <Button
           tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
-          className={styles.actionButton}
           onClick={() => onClickViewMore(item._id)}
         >
           {t(TranslationKey.Details)}
         </Button>
-        <Typography className={styles.cardSubTitle}>
-          {translateProposalsLeftMessage(
-            item?.maxAmountOfProposals - item?.countProposalsByStatuses?.acceptedProposals,
-            item?.maxAmountOfProposals,
-          )}
-        </Typography>
+        <p className={styles.cardSubTitle}>
+          {t(TranslationKey.Proposals_Left, {
+            num1: item?.maxAmountOfProposals - item?.countProposalsByStatuses?.acceptedProposals,
+            num2: item?.maxAmountOfProposals,
+          })}
+        </p>
       </div>
     </div>
   )

@@ -62,9 +62,9 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
       <div className={styles.controlsWrapper}>
         {showMarkAsCompletedButtton && (
           <Button
+            fullWidth
             styleType={ButtonStyle.SUCCESS}
             disabled={disableMarkAsCompletedButton}
-            className={styles.publishBtn}
             onClick={() => onClickMarkAsCompletedBtn(request?._id)}
           >
             {t(TranslationKey['Mark as completed'])}
@@ -76,17 +76,17 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
             {showMainActionsButton && (
               <>
                 <Button
+                  fullWidth
                   styleType={ButtonStyle.DANGER}
                   tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
-                  className={styles.deleteBtn}
                   onClick={onClickCancelBtn}
                 >
                   {t(TranslationKey.Delete)}
                 </Button>
 
                 <Button
+                  fullWidth
                   tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
-                  className={styles.editBtn}
                   onClick={onClickEditBtn}
                 >
                   {t(TranslationKey.Edit)}
@@ -94,9 +94,9 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
                 {showPublishButton && (
                   <Button
+                    fullWidth
                     styleType={ButtonStyle.SUCCESS}
                     tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
-                    className={styles.publishBtn}
                     onClick={onClickPublishBtn}
                   >
                     {t(TranslationKey.Publish)}
@@ -107,7 +107,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
             {showChangeRequestTermsButton && (
               <>
-                <Button className={styles.recoverBtn} onClick={() => setIsRestoreModalOpen(true)}>
+                <Button fullWidth onClick={() => setIsRestoreModalOpen(true)}>
                   {t(TranslationKey['Change request terms'])}
                 </Button>
 
@@ -125,6 +125,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
             {showAcceptingProposalsButton && (
               <Button
+                fullWidth
                 tooltipInfoContent={
                   request?.status !== RequestStatus.FORBID_NEW_PROPOSALS &&
                   t(TranslationKey['Removes the visibility of the request on the exchange'])
@@ -142,7 +143,11 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
           </>
         )}
 
-        {onClickSuggest && <Button onClick={onClickSuggest}>{t(TranslationKey['Suggest a deal'])}</Button>}
+        {onClickSuggest && (
+          <Button fullWidth onClick={onClickSuggest}>
+            {t(TranslationKey['Suggest a deal'])}
+          </Button>
+        )}
       </div>
     </div>
   )

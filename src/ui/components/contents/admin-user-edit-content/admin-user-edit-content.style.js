@@ -7,9 +7,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-end',
     marginTop: 30,
   },
-  rightBtn: {
-    marginLeft: 30,
-  },
 
   checkboxWrapper: {
     display: 'flex',
@@ -21,9 +18,6 @@ export const useStyles = makeStyles()(theme => ({
   checkboxLabel: {
     fontWeight: 600,
 
-    color: theme.palette.text.general,
-  },
-  cancelBtn: {
     color: theme.palette.text.general,
   },
 
@@ -102,10 +96,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 20,
   },
 
-  button: {
-    padding: '7px 33px',
-  },
-
   rateContainer: {
     width: '170px',
     marginBottom: '0 !important',
@@ -175,34 +165,9 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  actionDelButton: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '40px',
-    height: '22px',
-    fontSize: '18px',
-    backgroundColor: theme.palette.primary.main,
-    borderRadius: '4px',
-    color: '#fff',
-    cursor: 'pointer',
-  },
-
-  actionButton: {
-    width: '22px',
-    height: '22px',
-    fontSize: '18px',
-    color: '#00B746',
-    cursor: 'pointer',
-  },
-
   allowedStrategiesContainer: {
     width: '470px !important',
     marginTop: '20px',
-  },
-
-  securityButton: {
-    width: '100%',
   },
 
   standartText: {

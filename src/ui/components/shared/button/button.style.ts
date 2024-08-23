@@ -43,13 +43,10 @@ export const useStyles = makeStyles()(theme => {
       '&:disabled': {
         cursor: 'default',
       },
-
-      margin: '0 3px 3px 0',
     },
 
     transparent: {
       padding: '0 5px',
-      margin: '0',
       color: theme.palette.text.general,
       background: 'transparent',
       '&:hover': {
@@ -174,20 +171,21 @@ export const useStyles = makeStyles()(theme => {
 
     fullWidth: {
       width: '100%',
+      minWidth: 'max-content',
     },
 
     tooltipsWrapper: {
       position: 'absolute',
       top: '-9px',
       right: '-9px',
-      zIndex: '10',
+      zIndex: 7,
     },
 
     tooltipsCenterWrapper: {
       position: 'absolute',
       top: 'calc(50% - 10.5px)',
       right: 15,
-      zIndex: '10',
+      zIndex: 7,
     },
 
     tooltip: {
@@ -229,7 +227,7 @@ export const useStyles = makeStyles()(theme => {
     },
 
     smallButton: {
-      height: '24px',
+      height: '32px',
     },
 
     iconButton: {
@@ -237,7 +235,7 @@ export const useStyles = makeStyles()(theme => {
       width: '28px',
       height: '28px',
       padding: 0,
-      backgroundColor: 'transparent !important',
+      backgroundColor: 'transparent',
 
       '> svg': {
         width: '16px',
@@ -247,7 +245,6 @@ export const useStyles = makeStyles()(theme => {
 
     primaryIconButton: {
       border: `1px solid ${primaryMain}`,
-      backgroundColor: backgroundGeneral,
       boxShadow: defaultBoxShadow,
 
       '> svg': {
@@ -259,15 +256,17 @@ export const useStyles = makeStyles()(theme => {
         backgroundColor: primaryHoverBackground,
 
         '> svg': {
+          fill: primaryHoverBackground,
           color: primaryHoverColor,
         },
       },
 
       '&:disabled': {
         border: `1px solid ${primaryDisabledColor}`,
-        backgroundColor: backgroundGeneral,
+        backgroundColor: `${backgroundGeneral}`,
 
         '> svg': {
+          fill: `transparent`,
           color: primaryDisabledColor,
         },
       },

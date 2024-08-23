@@ -13,6 +13,10 @@
  */
 
 
+<<<<<<< HEAD
+=======
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+>>>>>>> pre-release
 import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
 import { InlineResponse20061Suppliers } from './inline-response20061-suppliers';
 
@@ -78,6 +82,21 @@ export interface InlineResponse20061ChildProduct {
     barCode?: string;
     /**
      * 
+<<<<<<< HEAD
+=======
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse20061ChildProduct
+     */
+    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse20061ChildProduct
+     */
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * 
+>>>>>>> pre-release
      * @type {Array<InlineResponse20061Suppliers>}
      * @memberof InlineResponse20061ChildProduct
      */

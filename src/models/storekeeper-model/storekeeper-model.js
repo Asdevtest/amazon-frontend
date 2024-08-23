@@ -63,8 +63,11 @@ class StorekeeperModelStatic {
     return response.data
   }
 
-  getLogisticsTariffs = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsMyGet(filterNullValues(data))
+  getLogisticsTariffs = async body => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsMyGet({
+      ...body,
+      noCache: true,
+    })
     return response.data
   }
 
@@ -137,6 +140,11 @@ class StorekeeperModelStatic {
       },
     })
     return response.data
+  }
+
+  getStorekeepersTariffsWithCalculations = async options => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffsWithCalculationsGet(options)
+    return response?.data || []
   }
 }
 

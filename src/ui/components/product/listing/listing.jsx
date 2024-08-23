@@ -7,16 +7,17 @@ import { Divider, Paper, Typography } from '@mui/material'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { UserBalanceHistory } from '@components/user/user-balance-history'
 
 import { checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './listing.style'
 
@@ -38,9 +39,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
     userRole,
     progressValue,
     imagesFromBoxes,
-    showSuccessModal,
     showProgress,
-    onTriggerOpenModal,
     onChangeField,
     onChangeArrayField,
     setTmpListingImages,
@@ -49,7 +48,6 @@ export const Listing = observer(({ productId, onClickBack }) => {
   } = listingModel.current
 
   const userCanEdit = checkIsSupervisor(UserRoleCodeMap[userRole]) || checkIsClient(UserRoleCodeMap[userRole])
-
   const emptyArray = [1, 2, 3, 4, 5]
 
   return (
@@ -145,47 +143,35 @@ export const Listing = observer(({ productId, onClickBack }) => {
                   {t(TranslationKey['Photos of the product in boxes:'])}
                 </Typography>
 
-                <div className={styles.carouselWrapper}>
-                  <PhotoAndFilesSlider withoutFiles smallSlider files={imagesFromBoxes} />
-                </div>
+                <SlideshowGallery slidesToShow={2} files={imagesFromBoxes} />
               </div>
 
               <div>
                 <Typography className={styles.subTitle}>{t(TranslationKey['Listing photos:'])}</Typography>
 
-                <div className={styles.carouselWrapper}>
-                  <PhotoAndFilesSlider withoutFiles smallSlider files={listingProduct.listingImages} />
-                </div>
+                <SlideshowGallery slidesToShow={2} files={listingProduct.listingImages} />
               </div>
             </div>
 
             {userCanEdit && (
-              <div>
-                <div className={styles.imageFileInputWrapper}>
-                  <UploadFilesInput images={tmpListingImages} setImages={setTmpListingImages} maxNumber={50} />
-                </div>
+              <div className={styles.imageFileInputWrapper}>
+                <UploadFilesInput images={tmpListingImages} setImages={setTmpListingImages} />
               </div>
             )}
 
             {userCanEdit ? (
               <div className={styles.buttonsWrapper}>
-                <Button className={styles.button} onClick={onSaveSubmit}>
-                  {t(TranslationKey.Save)}
+                <Button onClick={onSaveSubmit}>{t(TranslationKey.Save)}</Button>
+
+                <Button styleType={ButtonStyle.CASUAL} onClick={onCancel}>
+                  {t(TranslationKey.Close)}
                 </Button>
 
-                <Button className={styles.button} onClick={onCancel}>
-                  {t(TranslationKey.Cancel)}
-                </Button>
-
-                <Button className={styles.button} onClick={onClickBack}>
-                  {t(TranslationKey.Back)}
-                </Button>
+                <Button onClick={onClickBack}>{t(TranslationKey.Back)}</Button>
               </div>
             ) : (
               <div className={styles.buttonsWrapper}>
-                <Button className={styles.button} onClick={onClickBack ? onClickBack : onCancel}>
-                  {t(TranslationKey.Back)}
-                </Button>
+                <Button onClick={onClickBack ? onClickBack : onCancel}>{t(TranslationKey.Back)}</Button>
               </div>
             )}
           </div>
@@ -194,18 +180,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
 
       <UserBalanceHistory historyData={payments} title={t(TranslationKey.Transactions)} />
 
-      {showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={showSuccessModal}
-          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={t(TranslationKey['Data saved successfully'])}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
-        />
-      ) : null}
-
-      {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>
   )
 })

@@ -4,9 +4,4 @@ export const styles = () => ({
     height: '79vh',
     width: '100%',
   },
-
-  archiveHandler: {
-    color: '#5BA0FE',
-    marginLeft: 'auto',
-  },
 })

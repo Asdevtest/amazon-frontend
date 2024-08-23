@@ -5,13 +5,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
-    padding: 10,
-
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-      overflow: 'hidden',
-      marginBottom: theme.spacing(1),
-    },
   },
 
   boxCounterWrapper: {
@@ -29,17 +22,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalTitle: {
-    marginRight: '100px',
-    marginBottom: '0 !important',
-    color: theme.palette.text.general,
-
-    [theme.breakpoints.down(768)]: {
-      fontSize: '16px',
-      lineHeight: '22px',
-      color: '#001029',
-      fontWeight: 600,
-      marginRight: 0,
-    },
+    fontSize: '18px',
+    lineHeight: '25px',
+    fontWeight: 600,
   },
 
   buttonsWrapper: {
@@ -47,16 +32,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'end',
     alignItems: 'center',
     gap: 40,
-  },
-
-  actionButton: {
-    width: '126px',
-    height: '40px',
-  },
-
-  downloadButton: {
-    height: 40,
-    gap: 5,
   },
 
   amount: {
@@ -68,10 +43,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     gap: 30,
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      gap: 5,
-    },
   },
 
   datesWrapper: {
@@ -84,21 +55,11 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      gap: 5,
-    },
   },
 
   titleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      alignItems: 'start',
-      gap: 15,
-    },
   },
 
   storekeeperField: {
@@ -117,33 +78,17 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.general,
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: 270,
-    height: 40,
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-      height: 36,
-    },
+    width: '230px',
+    height: '32px',
   },
 
   fieldLabel: {
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
-    [theme.breakpoints.down(768)]: {
-      fontSize: '14px',
-      lineHeight: '16px',
-      color: '#001029',
-      fontWeight: 600,
-    },
   },
   subFieldLabel: {
     color: theme.palette.text.second,
@@ -152,36 +97,14 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '16px',
     whiteSpace: 'pre-wrap',
     marginBottom: '5px !important',
-
-    [theme.breakpoints.down(768)]: {
-      fontSize: '14px',
-      lineHeight: '19px',
-      color: '#656565',
-    },
   },
   infoField: {
-    height: 40,
-    fontWeight: 400,
-    fontSize: 16,
-    lineHeight: '22px',
-  },
-  filesSubWrapper: {
-    height: '100%',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      minWidth: '280px',
-      display: 'flex',
-      justifyContent: 'center',
-    },
+    fontSize: 14,
+    lineHeight: '19px',
   },
   tableWrapper: {
-    height: 400,
+    height: 350,
     width: '100%',
-  },
-
-  virtualScroller: {
-    minHeight: 150,
-    maxHeight: 450,
   },
 
   disabled: {

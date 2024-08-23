@@ -40,7 +40,7 @@ export const DealsOnReviewDetailsView = observer(({ history }) => {
           rateLabel={t(TranslationKey['Rate the performer'])}
           reviewLabel={t(TranslationKey["Review of the performer's work"])}
           confirmButtonText={t(TranslationKey['Accept the deal'])}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onSubmit={viewModel.onClickConfirmDeal}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
@@ -55,7 +55,7 @@ export const DealsOnReviewDetailsView = observer(({ history }) => {
           rateLabel={t(TranslationKey['Rate the performer'])}
           reviewLabel={t(TranslationKey['Reason for cancelling the deal'])}
           rejectButtonText={t(TranslationKey['Reject the deal'])}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           openModal={viewModel.showRejectModal}
           onSubmit={viewModel.onClickRejectDeal}
           onClose={() => viewModel.onTriggerOpenModal('showRejectModal')}
@@ -75,7 +75,7 @@ export const DealsOnReviewDetailsView = observer(({ history }) => {
           title={t(TranslationKey.Attention)}
           message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />

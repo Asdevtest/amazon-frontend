@@ -13,7 +13,7 @@ import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/check
 import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './create-or-edit-trading-shop-content.style'
 
@@ -186,11 +186,10 @@ export const CreateOrEditTradingShopContent = ({
                 ? t(TranslationKey['Back to Step 1'])
                 : t(TranslationKey['Cancel request creation'])
             }
-            variant={ButtonVariant.OUTLINED}
-            className={styles.backBtn}
+            styleType={ButtonStyle.CASUAL}
             onClick={onClickBackBtn}
           >
-            {curStep === stepVariant.STEP_ONE ? t(TranslationKey.Cancel) : t(TranslationKey.Back)}
+            {curStep === stepVariant.STEP_ONE ? t(TranslationKey.Close) : t(TranslationKey.Back)}
           </Button>
 
           <Button
@@ -201,7 +200,6 @@ export const CreateOrEditTradingShopContent = ({
                 : t(TranslationKey['Go to Step 2'])
             }
             disabled={disableSubmit}
-            className={styles.successBtn}
             onClick={onSuccessSubmit}
           >
             {curStep === stepVariant.STEP_THREE ? (
@@ -318,7 +316,7 @@ export const CreateOrEditTradingShopContent = ({
         />
       </Modal>
 
-      {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>
   )
 }

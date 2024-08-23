@@ -45,6 +45,12 @@ export interface ApiV1BatchesBoxes {
      */
     amount?: number;
     /**
+     * Total Amount
+     * @type {number}
+     * @memberof ApiV1BatchesBoxes
+     */
+    totalAmount?: number;
+    /**
      * Статус коробки
      * @type {string}
      * @memberof ApiV1BatchesBoxes
@@ -266,6 +272,12 @@ export interface ApiV1BatchesBoxes {
      * @memberof ApiV1BatchesBoxes
      */
     variationTariff?: ApiV1BatchesVariationTariff;
+    /**
+     * Storage in boxes
+     * @type {string}
+     * @memberof ApiV1BatchesBoxes
+     */
+    storage?: string;
     /**
      * Массив коробок.
      * @type {Array<ApiV1BatchesItems>}

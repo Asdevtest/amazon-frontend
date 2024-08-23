@@ -4,8 +4,8 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 30,
-    padding: 10,
+    gap: 20,
+    position: 'relative',
   },
 
   modalTitle: {
@@ -51,16 +51,26 @@ export const useStyles = makeStyles()(theme => ({
     height: 40,
   },
 
-  regionFieldInput: {
-    width: '80px !important',
-    height: 40,
+  deliveryFieldInput: {
+    width: '60%',
+  },
+
+  tariffFieldInput: {
+    maxWidth: 214,
   },
 
   rateWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: 5,
+    alignItems: 'flex-start',
+    gap: 32,
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRadius: 12,
+    background: theme.palette.background.general,
+    position: 'absolute',
+    top: 46,
+    right: 29,
+    padding: '13px 13px 17px 8px',
+    boxShadow: `0px 2px 10px 2px ${theme.palette.boxShadow.general}`,
   },
 
   customSwitcherWrapper: {
@@ -119,8 +129,16 @@ export const useStyles = makeStyles()(theme => ({
 
   currentRateWrapper: {
     display: 'flex',
-    alignItems: 'center',
-    gap: 10,
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    gap: 5,
+    marginBottom: 20,
+  },
+
+  rateContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
 
   currentRate: {
@@ -147,7 +165,9 @@ export const useStyles = makeStyles()(theme => ({
   rateFieldContainer: {
     margin: '0 !important',
     display: 'flex',
-    gap: 10,
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    gap: 5,
     width: 'fit-content !important',
   },
 
@@ -167,17 +187,13 @@ export const useStyles = makeStyles()(theme => ({
   regionWrapper: {
     display: 'flex',
     alignItems: 'center',
-
-    gap: 10,
+    marginBottom: 20,
+    gap: 5,
   },
 
   regionContainer: {
-    width: '173px !important',
+    width: '95px !important',
     margin: '0 !important',
-  },
-
-  deadlineError: {
-    borderBottom: '1px solid red',
   },
 
   deadlineErrorText: {
@@ -191,7 +207,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   blockItemContainer: {
-    width: '180px !important',
+    width: '200px !important',
     margin: '0 !important',
   },
 
@@ -223,6 +239,7 @@ export const useStyles = makeStyles()(theme => ({
   weightItemWrapper: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     gap: 10,
   },
 
@@ -234,12 +251,13 @@ export const useStyles = makeStyles()(theme => ({
 
   weightMainWrapper: {
     display: 'flex',
+    flexDirection: 'column',
     gap: 15,
     width: 'fit-content',
   },
 
   weightInput: {
-    width: 80,
+    width: 'fit-content',
     height: 40,
   },
 
@@ -252,47 +270,50 @@ export const useStyles = makeStyles()(theme => ({
     margin: '0 !important',
   },
 
-  plusIcon: {
-    width: '11px !important',
-    height: '11px !important',
-    color: '#FFFFFF',
-  },
-
-  plusButton: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    width: 21,
-    minWidth: 'unset !important',
-    height: 21,
-    padding: 0,
-  },
-
-  regionMainWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-
   btnsWrapper: {
     display: 'flex',
     justifyContent: 'end',
     gap: 40,
   },
 
-  button: {
-    padding: '0 43px',
-  },
-
-  cancelBtn: {
-    color: theme.palette.text.general,
-    padding: '0 35px',
-  },
-
   controlOptionsButtons: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     display: 'flex',
+    gap: 10,
+    paddingTop: 28,
+    minWidth: 53,
+  },
+
+  minBoxWeightContainer: {
+    maxWidth: 210,
+  },
+
+  minBoxWeightWrapper: {
+    marginBottom: 20,
+  },
+
+  minBoxWeightFieldLabel: {
+    marginTop: -19,
+  },
+
+  minBoxWeightContainerBtn: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    height: 30,
+  },
+
+  datePickerIcon: {
+    marginRight: 10,
+    '&&': {
+      fill: theme.palette.primary.main,
+    },
+  },
+
+  applyToAll: {
+    lineHeight: '19px',
+    alignItems: 'center',
     gap: 10,
   },
 }))

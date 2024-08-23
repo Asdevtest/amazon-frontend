@@ -34,7 +34,7 @@ export const SelectStorekeeperAndTariffForm = observer(
     total,
     currentVariationTariffId,
     currentDestinationId,
-    RemoveDestinationRestriction,
+    removeDestinationRestriction,
   }) => {
     const { classes: styles } = useStyles()
 
@@ -156,7 +156,7 @@ export const SelectStorekeeperAndTariffForm = observer(
             onChange={e => setNameSearchValue(e.target.value)}
           />
 
-          {RemoveDestinationRestriction && (
+          {removeDestinationRestriction && (
             <div className={styles.checkboxWrapper}>
               <Checkbox
                 checked={isRemovedDestinationRestriction}
@@ -208,7 +208,6 @@ export const SelectStorekeeperAndTariffForm = observer(
             <div className={styles.clearBtnWrapper}>
               <Button
                 variant={ButtonVariant.OUTLINED}
-                className={styles.resetBtn}
                 onClick={() => {
                   setVariationTariffId(null)
                   onSubmit(null, null, null, null, null, true)

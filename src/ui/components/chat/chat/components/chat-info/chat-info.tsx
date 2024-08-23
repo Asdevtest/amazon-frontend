@@ -8,7 +8,7 @@ import { CurrentOpponent } from '@components/chat/multiple-chats'
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { CircleSpinner } from '@components/shared/circle-spinner'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
@@ -70,7 +70,7 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
         switcherSettings={getCustomSwitcherConfig(isGroupChat)}
         changeConditionHandler={value => {
           resetSettings()
-          setCurrentTab(value as TabValue)
+          setCurrentTab(value)
         }}
       />
 
@@ -136,7 +136,7 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
           files={files || []}
           currentFileIndex={currentImageIndex}
           onOpenModal={() => setIsImageModalOpen(!isImageModalOpen)}
-          onCurrentFileIndex={index => setCurrentImageIndex(index)}
+          onCurrentFileIndex={setCurrentImageIndex}
         />
       ) : null}
     </div>

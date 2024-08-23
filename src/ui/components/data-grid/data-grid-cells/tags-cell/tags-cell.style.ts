@@ -6,10 +6,14 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: '5px',
     padding: '10px 0',
+    width: '100%',
+  },
+
+  editMode: {
+    width: 'calc(100% - 40px)',
   },
 
   tagItem: {
-    maxWidth: 130,
     fontSize: 14,
     textAlign: 'left',
     lineHeight: '19px',
@@ -20,8 +24,16 @@ export const useStyles = makeStyles()(theme => ({
 
   activeButton: {
     color: theme.palette.primary.main,
-    ':hover': {
+
+    '&:hover': {
       transform: 'scale(1.05)',
     },
+  },
+
+  tagsWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
   },
 }))

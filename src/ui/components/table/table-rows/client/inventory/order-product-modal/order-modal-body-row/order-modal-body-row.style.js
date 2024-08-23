@@ -51,7 +51,7 @@ export const useStyles = makeStyles()(theme => ({
 
   commentInput: {
     height: 70,
-    padding: '5px 0',
+    padding: '10px 0',
   },
 
   inputMultiline: {
@@ -101,9 +101,9 @@ export const useStyles = makeStyles()(theme => ({
 
   sumsWrapper: {
     display: 'flex',
-    justifyContent: 'space-around',
     alignItems: 'center',
     padding: '10px 0',
+    gap: '20px',
   },
   mainCheckboxWrapper: {
     width: '100%',
@@ -114,7 +114,7 @@ export const useStyles = makeStyles()(theme => ({
   expressWrapper: {
     display: 'flex',
     alignItems: 'center',
-    marginLeft: 22,
+    marginRight: 20,
     '&:hover': {
       cursor: 'pointer',
     },
@@ -124,12 +124,16 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   containerField: {
-    width: 'max-content !important',
     margin: '0 !important',
+    width: 'auto',
   },
 
-  batchWeight: {
-    width: '190px !important',
+  containerFieldCell: {
+    '> p': {
+      position: 'absolute',
+      bottom: 0,
+      transform: 'translateY(100%)',
+    },
   },
 
   labelField: {
@@ -152,6 +156,9 @@ export const useStyles = makeStyles()(theme => ({
   cell: {
     padding: '0 5px',
   },
+  productCell: {
+    maxWidth: 260,
+  },
   deleteCell: {
     padding: '0',
   },
@@ -164,10 +171,6 @@ export const useStyles = makeStyles()(theme => ({
 
   errorSpace: {
     marginTop: 12,
-  },
-
-  errorSpaceInputCell: {
-    marginTop: 18,
   },
 
   priceVariationsCell: {

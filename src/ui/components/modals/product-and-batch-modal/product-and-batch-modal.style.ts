@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     width: 950,
-    padding: 10,
   },
 
   header: {
@@ -124,6 +123,7 @@ export const useStyles = makeStyles()(theme => ({
 
   blueText: {
     color: theme.palette.primary.main,
+    cursor: 'pointer',
   },
 
   fieldColumn: {
@@ -178,9 +178,5 @@ export const useStyles = makeStyles()(theme => ({
     marginTop: 10,
     width: '100%',
     height: 360,
-  },
-
-  button: {
-    cursor: 'pointer',
   },
 }))

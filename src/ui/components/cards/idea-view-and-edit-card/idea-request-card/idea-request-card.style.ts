@@ -8,6 +8,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     height: '100%',
     width: '200px',
+    padding: '0 10px',
   },
 
   categoryContainer: {
@@ -46,12 +47,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: '10px',
     width: '100%',
-  },
-
-  resultButton: {
-    padding: '0 20px',
-    height: '30px',
-    whiteSpace: 'nowrap',
   },
 
   linkStyles: {

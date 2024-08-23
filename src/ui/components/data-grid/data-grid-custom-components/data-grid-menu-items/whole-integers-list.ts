@@ -49,6 +49,14 @@ export const wholeIntegersList = [
   'organicUnits',
   'inTransfer',
   'quantityBoxes',
+  'toRefill',
+  'currentSupplierProductionTerm',
+  'minlot',
+  'totalAmount',
+  'minProductionTerm',
+  'maxProductionTerm',
+  'currentSupplierMinProductionTerm',
+  'currentSupplierMaxProductionTerm',
 ]
 
 export const negativeOrPositiveList = ['roi']

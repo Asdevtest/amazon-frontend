@@ -11,12 +11,12 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-destination-form.style'
 
 export const AddOrEditDestinationForm = observer(
-  ({ onCloseModal, onCreateSubmit, onEditSubmit, destinationToEdit }) => {
+  ({ onCloseModal, onCreateSubmit, onEditSubmit, destinationToEdit, onClickAddBtn }) => {
     const { classes: styles } = useStyles()
 
     const sourceFormFields = {
@@ -54,16 +54,16 @@ export const AddOrEditDestinationForm = observer(
       formFields.city === '' ||
       formFields.state === '' ||
       formFields.zipCode === '' ||
-      !/^[0-9]{5}$/.test(formFields.zipCode)
-    formFields.city === '' || formFields.state === ''
+      formFields.city === '' ||
+      formFields.state === ''
 
     return (
       <div className={styles.root}>
-        <Typography variant="h5" className={styles.standartText}>
+        <p className={styles.title}>
           {destinationToEdit
             ? t(TranslationKey['Edit drop off location'])
             : t(TranslationKey['Add a new drop off location'])}
-        </Typography>
+        </p>
 
         <div className={styles.form}>
           {destinationToEdit && (
@@ -135,26 +135,33 @@ export const AddOrEditDestinationForm = observer(
           <Field
             label={t(TranslationKey['ZIP code'])}
             labelClasses={styles.label}
-            inputProps={{ maxLength: 255 }}
-            error={
-              formFields.zipCode &&
-              !/^[0-9]{5}$/.test(formFields.zipCode) &&
-              t(TranslationKey['numeric format, example:']) + ' 90001'
-            }
+            inputProps={{ maxLength: 64 }}
             value={formFields.zipCode}
             placeholder={t(TranslationKey['ZIP code']) + '...'}
             onChange={onChangeField('zipCode')}
           />
         </div>
 
-        <div className={styles.btnsWrapper}>
-          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
-            {t(TranslationKey.Save)}
-          </Button>
+        <div className={styles.footerWrapper}>
+          {onClickAddBtn ? (
+            <Button
+              styleType={ButtonStyle.SUCCESS}
+              tooltipInfoContent={t(TranslationKey['Add a new rate'])}
+              onClick={onClickAddBtn}
+            >
+              {t(TranslationKey.Add)}
+            </Button>
+          ) : null}
 
-          <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={() => onCloseModal()}>
-            {t(TranslationKey.Cancel)}
-          </Button>
+          <div className={styles.btnsWrapper}>
+            <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
+              {t(TranslationKey.Save)}
+            </Button>
+
+            <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
+              {t(TranslationKey.Close)}
+            </Button>
+          </div>
         </div>
       </div>
     )

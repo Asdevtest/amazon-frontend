@@ -1,15 +1,19 @@
 import { FC, memo } from 'react'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { FiPlus } from 'react-icons/fi'
 
 import { MIDDLE_COMMENT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CommentsModal } from '@components/modals/comments-modal'
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
-import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
 import { Specs } from '@typings/enums/specs'
+
+import { useScrollToFile } from '@hooks/use-scroll-to-file'
 
 import { useStyles } from './files-tab.style'
 
@@ -21,7 +25,6 @@ import { useFilesTab } from './use-files-tab'
 
 export const FilesTab: FC<FilesTabProps> = memo(props => {
   const { classes: styles } = useStyles()
-
   const {
     showCommentModal,
     showSlideshowGalleryModal,
@@ -46,7 +49,9 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
     onChangeFileName,
     onUploadFile,
     onUpdateSeoIFilesInProduct,
+    onReorderMediaFiles,
   } = useFilesTab(props)
+  const lastFileRef = useScrollToFile(files.length)
 
   const handleCheckedFile = (fileId: string | null) => filesForDownload.some(({ _id }) => _id === fileId)
   const checkedSelectAll = filesForDownload.length === files.length && files.length > 0
@@ -62,22 +67,26 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
     <>
       <div className={styles.wrapper}>
         <div className={styles.files}>
-          {files.map((file, index) => (
-            <File
-              key={index}
-              readOnly={props.readOnly}
-              isClient={props.isClient}
-              file={file}
-              fileIndex={index}
-              checked={handleCheckedFile(file._id)}
-              onCheckFile={onCheckFile}
-              onToggleImageModal={onToggleImageModal}
-              onToggleCommentModal={onToggleCommentModal}
-              onDeleteFile={onDeleteFile}
-              onChangeFileName={onChangeFileName}
-              onUploadFile={onUploadFile}
-            />
-          ))}
+          <DndProvider backend={HTML5Backend}>
+            {files.map((file, index) => (
+              <File
+                key={index}
+                ref={index === files.length - 1 && !props.readOnly ? lastFileRef : null}
+                readOnly={props.readOnly}
+                isClient={props.isClient}
+                file={file}
+                fileIndex={index}
+                checked={handleCheckedFile(file._id)}
+                onCheckFile={onCheckFile}
+                onToggleImageModal={onToggleImageModal}
+                onToggleCommentModal={onToggleCommentModal}
+                onDeleteFile={onDeleteFile}
+                onChangeFileName={onChangeFileName}
+                onUploadFile={onUploadFile}
+                onReorderMediaFiles={onReorderMediaFiles}
+              />
+            ))}
+          </DndProvider>
         </div>
 
         {props.isClient || props.readOnly ? (
@@ -96,7 +105,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
           />
         ) : (
           <button className={styles.button} onClick={onAddFile}>
-            <CustomPlusIcon className={styles.icon} />
+            <FiPlus style={{ width: 16, height: 16 }} />
             <span>{t(TranslationKey['Add file'])}</span>
           </button>
         )}

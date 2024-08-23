@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   requestInformationWrapper: {
-    width: 560,
+    width: 500,
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
@@ -46,7 +46,7 @@ export const useStyles = makeStyles()(theme => ({
 
   blockInfoWrapper: {
     display: 'flex',
-    width: 200,
+    width: 140,
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -91,9 +91,5 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
-  },
-
-  blockInfoWrapperLast: {
-    width: 'fit-content',
   },
 }))

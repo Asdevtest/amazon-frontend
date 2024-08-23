@@ -22,12 +22,13 @@ interface OrderCellProps {
   withoutSku?: boolean
   itemAmount?: number
   withQuantity?: boolean
+  withoutAsin?: boolean
   imageSize?: 'small' | 'big'
 }
 
 export const OrderCell: FC<OrderCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
-  const { product, superbox, box, error, withoutSku, itemAmount, withQuantity, imageSize } = props
+  const { product, superbox, box, error, withoutSku, withoutAsin, itemAmount, withQuantity, imageSize } = props
 
   return (
     <div className={styles.order}>
@@ -42,8 +43,8 @@ export const OrderCell: FC<OrderCellProps> = memo(props => {
       <div>
         <p className={styles.orderTitle}>{product?.amazonTitle}</p>
 
-        <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={product.asin} />
-        {!withoutSku && <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={product?.skuByClient} />}
+        {!withoutAsin ? <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={product.asin} /> : null}
+        {!withoutSku ? <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={product?.skuByClient} /> : null}
 
         {withQuantity ? (
           <div className={styles.copyAsin}>
@@ -66,10 +67,6 @@ export const OrderCell: FC<OrderCellProps> = memo(props => {
             box.deliveryTotalPriceChanged - box.deliveryTotalPrice,
             2,
           )})`}</span>
-        )}
-
-        {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
-          <span className={styles.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
         )}
 
         {error && <span className={styles.OrderCellError}>{error}</span>}

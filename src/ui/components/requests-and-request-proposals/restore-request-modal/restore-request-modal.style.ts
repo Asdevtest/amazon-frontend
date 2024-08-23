@@ -1,10 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  body: {
-    padding: 5,
-  },
-
   title: {
     marginBottom: 20,
     fontSize: 18,
@@ -24,14 +20,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     gap: 20,
-  },
-
-  controlButton: {
-    padding: '0 25px',
-  },
-
-  cancelButton: {
-    color: theme.palette.text.general,
   },
 
   errorInput: {

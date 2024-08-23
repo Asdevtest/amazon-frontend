@@ -1,23 +1,22 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  root: {
+export const useStyles = makeStyles()(() => ({
+  wrapper: {
     width: 500,
-    maxHeight: 510,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+    justifyContent: 'flex-end',
   },
 
-  modalText: {
-    color: theme.palette.text.general,
+  title: {
+    fontSize: 18,
+    lineHeight: '25px',
+    fontWeight: 600,
   },
 
-  saveButton: {
-    marginTop: 15,
-  },
-
-  '@media (max-width: 768px)': {
-    root: {
-      minWidth: '280px',
-      paddingTop: '20px',
-    },
+  btnsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 }))

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import VisibilityIcon from '@mui/icons-material/Visibility'
 import { Typography } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -13,6 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { SearchInput } from '@components/shared/search-input'
+import { EyeIcon } from '@components/shared/svg-icons'
 
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -30,7 +30,6 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [error, setError] = useState(false)
-
   const [asins, setAsins] = useState('')
   const [reasons, setReasons] = useState('')
   const [asinsAndReasonsData, setAsinsAndReasonsData] = useState([])
@@ -180,8 +179,8 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button disabled={error} className={styles.button} onClick={() => onClickPreviewButton()}>
-          <VisibilityIcon className={styles.icon} />
+        <Button iconButton variant={ButtonVariant.OUTLINED} onClick={onClickPreviewButton}>
+          <EyeIcon />
         </Button>
 
         <div className={styles.actionsButtonsContainer}>
@@ -193,13 +192,12 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
               submitIsClicked ||
               error
             }
-            className={styles.button}
             onClick={() => {
               if (checkIsAdmin(userRole)) {
                 onSubmit(prev => [...new Set([...prev, ...asinsAndReasonsData])])
                 onClose()
               } else {
-                onSubmit(asinsAndReasonsData, strategy)
+                onSubmit(asinsAndReasonsData)
               }
 
               setSubmitIsClicked(true)
@@ -208,8 +206,8 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button variant={ButtonVariant.OUTLINED} className={styles.buttonCancel} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>

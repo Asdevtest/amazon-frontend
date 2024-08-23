@@ -11,7 +11,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { objectDeepCompare } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './create-or-edit-services-content.style'
 
@@ -78,7 +78,7 @@ export const CreateOrEditServiceContent = memo(props => {
               </MenuItem>
 
               {specs.map(spec => (
-                <MenuItem key={spec._id} value={spec?._id} className={styles.capitalize}>
+                <MenuItem key={spec._id} value={spec?._id}>
                   {spec?.title}
                 </MenuItem>
               ))}
@@ -101,23 +101,20 @@ export const CreateOrEditServiceContent = memo(props => {
       />
 
       <UploadFilesInput
-        fullWidth
         minimized
         images={formFields.linksToMediaFiles}
         setImages={onChangeImages('linksToMediaFiles')}
-        maxNumber={50}
-        isNotShowActionsBtns={!formFields.linksToMediaFiles}
+        withoutActionsButtons={!formFields.linksToMediaFiles}
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClickBackBtn}>
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickBackBtn}>
+          {t(TranslationKey.Close)}
         </Button>
 
         <Button
           styleType={ButtonStyle.SUCCESS}
           disabled={disabledSubmitButton}
-          className={styles.successBtn}
           onClick={() => (isEdit ? onClickEditBtn(formFields) : onClickCreateBtn(formFields))}
         >
           {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}

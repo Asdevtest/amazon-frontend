@@ -2,7 +2,6 @@ import { memo } from 'react'
 
 import { Divider } from '@mui/material'
 
-import { requestPriority } from '@constants/requests/request-priority'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,11 +16,13 @@ import { UserLink } from '@components/user/user-link'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
+import { RequestPriority } from '@typings/enums/request/request-priority'
+
 import { useStyles } from './servant-general-request-info.style'
 
 import { RequestDetailsItem } from './request-details-item/request-details-item'
 
-export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestProposals }) => {
+export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestProposals, onJoinChat }) => {
   const { classes: styles, cx } = useStyles()
 
   const buttonDisabled =
@@ -61,7 +62,7 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
           <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={request?.request.product.skuByClient} />
 
           <div className={styles.idTitleWrapper}>
-            {request?.request?.priority === requestPriority.urgentPriority && (
+            {request?.request?.priority === RequestPriority.urgentPriority && (
               <div className={styles.urgentWrapper}>
                 <img src="/assets/icons/fire.svg" className={styles.urgentIconSmall} />
               </div>
@@ -106,7 +107,6 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
               <Button
                 disabled={buttonDisabled}
                 tooltipInfoContent={t(TranslationKey['Make a proposal for the selected request'])}
-                className={styles.actionBtn}
                 onClick={onSubmit}
               >
                 {t(TranslationKey['Suggest a deal'])}
@@ -145,7 +145,7 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
                 </p>
               )}
 
-              {request?.request?.priority === requestPriority.urgentPriority && (
+              {request?.request?.priority === RequestPriority.urgentPriority && (
                 <div className={styles.urgentWrapper}>
                   <img src="/assets/icons/fire.svg" className={styles.urgentIcon} />
 
@@ -162,7 +162,12 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
           <>
             <Divider orientation={'vertical'} />
             <div className={styles.proposalsWrapper}>
-              <ProposalsSlider isComment proposals={requestProposals} title={t(TranslationKey.Proposal)} />
+              <ProposalsSlider
+                isComment
+                proposals={requestProposals}
+                title={t(TranslationKey.Proposal)}
+                onJoinChat={onJoinChat}
+              />
             </div>
           </>
         )}

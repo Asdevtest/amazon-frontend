@@ -1,9 +1,8 @@
-import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { ProductDataParser } from '@constants/product/product-data-parser'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
@@ -28,20 +27,15 @@ import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { ProductVariation } from '@typings/enums/product-variation'
+import { loadingStatus } from '@typings/enums/loading-status'
+import { ProductVariation } from '@typings/enums/product/product-variation'
 
 import { fieldsOfProductAllowedToUpdate, formFieldsDefault } from './client-product-view.constants'
 
 export class ClientProductViewModel {
   history = undefined
   requestStatus = undefined
-  acceptMessage = ''
   updateDataHandler = undefined
-
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
 
   get currentData() {
     return this.product
@@ -56,11 +50,9 @@ export class ClientProductViewModel {
   shopsData = []
 
   curUpdateProductData = undefined
-  warningModalTitle = ''
 
   paymentMethods = []
 
-  showWarningModal = false
   showConfirmModal = false
   showBindProductModal = false
 
@@ -138,8 +130,7 @@ export class ClientProductViewModel {
         this.productsToBind = result.rows
       })
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
     }
   }
 
@@ -160,14 +151,13 @@ export class ClientProductViewModel {
       this.loadData()
       this.onTriggerOpenModal('showBindProductModal')
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
     }
   }
 
   async getProductsVariations() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
 
@@ -175,10 +165,10 @@ export class ClientProductViewModel {
         this.productVariations = result
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -188,7 +178,7 @@ export class ClientProductViewModel {
       title: t(TranslationKey['Product unbundling']),
       message: t(TranslationKey['Are you sure you want to unbind the product?']),
       successBtnText: t(TranslationKey.Yes),
-      cancelBtnText: t(TranslationKey.Cancel),
+      cancelBtnText: t(TranslationKey.Close),
       onClickOkBtn: () => this.unbindProduct(childProductIds),
     }
 
@@ -204,7 +194,7 @@ export class ClientProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -215,7 +205,7 @@ export class ClientProductViewModel {
 
   async getProductById() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await ProductModel.getProductById(this.productId)
 
@@ -227,10 +217,10 @@ export class ClientProductViewModel {
         updateProductAutoCalculatedFields.call(this)
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -313,7 +303,7 @@ export class ClientProductViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -334,7 +324,7 @@ export class ClientProductViewModel {
             title: t(TranslationKey['Delete a card']),
             message: t(TranslationKey['After confirmation, the card will be moved to the archive. Move?']),
             successBtnText: t(TranslationKey.Delete),
-            cancelBtnText: t(TranslationKey.Cancel),
+            cancelBtnText: t(TranslationKey.Close),
             onClickOkBtn: () => this.onDeleteProduct(isModal, updateDataHandler),
           }
         })
@@ -350,7 +340,7 @@ export class ClientProductViewModel {
             title: t(TranslationKey['Return to Inventory']),
             message: t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?']),
             successBtnText: t(TranslationKey.Yes),
-            cancelBtnText: t(TranslationKey.Cancel),
+            cancelBtnText: t(TranslationKey.Close),
             onClickOkBtn: () => this.onRestoreProduct(isModal, updateDataHandler),
           }
         })
@@ -379,7 +369,7 @@ export class ClientProductViewModel {
         this.history.goBack()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -398,7 +388,7 @@ export class ClientProductViewModel {
         this.history.goBack()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -409,7 +399,7 @@ export class ClientProductViewModel {
       })
 
       const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
-        toJS(this.product),
+        this.product,
         fieldsOfProductAllowedToUpdate,
         true,
         (key, value) => {
@@ -440,6 +430,7 @@ export class ClientProductViewModel {
               return value
           }
         },
+        true,
       )
 
       if (withoutStatus) {
@@ -455,18 +446,16 @@ export class ClientProductViewModel {
       await this.onSaveProductData()
       updateDataHandler && (await updateDataHandler())
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async onSaveProductData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      if (this.imagesForLoad?.length) {
-        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-      }
+      await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
 
       await ClientModel.updateProduct(
         this.product._id,
@@ -483,39 +472,10 @@ export class ClientProductViewModel {
       )
       this.getProductById()
 
-      runInAction(() => {
-        this.alertShieldSettings = {
-          showAlertShield: true,
-          alertShieldMessage: this.isValidLink
-            ? t(TranslationKey['Data was successfully saved'])
-            : t(
-                TranslationKey[
-                  'Data has been successfully saved, but some of the entered links may be invalid and were not uploaded.'
-                ],
-              ),
-        }
-
-        setTimeout(() => {
-          this.alertShieldSettings = {
-            ...this.alertShieldSettings,
-            showAlertShield: false,
-          }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              showAlertShield: false,
-              alertShieldMessage: '',
-            }
-          }, 1000)
-        }, 3000)
-
-        this.isValidLink = true
-      })
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -527,13 +487,13 @@ export class ClientProductViewModel {
         this.paymentMethods = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       supplier = {
         ...supplier,
@@ -595,10 +555,10 @@ export class ClientProductViewModel {
 
       await this.onSaveForceProductData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -640,7 +600,7 @@ export class ClientProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -650,7 +610,7 @@ export class ClientProductViewModel {
         transparency: this.product.transparency,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -660,78 +620,72 @@ export class ClientProductViewModel {
 
   async onClickParseProductData(product) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
 
-      if (product.asin) {
-        const amazonResult = await ProductModel.parseAmazon(product.asin)
-        this.weightParserAmazon = amazonResult.weight || 0
-
-        if (!amazonResult.price) {
-          throw new Error('price <= 0')
-        }
-
-        runInAction(() => {
-          if (Object.keys(amazonResult).length > 5) {
-            this.product = {
-              ...this.product,
-              ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
-              weight:
-                this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-                  ? this.product.weight
-                  : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
-
-              amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
-              amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
-            }
-
-            this.imagesForLoad = amazonResult.images
-          }
-          updateProductAutoCalculatedFields.call(this)
-        })
-
-        const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, amazonResult.price)
-        this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
-
-        if (!sellerCentralResult.amazonFee) {
-          throw new Error('fbafee <= 0')
-        }
-
-        runInAction(() => {
-          if (Object.keys(sellerCentralResult).length > 5) {
-            this.product = {
-              ...this.product,
-              ...parseFieldsAdapter(sellerCentralResult, ProductDataParser.SELLCENTRAL),
-              weight:
-                this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-                  ? this.product.weight
-                  : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
-
-              amazonDescription: sellerCentralResult.info?.description || this.product.amazonDescription,
-              amazonDetail: sellerCentralResult.info?.detail || this.product.amazonDetail,
-            }
-          }
-          updateProductAutoCalculatedFields.call(this)
-        })
-      } else {
+      if (!product.asin) {
         runInAction(() => {
           this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN']) }
         })
+        throw new Error(t(TranslationKey['No ASIN']))
       }
+
+      const amazonResult = await ProductModel.parseAmazon(product.asin)
+      this.weightParserAmazon = amazonResult.weight || 0
+
+      if (!amazonResult.price) {
+        throw new Error('price <= 0')
+      }
+
+      runInAction(() => {
+        if (Object.keys(amazonResult).length > 5) {
+          this.product = {
+            ...this.product,
+            ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
+            weight:
+              this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                ? this.product.weight
+                : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+
+            amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
+            amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
+          }
+
+          this.imagesForLoad = amazonResult.images
+        }
+        updateProductAutoCalculatedFields.call(this)
+      })
+
+      const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, amazonResult.price)
+      this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
+
+      runInAction(() => {
+        if (Object.keys(sellerCentralResult).length > 5) {
+          this.product = {
+            ...this.product,
+            ...parseFieldsAdapter(sellerCentralResult, ProductDataParser.SELLCENTRAL),
+            weight:
+              this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                ? this.product.weight
+                : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+
+            amazonDescription: sellerCentralResult.info?.description || this.product.amazonDescription,
+            amazonDetail: sellerCentralResult.info?.detail || this.product.amazonDetail,
+          }
+        }
+        updateProductAutoCalculatedFields.call(this)
+      })
 
       toast.success(t(TranslationKey['Success parse']))
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
 
-      runInAction(() => {
-        this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
-      })
-      this.onTriggerOpenModal('showWarningModal')
+      toast.error(t(TranslationKey['Parsing error']) + '\n' + String(error))
     }
   }
 }

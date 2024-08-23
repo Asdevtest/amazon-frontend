@@ -54,6 +54,10 @@ export class HeaderModel {
     return SettingsModel.snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]?.crmItemId || null
   }
 
+  get toggleServerSettings() {
+    return ChatModel.toggleServerSettings
+  }
+
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -84,7 +88,7 @@ export class HeaderModel {
         targetRoute: `/${UserRoleCodeMapForRoutes[data.role]}/dashboard`,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -119,16 +123,11 @@ export class HeaderModel {
     } else {
       switch (this.role) {
         case mapUserRoleEnumToKey[UserRole.CLIENT]:
-          return this.history.push(`/client/freelance/my-requests/custom-request?request-id=${noticeItem.crmItemId}`, {
-            chatId: noticeItem.chatId,
-          })
+          return this.history.push(`/client/freelance/my-requests/custom-request?request-id=${noticeItem.crmItemId}`)
 
         case mapUserRoleEnumToKey[UserRole.FREELANCER]:
           return this.history.push(
             `/freelancer/freelance/my-proposals/custom-search-request?request-id=${noticeItem.crmItemId}`,
-            {
-              chatId: noticeItem.chatId,
-            },
           )
 
         default:

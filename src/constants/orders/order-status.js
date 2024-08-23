@@ -1,11 +1,11 @@
-import { UiTheme } from '@constants/theme/mui-theme.type'
-
 import { SettingsModel } from '@models/settings-model'
 
 import { Text } from '@components/shared/text'
 
 import { objectFlip } from '@utils/object'
 import { t } from '@utils/translations'
+
+import { UiTheme } from '@typings/enums/ui-theme'
 
 import { TranslationKey } from '../translations/translation-key'
 
@@ -70,7 +70,7 @@ export const OrderStatusTranslate = (status, isClient) => {
     case OrderStatus.PAID_TO_SUPPLIER:
       return t(TranslationKey['Paid to supplier'])
     case OrderStatus.TRACK_NUMBER_ISSUED:
-      return t(TranslationKey['Track number issued' + `${isClient ? ' (In transit in stock)' : ''}`])
+      return t(TranslationKey['Track number issued'])
     case OrderStatus.VERIFY_RECEIPT:
       return t(TranslationKey['Verify receipt'])
     case OrderStatus.IN_STOCK:
@@ -265,7 +265,7 @@ export const OrderStatusText = ({ className, status, isClient }) => {
 
   return (
     <Text tooltipInfoContent={t(TranslationKey['Current order status'])} className={className} color={colorByStatus()}>
-      {OrderStatusTranslate(status, isClient)}
+      {OrderStatusTranslate(status)}
     </Text>
   )
 }

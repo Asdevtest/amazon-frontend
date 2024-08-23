@@ -3,12 +3,10 @@ import { useEffect, useState } from 'react'
 
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -18,8 +16,9 @@ import { TaskPrioritySelector } from '@components/shared/task-priority-selector/
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './warehouse-my-tasks-view.style'
 
@@ -39,75 +38,73 @@ export const WarehouseMyTasksView = observer(({ history }) => {
 
   return (
     <>
-      <div>
-        <div className={styles.headerWrapper}>
-          <TaskPrioritySelector
-            currentPriority={viewModel.curTaskPriority}
-            handleActivePriority={viewModel.onClickTaskPriorityBtn}
-          />
-          <Button
-            disabled={
-              !viewModel.selectedTasks.length ||
-              viewModel.selectedTasks.length > 1 ||
-              viewModel.currentData.filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData
-                .operationType !== TaskOperationType.RECEIVE
-            }
-            onClick={viewModel.onClickReportBtn}
-          >
-            {t(TranslationKey['Download task file'])}
-            <FileDownloadIcon />
-          </Button>
-        </div>
+      <div className={styles.headerWrapper}>
+        <TaskPrioritySelector
+          currentPriority={viewModel.curTaskPriority}
+          handleActivePriority={viewModel.onClickTaskPriorityBtn}
+        />
+        <Button
+          disabled={
+            !viewModel.selectedTasks.length ||
+            viewModel.selectedTasks.length > 1 ||
+            viewModel.currentData.filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData
+              .operationType !== TaskOperationType.RECEIVE
+          }
+          onClick={viewModel.onClickReportBtn}
+        >
+          {t(TranslationKey['Download task file'])}
+          <FileDownloadIcon />
+        </Button>
+      </div>
 
-        <div className={styles.headerWrapper}>
-          <BuyerTypeTaskSelect
-            curTaskType={viewModel.curTaskType}
-            onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
-          />
+      <div className={styles.headerWrapper}>
+        <BuyerTypeTaskSelect
+          curTaskType={viewModel.curTaskType}
+          onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
+        />
 
-          <SearchInput
-            value={viewModel.nameSearchValue}
-            inputClasses={styles.searchInput}
-            placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
-            onSubmit={viewModel.onSearchSubmit}
-          />
-        </div>
-        <div className={styles.tableWrapper}>
-          <CustomDataGrid
-            checkboxSelection
-            disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
-            getRowClassName={getRowClassName}
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            rows={viewModel.currentData}
-            getRowHeight={() => 'auto'}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
+        <SearchInput
+          value={viewModel.nameSearchValue}
+          inputClasses={styles.searchInput}
+          placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
+          onSubmit={viewModel.onSearchSubmit}
+        />
+      </div>
+
+      <div className={styles.tableWrapper}>
+        <CustomDataGrid
+          checkboxSelection
+          disableRowSelectionOnClick
+          getRowClassName={getRowClassName}
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
-            onRowSelectionModelChange={viewModel.onSelectionModel}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onPaginationModelChange}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onRowDoubleClick={params => viewModel.onClickResolveBtn(params.row.originalData._id)}
-          />
-        </div>
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onRowDoubleClick={params => viewModel.onClickResolveBtn(params.row.originalData._id)}
+        />
       </div>
 
       <Modal
@@ -121,37 +118,20 @@ export const WarehouseMyTasksView = observer(({ history }) => {
         />
       </Modal>
 
-      <Modal
-        missClickModalOn
-        dialogClassName={styles.resolveTaskModalContent}
-        openModal={viewModel.showEditTaskModal}
-        setOpenModal={viewModel.onTriggerEditTaskModal}
-      >
+      <Modal missClickModalOn openModal={viewModel.showEditTaskModal} setOpenModal={viewModel.onTriggerEditTaskModal}>
         <EditTaskModal
           requestStatus={viewModel.requestStatus}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           task={viewModel.selectedTask}
           showEditBoxModal={viewModel.showEditBoxModal}
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
           onTriggerShowEditBoxModal={viewModel.onTriggerShowEditBoxModal}
           onClickOpenCloseModal={viewModel.onTriggerEditTaskModal}
-          onSetBarcode={viewModel.onTriggerShowBarcodeModal}
           onEditBox={viewModel.onTriggerShowEditBoxModal}
           onClickSolveTask={viewModel.onClickSolveTask}
         />
       </Modal>
-
-      {viewModel.showNoDimensionsErrorModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showNoDimensionsErrorModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
-          title={t(TranslationKey['Enter dimensions'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
-        />
-      ) : null}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal
@@ -165,7 +145,7 @@ export const WarehouseMyTasksView = observer(({ history }) => {
           message={t(TranslationKey['After confirmation, the task will be cancelled. Confirm?'])}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          commentCancelBtnText={t(TranslationKey.Cancel)}
+          commentCancelBtnText={t(TranslationKey.Close)}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           onClickSuccessBtn={viewModel.onClickConfirmCancelTask}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}

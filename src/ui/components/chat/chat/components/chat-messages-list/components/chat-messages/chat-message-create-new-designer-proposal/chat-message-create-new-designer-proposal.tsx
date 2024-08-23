@@ -7,13 +7,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatMessageDataCreateNewDesignerProposalContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { formatDateOnlyTime, formatNormDateTime } from '@utils/date-time'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useStyles } from './chat-message-create-new-designer-proposal.style'
 
@@ -26,7 +24,6 @@ interface Props {
 
 export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isShowChatInfo }) => {
   const { classes: styles, cx } = useStyles()
-  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   return (
     <div className={styles.root}>
@@ -63,11 +60,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
 
           <p className={styles.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
-          <PhotoAndFilesSlider
-            smallSlider={!isMobileResolution}
-            column={isShowChatInfo || isMobileResolution}
-            files={message.data.request?.media?.map(el => el.fileLink)}
-          />
+          <SlideshowGallery slidesToShow={2} files={message.data.request?.media?.map(el => el.fileLink)} />
         </div>
 
         <Divider
@@ -94,11 +87,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
 
           <p className={styles.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</p>
 
-          <PhotoAndFilesSlider
-            smallSlider={!isMobileResolution}
-            column={isShowChatInfo || isMobileResolution}
-            files={message.data.proposal.linksToMediaFiles}
-          />
+          <SlideshowGallery slidesToShow={2} files={message.data.proposal.linksToMediaFiles} />
         </div>
       </div>
     </div>

@@ -25,19 +25,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: 405,
-    height: '40px',
-    fontSize: '16px',
-    paddingLeft: '7px',
-  },
-
-  pickupOrdersButton: {
-    padding: '0 20px',
-    height: 40,
-    color: '#fff',
-    display: 'flex',
-    gap: 10,
+    width: 470,
   },
 
   downloadIcon: {

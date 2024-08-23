@@ -502,6 +502,15 @@ export interface InlineResponse20043Rows {
     subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
+<<<<<<< HEAD
+=======
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse20043Rows
+     */
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * 
+>>>>>>> pre-release
      * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
      * @memberof InlineResponse20043Rows
      */

@@ -134,7 +134,7 @@ describe('Test translateTooltipMessageByRole(label, role)', () => {
       expect: t(TranslationKey['Button for displaying the status, the product card is blocked']),
     },
     {
-      enter: t(TranslationKey["The supplier's price does not fit"]),
+      enter: t(TranslationKey["The supplier's price does't fit"]),
       expect: t(TranslationKey['Button for displaying the status, the product card is blocked']),
     },
     {
@@ -179,7 +179,7 @@ describe('Test translateTooltipAttentionMessageByRole(label, role)', () => {
       expect: t(TranslationKey['Final status, after saving will be paid for the search']),
     },
     {
-      enter: t(TranslationKey["The supplier's price does not fit"]),
+      enter: t(TranslationKey["The supplier's price does't fit"]),
       expect: t(TranslationKey['The final status, once saved, cannot be changed!']),
     },
   ]

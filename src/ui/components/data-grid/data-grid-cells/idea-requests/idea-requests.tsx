@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useEffect, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IdeaRequestCard } from '@components/cards/idea-view-and-edit-card/idea-request-card'
 import { Button } from '@components/shared/button'
-import { PlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -70,7 +70,8 @@ export const IdeaRequestsCell: FC<IdeaRequestsProps> = memo(props => {
       {!withoutControls && (
         <div className={styles.ideaRequestsControls}>
           <Button styleType={ButtonStyle.SUCCESS} onClick={onClickCreateRequest}>
-            <PlusIcon /> {t(TranslationKey['Create a request'])}
+            <FiPlus style={{ width: 16, height: 16 }} />
+            {t(TranslationKey['Create request'])}
           </Button>
           <Button onClick={onClickLinkRequest}>{t(TranslationKey['Link request'])}</Button>
         </div>

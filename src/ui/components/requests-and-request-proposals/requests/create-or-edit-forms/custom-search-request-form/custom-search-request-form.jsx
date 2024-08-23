@@ -6,7 +6,7 @@ import { Button, Checkbox, ListItemText, MenuItem, Select, TextareaAutosize, Typ
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
 
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
@@ -94,7 +94,7 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
           label={'timeoutAt'}
           inputComponent={
             <div className={cx({ [styles.deadlineError]: deadlineError })}>
-              <NewDatePicker value={formFields.request.timeoutAt} onChange={onChangeField('request')('timeoutAt')} />
+              <DatePicker value={formFields.request.timeoutAt} onChange={onChangeField('request')('timeoutAt')} />
               {deadlineError && <p className={styles.deadlineErrorText}>{'deadlineError'}</p>}
             </div>
           }
@@ -155,9 +155,7 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
         {isEdit ? 'editBtn' : 'createBtn'}
       </Button>
 
-      <Button className={styles.button} onClick={() => setOpenModal()}>
-        {'cancelBtn'}
-      </Button>
+      <Button onClick={() => setOpenModal()}>{'cancelBtn'}</Button>
     </div>
   )
 }

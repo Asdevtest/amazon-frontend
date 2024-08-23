@@ -163,8 +163,4 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     maxHeight: 65,
   },
-
-  dealBtn: {
-    width: 180,
-  },
 }))

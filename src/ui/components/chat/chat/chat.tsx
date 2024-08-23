@@ -13,8 +13,6 @@ import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import { chatsType } from '@constants/keys/chats'
-import { PaginationDirection } from '@constants/pagination/pagination-direction'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -29,6 +27,8 @@ import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared
 import { checkIsExternalVideoLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+import { PaginationDirection } from '@typings/enums/pagination-direction'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
@@ -40,6 +40,7 @@ import { CurrentOpponent } from '../multiple-chats'
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './components/chat-messages-list/components/chat-messages/chat-message-designer-proposal-edited-result'
 import { ChatCurrentReplyMessage, ChatFilesInput, ChatInfo, ChatMessagesList } from './components/index'
 import { OnEmojiSelectEvent, RenderAdditionalButtonsParams } from './helpers/chat.interface'
+import { getLanguageTag } from './helpers/get-language-tag'
 import { useChatInputControl } from './hooks/use-chat-area'
 import { usePrevious } from './hooks/use-previous'
 
@@ -54,12 +55,11 @@ interface ChatProps {
   isFreelanceOwner?: boolean
   searchPhrase?: string
   classNamesWrapper?: string
-  requestStatus: loadingStatuses
+  requestStatus: loadingStatus
   headerChatComponent?: (...args: { [key: string]: any }[]) => ReactElement
-  onChangeRequestStatus: (status: loadingStatuses) => void
+  onChangeRequestStatus: (status: loadingStatus) => void
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: UploadFileType[], replyMessageId: string | null) => void
-  updateData: () => void
   onTypingMessage: (chatId: string) => void
   onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
@@ -79,7 +79,6 @@ export const Chat: FC<ChatProps> = memo(
     headerChatComponent,
     onSubmitMessage,
     renderAdditionalButtons,
-    updateData,
     onTypingMessage,
     onClickAddUsersToGroupChat,
     onRemoveUsersFromGroupChat,
@@ -147,11 +146,11 @@ export const Chat: FC<ChatProps> = memo(
     // Только тогда происходит проскролл к нужному сообщению
     // Как исправить: возможно поможет уйти от хранения сообщения в объекте чата
     const handleLoadMoreMessages = async (direction?: PaginationDirection, selectedMessageId?: string) => {
-      if (requestStatus === loadingStatuses.IS_LOADING) {
+      if (requestStatus === loadingStatus.IS_LOADING) {
         return
       }
 
-      onChangeRequestStatus(loadingStatuses.IS_LOADING)
+      onChangeRequestStatus(loadingStatus.IS_LOADING)
       if (selectedMessageId) {
         const result = await ChatModel.getChatMessage(chat?._id, selectedMessageId)
 
@@ -167,7 +166,7 @@ export const Chat: FC<ChatProps> = memo(
           setFirstItemIndex(START_INDEX - messages.length)
         }
       }
-      onChangeRequestStatus(loadingStatuses.SUCCESS)
+      onChangeRequestStatus(loadingStatus.SUCCESS)
     }
 
     // FIXME
@@ -184,12 +183,12 @@ export const Chat: FC<ChatProps> = memo(
       if (!messagesWrapperRef.current) return
 
       if (!chat.isAllPreviousMessagesLoaded) {
-        onChangeRequestStatus(loadingStatuses.IS_LOADING)
+        onChangeRequestStatus(loadingStatus.IS_LOADING)
 
         await ChatModel.getChatMessages?.(chat?._id, PaginationDirection.START)
         setFirstItemIndex(START_INDEX - messages.length)
 
-        onChangeRequestStatus(loadingStatuses.SUCCESS)
+        onChangeRequestStatus(loadingStatus.SUCCESS)
       }
 
       messagesWrapperRef.current?.scrollToIndex({ index: 'LAST' })
@@ -240,15 +239,7 @@ export const Chat: FC<ChatProps> = memo(
     }, [messageToReply])
 
     useEffect(() => {
-      if (updateData && messages?.[messages.length - 1]?.text === 'PROPOSAL_STATUS_CHANGED') {
-        updateData()
-      }
-    }, [messages?.length])
-
-    useEffect(() => {
-      if (!messages.length) {
-        ChatModel.getChatMessages?.(chat?._id, PaginationDirection.START)
-      }
+      ChatModel.getChatMessages?.(chat?._id, PaginationDirection.START)
 
       setMessage(messageInitialState.message)
       setFiles(messageInitialState.files)
@@ -274,7 +265,7 @@ export const Chat: FC<ChatProps> = memo(
         {headerChatComponent ? headerChatComponent({ handleLoadMoreMessages }) : null}
 
         <div className={cx(styles.scrollViewWrapper, classNamesWrapper)}>
-          {requestStatus === loadingStatuses.IS_LOADING && (
+          {requestStatus === loadingStatus.IS_LOADING && (
             <div className={styles.spinnerContainer}>
               <CircleSpinner />
             </div>
@@ -357,7 +348,7 @@ export const Chat: FC<ChatProps> = memo(
                     data={data}
                     perLine={isTabletResolution ? 7 : 9}
                     theme={SettingsModel.uiTheme}
-                    locale={SettingsModel.languageTag}
+                    locale={getLanguageTag(SettingsModel.languageTag)}
                     onEmojiSelect={(e: OnEmojiSelectEvent) => changeMessageAndState(message + e.native)}
                   />
                 </div>
@@ -413,11 +404,9 @@ export const Chat: FC<ChatProps> = memo(
               onPaste={evt => onPasteFiles(evt)}
             />
 
-            <Button disabled={disabledSubmit} className={styles.sendBtn} onClick={() => onSubmitMessageInternal()}>
-              <div className={styles.sendBtnTextWrapper}>
-                <p className={styles.sendBtnText}>{t(TranslationKey.Send)}</p>
-                <SendIcon className={styles.sendBtnIcon} />
-              </div>
+            <Button disabled={disabledSubmit} onClick={() => onSubmitMessageInternal()}>
+              {t(TranslationKey.Send)}
+              <SendIcon />
             </Button>
           </div>
 

@@ -56,6 +56,7 @@ export const SelectionSupplierModal = ({
         <div className={styles.buttons}>
           {onSubmitSeekSupplier ? (
             <Button
+              fullWidth
               tooltipAttentionContent={t(TranslationKey['Paid service'])}
               disabled={product && !clientToEditStatuses.includes(product?.status)}
               onClick={() => onSubmitSeekSupplier(comment)}
@@ -66,6 +67,7 @@ export const SelectionSupplierModal = ({
 
           {onClickFinalAddSupplierButton ? (
             <Button
+              fullWidth
               tooltipAttentionContent={t(TranslationKey['Free service'])}
               disabled={product && !clientToEditStatuses.includes(product?.status)}
               onClick={() => {

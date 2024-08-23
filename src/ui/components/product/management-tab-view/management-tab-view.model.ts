@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
@@ -11,6 +11,7 @@ import { ProductModel } from '@models/product-model'
 
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { IProduct } from '@typings/models/products/product'
 
 import { roles } from './management-tab-view-constants'
@@ -30,9 +31,6 @@ export class ManagementTabViewModel {
   // private isEmptyStore = false
   private dataIds: DataIdsType = this.initialDataIds
   private product: IProduct | undefined = undefined
-
-  infoModalText: string | undefined = undefined
-  showInfoModal = false
 
   client: MemberType = this.initialMember
   clients: MemberType[] = []
@@ -54,6 +52,8 @@ export class ManagementTabViewModel {
   isEditableResearcher = false
 
   constructor() {
+    this.onComponentDidMount()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -63,7 +63,7 @@ export class ManagementTabViewModel {
 
   async onComponentDidMount() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       if (this.productIdFromUrl) {
         await this.onGetProduct(this.productIdFromUrl)
@@ -100,15 +100,15 @@ export class ManagementTabViewModel {
 
       this.updateDataIdsAndDisabledFlags()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (e) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   private async onGetProduct(id: string) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await ProductModel.getProductById(id)
 
@@ -125,15 +125,15 @@ export class ManagementTabViewModel {
         this.isEditableResearcher = currentProductStatus < 200
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async onUpdateMember() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await AdministratorModel.bindOrUnbindUserToProduct(this.dataIds)
 
@@ -143,21 +143,15 @@ export class ManagementTabViewModel {
 
       this.updateDataIdsAndDisabledFlags()
 
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['The members are saved!'])
-      })
+      toast.success(t(TranslationKey['The members are saved!']))
 
-      this.onTriggerOpenModal()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error: any) {
-      runInAction(() => {
-        this.infoModalText = `${error.body.message}!`
-      })
+      toast.error(`${error.body.message}!`)
 
-      this.onTriggerOpenModal()
+      console.error(error)
 
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -224,15 +218,5 @@ export class ManagementTabViewModel {
     defaultMember: MemberType,
   ): MemberType {
     return members.find(member => member._id === memberId) || defaultMember
-  }
-
-  onClickToggleInfoModal() {
-    this.onComponentDidMount()
-
-    this.onTriggerOpenModal()
-  }
-
-  onTriggerOpenModal() {
-    this.showInfoModal = !this.showInfoModal
   }
 }

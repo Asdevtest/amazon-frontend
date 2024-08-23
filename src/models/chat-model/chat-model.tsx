@@ -1,8 +1,11 @@
 import { plainToInstance } from 'class-transformer'
 import { makeAutoObservable, runInAction } from 'mobx'
+import { makePersistable } from 'mobx-persist-store'
+import { toast } from 'react-toastify'
 
+import { chatsType } from '@constants/keys/chats'
+import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
-import { PaginationDirection } from '@constants/pagination/pagination-direction'
 import { noticeSound } from '@constants/sounds.js'
 
 import { OtherModel } from '@models/other-model'
@@ -26,32 +29,28 @@ import {
 import { getTypeAndIndexOfChat } from '@utils/chat'
 import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-checks'
 
-import { ChatContract, SendMessageRequestParamsContract } from './contracts'
+import { PaginationDirection } from '@typings/enums/pagination-direction'
+import { IShutdownNotice } from '@typings/models/chats/shutdown-notice'
+
+import { ChatContract, ChatUserContract, SendMessageRequestParamsContract } from './contracts'
 import { ChatMessageContract, TChatMessageDataUniversal } from './contracts/chat-message.contract'
 
 const websocketChatServiceIsNotInitializedError = new Error('websocketChatService is not  onotialized')
-const noTokenProvidedError = new Error('no access token in user model, login before useing websocket')
+export const noTokenProvidedError = new Error('no access token in user model, login before useing websocket')
 
 class ChatModelStatic {
   private websocketChatService?: WebsocketChatService // Do not init websocket on model create
-
+  private unreadMessagesCount = 0
   public isConnected?: boolean // undefined in case if not initilized
-
   public chats: ChatContract[] = []
-
   public simpleChats: ChatContract[] = []
-
   public messages: ChatContract[] = []
-
   public loadedFiles: string[] = []
   public loadedImages: string[] = []
   public loadedVideos: string[] = []
-
   public typingUsers: OnTypingMessageResponse[] = []
-
-  public chatSelectedId: string | undefined = undefined
-
-  private unreadMessagesCount = 0
+  public chatSelectedId?: string
+  public toggleServerSettings?: IShutdownNotice
 
   get userId() {
     return UserModel.userId
@@ -67,6 +66,7 @@ class ChatModelStatic {
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
+    makePersistable(this, { name: LOCAL_STORAGE_KEYS.SERVER_SETTINGS, properties: ['toggleServerSettings'] })
   }
 
   public init(accessToken?: string) {
@@ -84,6 +84,7 @@ class ChatModelStatic {
           onReadMessage: this.onReadMessage,
           onTypingMessage: this.onTypingMessage,
           onUserBoxesUpdate: this.onUserBoxesUpdates,
+          onGetServerSettings: this.onGetServerSettings,
         },
       })
     } else {
@@ -120,7 +121,7 @@ class ChatModelStatic {
         }))
       })
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -215,7 +216,7 @@ class ChatModelStatic {
         })
       }
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -274,7 +275,7 @@ class ChatModelStatic {
         }))
       })
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -294,7 +295,7 @@ class ChatModelStatic {
         })
       }
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -320,7 +321,7 @@ class ChatModelStatic {
         this.loadedFiles.push(fileUrl)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -462,7 +463,7 @@ class ChatModelStatic {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -483,7 +484,7 @@ class ChatModelStatic {
         this[chatType][index].users = this[chatType][index].users.filter(el => !params.users.includes(el._id))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -512,7 +513,7 @@ class ChatModelStatic {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -555,7 +556,7 @@ class ChatModelStatic {
   }
 
   private onConnectionError(error: Error) {
-    console.warn('onConnectionError error ', error)
+    console.error('onConnectionError error ', error)
     this.isConnected = false
   }
 
@@ -677,13 +678,21 @@ class ChatModelStatic {
           lastMessage: response.messagesId.includes(this.simpleChats[findSimpleChatIndexById]?.lastMessage?._id)
             ? { ...this.simpleChats?.[findSimpleChatIndexById]?.lastMessage, isRead: true }
             : this.simpleChats?.[findSimpleChatIndexById]?.lastMessage,
+
+          users: this.simpleChats[findSimpleChatIndexById].users.map(el => {
+            if (el._id === response.user._id) {
+              el.lastSeen = response.user?.lastSeen
+            }
+
+            return el
+          }),
         }
       })
     }
   }
 
   private removeTypingUser(chatId: string, userId: string) {
-    const typingUserToRemove = this.typingUsers.findIndex(el => el.chatId === chatId && el.userId === userId)
+    const typingUserToRemove = this.typingUsers.findIndex(el => el.chatId === chatId && el.user?._id === userId)
 
     runInAction(() => {
       this.typingUsers.splice(typingUserToRemove, 1)
@@ -696,8 +705,33 @@ class ChatModelStatic {
     })
 
     setTimeout(() => {
-      this.removeTypingUser(response.chatId, response.userId)
+      this.removeTypingUser(response.chatId, response.user._id)
     }, 10000)
+
+    const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, response.chatId)
+
+    if (
+      !chatTypeAndIndex ||
+      chatTypeAndIndex.chatType === 'chats' ||
+      this[chatTypeAndIndex.chatType][chatTypeAndIndex.index].type !== chatsType.DEFAULT
+    ) {
+      return
+    }
+
+    const { chatType, index } = chatTypeAndIndex
+
+    runInAction(() => {
+      this[chatType][index] = {
+        ...this[chatType][index],
+        users: this[chatType][index].users.map(el => {
+          if (el._id === response.user._id) {
+            el.lastSeen = response.user?.lastSeen
+          }
+
+          return el
+        }),
+      }
+    })
   }
 
   private onNewChat(newChat: ChatContract) {
@@ -737,7 +771,39 @@ class ChatModelStatic {
       const messages = await this.websocketChatService.FindChatMessage(requestParams)
       return messages
     } catch (error) {
-      console.warn(error)
+      console.error(error)
+    }
+  }
+
+  private async onGetServerSettings(data: IShutdownNotice) {
+    this.toggleServerSettings = data
+    toast.error(data.text, { position: 'top-right' })
+  }
+
+  public async getOnlineUsers() {
+    if (!this.websocketChatService) throw websocketChatServiceIsNotInitializedError
+    try {
+      const usersOnline = (await this.websocketChatService.getOnlineUsers()) as ChatUserContract[]
+
+      runInAction(() => {
+        this.simpleChats = this.simpleChats.map(chat => {
+          if (chat.type === chatsType.DEFAULT) {
+            chat.users = chat.users.map(user => {
+              const findUserOnline = usersOnline.find(userOnline => userOnline?._id === user?._id)
+
+              if (findUserOnline) {
+                user.lastSeen = findUserOnline.lastSeen
+              }
+
+              return user
+            })
+          }
+
+          return chat
+        })
+      })
+    } catch (error) {
+      console.error(error)
     }
   }
 }

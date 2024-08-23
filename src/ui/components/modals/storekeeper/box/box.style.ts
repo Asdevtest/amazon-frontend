@@ -3,9 +3,9 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   box: {
     width: 527,
-    backgroundColor: theme.palette.background.second,
-    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
-    borderRadius: '7px',
+    backgroundColor: theme.palette.background.general,
+    boxShadow: theme.palette.boxShadow.box,
+    borderRadius: '20px',
     padding: '20px 17px',
   },
 
@@ -62,23 +62,6 @@ export const useStyles = makeStyles()(theme => ({
 
   field: {
     margin: '0',
-  },
-
-  storekeeperBtnDefault: {
-    color: '#ffff',
-  },
-
-  storekeeperBtn: {
-    height: 40,
-  },
-
-  storekeeperBtnColored: {
-    color: theme.palette.text.negativeMain,
-  },
-
-  storekeeperDisableBtn: {
-    padding: '6px 7px',
-    backgroundColor: theme.palette.input.customDisabled,
   },
 
   fieldInput: {
@@ -146,20 +129,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 10,
-  },
-
-  deleteBtn: {
-    color: theme.palette.text.second,
-  },
-
-  editBtn: {
-    padding: '0 15px',
-    height: '40px',
-    display: 'flex',
-  },
-
-  editBtnYellow: {
-    border: '2px solid #F5CF00',
   },
 
   incomingBtnWrapper: {

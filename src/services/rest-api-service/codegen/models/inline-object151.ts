@@ -21,17 +21,17 @@
  */
 export interface InlineObject151 {
     /**
-     * Токен, который юзер получает через почту
+     * Гуид саба
      * @type {string}
      * @memberof InlineObject151
      */
-    hash: string;
+    userId: string;
     /**
-     * Новый пароль
+     * Заметка о сабе написаная мастером
      * @type {string}
      * @memberof InlineObject151
      */
-    password?: string;
+    comment: string;
 }
 
 

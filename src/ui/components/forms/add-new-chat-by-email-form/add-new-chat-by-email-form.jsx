@@ -10,7 +10,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './add-new-chat-by-email-form.style'
 
@@ -18,7 +18,7 @@ import { MultiValueContainer } from './multi-value-container/multi-value-contain
 import { Option } from './option/option'
 
 export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [userDataForRender, setUserDataForRender] = useState([])
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
@@ -87,12 +87,11 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
             containerClasses={styles.selectContainer}
             inputComponent={
               <UploadFilesInput
-                withoutTitle
-                fullWidth
+                withoutTitles
                 images={formFields.images}
                 setImages={onChangeField('images')}
                 maxNumber={1}
-                dragAndDropBtnHeight={65}
+                dragAndDropButtonHeight={65}
               />
             }
           />
@@ -103,7 +102,6 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
         <Button
           styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmit}
-          className={styles.button}
           onClick={() => {
             setSubmitIsClicked(true)
             onSubmit(formFields)
@@ -112,12 +110,8 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
           {t(TranslationKey.Create)}
         </Button>
 
-        <Button
-          variant={ButtonVariant.OUTLINED}
-          className={[styles.button, styles.cancelButton]}
-          onClick={() => closeModal()}
-        >
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={closeModal}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

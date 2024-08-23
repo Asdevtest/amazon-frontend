@@ -13,34 +13,37 @@
  */
 
 
-import { ApiV1RequestProposalsCustomByRequestIdGuidDetails } from './api-v1-request-proposals-custom-by-request-id-guid-details';
-import { ApiV1RequestProposalsCustomByRequestIdGuidProposal } from './api-v1-request-proposals-custom-by-request-id-guid-proposal';
-import { ApiV1RequestProposalsCustomByRequestIdGuidRequest } from './api-v1-request-proposals-custom-by-request-id-guid-request';
 
 /**
- * Схема универсального предложения
+ * 
  * @export
  * @interface InlineResponse200108
  */
 export interface InlineResponse200108 {
     /**
      * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidProposal}
+     * @type {string}
      * @memberof InlineResponse200108
      */
-    proposal?: ApiV1RequestProposalsCustomByRequestIdGuidProposal;
+    _id?: string;
     /**
      * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidDetails}
+     * @type {string}
      * @memberof InlineResponse200108
      */
-    details?: ApiV1RequestProposalsCustomByRequestIdGuidDetails;
+    title?: string;
     /**
      * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidRequest}
+     * @type {number}
      * @memberof InlineResponse200108
      */
-    request?: ApiV1RequestProposalsCustomByRequestIdGuidRequest;
+    type?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineResponse200108
+     */
+    archive?: boolean;
 }
 
 

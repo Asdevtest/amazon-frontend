@@ -5,7 +5,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
   },
 
   toggleBtnAndtaskTypeWrapper: {
@@ -15,8 +14,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: 420,
-    border: `1px solid ${theme.palette.primary.main}`,
+    width: 500,
   },
 
   emptyTableWrapper: {
@@ -35,15 +33,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   dashboardCardWrapper: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4, 390px)',
-    alignContent: 'start',
-    gap: 30,
-    height: '78vh',
+    marginTop: '20px',
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 20,
+    maxHeight: '80vh',
     overflow: 'auto',
-  },
-
-  dashboardCardWrapperList: {
-    gridTemplateColumns: 'repeat(2, 1fr)',
   },
 }))

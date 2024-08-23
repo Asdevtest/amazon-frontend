@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { ONE_MINUTE_IN_MILLISECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -13,7 +14,6 @@ import { ChatsList } from '@components/chat/chats-list'
 import { AddNewChatByEmailForm } from '@components/forms/add-new-chat-by-email-form'
 import { AddUsersToGroupChatForm } from '@components/forms/add-users-to-group-chat-form'
 import { EditGroupChatInfoForm } from '@components/forms/edit-group-chat-info-form'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
@@ -39,7 +39,12 @@ export const MessagesView = observer(({ history }) => {
   useEffect(() => {
     viewModel.loadData()
 
+    const intervalId = setInterval(() => {
+      viewModel.getOnlineUsers()
+    }, ONE_MINUTE_IN_MILLISECONDS)
+
     return () => {
+      clearInterval(intervalId)
       ChatModel.onChangeChatSelectedId(undefined)
     }
   }, [])
@@ -61,10 +66,16 @@ export const MessagesView = observer(({ history }) => {
       }
     })
     .sort((a, b) => {
-      return compareDesc(
-        parseISO(a.lastMessage?.createdAt || a.createdAt),
-        parseISO(b.lastMessage?.createdAt || b.createdAt),
-      )
+      if (a.type === 'SAVED' && b.type !== 'SAVED') {
+        return -1
+      } else if (a.type !== 'SAVED' && b.type === 'SAVED') {
+        return 1
+      } else {
+        return compareDesc(
+          parseISO(a.lastMessage?.createdAt || a.createdAt),
+          parseISO(b.lastMessage?.createdAt || b.createdAt),
+        )
+      }
     })
 
   const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && currentChat
@@ -105,7 +116,6 @@ export const MessagesView = observer(({ history }) => {
               </div>
 
               <Button
-                className={styles.newDialogBtn}
                 disabled={checkIsResearcher(UserRoleCodeMap[viewModel.user.role])}
                 onClick={viewModel.onClickAddNewChatByEmail}
               >
@@ -145,7 +155,6 @@ export const MessagesView = observer(({ history }) => {
             </div>
 
             <Button
-              className={styles.newDialogBtn}
               disabled={checkIsResearcher(UserRoleCodeMap[viewModel.user.role])}
               onClick={viewModel.onClickAddNewChatByEmail}
             >
@@ -237,18 +246,6 @@ export const MessagesView = observer(({ history }) => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
         />
       </Modal>
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        />
-      ) : null}
     </div>
   )
 })

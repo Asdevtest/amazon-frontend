@@ -1,82 +1,50 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  modalMessageWrapper: {
+  wrapper: {
     width: 600,
-    padding: 10,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    gap: '30px',
+    gap: 20,
   },
 
-  modalMessageTitle: {
-    fontSize: '18px',
-    fontWeight: '600',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
+  title: {
+    fontSize: 18,
+    fontWeight: 600,
+    lineHeight: '25px',
   },
 
-  commentLabelText: {
-    fontSize: '14px',
-    fontWeight: '400',
-    lineHeight: '19px',
-    color: theme.palette.text.second,
+  comments: {
+    position: 'relative',
   },
 
   heightFieldAuto: {
     height: 'auto',
     width: '100%',
-
     padding: '0 0 30px 0',
   },
 
-  buttonOk: {
-    padding: '8px 36px',
+  commentLabelText: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
   },
 
-  buttonCancel: {
-    padding: '8px 36px',
-    color: theme.palette.text.general,
-  },
-
-  buttonsWrapper: {
+  buttons: {
     display: 'flex',
-    justifyContent: 'end',
+    justifyContent: 'flex-end',
     gap: 20,
-  },
-  commentWrapper: {
-    position: 'relative',
   },
 
   fileIcon: {
     position: 'absolute',
     bottom: 25,
     right: 5,
-    transition: '0.3s ease',
     cursor: 'pointer',
-
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   fileIconActive: {
     color: theme.palette.primary.main,
-  },
-
-  '@media (max-width: 768px)': {
-    modalMessageWrapper: {
-      width: '280px',
-      minHeight: '168px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      gap: '30px',
-    },
-  },
-
-  uploadFilesInput: {
-    paddingRight: 10,
   },
 }))

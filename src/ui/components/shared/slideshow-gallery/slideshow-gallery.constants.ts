@@ -11,3 +11,4 @@ export const DIFFERENCE_BETWEEN_QUANTITY_SLIDES_AND_GAP = 1
 export const NOT_GAP = 0
 export const DEFAULT_ANIMATION_DELAY = 300
 export const NULL_DELAY = 0
+export const REDUCTION_FACTOR = 0.75 // only for preview svg document (75% of the original size)

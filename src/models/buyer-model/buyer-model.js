@@ -3,9 +3,9 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 import { filterNullValues } from '@utils/object'
 
 class BuyerModelStatic {
-  getProductsVacant = async isCreatedByClient => {
-    const response = await restApiService.buyerApi.apiV1BuyersProductsVacGet({ isCreatedByClient })
-    return response.data
+  getProductsVacant = async data => {
+    const response = await restApiService.buyerApi.apiV1BuyersProductsVacGet(data)
+    return response?.data || []
   }
 
   getProductsMy = async () => {
@@ -14,7 +14,7 @@ class BuyerModelStatic {
   }
 
   getProductsMyPag = async data => {
-    const response = await restApiService.buyerApi.apiV1BuyersProductsPagMyGet(filterNullValues(data))
+    const response = await restApiService.buyerApi.apiV1BuyersProductsPagMyGet(data)
     return response.data
   }
 
@@ -36,8 +36,8 @@ class BuyerModelStatic {
     return response.data
   }
 
-  getOrdersVacant = async () => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersVacGet()
+  getOrdersVacantPag = async options => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersVacPagGet(options)
     return response.data
   }
 

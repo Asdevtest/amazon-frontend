@@ -3,15 +3,14 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
 import { BoxesModel } from '@models/boxes-model'
 import { BoxesWarehouseUpdateBoxInTaskContract } from '@models/boxes-model/boxes-model.contracts'
 import { OtherModel } from '@models/other-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { warehouseMyTasksViewColumns } from '@components/table/table-columns/warehouse/my-tasks-columns'
@@ -22,6 +21,8 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { objectToUrlQs } from '@utils/text'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class WarehouseMyTasksViewModel {
   history = undefined
   requestStatus = undefined
@@ -30,8 +31,6 @@ export class WarehouseMyTasksViewModel {
   currentBox = undefined
   imagesOfTask = []
   imagesOfBox = []
-
-  volumeWeightCoefficient = undefined
 
   selectedTasks = []
 
@@ -44,11 +43,8 @@ export class WarehouseMyTasksViewModel {
   progressValue = 0
 
   showEditTaskModal = false
-  showNoDimensionsErrorModal = false
   selectedTask = undefined
-  showBarcodeModal = false
   showEditBoxModal = false
-  showCancelTaskModal = false
   showConfirmModal = false
   showEditPriorityData = false
 
@@ -76,6 +72,10 @@ export class WarehouseMyTasksViewModel {
 
   get currentData() {
     return this.tasksMy
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -106,20 +106,18 @@ export class WarehouseMyTasksViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_MY_TASKS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.WAREHOUSE_MY_TASKS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_MY_TASKS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.WAREHOUSE_MY_TASKS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onPaginationModelChange(model) {
@@ -158,13 +156,13 @@ export class WarehouseMyTasksViewModel {
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
     this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedTasks.length - 1) {
-          this.setRequestStatus(loadingStatuses.SUCCESS)
+          this.setRequestStatus(loadingStatus.SUCCESS)
         }
       })
     })
@@ -191,7 +189,7 @@ export class WarehouseMyTasksViewModel {
       this.getDataGridState()
       this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -216,7 +214,7 @@ export class WarehouseMyTasksViewModel {
 
   async getTasksMy() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const filter = objectToUrlQs({
         or: [
@@ -242,7 +240,7 @@ export class WarehouseMyTasksViewModel {
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
         filters: this.nameSearchValue ? filter : null,
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'priority',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
         operationType: this.curTaskType,
         priority: this.curTaskPriority,
@@ -252,20 +250,20 @@ export class WarehouseMyTasksViewModel {
         this.rowCount = result.count
 
         this.tasksMy = warehouseTasksDataConverter(
-          result.rows.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({
+          result.rows.map(el => ({
             ...el,
             beforeBoxes: el.boxesBefore,
           })),
         )
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.tasksMy = []
       })
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -286,16 +284,14 @@ export class WarehouseMyTasksViewModel {
       }))
       await BoxesModel.setBarcodeAttachedCheckboxes(id, barcodesAttachedData)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async updateBox(id, data) {
     try {
-      if (data.tmpImages.length > 0) {
-        await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'imagesOfBox' })
-        data = { ...data, images: [...this.imagesOfBox] }
-      }
+      await onSubmitPostImages.call(this, { images: data.images, type: 'imagesOfBox' })
+      data = { ...data, images: [...this.imagesOfBox] }
 
       const boxItems = data.items.map(item => ({
         orderId: item?.order?._id,
@@ -331,7 +327,7 @@ export class WarehouseMyTasksViewModel {
 
       await BoxesModel.updateBox(id, updateBoxData)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -339,7 +335,7 @@ export class WarehouseMyTasksViewModel {
     try {
       await StorekeeperModel.updateStatusInOrder(id, data)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -347,13 +343,13 @@ export class WarehouseMyTasksViewModel {
     try {
       await StorekeeperModel.resolveTask(taskId, { additionalBoxes: newBoxes })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onClickSolveTask({ task, newBoxes, operationType, comment, photos }) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       for (let i = 0; i < newBoxes.length; i++) {
         const box = getObjectFilteredByKeyArrayBlackList(
@@ -364,7 +360,7 @@ export class WarehouseMyTasksViewModel {
             heightCmWarehouse: Number(newBoxes[i].heightCmWarehouse),
             weighGrossKgWarehouse: Number(newBoxes[i].weighGrossKgWarehouse),
           },
-          ['tmpImages'],
+          ['images'],
         )
 
         await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, box)
@@ -379,9 +375,7 @@ export class WarehouseMyTasksViewModel {
             this.imagesOfBox = []
           })
 
-          if (box.tmpImages.length > 0) {
-            await onSubmitPostImages.call(this, { images: box.tmpImages, type: 'imagesOfBox' })
-          }
+          await onSubmitPostImages.call(this, { images: box.images, type: 'imagesOfBox' })
 
           const newBox = getObjectFilteredByKeyArrayWhiteList(
             {
@@ -397,7 +391,7 @@ export class WarehouseMyTasksViewModel {
                 isTransparencyFileAttachedByTheStorekeeper: el.isTransparencyFileAttachedByTheStorekeeper,
                 transparencyFile: el.transparencyFile,
               })),
-              images: this.imagesOfBox || box.images,
+              images: this.imagesOfBox,
             },
             [
               'amount',
@@ -424,6 +418,7 @@ export class WarehouseMyTasksViewModel {
               'isTransparencyFileAlreadyAttachedByTheSupplier',
               'isTransparencyFileAttachedByTheStorekeeper',
               'transparencyFile',
+              'shippingLabel',
             ],
           )
 
@@ -450,14 +445,14 @@ export class WarehouseMyTasksViewModel {
       }
 
       await this.updateTask(this.selectedTask._id, comment)
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       this.onTriggerEditTaskModal()
 
       await Promise.all([UserModel.getUserInfo(), this.getTasksMy()])
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -474,7 +469,7 @@ export class WarehouseMyTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -486,7 +481,7 @@ export class WarehouseMyTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -502,7 +497,7 @@ export class WarehouseMyTasksViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -534,7 +529,7 @@ export class WarehouseMyTasksViewModel {
 
       this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -544,19 +539,12 @@ export class WarehouseMyTasksViewModel {
 
   async onClickResolveBtn(itemId) {
     try {
-      const [task, platformSettings] = await Promise.all([
-        StorekeeperModel.getTaskById(itemId),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await StorekeeperModel.getTaskById(itemId)
 
-      runInAction(() => {
-        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
-      })
-
-      this.onSelectTask(task)
+      this.onSelectTask(response)
       this.onTriggerEditTaskModal()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

@@ -60,15 +60,6 @@ export const useStyles = makeStyles()(theme => ({
     width: 350,
   },
 
-  button: {
-    padding: '0 15px',
-    whiteSpace: 'nowrap',
-  },
-
-  cancelButton: {
-    color: theme.palette.text.general,
-  },
-
   downloadsWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
@@ -120,10 +111,5 @@ export const useStyles = makeStyles()(theme => ({
   clientComment: {
     fontSize: 18,
     color: '#DF0C0C',
-  },
-
-  imagesModalBtn: {
-    width: 40,
-    height: 40,
   },
 }))

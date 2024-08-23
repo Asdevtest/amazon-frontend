@@ -11,149 +11,189 @@ import {
 
 import { t } from '@utils/translations'
 
-export const clientDailySellerBoardColumns = () => [
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <NormDateCell value={params.value} />,
-    width: 118,
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
-    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
-    columnKey: columnnsKeys.shared.DATE,
-  },
+export const clientDailySellerBoardColumns = () => {
+  const columns = [
+    {
+      field: 'updatedAt',
+      headerName: t(TranslationKey.Updated),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 118,
 
-  {
-    field: 'shop',
-    headerName: t(TranslationKey.Shop),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+      table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      columnKey: columnnsKeys.shared.DATE,
+    },
 
-    renderCell: params => <MultilineTextCell twoLines text={params.value?.name} />,
-    width: 150,
+    {
+      field: 'shop',
+      headerName: t(TranslationKey.Shop),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
-    columnKey: columnnsKeys.shared.OBJECT,
+      renderCell: params => <MultilineTextCell twoLines text={params.value?.name} />,
+      width: 150,
 
-    sortable: false,
-  },
+      table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      columnKey: columnnsKeys.shared.OBJECT,
 
-  {
-    field: 'asin',
-    headerName: `${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`,
-    renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
+      disableCustomSort: true,
+    },
 
-    renderCell: params => (
-      <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
-    ),
-    width: 185,
-    sortable: false,
+    {
+      field: 'asin',
+      headerName: `${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
 
-    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
-    columnKey: columnnsKeys.client.SHOP_REPORT,
-  },
+      renderCell: params => (
+        <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
+      ),
 
-  {
-    field: 'title',
-    headerName: 'Title',
-    renderHeader: () => <MultilineTextHeaderCell text={'Title'} />,
+      fields: getProductColumnMenuItems({ withoutTitle: true }),
+      columnMenuConfig: getProductColumnMenuValue({
+        isSimpleSku: true,
+        table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 260,
+      minWidth: 100,
+    },
 
-    renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
-    width: 250,
+    {
+      field: 'title',
+      headerName: 'Title',
+      renderHeader: () => <MultilineTextHeaderCell text={'Title'} />,
 
-    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
-    columnKey: columnnsKeys.shared.STRING,
-  },
+      renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
+      width: 250,
 
-  {
-    field: 'fbaFbmStock',
-    headerName: 'FBA/FBM Stock',
-    renderHeader: () => <MultilineTextHeaderCell text={'FBA/FBM Stock'} />,
+      table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      columnKey: columnnsKeys.shared.STRING,
+    },
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 108,
+    {
+      field: 'fbaFbmStock',
+      headerName: 'FBA/FBM Stock',
+      renderHeader: () => <MultilineTextHeaderCell text={'FBA/FBM Stock'} />,
 
-    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
+      renderCell: params => <MultilineTextCell text={params.value} />,
+      width: 108,
 
-  {
-    field: 'reserved',
-    headerName: 'Reserved',
-    renderHeader: () => <MultilineTextHeaderCell text={'Reserved'} />,
+      table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 90,
+    {
+      field: 'fnsku',
+      headerName: 'FNSKU',
+      renderHeader: () => <MultilineTextHeaderCell text="FNSKU" />,
 
-    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
+      renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
+      width: 150,
 
-  {
-    field: 'roi',
-    headerName: t(TranslationKey.ROI),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ROI)} />,
+      table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      columnKey: columnnsKeys.shared.STRING,
+    },
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    {
+      field: 'marketplace',
+      headerName: 'Marketplace',
+      renderHeader: () => <MultilineTextHeaderCell text="Marketplace" />,
 
-    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
+      renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
+      width: 150,
 
-  {
-    field: 'comment',
-    headerName: 'Comment',
-    renderHeader: () => <MultilineTextHeaderCell text={'Comment'} />,
+      table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      columnKey: columnnsKeys.shared.STRING,
+    },
 
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
-    width: 220,
+    {
+      field: 'reserved',
+      headerName: 'Reserved',
+      renderHeader: () => <MultilineTextHeaderCell text={'Reserved'} />,
 
-    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
-    columnKey: columnnsKeys.shared.STRING,
-  },
+      renderCell: params => <MultilineTextCell text={params.value} />,
+      width: 90,
 
-  {
-    field: 'daysOfStockLeft',
-    headerName: t(TranslationKey.DaysOfStockLeft),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.DaysOfStockLeft)} />,
+      table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 150,
+    {
+      field: 'roi',
+      headerName: t(TranslationKey.ROI),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ROI)} />,
 
-    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
-  {
-    field: 'sentToFba',
-    headerName: t(TranslationKey.SentToFba),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SentToFba)} />,
+      renderCell: params => <MultilineTextCell text={params.value} />,
+      width: 80,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 108,
+      table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
 
-    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
-  {
-    field: 'fbaPrepStock',
-    headerName: t(TranslationKey.FbaPrepStock),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FbaPrepStock)} />,
+    {
+      field: 'comment',
+      headerName: 'Comment',
+      renderHeader: () => <MultilineTextHeaderCell text={'Comment'} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 120,
+      renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+      width: 220,
 
-    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
-  {
-    field: 'ordered',
-    headerName: 'Ordered',
-    renderHeader: () => <MultilineTextHeaderCell text={'Ordered'} />,
+      table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      columnKey: columnnsKeys.shared.STRING,
+    },
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 108,
+    {
+      field: 'daysOfStockLeft',
+      headerName: t(TranslationKey.DaysOfStockLeft),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.DaysOfStockLeft)} />,
 
-    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
-]
+      renderCell: params => <MultilineTextCell text={params.value} />,
+      width: 150,
+
+      table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
+    {
+      field: 'sentToFba',
+      headerName: t(TranslationKey.SentToFba),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SentToFba)} />,
+
+      renderCell: params => <MultilineTextCell text={params.value} />,
+      width: 108,
+
+      table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
+    {
+      field: 'fbaPrepStock',
+      headerName: t(TranslationKey.FbaPrepStock),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FbaPrepStock)} />,
+
+      renderCell: params => <MultilineTextCell text={params.value} />,
+      width: 120,
+
+      table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
+    {
+      field: 'ordered',
+      headerName: 'Ordered',
+      renderHeader: () => <MultilineTextHeaderCell text={'Ordered'} />,
+
+      renderCell: params => <MultilineTextCell text={params.value} />,
+      width: 108,
+
+      table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
+  ]
+
+  for (const column of columns) {
+    // @ts-ignore
+    column.sortable = false
+  }
+
+  return columns
+}

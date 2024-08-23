@@ -1,7 +1,14 @@
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsStorekeeper, checkIsSupervisor } from '../checks'
+import {
+  checkIsBuyer,
+  checkIsClient,
+  checkIsFreelancer,
+  checkIsResearcher,
+  checkIsStorekeeper,
+  checkIsSupervisor,
+} from '../checks'
 import { t } from '../translations'
 
 export const renderTooltipTitle = (categoryTitle, userRole) => {
@@ -9,14 +16,14 @@ export const renderTooltipTitle = (categoryTitle, userRole) => {
     switch (categoryTitle) {
       case t(TranslationKey.Dashboard):
         return t(TranslationKey['Statistics on goods/orders/finances'])
-      case t(TranslationKey['Free Orders']):
+      case t(TranslationKey['Free orders']):
         return t(TranslationKey['All orders available for pickup'])
       case t(TranslationKey['Supplier search']):
         return t(TranslationKey['All available tasks for finding a supplier'])
       case t(TranslationKey.Users):
         return t(TranslationKey['Manage the list of employees'])
       case t(TranslationKey.Finances):
-        return t(TranslationKey["Detailed description of the movement of the user's money"])
+        return t(TranslationKey['Financial history'])
       case t(TranslationKey['My products']):
         return t(TranslationKey['List of items taken by Bayer to find a supplier'])
       case t(TranslationKey['My orders']):
@@ -31,7 +38,7 @@ export const renderTooltipTitle = (categoryTitle, userRole) => {
       case t(TranslationKey.Users):
         return t(TranslationKey['Manage the list of employees'])
       case t(TranslationKey.Finances):
-        return t(TranslationKey["Detailed description of the movement of the user's money"])
+        return t(TranslationKey['Financial history'])
     }
   } else if (checkIsSupervisor(UserRoleCodeMap[userRole])) {
     switch (categoryTitle) {
@@ -42,7 +49,7 @@ export const renderTooltipTitle = (categoryTitle, userRole) => {
       case t(TranslationKey.Users):
         return t(TranslationKey['Manage the list of employees'])
       case t(TranslationKey.Finances):
-        return t(TranslationKey["Detailed description of the movement of the user's money"])
+        return t(TranslationKey['Financial history'])
       case t(TranslationKey['My products']):
         return t(TranslationKey['The list of goods cards assigned to the supervisor for verification'])
     }
@@ -73,7 +80,7 @@ export const renderTooltipTitle = (categoryTitle, userRole) => {
       case t(TranslationKey.Shops):
         return t(TranslationKey['A list of your added Amazon stores with reports on them'])
       case t(TranslationKey.Finances):
-        return t(TranslationKey["Detailed description of the movement of the user's money"])
+        return t(TranslationKey['Financial history'])
       case t(TranslationKey.Notifications):
         return t(TranslationKey['Important notifications on changes in order price, batch or irrelevant tariff'])
       case t(TranslationKey['On orders']):
@@ -96,9 +103,14 @@ export const renderTooltipTitle = (categoryTitle, userRole) => {
       case t(TranslationKey.Users):
         return t(TranslationKey['Manage the list of employees'])
       case t(TranslationKey.Finances):
-        return t(TranslationKey["Detailed description of the movement of the user's money"])
+        return t(TranslationKey['Financial history'])
       case t(TranslationKey['Warehouse management']):
         return t(TranslationKey['Management of tariffs for logistics and warehousing services'])
+    }
+  } else if (checkIsFreelancer(UserRoleCodeMap[userRole])) {
+    switch (categoryTitle) {
+      case t(TranslationKey.Finances):
+        return t(TranslationKey['Financial history'])
     }
   }
 }

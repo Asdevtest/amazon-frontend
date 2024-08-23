@@ -5,7 +5,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 
+import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './show-bar-or-hs-code-modal.style'
 
@@ -16,7 +19,7 @@ export const ShowBarOrHscodeModal = ({ barcode, hscode, onCloseModal }) => {
     if (barcode) {
       return (
         <div className={styles.modalTitleWrapper}>
-          <Link className={styles.modalTitle} target="__blank" href={barcode}>
+          <Link className={styles.modalTitle} target="__blank" href={checkAndMakeAbsoluteUrl(barcode)}>
             {barcode}
           </Link>
           <CopyValue text={barcode} />
@@ -39,7 +42,9 @@ export const ShowBarOrHscodeModal = ({ barcode, hscode, onCloseModal }) => {
       <div className={styles.modalWrapper}>
         {renderText()}
         <div className={styles.modalBtnWrapper}>
-          <Button onClick={onCloseModal}>{t(TranslationKey.Close)}</Button>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
+            {t(TranslationKey.Close)}
+          </Button>
         </div>
       </div>
     </Container>

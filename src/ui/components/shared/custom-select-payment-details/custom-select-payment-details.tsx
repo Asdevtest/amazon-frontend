@@ -1,4 +1,3 @@
-import { ClassNamesArg } from '@emotion/react'
 import { FC, useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
@@ -24,8 +23,7 @@ interface CustomSelectPaymentDetailsProps {
   disabled?: boolean
   generalText?: boolean
   cursorPointer?: boolean
-  labelClass?: ClassNamesArg
-  selectWrapper?: ClassNamesArg
+  labelClass?: string
   onChangePaymentMethod?: (paymentMethod: IPaymentMethod) => void
   onClickButton?: () => void
 }
@@ -41,7 +39,6 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
     disabled,
     generalText,
     cursorPointer,
-    selectWrapper,
     onChangePaymentMethod,
     onClickButton,
   } = props
@@ -104,82 +101,78 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
           [styles.rowPaymentMethodsContainer]: column,
         })}
         inputComponent={
-          <div className={cx(selectWrapper)} onClick={onClickButton}>
-            <Select
-              multiple
-              displayEmpty
-              disabled={(onlyRead && isEmpty) || disabled || onlyRead}
-              value={value} // @ts-ignore
-              IconComponent={!isEmpty && !onlyRead ? EditIconToRender : ''}
-              classes={{
-                select: cx(styles.select, {
-                  [styles.selectIsNotEmpty]: !isEmpty,
-                  [styles.generalText]: generalText,
-                  [styles.cursorPointer]: cursorPointer,
-                }),
-              }}
-              renderValue={selected => selectContentToRender(selected, !!onlyRead && onlyRead)}
-              className={cx(styles.paymentMethodsField, {
-                [styles.grayBorder]: (onlyRead && isEmpty) || onlyRead,
+          <Select
+            multiple
+            displayEmpty
+            disabled={(onlyRead && isEmpty) || disabled || onlyRead}
+            value={value} // @ts-ignore
+            IconComponent={!isEmpty && !onlyRead ? EditIconToRender : ''}
+            classes={{
+              select: cx(styles.select, {
+                [styles.selectIsNotEmpty]: !isEmpty,
+                [styles.generalText]: generalText,
                 [styles.cursorPointer]: cursorPointer,
-              })}
-              MenuProps={{
-                anchorOrigin: {
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                },
-                transformOrigin: {
-                  vertical: 'top',
-                  horizontal: 'left',
-                },
-              }}
-              onChange={event => {
-                if (!onlyRead && !disabled) {
-                  // @ts-ignore
-                  !!onChangePaymentMethod && onChangePaymentMethod(event.target.value)
-                }
-              }}
-            >
-              {!onlyRead && ( // @ts-ignore
-                <MenuItem value={{ _id: 'SELECT_ALL' }}>
-                  <Checkbox color="primary" checked={value?.length === allPayments?.length} />
-                  <Typography>{t(TranslationKey.All)}</Typography>
+              }),
+            }}
+            // @ts-ignore
+            renderValue={selected => selectContentToRender(selected, !!onlyRead && onlyRead)}
+            className={cx(styles.paymentMethodsField, {
+              [styles.grayBorder]: (onlyRead && isEmpty) || onlyRead,
+              [styles.cursorPointer]: cursorPointer,
+            })}
+            MenuProps={{
+              anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+              },
+              transformOrigin: {
+                vertical: 'top',
+                horizontal: 'left',
+              },
+            }}
+            onChange={event => {
+              if (!onlyRead && !disabled) {
+                // @ts-ignore
+                !!onChangePaymentMethod && onChangePaymentMethod(event.target.value)
+              }
+            }}
+            onClick={onClickButton}
+          >
+            {!onlyRead && ( // @ts-ignore
+              <MenuItem value={{ _id: 'SELECT_ALL' }}>
+                <Checkbox color="primary" checked={value?.length === allPayments?.length} />
+                <Typography>{t(TranslationKey.All)}</Typography>
+              </MenuItem>
+            )}
+
+            {!onlyRead &&
+              allPayments?.map((paymentMethod, paymentMethodIndex) => (
+                // @ts-ignore
+                <MenuItem key={paymentMethodIndex} value={paymentMethod} className={styles.paymentMethod}>
+                  <Checkbox color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
+                  <img
+                    src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
+                    alt={paymentMethod?.title}
+                    className={styles.paymentMethodIcon}
+                  />
+                  <p className={styles.paymentMethodTitle}>{paymentMethod?.title}</p>
                 </MenuItem>
-              )}
+              ))}
 
-              {!onlyRead &&
-                allPayments?.map((paymentMethod, paymentMethodIndex) => (
-                  // @ts-ignore
-                  <MenuItem key={paymentMethodIndex} value={paymentMethod} className={styles.paymentMethod}>
-                    <Checkbox color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
-                    <img
-                      src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
-                      alt={paymentMethod?.title}
-                      className={styles.paymentMethodIcon}
-                    />
-                    <p className={styles.paymentMethodTitle}>{paymentMethod?.title}</p>
-                  </MenuItem>
-                ))}
-
-              {onlyRead &&
-                value?.map((paymentMethod, paymentMethodIndex) => (
-                  // @ts-ignore
-                  <MenuItem key={paymentMethodIndex} value={paymentMethod} className={styles.paymentMethod}>
-                    <Checkbox
-                      disabled
-                      color="primary"
-                      checked={value?.some(item => item?._id === paymentMethod?._id)}
-                    />
-                    <img
-                      src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
-                      alt={paymentMethod?.title}
-                      className={styles.paymentMethodIcon}
-                    />
-                    <p className={styles.paymentMethodTitle}>{paymentMethod.title}</p>
-                  </MenuItem>
-                ))}
-            </Select>
-          </div>
+            {onlyRead &&
+              value?.map((paymentMethod, paymentMethodIndex) => (
+                // @ts-ignore
+                <MenuItem key={paymentMethodIndex} value={paymentMethod} className={styles.paymentMethod}>
+                  <Checkbox disabled color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
+                  <img
+                    src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
+                    alt={paymentMethod?.title}
+                    className={styles.paymentMethodIcon}
+                  />
+                  <p className={styles.paymentMethodTitle}>{paymentMethod.title}</p>
+                </MenuItem>
+              ))}
+          </Select>
         }
       />
     </div>

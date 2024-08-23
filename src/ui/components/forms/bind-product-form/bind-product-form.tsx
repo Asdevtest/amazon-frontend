@@ -11,8 +11,8 @@ import { SelectProductButton } from '@components/shared/selects/with-search-sele
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
-import { ProductVariation } from '@typings/enums/product-variation'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { ProductVariation } from '@typings/enums/product/product-variation'
 import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './bind-product-form.style'
@@ -47,12 +47,12 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
 
   const radioBottonsSettings = [
     {
-      label: () => t(TranslationKey['Add parent']),
+      label: 'Add parent',
       value: ProductVariation.PARENT,
       disabled: !sourceProduct?.parentProductId && sourceProduct?.hasChildren,
     },
     {
-      label: () => t(TranslationKey['Add variations']),
+      label: 'Add variations',
       value: ProductVariation.CHILD,
     },
   ]
@@ -146,8 +146,8 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
           {t(TranslationKey.Next)}
         </Button>
 
-        <Button variant={ButtonVariant.OUTLINED} className={styles.canselButton} onClick={onClickCancelButton}>
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelButton}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

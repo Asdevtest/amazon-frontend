@@ -3,20 +3,19 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ActionButtonsCell,
   AsinCell,
-  ChangeInputCommentCell,
-  CopyAndEditLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ShortDateCell,
+  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
+import { CrossIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 
-export const sourceFilesColumns = (rowHandlers, editField) => [
+export const sourceFilesColumns = rowHandlers => [
   {
     field: 'title',
     headerName: t(TranslationKey['Request title']),
@@ -30,7 +29,7 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value || '-'} />,
-    width: 70,
+    width: 80,
     headerAlign: 'center',
     align: 'center',
   },
@@ -76,18 +75,13 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     headerName: t(TranslationKey.Link),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
     width: 250,
-    renderCell: params =>
-      params?.row?.originalData?._id === editField?._id ? (
-        <ChangeInputCommentCell
-          rowsCount={1}
-          fieldName="sourceFile"
-          text={params.row.originalData.sourceFile}
-          onChangeText={rowHandlers.onChangeText}
-          onClickSubmit={() => rowHandlers.onClickSaveBtn(params.row)}
-        />
-      ) : (
-        <CopyAndEditLinkCell link={params.row.originalData.sourceFile} />
-      ),
+    renderCell: params => (
+      <TextCell
+        editMode
+        text={params.row.originalData.sourceFile}
+        onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'sourceFile', value)}
+      />
+    ),
   },
 
   {
@@ -96,11 +90,10 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
     width: 240,
     renderCell: params => (
-      <ChangeInputCommentCell
-        rowsCount={2}
+      <TextCell
+        editMode
         text={params.row.originalData.comments}
-        onChangeText={rowHandlers.onChangeText}
-        onClickSubmit={() => rowHandlers.onClickSaveBtn(params.row)}
+        onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'comments', value)}
       />
     ),
   },
@@ -112,19 +105,11 @@ export const sourceFilesColumns = (rowHandlers, editField) => [
     renderCell: params => (
       <ActionButtonsCell
         isFirstButton
-        isSecondButton
         iconButton
-        row
-        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        firstButtonTooltipText={t(TranslationKey['Change store name or links to reports'])}
-        firstButtonElement={<EditIcon />}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        disabledFirstButton={params?.row?.originalData?._id === editField?._id}
-        secondButtonTooltipText={t(TranslationKey['Remove a store from your list'])}
-        secondButtonElement={<CrossIcon />}
-        secondButtonStyle={ButtonStyle.DANGER}
-        onClickFirstButton={() => rowHandlers.onClickEditBtn(params.row.originalData)}
-        onClickSecondButton={() => rowHandlers.onClickRemoveBtn(params.row.originalData)}
+        firstButtonElement={<CrossIcon />}
+        firstButtonStyle={ButtonStyle.DANGER}
+        firstDescriptionText="Do you want to delete the source file?"
+        onClickFirstButton={() => rowHandlers.onClickRemoveBtn(params.row._id)}
       />
     ),
     width: 100,

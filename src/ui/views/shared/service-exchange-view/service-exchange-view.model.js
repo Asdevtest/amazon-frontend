@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
@@ -11,6 +10,7 @@ import { UserModel } from '@models/user-model'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { Specs } from '@typings/enums/specs'
 
 import { filterFields, searchFields } from './service-exchange-view.constants'
@@ -22,12 +22,9 @@ export class ServiceExchangeViewModel {
 
   selectedSpec = Specs.DEFAULT
 
-  showImageModal = false
-
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
 
-  bigImagesOptions = {}
   nameSearchValue = ''
   rowCount = 0
   columnMenuSettings = {
@@ -46,18 +43,15 @@ export class ServiceExchangeViewModel {
 
   constructor({ history }) {
     this.history = history
+    this.loadData()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   loadData() {
-    try {
-      this.getSpecs()
+    this.getSpecs()
 
-      this.getNotYoursAnnouncements()
-    } catch (error) {
-      console.log(error)
-    }
+    this.getNotYoursAnnouncements()
   }
 
   async getSpecs() {
@@ -68,27 +62,13 @@ export class ServiceExchangeViewModel {
         this.specs = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
-  /* async getVacAnnouncementsData() {
-    try {
-      const result = await AnnouncementsModel.getVacAnnouncements({
-        filters: this.getFilter(),
-      })
-
-      runInAction(() => {
-        this.announcements = result
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  } */
-
   async getNotYoursAnnouncements() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await AnnouncementsModel.getNotYoursAnnouncements(this.options)
 
@@ -97,25 +77,25 @@ export class ServiceExchangeViewModel {
         this.rowCount = result.count
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async loadMoreDataHadler() {
-    if (this.requestStatus === loadingStatuses.IS_LOADING) {
+    if (this.requestStatus === loadingStatus.IS_LOADING) {
       return
     }
 
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.options.offset += this.options.limit
 
       if (this.options.offset >= this.rowCount) {
-        this.setRequestStatus(loadingStatuses.SUCCESS)
+        this.setRequestStatus(loadingStatus.SUCCESS)
 
         return
       }
@@ -126,10 +106,10 @@ export class ServiceExchangeViewModel {
         this.announcements = [...this.announcements, ...result.rows]
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -183,19 +163,5 @@ export class ServiceExchangeViewModel {
     const state = { viewMode: this.viewMode, sortMode: this.sortMode }
 
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.MY_SERVICES)
-  }
-
-  onClickThumbnail(data) {
-    this.bigImagesOptions = data
-
-    this.onTriggerOpenModal('showImageModal')
-  }
-
-  setBigImagesOptions(data) {
-    this.bigImagesOptions = data
-  }
-
-  onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
   }
 }

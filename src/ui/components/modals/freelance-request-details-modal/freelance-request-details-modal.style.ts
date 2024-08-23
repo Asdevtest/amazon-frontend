@@ -2,9 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    width: 1370,
-    padding: 10,
-    overflowY: 'hidden',
+    width: 1120,
   },
 
   header: {
@@ -15,22 +13,11 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
     position: 'sticky',
     top: 0,
-
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-    },
   },
 
   headerDetails: {
     display: 'flex',
-    gap: '80px',
-
-    [theme.breakpoints.down(768)]: {
-      gap: '20px',
-      flexWrap: 'wrap',
-    },
+    gap: '20px',
   },
 
   flexContainer: {
@@ -52,11 +39,7 @@ export const useStyles = makeStyles()(theme => ({
 
   content: {
     display: 'flex',
-    gap: '50px',
-
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-    },
+    gap: '20px',
   },
 
   categoryTitle: {
@@ -68,12 +51,10 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
-    width: '380px',
   },
 
   category: {
     display: 'flex',
-    gap: '2px',
     flexDirection: 'column',
   },
 
@@ -101,6 +82,7 @@ export const useStyles = makeStyles()(theme => ({
   editorWrapper: {
     maxHeight: '400px !important',
     maxWidth: '920px',
+    marginBottom: 20,
   },
 
   controlsWrapper: {
@@ -108,7 +90,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '20px',
-    marginRight: 5,
   },
 
   listingText: {
@@ -121,28 +102,17 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     background: '#F3AF00',
     color: '#001029',
+
     '&:hover': {
       opacity: '0.8',
+      color: '#001029',
       background: '#F3AF00',
     },
-  },
-
-  publishBtn: {
-    width: '100%',
-    height: 40,
-  },
-
-  listingButton: {
-    color: theme.palette.primary.main,
   },
 
   buttonsWrapper: {
     display: 'flex',
     gap: '10px',
     justifyContent: 'flex-end',
-  },
-
-  recoverBtn: {
-    width: '100%',
   },
 }))

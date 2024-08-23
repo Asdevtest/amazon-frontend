@@ -42,7 +42,7 @@ export const useStyles = makeStyles()(theme => ({
   photoWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
 
   input: {

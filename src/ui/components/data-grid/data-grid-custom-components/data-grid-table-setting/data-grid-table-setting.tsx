@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, memo, useState } from 'react'
+import { FC, KeyboardEvent, memo, useState } from 'react'
 
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import { Menu } from '@mui/material'
@@ -33,17 +33,23 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
     setMenuAnchor(null)
     setNameSearchValue('')
   }
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    const key = event.key.toLowerCase()
+    if (key === 'p' || key === 'п') {
+      event.stopPropagation()
+    }
+  }
 
   return (
     <>
       <Button
+        iconButton
+        defaultButtonTooltip={t(TranslationKey.Parameters)}
         styleType={ButtonStyle.DEFAULT}
         className={styles.parametersButton}
         onClick={(event: any) => setMenuAnchor(event.currentTarget)}
       >
         <SettingsOutlinedIcon fontSize="small" />
-
-        <p className={styles.parametersButtonTitle}>{t(TranslationKey.Parameters)}</p>
       </Button>
 
       {Boolean(menuAnchor) && (
@@ -59,14 +65,18 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
           {!!presetsSettings && (
             <CustomSwitcher
               fullWidth
-              switchMode={'medium'}
+              switchMode="medium"
               condition={switcherValue}
               switcherSettings={switcherConfig}
-              changeConditionHandler={value => setSwitcherValue(value as SwitcherSetting)}
+              changeConditionHandler={setSwitcherValue}
             />
           )}
 
-          <SearchInput inputClasses={styles.searchInput} onChange={e => setNameSearchValue(e.target.value)} />
+          <SearchInput
+            inputClasses={styles.searchInput}
+            onChange={e => setNameSearchValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
 
           {isAdditionalMode ? (
             <AdditionalTableSettings

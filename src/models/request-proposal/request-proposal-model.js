@@ -2,8 +2,6 @@ import { OtherModel } from '@models/other-model'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { filterNullValues } from '@utils/object'
-
 class RequestProposalModelStatic {
   async onPostFile(fileData) {
     const formData = new FormData()
@@ -19,7 +17,7 @@ class RequestProposalModelStatic {
       const fileName = await OtherModel.postImage(formData)
       return '/uploads/' + fileName
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -36,7 +34,7 @@ class RequestProposalModelStatic {
       guid,
       noCache: true,
     })
-    return response.data
+    return response?.data || []
   }
 
   getRequestProposalsCustom = async guid => {
@@ -139,13 +137,26 @@ class RequestProposalModelStatic {
     return response.data
   }
 
-  getRequestProposalsPagMy = async opts => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsPagMyGet(filterNullValues(opts))
+  getRequestProposalsPagMy = async body => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsPagMyGet(body)
+    return response.data
+  }
+
+  getRequestProposalsPagMyAll = async body => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsPagMyAllGet(body)
     return response.data
   }
 
   deleteFreelanceSourceFilesByGuid = async guid => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGuidDelete({ guid })
+    return response.data
+  }
+
+  onChangePerformer = async (guid, subId) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidChangePerformerPatch({
+      guid,
+      body: { subId },
+    })
     return response.data
   }
 }

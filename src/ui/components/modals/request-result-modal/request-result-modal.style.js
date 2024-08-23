@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: 540,
-    padding: 10,
   },
 
   title: {
@@ -41,10 +40,6 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 20,
   },
 
-  button: {
-    padding: '0 25px',
-  },
-
   links: {
     marginBottom: 20,
     padding: '0 10px',
@@ -76,13 +71,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 5,
   },
 
-  deleteBtn: {
-    width: '20px !important',
-    height: '20px !important',
-    color: theme.palette.text.second,
-    cursor: 'pointer',
-  },
-
   commentField: {
     height: 'auto',
   },
@@ -95,9 +83,5 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 40,
-  },
-
-  cancelButton: {
-    color: theme.palette.text.general,
   },
 }))

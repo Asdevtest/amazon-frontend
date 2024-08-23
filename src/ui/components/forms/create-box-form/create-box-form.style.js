@@ -4,29 +4,27 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: '1140px',
-    padding: 10,
+    width: '1060px',
+    gap: 20,
   },
   form: {
-    flexWrap: 'wrap',
-    marginTop: theme.spacing(2.5),
-    marginBottom: theme.spacing(2.5),
-    border: '1px solid rgb(224, 224, 224)',
-    borderRadius: '5px',
-    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
   },
 
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
-    marginTop: '10px',
-    marginRight: 10,
   },
 
   subTitle: {
+    fontSize: 18,
+    lineHeight: '25px',
     color: theme.palette.text.second,
   },
+
   field: {
     flexBasis: '100%',
   },
@@ -35,23 +33,22 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     height: 1,
     background: '#E0E0E0',
-    marginBottom: 20,
   },
 
   numberInputFieldsBlocksWrapper: {
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
     width: '100%',
-    gap: '10px',
+    gap: '20px',
+  },
+
+  input: {
+    width: 160,
   },
 
   numberInputFieldsBlocksSubWrapper: {
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'flex-start',
-    width: '100%',
     gap: '10px',
   },
 
@@ -70,17 +67,12 @@ export const useStyles = makeStyles()(theme => ({
   labelFieldsWrapper: {
     display: 'flex',
   },
-  iconBtn: {
-    padding: 0,
-    width: 36,
-    height: 36,
-    minWidth: 36,
-  },
 
   checkboxWithLabelWrapper: {
     display: 'flex',
     alignItems: 'center',
-    maxWidth: '200px',
+    justifyContent: 'flex-end',
+    width: '100%',
   },
 
   hidden: {
@@ -88,13 +80,12 @@ export const useStyles = makeStyles()(theme => ({
   },
   checkboxLabel: {
     margin: 0,
-    width: '120px',
+    fontSize: '14px',
   },
 
   checkboxLabelContainer: {
     margin: 0,
-    maxWidth: '80px',
-    marginRight: '50px',
+    width: 'max-content',
   },
 
   destinationWrapper: {
@@ -102,12 +93,10 @@ export const useStyles = makeStyles()(theme => ({
     textAlign: 'left',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-
     color: theme.palette.text.second,
   },
 
-  sizesSubWrapper: {
-    width: 'fit-content',
-    marginBottom: 20,
+  fieldContainer: {
+    margin: 0,
   },
 }))

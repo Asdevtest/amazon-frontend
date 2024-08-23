@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     minWidth: '850px',
-    padding: 20,
+
     [theme.breakpoints.down(768)]: {
       minWidth: 0,
       width: '280px',
@@ -27,22 +27,12 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalSubTitle: {
-    color: theme.palette.text.general,
-    [theme.breakpoints.down(768)]: {
-      fontSize: '16px',
-      lineHeight: '22px',
-      fontWeight: 600,
-    },
-  },
-
-  button: {
-    padding: '0 40px',
-  },
-
-  cancelBtn: {
-    marginLeft: '10px',
+    fontSize: '16px',
+    lineHeight: '22px',
+    fontWeight: 600,
     color: theme.palette.text.general,
   },
+
   multiline: {
     width: '100%',
     minHeight: '100px',

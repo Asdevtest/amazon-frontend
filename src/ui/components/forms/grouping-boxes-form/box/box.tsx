@@ -6,12 +6,11 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton, Radio } from '@mui/material'
 
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CopyValue } from '@components/shared/copy-value'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { Dimensions } from '@components/shared/dimensions'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
@@ -21,8 +20,6 @@ import { getNewTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './box.style'
-
-import { WarehouseDemensions } from '../warehouse-demensions/warehouse-demensions'
 
 interface BoxProps {
   isNewBox?: boolean
@@ -50,7 +47,6 @@ export const Box: FC<BoxProps> = memo(props => {
     onClickBasicBoxRadio,
   } = props
 
-  const [sizeSetting, setSizeSetting] = useState<string>(unitsOfChangeOptions.EU)
   const [showFullCard, setShowFullCard] = useState(isNewBox ? false : true)
 
   useEffect(() => {
@@ -130,7 +126,7 @@ export const Box: FC<BoxProps> = memo(props => {
 
               <LabelWithCopy
                 labelTitleColor="gray"
-                labelTitle={t(TranslationKey['Transparency codes'])}
+                labelTitle={t(TranslationKey['Transparency Codes'])}
                 labelValue={order.transparencyFile}
                 lableLinkTitle={t(TranslationKey.View)}
               />
@@ -142,7 +138,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 containerClasses={styles.field}
                 label={t(TranslationKey.Quantity)}
                 className={styles.orderInput}
-                labelClasses={[styles.label, styles.quantityLabel]}
+                labelClasses={cx(styles.label, styles.quantityLabel)}
                 value={order.amount}
                 tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
               />
@@ -152,7 +148,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 containerClasses={styles.field}
                 label={t(TranslationKey['Quantity in group'])}
                 className={styles.orderInput}
-                labelClasses={[styles.label, styles.quantityLabel]}
+                labelClasses={cx(styles.label, styles.quantityLabel)}
                 value={order.amount * box.amount}
               />
             </div>
@@ -160,28 +156,8 @@ export const Box: FC<BoxProps> = memo(props => {
         ))}
         {showFullCard ? (
           <div className={styles.itemSubWrapper}>
-            <div>
-              <div className={styles.sizesTitleWrapper}>
-                <p className={styles.label}>{t(TranslationKey.Dimensions)}</p>
+            <Dimensions isTotalWeight data={box} />
 
-                <div>
-                  <CustomSwitcher
-                    condition={sizeSetting}
-                    switcherSettings={[
-                      { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                      { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                    ]}
-                    changeConditionHandler={condition => {
-                      if (typeof condition === 'string') {
-                        setSizeSetting(condition)
-                      }
-                    }}
-                  />
-                </div>
-              </div>
-
-              <WarehouseDemensions orderBox={box} sizeSetting={sizeSetting} />
-            </div>
             <div className={styles.fieldWrapper}>
               <Field
                 containerClasses={styles.field}

@@ -49,7 +49,7 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
   const handleSaveButton = () => {
     const filteringSelectedPayments = selectedPayments.filter(selectedPayment => selectedPayment.isChecked)
 
-    onClickSaveButton ? onClickSaveButton(filteringSelectedPayments) : undefined
+    onClickSaveButton?.(filteringSelectedPayments)
     onClickCancelButton()
   }
 
@@ -74,12 +74,12 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
 
       <div className={styles.buttonsWrapper}>
         {!readOnly && (
-          <Button styleType={ButtonStyle.SUCCESS} className={styles.actionButton} onClick={handleSaveButton}>
+          <Button styleType={ButtonStyle.SUCCESS} onClick={handleSaveButton}>
             {t(TranslationKey.Save)}
           </Button>
         )}
-        <Button className={styles.actionButton} onClick={onClickCancelButton}>
-          {readOnly ? t(TranslationKey.Close) : t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelButton}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

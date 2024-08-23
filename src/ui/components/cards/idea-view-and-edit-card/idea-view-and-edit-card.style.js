@@ -6,14 +6,10 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     width: '100%',
     minHeight: 603,
-    padding: 50,
+    padding: 20,
     background: theme.palette.background.general,
-    borderRadius: 7,
+    borderRadius: 20,
     gap: '30px',
-  },
-
-  rootModal: {
-    padding: 0,
   },
 
   cardWrapper: {
@@ -22,15 +18,20 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     overflow: 'hidden',
     justifyContent: 'space-between',
+    columnGap: '80px',
   },
 
   fullCardWpapper: {
+    padding: 20,
     height: 'max-content',
     overflow: 'unset',
+    background: theme.palette.background.general,
+    borderRadius: 20,
+    boxShadow: '0px -4px 13px 0px rgba(135, 135, 135, 0.15) inset',
   },
 
   cardBlockWrapper: {
-    width: '887px',
+    width: '100%',
 
     display: 'flex',
     flexDirection: 'column',
@@ -41,25 +42,25 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
-    width: '691px',
+    width: '100%',
   },
 
   linksAndDimensionsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    width: '733px',
+    width: '100%',
   },
 
   commentsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     gap: '30px',
-    width: '543px',
+    width: '100%',
   },
 
   mediaBlock: {
-    width: '887px',
+    width: '100%',
 
     display: 'flex',
     flexDirection: 'column',
@@ -121,14 +122,6 @@ export const useStyles = makeStyles()(theme => ({
     margin: '0px 10px',
   },
 
-  btnLeftMargin: {
-    marginLeft: '40px',
-  },
-
-  cancelBtn: {
-    color: theme.palette.text.general,
-  },
-
   existedIdeaBtnsWrapper: {
     width: '100%',
     display: 'flex',
@@ -139,7 +132,7 @@ export const useStyles = makeStyles()(theme => ({
   existedIdeaBtnsSubWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: '50px',
+    gap: '20px',
   },
 
   tablePanelSortWrapper: {
@@ -213,6 +206,7 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    maxWidth: 435,
   },
 
   shortFieldsSubWrapper: {
@@ -262,23 +256,19 @@ export const useStyles = makeStyles()(theme => ({
   addOrEditBtnsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
-  },
-
-  defaultBtn: {
-    marginLeft: '10px',
-    height: '40px',
-    width: '100px',
+    gap: 20,
   },
 
   input: {
     height: '40px',
     borderRadius: '7px',
-    width: 'calc(100% - 110px)',
+    width: 'max-content',
   },
 
   inputWrapper: {
     display: 'flex',
     alignItems: 'center',
+    gap: '10px',
     width: '100%',
   },
 
@@ -467,17 +457,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
-  plusIcon: {
-    width: '14px !important',
-    height: '14px !important',
-  },
-
-  actionButton: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '5px',
-  },
-
   statusText: {
     fontSize: '14px',
     fontWeight: 400,
@@ -495,11 +474,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalContentWrapper: {
-    maxHeight: '616px',
+    maxHeight: '560px',
     overflowY: 'auto',
-    padding: '30px',
-
-    boxShadow: '0px -4px 13px 0px rgba(135, 135, 135, 0.15) inset',
   },
 
   supplierFoundWrapper: {

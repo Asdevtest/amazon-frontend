@@ -13,26 +13,25 @@
  */
 
 
-import { InlineResponse2006 } from './inline-response2006';
 
 /**
- * 
+ * Успешный ответ.
  * @export
  * @interface InlineResponse20093
  */
 export interface InlineResponse20093 {
     /**
-     * Общее кол-во записей
-     * @type {number}
+     * Флаг, показывает есть ли такой ASIN в базе или нет
+     * @type {boolean}
      * @memberof InlineResponse20093
      */
-    count?: number;
+    isExist?: boolean;
     /**
-     * 
-     * @type {Array<InlineResponse2006>}
+     * Причина из таблицы с асинами
+     * @type {string}
      * @memberof InlineResponse20093
      */
-    rows?: Array<InlineResponse2006>;
+    reason?: string;
 }
 
 

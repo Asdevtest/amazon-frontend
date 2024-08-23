@@ -56,6 +56,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   redBadge: {
+    borderRadius: '22px',
+    padding: '1px 6px',
     background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%) !important',
   },
 
@@ -76,7 +78,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: '0 36px 0 0',
     width: '100%',
     height: '100%',
-    // color: theme.palette.text.second,
   },
 
   userInfoWrapper: {
@@ -89,7 +90,6 @@ export const useStyles = makeStyles()(theme => ({
 
     padding: '0 0px 10px 15px',
     '&:hover': {
-      // backgroundColor: '#CCE2FF',
       backgroundColor: theme.palette.background.second,
     },
   },

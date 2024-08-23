@@ -9,18 +9,18 @@ import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { isString } from '@typings/guards'
 
 import { useStyles } from './request-result-modal.style'
 
 export const RequestResultModal = memo(props => {
-  const { openModal, setOpenModal, onClickSendAsResult, request, proposal, missClickModalOn } = props
+  const { openModal, setOpenModal, onClickSendAsResult, proposal, missClickModalOn } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -58,15 +58,14 @@ export const RequestResultModal = memo(props => {
     onChangeField('publicationLinks')({ target: { value: newArr } })
   }
 
-  const isBloggerTypeTask =
-    (request?.spec?.type || request?.request?.spec?.type) === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]
+  const isBloggerTypeTask = proposal?.request?.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]
   const disabledSendButton =
-    (isBloggerTypeTask && (!formFields.amazonOrderId || !formFields.publicationLinks.length)) ||
-    (!isBloggerTypeTask && !formFields.result)
+    (isBloggerTypeTask && (!formFields?.amazonOrderId || !formFields?.publicationLinks?.length)) ||
+    (!isBloggerTypeTask && !formFields?.result)
   const mediaFiles = proposal?.proposal?.media?.map(mediaFile =>
     isString(mediaFile) ? mediaFile : mediaFile?.fileLink,
   )
-  const isNotEmptyPublicationLinks = formFields.publicationLinks.length > 0
+  const isNotEmptyPublicationLinks = formFields?.publicationLinks?.length > 0
 
   return (
     <Modal missClickModalOn={missClickModalOn} openModal={openModal} setOpenModal={setOpenModal}>
@@ -101,7 +100,7 @@ export const RequestResultModal = memo(props => {
                   onChange={e => setLink(e.target.value)}
                 />
 
-                <Button disabled={!link} className={styles.button} onClick={onClickLinkBtn}>
+                <Button disabled={!link} onClick={onClickLinkBtn}>
                   {t(TranslationKey.Add)}
                 </Button>
               </div>
@@ -143,17 +142,14 @@ export const RequestResultModal = memo(props => {
 
         <div className={styles.dragAndDropWrapper}>
           {proposal ? (
-            <PhotoAndFilesSlider files={mediaFiles} />
+            <SlideshowGallery slidesToShow={2} files={mediaFiles} />
           ) : (
             <UploadFilesInput
               withComment
-              fullWidth
               title={t(TranslationKey.Files)}
-              dragAndDropBtnHeight={55}
+              dragAndDropButtonHeight={55}
               images={images}
               setImages={setImages}
-              maxNumber={50}
-              maxHeight={160}
             />
           )}
         </div>
@@ -163,7 +159,6 @@ export const RequestResultModal = memo(props => {
             <Button
               styleType={ButtonStyle.SUCCESS}
               disabled={disabledSendButton}
-              className={styles.button}
               onClick={() => {
                 onClickSendAsResult({
                   message: formFields.result,
@@ -178,12 +173,8 @@ export const RequestResultModal = memo(props => {
             </Button>
           )}
 
-          <Button
-            variant={ButtonVariant.OUTLINED}
-            className={cx(styles.button, styles.cancelButton)}
-            onClick={setOpenModal}
-          >
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>

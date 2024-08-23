@@ -72,14 +72,14 @@ export const Select: FC<SelectProps> = memo(props => {
           </button>
 
           {filteredItems.map((item, index) => (
-            <button key={index} className={styles.menuItem} onClick={() => handleChangeSelectedItem(item._id)}>
+            <div key={index} className={styles.menuItem} onClick={() => handleChangeSelectedItem(item._id)}>
               <p className={styles.menuItemText}>{item.name}</p>
               {withFaworites && (
                 <button
                   className={styles.starButton}
                   onClick={e => {
                     e.stopPropagation()
-                    setDestinationsFavouritesItem ? setDestinationsFavouritesItem(item.name) : undefined
+                    setDestinationsFavouritesItem?.(item.name)
                   }}
                 >
                   <RatingStarIcon
@@ -89,7 +89,7 @@ export const Select: FC<SelectProps> = memo(props => {
                   />
                 </button>
               )}
-            </button>
+            </div>
           ))}
         </ul>
       </div>

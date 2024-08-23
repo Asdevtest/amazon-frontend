@@ -13,27 +13,67 @@
  */
 
 
-import { InlineResponse200110Details } from './inline-response200110-details';
-import { InlineResponse20085Rows } from './inline-response20085-rows';
 
 /**
- * Схема детали на поиск ниш.
+ * 
  * @export
  * @interface InlineResponse200110
  */
 export interface InlineResponse200110 {
     /**
-     * 
-     * @type {InlineResponse20085Rows}
+     * ID пресета.
+     * @type {string}
      * @memberof InlineResponse200110
      */
-    request?: InlineResponse20085Rows;
+    _id?: string;
+    /**
+     * Название таблицы
+     * @type {string}
+     * @memberof InlineResponse200110
+     */
+    table?: string;
+    /**
+     * Эндпоинт пресета
+     * @type {string}
+     * @memberof InlineResponse200110
+     */
+    endpoint?: string;
     /**
      * 
-     * @type {InlineResponse200110Details}
+     * @type {Array<string>}
      * @memberof InlineResponse200110
      */
-    details?: InlineResponse200110Details;
+    fields?: Array<string>;
+    /**
+     * Состояние пресета.
+     * @type {boolean}
+     * @memberof InlineResponse200110
+     */
+    isActive?: boolean;
+    /**
+     * ID юзера.
+     * @type {string}
+     * @memberof InlineResponse200110
+     */
+    userId?: string;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineResponse200110
+     */
+    isFavorite?: boolean;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200110
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200110
+     */
+    updatedAt?: string;
 }
 
 

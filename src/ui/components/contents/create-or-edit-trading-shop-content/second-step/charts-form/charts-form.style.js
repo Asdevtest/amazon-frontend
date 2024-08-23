@@ -14,12 +14,6 @@ export const useStyles = makeStyles()(theme => ({
     color: '#CCE2FF',
   },
 
-  barStatusesWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '40px',
-  },
-
   barStatusWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -29,35 +23,6 @@ export const useStyles = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'center',
-    gap: '30px',
-    marginTop: '40px',
-  },
-
-  selectedBtn: {
-    marginBottom: 0,
-    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
-
-    borderBottom: theme.palette.other.tableActiveFilterBtn,
-  },
-  button: {
-    color: theme.palette.text.general,
-  },
-  selectionBtns: {
-    display: 'flex',
-    height: 40,
-    gap: 20,
-  },
-
-  selectionBtn: {
-    fontSize: 18,
-    color: theme.palette.text.second,
-    borderRadius: 0,
-  },
-
-  curSelectionBtn: {
-    fontSize: 18,
-
-    color: theme.palette.primary.main,
-    borderBottom: '2px solid #006CFF',
+    gap: '20px',
   },
 }))

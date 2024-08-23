@@ -26,46 +26,18 @@ export const getResearcherDashboardCardConfig = () => [
         title: t(TranslationKey['Total products']),
         color: '#006CFF',
         route: '/researcher/products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [],
-            },
-          ],
-        },
       },
       // {
       //   dataKey: ResearcherDashboardCardDataKey.SUCCESS_PRODUCTS,
       //   title: t(TranslationKey.Completed),
       //   color: '#00B746',
       //   route: '/researcher/products',
-      //   dataGridFilter: {
-      //     items: [
-      //       {
-      //         columnField: 'status',
-      //         operatorValue: 'isAnyOf',
-      //         value: [TranslationKey['Search complete']],
-      //       },
-      //     ],
-      //   },
-      // },
 
       {
         dataKey: ResearcherDashboardCardDataKey.REJECTED_PRODUCTS,
         title: t(TranslationKey['Rejected by supervisor/buyer']),
         isNegative: true,
         route: '/researcher/products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['Rejected by Supervisor'], TranslationKey['Supplier price does not fit']],
-            },
-          ],
-        },
       },
 
       {
@@ -73,18 +45,6 @@ export const getResearcherDashboardCardConfig = () => [
         title: t(TranslationKey["At the supervisor's check"]),
 
         route: '/researcher/products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [
-                TranslationKey['Product on check with Supervisor'],
-                TranslationKey['Product checked by Supervisor'],
-              ],
-            },
-          ],
-        },
       },
 
       // {
@@ -92,28 +52,12 @@ export const getResearcherDashboardCardConfig = () => [
       //   title: t(TranslationKey["Buyer's search for a supplier"]),
 
       //   route: '/researcher/products',
-      //   dataGridFilter: {
-      //     items: [
-      //       {
-      //         columnField: 'status',
-      //         operatorValue: 'isAnyOf',
-      //         value: [
-      //           TranslationKey['Buyer found a supplier'],
-      //           TranslationKey['Is in search of a Buyer'],
-      //           TranslationKey['Product at the Buyer in work'],
-      //         ],
-      //       },
-      //     ],
-      //   },
       // },
       // {
       //   dataKey: ResearcherDashboardCardDataKey.NO_STATUS,
       //   title: t(TranslationKey['No status']),
 
       //   route: '/researcher/products',
-      //   dataGridFilter: {
-      //     items: [{columnField: 'status', operatorValue: 'isAnyOf', value: [TranslationKey['New product']]}],
-      //   },
       // },
     ],
   },
@@ -128,30 +72,12 @@ export const getResearcherDashboardCardConfig = () => [
   //       title: t(TranslationKey.Accruals),
 
   //       route: '/researcher/finances',
-  //       dataGridFilter: {
-  //         items: [
-  //           {
-  //             columnField: 'sum',
-  //             operatorValue: '>=',
-  //             value: '0',
-  //           },
-  //         ],
-  //       },
   //     },
   //     {
   //       dataKey: ResearcherDashboardCardDataKey.FINES,
   //       title: t(TranslationKey.Fines),
   //       isNegative: true,
   //       route: '/researcher/finances',
-  //       dataGridFilter: {
-  //         items: [
-  //           {
-  //             columnField: 'sum',
-  //             operatorValue: '<',
-  //             value: '0',
-  //           },
-  //         ],
-  //       },
   //     },
   //   ],
   // },
@@ -172,30 +98,12 @@ export const getFreelancerDashboardCardConfig = () => [
         title: t(TranslationKey.Accruals),
         color: '#00B746',
         route: '/freelancer/finances',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'sum',
-              operatorValue: '>=',
-              value: '0',
-            },
-          ],
-        },
       },
       {
         dataKey: ResearcherDashboardCardDataKey.FINES,
         title: t(TranslationKey.Fines),
         isNegative: true,
         route: '/freelancer/finances',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'sum',
-              operatorValue: '<',
-              value: '0',
-            },
-          ],
-        },
       },
     ],
   },
@@ -254,28 +162,12 @@ export const getClientDashboardCardConfig = () => ({
         title: t(TranslationKey['Made orders']),
         color: '#ffc107',
         route: '/client/my-orders/orders',
-        dataGridFilter: {
-          items: [],
-        },
       },
       {
         dataKey: ClientDashboardCardDataKey.PAID_ORDERS,
         title: t(TranslationKey['Paid orders']),
         color: '#00B746',
         route: '/client/my-orders/orders',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [
-                TranslationKey['Paid to supplier'],
-                TranslationKey['Track number issued'],
-                TranslationKey['In stock'],
-              ],
-            },
-          ],
-        },
       },
 
       {
@@ -283,15 +175,6 @@ export const getClientDashboardCardConfig = () => ({
         title: t(TranslationKey['Canceled orders']),
         color: '#BC3030',
         route: '/client/my-orders/orders',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['Canceled by Buyer'], TranslationKey['Canceled by Client']],
-            },
-          ],
-        },
       },
     ],
   },
@@ -312,7 +195,6 @@ export const getClientDashboardCardConfig = () => ({
         subIcon: '/assets/icons/check.svg',
         color: '#C69109',
         route: '/client/warehouse/in-stock',
-        dataGridFilter: 'REQUESTED_SEND_TO_BATCH',
       },
       {
         dataKey: ClientDashboardCardDataKey.IS_BEING_COLLECTED,
@@ -569,45 +451,18 @@ export const getBuyerDashboardCardConfig = () => [
         title: t(TranslationKey['Total products']),
 
         route: '/buyer/my-products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [],
-            },
-          ],
-        },
       },
       {
         dataKey: BuyerDashboardCardDataKey.SUCCESS_PRODUCTS,
         title: t(TranslationKey.Completed),
 
         route: '/buyer/my-products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['Search complete']],
-            },
-          ],
-        },
       },
       {
         dataKey: BuyerDashboardCardDataKey.PAYED_PRODUCTS,
         title: t(TranslationKey.Paid),
 
         route: '/buyer/my-products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['Product purchased'], TranslationKey['Paid by the Client']],
-            },
-          ],
-        },
       },
 
       {
@@ -615,30 +470,12 @@ export const getBuyerDashboardCardConfig = () => [
         title: t(TranslationKey['New search from the supervisor']),
 
         route: '/buyer/search-supplier-by-supervisor',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['Is in search of a Buyer']],
-            },
-          ],
-        },
       },
       {
         dataKey: BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT,
         title: t(TranslationKey['New search from the client']),
 
         route: '/buyer/search-supplier-by-client',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['Is in search of a Buyer']],
-            },
-          ],
-        },
       },
 
       {
@@ -646,15 +483,6 @@ export const getBuyerDashboardCardConfig = () => [
         title: t(TranslationKey['In the process of searching']),
 
         route: '/buyer/my-products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['Is in search of a Buyer'], TranslationKey['Product at the Buyer in work']],
-            },
-          ],
-        },
       },
 
       {
@@ -662,19 +490,6 @@ export const getBuyerDashboardCardConfig = () => [
         title: t(TranslationKey.Rejected),
         isNegative: true,
         route: '/buyer/my-products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [
-                TranslationKey['Supplier was not found'],
-                TranslationKey['Supplier price does not fit'],
-                TranslationKey['Not published'],
-              ],
-            },
-          ],
-        },
       },
     ],
   },
@@ -745,12 +560,12 @@ export const getBuyerDashboardCardConfig = () => [
 
   {
     key: 'FREE ORDERS',
-    title: t(TranslationKey['Free Orders']),
+    title: t(TranslationKey['Free orders']),
     subTitle: t(TranslationKey['Free orders data']),
     items: [
       {
         dataKey: BuyerDashboardCardDataKey.FREE_ORDERS,
-        title: t(TranslationKey['Free Orders']),
+        title: t(TranslationKey['Free orders']),
         route: '/buyer/free-orders',
         color: '#006CFF',
       },
@@ -767,263 +582,18 @@ export const getBuyerDashboardCardConfig = () => [
         title: t(TranslationKey.Accruals),
 
         route: '/buyer/finances',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'sum',
-              operatorValue: '>=',
-              value: '0',
-            },
-          ],
-        },
       },
       {
         dataKey: BuyerDashboardCardDataKey.FINANCES_FINES,
         title: t(TranslationKey.Fines),
         isNegative: true,
         route: '/buyer/finances',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'sum',
-              operatorValue: '<',
-              value: '0',
-            },
-          ],
-        },
       },
       {
         dataKey: BuyerDashboardCardDataKey.FINANCES_REFUNDS,
         title: t(TranslationKey['Order returns']),
         isNegative: true,
         route: '/buyer/finances',
-      },
-    ],
-  },
-]
-
-export const SupervisorDashboardCardDataKey = {
-  ALL_PRODUCTS: 'ALL_PRODUCTS',
-  SUCCESS_PRODUCTS: 'SUCCESS_PRODUCTS',
-  PAYED_PRODUCTS: 'PAYED_PRODUCTS',
-
-  NEW_PRODUCTS_AT_RESEARCHER: 'NEW_PRODUCTS_AT_RESEARCHER',
-  NEW_PRODUCTS_AT_CLIENT: 'NEW_PRODUCTS_AT_CLIENT',
-  AWAIT_SOLVE: 'AWAIT_SOLVE',
-
-  ON_CHECKING: 'ON_CHECKING',
-
-  IN_SEARCH_PRODUCTS: 'IN_SEARCH_PRODUCTS',
-  REJECTED_PRODUCTS: 'REJECTED_PRODUCTS',
-
-  REPLENISH: 'REPLENISH',
-  FINES: 'FINES',
-}
-
-export const getSupervisorDashboardCardConfig = () => [
-  {
-    key: 'PRODUCTS',
-    title: t(TranslationKey.Products),
-    subTitle: t(TranslationKey['Your product list data']),
-    items: [
-      {
-        dataKey: SupervisorDashboardCardDataKey.ALL_PRODUCTS,
-        title: t(TranslationKey['Total products']),
-
-        route: '/supervisor/products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [],
-            },
-          ],
-        },
-      },
-      {
-        dataKey: SupervisorDashboardCardDataKey.SUCCESS_PRODUCTS,
-        title: t(TranslationKey['Published on the stock exchange']),
-
-        route: '/supervisor/products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['Search complete']],
-            },
-          ],
-        },
-      },
-      {
-        dataKey: SupervisorDashboardCardDataKey.PAYED_PRODUCTS,
-        title: t(TranslationKey.Paid),
-
-        route: '/supervisor/products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['Product purchased'], TranslationKey['Paid by the Client']],
-            },
-          ],
-        },
-      },
-
-      {
-        dataKey: SupervisorDashboardCardDataKey.REJECTED_PRODUCTS,
-        title: t(TranslationKey.Rejected),
-        isNegative: true,
-        route: '/supervisor/products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [
-                TranslationKey['Supplier was not found'],
-                TranslationKey['Supplier was not found (сhecked)'],
-                TranslationKey['Supplier price does not fit'],
-                TranslationKey['Supplier price does not fit (сhecked)'],
-                TranslationKey['Not published'],
-              ],
-            },
-          ],
-        },
-      },
-    ],
-  },
-
-  {
-    key: 'CHECK',
-    title: t(TranslationKey.Checking),
-    subTitle: t(TranslationKey['Data on product checks']),
-    items: [
-      {
-        dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_RESEARCHER,
-        title: t(TranslationKey['To check from the resercher']),
-
-        route: '/supervisor/ready-to-check',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['Product on check with Supervisor']],
-            },
-          ],
-        },
-      },
-      {
-        dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT,
-        title: t(TranslationKey['New search from the client']),
-
-        route: '/supervisor/ready-to-check-by-client',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['Product on check with Supervisor']],
-            },
-          ],
-        },
-      },
-      {
-        dataKey: SupervisorDashboardCardDataKey.ON_CHECKING,
-        title: t(TranslationKey['On review']),
-
-        route: '/supervisor/products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [
-                TranslationKey['Buyer found a supplier'],
-                TranslationKey['Product checked by Supervisor'],
-                TranslationKey['Buyer found a supplier'],
-              ],
-            },
-          ],
-        },
-      },
-      {
-        dataKey: SupervisorDashboardCardDataKey.AWAIT_SOLVE,
-        title: t(TranslationKey['Waiting to be checked']),
-
-        route: '/supervisor/products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [
-                TranslationKey['Product on check with Supervisor'],
-                TranslationKey['Researcher found supplier'],
-                TranslationKey['Buyer found a supplier'],
-                TranslationKey['Supplier was not found'],
-                TranslationKey['Supplier price does not fit'],
-              ],
-            },
-          ],
-        },
-      },
-
-      {
-        dataKey: SupervisorDashboardCardDataKey.IN_SEARCH_PRODUCTS,
-        title: t(TranslationKey['In the work of a Buyer']),
-
-        route: '/supervisor/products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['Is in search of a Buyer'], TranslationKey['Product at the Buyer in work']],
-            },
-          ],
-        },
-      },
-    ],
-  },
-
-  {
-    key: 'FINANCES',
-    title: t(TranslationKey.Finances),
-    subTitle: t(TranslationKey['Accrual data']),
-    items: [
-      {
-        dataKey: SupervisorDashboardCardDataKey.REPLENISH,
-        title: t(TranslationKey.Accruals),
-
-        route: '/supervisor/finances',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'sum',
-              operatorValue: '>=',
-              value: '0',
-            },
-          ],
-        },
-      },
-      {
-        dataKey: SupervisorDashboardCardDataKey.FINES,
-        title: t(TranslationKey.Fines),
-        isNegative: true,
-        route: '/supervisor/finances',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'sum',
-              operatorValue: '<',
-              value: '0',
-            },
-          ],
-        },
       },
     ],
   },

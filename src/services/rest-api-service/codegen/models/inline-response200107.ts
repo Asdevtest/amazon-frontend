@@ -13,56 +13,26 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { InlineResponse200107Rows } from './inline-response200107-rows';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse200107
  */
 export interface InlineResponse200107 {
     /**
-     * GUID записи
-     * @type {string}
-     * @memberof InlineResponse200107
-     */
-    _id?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200107
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Роль юзера, когда он оставлял отзыв
+     * Всего кол-во записей в результате запроса
      * @type {number}
      * @memberof InlineResponse200107
      */
-    role?: number;
+    count?: number;
     /**
-     * Комментарий к оценке
-     * @type {string}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse200107Rows>}
      * @memberof InlineResponse200107
      */
-    comment?: string;
-    /**
-     * Оценка, целое число от 1 до 5
-     * @type {number}
-     * @memberof InlineResponse200107
-     */
-    rating?: number;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200107
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse200107
-     */
-    createdAt?: string;
+    rows?: Array<InlineResponse200107Rows>;
 }
 
 

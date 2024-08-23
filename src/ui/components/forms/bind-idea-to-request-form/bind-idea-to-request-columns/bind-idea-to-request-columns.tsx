@@ -18,7 +18,7 @@ export const bindIdeaToRequestColumns = [
     renderCell: (params: GridCellParams) => <MultilineTextCell leftAlign text={params.row.humanFriendlyId} />,
     filterable: false,
     sortable: false,
-    width: 70,
+    width: 80,
   },
 
   {

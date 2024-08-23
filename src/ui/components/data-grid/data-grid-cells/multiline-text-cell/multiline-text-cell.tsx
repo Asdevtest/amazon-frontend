@@ -24,6 +24,9 @@ interface MultilineTextCellProps {
   customTextStyles?: CSSProperties
   maxLength?: number
   customTextClass?: string
+  link?: boolean
+  startIcon?: JSX.Element | null
+  endIcon?: JSX.Element | null
   onClickText?: () => void
 }
 
@@ -45,14 +48,16 @@ export const MultilineTextCell: FC<MultilineTextCellProps> = memo(props => {
     customTextStyles,
     maxLength,
     customTextClass,
+    link,
+    startIcon,
+    endIcon,
   } = props
 
-  const parseText = text // removed after 01.03.2024 (it's was bug with text editor layout)
   const maxTextLength = maxLength ?? MAX_LENGTH_TITLE
-  const isValidTextLength = parseText?.length <= maxTextLength
+  const isValidTextLength = text?.length <= maxTextLength
   const oneLineText =
-    isValidTextLength || oneLines ? parseText : getShortenStringIfLongerThanCount(parseText, maxLength ?? maxTextLength)
-  const textForRender = threeLines || twoLines ? parseText : oneLineText
+    isValidTextLength || oneLines ? text : getShortenStringIfLongerThanCount(text, maxLength ?? maxTextLength)
+  const textForRender = threeLines || twoLines ? text : oneLineText
   const isTooltip = withTooltip || tooltipText || !isValidTextLength
 
   return (
@@ -61,12 +66,14 @@ export const MultilineTextCell: FC<MultilineTextCellProps> = memo(props => {
         [styles.illuminationCell]: illuminationCell && textForRender,
       })}
     >
-      <Tooltip title={isTooltip ? tooltipText || parseText : ''}>
+      {startIcon ? startIcon : null}
+
+      <Tooltip title={isTooltip ? tooltipText || text : ''}>
         <p
           className={cx(
             styles.multilineText,
             { [styles.multilineLeftAlignText]: leftAlign },
-            { [styles.multilineLink]: onClickText && textForRender },
+            { [styles.multilineLink]: link },
             { [styles.oneMultilineText]: oneLines },
             { [styles.twoMultilineText]: twoLines },
             { [styles.threeMultilineText]: threeLines },
@@ -81,6 +88,8 @@ export const MultilineTextCell: FC<MultilineTextCellProps> = memo(props => {
             : textForRender || noText || '0'}
         </p>
       </Tooltip>
+
+      {endIcon ? endIcon : null}
     </div>
   )
 })

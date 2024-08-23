@@ -11,6 +11,8 @@ export interface ISupplier {
   images: Array<string>
   comment: string
   yuanRate: number
+  minProductionTerm: number
+  maxProductionTerm: number
   multiplicity: boolean
   priceInYuan: number
   batchDeliveryCostInDollar: number
@@ -24,6 +26,11 @@ export interface ISupplier {
   priceVariations: Array<object>
   createdAt: string
   updatedAt: string
+  imageUnit: string[]
+  heightUnit: number
+  widthUnit: number
+  lengthUnit: number
+  weighUnit: number
 }
 
 interface IBoxProperties {

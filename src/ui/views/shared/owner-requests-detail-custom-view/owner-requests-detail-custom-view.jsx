@@ -17,7 +17,6 @@ import { OwnerGeneralRequestInfo } from '@components/requests-and-request-propos
 import { DealsOfRequest } from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
-import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 import { RequestProposalsCardList } from '@components/shared/request-proposals-card-list'
@@ -169,7 +168,6 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                         )}
                       </>
                     )}
-                    updateData={viewModel.loadData}
                     requestStatus={viewModel.requestStatus}
                     onChangeRequestStatus={viewModel.setRequestStatus}
                     onSubmitMessage={viewModel.onSubmitMessage}
@@ -188,9 +186,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
 
         {viewModel.showChat && (
           <div className={styles.hideChatButtonWrapper}>
-            <Button className={styles.hideChatButton} onClick={viewModel.onClickHideChat}>
-              {t(TranslationKey['Hide chat'])}
-            </Button>
+            <Button onClick={viewModel.onClickHideChat}>{t(TranslationKey['Hide chat'])}</Button>
           </div>
         )}
       </div>
@@ -281,7 +277,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           message={viewModel.confirmModalSettings.message}
           smallMessage={viewModel.confirmModalSettings.smallMessage}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
@@ -297,18 +293,11 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           title={t(TranslationKey['Suspend the acceptance of proposals?'])}
           commentLabelText={`${t(TranslationKey['State the reason for stopping'])}: `}
           successBtnText={t(TranslationKey.Ok)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.onSubmitAbortRequest}
           onClickCancelBtn={viewModel.onClickAbortBtn}
         />
       ) : null}
-
-      {viewModel.alertShieldSettings.alertShieldMessage && (
-        <AlertShield
-          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
-          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
-        />
-      )}
     </>
   )
 })

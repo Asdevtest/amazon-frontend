@@ -15,6 +15,7 @@ interface CustomTextEditorProps {
   verticalResize?: boolean
   placeholder?: string
   disableToolbar?: boolean
+  allHeight?: boolean
   editorWrapperClassName?: string
   editorContainerClassName?: string
   editorToolbarClassName?: string
@@ -31,6 +32,7 @@ export const CustomTextEditor: FC<CustomTextEditorProps> = memo(props => {
     placeholder,
     disableToolbar,
     verticalResize,
+    allHeight,
     editorWrapperClassName,
     editorContainerClassName,
     editorToolbarClassName,
@@ -69,15 +71,24 @@ export const CustomTextEditor: FC<CustomTextEditorProps> = memo(props => {
       classes={{
         root: cx(styles.wrapper, editorWrapperClassName),
         container: styles.container,
-        editorContainer: cx(styles.editorContainer, editorContainerClassName, {
-          [styles.editorContainerReadOnly]: readOnly,
-        }),
-        editor: cx(styles.editor, editorClassName, {
-          [styles.editorBorder]: !readOnly,
-          [styles.editorBorderFocus]: focus,
-          [styles.editorBorderError]: showErrorBorder,
-          [styles.verticalResize]: verticalResize,
-        }),
+        editorContainer: cx(
+          styles.editorContainer,
+          {
+            [styles.editorContainerReadOnly]: readOnly,
+          },
+          editorContainerClassName,
+        ),
+        editor: cx(
+          styles.editor,
+          {
+            [styles.editorBorder]: !readOnly,
+            [styles.editorBorderFocus]: focus,
+            [styles.editorBorderError]: showErrorBorder,
+            [styles.verticalResize]: verticalResize,
+            [styles.allHeight]: allHeight,
+          },
+          editorClassName,
+        ),
         toolbar: cx(styles.editorToolbar, editorToolbarClassName),
         placeHolder: styles.placeHolder,
       }}

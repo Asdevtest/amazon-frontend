@@ -56,8 +56,8 @@ export const BottomCard = observer(
                     inputClasses={styles.infoInput}
                     label={t(TranslationKey['Amazon price']) + ', $'}
                     // error={errorMessagesTranslate(formFieldsValidationErrors.amazon)}
-                    value={product.amazon === 0 ? 0 : product.amazon || ''}
-                    onChange={onChangeField('amazon')}
+                    value={product?.amazon === 0 ? 0 : product?.amazon || ''}
+                    onChange={onChangeField?.('amazon')}
                   />
 
                   <Field
@@ -68,7 +68,7 @@ export const BottomCard = observer(
                     inputProps={{ maxLength: 15 }}
                     label={t(TranslationKey['Weight, kg']) + '*'}
                     value={product.weight === 0 ? 0 : toFixed(product.weight, 5) || ''}
-                    onChange={onChangeField('weight')}
+                    onChange={onChangeField?.('weight')}
                   />
                 </div>
                 <div className={styles.infoSubWrapper}>
@@ -80,7 +80,7 @@ export const BottomCard = observer(
                     inputClasses={styles.infoInput}
                     label={t(TranslationKey['Total FBA, $'])}
                     value={product.totalFba === 0 ? 0 : toFixed(product.totalFba, 2) || ''}
-                    onChange={onChangeField('totalFba')}
+                    onChange={onChangeField?.('totalFba')}
                   />
 
                   <Field
@@ -92,7 +92,7 @@ export const BottomCard = observer(
                     inputProps={{ maxLength: 15 }}
                     label={t(TranslationKey['Recommended batch']) + ', FBA*'}
                     value={product.fbaamount === 0 ? 0 : product.fbaamount || ''}
-                    onChange={onChangeField('fbaamount')}
+                    onChange={onChangeField?.('fbaamount')}
                   />
                 </div>
               </div>
@@ -107,7 +107,7 @@ export const BottomCard = observer(
                     inputProps={{ maxLength: 50 }}
                     label={t(TranslationKey.Category)}
                     value={product.category || ''}
-                    onChange={onChangeField('category')}
+                    onChange={onChangeField?.('category')}
                   />
                 </div>
                 <div className={styles.infoSubWrapper}>
@@ -120,7 +120,7 @@ export const BottomCard = observer(
                     label={t(TranslationKey.BSR)}
                     inputProps={{ maxLength: 15 }}
                     value={product.bsr || 0}
-                    onChange={onChangeField('bsr')}
+                    onChange={onChangeField?.('bsr')}
                   />
                 </div>
               </div>
@@ -135,7 +135,7 @@ export const BottomCard = observer(
                     inputProps={{ maxLength: 15 }}
                     label={t(TranslationKey['Width, inches']) + '*'}
                     value={product.width === 0 ? 0 : toFixed(product.width, 5) || ''}
-                    onChange={onChangeField('width')}
+                    onChange={onChangeField?.('width')}
                   />
                   <Field
                     disabled={defaultFieldDisable}
@@ -145,7 +145,7 @@ export const BottomCard = observer(
                     inputProps={{ maxLength: 15 }}
                     label={t(TranslationKey['Height, inches']) + '*'}
                     value={product.height === 0 ? 0 : toFixed(product.height, 5) || ''}
-                    onChange={onChangeField('height')}
+                    onChange={onChangeField?.('height')}
                   />
                 </div>
 
@@ -158,7 +158,7 @@ export const BottomCard = observer(
                     inputProps={{ maxLength: 15 }}
                     label={t(TranslationKey['Length, inches']) + '*'}
                     value={product.length === 0 ? 0 : toFixed(product.length, 5) || ''}
-                    onChange={onChangeField('length')}
+                    onChange={onChangeField?.('length')}
                   />
 
                   <Field
@@ -169,7 +169,7 @@ export const BottomCard = observer(
                     inputProps={{ maxLength: 10 }}
                     label={t(TranslationKey['Min purchase price, $'])}
                     value={product.minpurchase === 0 ? '' : toFixed(product.minpurchase, 2) || ''}
-                    onChange={onChangeField('minpurchase')}
+                    onChange={onChangeField?.('minpurchase')}
                   />
                 </div>
               </div>
@@ -185,7 +185,7 @@ export const BottomCard = observer(
                     inputProps={{ maxLength: 15 }}
                     label={'FBA fees'}
                     value={product.fbafee === 0 ? 0 : toFixed(product.fbafee, 2) || ''}
-                    onChange={onChangeField('fbafee')}
+                    onChange={onChangeField?.('fbafee')}
                   />
 
                   <Field
@@ -200,7 +200,7 @@ export const BottomCard = observer(
                     inputClasses={styles.infoInput}
                     label={t(TranslationKey['Profit, $'])}
                     value={toFixed(product.profit, 2) || 0}
-                    onChange={onChangeField('profit')}
+                    onChange={onChangeField?.('profit')}
                   />
                 </div>
 
@@ -214,7 +214,7 @@ export const BottomCard = observer(
                     inputProps={{ maxLength: 10 }}
                     label={t(TranslationKey['Referral fee, $'])}
                     value={product.reffee === 0 ? 0 : toFixed(product.reffee, 2) || ''}
-                    onChange={onChangeField('reffee')}
+                    onChange={onChangeField?.('reffee')}
                   />
                   <Field
                     disabled
@@ -228,7 +228,7 @@ export const BottomCard = observer(
                     inputClasses={styles.infoInput}
                     label={t(TranslationKey['Margin, %'])}
                     value={toFixed(product.margin, 2) || 0}
-                    onChange={onChangeField('margin')}
+                    onChange={onChangeField?.('margin')}
                   />
                 </div>
               </div>
@@ -247,7 +247,7 @@ export const BottomCard = observer(
                 error={formFieldsValidationErrors.status}
                 label={t(TranslationKey.Status)}
                 value={t(productStatusTranslateKey(ProductStatusByCode[product.status]))}
-                // onChange={onChangeField('status')}
+                // onChange={onChangeField?.('status')}
               />
             </Paper>
           </Grid>
@@ -259,7 +259,7 @@ export const BottomCard = observer(
                 disabled={defaultFieldDisable}
                 label={t(TranslationKey['Product header on Amazon'])}
                 value={product.amazonTitle || ''}
-                onChange={onChangeField('amazonTitle')}
+                onChange={onChangeField?.('amazonTitle')}
               />
 
               <Field
@@ -270,7 +270,7 @@ export const BottomCard = observer(
                 maxRows={6}
                 label={t(TranslationKey['Amazon Brief Description'])}
                 value={product.amazonDescription || ''}
-                onChange={onChangeField('amazonDescription')}
+                onChange={onChangeField?.('amazonDescription')}
               />
 
               <Field
@@ -281,7 +281,7 @@ export const BottomCard = observer(
                 maxRows={6}
                 label={t(TranslationKey.Details)}
                 value={product.amazonDetail || ''}
-                onChange={onChangeField('amazonDetail')}
+                onChange={onChangeField?.('amazonDetail')}
               />
             </Paper>
           </Grid>

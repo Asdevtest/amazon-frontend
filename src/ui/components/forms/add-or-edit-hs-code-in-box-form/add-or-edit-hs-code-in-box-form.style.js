@@ -5,6 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '700px',
+
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       flexDirection: 'column',
@@ -70,15 +71,5 @@ export const useStyles = makeStyles()(theme => ({
 
   amount: {
     marginLeft: '5px',
-  },
-
-  closeButton: {
-    width: '136px',
-    height: '40px',
-    color: theme.palette.text.general,
-  },
-  saveButton: {
-    width: '136px',
-    height: '40px',
   },
 }))

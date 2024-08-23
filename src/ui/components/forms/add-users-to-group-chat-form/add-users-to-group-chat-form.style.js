@@ -67,17 +67,4 @@ export const useStyles = makeStyles()(theme => ({
       justifyContent: 'space-between',
     },
   },
-
-  button: {
-    width: 144,
-    height: 40,
-
-    [theme.breakpoints.down(768)]: {
-      width: 120,
-    },
-  },
-
-  cancelButton: {
-    color: theme.palette.text.general,
-  },
 }))

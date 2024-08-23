@@ -37,13 +37,11 @@ import { InlineObject85 } from '../models';
 // @ts-ignore
 import { InlineObject86 } from '../models';
 // @ts-ignore
-import { InlineResponse20063 } from '../models';
-// @ts-ignore
-import { InlineResponse20063Rows } from '../models';
-// @ts-ignore
-import { InlineResponse20064 } from '../models';
+import { InlineResponse200117 } from '../models';
 // @ts-ignore
 import { InlineResponse20065 } from '../models';
+// @ts-ignore
+import { InlineResponse20065Rows } from '../models';
 // @ts-ignore
 import { InlineResponse20066 } from '../models';
 // @ts-ignore
@@ -54,6 +52,10 @@ import { InlineResponse20068 } from '../models';
 import { InlineResponse20069 } from '../models';
 // @ts-ignore
 import { InlineResponse20070 } from '../models';
+// @ts-ignore
+import { InlineResponse20071 } from '../models';
+// @ts-ignore
+import { InlineResponse20072 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -294,6 +296,69 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ## Получить отчет Shipments.
+         * @summary Получить отчет Shipments.
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsReportInventoryShipmentsFromParserGet: async (limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/integrations/report_inventory_shipments/from_parser`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (sortField !== undefined) {
+                localVarQueryParameter['sortField'] = sortField;
+            }
+
+            if (sortType !== undefined) {
+                localVarQueryParameter['sortType'] = sortType;
+            }
+
+            if (noCache !== undefined) {
+                localVarQueryParameter['noCache'] = noCache;
+            }
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -598,6 +663,81 @@ export const IntegrationsApiAxiosParamCreator = function (configuration?: Config
 
             if (filters !== undefined) {
                 localVarQueryParameter['filters'] = filters;
+            }
+
+            if (noCache !== undefined) {
+                localVarQueryParameter['noCache'] = noCache;
+            }
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ## Получить отчеты парсера.  ## Это эндпоинт отдает все отчеты по магазину клиента.
+         * @summary Получить отчеты парсера.
+         * @param {'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS' | 'PROFILE' | 'RECEIVING_REQUESTS'} table 
+         * @param {string} [filters]                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsReportsGet: async (table: 'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS' | 'PROFILE' | 'RECEIVING_REQUESTS', filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'table' is not null or undefined
+            assertParamExists('apiV1IntegrationsReportsGet', 'table', table)
+            const localVarPath = `/api/v1/integrations/reports/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (table !== undefined) {
+                localVarQueryParameter['table'] = table;
+            }
+
+            if (filters !== undefined) {
+                localVarQueryParameter['filters'] = filters;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (sortField !== undefined) {
+                localVarQueryParameter['sortField'] = sortField;
+            }
+
+            if (sortType !== undefined) {
+                localVarQueryParameter['sortType'] = sortType;
             }
 
             if (noCache !== undefined) {
@@ -1070,7 +1210,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsGetSkusByProductIdGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20063Rows>>> {
+        async apiV1IntegrationsGetSkusByProductIdGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20065Rows>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsGetSkusByProductIdGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1082,7 +1222,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsRefreshProductsPatch(body?: Array<string>, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20065>> {
+        async apiV1IntegrationsRefreshProductsPatch(body?: Array<string>, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20067>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsRefreshProductsPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1099,7 +1239,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsReportInventoryGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20066>> {
+        async apiV1IntegrationsReportInventoryGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20068>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportInventoryGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1122,13 +1262,29 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {number} [offset] Смещение для пагинации
          * @param {string} [sortField] Название поля
          * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1IntegrationsReportInventoryShipmentsFromParserGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportInventoryShipmentsFromParserGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * ## Получить отчет Shipments.
+         * @summary Получить отчет Shipments.
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
          * @param {string} [filters]                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
          * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsReportInventoryShipmentsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20067>> {
+        async apiV1IntegrationsReportInventoryShipmentsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20069>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportInventoryShipmentsGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1145,7 +1301,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsReportPpcSalesDaysGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20069>> {
+        async apiV1IntegrationsReportPpcSalesDaysGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20071>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportPpcSalesDaysGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1162,7 +1318,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsReportPpcSalesWeeksGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20068>> {
+        async apiV1IntegrationsReportPpcSalesWeeksGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20070>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportPpcSalesWeeksGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1192,8 +1348,26 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsReportReturnsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20070>> {
+        async apiV1IntegrationsReportReturnsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20072>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportReturnsGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * ## Получить отчеты парсера.  ## Это эндпоинт отдает все отчеты по магазину клиента.
+         * @summary Получить отчеты парсера.
+         * @param {'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS' | 'PROFILE' | 'RECEIVING_REQUESTS'} table 
+         * @param {string} [filters]                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1IntegrationsReportsGet(table: 'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS' | 'PROFILE' | 'RECEIVING_REQUESTS', filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200117>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportsGet(table, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1222,7 +1396,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20064>> {
+        async apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20066>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1275,7 +1449,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsSellerboardWarehouseStocksGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20063>> {
+        async apiV1IntegrationsSellerboardWarehouseStocksGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20065>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsSellerboardWarehouseStocksGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1304,7 +1478,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsWarehouseReportGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20063>> {
+        async apiV1IntegrationsWarehouseReportGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20065>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsWarehouseReportGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1337,7 +1511,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsGetSkusByProductIdGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20063Rows>> {
+        apiV1IntegrationsGetSkusByProductIdGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20065Rows>> {
             return localVarFp.apiV1IntegrationsGetSkusByProductIdGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1348,7 +1522,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsRefreshProductsPatch(body?: Array<string>, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20065> {
+        apiV1IntegrationsRefreshProductsPatch(body?: Array<string>, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20067> {
             return localVarFp.apiV1IntegrationsRefreshProductsPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1364,7 +1538,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportInventoryGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20066> {
+        apiV1IntegrationsReportInventoryGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20068> {
             return localVarFp.apiV1IntegrationsReportInventoryGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1385,13 +1559,28 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {number} [offset] Смещение для пагинации
          * @param {string} [sortField] Название поля
          * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsReportInventoryShipmentsFromParserGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.apiV1IntegrationsReportInventoryShipmentsFromParserGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Получить отчет Shipments.
+         * @summary Получить отчет Shipments.
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
          * @param {string} [filters]                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
          * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportInventoryShipmentsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20067> {
+        apiV1IntegrationsReportInventoryShipmentsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20069> {
             return localVarFp.apiV1IntegrationsReportInventoryShipmentsGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1407,7 +1596,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportPpcSalesDaysGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20069> {
+        apiV1IntegrationsReportPpcSalesDaysGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20071> {
             return localVarFp.apiV1IntegrationsReportPpcSalesDaysGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1423,7 +1612,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportPpcSalesWeeksGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20068> {
+        apiV1IntegrationsReportPpcSalesWeeksGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20070> {
             return localVarFp.apiV1IntegrationsReportPpcSalesWeeksGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1451,8 +1640,25 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportReturnsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20070> {
+        apiV1IntegrationsReportReturnsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20072> {
             return localVarFp.apiV1IntegrationsReportReturnsGet(limit, offset, sortField, sortType, filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Получить отчеты парсера.  ## Это эндпоинт отдает все отчеты по магазину клиента.
+         * @summary Получить отчеты парсера.
+         * @param {'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS' | 'PROFILE' | 'RECEIVING_REQUESTS'} table 
+         * @param {string} [filters]                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsReportsGet(table: 'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS' | 'PROFILE' | 'RECEIVING_REQUESTS', filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200117> {
+            return localVarFp.apiV1IntegrationsReportsGet(table, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Удалить отчеты
@@ -1479,7 +1685,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20064> {
+        apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20066> {
             return localVarFp.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1528,7 +1734,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsSellerboardWarehouseStocksGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20063> {
+        apiV1IntegrationsSellerboardWarehouseStocksGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20065> {
             return localVarFp.apiV1IntegrationsSellerboardWarehouseStocksGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1555,7 +1761,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsWarehouseReportGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20063> {
+        apiV1IntegrationsWarehouseReportGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20065> {
             return localVarFp.apiV1IntegrationsWarehouseReportGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -1697,6 +1903,55 @@ export interface IntegrationsApiApiV1IntegrationsReportInventoryProductsLinkSkuP
      * 
      * @type {string}
      * @memberof IntegrationsApiApiV1IntegrationsReportInventoryProductsLinkSkuPatch
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
+ * Request parameters for apiV1IntegrationsReportInventoryShipmentsFromParserGet operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGetRequest
+ */
+export interface IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGetRequest {
+    /**
+     * Лимит записей для пагинации
+     * @type {number}
+     * @memberof IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGet
+     */
+    readonly limit?: number
+
+    /**
+     * Смещение для пагинации
+     * @type {number}
+     * @memberof IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGet
+     */
+    readonly offset?: number
+
+    /**
+     * Название поля
+     * @type {string}
+     * @memberof IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGet
+     */
+    readonly sortField?: string
+
+    /**
+     * Тип сортировки
+     * @type {'ASC' | 'DESC'}
+     * @memberof IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGet
+     */
+    readonly sortType?: 'ASC' | 'DESC'
+
+    /**
+     * Игнорировать данные в кеше
+     * @type {boolean}
+     * @memberof IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGet
+     */
+    readonly noCache?: boolean
+
+    /**
+     * 
+     * @type {string}
+     * @memberof IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGet
      */
     readonly acceptEncoding?: string
 }
@@ -1949,6 +2204,69 @@ export interface IntegrationsApiApiV1IntegrationsReportReturnsGetRequest {
      * 
      * @type {string}
      * @memberof IntegrationsApiApiV1IntegrationsReportReturnsGet
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
+ * Request parameters for apiV1IntegrationsReportsGet operation in IntegrationsApi.
+ * @export
+ * @interface IntegrationsApiApiV1IntegrationsReportsGetRequest
+ */
+export interface IntegrationsApiApiV1IntegrationsReportsGetRequest {
+    /**
+     * 
+     * @type {'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS' | 'PROFILE' | 'RECEIVING_REQUESTS'}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly table: 'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFOMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS' | 'PROFILE' | 'RECEIVING_REQUESTS'
+
+    /**
+     *                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+     * @type {string}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly filters?: string
+
+    /**
+     * Лимит записей для пагинации
+     * @type {number}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly limit?: number
+
+    /**
+     * Смещение для пагинации
+     * @type {number}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly offset?: number
+
+    /**
+     * Название поля
+     * @type {string}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly sortField?: string
+
+    /**
+     * Тип сортировки
+     * @type {'ASC' | 'DESC'}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly sortType?: 'ASC' | 'DESC'
+
+    /**
+     * Игнорировать данные в кеше
+     * @type {boolean}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
+     */
+    readonly noCache?: boolean
+
+    /**
+     * 
+     * @type {string}
+     * @memberof IntegrationsApiApiV1IntegrationsReportsGet
      */
     readonly acceptEncoding?: string
 }
@@ -2303,6 +2621,18 @@ export class IntegrationsApi extends BaseAPI {
     /**
      * ## Получить отчет Shipments.
      * @summary Получить отчет Shipments.
+     * @param {IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public apiV1IntegrationsReportInventoryShipmentsFromParserGet(requestParameters: IntegrationsApiApiV1IntegrationsReportInventoryShipmentsFromParserGetRequest = {}, options?: any) {
+        return IntegrationsApiFp(this.configuration).apiV1IntegrationsReportInventoryShipmentsFromParserGet(requestParameters.limit, requestParameters.offset, requestParameters.sortField, requestParameters.sortType, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * ## Получить отчет Shipments.
+     * @summary Получить отчет Shipments.
      * @param {IntegrationsApiApiV1IntegrationsReportInventoryShipmentsGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2358,6 +2688,18 @@ export class IntegrationsApi extends BaseAPI {
      */
     public apiV1IntegrationsReportReturnsGet(requestParameters: IntegrationsApiApiV1IntegrationsReportReturnsGetRequest = {}, options?: any) {
         return IntegrationsApiFp(this.configuration).apiV1IntegrationsReportReturnsGet(requestParameters.limit, requestParameters.offset, requestParameters.sortField, requestParameters.sortType, requestParameters.filters, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * ## Получить отчеты парсера.  ## Это эндпоинт отдает все отчеты по магазину клиента.
+     * @summary Получить отчеты парсера.
+     * @param {IntegrationsApiApiV1IntegrationsReportsGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof IntegrationsApi
+     */
+    public apiV1IntegrationsReportsGet(requestParameters: IntegrationsApiApiV1IntegrationsReportsGetRequest, options?: any) {
+        return IntegrationsApiFp(this.configuration).apiV1IntegrationsReportsGet(requestParameters.table, requestParameters.filters, requestParameters.limit, requestParameters.offset, requestParameters.sortField, requestParameters.sortType, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

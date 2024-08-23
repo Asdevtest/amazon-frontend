@@ -33,12 +33,6 @@ export interface InlineResponse20044 {
      * @memberof InlineResponse20044
      */
     rows?: Array<InlineResponse20044Rows>;
-    /**
-     * 
-     * @type {object}
-     * @memberof InlineResponse20044
-     */
-    meta?: object;
 }
 
 

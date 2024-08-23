@@ -8,7 +8,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     paddingBottom: '20px',
 
-    width: '630px',
     gap: '20px',
     [theme.breakpoints.down(768)]: {
       width: '100%',
@@ -72,27 +71,13 @@ export const useStyles = makeStyles()(theme => ({
   countWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: '42px',
-    [theme.breakpoints.down(1282)]: {
-      width: '72%',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
-      gap: 25,
-    },
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      alignItems: 'end',
-      gap: '20px',
-    },
+    gap: '10px',
   },
 
   countSubWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: '25px',
-    [theme.breakpoints.down(1282)]: {
-      gap: 5,
-    },
+    gap: '10px',
   },
   asinWrapper: {
     display: 'flex',
@@ -127,17 +112,8 @@ export const useStyles = makeStyles()(theme => ({
 
   attributeHeaderWrapper: {
     display: 'flex',
-    width: '100%',
     justifyContent: 'space-between',
-    [theme.breakpoints.down(1282)]: {
-      gap: 5,
-      flexDirection: 'column',
-    },
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      alignItems: 'end',
-      gap: '14px',
-    },
+    gap: '5px',
   },
 
   attributeFooterWrapper: {

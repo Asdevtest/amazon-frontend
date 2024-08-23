@@ -19,7 +19,7 @@ import { checkAndMakeAbsoluteUrl, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { isString } from '@typings/guards'
 
 import { useStyles } from './request-designer-result-client-form.style'
@@ -237,13 +237,12 @@ export const RequestDesignerResultClientForm = memo(props => {
               <Typography>{t(TranslationKey['Select all'])}</Typography>
             </div>
 
-            <Button disabled={!imagesForDownload.length} className={styles.imagesModalBtn} onClick={onClickAllDownload}>
+            <Button disabled={!imagesForDownload.length} onClick={onClickAllDownload}>
               <DownloadOutlinedIcon />
             </Button>
 
             <Button
               disabled={!imagesForDownload.length || archiveButtonInactiveBeforeDownloading}
-              className={styles.imagesModalBtn}
               onClick={onClickDownloadArchive}
             >
               <DownloadArchiveIcon />
@@ -253,8 +252,6 @@ export const RequestDesignerResultClientForm = memo(props => {
           {!noShowActions && (
             <>
               <Button
-                // disabled={disableSubmit}
-                className={styles.button}
                 onClick={() =>
                   onPressSubmitDesignerResultToCorrect({
                     reason: comment,
@@ -267,7 +264,6 @@ export const RequestDesignerResultClientForm = memo(props => {
               </Button>
               <Button
                 styleType={ButtonStyle.SUCCESS}
-                className={styles.button}
                 onClick={() => {
                   onClickProposalResultAccept(proposal.proposal._id)
                   setOpenModal()
@@ -278,23 +274,20 @@ export const RequestDesignerResultClientForm = memo(props => {
             </>
           )}
 
-          <Button
-            variant={ButtonVariant.OUTLINED}
-            className={cx(styles.button, styles.cancelButton)}
-            onClick={setOpenModal}
-          >
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>
 
       {showImageModal ? (
         <SlideshowGalleryModal
+          withoutMakeMainImage
           openModal={showImageModal}
           files={imagesData}
           currentFileIndex={curImageIndex}
           onOpenModal={() => setShowImageModal(!showImageModal)}
-          onCurrentFileIndex={index => setCurImageIndex(index)}
+          onCurrentFileIndex={setCurImageIndex}
           onChangeImagesForLoad={setImagesData}
         />
       ) : null}

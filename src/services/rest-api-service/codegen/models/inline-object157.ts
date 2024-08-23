@@ -21,11 +21,11 @@
  */
 export interface InlineObject157 {
     /**
-     * Comment for request details.
+     * Shop guid
      * @type {string}
      * @memberof InlineObject157
      */
-    comment?: string;
+    shopId: string;
 }
 
 

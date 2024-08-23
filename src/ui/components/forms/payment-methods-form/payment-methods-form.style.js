@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     maxWidth: '1320px',
-    padding: 10,
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
@@ -27,10 +26,5 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 30,
-    marginRight: 10,
-  },
-
-  actionButton: {
-    padding: '0 25px',
   },
 }))

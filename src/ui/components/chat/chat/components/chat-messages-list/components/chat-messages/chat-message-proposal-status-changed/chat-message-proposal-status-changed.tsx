@@ -7,13 +7,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatMessageDataProposalStatusChangedContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { formatDateTimeHourAndMinutes, formatNormDateTime } from '@utils/date-time'
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useStyles } from './chat-message-proposal-status-changed.style'
 
@@ -26,7 +24,6 @@ interface Props {
 
 export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowChatInfo }) => {
   const { classes: styles, cx } = useStyles()
-  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   if (message.data.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
     return (
@@ -41,26 +38,21 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowCha
   }
 
   const renderDetails = () => {
-    switch (message.data.status) {
+    switch (message?.data?.status) {
       case RequestProposalStatus.TO_CORRECT:
         return (
           <div className={styles.detailsWrapper}>
             <div className={styles.headerAndTimeWrapper}>
               <p className={styles.titleText}>{t(TranslationKey['Sent for rework'])}</p>
 
-              <p className={styles.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
+              <p className={styles.timeText}>{formatDateTimeHourAndMinutes(message?.createdAt)}</p>
             </div>
 
             {message?.data?.reason ? <p className={styles.reasonText}>{message?.data?.reason}</p> : null}
 
-            {message.data?.linksToMediaFiles?.length > 0 && (
-              <PhotoAndFilesSlider
-                alignLeft
-                smallSlider
-                column={isShowChatInfo || isMobileResolution}
-                files={message.data.linksToMediaFiles}
-              />
-            )}
+            {message?.data?.linksToMediaFiles?.length > 0 ? (
+              <SlideshowGallery slidesToShow={2} files={message?.data?.linksToMediaFiles} />
+            ) : null}
 
             <div className={cx(styles.footerWrapper, { [styles.footerWrapperShowChatInfo]: isShowChatInfo })}>
               <div className={styles.labelValueBlockWrapper}>
@@ -68,7 +60,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowCha
 
                 <LabelValuePairBlock
                   label={undefined}
-                  value={minsToTime(message.data.timeLimitInMinutes)}
+                  value={minsToTime(message?.data?.timeLimitInMinutes)}
                   bgColor="green"
                 />
               </div>

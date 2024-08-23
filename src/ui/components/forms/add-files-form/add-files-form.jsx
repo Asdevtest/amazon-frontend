@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import { Box, Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -9,41 +7,39 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 import { useStyles } from './add-files-form.style'
 
-export const AddFilesForm = ({ item, allItemsArray, setAllItemsArray, onCloseModal }) => {
-  const { classes: styles } = useStyles()
+export const AddFilesForm = props => {
+  const { item, allItemsArray, setAllItemsArray, onCloseModal } = props
 
+  const { classes: styles } = useStyles()
   const [editingItem, setEditingItem] = useState(item)
 
   const setImagesOfItem = images => {
-    const newFormFields = { ...editingItem }
-
-    newFormFields.tmpImages = [...images]
-
-    setEditingItem(newFormFields)
+    setEditingItem(prev => ({ ...prev, images }))
   }
 
   const onSubmith = () => {
     const updatedNewItems = allItemsArray.map(oldItem => (oldItem._id === editingItem._id ? editingItem : oldItem))
 
-    setAllItemsArray([...updatedNewItems])
+    setAllItemsArray(updatedNewItems)
 
     onCloseModal()
   }
 
   return (
-    <div className={styles.root}>
-      <Box className={styles.boxCode}>
-        <Typography className={styles.modalText}>{t(TranslationKey['Add files'])}</Typography>
-        <div className={styles.imageFileInputWrapper}>
-          <UploadFilesInput withoutTitle images={editingItem.tmpImages} setImages={setImagesOfItem} maxNumber={50} />
-        </div>
-      </Box>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{t(TranslationKey['Add files'])}</p>
 
-      <Button className={styles.saveButton} onClick={onSubmith}>
-        {t(TranslationKey.Save)}
-      </Button>
+      <UploadFilesInput withoutTitles images={editingItem.images} setImages={setImagesOfItem} />
+
+      <div className={styles.btnsWrapper}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={onSubmith}>
+          {t(TranslationKey.Save)}
+        </Button>
+      </div>
     </div>
   )
 }

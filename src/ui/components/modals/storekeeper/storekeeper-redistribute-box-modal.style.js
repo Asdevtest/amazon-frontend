@@ -3,14 +3,13 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     position: 'relative',
-    paddingRight: 10,
   },
   boxesWrapper: {
     display: 'flex',
     gap: '40px',
   },
   buttonsWrapper: {
-    marginTop: 20,
+    paddingTop: 10,
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
@@ -18,7 +17,8 @@ export const useStyles = makeStyles()(theme => ({
     position: 'sticky',
     bottom: 0,
     right: 0,
-    marginRight: 5,
+    backgroundColor: theme.palette.background.general,
+    zIndex: 8,
   },
 
   modalTitleWrapper: {
@@ -56,14 +56,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
   },
 
-  button: {
-    height: '40px',
-    padding: '0 25px',
-  },
-  cancelButton: {
-    color: theme.palette.text.general,
-  },
-
   asinTitle: {
     fontSize: '14px',
     lineHeight: '19px',
@@ -73,5 +65,12 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.general,
+  },
+
+  boxTitle: {
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
   },
 }))

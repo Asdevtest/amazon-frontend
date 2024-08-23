@@ -1,3 +1,5 @@
+import { IShop } from '@components/data-grid/data-grid-cells/shop-notification-message-cell/shop-notification.type'
+
 import { IPermission } from '@typings/models/permissions/permission'
 import { IPermissionGroup } from '@typings/models/permissions/permission-group'
 
@@ -15,7 +17,7 @@ export interface IInfoCounters {
   balance: number
   balanceFreeze: number
   overdraft: number
-  permissions: Array<IPermission>
+  permissions: Array<IPermission | string>
   permissionGroups: Array<IPermissionGroup>
   masterUser: IName
   allowedRoles: Array<number>
@@ -75,10 +77,12 @@ interface INeedUpdateTariff {
   boxes: number
 }
 
-interface IFreelanceNotice {
+export interface IFreelanceNotice {
   unreadMessages: number
   chatId: string
   request: IRequest
+  shop: IShop
+  _id: string
 }
 
 interface IRequest {

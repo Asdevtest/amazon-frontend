@@ -48,7 +48,7 @@ export class VacantDealsDetailsViewModel {
       this.getDealsVacantCur()
       this.getCustomRequestById()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -60,7 +60,7 @@ export class VacantDealsDetailsViewModel {
         this.request = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -72,7 +72,7 @@ export class VacantDealsDetailsViewModel {
         this.requestProposals = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -84,7 +84,7 @@ export class VacantDealsDetailsViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -96,7 +96,7 @@ export class VacantDealsDetailsViewModel {
 
       this.onTriggerOpenModal('showRejectModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -115,7 +115,7 @@ export class VacantDealsDetailsViewModel {
 
       this.onTriggerOpenModal('showReworkModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

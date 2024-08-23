@@ -13,28 +13,86 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-by';
 import { InlineResponse20075EntityProduct } from './inline-response20075-entity-product';
 
 /**
  * 
+=======
+import { InlineResponse20042InventoryShop } from './inline-response20042-inventory-shop';
+
+/**
+ * Схема репорта amazon_data
+>>>>>>> pre-release
  * @export
  * @interface InlineResponse20075Rows
  */
 export interface InlineResponse20075Rows {
     /**
+<<<<<<< HEAD
      * GUID платежа
+=======
+     * Гуид записи
+>>>>>>> pre-release
      * @type {string}
      * @memberof InlineResponse20075Rows
      */
     _id?: string;
     /**
+<<<<<<< HEAD
      * Дата создания.
+=======
+     * 
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    productId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    shopId?: string;
+    /**
+     * The asin of product
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    asin?: string;
+    /**
+     * The sku of product
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    sku?: string;
+    /**
+     * image
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    image?: string;
+    /**
+     * Дата обновления
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    dateUpdated?: string;
+    /**
+     * Время обновления
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    timeUpdated?: string;
+    /**
+     * Дата создания
+>>>>>>> pre-release
      * @type {string}
      * @memberof InlineResponse20075Rows
      */
     createdAt?: string;
     /**
+<<<<<<< HEAD
      * 
      * @type {ApiV1AdminsPaymentsCreatedBy}
      * @memberof InlineResponse20075Rows
@@ -126,3 +184,61 @@ export enum InlineResponse20075RowsPaymentTypeEnum {
 
 
 
+=======
+     * Дата обновления
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    updatedAt?: string;
+    /**
+     * Order Id
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    orderId?: string;
+    /**
+     * Reason
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    reason?: string;
+    /**
+     * Returned Date
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    returnedDate?: string;
+    /**
+     * Reversal Date
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    reversalDate?: string;
+    /**
+     * Received Date
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    receivedDate?: string;
+    /**
+     * Disposition
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    disposition?: string;
+    /**
+     * Status
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    status?: string;
+    /**
+     * 
+     * @type {InlineResponse20042InventoryShop}
+     * @memberof InlineResponse20075Rows
+     */
+    shop?: InlineResponse20042InventoryShop;
+}
+
+
+>>>>>>> pre-release

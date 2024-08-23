@@ -5,20 +5,11 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
-    paddingRight: 10,
   },
   form: {
     borderRadius: '5px',
     display: 'flex',
     gap: 40,
-  },
-
-  cancelBtn: {
-    color: theme.palette.text.general,
-  },
-
-  trackNumberPhotoBtn: {
-    width: 230,
   },
 
   trackNumberPhotoWrapper: {
@@ -45,7 +36,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   buttonsWrapper: {
-    marginTop: 20,
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
@@ -53,11 +43,6 @@ export const useStyles = makeStyles()(theme => ({
     position: 'sticky',
     bottom: 0,
     right: 0,
-    marginRight: 5,
-  },
-
-  button: {
-    padding: '0 20px',
   },
 
   field: {
@@ -69,11 +54,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
 
     padding: 0,
-  },
-
-  hsCodeBtn: {
-    height: 30,
-    width: 230,
   },
 
   commentField: {
@@ -150,12 +130,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 30,
   },
 
-  storekeeperBtn: {
-    height: '40px',
-    width: '320px',
-    margin: '0px',
-  },
-
   sizesTitleWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -194,6 +168,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: '10px 20px 0',
     gap: 20,
     justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
 
   productsWrapper: {
@@ -221,11 +196,6 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: '5px',
 
     color: theme.palette.text.general,
-  },
-
-  asinText: {
-    marginLeft: 10,
-    color: theme.palette.text.second,
   },
 
   titleWrapper: {

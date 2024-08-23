@@ -1,19 +1,17 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './orders.style'
 
@@ -22,8 +20,8 @@ import { OrdersModel } from './orders.model'
 
 export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
   const { classes: styles, cx } = useStyles()
-  const history = useHistory()
-  const model = useRef(new OrdersModel({ history, productId, showAtProcessOrders }))
+
+  const model = useRef(new OrdersModel({ productId, showAtProcessOrders }))
 
   const {
     orderStatusData,
@@ -32,14 +30,12 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
     destinations,
     reorderOrder,
     selectedProduct,
-    successModalText,
     confirmModalSettings,
     getCurrentData,
     requestStatus,
     columnsModel,
     showSetBarcodeModal,
     showOrderModal,
-    showSuccessModal,
     showConfirmModal,
     paginationModel,
     onClickTableRow,
@@ -63,9 +59,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
   return (
     <div className={cx(styles.mainWrapper, { [styles.modalWrapper]: modal })}>
       <CustomDataGrid
-        useResizeContainer
-        localeText={getLocalizationByLanguageTag()}
-        columnVisibilityModel={model.current.columnVisibilityModel}
+        columnVisibilityModel={columnVisibilityModel}
         paginationModel={paginationModel}
         rows={getCurrentData()}
         sortingMode="client"
@@ -89,7 +83,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
           },
         }}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.IS_LOADING}
+        loading={requestStatus === loadingStatus.IS_LOADING}
         onPaginationModelChange={onPaginationModelChange}
         onRowDoubleClick={e => onClickTableRow(e.row)}
         onStateChange={setDataGridState}
@@ -118,17 +112,6 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
         />
       </Modal>
 
-      {showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={showSuccessModal}
-          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={successModalText}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
-        />
-      ) : null}
-
       {showConfirmModal ? (
         <ConfirmationModal
           // @ts-ignore
@@ -138,7 +121,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
           title={confirmModalSettings.confirmTitle}
           message={confirmModalSettings.confirmMessage}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />

@@ -2,16 +2,15 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { styles } from './buyer-ideas-notifications-view.style'
 
@@ -27,44 +26,40 @@ export const BuyerIdeasNotificationsViewRaw = props => {
 
   return (
     <>
-      <div>
-        <Button variant={ButtonVariant.OUTLINED} className={styles.archiveHandler} onClick={viewModel.handleArchive}>
-          {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
-        </Button>
+      <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.handleArchive}>
+        {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
+      </Button>
 
-        <div className={styles.tableWrapper}>
-          <CustomDataGrid
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            rows={viewModel.getCurrentData()}
-            rowHeight={120}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
+      <div className={styles.tableWrapper}>
+        <CustomDataGrid
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.getCurrentData()}
+          rowHeight={120}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
-            onRowSelectionModelChange={viewModel.onSelectionModel}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onPaginationModelChange}
-            onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-          />
-        </div>
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+        />
       </div>
     </>
   )

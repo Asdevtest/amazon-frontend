@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 
-import { BoxArrow, CubeIcon, EditIcon, EqualIcon, PlusIcon } from '@components/shared/svg-icons'
+import { BoxArrowIcon, CubeIcon, EditIcon, EqualIcon } from '@components/shared/svg-icons'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
@@ -44,7 +45,7 @@ export const TaskDescriptionCell: FC<TaskDescriptionCellProps> = memo(({ task })
             index !== task.boxesBefore.length - 1 ? (
               <div key={index} className={styles.renderBoxWrapper}>
                 {renderBox(box, index)}
-                <PlusIcon className={styles.taskDescriptionIcon} />
+                <FiPlus style={{ width: 16, height: 16 }} />
               </div>
             ) : (
               renderBox(box, index)
@@ -60,7 +61,7 @@ export const TaskDescriptionCell: FC<TaskDescriptionCellProps> = memo(({ task })
           index !== task.boxes.length - 1 ? (
             <div key={index} className={styles.renderBoxWrapper}>
               {renderBox(box, index)}
-              <PlusIcon className={styles.taskDescriptionIcon} />
+              <FiPlus style={{ width: 16, height: 16 }} />
             </div>
           ) : (
             renderBox(box, index)
@@ -78,7 +79,7 @@ export const TaskDescriptionCell: FC<TaskDescriptionCellProps> = memo(({ task })
     <div className={styles.blockProductsImagesWrapper}>
       <div className={styles.receiveOrEditWrapper}>
         <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} alt="big-box" />
-        <BoxArrow className={styles.boxArrowSvg} />
+        <BoxArrowIcon className={styles.boxArrowSvg} />
 
         <div className={styles.gridBoxesWrapper}>
           {task.boxesBefore.map((el: any, index: number) => (

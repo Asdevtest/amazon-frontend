@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   modalMainWrapper: {
     width: 1150,
-    padding: 10,
   },
 
   headerWrapper: {
@@ -160,13 +159,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: 10,
     right: 10,
-    zIndex: 50,
-  },
-
-  mainImageWrapper: {
-    position: 'relative',
-    padding: 3,
-    backgroundImage: `url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23007BFFFF' strokeWidth='4' strokeDasharray='6%2c 14' strokeDashoffset='90' strokeLinecap='square'/%3e%3c/svg%3e")`,
+    zIndex: 7,
   },
 
   imageObjIndex: {
@@ -250,8 +243,12 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   imageListItem: {
-    width: '100%',
-    height: '100%',
+    width: 161,
+    height: 161,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
   },
 
   imageUploadText: {
@@ -267,18 +264,6 @@ export const useStyles = makeStyles()(theme => ({
     left: 0,
     opacity: 0,
     cursor: 'pointer',
-  },
-
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'contain',
-    background: theme.palette.background.general,
-    transition: '.3s ease',
-    cursor: 'pointer',
-    '&: hover': {
-      transform: 'scale(1.05)',
-    },
   },
 
   imagesModalBtn: {
@@ -297,7 +282,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     right: -18,
     top: -18,
-    zIndex: 50,
+    zIndex: 7,
 
     cursor: 'pointer',
     transition: '.3s ease',

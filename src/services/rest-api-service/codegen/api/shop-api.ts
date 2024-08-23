@@ -25,13 +25,15 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject124 } from '../models';
-// @ts-ignore
 import { InlineObject125 } from '../models';
 // @ts-ignore
-import { InlineResponse20091 } from '../models';
+import { InlineObject126 } from '../models';
 // @ts-ignore
-import { InlineResponse20092 } from '../models';
+import { InlineResponse20096 } from '../models';
+// @ts-ignore
+import { InlineResponse20097 } from '../models';
+// @ts-ignore
+import { InlineResponse20098 } from '../models';
 // @ts-ignore
 import { InlineResponse2017 } from '../models';
 // @ts-ignore
@@ -46,7 +48,7 @@ export const ShopApiAxiosParamCreator = function (configuration?: Configuration)
     return {
         /**
          * ## Получить все магазины пользователя.   
-         * @summary # Получить все магазины пользователя.
+         * @summary # Получить все магазины пользователя. (DEPRECATED)
          * @param {number} [limit] Лимит записей для пагинации
          * @param {number} [offset] Смещение для пагинации
          * @param {string} [sortField] Название поля
@@ -153,12 +155,12 @@ export const ShopApiAxiosParamCreator = function (configuration?: Configuration)
          * # Редактировать магазин. клиентом.  ## Только владелец может редактировать  Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
          * @summary # Редактировать магазин.
          * @param {string} guid GUID объекта в БД
-         * @param {InlineObject125} [body] 
+         * @param {InlineObject126} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsGuidPatch: async (guid: string, body?: InlineObject125, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ShopsGuidPatch: async (guid: string, body?: InlineObject126, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1ShopsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/shops/{guid}`
@@ -236,12 +238,12 @@ export const ShopApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * # Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops Проверки: Пользователь не может иметь два магазина с одинаковыми именами (name) Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
          * @summary # Добавить новый магазин клиентом.
-         * @param {InlineObject124} [body] 
+         * @param {InlineObject125} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsPost: async (body?: InlineObject124, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ShopsPost: async (body?: InlineObject125, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/shops/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -275,6 +277,74 @@ export const ShopApiAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * ## Получить все магазины пользователя.   
+         * @summary # Получить все магазины пользователя. (WITH PROFILES)
+         * @param {string} [filters]                Возможные поля:  asin, amazonTitle, skuByClient, id               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1ShopsWithProfilesGet: async (filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/shops/with_profiles`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (filters !== undefined) {
+                localVarQueryParameter['filters'] = filters;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (sortField !== undefined) {
+                localVarQueryParameter['sortField'] = sortField;
+            }
+
+            if (sortType !== undefined) {
+                localVarQueryParameter['sortType'] = sortType;
+            }
+
+            if (noCache !== undefined) {
+                localVarQueryParameter['noCache'] = noCache;
+            }
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -287,7 +357,7 @@ export const ShopApiFp = function(configuration?: Configuration) {
     return {
         /**
          * ## Получить все магазины пользователя.   
-         * @summary # Получить все магазины пользователя.
+         * @summary # Получить все магазины пользователя. (DEPRECATED)
          * @param {number} [limit] Лимит записей для пагинации
          * @param {number} [offset] Смещение для пагинации
          * @param {string} [sortField] Название поля
@@ -297,7 +367,7 @@ export const ShopApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20091>>> {
+        async apiV1ShopsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20096>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopsGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -317,12 +387,12 @@ export const ShopApiFp = function(configuration?: Configuration) {
          * # Редактировать магазин. клиентом.  ## Только владелец может редактировать  Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
          * @summary # Редактировать магазин.
          * @param {string} guid GUID объекта в БД
-         * @param {InlineObject125} [body] 
+         * @param {InlineObject126} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopsGuidPatch(guid: string, body?: InlineObject125, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1ShopsGuidPatch(guid: string, body?: InlineObject126, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -333,20 +403,37 @@ export const ShopApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopsNamesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20092>>> {
+        async apiV1ShopsNamesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20098>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopsNamesGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * # Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops Проверки: Пользователь не может иметь два магазина с одинаковыми именами (name) Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
          * @summary # Добавить новый магазин клиентом.
-         * @param {InlineObject124} [body] 
+         * @param {InlineObject125} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopsPost(body?: InlineObject124, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+        async apiV1ShopsPost(body?: InlineObject125, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopsPost(body, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * ## Получить все магазины пользователя.   
+         * @summary # Получить все магазины пользователя. (WITH PROFILES)
+         * @param {string} [filters]                Возможные поля:  asin, amazonTitle, skuByClient, id               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1ShopsWithProfilesGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20097>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopsWithProfilesGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -361,7 +448,7 @@ export const ShopApiFactory = function (configuration?: Configuration, basePath?
     return {
         /**
          * ## Получить все магазины пользователя.   
-         * @summary # Получить все магазины пользователя.
+         * @summary # Получить все магазины пользователя. (DEPRECATED)
          * @param {number} [limit] Лимит записей для пагинации
          * @param {number} [offset] Смещение для пагинации
          * @param {string} [sortField] Название поля
@@ -371,7 +458,7 @@ export const ShopApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20091>> {
+        apiV1ShopsGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20096>> {
             return localVarFp.apiV1ShopsGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -389,12 +476,12 @@ export const ShopApiFactory = function (configuration?: Configuration, basePath?
          * # Редактировать магазин. клиентом.  ## Только владелец может редактировать  Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
          * @summary # Редактировать магазин.
          * @param {string} guid GUID объекта в БД
-         * @param {InlineObject125} [body] 
+         * @param {InlineObject126} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsGuidPatch(guid: string, body?: InlineObject125, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1ShopsGuidPatch(guid: string, body?: InlineObject126, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1ShopsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -404,19 +491,35 @@ export const ShopApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsNamesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20092>> {
+        apiV1ShopsNamesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20098>> {
             return localVarFp.apiV1ShopsNamesGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * # Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops Проверки: Пользователь не может иметь два магазина с одинаковыми именами (name) Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
          * @summary # Добавить новый магазин клиентом.
-         * @param {InlineObject124} [body] 
+         * @param {InlineObject125} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsPost(body?: InlineObject124, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+        apiV1ShopsPost(body?: InlineObject125, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
             return localVarFp.apiV1ShopsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Получить все магазины пользователя.   
+         * @summary # Получить все магазины пользователя. (WITH PROFILES)
+         * @param {string} [filters]                Возможные поля:  asin, amazonTitle, skuByClient, id               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1ShopsWithProfilesGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20097> {
+            return localVarFp.apiV1ShopsWithProfilesGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -506,10 +609,10 @@ export interface ShopApiApiV1ShopsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject125}
+     * @type {InlineObject126}
      * @memberof ShopApiApiV1ShopsGuidPatch
      */
-    readonly body?: InlineObject125
+    readonly body?: InlineObject126
 
     /**
      * 
@@ -541,15 +644,71 @@ export interface ShopApiApiV1ShopsNamesGetRequest {
 export interface ShopApiApiV1ShopsPostRequest {
     /**
      * 
-     * @type {InlineObject124}
+     * @type {InlineObject125}
      * @memberof ShopApiApiV1ShopsPost
      */
-    readonly body?: InlineObject124
+    readonly body?: InlineObject125
 
     /**
      * 
      * @type {string}
      * @memberof ShopApiApiV1ShopsPost
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
+ * Request parameters for apiV1ShopsWithProfilesGet operation in ShopApi.
+ * @export
+ * @interface ShopApiApiV1ShopsWithProfilesGetRequest
+ */
+export interface ShopApiApiV1ShopsWithProfilesGetRequest {
+    /**
+     *                Возможные поля:  asin, amazonTitle, skuByClient, id               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+     * @type {string}
+     * @memberof ShopApiApiV1ShopsWithProfilesGet
+     */
+    readonly filters?: string
+
+    /**
+     * Лимит записей для пагинации
+     * @type {number}
+     * @memberof ShopApiApiV1ShopsWithProfilesGet
+     */
+    readonly limit?: number
+
+    /**
+     * Смещение для пагинации
+     * @type {number}
+     * @memberof ShopApiApiV1ShopsWithProfilesGet
+     */
+    readonly offset?: number
+
+    /**
+     * Название поля
+     * @type {string}
+     * @memberof ShopApiApiV1ShopsWithProfilesGet
+     */
+    readonly sortField?: string
+
+    /**
+     * Тип сортировки
+     * @type {'ASC' | 'DESC'}
+     * @memberof ShopApiApiV1ShopsWithProfilesGet
+     */
+    readonly sortType?: 'ASC' | 'DESC'
+
+    /**
+     * Игнорировать данные в кеше
+     * @type {boolean}
+     * @memberof ShopApiApiV1ShopsWithProfilesGet
+     */
+    readonly noCache?: boolean
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ShopApiApiV1ShopsWithProfilesGet
      */
     readonly acceptEncoding?: string
 }
@@ -563,7 +722,7 @@ export interface ShopApiApiV1ShopsPostRequest {
 export class ShopApi extends BaseAPI {
     /**
      * ## Получить все магазины пользователя.   
-     * @summary # Получить все магазины пользователя.
+     * @summary # Получить все магазины пользователя. (DEPRECATED)
      * @param {ShopApiApiV1ShopsGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -619,5 +778,17 @@ export class ShopApi extends BaseAPI {
      */
     public apiV1ShopsPost(requestParameters: ShopApiApiV1ShopsPostRequest = {}, options?: any) {
         return ShopApiFp(this.configuration).apiV1ShopsPost(requestParameters.body, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * ## Получить все магазины пользователя.   
+     * @summary # Получить все магазины пользователя. (WITH PROFILES)
+     * @param {ShopApiApiV1ShopsWithProfilesGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ShopApi
+     */
+    public apiV1ShopsWithProfilesGet(requestParameters: ShopApiApiV1ShopsWithProfilesGetRequest = {}, options?: any) {
+        return ShopApiFp(this.configuration).apiV1ShopsWithProfilesGet(requestParameters.filters, requestParameters.limit, requestParameters.offset, requestParameters.sortField, requestParameters.sortType, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 }

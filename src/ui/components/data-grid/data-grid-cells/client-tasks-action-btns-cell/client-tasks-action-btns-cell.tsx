@@ -33,7 +33,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
   }
 
   const renderTaskInfoBtn = () => (
-    <Button className={styles.infoBtn} onClick={() => handlers.onClickTaskInfo(row)}>
+    <Button isSmallButton onClick={() => handlers.onClickTaskInfo(row)}>
       {t(TranslationKey.Details)}
     </Button>
   )
@@ -47,8 +47,8 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
+                isSmallButton
                 styleType={ButtonStyle.DANGER}
-                className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
               >
                 {t(TranslationKey.Cancel)}
@@ -62,8 +62,8 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
+                isSmallButton
                 styleType={ButtonStyle.DANGER}
-                className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
               >
                 {t(TranslationKey.Cancel)}
@@ -80,11 +80,11 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
+                isSmallButton
                 styleType={ButtonStyle.DANGER}
-                className={styles.cancelTaskBtn}
-                onClick={() => {
+                onClick={() =>
                   handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')
-                }}
+                }
               >
                 {t(TranslationKey.Cancel)}
               </Button>

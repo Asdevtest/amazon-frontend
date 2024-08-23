@@ -21,35 +21,17 @@
  */
 export interface InlineResponse20098 {
     /**
-     * GUID метода оплаты в базе данных
+     * Гуид магазина
      * @type {string}
      * @memberof InlineResponse20098
      */
-    _id?: string;
+    _id: string;
     /**
-     * 
+     * Название магазина
      * @type {string}
      * @memberof InlineResponse20098
      */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20098
-     */
-    iconImage?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20098
-     */
-    createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse20098
-     */
-    updatedAt?: string;
+    name: string;
 }
 
 

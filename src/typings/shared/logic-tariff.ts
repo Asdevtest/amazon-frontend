@@ -1,4 +1,4 @@
-import { IName } from './name'
+import { IVariationDestination } from './destinations'
 
 export interface ILogicTariff {
   tariffType: number
@@ -16,9 +16,13 @@ export interface ILogicTariff {
   storekeeperId: string
   updatedAt: string
   createdAt: string
+  avgRoi: number
+  avgCostUnitWithDeliveryToUsa: number
+  costUnitWithDeliveryToChina: number
+  yuanToDollarRate?: number // remove
 }
 
-interface IConditionsByRegion {
+export interface IConditionsByRegion {
   west: IRegion
   central: IRegion
   east: IRegion
@@ -33,7 +37,9 @@ interface IDestinationVariation {
   _id: string
   minWeight: number
   maxWeight: number
+  minBoxWeight: number
   pricePerKgRmb: number
   pricePerKgUsd: number
-  destination: IName
+  storekeeperTariffLogisticsId: string
+  destination: IVariationDestination
 }

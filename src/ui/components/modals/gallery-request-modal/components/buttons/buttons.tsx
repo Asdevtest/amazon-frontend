@@ -1,9 +1,9 @@
 import { FC, memo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -19,8 +19,8 @@ export const Buttons: FC<ButtonsProps> = memo(({ disabled, onClick }) => {
 
   return (
     <div className={styles.wrapper}>
-      <Button disabled={disabled} className={styles.button} onClick={onClick}>
-        <CustomPlusIcon />
+      <Button disabled={disabled} onClick={onClick}>
+        <FiPlus style={{ width: 16, height: 16 }} />
         {t(TranslationKey['Add to request'])}
       </Button>
     </div>

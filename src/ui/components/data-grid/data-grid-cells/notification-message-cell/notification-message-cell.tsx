@@ -2,16 +2,17 @@
 import {
   BoxNotificationMessageCell,
   IdeaNotificationMessageCell,
+  ListingNotificationMessageCell,
   OrderNotificationMessageCell,
   RequestNotificationMessageCell,
   ShopNotificationMessageCell,
 } from '..'
 import { FC, memo } from 'react'
 
-import { NotificationType } from '@constants/keys/notifications'
+import { Notification } from '@typings/enums/notification'
 
 interface NotificationMessageCellProps {
-  notificationType: NotificationType
+  notificationType: Notification
   notification: any
   navigateToHandler: any
 }
@@ -19,21 +20,23 @@ interface NotificationMessageCellProps {
 export const NotificationMessageCell: FC<NotificationMessageCellProps> = memo(
   ({ notificationType, notification, navigateToHandler }) => (
     <>
-      {notificationType === NotificationType.Order && (
+      {notificationType === Notification.Order && (
         <OrderNotificationMessageCell navigateToHandler={navigateToHandler} notification={notification} />
       )}
 
-      {notificationType === NotificationType.Box && <BoxNotificationMessageCell notification={notification} />}
+      {notificationType === Notification.Box && <BoxNotificationMessageCell notification={notification} />}
 
-      {notificationType === NotificationType.Idea && (
+      {notificationType === Notification.Idea && (
         <IdeaNotificationMessageCell navigateToHandler={navigateToHandler} notification={notification} />
       )}
 
-      {[NotificationType.Request, NotificationType.Proposal].includes(notificationType) && (
+      {[Notification.Request, Notification.Proposal].includes(notificationType) && (
         <RequestNotificationMessageCell notification={notification} />
       )}
 
-      {notificationType === NotificationType.Shop && <ShopNotificationMessageCell notification={notification} />}
+      {notificationType === Notification.Shop && <ShopNotificationMessageCell notification={notification} />}
+
+      {notificationType === Notification.Launch ? <ListingNotificationMessageCell notification={notification} /> : null}
     </>
   ),
 )

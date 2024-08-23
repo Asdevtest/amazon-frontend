@@ -49,11 +49,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  actionButton: {
-    width: '254px',
-    height: '40px',
-  },
-
   mainInfosWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -158,9 +153,5 @@ export const useStyles = makeStyles()(theme => ({
 
   redColor: {
     color: `#D70D0D`,
-  },
-
-  capitalize: {
-    textTransform: 'capitalize',
   },
 }))

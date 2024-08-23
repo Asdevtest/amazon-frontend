@@ -23,10 +23,10 @@ yarn-debug.log*
 yarn-error.log*
 
 # Custom
-/.husky
 .env
 .idea
 
 .vscode
- 
-.schema.json
+
+schema.json
+.vercel

@@ -4,15 +4,15 @@
 import { ProductInfoAbbreviated, ProductInfoExtended } from '..'
 import { FC, Fragment, memo } from 'react'
 
-import { tableProductViewMode } from '@constants/keys/table-product-view'
-
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+
+import { tableProductViewMode } from '@typings/enums/table-product-view'
 
 import { useStyles } from './batch-boxes-cell.style'
 
 interface BatchBoxesCellProps {
   boxes: any[]
-  productViewMode: keyof typeof tableProductViewMode
+  productViewMode?: keyof typeof tableProductViewMode
 }
 
 export const BatchBoxesCell: FC<BatchBoxesCellProps> = memo(({ boxes, productViewMode }) => {

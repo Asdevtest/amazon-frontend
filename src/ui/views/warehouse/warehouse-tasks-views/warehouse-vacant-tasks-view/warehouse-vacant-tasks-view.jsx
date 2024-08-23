@@ -1,13 +1,11 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
-import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -18,8 +16,9 @@ import { TaskPrioritySelector } from '@components/shared/task-priority-selector/
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './warehouse-vacant-tasks-view.style'
 
@@ -52,20 +51,12 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
           />
 
           {window.innerWidth < 1282 && (
-            <Button
-              disabled={!viewModel.selectedTasks.length}
-              className={styles.pickupOrdersButton}
-              onClick={viewModel.onClickPickupManyTasksBtn}
-            >
+            <Button disabled={!viewModel.selectedTasks.length} onClick={viewModel.onClickPickupManyTasksBtn}>
               {t(TranslationKey['Take on the work of the selected'])}
             </Button>
           )}
 
-          <Button
-            disabled={isDisableDowloadButton}
-            className={styles.pickupOrdersButton}
-            onClick={viewModel.onClickReportBtn}
-          >
+          <Button disabled={isDisableDowloadButton} onClick={viewModel.onClickReportBtn}>
             {t(TranslationKey['Download task file'])}
             <DownloadIcon
               className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: isDisableDowloadButton })}
@@ -76,11 +67,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
         <div className={styles.headerWrapper}>
           <div className={styles.headerContainer}>
             {window.innerWidth > 1281 && (
-              <Button
-                disabled={!viewModel.selectedTasks.length}
-                className={styles.pickupOrdersButton}
-                onClick={viewModel.onClickPickupManyTasksBtn}
-              >
+              <Button disabled={!viewModel.selectedTasks.length} onClick={viewModel.onClickPickupManyTasksBtn}>
                 {t(TranslationKey['Take on the work of the selected'])}
               </Button>
             )}
@@ -101,10 +88,8 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
 
         <div className={styles.tableWrapper}>
           <CustomDataGrid
-            useResizeContainer
             checkboxSelection
             disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
             getRowClassName={getRowClassName}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
@@ -127,7 +112,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -144,7 +129,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
       >
         <EditTaskModal
           readOnly
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           task={viewModel.curOpenedTask}
           onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
         />
@@ -174,13 +159,6 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
         />
       ) : null}
 
-      {viewModel.alertShieldSettings.alertShieldMessage && (
-        <AlertShield
-          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
-          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
-        />
-      )}
-
       {viewModel.showConfirmModal ? (
         <ConfirmationModal
           // @ts-ignore
@@ -193,7 +171,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
           message={t(TranslationKey['After confirmation, the task will be cancelled. Confirm?'])}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          commentCancelBtnText={t(TranslationKey.Cancel)}
+          commentCancelBtnText={t(TranslationKey.Close)}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           onClickSuccessBtn={viewModel.onClickConfirmCancelTask}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}

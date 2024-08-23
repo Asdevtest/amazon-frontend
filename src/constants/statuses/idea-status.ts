@@ -1,9 +1,9 @@
-import { UiTheme } from '@constants/theme/mui-theme.type'
-
 import { SettingsModel } from '@models/settings-model'
 
 import { objectFlip } from '@utils/object'
 import { t } from '@utils/translations'
+
+import { UiTheme } from '@typings/enums/ui-theme'
 
 import { TranslationKey } from '../translations/translation-key'
 
@@ -36,14 +36,14 @@ export const ideaStatusByCode: Record<number, ideaStatus> = {
 export const ideaStatusByKey: Record<string, number> = objectFlip(ideaStatusByCode, parseInt)
 
 export enum ideaStatusGroupsNames {
-  'NEW' = 'NEW',
-  'ON_CHECKING' = 'ON_CHECKING',
-  'SEARCH_SUPPLIERS' = 'SEARCH_SUPPLIERS',
-  'CREATE_CARD' = 'CREATE_CARD',
-  'ADD_ASIN' = 'ADD_ASIN',
-  'REALIZED' = 'REALIZED',
-  'CLOSED' = 'CLOSED',
-  'ALL' = 'ALL',
+  'NEW' = 'new',
+  'ON_CHECKING' = 'onChecking',
+  'SEARCH_SUPPLIERS' = 'searchSuppliers',
+  'CREATE_CARD' = 'createCard',
+  'ADD_ASIN' = 'addAsin',
+  'REALIZED' = 'realized',
+  'CLOSED' = 'closed',
+  'ALL' = 'all',
 }
 
 export const ideaStatusGroups = {

@@ -8,6 +8,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     overflowY: 'auto',
+
     [theme.breakpoints.down(768)]: {
       width: '295px',
       height: '100%',
@@ -55,18 +56,6 @@ export const useStyles = makeStyles()(theme => ({
     '&:hover': {
       transform: 'translate(0%, -3%)',
     },
-  },
-
-  button: {
-    width: '152px',
-    height: '40px',
-    [theme.breakpoints.down(768)]: {
-      width: '144px',
-      height: '40px',
-    },
-  },
-  cancelBtn: {
-    color: theme.palette.text.general,
   },
 
   leftSideWrapper: {
@@ -132,27 +121,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   permissionGroupsToSelectCheckboxWrapper: {
-    border: '1px solid rgba(0,0,0, .1)',
-    borderRadius: '10px',
-    margin: '0 0 4px 10px',
-    transition: '0.3s ease',
-    cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
-    [theme.breakpoints.down(768)]: {
-      margin: '0',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '30px',
-      height: '30px',
-      transition: '0.3s ease',
-      cursor: 'pointer',
-      '&:hover': {
-        transform: 'scale(1.01)',
-      },
-    },
+    marginLeft: '10px',
   },
 
   selectedItem: {
@@ -272,9 +241,5 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '5px',
-  },
-
-  capitalize: {
-    textTransform: 'capitalize',
   },
 }))

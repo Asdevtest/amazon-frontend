@@ -1,10 +1,11 @@
+import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import { IconButton, MenuItem, Select, Typography } from '@mui/material'
+import { MenuItem, Select } from '@mui/material'
 
-import { HttpMethod } from '@constants/keys/http-method'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,12 +17,14 @@ import { checkIsPositiveNum } from '@utils/checks'
 import { clearSpecialCharacters } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+import { HttpMethods } from '@typings/enums/http'
+
 import { useStyles } from './add-or-edit-single-permission-form.style'
 
 export const AddOrEditSinglePermissionForm = observer(
   ({ onCloseModal, onSubmit, isEdit, permissionToEdit, existingSinglePermissions }) => {
-    const { classes: styles } = useStyles()
-
+    const { classes: styles, cx } = useStyles()
     const [onKeyFieldEditing, setOnKeyFieldEditing] = useState(false)
 
     const sourceFormFields = {
@@ -76,7 +79,7 @@ export const AddOrEditSinglePermissionForm = observer(
     const isDoubleKey = existingSinglePermissionsKeys.includes(formFields.key)
 
     const disableSubmitBtn =
-      JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
+      isEqual(sourceFormFields, formFields) ||
       formFields.key === '' ||
       formFields.key.match(/[_]/) === null ||
       formFields.title === '' ||
@@ -90,119 +93,132 @@ export const AddOrEditSinglePermissionForm = observer(
 
     return (
       <div className={styles.root}>
-        <Typography variant="h5" className={styles.mainTitle}>
+        <p className={styles.title}>
           {isEdit ? t(TranslationKey['Change permission']) : t(TranslationKey['New Permission'])}
-        </Typography>
+        </p>
 
-        <div className={styles.form}>
-          <Field
-            label={t(TranslationKey.Role)}
-            inputComponent={
-              <Select
-                variant="filled"
-                value={formFields.role}
-                input={<Input fullWidth />}
-                onChange={onChangeField('role')}
-              >
-                <MenuItem value={'None'} className={styles.selectOption}>
-                  {'none'}
+        <Field
+          label={t(TranslationKey.Role)}
+          labelClasses={styles.label}
+          containerClasses={styles.field}
+          inputComponent={
+            <Select
+              variant="filled"
+              value={formFields.role}
+              className={styles.input}
+              input={<Input fullWidth />}
+              onChange={onChangeField('role')}
+            >
+              <MenuItem value="None" className={styles.input}>
+                {'none'}
+              </MenuItem>
+              {Object.keys(UserRoleCodeMap).map((roleCode, index) => (
+                <MenuItem key={index} value={roleCode} className={styles.input}>
+                  {UserRoleCodeMap[roleCode]}
                 </MenuItem>
-                {Object.keys(UserRoleCodeMap).map((roleCode, index) => (
-                  <MenuItem key={index} value={roleCode} className={styles.selectOption}>
-                    {UserRoleCodeMap[roleCode]}
-                  </MenuItem>
-                ))}
-              </Select>
-            }
-          />
+              ))}
+            </Select>
+          }
+        />
 
-          <Field
-            disabled={isEdit}
-            label={t(TranslationKey.Key)}
-            value={formFields.key}
-            placeholder={`${t(TranslationKey.Key)}_${t(TranslationKey.Key)}_${t(TranslationKey.Key)}...`}
-            error={
-              (formFields.key.match(/[_]/) === null &&
-                onKeyFieldEditing &&
-                t(TranslationKey['The value must contain "_"'])) ||
-              (isDoubleKey && t(TranslationKey['The key already exists']))
-            }
-            onChange={onChangeField('key')}
-          />
+        <Field
+          disabled={isEdit}
+          label={t(TranslationKey.Key)}
+          labelClasses={styles.label}
+          inputClasses={styles.input}
+          containerClasses={styles.field}
+          value={formFields.key}
+          placeholder={`${t(TranslationKey.Key)}_${t(TranslationKey.Key)}_${t(TranslationKey.Key)}...`}
+          error={
+            (formFields.key.match(/[_]/) === null &&
+              onKeyFieldEditing &&
+              t(TranslationKey['The value must contain "_"'])) ||
+            (isDoubleKey && t(TranslationKey['The key already exists']))
+          }
+          onChange={onChangeField('key')}
+        />
 
-          <Field
-            label={t(TranslationKey.Title)}
-            value={formFields.title}
-            placeholder={t(TranslationKey['Permission №1'])}
-            onChange={onChangeField('title')}
-          />
+        <Field
+          label={t(TranslationKey.Title)}
+          value={formFields.title}
+          labelClasses={styles.label}
+          inputClasses={styles.input}
+          containerClasses={styles.field}
+          placeholder={t(TranslationKey['Permission №1'])}
+          onChange={onChangeField('title')}
+        />
 
-          <Field
-            multiline
-            minRows={4}
-            maxRows={4}
-            className={styles.descriptionField}
-            label={t(TranslationKey.Description)}
-            placeholder={t(TranslationKey.Description) + '...'}
-            value={formFields.description}
-            onChange={onChangeField('description')}
-          />
+        <Field
+          multiline
+          minRows={3}
+          maxRows={3}
+          labelClasses={styles.label}
+          containerClasses={styles.field}
+          className={cx(styles.descriptionField, styles.input)}
+          label={t(TranslationKey.Description)}
+          placeholder={t(TranslationKey.Description) + '...'}
+          value={formFields.description}
+          onChange={onChangeField('description')}
+        />
 
-          <Field
-            label={t(TranslationKey.Position)}
-            placeholder={t(TranslationKey['Priority number'])}
-            value={formFields.hierarchy}
-            onChange={onChangeField('hierarchy')}
-          />
+        <Field
+          label={t(TranslationKey.Position)}
+          labelClasses={styles.label}
+          inputClasses={styles.input}
+          containerClasses={styles.field}
+          placeholder={t(TranslationKey['Priority number'])}
+          value={formFields.hierarchy}
+          onChange={onChangeField('hierarchy')}
+        />
 
-          <Field
-            containerClasses={styles.field}
-            label={t(TranslationKey['Allowed Endpoints'])}
-            inputComponent={
-              <div className={styles.allowUrlsWrapper}>
-                {formFields.allowedUrls.map((obj, index) => (
+        <Field
+          labelClasses={styles.label}
+          containerClasses={styles.field}
+          label={t(TranslationKey['Allowed Endpoints'])}
+          inputComponent={
+            <>
+              <div className={styles.allowUrls}>
+                {formFields.allowedUrls.map((allowedUrl, index) => (
                   <div key={index} className={styles.urlInputWrapper}>
                     <Input
-                      multiline
-                      minRows={1}
-                      maxRows={3}
-                      className={styles.urlInput}
-                      value={formFields.allowedUrls[index].url}
+                      className={cx(styles.input, styles.urlInput)}
+                      value={allowedUrl.url}
                       placeholder={'example/example/example/:guid'}
                       onChange={onChangeField('allowedUrls', index, 'url')}
                     />
                     <Select
                       variant="filled"
-                      value={formFields.allowedUrls[index].httpMethod}
-                      input={<Input fullWidth />}
-                      className={styles.httpMethodSelect}
+                      value={allowedUrl.httpMethod}
+                      input={<Input />}
+                      className={cx(styles.input, styles.httpMethodSelect)}
                       onChange={onChangeField('allowedUrls', index, 'httpMethod')}
                     >
-                      <MenuItem value={'None'} className={styles.selectOption}>
+                      <MenuItem value="None" className={styles.input}>
                         {'none'}
                       </MenuItem>
-                      {Object.keys(HttpMethod).map((http, idx) => (
-                        <MenuItem key={idx} value={http} className={styles.selectOption}>
-                          {HttpMethod[http]}
+                      {Object.values(HttpMethods).map((method, index) => (
+                        <MenuItem key={index} value={method} className={styles.input}>
+                          {method}
                         </MenuItem>
                       ))}
                     </Select>
 
-                    <IconButton onClick={() => onRemovePermission(index)}>
-                      <DeleteIcon className={styles.deleteBtn} />
-                    </IconButton>
+                    <Button iconButton styleType={ButtonStyle.DANGER} onClick={() => onRemovePermission(index)}>
+                      <DeleteIcon />
+                    </Button>
                   </div>
                 ))}
-
-                <Button className={styles.addButton} onClick={addAllowUrl}>
-                  {'+'}
+              </div>
+              <div className={styles.buttonContainer}>
+                <Button iconButton onClick={addAllowUrl}>
+                  <FiPlus style={{ width: 16, height: 16 }} />
                 </Button>
               </div>
-            }
-          />
-        </div>
+            </>
+          }
+        />
 
-        <div className={styles.buttonsWrapper}>
+        <div className={styles.buttons}>
           <Button
             disabled={disableSubmitBtn}
             onClick={() => onSubmit(formFields, permissionToEdit && permissionToEdit._id)}
@@ -210,8 +226,8 @@ export const AddOrEditSinglePermissionForm = observer(
             {isEdit ? t(TranslationKey.Edit) : t(TranslationKey['Create a permission'])}
           </Button>
 
-          <Button className={styles.button} onClick={() => onCloseModal()}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>

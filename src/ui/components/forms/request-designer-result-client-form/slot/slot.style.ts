@@ -42,6 +42,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    cursor: 'pointer',
   },
 
   isHaveImage: {
@@ -58,24 +59,15 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: 10,
     right: 10,
-    zIndex: 50,
+    zIndex: 7,
   },
 
   imageListItem: {
     width: '100%',
     height: '100%',
-  },
-
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'contain',
-
-    transition: '.3s ease',
-    cursor: 'pointer',
-    '&: hover': {
-      transform: 'scale(1.05)',
-    },
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   commentBtn: {

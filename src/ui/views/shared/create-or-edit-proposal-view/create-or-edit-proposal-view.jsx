@@ -5,7 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CreateOrEditProposalContent } from '@components/contents/create-or-edit-proposal-content'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
 import { t } from '@utils/translations'
 
@@ -41,17 +40,6 @@ export const CreateOrEditProposalView = observer(({ history }) => {
           onClickTopBtn={() => viewModel.goToMyRequest()}
           onClickBottomBtn={() => viewModel.onClickResultModal({ goBack: true })}
           onClickThirdBtn={() => viewModel.onClickResultModal({ goBack: false })}
-        />
-      ) : null}
-
-      {viewModel.showInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showInfoModal}
-          setOpenModal={viewModel.onClickOkInfoModal}
-          title={viewModel.infoModalText}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={viewModel.onClickOkInfoModal}
         />
       ) : null}
     </>

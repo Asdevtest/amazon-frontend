@@ -43,6 +43,9 @@ export const RequestToSendBatchBox = memo(
       !price ||
       !box.items.some(item => item.barCode)
 
+    const isWeightMismatch =
+      Number(box.heightCmWarehouse) < 10 || Number(box.lengthCmWarehouse) < 10 || Number(box.widthCmWarehouse) < 10
+
     return (
       <tr
         className={cx(styles.box, styles.row, { [styles.badBox]: isBadBox })}
@@ -113,7 +116,7 @@ export const RequestToSendBatchBox = memo(
                             !box.items?.[0]?.transparencyFile && box.items?.[0]?.product?.transparency,
                         })}
                       >
-                        {t(TranslationKey['Transparency codes'])}
+                        {t(TranslationKey['Transparency Codes'])}
                       </Typography>
 
                       <LabelWithCopy
@@ -194,7 +197,7 @@ export const RequestToSendBatchBox = memo(
                               !box.items?.[0]?.transparencyFile && box.items?.[0]?.product?.transparency,
                           })}
                         >
-                          {t(TranslationKey['Transparency codes'])}
+                          {t(TranslationKey['Transparency Codes'])}
                         </Typography>
 
                         <LabelWithCopy
@@ -258,8 +261,10 @@ export const RequestToSendBatchBox = memo(
             </Typography>
           </div>
 
-          {calcFinalWeightForBox(box, volumeWeightCoefficient) < 12 ? (
-            <Typography className={styles.alertText}>{`(${t(TranslationKey['Weight less than 12 kg!'])})`}</Typography>
+          {calcFinalWeightForBox(box, volumeWeightCoefficient) < box?.variationTariff?.minBoxWeight || 0 ? (
+            <Typography className={styles.alertText}>{`${t(TranslationKey['Weight less than'])} ${
+              box?.variationTariff?.minBoxWeight
+            } ${t(TranslationKey.kg)}!`}</Typography>
           ) : null}
 
           {box.amount > 1 ? (
@@ -285,7 +290,7 @@ export const RequestToSendBatchBox = memo(
                   download
                   target="_blank"
                   rel="noreferrer noopener"
-                  href={box.shippingLabel}
+                  href={getAmazonImageUrl(box.shippingLabel, true)}
                   className={styles.downloadLink}
                 >
                   {t(TranslationKey.download)}
@@ -297,6 +302,7 @@ export const RequestToSendBatchBox = memo(
             )}
           </div>
         </td>
+
         <td className={cx(tableCellClsx, styles.pricePerAmoutCell)}>
           {box.items.map((item, index) => {
             const deliveryCostPerPcs = calculateDeliveryCostPerPcs({
@@ -325,7 +331,7 @@ export const RequestToSendBatchBox = memo(
             )
           })}
         </td>
-        {/* cx(tableCellClsx, styles.priceCell) */}
+
         {box.amount > 1 ? (
           <td className={styles.suberboxPriceCellWrapper}>
             <div className={styles.suberboxPriceCell}>
@@ -362,6 +368,10 @@ export const RequestToSendBatchBox = memo(
             X
           </Button>
         </td>
+
+        {isWeightMismatch ? (
+          <p className={styles.warningText}>{t(TranslationKey["Box dimensions don't meet carrier requirements!"])}</p>
+        ) : null}
       </tr>
     )
   },

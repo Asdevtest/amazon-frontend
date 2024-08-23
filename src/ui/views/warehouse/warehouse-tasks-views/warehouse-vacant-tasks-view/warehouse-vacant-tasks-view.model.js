@@ -1,22 +1,21 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
-import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxesModel } from '@models/boxes-model'
 import { OtherModel } from '@models/other-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { warehouseVacantTasksViewColumns } from '@components/table/table-columns/warehouse/vacant-tasks-columns'
 
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
 import { objectToUrlQs } from '@utils/text'
-import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class WarehouseVacantViewModel {
   history = undefined
@@ -37,13 +36,6 @@ export class WarehouseVacantViewModel {
 
   curTaskType = null
   curTaskPriority = null
-
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
-
-  volumeWeightCoefficient = undefined
 
   showTwoVerticalChoicesModal = false
   showTaskInfoModal = false
@@ -69,6 +61,10 @@ export class WarehouseVacantViewModel {
   columnVisibilityModel = {}
   densityModel = 'compact'
   columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers)
+
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
 
   constructor({ history }) {
     this.history = history
@@ -105,11 +101,11 @@ export class WarehouseVacantViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_VACANT_TASKS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.WAREHOUSE_VACANT_TASKS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_VACANT_TASKS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.WAREHOUSE_VACANT_TASKS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
@@ -124,14 +120,14 @@ export class WarehouseVacantViewModel {
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
 
     this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedTasks.length - 1) {
-          this.setRequestStatus(loadingStatuses.SUCCESS)
+          this.setRequestStatus(loadingStatus.SUCCESS)
         }
       })
     })
@@ -176,7 +172,7 @@ export class WarehouseVacantViewModel {
 
       this.getTasksVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -192,7 +188,7 @@ export class WarehouseVacantViewModel {
       })
       this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -203,47 +199,22 @@ export class WarehouseVacantViewModel {
       runInAction(() => {
         this.selectedTasks = []
       })
-
-      runInAction(() => {
-        this.alertShieldSettings = {
-          showAlertShield: true,
-          alertShieldMessage: t(TranslationKey['Taken on board']),
-        }
-
-        setTimeout(() => {
-          this.alertShieldSettings = {
-            ...this.alertShieldSettings,
-            showAlertShield: false,
-          }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              showAlertShield: false,
-              alertShieldMessage: '',
-            }
-          }, 1000)
-        }, 3000)
-      })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async setCurrentOpenedTask(item) {
     try {
-      const [task, platformSettings] = await Promise.all([
-        StorekeeperModel.getTaskById(item._id),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await StorekeeperModel.getTaskById(item._id)
 
       runInAction(() => {
-        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
-
-        this.curOpenedTask = task
+        this.curOpenedTask = response
       })
+
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -265,7 +236,7 @@ export class WarehouseVacantViewModel {
 
       await this.getTasksVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -277,13 +248,13 @@ export class WarehouseVacantViewModel {
 
       await this.getTasksVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getTasksVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const filter = objectToUrlQs({
         or: [
@@ -309,7 +280,7 @@ export class WarehouseVacantViewModel {
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
         filters: this.nameSearchValue ? filter : null,
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'priority',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
         operationType: this.curTaskType,
         priority: this.curTaskPriority,
@@ -326,13 +297,13 @@ export class WarehouseVacantViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.tasksVacant = []
       })
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -348,7 +319,7 @@ export class WarehouseVacantViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -380,7 +351,7 @@ export class WarehouseVacantViewModel {
 
       this.getTasksVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

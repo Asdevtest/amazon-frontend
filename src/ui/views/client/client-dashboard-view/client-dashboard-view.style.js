@@ -26,29 +26,12 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
   },
 
-  button: {
-    height: '40px',
-    width: '156px',
-    display: 'flex',
-    justifyContent: 'center',
-    whiteSpace: 'nowrap',
-  },
-
   balanceWrapper: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     height: '145px',
     minWidth: 700,
-  },
-
-  icon: {
-    width: '16px !important',
-    height: '16px !important',
-  },
-
-  withdrawBtn: {
-    color: `${theme.palette.text.general} !important`,
   },
 
   masterUserWrapper: {

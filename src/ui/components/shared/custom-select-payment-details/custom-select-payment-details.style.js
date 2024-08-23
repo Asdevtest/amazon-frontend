@@ -6,41 +6,45 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   select: {
+    minHeight: '40px !important',
     padding: '0 !important',
   },
+
   selectIsNotEmpty: {
-    padding: '0 100px 0 50px !important',
+    padding: '0 50px 0 20px !important',
   },
 
   paymentMethodsLabel: {
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
-
     whiteSpace: 'nowrap',
-
     color: theme.palette.text.general,
     margin: '0 !important',
   },
 
   paymentMethodsContainer: {
     display: 'flex',
-    gap: 30,
+    alignItems: 'center',
+    gap: 20,
+    margin: 0,
   },
 
   rowPaymentMethodsContainer: {
     display: 'flex',
+    alignItems: 'flex-start',
     flexDirection: 'column',
     gap: 5,
   },
 
   paymentMethodsField: {
     position: 'relative',
-    minWidth: 240,
-    width: '100%',
+    minWidth: 140,
+    width: 'fit-content',
     minHeight: 40,
-    borderRadius: 4,
+    borderRadius: '25px',
     border: `1px solid ${theme.palette.primary.main}`,
+
     '&:before': {
       content: 'none',
     },
@@ -54,9 +58,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-
     whiteSpace: 'pre-wrap',
-
     gap: 30,
     height: 40,
   },
@@ -65,14 +67,12 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
-
     color: theme.palette.primary.main,
   },
 
   addIcon: {
     width: 13,
     height: 13,
-
     color: theme.palette.primary.main,
   },
 
@@ -89,14 +89,13 @@ export const useStyles = makeStyles()(theme => ({
   editIcon: {
     position: 'absolute',
     right: 25,
-
     width: '13px !important',
     height: '13px !important',
-
     color: theme.palette.primary.main,
   },
 
   paymentMethods: {
+    minHeight: '30px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

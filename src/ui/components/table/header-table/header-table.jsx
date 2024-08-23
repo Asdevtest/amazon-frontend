@@ -20,7 +20,7 @@ export const HeaderTable = ({ viewModel }) => {
     .concat([
       {
         label: () => t(TranslationKey['All warehouses']),
-        value: undefined,
+        value: '',
       },
     ])
 
@@ -30,7 +30,7 @@ export const HeaderTable = ({ viewModel }) => {
         <SearchInput
           key={'client_batches_awaiting-batch_search_input'}
           inputClasses={styles.searchInput}
-          value={viewModel.nameSearchValue}
+          value={viewModel.currentSearchValue}
           placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
           onSubmit={viewModel.onSearchSubmit}
         />
@@ -38,11 +38,11 @@ export const HeaderTable = ({ viewModel }) => {
       <div className={styles.btnsWrapper}>
         <div className={styles.btnsSubWrapper}>
           <Button
-            disabled={!viewModel.selectedBatches.length}
+            styleType={ButtonStyle.DANGER}
+            disabled={!viewModel.selectedRows.length}
             tooltipInfoContent={t(
-              TranslationKey['Returns all boxes from the selected batch to the "Boxes ready to send" section'],
+              TranslationKey["Returns all boxes from the selected batch to the 'Boxes ready to send' section"],
             )}
-            styles={styles.cancelBtn}
             onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           >
             {t(TranslationKey['Cancel Send'])}
@@ -56,19 +56,14 @@ export const HeaderTable = ({ viewModel }) => {
           />
         </div>
 
-        <div className={styles.rightSideButtonsWrapper}>
+        <div className={styles.btnsSubWrapper}>
           <Button
-            disabled={viewModel.selectedBatches.length !== 1}
-            styles={styles.rightSideButton}
+            disabled={viewModel.selectedRows.length !== 1}
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: false })}
           >
             {t(TranslationKey['Edit batch'])}
           </Button>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
-            styles={styles.rightSideButton}
-            onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
-          >
+          <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}>
             {t(TranslationKey['Create a batch'])}
           </Button>
         </div>

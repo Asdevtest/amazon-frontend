@@ -1,13 +1,12 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { operationTypes } from '@constants/keys/operation-types'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { BoxSplit } from '@components/shared/boxes/box-split'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
@@ -16,7 +15,8 @@ import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './reditstribute-box-modal.style'
 
@@ -45,8 +45,6 @@ export const RedistributeBox = observer(
     })
     const [priority, setPriority] = useState()
     const [priorityReason, setPriorityReason] = useState()
-
-    const [showNewBoxAttention, setShowNewBoxAttention] = useState(true)
 
     const isMasterBox = selectedBox?.amount && selectedBox?.amount > 1
 
@@ -163,7 +161,7 @@ export const RedistributeBox = observer(
 
     const disabledSubmitBtn =
       totalProductsAmount !== 0 ||
-      requestStatus === loadingStatuses.IS_LOADING ||
+      requestStatus === loadingStatus.IS_LOADING ||
       filterEmptyBoxes(newBoxes).length < 2 ||
       filterEmptyBoxes(newBoxes).some(
         el =>
@@ -177,6 +175,16 @@ export const RedistributeBox = observer(
       (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] &&
         !priorityReason?.length) ||
       selectedBox?.status !== BoxStatus.IN_STOCK
+
+    useEffect(() => {
+      toast.warning(
+        t(
+          TranslationKey[
+            'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
+          ],
+        ),
+      )
+    }, [])
 
     return (
       <div className={styles.wrapper}>
@@ -250,49 +258,26 @@ export const RedistributeBox = observer(
           <Button
             tooltipInfoContent={t(TranslationKey['Add a new box to the task'])}
             disabled={totalProductsAmount < 1 && isMasterBox}
-            className={styles.button}
-            onClick={() => {
-              setNewBoxes(newBoxes.concat(getEmptyBox()))
-            }}
+            onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
           >
             {t(TranslationKey['Create a new box'])}
           </Button>
           <Button
             tooltipInfoContent={t(TranslationKey['Create a task to split the box'])}
             disabled={disabledSubmitBtn}
-            className={styles.button}
             onClick={onClickRedistributeBtn}
           >
             {t(TranslationKey.Redistribute)}
           </Button>
 
           <Button
-            variant={ButtonVariant.OUTLINED}
+            styleType={ButtonStyle.CASUAL}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={cx(styles.button, styles.cancelButton)}
-            onClick={() => {
-              onTriggerOpenModal('showRedistributeBoxModal')
-              setShowNewBoxAttention(false)
-            }}
+            onClick={() => onTriggerOpenModal('showRedistributeBoxModal')}
           >
-            {t(TranslationKey.Cancel)}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
-
-        {showNewBoxAttention ? (
-          <WarningInfoModal
-            // @ts-ignore
-            openModal={showNewBoxAttention}
-            setOpenModal={() => setShowNewBoxAttention(!showNewBoxAttention)}
-            title={t(
-              TranslationKey[
-                'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
-              ],
-            )}
-            btnText={t(TranslationKey.Ok)}
-            onClickBtn={() => setShowNewBoxAttention(!showNewBoxAttention)}
-          />
-        ) : null}
       </div>
     )
   },

@@ -2,7 +2,6 @@ import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { ReactElement, forwardRef } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
@@ -17,6 +16,7 @@ import { NoSelectedChat } from '@components/shared/svg-icons'
 import { isNotUndefined } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
@@ -41,6 +41,7 @@ export interface CurrentOpponent {
   overdraft: number
   rate: number
   _id: string
+  lastSeen: string
 }
 
 interface MultipleChatsProps {
@@ -57,10 +58,9 @@ interface MultipleChatsProps {
   typingUsers?: OnTypingMessageResponse[]
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
-  requestStatus: loadingStatuses
-  onChangeRequestStatus: (status: loadingStatuses) => void
+  requestStatus: loadingStatus
+  onChangeRequestStatus: (status: loadingStatus) => void
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
-  updateData: () => void
   onSubmitMessage: (message: string, files: UploadFileType[], chat: string, replyMessageId: string | null) => void
   onClickChat: (chat: ChatContract) => void
   onTypingMessage: (chatId: string) => void
@@ -90,7 +90,6 @@ export const MultipleChats = observer(
         chatSelectedId,
         chatMessageHandlers,
         curFoundedMessage,
-        updateData,
         onSubmitMessage,
         onClickChat,
         renderAdditionalButtons,
@@ -192,7 +191,6 @@ export const MultipleChats = observer(
                 searchPhrase={searchPhrase}
                 classNamesWrapper={styles.chatWrapper}
                 renderAdditionalButtons={renderAdditionalButtons}
-                updateData={updateData}
                 currentOpponent={currentOpponent}
                 requestStatus={requestStatus}
                 onChangeRequestStatus={onChangeRequestStatus}

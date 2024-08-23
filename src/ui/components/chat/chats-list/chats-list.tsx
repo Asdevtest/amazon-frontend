@@ -55,6 +55,7 @@ export const ChatsList: FC<Props> = observer(
           [chats],
         )
       : []
+
     const inWorkChats = useMemo(() => chats.filter(el => !solvedChats.find(chat => chat._id === el._id)), [solvedChats])
 
     const [tabIndex, setTabIndex] = useState(tabsValues.IN_WORK)

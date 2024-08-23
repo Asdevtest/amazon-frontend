@@ -19,7 +19,7 @@ export const addOrEditBatchFormColumns = isClient => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 65,
+    width: 80,
   },
 
   {

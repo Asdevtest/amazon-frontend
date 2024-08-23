@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     width: '425px',
-    padding: '0 40px',
   },
   modalTitle: {
     color: theme.palette.text.general,
@@ -19,15 +18,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     marginTop: '20px',
-  },
-  saveBtn: {
-    width: '123px',
-    height: '40px',
-  },
-  closeBtn: {
-    width: '123px',
-    height: '40px',
-    color: theme.palette.text.general,
   },
 
   standartText: {

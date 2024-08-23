@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material'
 
-import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -13,6 +13,7 @@ import { useStyles } from './failed-asins-modal.style'
 
 export const FailedAsinsModal = ({ failedData, onClickSuccessBtn }) => {
   const { classes: styles } = useStyles()
+
   return (
     <div className={styles.modalMessageWrapper}>
       <Typography paragraph className={styles.title}>
@@ -21,10 +22,10 @@ export const FailedAsinsModal = ({ failedData, onClickSuccessBtn }) => {
       {failedData.failed.map(el => (
         <div key={el.asin} className={styles.asinsWrapper}>
           <Typography>{el.asin}</Typography>
-          <Typography>{humanFriendlyStategyStatus(mapProductStrategyStatusEnum[el.strategy]).toUpperCase()}</Typography>
+          <Typography>{humanFriendlyStategyStatus(productStrategyStatusesEnum[el.strategy]).toUpperCase()}</Typography>
         </div>
       ))}
-      <Button styleType={ButtonStyle.SUCCESS} className={styles.button} onClick={onClickSuccessBtn}>
+      <Button styleType={ButtonStyle.SUCCESS} onClick={onClickSuccessBtn}>
         {t(TranslationKey.Ok)}
       </Button>
     </div>

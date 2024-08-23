@@ -50,7 +50,8 @@ export const exchangeHighPriceColumns = () => [
         />
       )
     },
-    width: 300,
+    width: 260,
+    minWidth: 100,
   },
 
   {

@@ -1,6 +1,9 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(() => ({
   title: {
-    margin: '10px 0',
-    color: theme.palette.text.general,
+    fontSize: '18px',
+    lineHeight: '25px',
+    marginBottom: 10,
   },
-})
+}))

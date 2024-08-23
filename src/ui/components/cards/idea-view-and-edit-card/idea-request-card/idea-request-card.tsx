@@ -97,11 +97,7 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
           />
         )}
 
-        <Button
-          disabled={disableSeeResultButton /* || !proposals?.length */}
-          className={styles.resultButton}
-          onClick={onClickResultButton}
-        >
+        <Button disabled={disableSeeResultButton /* || !proposals?.length */} onClick={onClickResultButton}>
           {t(TranslationKey['See result'])}
         </Button>
       </div>

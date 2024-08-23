@@ -1,11 +1,10 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { BatchesModel } from '@models/batches-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { adminBatchesViewColumns } from '@components/table/table-columns/admin/admin-batches-columns'
@@ -13,19 +12,17 @@ import { adminBatchesViewColumns } from '@components/table/table-columns/admin/a
 import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class AdminAwaitingBatchesViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
-  volumeWeightCoefficient = undefined
-
   nameSearchValue = ''
 
   batches = []
   batchesData = []
-
-  currentData = []
 
   selectedBatches = []
   curBatch = {}
@@ -43,17 +40,17 @@ export class AdminAwaitingBatchesViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
+  get currentData() {
+    return this.batches
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.batches,
-      () =>
-        runInAction(() => {
-          this.currentData = toJS(this.batches)
-        }),
-    )
   }
 
   setDataGridState() {
@@ -64,20 +61,18 @@ export class AdminAwaitingBatchesViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_AWAITING_BATCHES)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_AWAITING_BATCHES)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_AWAITING_BATCHES]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_AWAITING_BATCHES)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onSearchSubmit(searchValue) {
@@ -151,38 +146,31 @@ export class AdminAwaitingBatchesViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
       await this.getBatches()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async getBatches() {
     try {
-      const [batches, result] = await Promise.all([
-        BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
 
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
-        this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient).sort(
+        this.batches = warehouseBatchesDataConverter(response, this.platformSettings?.volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
-        this.batchesData = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient).sort(
+        this.batchesData = warehouseBatchesDataConverter(response, this.platformSettings?.volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
-        this.error = error
-
         this.batches = []
       })
     }
@@ -191,24 +179,16 @@ export class AdminAwaitingBatchesViewModel {
   async setCurrentOpenedBatch(id, notTriggerModal) {
     try {
       const batch = await BatchesModel.getBatchesByGuid(id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBatch = batch
-      })
-
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (!notTriggerModal) {
         this.onTriggerOpenModal('showBatchInfoModal')
       }
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

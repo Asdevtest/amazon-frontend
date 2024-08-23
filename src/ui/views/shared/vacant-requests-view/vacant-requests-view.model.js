@@ -1,8 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { RequestSubType } from '@constants/requests/request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
@@ -17,6 +15,8 @@ import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+import { RequestSubType } from '@typings/enums/request/request-type'
 import { Specs } from '@typings/enums/specs'
 
 import { defaultHiddenColumns, filtersFields } from './vacant-requests-view.constants'
@@ -133,13 +133,13 @@ export class VacantRequestsViewModel {
 
       this.getRequestsVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getRequestsVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await RequestModel.getRequests({
         kind: RequestSubType.VACANT,
@@ -160,10 +160,10 @@ export class VacantRequestsViewModel {
         this.rowCount = result.count
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
 
       runInAction(() => {
         this.requests = []
@@ -185,7 +185,7 @@ export class VacantRequestsViewModel {
   async onClickFilterBtn(column) {
     try {
       runInAction(() => {
-        this.columnMenuSettings.filterRequestStatus = loadingStatuses.IS_LOADING
+        this.columnMenuSettings.filterRequestStatus = loadingStatus.IS_LOADING
       })
 
       const data = await GeneralModel.getDataForColumn(
@@ -204,13 +204,13 @@ export class VacantRequestsViewModel {
       }
 
       runInAction(() => {
-        this.columnMenuSettings.filterRequestStatus = loadingStatuses.SUCCESS
+        this.columnMenuSettings.filterRequestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.columnMenuSettings.filterRequestStatus = loadingStatuses.FAILED
+        this.columnMenuSettings.filterRequestStatus = loadingStatus.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -313,7 +313,7 @@ export class VacantRequestsViewModel {
 
   async getRequestDetail(id) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const response = await RequestModel.getCustomRequestById(id)
 
@@ -321,10 +321,10 @@ export class VacantRequestsViewModel {
         this.currentRequestDetails = response
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 

@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { getYearDate } from '@utils/date-time'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
@@ -21,9 +21,7 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
   return (
     <Grid item className={styles.mainWrapper}>
       <div className={styles.cardWrapper}>
-        <div className={styles.photoWrapper}>
-          <PhotoAndFilesSlider withoutFiles files={item.files} />
-        </div>
+        <SlideshowGallery files={item.files} />
 
         <div className={styles.subWrapper}>
           <div className={styles.titleWrapper}>
@@ -160,7 +158,6 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
             <div className={styles.buttonWrapper}>
               <Button
                 tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-                className={styles.actionButton}
                 onClick={() => onClickViewMore(item._id)}
               >
                 {t(TranslationKey.Details)}

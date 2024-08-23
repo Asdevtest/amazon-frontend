@@ -1,6 +1,6 @@
 import { Paper, Typography } from '@mui/material'
 
-import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 
 import { toFixedWithDollarSign } from '@utils/text'
 
@@ -79,7 +79,7 @@ export const ProductSearchRequestDetails = ({ request }) => {
                 <Typography>{'tableStrategyField'}</Typography>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{mapProductStrategyStatusEnum[request.strategy]}</Typography>
+                <Typography>{productStrategyStatusesEnum[request.strategy]}</Typography>
               </div>
             </div>
 

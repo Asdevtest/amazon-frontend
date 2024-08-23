@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { LanguageKey } from './language-key'
+import { LanguageKey } from '@typings/enums/language-key'
+
 import { TranslationKey } from './translation-key'
 
 export const translationGetters = {
@@ -9,4 +10,6 @@ export const translationGetters = {
     require('./translations-files/ru.json') as Record<TranslationKey, string>,
   [LanguageKey.zh]: (): Record<TranslationKey, string> =>
     require('./translations-files/zh.json') as Record<TranslationKey, string>,
+  [LanguageKey.ua]: (): Record<TranslationKey, string> =>
+    require('./translations-files/ua.json') as Record<TranslationKey, string>,
 }

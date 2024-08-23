@@ -3,7 +3,6 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { GridPaginationModel, GridRowSelectionModel } from '@mui/x-data-grid'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { StorekeeperModel } from '@models/storekeeper-model'
@@ -12,18 +11,18 @@ import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { IProduct } from '@typings/models/products/product'
 import { ISupplier } from '@typings/models/suppliers/supplier'
 import { IDestinationStorekeeper } from '@typings/shared/destinations'
 import { IFullUser } from '@typings/shared/full-user'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 import { IPaymentMethod } from '@typings/shared/payment-method'
-import { UploadFileType } from '@typings/shared/upload-file'
 
 import { ModalModes, ModalNames } from './list-suppliers.type'
 
 export class ListSuppliersModel {
-  requestStatus: loadingStatuses = loadingStatuses.SUCCESS
+  requestStatus: loadingStatus = loadingStatus.SUCCESS
 
   paginationModel: GridPaginationModel = { page: 0, pageSize: 15 }
   selectionModel: GridRowSelectionModel = []
@@ -31,12 +30,10 @@ export class ListSuppliersModel {
   product: IProduct | undefined = undefined
   suppliers: ISupplier[] = []
   currentSupplier: ISupplier | undefined = undefined
-  galleryFiles: UploadFileType[] = []
   paymentMethods: IPaymentMethod[] = []
   storekeepers: IDestinationStorekeeper[] = []
 
   supplierModalReadOnly = false
-  showGalleryModal = false
   showAddOrEditSupplierModal = false
   showSupplierApproximateCalculationsModal = false
   showConfirmModal = false
@@ -62,17 +59,10 @@ export class ListSuppliersModel {
 
   constructor(
     product: IProduct,
-    orderSupplier?: ISupplier,
     onSaveProduct?: (product: IProduct) => void,
     onRemoveSupplier?: (supplierId: string, itemId?: string) => void,
   ) {
     this.product = product
-
-    if (orderSupplier) {
-      this.currentSupplier = orderSupplier
-    } else {
-      this.currentSupplier = product?.currentSupplier
-    }
 
     this.onSaveProduct = onSaveProduct
     this.onRemoveSupplier = onRemoveSupplier
@@ -97,15 +87,6 @@ export class ListSuppliersModel {
         }
       },
     )
-
-    reaction(
-      () => this.showSupplierApproximateCalculationsModal,
-      () => {
-        if (this.showSupplierApproximateCalculationsModal) {
-          this.getStorekeepers()
-        }
-      },
-    )
   }
 
   onPaginationModelChange(model: GridPaginationModel) {
@@ -123,7 +104,7 @@ export class ListSuppliersModel {
 
   onGetSuppliers() {
     if (this.product) {
-      const currentSupplierId: string | undefined = this.currentSupplier?._id
+      const currentSupplierId: string | undefined = this.product.currentSupplier?._id
 
       const foundCurrentSupplier = this.product?.suppliers?.find(
         (supplier: ISupplier) => supplier._id === currentSupplierId,
@@ -147,16 +128,6 @@ export class ListSuppliersModel {
     }
   }
 
-  onClickFilesCell = (files?: UploadFileType[]) => {
-    if (files && files.length > 0) {
-      this.galleryFiles = files
-    } else {
-      this.galleryFiles = []
-    }
-
-    this.onToggleModal(ModalNames.GALLERY)
-  }
-
   async getPaymentMethods() {
     try {
       const response = await SupplierModel.getSuppliersPaymentMethods()
@@ -177,7 +148,7 @@ export class ListSuppliersModel {
         this.storekeepers = response as IDestinationStorekeeper[]
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -234,7 +205,7 @@ export class ListSuppliersModel {
             isWarning: true,
             message: t(TranslationKey['Are you sure you want to remove the supplier?']),
             successBtnText: t(TranslationKey.Yes),
-            cancelBtnText: t(TranslationKey.Cancel),
+            cancelBtnText: t(TranslationKey.Close),
             onClickOkBtn: () => {
               this.removeSupplier()
               this.onToggleModal(ModalNames.CONFIRM)
@@ -267,7 +238,7 @@ export class ListSuppliersModel {
     this.onGetSuppliers()
   }
 
-  setRequestStatus(requestStatus: loadingStatuses) {
+  setRequestStatus(requestStatus: loadingStatus) {
     this.requestStatus = requestStatus
   }
 

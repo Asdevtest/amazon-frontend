@@ -3,9 +3,9 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   proposalsWrapper: {
     marginTop: '60px',
-    '& > :not(:last-child)': {
-      marginBottom: '20px',
-    },
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
   },
 
   proposalsTitle: {
@@ -18,10 +18,7 @@ export const useStyles = makeStyles()(theme => ({
   proposalAndChatWrapper: {
     display: 'flex',
     flexDirection: 'column',
-
-    '&:nth-of-type(n)': {
-      marginBottom: '30px',
-    },
+    background: theme.palette.background.general,
   },
 
   emptyProposalsIconWrapper: {

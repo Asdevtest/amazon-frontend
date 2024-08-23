@@ -8,10 +8,9 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
+import { SlideByType } from '@components/shared/slide-by-type'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { formatDateOnlyTime } from '@utils/date-time'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -59,11 +58,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, is
                   <div className={styles.moreImagesWrapper}>{message.data.proposal.media.length - 4}</div>
                 )}
 
-                <img
-                  src={checkIsMediaFileLink(item) ? getAmazonImageUrl(item) : '/assets/icons/file.png'}
-                  alt={`Image ${index}`}
-                  className={styles.image}
-                />
+                <SlideByType mediaFile={item} mediaFileIndex={index} />
               </div>
             ))}
           </div>
@@ -92,10 +87,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, is
           />
         </div>
 
-        <Button
-          className={styles.actionButton}
-          onClick={() => handlers.onClickOpenRequest(message.data.proposal.media)}
-        >
+        <Button onClick={() => handlers.onClickOpenRequest(message.data.proposal.media)}>
           {t(TranslationKey['Open result'])}
         </Button>
       </div>

@@ -11,19 +11,22 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
 import { UserModel } from '@models/user-model'
 
-import { InlineResponse20083 } from '@services/rest-api-service/codegen'
 import { ChatMessageType } from '@services/websocket-chat-service'
 import { ChatMessageTextType, OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
 import { IsReadIcon, NoReadIcon, SoundOffIcon } from '@components/shared/svg-icons'
+import { FavoritesIcon } from '@components/shared/svg-icons/favorites-icon/favorites-icon'
 
 import { checkIsClient } from '@utils/checks'
+import { checkOnline } from '@utils/checks/check-online/check-online'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
+
+import { IFullUser } from '@typings/shared/full-user'
 
 import { useStyles } from './chat-list-item.style'
 
@@ -39,6 +42,8 @@ interface Props {
 export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typingUsers, isMutedChat, typeOfChat }) => {
   const { classes: styles, cx } = useStyles()
 
+  const isFavoritesChat = chat?.type === chatsType.SAVED
+
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
   const currentProposal = chatRequestAndRequestProposal.requestProposals?.find(
@@ -50,8 +55,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
   const isLastMessageFile = !!(lastMessage?.files?.length || lastMessage?.images?.length || lastMessage?.video?.length)
   const isUnredExists = Number(unread) > 0
 
-  // @ts-ignore
-  const currentUserRole = UserRoleCodeMap[(UserModel?.userInfo as InlineResponse20083)?.role]
+  const currentUserRole = UserRoleCodeMap[(UserModel?.userInfo as unknown as IFullUser)?.role]
 
   const isGroupChat = chat.type === chatsType.GROUP
 
@@ -92,7 +96,12 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
   const oponentUser = getUserByChatType()
 
-  const title = typeof oponentUser?.name === 'string' ? oponentUser.name : t(TranslationKey['System message'])
+  const title =
+    typeof oponentUser?.name === 'string'
+      ? oponentUser.name
+      : isFavoritesChat
+      ? t(TranslationKey.Favorites)
+      : t(TranslationKey['System message'])
 
   const message = lastMessage?.text
     ? (() => {
@@ -137,16 +146,24 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
       <NoReadIcon className={styles.noReadIcon} />
     )
 
+  const isOnlineUser = checkOnline(chat.type, oponentUser)
+
   return (
     <div className={styles.root} onClick={() => onClick(chat)}>
-      <Avatar
-        src={
-          isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0
-            ? getAmazonImageUrl(chat.info?.image)
-            : getUserAvatarSrc(oponentUser?._id)
-        }
-        className={styles.avatar}
-      />
+      {isFavoritesChat ? (
+        <FavoritesIcon className={cx(styles.favoritesIcon, styles.avatar)} />
+      ) : (
+        <div className={cx({ [styles.onlineIcon]: isOnlineUser })}>
+          <Avatar
+            src={
+              isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0
+                ? getAmazonImageUrl(chat.info?.image)
+                : getUserAvatarSrc(oponentUser?._id)
+            }
+            className={styles.avatar}
+          />
+        </div>
+      )}
 
       <div className={styles.rightSide}>
         <div className={styles.titleWrapper}>
@@ -161,7 +178,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
         {lastMessage && (
           <div className={styles.lastMessageWrapper}>
-            {typingUsers?.find(el => el.chatId === chat._id && el.userId === oponentUser?._id) ? (
+            {typingUsers?.find(el => el.chatId === chat._id && el.user?._id === oponentUser?._id) ? (
               <div className={styles.lastMessageSubWrapper}>
                 <p className={styles.nickName}>{oponentUser?.name}</p>
                 <p

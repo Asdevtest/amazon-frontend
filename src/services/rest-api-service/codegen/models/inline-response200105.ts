@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1UsersFreelanceNoticesRequest } from './api-v1-users-freelance-notices-request';
 
 /**
  * 
@@ -21,35 +22,29 @@
  */
 export interface InlineResponse200105 {
     /**
-     * Курс юаня к доллару.
-     * @type {number}
+     * GUID в базе данных
+     * @type {string}
      * @memberof InlineResponse200105
      */
-    yuanToDollarRate?: number;
+    _id?: string;
     /**
-     * Коэффициент расчета объемного веса.
+     * Кол-во непрочитаных сообщений по заявке
      * @type {number}
      * @memberof InlineResponse200105
      */
-    volumeWeightCoefficient?: number;
+    unreadMessages?: number;
     /**
-     * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
-     * @type {number}
+     * Гуид чата
+     * @type {string}
      * @memberof InlineResponse200105
      */
-    requestMinAmountPriceOfProposal?: number;
+    chatId?: string;
     /**
-     * Комиссия за оплату предложения
-     * @type {number}
+     * 
+     * @type {ApiV1UsersFreelanceNoticesRequest}
      * @memberof InlineResponse200105
      */
-    requestPlatformMarginInPercent?: number;
-    /**
-     * Лимит на кол-во в ордере
-     * @type {number}
-     * @memberof InlineResponse200105
-     */
-    orderAmountLimit?: number;
+    request?: ApiV1UsersFreelanceNoticesRequest;
 }
 
 

@@ -11,10 +11,10 @@ import { useStyles } from './fees-values-with-calculate-btn-cell.style'
 
 interface FeesValuesWithCalculateBtnCellProps {
   noCalculate: boolean
-  onClickCalculate: (productId: string) => void
   productId: string
   fbafee: number
   reffee: number
+  onClickCalculate?: (productId: string) => void
 }
 
 export const FeesValuesWithCalculateBtnCell: FC<FeesValuesWithCalculateBtnCellProps> = memo(props => {
@@ -33,9 +33,8 @@ export const FeesValuesWithCalculateBtnCell: FC<FeesValuesWithCalculateBtnCellPr
       </p>
       {!noCalculate && (
         <Button
-          className={styles.cellBtn}
           startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
-          onClick={() => onClickCalculate(productId)}
+          onClick={() => onClickCalculate?.(productId)}
         >
           {'Calculate fees'}
         </Button>

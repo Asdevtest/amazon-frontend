@@ -1,30 +1,26 @@
 import { useState } from 'react'
 import Avatar from 'react-avatar-edit'
+import { toast } from 'react-toastify'
 
 import { Avatar as AvatarMui } from '@mui/material'
 
-import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { UiTheme } from '@typings/enums/ui-theme'
 
 import { useStyles } from './edit-group-chat-info-form.style'
 
 export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
   const { classes: styles, cx } = useStyles()
-
-  const [showInfoModal, setShowInfoModal] = useState(false)
-
-  const [showInfoModalText, setShowInfoModalText] = useState('')
 
   const sourceState = {
     title: chat?.info?.title || '',
@@ -43,8 +39,8 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
 
   const onBeforeFileLoad = elem => {
     if (elem.target.files[0].size > 15728640) {
-      setShowInfoModalText(t(TranslationKey['The file is too big!']))
-      setShowInfoModal(true)
+      toast.warning(t(TranslationKey['The file is too big!']))
+
       elem.target.value = ''
     } else if (
       ![
@@ -58,8 +54,8 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
         'image/avif',
       ].includes(elem.target.files[0].type)
     ) {
-      setShowInfoModalText(t(TranslationKey['Inappropriate format!']))
-      setShowInfoModal(true)
+      toast.warning(t(TranslationKey['Inappropriate format!']))
+
       elem.target.value = ''
     }
   }
@@ -130,21 +126,10 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onCloseModal}>
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
-
-      {showInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={showInfoModal}
-          setOpenModal={() => setShowInfoModal(!showInfoModal)}
-          title={showInfoModalText}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => setShowInfoModal(!showInfoModal)}
-        />
-      ) : null}
     </div>
   )
 }

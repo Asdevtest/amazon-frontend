@@ -64,7 +64,7 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
           switchMode="medium"
           condition={tabValue}
           switcherSettings={customSwitcherSettings}
-          changeConditionHandler={(condition: string | number | null | undefined) => setTabValue(Number(condition))}
+          changeConditionHandler={setTabValue}
         />
 
         <TabPanel value={tabValue} index={SwitcherConditions.MEDIA_FILES}>
@@ -84,15 +84,15 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
             onToggleFile={onToggleFile}
           />
         </TabPanel>
-      </div>
 
-      <Buttons
-        disabled={!allFilesToAdd.length}
-        onClick={() => {
-          onChangeMediaFiles(allFilesToAdd)
-          onOpenModal()
-        }}
-      />
+        <Buttons
+          disabled={!allFilesToAdd.length}
+          onClick={() => {
+            onChangeMediaFiles(allFilesToAdd)
+            onOpenModal()
+          }}
+        />
+      </div>
     </Modal>
   )
 })

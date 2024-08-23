@@ -6,20 +6,17 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { OrderContent } from '@components/contents/order-content'
-import { BoxViewForm } from '@components/forms/box-view-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
 import { ClientOrderViewModel } from './client-order-view.model'
 
-export const ClientOrderView = observer(({ history }) => {
-  const [viewModel] = useState(() => new ClientOrderViewModel({ history }))
+export const ClientOrderView = observer(() => {
+  const [viewModel] = useState(() => new ClientOrderViewModel())
 
   useEffect(() => {
     viewModel.loadData()
@@ -40,15 +37,11 @@ export const ClientOrderView = observer(({ history }) => {
           userInfo={viewModel.userInfo}
           platformSettings={viewModel.platformSettings}
           order={viewModel.order}
-          boxes={viewModel.orderBoxes}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-          setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           onClickCancelOrder={viewModel.onClickCancelOrder}
-          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
           onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
           onClickReorder={viewModel.onClickReorder}
-          onClickHsCode={viewModel.onClickHsCode}
         />
       ) : null}
 
@@ -72,17 +65,6 @@ export const ClientOrderView = observer(({ history }) => {
       </Modal>
 
       <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-      >
-        <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-        />
-      </Modal>
-
-      <Modal
         openModal={viewModel.showSetBarcodeModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
       >
@@ -102,37 +84,11 @@ export const ClientOrderView = observer(({ history }) => {
           title={viewModel.confirmModalSettings.confirmTitle}
           message={viewModel.confirmModalSettings.confirmMessage}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        />
-      ) : null}
-
-      <Modal
-        openModal={viewModel.showBoxViewModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-      >
-        <BoxViewForm
-          userInfo={viewModel.userInfo}
-          box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
-        />
-      </Modal>
     </>
   )
 })

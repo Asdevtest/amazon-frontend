@@ -1,73 +1,34 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  root: {
-    width: '700px',
-    padding: 20,
+export const useStyles = makeStyles()(() => ({
+  wrapper: {
+    width: 400,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
   },
-  modalTitle: {
-    color: theme.palette.text.general,
-    fontSize: '18px',
+
+  title: {
+    fontSize: 18,
     fontWeight: 600,
-    lineHeight: '140%',
-    marginBottom: '30px',
+    lineHeight: '25px',
   },
 
-  linkWrapper: {
+  flexContainer: {
     display: 'flex',
-    gap: '5px',
-
-    '& > :nth-of-type(n)': {
-      fontSize: '14px',
-      lineHeight: '19px',
-      fontWeight: 400,
-    },
-    '& > :first-of-type': {
-      color: theme.palette.text.general,
-    },
-    marginBottom: '30px',
-  },
-
-  idWrapper: {
-    display: 'flex',
-    gap: '15px',
-    '& > :nth-of-type(n)': {
-      fontSize: '14px',
-      lineHeight: '19px',
-      fontWeight: 400,
-    },
-    '& > :first-of-type': {
-      color: theme.palette.text.second,
-    },
     alignItems: 'center',
-    marginBottom: '30px',
-  },
+    gap: 5,
 
-  copyWrapper: {
-    display: 'flex',
-    gap: '13px',
-    alignItems: 'center',
-
-    '& > :first-of-type': {
-      fontSize: '14px',
+    'p, a': {
+      fontSize: 14,
       lineHeight: '19px',
-      fontWeight: 400,
-      color: theme.palette.text.general,
     },
   },
 
-  buttonsWrapper: {
-    marginTop: '30px',
+  buttons: {
     display: 'flex',
-    justifyContent: 'end',
-    gap: '20px',
-  },
-
-  button: {
-    width: '179px',
-    height: '40px',
-  },
-  cancelButton: {
-    color: theme.palette.text.general,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: 20,
   },
 }))

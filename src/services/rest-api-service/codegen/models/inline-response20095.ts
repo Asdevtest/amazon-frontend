@@ -13,45 +13,165 @@
  */
 
 
-import { ApiV1AdminsOrdersLogicsTariff } from './api-v1-admins-orders-logics-tariff';
-import { ApiV1StorekeepersTariffWarehouses } from './api-v1-storekeepers-tariff-warehouses';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
 
 /**
- * 
+ * Схема получение лайт версии продажи магазина
  * @export
  * @interface InlineResponse20095
  */
 export interface InlineResponse20095 {
     /**
-     * GUID сторкипера в DB
+     * GUID магазина на продажу.
      * @type {string}
      * @memberof InlineResponse20095
      */
-    _id: string;
+    _id?: string;
     /**
-     * Имя сторкипера.
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20095
+     */
+    owner?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * GUID покупателя магазина
      * @type {string}
      * @memberof InlineResponse20095
      */
-    name?: string;
+    bidderId?: string;
     /**
-     * Тарифы логистики для сторкипера.
-     * @type {Array<ApiV1AdminsOrdersLogicsTariff>}
+     * GUID модератора магазина
+     * @type {string}
      * @memberof InlineResponse20095
      */
-    tariffLogistics?: Array<ApiV1AdminsOrdersLogicsTariff>;
+    moderatorId?: string;
     /**
-     * Тарифы складов для сторкипера.
-     * @type {Array<ApiV1StorekeepersTariffWarehouses>}
+     * GUID чата
+     * @type {string}
      * @memberof InlineResponse20095
      */
-    tariffWarehouses?: Array<ApiV1StorekeepersTariffWarehouses>;
+    chatId?: string;
     /**
-     * Количество коробок в сторкепере.
+     * Имя магазина для продажи
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    title?: string;
+    /**
+     * Статус магазина для продажи
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    status?: string;
+    /**
+     * Файлы, которые привязаны к магазину
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    files?: Array<string>;
+    /**
+     * Стоимость магазина
      * @type {number}
      * @memberof InlineResponse20095
      */
-    boxesCount?: number;
+    price?: number;
+    /**
+     * Ежемесячная прибыль
+     * @type {number}
+     * @memberof InlineResponse20095
+     */
+    monthlyProfit?: number;
+    /**
+     * Ежемесячная чистая прибыль
+     * @type {number}
+     * @memberof InlineResponse20095
+     */
+    monthlyPureProfit?: number;
+    /**
+     * Ежемесячный множитель
+     * @type {number}
+     * @memberof InlineResponse20095
+     */
+    monthlyMultiplier?: number;
+    /**
+     * Статистика магазина по месяцам
+     * @type {Array<ApiV1ShopSellStatistics1>}
+     * @memberof InlineResponse20095
+     */
+    statistics?: Array<ApiV1ShopSellStatistics1>;
+    /**
+     * Дата создания бизнеса
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    businessStartDate?: string;
+    /**
+     * Детали магазина
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    shopDetails?: string;
+    /**
+     * Ссылка магазина
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    shopLink?: string;
+    /**
+     * Массив активов
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    shopAssets?: Array<string>;
+    /**
+     * Массив возможностей
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    opportunities?: Array<string>;
+    /**
+     * Массив рисков
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    risks?: Array<string>;
+    /**
+     * Массив требуемых навыков
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    requiredSkills?: Array<string>;
+    /**
+     * Поддержка продавца включает
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    sellIncludes?: Array<string>;
+    /**
+     * Причины продажи
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    reasonForSale?: Array<string>;
+    /**
+     * Дополнительная информация
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    additionalInfo?: Array<string>;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    updatedAt?: string;
 }
 
 

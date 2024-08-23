@@ -19,21 +19,6 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: '30px',
   },
 
-  btnSubmit: {
-    width: '144px',
-    height: '40px',
-    fontSize: '14px',
-    lineHeight: '19px',
-  },
-
-  btnLargeSubmit: {
-    width: '197px',
-  },
-
-  cancelSubmit: {
-    color: theme.palette.text.general,
-  },
-
   heightFieldAuto: {
     height: 'auto',
     width: '100%',

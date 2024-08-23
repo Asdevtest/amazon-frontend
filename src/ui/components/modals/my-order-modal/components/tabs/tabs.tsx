@@ -2,6 +2,7 @@ import { FC, memo } from 'react'
 
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { TabPanel } from '@components/shared/tab-panel'
+import { BoxesToOrder } from '@components/shared/tables/boxes-to-order'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
@@ -12,7 +13,6 @@ import { useStyles } from './tabs.style'
 import { IOrderWithAdditionalFields, SetFormFieldsType } from '../../my-order-modal.type'
 
 import { BasicInfo } from './basic-info'
-import { BoxesToOrder } from './boxes-to-order'
 import { customSwitcherSettings } from './tabs.config'
 import { MyOrderModalSwitcherConditions } from './tabs.type'
 

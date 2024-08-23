@@ -13,7 +13,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: 0,
     right: 0,
-    zIndex: 10,
+    zIndex: 7,
   },
 
   checkbox: {
@@ -53,16 +53,6 @@ export const useStyles = makeStyles()(theme => ({
     '&:hover': {
       opacity: 0.8,
     },
-  },
-
-  icon: {
-    width: '16px !important',
-    height: '16px !important',
-    color: theme.palette.primary.main,
-  },
-
-  plusIcon: {
-    padding: 2,
   },
 
   commentText: {

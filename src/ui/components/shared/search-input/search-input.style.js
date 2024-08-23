@@ -17,10 +17,10 @@ export const useStyles = makeStyles()(theme => ({
 
   inputClass: {
     padding: '9px',
-    [theme.breakpoints.down(768)]: {
-      '&::placeholder': {
-        fontSize: 14,
-      },
+
+    '&::placeholder': {
+      fontSize: 14,
+      lineHeight: '19px',
     },
   },
 
@@ -41,11 +41,6 @@ export const useStyles = makeStyles()(theme => ({
   searchWrapper: {
     display: 'flex',
     alignItems: 'center',
-    height: '100%',
-  },
-
-  submit: {
-    margin: 0,
     height: '100%',
   },
 }))

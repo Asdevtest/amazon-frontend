@@ -18,15 +18,6 @@ export const useStyles = makeStyles()(theme => ({
   fontSizeLarge: {
     width: '45px',
     height: '44px',
-
-    color: theme.palette.text.general,
-    // '&:hover': {
-    //   transform: 'scale(1.1)',
-    // },
-    [theme.breakpoints.down(768)]: {
-      width: '29px',
-      height: '28px',
-    },
   },
   iconWrapper: {
     display: 'flex',
@@ -36,7 +27,6 @@ export const useStyles = makeStyles()(theme => ({
     height: '97px',
     borderRadius: '50%',
     backgroundColor: theme.palette.background.second,
-    // backgroundColor: theme.palette.background.third,
 
     cursor: 'pointer',
 
@@ -81,14 +71,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
     gap: '54px',
     height: '145px',
-    marginRight: '245px',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      alignItems: 'start',
-      justifyContent: 'space-around',
-      height: '100px',
-      marginRight: 0,
-    },
   },
   buttonWrapper: {
     display: 'flex',

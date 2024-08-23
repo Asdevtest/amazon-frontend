@@ -1,4 +1,3 @@
-import AddIcon from '@mui/icons-material/Add'
 import { Box, Checkbox, Grid, Typography } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
@@ -28,8 +27,10 @@ import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './select-fields.style'
 
+import { showSlideshowStatuses } from './select-fields.constants'
+
 export const SelectFields = ({
-  paymentDetailsPhotosToLoad,
+  editPaymentDetailsPhotos,
   yuanToDollarRate,
   usePriceInDollars,
   isPendingOrder,
@@ -41,7 +42,6 @@ export const SelectFields = ({
   showProgress,
   progressValue,
   setPhotosToLoad,
-  deliveredGoodsCount,
   hsCode,
   setHsCode,
   checkIsPlanningPrice,
@@ -50,6 +50,7 @@ export const SelectFields = ({
   onClickSupplierPaymentButton,
   setPaymentMethodsModal,
   orderPayments,
+  deliveredQuantity,
 }) => {
   const { classes: styles, cx } = useStyles()
 
@@ -76,27 +77,27 @@ export const SelectFields = ({
                 inputComponent={
                   <div
                     className={cx(styles.deliveredGoodsWrapper, {
-                      [styles.deliveredGoodsSuccessWrapper]: deliveredGoodsCount >= order.amount,
+                      [styles.deliveredGoodsSuccessWrapper]: deliveredQuantity >= order.amount,
                     })}
                   >
                     <div className={styles.deliveredGoodsSubWrapper}>
                       <Typography
                         className={cx(styles.deliveredGoodsLeftText, {
-                          [styles.deliveredGoodsSuccessText]: deliveredGoodsCount >= order.amount,
+                          [styles.deliveredGoodsSuccessText]: deliveredQuantity >= order.amount,
                         })}
                       >
-                        {deliveredGoodsCount}
+                        {deliveredQuantity || 0}
                       </Typography>
                       <Typography className={styles.deliveredGoodsMiddleText}>{t(TranslationKey['out of'])}</Typography>
                       <Typography
                         className={cx(styles.deliveredGoodsRightText, {
-                          [styles.deliveredGoodsSuccessText]: deliveredGoodsCount >= order.amount,
+                          [styles.deliveredGoodsSuccessText]: deliveredQuantity >= order.amount,
                         })}
                       >
                         {order.amount}
                       </Typography>
                     </div>
-                    {deliveredGoodsCount < order.amount && <img src="/assets/icons/attention.svg" />}
+                    {deliveredQuantity < order.amount && <img src="/assets/icons/attention.svg" />}
                   </div>
                 }
               />
@@ -314,7 +315,7 @@ export const SelectFields = ({
                 </div>
               }
             />
-            <Button disabled={checkIsPlanningPrice} className={styles.button} onClick={onClickUpdateButton}>
+            <Button disabled={checkIsPlanningPrice} onClick={onClickUpdateButton}>
               {t(TranslationKey.Update)}
             </Button>
           </div>
@@ -390,28 +391,11 @@ export const SelectFields = ({
           </Box>
           <div className={styles.supplierPaymentButtonWrapper}>
             <Button
-              className={styles.documentButton}
-              variant={
-                !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length
-                  ? ButtonVariant.OUTLINED
-                  : ButtonVariant.CONTAINED
-              }
+              variant={editPaymentDetailsPhotos.length ? ButtonVariant.CONTAINED : ButtonVariant.OUTLINED}
               onClick={onClickSupplierPaymentButton}
             >
-              {t(
-                TranslationKey[
-                  `${
-                    !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length
-                      ? 'Add payment document'
-                      : 'Document added'
-                  }`
-                ],
-              )}
-              {!orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length && (
-                <AddIcon className={styles.addIcon} />
-              )}
-              {!!orderFields?.paymentDetails.length && `(${orderFields?.paymentDetails.length})`}
-              {!!paymentDetailsPhotosToLoad.length && ` + ${paymentDetailsPhotosToLoad.length}`}
+              {t(TranslationKey[`${editPaymentDetailsPhotos.length ? 'Document added' : 'Add payment document'}`])}
+              {editPaymentDetailsPhotos.length ? ` (${editPaymentDetailsPhotos.length})` : ''}
             </Button>
           </div>
         </Box>
@@ -569,12 +553,12 @@ export const SelectFields = ({
           ) : null}
         </div>
 
-        {order.status === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] ? (
+        {showSlideshowStatuses.includes(order.status) ? (
           <div className={styles.imageFileInputWrapper}>
-            <SlideshowGallery files={photosToLoad} />
+            <SlideshowGallery slidesToShow={3} files={photosToLoad} />
           </div>
         ) : (
-          <UploadFilesInput fullWidth images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
+          <UploadFilesInput images={photosToLoad} setImages={setPhotosToLoad} />
         )}
       </Grid>
 

@@ -53,6 +53,7 @@ export const AccessToProductForm = memo(props => {
 
     if (value === accessProductSettings.ALL_PRODUCTS) {
       setSelectionModel(allProductsIds)
+      setChosenGoods(allProductsIds)
     }
   }
 
@@ -157,6 +158,10 @@ export const AccessToProductForm = memo(props => {
     }
     setCurProdutsData(getCurrentData())
   }, [paginationModel])
+
+  useEffect(() => {
+    setCurProdutsData(getCurrentData())
+  }, [selectedShop])
 
   return (
     shops && (

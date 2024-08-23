@@ -224,13 +224,14 @@ export const NavbarCollapse = ({
             {userInfo?.purchaseOrderRequired?.length ? userInfo?.purchaseOrderRequired?.length : 0}
           </div>
         )
-
       case '/supervisor/ready-to-check':
         return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo?.vacFromResearcher}</div>
-
       case '/supervisor/ready-to-check-by-client':
         return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo?.vacFromClient}</div>
-
+      case '/client/freelance/my-requests':
+        return userInfo?.freelanceNotices.length > 0 ? (
+          <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo?.freelanceNotices.length}</div>
+        ) : null
       default:
         return null
     }
@@ -239,6 +240,8 @@ export const NavbarCollapse = ({
   const renderSubCategory = (subIndex, subCategory) => {
     const highPriorityNotificationCount =
       showHighPriorityNotification && getNotificationCountBySubRoute(subCategory.subRoute)
+    const subCategoryTitle = subCategory?.subtitle()
+    const isTooltipVisible = !shortNavbar && subCategoryTitle !== category?.title()
 
     return (
       <Button
@@ -246,8 +249,8 @@ export const NavbarCollapse = ({
         tooltipPosition="center"
         className={cx(styles.menuItem, { [styles.selected]: subIndex === activeSubCategory })}
         styleType={ButtonStyle.TRANSPARENT}
-        tooltipInfoContent={!shortNavbar && renderTooltipTitle(subCategory?.subtitle(), userInfo.role)}
-        tooltipAttentionContent={!shortNavbar && renderAttentionTooltipTitle(subCategory?.subtitle(), userInfo.role)}
+        tooltipInfoContent={isTooltipVisible && renderTooltipTitle(subCategoryTitle, userInfo.role)}
+        tooltipAttentionContent={isTooltipVisible && renderAttentionTooltipTitle(subCategoryTitle, userInfo.role)}
       >
         <NavbarSubCategory
           button

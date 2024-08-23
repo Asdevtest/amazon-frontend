@@ -1,26 +1,23 @@
+import { Tooltip } from 'antd'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
-import {
-  BatchWeightCalculationMethodTranslateKey,
-  getBatchWeightCalculationMethodForBox,
-} from '@constants/statuses/batch-weight-calculations-method'
+import { BatchWeightCalculationMethodTranslateKey } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
 import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
-import { BoxViewForm } from '@components/forms/box-view-form'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SearchInput } from '@components/shared/search-input'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { DownloadIcon } from '@components/shared/svg-icons'
 
 import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
@@ -30,37 +27,25 @@ import {
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
-import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './batch-info-modal.style'
 
-import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
+import { BoxModal } from '../box-modal'
 
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
 export const BatchInfoModal = observer(
-  ({
-    openModal,
-    setOpenModal,
-    batch,
-    userInfo,
-    onSubmitChangeBoxFields,
-    onClickHsCode,
-    patchActualShippingCostBatch,
-    history,
-  }) => {
+  ({ openModal, setOpenModal, batch, onSubmitChangeBoxFields, patchActualShippingCostBatch }) => {
     const { classes: styles, cx } = useStyles()
 
-    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
-
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
+    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel(true))
     const [isFileDownloading, setIsFileDownloading] = useState(false)
-
     const [nameSearchValue, setNameSearchValue] = useState('')
-
     const [currentBatch, setCurrentBatch] = useState(undefined)
 
     useEffect(() => {
@@ -95,15 +80,16 @@ export const BatchInfoModal = observer(
                   item.product.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
                   String(item.order.id)?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
                   String(item.order.item)?.toLowerCase().includes(nameSearchValue.toLowerCase()),
-              ) || String(el.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase()),
+              ) ||
+              String(el.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              String(el.fbaShipment)?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              el.prepId?.toLowerCase().includes(nameSearchValue.toLowerCase()),
           ),
         )
       } else {
         setDataToRender(sourceBoxes)
       }
     }, [nameSearchValue, currentBatch])
-
-    const [curImageIndex, setCurImageIndex] = useState(0)
 
     const uploadTemplateFile = async () => {
       setIsFileDownloading(true)
@@ -115,9 +101,7 @@ export const BatchInfoModal = observer(
       <Modal openModal={openModal} setOpenModal={setOpenModal}>
         <div className={styles.form}>
           <div className={styles.titleWrapper}>
-            <Typography className={styles.modalTitle} variant="h5">
-              {t(TranslationKey['Viewing the batch'])}
-            </Typography>
+            <p className={styles.modalTitle}>{t(TranslationKey['Viewing the batch'])}</p>
 
             <Field
               oneLine
@@ -270,7 +254,7 @@ export const BatchInfoModal = observer(
                 disabled
                 classes={{ disabled: styles.disabled }}
                 containerClasses={cx(styles.sumField, styles.dividerField)}
-                inputClasses={[styles.infoField, styles.dividerField]}
+                inputClasses={cx(styles.infoField, styles.dividerField)}
                 labelClasses={styles.subFieldLabel}
                 label={`${t(TranslationKey['Total price'])} (${t(TranslationKey.China)})`}
                 value={currentBatch?.totalPriceFromOrderSupplier}
@@ -306,9 +290,8 @@ export const BatchInfoModal = observer(
               labelClasses={cx(styles.subFieldLabel)}
               inputComponent={
                 <ChangeInputCell
-                  isInteger
                   rowId={currentBatch?._id}
-                  text={currentBatch?.actualShippingCost}
+                  text={currentBatch?.actualShippingCost || '0'}
                   onClickSubmit={(id, cost) => {
                     if (Number.isNaN(cost)) {
                       return
@@ -323,25 +306,29 @@ export const BatchInfoModal = observer(
               }
             />
 
-            <SearchInput
-              inputClasses={styles.searchInput}
-              value={nameSearchValue}
-              placeholder={getShortenStringIfLongerThanCount(
-                t(TranslationKey['Search by ASIN, Title, Order, item, ID Box']),
-                29,
-              )}
-              onChange={e => setNameSearchValue(e.target.value)}
-            />
+            <Tooltip
+              title={`${t(TranslationKey.ASIN)}, ${t(TranslationKey.Title)}, ${t(TranslationKey.Order)}, ${t(
+                TranslationKey['Box ID'],
+              )}, FBA Shipment, Prep Id`}
+            >
+              <div>
+                <SearchInput
+                  inputClasses={styles.searchInput}
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey.Search)}
+                  onChange={e => setNameSearchValue(e.target.value)}
+                />
+              </div>
+            </Tooltip>
           </div>
 
           <div className={styles.tableWrapper}>
             <CustomDataGrid
               disableRowSelectionOnClick
-              localeText={getLocalizationByLanguageTag()}
               sortingMode="client"
               paginationMode="client"
               columnVisibilityModel={viewModel.columnVisibilityModel}
-              pageSizeOptions={[50, 100]}
+              pageSizeOptions={[50, 100, 500]}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),
@@ -387,20 +374,15 @@ export const BatchInfoModal = observer(
           </div>
 
           <div className={styles.filesAndButtonWrapper}>
-            <div className={styles.filesSubWrapper}>
-              <PhotoAndFilesSlider
-                smallSlider
-                column={window.innerWidth < 768}
-                files={currentBatch?.attachedDocuments}
-              />
-            </div>
+            <SlideshowGallery slidesToShow={2} files={currentBatch?.attachedDocuments} />
+
             <div className={styles.buttonsWrapper}>
-              <Button className={styles.downloadButton} onClick={uploadTemplateFile}>
+              <Button onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download the batch file'])}
                 <DownloadIcon />
               </Button>
 
-              <Button className={styles.actionButton} onClick={setOpenModal}>
+              <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
                 {t(TranslationKey.Close)}
               </Button>
             </div>
@@ -410,31 +392,12 @@ export const BatchInfoModal = observer(
             openModal={viewModel.showBoxViewModal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           >
-            <BoxViewForm
-              storekeeper={currentBatch?.storekeeper}
-              userInfo={userInfo}
-              box={viewModel.curBox}
-              batchHumanFriendlyId={currentBatch?.humanFriendlyId}
-              volumeWeightCoefficient={currentBatch?.volumeWeightDivide}
-              calcFinalWeightForBoxFunction={getBatchWeightCalculationMethodForBox(
-                currentBatch?.calculationMethod,
-                isActualGreaterTheVolume,
-              )}
-              setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-              onSubmitChangeFields={data => onSubmitChangeBoxFields(data)}
-              onClickHsCode={onClickHsCode}
+            <BoxModal
+              boxId={viewModel.curBox}
+              onUpdateData={viewModel.getCurrentData}
+              onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
             />
           </Modal>
-
-          {showPhotosModal ? (
-            <SlideshowGalleryModal
-              openModal={showPhotosModal}
-              files={currentBatch?.attachedDocuments}
-              currentFileIndex={curImageIndex}
-              onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-              onCurrentFileIndex={index => setCurImageIndex(index)}
-            />
-          ) : null}
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}
       </Modal>

@@ -9,19 +9,17 @@ import {
   unitWeightCoefficient,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SupplierModel } from '@models/supplier-model'
 
-import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { Field } from '@components/shared/field'
-import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -29,7 +27,8 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/che
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './add-or-edit-supplier-modal-content.style'
 
@@ -39,6 +38,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const {
+    isIdea,
     paymentMethods,
     product,
     storekeepersData,
@@ -65,7 +65,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
         setSupplier(response)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -84,7 +84,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
     price: supplier?.price || '',
     images: supplier?.images || [],
     multiplicity: supplier?.multiplicity || false,
-    productionTerm: supplier?.productionTerm || '',
+    minProductionTerm: supplier?.minProductionTerm || '',
+    maxProductionTerm: supplier?.maxProductionTerm || '',
     paymentMethods: supplier?.paymentMethods || [],
     yuanRate: supplier?.yuanRate || platformSettings?.yuanToDollarRate,
     priceInYuan: supplier?.priceInYuan || '',
@@ -106,6 +107,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     weighUnit: supplier?.weighUnit || '',
     imageUnit: supplier?.imageUnit || [],
     priceVariations: supplier?.priceVariations || [],
+    _id: supplier?._id || '',
   })
 
   const [tmpSupplier, setTmpSupplier] = useState(getInitialState())
@@ -176,22 +178,23 @@ export const AddOrEditSupplierModalContent = memo(props => {
         ...tmpSupplier.boxProperties,
         boxLengthCm:
           (sizeSetting === unitsOfChangeOptions.US
-            ? tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient
+            ? toFixed(tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient, 2)
             : tmpSupplier.boxProperties.boxLengthCm) || 0,
         boxWidthCm:
           (sizeSetting === unitsOfChangeOptions.US
-            ? tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient
+            ? toFixed(tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient, 2)
             : tmpSupplier.boxProperties.boxWidthCm) || 0,
         boxHeightCm:
           (sizeSetting === unitsOfChangeOptions.US
-            ? tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient
+            ? toFixed(tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient, 2)
             : tmpSupplier.boxProperties.boxHeightCm) || 0,
 
         amountInBox: tmpSupplier.boxProperties.amountInBox || 0,
         boxWeighGrossKg: tmpSupplier.boxProperties.boxWeighGrossKg || 0,
       },
 
-      productionTerm: tmpSupplier?.productionTerm ? tmpSupplier?.productionTerm : 0,
+      minProductionTerm: tmpSupplier?.minProductionTerm || 0,
+      maxProductionTerm: tmpSupplier?.maxProductionTerm || 0,
 
       _id: supplier?._id,
     }
@@ -226,15 +229,12 @@ export const AddOrEditSupplierModalContent = memo(props => {
     if (outsideProduct) {
       return (
         <div className={styles.buttonsWrapperClient}>
-          <Button className={styles.prevBtnClient} onClick={() => onClickPrevButton()}>
-            {t(TranslationKey.Back)}
-          </Button>
+          <Button onClick={() => onClickPrevButton()}>{t(TranslationKey.Back)}</Button>
           <div className={styles.saveBtnWrapperClient}>
             <Button
               styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
               disabled={diasabledSubmit}
-              className={styles.saveBtnClient}
               onClick={() => {
                 onClickSaveBtn({
                   supplier: calculateFieldsToSubmit(),
@@ -251,7 +251,6 @@ export const AddOrEditSupplierModalContent = memo(props => {
               styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
               disabled={diasabledSubmit}
-              className={styles.saveBtnClient}
               onClick={() => {
                 onClickSaveBtn({
                   supplier: calculateFieldsToSubmit(),
@@ -270,7 +269,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     } else if (onlyRead) {
       return (
         <div className={styles.buttonsWrapper}>
-          <Button className={styles.cancelBtn} variant={ButtonVariant.OUTLINED} onClick={onTriggerShowModal}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onTriggerShowModal}>
             {t(TranslationKey.Close)}
           </Button>
         </div>
@@ -281,7 +280,6 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <Button
             tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
             disabled={diasabledSubmit}
-            className={styles.saveBtn}
             onClick={() => {
               onClickSaveBtn({
                 supplier: calculateFieldsToSubmit(),
@@ -295,12 +293,11 @@ export const AddOrEditSupplierModalContent = memo(props => {
             {t(TranslationKey.Save)}
           </Button>
           <Button
-            variant={ButtonVariant.OUTLINED}
+            styleType={ButtonStyle.CASUAL}
             tooltipInfoContent={t(TranslationKey['Cancel supplier creation/change'])}
-            className={styles.cancelBtn}
             onClick={onTriggerShowModal}
           >
-            {t(TranslationKey.Cancel)}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       )
@@ -351,7 +348,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
         ...tmpSupplier,
         [fieldName]: event?.target?.checked,
       })
-    } else if (['minlot', 'amount', 'productionTerm'].includes(fieldName)) {
+    } else if (['minlot', 'amount', 'minProductionTerm', 'maxProductionTerm'].includes(fieldName)) {
       setTmpSupplier({ ...tmpSupplier, [fieldName]: parseInt(event.target.value) || '' })
     } else if (['amountInBox'].includes(fieldName)) {
       setTmpSupplier({
@@ -456,14 +453,17 @@ export const AddOrEditSupplierModalContent = memo(props => {
     0 === parseFloat(tmpSupplier.price) ||
     0 === parseInt(tmpSupplier.amount) ||
     0 === parseInt(tmpSupplier.minlot) ||
-    requestStatus === loadingStatuses.IS_LOADING ||
+    requestStatus === loadingStatus.IS_LOADING ||
     ((tmpSupplier.boxProperties?.amountInBox ||
       tmpSupplier.boxProperties?.boxLengthCm ||
       tmpSupplier.boxProperties?.boxWidthCm ||
       tmpSupplier.boxProperties?.boxHeightCm ||
       tmpSupplier.boxProperties?.boxWeighGrossKg) &&
       !boxPropertiesIsFullAndMainsValues) ||
-    isNeedUnitInfo
+    isNeedUnitInfo ||
+    ('' !== tmpSupplier.minProductionTerm &&
+      '' !== tmpSupplier.maxProductionTerm &&
+      Number(tmpSupplier.minProductionTerm) > Number(tmpSupplier.maxProductionTerm))
 
   return (
     <div className={styles.modalContainer}>
@@ -518,7 +518,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
               tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
               label={t(TranslationKey.Link) + '*'}
               inputProps={{ maxLength: 2000 }}
-              containerClasses={styles.linkContainer}
+              containerClasses={styles.nameContainer}
               labelClasses={styles.normalLabel}
               inputComponent={
                 <a
@@ -536,7 +536,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
               tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
               label={t(TranslationKey.Link) + '*'}
               inputProps={{ maxLength: 2000 }}
-              containerClasses={styles.linkContainer}
+              containerClasses={styles.nameContainer}
               labelClasses={styles.normalLabel}
               value={tmpSupplier.link}
               onChange={onChangeField('link')}
@@ -546,11 +546,27 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <Field
             disabled={onlyRead}
             inputProps={{ maxLength: 10 }}
-            label={t(TranslationKey['Production time'])}
+            label={t(TranslationKey['Min. production time, days'])}
             containerClasses={styles.middleContainer}
             labelClasses={styles.normalLabel}
-            value={tmpSupplier?.productionTerm}
-            onChange={onChangeField('productionTerm')}
+            value={tmpSupplier?.minProductionTerm}
+            onChange={onChangeField('minProductionTerm')}
+          />
+
+          <Field
+            disabled={onlyRead}
+            inputProps={{ maxLength: 10 }}
+            label={t(TranslationKey['Max. production time, days'])}
+            containerClasses={styles.middleContainer}
+            className={cx(styles.weightInput, {
+              [styles.error]:
+                tmpSupplier.minProductionTerm &&
+                tmpSupplier.maxProductionTerm &&
+                Number(tmpSupplier.minProductionTerm) > Number(tmpSupplier.maxProductionTerm),
+            })}
+            labelClasses={styles.normalLabel}
+            value={tmpSupplier?.maxProductionTerm}
+            onChange={onChangeField('maxProductionTerm')}
           />
         </div>
       </div>
@@ -578,7 +594,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
             label={t(TranslationKey['Current supplier course'])}
             inputProps={{ maxLength: 8 }}
             containerClasses={styles.rateContainer}
-            labelClasses={cx(styles.rateLabel)}
+            labelClasses={styles.rateLabel}
             inputClasses={styles.courseInput}
             value={tmpSupplier?.yuanRate}
             onChange={onChangeYuanToDollarRate}
@@ -589,7 +605,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <div>
             <Typography className={styles.modalTitle}>{'¥'}</Typography>
 
-            <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
+            <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-end">
               <Grid item>
                 <Field
                   error={tmpSupplier.priceInYuan >= 1000000 && '> 1000000 !'}
@@ -670,7 +686,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <div>
             <Typography className={styles.modalTitle}>{'$'}</Typography>
 
-            <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
+            <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-end">
               <Grid item>
                 <Field
                   disabled={onlyRead}
@@ -867,7 +883,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
                   onChangeImagesForLoad={setEditPhotosOfUnit}
                 />
               ) : (
-                <div>
+                <div style={{ width: '100%' }}>
                   <p className={styles.normalLabel}>{t(TranslationKey['Attach files (dimensions)'])}</p>
                   {isNeedUnitInfo ? (
                     <p className={cx(styles.normalLabel, styles.needAddPhotos)}>
@@ -876,12 +892,10 @@ export const AddOrEditSupplierModalContent = memo(props => {
                   ) : null}
                   <UploadFilesInput
                     withoutLinks
-                    fullWidth
-                    minimized
+                    withoutTitles
                     images={editPhotosOfUnit}
                     setImages={setEditPhotosOfUnit}
-                    dragAndDropBtnHeight={'34px'}
-                    maxNumber={50}
+                    dragAndDropButtonHeight={34}
                   />
                 </div>
               )}
@@ -942,13 +956,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <SlideshowGallery files={editPhotosOfSupplier} onChangeImagesForLoad={setEditPhotosOfSupplier} />
         ) : (
           <div className={styles.imageFileInputWrapper}>
-            <UploadFilesInput
-              fullWidth
-              images={editPhotosOfSupplier}
-              setImages={setEditPhotosOfSupplier}
-              maxNumber={50}
-              className={styles.imageFileInput}
-            />
+            <UploadFilesInput images={editPhotosOfSupplier} setImages={setEditPhotosOfSupplier} />
           </div>
         )}
       </div>
@@ -957,22 +965,17 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
       {renderFooterModalButtons()}
 
-      {showProgress && (
-        <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
-      )}
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
 
-      <Modal
-        openModal={showSupplierApproximateCalculationsModal}
-        setOpenModal={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
-      >
-        <SupplierApproximateCalculationsForm
-          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-          product={product}
-          supplier={tmpSupplier}
-          storekeepers={storekeepersData}
-          onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+      {showSupplierApproximateCalculationsModal ? (
+        <SupplierApproximateCalculationsModal
+          openModal={showSupplierApproximateCalculationsModal}
+          productId={isIdea ? '' : product?._id}
+          ideaId={isIdea ? product?._id : ''}
+          currentSupplierId={tmpSupplier?._id || ''}
+          setOpenModal={setShowSupplierApproximateCalculationsModal}
         />
-      </Modal>
+      ) : null}
     </div>
   )
 })

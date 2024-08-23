@@ -1,18 +1,14 @@
-import { NotificationType } from '@constants/keys/notifications'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
-import {
-  ProductStatus,
-  ProductStatusByCode,
-  ProductStatusByKey,
-  productStatusTranslateKey,
-} from '@constants/product/product-status'
-import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
+import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
 import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { Notification } from '@typings/enums/notification'
 
 import {
   calcFinalWeightForBox,
@@ -52,18 +48,6 @@ export const stockReportDataConverter = data =>
     shopName: item.shop.name,
   }))
 
-export const feedBackDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-    id: item._id,
-    _id: item._id,
-
-    media: item.media,
-    text: item.text,
-    userName: item.user.name,
-    updatedAt: item.updatedAt,
-  }))
-
 export const myRequestsDataConverter = (data, shopsData) =>
   data.map(item => ({
     originalData: item,
@@ -99,28 +83,6 @@ export const researcherCustomRequestsDataConverter = data =>
     price: item.request.price,
   }))
 
-export const researcherProductsDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-    status: [
-      ProductStatusByKey[ProductStatus.NEW_PRODUCT],
-      ProductStatusByKey[ProductStatus.DEFAULT],
-      ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
-      // ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
-      ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
-      ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
-    ].includes(item.status)
-      ? t(productStatusTranslateKey(ProductStatusByCode[item.status]))
-      : 'OK',
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
-    createdAt: item.createdAt,
-    amazon: item.amazon,
-    bsr: item.bsr,
-    asin: item.asin,
-    id: item._id,
-    supervisorComment: item.checkednotes,
-  }))
-
 export const researcherFinancesDataConverter = data =>
   data.map(item => ({
     originalData: item,
@@ -143,25 +105,6 @@ export const supervisorFinancesDataConverter = data =>
     sum: item.sum,
   }))
 
-export const supervisorProductsDataConverter = data =>
-  data?.map(item => ({
-    originalData: item,
-
-    status: item.status,
-    statusForAttention: ProductStatusByCode[item.status],
-    researcherName: item.createdBy?.name,
-    buyerName: item.buyer?.name,
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    amazon: item.amazon,
-    bsr: item.bsr,
-    id: item._id,
-    fbafee: item.fbafee,
-    asin: item.asin,
-    ordered: item.ordered,
-  }))
-
 export const buyerFinancesDataConverter = data =>
   data.map(item => ({
     originalData: item,
@@ -179,7 +122,7 @@ export const buyerProductsDataConverter = data =>
 
     status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
     statusForAttention: ProductStatusByCode[item.status],
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
 
@@ -255,7 +198,7 @@ export const clientProductsDataConverter = data =>
     buyerName: item.buyer?.name,
     supervisorName: item.checkedBy?.name,
 
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -277,7 +220,7 @@ export const clientInventoryDataConverter = data =>
 
     researcherName: item.createdBy?.name,
     buyerName: item.buyer?.name,
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
     status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -685,7 +628,7 @@ export const adminProductsDataConverter = data =>
     originalData: item,
 
     status: ProductStatusByCode[item.status],
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -745,7 +688,7 @@ export const adminBoxesDataConverter = data =>
     id: item._id,
     _id: item._id,
 
-    qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
+    amount: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
 
     amazonPrice: calcPriceForBox(item),
 
@@ -836,33 +779,7 @@ export const adminUsersDataConverter = data =>
     balanceFreeze: item.balanceFreeze,
     email: item.email,
     rate: item.rate,
-    isSubUser: item.masterUser ? 'SUB-USER' : 'USER',
-  }))
-
-export const adminSinglePermissionsDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-    id: item._id,
-    role: UserRoleCodeMap[item.role],
-
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    key: item.key,
-    title: item.title,
-    description: item.description,
-  }))
-
-export const adminGroupPermissionsDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-    id: item._id,
-    role: UserRoleCodeMap[item.role],
-
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    key: item.key,
-    title: item.title,
-    description: item.description,
+    sub: item.masterUser ? 'SUB-USER' : 'USER',
   }))
 
 export const freelancerServiceDetaildsDataConverter = data =>
@@ -1010,12 +927,12 @@ export const notificationDataConverter = data =>
     originalData: item,
     id: item?._id,
     product:
-      item.type === NotificationType.Idea
+      item.type === Notification.Idea
         ? {
             ...item?.data?.[0]?.parentProduct,
             title: item?.data?.[0]?.productName,
           }
-        : item.type === NotificationType.Order
+        : item.type === Notification.Order
         ? item?.data?.[0]?.product
           ? {
               ...item?.data?.[0]?.product,
@@ -1030,23 +947,25 @@ export const notificationDataConverter = data =>
               ...item?.data?.vacOrders?.[0]?.product,
               humanFriendlyId: item?.data?.vacOrders?.[0]?.id,
             }
-        : item.type === NotificationType.Proposal
+        : item.type === Notification.Proposal
         ? {
             ...item?.data?.[0]?.request?.product,
             humanFriendlyId: item?.data?.[0]?.request?.humanFriendlyId,
             title: item?.data?.[0]?.request?.title,
           }
-        : item.type === NotificationType.Request
+        : item.type === Notification.Request
         ? {
             ...item?.data?.[0]?.product,
             humanFriendlyId: item?.data?.[0]?.humanFriendlyId,
             title: item?.data?.[0]?.title,
           }
+        : item.type === Notification.Launch
+        ? item?.data?.[0]?.product
         : {
             ...item?.data?.items?.[0]?.product,
             humanFriendlyId: item?.data?.humanFriendlyId,
           },
-    sub: item.type === NotificationType.Proposal ? item?.data?.[0]?.sub : undefined,
+    sub: item.type === Notification.Proposal ? item?.data?.[0]?.sub : undefined,
     type: item?.type,
   }))
 

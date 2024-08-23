@@ -1,25 +1,32 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { GeneralModel } from '@models/general-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { tagsColumns } from './tags-columns'
 
 export class AdminSettingsTagsModel {
   tags = []
-
   requestStatus = undefined
   nameSearchValue = ''
+  tagToEdit = undefined
+  tagIdToRemove = ''
 
   showConfirmModal = false
+  confirmModalSettings = {
+    isWarning: true,
+    message: '',
+    onClickSuccess: () => {},
+  }
   showAddOrEditTagModal = false
 
   sortModel = []
@@ -27,19 +34,10 @@ export class AdminSettingsTagsModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
   rowSelectionModel = []
-
-  tagToEdit = undefined
-  tagIdToRemove = ''
-  confirmModalSettings = {
-    isWarning: true,
-    message: '',
-    onClickSuccess: () => {},
-  }
   rowHandlers = {
     onClickEditBtn: row => this.onClickEditBtn(row),
     onClickRemoveBtn: row => this.onClickRemoveTagBtn(row),
   }
-
   columnsModel = tagsColumns(this.rowHandlers)
 
   get currentData() {
@@ -51,17 +49,14 @@ export class AdminSettingsTagsModel {
   }
 
   constructor() {
+    this.loadData()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   loadData() {
-    try {
-      this.getDataGridState()
-
-      this.getTags()
-    } catch (error) {
-      console.log(error)
-    }
+    this.getDataGridState()
+    this.getTags()
   }
 
   setRequestStatus(requestStatus) {
@@ -70,7 +65,7 @@ export class AdminSettingsTagsModel {
 
   async getTags() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const resolve = await GeneralModel.getTagList()
 
@@ -78,16 +73,15 @@ export class AdminSettingsTagsModel {
         this.tags = addIdDataConverter(resolve)
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.tags = []
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_TAGS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_TAGS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
@@ -105,18 +99,16 @@ export class AdminSettingsTagsModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_TAGS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_TAGS)
   }
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
   }
 
@@ -126,7 +118,6 @@ export class AdminSettingsTagsModel {
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
   }
 
@@ -141,7 +132,6 @@ export class AdminSettingsTagsModel {
       message: t(TranslationKey['Are you sure you want to delete the tag?']),
       onClickSuccess: () => this.onRemoveTag(),
     }
-
     this.onClickToggleConfirmModal()
   }
 
@@ -151,13 +141,11 @@ export class AdminSettingsTagsModel {
       message: t(TranslationKey['Are you sure you want to delete the tag?']),
       onClickSuccess: () => this.onRemoveTags(),
     }
-
     this.onClickToggleConfirmModal()
   }
 
   onClickEditBtn(row) {
     this.tagToEdit = row
-
     this.onClickToggleAddOrEditModal()
   }
 
@@ -167,7 +155,6 @@ export class AdminSettingsTagsModel {
 
   onClickAddBtn() {
     this.tagToEdit = undefined
-
     this.onClickToggleAddOrEditModal()
   }
 
@@ -177,7 +164,6 @@ export class AdminSettingsTagsModel {
       message: t(TranslationKey['The data will not be saved!']),
       onClickSuccess: () => this.cancelTheOrder(),
     }
-
     this.onClickToggleConfirmModal()
   }
 
@@ -189,48 +175,40 @@ export class AdminSettingsTagsModel {
   async onCreateTag(titleTag) {
     try {
       await GeneralModel.createTag(titleTag)
-
       this.onClickToggleAddOrEditModal()
-
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onEditTag(id, data) {
     try {
       await AdministratorModel.editTag(id, data)
-
       this.onClickToggleAddOrEditModal()
-
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onRemoveTag() {
     try {
       await AdministratorModel.removeTags([this.tagIdToRemove])
-
       this.onClickToggleConfirmModal()
-
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onRemoveTags() {
     try {
       await AdministratorModel.removeTags(this.rowSelectionModel)
-
       this.onClickToggleConfirmModal()
-
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

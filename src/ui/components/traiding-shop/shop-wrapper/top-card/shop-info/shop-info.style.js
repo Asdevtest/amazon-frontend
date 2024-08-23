@@ -1,10 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  photosWrapper: {
-    height: '211px',
-  },
-
   shopInfoTopWrapper: {
     display: 'grid',
     gridTemplateColumns: '333px 1fr',
@@ -60,19 +56,6 @@ export const useStyles = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     gap: '20px',
-  },
-
-  editButton: {
-    width: '220px',
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: 400,
-  },
-  deleteButton: {
-    width: '258px',
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: 400,
   },
 
   link: {

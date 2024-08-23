@@ -54,16 +54,23 @@ export const DataGridTablesKeys = {
   SUPERVISOR_PRODUCTS: 'supervisorProductsDataGridState',
   SUPERVISOR_SUB_USERS: 'supervisorSubUsersDataGridState',
   SUPERVISOR_SETTINGS: 'supervisorSettingsDataGridState',
+  SUPERVISOR_CHECK_CLIENT: 'supervisorCheckClient',
+  SUPERVISOR_CHECK_RESEATCHER: 'supervisorCheckResearcher',
 
   BUYER_PRODUCTS: 'buyerProductsDataGridState',
   BUYER_MY_ORDERS_: 'buyerMyOrdersDataGridState',
 
+  BUYER_PENDING_ORDERS: 'buyerPendingOrdersDataGridState',
   BUYER_MY_ORDERS_NOT_PAID: 'buyerMyOrdersNotPaidDataGridState',
+  BUYER_MY_ORDERS_READY_FOR_PAYMENT: 'buyerMyOrdersReadyForPaymentDataGridState',
+  BUYER_MY_ORDERS_PARTIALLY_PAID: 'buyerMyOrdersPartiallyPaidDataGridState',
   BUYER_MY_ORDERS_NEED_TRACK_NUMBER: 'buyerMyOrdersNeedTrackNumberDataGridState',
   BUYER_MY_ORDERS_INBOUND: 'buyerMyOrdersInboundDataGridState',
   BUYER_MY_ORDERS_CONFIRMATION_REQUIRED: 'buyerMyOrdersConfirmationRequiredDataGridState',
   BUYER_MY_ORDERS_CLOSED_AND_CANCELED: 'buyerMyOrdersClosedAndCanceledDataGridState',
   BUYER_MY_ORDERS_ALL_ORDERS: 'buyerMyOrdersAllDataGridState',
+  BUYER_SEARCH_SUPPLIER_BY_SUPERVISOR: 'buyerSearchSupplierBySupervisorDataGridState',
+  BUYER_SEARCH_SUPPLIER_BY_CLIENT: 'buyerSearchSupplierByClientDataGridState',
 
   BUYER_FREE_ORDERS: 'buyerFreeOrdersDataGridState',
   BUYER_SUB_USERS: 'buyerSubUsersDataGridState',
@@ -75,6 +82,7 @@ export const DataGridTablesKeys = {
   CLIENT_PENDING_ORDERS: 'clientPendingOrdersDataGridState',
   CLIENT_ORDERS_NOTIFICATIONS: 'clientOrdersNotificationsDataGridState',
   CLIENT_BOXES_NOTIFICATIONS: 'clientBoxesNotificationsDataGridState',
+  CLIENT_BOXES_TARIFF_NOTIFICATIONS: 'clientBoxesTariffsNotificationsDataGridState',
   CLIENT_IDEAS_NOTIFICATIONS: 'clientIdeasNotificationsDataGridState',
   CLIENT_FREELANCE_NOTIFICATIONS: 'clientFreelanceNotificationsDataGridState',
 
@@ -107,6 +115,7 @@ export const DataGridTablesKeys = {
   FREELANCER_CUSTOM_SEARCH_REQUESTS: 'freelancerCustomSearchRequestsDataGridState',
   FREELANCER_SUB_USERS: 'freelancerSubUsersDataGridState',
   FREELANCER_MY_PROPOSALS: 'freelancerMyProposalsDataGridState',
+  FREELANCER_ALL_PROPOSALS: 'freelancerAllProposalsDataGridState',
 
   OVERALL_CUSTOM_SEARCH_REQUESTS: 'overallCustomSearchRequestsDataGridState',
   OVERALL_SUB_USERS: 'overallSubUsersDataGridState',
@@ -126,4 +135,9 @@ export const DataGridTablesKeys = {
   SHOPS_REPORT_PPC: 'shopsReportPpcDataGridState',
   SHOPS_REPORT_INVENTORY_SHIPMENTS: 'shopsReportInventoryShipmentsDataGridState',
   SHOPS_REPORT_RETURNS: 'shopsReportReturnsDataGridState',
+  SHOPS_REPORT_PPC_ORGANIC_BY_DAY: 'shopsReportPpcOrganicByDayDataGridState',
+
+  UPDATED_PATH_NOUTES: 'updatedPatchNoutes',
+  PRODUCT_LISTING_REPORTS: 'productListingReports',
+  PRODUCT_BATCHES_DATA: 'productBatchesData',
 }

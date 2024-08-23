@@ -8,7 +8,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { Checkbox, ListItemText, MenuItem, Rating, Select, Typography } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
-import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -24,7 +24,7 @@ import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } fro
 import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './admin-user-edit-content.style'
 
@@ -42,9 +42,7 @@ export const AdminUserEditContent = observer(
     onClickCancelBtn,
     groupPermissions,
     singlePermissions,
-    checkValidationNameOrEmail,
     changeFields,
-    wrongPassword,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -325,19 +323,12 @@ export const AdminUserEditContent = observer(
               <Field
                 inputProps={{ maxLength: 50 }}
                 label={t(TranslationKey.Name)}
-                error={
-                  checkValidationNameOrEmail.nameIsUnique === false && 'Пользователь с таким именем уже существует'
-                }
                 value={formFields.name}
                 onChange={onChangeFormField('name')}
               />
               <Field
                 inputProps={{ maxLength: 50 }}
                 label={t(TranslationKey.Email)}
-                error={
-                  (checkValidationNameOrEmail.emailIsUnique === false && 'Пользователь с таким email уже существует') ||
-                  (!emailIsValid && t(TranslationKey['Invalid email!']))
-                }
                 value={formFields.email}
                 type="email"
                 onChange={onChangeFormField('email')}
@@ -349,7 +340,6 @@ export const AdminUserEditContent = observer(
                 disabled
                 inputProps={{ maxLength: 128 }}
                 labelClasses={styles.labelField}
-                error={wrongPassword && t(TranslationKey['Old password'])}
                 inputClasses={styles.input}
                 label={t(TranslationKey['Old password'])}
                 placeholder={t(TranslationKey['Old password'])}
@@ -391,17 +381,6 @@ export const AdminUserEditContent = observer(
                   </span>
                 ))}
               </div>
-              <div className={styles.validationHiddenMessage}>
-                <Typography
-                  className={cx(
-                    styles.validationHiddenText,
-                    { [styles.red]: submit && errorMaxLength },
-                    { [styles.visibility]: errorMaxLength },
-                  )}
-                >
-                  {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}`}
-                </Typography>
-              </div>
             </div>
 
             <div className={styles.field}>
@@ -409,7 +388,6 @@ export const AdminUserEditContent = observer(
                 disabled
                 inputProps={{ maxLength: 128 }}
                 labelClasses={styles.labelField}
-                error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
                 inputClasses={styles.input}
                 label={t(TranslationKey['Re-enter the new password'])}
                 placeholder={t(TranslationKey.Password)}
@@ -484,9 +462,7 @@ export const AdminUserEditContent = observer(
                   label={t(TranslationKey.Rate)}
                 />
 
-                <div className={styles.actionDelButton} onClick={() => removeAllowedRole(role)}>
-                  {'-'}
-                </div>
+                <div onClick={() => removeAllowedRole(role)}>{'-'}</div>
               </div>
             ))}
             <div className={styles.allowedRoleWrapper}>
@@ -541,13 +517,7 @@ export const AdminUserEditContent = observer(
                   />
                 </div>
               </div>
-              {selectedRole ? (
-                <CheckBoxIcon
-                  fontSize="medium"
-                  classes={{ root: styles.actionButton }}
-                  onClick={() => addAllowedRole()}
-                />
-              ) : null}
+              {selectedRole ? <CheckBoxIcon fontSize="medium" onClick={() => addAllowedRole()} /> : null}
             </div>
 
             <Field
@@ -559,14 +529,14 @@ export const AdminUserEditContent = observer(
                   className={styles.standartText}
                   value={formFields.allowedStrategies}
                   renderValue={selected =>
-                    selected.map(el => humanFriendlyStategyStatus(mapProductStrategyStatusEnum[el])).join(', ')
+                    selected.map(el => humanFriendlyStategyStatus(productStrategyStatusesEnum[el])).join(', ')
                   }
                   onChange={onChangeFormField('allowedStrategies')}
                 >
-                  {Object.keys(mapProductStrategyStatusEnum).map((strategy, index) => (
+                  {Object.keys(productStrategyStatusesEnum).map((strategy, index) => (
                     <MenuItem key={index} className={styles.standartText} value={Number(strategy)}>
                       <Checkbox color="primary" checked={formFields.allowedStrategies.includes(Number(strategy))} />
-                      <ListItemText primary={humanFriendlyStategyStatus(mapProductStrategyStatusEnum[strategy])} />
+                      <ListItemText primary={humanFriendlyStategyStatus(productStrategyStatusesEnum[strategy])} />
                     </MenuItem>
                   ))}
                 </Select>
@@ -625,7 +595,7 @@ export const AdminUserEditContent = observer(
             <Field
               label={t(TranslationKey['Security/Sharing options'])}
               inputComponent={
-                <Button className={styles.securityButton} onClick={() => setShowPermissionModal(!showPermissionModal)}>
+                <Button onClick={() => setShowPermissionModal(!showPermissionModal)}>
                   {t(TranslationKey['Manage permissions'])}
                 </Button>
               }
@@ -688,19 +658,12 @@ export const AdminUserEditContent = observer(
           <Button
             type={ButtonStyle.SUCCESS}
             disabled={isWrongPermissionsSelect || disabledSubmitButton}
-            className={[styles.button, styles.rightBtn]}
             onClick={onClickSubmit}
           >
             {buttonLabel}
           </Button>
 
-          <Button
-            className={[styles.button, styles.rightBtn, styles.cancelBtn]}
-            variant={ButtonVariant.OUTLINED}
-            onClick={() => {
-              onClickCancelBtn()
-            }}
-          >
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelBtn}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

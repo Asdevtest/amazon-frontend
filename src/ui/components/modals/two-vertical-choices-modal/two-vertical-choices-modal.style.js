@@ -1,45 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  resultButtonsWrapper: {
-    margin: '20px 0',
-    minHeight: '90px',
+export const useStyles = makeStyles()(() => ({
+  wrapper: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-
-    gap: 10,
-  },
-
-  modalMessageWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '445px',
-    minHeight: '168px',
+    gap: 20,
   },
 
   title: {
-    color: theme.palette.text.general,
-  },
-
-  bottomBtnText: {
-    color: `${theme.palette.text.general} !important`,
-  },
-
-  '@media (max-width: 768px)': {
-    resultButtonsWrapper: {
-      width: '280px',
-    },
-    modalMessageWrapper: {
-      width: '280px',
-    },
-    button: {
-      width: '191px',
-      height: '40px',
-    },
+    fontSize: 18,
+    lineHeight: '25px',
   },
 }))

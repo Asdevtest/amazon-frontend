@@ -21,18 +21,22 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   avatar: {
-    height: 49,
-    width: 49,
+    height: '49px !important',
+    width: '49px !important',
 
     [theme.breakpoints.down(1024)]: {
-      height: 30,
-      width: 30,
+      height: '30px !important',
+      width: '30px !important',
     },
 
     [theme.breakpoints.down(768)]: {
-      height: 43,
-      width: 43,
+      height: '43px !important',
+      width: '43px !important',
     },
+  },
+
+  favoritesIcon: {
+    color: `${theme.palette.primary.main} !important`,
   },
 
   rightSide: {
@@ -167,9 +171,20 @@ export const useStyles = makeStyles()(theme => ({
     width: '18px !important',
     height: '18px !important',
     color: '#AEAEAE',
-    // '&:hover': {
-    //   cursor: 'pointer',
-    //   color: theme.palette.text.second,
-    // },
+  },
+
+  onlineIcon: {
+    position: 'relative',
+    '&:before': {
+      zIndex: 10,
+      content: '""',
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      width: 10,
+      height: 10,
+      backgroundColor: '#28a745',
+      borderRadius: '50%',
+    },
   },
 }))

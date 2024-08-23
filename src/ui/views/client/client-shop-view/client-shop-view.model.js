@@ -27,7 +27,7 @@ export class ClientShopViewModel {
     try {
       this.getShopInfoById()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -39,7 +39,7 @@ export class ClientShopViewModel {
         this.shopInfo = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

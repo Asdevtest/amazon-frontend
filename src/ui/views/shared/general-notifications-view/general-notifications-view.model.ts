@@ -1,187 +1,140 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { History } from 'history'
-import { makeAutoObservable, reaction, runInAction } from 'mobx'
-
-import { GridFilterModel } from '@mui/x-data-grid'
+import { makeObservable, reaction } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { NotificationType } from '@constants/keys/notifications'
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { UserModel } from '@models/user-model'
 
-import { GeneralNotificationsColumns } from '@components/table/table-columns/general-notifications-columns/general-notifications-columns'
-
-import { checkIsBuyer, checkIsClient } from '@utils/checks'
+import { checkIsBuyer, checkIsClient, checkIsFreelancer } from '@utils/checks'
 import { notificationDataConverter } from '@utils/data-grid-data-converters'
-import { dataGridFiltersConverter } from '@utils/data-grid-filters'
-import { objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+import { Notification } from '@typings/enums/notification'
 import { IProduct } from '@typings/models/products/product'
-import { IColumnVisibilityModel, IPaginationModel, ISortModel, RowHandlers } from '@typings/shared/data-grid'
+import { RowHandlers } from '@typings/shared/data-grid'
 import { IFullUser } from '@typings/shared/full-user'
+
+import { generalNotificationsColumns } from './general-notifications-columns'
+import { observerConfig } from './general-notifications-model.config'
 
 interface IVariations {
   isArchive: boolean
   showIdeaModal: boolean
 }
 
-export class GeneralNotificationsViewModel {
-  history: History | undefined = undefined
-  requestStatus = loadingStatuses.SUCCESS
-
-  // * Pagination & Sorting & Filtering
-
-  rowCount = 0
-  sortModel: Array<ISortModel> = []
-  densityModel = 'compact'
-  paginationModel: IPaginationModel = { page: 0, pageSize: 100 }
-  columnVisibilityModel: IColumnVisibilityModel = {}
-  filterModel: GridFilterModel = { items: [] }
-  selectedRowIds: Array<string> = []
-  curNotificationType: string | number | null | undefined = undefined
-
-  // * Table settings
-
-  rowHandlers: RowHandlers = {
-    navigateToHandler: (notification: any, type: string) => this.navigateToHandler(notification, type),
-  }
-
-  // * Search
-
-  searchValue = ''
-
-  // * dataGrid data
-
-  notificationsData = []
-  columnsModel = GeneralNotificationsColumns(this.rowHandlers, this.userInfo)
-
-  // * Modal state
+export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
+  curNotificationType?: string = undefined
 
   isArchive = false
   showIdeaModal = false
 
-  // * Data for Modals
-
   currentProduct: IProduct | undefined = undefined
-
   currentIdeaId: string | undefined = undefined
 
-  // * Getters
+  sortFields = () => [
+    {
+      field: 'shop',
+      headerName: t(TranslationKey.Shop),
+    },
+
+    {
+      field: 'type',
+      headerName: t(TranslationKey.Type),
+    },
+
+    {
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+    },
+
+    {
+      field: 'updatedAt',
+      headerName: t(TranslationKey.Updated),
+    },
+  ]
 
   get userInfo(): IFullUser | undefined {
     return UserModel.userInfo
   }
 
-  get currentData() {
-    return this.notificationsData
+  get currentConvertedData() {
+    return notificationDataConverter(this.currentData)
   }
 
   constructor({ history }: { history: History }) {
+    const rowHandlers: RowHandlers = {
+      navigateToHandler: (notification: any, type: string) => this.navigateToHandler(notification, type),
+      userInfo: () => UserModel.userInfo,
+    }
+
+    const columns = generalNotificationsColumns(rowHandlers)
+
+    const filtersFields = ['type', 'shop', 'createdAt', 'updatedAt']
+
+    if (checkIsFreelancer(UserRoleCodeMap[rowHandlers.userInfo()?.role || 0])) {
+      filtersFields.push('user')
+    }
+
+    const defaultGetCurrentDataOptions = () => ({
+      archive: this.isArchive,
+      noCache: true,
+    })
+
+    const additionalPropertiesGetFilters = () => ({
+      ...(this.curNotificationType && {
+        type: {
+          $eq: this.curNotificationType,
+        },
+      }),
+    })
+
+    const operatorsSettings = {
+      shop: '$any',
+    }
+
+    super({
+      getMainDataMethod: UserModel.getUsersNotificationsPagMy,
+      columnsModel: columns,
+      filtersFields,
+      mainMethodURL: 'users/notifications/pag/my?',
+      fieldsForSearch: ['data'],
+      tableKey: DataGridTablesKeys.GENERAL_NOTIFICATIONS,
+      defaultGetCurrentDataOptions,
+      additionalPropertiesGetFilters,
+      operatorsSettings,
+    })
+
     this.history = history
+
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+
+    this.getCurrentData()
 
     reaction(
       () => this.isArchive,
-      () => this.getUserNotifications(),
+      () => this.getCurrentData(),
     )
 
-    makeAutoObservable(this, undefined, { autoBind: true })
+    makeObservable(this, observerConfig)
   }
 
   async onClickReadButton() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      await UserModel.addNotificationsToArchive(this.selectedRowIds)
-      await this.getUserNotifications()
+      await UserModel.addNotificationsToArchive(this.selectedRows)
+      await this.getCurrentData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
-  }
-
-  async loadData() {
-    this.getUserNotifications()
-  }
-
-  async getUserNotifications() {
-    try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      const response = await UserModel.getUsersNotificationsPagMy({
-        archive: this.isArchive,
-
-        limit: this.paginationModel.pageSize,
-        offset: this.paginationModel.page * this.paginationModel.pageSize,
-
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-
-        filters: this.getFilter(),
-      })
-
-      runInAction(() => {
-        this.notificationsData = notificationDataConverter(response.rows) || []
-
-        this.rowCount = response.count || 0
-      })
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
-    }
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: this.sortModel,
-      filterModel: this.filterModel,
-      paginationModel: this.paginationModel,
-      columnVisibilityModel: this.columnVisibilityModel,
-    }
-
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.GENERAL_NOTIFICATIONS)
-  }
-
-  onChangeFilterModel(model: GridFilterModel) {
-    this.filterModel = model
-
-    this.setDataGridState()
-    this.getUserNotifications()
-  }
-
-  onColumnVisibilityModelChange(model: IColumnVisibilityModel) {
-    this.columnVisibilityModel = model
-
-    this.setDataGridState()
-    this.getUserNotifications()
-  }
-
-  onChangeSortingModel(sortModel: Array<ISortModel>) {
-    this.sortModel = sortModel
-
-    this.setDataGridState()
-    this.getUserNotifications()
-  }
-
-  setRequestStatus(requestStatus: loadingStatuses) {
-    this.requestStatus = requestStatus
-  }
-
-  onPaginationModelChange(model: IPaginationModel) {
-    this.paginationModel = model
-
-    this.setDataGridState()
-    this.getUserNotifications()
-  }
-
-  onSelectionModel(model: Array<string>) {
-    this.selectedRowIds = model
   }
 
   toggleVariationHandler(variation: keyof IVariations) {
@@ -191,7 +144,7 @@ export class GeneralNotificationsViewModel {
   navigateToHandler(notification: any, type: string) {
     if (!this.userInfo) return
 
-    if (type === NotificationType.Order) {
+    if (type === Notification.Order) {
       if (checkIsClient(UserRoleCodeMap[this.userInfo?.role])) {
         window
           .open(
@@ -213,7 +166,7 @@ export class GeneralNotificationsViewModel {
       }
     } else if (type === 'user') {
       window.open(`/another-user?${notification?.sub?._id || notification?.creator?._id}`)?.focus()
-    } else if (type === NotificationType.Idea) {
+    } else if (type === Notification.Idea) {
       this.currentProduct = notification.parentProduct
       this.currentIdeaId = notification.ideaId
 
@@ -221,48 +174,17 @@ export class GeneralNotificationsViewModel {
     }
   }
 
-  onChangeSearchValue(value: string) {
-    this.searchValue = value
-  }
-
-  onClickToChangeNotificationType(notificationType: string | number | null | undefined) {
+  onClickToChangeNotificationType(notificationType?: string) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.curNotificationType = notificationType
 
-      this.getUserNotifications()
+      this.getCurrentData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (err) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.error(err)
-    }
-  }
-
-  getFilter() {
-    return objectToUrlQs(
-      dataGridFiltersConverter({}, this.searchValue, '', [], ['data'], {
-        ...(this.curNotificationType && {
-          type: {
-            $eq: this.curNotificationType,
-          },
-        }),
-      }),
-    )
-  }
-
-  onSearchSubmit(searchValue: string) {
-    try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      this.searchValue = searchValue
-
-      this.getUserNotifications()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
-    } catch (err) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(err)
     }
   }

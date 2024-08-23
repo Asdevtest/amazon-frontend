@@ -94,11 +94,6 @@ export const useStyles = makeStyles()(theme => ({
     objectPosition: 'center',
   },
 
-  actionButton: {
-    width: '242px',
-    height: '40px',
-  },
-
   cardPrice: {
     fontSize: '18px',
     lineHeight: '21px',

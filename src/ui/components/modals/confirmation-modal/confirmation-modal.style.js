@@ -2,7 +2,7 @@ import { keyframes } from '@emotion/react'
 import { makeStyles } from 'tss-react/mui'
 
 const animate_gradient = keyframes`
- 0% {
+  0% {
     backgroundPosition: '0% 50%';
   }
   50% {
@@ -21,14 +21,11 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0 28px',
-    backgroundColor: theme.palette.background.general,
 
     [theme.breakpoints.down(768)]: {
       width: '300px',
       minHeight: '0',
       height: '122px',
-      padding: 0,
     },
   },
 
@@ -72,7 +69,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   warningModalMessageWrapper: {
-    background: theme.palette.background.general,
     borderRadius: '10px 10px',
   },
 
@@ -105,12 +101,10 @@ export const useStyles = makeStyles()(theme => ({
     gap: '30px',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.palette.background.general,
   },
 
   warningButtonsWrapper: {
     borderRadius: '0 0 10px 10px',
-    backgroundColor: theme.palette.background.general,
     marginTop: '22px',
     [theme.breakpoints.down(768)]: {
       marginTop: '18px',
@@ -121,6 +115,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
+    paddingBottom: 5,
   },
 
   titleWrapper: {
@@ -157,7 +152,7 @@ export const useStyles = makeStyles()(theme => ({
 
   button: {
     height: '40px',
-    width: '98px',
+    minWidth: '98px',
     [theme.breakpoints.down(768)]: {
       width: '69px',
     },

@@ -5,11 +5,6 @@ export const useStyles = makeStyles()(theme => ({
     minWidth: 100,
   },
 
-  button: {
-    marginLeft: 10,
-    color: theme.palette.text.general,
-  },
-
   standartText: {
     color: theme.palette.text.general,
   },

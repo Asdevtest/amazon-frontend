@@ -1,3 +1,5 @@
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { DataGridPremium } from '@mui/x-data-grid-premium'
 
@@ -10,35 +12,25 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 
 import { SeparatorIcon } from '../svg-icons'
 
-export const CustomDataGrid = ({ ...restProps }) => {
-  const grids = document.querySelectorAll('.MuiDataGrid-main')
-
-  for (const grid of grids) {
-    const childNodesList = grid?.childNodes
-    const alertElement = childNodesList?.[2]
-
-    if (alertElement) {
-      alertElement.style.display = 'none'
-    }
-  }
-
-  return (
-    <DataGridPremium
-      key={SettingsModel.languageTag}
-      pagination
-      hideFooter
-      disableVirtualization
-      sortingMode="server"
-      paginationMode="server"
-      pageSizeOptions={[15, 25, 50, 100]}
-      localeText={getLocalizationByLanguageTag()}
-      slots={{
-        toolbar: DataGridCustomToolbar,
-        columnMenuIcon: FilterAltOutlinedIcon,
-        columnMenu: DataGridCustomColumnMenuComponent,
-        columnResizeIcon: SeparatorIcon,
-      }}
-      {...restProps}
-    />
-  )
-}
+export const CustomDataGrid = ({ ...restProps }) => (
+  <DataGridPremium
+    key={SettingsModel.languageTag}
+    pagination
+    hideFooter
+    useResizeContainer
+    disableVirtualization
+    sortingMode="server"
+    paginationMode="server"
+    pageSizeOptions={[15, 25, 50, 100]}
+    localeText={getLocalizationByLanguageTag()}
+    slots={{
+      toolbar: DataGridCustomToolbar,
+      columnMenuIcon: FilterAltOutlinedIcon,
+      columnMenu: DataGridCustomColumnMenuComponent,
+      columnResizeIcon: SeparatorIcon,
+      detailPanelExpandIcon: IoIosArrowDown,
+      detailPanelCollapseIcon: IoIosArrowUp,
+    }}
+    {...restProps}
+  />
+)

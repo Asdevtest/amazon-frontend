@@ -2,77 +2,52 @@
 import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model/data-grid-filter-table-model'
-import {
-  filterModelInitialValue,
-  paginationModelInitialValue,
-  sortModelInitialValue,
-} from '@models/data-grid-table-model'
+import { filterModelInitialValue, paginationModelInitialValue } from '@models/data-grid-table-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 import { ShopModel } from '@models/shop-model'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+import { ShopReportsTabsValues } from '@typings/enums/shop-report'
+
 import { getClassParams } from './helpers/get-class-params'
 import { observerConfig } from './observer.config'
 
 export class ClientShopsViewModel extends DataGridFilterTableModel {
-  _tabKey = ShopReportsTabsValues.PPC
-  get tabKey() {
-    return this._tabKey
-  }
-  set tabKey(tabKey) {
-    this._tabKey = tabKey
-  }
+  tabKey = ShopReportsTabsValues.PPC_ORGANIC_BY_DAY
 
-  _inventoryProducts: any = []
-  get inventoryProducts() {
-    return this._inventoryProducts
-  }
-  set inventoryProducts(inventoryProducts) {
-    this._inventoryProducts = inventoryProducts
-  }
+  inventoryProducts: any = []
 
-  _showBindStockGoodsToInventoryModal = false
-  get showBindStockGoodsToInventoryModal() {
-    return this._showBindStockGoodsToInventoryModal
-  }
-  set showBindStockGoodsToInventoryModal(showBindStockGoodsToInventoryModal) {
-    this._showBindStockGoodsToInventoryModal = showBindStockGoodsToInventoryModal
-  }
-
-  _showWarningInfoModal = false
-  get showWarningInfoModal() {
-    return this._showWarningInfoModal
-  }
-  set showWarningInfoModal(showWarningInfoModal) {
-    this._showWarningInfoModal = showWarningInfoModal
-  }
-
-  _showConfirmModal = false
-  get showConfirmModal() {
-    return this._showConfirmModal
-  }
-  set showConfirmModal(showConfirmModal) {
-    this._showConfirmModal = showConfirmModal
-  }
-
+  showBindStockGoodsToInventoryModal = false
+  showConfirmModal = false
   showSelectShopsModal = false
   shopsData: any = []
 
-  constructor(currentTabsValues: ShopReportsTabsValues) {
+  constructor(currentTabsValues: ShopReportsTabsValues, history: any) {
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch, tableKey } =
       getClassParams(currentTabsValues)
 
-    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL, fieldsForSearch, tableKey)
+    super({
+      getMainDataMethod,
+      columnsModel: columnsModel(),
+      filtersFields,
+      mainMethodURL,
+      fieldsForSearch,
+      tableKey,
+    })
+    this.history = history
+
+    this.tabKey = currentTabsValues
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
     this.getDataGridState()
+    this.initUserSettings()
 
     makeObservable(this, observerConfig)
   }
@@ -88,9 +63,11 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.filtersFields = filtersFields
     this.setColumnMenuSettings(filtersFields)
     this.mainMethodURL = mainMethodURL
-    this._tableKey = tableKey
-    this.sortModel = sortModelInitialValue
+    this.tableKey = tableKey
+
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
     this.paginationModel = paginationModelInitialValue
+
     this.filterModel = filterModelInitialValue
     this.fieldsForSearch = fieldsForSearch
 
@@ -113,7 +90,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.getMainDataMethod = getMainDataMethod
     this.columnsModel = columnsModel()
     this.filtersFields = filtersFields
-    this._tableKey = tableKey
+    this.tableKey = tableKey
     this.setColumnMenuSettings(filtersFields)
     this.mainMethodURL = mainMethodURL
     this.fieldsForSearch = fieldsForSearch
@@ -132,12 +109,12 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
   async moveGoodsToInventoryHandler() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const requestBody = []
 
       for (const row of this.selectedRows) {
-        const selectedRow = this.tableData?.find(item => item._id === row)
+        const selectedRow = this.currentData?.find(item => item._id === row)
 
         if (selectedRow) {
           requestBody.push({
@@ -151,53 +128,42 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
       await SellerBoardModel.createAndLinkSkuProducts({ payload: requestBody })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey.Created),
-          buttonText: t(TranslationKey.Ok),
-          onSubmit: () => this.onTriggerOpenModal('showWarningInfoModal'),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey.Created))
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   deleteReportHandler() {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        title: t(TranslationKey.Attention),
-        message: t(TranslationKey['Are you sure?']),
-        onSubmit: () => {
-          this.submitDeleteReportHandler()
-          this.onTriggerOpenModal('showConfirmModal')
-        },
-        onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: true,
+      title: t(TranslationKey.Attention),
+      message: t(TranslationKey['Are you sure?']),
+      onSubmit: () => {
+        this.submitDeleteReportHandler()
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   async submitDeleteReportHandler() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await SellerBoardModel.deleteIntegrationsReport(this.tabKey, this.selectedRows)
 
-      await this.getMainTableData()
+      await this.getCurrentData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -213,7 +179,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
   async getProductsMy(filters?: any, isRecCall?: boolean) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await ClientModel.getProductPermissionsData({ filters })
 
@@ -224,15 +190,15 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       if (!this.inventoryProducts.length && isRecCall) {
         this.getProductsMy()
       }
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       if (isRecCall) {
-        this.setRequestStatus(loadingStatuses.IS_LOADING)
+        this.setRequestStatus(loadingStatus.IS_LOADING)
 
         this.getProductsMy()
 
-        this.setRequestStatus(loadingStatuses.SUCCESS)
+        this.setRequestStatus(loadingStatus.SUCCESS)
       } else {
         runInAction(() => {
           this.inventoryProducts = []
@@ -246,49 +212,33 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       await SellerBoardModel.bindStockProductsBySku(data)
       this.onTriggerOpenModal('showBindStockGoodsToInventoryModal')
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['The product is bound']),
-          buttonText: t(TranslationKey.Ok),
-          onSubmit: () => this.onTriggerOpenModal('showWarningInfoModal'),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey['The product is bound']))
     } catch (error) {
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey["You can't bind"]),
-          buttonText: t(TranslationKey.Ok),
-          onSubmit: () => this.onTriggerOpenModal('showWarningInfoModal'),
-        }
-      })
-      this.onTriggerOpenModal('showWarningInfoModal')
-      console.log(error)
+      toast.error(t(TranslationKey["You can't bind"]))
+
+      console.error(error)
     }
   }
 
   async getShopsData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await ShopModel.getMyShopNames()
       runInAction(() => {
         this.shopsData = result
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   async bindReportInventoryHandler(shop: { _id: string; name: string }) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await SellerBoardModel.patchReportInventoryProductsLinkSku({ shopIds: [shop._id] })
 
@@ -296,17 +246,17 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
       toast.success(`${t(TranslationKey['Integration for'])} ${shop.name} ${t(TranslationKey['has been created'])}`)
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.onTriggerOpenModal('showSelectShopsModal')
       toast.error(t(TranslationKey['Something went wrong']))
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   getTableData() {
     this.getDataGridState()
-    this.getMainTableData()
+    this.getCurrentData()
   }
 }

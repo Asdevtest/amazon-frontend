@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse200103Rows } from './inline-response200103-rows';
 
 /**
  * 
@@ -21,17 +22,17 @@
  */
 export interface InlineResponse200103 {
     /**
-     * userAgent с которым был получен токен
-     * @type {string}
+     * Общее кол-во записей
+     * @type {number}
      * @memberof InlineResponse200103
      */
-    device: string;
+    count?: number;
     /**
-     * 
-     * @type {string}
+     * Массив товаров.
+     * @type {Array<InlineResponse200103Rows>}
      * @memberof InlineResponse200103
      */
-    createdAt: string;
+    rows?: Array<InlineResponse200103Rows>;
 }
 
 

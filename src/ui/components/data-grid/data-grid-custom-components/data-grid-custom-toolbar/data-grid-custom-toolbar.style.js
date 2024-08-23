@@ -1,13 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   wrapperToolbar: {
     width: '100%',
     padding: '5px',
-
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
   },
 
   toolbar: {
@@ -20,7 +16,7 @@ export const useStyles = makeStyles()(() => ({
   buttons: {
     display: 'flex',
     alignItems: 'center',
-    gap: 30,
+    gap: '10px',
   },
 
   fullWidth: {
@@ -33,8 +29,16 @@ export const useStyles = makeStyles()(() => ({
   },
 
   text: {
-    fontSize: 16,
+    fontSize: '14px',
     lineHeight: '22px',
     fontWeight: 600,
+  },
+
+  exportButton: {
+    padding: '0 15px',
+    height: '28px',
+    borderRadius: '100px',
+    boxShadow: theme.palette.button.defaultBoxShadow,
+    border: `1px solid ${theme.palette.input.customBorder}`,
   },
 }))

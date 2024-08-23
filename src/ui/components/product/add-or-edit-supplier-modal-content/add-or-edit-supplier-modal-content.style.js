@@ -10,7 +10,6 @@ export const useStyles = makeStyles()(theme => ({
 
   modalContainer: {
     width: '840px',
-    padding: 20,
   },
   titleDivider: {
     margin: '30px 0',
@@ -33,24 +32,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'end',
     gap: '10px',
     marginTop: '16px',
-  },
-
-  prevBtnClient: {
-    height: '40px',
-    alignSelf: 'end',
-  },
-
-  saveBtnClient: {
-    width: '240px',
-  },
-
-  saveBtn: {
-    color: '#fff',
-  },
-  cancelBtn: {
-    color: theme.palette.text.general,
-    textTransform: 'none',
-    marginLeft: '8px',
   },
 
   commentField: {
@@ -102,7 +83,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   nameBlockFlexStart: {
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
   },
 
   nameContainer: {
@@ -110,7 +91,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   linkContainer: {
-    width: '590px !important',
+    width: '290px !important',
   },
 
   middleContainer: {
@@ -118,7 +99,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   shortContainer: {
-    width: '120px !important',
+    width: '160px !important',
     margin: '0px !important',
   },
 
@@ -170,6 +151,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
+    gap: 20,
   },
 
   boxInfoSubWrapper: {
@@ -179,7 +161,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     height: '100%',
     gap: '15px',
-    width: '320px',
   },
 
   boxInfoExtraSubWrapper: {
@@ -219,15 +200,20 @@ export const useStyles = makeStyles()(theme => ({
   unitDimensionsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 20,
   },
 
   unitDimensionsSubWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    width: '320px',
   },
 
   needAddPhotos: {
     color: theme.palette.text.red,
+  },
+
+  error: {
+    borderColor: 'red',
   },
 }))

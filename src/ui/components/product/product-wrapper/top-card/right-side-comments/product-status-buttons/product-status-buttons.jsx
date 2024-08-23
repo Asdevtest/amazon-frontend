@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Box, FormControlLabel, Grid, Radio, RadioGroup } from '@mui/material'
 
 import { ProductStatusByCode } from '@constants/product/product-status'
-import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 
 import { Text } from '@components/shared/text'
 
@@ -42,14 +42,14 @@ export const ProductStatusButtons = props => {
                 value={buttonConfig.statusKey}
                 label={
                   <Text
-                    tooltipInfoContent={translateTooltipMessageByRole(buttonConfig.label, curUserRole)}
+                    tooltipInfoContent={translateTooltipMessageByRole(buttonConfig.label, curUserRole) || ''}
                     tooltipAttentionContent={translateTooltipAttentionMessageByRole(buttonConfig.label, curUserRole)}
                   >
                     {buttonConfig.label}
                   </Text>
                 }
                 disabled={
-                  mapProductStrategyStatusEnum[product.strategyStatus] === 'PRIVATE_LABEL' &&
+                  productStrategyStatusesEnum[product.strategyStatus] === 'PRIVATE_LABEL' &&
                   buttonConfig.statusKey === 'RESEARCHER_FOUND_SUPPLIER'
                 }
               />

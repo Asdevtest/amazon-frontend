@@ -1,13 +1,13 @@
 import { ClassNamesArg } from '@emotion/react'
 import { observer } from 'mobx-react'
-import { ComponentType, FC, InputHTMLAttributes, ReactElement, useContext, useState } from 'react'
+import { ComponentType, FC, InputHTMLAttributes, ReactElement, useContext } from 'react'
 
 import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import { Input } from '@components/shared/input'
 import { InputWithIcon } from '@components/shared/input/input'
-import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
+import { TooltipAttentionIcon, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { HintsContext } from '@contexts/hints-context'
 
@@ -62,10 +62,6 @@ export const Field: FC<Props> = observer(
     ...restProps
   }) => {
     const { classes: styles, cx } = useStyles()
-
-    const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
-    const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
-
     const { hints } = useContext(HintsContext)
 
     return (
@@ -80,36 +76,23 @@ export const Field: FC<Props> = observer(
           {(tooltipAttentionContent || tooltipInfoContent) && label ? (
             <div className={styles.tooltipsWrapper}>
               {tooltipAttentionContent ? (
-                <Tooltip
-                  arrow
-                  open={openAttentionTooltip}
-                  title={tooltipAttentionContent}
-                  placement="top-end"
-                  onClose={() => setOpenAttentionTooltip(false)}
-                  onOpen={() => setOpenAttentionTooltip(true)}
-                >
-                  <div>
-                    <TooltipAttention className={cx(styles.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
-                  </div>
-                </Tooltip>
+                <div>
+                  <Tooltip arrow title={tooltipAttentionContent} placement="top-end">
+                    <div>
+                      <TooltipAttentionIcon className={styles.tooltip} />
+                    </div>
+                  </Tooltip>
+                </div>
               ) : null}
 
               {tooltipInfoContent && hints ? (
-                <Tooltip
-                  arrow
-                  open={openInfoTooltip}
-                  title={tooltipInfoContent}
-                  placement="top-end"
-                  onClose={() => setOpenInfoTooltip(false)}
-                  onOpen={() => setOpenInfoTooltip(true)}
-                >
-                  <div>
-                    <TooltipInfoIcon
-                      className={cx(styles.tooltip, styles.tooltipInfo)}
-                      onClick={() => setOpenInfoTooltip(true)}
-                    />
-                  </div>
-                </Tooltip>
+                <div>
+                  <Tooltip arrow title={tooltipInfoContent} placement="top-end">
+                    <div>
+                      <TooltipInfoIcon className={cx(styles.tooltip, styles.tooltipInfo)} />
+                    </div>
+                  </Tooltip>
+                </div>
               ) : null}
             </div>
           ) : null}
@@ -126,8 +109,8 @@ export const Field: FC<Props> = observer(
               </div>
             ))}
         </>
-        {error && typeof error === 'string' && <Typography className={styles.errorText}>{error}</Typography>}
-        {successText && <Typography className={styles.successText}>{successText}</Typography>}
+        {error && typeof error === 'string' ? <p className={styles.errorText}>{error}</p> : null}
+        {successText ? <p className={styles.successText}>{successText}</p> : null}
       </div>
     )
   },

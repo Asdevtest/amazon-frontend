@@ -1,5 +1,3 @@
-import Linkify from 'react-linkify-always-blank'
-
 import { Avatar, Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
@@ -8,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime } from '@utils/date-time'
@@ -91,9 +89,9 @@ export const DealDetailsCard = ({
               <Typography className={styles.text}>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</Typography>
             </div>
           </div>
-          <div className={styles.filesWrapper}>
-            <PhotoAndFilesSlider smallSlider showPreviews files={curProposal?.proposal.linksToMediaFiles} />
-          </div>
+
+          <SlideshowGallery slidesToShow={2} files={curProposal?.proposal.linksToMediaFiles} />
+
           {!dealsOnReview &&
           [
             RequestStatus.CORRECTED,
@@ -101,10 +99,7 @@ export const DealDetailsCard = ({
             RequestStatus.VERIFYING_BY_SUPERVISOR,
           ].includes(curProposal?.proposal.status) ? (
             <div>
-              <Button
-                className={styles.actionButton}
-                onClick={() => onSubmitSendInForRework(curProposal?.proposal._id)}
-              >
+              <Button onClick={() => onSubmitSendInForRework(curProposal?.proposal._id)}>
                 {t(TranslationKey['Send in for rework'])}
               </Button>
             </div>
@@ -142,14 +137,11 @@ export const DealDetailsCard = ({
           </div>
           <div className={styles.resultWrapper}>
             <Typography className={styles.result}>{t(TranslationKey.Result)}</Typography>
-            <Linkify>
-              <Typography className={styles.resultDescription}>{curProposal?.details.result}</Typography>
-            </Linkify>
+
+            <Typography className={styles.resultDescription}>{curProposal?.details.result}</Typography>
           </div>
           <div className={styles.filesAndTimeWrapper}>
-            <div className={styles.filesWrapper}>
-              <PhotoAndFilesSlider smallSlider showPreviews files={curProposal?.details?.linksToMediaFiles} />
-            </div>
+            <SlideshowGallery slidesToShow={2} files={curProposal?.details?.linksToMediaFiles} />
 
             <div className={styles.timeOnReviewWrapper}>
               <Typography className={styles.timeOnReviewTitle}>{t(TranslationKey['Time to complete'])}</Typography>
@@ -165,7 +157,6 @@ export const DealDetailsCard = ({
               <div className={styles.buttonsWrapper}>
                 <Button
                   styleType={ButtonStyle.DANGER}
-                  className={styles.actionButton}
                   onClick={() => onClickRejectDealModal(curProposal?.proposal._id)}
                 >
                   {t(TranslationKey['Reject the deal'])}
@@ -173,7 +164,6 @@ export const DealDetailsCard = ({
 
                 <Button
                   styleType={ButtonStyle.SUCCESS}
-                  className={styles.actionButton}
                   onClick={() => onClickConfirmDealModal(curProposal?.proposal._id)}
                 >
                   {t(TranslationKey['Accept the deal'])}
@@ -182,11 +172,7 @@ export const DealDetailsCard = ({
             )}
           {dealsOnReview ? (
             <div className={styles.buttonWrapper}>
-              <Button
-                styleType={ButtonStyle.SUCCESS}
-                className={styles.actionButton}
-                onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}
-              >
+              <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}>
                 {t(TranslationKey['Get to work'])}
               </Button>
             </div>

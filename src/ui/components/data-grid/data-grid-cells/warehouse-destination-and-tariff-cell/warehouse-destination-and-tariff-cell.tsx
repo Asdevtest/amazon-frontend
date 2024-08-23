@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
@@ -56,7 +57,7 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
     currentTariff?.destinationVariations?.find((el: any) => el._id === boxesMy?.variationTariff?._id)?.pricePerKgUsd
 
   const currentTariffName = tariffName ? `${tariffName}` : ''
-  const currentTariffRate = tariffRate ? `/ ${tariffRate} $` : ''
+  const currentTariffRate = tariffRate ? `/ ${toFixed(tariffRate)} $` : ''
   const shoWcurrentTariff = currentStorekeeper && (currentTariffName || currentTariffRate)
 
   return (
@@ -65,7 +66,7 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
       <WithSearchSelect
         // @ts-ignore
         disabled={disabled}
-        width={180}
+        width={'100%'}
         selectedItemName={
           destinations.find(el => el?._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
         }
@@ -88,7 +89,6 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
       <Button
         disabled={disabled}
         variant={ButtonVariant.OUTLINED}
-        className={styles.storekeeperBtn}
         onClick={() => {
           onClickSetTariff(boxesMy)
           setShowSelectionStorekeeperAndTariffModal()

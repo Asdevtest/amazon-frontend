@@ -13,9 +13,10 @@
  */
 
 
+import { PermissionGetDtoSchema } from './permission-get-dto-schema';
 
 /**
- * Схема парсинга.
+ * 
  * @export
  * @interface InlineResponse20078
  */
@@ -25,157 +26,13 @@ export interface InlineResponse20078 {
      * @type {number}
      * @memberof InlineResponse20078
      */
-    amazonFee?: number;
+    count?: number;
     /**
-     * 
-     * @type {number}
+     * Массив permissions.
+     * @type {Array<PermissionGetDtoSchema>}
      * @memberof InlineResponse20078
      */
-    width?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20078
-     */
-    height?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20078
-     */
-    length?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20078
-     */
-    weight?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    weightUnitString?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20078
-     */
-    isWhiteGloveRequired?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    subCategory?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    fnsku?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    dimensionUnit?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    link?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    binding?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    dimensionUnitString?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20078
-     */
-    price?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    imageUrl?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20078
-     */
-    isAfn?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    gl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    TRexId?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20078
-     */
-    isAsinLimits?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    originalUrl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    productGroup?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    thumbStringUrl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    asin?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    encryptedMarketplaceId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20078
-     */
-    weightUnit?: string;
+    rows?: Array<PermissionGetDtoSchema>;
 }
 
 

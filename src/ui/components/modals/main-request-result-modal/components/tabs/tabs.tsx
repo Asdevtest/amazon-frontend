@@ -36,7 +36,7 @@ export const Tabs: FC<TabsProps> = memo(props => {
         switchMode="medium"
         condition={switcherCondition}
         switcherSettings={customSwitcherSettings}
-        changeConditionHandler={value => setSwitcherCondition(value as number)}
+        changeConditionHandler={setSwitcherCondition}
       />
 
       <TabPanel value={switcherCondition} index={MainRequestResultModalSwitcherConditions.FILES}>

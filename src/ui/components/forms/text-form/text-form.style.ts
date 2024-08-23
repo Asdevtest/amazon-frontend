@@ -2,7 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    padding: 10,
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
@@ -25,9 +24,5 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 20,
-  },
-
-  button: {
-    width: 100,
   },
 }))

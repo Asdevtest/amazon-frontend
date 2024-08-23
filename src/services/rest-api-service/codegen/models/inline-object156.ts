@@ -13,27 +13,25 @@
  */
 
 
-import { ApiV1RequestProposalsRequestDetailsCustom } from './api-v1-request-proposals-request-details-custom';
-import { ApiV1RequestsCustomGuidRequest } from './api-v1-requests-custom-guid-request';
 
 /**
- * Схема универсальной заявки.
+ * 
  * @export
  * @interface InlineObject156
  */
 export interface InlineObject156 {
     /**
-     * 
-     * @type {ApiV1RequestsCustomGuidRequest}
+     * Оценка, целое число от 1 до 5
+     * @type {number}
      * @memberof InlineObject156
      */
-    request?: ApiV1RequestsCustomGuidRequest;
+    rating: number;
     /**
-     * 
-     * @type {ApiV1RequestProposalsRequestDetailsCustom}
+     * Комментарий к оценке
+     * @type {string}
      * @memberof InlineObject156
      */
-    details?: ApiV1RequestProposalsRequestDetailsCustom;
+    comment?: string;
 }
 
 

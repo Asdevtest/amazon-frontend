@@ -1,6 +1,5 @@
 import Typography from '@mui/material/Typography'
 
-import { requestPriority } from '@constants/requests/request-priority'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,6 +11,8 @@ import { UserLink } from '@components/user/user-link'
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
+
+import { RequestPriority } from '@typings/enums/request/request-priority'
 
 import { useStyles } from './vacant-request-list-card.style'
 
@@ -64,15 +65,12 @@ export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, is
           </div>
         </div>
         <div className={styles.cardTitleBlockFooterWrapper}>
-          <Typography className={styles.cardSubTitle}>
-            {translateProposalsLeftMessage(
-              item?.maxAmountOfProposals - item?.countProposalsByStatuses?.acceptedProposals,
-              item?.maxAmountOfProposals,
-            )}
-          </Typography>
-          {/* <Typography className={styles.cardSubTitle}> */}
-          {/*   {t(TranslationKey.Updated)}: <span>{formatNormDateTimeWithParseISO(item.updatedAt)}</span> */}
-          {/* </Typography> */}
+          <p className={styles.cardSubTitle}>
+            {t(TranslationKey.Proposals_Left, {
+              num1: item?.maxAmountOfProposals - item?.countProposalsByStatuses?.acceptedProposals,
+              num2: item?.maxAmountOfProposals,
+            })}
+          </p>
         </div>
       </div>
 
@@ -83,13 +81,12 @@ export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, is
       <div className={styles.controls}>
         <div className={styles.buttonWrapper}>
           <div className={styles.priorityWrapper}>
-            {Number(item?.priority) === requestPriority.urgentPriority && (
+            {Number(item?.priority) === RequestPriority.urgentPriority && (
               <img className={styles.priorityIcon} src="/assets/icons/fire.svg" />
             )}
           </div>
           <Button
             tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
-            className={styles.actionButton}
             onClick={() => onClickViewMore(item._id)}
           >
             {t(TranslationKey.Details)}

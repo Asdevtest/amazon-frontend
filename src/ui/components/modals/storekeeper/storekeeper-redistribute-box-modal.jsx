@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 
 import { operationTypes } from '@constants/keys/operation-types'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxSplit } from '@components/shared/boxes/box-split'
@@ -11,7 +10,8 @@ import { Button } from '@components/shared/button'
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './storekeeper-redistribute-box-modal.style'
 
@@ -23,8 +23,6 @@ export const StorekeeperRedistributeBox = observer(
     destinations,
     storekeepers,
     requestStatus,
-    // addNewBoxModal,
-    // setAddNewBoxModal,
     selectedBox,
     onRedistribute,
     onTriggerOpenModal,
@@ -33,7 +31,6 @@ export const StorekeeperRedistributeBox = observer(
     showEditBoxModalR,
     onEditBox,
     onTriggerShowEditBoxModalR,
-    volumeWeightCoefficient,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -173,7 +170,7 @@ export const StorekeeperRedistributeBox = observer(
 
     const disabledSubmitBtn =
       totalProductsAmount !== 0 ||
-      requestStatus === loadingStatuses.IS_LOADING ||
+      requestStatus === loadingStatus.IS_LOADING ||
       filterEmptyBoxes(newBoxes).length < 2 ||
       filterEmptyBoxes(newBoxes).some(
         el =>
@@ -218,6 +215,7 @@ export const StorekeeperRedistributeBox = observer(
               isMasterBox={isMasterBox}
               selectedBox={selectedBox}
               destinationsFavourites={destinationsFavourites}
+              titleClassName={styles.boxTitle}
               setDestinationsFavouritesItem={setDestinationsFavouritesItem}
               onChangeAmountInput={onChangeAmountInput}
               onClickEditBox={onClickEditBox}
@@ -225,13 +223,13 @@ export const StorekeeperRedistributeBox = observer(
           </div>
 
           <NewBoxes
-            volumeWeightCoefficient={volumeWeightCoefficient}
             newBoxes={newBoxes}
             isMasterBox={isMasterBox}
             selectedBox={selectedBox}
             destinations={destinations}
             storekeepers={storekeepers}
             destinationsFavourites={destinationsFavourites}
+            titleClassName={styles.boxTitle}
             setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             showEditBoxModalR={showEditBoxModalR}
             setNewBoxes={setNewBoxes}
@@ -248,31 +246,24 @@ export const StorekeeperRedistributeBox = observer(
           <Button
             tooltipInfoContent={t(TranslationKey['Add a new box to the task'])}
             disabled={totalProductsAmount < 1 && isMasterBox}
-            className={styles.button}
-            onClick={() => {
-              setNewBoxes(newBoxes.concat(getEmptyBox()))
-            }}
+            onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
           >
             {t(TranslationKey['Create a new box'])}
           </Button>
           <Button
             tooltipInfoContent={t(TranslationKey['Create a task to split the box'])}
             disabled={disabledSubmitBtn}
-            className={styles.button}
             onClick={onClickRedistributeBtn}
           >
             {t(TranslationKey.Redistribute)}
           </Button>
 
           <Button
-            variant={ButtonVariant.OUTLINED}
+            styleType={ButtonStyle.CASUAL}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={cx(styles.button, styles.cancelButton)}
-            onClick={() => {
-              onTriggerOpenModal('showRedistributeBoxModal')
-            }}
+            onClick={() => onTriggerOpenModal('showRedistributeBoxModal')}
           >
-            {t(TranslationKey.Cancel)}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>

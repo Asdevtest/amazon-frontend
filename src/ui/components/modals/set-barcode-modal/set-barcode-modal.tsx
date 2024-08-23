@@ -1,4 +1,5 @@
-import { FC, memo, useState } from 'react'
+import isEqual from 'lodash.isequal'
+import { FC, memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -8,7 +9,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './set-barcode-modal.style'
 
@@ -22,15 +23,22 @@ interface SetBarcodeModalProps {
 }
 
 export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
-  const { onClickSaveBarcode, onCloseModal, tmpCode, barCode = '', title = '', maxNumber = 1 } = props
+  const { tmpCode, onClickSaveBarcode, onCloseModal, barCode = '', title = '', maxNumber = 1 } = props
 
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
+  const [files, setFiles] = useState<string[]>([])
 
-  const [files, setFiles] = useState<string[]>(tmpCode?.length ? tmpCode : [])
+  useEffect(() => {
+    if (tmpCode?.length > 0) {
+      setFiles(tmpCode)
+    }
+  }, [tmpCode])
+
+  const disableSaveButton = isEqual(files, tmpCode)
 
   return (
-    <div className={styles.modalWrapper}>
-      <p className={styles.modalTitle}>{title ? title : t(TranslationKey['Add barcode'])}</p>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{title ? title : t(TranslationKey['Add barcode'])}</p>
 
       {barCode && (
         <LabelWithCopy
@@ -48,8 +56,7 @@ export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
       <div className={styles.buttons}>
         <Button
           styleType={ButtonStyle.SUCCESS}
-          disabled={!files.length && !tmpCode?.length}
-          className={styles.button}
+          disabled={disableSaveButton}
           onClick={() => {
             onClickSaveBarcode(files)
             onCloseModal()
@@ -58,11 +65,7 @@ export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button
-          variant={ButtonVariant.OUTLINED}
-          className={cx(styles.button, styles.closeButton)}
-          onClick={onCloseModal}
-        >
+        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

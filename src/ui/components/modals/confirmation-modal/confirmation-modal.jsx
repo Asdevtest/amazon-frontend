@@ -6,7 +6,7 @@ import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './confirmation-modal.style'
 
@@ -133,32 +133,15 @@ export const ConfirmationModal = memo(props => {
             [styles.buttonsWrapper]: !isShowComment,
           })}
         >
-          {isWarning ? (
-            <Button
-              styleType={ButtonStyle.DANGER}
-              className={styles.button}
-              disabled={submitIsClicked}
-              onClick={onSubmit}
-            >
-              {isShowComment ? commentSuccessBtnText || successBtnText : successBtnText}
-            </Button>
-          ) : (
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              className={styles.button}
-              disabled={submitIsClicked}
-              onClick={onSubmit}
-            >
-              {isShowComment ? commentSuccessBtnText || successBtnText : successBtnText}
-            </Button>
-          )}
-
           <Button
+            styleType={isWarning ? ButtonStyle.DANGER : ButtonStyle.SUCCESS}
             disabled={submitIsClicked}
-            className={styles.cancelButton}
-            variant={ButtonVariant.OUTLINED}
-            onClick={() => handleClose()}
+            onClick={onSubmit}
           >
+            {isShowComment ? commentSuccessBtnText || successBtnText : successBtnText}
+          </Button>
+
+          <Button disabled={submitIsClicked} styleType={ButtonStyle.CASUAL} onClick={() => handleClose()}>
             {isShowComment ? commentCancelBtnText || cancelBtnText : cancelBtnText}
           </Button>
         </div>

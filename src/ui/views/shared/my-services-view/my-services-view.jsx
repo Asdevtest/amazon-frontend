@@ -1,13 +1,11 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
-import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
-import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/button'
 import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
@@ -25,33 +23,19 @@ export const MyServicesView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(() => new MyServicesViewModel({ history }))
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
 
   return (
     <>
-      <div className={styles.headerWrapper}>
-        <div className={styles.tablePanelWrapper}>
-          <div className={styles.toggleBtnAndtaskTypeWrapper}>
-            <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
+      <div className={styles.header}>
+        <div className={styles.flexContainer}>
+          <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
-            <FreelanceTypeTaskSelect
-              selectedSpec={viewModel.selectedSpec}
-              specs={viewModel.userInfo?.allowedSpec}
-              onClickSpec={viewModel.onClickSpec}
-            />
-          </div>
-
-          <Button
-            styleType={ButtonStyle.SUCCESS}
-            className={styles.rightAddingBtn}
-            onClick={viewModel.onClickCreateServiceBtn}
-          >
-            {t(TranslationKey['Create a service'])}
-          </Button>
+          <FreelanceTypeTaskSelect
+            selectedSpec={viewModel.selectedSpec}
+            specs={viewModel.userInfo?.allowedSpec}
+            onClickSpec={viewModel.onClickSpec}
+          />
         </div>
 
         <SearchInput
@@ -60,9 +44,19 @@ export const MyServicesView = observer(({ history }) => {
           value={viewModel.nameSearchValue}
           onChange={viewModel.onSearchSubmit}
         />
+
+        <div className={styles.flexContainer}>
+          <Button onClick={() => viewModel.onToggleArchive(!viewModel.archive)}>
+            {t(TranslationKey[viewModel.archive ? 'To the actual' : 'Open archive'])}
+          </Button>
+
+          <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickCreateService}>
+            {t(TranslationKey['Create a service'])}
+          </Button>
+        </div>
       </div>
 
-      <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
+      <div className={styles.dashboardCardWrapper}>
         {viewModel.currentData.map((service, serviceKey) =>
           isListPosition ? (
             <ServiceExchangeCardList
@@ -89,22 +83,6 @@ export const MyServicesView = observer(({ history }) => {
           <img src="/assets/icons/empty-table.svg" />
           <p className={styles.emptyTableText}>{t(TranslationKey.Missing)}</p>
         </div>
-      )}
-
-      {viewModel.showImageModal ? (
-        <SlideshowGalleryModal
-          openModal={viewModel.showImageModal}
-          files={viewModel.service?.linksToMediaFiles}
-          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-        />
-      ) : null}
-
-      {viewModel.alertShieldSettings.alertShieldMessage && (
-        <AlertShield
-          showAcceptMessage={viewModel?.alertShieldSettings.showAlertShield}
-          acceptMessage={viewModel?.alertShieldSettings.alertShieldMessage}
-          error={viewModel?.alertShieldSettings.error}
-        />
       )}
     </>
   )

@@ -23,7 +23,7 @@ export const IdeaProductCell: FC<IdeaProductCellProps> = memo(({ onClickCreateCa
   return (
     <div className={styles.ideaWrapper}>
       {!rowData.childProduct && rowData.variation && (
-        <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickCreateCard(rowData.originalData)}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickCreateCard(rowData)}>
           {t(TranslationKey['Create a product card'])}
         </Button>
       )}

@@ -23,9 +23,4 @@ export const useStyles = makeStyles()(theme => ({
   text: {
     color: theme.palette.text.second,
   },
-
-  button: {
-    width: '121px',
-    height: '40px',
-  },
 }))

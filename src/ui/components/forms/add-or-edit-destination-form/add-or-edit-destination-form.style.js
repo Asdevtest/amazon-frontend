@@ -2,16 +2,13 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    minWidth: '400px',
+    width: '400px',
   },
 
-  button: {
-    marginLeft: '10px',
-    color: theme.palette.text.general,
-  },
-
-  standartText: {
-    color: theme.palette.text.general,
+  title: {
+    fontSize: '18px',
+    lineHeight: '25px',
+    fontWeight: 600,
   },
 
   form: {
@@ -22,9 +19,16 @@ export const useStyles = makeStyles()(theme => ({
     margin: 0,
   },
 
-  btnsWrapper: {
-    marginTop: '30px',
+  footerWrapper: {
+    marginTop: '20px',
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+  },
+
+  btnsWrapper: {
+    marginLeft: 'auto',
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '20px',
   },
 }))

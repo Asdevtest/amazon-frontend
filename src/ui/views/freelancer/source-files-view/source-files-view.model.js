@@ -1,19 +1,14 @@
-import { makeAutoObservable, reaction, runInAction } from 'mobx'
-
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { TranslationKey } from '@constants/translations/translation-key'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { RequestProposalModel } from '@models/request-proposal'
 
 import { sourceFilesColumns } from '@components/table/table-columns/freelancer/source-files-columns/source-files-columns'
 
 import { SourceFilesDataConverter } from '@utils/data-grid-data-converters'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SourceFilesViewModel {
-  history = undefined
-
   nameSearchValue = ''
 
   get currentData() {
@@ -29,50 +24,26 @@ export class SourceFilesViewModel {
   }
 
   sourceFiles = []
-
-  showWarningModal = false
-  showConfirmModal = false
-
   rowSelectionModel = []
-
-  activeSubCategory = 0
-
   requestStatus = undefined
 
-  editField = undefined
-
   rowHandlers = {
-    onClickRemoveBtn: row => this.onClickRemoveBtn(row),
-    onClickEditBtn: row => this.onClickEditBtn(row),
-    onClickSaveBtn: row => this.onClickSaveBtn(row),
-    onChangeText: fileName => value => this.onChangeText(fileName)(value),
+    onClickRemoveBtn: id => this.removeSourceData(id),
+    onClickSaveBtn: (id, field, text) => this.onClickSaveBtn(id, field, text),
   }
 
   rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = sourceFilesColumns(this.rowHandlers, this.editField)
-
+  columnsModel = sourceFilesColumns(this.rowHandlers)
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
-  confirmModalSettings = {
-    isWarning: false,
-    title: '',
-    message: '',
-    onClickSuccess: () => {},
-  }
-
-  constructor({ history }) {
-    this.history = history
+  constructor() {
+    this.getSourceFiles()
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.editField,
-      () => (this.columnsModel = sourceFilesColumns(this.rowHandlers, this.editField)), // to update this.editField for sourceFilesColumns
-    )
   }
 
   onChangeFilterModel(model) {
@@ -95,85 +66,35 @@ export class SourceFilesViewModel {
     this.sortModel = sortModel
   }
 
-  loadData() {
-    try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      this.getSourceFiles()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
-    }
-  }
-
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
   }
 
-  onClickEditBtn(row) {
-    this.editField = row
-  }
-
-  async onClickSaveBtn(row) {
+  async onClickSaveBtn(id, field, text) {
     try {
-      const saveData = getObjectFilteredByKeyArrayWhiteList(this.editField, ['sourceFile', 'comments'])
-
-      await RequestProposalModel.patchFreelanceSourceFilesByGuid(row._id, saveData)
-
-      runInAction(() => {
-        this.editField = undefined
-      })
+      await RequestProposalModel.patchFreelanceSourceFilesByGuid(id, { [field]: text })
 
       this.getSourceFiles()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
-  onClickRemoveBtn(row) {
-    this.confirmModalSettings = {
-      isWarning: false,
-      title: t(TranslationKey.Attention),
-      message: t(TranslationKey['Do you want to delete the source file?']),
-      onClickSuccess: () => this.removeSourceData(row),
-    }
-
-    this.onTriggerOpenModal('showConfirmModal')
-  }
-
-  async removeSourceData(row) {
+  async removeSourceData(id) {
     try {
-      if (row?._id) {
-        await RequestProposalModel.deleteFreelanceSourceFilesByGuid(row?._id)
+      await RequestProposalModel.deleteFreelanceSourceFilesByGuid(id)
 
-        runInAction(() => {
-          this.editField = undefined
-        })
-
-        this.getSourceFiles()
-      }
-
-      this.onTriggerOpenModal('showConfirmModal')
+      this.getSourceFiles()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
-  }
-
-  onChangeText = fieldName => value => {
-    const newFormFields = { ...this.editField }
-
-    newFormFields[fieldName] = value
-
-    this.editField = newFormFields
   }
 
   async getSourceFiles() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await RequestProposalModel.getFreelanceSourceFiles()
 
@@ -182,18 +103,14 @@ export class SourceFilesViewModel {
         this.rowCount = this.sourceFiles.length
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   onChangeNameSearchValue(e) {
     this.nameSearchValue = e.target.value
-  }
-
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
   }
 }

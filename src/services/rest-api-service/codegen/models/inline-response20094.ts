@@ -13,26 +13,75 @@
  */
 
 
-import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1ShopSellStatistics } from './api-v1-shop-sell-statistics';
 
 /**
- * Результат запроса с пагинацией
+ * Схема получение лайт версии продажи магазина
  * @export
  * @interface InlineResponse20094
  */
 export interface InlineResponse20094 {
     /**
-     * Всего кол-во записей в результате запроса
+     * GUID магазина на продажу.
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20094
+     */
+    owner?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Имя магазина для продажи
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    title?: string;
+    /**
+     * Статус магазина для продажи
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    status?: string;
+    /**
+     * Файлы, которые привязаны к магазину
+     * @type {Array<string>}
+     * @memberof InlineResponse20094
+     */
+    files?: Array<string>;
+    /**
+     * Стоимость магазина
      * @type {number}
      * @memberof InlineResponse20094
      */
-    count?: number;
+    price?: number;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<ApiV1BatchesBoxes>}
+     * Ежемесячный множитель
+     * @type {number}
      * @memberof InlineResponse20094
      */
-    rows?: Array<ApiV1BatchesBoxes>;
+    monthlyMultiplier?: number;
+    /**
+     * 
+     * @type {ApiV1ShopSellStatistics}
+     * @memberof InlineResponse20094
+     */
+    statistics?: ApiV1ShopSellStatistics;
+    /**
+     * Дата создания бизнеса
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    businessStartDate?: string;
+    /**
+     * Детали магазина
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    shopDetails?: string;
 }
 
 

@@ -6,7 +6,6 @@ export const useStyles = makeStyles()(theme => ({
     minHeight: '150px',
     maxHeight: '900px',
     overflowY: 'auto',
-
     display: 'flex',
     flexDirection: 'column',
   },
@@ -44,8 +43,5 @@ export const useStyles = makeStyles()(theme => ({
     flexWrap: 'wrap',
     gap: 3,
     marginBottom: '15px',
-  },
-  CancelBtn: {
-    color: theme.palette.text.general,
   },
 }))

@@ -3,28 +3,25 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
 import { AddOrEditHsCodeInBox } from '@components/forms/add-or-edit-hs-code-in-box-form'
-import { BoxViewForm } from '@components/forms/box-view-form'
 import { EditBoxStorekeeperForm } from '@components/forms/edit-box-storekeeper-form'
 import { EditBoxTasksForm } from '@components/forms/edit-box-tasks-form'
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
 import { MoveBoxToBatchForm } from '@components/forms/move-box-to-batch-form'
-import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { BoxModal } from '@components/modals/box-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
 import { StorekeeperRedistributeBox } from '@components/modals/storekeeper'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './warehouse-my-warehouse-view.style'
 
@@ -60,15 +57,12 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
           onSubmit={viewModel.onSearchSubmit}
         />
-
-        <div />
       </div>
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
-          localeText={getLocalizationByLanguageTag()}
           isRowSelectable={params =>
             params.row.isDraft === false &&
             params.row.originalData.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
@@ -102,7 +96,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -115,27 +109,13 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
       </div>
 
       <Modal
-        openModal={viewModel.showBoxViewModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-      >
-        <BoxViewForm
-          userInfo={viewModel.userInfo}
-          box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
-        />
-      </Modal>
-
-      <Modal
         openModal={viewModel.showBoxMoveToBatchModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxMoveToBatchModal')}
       >
         <MoveBoxToBatchForm
           box={viewModel.curBoxToMove}
           batches={viewModel.batches}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBoxMoveToBatchModal')}
           onSubmit={viewModel.onSubmitMoveBoxToBatch}
           onSubmitCreateBatch={viewModel.onSubmitCreateBatch}
@@ -149,7 +129,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         <AddOrEditBatchForm
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           sourceBox={viewModel.sourceBoxForBatch}
           boxesData={viewModel.boxesData}
           onClose={() => viewModel.onTriggerOpenModal('showAddBatchModal')}
@@ -166,7 +146,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           requestStatus={viewModel.requestStatus}
           formItem={viewModel.curBox}
           destinationsFavourites={viewModel.destinationsFavourites}
@@ -178,14 +157,10 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
       </Modal>
 
       <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+        openModal={viewModel.showBoxViewModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
-        <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-        />
+        <BoxModal boxId={viewModel.curBox} onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')} />
       </Modal>
 
       <Modal
@@ -221,23 +196,10 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
       <Modal openModal={viewModel.showEditBoxModal} setOpenModal={viewModel.onTriggerShowEditBoxModal}>
         <EditBoxTasksForm
           isInStorekeeperWarehouse
-          box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           setEditModal={viewModel.onTriggerShowEditBoxModal}
           storekeeperWarehouseSubmit={viewModel.onSubmitEditBox}
         />
       </Modal>
-
-      {viewModel.showSuccessInfoModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
-          title={viewModel.modalEditSuccessMessage}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
-        />
-      ) : null}
 
       <Modal
         missClickModalOn
@@ -247,7 +209,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         <MergeBoxesModal
           showCheckbox
           userInfo={viewModel.userInfo}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={
@@ -273,7 +234,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
       >
         <StorekeeperRedistributeBox
           showCheckbox
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           showEditBoxModalR={viewModel.showEditBoxModalR}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
@@ -299,7 +259,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
       >
         <GroupingBoxesForm
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={viewModel.boxesMy
@@ -309,18 +268,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
         />
       </Modal>
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        />
-      ) : null}
     </>
   )
 })

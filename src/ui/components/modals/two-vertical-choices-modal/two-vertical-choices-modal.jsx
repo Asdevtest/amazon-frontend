@@ -1,7 +1,5 @@
 import { memo } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 
@@ -28,34 +26,22 @@ export const TwoVerticalChoicesModal = memo(
 
     return (
       <Modal openModal={openModal} setOpenModal={setOpenModal}>
-        <div className={styles.modalMessageWrapper}>
-          <Typography variant="h5" className={styles.title}>
-            {title}
-          </Typography>
+        <div className={styles.wrapper}>
+          <p className={styles.title}>{title}</p>
 
-          <div className={styles.resultButtonsWrapper}>
-            <Button tooltipInfoContent={tooltipFirstButton} className={styles.button} onClick={onClickTopBtn}>
-              {topBtnText}
+          <Button tooltipInfoContent={tooltipFirstButton} onClick={onClickTopBtn}>
+            {topBtnText}
+          </Button>
+
+          <Button tooltipInfoContent={tooltipSecondButton} variant={ButtonVariant.OUTLINED} onClick={onClickBottomBtn}>
+            {bottomBtnText}
+          </Button>
+
+          {onClickThirdBtn && thirdBtnText && (
+            <Button tooltipInfoContent={tooltipThirdButton} variant={ButtonVariant.OUTLINED} onClick={onClickThirdBtn}>
+              {thirdBtnText}
             </Button>
-            <Button
-              tooltipInfoContent={tooltipSecondButton}
-              variant={ButtonVariant.OUTLINED}
-              className={styles.bottomBtnText}
-              onClick={onClickBottomBtn}
-            >
-              {bottomBtnText}
-            </Button>
-            {onClickThirdBtn && thirdBtnText && (
-              <Button
-                tooltipInfoContent={tooltipThirdButton}
-                variant={ButtonVariant.OUTLINED}
-                className={styles.bottomBtnText}
-                onClick={onClickThirdBtn}
-              >
-                {thirdBtnText}
-              </Button>
-            )}
-          </div>
+          )}
         </div>
       </Modal>
     )

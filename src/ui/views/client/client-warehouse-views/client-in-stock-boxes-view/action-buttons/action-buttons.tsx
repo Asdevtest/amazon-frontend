@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
 
-import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -13,8 +12,7 @@ import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 import { useStyles } from './action-buttons.style'
 
 interface ActionButtonsProps {
-  selectedRows: any[]
-  selectedBoxes: string[]
+  selectedRows: string[]
   storekeepersData: IStorekeeper[]
   isHaveRequestSendToBatch: boolean
   isChoosenOnlySendToBatchBoxes: boolean
@@ -32,7 +30,6 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
   const { classes: styles } = useStyles()
   const {
     selectedRows,
-    selectedBoxes,
     storekeepersData,
     isHaveRequestSendToBatch,
     isChoosenOnlySendToBatchBoxes,
@@ -46,14 +43,12 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
     onClickWarehouseOrderButton,
   } = props
 
-  const disable = selectedRows.some(row => row.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
-
   return (
     <div className={styles.btnsWrapper}>
       <div className={styles.leftBtnsWrapper}>
         <Button
           tooltipInfoContent={t(TranslationKey['Form for requesting the shipment of boxes in a batch'])}
-          disabled={!selectedBoxes.length || disable}
+          disabled={!selectedRows?.length || isHaveRequestSendToBatch}
           onClick={onClickRequestToSendBatch}
         >
           {t(TranslationKey['Send batch'])}
@@ -61,14 +56,14 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
 
         <Button
           tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
-          disabled={selectedBoxes.length <= 1 || isHaveRequestSendToBatch}
+          disabled={selectedRows?.length <= 1 || isHaveRequestSendToBatch}
           onClick={onClickMergeBtn}
         >
           {t(TranslationKey.Merge)}
         </Button>
 
         <Button
-          disabled={selectedBoxes.length !== 1 || isHaveRequestSendToBatch}
+          disabled={selectedRows?.length !== 1 || isHaveRequestSendToBatch}
           tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
           onClick={onClickSplitBtn}
         >
@@ -76,24 +71,24 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         </Button>
         <Button
           tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
-          disabled={!selectedBoxes.length || isHaveRequestSendToBatch}
+          disabled={!selectedRows?.length || isHaveRequestSendToBatch}
           onClick={onClickEditBtn}
         >
           {t(TranslationKey.Edit)}
         </Button>
 
-        <Button disabled={!selectedBoxes.length || isHaveRequestSendToBatch} onClick={onClickGroupingBtn}>
+        <Button disabled={!selectedRows?.length || isHaveRequestSendToBatch} onClick={onClickGroupingBtn}>
           {t(TranslationKey.Grouping)}
         </Button>
 
         <Button
-          disabled={!selectedBoxes.length || !isChoosenOnlySendToBatchBoxes}
+          disabled={!selectedRows?.length || !isChoosenOnlySendToBatchBoxes}
           onClick={onClickReturnBoxesToStockBtn}
         >
           {t(TranslationKey['Return to stock'])}
         </Button>
 
-        <Button disabled={selectedBoxes.length !== 1} onClick={onClickWarehouseOrderButton}>
+        <Button disabled={selectedRows?.length !== 1} onClick={onClickWarehouseOrderButton}>
           {t(TranslationKey['Warehouse and orders'])}
         </Button>
       </div>

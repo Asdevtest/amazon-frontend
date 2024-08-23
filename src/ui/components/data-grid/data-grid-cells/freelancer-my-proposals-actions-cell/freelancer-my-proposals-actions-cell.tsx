@@ -29,20 +29,20 @@ export const FreelancerMyProposalsActionsCell: FC<FreelancerMyProposalsActionsCe
       <Button
         iconButton
         isTableButton
-        styleType={ButtonStyle.DANGER}
-        disabled={disabledCancelBtnStatuses.includes(status)}
-        onClick={onClickDeleteButton}
+        disabled={!noDisabledEditBtnStatuses.includes(status)}
+        onClick={onClickEditButton}
       >
-        <CrossIcon />
+        <EditIcon />
       </Button>
 
       <Button
         iconButton
         isTableButton
-        disabled={!noDisabledEditBtnStatuses.includes(status)}
-        onClick={onClickEditButton}
+        styleType={ButtonStyle.DANGER}
+        disabled={disabledCancelBtnStatuses.includes(status)}
+        onClick={onClickDeleteButton}
       >
-        <EditIcon />
+        <CrossIcon />
       </Button>
 
       <Button

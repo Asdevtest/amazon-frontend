@@ -34,15 +34,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 30,
   },
 
-  button: {
-    height: 40,
-    width: 100,
-  },
-
-  cancelButton: {
-    color: theme.palette.text.general,
-  },
-
   customSubMainWrapper: {
     width: '340px !important',
   },

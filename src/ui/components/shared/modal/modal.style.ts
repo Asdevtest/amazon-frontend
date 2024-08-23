@@ -9,7 +9,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'fixed',
     top: 0,
     left: 0,
-    zIndex: 100,
+    zIndex: 7,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -24,16 +24,23 @@ export const useStyles = makeStyles()(theme => ({
 
   contentWrapper: {
     position: 'relative',
-    padding: 20, // 20 - for test, before was 30
-    background: theme.palette.background.general,
-    borderRadius: 20,
+    padding: 10,
+    background: theme.palette.background.second,
+    borderRadius: 16,
+
+    '& > div': {
+      padding: 10, // for child's box-shadow
+    },
 
     [theme.breakpoints.down(768)]: {
-      padding: 20,
       height: '100%',
       width: '100%',
       borderRadius: 0,
     },
+  },
+
+  alternativeBackground: {
+    background: theme.palette.background.second,
   },
 
   content: {
@@ -61,7 +68,7 @@ export const useStyles = makeStyles()(theme => ({
     },
 
     [theme.breakpoints.down(768)]: {
-      zIndex: 50,
+      zIndex: 7,
       top: 10,
       right: 10,
       color: theme.palette.primary.main,

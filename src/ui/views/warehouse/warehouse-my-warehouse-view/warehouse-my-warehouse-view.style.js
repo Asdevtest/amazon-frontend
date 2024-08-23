@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   headerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -12,9 +12,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: 400,
-    height: 36,
+    width: 550,
   },
 
   datagridWrapper: {

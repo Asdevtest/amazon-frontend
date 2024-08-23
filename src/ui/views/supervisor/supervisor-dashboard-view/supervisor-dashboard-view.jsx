@@ -1,10 +1,8 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
+import { useState } from 'react'
 
-import { Paper, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
-import { getSupervisorDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
@@ -15,59 +13,47 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { styles } from './supervisor-dashboard-view.style'
+import { useStyles } from './supervisor-dashboard-view.style'
 
+import { getSupervisorDashboardCardConfig } from './supervisor-dashboard-view.config'
 import { SupervisorDashboardViewModel } from './supervisor-dashboard-view.model'
 
-export const SupervisorDashboardViewRaw = props => {
-  const [viewModel] = useState(() => new SupervisorDashboardViewModel({ history: props.history }))
-  const { classes: styles } = props
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
-  const supervisorButtonsRoutes = {
-    notifications: '',
-    messages: 'messages',
-    settings: 'settings',
-  }
+export const SupervisorDashboardView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new SupervisorDashboardViewModel({ history }))
 
   return (
     <>
-      <div>
-        <Paper className={styles.userInfoWrapper}>
-          <div className={styles.userInfoLeftWrapper}>
-            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
+      <div className={styles.userInfoWrapper}>
+        <div className={styles.userInfoLeftWrapper}>
+          <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
-            <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
+          <DashboardBalance user={viewModel.userInfo} />
+        </div>
+
+        <DashboardButtons user={viewModel.userInfo} routes={viewModel.supervisorButtonsRoutes} />
+
+        {viewModel.userInfo.masterUser ? (
+          <div className={styles.masterUserWrapper}>
+            <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+
+            <UserLink
+              blackText
+              name={viewModel.userInfo.masterUser?.name}
+              userId={viewModel.userInfo.masterUser?._id}
+            />
           </div>
-
-          <DashboardButtons user={viewModel.userInfo} routes={supervisorButtonsRoutes} />
-
-          {viewModel.userInfo.masterUser && (
-            <div className={styles.masterUserWrapper}>
-              <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
-
-              <UserLink
-                blackText
-                name={viewModel.userInfo.masterUser?.name}
-                userId={viewModel.userInfo.masterUser?._id}
-              />
-            </div>
-          )}
-        </Paper>
-        {getSupervisorDashboardCardConfig().map(item => (
-          <DashboardOneLineCardsList
-            key={item.key}
-            config={item}
-            valuesData={viewModel.dashboardData}
-            onClickViewMore={viewModel.onClickInfoCardViewMode}
-          />
-        ))}
+        ) : null}
       </div>
+
+      {getSupervisorDashboardCardConfig().map(item => (
+        <DashboardOneLineCardsList
+          key={item.key}
+          config={item}
+          valuesData={viewModel.dashboardData}
+          onClickViewMore={viewModel.onClickInfoCardViewMode}
+        />
+      ))}
     </>
   )
-}
-
-export const SupervisorDashboardView = withStyles(observer(SupervisorDashboardViewRaw), styles)
+})

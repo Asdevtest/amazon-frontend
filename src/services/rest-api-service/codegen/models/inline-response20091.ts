@@ -13,73 +13,56 @@
  */
 
 
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 
 /**
- * Схема магазина.
+ * 
  * @export
  * @interface InlineResponse20091
  */
 export interface InlineResponse20091 {
     /**
-     * ID магазина.
+     * GUID заявки
      * @type {string}
      * @memberof InlineResponse20091
      */
     _id?: string;
     /**
-     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
-     * @type {string}
+     * Номер заявки
+     * @type {number}
      * @memberof InlineResponse20091
      */
-    name?: string;
+    humanFriendlyId?: number;
     /**
-     * URL для скачивания ежедневных отчетов SellerBoard.
-     * @type {string}
+     * 
+     * @type {ApiV1AnnouncementsMySpec}
      * @memberof InlineResponse20091
      */
-    sellerBoardWarehouseReportUrlDaily?: string;
+    spec?: ApiV1AnnouncementsMySpec;
     /**
-     * URL для скачивания отчетов SellerBoard за последний месяц.
+     * Название заявки
      * @type {string}
      * @memberof InlineResponse20091
      */
-    sellerBoardWarehouseReportUrlMonthly?: string;
+    title?: string;
     /**
-     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * Статус заявки
      * @type {string}
      * @memberof InlineResponse20091
      */
-    reportAccountUrl?: string;
+    status?: string;
     /**
-     * GUID, владелеца.
+     * 
      * @type {string}
      * @memberof InlineResponse20091
      */
-    ownerId?: string;
+    onFinishedIdeaId?: string;
     /**
-     * GUID любого, кто последний создал.
+     * 
      * @type {string}
      * @memberof InlineResponse20091
      */
-    createdById?: string;
-    /**
-     * GUID любого, кто последний редактировал.
-     * @type {string}
-     * @memberof InlineResponse20091
-     */
-    lastModifiedById?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20091
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse20091
-     */
-    updatedAt?: string;
+    onCheckedIdeaId?: string;
 }
 
 

@@ -21,17 +21,35 @@
  */
 export interface InlineObject149 {
     /**
-     * Старый ароль
+     * Эндпоинт для которого надо установить пресеты
      * @type {string}
      * @memberof InlineObject149
      */
-    oldPassword: string;
+    endpoint?: string;
     /**
-     * Новый пароль
+     * 
+     * @type {object}
+     * @memberof InlineObject149
+     */
+    settings?: object;
+    /**
+     * Является ли пресет активным.
+     * @type {boolean}
+     * @memberof InlineObject149
+     */
+    activeSetting?: boolean;
+    /**
+     * Title of preset
      * @type {string}
      * @memberof InlineObject149
      */
-    newPassword: string;
+    title?: string;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineObject149
+     */
+    isFavorite?: boolean;
 }
 
 

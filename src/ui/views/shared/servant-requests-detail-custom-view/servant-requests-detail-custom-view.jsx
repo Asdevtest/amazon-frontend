@@ -10,7 +10,6 @@ import { RequestDesignerResultForm } from '@components/forms/request-designer-re
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { ServantGeneralRequestInfo } from '@components/requests-and-request-proposals/servant-general-request-info'
 import { Button } from '@components/shared/button'
@@ -68,6 +67,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
               requestProposals={viewModel.requestProposals}
               request={viewModel.request}
               onSubmit={viewModel.onSubmitOfferDeal}
+              onJoinChat={viewModel.onJoinChat}
             />
           </div>
         ) : null}
@@ -77,6 +77,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
             <CustomSearchRequestDetails request={viewModel.request} isOpen={!viewModel.chatSelectedId} />
           </div>
         ) : null}
+
         {viewModel.chatIsConnected && viewModel.chats?.length ? (
           <div className={styles.chatWrapper}>
             <ChatRequestAndRequestProposalContext.Provider
@@ -120,7 +121,6 @@ export const RequestDetailCustomView = observer(({ history }) => {
                     ) : null}
                   </div>
                 )}
-                updateData={viewModel.loadData}
                 requestStatus={viewModel.requestStatus}
                 onChangeRequestStatus={viewModel.setRequestStatus}
                 onSubmitMessage={viewModel.onSubmitMessage}
@@ -135,18 +135,6 @@ export const RequestDetailCustomView = observer(({ history }) => {
           </div>
         ) : null}
       </div>
-
-      {viewModel.showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        />
-      ) : null}
 
       <Modal
         missClickModalOn
@@ -176,7 +164,6 @@ export const RequestDetailCustomView = observer(({ history }) => {
       {viewModel.showRequestResultModal ? (
         <RequestResultModal
           // @ts-ignore
-          request={viewModel.request}
           openModal={viewModel.showRequestResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
           onClickSendAsResult={viewModel.onClickSendAsResult}

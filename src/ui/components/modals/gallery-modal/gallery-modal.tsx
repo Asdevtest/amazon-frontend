@@ -1,73 +1,41 @@
 import { FC, memo } from 'react'
 
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { Modal } from '@components/shared/modal'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { useStyles } from './gallery-modal.style'
-
-import { Arrows, DocumentsTab, Header, MediaFilesTab } from './components'
+import { DocumentsTab, Header, MediaFilesTab } from './components'
 import { customSwitcherSettings } from './gallery-modal.config'
 import { SwitcherConditions } from './gallery-modal.type'
 import { useGalleryModal } from './use-gallery-modal'
 
 interface GalleryModalProps {
   files: UploadFileType[]
-  openModal: boolean
-  onOpenModal: () => void
 }
 
-export const GalleryModal: FC<GalleryModalProps> = memo(props => {
-  const { files, openModal, onOpenModal } = props
-
-  const { classes: styles } = useStyles()
-
-  const {
-    tabValue,
-    setTabValue,
-
-    visibleSlides,
-
-    currentPage,
-    totalSlides,
-
-    isTransitioning,
-    setIsTransitioning,
-
-    onSlideChange,
-  } = useGalleryModal(files)
+export const GalleryModal: FC<GalleryModalProps> = memo(({ files }) => {
+  const { tabValue, setTabValue, visibleSlides } = useGalleryModal(files)
 
   return (
-    <Modal openModal={openModal} setOpenModal={onOpenModal}>
-      <div className={styles.wrapper}>
-        <Header />
+    <>
+      <Header />
 
-        <CustomSwitcher
-          fullWidth
-          switchMode="medium"
-          condition={tabValue}
-          switcherSettings={customSwitcherSettings}
-          changeConditionHandler={(condition: string | number | null | undefined) => setTabValue(Number(condition))}
-        />
+      <CustomSwitcher
+        fullWidth
+        switchMode="medium"
+        condition={tabValue}
+        switcherSettings={customSwitcherSettings}
+        changeConditionHandler={setTabValue}
+      />
 
-        <TabPanel value={tabValue} index={SwitcherConditions.MEDIA_FILES}>
-          <MediaFilesTab slides={visibleSlides} isTransitioning={isTransitioning} />
-        </TabPanel>
+      <TabPanel value={tabValue} index={SwitcherConditions.MEDIA_FILES}>
+        <MediaFilesTab slides={visibleSlides} />
+      </TabPanel>
 
-        <TabPanel value={tabValue} index={SwitcherConditions.DOCUMENTS}>
-          <DocumentsTab files={visibleSlides} isTransitioning={isTransitioning} />
-        </TabPanel>
-
-        <Arrows
-          currentPage={currentPage}
-          pageСount={totalSlides}
-          disableArrows={isTransitioning}
-          setIsTransitioning={setIsTransitioning}
-          onChangeSlide={onSlideChange}
-        />
-      </div>
-    </Modal>
+      <TabPanel value={tabValue} index={SwitcherConditions.DOCUMENTS}>
+        <DocumentsTab files={visibleSlides} />
+      </TabPanel>
+    </>
   )
 })

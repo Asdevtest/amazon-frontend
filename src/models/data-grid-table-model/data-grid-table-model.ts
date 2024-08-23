@@ -1,154 +1,87 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { makeObservable, runInAction } from 'mobx'
+import { makeObservable } from 'mobx'
 import { ChangeEvent } from 'react'
 
-import {
-  GridCallbackDetails,
-  GridColDef,
-  GridColumnVisibilityModel,
-  GridFilterModel,
-  GridPaginationModel,
-  GridSortModel,
-} from '@mui/x-data-grid'
+import { GridColumnVisibilityModel, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
+import { GRID_CHECKBOX_SELECTION_COL_DEF, GridPinnedColumns } from '@mui/x-data-grid-premium'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { DefaultModel } from '@models/default-model'
+import { TableSettingsModel } from '@models/table-settings'
 
-import { ModalsModel } from '@models/model-with-modals'
-import { SettingsModel } from '@models/settings-model'
+import { IGridColumn } from '@typings/shared/grid-column'
 
-import { filterModelInitialValue, paginationModelInitialValue, sortModelInitialValue } from './model-config'
+import { DataGridTableModelParams } from './data-grid-table-model.type'
+import { filterModelInitialValue, paginationModelInitialValue } from './model-config'
 import { observerConfig } from './observer-config'
 
-export class DataGridTableModel extends ModalsModel {
-  _requestStatus: loadingStatuses = loadingStatuses.SUCCESS
-
-  _unserverSearchValue = ''
-  get unserverSearchValue() {
-    return this._unserverSearchValue
-  }
-  set unserverSearchValue(unserverSearchValue: string) {
-    this._unserverSearchValue = unserverSearchValue
-  }
-
-  _densityModel = 'compact'
-  _rowCount = 0
-  _sortModel: GridSortModel = sortModelInitialValue
-  _paginationModel: GridPaginationModel = paginationModelInitialValue
-  _filterModel: GridFilterModel = filterModelInitialValue
-  _columnVisibilityModel: GridColumnVisibilityModel = {}
-  _selectedRows: string[] = []
-  _tableKey: string | undefined = undefined
-
-  _getMainDataMethod: (...args: any) => any
-  _columnsModel: GridColDef[]
-  _tableData: any[] = []
-
-  _defaultGetDataMethodOptions: any
-
-  get requestStatus() {
-    return this._requestStatus
-  }
-  set requestStatus(requestStatus: loadingStatuses) {
-    this._requestStatus = requestStatus
-  }
-  get rowCount() {
-    return this._rowCount
-  }
-  set rowCount(rowCount: number) {
-    this._rowCount = rowCount
-  }
-  get sortModel() {
-    return this._sortModel
-  }
-  set sortModel(sortModel: GridSortModel) {
-    this._sortModel = sortModel
-  }
-  get densityModel() {
-    return this._densityModel
-  }
-  get paginationModel() {
-    return this._paginationModel
-  }
-  set paginationModel(paginationModel: GridPaginationModel) {
-    this._paginationModel = paginationModel
-  }
-  get selectedRows() {
-    return this._selectedRows
-  }
-  set selectedRows(selectedRows: string[]) {
-    this._selectedRows = selectedRows
-  }
-  get filterModel() {
-    return this._filterModel
-  }
-  set filterModel(filterModel: GridFilterModel) {
-    this._filterModel = filterModel
-  }
-  get columnVisibilityModel() {
-    return this._columnVisibilityModel
-  }
-  set columnVisibilityModel(columnVisibilityModel: GridColumnVisibilityModel) {
-    this._columnVisibilityModel = columnVisibilityModel
-  }
-  get tableData() {
-    return this._tableData
-  }
-  set tableData(tableData: any[]) {
-    this._tableData = tableData
+export class DataGridTableModel extends DefaultModel {
+  currentSearchValue: string = ''
+  densityModel = 'compact'
+  sortModel: any = undefined
+  paginationModel: GridPaginationModel = paginationModelInitialValue
+  filterModel: GridFilterModel = filterModelInitialValue
+  columnVisibilityModel: GridColumnVisibilityModel = {}
+  selectedRows: string[] = []
+  tableKey: string | undefined = undefined
+  columnsModel: IGridColumn[] = []
+  fieldsForSearch: string[] = []
+  pinnedColumns: GridPinnedColumns = {
+    left: [GRID_CHECKBOX_SELECTION_COL_DEF.field],
+    right: [],
   }
 
-  get defaultGetDataMethodOptions() {
-    return this._defaultGetDataMethodOptions
-  }
-  set defaultGetDataMethodOptions(defaultGetDataMethodOptions: any) {
-    this._defaultGetDataMethodOptions = defaultGetDataMethodOptions
+  get filteredData() {
+    if (this.fieldsForSearch?.length) {
+      const searchValue = this.currentSearchValue.toLowerCase()
+
+      return this.currentData?.filter((item: any) => this.checkNestedFields(item, searchValue, this.fieldsForSearch))
+    } else {
+      return this.currentData
+    }
   }
 
-  get getMainDataMethod() {
-    return this._getMainDataMethod
-  }
-  set getMainDataMethod(getMainDataMethod: (...args: any) => any) {
-    this._getMainDataMethod = getMainDataMethod
+  get isSomeFilterOn() {
+    return !!this.filterModel?.items?.length
   }
 
-  get columnsModel() {
-    return this._columnsModel
-  }
-  set columnsModel(columnsModel: GridColDef[]) {
-    this._columnsModel = columnsModel
-  }
-  constructor(
-    getMainDataMethod: (...args: any) => any,
-    columnsModel: GridColDef[],
-    tableKey?: string,
-    defaultGetDataMethodOptions?: any,
-  ) {
-    super()
+  constructor({
+    getMainDataMethod,
+    columnsModel,
+    tableKey,
+    defaultGetCurrentDataOptions,
+    fieldsForSearch,
+  }: DataGridTableModelParams) {
+    super({ getMainDataMethod, defaultGetCurrentDataOptions })
 
-    this._getMainDataMethod = getMainDataMethod
-    this._columnsModel = columnsModel
-    this._tableKey = tableKey
-    this.defaultGetDataMethodOptions = defaultGetDataMethodOptions
+    if (fieldsForSearch) {
+      this.fieldsForSearch = fieldsForSearch
+    }
+
+    this.columnsModel = columnsModel
+    this.tableKey = tableKey
 
     makeObservable(this, observerConfig)
   }
 
   setDataGridState() {
-    if (!this._tableKey) return
+    if (!this.tableKey) return
 
     const requestState = {
       sortModel: this.sortModel,
       filterModel: this.filterModel,
       paginationModel: this.paginationModel,
       columnVisibilityModel: this.columnVisibilityModel,
+      pinnedColumns: this.pinnedColumns,
     }
 
-    SettingsModel.setDataGridState(requestState, this._tableKey)
+    TableSettingsModel.saveTableSettings(requestState, this.tableKey)
   }
 
   getDataGridState() {
-    if (!this._tableKey) return
-    const state = SettingsModel.dataGridState[this._tableKey as keyof typeof SettingsModel.dataGridState]
+    if (!this.tableKey) return
+
+    // @ts-ignore
+    const state = TableSettingsModel.getTableSettings(this.tableKey)
 
     if (state) {
       // @ts-ignore
@@ -159,14 +92,28 @@ export class DataGridTableModel extends ModalsModel {
       this.paginationModel = state?.paginationModel
       // @ts-ignore
       this.columnVisibilityModel = state?.columnVisibilityModel
+      // @ts-ignore
+      this.pinnedColumns = state?.pinnedColumns
     }
   }
 
-  onColumnVisibilityModelChange(model: GridColumnVisibilityModel, details: GridCallbackDetails, isNotServer?: boolean) {
+  onColumnVisibilityModelChange(model: GridColumnVisibilityModel) {
     this.columnVisibilityModel = model
-    if (!isNotServer) {
-      this.getMainTableData()
-    }
+    this.setDataGridState()
+  }
+
+  onChangeSortingModel(sortModel: GridSortModel) {
+    this.sortModel = sortModel
+    this.setDataGridState()
+  }
+
+  onChangeFilterModel(model: GridFilterModel) {
+    this.filterModel = model
+    this.setDataGridState()
+  }
+
+  onPaginationModelChange(model: GridPaginationModel) {
+    this.paginationModel = model
     this.setDataGridState()
   }
 
@@ -174,54 +121,47 @@ export class DataGridTableModel extends ModalsModel {
     this.selectedRows = selectedRows
   }
 
-  onChangeSortingModel(sortModel: GridSortModel, details: GridCallbackDetails, isNotServer?: boolean) {
-    this.sortModel = sortModel
-
-    if (!isNotServer) {
-      this.getMainTableData()
-    }
-    this.setDataGridState()
-  }
-
-  onChangeFilterModel(model: GridFilterModel, details: GridCallbackDetails, isNotServer?: boolean) {
-    this.filterModel = model
-    if (!isNotServer) {
-      this.getMainTableData()
-    }
-    this.setDataGridState()
-  }
-
-  onPaginationModelChange(model: GridPaginationModel, details: GridCallbackDetails, isNotServer?: boolean) {
-    this.paginationModel = model
-    if (!isNotServer) {
-      this.getMainTableData()
-    }
-    this.setDataGridState()
-  }
-
-  async getMainTableData(options?: any) {
-    try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      const result = await this.getMainDataMethod(options || this.defaultGetDataMethodOptions?.())
-
-      runInAction(() => {
-        this.tableData = result?.rows || result
-        this.rowCount = result?.count || result.length
-      })
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
-    } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
-    }
-  }
-
-  setRequestStatus(requestStatus: loadingStatuses) {
-    this.requestStatus = requestStatus
-  }
-
   onChangeUnserverSearchValue(e: ChangeEvent<HTMLInputElement>) {
-    this.unserverSearchValue = e.target.value
+    this.currentSearchValue = e.target.value
+  }
+
+  handlePinColumn(pinnedColumns: GridPinnedColumns) {
+    this.pinnedColumns = pinnedColumns
+    this.setDataGridState()
+  }
+
+  handleHideColumns(columnsToHide: string[]) {
+    columnsToHide.forEach(el => {
+      this.columnVisibilityModel[el] = false
+    })
+  }
+
+  onClickResetFilters() {
+    this.filterModel = filterModelInitialValue
+  }
+
+  /**
+   * Recursively checks an object for string values starting with a specified search value,
+   * in the specified fields and all their nested objects.
+   * @param {object} obj - The object to check.
+   * @param {string} searchValue - The search value (case insensitive).
+   * @param {string[]} fieldsForSearch - Array of fields to search within.
+   * @returns {boolean} Returns true if any field of the object or its nested objects starts with the search value, otherwise false.
+   */
+  checkNestedFields(obj: any, searchValue: string, fieldsForSearch: string[]): boolean {
+    if (typeof obj !== 'object' || obj === null) {
+      return false
+    }
+
+    return Object.keys(obj).some(key => {
+      if (fieldsForSearch.includes(key) && typeof obj[key] === 'string') {
+        return obj[key].toLowerCase().startsWith(searchValue)
+      } else if (Array.isArray(obj[key])) {
+        return false
+      } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+        return this.checkNestedFields(obj[key], searchValue, fieldsForSearch)
+      }
+      return false
+    })
   }
 }

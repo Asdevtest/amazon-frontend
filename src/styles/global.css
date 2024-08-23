@@ -2,7 +2,6 @@
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 400;
-
   src: local('Manrope'), url('./fonts/Manrope-Regular.ttf') format('ttf');
 }
 
@@ -10,7 +9,6 @@
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 600;
-
   src: local('Manrope'), url('./fonts/Manrope-SemiBold.ttf') format('ttf');
 }
 
@@ -18,15 +16,24 @@
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 800;
-
   src: local('Manrope'), url('./fonts/Manrope-Bold.ttf') format('ttf');
 }
 
 :root {
   color-scheme: dark light;
+
+  /* Overriding toastify styles  */
+  --toastify-color-info: #91caff !important;
+  --toastify-color-success: #b7eb8f !important;
+  --toastify-color-warning: #ffe58f !important;
+  --toastify-color-error: #ffccc7 !important;
+  --toastify-toast-width: 420px !important;
+  --toastify-text-color-info: #4096ff !important;
+  --toastify-text-color-success: #95de64 !important;
+  --toastify-text-color-warning: #ffd666 !important;
+  --toastify-text-color-error: #ff7875 !important;
 }
 
-/* Reset and base styles  */
 * {
   padding: 0px;
   margin: 0px;

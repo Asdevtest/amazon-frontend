@@ -39,6 +39,12 @@ export interface ApiV1BoxesClientsInTransferGuidBatch {
      */
     status?: string;
     /**
+     * 
+     * @type {string}
+     * @memberof ApiV1BoxesClientsInTransferGuidBatch
+     */
+    arrivalDate?: string;
+    /**
      * Название партии
      * @type {string}
      * @memberof ApiV1BoxesClientsInTransferGuidBatch

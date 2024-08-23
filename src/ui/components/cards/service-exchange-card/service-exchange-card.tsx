@@ -1,12 +1,13 @@
+import { Image } from 'antd'
 import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
 import { Button } from '@components/shared/button'
-import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -54,9 +55,12 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
           {t(TranslationKey.Details)}
         </button>
 
-        <div className={styles.gallery}>
-          <SlideshowGallery hiddenPreviews files={service?.linksToMediaFiles} slidesToShow={2} />
-        </div>
+        <Image
+          width="100%"
+          height={150}
+          src={getAmazonImageUrl(service.linksToMediaFiles[0])}
+          className={styles.image}
+        />
 
         {isNotMyServices ? (
           <div className={styles.detailsWrapper}>
@@ -100,7 +104,6 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
         <div className={styles.buttonWrapper}>
           <Button
             styleType={isSuccess ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
-            className={styles.openBtn}
             onClick={() => onClickButton(service)}
           >
             {buttonContent}

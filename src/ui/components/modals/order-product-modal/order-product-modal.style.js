@@ -24,13 +24,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: 0,
   },
 
-  modalButton: {
-    color: '#fff',
-    fontSize: '16px',
-    fontWeight: 500,
-    lineHeight: '19px',
-  },
-
   table: {
     '& td': {
       flexShrink: 0,
@@ -51,6 +44,9 @@ export const useStyles = makeStyles()(theme => ({
 
   tableWrapper: {
     width: '100%',
+    borderRadius: 20,
+    background: theme.palette.background.general,
+    boxShadow: 'rgba(0, 0, 0, 0.15) 0px 1px 3px 1px, rgba(0, 0, 0, 0.3) 0px 1px 2px 0px',
   },
 
   productCell: {
@@ -110,7 +106,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   qntCell: {
-    width: 50,
+    width: 150,
     padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
@@ -223,7 +219,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   commentCell: {
-    width: 250,
+    width: 230,
     padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
 
@@ -262,23 +258,12 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     gap: 50,
-    margin: '30px 15px 5px 0',
-  },
-  buyNowBtn: {
-    color: '#fff',
-  },
-  cancelBtn: {
-    backgroundColor: 'inherit !important',
-    color: theme.palette.text.general,
-    textTransform: 'none',
-    '&:hover': {
-      color: theme.palette.text.general,
-      backgroundColor: '#e4e4e4',
-    },
+    margin: '20px 15px 5px 0px',
   },
 
   sumWrapper: {
     textAlign: 'right',
+    paddingTop: 10,
   },
 
   sumText: {

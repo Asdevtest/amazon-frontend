@@ -22,7 +22,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: 20,
     right: 30,
-    zIndex: 10,
+    zIndex: 7,
     width: 40,
     height: 40,
     border: '1px solid #E0E0E0',
@@ -44,7 +44,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     bottom: 30,
     right: 30,
-    zIndex: 10,
+    zIndex: 7,
     width: 40,
     height: 40,
     backgroundColor: theme.palette.background.general,
@@ -119,27 +119,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  sendBtnTextWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 15,
-  },
-
-  sendBtnIcon: {
-    width: '22px !important',
-    height: '18px !important',
-  },
-
-  sendBtn: {
-    height: 40,
-
-    [theme.breakpoints.down(1024)]: {
-      width: 40,
-      height: 40,
-      borderRadius: '50%',
-    },
-  },
-
   inputFilled: {
     background: theme.palette.input.second,
   },
@@ -198,7 +177,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   emojisWrapper: {
-    zIndex: 10,
+    zIndex: 7,
     position: 'absolute',
     right: 65,
     bottom: 70,
@@ -294,6 +273,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 10,
+    zIndex: 7,
   },
 }))

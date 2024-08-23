@@ -4,7 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Checkbox } from '@components/shared/checkbox'
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -66,15 +66,15 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, se
       </div>
 
       <div
-        className={cx(styles.cardManageWrapper, {
+        className={cx({
           [styles.notActiceCard]: !payment.isChecked,
         })}
       >
         <Field
           multiline
           disabled={readOnly}
-          minRows={2}
-          maxRows={2}
+          minRows={5}
+          maxRows={5}
           inputProps={{ maxLength: 250 }}
           inputClasses={styles.commentInput}
           value={payment.paymentDetails}
@@ -84,21 +84,17 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, se
         />
 
         <div className={styles.imageFileInputWrapper}>
-          <UploadFilesInput
-            withoutTitle
-            fullWidth
-            disabled={readOnly}
-            dragAndDropBtnHeight={40}
-            maxHeight={90}
-            imageListWrapperStyles={styles.imageListWrapperStyles}
-            сontainerStyles={styles.containerClasses}
-            images={payment.paymentImages}
-            setImages={handleChangeImagesForLoad}
-            maxNumber={50}
-          />
-
-          {readOnly && (
-            <PhotoAndFilesSlider smallSlider showPreviews withoutMakeMainImage files={payment?.paymentImages || []} />
+          {readOnly ? (
+            <SlideshowGallery slidesToShow={2} files={payment?.paymentImages || []} />
+          ) : (
+            <UploadFilesInput
+              withoutTitles
+              disabled={readOnly}
+              dragAndDropButtonHeight={40}
+              maxHeight={95}
+              images={payment.paymentImages}
+              setImages={handleChangeImagesForLoad}
+            />
           )}
         </div>
       </div>

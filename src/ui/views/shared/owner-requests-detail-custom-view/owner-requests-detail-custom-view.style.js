@@ -1,12 +1,8 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  button: {
-    marginRight: '10px',
-  },
-
   detailsWrapper: {
-    marginTop: '10px',
+    marginTop: '20px',
   },
 
   chatWrapper: {
@@ -18,15 +14,6 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-
-  hideChatButton: {
-    width: '250px',
-    height: '52px',
-    fontSize: '16px',
-    lineHeight: '19px',
-    fontWeight: '400',
-    marginTop: '10px',
   },
 
   additionalButtonsWrapper: {

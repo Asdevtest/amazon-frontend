@@ -60,8 +60,9 @@ export const ideasNotificationsViewColumns = handlers => [
         />
       )
     },
-    width: 300,
-    // columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+
+    width: 260,
+    minWidth: 100,
   },
 
   {

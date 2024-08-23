@@ -2,12 +2,9 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
+    position: 'relative',
     marginBottom: '20px',
     width: '100%',
-
-    [theme.breakpoints.down(768)]: {
-      marginBottom: 30,
-    },
   },
   rootOneLine: {
     display: 'flex',
@@ -20,10 +17,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '140%',
     color: theme.palette.text.general,
     marginBottom: '12px',
-    [theme.breakpoints.down(768)]: {
-      fontSize: 14,
-      marginBottom: 5,
-    },
   },
 
   labelOneLine: {
@@ -32,12 +25,11 @@ export const useStyles = makeStyles()(theme => ({
 
   errorText: {
     marginTop: '2px',
-    color: 'red',
+    color: theme.palette.text.red,
     maxWidth: '100%',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
     fontSize: '12px',
+    lineHeight: '16px',
+    wordBreak: 'break-word',
   },
 
   successText: {
@@ -60,14 +52,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tooltip: {
-    width: '18px !important',
-    height: '18px !important',
+    width: '16px !important',
+    height: '16px !important',
     color: 'red',
     transition: '.3s ease-in-out',
-    '&:hover': {
-      cursor: 'default',
-      transform: 'scale(1.1)',
-    },
+    cursor: 'pointer',
   },
 
   tooltipInfo: {
@@ -77,7 +66,7 @@ export const useStyles = makeStyles()(theme => ({
 
   labelWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
 
   inputWrapper: {

@@ -659,7 +659,7 @@ export const BatchesApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * ## Получить партии. В зависимости от роли:  админ - получает все партии без исключения.         клиент - получает все партии в которых есть его коробки.         супер: получает все партии без исключения.         байер: получает все партии в которых есть его коробки, которые он создал.         сторкипер: получает только свои партии.
          * @summary # Получить партии.
-         * @param {'IS_BEING_COLLECTED' | 'HAS_DISPATCHED'} status GUID склада который нужно получить.
+         * @param {'IS_BEING_COLLECTED' | 'HAS_DISPATCHED'} [status] GUID склада который нужно получить.
          * @param {boolean} [archive] Заархивирована ли партия
          * @param {string} [filters]                Возможные поля: asin:, amazonTitle, skuByClient, orderHumanFriendlyId, trackNumberText, orderItem, humanFriendlyId               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
          * @param {number} [limit] Лимит записей для пагинации
@@ -672,9 +672,7 @@ export const BatchesApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BatchesWithFiltersGet: async (status: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', archive?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'status' is not null or undefined
-            assertParamExists('apiV1BatchesWithFiltersGet', 'status', status)
+        apiV1BatchesWithFiltersGet: async (status?: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', archive?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/batches/with_filters`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -921,7 +919,7 @@ export const BatchesApiFp = function(configuration?: Configuration) {
         /**
          * ## Получить партии. В зависимости от роли:  админ - получает все партии без исключения.         клиент - получает все партии в которых есть его коробки.         супер: получает все партии без исключения.         байер: получает все партии в которых есть его коробки, которые он создал.         сторкипер: получает только свои партии.
          * @summary # Получить партии.
-         * @param {'IS_BEING_COLLECTED' | 'HAS_DISPATCHED'} status GUID склада который нужно получить.
+         * @param {'IS_BEING_COLLECTED' | 'HAS_DISPATCHED'} [status] GUID склада который нужно получить.
          * @param {boolean} [archive] Заархивирована ли партия
          * @param {string} [filters]                Возможные поля: asin:, amazonTitle, skuByClient, orderHumanFriendlyId, trackNumberText, orderItem, humanFriendlyId               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
          * @param {number} [limit] Лимит записей для пагинации
@@ -934,7 +932,7 @@ export const BatchesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BatchesWithFiltersGet(status: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', archive?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20017>> {
+        async apiV1BatchesWithFiltersGet(status?: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', archive?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20017>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BatchesWithFiltersGet(status, archive, filters, limit, offset, sortField, sortType, storekeeperId, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1105,7 +1103,7 @@ export const BatchesApiFactory = function (configuration?: Configuration, basePa
         /**
          * ## Получить партии. В зависимости от роли:  админ - получает все партии без исключения.         клиент - получает все партии в которых есть его коробки.         супер: получает все партии без исключения.         байер: получает все партии в которых есть его коробки, которые он создал.         сторкипер: получает только свои партии.
          * @summary # Получить партии.
-         * @param {'IS_BEING_COLLECTED' | 'HAS_DISPATCHED'} status GUID склада который нужно получить.
+         * @param {'IS_BEING_COLLECTED' | 'HAS_DISPATCHED'} [status] GUID склада который нужно получить.
          * @param {boolean} [archive] Заархивирована ли партия
          * @param {string} [filters]                Возможные поля: asin:, amazonTitle, skuByClient, orderHumanFriendlyId, trackNumberText, orderItem, humanFriendlyId               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
          * @param {number} [limit] Лимит записей для пагинации
@@ -1118,7 +1116,7 @@ export const BatchesApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BatchesWithFiltersGet(status: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', archive?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20017> {
+        apiV1BatchesWithFiltersGet(status?: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', archive?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20017> {
             return localVarFp.apiV1BatchesWithFiltersGet(status, archive, filters, limit, offset, sortField, sortType, storekeeperId, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -1485,7 +1483,7 @@ export interface BatchesApiApiV1BatchesWithFiltersGetRequest {
      * @type {'IS_BEING_COLLECTED' | 'HAS_DISPATCHED'}
      * @memberof BatchesApiApiV1BatchesWithFiltersGet
      */
-    readonly status: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED'
+    readonly status?: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED'
 
     /**
      * Заархивирована ли партия
@@ -1722,7 +1720,7 @@ export class BatchesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BatchesApi
      */
-    public apiV1BatchesWithFiltersGet(requestParameters: BatchesApiApiV1BatchesWithFiltersGetRequest, options?: any) {
+    public apiV1BatchesWithFiltersGet(requestParameters: BatchesApiApiV1BatchesWithFiltersGetRequest = {}, options?: any) {
         return BatchesApiFp(this.configuration).apiV1BatchesWithFiltersGet(requestParameters.status, requestParameters.archive, requestParameters.filters, requestParameters.limit, requestParameters.offset, requestParameters.sortField, requestParameters.sortType, requestParameters.storekeeperId, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 }

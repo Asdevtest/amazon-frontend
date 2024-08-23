@@ -15,6 +15,18 @@ export const clientFreelanceNotificationsColumns = handlers => [
   },
 
   {
+    field: 'shop',
+    headerName: t(TranslationKey.Shop),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+    renderCell: params => <MultilineTextCell text={params.row?.product?.shop?.name} />,
+    filterable: false,
+    sortable: false,
+    disableCustomSort: true,
+
+    width: 100,
+  },
+
+  {
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
@@ -50,12 +62,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     renderCell: params => (
-      <Button
-        style={{
-          height: '30px !important',
-        }}
-        onClick={() => handlers.onClickReplyBtn(params.row._id, params.row.chatId)}
-      >
+      <Button onClick={() => handlers.onClickReplyBtn(params.row._id, params.row.chatId)}>
         {t(TranslationKey.Reply)}
       </Button>
     ),

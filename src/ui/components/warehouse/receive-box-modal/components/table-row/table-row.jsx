@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, TableCell, TableRow, Typography } from '@mui/material'
@@ -8,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Input } from '@components/shared/input'
-import { PlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsValidBoxSize } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -20,7 +20,7 @@ import { useStyles } from './table-row.style'
 export const TableBodyBoxRow = memo(({ item, handlers }) => {
   const { classes: styles, cx } = useStyles()
 
-  const buttonTextWithCounter = `${t(TranslationKey.Photos)} ${item.tmpImages.length || ''}`
+  const buttonTextWithCounter = `${t(TranslationKey.Photos)} ${item.images.length || ''}`
 
   return (
     <TableRow className={styles.row}>
@@ -171,20 +171,20 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
         />
       </TableCell>
       <TableCell>
-        <Button className={styles.photosButton} onClick={() => handlers.onAddImages(item._id)}>
+        <Button className={styles.imagesBtn} onClick={() => handlers.onAddImages(item._id)}>
           {buttonTextWithCounter}
         </Button>
       </TableCell>
 
       <TableCell>
         <Button onClick={() => handlers.addDouble(item._id)}>
-          <PlusIcon className={styles.plusIcon} />
+          <FiPlus style={{ width: 16, height: 16 }} />
         </Button>
       </TableCell>
 
       <TableCell>
         <IconButton onClick={() => handlers.onRemoveBox(item._id)}>
-          <DeleteIcon className={styles.deleteBtn} />
+          <DeleteIcon />
         </IconButton>
       </TableCell>
     </TableRow>

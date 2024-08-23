@@ -2,8 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: '320px',
+    width: 400,
   },
 
   datagridWrapper: {
@@ -16,19 +15,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-
-  createRequest: {
-    display: 'flex',
-    gap: '5px',
-
-    svg: {
-      width: 12,
-    },
-  },
-
-  modalDialogContext: {
-    padding: 0,
   },
 
   deadlineBorder: {

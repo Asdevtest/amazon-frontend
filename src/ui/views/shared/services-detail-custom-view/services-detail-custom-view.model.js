@@ -1,17 +1,16 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { AnnouncementsModel } from '@models/announcements-model'
 import { FeedbackModel } from '@models/feedback-model'
 import { RequestModel } from '@models/request-model'
 
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class ServicesDetailCustomViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   requestId = undefined
   announcementId = undefined
@@ -41,13 +40,13 @@ export class ServicesDetailCustomViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getCustomRequestById()
       this.getAnnouncementsDataById()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -59,10 +58,7 @@ export class ServicesDetailCustomViewModel {
         this.request = requestData
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -73,8 +69,7 @@ export class ServicesDetailCustomViewModel {
         this.announcementData = result
       })
     } catch (error) {
-      this.error = error
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -108,10 +103,7 @@ export class ServicesDetailCustomViewModel {
         this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

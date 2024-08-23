@@ -1,242 +1,54 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeObservable } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { AdministratorModel } from '@models/administrator-model'
-import { PermissionsModel } from '@models/permissions-model'
-import { SettingsModel } from '@models/settings-model'
-import { UserModel } from '@models/user-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 
 import { adminUsersViewColumns } from '@components/table/table-columns/admin/users-columns'
 
-import { adminUsersDataConverter } from '@utils/data-grid-data-converters'
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
-export class AdminUsersViewModel {
-  history = undefined
-  requestStatus = undefined
+import { adminUsersViewModelConfig, fieldsForSearch } from './admin-users-view.config'
 
-  nameSearchValue = ''
+export class AdminUsersViewModel extends DataGridFilterTableModel {
+  switcherCondition = null
 
-  users = []
-  groupPermissions = []
-  singlePermissions = []
-  checkValidationNameOrEmail = {}
-  availableSubUsers = undefined
-  changeNameAndEmail = { email: '', name: '' }
-  editUserFormFields = undefined
-  rowSelectionModel = undefined
-  dataGridState = null
-
-  submitEditData = undefined
-
-  rowHandlers = {
-    onClickEditUser: item => this.onClickEditUser(item),
-    onClickBalance: item => this.onClickBalance(item),
-    onClickUser: item => this.onClickUser(item),
-  }
-
-  rowCount = 0
-  sortModel = []
-  filterModel = { items: [] }
-  densityModel = 'compact'
-  columnsModel = adminUsersViewColumns(this.rowHandlers)
-
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
-
-  showConfirmModal = false
-  showEditUserModal = false
-
-  constructor({ history }) {
-    this.history = history
-
-    makeAutoObservable(this, undefined, { autoBind: true })
-  }
-
-  onChangeFilterModel(model) {
-    this.filterModel = model
-
-    this.setDataGridState()
-  }
-
-  onPaginationModelChange(model) {
-    this.paginationModel = model
-
-    this.setDataGridState()
-  }
-
-  onColumnVisibilityModelChange(model) {
-    this.columnVisibilityModel = model
-
-    this.setDataGridState()
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
+  constructor() {
+    const additionalPropertiesGetFilters = () => {
+      return !this.columnMenuSettings?.role?.currentFilterData?.length && this.switcherCondition
+        ? {
+            role: {
+              $eq: this.switcherCondition,
+            },
+          }
+        : {}
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_USERS)
-  }
+    const rowHandlers = {
+      onClickBalance: item => this.onClickBalance(item),
+      onClickUser: item => this.onClickUser(item),
+    }
 
-  getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_USERS]
+    const columnsModel = adminUsersViewColumns(rowHandlers)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
+    super({
+      getMainDataMethod: AdministratorModel.getUsers,
+      columnsModel,
+      filtersFields: getFilterFields(columnsModel),
+      mainMethodURL: `admins/users/pag?`,
+      fieldsForSearch,
+      tableKey: DataGridTablesKeys.ADMIN_USERS,
+      additionalPropertiesGetFilters,
     })
-  }
+    makeObservable(this, adminUsersViewModelConfig)
 
-  onChangeNameSearchValue(e) {
-    this.nameSearchValue = e.target.value
-  }
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
-  async loadData() {
-    try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-      this.getDataGridState()
+    this.initHistory()
 
-      await Promise.all([this.getUsers(), this.getGroupPermissions(), this.getSinglePermissions()])
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
-    }
-  }
-
-  async getUsers() {
-    try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      const result = await AdministratorModel.getUsers()
-
-      const usersData = adminUsersDataConverter(result?.data)
-
-      runInAction(() => {
-        this.users = usersData
-        this.rowCount = usersData?.length
-      })
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
-    }
-  }
-
-  async getGroupPermissions() {
-    try {
-      const result = await PermissionsModel.getGroupPermissions()
-
-      runInAction(() => {
-        this.groupPermissions = result.sort((a, b) => a.role - b.role)
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getSinglePermissions() {
-    try {
-      const result = await PermissionsModel.getSinglePermissions()
-
-      runInAction(() => {
-        this.singlePermissions = result.sort((a, b) => a.role - b.role)
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async submitEditUserForm(data, sourceData) {
-    try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
-        name: this.changeNameAndEmail.name,
-        email: this.changeNameAndEmail.email,
-      })
-
-      runInAction(() => {
-        this.submitEditData = { ...data, permissions: data.active && data.active !== 'false' ? data.permissions : [] } // удаляем пермишены если баним юзера
-
-        this.availableSubUsers = undefined
-      })
-
-      if (sourceData.canByMasterUser === true && data.canByMasterUser === false) {
-        this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.rowSelectionModel)).subUsers.length
-      }
-
-      if (
-        this.checkValidationNameOrEmail.nameIsUnique === false ||
-        this.checkValidationNameOrEmail.emailIsUnique === false
-      ) {
-        return
-      } else if (this.availableSubUsers) {
-        this.onTriggerOpenModal('showConfirmModal')
-      } else {
-        await this.finalStepSubmitEditUserForm()
-      }
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
-    }
-  }
-
-  async finalStepSubmitEditUserForm() {
-    try {
-      await AdministratorModel.updateUser(this.rowSelectionModel, this.submitEditData)
-      this.setRequestStatus(loadingStatuses.SUCCESS)
-
-      this.onTriggerOpenModal('showEditUserModal')
-
-      await Promise.all([this.getUsers(), this.getGroupPermissions(), this.getSinglePermissions()])
-
-      runInAction(() => {
-        this.changeNameAndEmail = { email: '', name: '' }
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.users).filter(
-        user =>
-          user.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          user.email.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return toJS(this.users)
-    }
-  }
-
-  onSelectionModel(model) {
-    this.rowSelectionModel = model
-  }
-
-  async onClickEditUser(row) {
-    try {
-      const result = await AdministratorModel.getUsersById(row._id)
-
-      runInAction(() => {
-        this.editUserFormFields = result
-        this.showEditUserModal = !this.showEditUserModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
+    this.getDataGridState()
+    this.getCurrentData()
   }
 
   async onClickUser(userData) {
@@ -244,7 +56,7 @@ export class AdminUsersViewModel {
       const result = await AdministratorModel.getUsersById(userData._id)
       this.history.push('/admin/users/user', { user: result })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -252,17 +64,9 @@ export class AdminUsersViewModel {
     this.history.push('/admin/users/balance', { user: userData })
   }
 
-  onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+  onClickChangeRole(value) {
+    this.switcherCondition = value
 
-    this.setDataGridState()
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    this.getCurrentData()
   }
 }

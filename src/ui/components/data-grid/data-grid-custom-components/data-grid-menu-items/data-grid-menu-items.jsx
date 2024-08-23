@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { compareDesc, isAfter, parseISO } from 'date-fns'
 import { memo, useCallback, useEffect, useState } from 'react'
@@ -16,19 +15,17 @@ import {
 } from '@mui/material'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { MyRequestStatus, MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { BoxStatus, boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MultilineTextCell } from '@components/data-grid/data-grid-cells'
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Input } from '@components/shared/input'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -38,7 +35,8 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getStatusByColumnKeyAndStatusKey, minsToTime, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { styles } from './data-grid-menu-items.style'
 
@@ -52,6 +50,7 @@ export const IsFormedMenuItem = memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       columnKey,
       onChangeFullFieldMenuItem,
@@ -62,7 +61,7 @@ export const IsFormedMenuItem = memo(
 
       const handleCategory = e => {
         if (e.target.value === 'second') {
-          onClickFilterBtn(field)
+          onClickFilterBtn(field, table)
         }
         setCurrentOption(e.target.value)
       }
@@ -143,6 +142,7 @@ export const IsFormedMenuItem = memo(
                 asBlock
                 data={data}
                 field={field}
+                table={table}
                 filterRequestStatus={filterRequestStatus}
                 columnKey={columnKey}
                 onClickFilterBtn={onClickFilterBtn}
@@ -167,12 +167,18 @@ export const IsNeedPurchaseFilterMenuItem = memo(
       onClose,
       data,
       table,
+      defaultOption,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
       onClickAccept,
     }) => {
       const [currentOption, setCurrentOption] = useState('first')
+
+      const firstOptionTitle = defaultOption ? t(TranslationKey['For shipping']) : t(TranslationKey.Repurchase)
+      const secondOptionTitle = defaultOption
+        ? t(TranslationKey['Quantity to shipping'])
+        : t(TranslationKey['Quantity of repurchase'])
 
       const isSomeFilterActive =
         !isNeedPurchaseFilterData.isNeedPurchaseFilter || !isNeedPurchaseFilterData.isNotNeedPurchaseFilter
@@ -191,18 +197,18 @@ export const IsNeedPurchaseFilterMenuItem = memo(
             <FormControl className={styles.formControl}>
               <RadioGroup row className={styles.radioGroup} value={currentOption} onChange={handleCategory}>
                 <FormControlLabel
-                  title={t(TranslationKey.Repurchase)}
+                  title={firstOptionTitle}
                   className={styles.radioOption}
                   value="first"
                   control={<Radio className={styles.radioControl} />}
-                  label={t(TranslationKey.Repurchase)}
+                  label={firstOptionTitle}
                 />
                 <FormControlLabel
-                  title={t(TranslationKey['Quantity of repurchase'])}
+                  title={secondOptionTitle}
                   className={styles.radioOption}
                   value="second"
                   control={<Radio className={styles.radioControl} />}
-                  label={t(TranslationKey['Quantity of repurchase'])}
+                  label={secondOptionTitle}
                 />
               </RadioGroup>
             </FormControl>
@@ -250,8 +256,9 @@ export const IsNeedPurchaseFilterMenuItem = memo(
 
           {currentOption === 'second' && (
             <NumberFieldMenuItem
-              data={data.purchaseQuantity}
-              field={'purchaseQuantity'}
+              data={defaultOption ? data?.toRefill : data?.purchaseQuantity}
+              field={defaultOption ? 'toRefill' : 'purchaseQuantity'}
+              defaultOption={defaultOption}
               table={table}
               filterRequestStatus={filterRequestStatus}
               onClickFilterBtn={onClickFilterBtn}
@@ -450,8 +457,8 @@ export const MyRequestsStatusMenuItem = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>
@@ -552,36 +559,9 @@ export const FreelanceRequestType = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
-        </div>
-      </div>
-    )
-  }, styles),
-)
-
-export const ClientOrderAllStatusesMenuItem = memo(
-  withStyles(({ classes: styles, orderStatusData }) => {
-    const { orderStatusDataBase, chosenStatus, onClickOrderStatusData } = orderStatusData
-
-    return (
-      <div title="" className={styles.orderStatusDataWrapper}>
-        <div className={styles.orderStatusDataBody}>
-          <div className={styles.orderStatus} onClick={() => onClickOrderStatusData('ALL')}>
-            <Checkbox color="primary" checked={!chosenStatus?.length} />
-            <div title={t(TranslationKey.All)} className={styles.orderStatusName}>
-              {t(TranslationKey.All)}
-            </div>
-          </div>
-          {orderStatusDataBase.map((item, itemIndex) => (
-            <div key={itemIndex} className={styles.orderStatus} onClick={() => onClickOrderStatusData(item)}>
-              <Checkbox color="primary" checked={chosenStatus?.some(status => status === item)} />
-              <div title={OrderStatusTranslate(item)} className={styles.orderStatusName}>
-                {OrderStatusTranslate(item)}
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     )
@@ -594,16 +574,15 @@ export const CreatedByMenuItem = memo(
       classes: styles,
       onClose,
       data,
-      field,
+      table,
       filterRequestStatus,
-      columnKey,
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
     }) => {
       useEffect(() => {
-        onClickFilterBtn('createdBy')
-        onClickFilterBtn('sub')
+        onClickFilterBtn('createdBy', table)
+        onClickFilterBtn('sub', table)
       }, [])
 
       const filterData = [...data.createdBy.filterData, ...data.sub.filterData] || []
@@ -613,7 +592,7 @@ export const CreatedByMenuItem = memo(
 
       const onClickItem = obj => {
         if (choosenItems.some(item => item._id === obj._id)) {
-          setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
+          setChoosenItems(choosenItems.filter(item => item._id !== obj._id))
         } else {
           setChoosenItems([...choosenItems, obj])
         }
@@ -625,19 +604,19 @@ export const CreatedByMenuItem = memo(
 
       useEffect(() => {
         setItemsForRender(
-          filterData
-            .filter(el => el)
-            .sort(
-              (a, b) =>
-                currentFilterData.length &&
-                Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
-            ),
+          filterData.sort(
+            (a, b) =>
+              currentFilterData.length &&
+              Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
+          ),
         )
       }, [data.createdBy.filterData, data.sub.filterData])
 
       useEffect(() => {
         if (nameSearchValue) {
-          const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue.toLowerCase()))
+          const filter = filterData?.filter(item =>
+            String(item?.name).toLowerCase().includes(nameSearchValue.toLowerCase()),
+          )
           setItemsForRender(filter)
         } else {
           setItemsForRender(filterData)
@@ -658,7 +637,7 @@ export const CreatedByMenuItem = memo(
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -698,27 +677,27 @@ export const CreatedByMenuItem = memo(
               onClick={e => {
                 onClose(e)
 
+                let choosenSub = []
                 if (choosenItems?.some(item => data?.sub?.filterData?.some(obj => obj?._id === item?._id))) {
-                  const choosenSub = choosenItems.filter(item =>
-                    data?.sub?.filterData?.some(obj => obj?._id === item?._id),
-                  )
-                  onChangeFullFieldMenuItem(choosenSub, 'sub')
+                  choosenSub = choosenItems.filter(item => data?.sub?.filterData?.some(obj => obj?._id === item?._id))
                 }
+                onChangeFullFieldMenuItem(choosenSub, 'sub')
 
+                let choosenCreatedBy = []
                 if (choosenItems.some(item => data?.createdBy?.filterData?.some(obj => obj?._id === item?._id))) {
-                  const choosenCreatedBy = choosenItems.filter(item =>
+                  choosenCreatedBy = choosenItems.filter(item =>
                     data?.createdBy?.filterData?.some(obj => obj?._id === item?._id),
                   )
-                  onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
-                  // onChangeFullFieldMenuItem(choosenCreatedBy, 'sub')
                 }
+                onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
+
                 onClickAccept()
               }}
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -820,7 +799,7 @@ export const ObJectFieldMenuItem = memo(
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -871,8 +850,8 @@ export const ObJectFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -889,6 +868,7 @@ export const IdeaShopsFieldMenuItem = memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       addNullObj,
       onChangeFullFieldMenuItem,
@@ -928,7 +908,7 @@ export const IdeaShopsFieldMenuItem = memo(
 
       useEffect(() => {
         for (const item of field) {
-          onClickFilterBtn(item)
+          onClickFilterBtn(item, table)
         }
       }, [])
 
@@ -973,7 +953,7 @@ export const IdeaShopsFieldMenuItem = memo(
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -1038,8 +1018,8 @@ export const IdeaShopsFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -1096,8 +1076,8 @@ export const BoxestatusMenuItem = memo(
           ].map(item => (
             <div key={item} className={styles.orderStatus} onClick={() => onClickItem(item)}>
               <Checkbox color="primary" checked={choosenItems?.some(status => status === item)} />
-              <div title={t(boxStatusTranslateKey(item))} className={styles.orderStatusName}>
-                {t(boxStatusTranslateKey(item))}
+              <div title={boxStatusTranslateKey(item)} className={styles.orderStatusName}>
+                {boxStatusTranslateKey(item)}
               </div>
             </div>
           ))}
@@ -1113,8 +1093,8 @@ export const BoxestatusMenuItem = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>
@@ -1204,17 +1184,15 @@ export const NormalFieldMenuItem = memo(
         >
           <div className={styles.universalFilterSearchInputWrapper}>
             <SearchInput
-              key={'client_warehouse_search_input'}
+              key="client_warehouse_search_input"
               inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
+              onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>
 
           <div className={styles.universalFilterBody}>
-            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+            {filterRequestStatus === loadingStatus.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
@@ -1264,8 +1242,8 @@ export const NormalFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -1282,13 +1260,14 @@ export const PriorityMenuItem = memo(
       onClose,
       data,
       field,
+      table,
       columnKey,
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
     }) => {
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const isOrder = ['MY_ORDERS_PRIORITY', 'ORDERS_PRIORITY'].includes(columnKey)
@@ -1354,8 +1333,8 @@ export const PriorityMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -1367,28 +1346,14 @@ export const PriorityMenuItem = memo(
 
 export const FreelancerToWorkConfirmationMenuItem = memo(
   withStyles(
-    ({
-      classes: styles,
-      onClose,
-      data,
-      field,
-      filterRequestStatus,
-      columnKey,
-      onChangeFullFieldMenuItem,
-      onClickAccept,
-      onClickFilterBtn,
-    }) => {
-      useEffect(() => {
-        onClickFilterBtn(field)
-      }, [])
-
+    ({ classes: styles, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
       const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
       const onClickItem = value => {
         if (choosenItems.some(item => item === value)) {
-          setChoosenItems(choosenItems.slice().filter(item => !item === value))
+          setChoosenItems(choosenItems?.filter(item => !item === value))
         } else {
           setChoosenItems([...choosenItems, value])
         }
@@ -1437,8 +1402,8 @@ export const FreelancerToWorkConfirmationMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -1487,7 +1452,11 @@ export const ProductMenuItem = memo(
         : 'asin',
     )
 
-    const { currentFilterData, filterData } = data[getCurrentField(currentOption)]
+    const fieledData = data[getCurrentField(currentOption)]
+
+    const filterData = fieledData?.filterData || []
+    const currentFilterData = fieledData?.currentFilterData || []
+
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -1595,7 +1564,7 @@ export const ProductMenuItem = memo(
         </div>
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
-            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+            {filterRequestStatus === loadingStatus.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
@@ -1631,8 +1600,8 @@ export const ProductMenuItem = memo(
         </div>
         <div className={styles.buttonsWrapper}>
           <Button onClick={applyFilters}>{t(TranslationKey.Accept)}</Button>
-          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>
@@ -1646,6 +1615,7 @@ export const OrderOrItemMenuItem = memo(
       classes: styles,
       onClose,
       data,
+      table,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -1655,7 +1625,7 @@ export const OrderOrItemMenuItem = memo(
       const [currentOption, setCurrentOption] = useState(data.item.currentFilterData.length ? 'item' : 'id')
 
       useEffect(() => {
-        onClickFilterBtn(currentOption)
+        onClickFilterBtn(currentOption, table)
 
         if (currentOption === 'item') {
           onChangeFullFieldMenuItem([], 'id')
@@ -1714,11 +1684,11 @@ export const OrderOrItemMenuItem = memo(
                 onChange={e => setCurrentOption(e.target.value)}
               >
                 <FormControlLabel
-                  title={t(TranslationKey['№Order'])}
+                  title={t(TranslationKey['№ Order'])}
                   className={styles.radioOption}
                   value="id"
                   control={<Radio className={styles.radioControl} />}
-                  label={t(TranslationKey['№Order'])}
+                  label={t(TranslationKey['№ Order'])}
                 />
                 <FormControlLabel
                   title={'№Item'}
@@ -1743,7 +1713,7 @@ export const OrderOrItemMenuItem = memo(
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -1754,26 +1724,19 @@ export const OrderOrItemMenuItem = memo(
                         itemsForRender={itemsForRender}
                         setChoosenItems={setChoosenItems}
                       />
-                      {itemsForRender
-                        // .filter(el => el)
-                        // ?.sort(
-                        //   (a, b) =>
-                        //     Number(choosenItems?.some(item => item === b)) -
-                        //     Number(choosenItems?.some(item => item === a)),
-                        // )
-                        .map((el, index) => {
-                          const value = el || t(TranslationKey.Empty)
-                          const valueChecked = choosenItems?.some(item => item === el)
+                      {itemsForRender.map((el, index) => {
+                        const value = el || t(TranslationKey.Empty)
+                        const valueChecked = choosenItems?.some(item => item === el)
 
-                          return (
-                            <div key={index} className={styles.shop}>
-                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                              <div title={value} className={styles.shopName}>
-                                {value}
-                              </div>
+                        return (
+                          <div key={index} className={styles.shop}>
+                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <div title={value} className={styles.shopName}>
+                              {value}
                             </div>
-                          )
-                        })}
+                          </div>
+                        )
+                      })}
                     </>
                   ) : (
                     <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
@@ -1795,8 +1758,8 @@ export const OrderOrItemMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -1812,6 +1775,7 @@ export const DestinationMenuItem = memo(
       classes: styles,
       onClose,
       data,
+      table,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -1819,7 +1783,13 @@ export const DestinationMenuItem = memo(
     } = props
 
     const [currentOption, setCurrentOption] = useState(
-      data.logicsTariffId.currentFilterData.length ? 'logicsTariffId' : 'destinationId',
+      data.destinationId
+        ? 'destinationId'
+        : data.logicsTariffId
+        ? 'logicsTariffId'
+        : data.logicsTariff.currentFilterData.length
+        ? 'logicsTariff'
+        : 'destination',
     )
 
     const filterData = data[currentOption]?.filterData
@@ -1830,7 +1800,7 @@ export const DestinationMenuItem = memo(
     const [nameSearchValue, setNameSearchValue] = useState('')
 
     useEffect(() => {
-      onClickFilterBtn(currentOption)
+      onClickFilterBtn(currentOption, table)
     }, [currentOption])
 
     useEffect(() => {
@@ -1888,14 +1858,14 @@ export const DestinationMenuItem = memo(
               <FormControlLabel
                 title={t(TranslationKey.Destination)}
                 className={styles.radioOption}
-                value="destinationId"
+                value={data.destinationId ? 'destinationId' : 'destination'}
                 control={<Radio className={styles.radioControl} />}
                 label={t(TranslationKey.Destination)}
               />
               <FormControlLabel
                 title={t(TranslationKey.Tariff)}
                 className={styles.radioOption}
-                value="logicsTariffId"
+                value={data.logicsTariffId ? 'logicsTariffId' : 'logicsTariff'}
                 control={<Radio className={styles.radioControl} />}
                 label={t(TranslationKey.Tariff)}
               />
@@ -1908,14 +1878,12 @@ export const DestinationMenuItem = memo(
             key={'client_warehouse_search_input'}
             inputClasses={styles.searchInput}
             placeholder={t(TranslationKey.Search)}
-            onChange={e => {
-              setNameSearchValue(e.target.value)
-            }}
+            onChange={e => setNameSearchValue(e.target.value)}
           />
         </div>
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
-            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+            {filterRequestStatus === loadingStatus.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
@@ -1951,8 +1919,8 @@ export const DestinationMenuItem = memo(
         </div>
         <div className={styles.buttonsWrapper}>
           <Button onClick={applyFilters}>{t(TranslationKey.Accept)}</Button>
-          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>
@@ -1978,6 +1946,9 @@ export const FromToDateMenuItem = memo(
       const [toDate, setToDate] = useState(null)
 
       useEffect(() => {
+        if (headerControls) {
+          return
+        }
         onClickFilterBtn(field, table)
       }, [])
 
@@ -2032,14 +2003,28 @@ export const FromToDateMenuItem = memo(
               <Typography title={t(TranslationKey.From)} className={styles.fromToText}>
                 {t(TranslationKey.From)}
               </Typography>
-              <NewDatePicker className={styles.dateInput} value={fromDate} onChange={setFromDate} />
+              <DatePicker
+                maxDate={new Date()}
+                disablePast={false}
+                className={styles.dateInput}
+                value={fromDate}
+                slotProps={{ field: { size: 'small' } }}
+                onChange={setFromDate}
+              />
             </div>
             <div className={styles.fromToDatesSubWrapper}>
               <Typography title={t(TranslationKey.To)} className={styles.fromToText}>
                 {t(TranslationKey.To)}
               </Typography>
 
-              <NewDatePicker className={styles.dateInput} value={toDate} onChange={setToDate} />
+              <DatePicker
+                minDate={new Date(fromDate)}
+                disablePast={false}
+                className={styles.dateInput}
+                value={toDate}
+                slotProps={{ field: { size: 'small' } }}
+                onChange={setToDate}
+              />
             </div>
           </div>
 
@@ -2048,14 +2033,12 @@ export const FromToDateMenuItem = memo(
               key={'client_warehouse_search_input'}
               inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
+              onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -2066,25 +2049,18 @@ export const FromToDateMenuItem = memo(
                         itemsForRender={itemsForRender}
                         setChoosenItems={setChoosenItems}
                       />
-                      {itemsForRender
-                        // .filter(el => el)
-                        // .sort(
-                        //   (a, b) =>
-                        //     Number(choosenItems?.some(item => item === b)) -
-                        //       Number(choosenItems?.some(item => item === a)) || compareDesc(parseISO(a), parseISO(b)),
-                        // )
-                        ?.map((el, index) => {
-                          const value = formatNormDateTime(el) || t(TranslationKey.Empty)
-                          const valueChecked = choosenItems?.some(item => item === el)
-                          return (
-                            <div key={index} className={styles.shop}>
-                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                              <div title={value} className={styles.shopName}>
-                                {value}
-                              </div>
+                      {itemsForRender?.map((el, index) => {
+                        const value = formatNormDateTime(el) || t(TranslationKey.Empty)
+                        const valueChecked = choosenItems?.some(item => item === el)
+                        return (
+                          <div key={index} className={styles.shop}>
+                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <div title={value} className={styles.shopName}>
+                              {value}
                             </div>
-                          )
-                        })}
+                          </div>
+                        )
+                      })}
                     </>
                   ) : (
                     <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
@@ -2106,8 +2082,8 @@ export const FromToDateMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -2119,7 +2095,7 @@ export const FromToDateMenuItem = memo(
 
 export const DateDetailsMenuItem = memo(
   withStyles(
-    ({ classes: styles, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
+    ({ classes: styles, onClose, data, field, table, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
       const [searchType, setSearchType] = useState('days')
       const [searchFrom, setSearchFrom] = useState('')
       const [searchTo, setSearchTo] = useState('')
@@ -2127,7 +2103,7 @@ export const DateDetailsMenuItem = memo(
       const [disableButton, setDisableButton] = useState(false)
 
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const handleSearchTypeChange = event => {
@@ -2221,8 +2197,8 @@ export const DateDetailsMenuItem = memo(
           </div>
 
           <div className={styles.buttonsWrapper}>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
             <Button
               disabled={disableButton}
@@ -2252,7 +2228,7 @@ export const NumberFieldMenuItem = memo(
       table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
-
+      defaultOption,
       onClickAccept,
       onClickFilterBtn,
       asBlock = false,
@@ -2294,7 +2270,7 @@ export const NumberFieldMenuItem = memo(
       }, [currentFilterData])
 
       useEffect(() => {
-        onClickFilterBtn(field, table)
+        onClickFilterBtn(field, table, defaultOption ? `;storekeeper[$eq]="${defaultOption}"` : '')
         setIsNotFixedValue(checkIsNotFixedValue(field))
       }, [])
 
@@ -2313,7 +2289,7 @@ export const NumberFieldMenuItem = memo(
       useEffect(() => {
         const filter = filterData?.filter(
           item =>
-            (nameSearchValue ? String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()) : true) &&
+            (nameSearchValue ? Number(item) === Number(nameSearchValue) : true) &&
             (fromValue || fromValue === 0 ? Number(item) >= Number(fromValue) : true) &&
             (toValue || toValue === 0 ? Number(item) <= Number(toValue) : true),
         )
@@ -2356,7 +2332,7 @@ export const NumberFieldMenuItem = memo(
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -2400,8 +2376,8 @@ export const NumberFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -2419,6 +2395,7 @@ export const InStockMenuItem = memo(
       data,
       field,
       table,
+      defaultOption,
       filterRequestStatus,
       onClickAccept,
       onChangeFullFieldMenuItem,
@@ -2428,29 +2405,16 @@ export const InStockMenuItem = memo(
       const [toValue, setToValue] = useState('')
 
       useEffect(() => {
-        onClickFilterBtn(field, table)
+        onClickFilterBtn(field, table, `;storekeeper[$eq]="${defaultOption}"`)
       }, [])
 
-      const newData = {
-        ...data,
-        filterData: data.filterData
-          .slice()
-          .filter(el => el)
-          .sort(
-            (a, b) =>
-              Number(data.currentFilterData?.some(item => item._id === b._id)) -
-                Number(data.currentFilterData?.some(item => item._id === a._id)) ||
-              Number(b.amountInBoxes) - Number(a.amountInBoxes),
-          ),
-      }
-
-      const { filterData, currentFilterData } = newData
+      const { filterData, currentFilterData } = data
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
       const onClickItem = obj => {
-        if (choosenItems.some(item => item._id === obj._id)) {
-          setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
+        if (choosenItems.some(item => item === obj)) {
+          setChoosenItems(choosenItems.slice().filter(item => item !== obj))
         } else {
           setChoosenItems([...choosenItems, obj])
         }
@@ -2459,69 +2423,25 @@ export const InStockMenuItem = memo(
         setChoosenItems(currentFilterData)
       }, [currentFilterData])
 
-      const storekepeers = Array.from(new Set(filterData.map(el => el.storekeeper.name)))
-
-      const [currentOption, setCurrentOption] = useState(null)
-
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        setItemsForRender(
-          filterData,
-          // .filter(el => el)
-          // .sort(
-          //   (a, b) =>
-          //     Number(choosenItems?.some(item => item._id === b._id)) -
-          //       Number(choosenItems?.some(item => item._id === a._id)) ||
-          //     Number(b.amountInBoxes) - Number(a.amountInBoxes),
-          // ),
-        )
-        setCurrentOption(data.currentFilterData?.[0]?.storekeeper?.name || storekepeers[0])
+        setItemsForRender(filterData)
       }, [data.filterData])
 
       useEffect(() => {
         const filter = filterData?.filter(
           item =>
-            (nameSearchValue
-              ? String(item.amountInBoxes).toLowerCase().includes(nameSearchValue?.toLowerCase())
-              : true) &&
-            (fromValue || fromValue === 0 ? Number(item.amountInBoxes) >= Number(fromValue) : true) &&
-            (toValue || toValue === 0 ? Number(item.amountInBoxes) <= Number(toValue) : true) &&
-            item.storekeeper.name === currentOption,
+            (nameSearchValue ? String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()) : true) &&
+            (fromValue || fromValue === 0 ? Number(item) >= Number(fromValue) : true) &&
+            (toValue || toValue === 0 ? Number(item) <= Number(toValue) : true),
         )
         setItemsForRender(filter)
-      }, [nameSearchValue, fromValue, toValue, currentOption, choosenItems, data.filterData])
+      }, [nameSearchValue, fromValue, toValue, choosenItems, data.filterData])
 
       return (
         <div title="" className={styles.shopsDataWrapper}>
-          <div>
-            <FormControl className={styles.formControl}>
-              <FormLabel title={t(TranslationKey['Search by'])} className={styles.radioLable}>
-                {t(TranslationKey['Search by']) + ':'}
-              </FormLabel>
-              <RadioGroup
-                row
-                className={styles.radioGroupTwoItems}
-                value={currentOption}
-                onChange={e => {
-                  setCurrentOption(e.target.value)
-                  setChoosenItems([])
-                }}
-              >
-                {storekepeers.map((el, index) => (
-                  <FormControlLabel
-                    key={index}
-                    className={styles.radioOption}
-                    value={el}
-                    control={<Radio className={styles.radioControl} />}
-                    label={el}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
-          </div>
-
           <div className={styles.numInputsWrapper}>
             <Input
               title={t(TranslationKey.From)}
@@ -2553,7 +2473,7 @@ export const InStockMenuItem = memo(
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -2564,27 +2484,18 @@ export const InStockMenuItem = memo(
                         itemsForRender={itemsForRender}
                         setChoosenItems={setChoosenItems}
                       />
-                      {itemsForRender
-                        // .filter(el => el)
-                        // .sort(
-                        // (a, b) =>
-                        // Number(choosenItems?.some(item => item._id === b._id)) -
-                        //   Number(choosenItems?.some(item => item._id === a._id)) ||
-                        // Number(b.amountInBoxes) - Number(a.amountInBoxes),
-                        // )
-                        ?.map((el, index) => {
-                          const value = el.amountInBoxes /* || t(TranslationKey.Empty) */
-                          const valueChecked = choosenItems?.some(item => item._id === el._id)
+                      {itemsForRender?.map((el, index) => {
+                        const valueChecked = choosenItems?.some(item => item === el)
 
-                          return (
-                            <div key={index} className={styles.shop}>
-                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                              <div title={el.amountInBoxes} className={styles.shopName}>
-                                {value}
-                              </div>
+                        return (
+                          <div key={index} className={styles.shop}>
+                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <div title={el} className={styles.shopName}>
+                              {el}
                             </div>
-                          )
-                        })}
+                          </div>
+                        )
+                      })}
                     </>
                   ) : (
                     <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
@@ -2599,14 +2510,14 @@ export const InStockMenuItem = memo(
             <Button
               onClick={e => {
                 onClose(e)
-                onChangeFullFieldMenuItem(choosenItems, 'boxAmounts')
+                onChangeFullFieldMenuItem(choosenItems, 'amountInBoxes')
                 onClickAccept()
               }}
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -2659,18 +2570,6 @@ export const RedFlagsCellMenuItem = memo(
 
 export const OnListingCellMenuItem = memo(
   withStyles(({ classes: styles, data, onClose }) => {
-    // const {
-    //   classes: styles,
-    //   onClose,
-    //   data,
-    //   field,
-    //   filterRequestStatus,
-    //   onChangeFullFieldMenuItem,
-    //   onClickAccept,
-    //   onClickFilterBtn,
-    //   onListingFiltersData
-    // } = props;
-
     return (
       <div title="" className={styles.shopsDataWrapper}>
         <div className={styles.shopsWrapper}>
@@ -2709,13 +2608,7 @@ export const OnListingCellMenuItem = memo(
           </div>
         </div>
         <div className={styles.buttonsWrapper}>
-          <Button
-            onClick={e => {
-              onClose(e)
-            }}
-          >
-            {t(TranslationKey.Accept)}
-          </Button>
+          <Button onClick={e => onClose(e)}>{t(TranslationKey.Accept)}</Button>
         </div>
       </div>
     )
@@ -2815,6 +2708,7 @@ export const BatchShippingDateCellMenuItem = memo(
       classes: styles,
       data,
       field,
+      table,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -2824,13 +2718,14 @@ export const BatchShippingDateCellMenuItem = memo(
     const [currentTab, setCurrentTab] = useState(field)
 
     useEffect(() => {
-      onClickFilterBtn(currentTab)
+      onClickFilterBtn(currentTab, table)
     }, [currentTab])
 
     return (
       <FromToDateMenuItem
         data={data[currentTab]}
         field={currentTab}
+        table={table}
         filterRequestStatus={filterRequestStatus}
         headerControls={() => (
           <FormControl className={styles.formControl}>
@@ -2879,6 +2774,7 @@ export const BatchTrackingCellMenuItem = memo(
       classes: styles,
       data,
       field,
+      table,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -2913,6 +2809,7 @@ export const BatchTrackingCellMenuItem = memo(
           <NormalFieldMenuItem
             data={data[currentTab]}
             field={currentTab}
+            table={table}
             filterRequestStatus={filterRequestStatus}
             columnKey={currentTab}
             onClickFilterBtn={onClickFilterBtn}
@@ -2926,6 +2823,7 @@ export const BatchTrackingCellMenuItem = memo(
           <FromToDateMenuItem
             data={data[currentTab]}
             field={currentTab}
+            table={table}
             filterRequestStatus={filterRequestStatus}
             onClickFilterBtn={onClickFilterBtn}
             onClose={onClose}
@@ -2944,6 +2842,7 @@ export const NumberWithTabsMenuItem = memo(
       classes: styles,
       onClose,
       data,
+      table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
       onClickAccept,
@@ -2953,7 +2852,7 @@ export const NumberWithTabsMenuItem = memo(
       const [activeTab, setActiveTab] = useState(tabs[0].value)
 
       useEffect(() => {
-        onClickFilterBtn(activeTab)
+        onClickFilterBtn(activeTab, table)
       }, [activeTab])
 
       return (
@@ -2997,67 +2896,8 @@ export const NumberWithTabsMenuItem = memo(
   ),
 )
 
-const toPayCellTabs = [
-  {
-    value: 'priceInYuan',
-    label: t(TranslationKey['To pay']),
-  },
-  {
-    value: 'partialPaymentAmountRmb',
-    label: t(TranslationKey['To pay partial']),
-  },
-]
-
-export const ToPayCellMenuItem = memo(
-  withStyles(
-    ({
-      classes: styles,
-      onClose,
-      data,
-      field,
-      filterRequestStatus,
-      onChangeFullFieldMenuItem,
-      onClickAccept,
-      onClickFilterBtn,
-    }) => {
-      const isShowTabs = ['/buyer/partially-paid-orders', '/buyer/all-orders'].includes(window.location.pathname)
-
-      return (
-        <>
-          {isShowTabs && (
-            <NumberWithTabsMenuItem
-              data={data}
-              filterRequestStatus={filterRequestStatus}
-              tabs={toPayCellTabs}
-              onClickFilterBtn={onClickFilterBtn}
-              onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-              onClickAccept={() => {
-                onClickAccept()
-              }}
-              onClose={onClose}
-            />
-          )}
-
-          {!isShowTabs && (
-            <NumberFieldMenuItem
-              data={data[field]}
-              field={field}
-              filterRequestStatus={filterRequestStatus}
-              onClickFilterBtn={onClickFilterBtn}
-              onClose={onClose}
-              onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-              onClickAccept={onClickAccept}
-            />
-          )}
-        </>
-      )
-    },
-    styles,
-  ),
-)
-
 export const SecondsCellMenuItem = memo(
-  withStyles((props, context) => {
+  withStyles(props => {
     const {
       classes: styles,
       onClose,
@@ -3109,7 +2949,7 @@ export const SecondsCellMenuItem = memo(
       <div title="" className={styles.shopsDataWrapper}>
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
-            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+            {filterRequestStatus === loadingStatus.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
@@ -3148,8 +2988,8 @@ export const SecondsCellMenuItem = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>

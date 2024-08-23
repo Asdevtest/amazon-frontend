@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Radio } from 'antd'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 
-import Radio from '@mui/material/Radio'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { t } from '@utils/translations'
 
 import { useStyles } from './radio-buttons.style'
 
-interface IRadioBottonsSetting {
-  label: () => string
+export interface IRadioBottonsSetting {
+  label?: string
   value: string | number | boolean
   disabled?: boolean
 }
@@ -16,34 +20,32 @@ interface RadioButtonsProps {
   currentValue?: string | number | boolean
   verticalDirection?: boolean
   disabled?: boolean
-  withoutLable?: boolean
-  onClickRadioButton: (value: string | number | boolean) => void
+  onClickRadioButton: (value: any) => void
 }
 
 export const RadioButtons: FC<RadioButtonsProps> = observer(props => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
-  const { currentValue, radioBottonsSettings, disabled, verticalDirection, withoutLable, onClickRadioButton } = props
+  const { currentValue, radioBottonsSettings, disabled, onClickRadioButton } = props
 
   return (
-    <div className={cx(styles.root, { [styles.verticalRoot]: verticalDirection })}>
-      {!!radioBottonsSettings.length &&
-        radioBottonsSettings.map((setting, settingIndex: number) => (
-          <div key={settingIndex} className={styles.buttonWrapper}>
+    <Radio.Group
+      value={currentValue}
+      className={styles.group}
+      onChange={event => onClickRadioButton(event.target.value)}
+    >
+      {radioBottonsSettings.length
+        ? radioBottonsSettings.map((setting, settingIndex: number) => (
             <Radio
+              key={settingIndex}
               disabled={disabled || setting?.disabled}
-              classes={{ root: cx(styles.radioRoot, { [styles.radioActive]: setting.value === currentValue }) }}
-              checked={setting.value === currentValue}
-              onClick={e => {
-                if (setting.value !== currentValue) {
-                  e.stopPropagation()
-                  onClickRadioButton(setting.value)
-                }
-              }}
-            />
-            {!withoutLable && <p>{setting?.label()}</p>}
-          </div>
-        ))}
-    </div>
+              value={setting.value}
+              className={styles.radio}
+            >
+              {setting?.label ? t(TranslationKey[setting?.label as keyof typeof TranslationKey]) : null}
+            </Radio>
+          ))
+        : null}
+    </Radio.Group>
   )
 })

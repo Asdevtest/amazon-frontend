@@ -2,8 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   mainCardWrapper: {
-    padding: '16px',
-    marginBottom: '24px',
+    padding: 20,
+    marginBottom: 20,
     backgroundColor: theme.palette.background.general,
     borderRadius: 10,
   },
@@ -25,12 +25,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   mainCard: {
-    width: '48%',
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
   },
 
   card: {

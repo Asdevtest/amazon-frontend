@@ -1,10 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  button: {
-    padding: '0 25px',
-  },
-
   invis: {
     width: 261,
   },
@@ -15,10 +11,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: '400px',
-    height: 36,
-    overflow: 'visible',
+    width: 550,
   },
 
   topHeaderBtnsWrapper: {

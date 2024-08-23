@@ -30,6 +30,63 @@ export const productStatusButtonsConfigs = {
   [UserRole.SUPERVISOR]: curStatus => {
     if (curStatus === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]) {
       return
+    } else if (curStatus === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP]) {
+      return [
+        {
+          statusKey: ProductStatus.CHECKED_BY_SUPERVISOR,
+          label: t(TranslationKey['The product is suitable']),
+          color: 'rgb(0, 123, 255)',
+          colorHover: '#1269ec',
+        },
+
+        {
+          statusKey: ProductStatus.TO_BUYER_FOR_RESEARCH,
+          label: t(TranslationKey['Send to find a supplier']),
+          color: 'rgb(0, 123, 255)',
+          colorHover: '#1269ec',
+        },
+      ]
+    } else if (
+      [
+        ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
+        ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
+      ].includes(curStatus)
+    ) {
+      return [
+        {
+          statusKey: ProductStatus.TO_BUYER_FOR_RESEARCH,
+          label: t(TranslationKey['Finding a supplier (product fit)']),
+          color: 'rgb(0, 123, 255)',
+          colorHover: '#1269ec',
+        },
+        {
+          statusKey: ProductStatus.CHECKED_BY_SUPERVISOR,
+          label: t(TranslationKey['The product is suitable']),
+          color: 'rgb(15, 169, 20)',
+          colorHover: '#009a07',
+        },
+        {
+          statusKey: ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP,
+          label: t(TranslationKey["Doesn't fit"]),
+          color: 'rgb(210, 35, 35)',
+          colorHover: '#c51a1c',
+        },
+        {
+          statusKey: ProductStatus.TEMPORARILY_DELAYED,
+          label: t(TranslationKey['Temporarily delayed']),
+          color: 'rgb(210, 35, 35)',
+          colorHover: '#c51a1c',
+        },
+      ]
+    } else if (curStatus === ProductStatusByKey[ProductStatus.TEMPORARILY_DELAYED]) {
+      return [
+        {
+          statusKey: ProductStatus.CHECKED_BY_SUPERVISOR,
+          label: t(TranslationKey['The product is suitable']),
+          color: 'rgb(0, 123, 255)',
+          colorHover: '#1269ec',
+        },
+      ]
     } else if (curStatus === ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR]) {
       return [
         {
@@ -70,7 +127,7 @@ export const productStatusButtonsConfigs = {
         },
         {
           statusKey: ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
-          label: t(TranslationKey["The supplier's price does not fit"]),
+          label: t(TranslationKey["The supplier's price does't fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -92,7 +149,7 @@ export const productStatusButtonsConfigs = {
         },
         {
           statusKey: ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
-          label: t(TranslationKey["The supplier's price does not fit"]),
+          label: t(TranslationKey["The supplier's price does't fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -115,7 +172,32 @@ export const productStatusButtonsConfigs = {
 
         {
           statusKey: ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
-          label: t(TranslationKey["The supplier's price does not fit"]),
+          label: t(TranslationKey["The supplier's price does't fit"]),
+          color: 'rgb(0, 123, 255)',
+          colorHover: '#1269ec',
+        },
+      ]
+    } else if (
+      curStatus === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER] ||
+      curStatus === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE]
+    ) {
+      return [
+        {
+          statusKey: ProductStatus.TO_BUYER_FOR_RESEARCH,
+          label: t(TranslationKey['Repeat search']),
+          color: '#ff9800',
+          colorHover: '#f57c00',
+        },
+        {
+          statusKey: ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND,
+          label: t(TranslationKey['Supplier not found']),
+          color: '#ff9800',
+          colorHover: '#f57c00',
+        },
+
+        {
+          statusKey: ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
+          label: t(TranslationKey["The supplier's price does't fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -147,7 +229,7 @@ export const productStatusButtonsConfigs = {
 
         {
           statusKey: ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
-          label: t(TranslationKey["The supplier's price does not fit"]),
+          label: t(TranslationKey["The supplier's price does't fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -195,7 +277,7 @@ export const productStatusButtonsConfigs = {
         },
         {
           statusKey: ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-          label: t(TranslationKey["The supplier's price does not fit"]),
+          label: t(TranslationKey["The supplier's price does't fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -219,7 +301,7 @@ export const productStatusButtonsConfigs = {
         },
         {
           statusKey: ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-          label: t(TranslationKey["The supplier's price does not fit"]),
+          label: t(TranslationKey["The supplier's price does't fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },

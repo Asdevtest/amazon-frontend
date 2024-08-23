@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20076Failed } from './inline-response20076-failed';
 
 /**
  * 
@@ -21,17 +22,11 @@
  */
 export interface InlineResponse20076 {
     /**
-     * Table name
-     * @type {string}
-     * @memberof InlineResponse20076
-     */
-    table?: string;
-    /**
      * 
-     * @type {Array<string>}
+     * @type {Array<InlineResponse20076Failed>}
      * @memberof InlineResponse20076
      */
-    fields?: Array<string>;
+    failed?: Array<InlineResponse20076Failed>;
 }
 
 

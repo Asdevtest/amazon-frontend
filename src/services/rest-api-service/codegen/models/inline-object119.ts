@@ -21,17 +21,35 @@
  */
 export interface InlineObject119 {
     /**
-     * Гуид идеи в статусе onChecked(10)
+     * Guid заявки
      * @type {string}
      * @memberof InlineObject119
      */
-    onCheckedIdeaId?: string;
+    requestId?: string;
     /**
-     * Гуид идеи в статусе finished(20)
+     * Guid предложения
      * @type {string}
      * @memberof InlineObject119
      */
-    onFinishedIdeaId?: string;
+    proposalId?: string;
+    /**
+     * комментарий клиента
+     * @type {string}
+     * @memberof InlineObject119
+     */
+    commentByClient?: string;
+    /**
+     * комментарий исполнителя
+     * @type {string}
+     * @memberof InlineObject119
+     */
+    commentByPerformer?: string;
+    /**
+     * Ссылка на файл
+     * @type {string}
+     * @memberof InlineObject119
+     */
+    fileLink: string;
 }
 
 

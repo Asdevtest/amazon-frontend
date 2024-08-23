@@ -1,11 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { AnnouncementsModel } from '@models/announcements-model'
 import { UserModel } from '@models/user-model'
 
-import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 export class CreateOrEditServicesViewModel {
@@ -39,7 +36,7 @@ export class CreateOrEditServicesViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -47,7 +44,7 @@ export class CreateOrEditServicesViewModel {
     try {
       this.getAnnouncementsDataByGuid()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -63,19 +60,10 @@ export class CreateOrEditServicesViewModel {
       }
 
       await AnnouncementsModel.createAnnouncement(dataWithFiles)
-
-      this.history.push('/freelancer/freelance/my-services', {
-        showAcceptMessage: true,
-        acceptMessage: t(TranslationKey['The service was created']),
-      })
     } catch (error) {
-      console.log(error)
-
-      this.history.push('/freelancer/freelance/my-services', {
-        showAcceptMessage: true,
-        acceptMessage: t(TranslationKey['The service was not created']),
-        error: true,
-      })
+      console.error(error)
+    } finally {
+      this.history.push('/freelancer/freelance/my-services')
     }
   }
 
@@ -91,19 +79,10 @@ export class CreateOrEditServicesViewModel {
       }
 
       await AnnouncementsModel.editAnnouncement(this.requestToEdit._id, dataWithFiles)
-
-      this.history.push('/freelancer/freelance/my-services', {
-        showAcceptMessage: true,
-        acceptMessage: t(TranslationKey['Service edited']),
-      })
     } catch (error) {
-      console.log(error)
-
-      this.history.push('/freelancer/freelance/my-services', {
-        showAcceptMessage: true,
-        acceptMessage: t(TranslationKey['Service not edited']),
-        error: true,
-      })
+      console.error(error)
+    } finally {
+      this.history.push('/freelancer/freelance/my-services')
     }
   }
 

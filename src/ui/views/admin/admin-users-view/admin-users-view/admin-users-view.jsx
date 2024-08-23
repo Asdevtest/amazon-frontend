@@ -1,66 +1,80 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
+import { useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { Modal } from '@components/shared/modal'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
-import { AdminContentModal } from '@components/user/users-views/sub-users-view/admin-content-modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './admin-users-view.style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
+import { useStyles } from './admin-users-view.style'
+
+import { switcherConfig } from './admin-users-view.config'
 import { AdminUsersViewModel } from './admin-users-view.model'
 
-export const AdminUsersViewRaw = ({ classes: styles, history }) => {
-  const [viewModel] = useState(() => new AdminUsersViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+export const AdminUsersView = observer(() => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new AdminUsersViewModel())
 
   return (
     <>
-      <div className={styles.searchWrapper}>
+      <div className={styles.headerWrapper}>
+        <p className={styles.usersOnlineWrapper}>
+          {t(TranslationKey['Users online'])}: {viewModel.meta?.onlineUsers}
+        </p>
+        <CustomSwitcher
+          switchMode="medium"
+          condition={viewModel.switcherCondition}
+          switcherSettings={switcherConfig}
+          changeConditionHandler={viewModel.onClickChangeRole}
+        />
+
         <SearchInput
           inputClasses={styles.searchInput}
-          value={viewModel.nameSearchValue}
-          placeholder={t(TranslationKey.search)}
-          onChange={viewModel.onChangeNameSearchValue}
+          value={viewModel.currentSearchValue}
+          placeholder={t(TranslationKey['Search by name, email'])}
+          onSubmit={viewModel.onSearchSubmit}
         />
       </div>
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
-          useResizeContainer
-          sortingMode="client"
-          paginationMode="client"
-          localeText={getLocalizationByLanguageTag()}
+          pinnedColumns={viewModel.pinnedColumns}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rowHeight={80}
+          getRowHeight={() => 'auto'}
           rowCount={viewModel.rowCount}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.currentData}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          getRowId={({ _id }) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+            columnMenu: viewModel.columnMenuSettings,
+
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
               },
             },
           }}
@@ -68,45 +82,9 @@ export const AdminUsersViewRaw = ({ classes: styles, history }) => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
-
-      <Modal
-        openModal={viewModel.showEditUserModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditUserModal')}
-      >
-        <AdminContentModal
-          checkValidationNameOrEmail={viewModel.checkValidationNameOrEmail}
-          changeNameAndEmail={viewModel.changeNameAndEmail}
-          singlePermissions={viewModel.singlePermissions}
-          groupPermissions={viewModel.groupPermissions}
-          editUserFormFields={viewModel.editUserFormFields}
-          title={t(TranslationKey['Edit user'])}
-          buttonLabel={t(TranslationKey.Save)}
-          onSubmit={viewModel.submitEditUserForm}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditUserModal')}
-        />
-      </Modal>
-
-      {viewModel.showConfirmModal ? (
-        <ConfirmationModal
-          // @ts-ignore
-          isWarning
-          openModal={viewModel.showConfirmModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={t(TranslationKey['This user has sub-users - they will be deactivated! Are you sure?'])}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => {
-            viewModel.finalStepSubmitEditUserForm()
-            viewModel.onTriggerOpenModal('showConfirmModal')
-          }}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
     </>
   )
-}
-
-export const AdminUsersView = withStyles(observer(AdminUsersViewRaw), styles)
+})

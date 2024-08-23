@@ -129,8 +129,6 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderCell: params => (
       <Button
         styleType={ButtonStyle.SUCCESS}
-        width="100%"
-        sx={{ height: '30px !important' }}
         onClick={() => rowHandlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}
       >
         {t(TranslationKey['Buy for'])} {toFixedWithDollarSign(params.row.originalData.priceForClient, 2)}
@@ -163,7 +161,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    minWidth: 120,
+    width: 115,
     // type: 'date',
   },
 ]

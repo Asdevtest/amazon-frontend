@@ -39,8 +39,8 @@ export const freelancerVacantRequestColumns = handlers => [
 
   {
     field: 'taskComplexity',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Difficulty level'])} />,
-    headerName: t(TranslationKey['Difficulty level']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
+    headerName: t(TranslationKey.Category),
 
     renderCell: params => (
       <MultilineTextCell
@@ -62,7 +62,7 @@ export const freelancerVacantRequestColumns = handlers => [
     renderCell: params => <MultilineTextCell threeLines maxLength={56} text={params.value} />,
     width: 110,
 
-    columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.shared.STRING_VALUE,
   },
 
   {
@@ -81,7 +81,8 @@ export const freelancerVacantRequestColumns = handlers => [
         />
       )
     },
-    width: 250,
+    width: 260,
+    minWidth: 100,
 
     columnKey: columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT,
   },
@@ -91,7 +92,7 @@ export const freelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 70,
+    width: 80,
 
     columnKey: columnnsKeys.shared.QUANTITY,
   },

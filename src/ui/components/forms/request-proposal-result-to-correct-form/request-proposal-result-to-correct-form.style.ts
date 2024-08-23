@@ -1,14 +1,40 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  root: {
+  wrapper: {
     width: 600,
-    padding: 10,
+  },
+
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+
+  title: {
+    fontWeight: 600,
+    fontSize: '18px',
+    lineHeight: '140%',
+  },
+
+  label: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    marginBottom: 5,
   },
 
   reasonInput: {
     height: 'auto',
     width: '100%',
+  },
+
+  totalTime: {
+    marginBottom: 20,
+  },
+
+  inputsWrapper: {
+    display: 'flex',
+    gap: 30,
   },
 
   inputWrapper: {
@@ -17,81 +43,27 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+
   btnWrapper: {
-    marginTop: '20px',
+    marginTop: 20,
     display: 'flex',
     justifyContent: 'flex-end',
   },
-  modalTitle: {
-    fontWeight: 600,
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
-  },
-  modalHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '30px',
-  },
-
-  label: {
-    fontWeight: 400,
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
-  },
 
   input: {
-    width: '100px',
+    width: '80px',
     border: 'none',
     padding: 0,
     margin: 0,
     borderRadius: 0,
     borderBottom: '1px solid #e0e0e0',
-    '& >::-webkit-outer-spin-button,::-webkit-inner-spin-button': {
-      WebkitAppearance: 'none',
-      margin: 0,
-      padding: 0,
-    },
   },
+
   inputField: {
-    padding: '0 !important',
-    margin: '0 !important',
+    margin: 0,
   },
 
   inputLabel: {
     color: theme.palette.text.second,
-    padding: 0,
-    margin: 0,
-  },
-
-  btnSubmit: {
-    width: '259px',
-    height: '40px',
-  },
-  inputsWrapper: {
-    display: 'flex',
-    gap: 30,
-  },
-
-  reasonWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-
-  time: {
-    fontWeight: 400,
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
-    marginBottom: '10px',
-  },
-
-  totalTime: {
-    marginBottom: '30px',
-  },
-
-  uploadFilesInput: {
-    paddingRight: 10,
   },
 }))

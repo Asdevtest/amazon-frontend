@@ -22,15 +22,12 @@ interface ChangeInputCellProps {
 export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
   const { rowId, onClickSubmit, text, disabled, isInteger, maxLength, isString, isPepurchase } = props
 
-  const { classes: styles, cx } = useStyles()
-
-  const [value, setValue] = useState(text ?? '')
-
+  const { classes: styles } = useStyles()
+  const [value, setValue] = useState(text || '')
   const [isShow, setIsShow] = useState(false)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value
-
     const isIntegerValid = isInteger ? /^[+]?\d*$/.test(inputValue) : /^[+]?\d*\.?\d{0,2}$/.test(inputValue)
 
     if (isIntegerValid) {
@@ -44,7 +41,6 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
 
   const handleSave = () => {
     setIsShow(true)
-
     setTimeout(() => {
       setIsShow(false)
     }, 2000)
@@ -53,30 +49,28 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
   }
 
   useEffect(() => {
-    setValue(text)
+    if (text) {
+      setValue(text)
+    }
   }, [text])
 
   const disabledSave = !isPepurchase || (!isNaN(Number(value)) && (Number(value) === 0 || Number(value) >= 50))
 
-  const inputError = !!text && !value
-
   return (
     <Input
       disabled={disabled}
-      className={cx({ [styles.error]: inputError })}
       classes={{ input: styles.input }}
       inputProps={{ maxLength: maxLength || 7 }}
-      value={value}
+      value={String(value)}
       endAdornment={
         <>
           {isShow ? <DoneIcon className={styles.doneIcon} /> : null}
 
-          {text !== value && !isShow ? (
+          {Number(text) !== Number(value) ? (
             <div className={styles.icons}>
               <button disabled={!disabledSave} className={styles.button} onClick={handleSave}>
                 <SaveIcon className={styles.saveIcon} />
               </button>
-
               <button className={styles.button} onClick={() => setValue(text)}>
                 <ClearIcon className={styles.clearIcon} />
               </button>

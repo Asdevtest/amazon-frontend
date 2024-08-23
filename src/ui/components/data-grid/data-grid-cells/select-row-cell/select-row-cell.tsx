@@ -1,23 +1,32 @@
 import { OpenInNewTabCell } from '..'
-import { FC, memo } from 'react'
+import { FC, ReactNode, memo } from 'react'
 
 import { useStyles } from './select-row-cell.style'
 
 interface SelectRowCellProps {
-  checkboxComponent: JSX.Element
+  checkboxComponent?: ReactNode
+  isShowSheldGreen?: boolean
+  isShowSheldYellow?: boolean
   onClickShareIcon: () => void
 }
 
-export const SelectRowCell: FC<SelectRowCellProps> = memo(({ checkboxComponent, onClickShareIcon }) => {
-  const { classes: styles } = useStyles()
+export const SelectRowCell: FC<SelectRowCellProps> = memo(
+  ({ isShowSheldGreen, isShowSheldYellow, checkboxComponent, onClickShareIcon }) => {
+    const { classes: styles, cx } = useStyles()
 
-  return (
-    <div className={styles.selectRowCellWrapper}>
-      {checkboxComponent}
+    return (
+      <div
+        className={cx(
+          styles.selectRowCellWrapper,
+          isShowSheldGreen ? styles.ideaRowGreen : isShowSheldYellow ? styles.ideaRowYellow : '',
+        )}
+      >
+        {checkboxComponent}
 
-      <div className={styles.buttonsWrapper}>
-        <OpenInNewTabCell onClickOpenInNewTab={onClickShareIcon} />
+        <div className={styles.buttonsWrapper}>
+          <OpenInNewTabCell onClickOpenInNewTab={onClickShareIcon} />
+        </div>
       </div>
-    </div>
-  )
-})
+    )
+  },
+)

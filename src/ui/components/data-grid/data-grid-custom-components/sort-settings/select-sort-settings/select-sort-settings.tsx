@@ -47,6 +47,7 @@ export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField
           {filteredItems.map((item, index) => (
             <Button
               key={index}
+              title={item.name}
               className={styles.button}
               styleType={ButtonStyle.DEFAULT}
               onClick={() => {
@@ -54,7 +55,7 @@ export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField
                 onToggleSelect()
               }}
             >
-              {item.name}
+              <p>{item.name}</p>
             </Button>
           ))}
         </div>

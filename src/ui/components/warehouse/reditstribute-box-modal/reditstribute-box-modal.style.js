@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     position: 'relative',
-    paddingRight: 10,
   },
   boxesWrapper: {
     display: 'flex',
@@ -60,14 +59,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.second,
     marginBottom: '10px',
-  },
-
-  button: {
-    height: '40px',
-    padding: '0 25px',
-  },
-  cancelButton: {
-    color: theme.palette.text.general,
   },
 
   asinValue: {

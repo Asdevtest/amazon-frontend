@@ -15,59 +15,167 @@
 
 
 /**
- * 
+ * Схема парсинга.
  * @export
  * @interface InlineResponse20083
  */
 export interface InlineResponse20083 {
     /**
-     * Цена за каждое предложение.
+     * 
+     * @type {number}
+     * @memberof InlineResponse20083
+     */
+    amazonFee?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20083
+     */
+    width?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20083
+     */
+    height?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20083
+     */
+    length?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20083
+     */
+    weight?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    weightUnitString?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineResponse20083
+     */
+    isWhiteGloveRequired?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    subCategory?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    fnsku?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    dimensionUnit?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    link?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    binding?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    dimensionUnitString?: string;
+    /**
+     * 
      * @type {number}
      * @memberof InlineResponse20083
      */
     price?: number;
     /**
-     * Процент с каждого предложения, маржа платформы, в процентах.
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineResponse20083
      */
-    requestPlatformMarginInPercent?: number;
+    imageUrl?: string;
     /**
-     * Услуги платформы.
-     * @type {number}
+     * 
+     * @type {boolean}
      * @memberof InlineResponse20083
      */
-    platformMargin?: number;
+    isAfn?: boolean;
     /**
-     * Процент с каждого предложения для супервайзера, в процентах.
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineResponse20083
      */
-    requestSupervisorFeeInPercent?: number;
+    gl?: string;
     /**
-     * Услуги супервайзера.
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineResponse20083
      */
-    supervisorFee?: number;
+    TRexId?: string;
     /**
-     * Сумма.
-     * @type {number}
+     * 
+     * @type {boolean}
      * @memberof InlineResponse20083
      */
-    unitCost?: number;
+    isAsinLimits?: boolean;
     /**
-     * Количество предложений, не менее.
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineResponse20083
      */
-    maxAmountOfProposals?: number;
+    originalUrl?: string;
     /**
-     * Итого.
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineResponse20083
      */
-    totalCost?: number;
+    productGroup?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    thumbStringUrl?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    asin?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    encryptedMarketplaceId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    weightUnit?: string;
 }
 
 

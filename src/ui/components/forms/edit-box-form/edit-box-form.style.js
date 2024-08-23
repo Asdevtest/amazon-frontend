@@ -5,16 +5,12 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
-    paddingRight: 10,
   },
+
   form: {
     borderRadius: '5px',
     display: 'flex',
     gap: 40,
-  },
-
-  cancelBtn: {
-    color: theme.palette.text.general,
   },
 
   commentField: {
@@ -32,12 +28,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
-    marginRight: 5,
-    marginTop: 20,
-  },
-
-  button: {
-    padding: '0 20px',
   },
 
   field: {
@@ -137,15 +127,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
   },
 
-  photoWrapper: {
-    width: '250px',
-    height: 200,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-  },
-
   boxPhotoWrapper: {
     marginTop: 30,
     width: '250px',
@@ -155,15 +136,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     alignSelf: 'center',
     gap: 30,
-  },
-
-  storekeeperBtn: {
-    height: '32px',
-    width: '230px',
-  },
-
-  storekeeperBtnColored: {
-    color: theme.palette.text.negativeMain,
   },
 
   sizesTitleWrapper: {
@@ -181,7 +153,6 @@ export const useStyles = makeStyles()(theme => ({
   shareBoxSubWrapper: {
     display: 'flex',
     gap: 20,
-    // width: 350,
   },
 
   fbaShipmentInput: {
@@ -204,6 +175,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: '10px 20px 0',
     gap: 20,
     justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
 
   productsWrapper: {
@@ -217,6 +189,10 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     width: 660,
     overflow: 'hidden',
+  },
+
+  leftProductColumn: {
+    padding: 10,
   },
 
   amazonTitle: {
@@ -233,11 +209,6 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: '5px',
 
     color: theme.palette.text.general,
-  },
-
-  asinText: {
-    marginLeft: 10,
-    color: theme.palette.text.second,
   },
 
   titleWrapper: {
@@ -292,10 +263,5 @@ export const useStyles = makeStyles()(theme => ({
 
   containerTitleField: {
     marginBottom: '5px !important',
-  },
-
-  asinTextWrapper: {
-    display: 'flex',
-    gap: 5,
   },
 }))

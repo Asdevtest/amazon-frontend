@@ -1,7 +1,5 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { filterNullValues } from '@utils/object'
-
 class RequestModelStatic {
   createRequest = async body => {
     const response = await restApiService.SearchRequestApi.apiV1RequestsCustomPost({ body })
@@ -18,8 +16,8 @@ class RequestModelStatic {
     return response.data
   }
 
-  getRequests = async data => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGet(filterNullValues(data))
+  getRequests = async body => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGet(body)
     return response.data
   }
 
@@ -79,8 +77,8 @@ class RequestModelStatic {
     return response.data
   }
 
-  getRequestsByProductLight = async data => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsByProductLightGuidGet(filterNullValues(data))
+  getRequestsByProductLight = async body => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsByProductLightGuidGet(body)
     return response.data
   }
 
@@ -91,6 +89,11 @@ class RequestModelStatic {
 
   manualCompletedRequest = async guid => {
     const response = await restApiService.SearchRequestApi.apiV1RequestsCompletedGuidPatch({ guid })
+    return response.data
+  }
+
+  patchRequestCommentByGuid = async (guid, body) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomDetailsGuidPatch({ guid, body })
     return response.data
   }
 }

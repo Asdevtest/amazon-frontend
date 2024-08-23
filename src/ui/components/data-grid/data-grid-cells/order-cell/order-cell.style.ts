@@ -80,6 +80,5 @@ export const useStyles = makeStyles()(theme => ({
   OrderCellError: {
     color: 'red',
     fontWeight: 'bold',
-    marginLeft: '15px',
   },
 }))

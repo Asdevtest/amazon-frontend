@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
+import { GridRowModel } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindStockGoodsToInventoryForm } from '@components/forms/bind-stock-goods-to-inventory-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
@@ -16,30 +16,28 @@ import { Modal } from '@components/shared/modal'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+import { ShopReportsTabsValues } from '@typings/enums/shop-report'
+
 import { useStyles } from './client-shops-report-view.style'
 
 import { ClientShopsViewModel } from './client-shops-report-view.model'
 import { ControllButtons } from './controll-buttons/controll-buttons'
 import { switcherConfig } from './switcher.config'
 
-export const ClientShopsReportView = observer(() => {
+export const ClientShopsReportView = observer(({ history }: { history: any }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC))
-  viewModel.initHistory()
-
-  useEffect(() => {
-    viewModel.initUserSettings()
-  }, [])
+  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY, history))
 
   return (
     <div className={styles.root}>
       <CustomSwitcher
         fullWidth
-        switchMode={'big'}
+        switchMode="big"
         condition={viewModel.tabKey}
         switcherSettings={switcherConfig}
-        changeConditionHandler={value => viewModel.changeTabHandler(value as ShopReportsTabsValues)}
+        changeConditionHandler={viewModel.changeTabHandler}
       />
 
       <ControllButtons
@@ -56,6 +54,7 @@ export const ClientShopsReportView = observer(() => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
+          pinnedColumns={viewModel.pinnedColumns}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -72,24 +71,32 @@ export const ClientShopsReportView = observer(() => {
                 onClickResetFilters: viewModel.onClickResetFilters,
                 isSomeFilterOn: viewModel.isSomeFilterOn,
               },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
           density={viewModel.densityModel}
-          rows={viewModel.tableData}
+          rows={viewModel.currentData}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           rowSelectionModel={viewModel.selectedRows}
-          getRowId={({ _id }: { _id: string }) => _id}
+          getRowId={({ _id }: GridRowModel) => _id}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -99,7 +106,7 @@ export const ClientShopsReportView = observer(() => {
       >
         <BindStockGoodsToInventoryForm
           goodsToSelect={addIdDataConverter(
-            viewModel.tableData?.filter(item => viewModel.selectedRows?.includes(item?._id)),
+            viewModel.currentData?.filter((item: any) => viewModel.selectedRows?.includes(item?._id)),
           )}
           inventoryData={viewModel.inventoryProducts}
           updateInventoryData={viewModel.getProductsMy}
@@ -119,18 +126,6 @@ export const ClientShopsReportView = observer(() => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
         />
       </Modal>
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          openModal={viewModel.showWarningInfoModal}
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={viewModel.warningInfoModalSettings.buttonText}
-          onClickBtn={() => viewModel.warningInfoModalSettings.onSubmit()}
-        />
-      ) : null}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   requestInfoWrapper: {
-    marginTop: '24px',
+    marginTop: '20px',
   },
   detailsWrapper: {
     marginTop: '20px',

@@ -14,8 +14,6 @@ export const ModeratorMyProductsViewRaw = props => {
       <div>
         <Typography className={styles.inProcess}>{'В разработке...'}</Typography>
         {/* <CustomDataGrid
-                useResizeContainer
-                localeText={getLocalizationByLanguageTag()}
                 getRowClassName={getRowClassName}
                 sortModel={sortModel}
                 filterModel={filterModel}
@@ -26,7 +24,7 @@ export const ModeratorMyProductsViewRaw = props => {
                 rowHeight={100}
                 density={densityModel}
                 columns={columnsModel}
-                loading={requestStatus === loadingStatuses.IS_LOADING}
+                loading={requestStatus === loadingStatus.IS_LOADING}
                 onRowSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection[0])
                 }}

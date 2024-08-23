@@ -5,21 +5,19 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
-    paddingRight: 10,
   },
 
   boxesWrapper: {
     display: 'flex',
     gap: '40px',
-
     flexGrow: 1,
   },
+
   buttonsWrapper: {
     marginTop: 20,
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
-
     position: 'sticky',
     bottom: 0,
     right: 0,
@@ -44,24 +42,12 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     marginBottom: '40px',
   },
+
   modalTitle: {
     fontSize: '30px',
     lineHeight: '40px',
     fontWeight: '600',
     color: theme.palette.text.general,
-  },
-
-  applyButton: {
-    height: 26,
-    width: 90,
-    transition: '0.3s ease',
-  },
-
-  applyButtonClicked: {
-    backgroundColor: 'green',
-    '&: hover': {
-      backgroundColor: 'green',
-    },
   },
 
   sectionTitle: {
@@ -133,11 +119,6 @@ export const useStyles = makeStyles()(theme => ({
   searchCount: {
     color: theme.palette.primary.main,
     fontSize: 14,
-  },
-
-  cancelButton: {
-    color: theme.palette.text.general,
-    backgroundColor: theme.palette.background.general,
   },
 
   label: {

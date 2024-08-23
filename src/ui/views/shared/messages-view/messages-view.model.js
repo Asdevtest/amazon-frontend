@@ -1,7 +1,7 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { chatsType } from '@constants/keys/chats'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -12,23 +12,19 @@ import { UserModel } from '@models/user-model'
 import { t } from '@utils/translations'
 import { dataURLtoFile, onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class MessagesViewModel {
   history = undefined
-  requestStatus = loadingStatuses.SUCCESS
+  requestStatus = loadingStatus.SUCCESS
 
   showConfirmModal = false
   showAddNewChatByEmailModal = false
   showAddUsersToGroupChatModal = false
-  showWarningInfoModal = false
   showEditGroupChatInfoModal = false
 
   nameSearchValue = ''
   mesSearchValue = ''
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   readyImages = []
 
@@ -131,9 +127,10 @@ export class MessagesViewModel {
     try {
       ChatModel.getUnreadMessagesCount()
       await ChatModel.getSimpleChats()
+
       this.selectChatHandler()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -147,7 +144,7 @@ export class MessagesViewModel {
 
       this.onTriggerOpenModal('showAddNewChatByEmailModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -164,7 +161,7 @@ export class MessagesViewModel {
 
       this.onTriggerOpenModal('showAddUsersToGroupChatModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -178,7 +175,7 @@ export class MessagesViewModel {
 
       await ChatModel.addUsersToGroupChat({ chatId: this.chatSelectedId, users: users.map(el => el._id) })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -186,7 +183,7 @@ export class MessagesViewModel {
     try {
       await ChatModel.removeUsersFromGroupChat({ chatId: this.chatSelectedId, users: usersIds })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -208,7 +205,7 @@ export class MessagesViewModel {
         image: imageIsNeedChange ? this.readyImages[0] : state.preview,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -221,14 +218,7 @@ export class MessagesViewModel {
         )
 
         if (existedChatsUsers.includes(formFields.chosenUsers[0]?._id)) {
-          runInAction(() => {
-            this.warningInfoModalSettings = {
-              isWarning: false,
-              title: t(TranslationKey['Such dialogue already exists']),
-            }
-          })
-
-          this.onTriggerOpenModal('showWarningInfoModal')
+          toast.warning(t(TranslationKey['Such dialogue already exists']))
         } else {
           await ChatsModel.createSimpleChatByUserId(formFields.chosenUsers[0]?._id)
         }
@@ -246,7 +236,7 @@ export class MessagesViewModel {
 
       this.onTriggerOpenModal('showAddNewChatByEmailModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -290,7 +280,7 @@ export class MessagesViewModel {
       return
     }
 
-    this.setRequestStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
 
     const res = await ChatModel.FindChatMessage({ chatId, text: value })
 
@@ -300,12 +290,12 @@ export class MessagesViewModel {
 
     this.onChangeCurFoundedMessage(res?.length - 1)
 
-    this.setRequestStatus(loadingStatuses.SUCCESS)
+    this.setRequestStatus(loadingStatus.SUCCESS)
   }
 
   async onSubmitMessage(message, files, chatId, replyMessageId) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ChatModel.sendMessage({
         chatId,
@@ -319,10 +309,14 @@ export class MessagesViewModel {
         ...(replyMessageId && { replyMessageId }),
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.warn('onSubmitMessage error ', error)
+      console.error('onSubmitMessage error ', error)
     }
+  }
+
+  getOnlineUsers() {
+    ChatModel.getOnlineUsers()
   }
 
   onClickBackButton() {

@@ -38,8 +38,8 @@ export const useStyles = makeStyles()(theme => ({
 
     border: `1px solid ${theme.palette.input.customBorder}`,
 
-    padding: '0 25px',
-    borderRadius: '0px 7px 7px 0px',
+    padding: '0 15px',
+    borderRadius: '0px 25px 25px 0px',
   },
 
   menuContainer: {
@@ -48,7 +48,7 @@ export const useStyles = makeStyles()(theme => ({
 
     width: '320px',
 
-    zIndex: 20,
+    zIndex: 7,
     padding: 5,
 
     border: `1px solid ${theme.palette.background.second}`,
@@ -73,6 +73,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   menuItems: {
+    width: '100%',
     height: 204,
     overflowY: 'auto',
     display: 'flex',
@@ -81,10 +82,16 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   button: {
+    width: '100%',
     padding: '0 10px',
     minHeight: '30px',
     justifyContent: 'flex-start',
-    whiteSpace: 'nowrap',
     boxShadow: 'none',
+
+    '> p': {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
   },
 }))

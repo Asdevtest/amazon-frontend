@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     position: 'relative',
-    paddingRight: 10,
   },
   heightFieldAuto: {
     height: '86px',
@@ -71,34 +70,6 @@ export const useStyles = makeStyles()(theme => ({
     textAlign: 'center',
   },
 
-  barcodeChip: {
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    fontSize: '13px',
-    borderRadius: '8px',
-    width: 230,
-    height: '40px',
-  },
-  barcodeChipHover: {
-    '&:hover, &:focus': {
-      backgroundColor: theme.palette.primary.main,
-    },
-  },
-  barcodeChipIcon: {
-    color: 'rgba(255,255,255,0.26)',
-    '&:hover, &:focus': {
-      color: 'rgba(255,255,255,0.46)',
-    },
-  },
-  barcodeChiplabel: {
-    width: '300px',
-    textAlign: 'center',
-  },
-
-  barcodeChipExists: {
-    backgroundcolor: theme.palette.text.general,
-  },
-
   mainWrapper: {
     display: 'flex',
     gap: '40px',
@@ -108,22 +79,6 @@ export const useStyles = makeStyles()(theme => ({
     color: 'red',
     fontSize: '14px',
     fontWeight: 'bold',
-  },
-
-  storekeeperBtn: {
-    height: '32px',
-    color: theme.palette.text.negativeMain,
-  },
-
-  storekeeperBtnDark: {
-    color: theme.palette.text.general,
-  },
-
-  storekeeperBtnDefault: {
-    color: '#ffff',
-
-    width: 230,
-    height: '40px !important',
   },
 
   field: {
@@ -193,13 +148,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     marginTop: '40px',
   },
-  button: {
-    width: '183px',
-    height: '40px',
-  },
-  cancelButton: {
-    color: theme.palette.text.general,
-  },
+
   boxTitle: {
     fontSize: '18px',
     lineHeight: '140%',
@@ -236,7 +185,18 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: 5,
   },
-  customSwitcherWrapper: {
-    width: 'fit-content',
+  blockOfNewBoxWrapper: {
+    height: '100%',
+    width: 525,
+    padding: '10px 20px',
+    backgroundColor: theme.palette.background.second,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
+  sizesTitleWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 40,
   },
 }))

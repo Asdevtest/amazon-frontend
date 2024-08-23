@@ -21,17 +21,35 @@
  */
 export interface InlineObject148 {
     /**
-     * Гуид саба
+     * Эндпоинт для которого надо установить пресеты
      * @type {string}
      * @memberof InlineObject148
      */
-    userId: string;
+    endpoint?: string;
     /**
-     * Заметка о сабе написаная мастером
+     * Название таблицы
      * @type {string}
      * @memberof InlineObject148
      */
-    comment: string;
+    table?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject148
+     */
+    fields?: Array<string>;
+    /**
+     * Является ли пресет активным.
+     * @type {boolean}
+     * @memberof InlineObject148
+     */
+    isActive?: boolean;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineObject148
+     */
+    isFavorite?: boolean;
 }
 
 

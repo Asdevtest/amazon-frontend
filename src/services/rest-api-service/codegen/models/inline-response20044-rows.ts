@@ -16,10 +16,9 @@
 import { ApiV1AdminsGetProductsByStatusBoxAmounts } from './api-v1-admins-get-products-by-status-box-amounts';
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
+import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
 import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
 import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
-import { InlineResponse20044Inventory } from './inline-response20044-inventory';
-import { InlineResponse20044Shop } from './inline-response20044-shop';
 
 /**
  * 
@@ -329,10 +328,10 @@ export interface InlineResponse20044Rows {
     shopId?: string;
     /**
      * 
-     * @type {InlineResponse20044Shop}
+     * @type {ApiV1AdminsGetProductsByStatusShop}
      * @memberof InlineResponse20044Rows
      */
-    shop?: InlineResponse20044Shop;
+    shop?: ApiV1AdminsGetProductsByStatusShop;
     /**
      * Савка ресечера.
      * @type {number}
@@ -503,6 +502,12 @@ export interface InlineResponse20044Rows {
     subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse20044Rows
+     */
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * 
      * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
      * @memberof InlineResponse20044Rows
      */
@@ -543,12 +548,6 @@ export interface InlineResponse20044Rows {
      * @memberof InlineResponse20044Rows
      */
     stockCost?: number;
-    /**
-     * 
-     * @type {InlineResponse20044Inventory}
-     * @memberof InlineResponse20044Rows
-     */
-    inventory?: InlineResponse20044Inventory;
 }
 
 

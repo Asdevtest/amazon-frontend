@@ -78,7 +78,12 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = memo(props => {
             <div className={styles.descriptionContainer}>
               <p className={textMediumBold}>{t(TranslationKey.Description)}</p>
               <div className={styles.description}>
-                <CustomTextEditor readOnly value={service.description} editorWrapperClassName={styles.editorWrapper} />
+                <CustomTextEditor
+                  readOnly
+                  value={service.description}
+                  editorWrapperClassName={styles.editorWrapper}
+                  editorClassName={styles.customTextEditor}
+                />
               </div>
             </div>
 

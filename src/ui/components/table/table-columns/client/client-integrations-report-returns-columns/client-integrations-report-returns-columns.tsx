@@ -13,154 +13,172 @@ import {
 
 import { t } from '@utils/translations'
 
-export const clientIntegrationsReportReturnsColumns = () => [
-  {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-    renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell value={params.value} />,
-    width: 118,
+import { IGridColumn } from '@typings/shared/grid-column'
 
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.DATE,
-  },
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
-  {
-    field: 'shop',
-    headerName: t(TranslationKey.Shop),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+export const clientIntegrationsReportReturnsColumns = () => {
+  const columns: IGridColumn[] = [
+    {
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+      renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
+      width: 118,
 
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value?.name} />,
-    width: 150,
+      table: DataGridFilterTables.INVENTORY_RETURNS,
+      columnKey: columnnsKeys.shared.DATE,
+    },
 
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.OBJECT,
+    {
+      field: 'shop',
+      headerName: t(TranslationKey.Shop),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-    sortable: false,
-  },
+      renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value?.name} />,
+      width: 150,
 
-  {
-    field: 'sku',
-    headerName: `${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`,
-    renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
+      table: DataGridFilterTables.INVENTORY_RETURNS,
+      columnKey: columnnsKeys.shared.OBJECT,
 
-    renderCell: (params: GridRenderCellParams) => (
-      <ProductAsinCell withoutTitle asin={params.row?.asin} image={params.row?.image} skuByClient={params.row?.sku} />
-    ),
-    width: 250,
-    sortable: false,
+      disableCustomSort: true,
+    },
 
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.client.SHOP_REPORT,
-  },
+    {
+      field: 'sku',
+      headerName: `${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
 
-  {
-    field: 'disposition',
-    headerName: 'Disposition',
-    renderHeader: () => <MultilineTextHeaderCell text="Disposition" />,
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-    width: 143,
+      renderCell: (params: GridRenderCellParams) => (
+        <ProductAsinCell withoutTitle asin={params.row?.asin} image={params.row?.image} skuByClient={params.row?.sku} />
+      ),
 
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.STRING,
-  },
+      fields: getProductColumnMenuItems({ withoutTitle: true }),
+      columnMenuConfig: getProductColumnMenuValue({
+        isSimpleSku: true,
+        table: DataGridFilterTables.INVENTORY_RETURNS,
+      }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 260,
+      minWidth: 100,
+    },
 
-  {
-    field: 'orderId',
-    headerName: 'Order id',
-    renderHeader: () => <MultilineTextHeaderCell text="Order id" />,
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-    width: 143,
+    {
+      field: 'disposition',
+      headerName: 'Disposition',
+      renderHeader: () => <MultilineTextHeaderCell text="Disposition" />,
+      renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+      width: 143,
 
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.STRING,
-  },
+      table: DataGridFilterTables.INVENTORY_RETURNS,
+      columnKey: columnnsKeys.shared.STRING,
+    },
 
-  {
-    field: 'reason',
-    headerName: 'Reason',
-    renderHeader: () => <MultilineTextHeaderCell text="Reason" />,
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-    width: 143,
+    {
+      field: 'orderId',
+      headerName: 'Order id',
+      renderHeader: () => <MultilineTextHeaderCell text="Order id" />,
+      renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+      width: 143,
 
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.STRING,
-  },
+      table: DataGridFilterTables.INVENTORY_RETURNS,
+      columnKey: columnnsKeys.shared.STRING,
+    },
 
-  {
-    field: 'status',
-    headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-    width: 143,
+    {
+      field: 'reason',
+      headerName: 'Reason',
+      renderHeader: () => <MultilineTextHeaderCell text="Reason" />,
+      renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+      width: 143,
 
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.STRING,
-  },
+      table: DataGridFilterTables.INVENTORY_RETURNS,
+      columnKey: columnnsKeys.shared.STRING,
+    },
 
-  {
-    field: 'receivedDate',
-    headerName: 'Received Date',
-    renderHeader: () => <MultilineTextHeaderCell text="Received Date" />,
-    renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-    width: 118,
+    {
+      field: 'status',
+      headerName: t(TranslationKey.Status),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+      renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+      width: 143,
 
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.DATE,
-  },
+      table: DataGridFilterTables.INVENTORY_RETURNS,
+      columnKey: columnnsKeys.shared.STRING,
+    },
 
-  {
-    field: 'returnedDate',
-    headerName: 'Returned Date',
-    renderHeader: () => <MultilineTextHeaderCell text="Returned Date" />,
-    renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-    width: 118,
+    {
+      field: 'receivedDate',
+      headerName: 'Received Date',
+      renderHeader: () => <MultilineTextHeaderCell text="Received Date" />,
+      renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
+      width: 118,
 
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.DATE,
-  },
+      table: DataGridFilterTables.INVENTORY_RETURNS,
+      columnKey: columnnsKeys.shared.DATE,
+    },
 
-  {
-    field: 'reversalDate',
-    headerName: 'Reversal Date',
-    renderHeader: () => <MultilineTextHeaderCell text="Reversal Date" />,
-    renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-    width: 118,
+    {
+      field: 'returnedDate',
+      headerName: 'Returned Date',
+      renderHeader: () => <MultilineTextHeaderCell text="Returned Date" />,
+      renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
+      width: 118,
 
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.DATE,
-  },
+      table: DataGridFilterTables.INVENTORY_RETURNS,
+      columnKey: columnnsKeys.shared.DATE,
+    },
 
-  {
-    field: 'dateUpdated',
-    headerName: 'Date Updated',
-    renderHeader: () => <MultilineTextHeaderCell text="Date Updated" />,
-    renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
-    width: 118,
+    {
+      field: 'reversalDate',
+      headerName: 'Reversal Date',
+      renderHeader: () => <MultilineTextHeaderCell text="Reversal Date" />,
+      renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
+      width: 118,
 
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.DATE,
-  },
+      table: DataGridFilterTables.INVENTORY_RETURNS,
+      columnKey: columnnsKeys.shared.DATE,
+    },
 
-  {
-    field: 'timeUpdated',
-    headerName: 'Time Updated',
-    renderHeader: () => <MultilineTextHeaderCell text="Time Updated" />,
-    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
-    width: 143,
+    {
+      field: 'dateUpdated',
+      headerName: 'Date Updated',
+      renderHeader: () => <MultilineTextHeaderCell text="Date Updated" />,
+      renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
+      width: 118,
 
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.STRING,
-  },
+      table: DataGridFilterTables.INVENTORY_RETURNS,
+      columnKey: columnnsKeys.shared.DATE,
+    },
 
-  {
-    field: 'updatedAt',
-    headerName: 'Updated At',
-    renderHeader: () => <MultilineTextHeaderCell text="Updated At" />,
-    renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
-    width: 118,
+    {
+      field: 'timeUpdated',
+      headerName: 'Time Updated',
+      renderHeader: () => <MultilineTextHeaderCell text="Time Updated" />,
+      renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+      width: 143,
 
-    table: DataGridFilterTables.INVENTORY_RETURNS,
-    columnKey: columnnsKeys.shared.DATE,
-  },
-]
+      table: DataGridFilterTables.INVENTORY_RETURNS,
+      columnKey: columnnsKeys.shared.STRING,
+    },
+
+    {
+      field: 'updatedAt',
+      headerName: 'Updated At',
+      renderHeader: () => <MultilineTextHeaderCell text="Updated At" />,
+      renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
+      width: 118,
+
+      table: DataGridFilterTables.INVENTORY_RETURNS,
+      columnKey: columnnsKeys.shared.DATE,
+    },
+  ]
+
+  for (const column of columns) {
+    // @ts-ignore
+    column.sortable = false
+  }
+
+  return columns
+}

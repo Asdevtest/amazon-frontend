@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,8 +13,6 @@ import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 import { isString } from '@typings/guards'
 
 export class AdminSettingsRedFlagsModel {
-  infoModalText = undefined
-  showInfoModal = false
   showConfirmModal = false
   confirmModalSettings = {
     isWarning: false,
@@ -25,20 +24,13 @@ export class AdminSettingsRedFlagsModel {
   flag = { title: '', iconImage: '' }
   isValidUrl = false
   currentImageName = undefined
-
   isEdit = false
   editRedFlagId = undefined
 
   constructor() {
-    makeAutoObservable(this, undefined, { autoBind: true })
-  }
+    this.getRedFlags()
 
-  loadData() {
-    try {
-      this.getRedFlags()
-    } catch (error) {
-      console.log(error)
-    }
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async getRedFlags() {
@@ -49,63 +41,39 @@ export class AdminSettingsRedFlagsModel {
         this.redFlags = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onCreateRedFlag(redFlag) {
     try {
       await AdministratorModel.createRedFlag(redFlag)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['Red flag successfully saved'])
-      })
-
-      this.onTriggerOpenModal('showInfoModal')
-
-      this.loadData()
+      toast.success(t(TranslationKey['Red flag successfully saved']))
+      this.getRedFlags()
     } catch (error) {
-      console.log(error)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['Red flag is not saved'])
-      })
-
-      this.onTriggerOpenModal('showInfoModal')
+      console.error(error)
+      toast.error(t(TranslationKey['Red flag is not saved']))
     }
   }
 
   async onEditRedFlag(id, redFlag) {
     try {
       await AdministratorModel.editRedFlag(id, redFlag)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['Red flag successfully saved'])
-      })
-
-      this.onTriggerOpenModal('showInfoModal')
-
-      this.loadData()
+      toast.success(t(TranslationKey['Red flag successfully saved']))
+      this.getRedFlags()
     } catch (error) {
-      console.log(error)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['Red flag is not saved'])
-      })
-
-      this.onTriggerOpenModal('showInfoModal')
+      console.error(error)
+      toast.error(t(TranslationKey['Red flag is not saved']))
     }
   }
 
   async onRemoveRedFlag(id) {
     try {
       await AdministratorModel.removeRedFlag(id)
-
-      this.onTriggerOpenModal('showConfirmModal')
-
-      this.loadData()
+      this.onClickToggleConfirmModal()
+      this.getRedFlags()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -115,8 +83,7 @@ export class AdminSettingsRedFlagsModel {
       message: t(TranslationKey['Are you sure you want to delete the red flag?']),
       onClickSuccess: () => this.onRemoveRedFlag(id),
     }
-
-    this.onTriggerOpenModal('showConfirmModal')
+    this.onClickToggleConfirmModal()
   }
 
   async onClickEditRedFlag(id) {
@@ -186,7 +153,6 @@ export class AdminSettingsRedFlagsModel {
 
     if (file) {
       this.currentImageName = file.name
-
       reader.onload = async e => {
         const isValidImageUrl = await checkIsImageUrlValid(e.target.result)
 
@@ -198,17 +164,11 @@ export class AdminSettingsRedFlagsModel {
           }
         })
       }
-
       event.target.value = ''
-
       reader.readAsDataURL(file)
     } else {
       this.flag.iconImage = ''
     }
-  }
-
-  onClickToggleInfoModal() {
-    this.onTriggerOpenModal('showInfoModal')
   }
 
   onClickToggleConfirmModal() {

@@ -1,10 +1,11 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { RequestSubType, RequestType } from '@constants/requests/request-type'
 
 import { RequestProposalModel } from '@models/request-proposal'
 import { UserModel } from '@models/user-model'
+
+import { RequestSubType, RequestType } from '@typings/enums/request/request-type'
 
 export class ModeratorAppealsViewModel {
   history = undefined
@@ -35,7 +36,7 @@ export class ModeratorAppealsViewModel {
     try {
       await this.getDealsVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -50,7 +51,7 @@ export class ModeratorAppealsViewModel {
         this.deals = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -61,7 +62,7 @@ export class ModeratorAppealsViewModel {
       })
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -74,7 +75,7 @@ export class ModeratorAppealsViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
+      console.error(error)
     }
   }
 

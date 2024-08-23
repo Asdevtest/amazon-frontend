@@ -5,10 +5,9 @@ import { GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { GalleryModal } from '@components/modals/gallery-modal'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -20,7 +19,7 @@ import { IProduct } from '@typings/models/products/product'
 import { useStyles } from './list-suppliers.style'
 
 import { extractProduct } from './helpers/extract-product'
-import { suppliersOrderColumn } from './list-suppliers.column'
+import { suppliersOrderColumn } from './list-suppliers.columns'
 import { ListSuppliersModel } from './list-suppliers.model'
 import { ModalNames } from './list-suppliers.type'
 import { Toolbar } from './toolbar'
@@ -31,6 +30,7 @@ interface ListSuppliersProps {
   defaultSupplierId?: string
   checkIsPlanningPrice?: boolean
   isNotProductNameForIdea?: boolean
+  isIdea?: boolean
   onSaveProduct?: () => void
   onRemoveSupplier?: () => void // can be transferred inside the table model
   onClickSaveSupplier?: () => void // can be transferred inside the table model
@@ -43,6 +43,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
     defaultSupplierId,
     checkIsPlanningPrice,
     isNotProductNameForIdea,
+    isIdea,
     onClickSaveSupplier,
     onSaveProduct,
     onRemoveSupplier,
@@ -53,7 +54,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   const orderSupplier = 'orderSupplier' in formFields ? formFields?.orderSupplier : undefined
 
   const [viewModel] = useState(
-    () => new ListSuppliersModel(extractProduct(formFields), orderSupplier, onSaveProduct, onRemoveSupplier),
+    () => new ListSuppliersModel(extractProduct(formFields), onSaveProduct, onRemoveSupplier),
   ) // extractProduct - converter for getting product from order(everywhere we work directly with the product)
   const [orderStatus, setOrderStatus] = useState(0) // needed for additional conditions in the buyer's order view(everywhere we work directly with the product)
 
@@ -67,17 +68,14 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   }, [formFields])
 
   const getRowClassName = ({ id }: GridRowClassNameParams) =>
-    id === (orderSupplier?._id || extractProduct(formFields).currentSupplierId) && styles.currentSupplierBackground
+    id === extractProduct(formFields).currentSupplierId && styles.currentSupplierBackground
   const listSuppliersColumns = suppliersOrderColumn({
     orderCreatedAt: 'product' in formFields ? formFields?.createdAt : '',
     orderSupplierId: orderSupplier?._id || '',
     platformSettings: viewModel.platformSettings,
-    onClickFilesCell: viewModel.onClickFilesCell,
   })
-  const isCurrentSupplierSelected =
-    (orderSupplier?._id || extractProduct(formFields).currentSupplierId) === viewModel.selectionModel[0]
-  const isDefaultSupplier =
-    !!orderStatus && defaultSupplierId === (orderSupplier?._id || extractProduct(formFields).currentSupplierId)
+  const isCurrentSupplierSelected = extractProduct(formFields).currentSupplierId === viewModel.selectionModel[0]
+  const isDefaultSupplier = !!orderStatus && defaultSupplierId === extractProduct(formFields).currentSupplierId
 
   return (
     <>
@@ -124,20 +122,14 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
         />
       </div>
 
-      {viewModel.showGalleryModal ? (
-        <GalleryModal
-          files={viewModel.galleryFiles}
-          openModal={viewModel.showGalleryModal}
-          onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
-        />
-      ) : null}
-
       <Modal
+        missClickModalOn
         openModal={viewModel.showAddOrEditSupplierModal}
         setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
       >
         <AddOrEditSupplierModalContent
           // @ts-ignore
+          isIdea={isIdea}
           onlyRead={viewModel.supplierModalReadOnly}
           paymentMethods={viewModel.paymentMethods}
           product={extractProduct(formFields)}
@@ -151,19 +143,15 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
         />
       </Modal>
 
-      <Modal
-        openModal={viewModel.showSupplierApproximateCalculationsModal}
-        setOpenModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
-      >
-        <SupplierApproximateCalculationsForm
-          // @ts-ignore
-          product={extractProduct(formFields)}
-          supplier={viewModel.currentSupplier}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          storekeepers={viewModel.storekeepers}
-          onClose={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
+      {viewModel.showSupplierApproximateCalculationsModal ? (
+        <SupplierApproximateCalculationsModal
+          openModal={viewModel.showSupplierApproximateCalculationsModal}
+          productId={isIdea ? '' : extractProduct(formFields)?._id}
+          ideaId={isIdea ? extractProduct(formFields)?._id : ''}
+          currentSupplierId={viewModel.currentSupplier?._id || ''}
+          setOpenModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
         />
-      </Modal>
+      ) : null}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal
@@ -173,7 +161,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           setOpenModal={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
           message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={() => viewModel.confirmModalSettings.onClickOkBtn()}
           onClickCancelBtn={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
         />

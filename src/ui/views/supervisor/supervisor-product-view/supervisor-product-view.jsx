@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { ProductWrapper } from '@components/product/product-wrapper'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 import { t } from '@utils/translations'
 
@@ -13,10 +13,6 @@ import { SupervisorProductViewModel } from './supervisor-product-view.model'
 
 export const SupervisorProductView = observer(({ history }) => {
   const [viewModel] = useState(() => new SupervisorProductViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   return (
     <>
@@ -38,18 +34,9 @@ export const SupervisorProductView = observer(({ history }) => {
           onClickParseProductData={viewModel.onClickParseProductData}
           onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
         />
-      ) : null}
-
-      {viewModel.showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showWarningModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-          title={viewModel.warningModalTitle}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        />
-      ) : null}
+      ) : (
+        <CircularProgressWithLabel />
+      )}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

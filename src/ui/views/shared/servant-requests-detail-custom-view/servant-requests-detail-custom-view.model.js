@@ -3,9 +3,9 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { ChatModel } from '@models/chat-model'
+import { ChatsModel } from '@models/chats-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
@@ -13,6 +13,7 @@ import { UserModel } from '@models/user-model'
 
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { isString } from '@typings/guards'
 
 export class RequestDetailCustomViewModel {
@@ -24,7 +25,6 @@ export class RequestDetailCustomViewModel {
   requestProposals = undefined
   showProgress = false
 
-  showWarningModal = false
   showConfirmModal = false
   showMainRequestResultModal = false
   showRequestDesignerResultModal = false
@@ -34,11 +34,6 @@ export class RequestDetailCustomViewModel {
   curResultMedia = []
 
   loadedFiles = []
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   chatSelectedId = undefined
   chatIsConnected = false
@@ -83,7 +78,7 @@ export class RequestDetailCustomViewModel {
     this.history = history
 
     if (history.location?.state?.chatId) {
-      this.chatSelectedId = history.location.state.chatId
+      this.chatSelectedId = history?.location?.state?.chatId
     }
 
     reaction(
@@ -125,7 +120,7 @@ export class RequestDetailCustomViewModel {
         )
       }
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -169,15 +164,15 @@ export class RequestDetailCustomViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.getCustomRequestById()
       this.getRequestProposals()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -213,7 +208,7 @@ export class RequestDetailCustomViewModel {
         ...(replyMessageId && { replyMessageId }),
       })
     } catch (error) {
-      console.warn('onSubmitMessage error ', error)
+      console.error('onSubmitMessage error ', error)
     }
   }
 
@@ -225,14 +220,13 @@ export class RequestDetailCustomViewModel {
         this.request = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getRequestProposals() {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId) // inside the method is noCache: true
-
+      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId)
       runInAction(() => {
         this.requestProposals = result
 
@@ -243,7 +237,7 @@ export class RequestDetailCustomViewModel {
         this.requestProposals = []
       })
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -296,12 +290,14 @@ export class RequestDetailCustomViewModel {
 
       const filesIds = files.map(el => el._id)
 
-      const curentMediaIds = findRequestProposalByChatSelectedId.proposal.media.map(el => el._id)
+      if (findRequestProposalByChatSelectedId.proposal?.media) {
+        const curentMediaIds = findRequestProposalByChatSelectedId.proposal?.media?.map(el => el._id)
 
-      const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
+        const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
 
-      if (mediaToRemoveIds.length) {
-        await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({ _id: el, proposalId: null })))
+        if (mediaToRemoveIds.length) {
+          await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({ _id: el, proposalId: null })))
+        }
       }
 
       await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
@@ -309,7 +305,7 @@ export class RequestDetailCustomViewModel {
         media: this.loadedFiles.map((el, i) => ({
           fileLink: el,
           commentByPerformer: typeof files[0] === 'object' ? files[i]?.commentByPerformer : '',
-          _id: findRequestProposalByChatSelectedId.proposal.media.some(item => item._id === files[i]?._id)
+          _id: findRequestProposalByChatSelectedId.proposal?.media?.some(item => item._id === files[i]?._id)
             ? files[i]?._id
             : null,
           index: i,
@@ -328,7 +324,7 @@ export class RequestDetailCustomViewModel {
 
       this.getRequestProposals()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -343,7 +339,7 @@ export class RequestDetailCustomViewModel {
       await RequestProposalModel.onClickReadyToVerify(findRequestProposalByChatSelectedId.proposal._id)
       await this.getRequestProposals()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -360,7 +356,7 @@ export class RequestDetailCustomViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -427,12 +423,14 @@ export class RequestDetailCustomViewModel {
 
       const filesIds = fields?.media?.map(el => el._id)
 
-      const curentMediaIds = findRequestProposalByChatSelectedId.proposal.media.map(el => el._id)
+      if (findRequestProposalByChatSelectedId.proposal?.media) {
+        const curentMediaIds = findRequestProposalByChatSelectedId.proposal?.media.map(el => el._id)
 
-      const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
+        const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
 
-      if (mediaToRemoveIds.length) {
-        await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({ _id: el, proposalId: null })))
+        if (mediaToRemoveIds.length) {
+          await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({ _id: el, proposalId: null })))
+        }
       }
 
       const sentFields = {
@@ -446,6 +444,16 @@ export class RequestDetailCustomViewModel {
       await RequestProposalModel.requestProposalResultEdit(id, sentFields)
 
       this.getRequestProposals()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onJoinChat(id) {
+    try {
+      await ChatsModel.joinChat(id)
+      this.loadData()
+      ChatModel.getChats(this.requestId, 'REQUEST')
     } catch (error) {
       console.error(error)
     }

@@ -9,7 +9,7 @@ import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './check-pending-order-form.style'
 
@@ -19,7 +19,7 @@ export const CheckPendingOrderForm = ({
   onClickContinueBtn,
   onClickCancelBtn,
 }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -33,7 +33,7 @@ export const CheckPendingOrderForm = ({
       <Typography className={styles.warning}>{t(TranslationKey.Attention)}</Typography>
 
       <div className={styles.asinsWrapper}>
-        <Typography className={[styles.text, styles.description]}>
+        <Typography className={cx(styles.text, styles.description)}>
           {t(TranslationKey['Orders already exist']) + ':'}
         </Typography>
 
@@ -43,7 +43,7 @@ export const CheckPendingOrderForm = ({
             {product.orders.map((order, orderIndex) => (
               <Link
                 key={orderIndex}
-                className={[styles.text, styles.orderInfo]}
+                className={cx(styles.text, styles.orderInfo)}
                 onClick={() => onClickPandingOrder(order?._id)}
               >
                 {`№${order?.id}${orderIndex + 1 !== product.orders.length ? ', ' : ''}`}
@@ -56,8 +56,8 @@ export const CheckPendingOrderForm = ({
         <Button styleType={ButtonStyle.SUCCESS} disabled={submitIsClicked} onClick={onSubmit}>
           {t(TranslationKey.Continue)}
         </Button>
-        <Button variant={ButtonVariant.OUTLINED} className={styles.CancelBtn} onClick={onClickCancelBtn}>
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelBtn}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

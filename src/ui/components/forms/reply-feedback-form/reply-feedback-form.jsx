@@ -2,13 +2,13 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './reply-feedback-form.style'
 
@@ -31,7 +31,7 @@ export const ReplyFeedbackForm = ({ feedback, onCloseModal, onSubmit }) => {
         containerClasses={styles.filesWrapper}
         labelClasses={styles.label}
         label={t(TranslationKey.Files)}
-        inputComponent={<PhotoAndFilesSlider alignLeft smallSlider showPreviews files={feedback.media} />}
+        inputComponent={<SlideshowGallery slidesToShow={2} files={feedback.media} />}
       />
 
       <div className={styles.buttonsWrapper}>
@@ -39,7 +39,7 @@ export const ReplyFeedbackForm = ({ feedback, onCloseModal, onSubmit }) => {
           {t(TranslationKey.Reply)}
         </Button>
 
-        <Button variant={ButtonVariant.OUTLINED} className={styles.closeBtn} onClick={onCloseModal}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

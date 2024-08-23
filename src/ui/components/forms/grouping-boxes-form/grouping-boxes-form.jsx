@@ -1,17 +1,16 @@
 import { memo, useEffect, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { BigPlusIcon } from '@components/shared/svg-icons'
 
-import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNum, checkIsStringFilesSame } from '@utils/checks'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './grouping-boxes-form.style'
 
@@ -20,16 +19,13 @@ import { Box } from './box/box'
 export const GroupingBoxesForm = memo(props => {
   const { classes: styles, cx } = useStyles()
 
-  const { destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes } = props
+  const { destinations, storekeepers, onSubmit, onCloseModal, selectedBoxes } = props
 
   const sourceOldBoxes = selectedBoxes.map(el => ({
     ...el,
     destinationId: el.destination?._id || null,
     storekeeperId: el.storekeeper?._id || '',
     logicsTariffId: el.logicsTariff?._id || '',
-
-    volumeWeightKgWarehouse: calcVolumeWeightForBox(el, volumeWeightCoefficient),
-    weightFinalAccountingKgWarehouse: calcFinalWeightForBox(el, volumeWeightCoefficient),
   }))
 
   const [oldBoxes, setOldBoxes] = useState(sourceOldBoxes)
@@ -45,8 +41,8 @@ export const GroupingBoxesForm = memo(props => {
     if (basicBox?._id !== box._id) {
       setBasicBox(box)
 
-      const newOldBoxes = sourceOldBoxes.filter(
-        el =>
+      const newOldBoxes = sourceOldBoxes.filter(el => {
+        return (
           el.destinationId === box.destinationId &&
           el.storekeeperId === box.storekeeperId &&
           el.logicsTariffId === box.logicsTariffId &&
@@ -78,8 +74,9 @@ export const GroupingBoxesForm = memo(props => {
                   '_id',
                 ]),
               })),
-            ),
-      )
+            )
+        )
+      })
 
       setNewBoxes([
         newOldBoxes.length > 1
@@ -156,7 +153,7 @@ export const GroupingBoxesForm = memo(props => {
     !basicBox ||
     (basicBox && leftToRedistribute !== 0) ||
     JSON.stringify(oldBoxes.map(el => el.amount).sort()) === JSON.stringify(newBoxes.map(el => el.amount).sort()) ||
-    newBoxes.some(box => box.amount === 0) ||
+    newBoxes.some(box => box.amount === 0 || box?.items?.length > 1) ||
     selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK) ||
     disableSubmitBtn
 
@@ -216,7 +213,7 @@ export const GroupingBoxesForm = memo(props => {
                   />
                 </div>
               ))}
-              <BigPlusIcon className={styles.bigPlus} onClick={onClickAddBox} />
+              <FiPlus className={styles.bigPlus} onClick={onClickAddBox} />
             </div>
           ) : (
             <p className={styles.needChooseMainBox}>{t(TranslationKey['Select the basic box'])}</p>
@@ -227,7 +224,6 @@ export const GroupingBoxesForm = memo(props => {
       <div className={styles.buttonsWrapper}>
         <Button
           disabled={disabledSubmitBtn}
-          className={styles.button}
           onClick={() => {
             setDisableSubmitBtn(true)
             onClickSubmit()
@@ -237,12 +233,11 @@ export const GroupingBoxesForm = memo(props => {
         </Button>
 
         <Button
-          variant={ButtonVariant.OUTLINED}
+          styleType={ButtonStyle.CASUAL}
           tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-          className={cx(styles.button, styles.cancelButton)}
           onClick={onCloseModal}
         >
-          {t(TranslationKey.Cancel)}
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

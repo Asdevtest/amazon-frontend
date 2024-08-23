@@ -1,9 +1,7 @@
 import { FC, memo } from 'react'
 
 import { IMediaRework } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
-import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { SlideByType } from '@components/shared/slide-by-type'
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
 import { useStyles } from './common-content.style'
 
@@ -20,14 +18,7 @@ export const CommonContent: FC<CommonContentProps> = memo(props => {
 
   return (
     <div className={styles.file} onClick={() => onToggleImageModal(fileIndex)}>
-      <SlideByType
-        isPreviews
-        mediaFile={file.fileLink}
-        mediaFileIndex={fileIndex}
-        ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.image} />}
-        VideoComponent={({ videoSource }) => <VideoPreloader videoSource={videoSource} />}
-        FileComponent={({ fileExtension }) => <CustomFileIcon middleSize fileExtension={fileExtension} />}
-      />
+      <SlideByType isPreviews mediaFile={file.fileLink} mediaFileIndex={fileIndex} />
     </div>
   )
 })

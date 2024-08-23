@@ -61,7 +61,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
     width: '300px',
     height: 36,
   },
@@ -69,21 +68,12 @@ export const useStyles = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-  },
-
-  button: {
-    padding: '10px 25px',
+    alignItems: 'center',
   },
 
   actionsButtonsContainer: {
     display: 'flex',
     gap: 30,
-  },
-
-  buttonCancel: {
-    padding: '10px 25px',
-    color: theme.palette.text.general,
-    background: theme.palette.background.general,
   },
 
   error: {

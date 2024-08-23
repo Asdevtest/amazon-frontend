@@ -12,4 +12,7 @@ export class ChatUserContract implements TWebsocketChatService.ChatUser {
   @IsOptional()
   @IsString()
   public name?: string
+
+  @IsString()
+  public lastSeen!: string
 }

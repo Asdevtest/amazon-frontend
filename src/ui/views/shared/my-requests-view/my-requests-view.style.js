@@ -10,8 +10,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    height: 40,
     width: '400px',
   },
 
@@ -23,7 +21,7 @@ export const useStyles = makeStyles()(theme => ({
 
   waitingCheckedBacklighting: {
     background: theme.palette.background.green,
-    zIndex: 50,
+    zIndex: 7,
   },
 
   deadlineBorder: {

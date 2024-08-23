@@ -41,7 +41,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
       />
     ),
     renderCell: params => <MultilineTextCell text={String(params.value)} />,
-    width: 65,
+    width: 80,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 

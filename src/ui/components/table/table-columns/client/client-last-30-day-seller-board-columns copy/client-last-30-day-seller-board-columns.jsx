@@ -12,97 +12,113 @@ import {
 
 import { t } from '@utils/translations'
 
-export const clientLast30DaySellerBoardColumns = () => [
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
-    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
-    columnKey: columnnsKeys.shared.DATE,
-  },
+export const clientLast30DaySellerBoardColumns = () => {
+  const columns = [
+    {
+      field: 'updatedAt',
+      headerName: t(TranslationKey.Updated),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 120,
 
-  {
-    field: 'shop',
-    headerName: t(TranslationKey.Shop),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-    renderCell: params => <MultilineTextCell twoLines text={params.value?.name} />,
-    width: 150,
+      table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
+      columnKey: columnnsKeys.shared.DATE,
+    },
 
-    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
-    columnKey: columnnsKeys.shared.OBJECT,
+    {
+      field: 'shop',
+      headerName: t(TranslationKey.Shop),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+      renderCell: params => <MultilineTextCell twoLines text={params.value?.name} />,
+      width: 150,
 
-    sortable: false,
-  },
+      table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
+      columnKey: columnnsKeys.shared.OBJECT,
 
-  {
-    field: 'asin',
-    headerName: `${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`,
-    renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
+      disableCustomSort: true,
+    },
 
-    renderCell: params => (
-      <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
-    ),
-    width: 185,
-    sortable: false,
+    {
+      field: 'asin',
+      headerName: `${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
 
-    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
-    columnKey: columnnsKeys.client.SHOP_REPORT,
-  },
+      renderCell: params => (
+        <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
+      ),
 
-  {
-    field: 'name',
-    headerName: t(TranslationKey.Title),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+      fields: getProductColumnMenuItems({ withoutTitle: true }),
+      columnMenuConfig: getProductColumnMenuValue({
+        isSimpleSku: true,
+        table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
+      }),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 260,
+      minWidth: 100,
+    },
 
-    renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
-    width: 250,
+    {
+      field: 'name',
+      headerName: t(TranslationKey.Title),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
-    columnKey: columnnsKeys.shared.STRING,
-  },
+      renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
+      width: 250,
 
-  {
-    field: 'date',
-    headerName: t(TranslationKey.Date),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
+      table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
+      columnKey: columnnsKeys.shared.STRING,
+    },
 
-    renderCell: params => <NormDateWithoutTimeCell value={params.value} />,
-    minWidth: 80,
+    {
+      field: 'date',
+      headerName: t(TranslationKey.Date),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
 
-    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
-    columnKey: columnnsKeys.shared.DATE,
-  },
-  {
-    field: 'unitsorganic',
-    headerName: 'Unitsorganic',
-    renderHeader: () => <MultilineTextHeaderCell text={'Unitsorganic'} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 200,
+      renderCell: params => <NormDateWithoutTimeCell value={params.value} />,
+      width: 115,
 
-    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
-  {
-    field: 'unitsppc',
-    headerName: 'Unitsppc',
-    renderHeader: () => <MultilineTextHeaderCell text={'Unitsppc'} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 200,
+      table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
+      columnKey: columnnsKeys.shared.DATE,
+    },
+    {
+      field: 'unitsorganic',
+      headerName: 'Unitsorganic',
+      renderHeader: () => <MultilineTextHeaderCell text={'Unitsorganic'} />,
+      renderCell: params => <MultilineTextCell text={params.value} />,
+      width: 200,
 
-    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
-  {
-    field: 'netprofit',
-    headerName: 'Netprofit',
-    renderHeader: () => <MultilineTextHeaderCell text={'Netprofit'} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 250,
+      table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
+    {
+      field: 'unitsppc',
+      headerName: 'Unitsppc',
+      renderHeader: () => <MultilineTextHeaderCell text={'Unitsppc'} />,
+      renderCell: params => <MultilineTextCell text={params.value} />,
+      width: 200,
 
-    table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
-]
+      table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
+    {
+      field: 'netprofit',
+      headerName: 'Netprofit',
+      renderHeader: () => <MultilineTextHeaderCell text={'Netprofit'} />,
+      renderCell: params => <MultilineTextCell text={params.value} />,
+      width: 250,
+
+      table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
+  ]
+
+  for (const column of columns) {
+    // @ts-ignore
+    column.sortable = false
+  }
+
+  return columns
+}

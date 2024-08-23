@@ -11,9 +11,9 @@ class AdministratorModelStatic {
     return response.data
   }
 
-  getUsers = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsUsersGet()
-    return response
+  getUsers = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsUsersPagGet(data)
+    return response.data
   }
 
   updateUser = async (guid, body) => {
@@ -99,8 +99,8 @@ class AdministratorModelStatic {
     return response.data
   }
 
-  toggleServer = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsToggleServerPatch()
+  toggleServer = async (turn, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsToggleServerPatch({ turn, body })
     return response.data
   }
 
@@ -177,6 +177,36 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsFreelanceSpecsGuidDelete({
       guid,
     })
+    return response.data
+  }
+
+  createPatchNote = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesPost({ body })
+    return response.data
+  }
+
+  updatePatchNote = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesGuidPatch({ guid, body })
+    return response.data
+  }
+
+  getPatchNoteVersions = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesVersionsGet()
+    return response.data
+  }
+
+  removePatchNote = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesGuidDelete({ guid })
+    return response.data
+  }
+
+  exportPermissions = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsPermissionGet()
+    return response.data
+  }
+
+  patchLaunchPreDeadlineValue = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsSetLaunchPreDeadlineValuePatch(body)
     return response.data
   }
 }

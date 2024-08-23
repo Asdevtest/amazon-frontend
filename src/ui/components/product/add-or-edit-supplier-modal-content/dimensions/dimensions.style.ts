@@ -4,6 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   sizesWrapper: {
     display: 'flex',
     height: '100%',
+    gap: 10,
   },
 
   dimensionsWrapper: {
@@ -28,6 +29,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: 10,
   },
 
   sizeContainer: {

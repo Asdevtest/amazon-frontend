@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
-import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
 
 /**
  * 
@@ -23,227 +21,47 @@ import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid
  */
 export interface InlineObject137 {
     /**
-     * Категория
+     * Название склада.
      * @type {string}
      * @memberof InlineObject137
      */
-    category?: string;
+    name?: string;
     /**
-     * Ссылка на этот продукт на амазоне.
+     * Страна.
      * @type {string}
      * @memberof InlineObject137
      */
-    lamazon?: string;
+    country?: string;
     /**
-     * 
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    bsr?: number;
-    /**
-     * Признак fba
-     * @type {boolean}
-     * @memberof InlineObject137
-     */
-    fba?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    amazon?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    height?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    width?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    length?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    weight?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    fbafee?: number;
-    /**
-     *  Общая сумма с фба.
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    fbaamount?: number;
-    /**
-     * См. описание статусов например в readMe.md
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    status?: number;
-    /**
-     * Комментарии к товару.
+     * Индекс. 5 цифр.
      * @type {string}
      * @memberof InlineObject137
      */
-    icomment?: string;
+    zipCode?: string;
     /**
-     * Массив изображений.
-     * @type {Array<string>}
-     * @memberof InlineObject137
-     */
-    images?: Array<string>;
-    /**
-     * 
+     * Штат.
      * @type {string}
      * @memberof InlineObject137
      */
-    amazonDescription?: string;
+    state?: string;
     /**
-     * 
+     * Город.
      * @type {string}
      * @memberof InlineObject137
      */
-    amazonDetail?: string;
+    city?: string;
     /**
-     * 
+     * Адрес склада.
      * @type {string}
      * @memberof InlineObject137
      */
-    amazonTitle?: string;
+    address?: string;
     /**
-     * Материл продукта
+     * Цвет шрифта
      * @type {string}
      * @memberof InlineObject137
      */
-    material?: string;
-    /**
-     * Применение продукта
-     * @type {string}
-     * @memberof InlineObject137
-     */
-    productUsage?: string;
-    /**
-     * chinese title?
-     * @type {string}
-     * @memberof InlineObject137
-     */
-    chinaTitle?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject137
-     */
-    barCode?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    minpurchase?: number;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    profit?: number;
-    /**
-     * Маржа
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    margin?: number;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineObject137
-     */
-    strategyStatus?: number;
-    /**
-     * Ниша
-     * @type {string}
-     * @memberof InlineObject137
-     */
-    niche?: string;
-    /**
-     * Асины
-     * @type {string}
-     * @memberof InlineObject137
-     */
-    asins?: string;
-    /**
-     * Общий доход
-     * @type {string}
-     * @memberof InlineObject137
-     */
-    totalRevenue?: string;
-    /**
-     * Коэффициент прибыли
-     * @type {string}
-     * @memberof InlineObject137
-     */
-    coefficient?: string;
-    /**
-     * Средний доход
-     * @type {string}
-     * @memberof InlineObject137
-     */
-    avgRevenue?: string;
-    /**
-     * Средний BSR
-     * @type {string}
-     * @memberof InlineObject137
-     */
-    avgBSR?: string;
-    /**
-     * Средняя цена
-     * @type {string}
-     * @memberof InlineObject137
-     */
-    avgPrice?: string;
-    /**
-     * Средний отзывы
-     * @type {string}
-     * @memberof InlineObject137
-     */
-    avgReviews?: string;
-    /**
-     * 
-     * @type {Array<ApiV1ClientsProductsGuidRedFlags>}
-     * @memberof InlineObject137
-     */
-    redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
-    /**
-     * 
-     * @type {Array<ApiV1BuyersProductsGuidTags>}
-     * @memberof InlineObject137
-     */
-    tags?: Array<ApiV1BuyersProductsGuidTags>;
-    /**
-     * Комментарий к статусу проверки.
-     * @type {string}
-     * @memberof InlineObject137
-     */
-    checkednotes?: string;
+    fontColor?: string;
 }
 
 

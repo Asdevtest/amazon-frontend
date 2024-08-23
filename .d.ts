@@ -1,9 +1,5 @@
 declare module '*.mp3'
 
-declare module 'react-linkify'
-
-declare module 'react-linkify-always-blank'
-
 declare module '@emoji-mart/react'
 
 declare module '@mui/material/styles' {
@@ -15,5 +11,3 @@ declare module '@mui/material/styles' {
 declare module 'react-highlight-words'
 
 declare module 'he'
-
-declare module '@opuscapita/react-markdown'

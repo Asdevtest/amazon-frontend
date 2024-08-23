@@ -16,6 +16,7 @@ export const DataGridCustomToolbar = props => {
     presetsSettings,
     sortSettings,
     tagSearchSettings,
+    excelOptions,
     ...restProps
   } = props
 
@@ -28,7 +29,10 @@ export const DataGridCustomToolbar = props => {
           <div className={styles.buttons}>
             <DataGridTableSetting presetsSettings={presetsSettings} columsBtnSettings={columsBtnSettings} />
 
-            <GridToolbarExport size="large" className={styles.text} excelOptions={{ disableToolbarButton: true }} />
+            <GridToolbarExport
+              className={cx(styles.text, styles.exportButton)}
+              excelOptions={excelOptions || { disableToolbarButton: true }}
+            />
 
             {sortSettings ? <SortSettings {...sortSettings} /> : null}
 

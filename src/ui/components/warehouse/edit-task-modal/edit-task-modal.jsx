@@ -3,7 +3,6 @@ import { memo, useEffect, useState } from 'react'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Divider, Typography } from '@mui/material'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,13 +16,14 @@ import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
-import { BoxArrow } from '@components/shared/svg-icons'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
+import { BoxArrowIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
@@ -49,7 +49,6 @@ export const EditTaskModal = memo(
   }) => {
     const { classes: styles, cx } = useStyles()
     const { isMobileResolution, isPcSmallResolution } = useCreateBreakpointResolutions()
-
     const [receiveBoxModal, setReceiveBoxModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
     const [storekeeperComment, setStorekeeperComment] = useState(task.storekeeperComment)
@@ -100,7 +99,6 @@ export const EditTaskModal = memo(
             widthCmWarehouse: box?.widthCmWarehouse || 0,
             heightCmWarehouse: box?.heightCmWarehouse || 0,
             weighGrossKgWarehouse: box?.weighGrossKgWarehouse || 0,
-
             isBarCodeAlreadyAttachedByTheSupplier: box?.isBarCodeAlreadyAttachedByTheSupplier || false,
             isShippingLabelAttachedByStorekeeper: box?.isShippingLabelAttachedByStorekeeper || false,
 
@@ -110,8 +108,6 @@ export const EditTaskModal = memo(
                 item?.isTransparencyFileAlreadyAttachedByTheSupplier || false,
               isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper || false,
             })),
-
-            tmpImages: [],
             images: box?.images || [],
           }),
       ),
@@ -148,18 +144,11 @@ export const EditTaskModal = memo(
 
     const isEditTask = task?.operationType === TaskOperationType.EDIT
     const isReciveTypeTask = task.operationType === TaskOperationType.RECEIVE
-
     const isManyItemsInSomeBox = task?.boxesBefore.some(box => box.items.length > 1)
-
     const noTariffInSomeBox = task?.boxesBefore.some(box => !box.logicsTariff)
-
     const receiveNotFromBuyer = isReciveTypeTask && (isManyItemsInSomeBox || noTariffInSomeBox)
-
-    const isSomeBoxHasntImageToRecive =
-      isReciveTypeTask && newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length)
-
-    const isSomeBoxHasntImageToEdit = isEditTask && newBoxes.some(box => !box?.tmpImages?.length)
-
+    const isSomeBoxHasntImageToRecive = isReciveTypeTask && newBoxes.some(box => !box?.images?.length)
+    const isSomeBoxHasntImageToEdit = isEditTask && newBoxes.some(box => !box?.images?.length)
     const isTaskChangeBarcodeOrTransparency =
       isEditTask &&
       task?.boxesBefore.some(box => {
@@ -173,12 +162,10 @@ export const EditTaskModal = memo(
           })
         }
       })
-
     const isNoChangesBarcodeOrTransparency = isTaskChangeBarcodeOrTransparency && isSomeBoxHasntImageToEdit
-
     const disableSaveButton =
       !newBoxes.length ||
-      requestStatus === loadingStatuses.IS_LOADING ||
+      requestStatus === loadingStatus.IS_LOADING ||
       !isFilledNewBoxesDimensions ||
       (isSomeBoxHasntImageToRecive && !receiveNotFromBuyer) ||
       isNoChangesBarcodeOrTransparency
@@ -193,46 +180,48 @@ export const EditTaskModal = memo(
               {isReciveTypeTask ? (
                 <div className={styles.boxSvgContainer}>
                   <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} />
-                  <BoxArrow className={styles.boxArrowSvg} />
+                  <BoxArrowIcon className={styles.boxArrowSvg} />
                 </div>
               ) : (
                 renderTypeTaskBoxes(task.operationType)
               )}
 
               <Typography className={styles.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
-              <Typography className={styles.typeTaskSubTitle}>{renderTypeTaskTitle(task?.operationType)}</Typography>
+              <Typography className={styles.modalTitle}>{renderTypeTaskTitle(task?.operationType)}</Typography>
             </div>
 
             {task.operationType === TaskOperationType.RECEIVE && (
-              <Button className={styles.downloadButton} onClick={uploadTemplateFile}>
+              <Button onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download task file'])}
                 <FileDownloadIcon />
               </Button>
             )}
           </div>
         </div>
+
         <div className={styles.form}>
-          <Typography paragraph className={styles.subTitle}>
+          <Typography paragraph className={styles.modalTitle}>
             {t(TranslationKey['Receipt data'])}
           </Typography>
 
           <div className={styles.commentsAndFilesWrapper}>
-            <div className={styles.commentsWrapper}>
-              <div>
+            <div className={styles.commentsAndFilesWrapper}>
+              <div className={styles.commentsContainer}>
                 <Field
                   multiline
                   disabled
-                  className={[styles.heightFieldAuto, styles.clientAndBuyerComment]}
+                  className={styles.heightFieldAuto}
                   minRows={isPcSmallResolution ? 2 : 4}
                   maxRows={isPcSmallResolution ? 2 : 4}
                   label={t(TranslationKey['Client comment'])}
                   placeholder={t(TranslationKey['Client comment on the task'])}
                   value={task.clientComment || ''}
                 />
+
                 <Field
                   multiline
                   disabled
-                  className={[styles.heightFieldAuto, styles.clientAndBuyerComment]}
+                  className={styles.heightFieldAuto}
                   minRows={isPcSmallResolution ? 2 : 4}
                   maxRows={isPcSmallResolution ? 2 : 4}
                   label={t(TranslationKey['Buyer comment'])}
@@ -240,9 +229,10 @@ export const EditTaskModal = memo(
                   value={task.buyerComment || ''}
                 />
               </div>
+
               <Field
                 multiline
-                className={cx(styles.heightFieldAuto, styles.storekeeperCommentField)}
+                className={styles.storekeeperCommentField}
                 disabled={readOnly}
                 minRows={isMobileResolution ? 4 : isPcSmallResolution ? 7 : 11}
                 maxRows={isMobileResolution ? 4 : isPcSmallResolution ? 7 : 11}
@@ -253,28 +243,20 @@ export const EditTaskModal = memo(
                 onChange={e => setStorekeeperComment(e.target.value)}
               />
             </div>
-            {!readOnly ? (
-              <div className={styles.imageFileInputWrapper}>
-                <UploadFilesInput
-                  fullWidth
-                  dragAndDropBtnHeight={74}
-                  images={photosOfTask}
-                  setImages={setPhotosOfTask}
-                  maxNumber={50}
-                />
-              </div>
-            ) : (
-              <div className={styles.imageAndFileInputWrapper}>
-                <PhotoAndFilesSlider customSlideHeight={140} files={task.images} />
-              </div>
-            )}
+
+            <div className={styles.imageFileInputWrapper}>
+              {!readOnly ? (
+                <UploadFilesInput images={photosOfTask} setImages={setPhotosOfTask} dragAndDropButtonHeight={74} />
+              ) : (
+                <SlideshowGallery files={task.images} />
+              )}
+            </div>
           </div>
 
           <Divider orientation="horizontal" className={styles.horizontalDivider} />
 
           <BeforeAfterBlock
             readOnly={readOnly}
-            volumeWeightCoefficient={volumeWeightCoefficient}
             incomingBoxes={task.boxesBefore}
             desiredBoxes={newBoxes}
             taskType={task.operationType}
@@ -286,23 +268,6 @@ export const EditTaskModal = memo(
             onClickOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
             onClickApplyAllBtn={onClickApplyAllBtn}
           />
-        </div>
-        <div className={styles.buttonsMainWrapper}>
-          {!readOnly ? (
-            <div className={styles.buttonsWrapperMobile}>
-              {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
-                <Button
-                  className={styles.buttonMobile}
-                  tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-                  onClick={() => {
-                    setReceiveBoxModal(!receiveBoxModal)
-                  }}
-                >
-                  {t(TranslationKey.Redistribute)}
-                </Button>
-              )}
-            </div>
-          ) : null}
 
           {!readOnly ? (
             <div className={styles.buttonsWrapper}>
@@ -313,21 +278,17 @@ export const EditTaskModal = memo(
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <div className={styles.hideButton}>
                   <Button
-                    className={styles.button}
                     tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-                    onClick={() => {
-                      setReceiveBoxModal(!receiveBoxModal)
-                    }}
+                    onClick={() => setReceiveBoxModal(!receiveBoxModal)}
                   >
                     {t(TranslationKey.Redistribute)}
                   </Button>
                 </div>
               )}
 
-              <div className={styles.buttons}>
+              <div className={styles.buttonsWrapper}>
                 <Button
                   styleType={ButtonStyle.SUCCESS}
-                  className={styles.successBtn}
                   disabled={disableSaveButton}
                   tooltipInfoContent={t(TranslationKey['Save task data'])}
                   onClick={() => {
@@ -342,29 +303,21 @@ export const EditTaskModal = memo(
                 >
                   {t(TranslationKey.Save)}
                 </Button>
-                <Button
-                  variant={ButtonVariant.OUTLINED}
-                  className={styles.cancelButton}
-                  onClick={onClickOpenCloseModal}
-                >
-                  {t(TranslationKey.Cancel)}
+                <Button styleType={ButtonStyle.CASUAL} onClick={onClickOpenCloseModal}>
+                  {t(TranslationKey.Close)}
                 </Button>
               </div>
             </div>
           ) : (
-            <div className={styles.buttonWrapper}>
-              <Button className={styles.closeButton} onClick={onClickOpenCloseModal}>
+            <div className={styles.buttonsWrapper}>
+              <Button styleType={ButtonStyle.CASUAL} onClick={onClickOpenCloseModal}>
                 {t(TranslationKey.Close)}
               </Button>
             </div>
           )}
         </div>
 
-        <Modal
-          openModal={receiveBoxModal}
-          setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
-          onCloseModal={() => setReceiveBoxModal(!receiveBoxModal)}
-        >
+        <Modal openModal={receiveBoxModal} setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}>
           <ReceiveBoxModal
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}

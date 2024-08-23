@@ -21,11 +21,11 @@
  */
 export interface InlineObject150 {
     /**
-     * Почта от аккаунта, пароль которого Вы забыли
-     * @type {string}
+     * Массив доступных специализаций фрилансера.
+     * @type {Array<number>}
      * @memberof InlineObject150
      */
-    email: string;
+    allowedSpec: Array<number>;
 }
 
 

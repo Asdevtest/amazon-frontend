@@ -1,43 +1,41 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { ClientModel } from '@models/client-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { destinationsColumns } from '@components/table/table-columns/admin/destinations-columns'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class AdminSettingsDestinationsModel {
   requestStatus = undefined
-
   destinations = []
+  destinationToEdit = undefined
+  destinationIdToRemove = undefined
 
   showConfirmModal = false
+  confirmModalSettings = {
+    isWarning: true,
+    message: '',
+    onClickSuccess: () => {},
+  }
   showAddOrEditDestinationModal = false
 
   sortModel = []
   filterModel = { items: [] }
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-
-  destinationToEdit = undefined
-  destinationIdToRemove = undefined
-  confirmModalSettings = {
-    isWarning: true,
-    message: '',
-    onClickSuccess: () => {},
-  }
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
-
   columnsModel = destinationsColumns(this.rowHandlers)
 
   get currentData() {
@@ -45,17 +43,14 @@ export class AdminSettingsDestinationsModel {
   }
 
   constructor() {
+    this.loadData()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   loadData() {
-    try {
-      this.getDataGridState()
-
-      this.getDestinations()
-    } catch (error) {
-      console.log(error)
-    }
+    this.getDataGridState()
+    this.getDestinations()
   }
 
   setRequestStatus(requestStatus) {
@@ -64,7 +59,7 @@ export class AdminSettingsDestinationsModel {
 
   async getDestinations() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const response = await ClientModel.getDestinations()
 
@@ -72,16 +67,15 @@ export class AdminSettingsDestinationsModel {
         this.destinations = addIdDataConverter(response)
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
-      this.destinations = []
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_DESTINATIONS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_DESTINATIONS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
@@ -99,18 +93,16 @@ export class AdminSettingsDestinationsModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_DESTINATIONS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_DESTINATIONS)
   }
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
   }
 
@@ -120,7 +112,6 @@ export class AdminSettingsDestinationsModel {
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
   }
 
@@ -131,19 +122,16 @@ export class AdminSettingsDestinationsModel {
       message: t(TranslationKey['Are you sure you want to delete the destination?']),
       onClickSuccess: () => this.onRemoveDestination(),
     }
-
     this.onClickToggleConfirmModal()
   }
 
   onClickEditBtn(row) {
     this.destinationToEdit = row
-
     this.onClickToggleAddOrEditModal()
   }
 
   onClickAddBtn() {
     this.destinationToEdit = undefined
-
     this.onClickToggleAddOrEditModal()
   }
 
@@ -153,7 +141,6 @@ export class AdminSettingsDestinationsModel {
       message: t(TranslationKey['The data will not be saved!']),
       onClickSuccess: () => this.cancelTheOrder(),
     }
-
     this.onClickToggleConfirmModal()
   }
 
@@ -165,36 +152,30 @@ export class AdminSettingsDestinationsModel {
   async onCreateDestination(data) {
     try {
       await AdministratorModel.createDestination(data)
-
       this.onClickToggleAddOrEditModal()
-
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onEditDestination(data, destinationId) {
     try {
       await AdministratorModel.editDestination(destinationId, data)
-
       this.onClickToggleAddOrEditModal()
-
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onRemoveDestination() {
     try {
       await AdministratorModel.removeDestination(this.destinationIdToRemove)
-
       this.onClickToggleConfirmModal()
-
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -6,15 +6,12 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton } from '@mui/material'
 
-import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
-import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
@@ -26,9 +23,11 @@ import { checkIsPositiveNum } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { TariffModal } from '@typings/enums/tariff-modal'
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './box.style'
 
@@ -43,6 +42,7 @@ interface BoxProps {
   isNewBox?: boolean
   totalProductsAmount?: number
   destinationsFavourites?: any
+  titleClassName?: string
   onClickEditBox: (box: any) => void
   setCurBox: (box: any) => void
   onClickApplyAllBtn: (box: any) => void
@@ -65,6 +65,7 @@ export const Box: FC<BoxProps> = memo(props => {
     isNewBox,
     totalProductsAmount,
     destinationsFavourites,
+    titleClassName,
     onClickEditBox,
     setCurBox,
     onClickApplyAllBtn,
@@ -76,8 +77,6 @@ export const Box: FC<BoxProps> = memo(props => {
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
   const [showFullCard, setShowFullCard] = useState(true)
-  const [showConfirmModal, setShowConfirmModal] = useState(false)
-  const [confirmModalSettings, setConfirmModalSettings] = useState<any>(undefined)
 
   const setShippingLabel = () => (value: any) => {
     onChangeField({ target: { value } }, 'tmpShippingLabel', box._id)
@@ -91,46 +90,24 @@ export const Box: FC<BoxProps> = memo(props => {
     onChangeField({ shippingLabel: '', tmpShippingLabel: [] }, 'part', box._id)
   }
 
-  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
+  const setBoxBody = (prevData: any) => (newData: any) => onChangeField(newData(prevData), 'part', box._id)
 
-  const onSubmitSelectStorekeeperAndTariff = (
-    storekeeperId: string,
-    tariffId: string,
-    variationTariffId: string,
-    destinationId: string,
-    isSelectedDestinationNotValid: boolean,
-  ) => {
-    if (isSelectedDestinationNotValid) {
-      setConfirmModalSettings({
-        isWarning: false,
-        title: t(TranslationKey.Attention),
-        confirmMessage: t(TranslationKey['Wish to change a destination?']),
+  const {
+    destinationId,
 
-        onClickConfirm: () => {
-          onChangeField({ storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId }, 'part', box._id)
+    onSubmitSelectStorekeeperAndTariff,
 
-          setShowConfirmModal(false)
-          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-        },
+    showConfirmModal,
+    setShowConfirmModal,
 
-        onClickCancelBtn: () => {
-          onChangeField(
-            { storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId: null },
-            'part',
-            box._id,
-          )
+    confirmModalSettings,
 
-          setShowConfirmModal(false)
-          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-        },
-      })
+    handleSetDestination,
+    handleResetDestination,
 
-      setShowConfirmModal(true)
-    } else {
-      onChangeField({ storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId }, 'part', box._id)
-      setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-    }
-  }
+    showSelectionStorekeeperAndTariffModal,
+    setShowSelectionStorekeeperAndTariffModal,
+  } = useTariffVariation(box.destinationId, setBoxBody(box))
 
   const { tariffName, tariffRate } = useGetDestinationTariffInfo(
     destinations,
@@ -152,7 +129,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 <div>
                   <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={order.product.asin} />
 
-                  <p className={styles.title}>{order.product.amazonTitle}</p>
+                  <p className={cx(styles.title, titleClassName)}>{order.product.amazonTitle}</p>
                 </div>
 
                 <div>
@@ -192,16 +169,14 @@ export const Box: FC<BoxProps> = memo(props => {
                     }
                     data={
                       box?.variationTariffId
-                        ? destinations
-                            ?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
-                            ?.filter(el => el._id === box?.destinationId)
+                        ? destinations?.filter(el => el._id === (destinationId || box?.variationTariff?.destinationId))
                         : destinations?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
                     }
                     searchFields={['name']}
                     favourites={destinationsFavourites}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-                    onClickNotChosen={() => onChangeField({ target: { value: '' } }, 'destinationId', box._id)}
-                    onClickSelect={(el: any) => onChangeField({ target: { value: el._id } }, 'destinationId', box._id)}
+                    onClickNotChosen={handleResetDestination}
+                    onClickSelect={(el: IDestination) => handleSetDestination(el?._id)}
                   />
                 }
               />
@@ -216,15 +191,6 @@ export const Box: FC<BoxProps> = memo(props => {
                     {isNewBox ? (
                       <Button
                         disabled={!isNewBox}
-                        className={cx(
-                          styles.storekeeperBtnDefault,
-                          { [styles.storekeeperBtn]: !box.logicsTariffId },
-                          {
-                            [styles.storekeeperBtnColored]:
-                              !box.logicsTariffId && SettingsModel.uiTheme === UiTheme.light,
-                          },
-                          { [styles.storekeeperDisableBtn]: !isNewBox },
-                        )}
                         onClick={() =>
                           setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                         }
@@ -234,7 +200,7 @@ export const Box: FC<BoxProps> = memo(props => {
                           : t(TranslationKey.Select)}
                       </Button>
                     ) : (
-                      <p className={styles.storekeeperDisableBtn}>{`${
+                      <p>{`${
                         box.logicsTariff?._id ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}` : 'none'
                       }`}</p>
                     )}
@@ -310,16 +276,9 @@ export const Box: FC<BoxProps> = memo(props => {
           {isNewBox && (
             <div className={styles.bottomBlockWrapper}>
               <IconButton classes={{ root: styles.icon }} onClick={() => onRemoveBox(box._id)}>
-                <DeleteOutlineOutlinedIcon className={styles.deleteBtn} />
+                <DeleteOutlineOutlinedIcon />
               </IconButton>
               <Button
-                className={cx(styles.editBtn, {
-                  [styles.editBtnYellow]:
-                    !box.widthCmWarehouse ||
-                    !box.weighGrossKgWarehouse ||
-                    !box.lengthCmWarehouse ||
-                    !box.heightCmWarehouse,
-                })}
                 tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
                 onClick={() => {
                   setCurBox(box)
@@ -336,10 +295,7 @@ export const Box: FC<BoxProps> = memo(props => {
                   !box.lengthCmWarehouse ||
                   !box.heightCmWarehouse
                 }
-                className={styles.editBtn}
-                onClick={() => {
-                  onClickApplyAllBtn(box)
-                }}
+                onClick={() => onClickApplyAllBtn(box)}
               >
                 {t(TranslationKey['Apply to all'])}
               </Button>
@@ -372,23 +328,17 @@ export const Box: FC<BoxProps> = memo(props => {
         />
       </Modal>
 
-      <Modal
-        openModal={showSelectionStorekeeperAndTariffModal}
-        setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-      >
-        <SelectStorekeeperAndTariffForm
-          showCheckbox
-          RemoveDestinationRestriction
-          // @ts-ignore
-          destinationsData={destinations}
-          storekeepers={storekeepers.filter(el => el?._id === box?.storekeeper?._id)}
-          curStorekeeperId={box?.storekeeperId}
-          curTariffId={box?.logicsTariffId}
-          currentDestinationId={box?.destinationId}
-          currentVariationTariffId={box?.variationTariffId}
-          onSubmit={onSubmitSelectStorekeeperAndTariff}
+      {showSelectionStorekeeperAndTariffModal ? (
+        <SupplierApproximateCalculationsModal
+          isSkipWeightCheck
+          isTariffsSelect
+          tariffModalType={TariffModal.WAREHOUSE}
+          openModal={showSelectionStorekeeperAndTariffModal}
+          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+          box={box}
+          onClickSubmit={onSubmitSelectStorekeeperAndTariff}
         />
-      </Modal>
+      ) : null}
 
       {showConfirmModal ? (
         <ConfirmationModal

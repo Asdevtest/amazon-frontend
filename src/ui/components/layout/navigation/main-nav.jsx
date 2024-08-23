@@ -1,3 +1,4 @@
+import { ConfigProvider, theme } from 'antd'
 import { observer } from 'mobx-react'
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
@@ -8,7 +9,7 @@ import { ThemeProvider } from '@mui/material/styles'
 
 import { changeSystemTheme } from '@constants/theme/change-system-theme'
 import { darkTheme, globalStyles, lightTheme } from '@constants/theme/mui-theme'
-import { UiTheme } from '@constants/theme/mui-theme.type'
+import { gerAntLocale } from '@constants/translations/language-options'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -16,6 +17,8 @@ import { ToastifyProvider } from '@components/layout/navigation/toastify/toastif
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 import { HintsContextProvider } from '@contexts/hints-context'
+
+import { UiTheme } from '@typings/enums/ui-theme'
 
 import { PrivateRoutes } from './private-routes'
 import { generatePublicRoutes } from './public-routes'
@@ -34,27 +37,42 @@ export const MainNav = observer(() => {
     changeSystemTheme(uiThemeModeRef.current)
   }, [SettingsModel.uiTheme])
 
-  const theme = useMemo(
+  const themeMui = useMemo(
     () => (SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme),
     [SettingsModel.uiTheme],
   )
 
+  // test custom theme for antd
+  const customTheme = {
+    algorithm: SettingsModel.uiTheme === UiTheme.light ? theme.defaultAlgorithm : theme.darkAlgorithm,
+    token: {
+      colorPrimary: SettingsModel.uiTheme === UiTheme.light ? '#007bff' : '#4ca1de',
+      colorBgContainer: SettingsModel.uiTheme === UiTheme.light ? '#fff' : '#2B2B34',
+      colorText: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
+      colorLink: SettingsModel.uiTheme === UiTheme.light ? '#007bff' : '#4ca1de',
+      colorLinkHover: SettingsModel.uiTheme === UiTheme.light ? '#2997ff' : '#6badd6',
+      borderRadius: 16,
+    },
+  }
+
   return (
-    <ThemeProvider theme={{ ...theme, lang }}>
-      <HintsContextProvider hints>
-        <ToastifyProvider theme={SettingsModel.uiTheme} />
-        <GlobalStyles styles={globalStyles} />
-        <CssBaseline />
-        <Router>
-          <Suspense fallback={<CircularProgressWithLabel showBackground />}>
-            <Switch>
-              {generateRedirects()}
-              {generatePublicRoutes()}
-              <PrivateRoutes />
-            </Switch>
-          </Suspense>
-        </Router>
-      </HintsContextProvider>
-    </ThemeProvider>
+    <ConfigProvider theme={customTheme} locale={gerAntLocale(lang)}>
+      <ThemeProvider theme={{ ...themeMui, lang }}>
+        <HintsContextProvider hints>
+          <ToastifyProvider theme={SettingsModel.uiTheme} />
+          <GlobalStyles styles={globalStyles} />
+          <CssBaseline />
+          <Router>
+            <Suspense fallback={<CircularProgressWithLabel showBackground />}>
+              <Switch>
+                {generateRedirects()}
+                {generatePublicRoutes()}
+                <PrivateRoutes />
+              </Switch>
+            </Suspense>
+          </Router>
+        </HintsContextProvider>
+      </ThemeProvider>
+    </ConfigProvider>
   )
 })

@@ -10,10 +10,6 @@ export const useStyles = makeStyles()(() => ({
   buttonsWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 30,
-  },
-
-  button: {
-    borderRadius: '20px',
+    gap: 20,
   },
 }))

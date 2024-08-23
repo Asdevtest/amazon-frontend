@@ -6,7 +6,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
-    paddingRight: 10,
   },
 
   boxesWrapper: {
@@ -93,11 +92,6 @@ export const useStyles = makeStyles()(theme => ({
     margin: '15px 0 30px 0',
     color: theme.palette.primary.main,
     cursor: 'pointer',
-    transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   alertText: {
@@ -125,15 +119,6 @@ export const useStyles = makeStyles()(theme => ({
   leftToRedistributeCount: {
     color: theme.palette.text.general,
     fontSize: 18,
-  },
-
-  button: {
-    height: '40px',
-    padding: '0 25px',
-  },
-  cancelButton: {
-    color: theme.palette.text.general,
-    backgroundColor: theme.palette.background.general,
   },
 
   marginBox: {

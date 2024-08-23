@@ -29,7 +29,7 @@ import { InlineObject87 } from '../models';
 // @ts-ignore
 import { InlineObject88 } from '../models';
 // @ts-ignore
-import { InlineResponse20071 } from '../models';
+import { InlineResponse20073 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -234,7 +234,7 @@ export const OrderApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OrdersCheckPendingOrderByProductGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20071>>> {
+        async apiV1OrdersCheckPendingOrderByProductGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20073>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OrdersCheckPendingOrderByProductGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -294,7 +294,7 @@ export const OrderApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OrdersCheckPendingOrderByProductGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20071>> {
+        apiV1OrdersCheckPendingOrderByProductGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20073>> {
             return localVarFp.apiV1OrdersCheckPendingOrderByProductGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

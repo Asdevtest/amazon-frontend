@@ -13,7 +13,13 @@
  */
 
 
+<<<<<<< HEAD
 import { InlineResponse200100Author } from './inline-response200100-author';
+=======
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
+import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
+>>>>>>> pre-release
 
 /**
  * 
@@ -22,12 +28,17 @@ import { InlineResponse200100Author } from './inline-response200100-author';
  */
 export interface InlineResponse200100Rows {
     /**
+<<<<<<< HEAD
      * GUID пользователя в БД.
+=======
+     * GUID продукта в базе данных
+>>>>>>> pre-release
      * @type {string}
      * @memberof InlineResponse200100Rows
      */
     _id?: string;
     /**
+<<<<<<< HEAD
      * Название patch_note.
      * @type {string}
      * @memberof InlineResponse200100Rows
@@ -59,12 +70,115 @@ export interface InlineResponse200100Rows {
     version?: string;
     /**
      * Дата создания склада.
+=======
+     * ASIN продукта
+     * @type {string}
+     * @memberof InlineResponse200100Rows
+     */
+    asin?: string;
+    /**
+     * SKU введенным клиентом.
+     * @type {string}
+     * @memberof InlineResponse200100Rows
+     */
+    skuByClient?: string;
+    /**
+     * Есть ли товар в заказах
+     * @type {boolean}
+     * @memberof InlineResponse200100Rows
+     */
+    ordered?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse200100Rows
+     */
+    bsr?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse200100Rows
+     */
+    amazon?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineResponse200100Rows
+     */
+    fbafee?: number;
+    /**
+     * Код текущего статуса
+     * @type {number}
+     * @memberof InlineResponse200100Rows
+     */
+    status?: number;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse200100Rows
+     */
+    images?: Array<string>;
+    /**
+     * Заголовок на товар с сайта амазон.
+     * @type {string}
+     * @memberof InlineResponse200100Rows
+     */
+    amazonTitle?: string;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineResponse200100Rows
+     */
+    strategyStatus?: number;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
+     * @memberof InlineResponse200100Rows
+     */
+    redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
+     * @memberof InlineResponse200100Rows
+     */
+    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse200100Rows
+     */
+    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse200100Rows
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse200100Rows
+     */
+    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse200100Rows
+     */
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * Дата создания
+>>>>>>> pre-release
      * @type {string}
      * @memberof InlineResponse200100Rows
      */
     createdAt?: string;
     /**
+<<<<<<< HEAD
      * Дата обновления склада.
+=======
+     * Дата изменения
+>>>>>>> pre-release
      * @type {string}
      * @memberof InlineResponse200100Rows
      */

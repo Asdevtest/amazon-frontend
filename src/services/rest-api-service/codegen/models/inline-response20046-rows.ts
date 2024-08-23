@@ -13,6 +13,7 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { InlineResponse20046Destination } from './inline-response20046-destination';
 import { InlineResponse20046OrderSupplier } from './inline-response20046-order-supplier';
@@ -20,11 +21,17 @@ import { InlineResponse20046Product } from './inline-response20046-product';
 
 /**
  * Заказ.
+=======
+
+/**
+ * 
+>>>>>>> pre-release
  * @export
  * @interface InlineResponse20046Rows
  */
 export interface InlineResponse20046Rows {
     /**
+<<<<<<< HEAD
      * id заказ.
      * @type {number}
      * @memberof InlineResponse20046Rows
@@ -32,11 +39,15 @@ export interface InlineResponse20046Rows {
     id?: number;
     /**
      * GUID данной записи в БД.
+=======
+     * GUID продукта в базе данных
+>>>>>>> pre-release
      * @type {string}
      * @memberof InlineResponse20046Rows
      */
     _id?: string;
     /**
+<<<<<<< HEAD
      * Комментарии клиента.
      * @type {string}
      * @memberof InlineResponse20046Rows
@@ -160,3 +171,43 @@ export enum InlineResponse20046RowsPriorityEnum {
 
 
 
+=======
+     * ASIN продукта
+     * @type {string}
+     * @memberof InlineResponse20046Rows
+     */
+    asin?: string;
+    /**
+     * ID магазинa для продукта
+     * @type {string}
+     * @memberof InlineResponse20046Rows
+     */
+    shopId?: string;
+    /**
+     * Заголовок на товар с сайта амазон.
+     * @type {string}
+     * @memberof InlineResponse20046Rows
+     */
+    amazonTitle?: string;
+    /**
+     * SKU введенным клиентом.
+     * @type {string}
+     * @memberof InlineResponse20046Rows
+     */
+    skuByClient?: string;
+    /**
+     * GUID пользователя(байера)
+     * @type {string}
+     * @memberof InlineResponse20046Rows
+     */
+    buyerId?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20046Rows
+     */
+    images?: Array<string>;
+}
+
+
+>>>>>>> pre-release

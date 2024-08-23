@@ -23,6 +23,7 @@ export interface IDestinationVariation {
   _id: string
   minWeight: number
   maxWeight: number
+  minBoxWeight: number
   pricePerKgRmb: number
   pricePerKgUsd: number
   destination: {
@@ -44,4 +45,21 @@ export interface IDestinationStorekeeper {
   tariffLogistics: ILogicTariff[]
   tariffWarehouses: []
   boxesCount: 0
+}
+
+export interface IVariationDestination {
+  costUnitWithDeliveryToUsa: number
+  name: string
+  roi: number
+  _id: string
+}
+
+export interface IDestinationVariationWithCalculations {
+  _id: string
+  destination: IVariationDestination
+  minWeight: number
+  maxWeight: number
+  pricePerKgRmb: number
+  pricePerKgUsd: number
+  storekeeperTariffLogisticsId: string
 }

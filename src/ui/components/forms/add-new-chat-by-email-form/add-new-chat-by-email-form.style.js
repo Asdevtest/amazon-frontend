@@ -10,7 +10,6 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       width: 'auto',
       minHeight: '100%',
-      padding: 0,
       justifyContent: 'space-between',
       gap: 20,
     },
@@ -48,18 +47,6 @@ export const useStyles = makeStyles()(theme => ({
   selectContainer: {
     margin: '0 !important',
     flex: '1 1 auto',
-  },
-
-  button: {
-    width: 120,
-
-    [theme.breakpoints.down(768)]: {
-      width: 90,
-    },
-  },
-
-  cancelButton: {
-    color: theme.palette.text.general,
   },
 
   isFocusedOption: {

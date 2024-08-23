@@ -16,6 +16,8 @@ import { checkIsPositiveNum, isNotUndefined } from '@utils/checks'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 import { useStyles } from './order-product-modal.style'
 
 import { SetFilesModal } from '../set-files-modal'
@@ -74,7 +76,22 @@ export const OrderProductModal = memo(props => {
             ...reorderOrder.product,
 
             amount: reorderOrder.amount,
+            clientComment: isPendingOrdering ? reorderOrder.clientComment : '',
 
+            destination: {
+              _id: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+            },
+            logicsTariff: {
+              _id: storekeepers
+                .find(el => el._id === reorderOrder.storekeeper?._id)
+                ?.tariffLogistics.map(el => el._id)
+                .includes(reorderOrder.logicsTariff?._id)
+                ? reorderOrder.logicsTariff?._id
+                : '',
+            },
+            variationTariff: {
+              ...reorderOrder?.variationTariff,
+            },
             // @refactor: need to create function
             destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
             storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
@@ -89,15 +106,28 @@ export const OrderProductModal = memo(props => {
             expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
             priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
             deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
+            productId: reorderOrder.product?._id,
           }
         })
       : selectedProductsData.map(product => ({
           ...product,
           amount: 1,
+          clientComment: isPendingOrdering ? product.clientComment : '',
           expressChinaDelivery: false,
           priority: '30',
           deadline: null,
           variationTariffId: product.variationTariff?._id,
+
+          destination: {
+            _id: null,
+          },
+          logicsTariff: {
+            _id: null,
+          },
+          variationTariff: {
+            _id: null,
+          },
+          productId: product?._id,
         })),
   )
 
@@ -113,7 +143,7 @@ export const OrderProductModal = memo(props => {
 
           return {
             amount: reorderOrder.amount,
-            clientComment: '',
+            clientComment: isPendingOrdering ? reorderOrder.clientComment : '',
             barCode: reorderOrder?.product?.barCode || '',
             tmpBarCode: [],
 
@@ -123,6 +153,21 @@ export const OrderProductModal = memo(props => {
 
             productId: reorderOrder.product._id,
             images: [],
+
+            destination: {
+              _id: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+            },
+            logicsTariff: {
+              _id: storekeepers
+                .find(el => el._id === reorderOrder.storekeeper?._id)
+                ?.tariffLogistics.map(el => el._id)
+                .includes(reorderOrder.logicsTariff?._id)
+                ? reorderOrder.logicsTariff?._id
+                : '',
+            },
+            variationTariff: {
+              ...reorderOrder?.variationTariff,
+            },
 
             // @refactor: need to create function
             destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
@@ -143,7 +188,7 @@ export const OrderProductModal = memo(props => {
         })
       : selectedProductsData.map(product => ({
           amount: 1,
-          clientComment: '',
+          clientComment: isPendingOrdering ? product.clientComment : '',
           barCode: product?.barCode || '',
           productId: product._id,
           images: [],
@@ -152,6 +197,16 @@ export const OrderProductModal = memo(props => {
           transparency: product.transparency,
           tmpBarCode: [],
           tmpTransparencyFile: [],
+
+          destination: {
+            _id: null,
+          },
+          logicsTariff: {
+            _id: null,
+          },
+          variationTariff: {
+            _id: null,
+          },
 
           destinationId: null,
 
@@ -195,13 +250,24 @@ export const OrderProductModal = memo(props => {
 
       newRenderOrderState[index][fieldsName] = parseInt(value) || 0
     } else if (fieldsName === 'tariff') {
+      const changeObject = {
+        logicsTariffId: value.logicsTariffId,
+        variationTariffId: value.variationTariffId,
+        destinationId: value.destinationId,
+        storekeeperId: value.storekeeperId,
+        storekeeper: value.storekeeper,
+        destination: value.destination,
+        logicsTariff: value.logicsTariff,
+        variationTariff: value.variationTariff,
+      }
+
       newStateOrderState[index] = {
         ...newStateOrderState[index],
-        ...value,
+        ...changeObject,
       }
       newRenderOrderState[index] = {
         ...newRenderOrderState[index],
-        ...value,
+        ...changeObject,
       }
     } else {
       newStateOrderState[index][fieldsName] = value
@@ -231,6 +297,7 @@ export const OrderProductModal = memo(props => {
 
       needsResearch: isResearchSupplier,
       tmpIsPendingOrder: isPendingOrder,
+      images: [], // reset images to create an order(onClickSubmit), because in the useTariffVariations they are added again - need to fix order product modal
     }))
 
     onSubmit({
@@ -250,18 +317,20 @@ export const OrderProductModal = memo(props => {
 
   const disabledSubmit =
     orderState.some((order, index) => {
-      const isDeadlineTodayOrTomorrow = isPast(order.deadline) || isToday(order.deadline) || isTomorrow(order.deadline)
+      const isDeadlineTodayOrTomorrow =
+        !!order.deadline &&
+        (isPast(new Date(order.deadline)) || isToday(new Date(order.deadline)) || isTomorrow(new Date(order.deadline)))
 
       return (
         (productsForRender[index].currentSupplier &&
           toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
-            platformSettings.orderAmountLimit) ||
+            platformSettings?.orderAmountLimit) ||
         !order.storekeeperId ||
         !order.logicsTariffId ||
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
-        ((!!isInventory || !!reorderOrdersData?.length || !!isPendingOrdering) && isDeadlineTodayOrTomorrow) ||
+        ((!!isInventory || !!reorderOrdersData?.length) && isDeadlineTodayOrTomorrow) ||
         (productsForRender[index].currentSupplier?.multiplicity &&
           productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
           order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0)
@@ -322,7 +391,7 @@ export const OrderProductModal = memo(props => {
               </TableCell>
               <TableCell className={styles.barCodeCell}>
                 <Text className={styles.barCodeCellBtn}>
-                  {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency codes'])}`}
+                  {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency Codes'])}`}
                 </Text>
               </TableCell>
               <TableCell className={styles.tariffCell}>
@@ -427,13 +496,18 @@ export const OrderProductModal = memo(props => {
         ) : null}
 
         <Button
-          tooltipInfoContent={t(
-            TranslationKey['Complete the order (freezes the required amount of the order from the balance)'],
-          )}
-          tooltipAttentionContent={
-            storekeeperEqualsDestination && t(TranslationKey['Storekeeper and destination match'])
+          tooltipInfoContent={
+            !disabledSubmit &&
+            t(TranslationKey['Complete the order (freezes the required amount of the order from the balance)'])
           }
-          className={(styles.modalButton, styles.buyNowBtn)}
+          tooltipAttentionContent={
+            disabledSubmit &&
+            t(
+              TranslationKey[
+                'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses'
+              ],
+            )
+          }
           disabled={disabledSubmit}
           onClick={onClickSubmit}
         >
@@ -441,11 +515,11 @@ export const OrderProductModal = memo(props => {
         </Button>
 
         <Button
+          styleType={ButtonStyle.CASUAL}
           tooltipInfoContent={t(TranslationKey['Close the checkout window without saving'])}
-          className={(styles.modalButton, styles.cancelBtn)}
           onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}
         >
-          {t(TranslationKey.Cancel)}
+          {t(TranslationKey.Close)}
         </Button>
       </div>
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
@@ -462,7 +536,7 @@ export const OrderProductModal = memo(props => {
       <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
         <SetFilesModal
           modalTitle={t(TranslationKey.Transparency)}
-          LabelTitle={t(TranslationKey['Transparency codes'])}
+          LabelTitle={t(TranslationKey['Transparency Codes'])}
           currentFiles={filesConditions.currentFiles}
           tmpFiles={filesConditions.tmpFiles}
           onClickSave={value => {

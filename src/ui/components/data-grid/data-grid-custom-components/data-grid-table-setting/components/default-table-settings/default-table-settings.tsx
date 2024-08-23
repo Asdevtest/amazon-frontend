@@ -27,7 +27,15 @@ export const DefaultTableSettings: FC<DefaultTableSettingsProps> = memo(({ colum
   )
 
   const onClickAllItemBtn = () =>
-    onColumnVisibilityModelChange(columnsModel.reduce((ac, cur) => ({ ...ac, [cur?.field]: isSomeItemChecked }), {}))
+    onColumnVisibilityModelChange(
+      columnsModel.reduce((ac, cur) => {
+        if (cur?.field === '__check__') {
+          return ac
+        }
+
+        return { ...ac, [cur?.field]: isSomeItemChecked }
+      }, {}),
+    )
 
   const onClickChangeVisibility = (field: string, value: boolean) =>
     onColumnVisibilityModelChange({

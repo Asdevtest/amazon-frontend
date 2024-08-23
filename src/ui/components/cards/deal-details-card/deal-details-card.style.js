@@ -108,12 +108,6 @@ export const useStyles = makeStyles()(theme => ({
     objectPosition: 'center',
   },
 
-  actionButton: {
-    marginTop: 30,
-    width: '242px',
-    height: '40px',
-  },
-
   cardPrice: {
     fontSize: '16px',
     lineHeight: '21px',
@@ -181,10 +175,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  filesWrapper: {
-    width: '70%',
-    minHeight: '100px',
-  },
   timeOnReviewWrapper: {
     width: '200px',
     display: 'flex',

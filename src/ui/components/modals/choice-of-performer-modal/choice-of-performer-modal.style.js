@@ -4,11 +4,11 @@ export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '30px',
+    gap: '10px',
     width: '100%',
-    height: '100%',
+    height: '80vh',
     minHeight: 440,
-    padding: 20,
+    overflowY: 'auto',
   },
 
   supWrapper: {
@@ -36,19 +36,10 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '10px',
     width: '370px',
-    margin: '0 !important',
-
-    [theme.breakpoints.down(1500)]: {
-      width: '320px',
-    },
   },
 
   searchInput: {
     width: 375,
-
-    [theme.breakpoints.down(1500)]: {
-      margin: '0px 35px',
-    },
   },
 
   cardsWrapper: {
@@ -78,9 +69,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
     justifyContent: 'flex-end',
     alignItems: 'center',
-  },
-
-  cancelButton: {
-    color: theme.palette.text.general,
+    marginBottom: '5px',
   },
 }))

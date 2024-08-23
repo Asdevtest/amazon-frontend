@@ -91,18 +91,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 10,
   },
 
-  editButton: {
-    padding: '0 52px',
-  },
-
-  deleteButton: {
-    padding: '0 34px',
-  },
-
-  backButton: {
-    padding: '0 26px',
-  },
-
   descriptionTextWrapper: {
     width: '100%',
     maxHeight: 76,
@@ -111,16 +99,5 @@ export const useStyles = makeStyles()(theme => ({
 
   showFullDescription: {
     maxHeight: 'none',
-  },
-
-  photosWrapper: {
-    width: 410,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  detailsButton: {
-    color: theme.palette.primary.main,
   },
 }))
