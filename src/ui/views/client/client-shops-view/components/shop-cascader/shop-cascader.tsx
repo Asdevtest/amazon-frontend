@@ -28,17 +28,14 @@ export const ShopCascader: FC<ShopCascaderProps> = observer(({ shops }) => {
   const dropdownRender = useCallback(
     (menu: ReactElement) => (
       <>
-        <TextCell
-          type="secondary"
-          isCell={false}
-          copyable={false}
-          rows={1}
-          text={`${t(TranslationKey.Tables)}*`}
-          className={styles.title}
-        />
-        {menu}
-
-        <Divider className={styles.divider} />
+        <div className={styles.header}>
+          <CustomInputSearch
+            allowClear
+            placeholder="Shop"
+            wrapperClassName={styles.inputSearch}
+            onChange={viewModel.onChangeInput}
+          />
+        </div>
 
         <TextCell
           type="secondary"
@@ -59,14 +56,18 @@ export const ShopCascader: FC<ShopCascaderProps> = observer(({ shops }) => {
 
         <Divider className={styles.divider} />
 
-        <div className={styles.footer}>
-          <CustomInputSearch
-            allowClear
-            placeholder="Shop"
-            wrapperClassName={styles.inputSearch}
-            onChange={viewModel.onChangeInput}
-          />
+        <TextCell
+          type="secondary"
+          isCell={false}
+          copyable={false}
+          rows={1}
+          text={`${t(TranslationKey.Tables)}*`}
+          className={styles.title}
+        />
 
+        {menu}
+
+        <div className={styles.footer}>
           <CustomButton disabled={viewModel.disabledExportButton} type="primary" onClick={viewModel.getShopsExport}>
             {t(TranslationKey.Export)}
           </CustomButton>
@@ -79,18 +80,16 @@ export const ShopCascader: FC<ShopCascaderProps> = observer(({ shops }) => {
   return (
     <Cascader
       multiple
-      expandIcon=" " // null icon
+      // expandIcon=" " // null icon
       open={viewModel.open}
       value={viewModel.selectedTableOptions}
       options={viewModel.tableOptions}
       rootClassName={styles.cascader}
       expandTrigger="hover"
       optionRender={option => (
-        <div className={styles.option}>
-          <Paragraph ellipsis={{ rows: 1 }} style={{ margin: 0 }}>
-            {option.label}
-          </Paragraph>
-        </div>
+        <Paragraph ellipsis={{ rows: 1 }} style={{ margin: 0 }}>
+          {option.label}
+        </Paragraph>
       )}
       dropdownRender={dropdownRender}
       onDropdownVisibleChange={viewModel.onDropdownVisibleChange}

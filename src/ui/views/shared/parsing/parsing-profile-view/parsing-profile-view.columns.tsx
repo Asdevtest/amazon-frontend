@@ -40,7 +40,8 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
       valueGetter: ({ row }: GridRowModel) => row.client?.name || '',
       width: 160,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'shop',
@@ -49,7 +50,8 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.shop?.name} />,
       valueGetter: ({ row }: GridRowModel) => row.shop?.name || '',
       width: 240,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'email',

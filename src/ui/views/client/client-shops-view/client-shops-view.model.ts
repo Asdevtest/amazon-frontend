@@ -69,7 +69,6 @@ export class ShopsViewModel extends DataGridFilterTableModel {
       this.selectedRows = []
       this.getCurrentData()
     } catch (error) {
-      console.error(error)
       toast.error(t(TranslationKey['Error updating data']))
     }
   }
@@ -112,7 +111,6 @@ export class ShopsViewModel extends DataGridFilterTableModel {
 
       this.getCurrentData()
     } catch (error) {
-      console.error(error)
       toast.error(t(TranslationKey['Access Denied: Insufficient Rights']))
     }
   }
@@ -123,7 +121,6 @@ export class ShopsViewModel extends DataGridFilterTableModel {
 
       this.getCurrentData()
     } catch (error) {
-      console.error(error)
       toast.error(t(TranslationKey['Access Denied: Insufficient Rights']))
     }
   }
