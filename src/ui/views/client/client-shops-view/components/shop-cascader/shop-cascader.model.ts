@@ -24,7 +24,7 @@ export class ShopsCascaderModel {
     return getShopsOptions(this.data, this.inputValue)
   }
   get tableOptions() {
-    return getTableOptions(this.selectedTableOptions)
+    return this.open ? getTableOptions(this.selectedTableOptions) : []
   }
   get disabledExportButton() {
     return !this.selectedTableOptions?.some(option => option?.[0])
