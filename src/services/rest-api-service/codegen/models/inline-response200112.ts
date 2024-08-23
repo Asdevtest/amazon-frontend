@@ -21,35 +21,53 @@
  */
 export interface InlineResponse200112 {
     /**
-     * Курс юаня к доллару.
-     * @type {number}
+     * GUID пользователя.
+     * @type {string}
      * @memberof InlineResponse200112
      */
-    yuanToDollarRate?: number;
+    _id?: string;
     /**
-     * Коэффициент расчета объемного веса.
-     * @type {number}
+     * Имя пользователя.
+     * @type {string}
      * @memberof InlineResponse200112
      */
-    volumeWeightCoefficient?: number;
+    name?: string;
     /**
-     * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
+     * Рейтинг пользователя.
      * @type {number}
      * @memberof InlineResponse200112
      */
-    requestMinAmountPriceOfProposal?: number;
+    rating?: number;
     /**
-     * Комиссия за оплату предложения
+     * Количество положительных отзыв
      * @type {number}
      * @memberof InlineResponse200112
      */
-    requestPlatformMarginInPercent?: number;
+    numberOfPositiveFeedbacks?: number;
     /**
-     * Лимит на кол-во в ордере
+     * Количество негативных отзыв
      * @type {number}
      * @memberof InlineResponse200112
      */
-    orderAmountLimit?: number;
+    numberOfNegativeFeedbacks?: number;
+    /**
+     * Страна
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    country?: string;
+    /**
+     * Пользователь онлайн
+     * @type {boolean}
+     * @memberof InlineResponse200112
+     */
+    isOnline?: boolean;
+    /**
+     * Количество общих сделок
+     * @type {number}
+     * @memberof InlineResponse200112
+     */
+    countsOfDeals?: number;
 }
 
 
