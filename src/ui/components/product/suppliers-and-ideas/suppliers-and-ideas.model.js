@@ -123,15 +123,13 @@ export class SuppliersAndIdeasModel {
 
   async loadData() {
     try {
-      if (!this.isCreateModal) {
-        if (this.isModalView && this.currentIdeaId) {
-          await this.getIdea(this.currentIdeaId)
-          if (this.updateData) {
-            this.updateData?.()
-          }
-        } else {
-          await this.getIdeas()
+      if (this.isModalView && this.currentIdeaId) {
+        await this.getIdea(this.currentIdeaId)
+        if (this.updateData) {
+          this.updateData?.()
         }
+      } else {
+        await this.getIdeas()
       }
 
       this.getStorekeepers()

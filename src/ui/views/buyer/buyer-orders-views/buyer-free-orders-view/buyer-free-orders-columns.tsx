@@ -15,11 +15,15 @@ import {
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
+import { checkIsHasHttp } from '@utils/checks'
+import { formatDate } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign } from '@utils/text'
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { OrderPriority } from '@typings/enums/order/order-priority'
 import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -58,6 +62,14 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
         />
       ),
 
+      valueGetter: params => {
+        const priority = params.row.priority
+
+        const isUrgent = Number(priority) === OrderPriority.URGENT_PRIORITY
+
+        return isUrgent ? 'Urgent' : 'Normal'
+      },
+
       disableCustomSort: true,
       filterable: false,
       width: 80,
@@ -81,6 +93,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       disableCustomSort: true,
       filterable: false,
       width: 180,
+      disableExport: true,
     },
 
     {
@@ -99,6 +112,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           />
         )
       },
+      valueGetter: params => params.row.product?.asin,
 
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
@@ -133,6 +147,12 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
       renderCell: params => <LinkCell value={params.row.product?.barCode} />,
+
+      valueGetter: params => {
+        const barCode = params?.row?.product?.barCode
+
+        return checkIsHasHttp(barCode) ? barCode : getAmazonImageUrl(barCode, true)
+      },
 
       disableCustomSort: true,
       filterable: false,
@@ -169,6 +189,8 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
 
+      valueGetter: params => formatDate(params.row.deadline) || '',
+
       columnKey: columnnsKeys.shared.DATE,
       width: 100,
     },
@@ -191,6 +213,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       renderCell: params => (
         <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
+      valueGetter: params => params.row.storekeeper?.name,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       width: 155,
@@ -204,6 +227,8 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
         <UserLinkCell blackText name={params.row.product.client?.name} userId={params.row.product.client?._id} />
       ),
 
+      valueGetter: params => params.row.product?.client?.name,
+
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       table: DataGridFilterTables.PRODUCTS,
       width: 120,
@@ -214,6 +239,8 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
       renderCell: params => <TextCell text={params.row.destination?.name} />,
+
+      valueGetter: params => params.row.destination?.name,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       width: 160,

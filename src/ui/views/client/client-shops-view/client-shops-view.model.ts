@@ -124,7 +124,7 @@ export class ShopsViewModel extends DataGridFilterTableModel {
       this.getCurrentData()
     } catch (error) {
       console.error(error)
-      toast.error(t(TranslationKey['Profile with given guid not found!']))
+      toast.error(t(TranslationKey['Access Denied: Insufficient Rights']))
     }
   }
 }
