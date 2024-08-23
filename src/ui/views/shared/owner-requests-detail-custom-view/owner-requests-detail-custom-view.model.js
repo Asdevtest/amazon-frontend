@@ -259,6 +259,8 @@ export class OwnerRequestDetailCustomViewModel {
         comment: data.review,
       })
 
+      this.getCustomProposalsForRequestCur()
+
       this.onTriggerOpenModal('showConfirmWorkResultFormModal')
     } catch (error) {
       console.error(error)
