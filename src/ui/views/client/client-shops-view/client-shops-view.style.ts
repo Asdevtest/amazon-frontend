@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(() => ({
     gap: '20px',
   },
 
-  tabledWrapper: {
+  tableWrapper: {
     marginTop: 20,
     height: '80vh',
     width: '100%',
