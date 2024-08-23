@@ -34,7 +34,6 @@ export const SelectFields = ({
   yuanToDollarRate,
   usePriceInDollars,
   isPendingOrder,
-  isOrderInactive,
   disableSubmit,
   photosToLoad,
   order,
@@ -54,6 +53,12 @@ export const SelectFields = ({
   deliveredQuantity,
 }) => {
   const { classes: styles, cx } = useStyles()
+
+  const isOrderInactive = [
+    OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+    OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
+    OrderStatusByKey[OrderStatus.IN_STOCK],
+  ].includes(orderFields.status)
 
   const onChangeHsField = fieldName => event => {
     const newFormFields = { ...hsCode }

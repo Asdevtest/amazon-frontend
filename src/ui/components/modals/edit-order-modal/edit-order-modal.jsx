@@ -425,12 +425,6 @@ export const EditOrderModal = memo(
         orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
         !boxesForCreation.length)
 
-    const isOrderInactive = [
-      OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
-      OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
-      OrderStatusByKey[OrderStatus.IN_STOCK],
-    ].includes(orderFields.status)
-
     return (
       <div className={styles.modalWrapper}>
         <div className={styles.modalHeader}>
@@ -646,7 +640,6 @@ export const EditOrderModal = memo(
             isPendingOrder={isPendingOrder}
             usePriceInDollars={usePriceInDollars}
             disableSubmit={disableSubmit}
-            isOrderInactive={isOrderInactive}
             photosToLoad={photosToLoad}
             order={order}
             deliveredQuantity={orderFields.deliveredQuantity}
