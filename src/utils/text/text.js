@@ -79,11 +79,7 @@ export const minsToTime = mins => {
           ? Math.floor(hours) + ' ' + t(TranslationKey.hour)
           : Math.floor(hours % 24) + ' ' + t(TranslationKey.hour)
         : ''
-    } ${
-      Math.floor(lastMins) === 0
-        ? Math.floor(lastMins * 60) + ' ' + t(TranslationKey.sec)
-        : Math.floor(lastMins) + ' ' + t(TranslationKey.minute) + '.'
-    }`
+    } ${Math.floor(lastMins) + ' ' + t(TranslationKey.minute) + '.'}`
   } else {
     return null
   }

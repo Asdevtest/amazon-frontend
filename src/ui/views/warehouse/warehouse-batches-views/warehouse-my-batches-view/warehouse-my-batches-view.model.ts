@@ -270,10 +270,14 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
 
   async onClickSaveArrivalDate(id: string, date: string) {
     try {
-      const newDate = new Date(date)
-      newDate.setUTCHours(0)
-      newDate.setUTCSeconds(0)
-      const arrivalDate = newDate.toISOString()
+      let arrivalDate = null
+
+      if (date) {
+        const newDate = new Date(date)
+        newDate.setUTCHours(0)
+        newDate.setUTCSeconds(0)
+        arrivalDate = newDate.toISOString()
+      }
 
       await BatchesModel.changeBatch(id, { arrivalDate })
       this.getCurrentData()

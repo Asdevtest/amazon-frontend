@@ -38,6 +38,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
       renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
+      valueGetter: ({ row }: GridRowModel) => row.client?.name || '',
       width: 160,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       hideEmptyObject: true,
@@ -47,8 +48,10 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.shop?.name} />,
+      valueGetter: ({ row }: GridRowModel) => row.shop?.name || '',
       width: 240,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'email',
@@ -69,7 +72,8 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
         return <SwitchCell disabled={!row.client?._id} value={row.isActive} onClick={handleSubmit} />
       },
       width: 100,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      disableCustomSort: true,
+      filterable: false,
     },
     {
       field: 'access',
@@ -80,7 +84,8 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
         return <TextCell center copyable={false} text={text} />
       },
       width: 100,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      disableCustomSort: true,
+      filterable: false,
     },
     {
       field: 'updatedAt',

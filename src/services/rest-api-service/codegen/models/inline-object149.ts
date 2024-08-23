@@ -21,35 +21,17 @@
  */
 export interface InlineObject149 {
     /**
-     * Эндпоинт для которого надо установить пресеты
+     * Гуид саба
      * @type {string}
      * @memberof InlineObject149
      */
-    endpoint?: string;
+    userId: string;
     /**
-     * 
-     * @type {object}
-     * @memberof InlineObject149
-     */
-    settings?: object;
-    /**
-     * Является ли пресет активным.
-     * @type {boolean}
-     * @memberof InlineObject149
-     */
-    activeSetting?: boolean;
-    /**
-     * Title of preset
+     * Заметка о сабе написаная мастером
      * @type {string}
      * @memberof InlineObject149
      */
-    title?: string;
-    /**
-     * Является ли пресет избранным.
-     * @type {boolean}
-     * @memberof InlineObject149
-     */
-    isFavorite?: boolean;
+    comment: string;
 }
 
 
