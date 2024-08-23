@@ -41,7 +41,7 @@ export const ClientShopsView = observer(() => {
           {t(TranslationKey.Update)}
         </CustomButton>
 
-        {viewModel.filteredData.length ? <ShopCascader data={viewModel.filteredData} /> : null}
+        {viewModel.filteredData.length ? <ShopCascader shops={viewModel.filteredData} /> : null}
 
         <CustomInputSearch
           enterButton
@@ -62,6 +62,7 @@ export const ClientShopsView = observer(() => {
           paginationModel={viewModel.paginationModel}
           pinnedColumns={viewModel.pinnedColumns}
           rows={viewModel.currentData}
+          rowCount={viewModel.rowCount}
           getRowHeight={() => 'auto'}
           getRowId={({ _id }: GridRowModel) => _id}
           slotProps={{

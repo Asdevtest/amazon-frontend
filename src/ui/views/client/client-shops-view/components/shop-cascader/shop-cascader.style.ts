@@ -1,19 +1,8 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 5,
-  },
-
-  cell: {
-    padding: '10px 0',
-  },
-
-  row: {
-    alignItems: 'center',
-    flexDirection: 'row',
+  title: {
+    padding: '8px 16px 0',
   },
 
   cascader: {
@@ -35,6 +24,14 @@ export const useStyles = makeStyles()(theme => ({
 
     '.ant-cascader-menu': {
       height: '204px',
+    },
+
+    '.ant-empty-small': {
+      height: '180px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
     },
 
     '.ant-cascader-menu-item-content': {
