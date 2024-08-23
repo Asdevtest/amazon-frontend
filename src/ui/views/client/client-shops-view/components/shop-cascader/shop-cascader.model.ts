@@ -19,6 +19,7 @@ export class ShopsCascaderModel {
   inputValue = ''
   selectedTableOptions: string[][] = []
   selectedShopsOptions: string[][] = []
+  showSubMenu = false
 
   get shopOptions() {
     return getShopsOptions(this.shops, this.inputValue)
@@ -39,14 +40,14 @@ export class ShopsCascaderModel {
     try {
       const shopIds = this.selectedShopsOptions.length > 0 ? this.selectedShopsOptions?.join(', ') : undefined
       const table = this.selectedTableOptions?.[0][0]
-      const statusGroup = this.selectedTableOptions?.find(option => option?.[0] !== 'BATCHES')
+      const statusGroup = this.selectedTableOptions?.find(option => !option.includes('BATCHES'))
         ? this.selectedTableOptions?.[0][1]
           ? this.selectedTableOptions?.map(option => option[1])?.join(', ')
           : undefined
         : undefined
-      const onAmazon = this.selectedTableOptions?.find(option => option?.[0] === 'BATCHES')
-        ? this.selectedTableOptions?.[0][1]
-          ? Boolean(this.selectedTableOptions[0][0])
+      const onAmazon = this.selectedTableOptions?.find(option => option.includes('BATCHES'))
+        ? this.selectedTableOptions?.[0].length > 1
+          ? Boolean(this.selectedTableOptions[0][1])
           : undefined
         : undefined
       const data = {
@@ -74,7 +75,6 @@ export class ShopsCascaderModel {
         }, 3000)
       }
     } catch (error) {
-      console.error(error)
       toast.error(t(TranslationKey['Error while exporting data']))
     } finally {
       this.open = false
@@ -83,16 +83,44 @@ export class ShopsCascaderModel {
   }
 
   onChangeTableOptions = (value: string[][]) => {
-    this.selectedTableOptions = value
+    const isOrders = value.some(item => item.includes('ORDERS'))
+
+    if (isOrders) {
+      const hasAllOrdersOption = value.some(item => item.includes('select-all-orders'))
+      const allOrdersOptionSelected = this.selectedTableOptions.some(
+        item => item.includes('ORDERS') && item.length === 1,
+      )
+
+      if (hasAllOrdersOption && !allOrdersOptionSelected) {
+        this.selectedTableOptions = [['ORDERS']]
+      } else if (!hasAllOrdersOption && allOrdersOptionSelected) {
+        this.selectedTableOptions = []
+      } else {
+        this.selectedTableOptions = value
+      }
+    } else {
+      const hasAllBatchesOption = value.some(item => item.includes('select-all-boxes'))
+      const allBatchesOptionSelected = this.selectedTableOptions.some(
+        item => item.includes('BOXES') && item.length === 1,
+      )
+
+      if (hasAllBatchesOption && !allBatchesOptionSelected) {
+        this.selectedTableOptions = [['BOXES']]
+      } else if (!hasAllBatchesOption && allBatchesOptionSelected) {
+        this.selectedTableOptions = []
+      } else {
+        this.selectedTableOptions = value
+      }
+    }
   }
 
   onChangeShopsOptions = (value: string[][]) => {
-    const hasAllOption = value.some(item => item.includes('select-all'))
-    const allOptionSelected = this.selectedShopsOptions.some(item => item.includes('select-all'))
+    const hasAllOption = value.some(item => item.includes('select-all-shops'))
+    const allOptionSelected = this.selectedShopsOptions.some(item => item.includes('select-all-shops'))
 
     if (hasAllOption && !allOptionSelected) {
       const shopsOptions = this.shops.map(shop => [shop._id])
-      this.selectedShopsOptions = shopsOptions.concat([['select-all']])
+      this.selectedShopsOptions = shopsOptions.concat([['select-all-shops']])
     } else if (!hasAllOption && allOptionSelected) {
       this.selectedShopsOptions = []
     } else {
