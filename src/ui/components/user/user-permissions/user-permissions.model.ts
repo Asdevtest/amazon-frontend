@@ -61,18 +61,15 @@ export class UserPermissionsModel extends DataGridTableModel {
       fieldsForSearch: ['title', 'key', 'url'],
     })
 
-    // getMainDataMethod,
-    // columnsModel,
-    // tableKey,
-    // defaultGetCurrentDataOptions,
-    // fieldsForSearch,
-
-    this.getSinglePermissions()
-
     this.getDataGridState()
-    this.getCurrentData()
+    this.getPermissions()
 
     makeObservable(this, observerConfig)
+  }
+
+  getPermissions() {
+    this.getSinglePermissions()
+    this.getCurrentData()
   }
 
   onChangeTabIndex(tabIndex: PermissionsTypes) {
@@ -85,7 +82,7 @@ export class UserPermissionsModel extends DataGridTableModel {
     this.setDefaultPinnedColumns()
 
     this.getDataGridState()
-    this.getCurrentData()
+    this.getPermissions()
   }
 
   async createPermission(data: IPermission | IPermissionGroup) {
@@ -140,7 +137,7 @@ export class UserPermissionsModel extends DataGridTableModel {
     try {
       await PermissionsModel.removeSinglePermission(this.permissionIdToRemove)
       this.onTriggerOpenModal('showConfirmModal')
-      this.getCurrentData()
+      this.getPermissions()
     } catch (error) {
       console.error(error)
     }
@@ -150,7 +147,7 @@ export class UserPermissionsModel extends DataGridTableModel {
     try {
       await PermissionsModel.removeGroupPermission(this.permissionIdToRemove)
       this.onTriggerOpenModal('showConfirmModal')
-      this.getCurrentData()
+      this.getPermissions()
     } catch (error) {
       console.error(error)
     }
@@ -161,7 +158,7 @@ export class UserPermissionsModel extends DataGridTableModel {
       await PermissionsModel.createSinglePermission(data)
 
       this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
-      this.getCurrentData()
+      this.getPermissions()
     } catch (error) {
       console.error(error)
     }
@@ -177,7 +174,7 @@ export class UserPermissionsModel extends DataGridTableModel {
       await PermissionsModel.createGroupPermission(data)
 
       this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
-      this.getCurrentData()
+      this.getPermissions()
     } catch (error) {
       console.error(error)
     }
@@ -188,7 +185,7 @@ export class UserPermissionsModel extends DataGridTableModel {
       await this.updateSinglePermission(data, permissionId)
 
       this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
-      this.getCurrentData()
+      this.getPermissions()
     } catch (error) {
       console.error(error)
     }
@@ -204,7 +201,7 @@ export class UserPermissionsModel extends DataGridTableModel {
       await this.updateGroupPermission(data, permissionId)
 
       this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
-      this.getCurrentData()
+      this.getPermissions()
     } catch (error) {
       console.error(error)
     }
@@ -322,7 +319,7 @@ export class UserPermissionsModel extends DataGridTableModel {
 
         toast.success(t(TranslationKey['Permissions imported successfully']))
 
-        this.getCurrentData()
+        this.getPermissions()
       })
 
       input.click()
