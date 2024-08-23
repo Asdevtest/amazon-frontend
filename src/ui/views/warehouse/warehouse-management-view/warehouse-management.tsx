@@ -22,7 +22,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './warehouse-management.style'
 
-import { switcherConfig } from './warehouse-management.config'
+import { createSwitcherConfig } from './warehouse-management.config'
 import { WarehouseTariffModel } from './warehouse-management.model'
 
 export const WarehouseManagementView = observer(() => {
@@ -45,7 +45,7 @@ export const WarehouseManagementView = observer(() => {
         <CustomRadioButton
           size="large"
           buttonStyle="solid"
-          options={switcherConfig}
+          options={createSwitcherConfig()}
           defaultValue={viewModel.tabIndex}
           onChange={viewModel.onChangeTabIndex}
         />
