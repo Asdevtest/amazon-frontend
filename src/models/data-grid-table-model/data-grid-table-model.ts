@@ -212,6 +212,7 @@ export class DataGridTableModel extends DefaultModel {
     } catch (error) {
       console.error(error)
     }
+
     this.setSettingsFromActivePreset()
   }
 
@@ -258,22 +259,27 @@ export class DataGridTableModel extends DefaultModel {
 
     if (activePreset) {
       // @ts-ignore
-      this.columnsModel = activePreset?.settings?.fields?.map(item => {
-        const foundColumn = this.columnsModel?.find(column => column?.field === item?.field)
+      const savedColumns = []
+
+      for await (const field of activePreset.settings.fields) {
+        const foundColumn = this.columnsModel?.find(column => column?.field === field?.field)
 
         if (foundColumn) {
-          foundColumn.width = item?.width
+          foundColumn.width = field?.width
+        } else {
+          continue
         }
 
-        return foundColumn
-      })
+        savedColumns.push(foundColumn)
+      }
+
+      this.columnsModel = await savedColumns
 
       this.sortModel = activePreset?.settings?.sortModel
       this.pinnedColumns = activePreset?.settings?.pinnedColumns
       this.paginationModel = activePreset?.settings?.paginationModel
       this.columnVisibilityModel = activePreset?.settings?.columnVisibilityModel
     } else {
-      this.onClickResetFilters()
       this.handlePinColumn(defaultPinnedColumns)
 
       // Doesnt work with await and map methods

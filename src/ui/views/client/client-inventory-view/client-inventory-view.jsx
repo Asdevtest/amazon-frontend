@@ -103,10 +103,21 @@ export const ClientInventoryView = observer(({ history }) => {
             columnMenu: viewModel.columnMenuSettings,
 
             toolbar: {
-              presetsSettings: {
-                presetsData: viewModel.presetsData,
-                onClickResetPresets: viewModel.resetPresetsHandler,
-                onClickSavePresets: viewModel.savePresetsHandler,
+              // presetsSettings: {
+              //   presetsData: viewModel.presetsData,
+              //   onClickResetPresets: viewModel.resetPresetsHandler,
+              //   onClickSavePresets: viewModel.savePresetsHandler,
+              // },
+
+              tablePresets: {
+                showPresetsSelect: viewModel.showPresetsSelect,
+                presetsTableData: viewModel.presetsTableData,
+                handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+                handleSetPresetActive: viewModel.handleSetPresetActive,
+                handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+                handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+                handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+                onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
               },
 
               resetFiltersBtnSettings: {
