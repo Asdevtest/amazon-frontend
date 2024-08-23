@@ -151,6 +151,7 @@ export const SuppliersAndIdeas = observer(props => {
           isModalView={isModalView}
           curUser={curUser}
           idea={curIdea}
+          inEdit={inEdit}
           currentProduct={currentProduct}
           onCreateProduct={onClickCreateProduct}
           onClickSaveBtn={onClickSaveBtn}

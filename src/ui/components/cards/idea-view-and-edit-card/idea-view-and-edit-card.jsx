@@ -53,6 +53,7 @@ export const IdeaViewAndEditCard = observer(
     inEdit,
     inCreate,
     idea,
+    curIdea,
     selectedIdea,
     currentProduct,
     onClickCancelBtn,
@@ -98,7 +99,7 @@ export const IdeaViewAndEditCard = observer(
       }
     }, [formFields?.media])
 
-    const isCurrentIdea = idea?._id === idea?._id
+    const isCurrentIdea = curIdea?._id === idea?._id
 
     const radioBottonsSettings = [
       {
@@ -225,7 +226,7 @@ export const IdeaViewAndEditCard = observer(
         setFormFields(getShortIdea())
       } else {
         setFormFields(getFullIdea())
-        // setShowFullCard(true) // 10527
+        setShowFullCard(true)
       }
     }, [idea, languageTag])
 
