@@ -1,10 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
+
 import { GridCellParams } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
-import { MyRequestStatusTranslate, RequestProposalStatus } from '@constants/requests/request-proposal-status'
-import { colorByStatus } from '@constants/requests/request-status'
+import {
+  MyRequestStatusTranslate,
+  RequestProposalStatus,
+  disabledCancelBtnStatuses,
+  noDisabledEditBtnStatuses,
+} from '@constants/requests/request-proposal-status'
+import { colorByStatus, showResultStatuses } from '@constants/requests/request-status'
 import {
   colorByDifficultyLevel,
   difficultyLevelByCode,
@@ -13,7 +20,7 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  FreelancerMyProposalsActionsCell,
+  ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
   PriorityAndChinaDeliverCell,
@@ -26,6 +33,7 @@ import { PerformerSelect } from '@views/shared/my-proposals-view/performer-selec
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 interface IHandlers {
@@ -226,14 +234,28 @@ export const proposalsColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
       renderCell: (params: GridCellParams) => (
-        <FreelancerMyProposalsActionsCell
-          status={params.row?.status}
-          onClickDeleteButton={() => handlers.onClickDeleteButton(params.row?._id, params.row?.status)}
-          onClickEditButton={() => handlers.onClickEditButton(params.row?.request?._id, params.row?._id)}
-          onClickResultButton={() => handlers.onClickResultButton(params.row?._id)}
+        <ActionButtonsCell
+          isFirstButton
+          row
+          isSecondButton
+          isThirdButton
+          firstButtonStyle={ButtonStyle.CASUAL}
+          secondButtonStyle={ButtonStyle.DANGER}
+          secondButtonVariant={ButtonVariant.OUTLINED}
+          thirdButtonVariant={ButtonVariant.CONTAINED}
+          thirdButtonStyle={ButtonStyle.PRIMARY}
+          disabledFirstButton={!noDisabledEditBtnStatuses.includes(params.row?.status)}
+          disabledSecondButton={disabledCancelBtnStatuses.includes(params.row?.status)}
+          disabledThirdButton={!showResultStatuses.includes(params.row?.status)}
+          firstButtonElement={<MdOutlineEdit size={18} />}
+          secondButtonElement={<MdOutlineDelete size={18} />}
+          thirdButtonElement={t(TranslationKey.Result)}
+          onClickFirstButton={() => handlers.onClickEditButton(params.row?.request?._id, params.row?._id)}
+          onClickSecondButton={() => handlers.onClickDeleteButton(params.row?._id, params.row?.status)}
+          onClickThirdButton={() => handlers.onClickResultButton(params.row?._id)}
         />
       ),
-      width: 240,
+      width: 265,
       disableCustomSort: true,
       filterable: false,
     },
