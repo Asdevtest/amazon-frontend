@@ -2031,4 +2031,5 @@ export enum TranslationKey {
   'Destination, Tariff name' = 'Destination, Tariff name',
   'Title, Key, URL' = 'Title, Key, URL',
   'Access confirmation request sent successfully' = 'Access confirmation request sent successfully',
+  'Please input shop name!' = 'Please input shop name!',
 }

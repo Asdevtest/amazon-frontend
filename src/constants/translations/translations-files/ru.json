@@ -2030,5 +2030,6 @@
   "Parsing reports": "Отчеты по парсингу",
   "Destination, Tariff name": "Пункт назначения, Название тарифа",
   "Title, Key, URL": "Название, Ключ, URL",
-  "Access confirmation request sent successfully": "Запрос на подтверждение доступа успешно отправлен"
+  "Access confirmation request sent successfully": "Запрос на подтверждение доступа успешно отправлен",
+  "Please input shop name!": "Пожалуйста, введите название магазина!"
 }
