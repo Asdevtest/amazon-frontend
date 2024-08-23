@@ -45,14 +45,14 @@ export const shopsColumns = (props: IColumnProps) => {
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
-      field: 'profile',
+      field: 'email',
       headerName: t(TranslationKey['Parsing profile']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing profile'])} />,
       renderCell: ({ row }: GridRowModel) => (
         <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />
       ),
       width: 320,
-      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
     {
       field: 'access',

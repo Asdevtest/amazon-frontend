@@ -21,11 +21,17 @@
  */
 export interface InlineObject153 {
     /**
-     * Почта от аккаунта, пароль которого Вы забыли
+     * Оценка, целое число от 1 до 5
+     * @type {number}
+     * @memberof InlineObject153
+     */
+    rating: number;
+    /**
+     * Комментарий к оценке
      * @type {string}
      * @memberof InlineObject153
      */
-    email: string;
+    comment?: string;
 }
 
 

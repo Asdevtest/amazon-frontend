@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { InlineResponse200114Rows } from './inline-response200114-rows';
 
 /**
  * 
@@ -22,47 +22,17 @@ import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-pro
  */
 export interface InlineResponse200114 {
     /**
-     * GUID записи
-     * @type {string}
-     * @memberof InlineResponse200114
-     */
-    _id?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200114
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Роль юзера, когда он оставлял отзыв
+     * Общее кол-во записей
      * @type {number}
      * @memberof InlineResponse200114
      */
-    role?: number;
+    count?: number;
     /**
-     * Комментарий к оценке
-     * @type {string}
+     * Массив товаров.
+     * @type {Array<InlineResponse200114Rows>}
      * @memberof InlineResponse200114
      */
-    comment?: string;
-    /**
-     * Оценка, целое число от 1 до 5
-     * @type {number}
-     * @memberof InlineResponse200114
-     */
-    rating?: number;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200114
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse200114
-     */
-    createdAt?: string;
+    rows?: Array<InlineResponse200114Rows>;
 }
 
 

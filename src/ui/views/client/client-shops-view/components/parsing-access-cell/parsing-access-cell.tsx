@@ -25,7 +25,7 @@ export const ParsingAccessCell: FC<ParsingAccessCellProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  if (profile?.isActive) {
+  if (profile?.access) {
     return (
       <p className={styles.issued}>
         <CiCircleCheck size={18} />
