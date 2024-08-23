@@ -10,7 +10,6 @@ import { UserLink } from '@components/user/user-link'
 import { t } from '@utils/translations'
 
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
-import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './announcement-card.style'
 
@@ -18,11 +17,10 @@ interface AnnouncementCardProps {
   announcementData: IAnnoucement
   selectedCard?: IAnnoucement
   onClickSelectCard: (value: IAnnoucement) => void
-  onClickSelectButton?: (selectedService?: IAnnoucement, chosenExecutor?: ICreatedBy) => void
 }
 
 export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
-  const { announcementData, selectedCard, onClickSelectCard, onClickSelectButton } = props
+  const { announcementData, selectedCard, onClickSelectCard } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -94,7 +92,10 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
           openModal={isOpenModal}
           service={announcementData}
           onOpenModal={handleToggleModal}
-          onClickSelectButton={onClickSelectButton}
+          onClickSelectButton={() => {
+            onClickSelectCard(announcementData)
+            handleToggleModal()
+          }}
         />
       ) : null}
     </>

@@ -146,7 +146,6 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
             announcementData={service}
             selectedCard={selectedService}
             onClickSelectCard={selectCardHandler}
-            onClickSelectButton={() => onClickSelectButton(selectedService, selectedExecutor)}
           />
         ))}
       </div>
