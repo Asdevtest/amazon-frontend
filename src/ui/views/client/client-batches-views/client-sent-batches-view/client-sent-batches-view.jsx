@@ -33,6 +33,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
         <CustomInputSearch
           enterButton
           allowClear
+          wrapperClassName={styles.searchInput}
           size="large"
           placeholder="Search by ASIN, Title, Batch ID, Order ID"
           onSearch={viewModel.onSearchSubmit}
