@@ -84,13 +84,13 @@ export const useShowDimensions = ({
         convertedWeight = getConversion(
           sizeSetting,
           defaultDimension,
-          data.weighGrossKgWarehouse || 0,
+          data?.weighGrossKgWarehouse || 0,
           POUNDS_COEFFICIENT,
         )
         convertedVolumeWeight = getConversion(
           sizeSetting,
           defaultDimension,
-          ((data.lengthCmWarehouse || 0) * (data?.widthCmWarehouse || 0) * (data?.heightCmWarehouse || 0)) /
+          ((data?.lengthCmWarehouse || 0) * (data?.widthCmWarehouse || 0) * (data?.heightCmWarehouse || 0)) /
             volumeWeightCoefficient,
           POUNDS_COEFFICIENT,
         )

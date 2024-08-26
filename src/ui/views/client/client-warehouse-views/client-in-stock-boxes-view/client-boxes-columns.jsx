@@ -8,6 +8,7 @@ import {
   ChangeInputCell,
   DeadlineCell,
   DimensionsCell,
+  DimensionsHeaderCell,
   FormedCell,
   ManyUserLinkCell,
   MultilineTextHeaderCell,
@@ -18,7 +19,6 @@ import {
   TextCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells'
-import { SizeSwitcher } from '@components/shared/size-switcher'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
 import { formatNormDateTime } from '@utils/date-time'
@@ -314,19 +314,21 @@ export const clientBoxesViewColumns = (
     },
 
     {
-      field: 'dimansions',
+      field: 'dimensions',
       headerName: t(TranslationKey.Dimensions),
-      renderHeader: () => (
-        <MultilineTextHeaderCell
-          text={t(TranslationKey.Dimensions)}
-          component={<SizeSwitcher condition={getUnitsOption()} onChangeCondition={handlers.onChangeUnitsOption} />}
+      renderHeader: params => (
+        <DimensionsHeaderCell
+          data={params.row}
+          transmittedSizeSetting={getUnitsOption()}
+          onChangeUnitsOption={handlers.onChangeUnitsOption}
         />
       ),
       renderCell: params => (
         <DimensionsCell isCell isTotalWeight data={params.row} transmittedSizeSetting={getUnitsOption()} />
       ),
-      width: 230,
+      minWidth: 230,
       disableCustomSort: true,
+      filterable: false,
     },
 
     {
