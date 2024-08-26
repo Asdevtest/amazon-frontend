@@ -389,6 +389,7 @@ export const lightTheme = createTheme({
 
     background: {
       general: '#fff',
+      generalInverted: '#2B2B34',
       second: '#F8F8F8',
       third: '#f4f4f4',
       chatIncomeMessage: '#EBEBEB',
@@ -954,6 +955,7 @@ export const darkTheme = createTheme({
 
     background: {
       general: '#2B2B34',
+      generalInverted: '#fff',
       second: '#21212B',
       third: '#25252D',
       searchSelectHover: '#25252D',

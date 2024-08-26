@@ -2032,5 +2032,6 @@
   "Title, Key, URL": "Название, Ключ, URL",
   "Access confirmation request sent successfully": "Запрос на подтверждение доступа успешно отправлен",
   "Tables": "Таблицы",
-  "Please input shop name!": "Пожалуйста, введите название магазина!"
+  "Please input shop name!": "Пожалуйста, введите название магазина!",
+  "Tag preview": "Предпросмотр тега"
 }

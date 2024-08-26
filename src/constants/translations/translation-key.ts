@@ -2033,4 +2033,5 @@ export enum TranslationKey {
   'Access confirmation request sent successfully' = 'Access confirmation request sent successfully',
   'Tables' = 'Tables',
   'Please input shop name!' = 'Please input shop name!',
+  'Tag preview' = 'Tag preview',
 }
