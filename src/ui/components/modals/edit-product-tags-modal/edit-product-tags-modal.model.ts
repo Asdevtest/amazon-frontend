@@ -89,7 +89,9 @@ export class EditProductTagModel {
 
   async handleCreateTag(titleTag: string) {
     try {
-      const result = await GeneralModel.createTag(titleTag)
+      const result = await GeneralModel.createTag({
+        title: titleTag,
+      })
 
       this.selectedTags?.push({
         _id: result._id,
