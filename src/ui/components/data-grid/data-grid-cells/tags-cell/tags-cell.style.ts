@@ -1,30 +1,23 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   tags: {
     display: 'flex',
     flexDirection: 'column',
     gap: '5px',
-    padding: '10px 0',
-    width: '100%',
-  },
+    padding: '10px 3px',
 
-  editMode: {
-    width: 'calc(100% - 40px)',
+    flex: 1,
+    overflow: 'auto',
   },
 
   tagItem: {
-    fontSize: 14,
-    textAlign: 'left',
-    lineHeight: '19px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
 
   activeButton: {
-    color: theme.palette.primary.main,
-
     '&:hover': {
       transform: 'scale(1.05)',
     },
@@ -32,6 +25,7 @@ export const useStyles = makeStyles()(theme => ({
 
   tagsWrapper: {
     width: '100%',
+    height: '100%',
     display: 'flex',
     alignItems: 'center',
     gap: '10px',

@@ -13,11 +13,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
-  searchInput: {
-    width: 290,
-    height: 40,
-  },
-
   tableWrapper: {
     height: '77vh',
     width: '100%',

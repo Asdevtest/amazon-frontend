@@ -1,5 +1,7 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+
+import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -7,12 +9,13 @@ import { AddOrEditTagForm } from '@components/forms/add-or-edit-tag-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { ITag } from '@typings/shared/tag'
 
 import { useStyles } from './tab-tags.style'
 
@@ -21,7 +24,10 @@ import { AdminSettingsTagsModel } from './tab-tags.model'
 export const TabTags = observer(() => {
   const { classes: styles } = useStyles()
 
+  // const viewModel = useMemo(() => new AdminSettingsTagsModel(), [])
   const [viewModel] = useState(() => new AdminSettingsTagsModel())
+
+  console.log('viewModel.tagToEdit', viewModel.tagToEdit)
 
   return (
     <div className={styles.wrapper}>
@@ -30,17 +36,20 @@ export const TabTags = observer(() => {
           danger
           type="primary"
           size="large"
-          disabled={!viewModel.rowSelectionModel.length}
+          disabled={!viewModel.selectedRows.length}
           onClick={viewModel.onClickRemoveTagsBtn}
         >
           {t(TranslationKey['Delete selected tags'])}
         </CustomButton>
-        <SearchInput
-          inputClasses={styles.searchInput}
-          value={viewModel.nameSearchValue}
-          placeholder={t(TranslationKey['Search by tags'])}
-          onChange={e => viewModel.onChangeNameSearchValue(e)}
+
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by tags"
+          onSearch={viewModel.onSearchSubmit}
         />
+
         <CustomButton type="primary" size="large" onClick={viewModel.onClickAddBtn}>
           {t(TranslationKey['Add Tag'])}
         </CustomButton>
@@ -48,33 +57,45 @@ export const TabTags = observer(() => {
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
+          rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
-          sortingMode="client"
-          paginationMode="client"
           filterModel={viewModel.filterModel}
-          rowSelectionModel={viewModel.rowSelectionModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
+          pinnedColumns={viewModel.pinnedColumns}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          getRowId={({ _id }: GridRowModel) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+            columnMenu: viewModel.columnMenuSettings,
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
           onSortModelChange={viewModel.onChangeSortingModel}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
@@ -82,8 +103,8 @@ export const TabTags = observer(() => {
 
       <Modal openModal={viewModel.showAddOrEditTagModal} setOpenModal={viewModel.onClickToggleAddOrEditModal}>
         <AddOrEditTagForm
-          tags={viewModel.tags}
-          tagToEdit={viewModel.tagToEdit}
+          tags={viewModel.currentData}
+          tagToEdit={viewModel.tagToEdit as ITag}
           onCloseModal={viewModel.onClickCancelBtn}
           onCreateSubmit={viewModel.onCreateTag}
           onEditSubmit={viewModel.onEditTag}
@@ -100,7 +121,7 @@ export const TabTags = observer(() => {
           message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={viewModel.onClickToggleConfirmModal}
         />
       ) : null}
