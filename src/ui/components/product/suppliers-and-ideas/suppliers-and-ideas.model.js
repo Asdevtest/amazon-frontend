@@ -172,6 +172,7 @@ export class SuppliersAndIdeasModel {
 
       runInAction(() => {
         this.curIdea = response
+        this.productId = response.parentProduct?._id
       })
     } catch (error) {
       console.error(error)
