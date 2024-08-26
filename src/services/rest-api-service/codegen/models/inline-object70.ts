@@ -15,17 +15,23 @@
 
 
 /**
- * Схема редактирования в первый раз shippingLabel коробки
+ * 
  * @export
  * @interface InlineObject70
  */
 export interface InlineObject70 {
     /**
-     * shippingLabel
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject70
+     */
+    userIds: Array<string>;
+    /**
+     * Название группового чата
      * @type {string}
      * @memberof InlineObject70
      */
-    shippingLabel: string;
+    title: string;
 }
 
 

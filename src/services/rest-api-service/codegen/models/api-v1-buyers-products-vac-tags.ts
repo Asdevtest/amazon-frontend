@@ -13,26 +13,25 @@
  */
 
 
-import { InlineResponse20047Rows } from './inline-response20047-rows';
 
 /**
  * 
  * @export
- * @interface InlineResponse20047
+ * @interface ApiV1BuyersProductsVacTags
  */
-export interface InlineResponse20047 {
+export interface ApiV1BuyersProductsVacTags {
     /**
-     * Count of rows
-     * @type {number}
-     * @memberof InlineResponse20047
+     * Гуид тега
+     * @type {string}
+     * @memberof ApiV1BuyersProductsVacTags
      */
-    count?: number;
+    _id?: string;
     /**
-     * 
-     * @type {Array<InlineResponse20047Rows>}
-     * @memberof InlineResponse20047
+     * Тег
+     * @type {string}
+     * @memberof ApiV1BuyersProductsVacTags
      */
-    rows?: Array<InlineResponse20047Rows>;
+    title?: string;
 }
 
 

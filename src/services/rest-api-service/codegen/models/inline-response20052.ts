@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20052Rows } from './inline-response20052-rows';
 
 /**
  * 
@@ -22,17 +21,29 @@ import { InlineResponse20052Rows } from './inline-response20052-rows';
  */
 export interface InlineResponse20052 {
     /**
-     * Count of rows
+     * Гуид сообщения
+     * @type {string}
+     * @memberof InlineResponse20052
+     */
+    _id?: string;
+    /**
+     * Гуид чата
+     * @type {string}
+     * @memberof InlineResponse20052
+     */
+    chatId?: string;
+    /**
+     * Смещение для пагинации
      * @type {number}
      * @memberof InlineResponse20052
      */
-    count?: number;
+    offset?: number;
     /**
      * 
-     * @type {Array<InlineResponse20052Rows>}
+     * @type {Array<string>}
      * @memberof InlineResponse20052
      */
-    rows?: Array<InlineResponse20052Rows>;
+    allMedia?: Array<string>;
 }
 
 

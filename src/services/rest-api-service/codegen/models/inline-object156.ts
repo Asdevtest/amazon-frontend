@@ -21,11 +21,17 @@
  */
 export interface InlineObject156 {
     /**
-     * 
+     * Оценка, целое число от 1 до 5
      * @type {number}
      * @memberof InlineObject156
      */
-    status: number;
+    rating: number;
+    /**
+     * Комментарий к оценке
+     * @type {string}
+     * @memberof InlineObject156
+     */
+    comment?: string;
 }
 
 

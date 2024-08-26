@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes';
 
 /**
  * 
@@ -21,83 +22,11 @@
  */
 export interface InlineObject38 {
     /**
-     * GUID пункта назначения коробки
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    destinationId?: string;
-    /**
-     * GUID тарифа к сторкипера
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    logicsTariffId?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    fbaNumber?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    clientComment?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    referenceId?: string;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    trackNumberText?: string;
-    /**
      * 
-     * @type {Array<string>}
+     * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
      * @memberof InlineObject38
      */
-    trackNumberFile?: Array<string>;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    upsTrackNumber?: string;
-    /**
-     * shippingLabel коробки
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    shippingLabel?: string;
-    /**
-     * shippingLabel проклеен сторкипером
-     * @type {boolean}
-     * @memberof InlineObject38
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    prepId?: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    variationTariffId?: string;
+    itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
 }
 
 
