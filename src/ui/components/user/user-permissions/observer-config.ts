@@ -32,4 +32,5 @@ export const observerConfig = {
   onClickImportPermissions: action.bound,
   getGroupPermissions: action.bound,
   getSinglePermissions: action.bound,
+  getPermissions: action.bound,
 }
