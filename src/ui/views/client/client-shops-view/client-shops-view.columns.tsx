@@ -45,7 +45,7 @@ export const shopsColumns = (props: IColumnProps) => {
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
-      field: 'email',
+      field: 'profileEmail',
       headerName: t(TranslationKey['Parsing profile']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing profile'])} />,
       renderCell: ({ row }: GridRowModel) => (
@@ -62,6 +62,7 @@ export const shopsColumns = (props: IColumnProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <ParsingAccessCell profile={row.profile} onAccess={() => onParsingAccess(row.profile?.email)} />
       ),
+
       width: 160,
       disableCustomSort: true,
       filterable: false,
