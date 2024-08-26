@@ -68,8 +68,9 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => {
         const value = [row._id]
         const handleSubmit = () => (row.isActive ? onForceStop(value) : onForceStart(value))
+        const disabled = !row.client?._id || !row.access
 
-        return <SwitchCell disabled={!row.client?._id} value={row.isActive} onClick={handleSubmit} />
+        return <SwitchCell disabled={disabled} value={row.isActive} onClick={handleSubmit} />
       },
       width: 100,
       disableCustomSort: true,
