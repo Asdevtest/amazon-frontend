@@ -387,13 +387,14 @@ export class SuppliersAndIdeasModel {
     win.focus()
   }
 
-  async onClickBindButton(requests) {
-    const methodBody =
-      this.curIdea.status === ideaStatusByKey[ideaStatus.NEW] ||
-      this.curIdea.status === ideaStatusByKey[ideaStatus.ON_CHECK]
-        ? { onCheckedIdeaId: this.curIdea._id }
-        : { onFinishedIdeaId: this.curIdea._id }
-
+  async onClickBindButton(requests, idea) {
+    const currentIdeaStatus = this.curIdea?.status || idea?.status
+    const currentIdeaId = this.curIdea?._id || idea?._id
+    const methodBody = [ideaStatusByKey[ideaStatus.NEW], ideaStatusByKey[ideaStatus.ON_CHECK]].includes(
+      currentIdeaStatus,
+    )
+      ? { onCheckedIdeaId: currentIdeaId }
+      : { onFinishedIdeaId: currentIdeaId }
     for (const request of requests) {
       try {
         await RequestModel.bindIdeaToRequest(request, methodBody)
@@ -402,7 +403,7 @@ export class SuppliersAndIdeasModel {
       }
     }
 
-    this.getIdea(this.curIdea._id)
+    this.getIdea(currentIdeaId)
     this.onTriggerOpenModal('showBindingModal')
     this.loadData()
   }

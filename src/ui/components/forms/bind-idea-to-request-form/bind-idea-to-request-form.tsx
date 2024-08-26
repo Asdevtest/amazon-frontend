@@ -7,6 +7,7 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
 
+import { IIdea } from '@typings/models/ideas/idea'
 import { ISpec } from '@typings/shared/spec'
 
 import { useStyles } from './bind-idea-to-request-form.style'
@@ -23,10 +24,11 @@ interface IRequest {
 
 interface BindIdeaToRequestFormProps {
   requests: IRequest[]
-  onClickBindButton: (selectedRequests: string[]) => void
+  onClickBindButton: (selectedRequests: string[], idea?: IIdea) => void
+  idea?: IIdea
 }
 
-export const BindIdeaToRequestForm: FC<BindIdeaToRequestFormProps> = memo(({ requests, onClickBindButton }) => {
+export const BindIdeaToRequestForm: FC<BindIdeaToRequestFormProps> = memo(({ requests, onClickBindButton, idea }) => {
   const { classes: styles } = useStyles()
 
   const [selectedRequests, setSelectedRequests] = useState([])
@@ -52,7 +54,7 @@ export const BindIdeaToRequestForm: FC<BindIdeaToRequestFormProps> = memo(({ req
       </div>
 
       <div className={styles.buttonWrapper}>
-        <Button disabled={!selectedRequests.length} onClick={() => onClickBindButton(selectedRequests)}>
+        <Button disabled={!selectedRequests.length} onClick={() => onClickBindButton(selectedRequests, idea)}>
           {t(TranslationKey['Link request'])}
         </Button>
       </div>
