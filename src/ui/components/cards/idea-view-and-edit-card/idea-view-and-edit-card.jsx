@@ -225,7 +225,7 @@ export const IdeaViewAndEditCard = observer(
         setFormFields(getShortIdea())
       } else {
         setFormFields(getFullIdea())
-        setShowFullCard(true)
+        // setShowFullCard(true) // 10527
       }
     }, [idea, languageTag])
 

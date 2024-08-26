@@ -14,6 +14,7 @@ import {
   TextCell,
 } from '@components/data-grid/data-grid-cells'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -35,7 +36,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
           secondButtonTooltipText={t(TranslationKey['The task will be canceled, the box will keep its previous state'])}
           secondButtonElement={t(TranslationKey.Cancel)}
           secondButtonStyle={ButtonStyle.DANGER}
-          onClickFirstButton={() => handlers.onClickPickupBtn(params.row.originalData)}
+          onClickFirstButton={() => throttle(handlers.onClickPickupBtn(params.row.originalData))}
           onClickSecondButton={() =>
             handlers.onClickCancelTask(
               params.row.originalData.boxes[0]?._id,

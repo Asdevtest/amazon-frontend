@@ -7,11 +7,12 @@ import { Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
-import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { useStyles } from './tab-main.style'
@@ -91,7 +92,9 @@ export const TabMain = memo(props => {
         <div className={styles.proxyContent}>
           <div className={styles.proxyAdd}>
             <Typography className={styles.label}>{t(TranslationKey['Proxy servers for parsing'])}</Typography>
-            <Button onClick={onClickToggleProxyModal}>{t(TranslationKey['Add proxy'])}</Button>
+            <CustomButton type="primary" size="large" onClick={onClickToggleProxyModal}>
+              {t(TranslationKey['Add proxy'])}
+            </CustomButton>
           </div>
 
           <div className={styles.proxyList}>
@@ -112,9 +115,14 @@ export const TabMain = memo(props => {
               : null}
           </div>
 
-          <Button disabled={disabledSubmitFields} onClick={() => onSubmit(updatedProxy)}>
+          <CustomButton
+            type="primary"
+            size="large"
+            disabled={disabledSubmitFields}
+            onClick={() => throttle(onSubmit(updatedProxy))}
+          >
             {t(TranslationKey.Save)}
-          </Button>
+          </CustomButton>
         </div>
       </div>
 

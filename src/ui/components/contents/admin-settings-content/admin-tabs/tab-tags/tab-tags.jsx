@@ -5,14 +5,13 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditTagForm } from '@components/forms/add-or-edit-tag-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './tab-tags.style'
@@ -27,25 +26,27 @@ export const TabTags = observer(() => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.buttons}>
-        <Button
-          styleType={ButtonStyle.DANGER}
+        <CustomButton
+          danger
+          type="primary"
+          size="large"
           disabled={!viewModel.rowSelectionModel.length}
           onClick={viewModel.onClickRemoveTagsBtn}
         >
           {t(TranslationKey['Delete selected tags'])}
-        </Button>
+        </CustomButton>
         <SearchInput
           inputClasses={styles.searchInput}
           value={viewModel.nameSearchValue}
           placeholder={t(TranslationKey['Search by tags'])}
           onChange={e => viewModel.onChangeNameSearchValue(e)}
         />
-        <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
+        <CustomButton type="primary" size="large" onClick={viewModel.onClickAddBtn}>
           {t(TranslationKey['Add Tag'])}
-        </Button>
+        </CustomButton>
       </div>
 
-      <div className={styles.datagridWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick

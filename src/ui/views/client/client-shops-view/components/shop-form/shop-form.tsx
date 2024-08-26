@@ -13,7 +13,7 @@ import { IShop } from '@typings/models/shops/shop.js'
 
 import { useStyles } from './shop-form.style'
 
-import { requiredLinkRules, requiredRules } from './shop-form.config'
+import { getRequiredLinkRules, getRequiredRules } from './shop-form.config'
 import { ShopFormModel } from './shop-form.model'
 import { FieldType } from './shop-form.types'
 
@@ -58,14 +58,14 @@ export const ShopForm: FC<ShopFormProps> = observer(props => {
 
       <Form name="parsing profile" autoComplete="off" form={form} onFinish={onFinish}>
         <div className={styles.container}>
-          <Form.Item<FieldType> name="name" className={styles.field} rules={requiredRules}>
-            <CustomInput required allowClear size="large" label="Name" placeholder="Store name" />
+          <Form.Item<FieldType> name="name" className={styles.field} rules={getRequiredRules()}>
+            <CustomInput required allowClear size="large" label="Store name" placeholder="Store" />
           </Form.Item>
 
           <Form.Item<FieldType>
             name="sellerBoardWarehouseReportUrlDaily"
             className={styles.field}
-            rules={requiredLinkRules}
+            rules={getRequiredLinkRules()}
           >
             <CustomInput required allowClear size="large" label="Warehouse report" placeholder="Link" />
           </Form.Item>
@@ -73,7 +73,7 @@ export const ShopForm: FC<ShopFormProps> = observer(props => {
           <Form.Item<FieldType>
             name="sellerBoardWarehouseReportUrlMonthly"
             className={styles.field}
-            rules={requiredLinkRules}
+            rules={getRequiredLinkRules()}
           >
             <CustomInput required allowClear size="large" label="Dashboard by goods/days" placeholder="Link" />
           </Form.Item>

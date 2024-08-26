@@ -2,6 +2,8 @@ import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -32,6 +34,7 @@ export const shopsColumns = (props: IColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
       width: 115,
+      columnKey: columnnsKeys.shared.DATE,
     },
     {
       field: 'name',
@@ -39,15 +42,18 @@ export const shopsColumns = (props: IColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.name} />,
       width: 240,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
-      field: 'profile',
+      field: 'email',
       headerName: t(TranslationKey['Parsing profile']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing profile'])} />,
       renderCell: ({ row }: GridRowModel) => (
         <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />
       ),
       width: 320,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'access',
@@ -58,6 +64,7 @@ export const shopsColumns = (props: IColumnProps) => {
       ),
       width: 160,
       disableCustomSort: true,
+      filterable: false,
     },
     {
       field: 'status',
@@ -65,7 +72,9 @@ export const shopsColumns = (props: IColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing status'])} />,
       renderCell: ({ row }: GridRowModel) => {
         const disabled =
-          !row.profile || [RequestStatus.PENDING, RequestStatus.REJECTED].includes(row.profile?.requestStatus)
+          !row.profile ||
+          [RequestStatus.PENDING, RequestStatus.REJECTED].includes(row.profile?.requestStatus) ||
+          !row.profile?.access
 
         return (
           <SwitchCell
@@ -77,6 +86,7 @@ export const shopsColumns = (props: IColumnProps) => {
       },
       width: 160,
       disableCustomSort: true,
+      filterable: false,
     },
     {
       field: 'action',
@@ -97,13 +107,17 @@ export const shopsColumns = (props: IColumnProps) => {
           onClickSecondButton={() => onRemoveShop(row._id)}
         />
       ),
-      width: 100,
+      minWidth: 90,
       filterable: false,
       disableCustomSort: true,
     },
   ]
 
   for (const column of columns) {
+    if (!column.table) {
+      column.table = DataGridFilterTables.SHOPS
+    }
+
     column.sortable = false
   }
 

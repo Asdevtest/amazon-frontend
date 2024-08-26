@@ -100,7 +100,7 @@ export const clientInventoryColumns = ({
     },
 
     {
-      field: 'shopId',
+      field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: params => <TextCell text={params.row?.shop?.name} />,

@@ -86,7 +86,7 @@ export const OrderProductModal = memo(props => {
                 .find(el => el._id === reorderOrder.storekeeper?._id)
                 ?.tariffLogistics.map(el => el._id)
                 .includes(reorderOrder.logicsTariff?._id)
-                ? reorderOrder.logicsTariff?._id
+                ? reorderOrder?.logicsTariff?._id
                 : '',
             },
             variationTariff: {
@@ -106,17 +106,17 @@ export const OrderProductModal = memo(props => {
             expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
             priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
             deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
-            productId: reorderOrder.product?._id,
+            productId: reorderOrder?.product?._id,
           }
         })
       : selectedProductsData.map(product => ({
           ...product,
           amount: 1,
-          clientComment: isPendingOrdering ? product.clientComment : '',
+          clientComment: isPendingOrdering ? product?.clientComment : '',
           expressChinaDelivery: false,
           priority: '30',
           deadline: null,
-          variationTariffId: product.variationTariff?._id,
+          variationTariffId: product?.variationTariff?._id,
 
           destination: {
             _id: null,
@@ -151,7 +151,7 @@ export const OrderProductModal = memo(props => {
             transparencyFile: '',
             tmpTransparencyFile: [],
 
-            productId: reorderOrder.product._id,
+            productId: reorderOrder?.product?._id,
             images: [],
 
             destination: {
@@ -161,7 +161,7 @@ export const OrderProductModal = memo(props => {
               _id: storekeepers
                 .find(el => el._id === reorderOrder.storekeeper?._id)
                 ?.tariffLogistics.map(el => el._id)
-                .includes(reorderOrder.logicsTariff?._id)
+                .includes(reorderOrder?.logicsTariff?._id)
                 ? reorderOrder.logicsTariff?._id
                 : '',
             },

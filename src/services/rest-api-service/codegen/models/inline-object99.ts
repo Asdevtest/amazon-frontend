@@ -21,17 +21,11 @@
  */
 export interface InlineObject99 {
     /**
-     * Комментарий клиента
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject99
      */
-    clientComment?: string;
-    /**
-     * Комментарий баера
-     * @type {string}
-     * @memberof InlineObject99
-     */
-    buyerComment?: string;
+    tags: Array<string>;
 }
 
 

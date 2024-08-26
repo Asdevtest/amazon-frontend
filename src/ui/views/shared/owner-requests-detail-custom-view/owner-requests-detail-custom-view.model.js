@@ -259,6 +259,8 @@ export class OwnerRequestDetailCustomViewModel {
         comment: data.review,
       })
 
+      this.getCustomProposalsForRequestCur()
+
       this.onTriggerOpenModal('showConfirmWorkResultFormModal')
     } catch (error) {
       console.error(error)
@@ -308,12 +310,11 @@ export class OwnerRequestDetailCustomViewModel {
           imagesData,
         })
         this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+        this.readOnlyRequestDesignerResultClientForm = true
       },
     }
 
     this.onTriggerOpenModal('showConfirmModal')
-
-    this.readOnlyRequestDesignerResultClientForm = true
   }
 
   async getCustomProposalsForRequestCur() {

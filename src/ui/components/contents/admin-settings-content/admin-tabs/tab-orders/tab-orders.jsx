@@ -2,9 +2,10 @@ import { memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { useStyles } from '../../admin-settings.style'
@@ -30,9 +31,9 @@ export const TabOrders = memo(props => {
         error={formFields.timeToDeadlinePendingOrder === ''}
         onChange={e => onChangeField(fieldNameObject.timeToDeadlinePendingOrder, e)}
       />
-      <Button disabled={disabledSubmit} onClick={onSubmit}>
+      <CustomButton type="primary" size="large" disabled={disabledSubmit} onClick={throttle(onSubmit)}>
         {t(TranslationKey.Save)}
-      </Button>
+      </CustomButton>
     </div>
   )
 })

@@ -1999,10 +1999,9 @@
   "Parsing profile": "Профіль парсингу",
   "Request sent": "Запит надіслано",
   "Access": "Доступ",
-  "issued": "видано",
+  "Issued": "Видано",
   "Parsing status": "Статус парсингу",
-  "Profile with given guid not found!": "Профіль із зазначеним ID не знайдено!",
-  "Profile does not belongs to you!": "Профіль не належить вам!",
+  "Access Denied: Insufficient Rights": "Доступ заборонено: недостатньо прав",
   "Ask": "Запит",
   "Please enter a valid URL!": "Будь ласка, введіть дійсну URL-адресу!",
   "Please input your link!": "Будь ласка, введіть ваше посилання!",
@@ -2029,5 +2028,8 @@
   "Destination, Tariff name": "Місце призначення, назва тарифу",
   "Title, Key, URL": "Назва, ключ, URL",
   "Final": "Підсумок",
-  "Volume": "Обсяг"
+  "Volume": "Обсяг",
+  "Access confirmation request sent successfully": "Запит на підтвердження доступу успішно надіслано",
+  "Tables": "Таблиці",
+  "Please input shop name!": "Будь ласка, введіть назву магазину!"
 }

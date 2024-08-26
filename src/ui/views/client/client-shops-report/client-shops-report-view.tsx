@@ -21,7 +21,7 @@ import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
 import { useStyles } from './client-shops-report-view.style'
 
-import { radioButtonOptions } from './client-shops-report-view.config'
+import { createRadioButtonOptions } from './client-shops-report-view.config'
 import { ClientShopsViewModel } from './client-shops-report-view.model'
 import { ControllButtons } from './controll-buttons/controll-buttons'
 
@@ -35,7 +35,7 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
       <CustomRadioButton
         size="large"
         buttonStyle="solid"
-        options={radioButtonOptions}
+        options={createRadioButtonOptions()}
         defaultValue={viewModel.radioButtonOption}
         onChange={viewModel.onChangeRadioButtonOption}
       />
