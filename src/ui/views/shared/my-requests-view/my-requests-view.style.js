@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   unreadMessages: {
-    background: theme.palette.background.blue,
+    background: theme.palette.background.chatMyMessage,
     zIndex: 7,
   },
 
