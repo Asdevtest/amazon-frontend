@@ -133,6 +133,7 @@ export class ShopsCascaderModel {
 
     if (!value) {
       this.clearSelection()
+      this.inputValue = ''
     }
   }
 

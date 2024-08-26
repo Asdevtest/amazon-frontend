@@ -32,6 +32,7 @@ export const ShopCascader: FC<ShopCascaderProps> = observer(({ shops }) => {
           <CustomInputSearch
             allowClear
             placeholder="Shop"
+            value={viewModel.inputValue}
             wrapperClassName={styles.inputSearch}
             onChange={viewModel.onChangeInput}
           />
