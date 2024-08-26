@@ -31,6 +31,7 @@ import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { SaveIcon, TruckIcon } from '@components/shared/svg-icons'
+import { BoxesToCreate } from '@components/shared/tables/boxes-to-create/boxes-to-create'
 import { BoxesToOrder } from '@components/shared/tables/boxes-to-order'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { Text } from '@components/shared/text'
@@ -46,7 +47,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './edit-order-modal.style'
 
-import { BoxesToCreateTable } from './boxes-to-create-table'
 import { ProductTable } from './product-table'
 import { SelectFields } from './select-fields'
 
@@ -725,7 +725,22 @@ export const EditOrderModal = memo(
 
         {boxesForCreation.length > 0 && (
           <>
-            <BoxesToCreateTable
+            {/* <BoxesToCreateTable
+              orderGoodsAmount={orderFields?.amount}
+              barcodeIsExist={order.product.barCode}
+              isNoBuyerSupplier={
+                userInfo._id !== order.orderSupplier.createdBy?._id &&
+                userInfo?.masterUser?._id !== order.orderSupplier?.createdBy?._id &&
+                order.orderSupplier.createdBy
+              }
+              newBoxes={boxesForCreation}
+              onRemoveBox={onRemoveForCreationBox}
+              onEditBox={onEditForCreationBox}
+              onClickBarcodeCheckbox={onClickBarcodeCheckbox}
+              onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
+              onClickTransparency={onClickTransparency}
+            /> */}
+            <BoxesToCreate
               orderGoodsAmount={orderFields?.amount}
               barcodeIsExist={order.product.barCode}
               isNoBuyerSupplier={
@@ -740,7 +755,6 @@ export const EditOrderModal = memo(
               onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
               onClickTransparency={onClickTransparency}
             />
-
             <div className={styles.InfoWrapper}>
               <div className={styles.labelsInfoWrapper}>
                 <div>
