@@ -3,7 +3,7 @@ import { ParsingReportsType } from '../parsing-reports.type'
 export const getAdditionalFiltersFields = (activeTable: ParsingReportsType) => {
   switch (activeTable) {
     case ParsingReportsType.VOICE:
-      return ['amazonTitle', 'sku']
+      return ['productName', 'sku']
 
     case ParsingReportsType.INVENTORY:
       return ['title', 'sku']
