@@ -21,11 +21,17 @@
  */
 export interface InlineObject43 {
     /**
-     * GUID коробки разделение которой отменяем.
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject43
+     */
+    userIds: Array<string>;
+    /**
+     * Название группового чата
      * @type {string}
      * @memberof InlineObject43
      */
-    guid?: string;
+    title: string;
 }
 
 

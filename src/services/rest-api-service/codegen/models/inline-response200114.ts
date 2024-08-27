@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
@@ -29,10 +29,10 @@ export interface InlineResponse200114 {
     _id?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse200114
      */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * Роль юзера, когда он оставлял отзыв
      * @type {number}
@@ -53,10 +53,10 @@ export interface InlineResponse200114 {
     rating?: number;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse200114
      */
-    sub?: ApiV1AnnouncementsMyCreatedBy;
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * Дата создания.
      * @type {string}

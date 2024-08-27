@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20024Rows } from './inline-response20024-rows';
 
 /**
  * 
@@ -21,23 +22,17 @@
  */
 export interface InlineResponse20024 {
     /**
-     * total price in yuan for these statuses
-     * @type {number}
+     * 
+     * @type {Array<InlineResponse20024Rows>}
      * @memberof InlineResponse20024
      */
-    totalPriceInYuan?: number;
+    rows?: Array<InlineResponse20024Rows>;
     /**
-     * total price in USD for these statuses
+     * 
      * @type {number}
      * @memberof InlineResponse20024
      */
-    totalPriceInUSD?: number;
-    /**
-     * Total partialPaymentAmountRmb
-     * @type {number}
-     * @memberof InlineResponse20024
-     */
-    partialPaymentAmountRmb?: number;
+    count?: number;
 }
 
 

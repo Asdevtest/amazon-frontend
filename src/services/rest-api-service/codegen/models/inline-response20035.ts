@@ -13,12 +13,9 @@
  */
 
 
-import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
-import { ApiV1AdminsOrdersLogicsTariff } from './api-v1-admins-orders-logics-tariff';
-import { ApiV1AdminsTasksLightVariationTariff } from './api-v1-admins-tasks-light-variation-tariff';
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
-import { ApiV1BatchesBatch } from './api-v1-batches-batch';
-import { ApiV1BoxesStorekeepersSentToBatchItems } from './api-v1-boxes-storekeepers-sent-to-batch-items';
+import { InlineResponse20035AllFiles } from './inline-response20035-all-files';
+import { InlineResponse20035AllImages } from './inline-response20035-all-images';
+import { InlineResponse20035AllVideo } from './inline-response20035-all-video';
 
 /**
  * 
@@ -27,214 +24,23 @@ import { ApiV1BoxesStorekeepersSentToBatchItems } from './api-v1-boxes-storekeep
  */
 export interface InlineResponse20035 {
     /**
-     * GUID коробки.
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20035AllImages>}
      * @memberof InlineResponse20035
      */
-    _id?: string;
-    /**
-     * Номер коробки.
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    humanFriendlyId?: number;
-    /**
-     * Количества в коробке.
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    amount?: number;
-    /**
-     * Статус коробки
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    status?: InlineResponse20035StatusEnum;
-    /**
-     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
-     * @type {boolean}
-     * @memberof InlineResponse20035
-     */
-    isActual?: boolean;
-    /**
-     * Если true - значит коробку черновик.
-     * @type {boolean}
-     * @memberof InlineResponse20035
-     */
-    isDraft?: boolean;
-    /**
-     * Сформирована ли коробка
-     * @type {boolean}
-     * @memberof InlineResponse20035
-     */
-    isFormed?: boolean;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    widthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    heightCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Итого за доставку.
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    deliveryTotalPrice?: number;
-    /**
-     * Обновление итога за доставку.
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    deliveryTotalPriceChanged?: number;
-    /**
-     * id склада - склады куда отправляют 
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    destinationId?: string;
-    /**
-     * GUID тарифа доставки 
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    logicsTariffId?: string;
-    /**
-     * Сторкипер взявший коробку в работу.
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    batchId?: string;
-    /**
-     * Сторкипер взявший коробку в работу.
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    storekeeperId?: string;
-    /**
-     * Клиент владелец товара в коробке в работу.
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    clientId?: string;
-    /**
-     * Клиент создавший заказ и коробку.
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    createdById?: string;
-    /**
-     * GUID любого, кто последний редактировал коробку.
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    lastModifiedById?: string;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    prepId?: string;
+    allImages?: Array<InlineResponse20035AllImages>;
     /**
      * 
-     * @type {ApiV1AdminsTasksLightVariationTariff}
+     * @type {Array<InlineResponse20035AllFiles>}
      * @memberof InlineResponse20035
      */
-    variationTariff?: ApiV1AdminsTasksLightVariationTariff;
+    allFiles?: Array<InlineResponse20035AllFiles>;
     /**
      * 
-     * @type {string}
+     * @type {Array<InlineResponse20035AllVideo>}
      * @memberof InlineResponse20035
      */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    updatedAt?: string;
-    /**
-     * Массив коробок.
-     * @type {Array<ApiV1BoxesStorekeepersSentToBatchItems>}
-     * @memberof InlineResponse20035
-     */
-    items?: Array<ApiV1BoxesStorekeepersSentToBatchItems>;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse20035
-     */
-    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse20035
-     */
-    client?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse20035
-     */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse20035
-     */
-    lastModifiedBy?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsOrdersDestination}
-     * @memberof InlineResponse20035
-     */
-    destination?: ApiV1AdminsOrdersDestination;
-    /**
-     * 
-     * @type {ApiV1AdminsOrdersLogicsTariff}
-     * @memberof InlineResponse20035
-     */
-    logicsTariff?: ApiV1AdminsOrdersLogicsTariff;
-    /**
-     * 
-     * @type {ApiV1BatchesBatch}
-     * @memberof InlineResponse20035
-     */
-    batch?: ApiV1BatchesBatch;
+    allVideo?: Array<InlineResponse20035AllVideo>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20035StatusEnum {
-    New = 'NEW',
-    InStock = 'IN_STOCK',
-    RequestedSendToBatch = 'REQUESTED_SEND_TO_BATCH',
-    NeedConfirmingToDeliveryPriceChange = 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE',
-    InBatch = 'IN_BATCH',
-    NeedToUpdateTheTariff = 'NEED_TO_UPDATE_THE_TARIFF',
-    InBatchOnTheWay = 'IN_BATCH_ON_THE_WAY',
-    FinishPrepCentrUsa = 'FINISH_PREP_CENTR_USA',
-    AcceptedInProcessing = 'ACCEPTED_IN_PROCESSING'
-}
-
 
 

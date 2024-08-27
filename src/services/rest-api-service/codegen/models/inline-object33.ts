@@ -21,88 +21,59 @@
  */
 export interface InlineObject33 {
     /**
-     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @type {number}
-     * @memberof InlineObject33
-     */
-    taskId: number;
-    /**
      * 
-     * @type {Array<string>}
-     * @memberof InlineObject33
-     */
-    boxesBefore?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject33
-     */
-    boxes: Array<string>;
-    /**
-     * Тип операции
-     * @type {string}
-     * @memberof InlineObject33
-     */
-    operationType: InlineObject33OperationTypeEnum;
-    /**
-     * Комментарий клиента.
      * @type {string}
      * @memberof InlineObject33
      */
     clientComment?: string;
     /**
-     * Комментарий баера.
-     * @type {string}
-     * @memberof InlineObject33
-     */
-    buyerComment?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject33
-     */
-    images?: Array<string>;
-    /**
-     * Комментарий работника склада.
+     * 
      * @type {string}
      * @memberof InlineObject33
      */
     storekeeperComment?: string;
     /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * Storage in boxes
      * @type {string}
      * @memberof InlineObject33
      */
-    priority?: InlineObject33PriorityEnum;
+    storage?: string;
     /**
-     * Причина приоритета
+     * Дополнительное поле shippingLabel для доставки грузовиками
      * @type {string}
      * @memberof InlineObject33
      */
-    reason?: string;
+    referenceId?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject33
+     */
+    fbaNumber?: string;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineObject33
+     */
+    upsTrackNumber?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineObject33
+     */
+    trackNumberText?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject33
+     */
+    trackNumberFile?: Array<string>;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineObject33
+     */
+    prepId?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject33OperationTypeEnum {
-    Merge = 'merge',
-    Split = 'split',
-    Receive = 'receive',
-    Edit = 'edit'
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject33PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

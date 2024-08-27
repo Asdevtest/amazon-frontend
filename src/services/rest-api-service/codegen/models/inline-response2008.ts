@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1AdminsTasksLightBoxes } from './api-v1-admins-tasks-light-boxes';
-import { ApiV1AdminsTasksLightStorekeeper } from './api-v1-admins-tasks-light-storekeeper';
 
 /**
  * 
@@ -23,71 +21,11 @@ import { ApiV1AdminsTasksLightStorekeeper } from './api-v1-admins-tasks-light-st
  */
 export interface InlineResponse2008 {
     /**
-     * GUID элемента
-     * @type {string}
-     * @memberof InlineResponse2008
-     */
-    _id?: string;
-    /**
-     * Дата создания.
-     * @type {number}
-     * @memberof InlineResponse2008
-     */
-    createdAt?: number;
-    /**
-     * Дата обновления.
-     * @type {number}
-     * @memberof InlineResponse2008
-     */
-    updatedAt?: number;
-    /**
-     * Тип операции
-     * @type {string}
-     * @memberof InlineResponse2008
-     */
-    operationType?: string;
-    /**
-     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
-     * @type {number}
-     * @memberof InlineResponse2008
-     */
-    status?: number;
-    /**
-     * Проклеены ли все баркоды в задаче
-     * @type {boolean}
-     * @memberof InlineResponse2008
-     */
-    isBarCodeAttached?: boolean;
-    /**
-     * Приоритет задачи
-     * @type {number}
-     * @memberof InlineResponse2008
-     */
-    priority?: number;
-    /**
-     * reason of priority
-     * @type {string}
-     * @memberof InlineResponse2008
-     */
-    reason?: string;
-    /**
      * 
-     * @type {ApiV1AdminsTasksLightStorekeeper}
+     * @type {number}
      * @memberof InlineResponse2008
      */
-    storekeeper?: ApiV1AdminsTasksLightStorekeeper;
-    /**
-     * Массив коробок которые были до переформирования коробок.
-     * @type {Array<ApiV1AdminsTasksLightBoxes>}
-     * @memberof InlineResponse2008
-     */
-    boxes?: Array<ApiV1AdminsTasksLightBoxes>;
-    /**
-     * Массив коробок которые были до переформирования коробок.
-     * @type {Array<ApiV1AdminsTasksLightBoxes>}
-     * @memberof InlineResponse2008
-     */
-    boxesBefore?: Array<ApiV1AdminsTasksLightBoxes>;
+    tech_pause?: number;
 }
 
 

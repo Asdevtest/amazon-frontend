@@ -21,59 +21,120 @@
  */
 export interface InlineObject49 {
     /**
+     * GUID storekeeper-a
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    storekeeperId: string;
+    /**
+     * GUID баера
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    buyerId?: string;
+    /**
+     * Защита листинга
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    transparencyFile?: string;
+    /**
      * 
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    item?: string;
+    /**
+     * GUID тарифа доставки
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    logicsTariffId: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    variationTariffId?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    priority?: InlineObject49PriorityEnum;
+    /**
+     * GUID пункта назначения.
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    destinationId?: string;
+    /**
+     * Кол-во продукта по этой позиции.
+     * @type {number}
+     * @memberof InlineObject49
+     */
+    amount: number;
+    /**
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineObject49
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Комментарии клиента.
      * @type {string}
      * @memberof InlineObject49
      */
     clientComment?: string;
     /**
-     * 
+     * GUID заказанного продукта
      * @type {string}
      * @memberof InlineObject49
      */
-    storekeeperComment?: string;
+    productId: string;
     /**
-     * Storage in boxes
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    storage?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    referenceId?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    fbaNumber?: string;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    upsTrackNumber?: string;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    trackNumberText?: string;
-    /**
-     * 
+     * Массив изображений.
      * @type {Array<string>}
      * @memberof InlineObject49
      */
-    trackNumberFile?: Array<string>;
+    images?: Array<string>;
     /**
-     * Значение информационного ключа
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * @type {boolean}
+     * @memberof InlineObject49
+     */
+    expressChinaDelivery?: boolean;
+    /**
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineObject49
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
      * @type {string}
      * @memberof InlineObject49
      */
-    prepId?: string;
+    deadline?: string;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * @type {number}
+     * @memberof InlineObject49
+     */
+    totalPrice?: number;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject49PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { InlineResponse20063ChildProduct } from './inline-response20063-child-product';
 import { InlineResponse20063Order } from './inline-response20063-order';
 import { InlineResponse20063ParentProduct } from './inline-response20063-parent-product';
@@ -136,10 +136,10 @@ export interface InlineResponse20063Rows {
     length?: number;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20063Rows
      */
-    sub?: ApiV1AnnouncementsMyCreatedBy;
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * Кол-во секунд идеи в статусе new(5)
      * @type {number}
@@ -286,10 +286,10 @@ export interface InlineResponse20063Rows {
     requestsOnFinished?: Array<InlineResponse20063RequestsOnCheck>;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20063Rows
      */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * Дата создания.
      * @type {string}

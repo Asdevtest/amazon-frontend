@@ -15,29 +15,41 @@
 
 
 /**
- * Схема подтверждения возрата коробок на склад
+ * 
  * @export
  * @interface InlineObject65
  */
 export interface InlineObject65 {
     /**
-     * GUID коробки, который планируем изменить
+     * Название партии
      * @type {string}
      * @memberof InlineObject65
      */
-    boxId: string;
+    title?: string;
     /**
-     * GUID тарифа, на которую планируем изменить
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject65
      */
-    logicsTariffId: string;
+    boxesIds: Array<string>;
     /**
-     * GUID дестинейшена.
-     * @type {string}
+     * Метод подсчта массы партии
+     * @type {number}
      * @memberof InlineObject65
      */
-    destinationId?: string;
+    calculationMethod?: number;
+    /**
+     * Делитель объема партии
+     * @type {number}
+     * @memberof InlineObject65
+     */
+    volumeWeightDivide?: number;
+    /**
+     * Настоящая стоимость доставки
+     * @type {number}
+     * @memberof InlineObject65
+     */
+    actualShippingCost?: number;
 }
 
 

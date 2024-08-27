@@ -15,17 +15,41 @@
 
 
 /**
- * Схема изменения итоговой цены, totalPriceChanged
+ * 
  * @export
  * @interface InlineObject31
  */
 export interface InlineObject31 {
     /**
-     * новое значение изменения итоговой цены.
+     * 
      * @type {number}
      * @memberof InlineObject31
      */
-    totalPriceChanged: number;
+    lengthCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject31
+     */
+    widthCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject31
+     */
+    heightCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject31
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Массив ссылок на фотографии.
+     * @type {Array<string>}
+     * @memberof InlineObject31
+     */
+    images?: Array<string>;
 }
 
 

@@ -13,6 +13,7 @@ import {
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 
+import { formatSnakeCaseString } from '@utils/text'
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
@@ -20,6 +21,7 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { ProfileStatus } from '@typings/enums/request/profile-request-status'
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { getProfileStatusColor } from './helpers/get-profile-status-color'
 import { ColumnsProps } from './parsing-profile-view.config'
 
 export const parsingProfileViewColumns = (props: ColumnsProps) => {
@@ -82,11 +84,17 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       headerName: t(TranslationKey['Profile status']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Profile status'])} />,
       renderCell: ({ row }: GridRowModel) => {
-        return <TextCell center copyable={false} text={''} />
+        return (
+          <TextCell
+            center
+            copyable={false}
+            color={getProfileStatusColor(row.status)}
+            text={formatSnakeCaseString(row.status)}
+          />
+        )
       },
       width: 130,
-      disableCustomSort: true,
-      filterable: false,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
       field: 'access',

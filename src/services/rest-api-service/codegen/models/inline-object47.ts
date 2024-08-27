@@ -21,35 +21,11 @@
  */
 export interface InlineObject47 {
     /**
-     * 
-     * @type {number}
-     * @memberof InlineObject47
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject47
-     */
-    widthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject47
-     */
-    heightCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject47
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Массив ссылок на фотографии.
+     * массив GUIDов оплаченных товаров
      * @type {Array<string>}
      * @memberof InlineObject47
      */
-    images?: Array<string>;
+    guids?: Array<string>;
 }
 
 

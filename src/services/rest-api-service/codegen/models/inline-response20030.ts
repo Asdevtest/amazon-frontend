@@ -21,17 +21,23 @@
  */
 export interface InlineResponse20030 {
     /**
-     * Кол-во продукта в айтеме в коробке
+     * total price in yuan for these statuses
      * @type {number}
      * @memberof InlineResponse20030
      */
-    amount?: number;
+    totalPriceInYuan?: number;
     /**
-     * Номер заказа
+     * total price in USD for these statuses
      * @type {number}
      * @memberof InlineResponse20030
      */
-    id?: number;
+    totalPriceInUSD?: number;
+    /**
+     * Total partialPaymentAmountRmb
+     * @type {number}
+     * @memberof InlineResponse20030
+     */
+    partialPaymentAmountRmb?: number;
 }
 
 

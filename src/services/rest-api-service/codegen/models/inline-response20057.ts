@@ -13,7 +13,8 @@
  */
 
 
-import { InlineResponse20054Finances } from './inline-response20054-finances';
+import { ApiV1BatchesStorekeeper } from './api-v1-batches-storekeeper';
+import { InlineResponse20016Rows } from './inline-response20016-rows';
 
 /**
  * 
@@ -22,11 +23,149 @@ import { InlineResponse20054Finances } from './inline-response20054-finances';
  */
 export interface InlineResponse20057 {
     /**
-     * 
-     * @type {InlineResponse20054Finances}
+     * GUID партии.
+     * @type {string}
      * @memberof InlineResponse20057
      */
-    finances?: InlineResponse20054Finances;
+    _id?: string;
+    /**
+     * Человекочитаемый id партии.
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    humanFriendlyId?: number;
+    /**
+     * Статус партии.
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    status?: string;
+    /**
+     * id корабля.
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    shipId?: string;
+    /**
+     * Название партии
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    title?: string;
+    /**
+     * Стоимость доставки при расчете из коробок
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    calculatedShippingCost?: number;
+    /**
+     * Настоящая стоимость доставки
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    actualShippingCost?: number;
+    /**
+     * Трек номер партии
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    trackingNumber?: string;
+    /**
+     * Массив ссылок на файлов документации к партии.
+     * @type {Array<string>}
+     * @memberof InlineResponse20057
+     */
+    attachedDocuments?: Array<string>;
+    /**
+     * Финальный вес партии, если считать все коробки как одну большую коробу.
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    finalWeightAsOneBox?: number;
+    /**
+     * Финальный вес партии, если сложить все веса коробок по отдельности.
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    finalWeightSumEachBoxAmount?: number;
+    /**
+     * Заархивирована ли партия
+     * @type {boolean}
+     * @memberof InlineResponse20057
+     */
+    archive?: boolean;
+    /**
+     * Массив id коробок.
+     * @type {Array<InlineResponse20016Rows>}
+     * @memberof InlineResponse20057
+     */
+    boxes?: Array<InlineResponse20016Rows>;
+    /**
+     * Метод подсчта массы партии
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    calculationMethod?: number;
+    /**
+     * Делитель объема партии
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    volumeWeightDivide?: number;
+    /**
+     * Масса партии
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    finalWeight?: number;
+    /**
+     * Количество коробок в партии.
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    quantityBoxes?: number;
+    /**
+     * Общая стоимость от поставщика заказа.
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    totalPriceFromOrderSupplier?: number;
+    /**
+     * 
+     * @type {ApiV1BatchesStorekeeper}
+     * @memberof InlineResponse20057
+     */
+    storekeeper?: ApiV1BatchesStorekeeper;
+    /**
+     * 
+     * @type {ApiV1BatchesStorekeeper}
+     * @memberof InlineResponse20057
+     */
+    createdBy?: ApiV1BatchesStorekeeper;
+    /**
+     * 
+     * @type {ApiV1BatchesStorekeeper}
+     * @memberof InlineResponse20057
+     */
+    lastModifiedBy?: ApiV1BatchesStorekeeper;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    arrivalDate?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    createdAt?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    updatedAt?: string;
 }
 
 

@@ -13,13 +13,13 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 import { ApiV1RequestsCustomProduct } from './api-v1-requests-custom-product';
-import { InlineResponse20090Announcement } from './inline-response20090-announcement';
-import { InlineResponse20090CountProposalsByStatuses } from './inline-response20090-count-proposals-by-statuses';
-import { InlineResponse20090DetailsCustom } from './inline-response20090-details-custom';
-import { InlineResponse20090Media } from './inline-response20090-media';
+import { InlineResponse20091Announcement } from './inline-response20091-announcement';
+import { InlineResponse20091CountProposalsByStatuses } from './inline-response20091-count-proposals-by-statuses';
+import { InlineResponse20091DetailsCustom } from './inline-response20091-details-custom';
+import { InlineResponse20091Media } from './inline-response20091-media';
 
 /**
  * Схема заявки.
@@ -191,22 +191,22 @@ export interface InlineResponse200119 {
     uploadedToListing?: boolean;
     /**
      * 
-     * @type {Array<InlineResponse20090Media>}
+     * @type {Array<InlineResponse20091Media>}
      * @memberof InlineResponse200119
      */
-    media?: Array<InlineResponse20090Media>;
+    media?: Array<InlineResponse20091Media>;
     /**
      * 
-     * @type {InlineResponse20090Announcement}
+     * @type {InlineResponse20091Announcement}
      * @memberof InlineResponse200119
      */
-    announcement?: InlineResponse20090Announcement;
+    announcement?: InlineResponse20091Announcement;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse200119
      */
-    sub?: ApiV1AnnouncementsMyCreatedBy;
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
      * @type {Array<object>}
@@ -215,22 +215,22 @@ export interface InlineResponse200119 {
     proposals?: Array<object>;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse200119
      */
-    executor?: ApiV1AnnouncementsMyCreatedBy;
+    executor?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse200119
      */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
-     * @type {InlineResponse20090CountProposalsByStatuses}
+     * @type {InlineResponse20091CountProposalsByStatuses}
      * @memberof InlineResponse200119
      */
-    countProposalsByStatuses?: InlineResponse20090CountProposalsByStatuses;
+    countProposalsByStatuses?: InlineResponse20091CountProposalsByStatuses;
     /**
      * Count of unread messages
      * @type {number}
@@ -245,10 +245,10 @@ export interface InlineResponse200119 {
     product?: ApiV1RequestsCustomProduct;
     /**
      * 
-     * @type {InlineResponse20090DetailsCustom}
+     * @type {InlineResponse20091DetailsCustom}
      * @memberof InlineResponse200119
      */
-    detailsCustom?: InlineResponse20090DetailsCustom;
+    detailsCustom?: InlineResponse20091DetailsCustom;
 }
 
 /**

@@ -29,11 +29,11 @@ import { InlineObject138 } from '../models';
 // @ts-ignore
 import { InlineObject139 } from '../models';
 // @ts-ignore
+import { InlineResponse200 } from '../models';
+// @ts-ignore
 import { InlineResponse200103 } from '../models';
 // @ts-ignore
-import { InlineResponse2002 } from '../models';
-// @ts-ignore
-import { InlineResponse20021 } from '../models';
+import { InlineResponse20027 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -380,7 +380,7 @@ export const SupervisorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1SupervisorsProductsLightGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20021>>> {
+        async apiV1SupervisorsProductsLightGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20027>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SupervisorsProductsLightGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -423,7 +423,7 @@ export const SupervisorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1SupervisorsProductsVacGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2002>>> {
+        async apiV1SupervisorsProductsVacGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SupervisorsProductsVacGet(isCreatedByClient, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -468,7 +468,7 @@ export const SupervisorApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1SupervisorsProductsLightGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20021>> {
+        apiV1SupervisorsProductsLightGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20027>> {
             return localVarFp.apiV1SupervisorsProductsLightGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -508,7 +508,7 @@ export const SupervisorApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1SupervisorsProductsVacGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2002>> {
+        apiV1SupervisorsProductsVacGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200>> {
             return localVarFp.apiV1SupervisorsProductsVacGet(isCreatedByClient, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };

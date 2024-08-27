@@ -5,10 +5,11 @@ export enum ProfileRequestStatus {
 }
 
 export enum ProfileStatus {
-  REGISTERED = 'REGISTERED',
+  VACANT = 'VACANT',
+  RESERVED = 'RESERVED',
   WAITING_INVITE = 'WAITING_INVITE',
   INVITED = 'INVITED',
+  REGISTERED = 'REGISTERED',
+  READY_TO_CHECKING = 'READY_TO_CHECKING',
+  IN_USE = 'IN_USE',
 }
-
-export type ProfileRequestStatusType = 'PENDING' | 'REJECTED' | 'APPROVED'
-export type ProfileStatusType = 'REGISTERED' | 'WAITING_INVITE' | 'INVITED'

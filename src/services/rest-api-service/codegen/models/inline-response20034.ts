@@ -13,26 +13,25 @@
  */
 
 
-import { InlineResponse20031 } from './inline-response20031';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20034
  */
 export interface InlineResponse20034 {
     /**
-     * Всего кол-во записей в результате запроса
-     * @type {number}
+     * GUID в базе данных
+     * @type {string}
      * @memberof InlineResponse20034
      */
-    count?: number;
+    _id?: string;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20031>}
+     * Имя пользователя.
+     * @type {string}
      * @memberof InlineResponse20034
      */
-    rows?: Array<InlineResponse20031>;
+    name?: string;
 }
 
 

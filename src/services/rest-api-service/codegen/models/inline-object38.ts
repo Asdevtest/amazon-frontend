@@ -15,59 +15,17 @@
 
 
 /**
- * 
+ * Схема комментарии байера.
  * @export
  * @interface InlineObject38
  */
 export interface InlineObject38 {
     /**
-     * Штрихкод продукта
+     * Комментарии байера.
      * @type {string}
      * @memberof InlineObject38
      */
-    barCode?: string;
-    /**
-     *  logicsTariff GUID
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    logicsTariffId?: string;
-    /**
-     * GUID сотрудника склада
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    storekeeperId?: string;
-    /**
-     * Ссылка на наклейку для коробки
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    shippingLabel?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    fbaNumber?: string;
-    /**
-     * Гуид модели destination
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    destinationId?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject38
-     */
-    boxesIds: Array<string>;
+    buyerComment: string;
 }
 
 
