@@ -13,106 +13,68 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
-import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
+import { InlineResponse20097Profile } from './inline-response20097-profile';
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineResponse20097Rows
  */
 export interface InlineResponse20097Rows {
     /**
-     * GUID продукта в базе данных
+     * ID магазина.
      * @type {string}
      * @memberof InlineResponse20097Rows
      */
     _id?: string;
     /**
-     * ASIN продукта
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
      * @type {string}
      * @memberof InlineResponse20097Rows
      */
-    asin?: string;
+    name?: string;
     /**
-     * SKU введенным клиентом.
+     * URL для скачивания ежедневных отчетов SellerBoard.
      * @type {string}
      * @memberof InlineResponse20097Rows
      */
-    skuByClient?: string;
+    sellerBoardWarehouseReportUrlDaily?: string;
     /**
-     * Есть ли товар в заказах
-     * @type {boolean}
-     * @memberof InlineResponse20097Rows
-     */
-    ordered?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20097Rows
-     */
-    bsr?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20097Rows
-     */
-    amazon?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineResponse20097Rows
-     */
-    fbafee?: number;
-    /**
-     * Код текущего статуса
-     * @type {number}
-     * @memberof InlineResponse20097Rows
-     */
-    status?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20097Rows
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
+     * URL для скачивания отчетов SellerBoard за последний месяц.
      * @type {string}
      * @memberof InlineResponse20097Rows
      */
-    amazonTitle?: string;
+    sellerBoardWarehouseReportUrlMonthly?: string;
     /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
      * @memberof InlineResponse20097Rows
      */
-    strategyStatus?: number;
+    reportAccountUrl?: string;
+    /**
+     * GUID, владелеца.
+     * @type {string}
+     * @memberof InlineResponse20097Rows
+     */
+    ownerId?: string;
+    /**
+     * GUID любого, кто последний создал.
+     * @type {string}
+     * @memberof InlineResponse20097Rows
+     */
+    createdById?: string;
+    /**
+     * GUID любого, кто последний редактировал.
+     * @type {string}
+     * @memberof InlineResponse20097Rows
+     */
+    lastModifiedById?: string;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
+     * @type {InlineResponse20097Profile}
      * @memberof InlineResponse20097Rows
      */
-    redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
-     * @memberof InlineResponse20097Rows
-     */
-    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20097Rows
-     */
-    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20097Rows
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    profile?: InlineResponse20097Profile;
     /**
      * Дата создания
      * @type {string}

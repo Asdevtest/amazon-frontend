@@ -21,9 +21,9 @@ import { ParsingReportsType } from '../parsing-reports.type'
 export const ordersColumns = () => {
   const columns: IGridColumn<ParsingReportsType>[] = [
     {
-      field: 'dateUpdated',
-      headerName: 'Date updated',
-      renderHeader: () => <MultilineTextHeaderCell text="Date updated" />,
+      field: 'updatedAt',
+      headerName: t(TranslationKey.Updated),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
@@ -31,9 +31,9 @@ export const ordersColumns = () => {
     },
 
     {
-      field: 'date',
-      headerName: 'Date',
-      renderHeader: () => <MultilineTextHeaderCell text="Date" />,
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 

@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20028Rows } from './inline-response20028-rows';
 
 /**
  * 
@@ -21,17 +22,17 @@
  */
 export interface InlineResponse20028 {
     /**
-     * GUID в базе данных
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20028Rows>}
      * @memberof InlineResponse20028
      */
-    _id?: string;
+    rows?: Array<InlineResponse20028Rows>;
     /**
-     * Имя пользователя.
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineResponse20028
      */
-    name?: string;
+    count?: number;
 }
 
 

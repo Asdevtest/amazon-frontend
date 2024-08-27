@@ -66,12 +66,13 @@ export const getProductColumnMenuValue = <T>({
       ? 'sku'
       : 'skuByClient'
 
-  const titleField =
-    customTitleField || columnType === ProductColumnMenuType.PARENT
-      ? 'parentProductAmazonTitle'
-      : columnType === ProductColumnMenuType.CHILD
-      ? 'childProductAmazonTitle'
-      : 'amazonTitle'
+  const titleField = customTitleField
+    ? customTitleField
+    : columnType === ProductColumnMenuType.PARENT
+    ? 'parentProductAmazonTitle'
+    : columnType === ProductColumnMenuType.CHILD
+    ? 'childProductAmazonTitle'
+    : 'amazonTitle'
 
   return [
     {

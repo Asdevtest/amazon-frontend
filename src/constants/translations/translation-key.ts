@@ -2030,7 +2030,13 @@ export enum TranslationKey {
   'Parsing reports' = 'Parsing reports',
   'Destination, Tariff name' = 'Destination, Tariff name',
   'Title, Key, URL' = 'Title, Key, URL',
+  'Final' = 'Final',
+  'Volume' = 'Volume',
   'Access confirmation request sent successfully' = 'Access confirmation request sent successfully',
   'Tables' = 'Tables',
   'Please input shop name!' = 'Please input shop name!',
+  'invitation' = 'invitation',
+  'Invitation sent' = 'Invitation sent',
+  'Registered' = 'Registered',
+  'Profile status' = 'Profile status',
 }

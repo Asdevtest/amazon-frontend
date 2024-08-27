@@ -181,7 +181,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
   },
 
   {
-    field: 'dimansions',
+    field: 'dimensions',
     headerName: t(TranslationKey.Dimensions),
     dimensions: getUnitsOption,
     renderHeader: params => {
