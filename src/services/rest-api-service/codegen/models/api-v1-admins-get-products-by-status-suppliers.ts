@@ -14,9 +14,9 @@
 
 
 import { ApiV1AdminsGetProductsByStatusBoxProperties } from './api-v1-admins-get-products-by-status-box-properties';
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusPaymentMethods } from './api-v1-admins-get-products-by-status-payment-methods';
 import { ApiV1AdminsGetProductsByStatusPriceVariations } from './api-v1-admins-get-products-by-status-price-variations';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 
 /**
  * Новый поставщик.
@@ -164,10 +164,10 @@ export interface ApiV1AdminsGetProductsByStatusSuppliers {
     maxProductionTerm?: number;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof ApiV1AdminsGetProductsByStatusSuppliers
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
      * @type {Array<ApiV1AdminsGetProductsByStatusPaymentMethods>}

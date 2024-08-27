@@ -23,15 +23,15 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 // @ts-ignore
 import { BadRequestError } from '../models';
 // @ts-ignore
-import { InlineObject16 } from '../models';
+import { InlineObject } from '../models';
 // @ts-ignore
-import { InlineObject17 } from '../models';
+import { InlineObject1 } from '../models';
 // @ts-ignore
-import { InlineObject18 } from '../models';
+import { InlineObject2 } from '../models';
 // @ts-ignore
-import { InlineResponse20014 } from '../models';
+import { InlineResponse200 } from '../models';
 // @ts-ignore
-import { InlineResponse20015 } from '../models';
+import { InlineResponse2001 } from '../models';
 // @ts-ignore
 import { InlineResponse201 } from '../models';
 // @ts-ignore
@@ -48,12 +48,12 @@ export const AnnouncementsApiAxiosParamCreator = function (configuration?: Confi
          * ## Изменить статус архива в анонс
          * @summary # Изменить статус архива в анонс
          * @param {string} guid Гуид анонса
-         * @param {InlineObject18} [body] 
+         * @param {InlineObject2} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AnnouncementsGuidArchivePatch: async (guid: string, body?: InlineObject18, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AnnouncementsGuidArchivePatch: async (guid: string, body?: InlineObject2, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1AnnouncementsGuidArchivePatch', 'guid', guid)
             const localVarPath = `/api/v1/announcements/{guid}/archive`
@@ -178,12 +178,12 @@ export const AnnouncementsApiAxiosParamCreator = function (configuration?: Confi
          * ## Изменить анонс
          * @summary # Изменить анонс
          * @param {string} guid Гуид анонса
-         * @param {InlineObject17} [body] 
+         * @param {InlineObject1} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AnnouncementsGuidPatch: async (guid: string, body?: InlineObject17, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AnnouncementsGuidPatch: async (guid: string, body?: InlineObject1, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1AnnouncementsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/announcements/{guid}`
@@ -344,12 +344,12 @@ export const AnnouncementsApiAxiosParamCreator = function (configuration?: Confi
         /**
          * ## Создать анонс
          * @summary # Создать анонс
-         * @param {InlineObject16} [body] 
+         * @param {InlineObject} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AnnouncementsPost: async (body?: InlineObject16, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AnnouncementsPost: async (body?: InlineObject, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/announcements/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -445,12 +445,12 @@ export const AnnouncementsApiFp = function(configuration?: Configuration) {
          * ## Изменить статус архива в анонс
          * @summary # Изменить статус архива в анонс
          * @param {string} guid Гуид анонса
-         * @param {InlineObject18} [body] 
+         * @param {InlineObject2} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AnnouncementsGuidArchivePatch(guid: string, body?: InlineObject18, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1AnnouncementsGuidArchivePatch(guid: string, body?: InlineObject2, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AnnouncementsGuidArchivePatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -482,12 +482,12 @@ export const AnnouncementsApiFp = function(configuration?: Configuration) {
          * ## Изменить анонс
          * @summary # Изменить анонс
          * @param {string} guid Гуид анонса
-         * @param {InlineObject17} [body] 
+         * @param {InlineObject1} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AnnouncementsGuidPatch(guid: string, body?: InlineObject17, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1AnnouncementsGuidPatch(guid: string, body?: InlineObject1, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AnnouncementsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -501,7 +501,7 @@ export const AnnouncementsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AnnouncementsMyGet(filters?: string, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20014>>> {
+        async apiV1AnnouncementsMyGet(filters?: string, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AnnouncementsMyGet(filters, archive, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -518,19 +518,19 @@ export const AnnouncementsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AnnouncementsPagVacGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20015>> {
+        async apiV1AnnouncementsPagVacGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2001>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AnnouncementsPagVacGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Создать анонс
          * @summary # Создать анонс
-         * @param {InlineObject16} [body] 
+         * @param {InlineObject} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AnnouncementsPost(body?: InlineObject16, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+        async apiV1AnnouncementsPost(body?: InlineObject, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AnnouncementsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -543,7 +543,7 @@ export const AnnouncementsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AnnouncementsVacGet(filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20014>>> {
+        async apiV1AnnouncementsVacGet(filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AnnouncementsVacGet(filters, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -561,12 +561,12 @@ export const AnnouncementsApiFactory = function (configuration?: Configuration, 
          * ## Изменить статус архива в анонс
          * @summary # Изменить статус архива в анонс
          * @param {string} guid Гуид анонса
-         * @param {InlineObject18} [body] 
+         * @param {InlineObject2} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AnnouncementsGuidArchivePatch(guid: string, body?: InlineObject18, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1AnnouncementsGuidArchivePatch(guid: string, body?: InlineObject2, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1AnnouncementsGuidArchivePatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -595,12 +595,12 @@ export const AnnouncementsApiFactory = function (configuration?: Configuration, 
          * ## Изменить анонс
          * @summary # Изменить анонс
          * @param {string} guid Гуид анонса
-         * @param {InlineObject17} [body] 
+         * @param {InlineObject1} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AnnouncementsGuidPatch(guid: string, body?: InlineObject17, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1AnnouncementsGuidPatch(guid: string, body?: InlineObject1, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1AnnouncementsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -613,7 +613,7 @@ export const AnnouncementsApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AnnouncementsMyGet(filters?: string, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20014>> {
+        apiV1AnnouncementsMyGet(filters?: string, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200>> {
             return localVarFp.apiV1AnnouncementsMyGet(filters, archive, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -629,18 +629,18 @@ export const AnnouncementsApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AnnouncementsPagVacGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20015> {
+        apiV1AnnouncementsPagVacGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2001> {
             return localVarFp.apiV1AnnouncementsPagVacGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Создать анонс
          * @summary # Создать анонс
-         * @param {InlineObject16} [body] 
+         * @param {InlineObject} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AnnouncementsPost(body?: InlineObject16, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse201> {
+        apiV1AnnouncementsPost(body?: InlineObject, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse201> {
             return localVarFp.apiV1AnnouncementsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -652,7 +652,7 @@ export const AnnouncementsApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AnnouncementsVacGet(filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20014>> {
+        apiV1AnnouncementsVacGet(filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200>> {
             return localVarFp.apiV1AnnouncementsVacGet(filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -673,10 +673,10 @@ export interface AnnouncementsApiApiV1AnnouncementsGuidArchivePatchRequest {
 
     /**
      * 
-     * @type {InlineObject18}
+     * @type {InlineObject2}
      * @memberof AnnouncementsApiApiV1AnnouncementsGuidArchivePatch
      */
-    readonly body?: InlineObject18
+    readonly body?: InlineObject2
 
     /**
      * 
@@ -743,10 +743,10 @@ export interface AnnouncementsApiApiV1AnnouncementsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject17}
+     * @type {InlineObject1}
      * @memberof AnnouncementsApiApiV1AnnouncementsGuidPatch
      */
-    readonly body?: InlineObject17
+    readonly body?: InlineObject1
 
     /**
      * 
@@ -855,10 +855,10 @@ export interface AnnouncementsApiApiV1AnnouncementsPagVacGetRequest {
 export interface AnnouncementsApiApiV1AnnouncementsPostRequest {
     /**
      * 
-     * @type {InlineObject16}
+     * @type {InlineObject}
      * @memberof AnnouncementsApiApiV1AnnouncementsPost
      */
-    readonly body?: InlineObject16
+    readonly body?: InlineObject
 
     /**
      * 

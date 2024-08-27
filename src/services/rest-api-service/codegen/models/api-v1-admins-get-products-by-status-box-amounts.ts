@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 
 /**
  * 
@@ -29,10 +29,10 @@ export interface ApiV1AdminsGetProductsByStatusBoxAmounts {
     _id?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof ApiV1AdminsGetProductsByStatusBoxAmounts
      */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
      * @type {number}

@@ -21,11 +21,11 @@
  */
 export interface InlineObject53 {
     /**
-     * Зашита листинга (bool)
-     * @type {boolean}
+     * Массив ссылок для seo-файлов
+     * @type {Array<string>}
      * @memberof InlineObject53
      */
-    transparency?: boolean;
+    latestSeoFiles?: Array<string>;
 }
 
 

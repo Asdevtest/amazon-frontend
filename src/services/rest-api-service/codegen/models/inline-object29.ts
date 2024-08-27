@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
 
 /**
  * 
@@ -21,83 +22,11 @@
  */
 export interface InlineObject29 {
     /**
-     * GUID пункта назначения коробки
-     * @type {string}
-     * @memberof InlineObject29
-     */
-    destinationId?: string;
-    /**
-     * GUID тарифа к сторкипера
-     * @type {string}
-     * @memberof InlineObject29
-     */
-    logicsTariffId?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject29
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject29
-     */
-    fbaNumber?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineObject29
-     */
-    clientComment?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineObject29
-     */
-    referenceId?: string;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineObject29
-     */
-    trackNumberText?: string;
-    /**
      * 
-     * @type {Array<string>}
+     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
      * @memberof InlineObject29
      */
-    trackNumberFile?: Array<string>;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineObject29
-     */
-    upsTrackNumber?: string;
-    /**
-     * shippingLabel коробки
-     * @type {string}
-     * @memberof InlineObject29
-     */
-    shippingLabel?: string;
-    /**
-     * shippingLabel проклеен сторкипером
-     * @type {boolean}
-     * @memberof InlineObject29
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineObject29
-     */
-    prepId?: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject29
-     */
-    variationTariffId?: string;
+    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
 }
 
 

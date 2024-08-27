@@ -34,6 +34,7 @@ export class ShopsViewModel extends DataGridFilterTableModel {
       onParsingProfile: id => this.onParsingProfile(id),
       onParsingAccess: email => this.onParsingAccess(email),
       onParsingStatus: (id, isActive) => this.onParsingStatus(id, isActive),
+      onParsingProfileInvited: id => this.onParsingProfileInvited(id),
     }
     const columnsModel = shopsColumns(columnsProps)
     const filtersFields = getFilterFields(columnsModel)
@@ -122,6 +123,16 @@ export class ShopsViewModel extends DataGridFilterTableModel {
       this.getCurrentData()
     } catch (error) {
       toast.error(t(TranslationKey['Access Denied: Insufficient Rights']))
+    }
+  }
+
+  async onParsingProfileInvited(id: string) {
+    try {
+      await ParserModel.onParsingProfileInvited(id)
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
     }
   }
 }

@@ -13,16 +13,17 @@ import {
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { ProfileRequestStatus } from '@typings/enums/request/profile-request-status'
+import { ProfileStatus } from '@typings/enums/request/profile-request-status'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { ColumnsProps } from './parsing-profile-view.config'
 
 export const parsingProfileViewColumns = (props: ColumnsProps) => {
-  const { onEditProfileModal, onForceStart, onForceStop } = props
+  const { onEditProfileModal, onForceStart, onForceStop, onParsingProfileRegistred } = props
 
   const columns: IGridColumn[] = [
     {
@@ -93,6 +94,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Access)} />,
       renderCell: ({ row }: GridRowModel) => {
         const text = row.access ? t(TranslationKey.Yes) : t(TranslationKey.No)
+
         return <TextCell center copyable={false} text={text} />
       },
       width: 90,
@@ -123,12 +125,13 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
         <ActionButtonsCell
           isFirstButton
           isSecondButton
-          disabledSecondButton={row?.status !== ProfileRequestStatus.INVITED}
+          disabledSecondButton={row?.status !== ProfileStatus.INVITED}
           firstButtonElement={t(TranslationKey.Edit)}
           firstButtonStyle={ButtonStyle.PRIMARY}
           secondButtonElement={t(TranslationKey.Registered)}
           secondButtonStyle={ButtonStyle.PRIMARY}
           onClickFirstButton={() => onEditProfileModal(row)}
+          onClickSecondButton={throttle(() => onParsingProfileRegistred(row._id))}
         />
       ),
       disableCustomSort: true,

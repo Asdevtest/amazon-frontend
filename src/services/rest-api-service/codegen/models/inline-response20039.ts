@@ -13,7 +13,9 @@
  */
 
 
-import { InlineResponse20039Rows } from './inline-response20039-rows';
+import { InlineResponse20039AllFiles } from './inline-response20039-all-files';
+import { InlineResponse20039AllImages } from './inline-response20039-all-images';
+import { InlineResponse20039AllVideo } from './inline-response20039-all-video';
 
 /**
  * 
@@ -22,17 +24,23 @@ import { InlineResponse20039Rows } from './inline-response20039-rows';
  */
 export interface InlineResponse20039 {
     /**
-     * Кол-во товаров
-     * @type {number}
+     * 
+     * @type {Array<InlineResponse20039AllImages>}
      * @memberof InlineResponse20039
      */
-    count?: number;
+    allImages?: Array<InlineResponse20039AllImages>;
     /**
-     * Массив товаров.
-     * @type {Array<InlineResponse20039Rows>}
+     * 
+     * @type {Array<InlineResponse20039AllFiles>}
      * @memberof InlineResponse20039
      */
-    rows?: Array<InlineResponse20039Rows>;
+    allFiles?: Array<InlineResponse20039AllFiles>;
+    /**
+     * 
+     * @type {Array<InlineResponse20039AllVideo>}
+     * @memberof InlineResponse20039
+     */
+    allVideo?: Array<InlineResponse20039AllVideo>;
 }
 
 

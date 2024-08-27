@@ -50,6 +50,12 @@ export interface InlineResponse20097Profile {
      * @memberof InlineResponse20097Profile
      */
     requestStatus?: string;
+    /**
+     * Profile status
+     * @type {string}
+     * @memberof InlineResponse20097Profile
+     */
+    status?: string;
 }
 
 

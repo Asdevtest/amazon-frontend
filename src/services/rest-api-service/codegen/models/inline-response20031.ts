@@ -13,6 +13,12 @@
  */
 
 
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1BoxesClientsLightBatch } from './api-v1-boxes-clients-light-batch';
+import { ApiV1BoxesClientsLightDestination } from './api-v1-boxes-clients-light-destination';
+import { ApiV1BoxesClientsLightItems } from './api-v1-boxes-clients-light-items';
+import { ApiV1BoxesClientsLightLogicsTariff } from './api-v1-boxes-clients-light-logics-tariff';
+import { InlineResponse20029VariationTariff } from './inline-response20029-variation-tariff';
 
 /**
  * 
@@ -21,23 +27,167 @@
  */
 export interface InlineResponse20031 {
     /**
-     * GUID продукта в базе данных
+     * GUID коробки.
      * @type {string}
      * @memberof InlineResponse20031
      */
     _id?: string;
     /**
-     * ASIN продукта
-     * @type {string}
+     * Номер коробки.
+     * @type {number}
      * @memberof InlineResponse20031
      */
-    asin?: string;
+    humanFriendlyId?: number;
     /**
-     * SKU введенным клиентом.
+     * ККоличества в коробке.
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    amount?: number;
+    /**
+     * Total Amount
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    totalAmount?: number;
+    /**
+     * Total Price
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    totalPrice?: number;
+    /**
+     * Final weight
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    finalWeight?: number;
+    /**
+     * Статус коробки
      * @type {string}
      * @memberof InlineResponse20031
      */
-    skuByClient?: string;
+    status?: string;
+    /**
+     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
+     * @type {boolean}
+     * @memberof InlineResponse20031
+     */
+    isActual?: boolean;
+    /**
+     * Если true - значит коробку черновик.
+     * @type {boolean}
+     * @memberof InlineResponse20031
+     */
+    isDraft?: boolean;
+    /**
+     * Сформирована ли коробка
+     * @type {boolean}
+     * @memberof InlineResponse20031
+     */
+    isFormed?: boolean;
+    /**
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    shippingLabel?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    trackNumberText?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20031
+     */
+    trackNumberFile?: Array<string>;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    prepId?: string;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    upsTrackNumber?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    referenceId?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    clientComment?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    storekeeperComment?: string;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    lengthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    widthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    heightCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+     * @type {boolean}
+     * @memberof InlineResponse20031
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    fbaNumber?: string;
+    /**
+     * Итого за доставку.
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    deliveryTotalPrice?: number;
+    /**
+     * Обновление итога за доставку.
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    deliveryTotalPriceChanged?: number;
     /**
      * Массив картинок.
      * @type {Array<string>}
@@ -45,11 +195,77 @@ export interface InlineResponse20031 {
      */
     images?: Array<string>;
     /**
-     * Заголовок на товар с сайта амазон.
+     * Nullable ISO Date
      * @type {string}
      * @memberof InlineResponse20031
      */
-    amazonTitle?: string;
+    deadline?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    createdAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    updatedAt?: string;
+    /**
+     * 
+     * @type {InlineResponse20029VariationTariff}
+     * @memberof InlineResponse20031
+     */
+    variationTariff?: InlineResponse20029VariationTariff;
+    /**
+     * Массив коробок.
+     * @type {Array<ApiV1BoxesClientsLightItems>}
+     * @memberof InlineResponse20031
+     */
+    items?: Array<ApiV1BoxesClientsLightItems>;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20031
+     */
+    sub?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20031
+     */
+    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20031
+     */
+    client?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20031
+     */
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1BoxesClientsLightDestination}
+     * @memberof InlineResponse20031
+     */
+    destination?: ApiV1BoxesClientsLightDestination;
+    /**
+     * 
+     * @type {ApiV1BoxesClientsLightLogicsTariff}
+     * @memberof InlineResponse20031
+     */
+    logicsTariff?: ApiV1BoxesClientsLightLogicsTariff;
+    /**
+     * 
+     * @type {ApiV1BoxesClientsLightBatch}
+     * @memberof InlineResponse20031
+     */
+    batch?: ApiV1BoxesClientsLightBatch;
 }
 
 

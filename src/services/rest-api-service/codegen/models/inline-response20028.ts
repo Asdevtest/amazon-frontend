@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20028Rows } from './inline-response20028-rows';
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * 
@@ -22,17 +22,17 @@ import { InlineResponse20028Rows } from './inline-response20028-rows';
  */
 export interface InlineResponse20028 {
     /**
-     * 
-     * @type {Array<InlineResponse20028Rows>}
-     * @memberof InlineResponse20028
-     */
-    rows?: Array<InlineResponse20028Rows>;
-    /**
-     * 
+     * Count of boxes
      * @type {number}
      * @memberof InlineResponse20028
      */
     count?: number;
+    /**
+     * 
+     * @type {Array<ApiV1BatchesBoxes>}
+     * @memberof InlineResponse20028
+     */
+    rows?: Array<ApiV1BatchesBoxes>;
 }
 
 
