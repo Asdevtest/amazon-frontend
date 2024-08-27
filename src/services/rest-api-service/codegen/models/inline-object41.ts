@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
 
 /**
  * 
@@ -22,17 +21,59 @@ import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
  */
 export interface InlineObject41 {
     /**
-     * Массив коробок.
+     * 
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    clientComment?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    storekeeperComment?: string;
+    /**
+     * Storage in boxes
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    storage?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    referenceId?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    fbaNumber?: string;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    upsTrackNumber?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    trackNumberText?: string;
+    /**
+     * 
      * @type {Array<string>}
      * @memberof InlineObject41
      */
-    guids: Array<string>;
+    trackNumberFile?: Array<string>;
     /**
-     * 
-     * @type {ApiV1BoxesMergeBoxBody}
+     * Значение информационного ключа
+     * @type {string}
      * @memberof InlineObject41
      */
-    boxBody: ApiV1BoxesMergeBoxBody;
+    prepId?: string;
 }
 
 

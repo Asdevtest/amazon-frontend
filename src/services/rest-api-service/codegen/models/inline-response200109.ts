@@ -21,59 +21,17 @@
  */
 export interface InlineResponse200109 {
     /**
-     * ID пресета.
+     * userAgent с которым был получен токен
      * @type {string}
      * @memberof InlineResponse200109
      */
-    _id?: string;
-    /**
-     * Название таблицы
-     * @type {string}
-     * @memberof InlineResponse200109
-     */
-    table?: string;
-    /**
-     * Эндпоинт пресета
-     * @type {string}
-     * @memberof InlineResponse200109
-     */
-    endpoint?: string;
+    device: string;
     /**
      * 
-     * @type {Array<string>}
-     * @memberof InlineResponse200109
-     */
-    fields?: Array<string>;
-    /**
-     * Состояние пресета.
-     * @type {boolean}
-     * @memberof InlineResponse200109
-     */
-    isActive?: boolean;
-    /**
-     * ID юзера.
      * @type {string}
      * @memberof InlineResponse200109
      */
-    userId?: string;
-    /**
-     * Является ли пресет избранным.
-     * @type {boolean}
-     * @memberof InlineResponse200109
-     */
-    isFavorite?: boolean;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse200109
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse200109
-     */
-    updatedAt?: string;
+    createdAt: string;
 }
 
 

@@ -22,17 +22,17 @@ import { InlineResponse20039Rows } from './inline-response20039-rows';
  */
 export interface InlineResponse20039 {
     /**
-     * 
-     * @type {Array<InlineResponse20039Rows>}
-     * @memberof InlineResponse20039
-     */
-    rows?: Array<InlineResponse20039Rows>;
-    /**
-     * 
+     * Кол-во товаров
      * @type {number}
      * @memberof InlineResponse20039
      */
     count?: number;
+    /**
+     * Массив товаров.
+     * @type {Array<InlineResponse20039Rows>}
+     * @memberof InlineResponse20039
+     */
+    rows?: Array<InlineResponse20039Rows>;
 }
 
 

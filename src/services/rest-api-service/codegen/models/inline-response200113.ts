@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
@@ -22,47 +21,53 @@ import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-pro
  */
 export interface InlineResponse200113 {
     /**
-     * GUID записи
+     * GUID пользователя.
      * @type {string}
      * @memberof InlineResponse200113
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200113
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Роль юзера, когда он оставлял отзыв
-     * @type {number}
-     * @memberof InlineResponse200113
-     */
-    role?: number;
-    /**
-     * Комментарий к оценке
+     * Имя пользователя.
      * @type {string}
      * @memberof InlineResponse200113
      */
-    comment?: string;
+    name?: string;
     /**
-     * Оценка, целое число от 1 до 5
+     * Рейтинг пользователя.
      * @type {number}
      * @memberof InlineResponse200113
      */
     rating?: number;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * Количество положительных отзыв
+     * @type {number}
      * @memberof InlineResponse200113
      */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    numberOfPositiveFeedbacks?: number;
     /**
-     * Дата создания.
+     * Количество негативных отзыв
+     * @type {number}
+     * @memberof InlineResponse200113
+     */
+    numberOfNegativeFeedbacks?: number;
+    /**
+     * Страна
      * @type {string}
      * @memberof InlineResponse200113
      */
-    createdAt?: string;
+    country?: string;
+    /**
+     * Пользователь онлайн
+     * @type {boolean}
+     * @memberof InlineResponse200113
+     */
+    isOnline?: boolean;
+    /**
+     * Количество общих сделок
+     * @type {number}
+     * @memberof InlineResponse200113
+     */
+    countsOfDeals?: number;
 }
 
 

@@ -36,9 +36,9 @@ export const inventoryShipmentsColumns = () => {
     },
 
     {
-      field: 'dateUpdated',
-      headerName: 'Date updated',
-      renderHeader: () => <MultilineTextHeaderCell text="Date updated" />,
+      field: 'updatedAt',
+      headerName: t(TranslationKey.Updated),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
@@ -46,9 +46,9 @@ export const inventoryShipmentsColumns = () => {
     },
 
     {
-      field: 'dateCreated',
-      headerName: 'Date created',
-      renderHeader: () => <MultilineTextHeaderCell text="Date created" />,
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
