@@ -122,7 +122,7 @@ export const CreateOrEditServiceContent = memo(props => {
           {t(TranslationKey.Close)}
         </Button>
 
-        <Button styleType={ButtonStyle.SUCCESS} disabled={disabledSubmitButton} onClick={handleSubmit}>
+        <Button styleType={ButtonStyle.SUCCESS} disabled={disabledSubmitButton} onClick={throttle(handleSubmit)}>
           {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
         </Button>
       </div>
