@@ -13,7 +13,7 @@ import {
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 
-import { formatSnakeCaseString } from '@utils/text'
+import { convertToSentenceCase } from '@utils/text'
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
@@ -61,7 +61,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.email} />,
-      width: 280,
+      width: 270,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
@@ -84,16 +84,11 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       headerName: t(TranslationKey['Profile status']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Profile status'])} />,
       renderCell: ({ row }: GridRowModel) => {
-        return (
-          <TextCell
-            center
-            copyable={false}
-            color={getProfileStatusColor(row.status)}
-            text={formatSnakeCaseString(row.status)}
-          />
-        )
+        const text = t(TranslationKey[convertToSentenceCase(row.status) as TranslationKey])
+
+        return <TextCell center copyable={false} color={getProfileStatusColor(row.status)} text={text} />
       },
-      width: 130,
+      width: 145,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
@@ -105,7 +100,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
 
         return <TextCell center copyable={false} text={text} />
       },
-      width: 90,
+      width: 80,
       disableCustomSort: true,
       filterable: false,
     },
