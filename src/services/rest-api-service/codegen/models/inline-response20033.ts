@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse2001 } from './inline-response2001';
 
 /**
  * 
@@ -21,17 +22,17 @@
  */
 export interface InlineResponse20033 {
     /**
-     * Кол-во продукта в айтеме в коробке
+     * Count of rows
      * @type {number}
      * @memberof InlineResponse20033
      */
-    amount?: number;
+    count?: number;
     /**
-     * Номер заказа
-     * @type {number}
+     * Массив заказов.
+     * @type {Array<InlineResponse2001>}
      * @memberof InlineResponse20033
      */
-    id?: number;
+    rows?: Array<InlineResponse2001>;
 }
 
 

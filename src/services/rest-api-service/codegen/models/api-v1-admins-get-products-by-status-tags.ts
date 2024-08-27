@@ -32,6 +32,12 @@ export interface ApiV1AdminsGetProductsByStatusTags {
      * @memberof ApiV1AdminsGetProductsByStatusTags
      */
     title?: string;
+    /**
+     * Color
+     * @type {string}
+     * @memberof ApiV1AdminsGetProductsByStatusTags
+     */
+    color?: string;
 }
 
 

@@ -9,7 +9,7 @@ import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { RequestStatus } from '@typings/enums/request/request-status'
+import { ProfileRequestStatus } from '@typings/enums/request/profile-request-status'
 
 import { useStyles } from './parsing-access-cell.style'
 
@@ -34,17 +34,22 @@ export const ParsingAccessCell: FC<ParsingAccessCellProps> = memo(props => {
     )
   }
 
-  const disabled = !profile || [RequestStatus.PENDING, RequestStatus.REJECTED].includes(profile?.requestStatus)
+  const disabledFirstButton = profile?.requestStatus !== ProfileRequestStatus.WAITING_INVITE
+  const disabledSecondButton = profile?.requestStatus !== ProfileRequestStatus.REGISTERED
 
   return (
     <ActionButtonsCell
       isFirstButton
+      isSecondButton
       fullWidth
       buttonClassName={styles.button}
-      disabledFirstButton={disabled}
-      firstButtonElement={t(TranslationKey.Confirm)}
+      disabledFirstButton={disabledFirstButton}
+      disabledSecondButton={disabledSecondButton}
+      firstButtonElement={t(TranslationKey['Invitation sent'])}
       firstButtonStyle={ButtonStyle.PRIMARY}
-      onClickFirstButton={throttle(onAccess)}
+      secondButtonElement={t(TranslationKey.Confirm)}
+      secondButtonStyle={ButtonStyle.PRIMARY}
+      onClickSecondButton={throttle(onAccess)}
     />
   )
 })
