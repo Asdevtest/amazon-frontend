@@ -21,11 +21,11 @@
  */
 export interface InlineObject42 {
     /**
-     * GUID коробки, объединение которой нужно отменить
-     * @type {string}
+     * Сформирована ли коробка
+     * @type {boolean}
      * @memberof InlineObject42
      */
-    guid?: string;
+    isFormed: boolean;
 }
 
 

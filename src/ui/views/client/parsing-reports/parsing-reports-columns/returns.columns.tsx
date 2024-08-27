@@ -43,9 +43,19 @@ export const returnsColumns = () => {
     },
 
     {
-      field: 'dateUpdated',
-      headerName: 'Date updated',
-      renderHeader: () => <MultilineTextHeaderCell text="Date updated" />,
+      field: 'updatedAt',
+      headerName: t(TranslationKey.Updated),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 

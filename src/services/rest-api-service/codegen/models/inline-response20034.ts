@@ -13,12 +13,6 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1BoxesClientsLightBatch } from './api-v1-boxes-clients-light-batch';
-import { ApiV1BoxesClientsLightDestination } from './api-v1-boxes-clients-light-destination';
-import { ApiV1BoxesClientsLightItems } from './api-v1-boxes-clients-light-items';
-import { ApiV1BoxesClientsLightLogicsTariff } from './api-v1-boxes-clients-light-logics-tariff';
-import { InlineResponse20032VariationTariff } from './inline-response20032-variation-tariff';
 
 /**
  * 
@@ -27,245 +21,23 @@ import { InlineResponse20032VariationTariff } from './inline-response20032-varia
  */
 export interface InlineResponse20034 {
     /**
-     * GUID коробки.
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    _id?: string;
-    /**
-     * Номер коробки.
+     * total price in yuan for these statuses
      * @type {number}
      * @memberof InlineResponse20034
      */
-    humanFriendlyId?: number;
+    totalPriceInYuan?: number;
     /**
-     * ККоличества в коробке.
+     * total price in USD for these statuses
      * @type {number}
      * @memberof InlineResponse20034
      */
-    amount?: number;
+    totalPriceInUSD?: number;
     /**
-     * Total Amount
+     * Total partialPaymentAmountRmb
      * @type {number}
      * @memberof InlineResponse20034
      */
-    totalAmount?: number;
-    /**
-     * Total Price
-     * @type {number}
-     * @memberof InlineResponse20034
-     */
-    totalPrice?: number;
-    /**
-     * Final weight
-     * @type {number}
-     * @memberof InlineResponse20034
-     */
-    finalWeight?: number;
-    /**
-     * Статус коробки
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    status?: string;
-    /**
-     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
-     * @type {boolean}
-     * @memberof InlineResponse20034
-     */
-    isActual?: boolean;
-    /**
-     * Если true - значит коробку черновик.
-     * @type {boolean}
-     * @memberof InlineResponse20034
-     */
-    isDraft?: boolean;
-    /**
-     * Сформирована ли коробка
-     * @type {boolean}
-     * @memberof InlineResponse20034
-     */
-    isFormed?: boolean;
-    /**
-     * Ссылка на наклейку для коробки
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    shippingLabel?: string;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    trackNumberText?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse20034
-     */
-    trackNumberFile?: Array<string>;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    prepId?: string;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    upsTrackNumber?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    referenceId?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    clientComment?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    storekeeperComment?: string;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20034
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20034
-     */
-    widthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20034
-     */
-    heightCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20034
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineResponse20034
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    fbaNumber?: string;
-    /**
-     * Итого за доставку.
-     * @type {number}
-     * @memberof InlineResponse20034
-     */
-    deliveryTotalPrice?: number;
-    /**
-     * Обновление итога за доставку.
-     * @type {number}
-     * @memberof InlineResponse20034
-     */
-    deliveryTotalPriceChanged?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20034
-     */
-    images?: Array<string>;
-    /**
-     * Nullable ISO Date
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    deadline?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20034
-     */
-    updatedAt?: string;
-    /**
-     * 
-     * @type {InlineResponse20032VariationTariff}
-     * @memberof InlineResponse20034
-     */
-    variationTariff?: InlineResponse20032VariationTariff;
-    /**
-     * Массив коробок.
-     * @type {Array<ApiV1BoxesClientsLightItems>}
-     * @memberof InlineResponse20034
-     */
-    items?: Array<ApiV1BoxesClientsLightItems>;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20034
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20034
-     */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20034
-     */
-    client?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20034
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1BoxesClientsLightDestination}
-     * @memberof InlineResponse20034
-     */
-    destination?: ApiV1BoxesClientsLightDestination;
-    /**
-     * 
-     * @type {ApiV1BoxesClientsLightLogicsTariff}
-     * @memberof InlineResponse20034
-     */
-    logicsTariff?: ApiV1BoxesClientsLightLogicsTariff;
-    /**
-     * 
-     * @type {ApiV1BoxesClientsLightBatch}
-     * @memberof InlineResponse20034
-     */
-    batch?: ApiV1BoxesClientsLightBatch;
+    partialPaymentAmountRmb?: number;
 }
 
 

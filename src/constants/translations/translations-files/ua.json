@@ -2039,7 +2039,13 @@
   "Parsing reports": "Звіти з парсингу",
   "Destination, Tariff name": "Місце призначення, назва тарифу",
   "Title, Key, URL": "Назва, ключ, URL",
+  "Final": "Звід",
+  "Volume": "Обсяг",
   "Access confirmation request sent successfully": "Запит на підтвердження доступу успішно надіслано",
   "Tables": "Таблиці",
-  "Please input shop name!": "Будь ласка, введіть назву магазину!"
+  "Please input shop name!": "Будь ласка, введіть назву магазину!",
+  "invitation": "запрошення",
+  "Invitation sent": "Запрошення вислано",
+  "Registered": "Зареєстровано",
+  "Profile status": "Статус профілю"
 }

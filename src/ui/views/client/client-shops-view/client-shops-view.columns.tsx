@@ -17,7 +17,7 @@ import {
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { RequestStatus } from '@typings/enums/request/request-status'
+import { ProfileRequestStatus } from '@typings/enums/request/profile-request-status'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { IColumnProps } from './client-shops-view.types'
@@ -52,16 +52,21 @@ export const shopsColumns = (props: IColumnProps) => {
         <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />
       ),
       width: 320,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'access',
       headerName: t(TranslationKey.Access),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Access)} />,
+      renderHeader: () => (
+        <MultilineTextHeaderCell
+          text={`${t(TranslationKey.Access)} ${t(TranslationKey.and)} ${t(TranslationKey.invitation)}`}
+        />
+      ),
       renderCell: ({ row }: GridRowModel) => (
         <ParsingAccessCell profile={row.profile} onAccess={() => onParsingAccess(row.profile?.email)} />
       ),
-      width: 160,
+      width: 170,
       disableCustomSort: true,
       filterable: false,
     },
@@ -72,7 +77,7 @@ export const shopsColumns = (props: IColumnProps) => {
       renderCell: ({ row }: GridRowModel) => {
         const disabled =
           !row.profile ||
-          [RequestStatus.PENDING, RequestStatus.REJECTED].includes(row.profile?.requestStatus) ||
+          [ProfileRequestStatus.PENDING, ProfileRequestStatus.REJECTED].includes(row.profile?.requestStatus) ||
           !row.profile?.access
 
         return (

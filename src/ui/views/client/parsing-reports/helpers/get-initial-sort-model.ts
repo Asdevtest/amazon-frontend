@@ -6,7 +6,7 @@ export const getInitialSortModel = (activeTable: ParsingReportsType) => {
     case ParsingReportsType.PPC_SALES_WEEKS:
     case ParsingReportsType.FBA_INVENTORY:
     case ParsingReportsType.FEEDBACK:
-    case ParsingReportsType.CAMPAIGNS:
+
     case ParsingReportsType.INVENTORY:
     case ParsingReportsType.RETURNS:
     case ParsingReportsType.INVENTORY_SHIPMENTS:
@@ -14,8 +14,11 @@ export const getInitialSortModel = (activeTable: ParsingReportsType) => {
     case ParsingReportsType.FYP_OUT_OF_STOCK:
     case ParsingReportsType.FYP_SEARCH_SUPPRESSED:
     case ParsingReportsType.INCOME:
-      return [{ field: 'dateUpdated', sort: 'desc' }]
+      return [{ field: 'updatedAt', sort: 'desc' }]
+
+    case ParsingReportsType.CAMPAIGNS:
+      return [{ field: 'type', sort: 'desc' }]
     default:
-      return [{ field: 'date', sort: 'desc' }]
+      return [{ field: 'updatedAt', sort: 'desc' }]
   }
 }

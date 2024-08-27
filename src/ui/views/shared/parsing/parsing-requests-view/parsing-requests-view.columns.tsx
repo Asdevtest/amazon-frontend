@@ -22,7 +22,8 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
       valueGetter: ({ row }: GridRowModel) => row.client?.name || '',
       width: 160,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'shop',
@@ -31,7 +32,8 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.shop?.name} />,
       valueGetter: ({ row }: GridRowModel) => row.shop?.name || '',
       width: 240,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'name',
@@ -40,7 +42,8 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.profile?.name} />,
       valueGetter: ({ row }: GridRowModel) => row.profile?.name || '',
       width: 240,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'email',
@@ -49,7 +52,8 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.profile?.email} />,
       valueGetter: ({ row }: GridRowModel) => row.profile?.email || '',
       width: 240,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'updatedAt',

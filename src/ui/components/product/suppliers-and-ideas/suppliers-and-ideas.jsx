@@ -151,6 +151,7 @@ export const SuppliersAndIdeas = observer(props => {
           isModalView={isModalView}
           curUser={curUser}
           idea={curIdea}
+          inEdit={inEdit}
           currentProduct={currentProduct}
           onCreateProduct={onClickCreateProduct}
           onClickSaveBtn={onClickSaveBtn}
@@ -311,7 +312,7 @@ export const SuppliersAndIdeas = observer(props => {
       ) : null}
 
       <Modal openModal={showBindingModal} setOpenModal={() => onTriggerOpenModal('showBindingModal')}>
-        <BindIdeaToRequestForm requests={requestsForProduct} onClickBindButton={onClickBindButton} />
+        <BindIdeaToRequestForm idea={curIdea} requests={requestsForProduct} onClickBindButton={onClickBindButton} />
       </Modal>
 
       <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>

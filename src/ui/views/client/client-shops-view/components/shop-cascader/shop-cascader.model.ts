@@ -11,7 +11,7 @@ import { t } from '@utils/translations'
 
 import { IShop } from '@typings/models/shops/shop'
 
-import { getShopsOptions, getTableOptions } from './helpers/get-export-options'
+import { createBoxesOptions, createOrdersOptions, getShopsOptions, getTableOptions } from './helpers/get-export-options'
 
 export class ShopsCascaderModel {
   shops: IShop[]
@@ -19,6 +19,7 @@ export class ShopsCascaderModel {
   inputValue = ''
   selectedTableOptions: string[][] = []
   selectedShopsOptions: string[][] = []
+  showSubMenu = false
 
   get shopOptions() {
     return getShopsOptions(this.shops, this.inputValue)
@@ -39,14 +40,14 @@ export class ShopsCascaderModel {
     try {
       const shopIds = this.selectedShopsOptions.length > 0 ? this.selectedShopsOptions?.join(', ') : undefined
       const table = this.selectedTableOptions?.[0][0]
-      const statusGroup = this.selectedTableOptions?.find(option => option?.[0] !== 'BATCHES')
+      const statusGroup = this.selectedTableOptions?.find(option => !option.includes('BATCHES'))
         ? this.selectedTableOptions?.[0][1]
           ? this.selectedTableOptions?.map(option => option[1])?.join(', ')
           : undefined
         : undefined
-      const onAmazon = this.selectedTableOptions?.find(option => option?.[0] === 'BATCHES')
-        ? this.selectedTableOptions?.[0][1]
-          ? Boolean(this.selectedTableOptions[0][0])
+      const onAmazon = this.selectedTableOptions?.find(option => option.includes('BATCHES'))
+        ? this.selectedTableOptions?.[0].length > 1
+          ? Boolean(this.selectedTableOptions[0][1])
           : undefined
         : undefined
       const data = {
@@ -74,7 +75,6 @@ export class ShopsCascaderModel {
         }, 3000)
       }
     } catch (error) {
-      console.error(error)
       toast.error(t(TranslationKey['Error while exporting data']))
     } finally {
       this.open = false
@@ -83,18 +83,64 @@ export class ShopsCascaderModel {
   }
 
   onChangeTableOptions = (value: string[][]) => {
-    this.selectedTableOptions = value
+    const isOrders = value.some(item => item.includes('ORDERS'))
+
+    if (isOrders) {
+      const hasAllOrdersOption = value.some(item => item.includes('select-all-orders'))
+      const allOrdersOptionSelected = this.selectedTableOptions.some(
+        item => item.includes('ORDERS') && item.length === 1,
+      )
+      const ordersOptions = createOrdersOptions()
+        .map(orders => ['ORDERS', orders.value])
+        .filter(item => !item.includes('select-all-orders'))
+      const arraysMatch = value.length === ordersOptions.length && value.every(v => ordersOptions.flat().includes(v[1]))
+
+      if (hasAllOrdersOption && !allOrdersOptionSelected) {
+        this.selectedTableOptions = [['ORDERS']]
+      } else if (!hasAllOrdersOption && allOrdersOptionSelected) {
+        this.selectedTableOptions = []
+      } else if (arraysMatch) {
+        this.selectedTableOptions = [['ORDERS']]
+      } else {
+        this.selectedTableOptions = value.filter(item => !item.includes('select-all-orders'))
+      }
+    } else {
+      const hasAllBatchesOption = value.some(item => item.includes('select-all-boxes'))
+      const allBatchesOptionSelected = this.selectedTableOptions.some(
+        item => item.includes('BOXES') && item.length === 1,
+      )
+      const boxesOptions = createBoxesOptions()
+        .map(orders => ['BOXES', orders.value])
+        .filter(item => !item.includes('select-all-boxes'))
+      const arraysMatch = value.length === boxesOptions.length && value.every(v => boxesOptions.flat().includes(v[1]))
+
+      if (hasAllBatchesOption && !allBatchesOptionSelected) {
+        this.selectedTableOptions = [['BOXES']]
+      } else if (!hasAllBatchesOption && allBatchesOptionSelected) {
+        this.selectedTableOptions = []
+      } else if (arraysMatch) {
+        this.selectedTableOptions = [['BOXES']]
+      } else {
+        this.selectedTableOptions = value.filter(item => !item.includes('select-all-boxes'))
+      }
+    }
   }
 
   onChangeShopsOptions = (value: string[][]) => {
-    const hasAllOption = value.some(item => item.includes('select-all'))
-    const allOptionSelected = this.selectedShopsOptions.some(item => item.includes('select-all'))
+    const hasAllOption = value.some(item => item.includes('select-all-shops'))
+    const allOptionSelected = this.selectedShopsOptions.some(item => item.includes('select-all-shops'))
+    const shopsOptions = this.shops.map(shop => [shop._id])
+    const allOptions = [...shopsOptions, ['select-all-shops']]
+    const arraysMatch = value.length === shopsOptions.length && value.every(v => shopsOptions.flat().includes(v[0]))
 
     if (hasAllOption && !allOptionSelected) {
-      const shopsOptions = this.shops.map(shop => [shop._id])
-      this.selectedShopsOptions = shopsOptions.concat([['select-all']])
+      this.selectedShopsOptions = allOptions
     } else if (!hasAllOption && allOptionSelected) {
       this.selectedShopsOptions = []
+    } else if (arraysMatch) {
+      this.selectedShopsOptions = allOptions
+    } else if (allOptionSelected) {
+      this.selectedShopsOptions = value.filter(item => !item.includes('select-all-shops'))
     } else {
       this.selectedShopsOptions = value
     }
@@ -105,6 +151,7 @@ export class ShopsCascaderModel {
 
     if (!value) {
       this.clearSelection()
+      this.inputValue = ''
     }
   }
 

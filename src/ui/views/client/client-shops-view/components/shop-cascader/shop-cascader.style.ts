@@ -50,23 +50,23 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.secondary,
   },
 
-  option: {
-    width: '220px',
-  },
-
   divider: {
     margin: 0,
+  },
+
+  header: {
+    padding: '8px 16px 0',
   },
 
   footer: {
     padding: '8px 16px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     gap: '10px',
   },
 
   inputSearch: {
-    width: '160px',
+    width: '100%',
   },
 }))

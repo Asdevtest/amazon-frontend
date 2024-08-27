@@ -6,6 +6,7 @@ import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime } from '@utils/date-time'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -35,7 +36,7 @@ export const ReplyFeedbackForm = ({ feedback, onCloseModal, onSubmit }) => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} onClick={() => onSubmit(feedback.user._id)}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={throttle(() => onSubmit(feedback.user._id))}>
           {t(TranslationKey.Reply)}
         </Button>
 

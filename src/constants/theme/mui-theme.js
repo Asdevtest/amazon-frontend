@@ -99,6 +99,11 @@ export const globalStyles = theme => ({
   '.MuiCheckbox-root': {
     padding: '0 !important',
   },
+
+  // filter menu popup
+  '.MuiPopper-root': {
+    zIndex: '7 !important',
+  },
 })
 
 export const lightTheme = createTheme({
@@ -402,7 +407,6 @@ export const lightTheme = createTheme({
       green: '#D9FAE5',
       darkBlue: '#006CFF',
       yellow: '#0164F4',
-      blue: '#CCE2FF',
       authView: 'linear-gradient(112.25deg, #CCE2FF 10%, #D9F1E3 45%, #FFF 100%)',
       disabled: 'rgba(0, 0, 0, 0.12)',
       activeChat: '#E7F1FF',
@@ -968,7 +972,6 @@ export const darkTheme = createTheme({
       red: '#2E0505',
       green: '#001A15',
       yellow: '#FEF0A6',
-      blue: '#33262D',
       authView: 'linear-gradient(112.25deg, #331D00 10%, #262E1C 45%, #2B2B34 100%)',
       disabled: '#a0a0a4',
       activeChat: '#384C68',

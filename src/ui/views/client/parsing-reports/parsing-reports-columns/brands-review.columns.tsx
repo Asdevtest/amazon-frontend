@@ -36,9 +36,9 @@ export const brandsReviewColumns = () => {
     },
 
     {
-      field: 'date',
-      headerName: 'Date',
-      renderHeader: () => <MultilineTextHeaderCell text="Date" />,
+      field: 'updatedAt',
+      headerName: t(TranslationKey.Updated),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
@@ -46,9 +46,9 @@ export const brandsReviewColumns = () => {
     },
 
     {
-      field: 'dateUpdated',
-      headerName: 'Date updated',
-      renderHeader: () => <MultilineTextHeaderCell text="Date updated" />,
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
