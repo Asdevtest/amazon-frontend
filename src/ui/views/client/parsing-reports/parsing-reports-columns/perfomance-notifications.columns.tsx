@@ -35,9 +35,19 @@ export const perfomanceNotificationsColumns = () => {
     },
 
     {
-      field: 'dateUpdated',
-      headerName: 'Date updated',
-      renderHeader: () => <MultilineTextHeaderCell text="Date updated" />,
+      field: 'updatedAt',
+      headerName: t(TranslationKey.Updated),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
@@ -53,16 +63,6 @@ export const perfomanceNotificationsColumns = () => {
       transformValueMethod: value => value?.replaceAll('_', ' '),
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
-    },
-
-    {
-      field: 'date',
-      headerName: 'Date',
-      renderHeader: () => <MultilineTextHeaderCell text="Date" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
     },
 
     {
