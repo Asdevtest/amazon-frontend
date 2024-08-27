@@ -2023,8 +2023,14 @@
   "Parsing reports": "解析报告",
   "Destination, Tariff name": "目的地，计费名称",
   "Title, Key, URL": "标题，键，URL",
+  "Final": "最终",
+  "Volume": "体积",
   "Access confirmation request sent successfully": "访问确认请求已成功发送",
   "Tables": "表格",
   "Please input shop name!": "请输入店铺名称!",
-  "Tag preview": "标签预览"
+  "Tag preview": "标签预览",
+  "invitation": "邀请",
+  "Invitation sent": "邀请已发送",
+  "Registered": "已注册",
+  "Profile status": "个人资料状态"
 }

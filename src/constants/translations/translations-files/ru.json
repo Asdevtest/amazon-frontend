@@ -2030,8 +2030,14 @@
   "Parsing reports": "Отчеты по парсингу",
   "Destination, Tariff name": "Пункт назначения, Название тарифа",
   "Title, Key, URL": "Название, Ключ, URL",
+  "Final": "Итог",
+  "Volume": "Объем",
   "Access confirmation request sent successfully": "Запрос на подтверждение доступа успешно отправлен",
   "Tables": "Таблицы",
   "Please input shop name!": "Пожалуйста, введите название магазина!",
-  "Tag preview": "Предпросмотр тега"
+  "Tag preview": "Предпросмотр тега",
+  "invitation": "приглашение",
+  "Invitation sent": "Приглашение выслано",
+  "Registered": "Зарегистрирован",
+  "Profile status": "Статус профиля"
 }

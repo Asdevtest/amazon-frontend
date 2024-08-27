@@ -1,0 +1,10 @@
+export enum ProfileRequestStatus {
+  PENDING = 'PENDING',
+  REJECTED = 'REJECTED',
+  APPROVED = 'APPROVED',
+  REGISTERED = 'REGISTERED',
+  WAITING_INVITE = 'WAITING_INVITE',
+  INVITED = 'INVITED',
+}
+
+export type ProfileRequestStatusType = 'PENDING' | 'REJECTED' | 'APPROVED' | 'REGISTERED' | 'WAITING_INVITE'

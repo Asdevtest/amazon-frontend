@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
+import { GridRowModel } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -38,7 +40,7 @@ export const ParsingReports = observer(() => {
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          getRowId={({ _id }: any) => _id}
+          getRowId={({ _id }: GridRowModel) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

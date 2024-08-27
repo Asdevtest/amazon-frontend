@@ -13,19 +13,26 @@
  */
 
 
+import { InlineResponse20049Rows } from './inline-response20049-rows';
 
 /**
- * цену для клиента на поиск поставщика
+ * 
  * @export
  * @interface InlineResponse20049
  */
 export interface InlineResponse20049 {
     /**
-     * 
+     * Count of rows
      * @type {number}
      * @memberof InlineResponse20049
      */
-    priceForClient?: number;
+    count?: number;
+    /**
+     * 
+     * @type {Array<InlineResponse20049Rows>}
+     * @memberof InlineResponse20049
+     */
+    rows?: Array<InlineResponse20049Rows>;
 }
 
 
