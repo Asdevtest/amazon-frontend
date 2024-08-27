@@ -164,7 +164,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       onClickSavePrepId: (item: string, value: string) => this.onClickSavePrepId(item, value),
 
-      onChangeUnitsOption: (option: Dimensions) => this.onChangeUnitsOption(option),
+      onChangeUnitsOption: (option: RadioChangeEvent) => this.onChangeUnitsOption(option),
       onClickSaveClientComment: (itemId: string, value: string) => this.onClickSaveClientComment(itemId, value),
     }
 
@@ -286,8 +286,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     await UserModel.getUserInfo()
   }
 
-  onChangeUnitsOption(option: Dimensions) {
-    this.unitsOption = option
+  onChangeUnitsOption(event: RadioChangeEvent) {
+    const currentValue = event.target.value
+    this.unitsOption = currentValue
   }
 
   onClickStorekeeperBtn(currentStorekeeperId: string) {
