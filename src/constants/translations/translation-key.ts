@@ -2035,4 +2035,8 @@ export enum TranslationKey {
   'Access confirmation request sent successfully' = 'Access confirmation request sent successfully',
   'Tables' = 'Tables',
   'Please input shop name!' = 'Please input shop name!',
+  'invitation' = 'invitation',
+  'Invitation sent' = 'Invitation sent',
+  'Registered' = 'Registered',
+  'Profile status' = 'Profile status',
 }

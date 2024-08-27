@@ -26,6 +26,12 @@ export interface InlineObject71 {
      * @memberof InlineObject71
      */
     title: string;
+    /**
+     * Color
+     * @type {string}
+     * @memberof InlineObject71
+     */
+    color?: string;
 }
 
 

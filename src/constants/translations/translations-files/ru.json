@@ -2034,5 +2034,9 @@
   "Volume": "Объем",
   "Access confirmation request sent successfully": "Запрос на подтверждение доступа успешно отправлен",
   "Tables": "Таблицы",
-  "Please input shop name!": "Пожалуйста, введите название магазина!"
+  "Please input shop name!": "Пожалуйста, введите название магазина!",
+  "invitation": "приглашение",
+  "Invitation sent": "Приглашение выслано",
+  "Registered": "Зарегистрирован",
+  "Profile status": "Статус профиля"
 }

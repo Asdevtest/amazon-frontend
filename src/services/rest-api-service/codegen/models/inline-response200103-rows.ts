@@ -15,7 +15,7 @@
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
-import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
+import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
 
 /**
  * 
@@ -97,10 +97,10 @@ export interface InlineResponse200103Rows {
     redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
+     * @type {Array<ApiV1BuyersProductsVacTags>}
      * @memberof InlineResponse200103Rows
      */
-    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
+    tags?: Array<ApiV1BuyersProductsVacTags>;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
