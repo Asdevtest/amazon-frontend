@@ -51,6 +51,7 @@ export const shopsColumns = (props: IColumnProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />
       ),
+      valueGetter: ({ row }: GridRowModel) => row.email || '', // тут
       width: 320,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       hideEmptyObject: true,
@@ -62,6 +63,7 @@ export const shopsColumns = (props: IColumnProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <ParsingAccessCell profile={row.profile} onAccess={() => onParsingAccess(row.profile?.email)} />
       ),
+      valueGetter: ({ row }: GridRowModel) => row.profile?.access || '',
       width: 160,
       disableCustomSort: true,
       filterable: false,
@@ -70,10 +72,11 @@ export const shopsColumns = (props: IColumnProps) => {
       field: 'status',
       headerName: t(TranslationKey['Parsing status']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing status'])} />,
+      valueGetter: ({ row }: GridRowModel) => row.profile?.requestStatus || '',
       renderCell: ({ row }: GridRowModel) => {
         const disabled =
           !row.profile ||
-          [RequestStatus.PENDING, RequestStatus.REJECTED].includes(row.profile?.requestStatus) ||
+          [RequestStatus.PENDING, RequestStatus.REJECTED].includes(row.profile?.isActive) ||
           !row.profile?.access
 
         return (
