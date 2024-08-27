@@ -52,7 +52,7 @@ export const shopsColumns = (props: IColumnProps) => {
         <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />
       ),
       width: 320,
-      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       hideEmptyObject: true,
     },
     {
@@ -62,7 +62,6 @@ export const shopsColumns = (props: IColumnProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <ParsingAccessCell profile={row.profile} onAccess={() => onParsingAccess(row.profile?.email)} />
       ),
-
       width: 160,
       disableCustomSort: true,
       filterable: false,
