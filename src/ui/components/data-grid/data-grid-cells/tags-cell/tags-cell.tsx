@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Tag } from 'antd'
 import { FC, memo } from 'react'
 
-import { Tooltip } from '@mui/material'
-
 import { Button } from '@components/shared/button'
+import { CustomTag } from '@components/shared/custom-tag'
 import { EditIcon } from '@components/shared/svg-icons'
 
 import { ITag } from '@typings/shared/tag'
@@ -20,26 +18,14 @@ interface TagsCellProps {
 }
 
 export const TagsCell: FC<TagsCellProps> = memo(({ tags, onClickTag, onClickEdit }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   return (
     <div className={styles.tagsWrapper}>
       <div className={styles.tags}>
-        {tags?.map(el => {
-          const createTagText = `#${el.title}`
-
-          return (
-            <Tooltip key={el._id} placement="top" title={createTagText}>
-              <Tag
-                color={el?.color}
-                className={cx(styles.tagItem, { [styles.activeButton]: !!onClickTag })}
-                onClick={() => onClickTag?.(el)}
-              >
-                {createTagText}
-              </Tag>
-            </Tooltip>
-          )
-        })}
+        {tags?.map(el => (
+          <CustomTag key={el._id} tag={el} prefix="#" onClickTag={onClickTag} />
+        ))}
       </div>
 
       {onClickEdit ? (

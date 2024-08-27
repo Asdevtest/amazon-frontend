@@ -21,7 +21,7 @@ interface AddOrEditTagFormProps {
   tagToEdit?: ITag
   onCloseModal: () => void
   onCreateSubmit: (tag: ITag) => void
-  onEditSubmit: (id: string, tag: ITag) => void
+  onEditSubmit?: (id: string, tag: ITag) => void
 }
 
 export const AddOrEditTagForm: FC<AddOrEditTagFormProps> = observer(props => {
@@ -29,22 +29,21 @@ export const AddOrEditTagForm: FC<AddOrEditTagFormProps> = observer(props => {
 
   const { classes: styles } = useStyles()
 
-  console.log('tagToEdit', tagToEdit)
-
   const [formField, setFormField] = useState<ITag>({
     title: tagToEdit?.title || '',
     color: tagToEdit?.color || '',
   } as ITag)
 
   const isExistsTag = useMemo(() => {
-    const existingTag = tags.find(tag => tag.title === formField.title)
+    const existingTag = tags?.find(tag => tag?.title === formField.title)
 
     return !!existingTag && existingTag?.color === formField.color
   }, [formField])
+
   const disabledButton = useMemo(() => formField?.title?.length === 0 || isExistsTag, [formField.title, isExistsTag])
 
   const handleClick = useCallback(() => {
-    if (tagToEdit) {
+    if (tagToEdit && onEditSubmit) {
       onEditSubmit(tagToEdit?._id, formField)
     } else {
       onCreateSubmit(formField)
@@ -81,7 +80,6 @@ export const AddOrEditTagForm: FC<AddOrEditTagFormProps> = observer(props => {
           </button>
         }
         maxLength={255}
-        style={{ color: 'red' }}
         value={formField.title}
         onChange={handleChangeTitle}
       />

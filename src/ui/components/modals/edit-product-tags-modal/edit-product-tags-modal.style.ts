@@ -27,6 +27,12 @@ export const useStyles = makeStyles()(theme => ({
     boxShadow: theme.palette.boxShadow.filter,
   },
 
+  footerModal: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
   buttonsWrapper: {
     display: 'flex',
     gap: '5px',

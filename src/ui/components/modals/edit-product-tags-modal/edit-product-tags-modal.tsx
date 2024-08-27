@@ -1,9 +1,18 @@
+import { Select, Tag } from 'antd'
+import type { SelectProps } from 'antd'
+import { BaseOptionType } from 'antd/es/select'
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { ChangeEvent, FC, Fragment, useMemo, useState } from 'react'
+import { FaPlus } from 'react-icons/fa'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { AddOrEditTagForm } from '@components/forms/add-or-edit-tag-form'
 import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
+import { CustomInput } from '@components/shared/custom-input'
+import { CustomSelect } from '@components/shared/custom-select'
+import { CustomTag } from '@components/shared/custom-tag'
 import { Modal } from '@components/shared/modal'
 import { TagsSelect } from '@components/shared/selects/tags-select'
 import { TagList } from '@components/shared/tag-list'
@@ -12,6 +21,7 @@ import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
+import { ITag } from '@typings/shared/tag'
 
 import { useStyles } from './edit-product-tags-modal.style'
 
@@ -28,22 +38,48 @@ interface EditProductTagsProps {
 export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
   const { classes: styles } = useStyles()
 
-  const { openModal, setOpenModal, productId, handleUpdateRow } = props
+  const { openModal, productId, setOpenModal, handleUpdateRow } = props
 
-  const [viewModel] = useState(() => new EditProductTagModel(productId))
+  const viewModel = useMemo(() => new EditProductTagModel(productId), [])
 
   return (
     <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.container}>
         <p className={styles.title}>{t(TranslationKey['Edit product tags'])}</p>
 
-        <TagList
-          isLoading={viewModel.requestTagsByIdStatus === loadingStatus.IS_LOADING}
-          selectedTags={viewModel.selectedTags}
-          handleClickTag={viewModel.handleClickTag}
+        <CustomSelect
+          loading={viewModel.requestTagsByIdStatus === loadingStatus.IS_LOADING}
+          placeholder="Product tags"
+          mode="tags"
+          tagRender={tagRenderProps => {
+            const { value, closable, onClose } = tagRenderProps
+
+            console.log('tagRenderProps', tagRenderProps)
+
+            const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+
+            return (
+              <CustomTag tag={value as ITag} closable={closable} onMouseDown={onPreventMouseDown} onClose={onClose} />
+            )
+          }}
+          value={viewModel.selectedTags}
+          options={viewModel.tags?.map(tag => ({ label: tag?.title, value: tag, data: tag }))}
+          style={{ width: '100%' }}
+          onChange={viewModel.handleClickTag}
+          onSelect={(value, option) => console.log('onSelect', value, option)}
+          onDeselect={(value, option) => console.log('onDeselect', value, option)}
         />
 
-        <TagsSelect
+        {/* <TagList
+          isLoading={viewModel.requestTagsByIdStatus === loadingStatus.IS_LOADING}
+          selectedTags={viewModel.selectedTags}
+          handleClickTag={}
+        /> */}
+
+        {/* <TagsSelect
           isloadingTags={viewModel.requestStatus === loadingStatus.IS_LOADING}
           tags={viewModel.tags}
           selectedTags={viewModel.selectedTags}
@@ -53,23 +89,37 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
           onClickTag={viewModel.handleClickTag}
           onClickSubmitSearch={viewModel.onClickSubmitSearch}
           onClickCreateTag={viewModel.handleCreateTag}
-        />
+        /> */}
 
-        <div className={styles.buttonsWrapper}>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
-            onClick={async () => {
-              await viewModel.handleBindTagsToProduct(handleUpdateRow)
-              setOpenModal(false)
-            }}
-          >
-            {t(TranslationKey.Save)}
-          </Button>
-          <Button styleType={ButtonStyle.CASUAL} onClick={() => setOpenModal(false)}>
-            {t(TranslationKey.Close)}
-          </Button>
+        <div className={styles.footerModal}>
+          <CustomButton type="primary" onClick={viewModel.onClickToggleAddOrEditModal}>
+            {t(TranslationKey['Add Tag'])}
+          </CustomButton>
+
+          <div className={styles.buttonsWrapper}>
+            <CustomButton
+              type="primary"
+              onClick={async () => {
+                await viewModel.handleBindTagsToProduct(handleUpdateRow)
+                setOpenModal(false)
+              }}
+            >
+              {t(TranslationKey.Save)}
+            </CustomButton>
+            <CustomButton type="text" onClick={() => setOpenModal(false)}>
+              {t(TranslationKey.Close)}
+            </CustomButton>
+          </div>
         </div>
       </div>
+
+      <Modal openModal={viewModel.showAddOrEditTagModal} setOpenModal={viewModel.onClickToggleAddOrEditModal}>
+        <AddOrEditTagForm
+          tags={viewModel.tags || []}
+          onCloseModal={viewModel.onClickToggleAddOrEditModal}
+          onCreateSubmit={viewModel.handleCreateTag}
+        />
+      </Modal>
     </Modal>
   )
 })

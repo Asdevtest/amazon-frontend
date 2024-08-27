@@ -11,18 +11,6 @@ export const useStyles = makeStyles()(() => ({
     overflow: 'auto',
   },
 
-  tagItem: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-
-  activeButton: {
-    '&:hover': {
-      transform: 'scale(1.05)',
-    },
-  },
-
   tagsWrapper: {
     width: '100%',
     height: '100%',
