@@ -24,7 +24,6 @@ export const ClientShopsView = observer(() => {
   const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new ShopsViewModel())
-  console.log('first', viewModel.currentData)
   return (
     <>
       <div className={styles.flexRow}>
