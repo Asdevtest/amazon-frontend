@@ -21,11 +21,17 @@
  */
 export interface InlineObject151 {
     /**
-     * Почта от аккаунта, пароль которого Вы забыли
+     * Гуид саба
      * @type {string}
      * @memberof InlineObject151
      */
-    email: string;
+    userId: string;
+    /**
+     * Заметка о сабе написаная мастером
+     * @type {string}
+     * @memberof InlineObject151
+     */
+    comment: string;
 }
 
 

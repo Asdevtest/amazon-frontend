@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesSplitNewBoxesParams } from './api-v1-boxes-split-new-boxes-params';
 
 /**
  * 
@@ -21,11 +22,17 @@
  */
 export interface InlineObject34 {
     /**
-     * Сумма воврата
-     * @type {number}
+     * GUID коробки, которую делим
+     * @type {string}
      * @memberof InlineObject34
      */
-    refundPrice?: number;
+    guid?: string;
+    /**
+     * 
+     * @type {Array<ApiV1BoxesSplitNewBoxesParams>}
+     * @memberof InlineObject34
+     */
+    newBoxesParams?: Array<ApiV1BoxesSplitNewBoxesParams>;
 }
 
 

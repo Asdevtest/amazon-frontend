@@ -13,20 +13,19 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes';
 
 /**
- * 
+ * Схема изменения итоговой цены, totalPriceChanged
  * @export
  * @interface InlineObject47
  */
 export interface InlineObject47 {
     /**
-     * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
+     * новое значение изменения итоговой цены.
+     * @type {number}
      * @memberof InlineObject47
      */
-    itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
+    totalPriceChanged: number;
 }
 
 

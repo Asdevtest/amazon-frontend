@@ -99,6 +99,11 @@ export const globalStyles = theme => ({
   '.MuiCheckbox-root': {
     padding: '0 !important',
   },
+
+  // filter menu popup
+  '.MuiPopper-root': {
+    zIndex: '7 !important',
+  },
 })
 
 export const lightTheme = createTheme({

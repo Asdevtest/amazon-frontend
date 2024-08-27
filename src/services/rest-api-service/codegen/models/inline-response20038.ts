@@ -14,11 +14,9 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
-import { ApiV1AdminsOrdersLogicsTariff } from './api-v1-admins-orders-logics-tariff';
-import { ApiV1AdminsTasksLightVariationTariff } from './api-v1-admins-tasks-light-variation-tariff';
-import { ApiV1BatchesBatch } from './api-v1-batches-batch';
-import { ApiV1BoxesStorekeepersSentToBatchItems } from './api-v1-boxes-storekeepers-sent-to-batch-items';
+import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
+import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
+import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
 
 /**
  * 
@@ -27,167 +25,83 @@ import { ApiV1BoxesStorekeepersSentToBatchItems } from './api-v1-boxes-storekeep
  */
 export interface InlineResponse20038 {
     /**
-     * GUID коробки.
+     * GUID продукта в базе данных
      * @type {string}
      * @memberof InlineResponse20038
      */
     _id?: string;
     /**
-     * Номер коробки.
-     * @type {number}
-     * @memberof InlineResponse20038
-     */
-    humanFriendlyId?: number;
-    /**
-     * Количества в коробке.
-     * @type {number}
-     * @memberof InlineResponse20038
-     */
-    amount?: number;
-    /**
-     * Статус коробки
+     * Категория
      * @type {string}
      * @memberof InlineResponse20038
      */
-    status?: InlineResponse20038StatusEnum;
-    /**
-     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
-     * @type {boolean}
-     * @memberof InlineResponse20038
-     */
-    isActual?: boolean;
-    /**
-     * Если true - значит коробку черновик.
-     * @type {boolean}
-     * @memberof InlineResponse20038
-     */
-    isDraft?: boolean;
-    /**
-     * Сформирована ли коробка
-     * @type {boolean}
-     * @memberof InlineResponse20038
-     */
-    isFormed?: boolean;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20038
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20038
-     */
-    widthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20038
-     */
-    heightCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20038
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Итого за доставку.
-     * @type {number}
-     * @memberof InlineResponse20038
-     */
-    deliveryTotalPrice?: number;
-    /**
-     * Обновление итога за доставку.
-     * @type {number}
-     * @memberof InlineResponse20038
-     */
-    deliveryTotalPriceChanged?: number;
-    /**
-     * id склада - склады куда отправляют 
-     * @type {string}
-     * @memberof InlineResponse20038
-     */
-    destinationId?: string;
-    /**
-     * GUID тарифа доставки 
-     * @type {string}
-     * @memberof InlineResponse20038
-     */
-    logicsTariffId?: string;
-    /**
-     * Сторкипер взявший коробку в работу.
-     * @type {string}
-     * @memberof InlineResponse20038
-     */
-    batchId?: string;
-    /**
-     * Сторкипер взявший коробку в работу.
-     * @type {string}
-     * @memberof InlineResponse20038
-     */
-    storekeeperId?: string;
-    /**
-     * Клиент владелец товара в коробке в работу.
-     * @type {string}
-     * @memberof InlineResponse20038
-     */
-    clientId?: string;
-    /**
-     * Клиент создавший заказ и коробку.
-     * @type {string}
-     * @memberof InlineResponse20038
-     */
-    createdById?: string;
-    /**
-     * GUID любого, кто последний редактировал коробку.
-     * @type {string}
-     * @memberof InlineResponse20038
-     */
-    lastModifiedById?: string;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineResponse20038
-     */
-    prepId?: string;
+    category?: string;
     /**
      * 
-     * @type {ApiV1AdminsTasksLightVariationTariff}
+     * @type {number}
      * @memberof InlineResponse20038
      */
-    variationTariff?: ApiV1AdminsTasksLightVariationTariff;
+    bsr?: number;
     /**
-     * 
+     * ASIN продукта
      * @type {string}
      * @memberof InlineResponse20038
      */
-    createdAt?: string;
+    asin?: string;
     /**
-     * 
+     * SKU введенным клиентом.
      * @type {string}
      * @memberof InlineResponse20038
      */
-    updatedAt?: string;
-    /**
-     * Массив коробок.
-     * @type {Array<ApiV1BoxesStorekeepersSentToBatchItems>}
-     * @memberof InlineResponse20038
-     */
-    items?: Array<ApiV1BoxesStorekeepersSentToBatchItems>;
+    skuByClient?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {number}
      * @memberof InlineResponse20038
      */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    amazon?: number;
+    /**
+     * Вес
+     * @type {number}
+     * @memberof InlineResponse20038
+     */
+    weight?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineResponse20038
+     */
+    fbaamount?: number;
+    /**
+     * Код текущего статуса
+     * @type {number}
+     * @memberof InlineResponse20038
+     */
+    status?: number;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20038
+     */
+    images?: Array<string>;
+    /**
+     * Цена для клиента
+     * @type {number}
+     * @memberof InlineResponse20038
+     */
+    priceForClient?: number;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusSuppliers}
      * @memberof InlineResponse20038
      */
-    client?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    currentSupplier?: ApiV1AdminsGetProductsByStatusSuppliers;
+    /**
+     * GUID поставщика в базе данных
+     * @type {string}
+     * @memberof InlineResponse20038
+     */
+    currentSupplierId?: string;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
@@ -199,42 +113,115 @@ export interface InlineResponse20038 {
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20038
      */
-    lastModifiedBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    checkedBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
-     * 
-     * @type {ApiV1AdminsOrdersDestination}
+     * Дата создания
+     * @type {string}
      * @memberof InlineResponse20038
      */
-    destination?: ApiV1AdminsOrdersDestination;
+    createdAt?: string;
     /**
-     * 
-     * @type {ApiV1AdminsOrdersLogicsTariff}
+     * Дата изменения
+     * @type {string}
      * @memberof InlineResponse20038
      */
-    logicsTariff?: ApiV1AdminsOrdersLogicsTariff;
+    updatedAt?: string;
     /**
-     * 
-     * @type {ApiV1BatchesBatch}
+     * Дата проверки
+     * @type {string}
      * @memberof InlineResponse20038
      */
-    batch?: ApiV1BatchesBatch;
+    checkedAt?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20038
+     */
+    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Савка супервайзера.
+     * @type {number}
+     * @memberof InlineResponse20038
+     */
+    supervisorRate?: number;
+    /**
+     * Савка байера.
+     * @type {number}
+     * @memberof InlineResponse20038
+     */
+    buyerRate?: number;
+    /**
+     * 
+     * @type {Array<ApiV1BoxesClientsLightProductRedFlags>}
+     * @memberof InlineResponse20038
+     */
+    redFlags?: Array<ApiV1BoxesClientsLightProductRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsVacTags>}
+     * @memberof InlineResponse20038
+     */
+    tags?: Array<ApiV1BuyersProductsVacTags>;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineResponse20038
+     */
+    strategyStatus?: number;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineResponse20038
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineResponse20038
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineResponse20038
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineResponse20038
+     */
+    avgReviews?: string;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineResponse20038
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineResponse20038
+     */
+    fbafee?: number;
+    /**
+     * Штрихкод продукта
+     * @type {string}
+     * @memberof InlineResponse20038
+     */
+    barCode?: string;
+    /**
+     * Зашита листинга (bool)
+     * @type {boolean}
+     * @memberof InlineResponse20038
+     */
+    transparency?: boolean;
+    /**
+     * Title амазона
+     * @type {string}
+     * @memberof InlineResponse20038
+     */
+    amazonTitle?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20038StatusEnum {
-    New = 'NEW',
-    InStock = 'IN_STOCK',
-    RequestedSendToBatch = 'REQUESTED_SEND_TO_BATCH',
-    NeedConfirmingToDeliveryPriceChange = 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE',
-    InBatch = 'IN_BATCH',
-    NeedToUpdateTheTariff = 'NEED_TO_UPDATE_THE_TARIFF',
-    InBatchOnTheWay = 'IN_BATCH_ON_THE_WAY',
-    FinishPrepCentrUsa = 'FINISH_PREP_CENTR_USA',
-    AcceptedInProcessing = 'ACCEPTED_IN_PROCESSING'
-}
-
 
 

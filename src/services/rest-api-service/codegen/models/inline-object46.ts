@@ -13,74 +13,19 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-guid-items';
 
 /**
- * 
+ * Схема комментарии байера.
  * @export
  * @interface InlineObject46
  */
 export interface InlineObject46 {
     /**
-     * 
-     * @type {number}
-     * @memberof InlineObject46
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject46
-     */
-    widthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject46
-     */
-    heightCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject46
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject46
-     */
-    volumeWeightKgWarehouse?: number;
-    /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineObject46
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidItems>}
-     * @memberof InlineObject46
-     */
-    items?: Array<ApiV1BoxesStorekeepersGuidItems>;
-    /**
-     * Комментарии к коробке
+     * Комментарии байера.
      * @type {string}
      * @memberof InlineObject46
      */
-    storekeeperComment?: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject46
-     */
-    variationTariffId?: string;
-    /**
-     * Массив ссылок на фотографии.
-     * @type {Array<string>}
-     * @memberof InlineObject46
-     */
-    images?: Array<string>;
+    buyerComment: string;
 }
 
 
