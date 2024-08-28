@@ -26,7 +26,7 @@ export const CustomTag: FC<CustomTagProps> = memo(props => {
       onClick={() => onClickTag?.(tag)}
       {...restProps}
     >
-      {`${prefix}${title}`}
+      <p className={styles.tagTitle}>{`${prefix}${title}`}</p>
     </Tag>
   )
 

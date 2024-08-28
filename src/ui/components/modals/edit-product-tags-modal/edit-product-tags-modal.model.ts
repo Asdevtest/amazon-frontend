@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { MouseEvent } from 'react'
 import { toast } from 'react-toastify'
 
@@ -30,7 +30,13 @@ export class EditProductTagModel {
   selectedTags: ITag[] = []
 
   isCanLoadMore = true
+
   searchValue: string = ''
+  debounceSearchValue: string = ''
+
+  set setDebounceSearchValue(value: string) {
+    this.debounceSearchValue = value
+  }
 
   showAddOrEditTagModal = false
 
@@ -40,6 +46,11 @@ export class EditProductTagModel {
 
     this.getTagsAll()
     this.getTagsByProductId()
+
+    reaction(
+      () => this.debounceSearchValue,
+      () => this.onClickSubmitSearch(this.debounceSearchValue),
+    )
   }
 
   async getTagsAll() {
@@ -149,7 +160,7 @@ export class EditProductTagModel {
 
   async onClickSubmitSearch(searchValue: string) {
     runInAction(() => {
-      this.searchValue = searchValue
+      this.debounceSearchValue = searchValue
     })
 
     if (this.requestStatus !== loadingStatus.SUCCESS) {
@@ -177,16 +188,21 @@ export class EditProductTagModel {
       const result = await GeneralModel.getPagTagList({
         offset: this.offset,
         limit: this.limit,
-        filters: objectToUrlQs(dataGridFiltersConverter({}, this.searchValue, '', [], ['title'])) || '',
+        filters:
+          objectToUrlQs(
+            dataGridFiltersConverter(
+              {},
+              this.debounceSearchValue ? `"${this.debounceSearchValue}"` : '',
+              '',
+              [],
+              ['title'],
+            ),
+          ) || '',
       })
       return result
     } catch (error) {
       console.error(error)
     }
-  }
-
-  handleResetTags() {
-    this.tags = []
   }
 
   handleClickTag(tags: ITag[]) {
@@ -208,5 +224,9 @@ export class EditProductTagModel {
 
   onClickToggleAddOrEditModal() {
     this.showAddOrEditTagModal = !this.showAddOrEditTagModal
+  }
+
+  onSearch(value: string) {
+    this.searchValue = value
   }
 }

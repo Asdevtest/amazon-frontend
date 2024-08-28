@@ -1,27 +1,20 @@
-import { Select, Tag } from 'antd'
-import type { SelectProps } from 'antd'
-import { BaseOptionType } from 'antd/es/select'
 import { observer } from 'mobx-react'
-import { ChangeEvent, FC, Fragment, useMemo, useState } from 'react'
-import { FaPlus } from 'react-icons/fa'
+import { FC, MouseEvent, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditTagForm } from '@components/forms/add-or-edit-tag-form'
-import { Button } from '@components/shared/button'
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomInput } from '@components/shared/custom-input'
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomTag } from '@components/shared/custom-tag'
 import { Modal } from '@components/shared/modal'
-import { TagsSelect } from '@components/shared/selects/tags-select'
-import { TagList } from '@components/shared/tag-list'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { ITag } from '@typings/shared/tag'
+
+import { useDebounce } from '@hooks/use-debounce'
 
 import { useStyles } from './edit-product-tags-modal.style'
 
@@ -42,44 +35,48 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
 
   const viewModel = useMemo(() => new EditProductTagModel(productId), [])
 
+  viewModel.setDebounceSearchValue = useDebounce(viewModel.searchValue)
+
   return (
     <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.container}>
         <p className={styles.title}>{t(TranslationKey['Edit product tags'])}</p>
 
         <CustomSelect
+          allowClear
+          showSearch
+          searchValue={viewModel.searchValue}
           loading={viewModel.requestTagsByIdStatus === loadingStatus.IS_LOADING}
           placeholder="Product tags"
           mode="multiple"
           fieldNames={{ label: 'title', value: '_id' }}
-          value={viewModel.selectedTags}
+          value={viewModel.selectedTags?.map(tag => ({ value: tag._id }))}
           options={viewModel.tags}
           style={{ width: '100%' }}
-          labelRender={tag => {
-            console.log('tag', tag)
+          tagRender={tagRenderProps => {
+            const { value, onClose } = tagRenderProps
+            const onPreventMouseDown = (event: MouseEvent<HTMLSpanElement>) => {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+
+            const currentTag = viewModel.selectedTags.find(tag => tag._id === value)
+
+            return (
+              <CustomTag
+                closable
+                withTooltip
+                tag={currentTag as ITag}
+                onMouseDown={onPreventMouseDown}
+                onClose={onClose}
+              />
+            )
           }}
-          onChange={(props, value) => console.log('onChange', props, value)}
-          onSelect={(value, option) => console.log('onSelect', value, option)}
-          onDeselect={(value, option) => console.log('onDeselect', value, option)}
+          popupClassName={styles.popup}
+          onChange={(selectedValue, tagArray) => viewModel.handleClickTag(tagArray as ITag[])}
+          onPopupScroll={viewModel.loadMoreDataHadler}
+          onSearch={viewModel.onSearch}
         />
-
-        {/* <TagList
-          isLoading={viewModel.requestTagsByIdStatus === loadingStatus.IS_LOADING}
-          selectedTags={viewModel.selectedTags}
-          handleClickTag={}
-        /> */}
-
-        {/* <TagsSelect
-          isloadingTags={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          tags={viewModel.tags}
-          selectedTags={viewModel.selectedTags}
-          getTagsAll={viewModel.getTagsAll}
-          loadMoreDataHadler={viewModel.loadMoreDataHadler}
-          handleResetTags={viewModel.handleResetTags}
-          onClickTag={viewModel.handleClickTag}
-          onClickSubmitSearch={viewModel.onClickSubmitSearch}
-          onClickCreateTag={viewModel.handleCreateTag}
-        /> */}
 
         <div className={styles.footerModal}>
           <CustomButton type="primary" onClick={viewModel.onClickToggleAddOrEditModal}>

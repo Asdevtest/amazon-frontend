@@ -1,6 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
+  popup: {
+    padding: '5px',
+  },
+
   container: {
     width: '420px',
     display: 'flex',
