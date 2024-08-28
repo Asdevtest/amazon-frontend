@@ -25,7 +25,8 @@ import { ParsingAccessCell } from './components/parsing-access-cell'
 import { ParsingProfileCell } from './components/parsing-profile-cell'
 
 export const shopsColumns = (props: IColumnProps) => {
-  const { onRemoveShop, onEditShop, onParsingProfile, onParsingAccess, onParsingStatus } = props
+  const { onRemoveShop, onEditShop, onParsingProfile, onParsingAccess, onParsingStatus, onParsingProfileInvited } =
+    props
 
   const columns: IGridColumn[] = [
     {
@@ -64,7 +65,11 @@ export const shopsColumns = (props: IColumnProps) => {
         />
       ),
       renderCell: ({ row }: GridRowModel) => (
-        <ParsingAccessCell profile={row.profile} onAccess={() => onParsingAccess(row.profile?.email)} />
+        <ParsingAccessCell
+          profile={row.profile}
+          onAccess={() => onParsingAccess(row.profile?.email)}
+          onParsingProfileInvited={() => onParsingProfileInvited(row.profile?._id)}
+        />
       ),
       width: 170,
       disableCustomSort: true,

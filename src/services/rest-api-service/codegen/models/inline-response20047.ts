@@ -13,7 +13,8 @@
  */
 
 
-import { InlineResponse20047Rows } from './inline-response20047-rows';
+import { InlineResponse20046Rows } from './inline-response20046-rows';
+import { InlineResponse20047Meta } from './inline-response20047-meta';
 
 /**
  * 
@@ -29,10 +30,16 @@ export interface InlineResponse20047 {
     count?: number;
     /**
      * 
-     * @type {Array<InlineResponse20047Rows>}
+     * @type {Array<InlineResponse20046Rows>}
      * @memberof InlineResponse20047
      */
-    rows?: Array<InlineResponse20047Rows>;
+    rows?: Array<InlineResponse20046Rows>;
+    /**
+     * 
+     * @type {InlineResponse20047Meta}
+     * @memberof InlineResponse20047
+     */
+    meta?: InlineResponse20047Meta;
 }
 
 

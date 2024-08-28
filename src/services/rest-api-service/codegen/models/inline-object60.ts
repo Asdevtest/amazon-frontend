@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
+import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
  * 
@@ -22,269 +22,29 @@ import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags'
  */
 export interface InlineObject60 {
     /**
-     * ASIN продукта
+     * Гуид продукта
      * @type {string}
      * @memberof InlineObject60
      */
-    asin: string;
+    productId: string;
     /**
-     * SKU введенным клиентом.
-     * @type {string}
+     * New product price
+     * @type {number}
      * @memberof InlineObject60
      */
-    skuByClient?: string;
+    newProductPrice?: number;
     /**
-     * GUID поставщика, если передать строку \"clear\" то поставщику будет сброшен (у байера и ресечера).
+     * Description of product_listing_report
      * @type {string}
      * @memberof InlineObject60
      */
-    currentSupplierId?: string;
-    /**
-     * Гуид родительского продукта
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    parentProductId?: string;
-    /**
-     * Категория
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    category?: string;
-    /**
-     * Ссылка на этот продукт на амазоне.
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    lamazon?: string;
+    description?: string;
     /**
      * 
-     * @type {number}
+     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
      * @memberof InlineObject60
      */
-    bsr?: number;
-    /**
-     * Признак fba
-     * @type {boolean}
-     * @memberof InlineObject60
-     */
-    fba?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject60
-     */
-    amazon?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject60
-     */
-    height?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject60
-     */
-    width?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject60
-     */
-    length?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject60
-     */
-    weight?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineObject60
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineObject60
-     */
-    fbafee?: number;
-    /**
-     *  Общая сумма с фба.
-     * @type {number}
-     * @memberof InlineObject60
-     */
-    fbaamount?: number;
-    /**
-     * Комментарии к товару.
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    icomment?: string;
-    /**
-     * Комментарии к товару, от клиента.
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    clientComment?: string;
-    /**
-     * Массив изображений.
-     * @type {Array<string>}
-     * @memberof InlineObject60
-     */
-    images: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    amazonDescription?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    amazonDetail?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    amazonTitle?: string;
-    /**
-     * Материл продукта
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    material?: string;
-    /**
-     * Применение продукта
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    productUsage?: string;
-    /**
-     * chinese title?
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    chinaTitle?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    barCode?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject60
-     */
-    minpurchase?: number;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineObject60
-     */
-    profit?: number;
-    /**
-     * Маржа
-     * @type {number}
-     * @memberof InlineObject60
-     */
-    margin?: number;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineObject60
-     */
-    strategyStatus?: number;
-    /**
-     * Признак needCheckBySupervisor
-     * @type {boolean}
-     * @memberof InlineObject60
-     */
-    needCheckBySupervisor?: boolean;
-    /**
-     * hsCode продукта.
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    hsCode?: string;
-    /**
-     * Гуид баера, Байер создал идею для продукта. Клиенту понравилась идея, он создал на основе ее карточку.
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    buyerId?: string;
-    /**
-     * Ниша
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    niche?: string;
-    /**
-     * Асины
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    asins?: string;
-    /**
-     * Общий доход
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    totalRevenue?: string;
-    /**
-     * Коэффициент прибыли
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    coefficient?: string;
-    /**
-     * Средний доход
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    avgRevenue?: string;
-    /**
-     * Средний BSR
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    avgBSR?: string;
-    /**
-     * Средняя цена
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    avgPrice?: string;
-    /**
-     * Средний отзывы
-     * @type {string}
-     * @memberof InlineObject60
-     */
-    avgReviews?: string;
-    /**
-     * Поле для калькуляции дозакупок
-     * @type {number}
-     * @memberof InlineObject60
-     */
-    fourMonthesStock?: number;
-    /**
-     * GUIDы поставщиков продукта
-     * @type {Array<string>}
-     * @memberof InlineObject60
-     */
-    suppliersIds?: Array<string>;
-    /**
-     * 
-     * @type {Array<ApiV1BuyersProductsGuidTags>}
-     * @memberof InlineObject60
-     */
-    tags?: Array<ApiV1BuyersProductsGuidTags>;
+    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
 }
 
 

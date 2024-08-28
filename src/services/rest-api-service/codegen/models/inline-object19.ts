@@ -13,19 +13,176 @@
  */
 
 
+import { ApiV1BoxesItems } from './api-v1-boxes-items';
 
 /**
- * 
+ * Коробка
  * @export
  * @interface InlineObject19
  */
 export interface InlineObject19 {
     /**
+     * Сколько таких же коробок в одной коробке
+     * @type {number}
+     * @memberof InlineObject19
+     */
+    amount?: number;
+    /**
+     * true - если создаем черновик заказа.
+     * @type {boolean}
+     * @memberof InlineObject19
+     */
+    isDraft?: boolean;
+    /**
+     * Storage in boxes
+     * @type {string}
+     * @memberof InlineObject19
+     */
+    storage?: string;
+    /**
+     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+     * @type {number}
+     * @memberof InlineObject19
+     */
+    lengthCmSupplier?: number;
+    /**
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineObject19
+     */
+    shippingLabel?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineObject19
+     */
+    trackNumberText?: string;
+    /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject19
      */
-    boxesIds: Array<string>;
+    trackNumberFile?: Array<string>;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineObject19
+     */
+    upsTrackNumber?: string;
+    /**
+     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+     * @type {number}
+     * @memberof InlineObject19
+     */
+    widthCmSupplier?: number;
+    /**
+     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+     * @type {number}
+     * @memberof InlineObject19
+     */
+    heightCmSupplier?: number;
+    /**
+     * Общий вес кг коробки который назвал поставщик.
+     * @type {number}
+     * @memberof InlineObject19
+     */
+    weighGrossKgSupplier?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject19
+     */
+    lengthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject19
+     */
+    widthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject19
+     */
+    heightCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject19
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+     * @type {boolean}
+     * @memberof InlineObject19
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineObject19
+     */
+    clientComment?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineObject19
+     */
+    referenceId?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineObject19
+     */
+    storekeeperComment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject19
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject19
+     */
+    fbaNumber?: string;
+    /**
+     * Массив коробок.
+     * @type {Array<ApiV1BoxesItems>}
+     * @memberof InlineObject19
+     */
+    items: Array<ApiV1BoxesItems>;
+    /**
+     * Массив ссылок на фотографии.
+     * @type {Array<string>}
+     * @memberof InlineObject19
+     */
+    images?: Array<string>;
+    /**
+     * destination GUID 
+     * @type {string}
+     * @memberof InlineObject19
+     */
+    destinationId?: string;
+    /**
+     *  logicsTariff GUID
+     * @type {string}
+     * @memberof InlineObject19
+     */
+    logicsTariffId?: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject19
+     */
+    variationTariffId?: string;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineObject19
+     */
+    prepId?: string;
 }
 
 
