@@ -735,7 +735,7 @@ export const EditOrderModal = memo(
               onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
               onClickTransparency={onClickTransparency}
             /> */}
-          <BoxesToCreate
+          <BoxesToCreate //* доработать при заменении дизайна
             setBoxesForCreation={setBoxesForCreation}
             orderGoodsAmount={orderFields?.amount}
             barcodeIsExist={order.product.barCode}
