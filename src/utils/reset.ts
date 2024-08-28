@@ -59,6 +59,10 @@ export const resetAccessTokenByTime = () => {
   if (storage) {
     const userModel = JSON.parse(storage)
 
+    if (!userModel?.accessToken || !userModel?.refreshToken) {
+      return
+    }
+
     const decoded = jwtDecode(userModel?.accessToken as string)
     const expValue = decoded.exp || 0
     const iatValue = decoded.iat || 0
