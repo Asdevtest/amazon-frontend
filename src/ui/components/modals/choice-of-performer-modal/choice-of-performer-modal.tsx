@@ -46,7 +46,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
   const [selectedService, setSelectedService] = useState<IAnnoucement | undefined>(chosenAnnouncement)
 
   const selectCardHandler = (value: IAnnoucement) => {
-    setSelectedService(prev => (prev?._id === value?._id ? undefined : value))
+    setSelectedService(value)
   }
 
   useEffect(() => {

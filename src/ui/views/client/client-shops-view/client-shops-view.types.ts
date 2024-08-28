@@ -1,4 +1,4 @@
-import { ProfileRequestStatus } from '@typings/enums/request/profile-request-status'
+import { ProfileRequestStatus, ProfileStatus } from '@typings/enums/request/profile-request-status'
 import { IShop } from '@typings/models/shops/shop'
 
 export interface IColumnProps {
@@ -7,6 +7,7 @@ export interface IColumnProps {
   onParsingProfile: (id: string) => void
   onParsingAccess: (email: string) => void
   onParsingStatus: (id: string, isActive: boolean) => void
+  onParsingProfileInvited: (id: string) => void
 }
 
 export interface IShopProfile {
@@ -14,4 +15,6 @@ export interface IShopProfile {
   email: string
   isActive: boolean
   requestStatus: ProfileRequestStatus
+  status: ProfileStatus
+  _id: string
 }

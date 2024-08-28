@@ -215,7 +215,6 @@
   "Add your product": "Додати свій товар",
   "Product with invalid status selected": "Обрано продукт з невідповідним статусом",
   "Strategy": "Стратегія",
-  "Reserved": "Резерв",
   "Profit": "Прибуток",
   "Margin": "Маржа",
   "Comments": "Коментарі",
@@ -2046,6 +2045,12 @@
   "Please input shop name!": "Будь ласка, введіть назву магазину!",
   "invitation": "запрошення",
   "Invitation sent": "Запрошення вислано",
+  "Profile status": "Статус профілю",
+  "Vacant": "Вільний",
+  "Reserved": "Зарезервовано",
+  "Waiting invite": "Очікує запрошення",
+  "Invited": "Запрошення отримано",
   "Registered": "Зареєстровано",
-  "Profile status": "Статус профілю"
+  "Ready to checking": "Готовий до перевірки",
+  "In use": "Використовується"
 }

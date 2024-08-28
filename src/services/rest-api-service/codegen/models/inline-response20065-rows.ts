@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20042InventoryShop } from './inline-response20042-inventory-shop';
+import { InlineResponse20041InventoryShop } from './inline-response20041-inventory-shop';
 
 /**
  * Схема репорта за 30 дней с Seller-board
@@ -185,10 +185,10 @@ export interface InlineResponse20065Rows {
     updatedAt?: string;
     /**
      * 
-     * @type {InlineResponse20042InventoryShop}
+     * @type {InlineResponse20041InventoryShop}
      * @memberof InlineResponse20065Rows
      */
-    shop?: InlineResponse20042InventoryShop;
+    shop?: InlineResponse20041InventoryShop;
 }
 
 

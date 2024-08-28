@@ -9,7 +9,7 @@ import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { ProfileRequestStatus } from '@typings/enums/request/profile-request-status'
+import { ProfileStatus } from '@typings/enums/request/profile-request-status'
 
 import { useStyles } from './parsing-access-cell.style'
 
@@ -18,10 +18,11 @@ import { IShopProfile } from '../../client-shops-view.types'
 interface ParsingAccessCellProps {
   profile: IShopProfile
   onAccess: () => void
+  onParsingProfileInvited: () => void
 }
 
 export const ParsingAccessCell: FC<ParsingAccessCellProps> = memo(props => {
-  const { profile, onAccess } = props
+  const { profile, onAccess, onParsingProfileInvited } = props
 
   const { classes: styles } = useStyles()
 
@@ -34,8 +35,8 @@ export const ParsingAccessCell: FC<ParsingAccessCellProps> = memo(props => {
     )
   }
 
-  const disabledFirstButton = profile?.requestStatus !== ProfileRequestStatus.WAITING_INVITE
-  const disabledSecondButton = profile?.requestStatus !== ProfileRequestStatus.REGISTERED
+  const disabledFirstButton = profile?.status !== ProfileStatus.WAITING_INVITE
+  const disabledSecondButton = profile?.status !== ProfileStatus.REGISTERED
 
   return (
     <ActionButtonsCell
@@ -49,6 +50,7 @@ export const ParsingAccessCell: FC<ParsingAccessCellProps> = memo(props => {
       firstButtonStyle={ButtonStyle.PRIMARY}
       secondButtonElement={t(TranslationKey.Confirm)}
       secondButtonStyle={ButtonStyle.PRIMARY}
+      onClickFirstButton={throttle(onParsingProfileInvited)}
       onClickSecondButton={throttle(onAccess)}
     />
   )

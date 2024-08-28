@@ -215,7 +215,6 @@
   "Add your product": "添加你的产品",
   "Product with invalid status selected": "指定无效的产品",
   "Strategy": "战略",
-  "Reserved": "预留",
   "Profit": "盈利",
   "Margin": "利差",
   "Comments": "评论",
@@ -2040,6 +2039,12 @@
   "Please input shop name!": "请输入店铺名称!",
   "invitation": "邀请",
   "Invitation sent": "邀请已发送",
+  "Profile status": "个人资料状态",
+  "Vacant": "空闲",
+  "Reserved": "已预订",
+  "Waiting invite": "等待邀请",
+  "Invited": "已邀请",
   "Registered": "已注册",
-  "Profile status": "个人资料状态"
+  "Ready to checking": "准备检查",
+  "In use": "正在使用"
 }

@@ -508,3 +508,9 @@ export const formatSnakeCaseString = str =>
     .toLowerCase()
     .replaceAll('_', ' ')
     .replace(/\b\w/g, c => c.toUpperCase())
+
+export const convertToSentenceCase = str =>
+  str
+    .toLowerCase()
+    .replaceAll('_', ' ')
+    .replace(/^\w/, c => c.toUpperCase())
