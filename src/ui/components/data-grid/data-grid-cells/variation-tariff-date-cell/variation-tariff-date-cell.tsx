@@ -2,9 +2,12 @@ import { FC, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { formatDateWithoutTime } from '@utils/date-time'
+import { t } from '@utils/translations'
 
 import { ITariffsWithCalculations } from '@typings/shared/variation-tariff'
 
@@ -28,7 +31,11 @@ export const VariationTariffDateCell: FC<VariationTariffDateCellProps> = memo(({
               <div>{icon}</div>
             </Tooltip>
 
-            <Tooltip arrow title={tooltipText} className={styles.tooltip}>
+            <Tooltip
+              arrow
+              title={t(TranslationKey[tooltipText as keyof typeof TranslationKey])}
+              className={styles.tooltip}
+            >
               <div>
                 <TooltipInfoIcon />
               </div>
