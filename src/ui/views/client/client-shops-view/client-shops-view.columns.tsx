@@ -53,7 +53,6 @@ export const shopsColumns = (props: IColumnProps) => {
       ),
       width: 320,
       columnKey: columnnsKeys.shared.STRING_VALUE,
-      hideEmptyObject: true,
     },
     {
       field: 'access',
