@@ -21,11 +21,11 @@
  */
 export interface InlineObject54 {
     /**
-     * массив GUIDов оплаченных товаров
+     * 
      * @type {Array<string>}
      * @memberof InlineObject54
      */
-    guids?: Array<string>;
+    productIds: Array<string>;
 }
 
 

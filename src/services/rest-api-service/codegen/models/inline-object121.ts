@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
 
 /**
  * 
@@ -22,155 +21,35 @@ import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags'
  */
 export interface InlineObject121 {
     /**
-     * ASIN продукта
+     * Guid заявки
      * @type {string}
      * @memberof InlineObject121
      */
-    asin: string;
+    requestId?: string;
     /**
-     * Ссылка на этот продукт на амазоне.
+     * Guid предложения
      * @type {string}
      * @memberof InlineObject121
      */
-    lamazon: string;
+    proposalId?: string;
     /**
-     * GUID поставщика
+     * комментарий клиента
      * @type {string}
      * @memberof InlineObject121
      */
-    currentSupplierId?: string;
+    commentByClient?: string;
     /**
-     * Категория
+     * комментарий исполнителя
      * @type {string}
      * @memberof InlineObject121
      */
-    category?: string;
+    commentByPerformer?: string;
     /**
-     * 
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    bsr?: number;
-    /**
-     * Признак fba
-     * @type {boolean}
-     * @memberof InlineObject121
-     */
-    fba?: boolean;
-    /**
-     *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    status?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    amazon?: number;
-    /**
-     * Массив поставщиков.
-     * @type {Array<string>}
-     * @memberof InlineObject121
-     */
-    suppliersIds?: Array<string>;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    fbafee?: number;
-    /**
-     * Комментарии к товару.
+     * Ссылка на файл
      * @type {string}
      * @memberof InlineObject121
      */
-    icomment?: string;
-    /**
-     * Массив изображений.
-     * @type {Array<string>}
-     * @memberof InlineObject121
-     */
-    images?: Array<string>;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    reffee?: number;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    strategyStatus?: number;
-    /**
-     * Ниша
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    niche?: string;
-    /**
-     * Асины
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    asins?: string;
-    /**
-     * Общий доход
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    totalRevenue?: string;
-    /**
-     * Коэффициент прибыли
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    coefficient?: string;
-    /**
-     * Средний доход
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    avgRevenue?: string;
-    /**
-     * Средний BSR
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    avgBSR?: string;
-    /**
-     * Средняя цена
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    avgPrice?: string;
-    /**
-     * Средний отзывы
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    avgReviews?: string;
-    /**
-     * Дополнительная инфа для дозакупок
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    fourMonthesStock?: number;
-    /**
-     * ID магазинa продукта
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    shopId?: string;
-    /**
-     * 
-     * @type {Array<ApiV1BuyersProductsGuidTags>}
-     * @memberof InlineObject121
-     */
-    tags?: Array<ApiV1BuyersProductsGuidTags>;
+    fileLink: string;
 }
 
 

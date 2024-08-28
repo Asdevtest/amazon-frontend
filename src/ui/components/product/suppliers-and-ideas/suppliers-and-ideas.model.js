@@ -242,15 +242,16 @@ export class SuppliersAndIdeasModel {
   onEditIdea(idea) {
     this.getIdea(idea?._id)
     this.inEdit = true
+    this.inCreate = false
   }
 
   onClickCancelBtn() {
     this.inCreate = false
     this.inEdit = false
 
-    if (this.isModalView) {
+    /* if (this.isModalView) {
       this.closeModalHandler()
-    }
+    } */
   }
 
   async onClickSaveBtn(formFields, files, isForceUpdate) {
@@ -294,6 +295,11 @@ export class SuppliersAndIdeasModel {
           this.inEdit = false
         })
       } */
+
+      runInAction(() => {
+        this.inCreate = false
+        this.inEdit = false
+      })
 
       this.loadData()
     } catch (error) {

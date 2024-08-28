@@ -61,6 +61,7 @@ export class SupervisorSettingsViewModel extends DataGridTableModel {
       this.onTriggerOpenModal('showAsinCheckerModal')
 
       this.onChangeСondition(this.condition)
+      this.setDataByCondition()
     } catch (error) {
       console.error(error)
     }
@@ -71,7 +72,8 @@ export class SupervisorSettingsViewModel extends DataGridTableModel {
       await OtherModel.editAsins(id, data)
 
       this.onTriggerOpenModal('showEditAsinCheckerModal')
-      this.getCurrentData()
+      await this.getCurrentData()
+      this.setDataByCondition()
     } catch (error) {
       console.error(error)
     }
@@ -86,7 +88,8 @@ export class SupervisorSettingsViewModel extends DataGridTableModel {
     try {
       await OtherModel.removeAsin(id)
 
-      this.getCurrentData()
+      await this.getCurrentData()
+      this.setDataByCondition()
     } catch (error) {
       console.error(error)
     }
@@ -96,7 +99,8 @@ export class SupervisorSettingsViewModel extends DataGridTableModel {
     try {
       await OtherModel.removeAsins(this.selectedRows)
 
-      this.getCurrentData()
+      await this.getCurrentData()
+      this.setDataByCondition()
     } catch (error) {
       console.error(error)
     }

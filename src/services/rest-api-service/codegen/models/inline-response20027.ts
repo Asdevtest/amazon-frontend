@@ -13,12 +13,6 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
-import { ApiV1AdminsOrdersLogicsTariff } from './api-v1-admins-orders-logics-tariff';
-import { ApiV1AdminsTasksLightVariationTariff } from './api-v1-admins-tasks-light-variation-tariff';
-import { ApiV1BatchesBatch } from './api-v1-batches-batch';
-import { ApiV1BoxesStorekeepersSentToBatchItems } from './api-v1-boxes-storekeepers-sent-to-batch-items';
 
 /**
  * 
@@ -27,214 +21,35 @@ import { ApiV1BoxesStorekeepersSentToBatchItems } from './api-v1-boxes-storekeep
  */
 export interface InlineResponse20027 {
     /**
-     * GUID коробки.
+     * GUID продукта в базе данных
      * @type {string}
      * @memberof InlineResponse20027
      */
     _id?: string;
     /**
-     * Номер коробки.
-     * @type {number}
-     * @memberof InlineResponse20027
-     */
-    humanFriendlyId?: number;
-    /**
-     * Количества в коробке.
-     * @type {number}
-     * @memberof InlineResponse20027
-     */
-    amount?: number;
-    /**
-     * Статус коробки
+     * ASIN продукта
      * @type {string}
      * @memberof InlineResponse20027
      */
-    status?: InlineResponse20027StatusEnum;
+    asin?: string;
     /**
-     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
-     * @type {boolean}
-     * @memberof InlineResponse20027
-     */
-    isActual?: boolean;
-    /**
-     * Если true - значит коробку черновик.
-     * @type {boolean}
-     * @memberof InlineResponse20027
-     */
-    isDraft?: boolean;
-    /**
-     * Сформирована ли коробка
-     * @type {boolean}
-     * @memberof InlineResponse20027
-     */
-    isFormed?: boolean;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20027
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20027
-     */
-    widthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20027
-     */
-    heightCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20027
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Итого за доставку.
-     * @type {number}
-     * @memberof InlineResponse20027
-     */
-    deliveryTotalPrice?: number;
-    /**
-     * Обновление итога за доставку.
-     * @type {number}
-     * @memberof InlineResponse20027
-     */
-    deliveryTotalPriceChanged?: number;
-    /**
-     * id склада - склады куда отправляют 
+     * SKU введенным клиентом.
      * @type {string}
      * @memberof InlineResponse20027
      */
-    destinationId?: string;
+    skuByClient?: string;
     /**
-     * GUID тарифа доставки 
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20027
+     */
+    images?: Array<string>;
+    /**
+     * Заголовок на товар с сайта амазон.
      * @type {string}
      * @memberof InlineResponse20027
      */
-    logicsTariffId?: string;
-    /**
-     * Сторкипер взявший коробку в работу.
-     * @type {string}
-     * @memberof InlineResponse20027
-     */
-    batchId?: string;
-    /**
-     * Сторкипер взявший коробку в работу.
-     * @type {string}
-     * @memberof InlineResponse20027
-     */
-    storekeeperId?: string;
-    /**
-     * Клиент владелец товара в коробке в работу.
-     * @type {string}
-     * @memberof InlineResponse20027
-     */
-    clientId?: string;
-    /**
-     * Клиент создавший заказ и коробку.
-     * @type {string}
-     * @memberof InlineResponse20027
-     */
-    createdById?: string;
-    /**
-     * GUID любого, кто последний редактировал коробку.
-     * @type {string}
-     * @memberof InlineResponse20027
-     */
-    lastModifiedById?: string;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineResponse20027
-     */
-    prepId?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsTasksLightVariationTariff}
-     * @memberof InlineResponse20027
-     */
-    variationTariff?: ApiV1AdminsTasksLightVariationTariff;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20027
-     */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20027
-     */
-    updatedAt?: string;
-    /**
-     * Массив коробок.
-     * @type {Array<ApiV1BoxesStorekeepersSentToBatchItems>}
-     * @memberof InlineResponse20027
-     */
-    items?: Array<ApiV1BoxesStorekeepersSentToBatchItems>;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20027
-     */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20027
-     */
-    client?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20027
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20027
-     */
-    lastModifiedBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsOrdersDestination}
-     * @memberof InlineResponse20027
-     */
-    destination?: ApiV1AdminsOrdersDestination;
-    /**
-     * 
-     * @type {ApiV1AdminsOrdersLogicsTariff}
-     * @memberof InlineResponse20027
-     */
-    logicsTariff?: ApiV1AdminsOrdersLogicsTariff;
-    /**
-     * 
-     * @type {ApiV1BatchesBatch}
-     * @memberof InlineResponse20027
-     */
-    batch?: ApiV1BatchesBatch;
+    amazonTitle?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20027StatusEnum {
-    New = 'NEW',
-    InStock = 'IN_STOCK',
-    RequestedSendToBatch = 'REQUESTED_SEND_TO_BATCH',
-    NeedConfirmingToDeliveryPriceChange = 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE',
-    InBatch = 'IN_BATCH',
-    NeedToUpdateTheTariff = 'NEED_TO_UPDATE_THE_TARIFF',
-    InBatchOnTheWay = 'IN_BATCH_ON_THE_WAY',
-    FinishPrepCentrUsa = 'FINISH_PREP_CENTR_USA',
-    AcceptedInProcessing = 'ACCEPTED_IN_PROCESSING'
-}
-
 
 

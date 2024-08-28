@@ -13,9 +13,6 @@
  */
 
 
-import { InlineResponse20055Batches } from './inline-response20055-batches';
-import { InlineResponse20055Boxes } from './inline-response20055-boxes';
-import { InlineResponse20055Tasks } from './inline-response20055-tasks';
 
 /**
  * 
@@ -24,23 +21,23 @@ import { InlineResponse20055Tasks } from './inline-response20055-tasks';
  */
 export interface InlineResponse20055 {
     /**
-     * 
-     * @type {InlineResponse20055Tasks}
+     * Гуид тега
+     * @type {string}
      * @memberof InlineResponse20055
      */
-    tasks?: InlineResponse20055Tasks;
+    _id?: string;
     /**
-     * 
-     * @type {InlineResponse20055Boxes}
+     * Тег
+     * @type {string}
      * @memberof InlineResponse20055
      */
-    boxes?: InlineResponse20055Boxes;
+    title?: string;
     /**
-     * 
-     * @type {InlineResponse20055Batches}
+     * Кол-во продуктов, которые используют этот тег
+     * @type {number}
      * @memberof InlineResponse20055
      */
-    batches?: InlineResponse20055Batches;
+    productCount?: number;
 }
 
 
