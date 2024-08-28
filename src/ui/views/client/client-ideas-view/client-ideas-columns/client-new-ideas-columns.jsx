@@ -8,7 +8,7 @@ import {
   ManyUserLinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  ProductAsinCell,
+  ProductCell,
   SmallRowImageCell,
   TextCell,
   UserLinkCell,
@@ -48,11 +48,11 @@ export const clientNewIdeasColumns = rowHandlers => {
         const product = params.row.parentProduct
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
@@ -61,8 +61,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {

@@ -1,11 +1,12 @@
 import { format } from 'date-fns'
-import { makeAutoObservable } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
 import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
+import { ShopModel } from '@models/shop-model'
 
 import { t } from '@utils/translations'
 
@@ -14,7 +15,7 @@ import { IShop } from '@typings/models/shops/shop'
 import { createBoxesOptions, createOrdersOptions, getShopsOptions, getTableOptions } from './helpers/get-export-options'
 
 export class ShopsCascaderModel {
-  shops: IShop[]
+  shops: IShop[] = []
   open = false
   inputValue = ''
   selectedTableOptions: string[][] = []
@@ -31,9 +32,21 @@ export class ShopsCascaderModel {
     return !this.selectedTableOptions?.some(option => option?.[0]) || !this.selectedShopsOptions?.length
   }
 
-  constructor(data: IShop[]) {
-    this.shops = data
+  constructor() {
+    this.getShops()
     makeAutoObservable(this, undefined, { autoBind: true })
+  }
+
+  async getShops() {
+    try {
+      const response = (await ShopModel.getMyShopNames()) as unknown as IShop[]
+
+      runInAction(() => {
+        this.shops = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   async getShopsExport() {
@@ -151,7 +164,6 @@ export class ShopsCascaderModel {
 
     if (!value) {
       this.clearSelection()
-      this.inputValue = ''
     }
   }
 
@@ -162,5 +174,6 @@ export class ShopsCascaderModel {
   clearSelection() {
     this.selectedShopsOptions = []
     this.selectedTableOptions = []
+    this.inputValue = ''
   }
 }

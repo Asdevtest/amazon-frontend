@@ -21,53 +21,41 @@
  */
 export interface InlineObject49 {
     /**
-     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @type {number}
+     * GUID storekeeper-a
+     * @type {string}
      * @memberof InlineObject49
      */
-    taskId: number;
+    storekeeperId: string;
+    /**
+     * GUID баера
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    buyerId?: string;
+    /**
+     * Защита листинга
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    transparencyFile?: string;
     /**
      * 
-     * @type {Array<string>}
-     * @memberof InlineObject49
-     */
-    boxesBefore?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject49
-     */
-    boxes: Array<string>;
-    /**
-     * Тип операции
      * @type {string}
      * @memberof InlineObject49
      */
-    operationType: InlineObject49OperationTypeEnum;
+    item?: string;
     /**
-     * Комментарий клиента.
+     * GUID тарифа доставки
      * @type {string}
      * @memberof InlineObject49
      */
-    clientComment?: string;
+    logicsTariffId: string;
     /**
-     * Комментарий баера.
+     * Гуид вариации
      * @type {string}
      * @memberof InlineObject49
      */
-    buyerComment?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject49
-     */
-    images?: Array<string>;
-    /**
-     * Комментарий работника склада.
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    storekeeperComment?: string;
+    variationTariffId?: string;
     /**
      * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
      * @type {string}
@@ -75,23 +63,67 @@ export interface InlineObject49 {
      */
     priority?: InlineObject49PriorityEnum;
     /**
-     * Причина приоритета
+     * GUID пункта назначения.
      * @type {string}
      * @memberof InlineObject49
      */
-    reason?: string;
+    destinationId?: string;
+    /**
+     * Кол-во продукта по этой позиции.
+     * @type {number}
+     * @memberof InlineObject49
+     */
+    amount: number;
+    /**
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineObject49
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Комментарии клиента.
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    clientComment?: string;
+    /**
+     * GUID заказанного продукта
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    productId: string;
+    /**
+     * Массив изображений.
+     * @type {Array<string>}
+     * @memberof InlineObject49
+     */
+    images?: Array<string>;
+    /**
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * @type {boolean}
+     * @memberof InlineObject49
+     */
+    expressChinaDelivery?: boolean;
+    /**
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineObject49
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    deadline?: string;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * @type {number}
+     * @memberof InlineObject49
+     */
+    totalPrice?: number;
 }
 
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject49OperationTypeEnum {
-    Merge = 'merge',
-    Split = 'split',
-    Receive = 'receive',
-    Edit = 'edit'
-}
 /**
     * @export
     * @enum {string}

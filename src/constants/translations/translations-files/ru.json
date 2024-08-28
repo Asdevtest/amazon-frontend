@@ -215,7 +215,6 @@
   "Add your product": "Добавить свой товар",
   "Product with invalid status selected": "Выбран продукт с неподходящим статусом",
   "Strategy": "Стратегия",
-  "Reserved": "Резерв",
   "Profit": "Прибыль",
   "Margin": "Маржа",
   "Comments": "Комментарии",
@@ -2037,6 +2036,12 @@
   "Please input shop name!": "Пожалуйста, введите название магазина!",
   "invitation": "приглашение",
   "Invitation sent": "Приглашение выслано",
+  "Profile status": "Статус профиля",
+  "Vacant": "Свободный",
+  "Reserved": "Зарезервирован",
+  "Waiting invite": "Ожидает приглашения",
+  "Invited": "Приглашение получено",
   "Registered": "Зарегистрирован",
-  "Profile status": "Статус профиля"
+  "Ready to checking": "Готов к проверке",
+  "In use": "Используется"
 }

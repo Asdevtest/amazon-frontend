@@ -5,7 +5,7 @@ import {
   ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  ProductAsinCell,
+  ProductCell,
   TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -52,17 +52,16 @@ export const ideasNotificationsViewColumns = handlers => [
       const product = params?.row?.originalData?.product
 
       return (
-        <ProductAsinCell
+        <ProductCell
           image={product?.images?.[0]}
-          amazonTitle={product?.amazonTitle}
+          title={product?.amazonTitle}
           asin={product?.asin}
-          skuByClient={product?.skuByClient}
+          sku={product?.skuByClient}
         />
       )
     },
 
-    width: 260,
-    minWidth: 100,
+    width: 170,
   },
 
   {

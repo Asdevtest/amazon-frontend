@@ -13,6 +13,8 @@
  */
 
 
+import { InlineResponse20050Finances } from './inline-response20050-finances';
+import { InlineResponse20052Products } from './inline-response20052-products';
 
 /**
  * 
@@ -21,29 +23,17 @@
  */
 export interface InlineResponse20052 {
     /**
-     * Гуид сообщения
-     * @type {string}
+     * 
+     * @type {InlineResponse20052Products}
      * @memberof InlineResponse20052
      */
-    _id?: string;
-    /**
-     * Гуид чата
-     * @type {string}
-     * @memberof InlineResponse20052
-     */
-    chatId?: string;
-    /**
-     * Смещение для пагинации
-     * @type {number}
-     * @memberof InlineResponse20052
-     */
-    offset?: number;
+    products?: InlineResponse20052Products;
     /**
      * 
-     * @type {Array<string>}
+     * @type {InlineResponse20050Finances}
      * @memberof InlineResponse20052
      */
-    allMedia?: Array<string>;
+    finances?: InlineResponse20050Finances;
 }
 
 

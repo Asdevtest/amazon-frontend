@@ -12,16 +12,15 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './order-many-items-cell.style'
 
-import { ProductAsinCell } from '../product-asin-cell/product-asin-cell'
+import { ProductCell } from '../product-asin-cell/product-asin-cell'
 
 interface OrderManyItemsCellProps {
   box: any
   error?: string
-  withoutSku?: boolean
 }
 
 export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
-  const { box, error, withoutSku } = props
+  const { box, error } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -41,12 +40,11 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
 
         return (
           <Fragment key={itemIndex}>
-            <ProductAsinCell
-              withoutSku={withoutSku}
+            <ProductCell
               image={item.product.images?.[0]}
-              amazonTitle={item.product.amazonTitle}
+              title={item.product.amazonTitle}
               asin={item.product.asin}
-              skuByClient={item.product.skuByClient}
+              sku={item.product.skuByClient}
             />
 
             {isExtraPayment ? (

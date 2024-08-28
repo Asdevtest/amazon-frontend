@@ -3,7 +3,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextHeaderCell,
   NormDateCell,
-  ProductAsinCell,
+  ProductCell,
   TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -40,16 +40,15 @@ export const exchangeNewColumns = () => [
       const product = params.row.originalData
 
       return (
-        <ProductAsinCell
+        <ProductCell
           image={product?.images?.[0]}
-          amazonTitle={product?.amazonTitle}
+          title={product?.amazonTitle}
           asin={product?.asin}
-          skuByClient={product?.skuByClient}
+          sku={product?.skuByClient}
         />
       )
     },
-    width: 260,
-    minWidth: 100,
+    width: 170,
   },
   {
     field: 'strategyStatus',

@@ -13,9 +13,9 @@
  */
 
 
-import { InlineResponse20051AllFiles } from './inline-response20051-all-files';
-import { InlineResponse20051AllImages } from './inline-response20051-all-images';
-import { InlineResponse20051AllVideo } from './inline-response20051-all-video';
+import { InlineResponse20051Batches } from './inline-response20051-batches';
+import { InlineResponse20051Boxes } from './inline-response20051-boxes';
+import { InlineResponse20051Tasks } from './inline-response20051-tasks';
 
 /**
  * 
@@ -25,22 +25,22 @@ import { InlineResponse20051AllVideo } from './inline-response20051-all-video';
 export interface InlineResponse20051 {
     /**
      * 
-     * @type {Array<InlineResponse20051AllImages>}
+     * @type {InlineResponse20051Tasks}
      * @memberof InlineResponse20051
      */
-    allImages?: Array<InlineResponse20051AllImages>;
+    tasks?: InlineResponse20051Tasks;
     /**
      * 
-     * @type {Array<InlineResponse20051AllFiles>}
+     * @type {InlineResponse20051Boxes}
      * @memberof InlineResponse20051
      */
-    allFiles?: Array<InlineResponse20051AllFiles>;
+    boxes?: InlineResponse20051Boxes;
     /**
      * 
-     * @type {Array<InlineResponse20051AllVideo>}
+     * @type {InlineResponse20051Batches}
      * @memberof InlineResponse20051
      */
-    allVideo?: Array<InlineResponse20051AllVideo>;
+    batches?: InlineResponse20051Batches;
 }
 
 

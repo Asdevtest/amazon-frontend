@@ -21,11 +21,11 @@
  */
 export interface InlineObject52 {
     /**
-     * Массив ссылок для seo-файлов
-     * @type {Array<string>}
+     * 
+     * @type {string}
      * @memberof InlineObject52
      */
-    latestSeoFiles?: Array<string>;
+    clientComment?: string;
 }
 
 

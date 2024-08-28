@@ -13,26 +13,19 @@
  */
 
 
-import { InlineResponse2006 } from './inline-response2006';
 
 /**
- * Результат запроса с пагинацией
+ * цену для клиента на поиск поставщика
  * @export
  * @interface InlineResponse20045
  */
 export interface InlineResponse20045 {
     /**
-     * Всего кол-во записей в результате запроса
+     * 
      * @type {number}
      * @memberof InlineResponse20045
      */
-    count?: number;
-    /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse2006>}
-     * @memberof InlineResponse20045
-     */
-    rows?: Array<InlineResponse2006>;
+    priceForClient?: number;
 }
 
 

@@ -10,7 +10,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   PriorityAndChinaDeliverCell,
-  ProductAsinCell,
+  ProductCell,
   TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -86,7 +86,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           firstButtonTooltipText={t(TranslationKey['To assign the order to Byer'])}
           firstButtonElement={t(TranslationKey['Get to work'])}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={() => throttle(() => handlers.onClickTableRowBtn(params.row as IOrder))}
+          onClickFirstButton={throttle(() => handlers.onClickTableRowBtn(params.row as IOrder))}
         />
       ),
 
@@ -104,11 +104,11 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
         const product = params.row.product
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
@@ -118,8 +118,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {

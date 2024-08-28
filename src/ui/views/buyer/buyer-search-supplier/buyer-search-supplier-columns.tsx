@@ -33,7 +33,7 @@ export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
             firstButtonTooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
             firstButtonElement={t(TranslationKey['Get to work'])}
             firstButtonStyle={ButtonStyle.PRIMARY}
-            onClickFirstButton={() => throttle(() => handlers.onPickUp(params.row as IProduct))}
+            onClickFirstButton={throttle(() => handlers.onPickUp(params.row as IProduct))}
           />
         )
       },

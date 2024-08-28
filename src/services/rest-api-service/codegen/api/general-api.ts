@@ -25,13 +25,13 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject71 } from '../models';
+import { InlineObject63 } from '../models';
 // @ts-ignore
-import { InlineResponse20059 } from '../models';
+import { InlineResponse20055 } from '../models';
 // @ts-ignore
-import { InlineResponse20060 } from '../models';
+import { InlineResponse20056 } from '../models';
 // @ts-ignore
-import { InlineResponse2018 } from '../models';
+import { InlineResponse2017 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 /**
@@ -43,7 +43,7 @@ export const GeneralApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * # Получить данные по определенной таблице по определенной колонке## Фильтрация для сабов присутствует
          * @summary Получить данные по определенной таблице по определенной колонке
-         * @param {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'} table Таблица
+         * @param {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'} table Таблица
          * @param {string} column Колонка
          * @param {string} endpoint 
          * @param {boolean} [noCache] Игнорировать данные в кеше
@@ -51,7 +51,7 @@ export const GeneralApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralDataFiltersGet: async (table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY', column: string, endpoint: string, noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1GeneralDataFiltersGet: async (table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY', column: string, endpoint: string, noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'table' is not null or undefined
             assertParamExists('apiV1GeneralDataFiltersGet', 'table', table)
             // verify required parameter 'column' is not null or undefined
@@ -213,12 +213,12 @@ export const GeneralApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * # Создать тег
          * @summary Создать тег
-         * @param {InlineObject71} [body] 
+         * @param {InlineObject63} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralTagsPost: async (body?: InlineObject71, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1GeneralTagsPost: async (body?: InlineObject63, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/general/tags`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -265,7 +265,7 @@ export const GeneralApiFp = function(configuration?: Configuration) {
         /**
          * # Получить данные по определенной таблице по определенной колонке## Фильтрация для сабов присутствует
          * @summary Получить данные по определенной таблице по определенной колонке
-         * @param {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'} table Таблица
+         * @param {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'} table Таблица
          * @param {string} column Колонка
          * @param {string} endpoint 
          * @param {boolean} [noCache] Игнорировать данные в кеше
@@ -273,7 +273,7 @@ export const GeneralApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GeneralDataFiltersGet(table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY', column: string, endpoint: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+        async apiV1GeneralDataFiltersGet(table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY', column: string, endpoint: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GeneralDataFiltersGet(table, column, endpoint, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -284,7 +284,7 @@ export const GeneralApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GeneralTagsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20059>>> {
+        async apiV1GeneralTagsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20055>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GeneralTagsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -301,19 +301,19 @@ export const GeneralApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GeneralTagsPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20060>> {
+        async apiV1GeneralTagsPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20056>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GeneralTagsPagGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * # Создать тег
          * @summary Создать тег
-         * @param {InlineObject71} [body] 
+         * @param {InlineObject63} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GeneralTagsPost(body?: InlineObject71, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2018>> {
+        async apiV1GeneralTagsPost(body?: InlineObject63, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GeneralTagsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -330,7 +330,7 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
         /**
          * # Получить данные по определенной таблице по определенной колонке## Фильтрация для сабов присутствует
          * @summary Получить данные по определенной таблице по определенной колонке
-         * @param {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'} table Таблица
+         * @param {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'} table Таблица
          * @param {string} column Колонка
          * @param {string} endpoint 
          * @param {boolean} [noCache] Игнорировать данные в кеше
@@ -338,7 +338,7 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralDataFiltersGet(table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY', column: string, endpoint: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<object>> {
+        apiV1GeneralDataFiltersGet(table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY', column: string, endpoint: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<object>> {
             return localVarFp.apiV1GeneralDataFiltersGet(table, column, endpoint, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -348,7 +348,7 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralTagsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20059>> {
+        apiV1GeneralTagsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20055>> {
             return localVarFp.apiV1GeneralTagsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -364,18 +364,18 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralTagsPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20060> {
+        apiV1GeneralTagsPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20056> {
             return localVarFp.apiV1GeneralTagsPagGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * # Создать тег
          * @summary Создать тег
-         * @param {InlineObject71} [body] 
+         * @param {InlineObject63} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralTagsPost(body?: InlineObject71, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2018> {
+        apiV1GeneralTagsPost(body?: InlineObject63, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
             return localVarFp.apiV1GeneralTagsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -389,10 +389,10 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
 export interface GeneralApiApiV1GeneralDataFiltersGetRequest {
     /**
      * Таблица
-     * @type {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'}
+     * @type {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'}
      * @memberof GeneralApiApiV1GeneralDataFiltersGet
      */
-    readonly table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'
+    readonly table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFOMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'
 
     /**
      * Колонка
@@ -501,10 +501,10 @@ export interface GeneralApiApiV1GeneralTagsPagGetRequest {
 export interface GeneralApiApiV1GeneralTagsPostRequest {
     /**
      * 
-     * @type {InlineObject71}
+     * @type {InlineObject63}
      * @memberof GeneralApiApiV1GeneralTagsPost
      */
-    readonly body?: InlineObject71
+    readonly body?: InlineObject63
 
     /**
      * 

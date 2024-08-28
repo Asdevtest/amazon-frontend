@@ -21,41 +21,17 @@
  */
 export interface InlineResponse20018 {
     /**
-     * The unique identifier of the box.
-     * @type {string}
-     * @memberof InlineResponse20018
-     */
-    guid?: string;
-    /**
-     * Объем в м ^ 3
+     * Кол-во продукта в айтеме в коробке
      * @type {number}
      * @memberof InlineResponse20018
      */
-    cubicMeters?: number;
+    amount?: number;
     /**
-     * The delivery cost of the box.
+     * Номер заказа
      * @type {number}
      * @memberof InlineResponse20018
      */
-    deliveryCost?: number;
-    /**
-     * The volume weight of the box in kg.
-     * @type {number}
-     * @memberof InlineResponse20018
-     */
-    volumeWeightKgWarehouse?: number;
-    /**
-     * The weight of the box in kg.
-     * @type {number}
-     * @memberof InlineResponse20018
-     */
-    weightFinalAccountingKgWarehouse?: number;
-    /**
-     * The delivery rate of the box. $/kg
-     * @type {number}
-     * @memberof InlineResponse20018
-     */
-    deliveryRate?: number;
+    id?: number;
 }
 
 

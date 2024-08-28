@@ -16,7 +16,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   PriorityAndChinaDeliverCell,
-  ProductAsinCell,
+  ProductCell,
   TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -95,11 +95,11 @@ export const myRequestsViewColumns = rowHandlers => {
         const product = params.row.product
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
@@ -108,8 +108,7 @@ export const myRequestsViewColumns = rowHandlers => {
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
