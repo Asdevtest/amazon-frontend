@@ -5,7 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -18,27 +17,22 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
     <div className={styles.orderContainer}>
       <div className={styles.photosWrapper}>
         <div className={styles.photoWrapper}>
-          <Text
-            tooltipInfoContent={t(TranslationKey['Photos added by the buyer from the supplier when placing the order'])}
+          <p
+            title={t(TranslationKey['Photos added by the buyer from the supplier when placing the order'])}
             className={styles.subTitle}
-            containerClasses={styles.subTitleWrapper}
           >
             {t(TranslationKey['Order photos']) + ':'}
-          </Text>
+          </p>
 
           <SlideshowGallery hiddenPreviews slidesToShow={1} files={order?.images} />
         </div>
         <div className={styles.photoWrapper}>
-          <Text containerClasses={styles.subTitleWrapper} className={styles.subTitle}>
-            {t(TranslationKey['Photos of current supplier']) + ':'}
-          </Text>
+          <p className={styles.subTitle}>{t(TranslationKey['Photos of current supplier']) + ':'}</p>
 
           <SlideshowGallery hiddenPreviews slidesToShow={1} files={order.orderSupplier?.images} />
         </div>
         <div className={styles.photoWrapper}>
-          <Text containerClasses={styles.subTitleWrapper} className={styles.subTitle}>
-            {t(TranslationKey['Supplier payment']) + ':'}
-          </Text>
+          <p className={styles.subTitle}>{t(TranslationKey['Supplier payment']) + ':'}</p>
 
           <SlideshowGallery hiddenPreviews slidesToShow={1} files={order?.paymentDetails} />
         </div>

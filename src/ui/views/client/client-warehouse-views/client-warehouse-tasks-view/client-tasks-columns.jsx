@@ -11,9 +11,9 @@ import {
   TaskPriorityCell,
   TaskStatusCell,
   TaskTypeCell,
-  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -59,7 +59,8 @@ export const clientTasksViewColumns = handlers => {
       width: 280,
 
       renderCell: params => (
-        <TextCell
+        <Text
+          isCell
           editMode
           text={params.row.reason}
           onClickSubmit={reason => handlers.updateTaskComment(params.row._id, params.row.priority, reason)}

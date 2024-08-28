@@ -2,8 +2,9 @@ import { MdOutlineDelete } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ActionButtonsCell, MultilineTextHeaderCell, TextCell } from '@components/data-grid/data-grid-cells'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
+import { ActionButtonsCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { EditIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -15,7 +16,7 @@ export const supervisorSettingsViewColumns = props => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 200,
     },
 
@@ -23,7 +24,7 @@ export const supervisorSettingsViewColumns = props => {
       field: 'reason',
       headerName: t(TranslationKey.Reason),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reason)} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       flex: 1,
     },
     {

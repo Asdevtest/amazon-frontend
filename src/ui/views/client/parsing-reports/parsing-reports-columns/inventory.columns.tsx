@@ -1,13 +1,8 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextHeaderCell,
-  NormDateCell,
-  ProductCell,
-  TextCell,
-  UserLinkCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -45,7 +40,7 @@ export const inventoryColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params.row?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
@@ -84,7 +79,7 @@ export const inventoryColumns = () => {
       headerName: 'Price',
       renderHeader: () => <MultilineTextHeaderCell text="Price" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -94,7 +89,7 @@ export const inventoryColumns = () => {
       headerName: 'All fees',
       renderHeader: () => <MultilineTextHeaderCell text="All fees" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -104,7 +99,7 @@ export const inventoryColumns = () => {
       headerName: 'Fba fees',
       renderHeader: () => <MultilineTextHeaderCell text="Fba fees" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -114,7 +109,7 @@ export const inventoryColumns = () => {
       headerName: 'Ref fees',
       renderHeader: () => <MultilineTextHeaderCell text="Ref fees" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -124,7 +119,7 @@ export const inventoryColumns = () => {
       headerName: 'Unit volume',
       renderHeader: () => <MultilineTextHeaderCell text="Unit volume" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -134,7 +129,7 @@ export const inventoryColumns = () => {
       headerName: 'Available',
       renderHeader: () => <MultilineTextHeaderCell text="Available" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -144,7 +139,7 @@ export const inventoryColumns = () => {
       headerName: 'Inbound',
       renderHeader: () => <MultilineTextHeaderCell text="Inbound" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -154,7 +149,7 @@ export const inventoryColumns = () => {
       headerName: 'Reserved',
       renderHeader: () => <MultilineTextHeaderCell text="Reserved" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -164,7 +159,7 @@ export const inventoryColumns = () => {
       headerName: 'FnSku',
       renderHeader: () => <MultilineTextHeaderCell text="FnSku" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -174,7 +169,7 @@ export const inventoryColumns = () => {
       headerName: 'Historical days of supply',
       renderHeader: () => <MultilineTextHeaderCell text="Historical days of supply" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -184,7 +179,7 @@ export const inventoryColumns = () => {
       headerName: 'Estimated storage cost',
       renderHeader: () => <MultilineTextHeaderCell text="Estimated storage cost" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -194,7 +189,7 @@ export const inventoryColumns = () => {
       headerName: 'Estimated aged inventory surcharge',
       renderHeader: () => <MultilineTextHeaderCell text="Estimated aged inventory surcharge" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -204,7 +199,7 @@ export const inventoryColumns = () => {
       headerName: 'Low inventory level fee',
       renderHeader: () => <MultilineTextHeaderCell text="Low inventory level fee" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -214,7 +209,7 @@ export const inventoryColumns = () => {
       headerName: 'Inventory age 0 to 90 days',
       renderHeader: () => <MultilineTextHeaderCell text="Inventory age 0 to 90 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -224,7 +219,7 @@ export const inventoryColumns = () => {
       headerName: 'Inventory age 91 to 180 days',
       renderHeader: () => <MultilineTextHeaderCell text="Inventory age 91 to 180 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -234,7 +229,7 @@ export const inventoryColumns = () => {
       headerName: 'Inventory age 181 to 270 days',
       renderHeader: () => <MultilineTextHeaderCell text="Inventory age 181 to 270 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -244,7 +239,7 @@ export const inventoryColumns = () => {
       headerName: 'Inventory age 271 to 365 days',
       renderHeader: () => <MultilineTextHeaderCell text="Inventory age 271 to 365 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -254,7 +249,7 @@ export const inventoryColumns = () => {
       headerName: 'Inventory age 365 plus days',
       renderHeader: () => <MultilineTextHeaderCell text="Inventory age 365 plus days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -264,7 +259,7 @@ export const inventoryColumns = () => {
       headerName: 'Storage volume',
       renderHeader: () => <MultilineTextHeaderCell text="Storage volume" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -274,7 +269,7 @@ export const inventoryColumns = () => {
       headerName: 'Category',
       renderHeader: () => <MultilineTextHeaderCell text="Category" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -284,7 +279,7 @@ export const inventoryColumns = () => {
       headerName: 'Category rank',
       renderHeader: () => <MultilineTextHeaderCell text="Category rank" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -294,7 +289,7 @@ export const inventoryColumns = () => {
       headerName: 'Subcategory',
       renderHeader: () => <MultilineTextHeaderCell text="Subcategory" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -304,7 +299,7 @@ export const inventoryColumns = () => {
       headerName: 'Subcategory rank',
       renderHeader: () => <MultilineTextHeaderCell text="Subcategory rank" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -314,7 +309,7 @@ export const inventoryColumns = () => {
       headerName: 'Rating',
       renderHeader: () => <MultilineTextHeaderCell text="Rating" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -324,7 +319,7 @@ export const inventoryColumns = () => {
       headerName: 'Reviews',
       renderHeader: () => <MultilineTextHeaderCell text="Reviews" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -334,7 +329,7 @@ export const inventoryColumns = () => {
       headerName: 'Is changed',
       renderHeader: () => <MultilineTextHeaderCell text="Is changed" />,
 
-      renderCell: params => <TextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+      renderCell: params => <Text isCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
       filterable: false,
       width: 115,
       // columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -345,7 +340,7 @@ export const inventoryColumns = () => {
       headerName: 'Brand',
       renderHeader: () => <MultilineTextHeaderCell text="Brand" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -355,7 +350,7 @@ export const inventoryColumns = () => {
       headerName: 'Title changed',
       renderHeader: () => <MultilineTextHeaderCell text="Title changed" />,
 
-      renderCell: params => <TextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+      renderCell: params => <Text isCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
       filterable: false,
       width: 115,
       // columnKey: columnnsKeys.shared.STRING_VALUE,

@@ -3,13 +3,8 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { getEntityTypeTranslations, getPaymentTypeTranslations } from '@constants/finances/get-type-translations'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextHeaderCell,
-  NormDateCell,
-  ProductCell,
-  TextCell,
-  UserLinkCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -68,7 +63,8 @@ export const financesViewColumns = (userBalance?: boolean) => {
         const Icon = getPaymentTypeIcon(value)
 
         return (
-          <TextCell
+          <Text
+            isCell
             icon={Icon ? <Icon color={color} /> : null}
             text={getPaymentTypeTranslations(value)}
             color={color}
@@ -88,7 +84,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
 
       width: 110,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
 
       columnKey: userBalance ? undefined : columnnsKeys.shared.NUMBER,
     },
@@ -126,7 +122,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
       headerName: t(TranslationKey.Category),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       transformValueMethod: getEntityTypeTranslations,
 
       valueGetter: params => getEntityTypeTranslations(params.value),
@@ -142,7 +138,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
       flex: 1,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
 
       columnKey: userBalance ? undefined : columnnsKeys.shared.STRING_VALUE,
     },

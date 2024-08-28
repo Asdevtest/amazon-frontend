@@ -4,7 +4,6 @@ import { FC, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -29,7 +28,7 @@ export const RealizedIdeaActionsCell: FC<RealizedIdeaActionsCellProps> = memo(({
         {t(TranslationKey['To order'])}
       </Button>
     ) : (
-      <Text>{t(TranslationKey.Ordered)}</Text>
+      <p>{t(TranslationKey.Ordered)}</p>
     )}
   </>
 ))

@@ -1,7 +1,8 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, TextCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -17,7 +18,7 @@ export const inventoryShipmentsColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params.row?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
@@ -60,7 +61,7 @@ export const inventoryShipmentsColumns = () => {
       headerName: 'Sku',
       renderHeader: () => <MultilineTextHeaderCell text="Sku" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -70,7 +71,7 @@ export const inventoryShipmentsColumns = () => {
       headerName: 'Shipment id',
       renderHeader: () => <MultilineTextHeaderCell text="Shipment id" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -80,7 +81,7 @@ export const inventoryShipmentsColumns = () => {
       headerName: 'Reference id',
       renderHeader: () => <MultilineTextHeaderCell text="Reference id" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -110,7 +111,7 @@ export const inventoryShipmentsColumns = () => {
       headerName: 'Ship to',
       renderHeader: () => <MultilineTextHeaderCell text="Ship to" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -120,7 +121,7 @@ export const inventoryShipmentsColumns = () => {
       headerName: 'Units expected',
       renderHeader: () => <MultilineTextHeaderCell text="Units expected" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -130,7 +131,7 @@ export const inventoryShipmentsColumns = () => {
       headerName: 'Units received',
       renderHeader: () => <MultilineTextHeaderCell text="Units received" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -160,7 +161,7 @@ export const inventoryShipmentsColumns = () => {
       headerName: 'Status',
       renderHeader: () => <MultilineTextHeaderCell text="Status" />,
 
-      renderCell: params => <TextCell text={params.value?.replaceAll('_', ' ')} />,
+      renderCell: params => <Text isCell text={params.value?.replaceAll('_', ' ')} />,
       transformValueMethod: value => value?.replaceAll('_', ' '),
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -191,7 +192,7 @@ export const inventoryShipmentsColumns = () => {
       headerName: 'Number of destinations',
       renderHeader: () => <MultilineTextHeaderCell text="Number of destinations" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -201,7 +202,7 @@ export const inventoryShipmentsColumns = () => {
       headerName: 'Tracking number',
       renderHeader: () => <MultilineTextHeaderCell text="Tracking number" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },

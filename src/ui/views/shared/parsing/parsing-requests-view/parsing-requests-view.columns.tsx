@@ -4,7 +4,8 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, TextCell, UserMiniCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, UserMiniCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -29,7 +30,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: ({ row }: GridRowModel) => <TextCell text={row.shop?.name} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.shop?.name} />,
       valueGetter: ({ row }: GridRowModel) => row.shop?.name || '',
       width: 240,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -39,7 +40,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       field: 'name',
       headerName: t(TranslationKey.Name),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
-      renderCell: ({ row }: GridRowModel) => <TextCell text={row.profile?.name} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.profile?.name} />,
       valueGetter: ({ row }: GridRowModel) => row.profile?.name || '',
       width: 240,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -49,7 +50,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       field: 'email',
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
-      renderCell: ({ row }: GridRowModel) => <TextCell text={row.profile?.email} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.profile?.email} />,
       valueGetter: ({ row }: GridRowModel) => row.profile?.email || '',
       width: 240,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

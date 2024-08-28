@@ -1,7 +1,8 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, TextCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -37,7 +38,7 @@ export const businessReportsColumns = () => {
       headerName: 'Total order items',
       renderHeader: () => <MultilineTextHeaderCell text="Total order items" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -47,7 +48,7 @@ export const businessReportsColumns = () => {
       headerName: 'Units ordered',
       renderHeader: () => <MultilineTextHeaderCell text="Units ordered" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -57,7 +58,7 @@ export const businessReportsColumns = () => {
       headerName: 'Ordered product sales',
       renderHeader: () => <MultilineTextHeaderCell text="Ordered product sales" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -67,7 +68,7 @@ export const businessReportsColumns = () => {
       headerName: 'Avg units',
       renderHeader: () => <MultilineTextHeaderCell text="Avg units" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -77,7 +78,7 @@ export const businessReportsColumns = () => {
       headerName: 'Avg sales',
       renderHeader: () => <MultilineTextHeaderCell text="Avg sales" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -87,7 +88,7 @@ export const businessReportsColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params.row?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,

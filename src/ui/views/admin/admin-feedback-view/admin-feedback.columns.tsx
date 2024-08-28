@@ -7,10 +7,10 @@ import {
   FilesCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  TextCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { EyeIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -42,7 +42,7 @@ export const adminFeedbackViewColumns = ({ onClickOpenFeedback }: IAdminFeedback
     field: 'text',
     headerName: t(TranslationKey.Reviews),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reviews)} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={row.text} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.text} />,
     flex: 1,
   },
   {

@@ -1,11 +1,7 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  ActionButtonsCell,
-  MultilineTextHeaderCell,
-  NormDateCell,
-  TextCell,
-} from '@components/data-grid/data-grid-cells'
+import { ActionButtonsCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
@@ -46,7 +42,7 @@ export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
       field: 'checkednotes',
       headerName: t(TranslationKey["Supervisor's comment"]),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey["Supervisor's comment"])} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
 
       width: 400,
     },

@@ -9,10 +9,10 @@ import {
   NormDateCell,
   ProductCell,
   RealizedIdeaActionsCell,
-  TextCell,
   TimeFromSecondsCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -56,7 +56,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params?.row?.parentProduct?.shop?.name} />,
+      renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
 
       width: 100,
       disableCustomSort: true,
@@ -107,7 +107,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Ordered quantity']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
 
-      renderCell: params => <TextCell text={params.row?.order?.amount} />,
+      renderCell: params => <Text isCell text={params.row?.order?.amount} />,
       width: 110,
       filterable: false,
       disableCustomSort: true,
@@ -199,7 +199,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -210,7 +210,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
       headerName: t(TranslationKey['Client comment']),
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,

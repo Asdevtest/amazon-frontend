@@ -78,7 +78,6 @@ export { TaskDescriptionCell } from './task-description-cell/task-description-ce
 export { TaskPriorityCell } from './task-priority-cell/task-priority-cell'
 export { TaskStatusCell } from './task-status-cell/task-status-cell'
 export { TaskTypeCell } from './task-type-cell/task-type-cell'
-export { TextCell } from './text-cell/text-cell'
 export { TimeFromSecondsCell } from './time-from-seconds-cell/time-from-seconds-cell'
 export { UserCell } from './user-cell/user-cell'
 export { UserLinkCell } from './user-link-cell/user-link-cell'

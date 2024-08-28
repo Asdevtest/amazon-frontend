@@ -6,9 +6,9 @@ import {
   ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -21,7 +21,7 @@ export const FreelancerFreelanceColumns = handlers => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     renderCell: params => (
-      <TextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
+      <Text isCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
     ),
     width: 160,
   },
@@ -47,7 +47,7 @@ export const FreelancerFreelanceColumns = handlers => [
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 220,
   },
 
@@ -55,7 +55,7 @@ export const FreelancerFreelanceColumns = handlers => [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Request ID']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request ID'])} />,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     type: 'number',
     width: 80,
   },
@@ -64,7 +64,7 @@ export const FreelancerFreelanceColumns = handlers => [
     field: 'price',
     headerName: t(TranslationKey.Cost),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Cost) + ', $'} />,
-    renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+    renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
     type: 'number',
     width: 118,
   },
