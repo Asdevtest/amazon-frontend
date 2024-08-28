@@ -1,4 +1,3 @@
-import { Tag } from 'antd'
 import { MdOutlineDelete } from 'react-icons/md'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
@@ -6,6 +5,7 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell, MultilineTextHeaderCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { CustomTag } from '@components/shared/custom-tag'
 import { EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -25,7 +25,7 @@ export const tagsColumns = (handlers: IRowHandlers) => {
       field: 'title',
       headerName: t(TranslationKey['Tag name']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tag name'])} />,
-      renderCell: params => (params.value ? <Tag color={params.row.color}>{params.value}</Tag> : null),
+      renderCell: params => (params.value ? <CustomTag tag={params.row as ITag} /> : null),
       width: 300,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,

@@ -9,7 +9,7 @@ export const useStyles = makeStyles()(() => ({
 
   tagItem: {
     display: 'flex',
-    maxWidth: '200px',
+    maxWidth: '150px',
     borderRadius: '25px',
   },
 

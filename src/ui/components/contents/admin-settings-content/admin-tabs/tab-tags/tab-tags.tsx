@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -24,10 +24,7 @@ import { AdminSettingsTagsModel } from './tab-tags.model'
 export const TabTags = observer(() => {
   const { classes: styles } = useStyles()
 
-  // const viewModel = useMemo(() => new AdminSettingsTagsModel(), [])
-  const [viewModel] = useState(() => new AdminSettingsTagsModel())
-
-  console.log('viewModel.tagToEdit', viewModel.tagToEdit)
+  const viewModel = useMemo(() => new AdminSettingsTagsModel(), [])
 
   return (
     <div className={styles.wrapper}>

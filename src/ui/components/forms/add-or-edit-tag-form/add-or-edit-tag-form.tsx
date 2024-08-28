@@ -1,4 +1,4 @@
-import { ColorPicker, Tag } from 'antd'
+import { ColorPicker } from 'antd'
 import { Color } from 'antd/es/color-picker'
 import { observer } from 'mobx-react'
 import { ChangeEvent, FC, useCallback, useMemo, useState } from 'react'
@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
+import { CustomTag } from '@components/shared/custom-tag'
 
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
@@ -89,8 +90,8 @@ export const AddOrEditTagForm: FC<AddOrEditTagFormProps> = observer(props => {
           <p className={styles.label}>{t(TranslationKey['Tag preview'])}</p>
 
           <div className={styles.tagsWrapper}>
-            <Tag color={formField?.color}>{formField.title}</Tag>
-            <Tag color={formField?.color}>{formField.title}</Tag>
+            <CustomTag tag={formField} />
+            <CustomTag tag={formField} />
           </div>
         </div>
       ) : null}
