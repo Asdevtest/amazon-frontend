@@ -83,7 +83,9 @@ export const clientInventoryColumns = ({
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => <ProductCell image={row?.images?.[0]} title={row?.amazonTitle} />,
+      renderCell: ({ row }) => (
+        <ProductCell image={row?.images?.[0]} title={row?.amazonTitle} asin={row?.asin} sku={row?.skuByClient} />
+      ),
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
