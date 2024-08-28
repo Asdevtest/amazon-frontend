@@ -86,7 +86,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
           firstButtonTooltipText={t(TranslationKey['To assign the order to Byer'])}
           firstButtonElement={t(TranslationKey['Get to work'])}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={() => throttle(() => handlers.onClickTableRowBtn(params.row as IOrder))}
+          onClickFirstButton={throttle(() => handlers.onClickTableRowBtn(params.row as IOrder))}
         />
       ),
 

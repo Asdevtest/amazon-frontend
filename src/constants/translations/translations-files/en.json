@@ -211,7 +211,6 @@
   "Add your product": "Add your product",
   "Product with invalid status selected": "Product with invalid status selected",
   "Strategy": "Strategy",
-  "Reserved": "Reserved",
   "Profit": "Profit",
   "Margin": "Margin",
   "Comments": "Comments",
@@ -2037,6 +2036,12 @@
   "Please input shop name!": "Please input shop name!",
   "invitation": "invitation",
   "Invitation sent": "Invitation sent",
+  "Profile status": "Profile status",
+  "Vacant": "Vacant",
+  "Reserved": "Reserved",
+  "Waiting invite": "Waiting invite",
+  "Invited": "Invited",
   "Registered": "Registered",
-  "Profile status": "Profile status"
+  "Ready to checking": "Ready to checking",
+  "In use": "In use"
 }

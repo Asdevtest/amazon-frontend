@@ -77,6 +77,12 @@ export interface GetClientProfile {
      */
     access?: boolean;
     /**
+     * Profile status
+     * @type {string}
+     * @memberof GetClientProfile
+     */
+    status?: string;
+    /**
      * Дата создания
      * @type {string}
      * @memberof GetClientProfile

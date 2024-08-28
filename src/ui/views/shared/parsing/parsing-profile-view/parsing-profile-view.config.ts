@@ -19,4 +19,5 @@ export interface ColumnsProps {
   onEditProfileModal: (row: IParsingProfile) => void
   onForceStart: (ids?: string[]) => void
   onForceStop: (ids?: string[]) => void
+  onParsingProfileRegistred: (id: string) => void
 }

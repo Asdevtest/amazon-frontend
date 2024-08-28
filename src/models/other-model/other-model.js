@@ -170,7 +170,7 @@ class OtherModelStatic {
   }
 
   getAsins = async () => {
-    const response = await restApiService.otherApi.apiV1OtherCheckAsinsGet()
+    const response = await restApiService.otherApi.apiV1OtherCheckAsinsGet({ noCache: true })
     return response.data
   }
   editAsins = async (guid, body) => {

@@ -21,23 +21,41 @@
  */
 export interface InlineResponse20059 {
     /**
-     * Гуид тега
+     * The unique identifier of the box.
      * @type {string}
      * @memberof InlineResponse20059
      */
-    _id?: string;
+    guid?: string;
     /**
-     * Тег
-     * @type {string}
-     * @memberof InlineResponse20059
-     */
-    title?: string;
-    /**
-     * Кол-во продуктов, которые используют этот тег
+     * Объем в м ^ 3
      * @type {number}
      * @memberof InlineResponse20059
      */
-    productCount?: number;
+    cubicMeters?: number;
+    /**
+     * The delivery cost of the box.
+     * @type {number}
+     * @memberof InlineResponse20059
+     */
+    deliveryCost?: number;
+    /**
+     * The volume weight of the box in kg.
+     * @type {number}
+     * @memberof InlineResponse20059
+     */
+    volumeWeightKgWarehouse?: number;
+    /**
+     * The weight of the box in kg.
+     * @type {number}
+     * @memberof InlineResponse20059
+     */
+    weightFinalAccountingKgWarehouse?: number;
+    /**
+     * The delivery rate of the box. $/kg
+     * @type {number}
+     * @memberof InlineResponse20059
+     */
+    deliveryRate?: number;
 }
 
 
