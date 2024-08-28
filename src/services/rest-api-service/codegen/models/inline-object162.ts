@@ -69,6 +69,12 @@ export interface InlineObject162 {
      */
     shopId?: string;
     /**
+     * Status
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    status?: string;
+    /**
      * Guid of client
      * @type {string}
      * @memberof InlineObject162

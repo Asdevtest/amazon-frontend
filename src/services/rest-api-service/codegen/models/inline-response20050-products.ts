@@ -31,7 +31,37 @@ export interface InlineResponse20050Products {
      * @type {number}
      * @memberof InlineResponse20050Products
      */
+    success?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20050Products
+     */
     paid?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20050Products
+     */
+    newSearchFromSupervisor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20050Products
+     */
+    newSearchFromClient?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20050Products
+     */
+    inProcessOfSearching?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20050Products
+     */
+    canceled?: number;
 }
 
 

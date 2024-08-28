@@ -21,6 +21,7 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
       onEditProfileModal: row => this.onEditProfileModal(row),
       onForceStart: ids => this.onForceStart(ids),
       onForceStop: ids => this.onForceStop(ids),
+      onParsingProfileRegistred: id => this.onParsingProfileRegistred(id),
     }
     const columnsModel = parsingProfileViewColumns(columnsProps)
     const filtersFields = getFilterFields(columnsModel)
@@ -69,6 +70,16 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
   async onForceStop(ids?: string[]) {
     try {
       await ParserModel.onForceStop(ids || this.selectedRows)
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onParsingProfileRegistred(id: string) {
+    try {
+      await ParserModel.onParsingProfileRegistred(id)
 
       this.getCurrentData()
     } catch (error) {

@@ -15,29 +15,41 @@
 
 
 /**
- * Схема создания/апдейта рекомендаций
+ * 
  * @export
  * @interface InlineObject65
  */
 export interface InlineObject65 {
     /**
-     * GUID продукта.
+     * Название партии
      * @type {string}
      * @memberof InlineObject65
      */
-    productId: string;
+    title?: string;
     /**
-     * GUID сторкипера.
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject65
      */
-    storekeeperId: string;
+    boxesIds: Array<string>;
     /**
-     * Рекомендуемое значение
+     * Метод подсчта массы партии
      * @type {number}
      * @memberof InlineObject65
      */
-    recommendedValue: number;
+    calculationMethod?: number;
+    /**
+     * Делитель объема партии
+     * @type {number}
+     * @memberof InlineObject65
+     */
+    volumeWeightDivide?: number;
+    /**
+     * Настоящая стоимость доставки
+     * @type {number}
+     * @memberof InlineObject65
+     */
+    actualShippingCost?: number;
 }
 
 

@@ -13,6 +13,10 @@
  */
 
 
+import { InlineResponse20050Finances } from './inline-response20050-finances';
+import { InlineResponse20050Orders } from './inline-response20050-orders';
+import { InlineResponse20050PendingOrders } from './inline-response20050-pending-orders';
+import { InlineResponse20050Products } from './inline-response20050-products';
 
 /**
  * 
@@ -21,17 +25,29 @@
  */
 export interface InlineResponse20050 {
     /**
-     * GUID в базе данных
-     * @type {string}
+     * 
+     * @type {InlineResponse20050Products}
      * @memberof InlineResponse20050
      */
-    _id?: string;
+    products?: InlineResponse20050Products;
     /**
-     * Имя пользователя.
-     * @type {string}
+     * 
+     * @type {InlineResponse20050Orders}
      * @memberof InlineResponse20050
      */
-    name?: string;
+    orders?: InlineResponse20050Orders;
+    /**
+     * 
+     * @type {InlineResponse20050PendingOrders}
+     * @memberof InlineResponse20050
+     */
+    pendingOrders?: InlineResponse20050PendingOrders;
+    /**
+     * 
+     * @type {InlineResponse20050Finances}
+     * @memberof InlineResponse20050
+     */
+    finances?: InlineResponse20050Finances;
 }
 
 

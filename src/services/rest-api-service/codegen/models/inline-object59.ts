@@ -15,17 +15,17 @@
 
 
 /**
- * 
+ * Схема апдейта рекомендаций
  * @export
  * @interface InlineObject59
  */
 export interface InlineObject59 {
     /**
-     * 
-     * @type {string}
+     * Рекомендуемое значение
+     * @type {number}
      * @memberof InlineObject59
      */
-    clientComment?: string;
+    recommendedValue: number;
 }
 
 

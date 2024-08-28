@@ -21,17 +21,17 @@
  */
 export interface InlineObject63 {
     /**
-     * 
+     * Тег
      * @type {string}
      * @memberof InlineObject63
      */
-    clientComment: string;
+    title: string;
     /**
-     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
-     * @type {number}
+     * Color
+     * @type {string}
      * @memberof InlineObject63
      */
-    priceForClient: number;
+    color?: string;
 }
 
 

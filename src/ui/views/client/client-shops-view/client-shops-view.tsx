@@ -41,7 +41,7 @@ export const ClientShopsView = observer(() => {
           {t(TranslationKey.Update)}
         </CustomButton>
 
-        {viewModel.filteredData.length ? <ShopCascader shops={viewModel.filteredData} /> : null}
+        <ShopCascader />
 
         <CustomInputSearch
           enterButton

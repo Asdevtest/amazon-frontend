@@ -15,94 +15,29 @@
 
 
 /**
- * 
+ * Схема создания/апдейта рекомендаций
  * @export
  * @interface InlineObject58
  */
 export interface InlineObject58 {
     /**
-     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * GUID продукта.
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    productId: string;
+    /**
+     * GUID сторкипера.
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    storekeeperId: string;
+    /**
+     * Рекомендуемое значение
      * @type {number}
      * @memberof InlineObject58
      */
-    taskId: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject58
-     */
-    boxesBefore?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject58
-     */
-    boxes: Array<string>;
-    /**
-     * Тип операции
-     * @type {string}
-     * @memberof InlineObject58
-     */
-    operationType: InlineObject58OperationTypeEnum;
-    /**
-     * Комментарий клиента.
-     * @type {string}
-     * @memberof InlineObject58
-     */
-    clientComment?: string;
-    /**
-     * Комментарий баера.
-     * @type {string}
-     * @memberof InlineObject58
-     */
-    buyerComment?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject58
-     */
-    images?: Array<string>;
-    /**
-     * Комментарий работника склада.
-     * @type {string}
-     * @memberof InlineObject58
-     */
-    storekeeperComment?: string;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineObject58
-     */
-    priority?: InlineObject58PriorityEnum;
-    /**
-     * Причина приоритета
-     * @type {string}
-     * @memberof InlineObject58
-     */
-    reason?: string;
+    recommendedValue: number;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject58OperationTypeEnum {
-    Merge = 'merge',
-    Split = 'split',
-    Receive = 'receive',
-    Edit = 'edit'
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject58PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

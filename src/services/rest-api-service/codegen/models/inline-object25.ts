@@ -21,11 +21,11 @@
  */
 export interface InlineObject25 {
     /**
-     * 
-     * @type {Array<string>}
+     * GUID коробки, объединение которой нужно отменить
+     * @type {string}
      * @memberof InlineObject25
      */
-    attachedDocuments: Array<string>;
+    guid?: string;
 }
 
 

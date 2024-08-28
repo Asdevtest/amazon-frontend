@@ -108,7 +108,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
     {
       field: 'barcode',
       headerName: t(TranslationKey.BarCode),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.BarCode)}*`} />,
 
       renderCell: params => {
         const product = params.row.variation ? params.row?.childProduct : params.row?.parentProduct
