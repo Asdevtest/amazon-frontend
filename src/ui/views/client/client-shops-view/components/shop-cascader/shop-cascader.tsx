@@ -11,19 +11,13 @@ import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
-import { IShop } from '@typings/models/shops/shop'
-
 import { useStyles } from './shop-cascader.style'
 
 import { ShopsCascaderModel } from './shop-cascader.model'
 
-interface ShopCascaderProps {
-  shops: IShop[]
-}
-
-export const ShopCascader: FC<ShopCascaderProps> = observer(({ shops }) => {
+export const ShopCascader: FC = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ShopsCascaderModel(shops))
+  const [viewModel] = useState(() => new ShopsCascaderModel())
 
   const dropdownRender = useCallback(
     (menu: ReactElement) => (
