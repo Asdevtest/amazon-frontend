@@ -26,6 +26,10 @@ export const resetTokens = async (originalRequest?: AxiosRequestConfig) => {
   if (storage) {
     const userModel = JSON.parse(storage)
 
+    if (!userModel?.accessToken || !userModel?.refreshToken) {
+      return
+    }
+
     try {
       const response = await axios.post<IPostAccessToken, IGetAccessToken>(
         `${BACKEND_API_URL}/api/v1/users/get_access_token`,
