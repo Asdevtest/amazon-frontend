@@ -30,15 +30,21 @@ export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => exceptThisSymbols.includes(e.key) && e.preventDefault()
 
   const isNormalLength = useMemo(
-    () => maxBoxSizeFromOption(sizeSetting, Number(dimensions.lengthCmWarehouse)),
+    () =>
+      Number(dimensions.lengthCmWarehouse) <= 0 ||
+      maxBoxSizeFromOption(sizeSetting, Number(dimensions.lengthCmWarehouse)),
     [dimensions.lengthCmWarehouse],
   )
   const isNormalWidth = useMemo(
-    () => maxBoxSizeFromOption(sizeSetting, Number(dimensions.widthCmWarehouse)),
+    () =>
+      Number(dimensions.widthCmWarehouse) <= 0 ||
+      maxBoxSizeFromOption(sizeSetting, Number(dimensions.widthCmWarehouse)),
     [dimensions.widthCmWarehouse],
   )
   const isNormalHeight = useMemo(
-    () => maxBoxSizeFromOption(sizeSetting, Number(dimensions.heightCmWarehouse)),
+    () =>
+      Number(dimensions.heightCmWarehouse) <= 0 ||
+      maxBoxSizeFromOption(sizeSetting, Number(dimensions.heightCmWarehouse)),
     [dimensions.heightCmWarehouse],
   )
 
