@@ -1,5 +1,5 @@
-import { BsPersonFillLock } from 'react-icons/bs'
-import { RiCloseFill } from 'react-icons/ri'
+import { BsPersonFillGear } from 'react-icons/bs'
+import { MdOutlineDelete } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -32,13 +32,16 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       ),
       width: 300,
     },
+
     {
       field: 'roles',
       headerName: t(TranslationKey.Roles),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Roles)} />,
       renderCell: ({ row }: GridRowModel) => <UserRolesCell user={row} />,
       width: 160,
+      disableCustomSort: true,
     },
+
     {
       field: 'note',
       headerName: t(TranslationKey.Comment),
@@ -55,6 +58,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       width: 500,
       disableCustomSort: true,
     },
+
     {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
@@ -62,6 +66,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
       width: 115,
     },
+
     {
       field: 'action',
       headerName: t(TranslationKey.Action),
@@ -72,9 +77,9 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
           isFirstButton
           isSecondButton
           iconButton
-          firstButtonElement={<BsPersonFillLock />}
+          firstButtonElement={<BsPersonFillGear style={{ fill: 'currentColor' }} />}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<RiCloseFill />}
+          secondButtonElement={<MdOutlineDelete size={18} />}
           secondButtonStyle={ButtonStyle.DANGER}
           secondDescriptionText="Are you sure you want to unbind the sub-user?"
           onClickFirstButton={() => onClickEdit(row)}

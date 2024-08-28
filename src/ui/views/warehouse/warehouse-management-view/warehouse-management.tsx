@@ -11,6 +11,7 @@ import { AddOrEditWeightBasedLogisticsTariffForm } from '@components/forms/add-o
 import { Button } from '@components/shared/button'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 
@@ -21,7 +22,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './warehouse-management.style'
 
-import { switcherConfig } from './warehouse-management.config'
+import { createSwitcherConfig } from './warehouse-management.config'
 import { WarehouseTariffModel } from './warehouse-management.model'
 
 export const WarehouseManagementView = observer(() => {
@@ -44,9 +45,18 @@ export const WarehouseManagementView = observer(() => {
         <CustomRadioButton
           size="large"
           buttonStyle="solid"
-          options={switcherConfig}
+          options={createSwitcherConfig()}
           defaultValue={viewModel.tabIndex}
           onChange={viewModel.onChangeTabIndex}
+        />
+
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          wrapperClassName={styles.searchInput}
+          placeholder="Destination, Tariff name"
+          onSearch={viewModel.onChangeUnserverSearchValue}
         />
 
         {viewModel.tabIndex ? (
@@ -55,7 +65,11 @@ export const WarehouseManagementView = observer(() => {
           </Button>
         ) : (
           <div className={styles.flexRow}>
-            {viewModel.storekeeperDestination ? <p>{currentAddress}</p> : null}
+            {viewModel.storekeeperDestination ? (
+              <p className={styles.currentAddress} title={currentAddress}>
+                {currentAddress}
+              </p>
+            ) : null}
 
             <CustomButton
               size="large"

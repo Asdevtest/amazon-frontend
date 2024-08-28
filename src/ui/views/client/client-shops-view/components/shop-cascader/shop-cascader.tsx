@@ -1,69 +1,105 @@
-import { Cascader, CascaderProps, Divider, Space } from 'antd'
-import { DefaultOptionType } from 'antd/es/select'
+import { Cascader, Divider } from 'antd'
 import Paragraph from 'antd/es/typography/Paragraph'
-import { FC, memo, useState } from 'react'
+import { observer } from 'mobx-react'
+import { FC, ReactElement, useCallback, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { TextCell } from '@components/data-grid/data-grid-cells'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
-import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-props-extension-component-antd'
+import { IShop } from '@typings/models/shops/shop'
 
 import { useStyles } from './shop-cascader.style'
 
-interface ShopCascaderProps
-  extends IDefaultPropsExtensionAntdComponent,
-    CascaderProps<DefaultOptionType, 'value', true> {}
+import { ShopsCascaderModel } from './shop-cascader.model'
 
-export const ShopCascader: FC<ShopCascaderProps> = memo(props => {
-  const { required, isRow, isCell, label, labelClassName, wrapperClassName, options, ...restProps } = props
+interface ShopCascaderProps {
+  shops: IShop[]
+}
 
-  const { classes: styles, cx } = useStyles()
-  const [open, setOpen] = useState(false)
+export const ShopCascader: FC<ShopCascaderProps> = observer(({ shops }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new ShopsCascaderModel(shops))
 
-  const addItem = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
-    e.preventDefault()
-  }
+  const dropdownRender = useCallback(
+    (menu: ReactElement) => (
+      <>
+        <div className={styles.header}>
+          <CustomInputSearch
+            allowClear
+            placeholder="Shop"
+            value={viewModel.inputValue}
+            wrapperClassName={styles.inputSearch}
+            onChange={viewModel.onChangeInput}
+          />
+        </div>
+
+        <TextCell
+          type="secondary"
+          isCell={false}
+          copyable={false}
+          rows={1}
+          text={`${t(TranslationKey.Shops)}*`}
+          className={styles.title}
+        />
+        <Cascader.Panel
+          multiple
+          options={viewModel.shopOptions}
+          className={styles.cascaderPanel}
+          value={viewModel.selectedShopsOptions}
+          // @ts-ignore
+          onChange={viewModel.onChangeShopsOptions}
+        />
+
+        <Divider className={styles.divider} />
+
+        <TextCell
+          type="secondary"
+          isCell={false}
+          copyable={false}
+          rows={1}
+          text={`${t(TranslationKey.Tables)}*`}
+          className={styles.title}
+        />
+
+        {menu}
+
+        <div className={styles.footer}>
+          <CustomButton disabled={viewModel.disabledExportButton} type="primary" onClick={viewModel.getShopsExport}>
+            {t(TranslationKey.Export)}
+          </CustomButton>
+        </div>
+      </>
+    ),
+    [viewModel.inputValue, viewModel.selectedShopsOptions],
+  )
 
   return (
-    <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
-      {label ? (
-        <p className={cx(styles.label, labelClassName)}>
-          {t(TranslationKey[label as TranslationKey])}
-          {required ? <span>*</span> : null}
-        </p>
-      ) : null}
-
-      <Cascader
-        {...restProps}
-        multiple
-        open={false}
-        size="large"
-        suffixIcon={null}
-        options={options}
-        rootClassName={styles.cascader}
-        expandTrigger="hover"
-        optionRender={option => (
-          <div className={styles.option}>
-            <Paragraph ellipsis={{ rows: 1 }} style={{ margin: 0 }}>
-              {option.label}
-            </Paragraph>
-          </div>
-        )}
-        dropdownMenuColumnStyle={{ height: 40 }}
-        dropdownRender={menu => (
-          <>
-            {menu}
-            <Divider style={{ margin: '8px 0' }} />
-            <Space style={{ padding: '8px 16px 16px' }}>
-              <CustomButton type="primary">{t(TranslationKey.Export)}</CustomButton>
-              <CustomButton>{t(TranslationKey.Cancel)}</CustomButton>
-            </Space>
-          </>
-        )}
-      />
-    </div>
+    <Cascader
+      multiple
+      // expandIcon=" " // null icon
+      open={viewModel.open}
+      value={viewModel.selectedTableOptions}
+      options={viewModel.tableOptions}
+      rootClassName={styles.cascader}
+      expandTrigger="hover"
+      optionRender={option => (
+        <Paragraph ellipsis={{ rows: 1 }} style={{ margin: 0 }}>
+          {option.label}
+        </Paragraph>
+      )}
+      dropdownRender={dropdownRender}
+      onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
+      // @ts-ignore
+      onChange={viewModel.onChangeTableOptions}
+    >
+      <CustomButton type="primary" size="large">
+        {t(TranslationKey.Export)}
+      </CustomButton>
+    </Cascader>
   )
 })

@@ -1,3 +1,5 @@
+import { MdOutlineDelete } from 'react-icons/md'
+
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
@@ -16,7 +18,7 @@ import {
 } from '@components/data-grid/data-grid-cells'
 import { Launches } from '@components/shared/launches'
 import { getLaunchName } from '@components/shared/launches/helpers/get-launch-name'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
+import { EditIcon } from '@components/shared/svg-icons'
 
 import { formatShortDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
@@ -88,7 +90,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           disabledSecondButton={row.listingLaunches.length > 0}
           firstButtonElement={<EditIcon />}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<CrossIcon />}
+          secondButtonElement={<MdOutlineDelete size={18} />}
           secondButtonStyle={ButtonStyle.DANGER}
           secondDescriptionText="Are you sure you want to remove the report?"
           onClickFirstButton={() => onToggleReportModalEditMode(row._id)}

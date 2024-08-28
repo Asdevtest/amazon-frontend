@@ -9,7 +9,9 @@ import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { RequestStatus } from '@typings/enums/request/request-status'
+import { ProfileRequestStatus } from '@typings/enums/request/profile-request-status'
+
+import { useStyles } from './parsing-access-cell.style'
 
 import { IShopProfile } from '../../client-shops-view.types'
 
@@ -21,37 +23,33 @@ interface ParsingAccessCellProps {
 export const ParsingAccessCell: FC<ParsingAccessCellProps> = memo(props => {
   const { profile, onAccess } = props
 
-  const style = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '5px',
-    background: '#B3E7C7',
-    color: '#0B903E',
-    border: '1px solid #0B903E',
-    borderRadius: '20px',
-    fontSize: '14px',
-    lineHeight: '19px',
-    padding: '5px 10px',
-  }
+  const { classes: styles } = useStyles()
 
-  if (profile?.isActive) {
+  if (profile?.access) {
     return (
-      <p style={style}>
-        <CiCircleCheck />
-        {t(TranslationKey.issued)}
+      <p className={styles.issued}>
+        <CiCircleCheck size={18} />
+        {t(TranslationKey.Issued)}
       </p>
     )
   }
 
-  const disabled = !profile || [RequestStatus.PENDING, RequestStatus.REJECTED].includes(profile?.requestStatus)
+  const disabledFirstButton = profile?.requestStatus !== ProfileRequestStatus.WAITING_INVITE
+  const disabledSecondButton = profile?.requestStatus !== ProfileRequestStatus.REGISTERED
 
   return (
     <ActionButtonsCell
       isFirstButton
-      disabledFirstButton={disabled}
-      firstButtonElement={t(TranslationKey.Confirm)}
+      isSecondButton
+      fullWidth
+      buttonClassName={styles.button}
+      disabledFirstButton={disabledFirstButton}
+      disabledSecondButton={disabledSecondButton}
+      firstButtonElement={t(TranslationKey['Invitation sent'])}
       firstButtonStyle={ButtonStyle.PRIMARY}
-      onClickFirstButton={throttle(onAccess)}
+      secondButtonElement={t(TranslationKey.Confirm)}
+      secondButtonStyle={ButtonStyle.PRIMARY}
+      onClickSecondButton={throttle(onAccess)}
     />
   )
 })

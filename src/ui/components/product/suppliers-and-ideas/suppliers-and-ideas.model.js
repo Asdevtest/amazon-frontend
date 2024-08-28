@@ -26,7 +26,7 @@ import { UserModel } from '@models/user-model'
 
 import { checkIsBuyer, checkIsClient, checkIsSupervisor, checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -98,7 +98,7 @@ export class SuppliersAndIdeasModel {
   }
 
   get currentData() {
-    return this.ideasData?.toSorted(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+    return this.ideasData?.toSorted(sortObjectsArrayByFiledDateWithParseISO('updatedAt')) // ideas sort by desc
   }
 
   get platformSettings() {
@@ -123,15 +123,13 @@ export class SuppliersAndIdeasModel {
 
   async loadData() {
     try {
-      if (!this.isCreateModal) {
-        if (this.isModalView && this.currentIdeaId) {
-          await this.getIdea(this.currentIdeaId)
-          if (this.updateData) {
-            this.updateData?.()
-          }
-        } else {
-          await this.getIdeas()
+      if (this.isModalView && this.currentIdeaId) {
+        await this.getIdea(this.currentIdeaId)
+        if (this.updateData) {
+          this.updateData?.()
         }
+      } else {
+        await this.getIdeas()
       }
 
       this.getStorekeepers()
@@ -174,6 +172,7 @@ export class SuppliersAndIdeasModel {
 
       runInAction(() => {
         this.curIdea = response
+        this.productId = response.parentProduct?._id
       })
     } catch (error) {
       console.error(error)
@@ -389,13 +388,14 @@ export class SuppliersAndIdeasModel {
     win.focus()
   }
 
-  async onClickBindButton(requests) {
-    const methodBody =
-      this.curIdea.status === ideaStatusByKey[ideaStatus.NEW] ||
-      this.curIdea.status === ideaStatusByKey[ideaStatus.ON_CHECK]
-        ? { onCheckedIdeaId: this.curIdea._id }
-        : { onFinishedIdeaId: this.curIdea._id }
-
+  async onClickBindButton(requests, idea) {
+    const currentIdeaStatus = this.curIdea?.status || idea?.status
+    const currentIdeaId = this.curIdea?._id || idea?._id
+    const methodBody = [ideaStatusByKey[ideaStatus.NEW], ideaStatusByKey[ideaStatus.ON_CHECK]].includes(
+      currentIdeaStatus,
+    )
+      ? { onCheckedIdeaId: currentIdeaId }
+      : { onFinishedIdeaId: currentIdeaId }
     for (const request of requests) {
       try {
         await RequestModel.bindIdeaToRequest(request, methodBody)
@@ -404,7 +404,7 @@ export class SuppliersAndIdeasModel {
       }
     }
 
-    this.getIdea(this.curIdea._id)
+    this.getIdea(currentIdeaId)
     this.onTriggerOpenModal('showBindingModal')
     this.loadData()
   }

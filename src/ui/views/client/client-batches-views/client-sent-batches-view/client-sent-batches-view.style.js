@@ -9,6 +9,10 @@ export const useStyles = makeStyles()(() => ({
     marginBottom: 20,
   },
 
+  searchInput: {
+    width: 450,
+  },
+
   datagridWrapper: {
     marginTop: 20,
     height: '73vh',

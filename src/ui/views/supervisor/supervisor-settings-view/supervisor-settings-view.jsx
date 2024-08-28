@@ -34,7 +34,7 @@ export const SupervisorSettingsView = observer(() => {
           buttonStyle="solid"
           options={switcherSettings}
           defaultValue={viewModel.condition}
-          onChange={viewModel.onChangeСondition}
+          onChange={event => viewModel.onChangeСondition(event.target.value)}
         />
 
         <CustomInputSearch
@@ -73,7 +73,7 @@ export const SupervisorSettingsView = observer(() => {
           disableRowSelectionOnClick
           sortingMode="client"
           paginationMode="client"
-          rowCount={viewModel.rowCount}
+          rowCount={viewModel.currentData?.length}
           rows={viewModel.filteredData}
           sortModel={viewModel.sortModel}
           columns={viewModel.columnsModel}

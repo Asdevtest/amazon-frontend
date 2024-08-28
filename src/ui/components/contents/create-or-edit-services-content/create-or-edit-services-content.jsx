@@ -9,6 +9,7 @@ import { Field } from '@components/shared/field'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { objectDeepCompare } from '@utils/object'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -117,11 +118,11 @@ export const CreateOrEditServiceContent = memo(props => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonStyle.CASUAL} onClick={onClickBackBtn}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={throttle(onClickBackBtn)}>
           {t(TranslationKey.Close)}
         </Button>
 
-        <Button styleType={ButtonStyle.SUCCESS} disabled={disabledSubmitButton} onClick={handleSubmit}>
+        <Button styleType={ButtonStyle.SUCCESS} disabled={disabledSubmitButton} onClick={throttle(handleSubmit)}>
           {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
         </Button>
       </div>

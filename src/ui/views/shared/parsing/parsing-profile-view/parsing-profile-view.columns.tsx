@@ -1,6 +1,7 @@
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -11,16 +12,16 @@ import {
   TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
-import { EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { ProfileRequestStatus } from '@typings/enums/request/profile-request-status'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { ColumnsProps } from './parsing-profile-view.config'
 
-export const parsingProdileViewColumns = (props: ColumnsProps) => {
+export const parsingProfileViewColumns = (props: ColumnsProps) => {
   const { onEditProfileModal, onForceStart, onForceStop } = props
 
   const columns: IGridColumn[] = [
@@ -29,56 +30,74 @@ export const parsingProdileViewColumns = (props: ColumnsProps) => {
       headerName: t(TranslationKey.Name),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.name} />,
-      width: 240,
-      columnKey: columnnsKeys.shared.STRING,
+      width: 220,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
       field: 'client',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
       renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
+      valueGetter: ({ row }: GridRowModel) => row.client?.name || '',
       width: 160,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.shop?.name} />,
-      width: 240,
-      columnKey: columnnsKeys.shared.STRING,
+      valueGetter: ({ row }: GridRowModel) => row.shop?.name || '',
+      width: 220,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'email',
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.email} />,
-      width: 360,
-      columnKey: columnnsKeys.shared.STRING,
+      width: 280,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
-      field: 'status',
-      headerName: t(TranslationKey.Status),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+      field: 'isActive',
+      headerName: t(TranslationKey.Active),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Active)} />,
       renderCell: ({ row }: GridRowModel) => {
         const value = [row._id]
         const handleSubmit = () => (row.isActive ? onForceStop(value) : onForceStart(value))
+        const disabled = !row.client?._id || !row.access
 
-        return <SwitchCell disabled={!row.client?._id} value={row.isActive} onClick={handleSubmit} />
+        return <SwitchCell disabled={disabled} value={row.isActive} onClick={handleSubmit} />
       },
-      width: 100,
-      columnKey: columnnsKeys.shared.STRING,
+      width: 90,
+      disableCustomSort: true,
+      filterable: false,
+    },
+    {
+      field: 'status',
+      headerName: t(TranslationKey['Profile status']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Profile status'])} />,
+      renderCell: ({ row }: GridRowModel) => {
+        return <TextCell center copyable={false} text={''} />
+      },
+      width: 130,
+      disableCustomSort: true,
+      filterable: false,
     },
     {
       field: 'access',
       headerName: t(TranslationKey.Access),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Access)} />,
       renderCell: ({ row }: GridRowModel) => {
-        const text = row.isActive ? t(TranslationKey.Yes) : t(TranslationKey.No)
+        const text = row.access ? t(TranslationKey.Yes) : t(TranslationKey.No)
         return <TextCell center copyable={false} text={text} />
       },
-      width: 100,
-      columnKey: columnnsKeys.shared.STRING,
+      width: 90,
+      disableCustomSort: true,
+      filterable: false,
     },
     {
       field: 'updatedAt',
@@ -102,20 +121,27 @@ export const parsingProdileViewColumns = (props: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
       renderCell: ({ row }: GridRowModel) => (
         <ActionButtonsCell
-          iconButton
           isFirstButton
-          firstButtonElement={<EditIcon />}
+          isSecondButton
+          disabledSecondButton={row?.status !== ProfileRequestStatus.INVITED}
+          firstButtonElement={t(TranslationKey.Edit)}
           firstButtonStyle={ButtonStyle.PRIMARY}
+          secondButtonElement={t(TranslationKey.Registered)}
+          secondButtonStyle={ButtonStyle.PRIMARY}
           onClickFirstButton={() => onEditProfileModal(row)}
         />
       ),
       disableCustomSort: true,
       filterable: false,
-      width: 100,
+      width: 180,
     },
   ]
 
   for (const column of columns) {
+    if (!column.table) {
+      column.table = DataGridFilterTables.PARSING_PROFILES
+    }
+
     column.sortable = false
   }
 

@@ -6,11 +6,11 @@ import { checkAndMakeAbsoluteUrl } from '@utils/text'
 
 import { useStyles } from './active-barcode-cell.style'
 
-interface ActiveBarcodeCellProps {
+interface ActiveLinkCellProps {
   barCode: string
 }
 
-export const ActiveBarcodeCell: FC<ActiveBarcodeCellProps> = memo(({ barCode }) => {
+export const ActiveLinkCell: FC<ActiveLinkCellProps> = memo(({ barCode }) => {
   const { classes: styles } = useStyles()
 
   return (

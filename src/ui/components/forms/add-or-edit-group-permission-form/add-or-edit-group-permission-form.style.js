@@ -53,9 +53,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   permissionSelect: {
-    maxWidth: '200px',
-
-    color: theme.palette.text.general,
+    width: '100%',
   },
 
   permissionsSubTitle: {

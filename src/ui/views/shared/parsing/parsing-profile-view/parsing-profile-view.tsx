@@ -54,6 +54,7 @@ export const ParsingProdileView = observer(() => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
+          isRowSelectable={({ row }: GridRowModel) => row.client && row.access}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           pinnedColumns={viewModel.pinnedColumns}
@@ -88,12 +89,12 @@ export const ParsingProdileView = observer(() => {
           rowCount={viewModel.rowCount}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
           onRowSelectionModelChange={viewModel.onSelectionModel}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 

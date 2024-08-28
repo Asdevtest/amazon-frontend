@@ -277,8 +277,8 @@ export const ppcSalesDaysColumns = () => {
 
     {
       field: 'orders',
-      headerName: 'Orders',
-      renderHeader: () => <MultilineTextHeaderCell text="Orders" />,
+      headerName: t(TranslationKey.Orders),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Orders)} />,
 
       renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
       width: 90,

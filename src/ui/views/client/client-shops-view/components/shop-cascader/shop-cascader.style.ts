@@ -1,28 +1,46 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 5,
-  },
-
-  cell: {
-    padding: '10px 0',
-  },
-
-  row: {
-    alignItems: 'center',
-    flexDirection: 'row',
+  title: {
+    padding: '8px 16px 0',
   },
 
   cascader: {
     '.ant-cascader-menu': {
-      height: '410px',
+      height: '140px',
+      width: '280px',
+      paddingBottom: 8,
     },
 
     '.ant-cascader-checkbox-inner': {
       borderRadius: '4px !important',
+    },
+  },
+
+  cascaderPanel: {
+    display: 'block',
+    border: 'none',
+    borderRadius: 0,
+
+    '.ant-cascader-menu': {
+      height: '204px',
+    },
+
+    '.ant-empty-small': {
+      height: '180px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+    },
+
+    '.ant-cascader-menu-item-content': {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+
+    '.ant-cascader-menus': {
+      width: '100%',
     },
   },
 
@@ -32,7 +50,23 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.secondary,
   },
 
-  option: {
-    width: '200px',
+  divider: {
+    margin: 0,
+  },
+
+  header: {
+    padding: '8px 16px 0',
+  },
+
+  footer: {
+    padding: '8px 16px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: '10px',
+  },
+
+  inputSearch: {
+    width: '100%',
   },
 }))

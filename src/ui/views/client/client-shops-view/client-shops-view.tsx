@@ -41,46 +41,45 @@ export const ClientShopsView = observer(() => {
           {t(TranslationKey.Update)}
         </CustomButton>
 
-        <ShopCascader options={viewModel.exportOptions} onChange={viewModel.onChangeExportOprions}>
-          <CustomButton type="primary" size="large" onClick={() => viewModel.getShopsExport('INVENTORY')}>
-            {t(TranslationKey.Export)}
-          </CustomButton>
-        </ShopCascader>
+        {viewModel.filteredData.length ? <ShopCascader shops={viewModel.filteredData} /> : null}
 
         <CustomInputSearch
           enterButton
           allowClear
           size="large"
           placeholder="Search by Title"
-          onSearch={viewModel.onChangeUnserverSearchValue}
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 
-      <div className={styles.tabledWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
-          sortingMode="client"
-          paginationMode="client"
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
           pinnedColumns={viewModel.pinnedColumns}
-          rows={viewModel.filteredData}
+          rowSelectionModel={viewModel.selectedRows}
+          paginationModel={viewModel.paginationModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           getRowId={({ _id }: GridRowModel) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+            columnMenu: viewModel.columnMenuSettings,
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-
               sortSettings: {
                 sortModel: viewModel.sortModel,
                 columnsModel: viewModel.columnsModel,
@@ -88,15 +87,15 @@ export const ClientShopsView = observer(() => {
               },
             },
           }}
+          rowCount={viewModel.rowCount}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          rowSelectionModel={viewModel.selectedRows}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
           onPinnedColumnsChange={viewModel.handlePinColumn}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         />
       </div>
 

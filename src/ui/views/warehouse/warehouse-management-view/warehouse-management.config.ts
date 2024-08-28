@@ -34,7 +34,7 @@ export const warehouseTariffsConfig = {
   onClickAddWarehouseTariff: action.bound,
 }
 
-export const switcherConfig = [
+export const createSwitcherConfig = () => [
   { label: t(TranslationKey['Weight-based logistics tariffs']), value: 0 },
   { label: t(TranslationKey['Tariffs of warehouse services']), value: 1 },
 ]

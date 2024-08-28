@@ -23,6 +23,8 @@ interface TextCellProps extends TextAreaProps {
   copyable?: boolean
   editMode?: boolean
   textRows?: number
+  className?: string
+  type?: 'secondary' | 'success' | 'warning' | 'danger'
   onClickSubmit?: (id: string, comment?: string) => void
 }
 
@@ -37,6 +39,8 @@ export const TextCell: FC<TextCellProps> = memo(props => {
     rows = 3, // only for textarea, text - autocomplete 1-2-3 lines{}
     editMode,
     textRows = 3,
+    className,
+    type,
     onClickSubmit,
     ...restProps
   } = props
@@ -73,9 +77,11 @@ export const TextCell: FC<TextCellProps> = memo(props => {
     <div className={styles.container}>
       {icon ? icon : null}
       <Paragraph
+        type={type}
         copyable={isCopyable}
         ellipsis={{ tooltip: text, rows: textRows, onExpand: handleExpand }}
         style={{ margin: 0, color, textAlign: center ? 'center' : 'left' }}
+        className={className}
       >
         {text}
       </Paragraph>

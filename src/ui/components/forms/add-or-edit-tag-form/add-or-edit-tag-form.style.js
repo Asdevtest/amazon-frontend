@@ -2,24 +2,26 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    minWidth: 100,
+    width: '200px',
   },
 
-  standartText: {
-    color: theme.palette.text.general,
-  },
-
-  form: {
-    marginTop: 20,
+  title: {
+    fontSize: '18px',
+    lineHeight: '25px',
+    fontWeight: 600,
+    marginBottom: '20px',
   },
 
   label: {
-    margin: 0,
+    fontSize: '14px',
+    lineHeight: '19px',
+    marginBottom: '5px',
   },
 
   btnsWrapper: {
-    marginTop: 30,
+    marginTop: 20,
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: '20px',
   },
 }))

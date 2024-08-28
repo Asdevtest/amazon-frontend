@@ -78,6 +78,9 @@ export const Box: FC<BoxProps> = memo(props => {
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
   const [showFullCard, setShowFullCard] = useState(true)
 
+  const isNotAllDimensionsAdded =
+    !box.widthCmWarehouse || !box.weighGrossKgWarehouse || !box.lengthCmWarehouse || !box.heightCmWarehouse
+
   const setShippingLabel = () => (value: any) => {
     onChangeField({ target: { value } }, 'tmpShippingLabel', box._id)
   }
@@ -279,6 +282,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 <DeleteOutlineOutlinedIcon />
               </IconButton>
               <Button
+                tooltipAttentionContent={isNotAllDimensionsAdded ? t(TranslationKey['Specify dimensions']) : ''}
                 tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
                 onClick={() => {
                   setCurBox(box)
@@ -288,15 +292,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 {t(TranslationKey.Edit)}
               </Button>
 
-              <Button
-                disabled={
-                  !box.widthCmWarehouse ||
-                  !box.weighGrossKgWarehouse ||
-                  !box.lengthCmWarehouse ||
-                  !box.heightCmWarehouse
-                }
-                onClick={() => onClickApplyAllBtn(box)}
-              >
+              <Button disabled={isNotAllDimensionsAdded} onClick={() => onClickApplyAllBtn(box)}>
                 {t(TranslationKey['Apply to all'])}
               </Button>
               <div className={styles.incomingBtnWrapper}>

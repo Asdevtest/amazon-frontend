@@ -1,3 +1,5 @@
+import { MdOutlineDelete } from 'react-icons/md'
+
 import { UserRolePrettyMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -58,7 +60,7 @@ export const userPermissionsColumns = handlers => [
         isSecondButton
         firstButtonElement={<EditIcon />}
         firstButtonStyle={ButtonStyle.PRIMARY}
-        secondButtonElement={<CrossIcon />}
+        secondButtonElement={<MdOutlineDelete size={18} />}
         secondButtonStyle={ButtonStyle.DANGER}
         onClickFirstButton={() => handlers.onClickEditBtn(params.row)}
         onClickSecondButton={() => handlers.onClickRemoveBtn(params.row)}

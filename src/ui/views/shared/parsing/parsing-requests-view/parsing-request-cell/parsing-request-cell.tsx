@@ -7,12 +7,12 @@ import { ActionButtonsCell, TextCell } from '@components/data-grid/data-grid-cel
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { RequestStatus } from '@typings/enums/request/request-status'
+import { ProfileRequestStatus } from '@typings/enums/request/profile-request-status'
 
 import { useStyles } from './parsing-request-cell.style'
 
 interface ParsingRequestCellProps {
-  status: RequestStatus
+  status: ProfileRequestStatus
   onApproveProfile: () => void
   onRejectProfile: () => void
 }
@@ -22,7 +22,7 @@ export const ParsingRequestCell: FC<ParsingRequestCellProps> = memo(props => {
 
   const { theme } = useStyles()
 
-  if (status === RequestStatus.PENDING) {
+  if (status === ProfileRequestStatus.PENDING) {
     return (
       <ActionButtonsCell
         isFirstButton
@@ -37,8 +37,8 @@ export const ParsingRequestCell: FC<ParsingRequestCellProps> = memo(props => {
     )
   }
 
-  const statusText = status === RequestStatus.APPROVED ? t(TranslationKey.Approved) : t(TranslationKey.Rejected)
-  const color = status === RequestStatus.APPROVED ? theme.palette.primary.main : theme.palette.text.red
+  const statusText = status === ProfileRequestStatus.APPROVED ? t(TranslationKey.Approved) : t(TranslationKey.Rejected)
+  const color = status === ProfileRequestStatus.APPROVED ? theme.palette.primary.main : theme.palette.text.red
 
   return <TextCell color={color} text={statusText} />
 })

@@ -1,3 +1,5 @@
+import { MdOutlineDelete } from 'react-icons/md'
+
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,7 +12,7 @@ import {
   WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells'
 import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
-import { ArrowDownOutlineIcon, ArrowUpOutlineIcon, CrossIcon, EditIcon } from '@components/shared/svg-icons'
+import { ArrowDownOutlineIcon, ArrowUpOutlineIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -123,7 +125,7 @@ export const logisticsTariffsColumns = ({
         secondButtonElement={isArchive() ? <ArrowUpOutlineIcon /> : <ArrowDownOutlineIcon />}
         secondButtonStyle={isArchive() ? ButtonStyle.SUCCESS : ButtonStyle.DANGER}
         thirdButtonTooltipText={t(TranslationKey.Remove)}
-        thirdButtonElement={<CrossIcon />}
+        thirdButtonElement={<MdOutlineDelete size={18} />}
         thirdButtonStyle={ButtonStyle.DANGER}
         secondDescriptionText={
           isArchive()

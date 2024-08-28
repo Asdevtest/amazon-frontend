@@ -13,26 +13,25 @@
  */
 
 
-import { InlineResponse20020 } from './inline-response20020';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20022
  */
 export interface InlineResponse20022 {
     /**
-     * Всего кол-во записей в результате запроса
+     * Кол-во продукта в айтеме в коробке
      * @type {number}
      * @memberof InlineResponse20022
      */
-    count?: number;
+    amount?: number;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20020>}
+     * Номер заказа
+     * @type {number}
      * @memberof InlineResponse20022
      */
-    rows?: Array<InlineResponse20020>;
+    id?: number;
 }
 
 

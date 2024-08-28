@@ -1,6 +1,7 @@
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MultilineTextHeaderCell, NormDateCell, TextCell, UserMiniCell } from '@components/data-grid/data-grid-cells'
@@ -19,32 +20,40 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
       renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
+      valueGetter: ({ row }: GridRowModel) => row.client?.name || '',
       width: 160,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.shop?.name} />,
+      valueGetter: ({ row }: GridRowModel) => row.shop?.name || '',
       width: 240,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'name',
       headerName: t(TranslationKey.Name),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.profile?.name} />,
+      valueGetter: ({ row }: GridRowModel) => row.profile?.name || '',
       width: 240,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'email',
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.profile?.email} />,
+      valueGetter: ({ row }: GridRowModel) => row.profile?.email || '',
       width: 240,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'updatedAt',
@@ -80,6 +89,10 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
   ]
 
   for (const column of columns) {
+    if (!column.table) {
+      column.table = DataGridFilterTables.PARSING_REQUESTS
+    }
+
     column.sortable = false
   }
 

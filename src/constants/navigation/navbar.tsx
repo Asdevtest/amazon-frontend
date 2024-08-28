@@ -355,6 +355,14 @@ export const navbarConfig = {
             !isHaveMasterUser(user) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_SHOPS_REPORTS_CLIENT),
         },
+        {
+          subtitle: () => 'Parsing reports',
+          subRoute: '/client/shops/parsing-reports',
+
+          // checkHideSubBlock: user =>
+          //   !isHaveMasterUser(user) ||
+          //   user?.permissions?.some(item => item === permissionsKeys.client.SHOW_SHOPS_REPORTS_CLIENT),
+        },
       ],
 
       checkHideBlock: user =>

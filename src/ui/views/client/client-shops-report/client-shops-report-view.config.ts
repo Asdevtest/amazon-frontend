@@ -27,7 +27,7 @@ export const observerConfig = {
   bindReportInventoryHandler: action.bound,
 }
 
-export const radioButtonOptions = [
+export const createRadioButtonOptions = () => [
   {
     label: 'PPC-Organic by day',
     value: ShopReportsTabsValues.PPC_ORGANIC_BY_DAY,
@@ -37,11 +37,11 @@ export const radioButtonOptions = [
     value: ShopReportsTabsValues.INVENTORY_SHIPMENTS,
   },
   {
-    label: 'Inventory',
+    label: t(TranslationKey.Inventory),
     value: ShopReportsTabsValues.INVENTORY,
   },
   {
-    label: 'Returns',
+    label: t(TranslationKey.Returns),
     value: ShopReportsTabsValues.RETURNS,
   },
   {

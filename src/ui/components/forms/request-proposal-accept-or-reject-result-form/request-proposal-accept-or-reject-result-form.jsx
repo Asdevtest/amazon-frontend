@@ -10,6 +10,7 @@ import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
@@ -77,7 +78,7 @@ export const RequestProposalAcceptOrRejectResultForm = memo(
             <Button
               disabled={!formFields.rating}
               styleType={isReject ? ButtonStyle.DANGER : ButtonStyle.SUCCESS}
-              onClick={() => onSubmit(formFields)}
+              onClick={() => throttle(onSubmit(formFields))}
             >
               {isReject ? rejectButtonText : confirmButtonText}
             </Button>

@@ -1,4 +1,4 @@
-export const throttle = <T extends unknown[]>(callback: (...args: T) => void, delay: number = 1000) => {
+export const throttle = <T extends unknown[]>(callback: (...args: T) => void, delay: number = 2000) => {
   let isWaiting = false
 
   return (...args: T) => {

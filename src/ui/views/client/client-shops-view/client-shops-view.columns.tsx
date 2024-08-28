@@ -1,5 +1,9 @@
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
+
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -9,12 +13,11 @@ import {
   SwitchCell,
   TextCell,
 } from '@components/data-grid/data-grid-cells'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { RequestStatus } from '@typings/enums/request/request-status'
+import { ProfileRequestStatus } from '@typings/enums/request/profile-request-status'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { IColumnProps } from './client-shops-view.types'
@@ -31,6 +34,7 @@ export const shopsColumns = (props: IColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
       width: 115,
+      columnKey: columnnsKeys.shared.DATE,
     },
     {
       field: 'name',
@@ -38,24 +42,33 @@ export const shopsColumns = (props: IColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }: GridRowModel) => <TextCell text={row.name} />,
       width: 240,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
-      field: 'profile',
+      field: 'email',
       headerName: t(TranslationKey['Parsing profile']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing profile'])} />,
       renderCell: ({ row }: GridRowModel) => (
         <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />
       ),
-      width: 240,
+      width: 320,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      hideEmptyObject: true,
     },
     {
       field: 'access',
       headerName: t(TranslationKey.Access),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Access)} />,
+      renderHeader: () => (
+        <MultilineTextHeaderCell
+          text={`${t(TranslationKey.Access)} ${t(TranslationKey.and)} ${t(TranslationKey.invitation)}`}
+        />
+      ),
       renderCell: ({ row }: GridRowModel) => (
         <ParsingAccessCell profile={row.profile} onAccess={() => onParsingAccess(row.profile?.email)} />
       ),
-      width: 160,
+      width: 170,
+      disableCustomSort: true,
+      filterable: false,
     },
     {
       field: 'status',
@@ -63,17 +76,21 @@ export const shopsColumns = (props: IColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing status'])} />,
       renderCell: ({ row }: GridRowModel) => {
         const disabled =
-          !row.profile || [RequestStatus.PENDING, RequestStatus.REJECTED].includes(row.profile?.requestStatus)
+          !row.profile ||
+          [ProfileRequestStatus.PENDING, ProfileRequestStatus.REJECTED].includes(row.profile?.requestStatus) ||
+          !row.profile?.access
 
         return (
           <SwitchCell
             disabled={disabled}
             value={row.profile?.isActive}
-            onClick={() => onParsingStatus(row._id, !row.profile?.isActive)}
+            onClick={() => onParsingStatus(row.profile?._id, !row.profile?.isActive)}
           />
         )
       },
       width: 160,
+      disableCustomSort: true,
+      filterable: false,
     },
     {
       field: 'action',
@@ -85,22 +102,26 @@ export const shopsColumns = (props: IColumnProps) => {
           iconButton
           isFirstButton
           isSecondButton
-          firstButtonElement={<EditIcon />}
+          firstButtonElement={<MdOutlineEdit style={{ fill: 'currentcolor' }} />}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<CrossIcon />}
+          secondButtonElement={<MdOutlineDelete />}
           secondButtonStyle={ButtonStyle.DANGER}
           secondDescriptionText="Are you sure you want to delete the store?"
           onClickFirstButton={() => onEditShop(row)}
           onClickSecondButton={() => onRemoveShop(row._id)}
         />
       ),
-      width: 100,
+      minWidth: 90,
       filterable: false,
       disableCustomSort: true,
     },
   ]
 
   for (const column of columns) {
+    if (!column.table) {
+      column.table = DataGridFilterTables.SHOPS
+    }
+
     column.sortable = false
   }
 

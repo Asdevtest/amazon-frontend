@@ -8,7 +8,7 @@ import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { RequestStatus } from '@typings/enums/request/request-status'
+import { ProfileRequestStatus } from '@typings/enums/request/profile-request-status'
 
 import { IShopProfile } from '../../client-shops-view.types'
 
@@ -20,11 +20,11 @@ interface ParsingProfileCellProps {
 export const ParsingProfileCell: FC<ParsingProfileCellProps> = memo(props => {
   const { profile, onConfirm } = props
 
-  if (profile?.requestStatus === RequestStatus.PENDING) {
+  if (profile?.requestStatus === ProfileRequestStatus.PENDING) {
     return <TextCell text={t(TranslationKey['Request sent'])} />
   }
 
-  if (profile?.requestStatus === RequestStatus.APPROVED && profile?.email) {
+  if (profile?.requestStatus === ProfileRequestStatus.APPROVED && profile?.email) {
     return <TextCell text={profile.email} />
   }
 
@@ -33,7 +33,7 @@ export const ParsingProfileCell: FC<ParsingProfileCellProps> = memo(props => {
       isFirstButton
       firstButtonElement={t(TranslationKey.Ask)}
       firstButtonStyle={ButtonStyle.PRIMARY}
-      onClickFirstButton={throttle(onConfirm)}
+      onClickFirstButton={throttle(onConfirm, 2000)}
     />
   )
 })

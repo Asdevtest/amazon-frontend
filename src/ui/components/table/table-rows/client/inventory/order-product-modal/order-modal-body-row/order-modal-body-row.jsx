@@ -292,7 +292,7 @@ export const OrderModalBodyRow = ({
             data={
               item?.variationTariffId
                 ? destinations.filter(el => el?._id === (destinationId || item?.variationTariff?.destinationId))
-                : destinations.filter(el => el?.storekeeper?._id !== item?.storekeeper?._id)
+                : destinations
             }
             favourites={destinationsFavourites}
             searchFields={['name']}

@@ -7,10 +7,12 @@ import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
 
-import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { UserRole, UserRoleCodeMap, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
+import { CustomSelect } from '@components/shared/custom-select'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
@@ -68,7 +70,7 @@ export const AddOrEditGroupPermissionForm = observer(
       if (fieldName === 'key') {
         setOnKeyFieldEditing(true)
         newFormFields[fieldName] = event.target.value.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '')
-      } else if (fieldName === 'hierarchy' && !checkIsPositiveNum(event.target.value)) {
+      } else if ((fieldName === 'hierarchy' && !checkIsPositiveNum(event.target.value)) || event.target.value > 200) {
         return
       } else {
         newFormFields[fieldName] = event.target.value
@@ -79,14 +81,11 @@ export const AddOrEditGroupPermissionForm = observer(
 
     const curPermissions = singlePermissions.filter(el => formFields.permissions.includes(el._id))
 
-    const handleSelectPermissionChange = event => {
-      if (!event.target.value[event.target.value.length - 1] && event.target.value.length > 0) {
+    const handleSelectPermissionChange = value => {
+      if (!value[value.length - 1] && value.length > 0) {
         return
       }
 
-      const {
-        target: { value },
-      } = event
       const newFormFields = { ...formFields }
       newFormFields.permissions = typeof value === 'string' ? value.split(',') : value
       setFormFields(newFormFields)
@@ -138,6 +137,22 @@ export const AddOrEditGroupPermissionForm = observer(
         <ListItemText className={styles.standartText} primary={`${per.title}`} />
       </MenuItem>
     )
+
+    const getSelectRoleConfig = permissions =>
+      permissions?.map(permission => ({
+        label: permission?.title,
+        value: permission?._id,
+      }))
+
+    const selectConfig = Object.keys(objectSinglePermissions)?.map(role => {
+      const roleTitle = UserRolePrettyMap[role]
+
+      return {
+        label: roleTitle,
+        title: roleTitle,
+        options: getSelectRoleConfig(objectSinglePermissions[role]),
+      }
+    })
 
     return (
       <div className={styles.root}>
@@ -224,103 +239,33 @@ export const AddOrEditGroupPermissionForm = observer(
             }
             inputComponent={
               <div className={styles.allowPermissions}>
-                <div>
-                  <Typography className={styles.permissionsSubTitle}>
-                    {t(TranslationKey['Existing permissions:'])}
-                  </Typography>
+                <CustomSelect
+                  mode="multiple"
+                  label="Select available:"
+                  value={formFields.permissions}
+                  labelClassName={styles.permissionsSubTitle}
+                  className={styles.permissionSelect}
+                  filterOption={(input, option) =>
+                    (option?.label || '')?.toLowerCase?.()?.includes?.(input?.toLowerCase?.())
+                  }
+                  options={selectConfig}
+                  dropdownRender={menu => (
+                    <div>
+                      {menu}
 
-                  {curPermissions.map((el, index) => (
-                    <Tooltip key={index} title={renderPermissionInfo(el)}>
-                      <Typography className={styles.singlePermission}>{`${el.title}`}</Typography>
-                    </Tooltip>
-                  ))}
-
-                  <div className={styles.selectWrapper}>
-                    <Typography className={styles.selectChoose}>{t(TranslationKey['Select available:'])}</Typography>
-                    <Select
-                      multiple
-                      open={openSinglePermissions}
-                      className={styles.permissionSelect}
-                      value={formFields.permissions}
-                      renderValue={() => t(TranslationKey.Choose)}
-                      MenuProps={{
-                        PaperProps: {
-                          style: {
-                            maxHeight: 420,
-                          },
-                        },
-                      }}
-                      onOpen={() => setOpenSinglePermissions(!openSinglePermissions)}
-                      onClose={() => setOpenSinglePermissions(!openSinglePermissions)}
-                      onChange={handleSelectPermissionChange}
-                    >
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.ADMIN}</ListSubheader>
-                      )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]].map(per => renderMenuItem(per))}
-
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.CLIENT}</ListSubheader>
-                      )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]].map(per => renderMenuItem(per))}
-
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.SUPERVISOR}</ListSubheader>
-                      )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]].map(per =>
-                          renderMenuItem(per),
-                        )}
-
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.RESEARCHER}</ListSubheader>
-                      )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]].map(per =>
-                          renderMenuItem(per),
-                        )}
-
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.BUYER}</ListSubheader>
-                      )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]].map(per => renderMenuItem(per))}
-
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.STOREKEEPER}</ListSubheader>
-                      )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]].map(per =>
-                          renderMenuItem(per),
-                        )}
-
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.FREELANCER]] && (
-                        <ListSubheader className={styles.listSubheader}>{UserRole.FREELANCER}</ListSubheader>
-                      )}
-                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.FREELANCER]] &&
-                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.FREELANCER]].map(per =>
-                          renderMenuItem(per),
-                        )}
                       <div className={styles.selectModalBtnsWrapper}>
-                        <Button
-                          styleType={ButtonStyle.CASUAL}
-                          onClick={() => setOpenSinglePermissions(!openSinglePermissions)}
-                        >
-                          {t(TranslationKey.Close)}
-                        </Button>
-
-                        <Button
+                        <CustomButton
+                          danger
                           disabled={!curPermissions.length}
                           onClick={() => onChangeField('permissions')({ target: { value: [] } })}
                         >
                           {t(TranslationKey.Reset)}
-                        </Button>
+                        </CustomButton>
                       </div>
-                    </Select>
-                  </div>
-                </div>
+                    </div>
+                  )}
+                  onChange={handleSelectPermissionChange}
+                />
 
                 <div>
                   <Typography className={styles.permissionsSubTitle}>

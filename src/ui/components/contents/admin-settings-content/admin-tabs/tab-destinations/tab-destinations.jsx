@@ -5,13 +5,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './tab-destinations.style'
@@ -24,11 +23,11 @@ export const TabDestinations = observer(() => {
 
   return (
     <div className={styles.wrapper}>
-      <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
+      <CustomButton type="primary" size="large" onClick={viewModel.onClickAddBtn}>
         {t(TranslationKey['Add a destination'])}
-      </Button>
+      </CustomButton>
 
-      <div className={styles.datagridWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           sortModel={viewModel.sortModel}
           sortingMode="client"

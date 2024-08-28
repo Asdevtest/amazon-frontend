@@ -22,12 +22,6 @@ import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clie
  */
 export interface InlineObject68 {
     /**
-     * Гуид продукта
-     * @type {string}
-     * @memberof InlineObject68
-     */
-    productId: string;
-    /**
      * New product price
      * @type {number}
      * @memberof InlineObject68

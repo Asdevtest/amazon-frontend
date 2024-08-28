@@ -280,6 +280,7 @@ export const ShopApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * ## Получить все магазины пользователя.   
          * @summary # Получить все магазины пользователя. (WITH PROFILES)
+         * @param {string} [filters]                Возможные поля:  asin, amazonTitle, skuByClient, id               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
          * @param {number} [limit] Лимит записей для пагинации
          * @param {number} [offset] Смещение для пагинации
          * @param {string} [sortField] Название поля
@@ -289,7 +290,7 @@ export const ShopApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsWithProfilesGet: async (limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ShopsWithProfilesGet: async (filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/shops/with_profiles`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -304,6 +305,10 @@ export const ShopApiAxiosParamCreator = function (configuration?: Configuration)
 
             // authentication AccessTokenBearer required
             await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (filters !== undefined) {
+                localVarQueryParameter['filters'] = filters;
+            }
 
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
@@ -417,6 +422,7 @@ export const ShopApiFp = function(configuration?: Configuration) {
         /**
          * ## Получить все магазины пользователя.   
          * @summary # Получить все магазины пользователя. (WITH PROFILES)
+         * @param {string} [filters]                Возможные поля:  asin, amazonTitle, skuByClient, id               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
          * @param {number} [limit] Лимит записей для пагинации
          * @param {number} [offset] Смещение для пагинации
          * @param {string} [sortField] Название поля
@@ -426,8 +432,8 @@ export const ShopApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopsWithProfilesGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20097>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopsWithProfilesGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options);
+        async apiV1ShopsWithProfilesGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20097>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopsWithProfilesGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -502,6 +508,7 @@ export const ShopApiFactory = function (configuration?: Configuration, basePath?
         /**
          * ## Получить все магазины пользователя.   
          * @summary # Получить все магазины пользователя. (WITH PROFILES)
+         * @param {string} [filters]                Возможные поля:  asin, amazonTitle, skuByClient, id               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
          * @param {number} [limit] Лимит записей для пагинации
          * @param {number} [offset] Смещение для пагинации
          * @param {string} [sortField] Название поля
@@ -511,8 +518,8 @@ export const ShopApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopsWithProfilesGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20097>> {
-            return localVarFp.apiV1ShopsWithProfilesGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
+        apiV1ShopsWithProfilesGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20097> {
+            return localVarFp.apiV1ShopsWithProfilesGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -657,6 +664,13 @@ export interface ShopApiApiV1ShopsPostRequest {
  */
 export interface ShopApiApiV1ShopsWithProfilesGetRequest {
     /**
+     *                Возможные поля:  asin, amazonTitle, skuByClient, id               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+     * @type {string}
+     * @memberof ShopApiApiV1ShopsWithProfilesGet
+     */
+    readonly filters?: string
+
+    /**
      * Лимит записей для пагинации
      * @type {number}
      * @memberof ShopApiApiV1ShopsWithProfilesGet
@@ -775,6 +789,6 @@ export class ShopApi extends BaseAPI {
      * @memberof ShopApi
      */
     public apiV1ShopsWithProfilesGet(requestParameters: ShopApiApiV1ShopsWithProfilesGetRequest = {}, options?: any) {
-        return ShopApiFp(this.configuration).apiV1ShopsWithProfilesGet(requestParameters.limit, requestParameters.offset, requestParameters.sortField, requestParameters.sortType, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+        return ShopApiFp(this.configuration).apiV1ShopsWithProfilesGet(requestParameters.filters, requestParameters.limit, requestParameters.offset, requestParameters.sortField, requestParameters.sortType, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 }
