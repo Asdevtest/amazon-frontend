@@ -1,37 +1,74 @@
+import axios, { AxiosRequestConfig } from 'axios'
 import { jwtDecode } from 'jwt-decode'
+import { toast } from 'react-toastify'
+
+import { BACKEND_API_URL } from '@constants/keys/env'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-export const resetAccessTokenByTime = (
-  currentAccessToken: string | undefined,
-  currentRefreshToken: string | undefined,
-) => {
-  if (!currentAccessToken) return
+import api from '@services/axios/api'
 
-  const decoded = jwtDecode(currentAccessToken)
-  const expValue = decoded.exp || 0
-  const iatValue = decoded.iat || 0
-  const delayInSeconds = expValue - iatValue
+import { t } from '@utils/translations'
 
-  setTimeout(async () => {
-    const userModelData = SettingsModel.loadValue('UserModel')
-    const refreshToken = userModelData.refreshToken
+interface IPostAccessToken {
+  refreshToken: string
+}
+interface IGetAccessToken {
+  data: { accessToken: string }
+}
 
-    if (!refreshToken || currentRefreshToken !== refreshToken) return
+export const resetTokens = async (originalRequest?: AxiosRequestConfig) => {
+  const storage = localStorage.getItem('UserModel')
 
-    const response = await UserModel.getAccessToken(refreshToken)
-    const accessToken = response?.accessToken
+  if (storage) {
+    const userModel = JSON.parse(storage)
 
-    SettingsModel.saveValue('UserModel', { ...userModelData, accessToken })
-    UserModel.setAccessToken(accessToken)
+    try {
+      const response = await axios.post<IPostAccessToken, IGetAccessToken>(
+        `${BACKEND_API_URL}/api/v1/users/get_access_token`,
+        {
+          refreshToken: userModel.refreshToken,
+        },
+      )
 
-    ChatModel.disconnect()
-    ChatModel.init(accessToken)
+      const accessToken = response?.data?.accessToken
 
-    console.warn(`${new Date().toLocaleString()}. Next reset access token in ${delayInSeconds - 30} seconds`)
+      SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
+      UserModel.setAccessToken(accessToken)
 
-    resetAccessTokenByTime(accessToken, refreshToken)
-  }, (delayInSeconds - 30) * 1000)
+      ChatModel.disconnect()
+      ChatModel.init(accessToken)
+
+      if (originalRequest) {
+        return api.request(originalRequest)
+      }
+    } catch (e) {
+      toast.error(t(TranslationKey['Access is denied']), {
+        toastId: 'accessDenied',
+      })
+    }
+  }
+}
+
+export const resetAccessTokenByTime = () => {
+  const storage = localStorage.getItem('UserModel')
+
+  if (storage) {
+    const userModel = JSON.parse(storage)
+
+    const decoded = jwtDecode(userModel?.accessToken as string)
+    const expValue = decoded.exp || 0
+    const iatValue = decoded.iat || 0
+    const delayInSeconds = expValue - iatValue
+    const nextResetTime = delayInSeconds - 30
+
+    setTimeout(() => {
+      resetTokens()
+      resetAccessTokenByTime()
+      console.warn(`${new Date().toLocaleString()}. Next reset access token in ${nextResetTime} seconds`)
+    }, nextResetTime * 1000)
+  }
 }

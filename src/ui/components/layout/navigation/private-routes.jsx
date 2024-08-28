@@ -41,7 +41,7 @@ export const PrivateRoutes = observer(() => {
     if (UserModel.isAuthenticated()) {
       ChatModel.init()
       ChatModel.getUnreadMessagesCount()
-      resetAccessTokenByTime(UserModel.accessToken, UserModel.refreshToken)
+      resetAccessTokenByTime()
     }
   }, [])
 
