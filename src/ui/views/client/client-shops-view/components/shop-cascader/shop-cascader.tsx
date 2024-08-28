@@ -88,7 +88,7 @@ export const ShopCascader: FC<ShopCascaderProps> = observer(({ shops }) => {
       rootClassName={styles.cascader}
       expandTrigger="hover"
       optionRender={option => (
-        <Paragraph ellipsis={{ rows: 1 }} style={{ margin: 0 }}>
+        <Paragraph ellipsis={{ rows: 1 }} style={{ margin: 0, width: 220 }}>
           {option.label}
         </Paragraph>
       )}
