@@ -43,7 +43,6 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       valueGetter: ({ row }: GridRowModel) => row.profile?.name || '',
       width: 240,
       columnKey: columnnsKeys.shared.STRING_VALUE,
-      hideEmptyObject: true,
     },
     {
       field: 'profileEmail',
@@ -53,7 +52,6 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       valueGetter: ({ row }: GridRowModel) => row.profile?.email || '',
       width: 240,
       columnKey: columnnsKeys.shared.STRING_VALUE,
-      hideEmptyObject: true,
     },
     {
       field: 'updatedAt',
