@@ -4,7 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextHeaderCell,
   NormDateCell,
-  ProductAsinCell,
+  ProductCell,
   TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -67,9 +67,7 @@ export const inventoryColumns = () => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => (
-        <ProductAsinCell image={row?.image} amazonTitle={row?.title} asin={row?.asin} skuByClient={row?.sku} />
-      ),
+      renderCell: ({ row }) => <ProductCell image={row?.image} title={row?.title} asin={row?.asin} sku={row?.sku} />,
 
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({
@@ -78,7 +76,7 @@ export const inventoryColumns = () => {
         customTitleField: 'title',
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 210,
+      width: 170,
     },
 
     {

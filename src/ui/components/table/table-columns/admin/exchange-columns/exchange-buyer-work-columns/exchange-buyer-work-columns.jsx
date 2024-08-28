@@ -48,8 +48,7 @@ export const exchangeBuyerWorkColumns = () => [
         />
       )
     },
-    width: 260,
-    minWidth: 100,
+    width: 170,
   },
 
   {

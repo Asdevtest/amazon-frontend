@@ -79,8 +79,7 @@ export const freelancerVacantRequestColumns = handlers => [
         />
       )
     },
-    width: 260,
-    minWidth: 100,
+    width: 170,
 
     columnKey: columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT,
   },

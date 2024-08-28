@@ -49,8 +49,7 @@ export const exchangeSupplierFoundedColumns = () => [
         />
       )
     },
-    width: 260,
-    minWidth: 100,
+    width: 170,
   },
 
   {

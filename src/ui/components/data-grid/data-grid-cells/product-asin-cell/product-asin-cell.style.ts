@@ -2,16 +2,21 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    width: '200px',
-    padding: '10px 0px',
+    minWidth: '150px',
+    width: '100%',
+    padding: '5px 0px',
     display: 'flex',
     flexDirection: 'column',
-    gap: '3px',
+  },
+
+  text: {
+    fontSize: '12px',
+    lineHeight: '16px',
   },
 
   flexRow: {
     display: 'flex',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     gap: '5px',
   },
 
@@ -21,6 +26,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   image: {
+    minWidth: '32px',
     borderRadius: '4px',
     overflow: 'hidden',
     boxShadow: theme.palette.boxShadow.paper,

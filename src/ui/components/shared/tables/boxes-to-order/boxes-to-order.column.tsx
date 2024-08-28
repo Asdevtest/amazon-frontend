@@ -39,8 +39,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     ),
     filterable: false,
     sortable: false,
-    width: 260,
-    minWidth: 100,
+    width: 170,
   },
 
   {

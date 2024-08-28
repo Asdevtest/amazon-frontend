@@ -41,8 +41,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SKU)} />,
 
       renderCell: (params: GridRenderCellParams) => <ProductCell image={params.row?.image} sku={params.row?.sku} />,
-      width: 260,
-      minWidth: 100,
+      width: 170,
       disableCustomSort: true,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,

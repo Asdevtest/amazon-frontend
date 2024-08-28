@@ -36,8 +36,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
           asin={params.row.product?.asin}
         />
       ),
-      width: 260,
-      minWidth: 100,
+      width: 170,
       disableColumnMenu: true,
       filterable: false,
       sortable: false,

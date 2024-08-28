@@ -83,15 +83,11 @@ export const clientInventoryColumns = ({
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => (
-        <ProductCell image={row?.images?.[0]} title={row?.amazonTitle} asin={row?.asin} sku={row?.skuByClient} />
-      ),
-
+      renderCell: ({ row }) => <ProductCell image={row?.images?.[0]} title={row?.amazonTitle} />,
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -606,8 +602,7 @@ export const clientInventoryColumns = ({
             fields: getProductColumnMenuItems({ withoutTitle: true }),
             columnMenuConfig: getProductColumnMenuValue(),
             columnKey: columnnsKeys.shared.MULTIPLE,
-            width: 260,
-            minWidth: 100,
+            width: 170,
           }
 
           defaultColumns.push(complexCell)

@@ -4,7 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextHeaderCell,
   NormDateCell,
-  ProductAsinCell,
+  ProductCell,
   TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -76,7 +76,7 @@ export const fypSearchSuppressedColumns = () => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => <ProductAsinCell withoutImage withoutTitle asin={row?.asin} skuByClient={row?.sku} />,
+      renderCell: ({ row }) => <ProductCell asin={row?.asin} sku={row?.sku} />,
 
       fields: getProductColumnMenuItems({ withoutTitle: true }),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({
@@ -84,7 +84,7 @@ export const fypSearchSuppressedColumns = () => {
         table: ParsingReportsType.FYP_SEARCH_SUPPRESSED,
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 210,
+      width: 170,
     },
   ]
 

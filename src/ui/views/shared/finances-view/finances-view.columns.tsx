@@ -54,8 +54,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: userBalance ? undefined : columnnsKeys.shared.MULTIPLE,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
