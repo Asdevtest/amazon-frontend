@@ -50,25 +50,15 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
         <CustomSelect
           loading={viewModel.requestTagsByIdStatus === loadingStatus.IS_LOADING}
           placeholder="Product tags"
-          mode="tags"
-          tagRender={tagRenderProps => {
-            const { value, closable, onClose } = tagRenderProps
-
-            console.log('tagRenderProps', tagRenderProps)
-
-            const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
-              event.preventDefault()
-              event.stopPropagation()
-            }
-
-            return (
-              <CustomTag tag={value as ITag} closable={closable} onMouseDown={onPreventMouseDown} onClose={onClose} />
-            )
-          }}
+          mode="multiple"
+          fieldNames={{ label: 'title', value: '_id' }}
           value={viewModel.selectedTags}
-          options={viewModel.tags?.map(tag => ({ label: tag?.title, value: tag, data: tag }))}
+          options={viewModel.tags}
           style={{ width: '100%' }}
-          onChange={viewModel.handleClickTag}
+          labelRender={tag => {
+            console.log('tag', tag)
+          }}
+          onChange={(props, value) => console.log('onChange', props, value)}
           onSelect={(value, option) => console.log('onSelect', value, option)}
           onDeselect={(value, option) => console.log('onDeselect', value, option)}
         />
