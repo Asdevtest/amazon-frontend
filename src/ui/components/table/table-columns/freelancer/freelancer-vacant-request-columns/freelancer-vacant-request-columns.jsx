@@ -12,7 +12,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   PriorityAndChinaDeliverCell,
-  ProductAsinCell,
+  ProductCell,
   TextCell,
   UserMiniCell,
   VacantRequestPriceCell,
@@ -71,16 +71,15 @@ export const freelancerVacantRequestColumns = handlers => [
       const product = params.row?.product
 
       return (
-        <ProductAsinCell
+        <ProductCell
           image={product?.images?.[0]}
-          amazonTitle={product?.amazonTitle}
+          title={product?.amazonTitle}
           asin={product?.asin}
-          skuByClient={product?.skuByClient}
+          sku={product?.skuByClient}
         />
       )
     },
-    width: 260,
-    minWidth: 100,
+    width: 170,
 
     columnKey: columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT,
   },

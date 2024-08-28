@@ -11,7 +11,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   PriorityAndChinaDeliverCell,
-  ProductAsinCell,
+  ProductCell,
   TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
@@ -61,17 +61,16 @@ export const pendingOrdersColumns = () => {
       headerName: 'ASIN',
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-      width: 260,
-      minWidth: 100,
+      width: 170,
       renderCell: params => {
         const product = params.row.product
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },

@@ -19,7 +19,7 @@ import {
   NormDateCell,
   OpenInNewTabCell,
   PriorityAndChinaDeliverCell,
-  ProductAsinCell,
+  ProductCell,
   TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -108,11 +108,11 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
         const product = params.row.product
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
@@ -121,8 +121,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {

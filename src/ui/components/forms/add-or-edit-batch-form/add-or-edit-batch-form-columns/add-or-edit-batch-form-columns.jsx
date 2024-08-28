@@ -39,7 +39,6 @@ export const addOrEditBatchFormColumns = isClient => [
         <div>
           <OrderBoxesCell
             superbox
-            withoutSku
             withQuantity
             qty={params.row.qty}
             superboxQty={params.row.originalData.amount}
@@ -49,7 +48,6 @@ export const addOrEditBatchFormColumns = isClient => [
       ) : (
         <div>
           <OrderBoxesCell
-            withoutSku
             withQuantity
             qty={params.row.qty}
             superboxQty={params.row.originalData.amount > 1 && params.row.originalData.amount}

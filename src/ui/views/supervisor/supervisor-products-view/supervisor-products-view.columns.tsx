@@ -11,7 +11,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   OpenInNewTabCell,
-  ProductAsinCell,
+  ProductCell,
   RedFlagsCell,
   TagsCell,
   TextCell,
@@ -47,19 +47,13 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
       renderCell: ({ row }: GridRowModel) => (
-        <ProductAsinCell
-          image={row?.images?.[0]}
-          amazonTitle={row?.amazonTitle}
-          asin={row?.asin}
-          skuByClient={row?.skuByClient}
-        />
+        <ProductCell image={row?.images?.[0]} title={row?.amazonTitle} asin={row?.asin} sku={row?.skuByClient} />
       ),
 
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {

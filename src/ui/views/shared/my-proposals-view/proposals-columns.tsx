@@ -24,7 +24,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   PriorityAndChinaDeliverCell,
-  ProductAsinCell,
+  ProductCell,
   TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
@@ -109,16 +109,15 @@ export const proposalsColumns = (handlers: IHandlers) => {
         const product = params.row?.request?.product
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
-      width: 260,
-      minWidth: 100,
+      width: 170,
       columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
       table: DataGridFilterTables.PRODUCTS,
     },

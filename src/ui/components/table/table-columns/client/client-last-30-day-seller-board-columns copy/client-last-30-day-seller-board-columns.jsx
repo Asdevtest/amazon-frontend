@@ -2,7 +2,7 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, ProductAsinCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell, TextCell } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
@@ -39,9 +39,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       headerName: `${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`,
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
 
-      renderCell: params => (
-        <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
-      ),
+      renderCell: params => <ProductCell asin={params.row?.asin} sku={params.row?.sku} />,
 
       fields: getProductColumnMenuItems({ withoutTitle: true }),
       columnMenuConfig: getProductColumnMenuValue({
@@ -50,8 +48,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {

@@ -3,7 +3,7 @@ import { GridRowModel } from '@mui/x-data-grid'
 import { boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { FilesCell, MultilineTextHeaderCell, ProductAsinCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { FilesCell, MultilineTextHeaderCell, ProductCell, TextCell } from '@components/data-grid/data-grid-cells'
 
 import { calcPriceForBox } from '@utils/calculation'
 import { formatNormDateTime } from '@utils/date-time'
@@ -35,17 +35,11 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     field: 'product',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     renderCell: ({ row }: GridRowModel) => (
-      <ProductAsinCell
-        image={row.boxProductPreview}
-        amazonTitle={row.amazonTitle}
-        asin={row.asin}
-        skuByClient={row.skuByClient}
-      />
+      <ProductCell image={row.boxProductPreview} title={row.amazonTitle} asin={row.asin} sku={row.skuByClient} />
     ),
     filterable: false,
     sortable: false,
-    width: 260,
-    minWidth: 100,
+    width: 170,
   },
 
   {

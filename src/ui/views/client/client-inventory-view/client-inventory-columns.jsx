@@ -16,7 +16,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   OrderIdAndAmountCountCell,
-  ProductAsinCell,
+  ProductCell,
   ProductVariationsCell,
   RedFlagsCell,
   SelectRowCell,
@@ -83,20 +83,11 @@ export const clientInventoryColumns = ({
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => (
-        <ProductAsinCell
-          image={row?.images?.[0]}
-          amazonTitle={row?.amazonTitle}
-          asin={row?.asin}
-          skuByClient={row?.skuByClient}
-        />
-      ),
-
+      renderCell: ({ row }) => <ProductCell image={row?.images?.[0]} title={row?.amazonTitle} />,
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -605,16 +596,13 @@ export const clientInventoryColumns = ({
             renderCell: ({ row }) => {
               const product = row?.[table]
 
-              return (
-                <ProductAsinCell withoutTitle image={product?.image} asin={product?.asin} skuByClient={product?.sku} />
-              )
+              return <ProductCell image={product?.image} asin={product?.asin} sku={product?.sku} />
             },
 
             fields: getProductColumnMenuItems({ withoutTitle: true }),
             columnMenuConfig: getProductColumnMenuValue(),
             columnKey: columnnsKeys.shared.MULTIPLE,
-            width: 260,
-            minWidth: 100,
+            width: 170,
           }
 
           defaultColumns.push(complexCell)
