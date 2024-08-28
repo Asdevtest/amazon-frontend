@@ -1,8 +1,7 @@
-import { Console } from 'console'
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
-import { GridRowModel, GridRowParams } from '@mui/x-data-grid'
+import { GridRowModel } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,9 +21,8 @@ import { useStyles } from './boxes-to-create.style'
 import { boxesToCreateColumn } from './boxes-to-create-column'
 import { BoxesToCreateModel } from './boxes-to-create.model'
 
-// import { useStyles } from './boxes-to-order.style'
-
 interface BoxesToCreateProps {
+  setBoxesForCreation: (boxes: IBox[]) => void
   formFields: IOrderWithAdditionalFields
   platformSettings: IPlatformSettings
   orderGoodsAmount: number
@@ -33,24 +31,17 @@ interface BoxesToCreateProps {
   newBoxes: IBox[]
   onRemoveBox: () => void
   onEditBox: () => void
-  onClickBarcodeCheckbox: () => void
-  onClickUpdateSupplierStandart: () => void
-  onClickTransparency: () => void
 }
 
 export const BoxesToCreate: FC<BoxesToCreateProps> = observer(props => {
   const {
-    formFields,
+    setBoxesForCreation,
     platformSettings,
     orderGoodsAmount,
     barcodeIsExist,
     isNoBuyerSupplier,
     newBoxes,
-    onRemoveBox,
     onEditBox,
-    onClickBarcodeCheckbox,
-    onClickUpdateSupplierStandart,
-    onClickTransparency,
   } = props
 
   const { classes: styles, cx } = useStyles()
@@ -60,7 +51,9 @@ export const BoxesToCreate: FC<BoxesToCreateProps> = observer(props => {
   const itemsGoodsAmount = newBoxes?.reduce((acc, item) => {
     return acc + item?.items?.[0]?.amount * item?.amount
   }, 0)
-  const [viewModel] = useState(() => new BoxesToCreateModel(formFields))
+  const [viewModel] = useState(() => new BoxesToCreateModel(newBoxes))
+
+  setBoxesForCreation(viewModel.boxes)
 
   return (
     <>
@@ -87,7 +80,7 @@ export const BoxesToCreate: FC<BoxesToCreateProps> = observer(props => {
           disableRowSelectionOnClick
           sortingMode="client"
           paginationMode="client"
-          rows={newBoxes || []}
+          rows={viewModel.boxes || []}
           columnHeaderHeight={40}
           getRowHeight={() => 'auto'}
           getRowId={(row: GridRowModel) => row._id || `new-${Math.random()}`}
@@ -95,11 +88,9 @@ export const BoxesToCreate: FC<BoxesToCreateProps> = observer(props => {
             platformSettings,
             barcodeIsExist,
             isNoBuyerSupplier,
-            onRemoveBox,
+            viewModel.rowHandlers,
             onEditBox,
-            onClickBarcodeCheckbox,
-            onClickUpdateSupplierStandart,
-            onClickTransparency,
+            newBoxes,
           )}
           paginationModel={viewModel.paginationModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -120,7 +111,6 @@ export const BoxesToCreate: FC<BoxesToCreateProps> = observer(props => {
             },
           }}
           onPaginationModelChange={viewModel.onPaginationModelChange}
-          //   onRowDoubleClick={(params: GridRowParams) => viewModel.onTriggerBoxModal(params?.row?._id)}
         />
       </div>
     </>

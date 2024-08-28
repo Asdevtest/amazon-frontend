@@ -26,7 +26,7 @@ export const Table = observer(
     const { classes: styles } = useStyles()
 
     const dataWithPages = data.slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage)
-
+    console.log('table', data)
     return (
       <Paper>
         {!rowsOnly && <TableToolbar handlerRowsPerPage={handlerRowsPerPage} rowsPerPage={rowsPerPage} />}

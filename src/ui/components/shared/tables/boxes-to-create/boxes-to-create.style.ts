@@ -4,6 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: '100%',
     height: 300,
+    marginBottom: 20,
   },
 
   columnHeaderTitleContainer: {

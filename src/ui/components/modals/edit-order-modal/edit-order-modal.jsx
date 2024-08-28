@@ -189,10 +189,10 @@ export const EditOrderModal = memo(
       }
     }, [orderFields.orderSupplier])
 
-    const onRemoveForCreationBox = boxIndex => {
-      const updatedNewBoxes = boxesForCreation.filter((box, i) => i !== boxIndex)
-      setBoxesForCreation(updatedNewBoxes)
-    }
+    // const onRemoveForCreationBox = boxIndex => {
+    //   const updatedNewBoxes = boxesForCreation.filter((box, i) => i !== boxIndex)
+    //   setBoxesForCreation(updatedNewBoxes)
+    // }
 
     const addBoxHandler = () => {
       setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)
@@ -201,35 +201,32 @@ export const EditOrderModal = memo(
 
     const onEditForCreationBox = () => {
       setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)
-
       setIsEdit(true)
     }
 
-    const onClickBarcodeCheckbox = boxIndex => e => {
-      const newStateFormFields = [...boxesForCreation]
-      newStateFormFields[boxIndex].items[0].isBarCodeAlreadyAttachedByTheSupplier = e.target.checked
-      setBoxesForCreation(newStateFormFields)
-    }
+    // const onClickBarcodeCheckbox = boxIndex => e => {
+    //   const newStateFormFields = [...boxesForCreation]
+    //   newStateFormFields[boxIndex].items[0].isBarCodeAlreadyAttachedByTheSupplier = e.target.checked
+    //   setBoxesForCreation(newStateFormFields)
+    // }
 
-    const onClickUpdateSupplierStandart = boxIndex => e => {
-      const newStateFormFields = [...boxesForCreation].map(el => ({
-        ...el,
-        tmpUseToUpdateSupplierBoxDimensions: false,
-      }))
-      newStateFormFields[boxIndex].tmpUseToUpdateSupplierBoxDimensions = e.target.checked
-      setBoxesForCreation(newStateFormFields)
-    }
+    // const onClickUpdateSupplierStandart = boxIndex => e => {
+    //   const newStateFormFields = [...boxesForCreation].map(el => ({
+    //     ...el,
+    //     tmpUseToUpdateSupplierBoxDimensions: false,
+    //   }))
+    //   newStateFormFields[boxIndex].tmpUseToUpdateSupplierBoxDimensions = e.target.checked
+    //   setBoxesForCreation(newStateFormFields)
+    // }
 
-    const onClickTransparency = boxIndex => e => {
-      const newStateFormFields = [...boxesForCreation]
-
-      newStateFormFields[boxIndex].items[0] = {
-        ...newStateFormFields[boxIndex].items[0],
-        isTransparencyFileAlreadyAttachedByTheSupplier: e.target.checked,
-      }
-
-      setBoxesForCreation(newStateFormFields)
-    }
+    // const onClickTransparency = boxIndex => e => {
+    //   const newStateFormFields = [...boxesForCreation]
+    //   newStateFormFields[boxIndex].items[0] = {
+    //     ...newStateFormFields[boxIndex].items[0],
+    //     isTransparencyFileAlreadyAttachedByTheSupplier: e.target.checked,
+    //   }
+    //   setBoxesForCreation(newStateFormFields)
+    // }
 
     const onClickUpdateButton = () => {
       const newOrderFieldsState = { ...orderFields }
@@ -414,7 +411,6 @@ export const EditOrderModal = memo(
           return onSubmitSaveOrder(getDataForSaveOrder())
       }
     }
-
     const disableSubmit =
       requestStatus === loadingStatus.IS_LOADING ||
       buyerOrderModalSubmitDisabledOrderStatuses.includes(order.status + '') ||
@@ -723,9 +719,8 @@ export const EditOrderModal = memo(
           </Button>
         </div>
 
-        {boxesForCreation.length > 0 && (
-          <>
-            {/* <BoxesToCreateTable
+        <>
+          {/* <BoxesToCreateTable
               orderGoodsAmount={orderFields?.amount}
               barcodeIsExist={order.product.barCode}
               isNoBuyerSupplier={
@@ -740,62 +735,58 @@ export const EditOrderModal = memo(
               onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
               onClickTransparency={onClickTransparency}
             /> */}
-            <BoxesToCreate
-              orderGoodsAmount={orderFields?.amount}
-              barcodeIsExist={order.product.barCode}
-              isNoBuyerSupplier={
-                userInfo._id !== order.orderSupplier.createdBy?._id &&
-                userInfo?.masterUser?._id !== order.orderSupplier?.createdBy?._id &&
-                order.orderSupplier.createdBy
-              }
-              newBoxes={boxesForCreation}
-              onRemoveBox={onRemoveForCreationBox}
-              onEditBox={onEditForCreationBox}
-              onClickBarcodeCheckbox={onClickBarcodeCheckbox}
-              onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
-              onClickTransparency={onClickTransparency}
-            />
-            <div className={styles.InfoWrapper}>
-              <div className={styles.labelsInfoWrapper}>
-                <div>
-                  <Field
-                    labelClasses={styles.label}
-                    containerClasses={styles.containerField}
-                    inputClasses={styles.inputField}
-                    inputProps={{ maxLength: 255 }}
-                    label={t(TranslationKey['Set track number for new boxes']) + ':'}
-                    value={trackNumber.text}
-                    onChange={e => setTrackNumber({ ...trackNumber, text: e.target.value })}
-                  />
+          <BoxesToCreate
+            setBoxesForCreation={setBoxesForCreation}
+            orderGoodsAmount={orderFields?.amount}
+            barcodeIsExist={order.product.barCode}
+            isNoBuyerSupplier={
+              userInfo._id !== order.orderSupplier.createdBy?._id &&
+              userInfo?.masterUser?._id !== order.orderSupplier?.createdBy?._id &&
+              order.orderSupplier.createdBy
+            }
+            newBoxes={boxesForCreation}
+            onEditBox={onEditForCreationBox}
+          />
+          <div className={styles.InfoWrapper}>
+            <div className={styles.labelsInfoWrapper}>
+              <div>
+                <Field
+                  labelClasses={styles.label}
+                  containerClasses={styles.containerField}
+                  inputClasses={styles.inputField}
+                  inputProps={{ maxLength: 255 }}
+                  label={t(TranslationKey['Set track number for new boxes']) + ':'}
+                  value={trackNumber.text}
+                  onChange={e => setTrackNumber({ ...trackNumber, text: e.target.value })}
+                />
 
-                  <Button onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
-                    {trackNumber.files[0] ? t(TranslationKey['File added']) : t(TranslationKey['Photo track numbers'])}
-                  </Button>
-                </div>
-
-                <div className={styles.trackNumberPhotoWrapper}>
-                  {trackNumber.files[0] ? (
-                    <SlideshowGallery hiddenPreviews slidesToShow={1} files={trackNumber.files} />
-                  ) : (
-                    <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
-                  )}
-                </div>
+                <Button onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
+                  {trackNumber.files[0] ? t(TranslationKey['File added']) : t(TranslationKey['Photo track numbers'])}
+                </Button>
               </div>
 
-              <Field
-                multiline
-                minRows={4}
-                maxRows={4}
-                inputProps={{ maxLength: 500 }}
-                inputClasses={styles.commentInput}
-                value={commentToWarehouse}
-                labelClasses={styles.label}
-                label={`${t(TranslationKey['Buyer comment to the warehouse'])}:`}
-                onChange={e => setCommentToWarehouse(e.target.value)}
-              />
+              <div className={styles.trackNumberPhotoWrapper}>
+                {trackNumber.files[0] ? (
+                  <SlideshowGallery hiddenPreviews slidesToShow={1} files={trackNumber.files} />
+                ) : (
+                  <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
+                )}
+              </div>
             </div>
-          </>
-        )}
+
+            <Field
+              multiline
+              minRows={4}
+              maxRows={4}
+              inputProps={{ maxLength: 500 }}
+              inputClasses={styles.commentInput}
+              value={commentToWarehouse}
+              labelClasses={styles.label}
+              label={`${t(TranslationKey['Buyer comment to the warehouse'])}:`}
+              onChange={e => setCommentToWarehouse(e.target.value)}
+            />
+          </div>
+        </>
 
         <div className={styles.boxesWrapper}>
           <BoxesToOrder formFields={order} platformSettings={platformSettings} />

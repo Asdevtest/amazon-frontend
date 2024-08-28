@@ -1,3 +1,4 @@
+import { css } from '@emotion/react'
 import { IoMdClose } from 'react-icons/io'
 import { MdOutlineEdit } from 'react-icons/md'
 
@@ -7,27 +8,40 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
+  DimensionsCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
   TextCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { IBox } from '@typings/models/boxes/box'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
+import { Entities } from '@hooks/dimensions/use-show-dimensions'
+
+import CheckboxCell from './checkbox-cell/checkbox-cell'
+
+const rowStyle = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
 export const boxesToCreateColumn = (
   platformSettings: IPlatformSettings,
   barcodeIsExist: boolean,
   isNoBuyerSupplier: boolean,
-  onRemoveBox: (index: number) => void,
+  rowHandlers: {
+    onClickRemoveBtn: (row: number) => void
+    onClickBarcodeCheckbox: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void
+    onClickTransparency: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void
+    onClickUpdateSupplierStandart: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void
+  },
   onEditBox: () => void,
-  onClickBarcodeCheckbox: () => void,
-  onClickUpdateSupplierStandart: () => void,
-  onClickTransparency: () => void,
+  newBoxes: IBox[],
 ) => [
   {
     field: 'box',
@@ -42,7 +56,7 @@ export const boxesToCreateColumn = (
     ),
     filterable: false,
     sortable: false,
-    width: 280,
+    width: 300,
   },
 
   {
@@ -52,7 +66,6 @@ export const boxesToCreateColumn = (
     filterable: false,
     sortable: false,
     width: 95,
-    align: 'center',
   },
 
   {
@@ -62,90 +75,73 @@ export const boxesToCreateColumn = (
     filterable: false,
     sortable: false,
     width: 95,
-    align: 'center',
   },
 
-  // {
-  //   field: 'sizes',
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Sizes)} />,
-  //   renderCell: ({ row }: GridRowModel) => <FilesCell files={row.item[0].amount} />,
-  //   filterable: false,
-  //   sortable: false,
-  //   width: 60,
-  //   align: 'center',
-  // },
+  {
+    field: 'sizes',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Sizes)} />,
+    renderCell: ({ row }: GridRowModel) => <DimensionsCell data={row} calculationField={Entities.SUPPLIER} />,
+    filterable: false,
+    sortable: false,
+    width: 300,
+  },
 
-  // {
-  //   field: 'weight',
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Weight)} />,
-  //   renderCell: ({ row }: GridRowModel) => {
-  //     const totalQuantityText =
-  //       row.amount > 1
-  //         ? `${row.amount} x ${row.items[0]?.amount} ${t(TranslationKey['pcs.'])}`
-  //         : `${row.items[0]?.amount} ${t(TranslationKey['pcs.'])}`
-
-  //     return <TextCell text={totalQuantityText} />
-  //   },
-  //   filterable: false,
-  //   sortable: false,
-  //   width: 90,
-  // },
-
-  // {
-  //   field: 'volumeWeight',
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Volume weight'])} />,
-  //   renderCell: ({ row }: GridRowModel) => <TextCell text={row.destination?.name} />,
-  //   filterable: false,
-  //   sortable: false,
-  //   width: 100,
-  // },
-
-  // {
-  //   field: 'finalWeight',
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-  //   renderCell: ({ row }: GridRowModel) => <TextCell text={`ID: ${row.humanFriendlyId}`} />,
-  //   filterable: false,
-  //   sortable: false,
-  //   width: 85,
-  // },
-
-  // {
-  //   field: 'finalWeight',
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-  //   renderCell: ({ row }: GridRowModel) => (
-  //     <TextCell
-  //       text={toFixedWithKg(
-  //         Math.max(
-  //           row.weighGrossKgWarehouse
-  //             ? (row.lengthCmWarehouse * row.widthCmWarehouse * row.heightCmWarehouse) /
-  //                 (platformSettings?.volumeWeightCoefficient || 0)
-  //             : (row.lengthCmSupplier * row.widthCmSupplier * row.heightCmSupplier) /
-  //                 (platformSettings?.volumeWeightCoefficient || 0),
-  //           row.weighGrossKgWarehouse ? row.weighGrossKgWarehouse : row.weighGrossKgSupplier,
-  //         ),
-  //       )}
-  //     />
-  //   ),
-  //   filterable: false,
-  //   sortable: false,
-  //   width: 90,
-  // },
+  {
+    field: 'checkbox',
+    renderHeader: () => <MultilineTextHeaderCell text={''} />,
+    renderCell: ({ row }: GridRowModel) => {
+      const index = newBoxes.findIndex(box => box === row)
+      return (
+        <div className="row-style">
+          <CheckboxCell
+            checked={row.items[0].isBarCodeAlreadyAttachedByTheSupplier}
+            disabled={!barcodeIsExist}
+            label={t(TranslationKey['Supplier glued the barcode'])}
+            tooltipInfoContent={t(TranslationKey["Label the box as labeled with the supplier's barcode"])}
+            onChange={e => rowHandlers.onClickBarcodeCheckbox(index)(e)}
+          />
+          {row.items?.[0]?.transparencyFile && (
+            <CheckboxCell
+              checked={row.items[0].isTransparencyFileAlreadyAttachedByTheSupplier}
+              label={t(TranslationKey['The supplier glued the Transparency Codes'])}
+              onChange={e => rowHandlers.onClickTransparency(index)(e)}
+            />
+          )}
+          {!isNoBuyerSupplier && (
+            <CheckboxCell
+              checked={row?.tmpUseToUpdateSupplierBoxDimensions}
+              disabled={isNoBuyerSupplier}
+              label={t(TranslationKey['Make the supplier standard'])}
+              tooltipInfoContent={t(TranslationKey['Save box parameters to the current supplier'])}
+              onChange={e => rowHandlers.onClickUpdateSupplierStandart(index)(e)}
+            />
+          )}
+        </div>
+      )
+    },
+    filterable: false,
+    sortable: false,
+    width: 300,
+  },
 
   {
     field: ' ',
-    renderCell: ({ id }: GridRowModel) => (
-      <ActionButtonsCell
-        isFirstButton
-        isSecondButton
-        iconButton
-        firstButtonElement={<IoMdClose size={20} />}
-        firstButtonStyle={ButtonStyle.DANGER}
-        secondButtonElement={<MdOutlineEdit size={20} />}
-        secondButtonVariant={ButtonVariant.OUTLINED}
-        onClickFirstButton={() => onRemoveBox(id)}
-        onClickSecondButton={onEditBox}
-      />
-    ),
+    renderCell: ({ row }: GridRowModel) => {
+      const index = newBoxes.findIndex(box => box === row)
+      return (
+        <ActionButtonsCell
+          isFirstButton
+          isSecondButton
+          iconButton
+          firstButtonElement={<IoMdClose size={20} />}
+          firstButtonStyle={ButtonStyle.DANGER}
+          secondButtonElement={<MdOutlineEdit size={20} />}
+          secondButtonVariant={ButtonVariant.OUTLINED}
+          onClickFirstButton={() => rowHandlers.onClickRemoveBtn(index)}
+          onClickSecondButton={() => onEditBox()}
+        />
+      )
+    },
     filterable: false,
     sortable: false,
     width: 90,
