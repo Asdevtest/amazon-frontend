@@ -190,13 +190,7 @@ export class EditProductTagModel {
         limit: this.limit,
         filters:
           objectToUrlQs(
-            dataGridFiltersConverter(
-              {},
-              this.debounceSearchValue ? `"${this.debounceSearchValue}"` : '',
-              '',
-              [],
-              ['title'],
-            ),
+            dataGridFiltersConverter({}, this.debounceSearchValue ? this.debounceSearchValue : '', '', [], ['title']),
           ) || '',
       })
       return result

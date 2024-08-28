@@ -37,6 +37,12 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
 
   viewModel.setDebounceSearchValue = useDebounce(viewModel.searchValue)
 
+  console.log('viewModel.tags :>> ', viewModel.tags)
+
+  const options = useMemo(() => {
+    return viewModel.tags
+  }, [viewModel.tags])
+
   return (
     <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.container}>
@@ -44,14 +50,14 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
 
         <CustomSelect
           allowClear
-          showSearch
+          filterOption={false}
           searchValue={viewModel.searchValue}
           loading={viewModel.requestTagsByIdStatus === loadingStatus.IS_LOADING}
           placeholder="Product tags"
           mode="multiple"
           fieldNames={{ label: 'title', value: '_id' }}
           value={viewModel.selectedTags?.map(tag => ({ value: tag._id }))}
-          options={viewModel.tags}
+          options={options}
           style={{ width: '100%' }}
           tagRender={tagRenderProps => {
             const { value, onClose } = tagRenderProps
