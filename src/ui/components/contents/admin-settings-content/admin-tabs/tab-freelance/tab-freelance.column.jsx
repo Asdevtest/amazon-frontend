@@ -6,9 +6,9 @@ import {
   InputOrTextCell,
   MultilineTextHeaderCell,
   TableDataControlsButtonsCell,
-  TextCell,
 } from '@components/data-grid/data-grid-cells'
 import { CustomButton } from '@components/shared/custom-button'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -70,7 +70,7 @@ export const tabFreelanceColumns = ({
   {
     field: 'archive',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Archive)} />,
-    renderCell: ({ row }) => <TextCell text={row.archive ? t(TranslationKey.Archive) : ''} />,
+    renderCell: ({ row }) => <Text isCell text={row.archive ? t(TranslationKey.Archive) : ''} />,
     filterable: false,
     sortable: false,
     flex: 1,

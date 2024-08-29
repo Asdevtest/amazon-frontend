@@ -10,10 +10,10 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   PriorityAndChinaDeliverCell,
-  ProductAsinCell,
-  TextCell,
+  ProductCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { checkIsHasHttp } from '@utils/checks'
 import { formatDate } from '@utils/date-time'
@@ -44,7 +44,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'id',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
 
       columnKey: columnnsKeys.shared.NUMBER,
       width: 65,
@@ -104,11 +104,11 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
         const product = params.row.product
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
@@ -118,15 +118,14 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
       field: 'amount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
 
       columnKey: columnnsKeys.shared.NUMBER,
       width: 100,
@@ -136,7 +135,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'totalPrice',
       headerName: t(TranslationKey.Price),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
-      renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
 
       columnKey: columnnsKeys.shared.NUMBER,
       width: 110,
@@ -167,7 +166,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       renderCell: params => {
         const currentSupplier = params.row?.orderSupplier
 
-        return <TextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
+        return <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
       },
       valueGetter: params => {
         const currentSupplier = params.row?.orderSupplier
@@ -199,7 +198,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'needsResearch',
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
-      renderCell: params => <TextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+      renderCell: params => <Text isCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
 
       disableCustomSort: true,
       filterable: false,
@@ -238,7 +237,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'destination',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-      renderCell: params => <TextCell text={params.row.destination?.name} />,
+      renderCell: params => <Text isCell text={params.row.destination?.name} />,
 
       valueGetter: params => params.row.destination?.name,
 
@@ -250,7 +249,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'clientComment',
       headerName: t(TranslationKey['Client comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 400,

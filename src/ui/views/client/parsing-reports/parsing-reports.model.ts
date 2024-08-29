@@ -32,11 +32,6 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
 
     makeObservable(this, observerConfig)
 
-    // additionalPropertiesColumnMenuSettings,
-    // additionalPropertiesGetFilters,
-    // operatorsSettings,
-    // defaultFilterParams,
-
     this.sortModel = sortModel
 
     this.getDataGridState()
@@ -56,8 +51,6 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
     this.sortModel = sortModel
     this.paginationModel = paginationModelInitialValue
     this.setDefaultPinnedColumns()
-
-    // this.fieldsForSearch = fieldsForSearch
 
     this.getDataGridState()
     this.getCurrentData()

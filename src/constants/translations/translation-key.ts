@@ -762,7 +762,6 @@ export enum TranslationKey {
   'List of items taken by Bayer to find a supplier' = 'List of items taken by Bayer to find a supplier',
   'Management of all orders assigned to Bayer' = 'Management of all orders assigned to Bayer',
   'Prep Center in China' = 'Prep Center in China',
-  'Current order status' = 'Current order status',
   'Code for Harmonized System Product Identification' = 'Code for Harmonized System Product Identification',
   'No photos' = 'No photos',
   'No documents' = 'No documents',

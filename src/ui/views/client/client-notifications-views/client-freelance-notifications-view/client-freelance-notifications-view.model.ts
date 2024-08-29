@@ -25,8 +25,6 @@ export class ClientFreelanceNotificationsViewModel extends DataGridTableModel {
 
     this.sortModel = [{ field: 'unreadMessages', sort: 'desc' }]
 
-    this.initHistory()
-
     this.getDataGridState()
 
     this.getCurrentData()
@@ -35,15 +33,14 @@ export class ClientFreelanceNotificationsViewModel extends DataGridTableModel {
   }
 
   onClickReply(requestId: string, chatId: string) {
+    let url = ''
     // @ts-ignore
     if (UserRoleCodeMap[UserModel?.userInfo?.role] === UserRole.FREELANCER) {
-      this.history.push(`/freelancer/freelance/my-proposals/custom-search-request?request-id=${requestId}`, {
-        chatId,
-      })
+      url = `/freelancer/freelance/my-proposals/custom-search-request?request-id=${requestId}&chatId=${chatId}`
     } else {
-      this.history.push(`/client/freelance/my-requests/custom-request?request-id=${requestId}`, {
-        chatId,
-      })
+      url = `/client/freelance/my-requests/custom-request?request-id=${requestId}&chatId=${chatId}`
     }
+
+    window?.open?.(url, '_blank')?.focus()
   }
 }

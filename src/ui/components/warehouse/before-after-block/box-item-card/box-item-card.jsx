@@ -7,7 +7,6 @@ import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
-import { Text } from '@components/shared/text'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
@@ -53,12 +52,9 @@ export const BoxItemCard = ({
           <div className={styles.attributeFooterWrapper}>
             <div className={styles.attributeFooterSubWrapper}>
               <div className={styles.countSubWrapper}>
-                <Text
-                  tooltipInfoContent={t(TranslationKey['Number of products in the box'])}
-                  className={styles.subTitle}
-                >
+                <p title={t(TranslationKey['Number of products in the box'])} className={styles.subTitle}>
                   {t(TranslationKey.Quantity) + ':'}
-                </Text>
+                </p>
                 <Typography className={styles.subValue}>{item.amount}</Typography>
               </div>
               <div

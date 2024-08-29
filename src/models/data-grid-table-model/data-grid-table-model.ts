@@ -24,15 +24,15 @@ export class DataGridTableModel extends DefaultModel {
   currentSearchValue: string = ''
   densityModel = 'compact'
 
-  sortModel: any = undefined
-  defaultSortModel: any = undefined
+  sortModel: GridSortModel | undefined = undefined
+  defaultSortModel: GridSortModel | undefined = undefined
 
   paginationModel: GridPaginationModel = paginationModelInitialValue
   filterModel: GridFilterModel = filterModelInitialValue
   columnVisibilityModel: GridColumnVisibilityModel = {}
 
   selectedRows: string[] = []
-  tableKey: string | undefined = undefined
+  tableKey: string = ''
   columnsModel: IGridColumn[] = []
   defaultColumnsModel: IGridColumn[] = []
 
@@ -77,7 +77,9 @@ export class DataGridTableModel extends DefaultModel {
     this.columnsModel = columnsModel
     this.defaultColumnsModel = columnsModel
 
-    this.tableKey = tableKey
+    if (tableKey) {
+      this.tableKey = tableKey
+    }
 
     makeObservable(this, observerConfig)
   }

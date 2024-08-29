@@ -7,7 +7,7 @@ import {
   ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  TextCell,
+  Text,
   WarehouseTariffDatesCell,
   WarehouseTariffDestinationCell,
   WarehouseTariffRatesCell,
@@ -24,7 +24,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff name'])} />,
 
     width: 165,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
   },
 
   {
@@ -33,7 +33,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
     width: 290,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
   },
 
   {
@@ -89,7 +89,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
 
     type: 'number',
     width: 120,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
   },
 
   {
@@ -99,7 +99,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
 
     type: 'number',
     width: 120,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
   },
 
   {

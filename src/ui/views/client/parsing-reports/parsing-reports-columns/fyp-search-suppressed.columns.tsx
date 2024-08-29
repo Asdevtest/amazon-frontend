@@ -1,13 +1,8 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextHeaderCell,
-  NormDateCell,
-  ProductAsinCell,
-  TextCell,
-  UserLinkCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -24,7 +19,7 @@ export const fypSearchSuppressedColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params.row?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
@@ -67,7 +62,7 @@ export const fypSearchSuppressedColumns = () => {
       headerName: 'Reason',
       renderHeader: () => <MultilineTextHeaderCell text="Reason" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -76,7 +71,7 @@ export const fypSearchSuppressedColumns = () => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => <ProductAsinCell withoutImage withoutTitle asin={row?.asin} skuByClient={row?.sku} />,
+      renderCell: ({ row }) => <ProductCell asin={row?.asin} sku={row?.sku} />,
 
       fields: getProductColumnMenuItems({ withoutTitle: true }),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({
@@ -84,7 +79,7 @@ export const fypSearchSuppressedColumns = () => {
         table: ParsingReportsType.FYP_SEARCH_SUPPRESSED,
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 210,
+      width: 170,
     },
   ]
 

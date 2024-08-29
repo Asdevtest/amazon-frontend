@@ -4,7 +4,8 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, ProductAsinCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -30,7 +31,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value?.name} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value?.name} />,
       width: 150,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
@@ -45,7 +46,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
 
       renderCell: (params: GridRenderCellParams) => (
-        <ProductAsinCell withoutTitle asin={params.row?.asin} image={params.row?.image} skuByClient={params.row?.sku} />
+        <ProductCell asin={params.row?.asin} image={params.row?.image} sku={params.row?.sku} />
       ),
 
       fields: getProductColumnMenuItems({ withoutTitle: true }),
@@ -55,15 +56,14 @@ export const clientIntegrationsReportReturnsColumns = () => {
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
       field: 'disposition',
       headerName: 'Disposition',
       renderHeader: () => <MultilineTextHeaderCell text="Disposition" />,
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
@@ -74,7 +74,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       field: 'orderId',
       headerName: 'Order id',
       renderHeader: () => <MultilineTextHeaderCell text="Order id" />,
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
@@ -85,7 +85,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       field: 'reason',
       headerName: 'Reason',
       renderHeader: () => <MultilineTextHeaderCell text="Reason" />,
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
@@ -96,7 +96,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       field: 'status',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
@@ -151,7 +151,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       field: 'timeUpdated',
       headerName: 'Time Updated',
       renderHeader: () => <MultilineTextHeaderCell text="Time Updated" />,
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 143,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,

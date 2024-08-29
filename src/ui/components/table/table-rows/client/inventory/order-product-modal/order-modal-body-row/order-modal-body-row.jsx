@@ -7,7 +7,7 @@ import { Checkbox, IconButton, TableCell, TableRow, Typography } from '@mui/mate
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell, ProductAsinCell } from '@components/data-grid/data-grid-cells'
+import { ChangeChipCell, ProductCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { Button } from '@components/shared/button'
@@ -149,12 +149,7 @@ export const OrderModalBodyRow = ({
         className={cx(styles.row, { [styles.noCurrentSupplier]: !item.currentSupplier })}
       >
         <TableCell className={cx(styles.cell, styles.productCell)}>
-          <ProductAsinCell
-            image={item.images[0]}
-            amazonTitle={item.amazonTitle}
-            asin={item.asin}
-            skuByClient={item.skuByClient}
-          />
+          <ProductCell image={item.images[0]} title={item.amazonTitle} asin={item.asin} sku={item.skuByClient} />
 
           {!item.currentSupplier && (
             <Typography className={styles.noCurrentSupplierText}>

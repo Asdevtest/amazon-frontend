@@ -5,9 +5,9 @@ import { FC, ReactElement, useCallback, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { TextCell } from '@components/data-grid/data-grid-cells'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -32,7 +32,7 @@ export const ShopCascader: FC = observer(() => {
           />
         </div>
 
-        <TextCell
+        <Text
           type="secondary"
           isCell={false}
           copyable={false}
@@ -51,7 +51,7 @@ export const ShopCascader: FC = observer(() => {
 
         <Divider className={styles.divider} />
 
-        <TextCell
+        <Text
           type="secondary"
           isCell={false}
           copyable={false}

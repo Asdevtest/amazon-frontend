@@ -1,13 +1,15 @@
-import { DatePickerCell, TextCell } from '..'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
 import { useStyles } from './batch-tracking-cell.style'
+
+import { DatePickerCell } from '../date-picker-cell/date-picker-cell'
 
 interface BatchTrackingCellProps {
   rowHandlers: {
@@ -31,7 +33,7 @@ export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
           label={t(TranslationKey['Track number'])}
           labelClasses={styles.batchTrackingTitle}
           inputComponent={
-            <TextCell
+            <Text
               editMode={!disabled}
               text={trackingNumber}
               onClickSubmit={value => rowHandlers?.onClickSaveTrackingNumber(id, value)}

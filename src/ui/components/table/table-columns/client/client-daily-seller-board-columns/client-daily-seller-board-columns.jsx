@@ -2,7 +2,8 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, ProductAsinCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -26,7 +27,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params.value?.name} />,
+      renderCell: params => <Text isCell text={params.value?.name} />,
       width: 150,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
@@ -40,9 +41,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: `${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`,
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
 
-      renderCell: params => (
-        <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
-      ),
+      renderCell: params => <ProductCell asin={params.row?.asin} sku={params.row?.sku} />,
 
       fields: getProductColumnMenuItems({ withoutTitle: true }),
       columnMenuConfig: getProductColumnMenuValue({
@@ -51,8 +50,7 @@ export const clientDailySellerBoardColumns = () => {
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -60,7 +58,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: t(TranslationKey.Title),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
@@ -72,7 +70,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: 'FBA/FBM Stock',
       renderHeader: () => <MultilineTextHeaderCell text={'FBA/FBM Stock'} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 108,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
@@ -84,7 +82,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: 'FNSKU',
       renderHeader: () => <MultilineTextHeaderCell text="FNSKU" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 150,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
@@ -96,7 +94,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: 'Marketplace',
       renderHeader: () => <MultilineTextHeaderCell text="Marketplace" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 150,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
@@ -108,7 +106,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: 'Reserved',
       renderHeader: () => <MultilineTextHeaderCell text={'Reserved'} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
@@ -120,7 +118,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: t(TranslationKey.ROI),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ROI)} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 80,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
@@ -132,7 +130,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 220,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
@@ -144,7 +142,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: t(TranslationKey.DaysOfStockLeft),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.DaysOfStockLeft)} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 150,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
@@ -155,7 +153,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: t(TranslationKey.SentToFba),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SentToFba)} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 108,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
@@ -166,7 +164,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: t(TranslationKey.FbaPrepStock),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FbaPrepStock)} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 120,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
@@ -177,7 +175,7 @@ export const clientDailySellerBoardColumns = () => {
       headerName: t(TranslationKey.Ordered),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Ordered)} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 108,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,

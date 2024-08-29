@@ -1,7 +1,8 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ActionButtonsCell, MultilineTextHeaderCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { ActionButtonsCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -27,7 +28,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       field: 'shopId',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: ({ row }) => <TextCell text={row?.request?.product?.shop?.name} />,
+      renderCell: ({ row }) => <Text isCell text={row?.request?.product?.shop?.name} />,
       valueGetter: ({ row }) => row?.request?.product?.shop?.name,
       width: 140,
       disableCustomSort: true,
@@ -37,7 +38,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       field: 'title',
       headerName: t(TranslationKey['Request title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-      renderCell: ({ row }) => <TextCell text={row.request.title} />,
+      renderCell: ({ row }) => <Text isCell text={row.request.title} />,
       flex: 1,
       disableCustomSort: true,
     },
@@ -46,7 +47,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       field: 'spec',
       headerName: t(TranslationKey['Request type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-      renderCell: ({ row }) => <TextCell text={row?.request?.spec?.title} />,
+      renderCell: ({ row }) => <Text isCell text={row?.request?.spec?.title} />,
       width: 140,
       disableCustomSort: true,
     },
@@ -55,7 +56,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       field: 'humanFriendlyId',
       headerName: `ID ${t(TranslationKey.Requests)}`,
       renderHeader: () => <MultilineTextHeaderCell text={`ID ${t(TranslationKey.Requests)}`} />,
-      renderCell: ({ row }) => <TextCell text={row?.request?.humanFriendlyId} />,
+      renderCell: ({ row }) => <Text isCell text={row?.request?.humanFriendlyId} />,
       disableCustomSort: true,
     },
 
@@ -63,7 +64,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       field: 'unreadMessages',
       headerName: t(TranslationKey['Unread messages']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Unread messages'])} />,
-      renderCell: ({ row }) => <TextCell text={String(row?.unreadMessages)} />,
+      renderCell: ({ row }) => <Text isCell text={String(row?.unreadMessages)} />,
       width: 120,
     },
 

@@ -8,10 +8,10 @@ import {
   ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 import { EditIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
@@ -32,7 +32,7 @@ export const moderatorUpdatedColumns = ({
   {
     field: 'title',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={row.title} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.title} />,
     filterable: false,
     sortable: false,
     width: 300,
@@ -41,7 +41,7 @@ export const moderatorUpdatedColumns = ({
   {
     field: 'version',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Version)} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={row.version} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.version} />,
     filterable: false,
     sortable: false,
     width: 160,
@@ -50,7 +50,7 @@ export const moderatorUpdatedColumns = ({
   {
     field: 'description',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={parseTextString(row.description)} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={parseTextString(row.description)} />,
     filterable: false,
     sortable: false,
     width: 400,
@@ -60,7 +60,7 @@ export const moderatorUpdatedColumns = ({
   {
     field: 'role',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Role)} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={Roles[row.role]} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={Roles[row.role]} />,
     filterable: false,
     sortable: false,
     width: 140,

@@ -1,13 +1,8 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextHeaderCell,
-  NormDateCell,
-  ProductAsinCell,
-  TextCell,
-  UserLinkCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -44,9 +39,7 @@ export const voiceColumns = () => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => (
-        <ProductAsinCell withoutImage amazonTitle={row?.productName} asin={row?.asin} skuByClient={row?.sku} />
-      ),
+      renderCell: ({ row }) => <ProductCell title={row?.productName} asin={row?.asin} sku={row?.sku} />,
 
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue({
@@ -55,7 +48,7 @@ export const voiceColumns = () => {
         table: ParsingReportsType.VOICE,
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 210,
+      width: 170,
     },
 
     {
@@ -63,7 +56,7 @@ export const voiceColumns = () => {
       headerName: 'Condition',
       renderHeader: () => <MultilineTextHeaderCell text="Condition" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 90,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
@@ -74,7 +67,7 @@ export const voiceColumns = () => {
       headerName: 'Total orders',
       renderHeader: () => <MultilineTextHeaderCell text="Total orders" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 90,
       columnKey: columnnsKeys.shared.NUMBER,
       disableCustomSort: true,
@@ -85,7 +78,7 @@ export const voiceColumns = () => {
       headerName: 'Ncx orders',
       renderHeader: () => <MultilineTextHeaderCell text="Ncx orders" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 90,
       columnKey: columnnsKeys.shared.NUMBER,
       disableCustomSort: true,
@@ -96,7 +89,7 @@ export const voiceColumns = () => {
       headerName: 'Fulfilled by',
       renderHeader: () => <MultilineTextHeaderCell text="Fulfilled by" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 90,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
@@ -107,7 +100,7 @@ export const voiceColumns = () => {
       headerName: 'Ncx rate',
       renderHeader: () => <MultilineTextHeaderCell text="Ncx rate" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 90,
       columnKey: columnnsKeys.shared.NUMBER,
       disableCustomSort: true,
@@ -118,7 +111,7 @@ export const voiceColumns = () => {
       headerName: 'Top ncx reason',
       renderHeader: () => <MultilineTextHeaderCell text="Top ncx reason" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 90,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
@@ -139,7 +132,7 @@ export const voiceColumns = () => {
       headerName: 'Pcx health',
       renderHeader: () => <MultilineTextHeaderCell text="Pcx health" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 90,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
@@ -150,7 +143,7 @@ export const voiceColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params.row?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,

@@ -55,6 +55,11 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
       ?.map(preset => ({ ...preset, label: preset?.title, value: preset?._id }))
   }, [showPresetsSelect, presetsTableData])
 
+  const onClickCreatePreset = useCallback(() => {
+    handleCreateTableSettingsPreset(createPresetTitle, apiRef.current?.getAllColumns())
+    setCreatePresetTitle('')
+  }, [createPresetTitle, apiRef])
+
   const onPresetTitleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => setCreatePresetTitle(event.target.value),
     [],
@@ -112,14 +117,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
                 onKeyDown={e => e.stopPropagation()}
               />
 
-              <CustomButton
-                disabled={!createPresetTitle.trim()}
-                icon={<FaPlus />}
-                onClick={() => {
-                  handleCreateTableSettingsPreset(createPresetTitle, apiRef.current?.getAllColumns())
-                  setCreatePresetTitle('')
-                }}
-              />
+              <CustomButton disabled={!createPresetTitle.trim()} icon={<FaPlus />} onClick={onClickCreatePreset} />
             </div>
           </>
         )}
