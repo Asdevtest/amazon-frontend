@@ -57,26 +57,24 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         onScrollAsinSelect={viewModel.loadMoreDataHadler}
       />
 
-      <div className={styles.tableContainer}>
-        <CustomDataGrid
-          disableRowSelectionOnClick
-          rows={viewModel.launches}
-          rowCount={viewModel.launches.length}
-          columns={viewModel.columnsModel}
-          getRowHeight={() => 'auto'}
-          columnHeaderHeight={35}
-          // getRowId={({ type }: GridRowModel) => type}
-          getRowId={({ _id }: GridRowModel) => _id}
-          slots={null}
-          className={styles.dataGridRoot}
-          loading={viewModel.requestTableStatus === loadingStatus.IS_LOADING}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
-            },
-          }}
-        />
-      </div>
+      <CustomDataGrid
+        disableRowSelectionOnClick
+        rows={viewModel.launches}
+        rowCount={viewModel.launches.length}
+        columns={viewModel.columnsModel}
+        getRowHeight={() => 'auto'}
+        columnHeaderHeight={35}
+        // getRowId={({ type }: GridRowModel) => type}
+        getRowId={({ _id }: GridRowModel) => _id}
+        slots={null}
+        className={styles.dataGridRoot}
+        loading={viewModel.requestTableStatus === loadingStatus.IS_LOADING}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+        }}
+      />
 
       <div className={styles.flexRowContainer}>
         <div className={styles.inputContainer}>
