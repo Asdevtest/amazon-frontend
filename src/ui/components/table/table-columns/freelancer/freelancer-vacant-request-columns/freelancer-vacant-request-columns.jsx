@@ -21,6 +21,8 @@ import { Text } from '@components/shared/text'
 import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 export const freelancerVacantRequestColumns = handlers => [
   {
     field: 'priority',
@@ -80,9 +82,12 @@ export const freelancerVacantRequestColumns = handlers => [
         />
       )
     },
-    width: 170,
 
-    columnKey: columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT,
+    width: 170,
+    fields: getProductColumnMenuItems({ withoutSku: true }),
+    columnMenuConfig: getProductColumnMenuValue(),
+    columnKey: columnnsKeys.shared.MULTIPLE,
+    disableCustomSort: true,
   },
 
   {
