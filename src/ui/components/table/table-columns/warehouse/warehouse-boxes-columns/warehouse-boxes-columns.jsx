@@ -11,12 +11,12 @@ import {
   OrderManyItemsCell,
   OrdersIdsItemsCell,
   RedFlagsCell,
-  TextCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid/data-grid-cells'
 import { Dimensions } from '@components/shared/dimensions'
 import { SizeSwitcher } from '@components/shared/size-switcher'
+import { Text } from '@components/shared/text'
 
 import { calcFinalWeightForBox } from '@utils/calculation'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -32,7 +32,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     headerName: t(TranslationKey['Box ID']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Box ID'])} />,
     type: 'number',
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 80,
     columnKey: columnnsKeys.client.WAREHOUSE_ID,
   },
@@ -132,7 +132,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-    renderCell: params => <TextCell text={params.value * params.row.originalData.amount} />,
+    renderCell: params => <Text isCell text={params.value * params.row.originalData.amount} />,
     width: 110,
     type: 'number',
     sortable: false,
@@ -146,8 +146,8 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     valueGetter: ({ row }) => `${row.warehouse || ''} / ${row.logicsTariff || ''}`,
     renderCell: params => (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center', width: '100%' }}>
-        <TextCell text={params.row.warehouse} />
-        <TextCell text={params.row.logicsTariff} />
+        <Text isCell text={params.row.warehouse} />
+        <Text isCell text={params.row.logicsTariff} />
       </div>
     ),
     width: 170,
@@ -173,7 +173,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Batch)} />,
     valueGetter: ({ row }) => row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch']),
     renderCell: params => (
-      <TextCell text={params.row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch'])} />
+      <Text isCell text={params.row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch'])} />
     ),
     type: 'number',
     width: 110,

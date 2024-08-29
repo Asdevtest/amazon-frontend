@@ -9,10 +9,10 @@ import {
   PaymentMethodsCell,
   PriceVariationsCell,
   SupplierWithIconsCell,
-  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
+import { Text } from '@components/shared/text'
 
 import { formatNormDateTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
@@ -57,7 +57,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
           valueToCopy={checkAndMakeAbsoluteUrl(row.link)}
         />
       ) : (
-        <TextCell text={t(TranslationKey['Link not available'])} />
+        <Text isCell text={t(TranslationKey['Link not available'])} />
       ),
     filterable: false,
     sortable: false,
@@ -68,7 +68,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     field: 'price',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price with delivery'])} />,
     renderCell: ({ row }: GridRowModel) => (
-      <TextCell text={toFixedWithDollarSign(row.price + row.batchDeliveryCostInDollar / row.amount, 2)} />
+      <Text isCell text={toFixedWithDollarSign(row.price + row.batchDeliveryCostInDollar / row.amount, 2)} />
     ),
     filterable: false,
     sortable: false,
@@ -78,7 +78,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'minBatch',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Minimum batch'])} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={String(row.minlot)} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={String(row.minlot)} />,
     filterable: false,
     sortable: false,
     width: 100,
@@ -87,7 +87,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'bathPrice',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch price'])} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={toFixedWithDollarSign(row.batchTotalCostInDollar, 2)} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={toFixedWithDollarSign(row.batchTotalCostInDollar, 2)} />,
     filterable: false,
     sortable: false,
     width: 90,
@@ -96,7 +96,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'productionTime',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time'])} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={`${row.minProductionTerm} - ${row.maxProductionTerm}`} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={`${row.minProductionTerm} - ${row.maxProductionTerm}`} />,
     filterable: false,
     sortable: false,
     width: 100,
@@ -137,7 +137,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'comment',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={row.comment} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.comment} />,
     filterable: false,
     sortable: false,
     width: 195,
@@ -155,7 +155,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'updated',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={formatNormDateTime(row.updatedAt)} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={formatNormDateTime(row.updatedAt)} />,
     filterable: false,
     sortable: false,
     width: 100,

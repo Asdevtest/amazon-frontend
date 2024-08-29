@@ -5,8 +5,8 @@ import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-s
 import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { TextCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime } from '@utils/date-time'
@@ -71,7 +71,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
               <div className={styles.timeItemInfoWrapper}>
                 <Typography className={styles.text}>{t(TranslationKey.Status)}</Typography>
 
-                <TextCell text={MyRequestStatusTranslate(item.status)} color={colorByStatus(item.status)} />
+                <Text text={MyRequestStatusTranslate(item.status)} color={colorByStatus(item.status)} />
               </div>
             </div>
             <div className={styles.rightSubBlockWrapper}>

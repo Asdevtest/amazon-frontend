@@ -9,9 +9,9 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   SwitchCell,
-  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { convertToSentenceCase } from '@utils/text'
 import { throttle } from '@utils/throttle'
@@ -32,7 +32,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'name',
       headerName: t(TranslationKey.Name),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
-      renderCell: ({ row }: GridRowModel) => <TextCell text={row.name} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.name} />,
       width: 220,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -50,7 +50,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: ({ row }: GridRowModel) => <TextCell text={row.shop?.name} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.shop?.name} />,
       valueGetter: ({ row }: GridRowModel) => row.shop?.name || '',
       width: 220,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -60,7 +60,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'email',
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
-      renderCell: ({ row }: GridRowModel) => <TextCell text={row.email} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.email} />,
       width: 270,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -86,7 +86,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => {
         const text = t(TranslationKey[convertToSentenceCase(row.status) as TranslationKey])
 
-        return <TextCell center copyable={false} color={getProfileStatusColor(row.status)} text={text} />
+        return <Text isCell center copyable={false} color={getProfileStatusColor(row.status)} text={text} />
       },
       width: 145,
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -98,7 +98,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => {
         const text = row.access ? t(TranslationKey.Yes) : t(TranslationKey.No)
 
-        return <TextCell center copyable={false} text={text} />
+        return <Text isCell center copyable={false} text={text} />
       },
       width: 80,
       disableCustomSort: true,

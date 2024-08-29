@@ -1,13 +1,8 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextHeaderCell,
-  NormDateCell,
-  ProductCell,
-  TextCell,
-  UserLinkCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -24,7 +19,7 @@ export const returnsColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params.row?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
@@ -66,7 +61,7 @@ export const returnsColumns = () => {
       field: 'amzOrderId',
       headerName: 'Amz order id',
       renderHeader: () => <MultilineTextHeaderCell text="Amz order id" />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 120,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -91,7 +86,7 @@ export const returnsColumns = () => {
       field: 'reason',
       headerName: 'Reason',
       renderHeader: () => <MultilineTextHeaderCell text="Reason" />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 120,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -131,7 +126,7 @@ export const returnsColumns = () => {
       field: 'disposition',
       headerName: 'Disposition',
       renderHeader: () => <MultilineTextHeaderCell text="Disposition" />,
-      renderCell: params => <TextCell text={params.value?.replaceAll('_', ' ')} />,
+      renderCell: params => <Text isCell text={params.value?.replaceAll('_', ' ')} />,
       transformValueMethod: value => value?.replaceAll('_', ' '),
       width: 120,
 
@@ -142,7 +137,7 @@ export const returnsColumns = () => {
       field: 'status',
       headerName: 'Status',
       renderHeader: () => <MultilineTextHeaderCell text="Status" />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 120,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -152,7 +147,7 @@ export const returnsColumns = () => {
       field: 'messageSent',
       headerName: 'Message sent',
       renderHeader: () => <MultilineTextHeaderCell text="Message sent" />,
-      renderCell: params => <TextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+      renderCell: params => <Text isCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
       width: 120,
       filterable: false,
       // columnKey: columnnsKeys.shared.STRING_VALUE,

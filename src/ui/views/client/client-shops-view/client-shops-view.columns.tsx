@@ -11,8 +11,8 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   SwitchCell,
-  TextCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -41,7 +41,7 @@ export const shopsColumns = (props: IColumnProps) => {
       field: 'name',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: ({ row }: GridRowModel) => <TextCell text={row.name} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.name} />,
       width: 240,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },

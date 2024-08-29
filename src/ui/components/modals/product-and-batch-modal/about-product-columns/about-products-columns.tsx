@@ -3,7 +3,8 @@ import { GridRowModel } from '@mui/x-data-grid'
 import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DeadlineCell, MultilineTextHeaderCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { DeadlineCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -14,7 +15,7 @@ export const aboutProductsColumns = [
     field: 'id',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.ID)} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={row.id} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.id} />,
     width: 80,
   },
 
@@ -22,7 +23,7 @@ export const aboutProductsColumns = [
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={OrderStatusTranslate(OrderStatus[row.status])} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={OrderStatusTranslate(OrderStatus[row.status])} />,
     width: 240,
   },
 
@@ -30,7 +31,7 @@ export const aboutProductsColumns = [
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={row.amount} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.amount} />,
     width: 130,
   },
 
