@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   tableWrapper: {
-    height: '100%',
+    height: '86vh',
     width: '100%',
   },
 }))

@@ -12,15 +12,11 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IFreelanceNotice } from '@typings/shared/info-counters'
 
-import { useStyles } from './client-freelance-notifications-view.style'
-
 export const ClientFreelanceNotificationsView = observer(() => {
-  const { classes: styles } = useStyles()
-
   const [viewModel] = useState(() => new ClientFreelanceNotificationsViewModel())
 
   return (
-    <div className={styles.tableWrapper}>
+    <div className="viewWrapper">
       <CustomDataGrid
         sortingMode="client"
         paginationMode="client"
