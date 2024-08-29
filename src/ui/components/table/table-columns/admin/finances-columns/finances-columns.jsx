@@ -1,6 +1,6 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, TextCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, Text, UserLinkCell } from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -22,7 +22,7 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
     width: 90,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
   },
 
   {
@@ -32,7 +32,7 @@ export const financesViewColumns = () => [
 
     width: 110,
     type: 'number',
-    renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <Text text={toFixedWithDollarSign(params.value, 2)} />,
   },
 
   {
@@ -59,7 +59,7 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
     width: 230,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
   },
 
   {
@@ -69,9 +69,7 @@ export const financesViewColumns = () => [
 
     width: 700,
     renderCell: params => (
-      <TextCell
-        text={`${params.value} ${params.row?.originalData?.product ? params.row.originalData.product?.id : ''}`}
-      />
+      <Text text={`${params.value} ${params.row?.originalData?.product ? params.row.originalData.product?.id : ''}`} />
     ),
   },
 ]

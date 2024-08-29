@@ -18,10 +18,10 @@ import {
   NormDateCell,
   OnCheckingIdeaActionsCell,
   ProductCell,
-  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
+import { Text } from '@components/shared/text'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
@@ -72,7 +72,8 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Status),
 
       renderCell: params => (
-        <TextCell
+        <Text
+          isCell
           text={ideaStatusTranslate(ideaStatusByCode[params.value])}
           color={colorByIdeaStatus(ideaStatusByCode[params.value])}
         />
@@ -103,7 +104,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params?.row?.parentProduct?.shop?.name} />,
+      renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
       disableCustomSort: true,
 
@@ -150,7 +151,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         const suppliers = params.row.suppliers
 
         if (!suppliers.length) {
-          return <TextCell text="" />
+          return <Text isCell text="" />
         }
 
         return suppliers[0].link ? (
@@ -160,7 +161,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
             title={t(TranslationKey.Site)}
           />
         ) : (
-          <TextCell text={t(TranslationKey['Link not available'])} />
+          <Text isCell text={t(TranslationKey['Link not available'])} />
         )
       },
       width: 100,
@@ -177,7 +178,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         const supplier = params.row.suppliers?.[0]
         const priceWithDelivery = supplier?.price + supplier?.batchDeliveryCostInDollar / supplier?.amount
 
-        return <TextCell center text={toFixed(priceWithDelivery || 0, 2)} />
+        return <Text isCell center text={toFixed(priceWithDelivery || 0, 2)} />
       },
       width: 120,
       disableCustomSort: true,
@@ -189,7 +190,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min batch'])} />,
       headerName: t(TranslationKey['Min batch']),
 
-      renderCell: params => <TextCell text={params.row.suppliers?.[0]?.minlot} />,
+      renderCell: params => <Text isCell text={params.row.suppliers?.[0]?.minlot} />,
       width: 80,
       type: 'number',
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -206,7 +207,8 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         const supplier = row.suppliers?.[0]
 
         return (
-          <TextCell
+          <Text
+            isCell
             text={
               supplier ? `${supplier?.minProductionTerm} - ${supplier?.maxProductionTerm}` : t(TranslationKey.Missing)
             }
@@ -238,7 +240,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
       headerName: t(TranslationKey['Client comment']),
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -249,7 +251,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
       headerName: t(TranslationKey['Buyer comment']),
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,

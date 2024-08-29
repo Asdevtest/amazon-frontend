@@ -21,13 +21,13 @@ import { freelanceRequestType } from '@constants/statuses/freelance-request-type
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { TextCell } from '@components/data-grid/data-grid-cells'
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { DatePicker } from '@components/shared/date-picker'
 import { Input } from '@components/shared/input'
 import { SearchInput } from '@components/shared/search-input'
+import { Text } from '@components/shared/text'
 
 import { checkIsPositiveNum, checkIsPositiveOrNegativeDigit } from '@utils/checks'
 import { formatNormDateTime } from '@utils/date-time'
@@ -1210,7 +1210,7 @@ export const NormalFieldMenuItem = memo(
                       return (
                         <div key={index} className={styles.shop}>
                           <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                          <TextCell text={value} />
+                          <Text text={value} />
                         </div>
                       )
                     })}

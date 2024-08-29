@@ -10,9 +10,9 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductCell,
-  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -31,7 +31,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Idea title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
 
-      renderCell: params => <TextCell text={params.row.productName} />,
+      renderCell: params => <Text isCell text={params.row.productName} />,
       width: 198,
       filterable: false,
 
@@ -68,7 +68,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params?.row?.parentProduct?.shop?.name} />,
+      renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
       disableCustomSort: true,
 

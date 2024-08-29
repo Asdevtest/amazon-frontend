@@ -1,7 +1,8 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, TextCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -16,7 +17,7 @@ export const perfomanceNotificationsColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params.row?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
@@ -59,7 +60,7 @@ export const perfomanceNotificationsColumns = () => {
       headerName: 'Amz id',
       renderHeader: () => <MultilineTextHeaderCell text="Amz id" />,
 
-      renderCell: params => <TextCell text={params.value?.replaceAll('_', ' ')} />,
+      renderCell: params => <Text isCell text={params.value?.replaceAll('_', ' ')} />,
       transformValueMethod: value => value?.replaceAll('_', ' '),
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -69,7 +70,7 @@ export const perfomanceNotificationsColumns = () => {
       field: 'title',
       headerName: 'Title',
       renderHeader: () => <MultilineTextHeaderCell text="Title" />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 120,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -79,7 +80,7 @@ export const perfomanceNotificationsColumns = () => {
       field: 'text',
       headerName: 'Text',
       renderHeader: () => <MultilineTextHeaderCell text="Text" />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 120,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,

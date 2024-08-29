@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { OrderCell, OrderManyItemsCell, TextCell } from '..'
 import { FC, memo } from 'react'
 
+import { Text } from '@components/shared/text'
+
 import { useStyles } from './order-boxes-cell.style'
+
+import { OrderCell } from '../order-cell/order-cell'
+import { OrderManyItemsCell } from '../order-many-items-cell/order-many-items-cell'
 
 interface OrderBoxesCellProps {
   superbox: number
@@ -20,7 +24,7 @@ export const OrderBoxesCell: FC<OrderBoxesCellProps> = memo(props => {
 
   return superbox ? (
     <div className={styles.orderBoxesWrapper}>
-      <TextCell text={String(value)} />
+      <Text text={String(value)} />
       <OrderManyItemsCell box={box} />
     </div>
   ) : (

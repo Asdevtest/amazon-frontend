@@ -13,10 +13,10 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductCell,
-  TextCell,
   TimeFromSecondsCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -62,7 +62,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params?.row?.parentProduct?.shop?.name} />,
+      renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
       disableCustomSort: true,
 
@@ -87,7 +87,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
       headerName: t(TranslationKey['Client comment']),
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -98,7 +98,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
       headerName: t(TranslationKey['Client comment']),
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -110,7 +110,8 @@ export const clientClosedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Status),
 
       renderCell: params => (
-        <TextCell
+        <Text
+          isCell
           text={ideaStatusTranslate(ideaStatusByCode[params.value])}
           color={colorByIdeaStatus(ideaStatusByCode[params.value])}
         />
@@ -186,7 +187,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Reason for rejection'])} />,
       headerName: t(TranslationKey['Reason for rejection']),
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
       filterable: false,
       columnKey: columnnsKeys.shared.STRING,

@@ -5,9 +5,7 @@ import { Box, FormControlLabel, Radio, RadioGroup } from '@mui/material'
 import { ProductStatusByCode } from '@constants/product/product-status'
 import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 
-import { Text } from '@components/shared/text'
-
-import { translateTooltipAttentionMessageByRole, translateTooltipMessageByRole } from '@utils/translate-tooltip-message'
+import { translateTooltipMessageByRole } from '@utils/translate-tooltip-message'
 
 export const ProductStatusButtons = props => {
   const { buttonsConfig, product, onClickButton, curUserRole } = props
@@ -39,12 +37,7 @@ export const ProductStatusButtons = props => {
             control={<Radio />}
             value={buttonConfig.statusKey}
             label={
-              <Text
-                tooltipInfoContent={translateTooltipMessageByRole(buttonConfig.label, curUserRole) || ''}
-                tooltipAttentionContent={translateTooltipAttentionMessageByRole(buttonConfig.label, curUserRole)}
-              >
-                {buttonConfig.label}
-              </Text>
+              <p title={translateTooltipMessageByRole(buttonConfig.label, curUserRole) || ''}>{buttonConfig.label}</p>
             }
             disabled={
               productStrategyStatusesEnum[product.strategyStatus] === 'PRIVATE_LABEL' &&

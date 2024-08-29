@@ -10,9 +10,9 @@ import {
   NormDateCell,
   NotificationMessageCell,
   ProductCell,
-  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { checkIsFreelancer } from '@utils/checks'
 import { getHumanFriendlyNotificationType } from '@utils/text'
@@ -46,7 +46,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: (params: GridCellParams) => <TextCell text={params.row?.shop?.name} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.client.INVENTORY_SHOPS,
     },
@@ -55,7 +55,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       field: 'type',
       headerName: t(TranslationKey['Notification type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Notification type'])} />,
-      renderCell: (params: GridCellParams) => <TextCell text={getHumanFriendlyNotificationType(params.value)} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={getHumanFriendlyNotificationType(params.value)} />,
       width: 115,
       transformValueMethod: getHumanFriendlyNotificationType,
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -113,7 +113,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
         return sub ? (
           <UserMiniCell userName={sub?.name} userId={sub?._id} />
         ) : (
-          <TextCell text={t(TranslationKey.Missing)} />
+          <Text isCell text={t(TranslationKey.Missing)} />
         )
       },
       width: 145,

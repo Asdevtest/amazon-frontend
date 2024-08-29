@@ -2,7 +2,8 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ActionButtonsCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { ActionButtonsCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
@@ -21,11 +22,11 @@ export const ParsingProfileCell: FC<ParsingProfileCellProps> = memo(props => {
   const { profile, onConfirm } = props
 
   if (profile?.requestStatus === ProfileRequestStatus.PENDING) {
-    return <TextCell text={t(TranslationKey['Request sent'])} />
+    return <Text isCell text={t(TranslationKey['Request sent'])} />
   }
 
   if (profile?.requestStatus === ProfileRequestStatus.APPROVED && profile?.email) {
-    return <TextCell text={profile.email} />
+    return <Text isCell text={profile.email} />
   }
 
   return (

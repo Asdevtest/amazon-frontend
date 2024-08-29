@@ -12,9 +12,9 @@ import {
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { formatDate } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
@@ -32,7 +32,7 @@ export const pendingOrdersColumns = () => {
       field: 'id',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       sortable: true,
 
       columnKey: columnnsKeys.shared.NUMBER,
@@ -89,7 +89,8 @@ export const pendingOrdersColumns = () => {
       width: 130,
       renderCell: ({ value }) => {
         return (
-          <TextCell
+          <Text
+            isCell
             text={OrderStatusTranslate(OrderStatusByCode[value as keyof typeof OrderStatusByCode])}
             color={orderColorByStatus(OrderStatusByCode[value as keyof typeof OrderStatusByCode])}
           />
@@ -107,7 +108,7 @@ export const pendingOrdersColumns = () => {
       field: 'amount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
 
       width: 90,
       columnKey: columnnsKeys.shared.NUMBER,
@@ -119,7 +120,7 @@ export const pendingOrdersColumns = () => {
       headerName: t(TranslationKey.Price),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
 
-      renderCell: params => <TextCell text={toFixedWithDollarSign(params.row.totalPrice, 2)} />,
+      renderCell: params => <Text isCell text={toFixedWithDollarSign(params.row.totalPrice, 2)} />,
 
       width: 90,
       columnKey: columnnsKeys.shared.NUMBER,
@@ -158,7 +159,7 @@ export const pendingOrdersColumns = () => {
       renderCell: params => {
         const currentSupplier = params.row?.orderSupplier
 
-        return <TextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
+        return <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
       },
       valueGetter: params => {
         const currentSupplier = params.row?.orderSupplier
@@ -179,7 +180,7 @@ export const pendingOrdersColumns = () => {
       headerName: t(TranslationKey.Deadline),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: params =>
-        params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <TextCell text={'-'} />,
+        params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <Text isCell text={'-'} />,
       columnKey: columnnsKeys.shared.DATE,
       width: 100,
     },
@@ -190,7 +191,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment date'])} />,
 
       renderCell: params => (
-        <TextCell text={formatDate(params.row.paymentDateToSupplier) || t(TranslationKey.Missing)} />
+        <Text isCell text={formatDate(params.row.paymentDateToSupplier) || t(TranslationKey.Missing)} />
       ),
       width: 115,
     },
@@ -201,7 +202,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
 
       width: 140,
-      renderCell: params => <TextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+      renderCell: params => <Text isCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
     },
 
     {
@@ -224,7 +225,7 @@ export const pendingOrdersColumns = () => {
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
-      renderCell: params => <TextCell text={params.row.destination?.name} />,
+      renderCell: params => <Text isCell text={params.row.destination?.name} />,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       width: 130,
       disableCustomSort: true,
@@ -235,7 +236,7 @@ export const pendingOrdersColumns = () => {
       headerName: t(TranslationKey['Client comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 200,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
@@ -246,7 +247,7 @@ export const pendingOrdersColumns = () => {
       headerName: t(TranslationKey['Buyer comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 200,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,

@@ -4,8 +4,9 @@ import { AiOutlineUser, AiTwotoneShop } from 'react-icons/ai'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { TextCell, UserMiniCell } from '@components/data-grid/data-grid-cells'
+import { UserMiniCell } from '@components/data-grid/data-grid-cells'
 import { CustomButton } from '@components/shared/custom-button'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -42,7 +43,7 @@ export const ParsingDataBlock: FC<ParsingDataBlockProps> = memo(props => {
       <div className={styles.info}>
         <div className={styles.shop}>
           <AiTwotoneShop size="24" />
-          <TextCell copyable={false} text={shop?.name || ''} />
+          <Text copyable={false} text={shop?.name || ''} />
         </div>
 
         <UserMiniCell userName={client?.name} userId={client?._id} />

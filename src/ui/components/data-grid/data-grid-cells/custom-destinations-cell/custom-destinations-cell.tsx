@@ -1,5 +1,6 @@
-import { TextCell } from '..'
 import { FC, memo } from 'react'
+
+import { Text } from '@components/shared/text'
 
 import { useStyles } from './custom-destinations-cell.style'
 
@@ -22,7 +23,7 @@ export const CustomDestinationsCell: FC<CustomDestinationsCellProps> = memo(({ d
     <div className={styles.wrapper}>
       {destinations.map((destination, index) => (
         <div key={index} className={styles.destination}>
-          <TextCell text={destination[field]} />
+          <Text text={destination[field]} />
         </div>
       ))}
     </div>

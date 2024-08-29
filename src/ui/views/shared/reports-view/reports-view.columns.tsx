@@ -13,12 +13,12 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductCell,
-  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 import { Launches } from '@components/shared/launches'
 import { getLaunchName } from '@components/shared/launches/helpers/get-launch-name'
 import { EditIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { formatShortDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
@@ -65,7 +65,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         field: 'shop',
         headerName: t(TranslationKey.Shop),
         renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-        renderCell: ({ row }: GridRowModel) => <TextCell text={row.product?.shop?.name} />,
+        renderCell: ({ row }: GridRowModel) => <Text isCell text={row.product?.shop?.name} />,
         valueGetter: (row: GridRowModel) => row?.product?.shop?.name,
         width: 120,
         disableCustomSort: true,
@@ -131,7 +131,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'newProductPrice',
       headerName: t(TranslationKey['New product price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['New product price'])} />,
-      renderCell: ({ row }: GridRowModel) => <TextCell text={String(toFixedWithDollarSign(row.newProductPrice))} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={String(toFixedWithDollarSign(row.newProductPrice))} />,
       width: 140,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -207,7 +207,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'description',
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-      renderCell: ({ row }: GridRowModel) => <TextCell text={row.description} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.description} />,
       flex: 1,
       columnKey: columnnsKeys.shared.STRING,
     },
