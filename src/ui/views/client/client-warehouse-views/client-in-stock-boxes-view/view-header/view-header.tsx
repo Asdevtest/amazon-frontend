@@ -3,10 +3,9 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Badge } from '@components/shared/badge'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
@@ -65,22 +64,38 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
   return (
     <div className={styles.viewHeaderWrapper}>
       <div className={styles.topHeaderBtnsWrapper}>
-        <CustomSwitcher
-          switchMode="medium"
-          condition={currentStorekeeperId}
-          switcherSettings={[
-            ...storekeepersData
-              .filter(storekeeper => storekeeper.boxesCount !== 0)
-              .sort((a, b) => (a.name || '')?.localeCompare(b.name || ''))
-              .map(storekeeper => ({
-                label: () => storekeeper.name || '',
-                value: storekeeper._id,
-                icon: <Badge>{storekeeper.boxesCount}</Badge>,
-              })),
-            { label: () => t(TranslationKey['All warehouses']) || '', value: '' },
-          ]}
-          changeConditionHandler={onClickStorekeeperBtn}
-        />
+        <div className={styles.topHeaderBtnsWrapper}>
+          <CustomRadioButton
+            size="large"
+            buttonStyle="solid"
+            options={[
+              { label: t(TranslationKey['All warehouses']) || '', value: '' },
+              ...storekeepersData
+                .filter(storekeeper => storekeeper.boxesCount !== 0)
+                .sort((a, b) => (a.name || '')?.localeCompare(b.name || ''))
+                .map(storekeeper => ({
+                  label: storekeeper.name || '',
+                  value: storekeeper._id,
+                  badge: storekeeper.boxesCount,
+                })),
+            ]}
+            defaultValue={currentStorekeeperId}
+            onChange={onClickStorekeeperBtn}
+          />
+
+          <CustomSelect
+            size="large"
+            options={[
+              { label: t(TranslationKey.All), value: 'all' },
+              { label: t(TranslationKey.Undistributed), value: null },
+              ...clientDestinations
+                .sort((a, b) => a.name?.localeCompare(b.name))
+                .map(destination => ({ label: destination?.name, value: destination?._id })),
+            ]}
+            value={curDestinationId}
+            onChange={onClickDestinationBtn}
+          />
+        </div>
 
         <CustomInputSearch
           enterButton
@@ -91,20 +106,6 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
           onSearch={onSearchSubmit}
         />
       </div>
-
-      <CustomRadioButton
-        size="large"
-        buttonStyle="solid"
-        options={[
-          ...clientDestinations
-            .sort((a, b) => a.name?.localeCompare(b.name))
-            .map(destination => ({ label: destination?.name, value: destination?._id })),
-          { label: t(TranslationKey.Undistributed), value: null },
-          { label: t(TranslationKey.All), value: undefined },
-        ]}
-        defaultValue={curDestinationId}
-        onChange={onClickDestinationBtn}
-      />
 
       <ActionButtons
         selectedRows={selectedRows}

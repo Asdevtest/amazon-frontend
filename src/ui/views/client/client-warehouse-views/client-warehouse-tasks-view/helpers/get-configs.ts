@@ -21,7 +21,7 @@ export const getPriorityConfig = () => {
 
   defaultConfig?.unshift({
     label: t(TranslationKey['All priorities']),
-    value: undefined as unknown as string,
+    value: 'all',
   })
 
   return defaultConfig
@@ -35,7 +35,7 @@ export const getStatusConfig = () => {
 
   defaultConfig?.unshift({
     label: t(TranslationKey['All statuses']),
-    value: undefined as unknown as string,
+    value: 'all',
   })
 
   return defaultConfig
@@ -48,8 +48,8 @@ export const getStorekeepersConfig = (storekeepersData: IStorekeeper[]) => {
   }))
 
   defaultConfig?.unshift({
-    label: t(TranslationKey['All warehouses']) || '',
-    value: undefined as unknown as string,
+    label: t(TranslationKey['All warehouses']),
+    value: 'all',
   })
 
   return defaultConfig
@@ -65,7 +65,7 @@ export const getTypeConfig = () => {
 
   defaultConfig?.unshift({
     label: t(TranslationKey['All tasks']),
-    value: undefined as unknown as string,
+    value: 'all',
   })
 
   return defaultConfig
