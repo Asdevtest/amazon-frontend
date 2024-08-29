@@ -66,7 +66,7 @@ export const ClientInventoryView = observer(({ history }) => {
   const apiRef = useGridApiRef()
 
   return (
-    <>
+    <div className="viewWrapper">
       <Header
         isArchive={viewModel.isArchive}
         selectedRows={viewModel.selectedRows}
@@ -82,104 +82,102 @@ export const ClientInventoryView = observer(({ history }) => {
         onSearchSubmit={viewModel.onSearchSubmit}
       />
 
-      <div className={styles.datagridWrapper}>
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          apiRef={apiRef}
-          pinnedColumns={viewModel.pinnedColumns}
-          getCellClassName={getCellClassName}
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        apiRef={apiRef}
+        pinnedColumns={viewModel.pinnedColumns}
+        getCellClassName={getCellClassName}
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+
+          toolbar: {
+            // presetsSettings: {
+            //   presetsData: viewModel.presetsData,
+            //   onClickResetPresets: viewModel.resetPresetsHandler,
+            //   onClickSavePresets: viewModel.savePresetsHandler,
+            // },
+
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
             },
-            columnMenu: viewModel.columnMenuSettings,
 
-            toolbar: {
-              // presetsSettings: {
-              //   presetsData: viewModel.presetsData,
-              //   onClickResetPresets: viewModel.resetPresetsHandler,
-              //   onClickSavePresets: viewModel.savePresetsHandler,
-              // },
-
-              tablePresets: {
-                showPresetsSelect: viewModel.showPresetsSelect,
-                presetsTableData: viewModel.presetsTableData,
-                handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
-                handleSetPresetActive: viewModel.handleSetPresetActive,
-                handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
-                handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
-                handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
-                onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
-              },
-
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
-
-              tagSearchSettings: {
-                tagList: viewModel.columnMenuSettings?.tags?.filterData,
-                activeTags: viewModel.columnMenuSettings?.tags?.currentFilterData,
-                isLoading: viewModel.columnMenuSettings?.filterRequestStatus === loadingStatus.IS_LOADING,
-                getTags: () => viewModel.columnMenuSettings?.onClickFilterBtn(TAGS, DataGridFilterTables.PRODUCTS),
-                setActiveProductsTag: viewModel.setActiveProductsTag,
-              },
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-          }}
-          rowSelectionModel={viewModel.selectedRows}
-          getRowId={row => row._id}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onCellClick={(params, event) => {
-            if (
-              disableSelectionCells.includes(params.field) ||
-              params.field?.includes('boxAmounts') ||
-              params.field?.includes('toRefill')
-            ) {
-              event.stopPropagation()
-            }
-            event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
-          }}
-          onCellDoubleClick={(params, event) => {
-            if (
-              disableDoubleClickOnCells.includes(params.field) ||
-              params.field?.includes('boxAmounts') ||
-              params.field?.includes('toRefill')
-            ) {
-              event.stopPropagation()
-            }
-          }}
-          onRowClick={params => viewModel.onClickProductModal(params.row)}
-          onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?._id)}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
+
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+            },
+
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+
+            tagSearchSettings: {
+              tagList: viewModel.columnMenuSettings?.tags?.filterData,
+              activeTags: viewModel.columnMenuSettings?.tags?.currentFilterData,
+              isLoading: viewModel.columnMenuSettings?.filterRequestStatus === loadingStatus.IS_LOADING,
+              getTags: () => viewModel.columnMenuSettings?.onClickFilterBtn(TAGS, DataGridFilterTables.PRODUCTS),
+              setActiveProductsTag: viewModel.setActiveProductsTag,
+            },
+          },
+        }}
+        rowSelectionModel={viewModel.selectedRows}
+        getRowId={row => row._id}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onCellClick={(params, event) => {
+          if (
+            disableSelectionCells.includes(params.field) ||
+            params.field?.includes('boxAmounts') ||
+            params.field?.includes('toRefill')
+          ) {
+            event.stopPropagation()
+          }
+          event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
+        }}
+        onCellDoubleClick={(params, event) => {
+          if (
+            disableDoubleClickOnCells.includes(params.field) ||
+            params.field?.includes('boxAmounts') ||
+            params.field?.includes('toRefill')
+          ) {
+            event.stopPropagation()
+          }
+        }}
+        onRowClick={params => viewModel.onClickProductModal(params.row)}
+        onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?._id)}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+      />
 
       <Modal
         openModal={viewModel.showSendOwnProductModal}
@@ -414,6 +412,6 @@ export const ClientInventoryView = observer(({ history }) => {
           handleUpdateRow={tags => apiRef.current.updateRows([{ _id: viewModel.selectedRowId, tags }])}
         />
       ) : null}
-    </>
+    </div>
   )
 })
