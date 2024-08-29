@@ -36,6 +36,8 @@ import { t } from '@utils/translations'
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
+
 interface IHandlers {
   onClickDeleteButton: (proposalId: string, proposalStatus: keyof typeof RequestProposalStatus) => void
   onClickEditButton: (requestId: string, proposalId: string) => void
@@ -121,9 +123,11 @@ export const proposalsColumns = (handlers: IHandlers) => {
           />
         )
       },
+      fields: getProductColumnMenuItems({ withoutSku: true }),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
       width: 170,
-      columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
-      table: DataGridFilterTables.PRODUCTS,
     },
 
     {
