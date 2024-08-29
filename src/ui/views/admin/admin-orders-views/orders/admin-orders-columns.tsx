@@ -125,7 +125,7 @@ export const adminOrdersViewColumns = () => {
       ),
       width: 200,
       disableCustomSort: true,
-
+      table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
