@@ -64,15 +64,13 @@ export class ClientExchangeViewModel extends DataGridTableModel {
       getMainDataMethod: ClientModel.getProductsVacant,
       columnsModel,
       tableKey: DataGridTablesKeys.CLIENT_EXCHANGE,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
     this.getShops()
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   onDoubleClickBarcode = () => {
