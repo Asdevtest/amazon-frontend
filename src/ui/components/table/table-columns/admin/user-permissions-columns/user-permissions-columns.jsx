@@ -3,13 +3,9 @@ import { MdOutlineDelete } from 'react-icons/md'
 import { UserRolePrettyMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  ActionButtonsCell,
-  MultilineTextHeaderCell,
-  NormDateCell,
-  TextCell,
-} from '@components/data-grid/data-grid-cells'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
+import { ActionButtonsCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
+import { EditIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -20,7 +16,7 @@ export const userPermissionsColumns = handlers => [
     field: 'key',
     headerName: t(TranslationKey.Key),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Key)} />,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 280,
   },
 
@@ -28,7 +24,7 @@ export const userPermissionsColumns = handlers => [
     field: 'role',
     headerName: t(TranslationKey.Role),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Role)} />,
-    renderCell: params => <TextCell text={UserRolePrettyMap[params.value]} />,
+    renderCell: params => <Text isCell text={UserRolePrettyMap[params.value]} />,
     width: 140,
   },
 
@@ -36,7 +32,7 @@ export const userPermissionsColumns = handlers => [
     field: 'title',
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 300,
   },
 
@@ -44,7 +40,7 @@ export const userPermissionsColumns = handlers => [
     field: 'description',
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     flex: 1,
   },
 

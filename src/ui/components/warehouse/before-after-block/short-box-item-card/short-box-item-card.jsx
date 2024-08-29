@@ -4,7 +4,6 @@ import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { Text } from '@components/shared/text'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
@@ -23,12 +22,9 @@ export const ShortBoxItemCard = ({ item, superCount, boxId, taskType, readOnly }
           <div className={styles.attributeHeaderWrapper}>
             <div className={styles.countWrapper}>
               <div className={styles.countSubWrapper}>
-                <Text
-                  tooltipInfoContent={t(TranslationKey['Number of products in the box'])}
-                  className={styles.subTitle}
-                >
+                <p title={t(TranslationKey['Number of products in the box'])} className={styles.subTitle}>
                   {t(TranslationKey.Quantity) + ':'}
-                </Text>
+                </p>
                 <Typography className={styles.count}>{item.amount}</Typography>
               </div>
 

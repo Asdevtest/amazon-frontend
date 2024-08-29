@@ -4,7 +4,8 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, ProductAsinCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -30,7 +31,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value?.name} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value?.name} />,
       width: 150,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -45,7 +46,7 @@ export const ppcSalesDaysColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
 
       renderCell: (params: GridRenderCellParams) => (
-        <ProductAsinCell withoutTitle image={params.row?.image} asin={params.row?.asin} skuByClient={params.row?.sku} />
+        <ProductCell image={params.row?.image} asin={params.row?.asin} sku={params.row?.sku} />
       ),
 
       fields: getProductColumnMenuItems({ withoutTitle: true }),
@@ -55,8 +56,7 @@ export const ppcSalesDaysColumns = () => {
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -64,7 +64,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Acos',
       renderHeader: () => <MultilineTextHeaderCell text="Acos" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -76,7 +76,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'PPC Impressions',
       renderHeader: () => <MultilineTextHeaderCell text="PPC Impressions" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 110,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -88,7 +88,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Clicks',
       renderHeader: () => <MultilineTextHeaderCell text="Clicks" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -100,7 +100,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Spend',
       renderHeader: () => <MultilineTextHeaderCell text="Spend" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -112,7 +112,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'PPC Orders',
       renderHeader: () => <MultilineTextHeaderCell text="PPC Orders" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -124,7 +124,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'PPC Units',
       renderHeader: () => <MultilineTextHeaderCell text="PPC Units" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -136,7 +136,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'PPC Sales',
       renderHeader: () => <MultilineTextHeaderCell text="PPC Sales" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -148,7 +148,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'PPC Avg Units One Order',
       renderHeader: () => <MultilineTextHeaderCell text="PPC Avg Units One Order" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 110,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -160,7 +160,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Order Sales Cost',
       renderHeader: () => <MultilineTextHeaderCell text="Order Sales Cost" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -172,7 +172,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Unit Sales Cost',
       renderHeader: () => <MultilineTextHeaderCell text="Unit Sales Cost" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -184,7 +184,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Organic Sessions',
       renderHeader: () => <MultilineTextHeaderCell text="Organic Sessions" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -196,7 +196,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Organic Orders',
       renderHeader: () => <MultilineTextHeaderCell text="Organic Orders" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -208,7 +208,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Organic Units',
       renderHeader: () => <MultilineTextHeaderCell text="Organic Units" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -220,7 +220,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Organic Sales',
       renderHeader: () => <MultilineTextHeaderCell text="Organic Sales" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -232,7 +232,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Organic Avg Order Price',
       renderHeader: () => <MultilineTextHeaderCell text="Organic Avg Order Price" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -244,7 +244,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Organic Avg Unit Price',
       renderHeader: () => <MultilineTextHeaderCell text="Organic Avg Unit Price" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -256,7 +256,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Organic Avg Units One Order',
       renderHeader: () => <MultilineTextHeaderCell text="Organic Avg Units One Order" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -268,7 +268,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Sessions',
       renderHeader: () => <MultilineTextHeaderCell text="Sessions" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -280,7 +280,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: t(TranslationKey.Orders),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Orders)} />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -292,7 +292,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Units',
       renderHeader: () => <MultilineTextHeaderCell text="Units" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -304,7 +304,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Avg Units In Per Order',
       renderHeader: () => <MultilineTextHeaderCell text="Avg Units In Per Order" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -316,7 +316,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Sales',
       renderHeader: () => <MultilineTextHeaderCell text="Sales" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -328,7 +328,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Avg Price Order',
       renderHeader: () => <MultilineTextHeaderCell text="Avg Price Order" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -340,7 +340,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Avg Unit Price',
       renderHeader: () => <MultilineTextHeaderCell text="Avg Unit Price" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -352,7 +352,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Buy Box',
       renderHeader: () => <MultilineTextHeaderCell text="Buy Box" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -364,7 +364,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'PPC Sale',
       renderHeader: () => <MultilineTextHeaderCell text="PPC Sale" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -376,7 +376,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Organic Sale',
       renderHeader: () => <MultilineTextHeaderCell text="Organic Sale" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 90,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -388,7 +388,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Conversion',
       renderHeader: () => <MultilineTextHeaderCell text="Conversion" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 100,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -400,7 +400,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Conversion PPC',
       renderHeader: () => <MultilineTextHeaderCell text="Conversion PPC" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 100,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
@@ -412,7 +412,7 @@ export const ppcSalesDaysColumns = () => {
       headerName: 'Conversion Organic',
       renderHeader: () => <MultilineTextHeaderCell text="Conversion Organic" />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 100,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,

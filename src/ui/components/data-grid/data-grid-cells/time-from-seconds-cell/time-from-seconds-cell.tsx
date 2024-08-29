@@ -1,7 +1,8 @@
-import { TextCell } from '..'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { Text } from '@components/shared/text'
 
 import { secondsToTime } from '@utils/text'
 import { t } from '@utils/translations'
@@ -40,6 +41,6 @@ export const TimeFromSecondsCell: FC<TimeFromSecondsCellProps> = memo(({ seconds
       )}
     </div>
   ) : (
-    <TextCell color={color} text={time.seconds > 0 ? `${time.seconds} ${t(TranslationKey.sec)}` : `${0}`} />
+    <Text isCell color={color} text={time.seconds > 0 ? `${time.seconds} ${t(TranslationKey.sec)}` : `${0}`} />
   )
 })

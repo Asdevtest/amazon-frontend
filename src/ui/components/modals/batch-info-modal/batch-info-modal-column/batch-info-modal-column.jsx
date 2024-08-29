@@ -14,9 +14,9 @@ import {
   OrdersIdsItemsCell,
   PricePerUnitCell,
   StringListCell,
-  TextCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { getTariffRateForBoxOrOrder } from '@utils/calculation'
 import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
@@ -73,7 +73,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     valueGetter: ({ row }) => row?.humanFriendlyId,
     type: 'number',
     width: 80,
@@ -105,7 +105,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-    renderCell: params => <TextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
+    renderCell: params => <Text isCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
 
     valueGetter: ({ row }) => getNewTariffTextForBoxOrOrder(row),
     width: 200,
@@ -115,7 +115,7 @@ export const batchInfoModalColumn = (
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-    renderCell: params => <TextCell text={params.row.destination?.name} />,
+    renderCell: params => <Text isCell text={params.row.destination?.name} />,
     valueGetter: ({ row }) => row.destination?.name || t(TranslationKey.Missing),
     width: 110,
   },
@@ -135,7 +135,8 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => (
-      <TextCell
+      <Text
+        isCell
         text={toFixedWithKg(
           getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
             params.row,

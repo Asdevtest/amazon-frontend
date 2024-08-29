@@ -24,10 +24,10 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   PriorityAndChinaDeliverCell,
-  ProductAsinCell,
-  TextCell,
+  ProductCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { PerformerSelect } from '@views/shared/my-proposals-view/performer-select'
 
@@ -35,6 +35,8 @@ import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
+
+import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 interface IHandlers {
   onClickDeleteButton: (proposalId: string, proposalStatus: keyof typeof RequestProposalStatus) => void
@@ -79,7 +81,11 @@ export const proposalsColumns = (handlers: IHandlers) => {
         const difficultyLevel = difficultyLevelByCode[taskComplexity]
 
         return (
-          <TextCell text={difficultyLevelTranslate(difficultyLevel)} color={colorByDifficultyLevel(difficultyLevel)} />
+          <Text
+            isCell
+            text={difficultyLevelTranslate(difficultyLevel)}
+            color={colorByDifficultyLevel(difficultyLevel)}
+          />
         )
       },
 
@@ -94,7 +100,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       field: 'title',
       headerName: t(TranslationKey['Request title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-      renderCell: (params: GridCellParams) => <TextCell text={params.row?.request?.title} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row?.request?.title} />,
 
       width: 120,
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -109,25 +115,26 @@ export const proposalsColumns = (handlers: IHandlers) => {
         const product = params.row?.request?.product
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
-      width: 260,
-      minWidth: 100,
-      columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
-      table: DataGridFilterTables.PRODUCTS,
+      fields: getProductColumnMenuItems({ withoutSku: true }),
+      columnMenuConfig: getProductColumnMenuValue(),
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 170,
     },
 
     {
       field: 'humanFriendlyId',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: (params: GridCellParams) => <TextCell text={params.row?.request.humanFriendlyId} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row?.request.humanFriendlyId} />,
       width: 80,
 
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -140,7 +147,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: (params: GridCellParams) => (
-        <TextCell text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />
+        <Text isCell text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />
       ),
       width: 100,
 
@@ -154,7 +161,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Announcement)} />,
 
       renderCell: (params: GridCellParams) => (
-        <TextCell text={params.row?.request?.announcement?.title || t(TranslationKey.Missing)} />
+        <Text isCell text={params.row?.request?.announcement?.title || t(TranslationKey.Missing)} />
       ),
       width: 115,
 
@@ -177,7 +184,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       field: 'spec',
       headerName: t(TranslationKey['Request type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-      renderCell: (params: GridCellParams) => <TextCell text={params.row.request?.spec?.title} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row.request?.spec?.title} />,
       width: 110,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -199,7 +206,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: (params: GridCellParams) => (
-        <TextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
+        <Text isCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
       ),
       width: 110,
       columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
@@ -209,7 +216,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       field: 'reworkCounter',
       headerName: t(TranslationKey['Number of rework']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of rework'])} />,
-      renderCell: (params: GridCellParams) => <TextCell text={params.row?.reworkCounter} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row?.reworkCounter} />,
       width: 105,
       columnKey: columnnsKeys.shared.QUANTITY,
     },

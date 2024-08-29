@@ -1,13 +1,8 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextHeaderCell,
-  NormDateCell,
-  ProductAsinCell,
-  TextCell,
-  UserLinkCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -44,7 +39,7 @@ export const ppcOrganicColumns = () => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => <ProductAsinCell withoutImage withoutTitle asin={row?.asin} skuByClient={row?.sku} />,
+      renderCell: ({ row }) => <ProductCell asin={row?.asin} sku={row?.sku} />,
 
       fields: getProductColumnMenuItems({ withoutTitle: true }),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({
@@ -52,7 +47,7 @@ export const ppcOrganicColumns = () => {
         table: ParsingReportsType.FYP_SEARCH_SUPPRESSED,
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 210,
+      width: 170,
     },
 
     {
@@ -60,7 +55,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Month',
       renderHeader: () => <MultilineTextHeaderCell text="Month" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -90,7 +85,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Week',
       renderHeader: () => <MultilineTextHeaderCell text="Week" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -110,7 +105,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc acos',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc acos" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -120,7 +115,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc impressions',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc impressions" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -130,7 +125,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc clicks',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc clicks" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -140,7 +135,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc spend',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc spend" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -150,7 +145,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc orders',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc orders" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -160,7 +155,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc units',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc units" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -170,7 +165,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc avg units per order',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc avg units per order" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -180,7 +175,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc sales',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc sales" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -190,7 +185,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc usd per order',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc usd per order" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -200,7 +195,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc usd per unit',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc usd per unit" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -210,7 +205,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Organic sessions',
       renderHeader: () => <MultilineTextHeaderCell text="Organic sessions" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -220,7 +215,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Organic orders',
       renderHeader: () => <MultilineTextHeaderCell text="Organic orders" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -230,7 +225,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Organic units',
       renderHeader: () => <MultilineTextHeaderCell text="Organic units" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -240,7 +235,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Organic avg units per order',
       renderHeader: () => <MultilineTextHeaderCell text="Organic avg units per order" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -250,7 +245,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Organic sales',
       renderHeader: () => <MultilineTextHeaderCell text="Organic sales" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -260,7 +255,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Organic usd per order',
       renderHeader: () => <MultilineTextHeaderCell text="Organic usd per order" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -270,7 +265,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Organic usd per unit',
       renderHeader: () => <MultilineTextHeaderCell text="Organic usd per unit" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -280,7 +275,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc organic impressions',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc organic impressions" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -290,7 +285,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc organic sessions',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc organic sessions" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -300,7 +295,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc organic ctr',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc organic ctr" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -310,7 +305,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc organic orders',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc organic orders" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -320,7 +315,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc organic units',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc organic units" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -330,7 +325,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc organic avg units per order',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc organic avg units per order" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -340,7 +335,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc organic sales',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc organic sales" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -350,7 +345,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc organic usd per order',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc organic usd per order" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -360,7 +355,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc organic usd per unit',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc organic usd per unit" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -370,7 +365,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc organic buybox',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc organic buybox" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -380,7 +375,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Specific weight ppc percentage',
       renderHeader: () => <MultilineTextHeaderCell text="Specific weight ppc percentage" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -390,7 +385,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Specific weight organic',
       renderHeader: () => <MultilineTextHeaderCell text="Specific weight organic" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -400,7 +395,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc organic conversion',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc organic conversion" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -410,7 +405,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Ppc conversion',
       renderHeader: () => <MultilineTextHeaderCell text="Ppc conversion" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -420,7 +415,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Organic conversion',
       renderHeader: () => <MultilineTextHeaderCell text="Organic conversion" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -430,7 +425,7 @@ export const ppcOrganicColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params.row?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,

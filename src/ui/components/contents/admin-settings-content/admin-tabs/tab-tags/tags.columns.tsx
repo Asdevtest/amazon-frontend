@@ -4,9 +4,10 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ActionButtonsCell, MultilineTextHeaderCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { ActionButtonsCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
 import { CustomTag } from '@components/shared/custom-tag'
 import { EditIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -35,7 +36,7 @@ export const tagsColumns = (handlers: IRowHandlers) => {
       field: 'productCount',
       headerName: t(TranslationKey['Number of uses']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of uses'])} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text text={params.value} />,
       width: 150,
 
       columnKey: columnnsKeys.shared.NUMBER,

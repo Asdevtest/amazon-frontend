@@ -8,8 +8,9 @@ import {
 import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
+import { Text } from '@components/shared/text'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -39,7 +40,7 @@ export const researcherProductsViewColumns = () => [
         ? colorByProductStatus(ProductStatusByCode[params.row.status])
         : null
 
-      return <TextCell text={status} color={color} />
+      return <Text isCell text={status} color={color} />
     },
     width: 280,
   },
@@ -49,7 +50,7 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
     renderCell: params => (
-      <TextCell text={productStrategyStatusesEnum[params.row.strategyStatus]?.replace(/_/g, ' ')} />
+      <Text isCell text={productStrategyStatusesEnum[params.row.strategyStatus]?.replace(/_/g, ' ')} />
     ),
     width: 180,
   },
@@ -58,7 +59,7 @@ export const researcherProductsViewColumns = () => [
     field: 'amazon',
     headerName: t(TranslationKey['Amazon price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-    renderCell: params => <TextCell text={toFixedWithDollarSign(params.row.amazon)} />,
+    renderCell: params => <Text isCell text={toFixedWithDollarSign(params.row.amazon)} />,
     type: 'number',
     width: 150,
   },
@@ -67,7 +68,7 @@ export const researcherProductsViewColumns = () => [
     field: 'supervisorComment',
     headerName: t(TranslationKey["Supervisor's comment"]),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey["Supervisor's comment"])} />,
-    renderCell: params => <TextCell text={params.row.checkednotes} />,
+    renderCell: params => <Text isCell text={params.row.checkednotes} />,
     filterable: false,
     sortable: false,
     flex: 1,

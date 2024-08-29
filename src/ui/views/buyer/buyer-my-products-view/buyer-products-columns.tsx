@@ -10,11 +10,11 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   OpenInNewTabCell,
-  ProductAsinCell,
+  ProductCell,
   RedFlagsCell,
   TagsCell,
-  TextCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
@@ -54,11 +54,11 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
         const product = params.row
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
@@ -67,8 +67,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -78,7 +77,8 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
 
       width: 170,
       renderCell: params => (
-        <TextCell
+        <Text
+          isCell
           text={t(
             // @ts-ignore
             productStatusTranslateKey(ProductStatusByCode[params.row.status as keyof typeof ProductStatusByCode]),
@@ -103,7 +103,8 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
       renderCell: params => (
-        <TextCell
+        <Text
+          isCell
           text={productStrategyStatusesEnum[params.value as keyof typeof productStrategyStatusesEnum]?.replace(
             /_/g,
             ' ',
@@ -139,7 +140,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       field: 'amazon',
       headerName: t(TranslationKey['Amazon price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-      renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
       valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
       type: 'number',
       width: 90,
@@ -151,7 +152,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Profit),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
       valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
-      renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
       type: 'number',
       width: 90,
 
@@ -163,7 +164,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.BSR),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       type: 'number',
       width: 75,
 
@@ -175,7 +176,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey['Recommend amount']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
       valueFormatter: params => (params.value ? toFixedWithDollarSign(params.value, 2) : ''),
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       type: 'number',
       width: 150,
 
@@ -186,7 +187,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       field: 'ideasOnCheck',
       headerName: t(TranslationKey['Ideas to Check']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ideas to Check'])} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 100,
       type: 'number',
 
@@ -197,7 +198,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       field: 'ideasClosed',
       headerName: t(TranslationKey['Closed Ideas']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Closed Ideas'])} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 100,
       type: 'number',
 
@@ -208,7 +209,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       field: 'ideasFinished',
       headerName: t(TranslationKey['Realized ideas']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Realized ideas'])} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 125,
       type: 'number',
 

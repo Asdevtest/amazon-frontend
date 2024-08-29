@@ -10,7 +10,7 @@ import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './select-product-asin-cell-withour-title.style'
 
-interface SelectProductAsinCellWithourTitleProps {
+interface SelectProductCellWithourTitleProps {
   product: IProduct
   checkboxDisabled?: boolean
   checkboxChecked?: boolean
@@ -18,7 +18,7 @@ interface SelectProductAsinCellWithourTitleProps {
   onClickCheckbox?: () => void
 }
 
-export const SelectProductAsinCellWithourTitle: FC<SelectProductAsinCellWithourTitleProps> = memo(props => {
+export const SelectProductCellWithourTitle: FC<SelectProductCellWithourTitleProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { product, checkboxDisabled, checkboxChecked, withCheckbox, onClickCheckbox } = props
 

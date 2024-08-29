@@ -16,10 +16,10 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   PriorityAndChinaDeliverCell,
-  ProductAsinCell,
-  TextCell,
+  ProductCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -53,7 +53,8 @@ export const myRequestsViewColumns = rowHandlers => {
       headerName: t(TranslationKey.Category),
 
       renderCell: params => (
-        <TextCell
+        <Text
+          isCell
           text={difficultyLevelTranslate(difficultyLevelByCode[params.value])}
           color={colorByDifficultyLevel(difficultyLevelByCode[params.value])}
         />
@@ -68,7 +69,7 @@ export const myRequestsViewColumns = rowHandlers => {
       field: 'title',
       headerName: t(TranslationKey.Title),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 160,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -79,7 +80,7 @@ export const myRequestsViewColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params.row?.product?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row?.product?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.client.INVENTORY_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
@@ -95,11 +96,11 @@ export const myRequestsViewColumns = rowHandlers => {
         const product = params.row.product
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
@@ -108,8 +109,7 @@ export const myRequestsViewColumns = rowHandlers => {
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -117,7 +117,7 @@ export const myRequestsViewColumns = rowHandlers => {
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       type: 'number',
       width: 80,
 
@@ -130,7 +130,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
       renderCell: params => (
-        <TextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
+        <Text isCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
       ),
       width: 120,
       filterable: false,
@@ -146,7 +146,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Waiting for checks'])} />,
       type: 'number',
       align: 'center',
-      renderCell: params => <TextCell center text={params.row.countProposalsByStatuses.waitedProposals} />,
+      renderCell: params => <Text isCell center text={params.row.countProposalsByStatuses.waitedProposals} />,
       width: 120,
 
       // columnKey: columnnsKeys.shared.QUANTITY,
@@ -158,7 +158,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Unread messages'])} />,
       type: 'number',
       align: 'center',
-      renderCell: params => <TextCell center text={params.value} />,
+      renderCell: params => <Text isCell center text={params.value} />,
       width: 130,
     },
 
@@ -220,7 +220,7 @@ export const myRequestsViewColumns = rowHandlers => {
       field: 'spec',
       headerName: t(TranslationKey['Request type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-      renderCell: params => <TextCell text={params.row.spec?.title} />,
+      renderCell: params => <Text isCell text={params.row.spec?.title} />,
       width: 110,
       columnKey: columnnsKeys.shared.OBJECT,
     },
@@ -230,7 +230,7 @@ export const myRequestsViewColumns = rowHandlers => {
       headerName: t(TranslationKey.Cost),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Cost)} />,
 
-      renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
       width: 115,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -268,7 +268,8 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       width: 335,
       renderCell: ({ row }) => (
-        <TextCell
+        <Text
+          isCell
           editMode
           maxLength={MIDDLE_COMMENT_VALUE}
           text={row?.detailsCustom?.comment}

@@ -5,8 +5,8 @@ import { RequestStatus, colorByStatus } from '@constants/requests/request-status
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { TextCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
+import { Text } from '@components/shared/text'
 
 import { calcNumberMinusPercent } from '@utils/calculation'
 import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date-time'
@@ -94,7 +94,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
               <div className={styles.blockInfoCell}>
                 <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey.Status)}</Typography>
 
-                <TextCell
+                <Text
                   text={MyRequestStatusTranslate(request?.request.status)}
                   color={colorByStatus(request?.request.status)}
                 />
