@@ -26,7 +26,7 @@ export const FinancesView = observer(() => {
   const [viewModel] = useState(() => new FinancesViewModel())
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.header}>
         <CustomRadioButton
           size="large"
@@ -53,7 +53,7 @@ export const FinancesView = observer(() => {
         />
       </div>
 
-      <div className={styles.tableWrapper}>
+      <div className="tableWrapper">
         <CustomDataGrid
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -88,6 +88,17 @@ export const FinancesView = observer(() => {
                 columnsModel: viewModel.columnsModel,
                 onSortModelChange: viewModel.onChangeSortingModel,
               },
+
+              tablePresets: {
+                showPresetsSelect: viewModel.showPresetsSelect,
+                presetsTableData: viewModel.presetsTableData,
+                handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+                handleSetPresetActive: viewModel.handleSetPresetActive,
+                handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+                handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+                handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+                onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+              },
             },
           }}
           density={viewModel.densityModel}
@@ -100,6 +111,6 @@ export const FinancesView = observer(() => {
           onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
-    </>
+    </div>
   )
 })
