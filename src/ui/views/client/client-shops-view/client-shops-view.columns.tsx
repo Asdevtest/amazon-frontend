@@ -46,7 +46,7 @@ export const shopsColumns = (props: IColumnProps) => {
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
-      field: 'email',
+      field: 'profileEmail',
       headerName: t(TranslationKey['Parsing profile']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing profile'])} />,
       renderCell: ({ row }: GridRowModel) => (
@@ -54,8 +54,7 @@ export const shopsColumns = (props: IColumnProps) => {
       ),
       valueGetter: ({ row }: GridRowModel) => row.profile?.email || '',
       width: 320,
-      columnKey: columnnsKeys.shared.OBJECT_VALUE,
-      hideEmptyObject: true,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
       field: 'access',
