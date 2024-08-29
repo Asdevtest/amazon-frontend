@@ -88,14 +88,12 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
       additionalPropertiesGetFilters,
       defaultFilterParams,
       operatorsSettings,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     makeObservable(this, observerConfig)
 
     this.initHistory()
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   onClickDeleteBtn(proposalId: string, proposalStatus: keyof typeof RequestProposalStatus) {
