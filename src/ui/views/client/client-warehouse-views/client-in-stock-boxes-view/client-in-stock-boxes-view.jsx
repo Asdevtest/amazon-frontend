@@ -72,76 +72,74 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         onClickCurrentTariffsBtn={viewModel.onClickCurrentTariffsBtn}
       />
 
-      <div className="tableWrapper">
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          pinnedColumns={viewModel.pinnedColumns}
-          isRowSelectable={params =>
-            params.row.isDraft === false &&
-            params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
-            params.row.status !== BoxStatus.NEED_TO_UPDATE_THE_TARIFF
-          }
-          getRowClassName={getRowClassName}
-          rowSelectionModel={viewModel.selectedRows}
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          getRowId={row => row._id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        pinnedColumns={viewModel.pinnedColumns}
+        isRowSelectable={params =>
+          params.row.isDraft === false &&
+          params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
+          params.row.status !== BoxStatus.NEED_TO_UPDATE_THE_TARIFF
+        }
+        getRowClassName={getRowClassName}
+        rowSelectionModel={viewModel.selectedRows}
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        getRowId={row => row._id}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
 
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
-
-              tablePresets: {
-                showPresetsSelect: viewModel.showPresetsSelect,
-                presetsTableData: viewModel.presetsTableData,
-                handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
-                handleSetPresetActive: viewModel.handleSetPresetActive,
-                handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
-                handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
-                handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
-                onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onCellDoubleClick={params =>
-            !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row)
-          }
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
+
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
+          },
+        }}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onCellDoubleClick={params =>
+          !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row)
+        }
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+      />
 
       <Modal
         missClickModalOn

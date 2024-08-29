@@ -7,12 +7,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
-  datagridWrapper: {
-    height: '80vh',
-    width: '100%',
-    marginTop: 20,
-  },
-
   waitingCheckedBacklighting: {
     background: theme.palette.background.green,
     zIndex: 7,

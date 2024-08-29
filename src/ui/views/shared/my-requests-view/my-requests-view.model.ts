@@ -130,16 +130,15 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
       defaultFilterParams,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     makeObservable(this, observerConfig)
 
     this.dataGridApi = dataGridApi
 
     this.initHistory()
-    this.sortModel = [{ field: 'priority', sort: 'desc' }]
 
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   onChangeRadioButtonOption(event: RadioChangeEvent) {
