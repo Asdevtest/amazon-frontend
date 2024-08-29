@@ -12,19 +12,15 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { useStyles } from './parsing-reports.style'
-
 import { getSelectConfig } from './parsing-reports.config'
 import { ParsingReportsModel } from './parsing-reports.model'
 
 export const ParsingReports = observer(() => {
-  const { classes: styles } = useStyles()
-
   const viewModel = useMemo(() => new ParsingReportsModel(), [])
   const selectConfig = useMemo(() => getSelectConfig(), [])
 
   return (
-    <div className={styles.container}>
+    <div className="viewWrapper">
       <CustomSelect options={selectConfig} value={viewModel.table} onChange={viewModel.onChangeActiveTable} />
 
       <div className="tableWrapper">
@@ -62,6 +58,17 @@ export const ParsingReports = observer(() => {
                 sortModel: viewModel.sortModel,
                 columnsModel: viewModel.columnsModel,
                 onSortModelChange: viewModel.onChangeSortingModel,
+              },
+
+              tablePresets: {
+                showPresetsSelect: viewModel.showPresetsSelect,
+                presetsTableData: viewModel.presetsTableData,
+                handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+                handleSetPresetActive: viewModel.handleSetPresetActive,
+                handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+                handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+                handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+                onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
               },
             },
           }}
