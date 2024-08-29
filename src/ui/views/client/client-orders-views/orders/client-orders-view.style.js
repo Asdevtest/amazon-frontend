@@ -16,11 +16,4 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     gap: '20px',
   },
-
-  tableWrapper: {
-    flex: 1,
-    padding: '3px',
-    width: '100%',
-    overflow: 'hidden',
-  },
 }))

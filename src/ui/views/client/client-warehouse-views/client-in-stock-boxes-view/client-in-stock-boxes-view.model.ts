@@ -224,11 +224,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
       defaultFilterParams,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
-
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
     this.history = history
     const url = new URL(window.location.href)
@@ -251,8 +250,11 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       this.columnMenuSettings?.status.currentFilterData.push(history.location.state?.dataGridFilter)
     }
 
-    this.getDataGridState()
-    this.loadData()
+    this.getTableSettingsPreset()
+    this.getStorekeepers()
+    this.getCurrentData()
+    this.getDestinations()
+    this.getShops()
     this.getClientDestinations()
 
     reaction(

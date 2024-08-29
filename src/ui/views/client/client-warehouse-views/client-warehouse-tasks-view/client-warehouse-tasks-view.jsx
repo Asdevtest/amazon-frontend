@@ -80,7 +80,7 @@ export const ClientWarehouseTasksView = observer(() => {
         />
       </div>
 
-      <div className={styles.tableWrapper}>
+      <div className="tableWrapper">
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
@@ -107,6 +107,17 @@ export const ClientWarehouseTasksView = observer(() => {
                 sortModel: viewModel.sortModel,
                 columnsModel: viewModel.columnsModel,
                 onSortModelChange: viewModel.onChangeSortingModel,
+              },
+
+              tablePresets: {
+                showPresetsSelect: viewModel.showPresetsSelect,
+                presetsTableData: viewModel.presetsTableData,
+                handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+                handleSetPresetActive: viewModel.handleSetPresetActive,
+                handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+                handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+                handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+                onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
               },
             },
           }}

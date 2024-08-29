@@ -69,7 +69,7 @@ export const ClientOrdersView = observer(history => {
         )}
       </div>
 
-      <div className={styles.tableWrapper}>
+      <div className="tableWrapper">
         <CustomDataGrid
           disableRowSelectionOnClick
           apiRef={apiRef}

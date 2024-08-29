@@ -27,7 +27,7 @@ export const ParsingReports = observer(() => {
     <div className={styles.container}>
       <CustomSelect options={selectConfig} value={viewModel.table} onChange={viewModel.onChangeActiveTable} />
 
-      <div className={styles.tableWrapper}>
+      <div className="tableWrapper">
         <CustomDataGrid
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}

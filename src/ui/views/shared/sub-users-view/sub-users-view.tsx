@@ -16,23 +16,20 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { useStyles } from './sub-users-view.style'
-
 import { Header } from './header/header'
 import { SubUsersViewModel } from './sub-users-view.model'
 
 export const SubUsersView = observer(() => {
-  const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new SubUsersViewModel())
 
   return (
-    <>
+    <div className="viewWrapper">
       <Header
         onChangeUnserverSearchValue={viewModel.onChangeUnserverSearchValue}
         onToggleAddSubUserModal={viewModel.onToggleAddSubUserModal}
       />
 
-      <div className={styles.tableWrapper}>
+      <div className="tableWrapper">
         <CustomDataGrid
           disableEnforceFocus
           disableRowSelectionOnClick
@@ -67,6 +64,16 @@ export const SubUsersView = observer(() => {
                 sortModel: viewModel.sortModel,
                 columnsModel: viewModel.columnsModel,
                 onSortModelChange: viewModel.onChangeSortingModel,
+              },
+              tablePresets: {
+                showPresetsSelect: viewModel.showPresetsSelect,
+                presetsTableData: viewModel.presetsTableData,
+                handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+                handleSetPresetActive: viewModel.handleSetPresetActive,
+                handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+                handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+                handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+                onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
               },
             },
           }}
@@ -110,6 +117,6 @@ export const SubUsersView = observer(() => {
           onSubmit={viewModel.onSubmitUserPermissionsForm}
         />
       </Modal>
-    </>
+    </div>
   )
 })

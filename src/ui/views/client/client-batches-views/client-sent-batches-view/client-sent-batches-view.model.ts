@@ -60,6 +60,7 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey: DataGridTablesKeys.CLIENT_BATCHES,
       defaultGetCurrentDataOptions,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     makeObservable(this, observerConfig)
 
@@ -68,11 +69,8 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
       this.isArchive = history.location.state.isArchive
     }
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
-    this.getDataGridState()
+    this.getTableSettingsPreset()
     this.getStorekeepers()
-    this.getCurrentData()
 
     reaction(
       () => this.productViewMode,

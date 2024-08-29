@@ -14,19 +14,16 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { useStyles } from './client-awaiting-batches-view.style'
-
 import { ClientAwaitingBatchesViewModel } from './client-awaiting-batches-view.model'
 
 export const ClientAwaitingBatchesView = observer(() => {
-  const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel())
 
   return (
-    <>
+    <div className="viewWrapper">
       <HeaderTable viewModel={viewModel} />
 
-      <div className={styles.datagridWrapper}>
+      <div className="tableWrapper">
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
@@ -63,6 +60,16 @@ export const ClientAwaitingBatchesView = observer(() => {
                 sortModel: viewModel.sortModel,
                 columnsModel: viewModel.columnsModel,
                 onSortModelChange: viewModel.onChangeSortingModel,
+              },
+              tablePresets: {
+                showPresetsSelect: viewModel.showPresetsSelect,
+                presetsTableData: viewModel.presetsTableData,
+                handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+                handleSetPresetActive: viewModel.handleSetPresetActive,
+                handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+                handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+                handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+                onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
               },
             },
           }}
@@ -116,6 +123,6 @@ export const ClientAwaitingBatchesView = observer(() => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </>
+    </div>
   )
 })

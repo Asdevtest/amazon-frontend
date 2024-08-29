@@ -8,11 +8,4 @@ export const useStyles = makeStyles()(() => ({
     width: '100%',
     gap: '10px',
   },
-
-  tableWrapper: {
-    flex: 1,
-    padding: '3px',
-    overflow: 'auto',
-    width: '100%',
-  },
 }))

@@ -49,7 +49,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
     styles.isDraftRow
 
   return (
-    <>
+    <div className={styles.container}>
       <ViewHeader
         isHaveRequestSendToBatch={viewModel.isHaveRequestSendToBatch}
         isChoosenOnlySendToBatchBoxes={viewModel.isChoosenOnlySendToBatchBoxes}
@@ -72,7 +72,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         onClickCurrentTariffsBtn={viewModel.onClickCurrentTariffsBtn}
       />
 
-      <div className={styles.tableWrapper}>
+      <div className="tableWrapper">
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
@@ -114,6 +114,17 @@ export const ClientInStockBoxesView = observer(({ history }) => {
                 sortModel: viewModel.sortModel,
                 columnsModel: viewModel.columnsModel,
                 onSortModelChange: viewModel.onChangeSortingModel,
+              },
+
+              tablePresets: {
+                showPresetsSelect: viewModel.showPresetsSelect,
+                presetsTableData: viewModel.presetsTableData,
+                handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+                handleSetPresetActive: viewModel.handleSetPresetActive,
+                handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+                handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+                handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+                onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
               },
             },
           }}
@@ -397,6 +408,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       >
         <ProductDataForm product={viewModel.selectedWarehouseOrderProduct} onAmazon={viewModel.onAmazon} />
       </Modal>
-    </>
+    </div>
   )
 })

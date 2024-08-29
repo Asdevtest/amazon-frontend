@@ -24,7 +24,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
   const [viewModel] = useState(() => new ClientSentBatchesViewModel({ history }))
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.btnsWrapper}>
         <CustomButton size="large" onClick={viewModel.onTriggerArchive}>
           {t(TranslationKey[viewModel.isArchive ? 'Actual batches' : 'Open archive'])}
@@ -64,7 +64,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
         onChange={viewModel.onClickStorekeeperBtn}
       />
 
-      <div className={styles.datagridWrapper}>
+      <div className="tableWrapper">
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
@@ -96,6 +96,16 @@ export const ClientSentBatchesView = observer(({ history }) => {
                 sortModel: viewModel.sortModel,
                 columnsModel: viewModel.columnsModel,
                 onSortModelChange: viewModel.onChangeSortingModel,
+              },
+              tablePresets: {
+                showPresetsSelect: viewModel.showPresetsSelect,
+                presetsTableData: viewModel.presetsTableData,
+                handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+                handleSetPresetActive: viewModel.handleSetPresetActive,
+                handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+                handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+                handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+                onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
               },
             },
           }}
@@ -137,6 +147,6 @@ export const ClientSentBatchesView = observer(({ history }) => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </>
+    </div>
   )
 })

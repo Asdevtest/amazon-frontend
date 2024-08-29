@@ -75,15 +75,13 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey: DataGridTablesKeys.CLIENT_AWAITING_BATCHES,
       defaultGetCurrentDataOptions,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
     if (!isModalModel) {
-      this.getDataGridState()
       this.getStorekeepers()
-      this.getCurrentData()
+      this.getTableSettingsPreset()
     }
 
     reaction(
