@@ -6,10 +6,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   AllIdeasActionsCell,
   ManyUserLinkCell,
+  MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
   ProductCell,
-  SmallRowImageCell,
   TimeFromSecondsCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -86,9 +86,9 @@ export const clientAllIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
       renderCell: params => (
-        <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
+        <MediaContentCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
       ),
-      width: 96,
+      width: 70,
       disableCustomSort: true,
       filterable: false,
     },

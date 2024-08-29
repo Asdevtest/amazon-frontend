@@ -1,9 +1,9 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  SmallRowImageCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -17,8 +17,8 @@ export const vacByUserIdExchangeColumns = () => [
     headerName: t(TranslationKey.Image),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
 
-    width: 100,
-    renderCell: params => <SmallRowImageCell image={params.row.images[0]} />,
+    width: 70,
+    renderCell: params => <MediaContentCell image={params.row.images[0]} />,
     filterable: false,
     sortable: false,
   },

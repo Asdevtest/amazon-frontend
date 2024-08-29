@@ -1,10 +1,10 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
   RedFlagsCell,
-  SmallRowImageCell,
   TagsCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -22,8 +22,8 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Image),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
 
-    width: 100,
-    renderCell: params => <SmallRowImageCell image={params.row.images[0]} />,
+    width: 70,
+    renderCell: params => <MediaContentCell image={params.row.images[0]} />,
     filterable: false,
     sortable: false,
   },
