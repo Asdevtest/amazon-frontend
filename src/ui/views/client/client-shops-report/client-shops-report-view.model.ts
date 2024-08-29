@@ -41,11 +41,11 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       mainMethodURL,
       fieldsForSearch,
       tableKey,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     this.history = history
 
     this.radioButtonOption = currentTabsValues
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
     this.getDataGridState()
     this.initUserSettings()
@@ -60,20 +60,25 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch, tableKey } =
       getClassParams(currentValue)
 
+    const columns = columnsModel()
+
     this.getMainDataMethod = getMainDataMethod
-    this.columnsModel = columnsModel()
+    this.columnsModel = columns
+    this.defaultColumnsModel = columns
     this.filtersFields = filtersFields
     this.setColumnMenuSettings(filtersFields)
     this.mainMethodURL = mainMethodURL
     this.tableKey = tableKey
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+    this.defaultSortModel = [{ field: 'updatedAt', sort: 'desc' }]
     this.paginationModel = paginationModelInitialValue
 
     this.filterModel = filterModelInitialValue
     this.fieldsForSearch = fieldsForSearch
 
-    this.getTableData()
+    this.getTableSettingsPreset()
+
+    console.log('this.columnsModel', this.columnsModel)
   }
 
   initUserSettings() {
@@ -82,7 +87,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     const currentShopId = url.searchParams.get('shopId')
 
     if (!currentReport || !currentShopId) {
-      this.getTableData()
+      this.getTableSettingsPreset()
       return
     }
 
@@ -106,7 +111,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       this.history.push(this.history.location.pathname)
     }
 
-    this.getTableData()
+    this.getTableSettingsPreset()
   }
 
   async moveGoodsToInventoryHandler() {
@@ -254,10 +259,5 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
-  }
-
-  getTableData() {
-    this.getDataGridState()
-    this.getCurrentData()
   }
 }

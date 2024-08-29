@@ -19,19 +19,15 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
-import { useStyles } from './client-shops-report-view.style'
-
 import { createRadioButtonOptions } from './client-shops-report-view.config'
 import { ClientShopsViewModel } from './client-shops-report-view.model'
 import { ControllButtons } from './controll-buttons/controll-buttons'
 
 export const ClientShopsReportView = observer(({ history }: { history: any }) => {
-  const { classes: styles } = useStyles()
-
   const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY, history))
 
   return (
-    <div className={styles.root}>
+    <div className="viewWrapper">
       <CustomRadioButton
         size="large"
         buttonStyle="solid"
@@ -50,7 +46,7 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
         onSearchSubmit={viewModel.onSearchSubmit}
       />
 
-      <div className={styles.tabledWrapper}>
+      <div className="tableWrapper">
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
@@ -82,6 +78,17 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
                 sortModel: viewModel.sortModel,
                 columnsModel: viewModel.columnsModel,
                 onSortModelChange: viewModel.onChangeSortingModel,
+              },
+
+              tablePresets: {
+                showPresetsSelect: viewModel.showPresetsSelect,
+                presetsTableData: viewModel.presetsTableData,
+                handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+                handleSetPresetActive: viewModel.handleSetPresetActive,
+                handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+                handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+                handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+                onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
               },
             },
           }}
