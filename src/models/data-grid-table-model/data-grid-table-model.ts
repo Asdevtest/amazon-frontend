@@ -264,13 +264,8 @@ export class DataGridTableModel extends DefaultModel {
       // @ts-ignore
       const savedColumns = []
 
-      console.log('this.columnsModel :>> ', this.columnsModel)
-      console.log('activePreset.settings.fields :>> ', activePreset.settings.fields)
-
       for await (const field of activePreset.settings.fields) {
         const foundColumn = await this.columnsModel?.find(column => column?.field === field?.field)
-
-        console.log('foundColumn :>> ', foundColumn)
 
         if (foundColumn) {
           foundColumn.width = field?.width
