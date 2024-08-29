@@ -1,7 +1,8 @@
-import { TextCell } from '..'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -36,7 +37,7 @@ export const SupplierWithIconsCell: FC<SupplierWithIconsCellProps> = memo(props 
 
   return (
     <>
-      <TextCell text={supplierName} />
+      <Text text={supplierName} />
 
       <div className={styles.icons}>
         {isNewSupplier && <p className={cx(styles.text, styles.uppercase)}>{t(TranslationKey.New)}</p>}

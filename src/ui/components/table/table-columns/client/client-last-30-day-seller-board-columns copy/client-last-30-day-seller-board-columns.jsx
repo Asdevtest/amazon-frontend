@@ -2,7 +2,8 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, ProductCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -25,7 +26,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: params => <TextCell text={params.value?.name} />,
+      renderCell: params => <Text isCell text={params.value?.name} />,
       width: 150,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
@@ -56,7 +57,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       headerName: t(TranslationKey.Title),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
@@ -78,7 +79,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       field: 'unitsorganic',
       headerName: 'Unitsorganic',
       renderHeader: () => <MultilineTextHeaderCell text={'Unitsorganic'} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 200,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
@@ -88,7 +89,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       field: 'unitsppc',
       headerName: 'Unitsppc',
       renderHeader: () => <MultilineTextHeaderCell text={'Unitsppc'} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 200,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
@@ -98,7 +99,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       field: 'netprofit',
       headerName: 'Netprofit',
       renderHeader: () => <MultilineTextHeaderCell text={'Netprofit'} />,
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,

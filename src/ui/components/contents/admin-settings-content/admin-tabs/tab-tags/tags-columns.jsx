@@ -2,8 +2,9 @@ import { MdOutlineDelete } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ActionButtonsCell, MultilineTextHeaderCell, TextCell } from '@components/data-grid/data-grid-cells'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
+import { ActionButtonsCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { EditIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -14,7 +15,7 @@ export const tagsColumns = handlers => [
     field: 'title',
     headerName: t(TranslationKey['Tag name']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tag name'])} />,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 300,
   },
 
@@ -22,7 +23,7 @@ export const tagsColumns = handlers => [
     field: 'productCount',
     headerName: t(TranslationKey['Number of uses']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of uses'])} />,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     align: 'center',
     width: 150,
   },

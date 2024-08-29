@@ -263,11 +263,7 @@ export const OrderStatusText = ({ className, status, isClient }) => {
     }
   }
 
-  return (
-    <Text tooltipInfoContent={t(TranslationKey['Current order status'])} className={className} color={colorByStatus()}>
-      {OrderStatusTranslate(status)}
-    </Text>
-  )
+  return <Text color={colorByStatus()} text={OrderStatusTranslate(status)} />
 }
 
 export const getOrderStatusOptionByCode = statusCode =>

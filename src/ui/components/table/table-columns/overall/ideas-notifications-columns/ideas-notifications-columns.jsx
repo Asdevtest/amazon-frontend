@@ -6,9 +6,9 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductCell,
-  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -81,7 +81,11 @@ export const ideasNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea Status'])} />,
 
     renderCell: params => (
-      <TextCell text={params?.value} color={colorByIdeaStatus(ideaStatusByCode[params.row.originalData.idea.status])} />
+      <Text
+        isCell
+        text={params?.value}
+        color={colorByIdeaStatus(ideaStatusByCode[params.row.originalData.idea.status])}
+      />
     ),
     width: 120,
   },
@@ -91,7 +95,7 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey['Name idea']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Name idea'])} />,
 
-    renderCell: params => <TextCell text={params?.row?.productName} />,
+    renderCell: params => <Text isCell text={params?.row?.productName} />,
     // width: 200,
     flex: 1,
   },
