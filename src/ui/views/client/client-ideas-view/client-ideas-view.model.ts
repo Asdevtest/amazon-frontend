@@ -163,16 +163,14 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       tableKey,
       defaultGetCurrentDataOptions,
       defaultFilterParams,
+      defaultSortModel: [{ field: pageSettings.defaultSortingModel, sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
 
     this.history = history
-    this.sortModel = [{ field: pageSettings.defaultSortingModel, sort: 'desc' }]
 
-    this.getDataGridState()
-
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   async getDataForIdeaModal(idea: IIdea) {
