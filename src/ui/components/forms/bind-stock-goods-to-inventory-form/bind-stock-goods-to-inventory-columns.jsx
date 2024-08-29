@@ -2,7 +2,7 @@ import { Radio } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SmallRowImageCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { MediaContentCell, TextCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
 import { DeleteIcon } from '@components/shared/svg-icons'
 
@@ -35,8 +35,8 @@ export const inventoryColumns = (handlers, selectedRow) => [
   {
     field: 'image',
     headerName: t(TranslationKey.Image),
-    width: 100,
-    renderCell: params => <SmallRowImageCell image={params.row.images[0]} />,
+    width: 70,
+    renderCell: params => <MediaContentCell image={params.row.images[0]} />,
     filterable: false,
     sortable: false,
   },

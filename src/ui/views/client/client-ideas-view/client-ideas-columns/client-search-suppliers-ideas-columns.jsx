@@ -13,11 +13,11 @@ import {
   FilesCell,
   IdeaSupplierCell,
   ManyUserLinkCell,
+  MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OnCheckingIdeaActionsCell,
   ProductCell,
-  SmallRowImageCell,
   TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -118,9 +118,9 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
       renderCell: params => (
-        <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
+        <MediaContentCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
       ),
-      width: 96,
+      width: 70,
       disableCustomSort: true,
       filterable: false,
     },

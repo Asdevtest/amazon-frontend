@@ -66,7 +66,7 @@ export { RequestNotificationMessageCell } from './request-notification-message-c
 export { SelectProductCellWithourTitle } from './select-product-asin-cell-withour-title/select-product-asin-cell-withour-title'
 export { SelectRowCell } from './select-row-cell/select-row-cell'
 export { ShopNotificationMessageCell } from './shop-notification-message-cell/shop-notification-message-cell'
-export { SmallRowImageCell } from './small-row-image-cell/small-row-image-cell'
+export { MediaContentCell } from './small-row-image-cell/media-content-cell'
 export { StringListCell } from './string-list-cell/string-list-cell'
 export { SupplierCell } from './supplier-cell/supplier-cell'
 export { SupplierWithIconsCell } from './supplier-with-icons-cell/supplier-with-icons-cell'

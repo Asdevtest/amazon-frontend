@@ -5,11 +5,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   IdeaRequestsCell,
   ManyUserLinkCell,
+  MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OnCheckingIdeaActionsCell,
   ProductCell,
-  SmallRowImageCell,
   TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -71,8 +71,8 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Idea),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-      renderCell: params => <SmallRowImageCell image={params.value.find(el => checkIsMediaFileLink(el))} />,
-      width: 96,
+      renderCell: params => <MediaContentCell image={params.value.find(el => checkIsMediaFileLink(el))} />,
+      width: 70,
 
       filterable: false,
       disableCustomSort: true,

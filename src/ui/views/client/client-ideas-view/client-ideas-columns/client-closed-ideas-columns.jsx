@@ -9,10 +9,10 @@ import { SettingsModel } from '@models/settings-model'
 import {
   ClosedIdeaActionsCell,
   ManyUserLinkCell,
+  MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
   ProductCell,
-  SmallRowImageCell,
   TextCell,
   TimeFromSecondsCell,
   UserLinkCell,
@@ -76,8 +76,8 @@ export const clientClosedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Idea),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-      renderCell: params => <SmallRowImageCell image={params.value.find(el => checkIsMediaFileLink(el))} />,
-      width: 96,
+      renderCell: params => <MediaContentCell image={params.value.find(el => checkIsMediaFileLink(el))} />,
+      width: 70,
       disableCustomSort: true,
       filterable: false,
     },
