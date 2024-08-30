@@ -90,8 +90,6 @@ export class EditProductTagModel {
         this.selectedTags = result as ITag[]
         this.requestTagsByIdStatus = loadingStatus.SUCCESS
       })
-
-      console.log('this.selectedTags :>> ', this.selectedTags)
     } catch (error) {
       runInAction(() => {
         this.requestTagsByIdStatus = loadingStatus.SUCCESS
