@@ -63,7 +63,7 @@ export const Header: FC<HeaderProps> = memo(props => {
             <CustomButton
               type="primary"
               size="large"
-              title="To order selected products"
+              title={t(TranslationKey['To order selected products'])}
               disabled={isNoSelectedRows}
               onClick={onClickOrderBtn}
             >
