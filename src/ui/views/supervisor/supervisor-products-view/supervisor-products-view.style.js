@@ -7,12 +7,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
   },
 
-  dataGridWrapper: {
-    marginTop: 20,
-    height: '82vh',
-    width: '100%',
-  },
-
   attentionRow: {
     position: 'relative',
     background: theme.palette.background.yellowRow,

@@ -7,10 +7,4 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'space-between',
     gap: '20px',
   },
-
-  tableWrapper: {
-    marginTop: '20px',
-    width: '100%',
-    height: '80vh',
-  },
 }))

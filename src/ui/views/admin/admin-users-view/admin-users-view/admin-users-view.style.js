@@ -7,16 +7,6 @@ export const useStyles = makeStyles()(() => ({
     alignItems: 'center',
   },
 
-  searchInput: {
-    width: 400,
-  },
-
-  datagridWrapper: {
-    marginTop: '20px',
-    height: '82vh',
-    width: '100%',
-  },
-
   usersOnlineWrapper: {
     position: 'relative',
     minWidth: 205,

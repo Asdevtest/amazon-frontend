@@ -13,17 +13,13 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IOrder } from '@typings/models/orders/order'
 
-import { useStyles } from './buyer-free-orders-view.style'
-
 import { BuyerFreeOrdersViewModel } from './buyer-free-orders-view.model'
 
 export const BuyerFreeOrdersView = observer(() => {
-  const { classes: styles } = useStyles()
-
   const [viewModel] = useState(() => new BuyerFreeOrdersViewModel())
 
   return (
-    <>
+    <div className="viewWrapper">
       <CustomButton
         type="primary"
         size="large"
@@ -33,52 +29,50 @@ export const BuyerFreeOrdersView = observer(() => {
         {t(TranslationKey['Take on the work of the selected'])}
       </CustomButton>
 
-      <div className={styles.dataGridWrapper}>
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          pinnedColumns={viewModel.pinnedColumns}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          getRowId={(row: IOrder) => row._id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        pinnedColumns={viewModel.pinnedColumns}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        getRowId={(row: IOrder) => row._id}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-        />
-      </div>
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+          },
+        }}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+      />
 
       {viewModel.showTwoVerticalChoicesModal ? (
         <TwoVerticalChoicesModal
@@ -94,6 +88,6 @@ export const BuyerFreeOrdersView = observer(() => {
           onClickBottomBtn={viewModel.onClickContinueWorkButton}
         />
       ) : null}
-    </>
+    </div>
   )
 })

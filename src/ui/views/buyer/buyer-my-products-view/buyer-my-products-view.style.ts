@@ -1,22 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '20px',
-  },
-
-  dataGridWrapper: {
-    height: 'calc(100vh - 160px)',
-    width: '100%',
-  },
-
-  searchInput: {
-    width: 450,
-  },
-
   attentionRow: {
     position: 'relative',
     background: theme.palette.background.yellowRow,

@@ -17,73 +17,64 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IOrder } from '@typings/models/orders/order'
 
-import { useStyles } from './buyer-pending-orders-view.style'
-
 import { BuyerMyOrdersViewModel } from './buyer-pending-orders-view.model'
 
 export const BuyerPendingOrdersView = observer(() => {
-  const { classes: styles } = useStyles()
-
   const [viewModel] = useState(() => new BuyerMyOrdersViewModel())
 
   return (
-    <>
-      <div className={styles.headerWrapper}>
-        <CustomInputSearch
-          enterButton
-          allowClear
-          size="large"
-          wrapperClassName={styles.searchInput}
-          placeholder="Search by SKU, ASIN, Title, Order, item"
-          onSearch={viewModel.onSearchSubmit}
-        />
-      </div>
+    <div className="viewWrapper">
+      <CustomInputSearch
+        enterButton
+        allowClear
+        size="large"
+        placeholder="Search by SKU, ASIN, Title, Order, item"
+        onSearch={viewModel.onSearchSubmit}
+      />
 
-      <div className={styles.dataGridWrapper}>
-        <CustomDataGrid
-          pinnedColumns={viewModel.pinnedColumns}
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          getRowId={(row: IOrder) => row._id}
-          rowSelectionModel={viewModel.selectedRows}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        pinnedColumns={viewModel.pinnedColumns}
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        getRowId={(row: IOrder) => row._id}
+        rowSelectionModel={viewModel.selectedRows}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={(params: GridRowParams) => viewModel.onClickOrder(params.row._id)}
-        />
-      </div>
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+          },
+        }}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowDoubleClick={(params: GridRowParams) => viewModel.onClickOrder(params.row._id)}
+      />
 
       <Modal
         missClickModalOn
@@ -123,6 +114,6 @@ export const BuyerPendingOrdersView = observer(() => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </>
+    </div>
   )
 })

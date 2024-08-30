@@ -31,47 +31,43 @@ export const ServiceDetailsView = observer(props => {
   }, [])
 
   return (
-    <>
-      <div>
-        <MyServicesInfo
-          announcementData={viewModel.announcementData}
-          onClickReview={viewModel.onClickReview}
-          onClickEditBtn={viewModel.onClickEditBtn}
-          onClickBackBtn={viewModel.onClickBackBtn}
-          onClickCloseAnnouncementBtn={viewModel.onClickCloseAnnouncementBtn}
-        />
+    <div className="viewWrapper">
+      <MyServicesInfo
+        announcementData={viewModel.announcementData}
+        onClickReview={viewModel.onClickReview}
+        onClickEditBtn={viewModel.onClickEditBtn}
+        onClickBackBtn={viewModel.onClickBackBtn}
+        onClickCloseAnnouncementBtn={viewModel.onClickCloseAnnouncementBtn}
+      />
 
-        <div className={styles.dataGridWrapper}>
-          <CustomDataGrid
-            rowCount={viewModel.rowCount}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            rows={viewModel.currentData}
-            rowHeight={143}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
-              },
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onPaginationModelChange}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-          />
-        </div>
-      </div>
+      <CustomDataGrid
+        rowCount={viewModel.rowCount}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        rows={viewModel.currentData}
+        rowHeight={143}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+            },
+          },
+        }}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+      />
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal
@@ -95,6 +91,6 @@ export const ServiceDetailsView = observer(props => {
           onClickCloseButton={() => viewModel.onTriggerOpenModal('showReviewModal')}
         />
       </Modal>
-    </>
+    </div>
   )
 })

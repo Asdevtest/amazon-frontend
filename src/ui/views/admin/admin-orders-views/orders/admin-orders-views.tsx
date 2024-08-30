@@ -24,7 +24,7 @@ export const AdminOrdersViews = observer(() => {
   const [viewModel] = useState(() => new AdminOrdersAllViewModel())
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.header}>
         <CustomSelect
           size="large"
@@ -41,52 +41,50 @@ export const AdminOrdersViews = observer(() => {
         />
       </div>
 
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          pinnedColumns={viewModel.pinnedColumns}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          getRowId={({ _id }: IOrder) => _id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        pinnedColumns={viewModel.pinnedColumns}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        getRowId={({ _id }: IOrder) => _id}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
 
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowDoubleClick={(params: GridRowParams) => viewModel.onClickTableRow(params.row)}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
-    </>
+
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+          },
+        }}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onRowDoubleClick={(params: GridRowParams) => viewModel.onClickTableRow(params.row)}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+      />
+    </div>
   )
 })
