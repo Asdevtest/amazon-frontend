@@ -262,7 +262,7 @@ export class DataGridTableModel extends DefaultModel {
 
     if (activePreset) {
       // @ts-ignore
-      const savedColumns = []
+      const savedColumns: IGridColumn[] = []
 
       for await (const field of activePreset.settings.fields) {
         const foundColumn = await this.columnsModel?.find(column => column?.field === field?.field)
@@ -276,23 +276,26 @@ export class DataGridTableModel extends DefaultModel {
         savedColumns.push(foundColumn)
       }
 
-      this.columnsModel = await savedColumns
-
-      this.sortModel = activePreset?.settings?.sortModel
-      this.pinnedColumns = activePreset?.settings?.pinnedColumns
-      this.paginationModel = activePreset?.settings?.paginationModel
-      this.columnVisibilityModel = activePreset?.settings?.columnVisibilityModel
+      runInAction(() => {
+        this.columnsModel = savedColumns
+        this.sortModel = activePreset?.settings?.sortModel
+        this.pinnedColumns = activePreset?.settings?.pinnedColumns
+        this.paginationModel = activePreset?.settings?.paginationModel
+        this.columnVisibilityModel = activePreset?.settings?.columnVisibilityModel
+      })
     } else {
       this.handlePinColumn(defaultPinnedColumns)
 
-      // Doesnt work with await and map methods
-      this.columnsModel = await this.defaultColumnsModel?.map(column => ({
+      const savedColumns: IGridColumn[] = await this.defaultColumnsModel?.map(column => ({
         ...column,
       }))
 
-      this.sortModel = this.defaultSortModel
-      this.paginationModel = paginationModelInitialValue
-      this.columnVisibilityModel = {}
+      runInAction(() => {
+        this.columnsModel = savedColumns
+        this.sortModel = this.defaultSortModel
+        this.paginationModel = paginationModelInitialValue
+        this.columnVisibilityModel = {}
+      })
     }
 
     this.getCurrentData()
