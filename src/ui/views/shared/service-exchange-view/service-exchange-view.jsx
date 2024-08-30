@@ -30,9 +30,9 @@ export const ServiceExchangeView = observer(({ history }) => {
           <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
           <FreelanceTypeTaskSelect
-            selectedSpec={viewModel.radioButtonOption}
             specs={viewModel.specs}
-            onClickSpec={viewModel.onChangeRadioButtonOption}
+            selectedSpec={viewModel.specOption}
+            onChangeSpec={viewModel.onChangeSpec}
           />
         </div>
 

@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
-import { CustomRadioButton } from '@components/shared/custom-radio-button'
+import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
@@ -24,24 +24,24 @@ export const AdminOrdersViews = observer(() => {
   const [viewModel] = useState(() => new AdminOrdersAllViewModel())
 
   return (
-    <div className={styles.container}>
-      <CustomInputSearch
-        enterButton
-        allowClear
-        size="large"
-        placeholder="Search by SKU, ASIN, Title"
-        onSearch={viewModel.onSearchSubmit}
-      />
+    <>
+      <div className={styles.header}>
+        <CustomSelect
+          size="large"
+          options={getSwitcherConfig()}
+          value={viewModel.activeCategory}
+          onChange={viewModel.onChangeActiveCategory}
+        />
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by SKU, ASIN, Title"
+          onSearch={viewModel.onSearchSubmit}
+        />
+      </div>
 
-      <CustomRadioButton
-        size="large"
-        buttonStyle="solid"
-        options={getSwitcherConfig()}
-        defaultValue={viewModel.activeCategory}
-        onChange={viewModel.onChangeActiveCategory}
-      />
-
-      <div className={styles.datagridWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
@@ -87,6 +87,6 @@ export const AdminOrdersViews = observer(() => {
           onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
-    </div>
+    </>
   )
 })

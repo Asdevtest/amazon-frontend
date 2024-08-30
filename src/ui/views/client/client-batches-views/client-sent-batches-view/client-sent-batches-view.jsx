@@ -26,9 +26,24 @@ export const ClientSentBatchesView = observer(({ history }) => {
   return (
     <>
       <div className={styles.btnsWrapper}>
-        <CustomButton size="large" onClick={viewModel.onTriggerArchive}>
-          {t(TranslationKey[viewModel.isArchive ? 'Actual batches' : 'Open archive'])}
-        </CustomButton>
+        <div className={styles.btnsWrapper}>
+          <CustomButton size="large" onClick={viewModel.onTriggerArchive}>
+            {t(TranslationKey[viewModel.isArchive ? 'Actual batches' : 'Open archive'])}
+          </CustomButton>
+
+          <CustomRadioButton
+            size="large"
+            buttonStyle="solid"
+            options={[
+              { label: t(TranslationKey['All warehouses']), value: '' },
+              ...viewModel.storekeepersData
+                .filter(storekeeper => storekeeper.boxesCount !== 0)
+                .map(storekeeper => ({ label: storekeeper.name, value: storekeeper._id })),
+            ]}
+            defaultValue={viewModel.currentStorekeeperId}
+            onChange={viewModel.onClickStorekeeperBtn}
+          />
+        </div>
 
         <CustomInputSearch
           enterButton
@@ -50,19 +65,6 @@ export const ClientSentBatchesView = observer(({ history }) => {
           {t(TranslationKey[viewModel.isArchive ? 'Relocate from archive' : 'Move to archive'])}
         </CustomButton>
       </div>
-
-      <CustomRadioButton
-        size="large"
-        buttonStyle="solid"
-        options={[
-          ...viewModel.storekeepersData
-            .filter(storekeeper => storekeeper.boxesCount !== 0)
-            .map(storekeeper => ({ label: storekeeper.name, value: storekeeper._id })),
-          { label: t(TranslationKey['All warehouses']), value: '' },
-        ]}
-        defaultValue={viewModel.currentStorekeeperId}
-        onChange={viewModel.onClickStorekeeperBtn}
-      />
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid

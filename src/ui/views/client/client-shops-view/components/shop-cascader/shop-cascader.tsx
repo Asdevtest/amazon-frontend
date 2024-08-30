@@ -36,7 +36,7 @@ export const ShopCascader: FC = observer(() => {
           type="secondary"
           isCell={false}
           copyable={false}
-          rows={1}
+          textRows={1}
           text={`${t(TranslationKey.Shops)}*`}
           className={styles.title}
         />
@@ -55,7 +55,7 @@ export const ShopCascader: FC = observer(() => {
           type="secondary"
           isCell={false}
           copyable={false}
-          rows={1}
+          textRows={1}
           text={`${t(TranslationKey.Tables)}*`}
           className={styles.title}
         />

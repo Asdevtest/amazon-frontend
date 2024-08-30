@@ -32,11 +32,17 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
   const notAsinAndSku = !asin && !sku
 
   return (
-    <div className={styles.root} onClick={e => e.stopPropagation()}>
+    <div className={styles.root}>
       {title && !notAsinAndSku ? renderTextCell(title, 1) : null}
 
       <div className={styles.flexRow}>
-        <Image preview width={32} height={32} src={getAmazonImageUrl(image, false)} wrapperClassName={styles.image} />
+        <Image
+          preview={false}
+          width={32}
+          height={32}
+          src={getAmazonImageUrl(image, false)}
+          wrapperClassName={styles.image}
+        />
 
         <div className={styles.flexColumn}>
           {notAsinAndSku && title ? (
@@ -50,6 +56,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
                   copyable={hoverAsin[0] && !!asin}
                   href={`https://www.amazon.com/dp/${asin}`}
                   className={styles.text}
+                  onClick={e => e.stopPropagation()}
                 >
                   {asin}
                 </Link>
