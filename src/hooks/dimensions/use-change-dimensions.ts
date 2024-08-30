@@ -91,7 +91,8 @@ export const useChangeDimensions = ({ data, setData, sizeSetting = Dimensions.EU
   }, [data.volumeWeight, data.weighGrossKgWarehouse])
 
   const handleChangeDimensions = (fieldName: string) => (e: ChangeEvent<HTMLInputElement>) => {
-    if (!/^\d*\.?\d{0,2}$/.test(e.target.value) || e.target.value.length > 6) {
+    const value = e.target.value
+    if (parseFloat(value) < 0 || !/^\d*\.?\d{0,2}$/.test(value) || value.length > 6) {
       return
     }
 
