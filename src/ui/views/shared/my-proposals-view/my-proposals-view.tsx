@@ -54,8 +54,8 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
         <FreelanceTypeTaskSelect
           // @ts-ignore
           specs={viewModel.userInfo?.allowedSpec}
-          selectedSpec={viewModel.selectedSpecType}
-          onClickSpec={viewModel.onChangeRadioButtonOption}
+          selectedSpec={viewModel.specOption}
+          onChangeSpec={viewModel.onChangeSpec}
         />
       </div>
 

@@ -21,11 +21,15 @@ export const ParsingReports = observer(() => {
   const { classes: styles } = useStyles()
 
   const viewModel = useMemo(() => new ParsingReportsModel(), [])
-  const selectConfig = useMemo(() => getSelectConfig(), [])
 
   return (
     <div className={styles.container}>
-      <CustomSelect options={selectConfig} value={viewModel.table} onChange={viewModel.onChangeActiveTable} />
+      <CustomSelect
+        size="large"
+        options={getSelectConfig()}
+        value={viewModel.table}
+        onChange={viewModel.onChangeActiveTable}
+      />
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid

@@ -9,7 +9,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
-import { CustomRadioButton } from '@components/shared/custom-radio-button'
+import { CustomSelect } from '@components/shared/custom-select'
 import { Modal } from '@components/shared/modal'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
@@ -38,6 +38,33 @@ export const ClientWarehouseTasksView = observer(() => {
           onSearch={viewModel.onSearchSubmit}
         />
 
+        <div className={styles.filters}>
+          <CustomSelect
+            size="large"
+            options={getPriorityConfig()}
+            value={viewModel.selectedPriority}
+            onChange={el => viewModel.setFilters('selectedPriority', el)}
+          />
+          <CustomSelect
+            size="large"
+            options={getStatusConfig()}
+            value={viewModel.selectedStatus}
+            onChange={el => viewModel.setFilters('selectedStatus', el)}
+          />
+          <CustomSelect
+            size="large"
+            options={getTypeConfig()}
+            value={viewModel.selectedType}
+            onChange={el => viewModel.setFilters('selectedType', el)}
+          />
+          <CustomSelect
+            size="large"
+            options={getStorekeepersConfig(viewModel.storekeepersData)}
+            value={viewModel.selectedStorekeeper}
+            onChange={el => viewModel.setFilters('selectedStorekeeper', el)}
+          />
+        </div>
+
         <CustomButton
           type="primary"
           size="large"
@@ -47,37 +74,6 @@ export const ClientWarehouseTasksView = observer(() => {
         >
           {t(TranslationKey['Download task file'])}
         </CustomButton>
-      </div>
-
-      <div className={styles.filters}>
-        <CustomRadioButton
-          size="large"
-          buttonStyle="solid"
-          options={getPriorityConfig()}
-          defaultValue={viewModel.selectedPriority}
-          onChange={el => viewModel.setFilters('selectedPriority', el)}
-        />
-        <CustomRadioButton
-          size="large"
-          buttonStyle="solid"
-          options={getStatusConfig()}
-          defaultValue={viewModel.selectedStatus}
-          onChange={el => viewModel.setFilters('selectedStatus', el)}
-        />
-        <CustomRadioButton
-          size="large"
-          buttonStyle="solid"
-          options={getTypeConfig()}
-          defaultValue={viewModel.selectedType}
-          onChange={el => viewModel.setFilters('selectedType', el)}
-        />
-        <CustomRadioButton
-          size="large"
-          buttonStyle="solid"
-          options={getStorekeepersConfig(viewModel.storekeepersData)}
-          defaultValue={viewModel.selectedStorekeeper}
-          onChange={el => viewModel.setFilters('selectedStorekeeper', el)}
-        />
       </div>
 
       <div className={styles.tableWrapper}>
@@ -95,14 +91,16 @@ export const ClientWarehouseTasksView = observer(() => {
               title: t(TranslationKey.Filter),
             },
             columnMenu: viewModel.columnMenuSettings,
-
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-
               sortSettings: {
                 sortModel: viewModel.sortModel,
                 columnsModel: viewModel.columnsModel,

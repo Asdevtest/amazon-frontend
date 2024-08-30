@@ -31,7 +31,7 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
   currentProposal: IProposal | null = null
   currentRequest: IRequest | null = null
 
-  selectedSpecType = Specs.DEFAULT
+  specOption = Specs.DEFAULT
 
   showRequestDetailModal = false
   showConfirmModal = false
@@ -59,10 +59,10 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
     const columnsModel = proposalsColumns(rowHandlers)
 
     const additionalPropertiesGetFilters = () => {
-      const isDefaultSpecType = this.selectedSpecType === Specs.DEFAULT
+      const isDefaultSpecType = this.specOption === Specs.DEFAULT
 
       return {
-        ...(!isDefaultSpecType ? { specType: { $eq: this.selectedSpecType } } : {}),
+        ...(!isDefaultSpecType ? { specType: { $eq: this.specOption } } : {}),
       }
     }
 
@@ -131,8 +131,8 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onChangeRadioButtonOption(event: CheckboxChangeEvent) {
-    this.selectedSpecType = event?.target?.value
+  onChangeSpec(value: Specs) {
+    this.specOption = value
 
     this.getCurrentData()
   }
