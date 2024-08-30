@@ -54,8 +54,8 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
         <FreelanceTypeTaskSelect
           // @ts-ignore
           specs={viewModel.userInfo?.allowedSpec}
-          selectedSpec={viewModel.selectedSpecType}
-          onClickSpec={viewModel.onChangeRadioButtonOption}
+          selectedSpec={viewModel.specOption}
+          onChangeSpec={viewModel.onChangeSpec}
         />
       </div>
 
@@ -102,7 +102,7 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
           onFilterModelChange={viewModel.onChangeFilterModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowClick={(params: GridRowParams) => viewModel.onOpenRequestDetailModal(params.row._id)}
+          onRowClick={(params: GridRowParams) => viewModel.onOpenRequestDetailModal(params.row.request?._id)}
         />
       </div>
 

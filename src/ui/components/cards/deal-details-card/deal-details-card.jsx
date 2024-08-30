@@ -5,9 +5,9 @@ import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-s
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { TextCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime } from '@utils/date-time'
@@ -118,7 +118,7 @@ export const DealDetailsCard = ({
               <div className={styles.timeItemInfoWrapper}>
                 <Typography className={styles.text}>{t(TranslationKey.Status)}</Typography>
 
-                <TextCell
+                <Text
                   text={MyRequestStatusTranslate(curProposal?.proposal.status)}
                   color={colorByStatus(curProposal?.proposal.status)}
                 />

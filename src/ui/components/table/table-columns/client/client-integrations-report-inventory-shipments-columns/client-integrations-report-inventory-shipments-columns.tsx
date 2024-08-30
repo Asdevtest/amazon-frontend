@@ -4,7 +4,8 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, ProductCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -26,7 +27,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value?.name} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value?.name} />,
       width: 150,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
@@ -52,7 +53,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       field: 'shipmentId',
       headerName: 'Shipment ID',
       renderHeader: () => <MultilineTextHeaderCell text={'Shipment ID'} />,
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 143,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
@@ -63,7 +64,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       field: 'referenceId',
       headerName: 'Reference ID',
       renderHeader: () => <MultilineTextHeaderCell text={'Reference ID'} />,
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 108,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
@@ -96,7 +97,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       field: 'shipTo',
       headerName: 'Ship to',
       renderHeader: () => <MultilineTextHeaderCell text={'Ship to'} />,
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 83,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
@@ -107,7 +108,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       field: 'unitsExpected',
       headerName: 'Units expected',
       renderHeader: () => <MultilineTextHeaderCell text={'Units expected'} />,
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 83,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
@@ -118,7 +119,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       field: 'status',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-      renderCell: (params: GridRenderCellParams) => <TextCell text={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 83,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,

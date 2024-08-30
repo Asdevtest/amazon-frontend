@@ -2,13 +2,9 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  ActionButtonsCell,
-  MultilineTextHeaderCell,
-  NormDateCell,
-  TextCell,
-} from '@components/data-grid/data-grid-cells'
+import { ActionButtonsCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
 import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -25,21 +21,21 @@ export const warehouseTariffsColumns = ({ onClickEditTariff, onRemoveWarehouseTa
     field: 'name',
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={row.name} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.name} />,
     width: 300,
   },
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={row.description} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.description} />,
     flex: 1,
   },
   {
     field: 'price',
     headerName: t(TranslationKey['Service cost per kg, $']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service cost per kg, $'])} />,
-    renderCell: ({ row }: GridRowModel) => <TextCell text={row.price} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.price} />,
     width: 250,
   },
   {

@@ -8,7 +8,7 @@ import { IDestinationVariationWithCalculations } from '@typings/shared/destinati
 
 import { useStyles } from './approximate-cell.style'
 
-import { TextCell } from '../text-cell/text-cell'
+import { Text } from '../../../shared/text/text'
 
 import { getCellValue } from './helpers/get-cell-value'
 
@@ -32,7 +32,7 @@ export const ApproximateCell: FC<ApproximateCellProps> = memo(props => {
         [styles.borderRight]: borderRight,
       })}
     >
-      <TextCell text={text} />
+      <Text text={text} />
     </div>
   )
 

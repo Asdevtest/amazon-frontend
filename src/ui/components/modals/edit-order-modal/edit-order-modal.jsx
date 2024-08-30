@@ -33,7 +33,6 @@ import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { SaveIcon, TruckIcon } from '@components/shared/svg-icons'
 import { BoxesToOrder } from '@components/shared/tables/boxes-to-order'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
-import { Text } from '@components/shared/text'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
@@ -119,6 +118,7 @@ export const EditOrderModal = memo(
     const [trackNumber, setTrackNumber] = useState({ text: '', files: [] })
     const [boxesForCreation, setBoxesForCreation] = useState([])
     const [isEdit, setIsEdit] = useState(false)
+    const [isStatusChange, setStatusChange] = useState(false)
 
     const initialState = {
       ...order,
@@ -505,7 +505,6 @@ export const EditOrderModal = memo(
 
           <div className={styles.orderStatusWrapper}>
             <Field
-              tooltipInfoContent={t(TranslationKey['Current order status'])}
               value={order.storekeeper?.name}
               label={t(TranslationKey['Order status'])}
               labelClasses={styles.label}
@@ -525,16 +524,16 @@ export const EditOrderModal = memo(
                   classes={{
                     select: cx({
                       [styles.orange]: statusColorGroups.orange.includes(
-                        Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                        isStatusChange ? Number(tmpNewOrderFieldsState?.status) : orderFields.status,
                       ),
                       [styles.green]: statusColorGroups.green.includes(
-                        Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                        isStatusChange ? Number(tmpNewOrderFieldsState?.status) : orderFields.status,
                       ),
                       [styles.red]: statusColorGroups.red.includes(
-                        Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                        isStatusChange ? Number(tmpNewOrderFieldsState?.status) : orderFields.status,
                       ),
                       [styles.blue]: statusColorGroups.blue.includes(
-                        Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                        isStatusChange ? Number(tmpNewOrderFieldsState?.status) : orderFields.status,
                       ),
                     }),
                   }}
@@ -545,16 +544,16 @@ export const EditOrderModal = memo(
                           <FiberManualRecordRoundedIcon
                             className={cx({
                               [styles.orange]: statusColorGroups.orange.includes(
-                                Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                                isStatusChange ? Number(tmpNewOrderFieldsState?.status) : orderFields.status,
                               ),
                               [styles.green]: statusColorGroups.green.includes(
-                                Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                                isStatusChange ? Number(tmpNewOrderFieldsState?.status) : orderFields.status,
                               ),
                               [styles.red]: statusColorGroups.red.includes(
-                                Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                                isStatusChange ? Number(tmpNewOrderFieldsState?.status) : orderFields.status,
                               ),
                               [styles.blue]: statusColorGroups.blue.includes(
-                                Number(tmpNewOrderFieldsState?.status) || orderFields.status,
+                                isStatusChange ? Number(tmpNewOrderFieldsState?.status) : orderFields.status,
                               ),
                             })}
                           />
@@ -654,7 +653,7 @@ export const EditOrderModal = memo(
             onClickSupplierPaymentButton={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />
 
-          <Text className={styles.tableTitle}>{t(TranslationKey.Product)}</Text>
+          <p className={styles.tableTitle}>{t(TranslationKey.Product)}</p>
 
           <ProductTable
             checkIsPlanningPrice={checkIsPlanningPrice}
@@ -819,6 +818,10 @@ export const EditOrderModal = memo(
 
               if (Number(tmpNewOrderFieldsState.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
                 setPaymentMethodsModal(!paymentMethodsModal)
+              }
+
+              if (confirmModalMode === confirmModalModes.STATUS) {
+                setStatusChange(true)
               }
             }}
             onClickCancelBtn={() => {

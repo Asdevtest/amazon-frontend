@@ -4,10 +4,9 @@ import { useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
-import { Badge } from '@components/shared/badge'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
@@ -23,8 +22,8 @@ export const SupervisorProductsView = observer(() => {
   const [viewModel] = useState(() => new SupervisorProductsViewModel())
 
   const customSwitcherConfig = filterStatusConfig.map(status => ({
-    icon: viewModel.userInfo[status.userInfoKey] ? <Badge>{viewModel.userInfo[status.userInfoKey]}</Badge> : null,
-    label: () => t(status.label),
+    badge: viewModel.userInfo[status.userInfoKey] ? viewModel.userInfo[status.userInfoKey] : null,
+    label: status.label,
     value: status.value,
   }))
 
@@ -32,14 +31,20 @@ export const SupervisorProductsView = observer(() => {
 
   return (
     <>
-      <CustomSwitcher
-        switchMode="medium"
-        condition={viewModel.switcherFilterStatuses}
-        switcherSettings={customSwitcherConfig}
-        changeConditionHandler={viewModel.onClickStatusFilterButton}
-      />
+      <div className={styles.header}>
+        <CustomSelect
+          size="large"
+          optionRender={option => (
+            <div className={styles.optionRender}>
+              <div className={styles.optionRenderLabel}>{option.label}</div>
+              {option.data?.badge ? <div className={styles.optionRenderBadge}>{option.data?.badge}</div> : null}
+            </div>
+          )}
+          options={customSwitcherConfig}
+          value={viewModel.switcherFilterStatuses}
+          onChange={viewModel.onClickStatusFilterButton}
+        />
 
-      <div className={styles.searchInputWrapper}>
         <CustomInputSearch
           enterButton
           allowClear

@@ -1,13 +1,8 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextHeaderCell,
-  NormDateCell,
-  ProductCell,
-  TextCell,
-  UserLinkCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -25,7 +20,7 @@ export const fbaInventoryColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params.row?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
@@ -84,7 +79,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Fnsku',
       renderHeader: () => <MultilineTextHeaderCell text="Fnsku" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -94,7 +89,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Condition',
       renderHeader: () => <MultilineTextHeaderCell text="Condition" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -104,7 +99,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Available',
       renderHeader: () => <MultilineTextHeaderCell text="Available" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -114,7 +109,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Pending removal quantity',
       renderHeader: () => <MultilineTextHeaderCell text="Pending removal quantity" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -124,7 +119,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inv age 0 to 90 days',
       renderHeader: () => <MultilineTextHeaderCell text="Inv age 0 to 90 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -134,7 +129,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inv age 91 to 180 days',
       renderHeader: () => <MultilineTextHeaderCell text="Inv age 91 to 180 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -144,7 +139,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inv age 181 to 270 days',
       renderHeader: () => <MultilineTextHeaderCell text="Inv age 181 to 270 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -154,7 +149,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inv age 271 to 365 days',
       renderHeader: () => <MultilineTextHeaderCell text="Inv age 271 to 365 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -164,7 +159,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inv age 365 plus days',
       renderHeader: () => <MultilineTextHeaderCell text="Inv age 365 plus days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -174,7 +169,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Currency',
       renderHeader: () => <MultilineTextHeaderCell text="Currency" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -184,7 +179,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Units shipped T7',
       renderHeader: () => <MultilineTextHeaderCell text="Units shipped T7" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -194,7 +189,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Units shipped T30',
       renderHeader: () => <MultilineTextHeaderCell text="Units shipped T30" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -204,7 +199,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Units shipped T60',
       renderHeader: () => <MultilineTextHeaderCell text="Units shipped T60" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -214,7 +209,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Units shipped T90',
       renderHeader: () => <MultilineTextHeaderCell text="Units shipped T90" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -224,7 +219,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Alert',
       renderHeader: () => <MultilineTextHeaderCell text="Alert" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -234,7 +229,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Your price',
       renderHeader: () => <MultilineTextHeaderCell text="Your price" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -244,7 +239,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Sales price',
       renderHeader: () => <MultilineTextHeaderCell text="Sales price" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -254,7 +249,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Lowest price new plus shipping',
       renderHeader: () => <MultilineTextHeaderCell text="Lowest price new plus shipping" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -264,7 +259,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Lowest price used',
       renderHeader: () => <MultilineTextHeaderCell text="Lowest price used" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -274,7 +269,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Recommended action',
       renderHeader: () => <MultilineTextHeaderCell text="Recommended action" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -284,7 +279,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Deprecated healthy inventory level',
       renderHeader: () => <MultilineTextHeaderCell text="Deprecated healthy inventory level" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -294,7 +289,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Recommended sales price',
       renderHeader: () => <MultilineTextHeaderCell text="Recommended sales price" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -304,7 +299,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Recommended sale duration days',
       renderHeader: () => <MultilineTextHeaderCell text="Recommended sale duration days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -314,7 +309,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Recommended removal quantity',
       renderHeader: () => <MultilineTextHeaderCell text="Recommended removal quantity" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -324,7 +319,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Estimated cost savings of recommended actions',
       renderHeader: () => <MultilineTextHeaderCell text="Estimated cost savings of recommended actions" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -334,7 +329,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Sell through',
       renderHeader: () => <MultilineTextHeaderCell text="Sell through" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -344,7 +339,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Item volume',
       renderHeader: () => <MultilineTextHeaderCell text="Item volume" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -354,7 +349,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Volume unit measurement',
       renderHeader: () => <MultilineTextHeaderCell text="Volume unit measurement" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -364,7 +359,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Storage type',
       renderHeader: () => <MultilineTextHeaderCell text="Storage type" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -374,7 +369,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Marketplace',
       renderHeader: () => <MultilineTextHeaderCell text="Marketplace" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -384,7 +379,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Product group',
       renderHeader: () => <MultilineTextHeaderCell text="Product group" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -394,7 +389,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Storage volume',
       renderHeader: () => <MultilineTextHeaderCell text="Storage volume" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -404,7 +399,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Sales rank',
       renderHeader: () => <MultilineTextHeaderCell text="Sales rank" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -414,7 +409,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Days of supply',
       renderHeader: () => <MultilineTextHeaderCell text="Days of supply" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -424,7 +419,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Stimated excess quantity',
       renderHeader: () => <MultilineTextHeaderCell text="Stimated excess quantity" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -434,7 +429,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Weeks of cover T30',
       renderHeader: () => <MultilineTextHeaderCell text="Weeks of cover T30" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -444,7 +439,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Weeks of cover T90',
       renderHeader: () => <MultilineTextHeaderCell text="Weeks of cover T90" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -454,7 +449,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Featuredoffer Price',
       renderHeader: () => <MultilineTextHeaderCell text="Featuredoffer Price" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -464,7 +459,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Sales shipped last 7 days',
       renderHeader: () => <MultilineTextHeaderCell text="Sales shipped last 7 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -474,7 +469,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Sales shipped last 30 days',
       renderHeader: () => <MultilineTextHeaderCell text="Sales shipped last 30 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -484,7 +479,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Sales shipped last 60 days',
       renderHeader: () => <MultilineTextHeaderCell text="Sales shipped last 60 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -494,7 +489,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Sales shipped last 90 days',
       renderHeader: () => <MultilineTextHeaderCell text="Sales shipped last 90 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -504,7 +499,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inv age 0 to 30 days',
       renderHeader: () => <MultilineTextHeaderCell text="Inv age 0 to 30 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -514,7 +509,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inv age 31 to 60 days',
       renderHeader: () => <MultilineTextHeaderCell text="Inv age 31 to 60 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -524,7 +519,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inv age 61 to 90 days',
       renderHeader: () => <MultilineTextHeaderCell text="Inv age 61 to 90 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -534,7 +529,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inv age 181 to 330 days',
       renderHeader: () => <MultilineTextHeaderCell text="Inv age 181 to 330 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -544,7 +539,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inv age 331 to 365 days',
       renderHeader: () => <MultilineTextHeaderCell text="Inv age 331 to 365 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -554,7 +549,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Estimated storage cost next month',
       renderHeader: () => <MultilineTextHeaderCell text="Estimated storage cost next month" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -564,7 +559,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inbound quantity',
       renderHeader: () => <MultilineTextHeaderCell text="Inbound quantity" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -574,7 +569,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inbound working',
       renderHeader: () => <MultilineTextHeaderCell text="Inbound working" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -584,7 +579,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inbound shipped',
       renderHeader: () => <MultilineTextHeaderCell text="Inbound shipped" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -594,7 +589,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Inbound received',
       renderHeader: () => <MultilineTextHeaderCell text="Inbound received" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -604,7 +599,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'No sale last 6 months',
       renderHeader: () => <MultilineTextHeaderCell text="No sale last 6 months" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -614,7 +609,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Reserved quantity',
       renderHeader: () => <MultilineTextHeaderCell text="Reserved quantity" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -624,7 +619,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Unfulfillable quantity',
       renderHeader: () => <MultilineTextHeaderCell text="Unfulfillable quantity" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -634,7 +629,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Quantity to be charged ais 181210 days',
       renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 181210 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -644,7 +639,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Estimated ais 181210 days',
       renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 181210 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -654,7 +649,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Quantity to be charged ais 211240 days',
       renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 211240 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -664,7 +659,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Estimated ais 211240 days',
       renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 211240 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -674,7 +669,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Quantity to be charged ais 241270 days',
       renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 241270 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -684,7 +679,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Estimated ais 241270 days',
       renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 241270 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -694,7 +689,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Quantity to be charged ais 271300 days',
       renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 271300 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -704,7 +699,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Estimated ais 271300 days',
       renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 271300 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -714,7 +709,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Quantity to be charged ais 301330 days',
       renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 301330 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -724,7 +719,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Estimated ais 301330 days',
       renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 301330 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -734,7 +729,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Quantity to be charged ais 331365 days',
       renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 331365 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -744,7 +739,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Estimated ais 331365 days',
       renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 331365 days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -754,7 +749,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Quantity to be charged ais 365 plus days',
       renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 365 plus days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -764,7 +759,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Estimated ais 365 plus days',
       renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 365 plus days" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -774,7 +769,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Historical days of supply',
       renderHeader: () => <MultilineTextHeaderCell text="Historical days of supply" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -784,7 +779,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Fba minimum inventory level',
       renderHeader: () => <MultilineTextHeaderCell text="Fba minimum inventory level" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -794,7 +789,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Fba inventory level health status',
       renderHeader: () => <MultilineTextHeaderCell text="Fba inventory level health status" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -804,7 +799,7 @@ export const fbaInventoryColumns = () => {
       headerName: 'Recommended ship in quantity',
       renderHeader: () => <MultilineTextHeaderCell text="Recommended ship in quantity" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },

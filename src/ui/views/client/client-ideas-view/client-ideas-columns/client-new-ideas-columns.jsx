@@ -6,13 +6,13 @@ import {
   IdeaActionsCell,
   IdeaRequestsCell,
   ManyUserLinkCell,
+  MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
   ProductCell,
-  SmallRowImageCell,
-  TextCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -32,7 +32,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Idea title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 198,
       filterable: false,
 
@@ -69,7 +69,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params?.row?.parentProduct?.shop?.name} />,
+      renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
       disableCustomSort: true,
 
@@ -83,9 +83,8 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Idea),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-      renderCell: params => <SmallRowImageCell image={params.value?.find(el => checkIsMediaFileLink(el))} />,
-      width: 96,
-
+      renderCell: params => <MediaContentCell image={params.value?.find(el => checkIsMediaFileLink(el))} />,
+      width: 70,
       filterable: false,
       disableCustomSort: true,
     },
@@ -95,7 +94,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 251,
 
       columnKey: columnnsKeys.shared.STRING,
@@ -107,7 +106,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Buyer comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 251,
 
       columnKey: columnnsKeys.shared.STRING,

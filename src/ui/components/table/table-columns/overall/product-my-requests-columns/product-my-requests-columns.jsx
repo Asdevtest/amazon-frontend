@@ -3,12 +3,8 @@ import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-s
 import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  ActionButtonsCell,
-  MultilineTextHeaderCell,
-  NormDateCell,
-  TextCell,
-} from '@components/data-grid/data-grid-cells'
+import { ActionButtonsCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -41,7 +37,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <TextCell text={String(params.value)} />,
+    renderCell: params => <Text isCell text={String(params.value)} />,
     width: 65,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -57,7 +53,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
       />
     ),
     renderCell: params => (
-      <TextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
+      <Text isCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
     ),
     width: 140,
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
@@ -73,7 +69,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 390,
     columnKey: columnnsKeys.shared.STRING,
   },
@@ -88,7 +84,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <TextCell text={params.row.spec?.title} />,
+    renderCell: params => <Text isCell text={params.row.spec?.title} />,
     width: 110,
     columnKey: columnnsKeys.shared.OBJECT,
   },
@@ -103,7 +99,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => <TextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 115,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -121,7 +117,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     field: 'allProposals',
     headerName: t(TranslationKey['Total proposals']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 115,
   },
 
@@ -129,7 +125,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     field: 'acceptedProposals',
     headerName: t(TranslationKey.Accepted),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Accepted)} />,
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 90,
   },
 

@@ -1,6 +1,7 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, TextCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -19,7 +20,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 150,
   },
 
@@ -28,7 +29,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 150,
   },
 
@@ -37,7 +38,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.SKU),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SKU)} />,
 
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 150,
   },
 
@@ -46,7 +47,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 250,
   },
 
@@ -55,7 +56,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 150,
     type: 'number',
   },
@@ -65,7 +66,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.Available),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Available)} />,
 
-    renderCell: params => <TextCell text={params.row.originalData.fbaFbmStock} />,
+    renderCell: params => <Text isCell text={params.row.originalData.fbaFbmStock} />,
     width: 150,
   },
 
@@ -74,7 +75,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.Reserved),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
 
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 150,
   },
 
@@ -83,7 +84,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.Inbound),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
 
-    renderCell: params => <TextCell text={params.row.originalData.sentToFba} />,
+    renderCell: params => <Text isCell text={params.row.originalData.sentToFba} />,
     width: 150,
   },
 
@@ -92,7 +93,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.ROI),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ROI)} />,
 
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 150,
   },
 
@@ -101,7 +102,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 250,
   },
 
@@ -110,7 +111,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.DaysOfStockLeft),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.DaysOfStockLeft)} />,
 
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 250,
   },
   {
@@ -118,7 +119,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.FbaPrepStock),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FbaPrepStock)} />,
     type: 'number',
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 250,
   },
   {
@@ -126,7 +127,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.Ordered),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Ordered)} />,
 
-    renderCell: params => <TextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 250,
   },
 ]

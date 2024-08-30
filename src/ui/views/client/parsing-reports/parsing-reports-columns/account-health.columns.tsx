@@ -1,7 +1,8 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, TextCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -37,7 +38,7 @@ export const accountHealthColumns = () => {
       headerName: 'Account health',
       renderHeader: () => <MultilineTextHeaderCell text="Account health" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -47,7 +48,7 @@ export const accountHealthColumns = () => {
       headerName: 'Suspected int prop violations',
       renderHeader: () => <MultilineTextHeaderCell text="Suspected int prop violations" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -57,7 +58,7 @@ export const accountHealthColumns = () => {
       headerName: 'Received int prop complaints',
       renderHeader: () => <MultilineTextHeaderCell text="Received int prop complaints" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -67,7 +68,7 @@ export const accountHealthColumns = () => {
       headerName: 'Product authenticity customer complaints',
       renderHeader: () => <MultilineTextHeaderCell text="Product authenticity customer complaints" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 180,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -77,7 +78,7 @@ export const accountHealthColumns = () => {
       headerName: 'Product condition customer complaints',
       renderHeader: () => <MultilineTextHeaderCell text="Product condition customer complaints" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 140,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -87,7 +88,7 @@ export const accountHealthColumns = () => {
       headerName: 'Food and product safety issues',
       renderHeader: () => <MultilineTextHeaderCell text="Food and product safety issues" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 140,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -97,7 +98,7 @@ export const accountHealthColumns = () => {
       headerName: 'Listing policy violations',
       renderHeader: () => <MultilineTextHeaderCell text="Listing policy violations" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 140,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -107,7 +108,7 @@ export const accountHealthColumns = () => {
       headerName: 'Restricted product policy violations',
       renderHeader: () => <MultilineTextHeaderCell text="Restricted product policy violations" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -117,7 +118,7 @@ export const accountHealthColumns = () => {
       headerName: 'Customer product reviews policy violations',
       renderHeader: () => <MultilineTextHeaderCell text="Customer product reviews policy violations" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 190,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -127,7 +128,7 @@ export const accountHealthColumns = () => {
       headerName: 'Other policy violations',
       renderHeader: () => <MultilineTextHeaderCell text="Other policy violations" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -137,7 +138,7 @@ export const accountHealthColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params.row?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,

@@ -1,6 +1,4 @@
-import { Image } from 'antd'
-import Link from 'antd/es/typography/Link'
-import Text from 'antd/es/typography/Text'
+import { Image, Typography } from 'antd'
 import { FC, memo } from 'react'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -9,7 +7,9 @@ import { useHover } from '@hooks/use-hover'
 
 import { useStyles } from './product-asin-cell.style'
 
-import { TextCell } from '../text-cell/text-cell'
+import { Text } from '../../../shared/text/text'
+
+const { Text: AntText, Link } = Typography
 
 interface ProductCellProps {
   asin?: string
@@ -26,13 +26,13 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
   const hoverSku = useHover()
 
   const renderTextCell = (text: string, rows: number) => (
-    <TextCell isCell={false} copyable={false} textRows={rows} text={text} className={styles.text} />
+    <Text copyable={false} textRows={rows} text={text} className={styles.text} />
   )
 
   const notAsinAndSku = !asin && !sku
 
   return (
-    <div className={styles.root} onClick={e => e.stopPropagation()}>
+    <div className={styles.root}>
       {title && !notAsinAndSku ? renderTextCell(title, 1) : null}
 
       <div className={styles.flexRow}>
@@ -56,14 +56,15 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
                   copyable={hoverAsin[0] && !!asin}
                   href={`https://www.amazon.com/dp/${asin}`}
                   className={styles.text}
+                  onClick={e => e.stopPropagation()}
                 >
                   {asin}
                 </Link>
               ) : null}
               {sku ? (
-                <Text {...hoverSku[1]} copyable={hoverSku[0] && !!sku} type="secondary" className={styles.text}>
+                <AntText {...hoverSku[1]} copyable={hoverSku[0] && !!sku} type="secondary" className={styles.text}>
                   {sku}
-                </Text>
+                </AntText>
               ) : null}
             </>
           )}

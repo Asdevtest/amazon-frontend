@@ -1,7 +1,8 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, TextCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -37,7 +38,7 @@ export const transactionsColumns = () => {
       headerName: 'Status',
       renderHeader: () => <MultilineTextHeaderCell text="Status" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -47,7 +48,7 @@ export const transactionsColumns = () => {
       headerName: 'Type',
       renderHeader: () => <MultilineTextHeaderCell text="Type" />,
 
-      renderCell: params => <TextCell text={params.value?.replace?.(/_/g, ' ')} />,
+      renderCell: params => <Text isCell text={params.value?.replace?.(/_/g, ' ')} />,
       transformValueMethod: value => value?.replace?.(/_/g, ' '),
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -58,7 +59,7 @@ export const transactionsColumns = () => {
       headerName: 'Amz order id',
       renderHeader: () => <MultilineTextHeaderCell text="Amz order id" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -68,7 +69,7 @@ export const transactionsColumns = () => {
       headerName: 'Product id',
       renderHeader: () => <MultilineTextHeaderCell text="Product id" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
@@ -79,7 +80,7 @@ export const transactionsColumns = () => {
       headerName: 'Product details',
       renderHeader: () => <MultilineTextHeaderCell text="Product details" />,
 
-      renderCell: params => <TextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -89,7 +90,7 @@ export const transactionsColumns = () => {
       headerName: 'Total product charges',
       renderHeader: () => <MultilineTextHeaderCell text="Total product charges" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -99,7 +100,7 @@ export const transactionsColumns = () => {
       headerName: 'Total product rebates',
       renderHeader: () => <MultilineTextHeaderCell text="Total product rebates" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -109,7 +110,7 @@ export const transactionsColumns = () => {
       headerName: 'Amazon fees',
       renderHeader: () => <MultilineTextHeaderCell text="Amazon fees" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -119,7 +120,7 @@ export const transactionsColumns = () => {
       headerName: 'Total usd',
       renderHeader: () => <MultilineTextHeaderCell text="Total usd" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -129,7 +130,7 @@ export const transactionsColumns = () => {
       headerName: 'Fba fee',
       renderHeader: () => <MultilineTextHeaderCell text="Fba fee" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -139,7 +140,7 @@ export const transactionsColumns = () => {
       headerName: 'Referral fee',
       renderHeader: () => <MultilineTextHeaderCell text="Referral fee" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -149,7 +150,7 @@ export const transactionsColumns = () => {
       headerName: 'Other fees',
       renderHeader: () => <MultilineTextHeaderCell text="Other fees" />,
 
-      renderCell: params => <TextCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -159,7 +160,7 @@ export const transactionsColumns = () => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <TextCell text={params.row?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row?.shop?.name} />,
       width: 90,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,

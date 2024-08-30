@@ -11,8 +11,8 @@ import {
   TaskDescriptionCell,
   TaskPriorityCell,
   TaskTypeCell,
-  TextCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -69,7 +69,8 @@ export const warehouseMyTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
     renderCell: params => (
-      <TextCell
+      <Text
+        isCell
         editMode
         text={params.row.originalData.reason}
         onClickSubmit={reason =>

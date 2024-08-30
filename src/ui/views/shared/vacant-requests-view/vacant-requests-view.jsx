@@ -47,9 +47,9 @@ export const VacantRequestsView = observer(({ history }) => {
     <>
       <div className={styles.tablePanelWrapper}>
         <FreelanceTypeTaskSelect
-          selectedSpec={viewModel.radioButtonOption}
           specs={viewModel.userInfo?.allowedSpec}
-          onClickSpec={viewModel.onChangeRadioButtonOption}
+          selectedSpec={viewModel.specOption}
+          onChangeSpec={viewModel.onChangeSpec}
         />
 
         <CustomInputSearch

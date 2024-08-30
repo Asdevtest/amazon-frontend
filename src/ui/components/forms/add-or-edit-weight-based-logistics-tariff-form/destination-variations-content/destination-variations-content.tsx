@@ -10,7 +10,6 @@ import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { Text } from '@components/shared/text'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { toFixed } from '@utils/text'
@@ -167,14 +166,14 @@ export const DestinationVariationsContent: FC<DestinationVariationsContentProps>
                   </div>
 
                   <div className={styles.minBoxWeightContainerBtn}>
-                    <Text
-                      tooltipInfoContent={t(
+                    <p
+                      title={t(
                         TranslationKey['Apply the value "min recommended box weight" to all variations in the tariff'],
                       )}
-                      containerClasses={styles.applyToAll}
+                      className={styles.applyToAll}
                     >
                       {t(TranslationKey['Apply to all'])}
-                    </Text>
+                    </p>
 
                     <Button onClick={() => throttle(() => onApplyMinBoxWeightToAll(variantIndex))}>
                       {t(TranslationKey.Apply)}

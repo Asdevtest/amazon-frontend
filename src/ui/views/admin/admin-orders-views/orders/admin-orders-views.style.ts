@@ -1,23 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  container: {
+  header: {
     display: 'flex',
-    width: '100%',
-    height: '100%',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: 20,
+    gap: '20px',
   },
 
-  searchInput: {
-    width: 400,
-  },
-
-  datagridWrapper: {
-    flex: 1,
+  tableWrapper: {
+    marginTop: '20px',
+    height: '82vh',
     width: '100%',
-    overflow: 'hidden',
-    padding: '3px',
   },
 }))
