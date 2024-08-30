@@ -27,16 +27,14 @@ export class ParsingProfileFormModel {
       this.onToggleLoading(true)
 
       const data = {
-        name: values.name || '',
-        gologinId: values.gologinId || '',
-        email: values.email || '',
-        password: values.password || '',
-        spreadsheetsIdPerformance: values.spreadsheetsIdPerformance || '',
-        spreadsheetsIdImport: values.spreadsheetsIdImport || '',
-        spreadsheetsIdMain: values.spreadsheetsIdMain || '',
-        otp: values.otp || '',
-        port: Number(values.port) || 3000,
-        driverSessionData: {},
+        name: values.name?.trim() || '',
+        gologinId: values.gologinId?.trim() || '',
+        email: values.email?.trim() || '',
+        password: values.password?.trim() || '',
+        spreadsheetsIdPerformance: values.spreadsheetsIdPerformance?.trim() || '',
+        spreadsheetsIdImport: values.spreadsheetsIdImport?.trim() || '',
+        spreadsheetsIdMain: values.spreadsheetsIdMain?.trim() || '',
+        otp: values.otp?.trim() || '',
       }
 
       await ParserModel.createProfile(data)
@@ -54,11 +52,11 @@ export class ParsingProfileFormModel {
       this.onToggleLoading(true)
 
       const data = {
-        name: values.name || '',
-        spreadsheetsIdMain: values.spreadsheetsIdMain || '',
-        spreadsheetsIdPerformance: values.spreadsheetsIdPerformance || '',
-        spreadsheetsIdImport: values.spreadsheetsIdImport || '',
-        otp: values.otp || '',
+        name: values.name?.trim() || '',
+        spreadsheetsIdMain: values.spreadsheetsIdMain?.trim() || '',
+        spreadsheetsIdPerformance: values.spreadsheetsIdPerformance?.trim() || '',
+        spreadsheetsIdImport: values.spreadsheetsIdImport?.trim() || '',
+        otp: values.otp?.trim() || '',
         isActive: this.profile?.isActive || false,
         shopId: this.profile?.shop?._id || null,
         clientId: this.profile?.client?._id || null,
