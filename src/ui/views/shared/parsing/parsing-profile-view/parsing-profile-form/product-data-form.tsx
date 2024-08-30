@@ -64,19 +64,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
             onResetParsingData={viewModel.onResetParsingData}
             onToggleParsingData={viewModel.onToggleParsingData}
           />
-          <Form.Item<FieldType> name="name" className={styles.field}>
-            <CustomInput allowClear size="large" label="Name" wrapperClassName={styles.input} />
-          </Form.Item>
-          <Form.Item<FieldType> name="gologinId" className={styles.field}>
-            <CustomInput
-              allowClear
-              disabled={isEditMode}
-              size="large"
-              label="Gologin ID"
-              wrapperClassName={styles.input}
-            />
-          </Form.Item>
-          <Form.Item<FieldType> name="email" className={styles.field}>
+          <Form.Item<FieldType> name="email" className={styles.field} rules={[{ required: !isEditMode, message: '' }]}>
             <CustomInput allowClear disabled={isEditMode} size="large" label="Email" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType>
@@ -96,23 +84,45 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
               wrapperClassName={styles.input}
             />
           </Form.Item>
-          <Form.Item<FieldType> name="spreadsheetsIdPerformance" className={styles.field}>
-            <CustomInput allowClear size="large" label="Performance ID" wrapperClassName={styles.input} />
+          <Form.Item<FieldType> name="name" className={styles.field} rules={[{ required: !isEditMode, message: '' }]}>
+            <CustomInput allowClear size="large" label="Name" wrapperClassName={styles.input} />
           </Form.Item>
-          <Form.Item<FieldType> name="spreadsheetsIdImport" className={styles.field}>
-            <CustomInput allowClear size="large" label="Import ID" wrapperClassName={styles.input} />
-          </Form.Item>
-          <Form.Item<FieldType> name="spreadsheetsIdMain" className={styles.field}>
-            <CustomInput allowClear size="large" label="SpeadsheetMain ID" wrapperClassName={styles.input} />
-          </Form.Item>
-          <Form.Item<FieldType> name="otp" className={styles.field}>
+          <Form.Item<FieldType> name="otp" className={styles.field} rules={[{ required: !isEditMode, message: '' }]}>
             <CustomInput allowClear size="large" label="OTP" wrapperClassName={styles.input} />
           </Form.Item>
-          <Form.Item<FieldType> name="port" className={styles.field}>
-            <CustomInput allowClear disabled={isEditMode} size="large" label="Port" wrapperClassName={styles.input} />
+          <Form.Item<FieldType>
+            name="gologinId"
+            className={styles.field}
+            rules={[{ required: !isEditMode, message: '' }]}
+          >
+            <CustomInput
+              allowClear
+              disabled={isEditMode}
+              size="large"
+              label="Gologin ID"
+              wrapperClassName={styles.input}
+            />
           </Form.Item>
-          <Form.Item<FieldType> name="driverSessionData" className={styles.field}>
-            <CustomInput allowClear disabled size="large" label="DriverSessionData" wrapperClassName={styles.input} />
+          <Form.Item<FieldType>
+            name="spreadsheetsIdPerformance"
+            className={styles.field}
+            rules={[{ required: !isEditMode, message: '' }]}
+          >
+            <CustomInput allowClear size="large" label="Performance ID" wrapperClassName={styles.input} />
+          </Form.Item>
+          <Form.Item<FieldType>
+            name="spreadsheetsIdImport"
+            className={styles.field}
+            rules={[{ required: !isEditMode, message: '' }]}
+          >
+            <CustomInput allowClear size="large" label="Import ID" wrapperClassName={styles.input} />
+          </Form.Item>
+          <Form.Item<FieldType>
+            name="spreadsheetsIdMain"
+            className={styles.field}
+            rules={[{ required: !isEditMode, message: '' }]}
+          >
+            <CustomInput allowClear size="large" label="SpeadsheetMain ID" wrapperClassName={styles.input} />
           </Form.Item>
         </div>
 

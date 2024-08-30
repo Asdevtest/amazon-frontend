@@ -15,9 +15,9 @@ export const useStyles = makeStyles()(() => ({
 
   container: {
     display: 'grid',
-    gridTemplateAreas: '"a b c" "a d e" "f g h" "i j k"',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gridTemplateRows: 'repeat(4, auto)',
+    gridTemplateAreas: '"a b" "a с" "d e" "f g" "h i"',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gridTemplateRows: 'repeat(5, auto)',
     gap: '20px',
   },
 
