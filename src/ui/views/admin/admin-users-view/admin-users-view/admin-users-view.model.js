@@ -40,15 +40,12 @@ export class AdminUsersViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey: DataGridTablesKeys.ADMIN_USERS,
       additionalPropertiesGetFilters,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     makeObservable(this, adminUsersViewModelConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
     this.initHistory()
-
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   async onClickUser(userData) {
