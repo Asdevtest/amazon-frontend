@@ -34,5 +34,6 @@ export const useStyles = makeStyles()(theme => ({
   content: {
     flex: 1,
     padding: 10,
+    overflow: 'auto',
   },
 }))
