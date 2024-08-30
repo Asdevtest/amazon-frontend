@@ -37,7 +37,6 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
         />
       ),
       width: 170,
-      disableColumnMenu: true,
       filterable: false,
       sortable: false,
     },
@@ -77,7 +76,6 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
         )
       },
       flex: 1,
-      disableColumnMenu: true,
       filterable: false,
       sortable: false,
     },
