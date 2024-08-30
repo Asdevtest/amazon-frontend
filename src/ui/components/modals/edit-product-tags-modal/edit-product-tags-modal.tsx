@@ -73,7 +73,8 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
             )
           }}
           popupClassName={styles.popup}
-          onChange={(selectedValue, tagArray) => viewModel.handleClickTag(tagArray as ITag[])}
+          onSelect={(value, option) => viewModel.handleSelectTag(option as ITag)}
+          onDeselect={value => viewModel.handleDeleteTag(value)}
           onPopupScroll={viewModel.loadMoreDataHadler}
           onSearch={viewModel.onSearch}
         />

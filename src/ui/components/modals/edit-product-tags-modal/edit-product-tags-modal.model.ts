@@ -88,11 +88,10 @@ export class EditProductTagModel {
       const result = await ProductModel.getProductTagsByGuid(this.productId)
       runInAction(() => {
         this.selectedTags = result as ITag[]
-      })
-
-      runInAction(() => {
         this.requestTagsByIdStatus = loadingStatus.SUCCESS
       })
+
+      console.log('this.selectedTags :>> ', this.selectedTags)
     } catch (error) {
       runInAction(() => {
         this.requestTagsByIdStatus = loadingStatus.SUCCESS
@@ -199,8 +198,12 @@ export class EditProductTagModel {
     }
   }
 
-  handleClickTag(tags: ITag[]) {
-    this.selectedTags = tags
+  handleSelectTag(tag: ITag) {
+    this.selectedTags?.push(tag)
+  }
+
+  handleDeleteTag(tagId: string) {
+    this.selectedTags = this.selectedTags?.filter(selectedTag => selectedTag?._id !== tagId)
   }
 
   async handleBindTagsToProduct(handleUpdateRow: IHandleUpdateRow) {
