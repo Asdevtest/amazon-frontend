@@ -29,7 +29,7 @@ export const Freelance = observer(({ productId, modal }) => {
   }, [])
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.header}>
         <FreelanceTypeTaskSelect
           selectedSpec={viewModel.radioButtonOption}
@@ -111,6 +111,6 @@ export const Freelance = observer(({ productId, modal }) => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
         />
       ) : null}
-    </>
+    </div>
   )
 })

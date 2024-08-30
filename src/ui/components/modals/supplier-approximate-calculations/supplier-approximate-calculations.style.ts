@@ -35,14 +35,6 @@ export const useStyles = makeStyles()(theme => ({
     width: 400,
   },
 
-  tableWrapper: {
-    flex: 1,
-    overflowY: 'auto',
-    padding: '3px',
-    width: '100%',
-    paddingBottom: '3px',
-  },
-
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',

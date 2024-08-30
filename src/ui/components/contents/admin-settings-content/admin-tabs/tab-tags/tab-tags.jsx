@@ -24,7 +24,7 @@ export const TabTags = observer(() => {
   const [viewModel] = useState(() => new AdminSettingsTagsModel())
 
   return (
-    <div className={styles.wrapper}>
+    <div className="viewWrapper">
       <div className={styles.buttons}>
         <CustomButton
           danger
@@ -46,39 +46,37 @@ export const TabTags = observer(() => {
         </CustomButton>
       </div>
 
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          sortModel={viewModel.sortModel}
-          sortingMode="client"
-          paginationMode="client"
-          filterModel={viewModel.filterModel}
-          rowSelectionModel={viewModel.rowSelectionModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        sortModel={viewModel.sortModel}
+        sortingMode="client"
+        paginationMode="client"
+        filterModel={viewModel.filterModel}
+        rowSelectionModel={viewModel.rowSelectionModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-            toolbar: {
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-            },
-          }}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-        />
-      </div>
+          },
+        }}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+      />
 
       <Modal openModal={viewModel.showAddOrEditTagModal} setOpenModal={viewModel.onClickToggleAddOrEditModal}>
         <AddOrEditTagForm

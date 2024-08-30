@@ -30,7 +30,7 @@ export const UserPermissions = observer(() => {
   const [viewModel] = useState(() => new UserPermissionsModel())
 
   return (
-    <div className={styles.wrapper}>
+    <div className="viewWrapper">
       <div className={styles.buttons}>
         <CustomRadioButton
           size="large"
@@ -44,7 +44,6 @@ export const UserPermissions = observer(() => {
           enterButton
           allowClear
           size="large"
-          wrapperClassName={styles.searchInput}
           placeholder="Title, Key, URL"
           onSearch={viewModel.onChangeUnserverSearchValue}
         />
@@ -58,46 +57,44 @@ export const UserPermissions = observer(() => {
         </div>
       </div>
 
-      <div className={styles.datagridWrapper}>
-        <CustomDataGrid
-          sortingMode="client"
-          paginationMode="client"
-          rowCount={viewModel.rowCount}
-          rows={viewModel.filteredData}
-          sortModel={viewModel.sortModel}
-          columns={viewModel.columnsModel}
-          filterModel={viewModel.filterModel}
-          pinnedColumns={viewModel.pinnedColumns}
-          rowSelectionModel={viewModel.selectedRows}
-          paginationModel={viewModel.paginationModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          getRowHeight={() => 'auto'}
-          getRowId={({ _id }: IPermission) => _id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        sortingMode="client"
+        paginationMode="client"
+        rowCount={viewModel.rowCount}
+        rows={viewModel.filteredData}
+        sortModel={viewModel.sortModel}
+        columns={viewModel.columnsModel}
+        filterModel={viewModel.filterModel}
+        pinnedColumns={viewModel.pinnedColumns}
+        rowSelectionModel={viewModel.selectedRows}
+        paginationModel={viewModel.paginationModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        getRowHeight={() => 'auto'}
+        getRowId={({ _id }: IPermission) => _id}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-        />
-      </div>
+          },
+        }}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+      />
 
       <Modal
         missClickModalOn

@@ -1,12 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  wrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 20,
-  },
-
   buttons: {
     display: 'flex',
     alignItems: 'center',
@@ -16,10 +10,5 @@ export const useStyles = makeStyles()(theme => ({
   searchInput: {
     width: 290,
     height: 40,
-  },
-
-  tableWrapper: {
-    height: '77vh',
-    width: '100%',
   },
 }))
