@@ -23,6 +23,8 @@ export const useStyles = makeStyles()(theme => ({
     gridArea: 'main',
     overflowY: 'auto',
     background: theme.palette.background.second,
+    display: 'flex',
+    flexDirection: 'column',
 
     [theme.breakpoints.down(1024)]: {
       width: '100vw',
@@ -30,7 +32,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   content: {
-    height: 'calc(100% - 44px)',
+    flex: 1,
     padding: 10,
   },
 }))
