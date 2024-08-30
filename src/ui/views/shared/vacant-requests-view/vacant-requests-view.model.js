@@ -27,7 +27,7 @@ export class VacantRequestsViewModel {
 
   nameSearchValue = ''
 
-  radioButtonOption = Specs.DEFAULT
+  specOption = Specs.DEFAULT
   showRequestDetailModal = false
 
   get currentData() {
@@ -115,12 +115,11 @@ export class VacantRequestsViewModel {
     this.setTableModeState()
   }
 
-  onChangeRadioButtonOption(event) {
-    const currentValue = event.target.value
-    this.radioButtonOption = currentValue
+  onChangeSpec(value) {
+    this.specOption = value
 
     // spec - for "_id:string", specType - for "type:number"
-    this.onChangeFullFieldMenuItem(currentValue === Specs.DEFAULT ? [] : [currentValue], 'specType', true)
+    this.onChangeFullFieldMenuItem(value === Specs.DEFAULT ? [] : [value], 'specType', true)
 
     this.getRequestsVacant()
   }
@@ -249,7 +248,7 @@ export class VacantRequestsViewModel {
   }
 
   onClickResetFilters() {
-    this.radioButtonOption = Specs.DEFAULT
+    this.specOption = Specs.DEFAULT
 
     this.columnMenuSettings = {
       ...this.columnMenuSettings,

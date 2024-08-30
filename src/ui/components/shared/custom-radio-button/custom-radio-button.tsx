@@ -4,8 +4,7 @@ import { FC, memo } from 'react'
 import { useStyles } from './custom-radio-button.style'
 
 export interface ICustomRadioButtonOption extends CheckboxOptionType {
-  startIcon?: JSX.Element | boolean
-  endIcon?: JSX.Element | boolean
+  badge?: number | string
 }
 
 interface CustomRadioButtonProps extends RadioGroupProps {
@@ -21,9 +20,8 @@ export const CustomRadioButton: FC<CustomRadioButtonProps> = memo(props => {
     <Radio.Group {...rest}>
       {options.map((option, index) => (
         <Radio.Button key={index} value={option.value}>
-          {option.startIcon ? <span className={styles.startIcon}>{option.startIcon}</span> : null}
           {option.label}
-          {option.endIcon ? <span className={styles.endIcon}>{option.endIcon}</span> : null}
+          {option.badge ? <span className={styles.badge}>{option.badge}</span> : null}
         </Radio.Button>
       ))}
     </Radio.Group>

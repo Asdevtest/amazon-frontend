@@ -4,12 +4,15 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
 import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
 import { useStyles } from './controll-buttons.style'
+
+import { createRadioButtonOptions } from '../client-shops-report-view.config'
 
 interface СontrollButtonsProps {
   currentSearchValue: string
@@ -19,6 +22,7 @@ interface СontrollButtonsProps {
   onClickBindStockGoodsToInventory: () => void
   onClickDeleteBtn: () => void
   onSearchSubmit: (value: string) => void
+  onChangeTab: (value: ShopReportsTabsValues) => void
 }
 
 export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
@@ -29,6 +33,7 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
     onClickBindStockGoodsToInventory,
     onClickDeleteBtn,
     onSearchSubmit,
+    onChangeTab,
   } = props
 
   const { classes: styles } = useStyles()
@@ -42,6 +47,8 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
   return (
     <div className={styles.root}>
       <div className={styles.buttonsWrapper}>
+        <CustomSelect size="large" options={createRadioButtonOptions()} value={currentTabKey} onChange={onChangeTab} />
+
         <CustomButton size="large" type="primary" disabled={disableButton} onClick={onClickMoveGoodsToInventory}>
           {t(TranslationKey['Move to inventory'])}
         </CustomButton>

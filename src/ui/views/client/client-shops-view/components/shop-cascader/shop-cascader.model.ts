@@ -51,11 +51,11 @@ export class ShopsCascaderModel {
 
   async getShopsExport() {
     try {
-      const shopIds = this.selectedShopsOptions.length > 0 ? this.selectedShopsOptions?.join(', ') : undefined
+      const shopIds = this.selectedShopsOptions.length > 0 ? this.selectedShopsOptions?.join(',') : undefined
       const table = this.selectedTableOptions?.[0][0]
       const statusGroup = this.selectedTableOptions?.find(option => !option.includes('BATCHES'))
         ? this.selectedTableOptions?.[0][1]
-          ? this.selectedTableOptions?.map(option => option[1])?.join(', ')
+          ? this.selectedTableOptions?.map(option => option[1])?.join(',')
           : undefined
         : undefined
       const onAmazon = this.selectedTableOptions?.find(option => option.includes('BATCHES'))

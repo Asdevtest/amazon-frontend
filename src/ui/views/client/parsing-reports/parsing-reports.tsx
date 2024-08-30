@@ -17,11 +17,15 @@ import { ParsingReportsModel } from './parsing-reports.model'
 
 export const ParsingReports = observer(() => {
   const viewModel = useMemo(() => new ParsingReportsModel(), [])
-  const selectConfig = useMemo(() => getSelectConfig(), [])
 
   return (
     <div className="viewWrapper">
-      <CustomSelect options={selectConfig} value={viewModel.table} onChange={viewModel.onChangeActiveTable} />
+      <CustomSelect
+        size="large"
+        options={getSelectConfig()}
+        value={viewModel.table}
+        onChange={viewModel.onChangeActiveTable}
+      />
 
       <CustomDataGrid
         rowCount={viewModel.rowCount}

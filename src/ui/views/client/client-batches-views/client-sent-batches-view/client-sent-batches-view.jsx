@@ -26,9 +26,24 @@ export const ClientSentBatchesView = observer(({ history }) => {
   return (
     <div className="viewWrapper">
       <div className={styles.btnsWrapper}>
-        <CustomButton size="large" onClick={viewModel.onTriggerArchive}>
-          {t(TranslationKey[viewModel.isArchive ? 'Actual batches' : 'Open archive'])}
-        </CustomButton>
+        <div className={styles.btnsWrapper}>
+          <CustomButton size="large" onClick={viewModel.onTriggerArchive}>
+            {t(TranslationKey[viewModel.isArchive ? 'Actual batches' : 'Open archive'])}
+          </CustomButton>
+
+          <CustomRadioButton
+            size="large"
+            buttonStyle="solid"
+            options={[
+              { label: t(TranslationKey['All warehouses']), value: '' },
+              ...viewModel.storekeepersData
+                .filter(storekeeper => storekeeper.boxesCount !== 0)
+                .map(storekeeper => ({ label: storekeeper.name, value: storekeeper._id })),
+            ]}
+            defaultValue={viewModel.currentStorekeeperId}
+            onChange={viewModel.onClickStorekeeperBtn}
+          />
+        </div>
 
         <CustomInputSearch
           enterButton
@@ -51,19 +66,6 @@ export const ClientSentBatchesView = observer(({ history }) => {
         </CustomButton>
       </div>
 
-      <CustomRadioButton
-        size="large"
-        buttonStyle="solid"
-        options={[
-          ...viewModel.storekeepersData
-            .filter(storekeeper => storekeeper.boxesCount !== 0)
-            .map(storekeeper => ({ label: storekeeper.name, value: storekeeper._id })),
-          { label: t(TranslationKey['All warehouses']), value: '' },
-        ]}
-        defaultValue={viewModel.currentStorekeeperId}
-        onChange={viewModel.onClickStorekeeperBtn}
-      />
-
       <CustomDataGrid
         checkboxSelection
         disableRowSelectionOnClick
@@ -80,32 +82,25 @@ export const ClientSentBatchesView = observer(({ history }) => {
           baseTooltip: {
             title: t(TranslationKey.Filter),
           },
-          columnMenu: viewModel.columnMenuSettings,
-          toolbar: {
-            resetFiltersBtnSettings: {
-              onClickResetFilters: viewModel.onClickResetFilters,
-              isSomeFilterOn: viewModel.isSomeFilterOn,
-            },
-            columsBtnSettings: {
-              columnsModel: viewModel.columnsModel,
-              columnVisibilityModel: viewModel.columnVisibilityModel,
-              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-            },
-            sortSettings: {
-              sortModel: viewModel.sortModel,
-              columnsModel: viewModel.columnsModel,
-              onSortModelChange: viewModel.onChangeSortingModel,
-            },
-            tablePresets: {
-              showPresetsSelect: viewModel.showPresetsSelect,
-              presetsTableData: viewModel.presetsTableData,
-              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
-              handleSetPresetActive: viewModel.handleSetPresetActive,
-              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
-              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
-              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
-              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
-            },
+          columsBtnSettings: {
+            columnsModel: viewModel.columnsModel,
+            columnVisibilityModel: viewModel.columnVisibilityModel,
+            onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+          },
+          sortSettings: {
+            sortModel: viewModel.sortModel,
+            columnsModel: viewModel.columnsModel,
+            onSortModelChange: viewModel.onChangeSortingModel,
+          },
+          tablePresets: {
+            showPresetsSelect: viewModel.showPresetsSelect,
+            presetsTableData: viewModel.presetsTableData,
+            handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+            handleSetPresetActive: viewModel.handleSetPresetActive,
+            handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+            handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+            handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+            onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
           },
         }}
         columns={viewModel.columnsModel}

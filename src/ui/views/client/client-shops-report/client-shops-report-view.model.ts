@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { RadioChangeEvent } from 'antd'
 import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -21,7 +20,7 @@ import { observerConfig } from './client-shops-report-view.config'
 import { getClassParams } from './helpers/get-class-params'
 
 export class ClientShopsViewModel extends DataGridFilterTableModel {
-  radioButtonOption = ShopReportsTabsValues.PPC_ORGANIC_BY_DAY
+  tabValue = ShopReportsTabsValues.PPC_ORGANIC_BY_DAY
 
   inventoryProducts: any = []
 
@@ -45,7 +44,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     })
     this.history = history
 
-    this.radioButtonOption = currentTabsValues
+    this.tabValue = currentTabsValues
 
     this.getDataGridState()
     this.initUserSettings()
@@ -53,12 +52,11 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     makeObservable(this, observerConfig)
   }
 
-  onChangeRadioButtonOption(event: RadioChangeEvent) {
-    const currentValue = event.target.value
-    this.radioButtonOption = currentValue
+  onChangeTab(value: ShopReportsTabsValues) {
+    this.tabValue = value
 
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch, tableKey } =
-      getClassParams(currentValue)
+      getClassParams(value)
 
     const columns = columnsModel()
 
@@ -107,7 +105,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     }
 
     if (currentReport) {
-      this.radioButtonOption = currentReport
+      this.tabValue = currentReport
       this.history.push(this.history.location.pathname)
     }
 
@@ -163,7 +161,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      await SellerBoardModel.deleteIntegrationsReport(this.radioButtonOption, this.selectedRows)
+      await SellerBoardModel.deleteIntegrationsReport(this.tabValue, this.selectedRows)
 
       await this.getCurrentData()
 
@@ -175,7 +173,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   }
 
   async bindStockGoodsToInventoryHandler() {
-    if (this.radioButtonOption === ShopReportsTabsValues.INVENTORY) {
+    if (this.tabValue === ShopReportsTabsValues.INVENTORY) {
       await this.getShopsData()
 
       this.onTriggerOpenModal('showSelectShopsModal')

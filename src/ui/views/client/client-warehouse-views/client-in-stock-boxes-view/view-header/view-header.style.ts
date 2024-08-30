@@ -13,7 +13,7 @@ export const useStyles = makeStyles()(() => ({
 
   topHeaderBtnsWrapper: {
     display: 'flex',
-    width: '100%',
     justifyContent: 'space-between',
+    gap: '20px',
   },
 }))

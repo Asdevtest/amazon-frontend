@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
@@ -23,20 +23,16 @@ export const AdminExchangeViews = observer(() => {
   const [viewModel] = useState(() => new AdminExchangeViewModel())
   const { classes: styles } = useStyles()
 
-  const switcherConfig = useMemo(() => getSwitcherConfig(), [])
-
   return (
-    <div>
-      <div className={styles.filterBtnWrapper}>
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel.activeCategory}
-          switcherSettings={switcherConfig}
-          changeConditionHandler={viewModel.onChangeSubCategory}
-        />
-      </div>
+    <>
+      <CustomSelect
+        size="large"
+        options={getSwitcherConfig()}
+        value={viewModel.activeCategory}
+        onChange={viewModel.onChangeSubCategory}
+      />
 
-      <div className={styles.datagridWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
@@ -92,6 +88,6 @@ export const AdminExchangeViews = observer(() => {
           onClickOpenNewTab={viewModel.onClickShowProduct}
         />
       )}
-    </div>
+    </>
   )
 })

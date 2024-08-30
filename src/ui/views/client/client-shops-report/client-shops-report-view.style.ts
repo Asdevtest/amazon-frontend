@@ -1,13 +1,15 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  header: {
+  root: {
     display: 'flex',
-    gap: '20px',
+    flexDirection: 'column',
+    height: '100%',
+    width: '100%',
+    gap: '10px',
   },
 
   tableWrapper: {
-    marginTop: '20px',
     height: '82vh',
     width: '100%',
   },

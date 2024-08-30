@@ -39,6 +39,10 @@ export class ShopsViewModel extends DataGridFilterTableModel {
     const columnsModel = shopsColumns(columnsProps)
     const filtersFields = getFilterFields(columnsModel)
 
+    const operatorsSettings = {
+      profileEmail: '$any',
+    }
+
     super({
       getMainDataMethod: ShopModel.getShopsWithProfiles,
       columnsModel,
@@ -47,6 +51,7 @@ export class ShopsViewModel extends DataGridFilterTableModel {
       fieldsForSearch: ['name'],
       tableKey: DataGridTablesKeys.CLIENT_SHOPS,
       defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
+      operatorsSettings,
     })
 
     this.getTableSettingsPreset()

@@ -32,9 +32,9 @@ export const Freelance = observer(({ productId, modal }) => {
     <div className="viewWrapper">
       <div className={styles.header}>
         <FreelanceTypeTaskSelect
-          selectedSpec={viewModel.radioButtonOption}
           specs={viewModel.specs}
-          onClickSpec={viewModel.onChangeRadioButtonOption}
+          selectedSpec={viewModel.specOption}
+          onChangeSpec={viewModel.onChangeSpec}
         />
 
         <CustomInputSearch

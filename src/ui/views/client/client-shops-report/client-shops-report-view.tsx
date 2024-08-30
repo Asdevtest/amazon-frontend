@@ -10,7 +10,6 @@ import { BindStockGoodsToInventoryForm } from '@components/forms/bind-stock-good
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
@@ -19,7 +18,6 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
-import { createRadioButtonOptions } from './client-shops-report-view.config'
 import { ClientShopsViewModel } from './client-shops-report-view.model'
 import { ControllButtons } from './controll-buttons/controll-buttons'
 
@@ -28,22 +26,15 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
 
   return (
     <div className="viewWrapper">
-      <CustomRadioButton
-        size="large"
-        buttonStyle="solid"
-        options={createRadioButtonOptions()}
-        defaultValue={viewModel.radioButtonOption}
-        onChange={viewModel.onChangeRadioButtonOption}
-      />
-
       <ControllButtons
         currentSearchValue={viewModel.currentSearchValue}
-        currentTabKey={viewModel.radioButtonOption}
+        currentTabKey={viewModel.tabValue}
         selectedRows={viewModel.selectedRows}
         onClickMoveGoodsToInventory={viewModel.moveGoodsToInventoryHandler}
         onClickBindStockGoodsToInventory={viewModel.bindStockGoodsToInventoryHandler}
         onClickDeleteBtn={viewModel.deleteReportHandler}
         onSearchSubmit={viewModel.onSearchSubmit}
+        onChangeTab={viewModel.onChangeTab}
       />
 
       <CustomDataGrid
