@@ -72,13 +72,13 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
       tableKey: DataGridTablesKeys.SUPERVISOR_PRODUCTS,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    this.initHistory()
-    this.getDataGridState()
-    this.getCurrentData()
-
     makeObservable(this, supervisorProductsConfig)
+
+    this.initHistory()
+
+    this.getTableSettingsPreset()
   }
 
   onClickStatusFilterButton(value) {
