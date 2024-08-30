@@ -172,10 +172,6 @@ export const lightTheme = createTheme({
         columnHeaderTitleContainer: {
           flexDirection: 'row !important',
           paddingRight: 25,
-
-          '.MuiDataGrid-columnHeaderTitleContainerContent': {
-            width: '100%',
-          },
         },
 
         menuIconButton: {
