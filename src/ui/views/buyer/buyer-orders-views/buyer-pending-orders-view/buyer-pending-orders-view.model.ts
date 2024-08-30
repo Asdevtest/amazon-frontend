@@ -71,18 +71,13 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey: DataGridTablesKeys.BUYER_PENDING_ORDERS,
       defaultFilterParams,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
-
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
     this.initHistory()
 
-    this.getDataGridState()
-
-    this.getCurrentData()
-
+    this.getTableSettingsPreset()
     this.getSuppliersPaymentMethods()
 
     const url = new URL(window.location.href)

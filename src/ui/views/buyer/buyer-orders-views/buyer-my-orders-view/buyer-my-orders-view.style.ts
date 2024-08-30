@@ -5,7 +5,6 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
   },
 
   attentionRow: {

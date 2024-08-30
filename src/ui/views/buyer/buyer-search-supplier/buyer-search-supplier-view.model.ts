@@ -33,15 +33,14 @@ export class BuyerSearchSupplierBySupervisorModel extends DataGridTableModel {
       columnsModel,
       tableKey,
       defaultGetCurrentDataOptions,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'asc' }],
     })
 
     makeObservable(this, observerConfig)
 
     this.initHistory()
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'asc' }]
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   async onPickupSomeItems() {
