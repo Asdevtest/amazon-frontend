@@ -30,7 +30,7 @@ export const WarehouseCompletedTasksView = observer(({ history }) => {
   }, [])
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.headerWrapper}>
         <TaskPrioritySelector
           currentPriority={viewModel.curTaskPriority}
@@ -62,45 +62,43 @@ export const WarehouseCompletedTasksView = observer(({ history }) => {
           enterButton
           allowClear
           size="large"
-          wrapperClassName={styles.searchInput}
           placeholder="Search by ASIN, Order ID, Item, Track number"
           onSearch={viewModel.onSearchSubmit}
         />
       </div>
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-            toolbar: {
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-            },
-          }}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={params => viewModel.setCurrentOpenedTask(params.row.originalData)}
-        />
-      </div>
+          },
+        }}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowDoubleClick={params => viewModel.setCurrentOpenedTask(params.row.originalData)}
+      />
 
       <Modal
         openModal={viewModel.showTaskInfoModal}
@@ -113,6 +111,6 @@ export const WarehouseCompletedTasksView = observer(({ history }) => {
           onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
         />
       </Modal>
-    </>
+    </div>
   )
 })

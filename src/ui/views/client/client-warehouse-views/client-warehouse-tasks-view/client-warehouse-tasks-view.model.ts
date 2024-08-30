@@ -92,16 +92,12 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
       fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient', 'id', 'item', 'humanFriendlyId'],
       tableKey: DataGridTablesKeys.CLIENT_WAREHOUSE_TASKS,
       defaultGetCurrentDataOptions,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
-    this.getDataGridState()
-
     this.getStorekeepers()
-
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   setFilters(filterCategory: string, value: string) {

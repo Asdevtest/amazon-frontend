@@ -64,15 +64,12 @@ export class ClientBoxesTariffsNotificationsViewModel extends DataGridFilterTabl
       filtersFields: getFilterFields(columnsModel),
       mainMethodURL: 'boxes/pag/clients_light?',
       additionalPropertiesGetFilters,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
-    this.getDataGridState()
-
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   async getStorekeepers() {

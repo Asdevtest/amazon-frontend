@@ -22,6 +22,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tableWrapper: {
+    display: 'flex',
     marginTop: '10px',
     height: '37vh',
   },

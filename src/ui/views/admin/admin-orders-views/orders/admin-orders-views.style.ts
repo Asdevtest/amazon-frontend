@@ -5,10 +5,4 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     gap: '20px',
   },
-
-  tableWrapper: {
-    marginTop: '20px',
-    height: '82vh',
-    width: '100%',
-  },
 }))

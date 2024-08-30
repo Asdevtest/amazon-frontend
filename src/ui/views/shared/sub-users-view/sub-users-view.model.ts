@@ -60,13 +60,12 @@ export class SubUsersViewModel extends DataGridTableModel {
       columnsModel: subUsersColumns(columnsProps),
       tableKey: DataGridTablesKeys.OVERALL_SUB_USERS,
       fieldsForSearch: ['name', 'email'],
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
     this.getGroupPermissions()
     this.getSinglePermissions()
 

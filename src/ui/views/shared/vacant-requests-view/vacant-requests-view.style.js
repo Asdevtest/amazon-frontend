@@ -11,7 +11,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginTop: '20px',
     gap: 20,
   },
 
@@ -31,11 +30,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.primary.main,
     marginRight: '15px',
-  },
-
-  dataGridWrapper: {
-    height: '80vh',
-    width: '100%',
   },
 
   emptyTableWrapper: {

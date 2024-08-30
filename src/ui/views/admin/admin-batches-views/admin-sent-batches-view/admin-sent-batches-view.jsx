@@ -13,61 +13,55 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { styles } from './admin-sent-batches-view.style'
-
 import { AdminSentBatchesViewModel } from './admin-sent-batches-view.model'
 
-export const AdminSentBatchesViewRaw = props => {
+export const AdminSentBatchesView = observer(props => {
   const [viewModel] = useState(() => new AdminSentBatchesViewModel({ history: props.history }))
-  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <>
-      <div className={styles.topHeaderBtnsWrapper}>
-        <CustomInputSearch
-          enterButton
-          allowClear
-          size="large"
-          placeholder="Search by SKU, ASIN, Title"
-          onSearch={viewModel.onSearchSubmit}
-        />
-      </div>
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          sortingMode="client"
-          paginationMode="client"
-          getRowHeight={() => 'auto'}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+    <div className="viewWrapper">
+      <CustomInputSearch
+        enterButton
+        allowClear
+        size="large"
+        placeholder="Search by SKU, ASIN, Title"
+        onSearch={viewModel.onSearchSubmit}
+      />
+
+      <CustomDataGrid
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        sortingMode="client"
+        paginationMode="client"
+        getRowHeight={() => 'auto'}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-            toolbar: {
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-            },
-          }}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
-        />
-      </div>
+          },
+        }}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
+      />
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal
@@ -92,8 +86,6 @@ export const AdminSentBatchesViewRaw = props => {
           batch={viewModel.curBatch}
         />
       ) : null}
-    </>
+    </div>
   )
-}
-
-export const AdminSentBatchesView = withStyles(observer(AdminSentBatchesViewRaw), styles)
+})

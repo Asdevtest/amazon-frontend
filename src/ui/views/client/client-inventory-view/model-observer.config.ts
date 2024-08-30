@@ -106,7 +106,6 @@ export const observerConfig = {
   onClickProductModal: action.bound,
   onClickShowProduct: action.bound,
   setDestinationsFavouritesItem: action.bound,
-  loadData: action.bound,
   setActiveProductsTag: action.bound,
   onClickSaveSupplierBtn: action.bound,
   onClickEditTags: action.bound,

@@ -5,16 +5,9 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 20,
   },
 
   searchInput: {
     width: 450,
-  },
-
-  datagridWrapper: {
-    marginTop: 20,
-    height: '80vh',
-    width: '100%',
   },
 }))

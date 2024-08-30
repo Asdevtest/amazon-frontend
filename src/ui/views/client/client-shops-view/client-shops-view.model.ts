@@ -50,12 +50,11 @@ export class ShopsViewModel extends DataGridFilterTableModel {
       mainMethodURL: 'shops/with_profiles?',
       fieldsForSearch: ['name'],
       tableKey: DataGridTablesKeys.CLIENT_SHOPS,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
       operatorsSettings,
     })
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
 
     makeObservable(this, shopsViewModelConfig)
   }

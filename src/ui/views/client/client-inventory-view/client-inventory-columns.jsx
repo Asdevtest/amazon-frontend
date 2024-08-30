@@ -32,6 +32,7 @@ import { productionTimeColumnMenuItems } from '@config/data-grid-column-menu/pro
 
 import { complexCells } from './cell-types'
 import { productionTimeColumnMenuValue } from './client-inventory-view.config'
+import { inventoryAdditionalFilterFields } from './client-inventory-view.constants'
 import { getCellType } from './helpers/get-cell-type'
 
 export const clientInventoryColumns = ({
@@ -40,7 +41,6 @@ export const clientInventoryColumns = ({
   fourMonthesStockHandlers,
   stockUsHandlers,
   otherHandlers,
-  additionalFields,
   storekeepers,
 }) => {
   const defaultColumns = [
@@ -583,40 +583,38 @@ export const clientInventoryColumns = ({
     defaultColumns.splice(11, 1, ...storekeeperCells)
   }
 
-  if (additionalFields) {
-    for (const table in additionalFields) {
-      if (additionalFields[table]) {
-        const columns = additionalFields[table]
+  for (const table in inventoryAdditionalFilterFields) {
+    if (inventoryAdditionalFilterFields[table]) {
+      const columns = inventoryAdditionalFilterFields[table]
 
-        if (columns?.some(column => complexCells?.includes(column))) {
-          const formedTableName = formatCamelCaseString(table)
+      if (columns?.some(column => complexCells?.includes(column))) {
+        const formedTableName = formatCamelCaseString(table)
 
-          const complexCell = {
-            field: table,
-            headerName: `${formedTableName} product`,
-            renderHeader: () => <MultilineTextHeaderCell text={`${formedTableName} product`} />,
-            valueGetter: ({ row }) => row?.[table]?.asin,
-            renderCell: ({ row }) => {
-              const product = row?.[table]
+        const complexCell = {
+          field: table,
+          headerName: `${formedTableName} product`,
+          renderHeader: () => <MultilineTextHeaderCell text={`${formedTableName} product`} />,
+          valueGetter: ({ row }) => row?.[table]?.asin,
+          renderCell: ({ row }) => {
+            const product = row?.[table]
 
-              return <ProductCell image={product?.image} asin={product?.asin} sku={product?.sku} />
-            },
+            return <ProductCell image={product?.image} asin={product?.asin} sku={product?.sku} />
+          },
 
-            fields: getProductColumnMenuItems({ withoutTitle: true }),
-            columnMenuConfig: getProductColumnMenuValue(),
-            columnKey: columnnsKeys.shared.MULTIPLE,
-            width: 170,
-          }
-
-          defaultColumns.push(complexCell)
+          fields: getProductColumnMenuItems({ withoutTitle: true }),
+          columnMenuConfig: getProductColumnMenuValue(),
+          columnKey: columnnsKeys.shared.MULTIPLE,
+          width: 170,
         }
 
-        for (const column of columns) {
-          const cell = getCellType(column, table)
+        defaultColumns.push(complexCell)
+      }
 
-          if (cell) {
-            defaultColumns.push(cell)
-          }
+      for (const column of columns) {
+        const cell = getCellType(column, table)
+
+        if (cell) {
+          defaultColumns.push(cell)
         }
       }
     }

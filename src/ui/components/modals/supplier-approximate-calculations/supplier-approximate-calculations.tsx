@@ -158,71 +158,69 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
           </div>
         ) : null}
 
-        <div className={styles.tableWrapper}>
-          <CustomDataGrid
-            disableRowSelectionOnClick
-            getDetailPanelHeight={getDetailPanelHeight}
-            getDetailPanelContent={getDetailPanelContent}
-            rowCount={viewModel?.rowCount}
-            sortModel={viewModel?.sortModel}
-            filterModel={viewModel?.filterModel}
-            columnVisibilityModel={viewModel?.columnVisibilityModel}
-            paginationModel={viewModel?.paginationModel}
-            rows={viewModel?.currentData}
-            getRowHeight={() => 'auto'}
-            getRowId={({ _id }: GridRowModel) => _id}
-            getRowClassName={getRowClassName}
-            getCellClassName={getCellClassName}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
+        <CustomDataGrid
+          disableRowSelectionOnClick
+          getDetailPanelHeight={getDetailPanelHeight}
+          getDetailPanelContent={getDetailPanelContent}
+          rowCount={viewModel?.rowCount}
+          sortModel={viewModel?.sortModel}
+          filterModel={viewModel?.filterModel}
+          columnVisibilityModel={viewModel?.columnVisibilityModel}
+          paginationModel={viewModel?.paginationModel}
+          rows={viewModel?.currentData}
+          getRowHeight={() => 'auto'}
+          getRowId={({ _id }: GridRowModel) => _id}
+          getRowClassName={getRowClassName}
+          getCellClassName={getCellClassName}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: viewModel?.columnMenuSettings,
+
+            toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel?.onClickResetFilters,
+                isSomeFilterOn: viewModel?.isSomeFilterOn,
               },
-              columnMenu: viewModel?.columnMenuSettings,
 
-              toolbar: {
-                resetFiltersBtnSettings: {
-                  onClickResetFilters: viewModel?.onClickResetFilters,
-                  isSomeFilterOn: viewModel?.isSomeFilterOn,
-                },
+              columsBtnSettings: {
+                columnsModel: viewModel?.columnsModel,
 
-                columsBtnSettings: {
-                  columnsModel: viewModel?.columnsModel,
-
-                  columnVisibilityModel: viewModel?.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel?.onColumnVisibilityModelChange,
-                },
-
-                sortSettings: {
-                  sortModel: viewModel.sortModel,
-                  columnsModel: viewModel.columnsModel,
-                  onSortModelChange: viewModel.onChangeSortingModel,
-                },
-
-                children: (
-                  <>
-                    {isTariffsSelect ? (
-                      <Checkbox
-                        checked={!viewModel.isStrictVariationSelect}
-                        onChange={e => viewModel.handleChangeStrictVariation(!e.target.checked)}
-                      >
-                        {t(TranslationKey['Remove destination restriction'])}
-                      </Checkbox>
-                    ) : null}
-                  </>
-                ),
+                columnVisibilityModel: viewModel?.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel?.onColumnVisibilityModelChange,
               },
-            }}
-            rowSelectionModel={viewModel?.selectedRows}
-            density={viewModel?.densityModel}
-            columns={viewModel?.columnsModel}
-            loading={viewModel?.requestStatus === loadingStatus.IS_LOADING}
-            onRowSelectionModelChange={viewModel?.onSelectionModel}
-            onSortModelChange={viewModel?.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel?.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel?.onPaginationModelChange}
-            onFilterModelChange={viewModel?.onChangeFilterModel}
-          />
-        </div>
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
+
+              children: (
+                <>
+                  {isTariffsSelect ? (
+                    <Checkbox
+                      checked={!viewModel.isStrictVariationSelect}
+                      onChange={e => viewModel.handleChangeStrictVariation(!e.target.checked)}
+                    >
+                      {t(TranslationKey['Remove destination restriction'])}
+                    </Checkbox>
+                  ) : null}
+                </>
+              ),
+            },
+          }}
+          rowSelectionModel={viewModel?.selectedRows}
+          density={viewModel?.densityModel}
+          columns={viewModel?.columnsModel}
+          loading={viewModel?.requestStatus === loadingStatus.IS_LOADING}
+          onRowSelectionModelChange={viewModel?.onSelectionModel}
+          onSortModelChange={viewModel?.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel?.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel?.onPaginationModelChange}
+          onFilterModelChange={viewModel?.onChangeFilterModel}
+        />
 
         {isTariffsSelect ? (
           <div className={styles.buttonsWrapper}>

@@ -1,6 +1,8 @@
+import { GridSortModel } from '@mui/x-data-grid-premium'
+
 import { ParsingReportsType } from '../parsing-reports.type'
 
-export const getInitialSortModel = (activeTable: ParsingReportsType) => {
+export const getInitialSortModel = (activeTable: ParsingReportsType): GridSortModel => {
   switch (activeTable) {
     case ParsingReportsType.PPC_ORGANIC:
     case ParsingReportsType.PPC_SALES_WEEKS:

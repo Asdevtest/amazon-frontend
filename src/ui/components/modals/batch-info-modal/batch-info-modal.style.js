@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   form: {
+    height: '65vh',
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
@@ -103,6 +104,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
   },
   tableWrapper: {
+    display: 'flex',
     height: 350,
     width: '100%',
   },

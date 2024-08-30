@@ -1,12 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  tableWrapper: {
-    marginTop: 20,
-    width: '100%',
-    height: '80vh',
-  },
-
   headerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -16,6 +10,7 @@ export const useStyles = makeStyles()(theme => ({
 
   filters: {
     display: 'flex',
-    gap: '20px',
+    gap: '10px',
+    flexWrap: 'wrap',
   },
 }))

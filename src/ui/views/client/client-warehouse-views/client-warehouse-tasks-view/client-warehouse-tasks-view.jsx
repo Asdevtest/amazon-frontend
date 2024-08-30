@@ -28,7 +28,7 @@ export const ClientWarehouseTasksView = observer(() => {
   const [viewModel] = useState(() => new ClientWarehouseTasksViewModel())
 
   return (
-    <div className={styles.container}>
+    <div className="viewWrapper">
       <div className={styles.headerWrapper}>
         <CustomInputSearch
           enterButton
@@ -76,49 +76,64 @@ export const ClientWarehouseTasksView = observer(() => {
         </CustomButton>
       </div>
 
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          getRowId={row => row._id}
-          pinnedColumns={viewModel.pinnedColumns}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        getRowId={row => row._id}
+        pinnedColumns={viewModel.pinnedColumns}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          columns={viewModel.columnsModel}
-          rowCount={viewModel.rowCount}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+          },
+
+          sortSettings: {
+            sortModel: viewModel.sortModel,
+            columnsModel: viewModel.columnsModel,
+            onSortModelChange: viewModel.onChangeSortingModel,
+          },
+
+          tablePresets: {
+            showPresetsSelect: viewModel.showPresetsSelect,
+            presetsTableData: viewModel.presetsTableData,
+            handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+            handleSetPresetActive: viewModel.handleSetPresetActive,
+            handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+            handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+            handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+            onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+          },
+        }}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        columns={viewModel.columnsModel}
+        rowCount={viewModel.rowCount}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+      />
 
       <Modal
         openModal={viewModel.showEditPriorityData}

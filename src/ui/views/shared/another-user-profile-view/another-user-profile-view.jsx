@@ -32,70 +32,68 @@ export const AnotherUserProfileViewRaw = props => {
   }, [])
 
   return (
-    <>
-      <div>
-        {!viewModel.user &&
-          (viewModel.requestStatus === loadingStatus.SUCCESS || viewModel.requestStatus === loadingStatus.FAILED) && (
-            <Typography variant="h4" className={styles.noDataText}>
-              {t(TranslationKey['No data']) + '...'}
-            </Typography>
-          )}
-
-        {viewModel.user && (
-          <UserProfile
-            isAnotherUser
-            reviews={viewModel.reviews}
-            user={viewModel.user}
-            curUser={viewModel.userInfo}
-            headerInfoData={viewModel.headerInfoData}
-            tabReview={viewModel.tabReview}
-            tabHistory={viewModel.tabHistory}
-            onClickWriteBtn={viewModel.onClickWriteBtn}
-            onClickReview={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
-          />
+    <div className="viewWrapper">
+      {!viewModel.user &&
+        (viewModel.requestStatus === loadingStatus.SUCCESS || viewModel.requestStatus === loadingStatus.FAILED) && (
+          <Typography variant="h4" className={styles.noDataText}>
+            {t(TranslationKey['No data']) + '...'}
+          </Typography>
         )}
 
-        {viewModel.user &&
-        [
-          mapUserRoleEnumToKey[UserRole.RESEARCHER],
-          mapUserRoleEnumToKey[UserRole.SUPERVISOR],
-          mapUserRoleEnumToKey[UserRole.BUYER],
-        ].includes(viewModel.user.role) ? (
-          <>
-            <Typography variant="h6" className={styles.title}>
-              {t(TranslationKey['Active offers on the commodity exchange'])}
-            </Typography>
+      {viewModel.user && (
+        <UserProfile
+          isAnotherUser
+          reviews={viewModel.reviews}
+          user={viewModel.user}
+          curUser={viewModel.userInfo}
+          headerInfoData={viewModel.headerInfoData}
+          tabReview={viewModel.tabReview}
+          tabHistory={viewModel.tabHistory}
+          onClickWriteBtn={viewModel.onClickWriteBtn}
+          onClickReview={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+        />
+      )}
 
-            <CustomDataGrid
-              sortModel={viewModel.sortModel}
-              filterModel={viewModel.filterModel}
-              columnVisibilityModel={viewModel.columnVisibilityModel}
-              paginationModel={viewModel.paginationModel}
-              rows={viewModel.currentData}
-              rowHeight={100}
-              slotProps={{
-                baseTooltip: {
-                  title: t(TranslationKey.Filter),
+      {viewModel.user &&
+      [
+        mapUserRoleEnumToKey[UserRole.RESEARCHER],
+        mapUserRoleEnumToKey[UserRole.SUPERVISOR],
+        mapUserRoleEnumToKey[UserRole.BUYER],
+      ].includes(viewModel.user.role) ? (
+        <>
+          <Typography variant="h6" className={styles.title}>
+            {t(TranslationKey['Active offers on the commodity exchange'])}
+          </Typography>
+
+          <CustomDataGrid
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            rows={viewModel.currentData}
+            rowHeight={100}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
-                toolbar: {
-                  columsBtnSettings: {
-                    columnsModel: viewModel.columnsModel,
-                    columnVisibilityModel: viewModel.columnVisibilityModel,
-                    onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                  },
-                },
-              }}
-              density={viewModel.densityModel}
-              columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-              onSortModelChange={viewModel.onChangeSortingModel}
-              onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-              onPaginationModelChange={viewModel.onPaginationModelChange}
-              onFilterModelChange={viewModel.onChangeFilterModel}
-            />
-          </>
-        ) : null}
-      </div>
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+          />
+        </>
+      ) : null}
 
       <Modal openModal={viewModel.showOrderModal} setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
@@ -153,7 +151,7 @@ export const AnotherUserProfileViewRaw = props => {
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
       ) : null}
-    </>
+    </div>
   )
 }
 export const AnotherUserProfileView = withStyles(observer(AnotherUserProfileViewRaw), styles)

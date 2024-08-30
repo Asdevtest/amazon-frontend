@@ -322,56 +322,54 @@ export const BatchInfoModal = observer(
             </Tooltip>
           </div>
 
-          <div className={styles.tableWrapper}>
-            <CustomDataGrid
-              disableRowSelectionOnClick
-              sortingMode="client"
-              paginationMode="client"
-              columnVisibilityModel={viewModel.columnVisibilityModel}
-              pageSizeOptions={[50, 100, 500]}
-              slotProps={{
-                baseTooltip: {
-                  title: t(TranslationKey.Filter),
-                },
-                toolbar: {
-                  columsBtnSettings: {
-                    columnsModel: batchInfoModalColumn(
-                      currentBatch?.volumeWeightDivide,
-                      currentBatch?.calculationMethod,
-                      isActualGreaterTheVolume,
-                      currentBatch?.actualShippingCost,
-                      currentBatch?.finalWeight,
-                    ),
-                    columnVisibilityModel: viewModel.columnVisibilityModel,
-                    onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                  },
-                  children: (
-                    <div className={styles.boxCounterWrapper}>
-                      <Typography className={styles.boxCounterText}>
-                        {t(TranslationKey['Quantity of boxes in batch']) + ':'}
-                      </Typography>
-                      <Typography className={styles.boxCounterCount}>
-                        {currentBatch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
-                      </Typography>
-                    </div>
+          <CustomDataGrid
+            disableRowSelectionOnClick
+            sortingMode="client"
+            paginationMode="client"
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            pageSizeOptions={[50, 100, 500]}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: batchInfoModalColumn(
+                    currentBatch?.volumeWeightDivide,
+                    currentBatch?.calculationMethod,
+                    isActualGreaterTheVolume,
+                    currentBatch?.actualShippingCost,
+                    currentBatch?.finalWeight,
                   ),
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
-              }}
-              getRowId={dataToRender => dataToRender._id}
-              columns={batchInfoModalColumn(
-                currentBatch?.volumeWeightDivide,
-                currentBatch?.calculationMethod,
-                isActualGreaterTheVolume,
-                currentBatch?.actualShippingCost,
-                currentBatch?.finalWeight,
-                currentBatch?.status,
-              )}
-              rows={toJS(dataToRender)}
-              getRowHeight={() => 'auto'}
-              onRowDoubleClick={params => viewModel.setCurrentOpenedBox(params.row)}
-              onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            />
-          </div>
+                children: (
+                  <div className={styles.boxCounterWrapper}>
+                    <Typography className={styles.boxCounterText}>
+                      {t(TranslationKey['Quantity of boxes in batch']) + ':'}
+                    </Typography>
+                    <Typography className={styles.boxCounterCount}>
+                      {currentBatch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
+                    </Typography>
+                  </div>
+                ),
+              },
+            }}
+            getRowId={dataToRender => dataToRender._id}
+            columns={batchInfoModalColumn(
+              currentBatch?.volumeWeightDivide,
+              currentBatch?.calculationMethod,
+              isActualGreaterTheVolume,
+              currentBatch?.actualShippingCost,
+              currentBatch?.finalWeight,
+              currentBatch?.status,
+            )}
+            rows={toJS(dataToRender)}
+            getRowHeight={() => 'auto'}
+            onRowDoubleClick={params => viewModel.setCurrentOpenedBox(params.row)}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          />
 
           <div className={styles.filesAndButtonWrapper}>
             <SlideshowGallery slidesToShow={2} files={currentBatch?.attachedDocuments} />
