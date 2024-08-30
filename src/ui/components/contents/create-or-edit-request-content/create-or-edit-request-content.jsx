@@ -533,11 +533,11 @@ export const CreateOrEditRequestContent = memo(props => {
                         data={permissionsData || []}
                         width="100%"
                         selectedItemName={
-                          formFields?.request?.asin === 'undefined'
+                          formFields?.request?.asin === '' || formFields?.request?.asin === 'undefined'
                             ? t(TranslationKey.Missing)
-                            : formFields?.request?.asin ||
-                              (formFields?.request?.asin === '' && t(TranslationKey.Missing)) ||
-                              t(TranslationKey['Select ASIN'])
+                            : formFields?.request?.asin
+                            ? formFields.request.asin
+                            : t(TranslationKey['Select ASIN'])
                         }
                         onScrollItemList={loadMorePermissionsDataHadler}
                         onClickSubmitSearch={onClickSubmitSearch}
