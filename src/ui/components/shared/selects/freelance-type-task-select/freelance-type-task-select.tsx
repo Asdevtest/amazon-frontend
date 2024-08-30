@@ -1,9 +1,8 @@
-import { RadioChangeEvent } from 'antd'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomRadioButton } from '@components/shared/custom-radio-button'
+import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
@@ -13,12 +12,12 @@ import { ISpec } from '@typings/shared/spec'
 interface FreelanceTypeTaskSelectProps {
   specs: ISpec[]
   selectedSpec: number
-  onClickSpec: (e: RadioChangeEvent) => void
+  onChangeSpec: (value: Specs) => void
 }
 
 export const FreelanceTypeTaskSelect: FC<FreelanceTypeTaskSelectProps> = memo(
-  ({ selectedSpec, specs, onClickSpec }) => {
-    const radioButtonOptions = [
+  ({ selectedSpec, specs, onChangeSpec }) => {
+    const options = [
       {
         label: t(TranslationKey.All),
         value: Specs.DEFAULT,
@@ -29,14 +28,6 @@ export const FreelanceTypeTaskSelect: FC<FreelanceTypeTaskSelectProps> = memo(
       })),
     ]
 
-    return (
-      <CustomRadioButton
-        size="large"
-        buttonStyle="solid"
-        options={radioButtonOptions}
-        defaultValue={selectedSpec}
-        onChange={onClickSpec}
-      />
-    )
+    return <CustomSelect size="large" options={options} value={selectedSpec} onChange={onChangeSpec} />
   },
 )

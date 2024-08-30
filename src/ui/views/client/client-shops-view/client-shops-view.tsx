@@ -26,7 +26,7 @@ export const ClientShopsView = observer(() => {
   const [viewModel] = useState(() => new ShopsViewModel())
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.flexRow}>
         <CustomButton type="primary" size="large" onClick={viewModel.onAddShop}>
           {t(TranslationKey['Add shop'])}
@@ -52,52 +52,60 @@ export const ClientShopsView = observer(() => {
         />
       </div>
 
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          pinnedColumns={viewModel.pinnedColumns}
-          rowSelectionModel={viewModel.selectedRows}
-          paginationModel={viewModel.paginationModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          getRowId={({ _id }: GridRowModel) => _id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        pinnedColumns={viewModel.pinnedColumns}
+        rowSelectionModel={viewModel.selectedRows}
+        paginationModel={viewModel.paginationModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        getRowId={({ _id }: GridRowModel) => _id}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          rowCount={viewModel.rowCount}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-        />
-      </div>
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
+          },
+        }}
+        rowCount={viewModel.rowCount}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+      />
 
       <Modal openModal={viewModel.shopModal} setOpenModal={() => viewModel.onTriggerOpenModal('shopModal')}>
         <ShopForm
@@ -106,6 +114,6 @@ export const ClientShopsView = observer(() => {
           onUpdateData={viewModel.getCurrentData}
         />
       </Modal>
-    </>
+    </div>
   )
 })

@@ -4,7 +4,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReviewCard } from '@components/cards/review-card'
 import { Button } from '@components/shared/button'
-import { ShortRating } from '@components/shared/short-rating'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
@@ -30,7 +29,6 @@ export const ReviewsForm: FC<ReviewsFormProps> = memo(({ onClickCloseButton, rev
         <p className={styles.userReviewTitle}>{`${t(TranslationKey['User reviews'])}:`}</p>
         <div className={styles.modalHeader}>
           <UserLink customClassNames={styles.userLink} name={user?.name} userId={user?._id} />
-          {user && <ShortRating rating={user.rating} size={'medium'} />}
         </div>
       </div>
       <div className={styles.reviewsList}>

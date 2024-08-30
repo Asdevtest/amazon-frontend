@@ -44,15 +44,12 @@ export class FinancesViewModel extends DataGridFilterTableModel {
       mainMethodURL: 'other/payments/pag/my?',
       tableKey: DataGridTablesKeys.SHARED_FINANCES,
       additionalPropertiesGetFilters,
+      defaultSortModel: [{ field: 'createdAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'createdAt', sort: 'desc' }]
-
-    this.getDataGridState()
-
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   onSetPaymentType(event: RadioChangeEvent) {

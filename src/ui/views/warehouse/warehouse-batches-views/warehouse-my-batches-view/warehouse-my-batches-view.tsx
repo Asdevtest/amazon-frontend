@@ -40,7 +40,7 @@ export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(
     !viewModel.selectedRows.length || viewModel.isInvalidTariffBoxSelected || viewModel.isNeedConfirmPriceBoxSelected
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.flexRow}>
         {isSentBatches ? (
           <CustomButton size="large" onClick={viewModel.onTriggerArchive}>
@@ -74,7 +74,6 @@ export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(
           enterButton
           allowClear
           size="large"
-          wrapperClassName={styles.searchInput}
           placeholder="Search by ASIN, Title, Batch ID, Order ID"
           onSearch={viewModel.onSearchSubmit}
         />
@@ -92,53 +91,61 @@ export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(
         )}
       </div>
 
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          disableRowSelectionOnClick
-          checkboxSelection={!isSentBatches}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          pinnedColumns={viewModel.pinnedColumns}
-          rowSelectionModel={viewModel.selectedRows}
-          paginationModel={viewModel.paginationModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          getRowId={({ _id }: GridRowModel) => _id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        disableRowSelectionOnClick
+        checkboxSelection={!isSentBatches}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        pinnedColumns={viewModel.pinnedColumns}
+        rowSelectionModel={viewModel.selectedRows}
+        paginationModel={viewModel.paginationModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        getRowId={({ _id }: GridRowModel) => _id}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          rowCount={viewModel.rowCount}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onRowDoubleClick={({ row }: GridRowModel) => viewModel.setCurrentOpenedBatch(row?._id)}
-        />
-      </div>
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
+          },
+        }}
+        rowCount={viewModel.rowCount}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onRowDoubleClick={({ row }: GridRowModel) => viewModel.setCurrentOpenedBatch(row?._id)}
+      />
 
       <Modal
         missClickModalOn
@@ -180,6 +187,6 @@ export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(
           onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
         />
       ) : null}
-    </>
+    </div>
   )
 })

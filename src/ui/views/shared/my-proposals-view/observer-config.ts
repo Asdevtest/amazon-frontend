@@ -3,7 +3,7 @@ import { action, computed, observable } from 'mobx'
 export const observerConfig = {
   currentProposal: observable,
   currentRequest: observable,
-  selectedSpecType: observable,
+  specOption: observable,
   showRequestDetailModal: observable,
   showConfirmModal: observable,
   showRequestDesignerResultModal: observable,
@@ -16,7 +16,7 @@ export const observerConfig = {
 
   onClickDeleteBtn: action.bound,
   cancelProposalHandler: action.bound,
-  onChangeRadioButtonOption: action.bound,
+  onChangeSpec: action.bound,
   onClickEditBtn: action.bound,
   onClickOpenBtn: action.bound,
   getProposalById: action.bound,

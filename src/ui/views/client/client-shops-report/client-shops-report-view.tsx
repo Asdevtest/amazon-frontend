@@ -10,7 +10,6 @@ import { BindStockGoodsToInventoryForm } from '@components/forms/bind-stock-good
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
@@ -19,86 +18,83 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
-import { useStyles } from './client-shops-report-view.style'
-
-import { createRadioButtonOptions } from './client-shops-report-view.config'
 import { ClientShopsViewModel } from './client-shops-report-view.model'
 import { ControllButtons } from './controll-buttons/controll-buttons'
 
 export const ClientShopsReportView = observer(({ history }: { history: any }) => {
-  const { classes: styles } = useStyles()
-
   const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY, history))
 
   return (
-    <div className={styles.root}>
-      <CustomRadioButton
-        size="large"
-        buttonStyle="solid"
-        options={createRadioButtonOptions()}
-        defaultValue={viewModel.radioButtonOption}
-        onChange={viewModel.onChangeRadioButtonOption}
-      />
-
+    <div className="viewWrapper">
       <ControllButtons
         currentSearchValue={viewModel.currentSearchValue}
-        currentTabKey={viewModel.radioButtonOption}
+        currentTabKey={viewModel.tabValue}
         selectedRows={viewModel.selectedRows}
         onClickMoveGoodsToInventory={viewModel.moveGoodsToInventoryHandler}
         onClickBindStockGoodsToInventory={viewModel.bindStockGoodsToInventoryHandler}
         onClickDeleteBtn={viewModel.deleteReportHandler}
         onSearchSubmit={viewModel.onSearchSubmit}
+        onChangeTab={viewModel.onChangeTab}
       />
 
-      <div className={styles.tabledWrapper}>
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          pinnedColumns={viewModel.pinnedColumns}
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          getRowHeight={() => 'auto'}
-          slotProps={{
-            columnMenu: viewModel.columnMenuSettings,
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        pinnedColumns={viewModel.pinnedColumns}
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        getRowHeight={() => 'auto'}
+        slotProps={{
+          columnMenu: viewModel.columnMenuSettings,
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
 
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          density={viewModel.densityModel}
-          rows={viewModel.currentData}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          rowSelectionModel={viewModel.selectedRows}
-          getRowId={({ _id }: GridRowModel) => _id}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
+
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
+          },
+        }}
+        density={viewModel.densityModel}
+        rows={viewModel.currentData}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        rowSelectionModel={viewModel.selectedRows}
+        getRowId={({ _id }: GridRowModel) => _id}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+      />
 
       <Modal
         openModal={viewModel.showBindStockGoodsToInventoryModal}

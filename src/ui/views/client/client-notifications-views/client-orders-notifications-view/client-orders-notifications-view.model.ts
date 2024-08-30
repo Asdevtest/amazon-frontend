@@ -36,16 +36,14 @@ export class ClientOrdersNotificationsViewModel extends DataGridTableModel {
       columnsModel: clientOrdersNotificationsViewColumns(rowHandlers),
       tableKey: DataGridTablesKeys.CLIENT_ORDERS_NOTIFICATIONS,
       defaultGetCurrentDataOptions,
+      defaultSortModel: [{ field: 'createdAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'createdAt', sort: 'desc' }]
-
     this.initHistory()
 
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   onTriggerOpenConfirmModal(row: IOrder) {

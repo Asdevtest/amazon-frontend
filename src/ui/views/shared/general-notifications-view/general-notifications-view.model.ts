@@ -108,13 +108,12 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
       defaultGetCurrentDataOptions,
       additionalPropertiesGetFilters,
       operatorsSettings,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     this.history = history
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
-    this.getCurrentData()
+    this.getTableSettingsPreset()
 
     reaction(
       () => this.isArchive,

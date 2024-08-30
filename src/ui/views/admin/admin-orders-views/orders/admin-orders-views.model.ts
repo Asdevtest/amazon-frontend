@@ -1,4 +1,3 @@
-import { RadioChangeEvent } from 'antd'
 import { makeObservable } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -35,23 +34,20 @@ export class AdminOrdersAllViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey: DataGridTablesKeys.ADMIN_ORDERS,
       defaultFilterParams,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   onClickTableRow(order: IOrder) {
     window?.open(`/admin/orders/order?orderId=${order._id}`, '_blank')?.focus?.()
   }
 
-  onChangeActiveCategory(event: RadioChangeEvent) {
-    const currentValue = event.target.value
-    this.activeCategory = currentValue
+  onChangeActiveCategory(value: AdminOrdersStatusGroup) {
+    this.activeCategory = value
     this.getCurrentData()
   }
 }

@@ -10,7 +10,6 @@ export const reportsViewConfig = {
   onChangeRangeDate: action.bound,
   onToggleReportModal: action.bound,
   onToggleReportModalEditMode: action.bound,
-  onGetCurrentData: action.bound,
   onRemoveReport: action.bound,
 }
 

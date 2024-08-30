@@ -12,71 +12,74 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { useStyles } from './parsing-requests-view.style'
-
 import { ParsingRequestsViewModel } from './parsing-requests-view.model'
 
 export const ParsingRequestsView: FC = observer(() => {
-  const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new ParsingRequestsViewModel())
 
   return (
-    <>
-      <div className={styles.flexRow}>
-        <CustomInputSearch
-          enterButton
-          allowClear
-          size="large"
-          placeholder="Search by name, email"
-          onSearch={viewModel.onSearchSubmit}
-        />
-      </div>
+    <div className="viewWrapper">
+      <CustomInputSearch
+        enterButton
+        allowClear
+        size="large"
+        placeholder="Search by name, email"
+        onSearch={viewModel.onSearchSubmit}
+      />
 
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          disableRowSelectionOnClick
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          pinnedColumns={viewModel.pinnedColumns}
-          rowSelectionModel={viewModel.selectedRows}
-          paginationModel={viewModel.paginationModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          getRowId={({ _id }: GridRowModel) => _id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        disableRowSelectionOnClick
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        pinnedColumns={viewModel.pinnedColumns}
+        rowSelectionModel={viewModel.selectedRows}
+        paginationModel={viewModel.paginationModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        getRowId={({ _id }: GridRowModel) => _id}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          rowCount={viewModel.rowCount}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-        />
-      </div>
-    </>
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
+          },
+        }}
+        rowCount={viewModel.rowCount}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+      />
+    </div>
   )
 })

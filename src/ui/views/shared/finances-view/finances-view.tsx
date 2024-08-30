@@ -26,7 +26,7 @@ export const FinancesView = observer(() => {
   const [viewModel] = useState(() => new FinancesViewModel())
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.header}>
         <CustomRadioButton
           size="large"
@@ -53,53 +53,62 @@ export const FinancesView = observer(() => {
         />
       </div>
 
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          rowCount={viewModel.rowCount}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          getRowId={({ _id }: GridRowModel) => _id}
-          pinnedColumns={viewModel.pinnedColumns}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        rowCount={viewModel.rowCount}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        getRowId={({ _id }: GridRowModel) => _id}
+        pinnedColumns={viewModel.pinnedColumns}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+
+          columnMenu: viewModel.columnMenuSettings,
+
+          toolbar: {
+            resetFiltersBtnSettings: {
+              isSomeFilterOn: viewModel.isSomeFilterOn,
+              onClickResetFilters: viewModel.onClickResetFilters,
             },
 
-            columnMenu: viewModel.columnMenuSettings,
-
-            toolbar: {
-              resetFiltersBtnSettings: {
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-                onClickResetFilters: viewModel.onClickResetFilters,
-              },
-
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
-    </>
+
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
+          },
+        }}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+      />
+    </div>
   )
 })

@@ -12,15 +12,11 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IFreelanceNotice } from '@typings/shared/info-counters'
 
-import { useStyles } from './client-freelance-notifications-view.style'
-
 export const ClientFreelanceNotificationsView = observer(() => {
-  const { classes: styles } = useStyles()
-
   const [viewModel] = useState(() => new ClientFreelanceNotificationsViewModel())
 
   return (
-    <div className={styles.tableWrapper}>
+    <div className="viewWrapper">
       <CustomDataGrid
         sortingMode="client"
         paginationMode="client"
@@ -47,10 +43,22 @@ export const ClientFreelanceNotificationsView = observer(() => {
               columnVisibilityModel: viewModel.columnVisibilityModel,
               onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
+
             sortSettings: {
               sortModel: viewModel.sortModel,
               columnsModel: viewModel.columnsModel,
               onSortModelChange: viewModel.onChangeSortingModel,
+            },
+
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
             },
           },
         }}

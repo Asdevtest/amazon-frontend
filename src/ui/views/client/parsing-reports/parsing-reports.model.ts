@@ -28,19 +28,12 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
       fieldsForSearch: [],
       tableKey: ParsingReportsType.BUSINESS_REPORTS,
       defaultGetCurrentDataOptions,
+      defaultSortModel: sortModel,
     })
 
     makeObservable(this, observerConfig)
 
-    // additionalPropertiesColumnMenuSettings,
-    // additionalPropertiesGetFilters,
-    // operatorsSettings,
-    // defaultFilterParams,
-
-    this.sortModel = sortModel
-
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   onChangeActiveTable(value: ParsingReportsType) {
@@ -49,6 +42,7 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
     this.table = value
     this.tableKey = value
     this.columnsModel = columnsModel
+    this.defaultColumnsModel = columnsModel
     this.filtersFields = filtersFields
     this.mainMethodURL = mainMethodURL
     this.setColumnMenuSettings(filtersFields)
@@ -57,9 +51,6 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
     this.paginationModel = paginationModelInitialValue
     this.setDefaultPinnedColumns()
 
-    // this.fieldsForSearch = fieldsForSearch
-
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 }

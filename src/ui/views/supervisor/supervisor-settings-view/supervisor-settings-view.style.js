@@ -7,10 +7,4 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     gap: 20,
   },
-
-  dataGridWrapper: {
-    marginTop: 20,
-    height: '82vh',
-    width: '100%',
-  },
 }))

@@ -64,7 +64,7 @@ export const MyRequestsView = observer(() => {
   )
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.header}>
         <CustomRadioButton
           size="large"
@@ -87,55 +87,64 @@ export const MyRequestsView = observer(() => {
         </CustomButton>
       </div>
 
-      <div className={styles.datagridWrapper}>
-        <CustomDataGrid
-          apiRef={viewModel.dataGridApi}
-          getCellClassName={getCellClassName}
-          getRowClassName={getRowClassName}
-          pinnedColumns={viewModel.pinnedColumns}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          rows={viewModel.currentData}
-          rowHeight={130}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
-            },
-            columnMenu: viewModel.columnMenuSettings,
+      <CustomDataGrid
+        apiRef={viewModel.dataGridApi}
+        getCellClassName={getCellClassName}
+        getRowClassName={getRowClassName}
+        pinnedColumns={viewModel.pinnedColumns}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        rows={viewModel.currentData}
+        rowHeight={130}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
 
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-          }}
-          getRowId={row => row._id}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={e => viewModel.handleOpenRequestDetailModal(e)}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+            },
+
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
+          },
+        }}
+        getRowId={row => row._id}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowDoubleClick={e => viewModel.handleOpenRequestDetailModal(e)}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+      />
 
       <Modal openModal={viewModel.showRequestForm} setOpenModal={() => viewModel.onTriggerOpenModal('showRequestForm')}>
         <Typography variant="h5">{t(TranslationKey['New request'])}</Typography>
@@ -250,6 +259,6 @@ export const MyRequestsView = observer(() => {
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
       ) : null}
-    </>
+    </div>
   )
 })

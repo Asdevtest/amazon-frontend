@@ -24,11 +24,26 @@ export const ClientSentBatchesView = observer(({ history }) => {
   const [viewModel] = useState(() => new ClientSentBatchesViewModel({ history }))
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.btnsWrapper}>
-        <CustomButton size="large" onClick={viewModel.onTriggerArchive}>
-          {t(TranslationKey[viewModel.isArchive ? 'Actual batches' : 'Open archive'])}
-        </CustomButton>
+        <div className={styles.btnsWrapper}>
+          <CustomButton size="large" onClick={viewModel.onTriggerArchive}>
+            {t(TranslationKey[viewModel.isArchive ? 'Actual batches' : 'Open archive'])}
+          </CustomButton>
+
+          <CustomRadioButton
+            size="large"
+            buttonStyle="solid"
+            options={[
+              { label: t(TranslationKey['All warehouses']), value: '' },
+              ...viewModel.storekeepersData
+                .filter(storekeeper => storekeeper.boxesCount !== 0)
+                .map(storekeeper => ({ label: storekeeper.name, value: storekeeper._id })),
+            ]}
+            defaultValue={viewModel.currentStorekeeperId}
+            onChange={viewModel.onClickStorekeeperBtn}
+          />
+        </div>
 
         <CustomInputSearch
           enterButton
@@ -51,65 +66,53 @@ export const ClientSentBatchesView = observer(({ history }) => {
         </CustomButton>
       </div>
 
-      <CustomRadioButton
-        size="large"
-        buttonStyle="solid"
-        options={[
-          ...viewModel.storekeepersData
-            .filter(storekeeper => storekeeper.boxesCount !== 0)
-            .map(storekeeper => ({ label: storekeeper.name, value: storekeeper._id })),
-          { label: t(TranslationKey['All warehouses']), value: '' },
-        ]}
-        defaultValue={viewModel.currentStorekeeperId}
-        onChange={viewModel.onClickStorekeeperBtn}
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        pinnedColumns={viewModel.pinnedColumns}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        getRowId={({ _id }) => _id}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columsBtnSettings: {
+            columnsModel: viewModel.columnsModel,
+            columnVisibilityModel: viewModel.columnVisibilityModel,
+            onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+          },
+          sortSettings: {
+            sortModel: viewModel.sortModel,
+            columnsModel: viewModel.columnsModel,
+            onSortModelChange: viewModel.onChangeSortingModel,
+          },
+          tablePresets: {
+            showPresetsSelect: viewModel.showPresetsSelect,
+            presetsTableData: viewModel.presetsTableData,
+            handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+            handleSetPresetActive: viewModel.handleSetPresetActive,
+            handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+            handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+            handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+            onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+          },
+        }}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row._id)}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
       />
-
-      <div className={styles.datagridWrapper}>
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          pinnedColumns={viewModel.pinnedColumns}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          getRowId={({ _id }) => _id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
-            },
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
-            },
-          }}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row._id)}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
 
       {viewModel.showBatchInfoModal ? (
         <BatchInfoModal
@@ -137,6 +140,6 @@ export const ClientSentBatchesView = observer(({ history }) => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </>
+    </div>
   )
 })

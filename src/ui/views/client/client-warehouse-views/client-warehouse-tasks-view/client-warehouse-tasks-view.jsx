@@ -9,7 +9,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
-import { CustomRadioButton } from '@components/shared/custom-radio-button'
+import { CustomSelect } from '@components/shared/custom-select'
 import { Modal } from '@components/shared/modal'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
@@ -28,7 +28,7 @@ export const ClientWarehouseTasksView = observer(() => {
   const [viewModel] = useState(() => new ClientWarehouseTasksViewModel())
 
   return (
-    <div className={styles.container}>
+    <div className="viewWrapper">
       <div className={styles.headerWrapper}>
         <CustomInputSearch
           enterButton
@@ -37,6 +37,33 @@ export const ClientWarehouseTasksView = observer(() => {
           placeholder="Search by ASIN, Order ID, Item"
           onSearch={viewModel.onSearchSubmit}
         />
+
+        <div className={styles.filters}>
+          <CustomSelect
+            size="large"
+            options={getPriorityConfig()}
+            value={viewModel.selectedPriority}
+            onChange={el => viewModel.setFilters('selectedPriority', el)}
+          />
+          <CustomSelect
+            size="large"
+            options={getStatusConfig()}
+            value={viewModel.selectedStatus}
+            onChange={el => viewModel.setFilters('selectedStatus', el)}
+          />
+          <CustomSelect
+            size="large"
+            options={getTypeConfig()}
+            value={viewModel.selectedType}
+            onChange={el => viewModel.setFilters('selectedType', el)}
+          />
+          <CustomSelect
+            size="large"
+            options={getStorekeepersConfig(viewModel.storekeepersData)}
+            value={viewModel.selectedStorekeeper}
+            onChange={el => viewModel.setFilters('selectedStorekeeper', el)}
+          />
+        </div>
 
         <CustomButton
           type="primary"
@@ -49,78 +76,64 @@ export const ClientWarehouseTasksView = observer(() => {
         </CustomButton>
       </div>
 
-      <div className={styles.filters}>
-        <CustomRadioButton
-          size="large"
-          buttonStyle="solid"
-          options={getPriorityConfig()}
-          defaultValue={viewModel.selectedPriority}
-          onChange={el => viewModel.setFilters('selectedPriority', el)}
-        />
-        <CustomRadioButton
-          size="large"
-          buttonStyle="solid"
-          options={getStatusConfig()}
-          defaultValue={viewModel.selectedStatus}
-          onChange={el => viewModel.setFilters('selectedStatus', el)}
-        />
-        <CustomRadioButton
-          size="large"
-          buttonStyle="solid"
-          options={getTypeConfig()}
-          defaultValue={viewModel.selectedType}
-          onChange={el => viewModel.setFilters('selectedType', el)}
-        />
-        <CustomRadioButton
-          size="large"
-          buttonStyle="solid"
-          options={getStorekeepersConfig(viewModel.storekeepersData)}
-          defaultValue={viewModel.selectedStorekeeper}
-          onChange={el => viewModel.setFilters('selectedStorekeeper', el)}
-        />
-      </div>
-
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          getRowId={row => row._id}
-          pinnedColumns={viewModel.pinnedColumns}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        getRowId={row => row._id}
+        pinnedColumns={viewModel.pinnedColumns}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
-
-            toolbar: {
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          columns={viewModel.columnsModel}
-          rowCount={viewModel.rowCount}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+          },
+
+          sortSettings: {
+            sortModel: viewModel.sortModel,
+            columnsModel: viewModel.columnsModel,
+            onSortModelChange: viewModel.onChangeSortingModel,
+          },
+
+          tablePresets: {
+            showPresetsSelect: viewModel.showPresetsSelect,
+            presetsTableData: viewModel.presetsTableData,
+            handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+            handleSetPresetActive: viewModel.handleSetPresetActive,
+            handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+            handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+            handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+            onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+          },
+        }}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        columns={viewModel.columnsModel}
+        rowCount={viewModel.rowCount}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+      />
 
       <Modal
         openModal={viewModel.showEditPriorityData}

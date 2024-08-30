@@ -30,6 +30,7 @@ export const adminFeedbackViewColumns = ({ onClickOpenFeedback }: IAdminFeedback
       <UserCell userId={row.user?._id} name={row.user?.name} email={row.user?.email} rating={row.user?.rating} />
     ),
     width: 320,
+    sortable: false,
   },
   {
     field: 'updatedAt',
@@ -37,6 +38,7 @@ export const adminFeedbackViewColumns = ({ onClickOpenFeedback }: IAdminFeedback
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
     width: 100,
+    sortable: false,
   },
   {
     field: 'text',
@@ -44,6 +46,7 @@ export const adminFeedbackViewColumns = ({ onClickOpenFeedback }: IAdminFeedback
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reviews)} />,
     renderCell: ({ row }: GridRowModel) => <Text isCell text={row.text} />,
     flex: 1,
+    sortable: false,
   },
   {
     field: 'files',

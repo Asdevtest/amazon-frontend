@@ -17,7 +17,7 @@ import { filterFields } from './my-services-view.constants'
 export class MyServicesViewModel {
   history = undefined
 
-  radioButtonOption = Specs.DEFAULT
+  specOption = Specs.DEFAULT
   announcements = []
   nameSearchValue = undefined
   viewMode = tableViewMode.LIST
@@ -87,12 +87,11 @@ export class MyServicesViewModel {
     this.columnMenuSettings[field].currentFilterData = value
   }
 
-  onChangeRadioButtonOption(event) {
-    const currentValue = event.target.value
-    this.radioButtonOption = currentValue
+  onChangeSpec(value) {
+    this.specOption = value
 
     // spec - for "_id:string", specType - for "type:number"
-    this.onChangeFullFieldMenuItem(currentValue === Specs.DEFAULT ? [] : [currentValue], 'specType')
+    this.onChangeFullFieldMenuItem(value === Specs.DEFAULT ? [] : [value], 'specType')
 
     this.getMyAnnouncements()
   }

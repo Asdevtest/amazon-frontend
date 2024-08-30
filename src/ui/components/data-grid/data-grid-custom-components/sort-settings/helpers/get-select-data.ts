@@ -5,8 +5,8 @@ export const getSelectData = (columnModel: any[]): IItem[] =>
   columnModel?.reduce((acc, el) => {
     if (!el?.disableCustomSort) {
       acc.push({
-        name: el.headerName,
-        _id: el.field,
+        name: el?.headerName,
+        _id: el?.field,
       })
     }
 

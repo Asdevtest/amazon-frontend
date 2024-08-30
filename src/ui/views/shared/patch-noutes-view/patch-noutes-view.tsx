@@ -30,40 +30,36 @@ export const PatchNoutesView = observer(() => {
     : t(TranslationKey['Add a patch note'])
 
   return (
-    <>
-      <div className={styles.header}>
-        <CustomButton type="primary" size="large" onClick={viewModel.onOpenPatchNoteForm}>
-          {t(TranslationKey['Add a patch note'])}
-        </CustomButton>
-      </div>
+    <div className="viewWrapper">
+      <CustomButton type="primary" size="large" onClick={viewModel.onOpenPatchNoteForm}>
+        {t(TranslationKey['Add a patch note'])}
+      </CustomButton>
 
-      <div className={styles.table}>
-        <CustomDataGrid
-          disableColumnMenu
-          disableRowSelectionOnClick
-          rowCount={viewModel.rowCount}
-          rows={viewModel.currentData}
-          columnHeaderHeight={40}
-          getRowHeight={() => 'auto'}
-          getRowId={(row: GridRowModel) => row._id}
-          columns={viewModel.columnsModel}
-          paginationModel={viewModel.paginationModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
-            },
-            toolbar: {
-              children: (
-                <div className={styles.toolbar}>
-                  <p className={styles.tableTitle}>{t(TranslationKey['Patch notes'])}</p>
-                </div>
-              ),
-            },
-          }}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-        />
-      </div>
+      <CustomDataGrid
+        disableColumnMenu
+        disableRowSelectionOnClick
+        rowCount={viewModel.rowCount}
+        rows={viewModel.currentData}
+        columnHeaderHeight={40}
+        getRowHeight={() => 'auto'}
+        getRowId={(row: GridRowModel) => row._id}
+        columns={viewModel.columnsModel}
+        paginationModel={viewModel.paginationModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            children: (
+              <div className={styles.toolbar}>
+                <p className={styles.tableTitle}>{t(TranslationKey['Patch notes'])}</p>
+              </div>
+            ),
+          },
+        }}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+      />
 
       <Modal
         missClickModalOn
@@ -93,6 +89,6 @@ export const PatchNoutesView = observer(() => {
           onClickCancelBtn={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
         />
       ) : null}
-    </>
+    </div>
   )
 })

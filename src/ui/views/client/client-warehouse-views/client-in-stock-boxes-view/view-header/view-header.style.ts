@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(() => ({
   viewHeaderWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '15px',
+    gap: '10px',
   },
 
   searchInput: {
@@ -13,7 +13,7 @@ export const useStyles = makeStyles()(() => ({
 
   topHeaderBtnsWrapper: {
     display: 'flex',
-    width: '100%',
     justifyContent: 'space-between',
+    gap: '20px',
   },
 }))

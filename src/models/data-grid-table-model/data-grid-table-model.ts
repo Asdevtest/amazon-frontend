@@ -1,12 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { makeObservable } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { GridColumnVisibilityModel, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
 import { GridPinnedColumns } from '@mui/x-data-grid-premium'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { DefaultModel } from '@models/default-model'
 import { TableSettingsModel } from '@models/table-settings'
+import { UserModel } from '@models/user-model'
 
+import { t } from '@utils/translations'
+
+import { ITablePreset } from '@typings/models/user/table-preset'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { DataGridTableModelParams } from './data-grid-table-model.type'
@@ -16,14 +23,23 @@ import { observerConfig } from './observer-config'
 export class DataGridTableModel extends DefaultModel {
   currentSearchValue: string = ''
   densityModel = 'compact'
-  sortModel: any = undefined
+
+  sortModel: GridSortModel | undefined = undefined
+  defaultSortModel: GridSortModel | undefined = undefined
+
   paginationModel: GridPaginationModel = paginationModelInitialValue
   filterModel: GridFilterModel = filterModelInitialValue
   columnVisibilityModel: GridColumnVisibilityModel = {}
+
   selectedRows: string[] = []
-  tableKey: string | undefined = undefined
+  tableKey: string = ''
   columnsModel: IGridColumn[] = []
+  defaultColumnsModel: IGridColumn[] = []
+
   fieldsForSearch: string[] = []
+
+  showPresetsSelect = false
+  presetsTableData: ITablePreset[] = []
   pinnedColumns: GridPinnedColumns = defaultPinnedColumns
 
   get filteredData() {
@@ -46,6 +62,7 @@ export class DataGridTableModel extends DefaultModel {
     tableKey,
     defaultGetCurrentDataOptions,
     fieldsForSearch,
+    defaultSortModel,
   }: DataGridTableModelParams) {
     super({ getMainDataMethod, defaultGetCurrentDataOptions })
 
@@ -53,8 +70,16 @@ export class DataGridTableModel extends DefaultModel {
       this.fieldsForSearch = fieldsForSearch
     }
 
+    if (defaultSortModel) {
+      this.defaultSortModel = defaultSortModel
+    }
+
     this.columnsModel = columnsModel
-    this.tableKey = tableKey
+    this.defaultColumnsModel = columnsModel
+
+    if (tableKey) {
+      this.tableKey = tableKey
+    }
 
     makeObservable(this, observerConfig)
   }
@@ -139,6 +164,235 @@ export class DataGridTableModel extends DefaultModel {
     this.filterModel = filterModelInitialValue
   }
 
+  async handleSetPresetActive(presetId: string) {
+    if (presetId) {
+      this.handleSetActivePreset(presetId)
+    } else {
+      this.handleUnsetAllPresets()
+    }
+
+    // this.onChangeShowPresetsSelect(false)
+  }
+
+  async handleCreateTableSettingsPreset(title: string, colomns: IGridColumn[]) {
+    try {
+      const settings = this.getPresetSettingForSave(colomns)
+
+      const presetToCreate: any = {
+        settings,
+        title,
+        endpoint: this.tableKey,
+        activeSetting: true,
+      }
+
+      const result = await UserModel.createTableSettingsPreset(presetToCreate)
+
+      presetToCreate._id = result.guid
+
+      runInAction(() => {
+        this.presetsTableData = this.presetsTableData.map(preset => ({
+          ...preset,
+          activeSetting: false,
+        }))
+
+        this.presetsTableData.push(presetToCreate)
+      })
+
+      toast.success(t(TranslationKey['Preset created']))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getTableSettingsPreset() {
+    try {
+      const result = await UserModel.getTableSettingsPreset(`endpoint[$eq]=${this.tableKey}`)
+
+      runInAction(() => {
+        this.presetsTableData = result as ITablePreset[]
+      })
+    } catch (error) {
+      this.presetsTableData = []
+      console.error(error)
+    }
+
+    this.setSettingsFromActivePreset()
+  }
+
+  async handleDeleteTableSettingsPreset(preset: ITablePreset) {
+    try {
+      await UserModel.deleteUsersPresetsByGuid(preset?._id)
+
+      runInAction(() => {
+        this.presetsTableData = this.presetsTableData.filter(currentPreset => preset._id !== currentPreset?._id)
+      })
+
+      if (preset?.activeSetting) {
+        await this.setSettingsFromActivePreset()
+      }
+
+      toast.success(t(TranslationKey['Preset deleted']))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async handleUpdateTableSettingsPreset(presetId: string, colomns: IGridColumn[]) {
+    try {
+      const settings = this.getPresetSettingForSave(colomns)
+
+      await UserModel.patchPresetSettings(presetId, { settings })
+
+      runInAction(() => {
+        for (const preset of this.presetsTableData) {
+          if (preset._id === presetId) {
+            preset.settings = settings
+          }
+        }
+      })
+
+      toast.success(t(TranslationKey['Preset updated']))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async setSettingsFromActivePreset() {
+    const activePreset = this.getActivePreset()
+
+    if (activePreset) {
+      // @ts-ignore
+      const savedColumns: IGridColumn[] = []
+
+      for await (const field of activePreset.settings.fields) {
+        const foundColumn = await this.columnsModel?.find(column => column?.field === field?.field)
+
+        if (foundColumn) {
+          foundColumn.width = field?.width
+        } else {
+          continue
+        }
+
+        savedColumns.push(foundColumn)
+      }
+
+      runInAction(() => {
+        this.columnsModel = savedColumns
+        this.sortModel = activePreset?.settings?.sortModel
+        this.pinnedColumns = activePreset?.settings?.pinnedColumns
+        this.paginationModel = activePreset?.settings?.paginationModel
+        this.columnVisibilityModel = activePreset?.settings?.columnVisibilityModel
+      })
+    } else {
+      this.handlePinColumn(defaultPinnedColumns)
+
+      const savedColumns: IGridColumn[] = await this.defaultColumnsModel?.map(column => ({
+        ...column,
+      }))
+
+      runInAction(() => {
+        this.columnsModel = savedColumns
+        this.sortModel = this.defaultSortModel
+        this.paginationModel = paginationModelInitialValue
+        this.columnVisibilityModel = {}
+      })
+    }
+
+    this.getCurrentData()
+  }
+
+  getActivePreset() {
+    return this.presetsTableData?.find(preset => preset?.activeSetting) as ITablePreset
+  }
+
+  async handleSetActivePreset(presetId: string) {
+    try {
+      await UserModel.patchPresetSettings(presetId, { activeSetting: true })
+
+      runInAction(() => {
+        this.presetsTableData = this.presetsTableData.map(preset => {
+          if (preset._id === presetId) {
+            preset.activeSetting = true
+          } else {
+            preset.activeSetting = false
+          }
+
+          return preset
+        })
+      })
+
+      this.setSettingsFromActivePreset()
+
+      toast.success(t(TranslationKey['Active preset changed']))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async handleUnsetAllPresets() {
+    try {
+      const activePreset = this.getActivePreset()
+
+      if (activePreset) {
+        await UserModel.patchPresetSettings(activePreset?._id, { activeSetting: false })
+
+        runInAction(() => {
+          this.presetsTableData = this.presetsTableData.map(preset => {
+            preset.activeSetting = false
+
+            return preset
+          })
+        })
+
+        toast.success(t(TranslationKey['Active preset changed']))
+      }
+
+      this.setSettingsFromActivePreset()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  getPresetSettingForSave(colomns: IGridColumn[]) {
+    const fields = colomns?.map(column => ({
+      field: column.field,
+      width: column.width,
+    }))
+
+    return {
+      sortModel: this?.sortModel,
+      paginationModel: this?.paginationModel,
+      pinnedColumns: this?.pinnedColumns,
+      columnVisibilityModel: this?.columnVisibilityModel,
+      fields,
+    }
+  }
+
+  async onClickAddQuickAccess(selectedPreset: ITablePreset) {
+    try {
+      const newFavoriteState = !selectedPreset?.isFavorite
+
+      await UserModel.patchPresetSettings(selectedPreset?._id, { isFavorite: newFavoriteState })
+
+      runInAction(() => {
+        this.presetsTableData = this.presetsTableData.map(preset => {
+          if (preset._id === selectedPreset?._id) {
+            preset.isFavorite = newFavoriteState
+          }
+
+          return preset
+        })
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onChangeShowPresetsSelect(value: boolean) {
+    if (value !== undefined) {
+      this.onTriggerOpenModal('showPresetsSelect', value)
+    }
+  }
   setDefaultPinnedColumns() {
     this.pinnedColumns = defaultPinnedColumns
   }

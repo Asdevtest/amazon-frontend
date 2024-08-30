@@ -98,14 +98,12 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey,
       defaultFilterParams,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
-
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
     this.orderStatusDataBase = getStatusesOrderPayment(pathname)
 
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
     this.getBuyersOrdersPaymentByStatus()
     this.getSuppliersPaymentMethods()
 

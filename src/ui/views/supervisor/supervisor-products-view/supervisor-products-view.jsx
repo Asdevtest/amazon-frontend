@@ -4,10 +4,9 @@ import { useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
-import { Badge } from '@components/shared/badge'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
@@ -23,23 +22,29 @@ export const SupervisorProductsView = observer(() => {
   const [viewModel] = useState(() => new SupervisorProductsViewModel())
 
   const customSwitcherConfig = filterStatusConfig.map(status => ({
-    icon: viewModel.userInfo[status.userInfoKey] ? <Badge>{viewModel.userInfo[status.userInfoKey]}</Badge> : null,
-    label: () => t(status.label),
+    badge: viewModel.userInfo[status.userInfoKey] ? viewModel.userInfo[status.userInfoKey] : null,
+    label: status.label,
     value: status.value,
   }))
 
   const getRowClassName = params => warningStatuses.includes(params.row.statusForAttention) && styles.attentionRow
 
   return (
-    <>
-      <CustomSwitcher
-        switchMode="medium"
-        condition={viewModel.switcherFilterStatuses}
-        switcherSettings={customSwitcherConfig}
-        changeConditionHandler={viewModel.onClickStatusFilterButton}
-      />
+    <div className="viewWrapper">
+      <div className={styles.header}>
+        <CustomSelect
+          size="large"
+          optionRender={option => (
+            <div className={styles.optionRender}>
+              <div className={styles.optionRenderLabel}>{option.label}</div>
+              {option.data?.badge ? <div className={styles.optionRenderBadge}>{option.data?.badge}</div> : null}
+            </div>
+          )}
+          options={customSwitcherConfig}
+          value={viewModel.switcherFilterStatuses}
+          onChange={viewModel.onClickStatusFilterButton}
+        />
 
-      <div className={styles.searchInputWrapper}>
         <CustomInputSearch
           enterButton
           allowClear
@@ -49,51 +54,60 @@ export const SupervisorProductsView = observer(() => {
         />
       </div>
 
-      <div className={styles.dataGridWrapper}>
-        <CustomDataGrid
-          disableRowSelectionOnClick
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          pinnedColumns={viewModel.pinnedColumns}
-          paginationModel={viewModel.paginationModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          getRowId={({ _id }) => _id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        disableRowSelectionOnClick
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        pinnedColumns={viewModel.pinnedColumns}
+        paginationModel={viewModel.paginationModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        getRowId={({ _id }) => _id}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          rowCount={viewModel.rowCount}
-          getRowClassName={getRowClassName}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onRowDoubleClick={({ row }) => viewModel.onClickProductModal(row?._id)}
-        />
-      </div>
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
+          },
+        }}
+        rowCount={viewModel.rowCount}
+        getRowClassName={getRowClassName}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onRowDoubleClick={({ row }) => viewModel.onClickProductModal(row?._id)}
+      />
 
       {viewModel.showProductModal && (
         <ProductCardModal
@@ -105,6 +119,6 @@ export const SupervisorProductsView = observer(() => {
           onClickOpenNewTab={id => viewModel.onClickTableRow(id)}
         />
       )}
-    </>
+    </div>
   )
 })

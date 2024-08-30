@@ -7,10 +7,4 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'flex-start',
     gap: '20px',
   },
-
-  tableWrapper: {
-    marginTop: 20,
-    height: '80vh',
-    width: '100%',
-  },
 }))

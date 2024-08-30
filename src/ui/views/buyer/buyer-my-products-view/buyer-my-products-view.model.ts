@@ -34,15 +34,13 @@ export class BuyerMyProductsViewModel extends DataGridFilterTableModel {
       mainMethodURL: 'buyers/products/pag/my?',
       fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient'],
       tableKey: DataGridTablesKeys.BUYER_PRODUCTS,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
     this.initHistory()
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   onClickTableRow(row: IProduct) {

@@ -12,7 +12,7 @@ import { supervisorProductsViewColumns } from './supervisor-products-view.column
 import { additionalFields, supervisorProductsConfig } from './supervisor-products-view.config'
 
 export class SupervisorProductsViewModel extends DataGridFilterTableModel {
-  switcherFilterStatuses = []
+  switcherFilterStatuses = 'all'
   showProductModal = false
 
   get userInfo() {
@@ -49,9 +49,8 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
       },
     }
     const additionalPropertiesGetFilters = () => ({
-      ...(this.switcherFilterStatuses.length > 0 && {
-        status: { $eq: this.switcherFilterStatuses.join(',') },
-      }),
+      status: { $eq: this.switcherFilterStatuses === 'all' ? undefined : this.switcherFilterStatuses },
+
       ...(this.columnMenuSettings.orderedYesNoFilterData.yes && this.columnMenuSettings.orderedYesNoFilterData.no
         ? {}
         : {
@@ -73,17 +72,17 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
       tableKey: DataGridTablesKeys.SUPERVISOR_PRODUCTS,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    this.initHistory()
-    this.getDataGridState()
-    this.getCurrentData()
-
     makeObservable(this, supervisorProductsConfig)
+
+    this.initHistory()
+
+    this.getTableSettingsPreset()
   }
 
-  onClickStatusFilterButton(statuses) {
-    this.switcherFilterStatuses = statuses
+  onClickStatusFilterButton(value) {
+    this.switcherFilterStatuses = value
 
     this.getCurrentData()
   }

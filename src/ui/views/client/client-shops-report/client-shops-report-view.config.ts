@@ -7,19 +7,18 @@ import { t } from '@utils/translations'
 import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
 export const observerConfig = {
-  radioButtonOption: observable,
+  tabValue: observable,
   inventoryProducts: observable,
   showBindStockGoodsToInventoryModal: observable,
   showConfirmModal: observable,
   showSelectShopsModal: observable,
   shopsData: observable,
 
-  onChangeRadioButtonOption: action.bound,
+  onChangeTab: action.bound,
   moveGoodsToInventoryHandler: action.bound,
   deleteReportHandler: action.bound,
   bindStockGoodsToInventoryHandler: action.bound,
   submitDeleteReportHandler: action.bound,
-  getTableData: action.bound,
   getProductsMy: action.bound,
   submitBindStockGoodsHandler: action.bound,
   initUserSettings: action.bound,

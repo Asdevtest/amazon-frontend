@@ -75,7 +75,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   reorderOrdersData: IOrder[] = []
   selectedProduct: IProduct | null = null
 
-  curDestinationId: any = undefined
+  curDestinationId: string | null = 'all'
 
   boxesIdsToTask = []
   shopsData: IShop[] = []
@@ -180,7 +180,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       const curShops = this.columnMenuSettings.shopId.currentFilterData?.map((shop: any) => shop._id).join(',')
 
       return {
-        destinationId: this.curDestinationId,
+        destinationId: this.curDestinationId === 'all' ? undefined : this.curDestinationId,
         shopId: this.columnMenuSettings.shopId.currentFilterData ? curShops : null,
 
         hasBatch: false,
@@ -224,11 +224,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
       defaultFilterParams,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
-
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
     this.history = history
     const url = new URL(window.location.href)
@@ -251,8 +250,11 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       this.columnMenuSettings?.status.currentFilterData.push(history.location.state?.dataGridFilter)
     }
 
-    this.getDataGridState()
-    this.loadData()
+    this.getTableSettingsPreset()
+    this.getStorekeepers()
+    this.getCurrentData()
+    this.getDestinations()
+    this.getShops()
     this.getClientDestinations()
 
     reaction(
@@ -291,9 +293,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     this.unitsOption = currentValue
   }
 
-  onClickStorekeeperBtn(currentStorekeeperId: string) {
+  onClickStorekeeperBtn(event: RadioChangeEvent) {
+    const currentValue = event.target.value
     this.selectedRows = []
-    this.currentStorekeeperId = currentStorekeeperId
+    this.currentStorekeeperId = currentValue
     this.getCurrentData()
   }
 
@@ -615,9 +618,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     this.showSetShippingLabelModal = false
   }
 
-  onClickDestinationBtn(event: RadioChangeEvent) {
-    const currentValue = event.target.value
-    this.curDestinationId = currentValue
+  onClickDestinationBtn(value: string) {
+    this.curDestinationId = value
 
     this.requestStatus = loadingStatus.IS_LOADING
     this.getCurrentData().then(() => {

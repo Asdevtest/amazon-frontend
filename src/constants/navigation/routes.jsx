@@ -119,12 +119,6 @@ const BuyerSearchSupplierBySupervisorView = lazy(() =>
   })),
 )
 
-const BuyerIdeasNotificationsView = lazy(() =>
-  import('@views/buyer/buyer-notifications-views/buyer-ideas-notifications-view').then(module => ({
-    default: module.BuyerIdeasNotificationsView,
-  })),
-)
-
 const BuyerNotificationsView = lazy(() =>
   import('@views/buyer/buyer-notifications-views/buyer-notifications-view').then(module => ({
     default: module.BuyerNotificationsView,
@@ -889,23 +883,6 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: '',
       title: () => t(TranslationKey.Notifications),
-    },
-  },
-
-  {
-    routePath: '/buyer/notifications/ideas-notifications',
-    component: BuyerIdeasNotificationsView,
-    exact: false,
-    permission: [UserRole.BUYER],
-
-    permissionKey: permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER,
-
-    crumbNameKey: TranslationKey['On ideas'],
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
-      activeSubCategory: 0,
-      title: () => t(TranslationKey['Notifications on ideas']),
     },
   },
 

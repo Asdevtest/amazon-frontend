@@ -30,7 +30,7 @@ export const UserProfileView = observer(() => {
   }, [])
 
   return (
-    <>
+    <div className="viewWrapper">
       <UserProfile
         user={viewModel.userInfo}
         headerInfoData={viewModel.headerInfoData}
@@ -127,6 +127,6 @@ export const UserProfileView = observer(() => {
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
       ) : null}
-    </>
+    </div>
   )
 })

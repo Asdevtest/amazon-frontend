@@ -22,6 +22,21 @@ const baseThemeSettings = {
 }
 
 export const globalStyles = theme => ({
+  '.viewWrapper': {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+    gap: '10px',
+  },
+
+  '.tableWrapper': {
+    flex: 1,
+    padding: '3px',
+    overflow: 'auto',
+    width: '100%',
+  },
+
   '::-webkit-scrollbar': {
     width: '10px',
     height: '10px',

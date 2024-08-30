@@ -21,15 +21,11 @@ export class ClientFreelanceNotificationsViewModel extends DataGridTableModel {
       getMainDataMethod: UserModel.getUsersFreelanceNotices,
       columnsModel,
       tableKey: DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS,
+      defaultSortModel: [{ field: 'unreadMessages', sort: 'desc' }],
     })
-
-    this.sortModel = [{ field: 'unreadMessages', sort: 'desc' }]
-
-    this.getDataGridState()
-
-    this.getCurrentData()
-
     makeObservable(this, observerConfig)
+
+    this.getTableSettingsPreset()
   }
 
   onClickReply(requestId: string, chatId: string) {
