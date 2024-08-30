@@ -51,11 +51,11 @@ export class ShopsCascaderModel {
 
   async getShopsExport() {
     try {
-      const shopIds = this.selectedShopsOptions.length > 0 ? this.selectedShopsOptions?.join(',') : undefined
+      const shopIds = this.selectedShopsOptions.length > 0 ? this.selectedShopsOptions?.join(', ') : undefined
       const table = this.selectedTableOptions?.[0][0]
       const statusGroup = this.selectedTableOptions?.find(option => !option.includes('BATCHES'))
         ? this.selectedTableOptions?.[0][1]
-          ? this.selectedTableOptions?.map(option => option[1])?.join(',')
+          ? this.selectedTableOptions?.map(option => option[1])?.join(', ')
           : undefined
         : undefined
       const onAmazon = this.selectedTableOptions?.find(option => option.includes('BATCHES'))
@@ -69,19 +69,17 @@ export class ShopsCascaderModel {
         statusGroup,
         onAmazon,
       }
-      const response = await ClientModel.getShopsExport(data)
+      const response: any = await ClientModel.getShopsExport(data)
 
       if (response) {
-        const jsonData = JSON.stringify(response)
-        const blob = new Blob([jsonData], { type: 'application/json' })
-        const href = URL.createObjectURL(blob)
         const link = document.createElement('a')
-        link.href = href
         const formattedDate = format(new Date(), 'yyyy-MM-dd_HH-mm-ss')
-        link.download = `store_report_${formattedDate}.json`
-        document.body.appendChild(link)
+        link.setAttribute('download', `store_report_${formattedDate}.xlsx`)
+        const href = URL.createObjectURL(response)
+        link.href = href
+        link.setAttribute('target', '_blank')
         link.click()
-        document.body.removeChild(link)
+        URL.revokeObjectURL(href)
 
         setTimeout(() => {
           toast.success(t(TranslationKey['Data exported successfully']))
@@ -90,7 +88,7 @@ export class ShopsCascaderModel {
     } catch (error) {
       toast.error(t(TranslationKey['Error while exporting data']))
     } finally {
-      this.open = false
+      runInAction(() => (this.open = false))
       this.clearSelection()
     }
   }
