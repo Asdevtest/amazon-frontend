@@ -36,14 +36,12 @@ export class AdminWarehouseTasksViewModel extends DataGridFilterTableModel {
       filtersFields: getFilterFields(columnsModel),
       mainMethodURL: 'admins/tasks/pag?',
       tableKey: DataGridTablesKeys.ADMIN_TASKS,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   async setCurrentOpenedTask(item: ITask) {
