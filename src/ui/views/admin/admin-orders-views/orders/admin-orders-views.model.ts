@@ -34,14 +34,12 @@ export class AdminOrdersAllViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey: DataGridTablesKeys.ADMIN_ORDERS,
       defaultFilterParams,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   onClickTableRow(order: IOrder) {
