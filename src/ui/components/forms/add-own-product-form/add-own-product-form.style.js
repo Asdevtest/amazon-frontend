@@ -68,6 +68,6 @@ export const useStyles = makeStyles()(theme => ({
   btnsWrapper: {
     marginTop: '10px',
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
   },
 }))

@@ -122,6 +122,21 @@ export const Header: FC<HeaderProps> = memo(props => {
           <div className={styles.controlButtonsSubWrapper}>
             <CustomButton
               block
+              type="primary"
+              size="large"
+              icon={<FiPlus />}
+              title={t(TranslationKey['Allows you to add your product to inventory'])}
+              onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
+            >
+              {t(TranslationKey.Product)}
+            </CustomButton>
+          </div>
+        )}
+
+        {!isArchive && (
+          <div className={styles.controlButtonsSubWrapper}>
+            <CustomButton
+              block
               size="large"
               title={t(TranslationKey['Deleted product archive'])}
               onClick={onTriggerArchive}
@@ -139,31 +154,6 @@ export const Header: FC<HeaderProps> = memo(props => {
               onClick={onClickTriggerArchOrResetProducts}
             >
               {t(TranslationKey.Archiving)}
-            </CustomButton>
-          </div>
-        )}
-
-        {!isArchive && (
-          <div className={styles.controlButtonsSubWrapper}>
-            <CustomButton
-              block
-              type="primary"
-              size="large"
-              icon={<FiPlus />}
-              title={t(TranslationKey['Allows you to add your product to inventory'])}
-              onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
-            >
-              {t(TranslationKey.Product)}
-            </CustomButton>
-
-            <CustomButton
-              block
-              type="primary"
-              size="large"
-              icon={<FiPlus />}
-              onClick={() => onTriggerOpenModal('showAddSuppliersModal')}
-            >
-              {t(TranslationKey['Supplier list'])}
             </CustomButton>
           </div>
         )}
