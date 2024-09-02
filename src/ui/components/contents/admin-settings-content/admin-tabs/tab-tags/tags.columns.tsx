@@ -64,7 +64,7 @@ export const tagsColumns = (handlers: IRowHandlers) => {
           />
         )
       },
-      disableColumnMenu: true,
+      disableCustomSort: true,
       filterable: false,
       sortable: false,
       width: 130,
