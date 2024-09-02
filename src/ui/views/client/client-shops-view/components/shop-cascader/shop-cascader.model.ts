@@ -69,17 +69,17 @@ export class ShopsCascaderModel {
         statusGroup,
         onAmazon,
       }
-      const response: any = await ClientModel.getShopsExport(data)
+      const response = (await ClientModel.getShopsExport(data)) as unknown as Blob
 
       if (response) {
         const link = document.createElement('a')
         const formattedDate = format(new Date(), 'yyyy-MM-dd_HH-mm-ss')
-        link.setAttribute('download', `store_report_${formattedDate}.xlsx`)
+        link.download = `store_report_${formattedDate}.xlsx`
         const href = URL.createObjectURL(response)
         link.href = href
-        link.setAttribute('target', '_blank')
+        document.body.appendChild(link)
         link.click()
-        URL.revokeObjectURL(href)
+        document.body.removeChild(link)
 
         setTimeout(() => {
           toast.success(t(TranslationKey['Data exported successfully']))
