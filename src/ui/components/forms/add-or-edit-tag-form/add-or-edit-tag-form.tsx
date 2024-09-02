@@ -71,8 +71,8 @@ export const AddOrEditTagForm: FC<AddOrEditTagFormProps> = observer(props => {
         addonAfter={
           <button>
             <ColorPicker
+              disabledAlpha
               disabled={!formField?.title}
-              format="hex"
               value={formField?.color}
               onChange={handleChangeColor}
             >
