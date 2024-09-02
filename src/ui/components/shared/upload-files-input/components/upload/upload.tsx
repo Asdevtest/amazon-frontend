@@ -51,7 +51,7 @@ export const Upload: FC<UploadProps> = memo(props => {
         {minimized ? (
           <>
             {t(TranslationKey['Add file'])}
-            <FiPlus style={{ width: 16, height: 16 }} />
+            <FiPlus size={16} />
           </>
         ) : (
           t(TranslationKey['Click or Drop here'])
