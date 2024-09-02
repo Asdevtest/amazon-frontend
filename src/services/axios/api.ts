@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { BACKEND_API_URL } from '@constants/keys/env'
 
-import { resetTokens } from '@utils/reset'
+import { resetTokens } from './reset-api'
 
 const api = axios.create({
   baseURL: BACKEND_API_URL,

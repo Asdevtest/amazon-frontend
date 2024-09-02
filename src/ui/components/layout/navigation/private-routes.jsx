@@ -9,10 +9,11 @@ import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigatio
 import { ChatModel } from '@models/chat-model'
 import { UserModel } from '@models/user-model'
 
+import { resetAccessTokenByTime } from '@services/axios/reset-api'
+
 import { Layout } from '@components/layout'
 
 import { isHaveMasterUser } from '@utils/checks'
-import { resetAccessTokenByTime } from '@utils/reset'
 
 export const PrivateRoutes = observer(() => {
   const location = useLocation()
