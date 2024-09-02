@@ -13,10 +13,10 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
-import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
+import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
 
 /**
  * 
@@ -104,16 +104,16 @@ export interface InlineResponse20041 {
     currentSupplierId?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20041
      */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20041
      */
-    checkedBy?: ApiV1AnnouncementsMyCreatedBy;
+    checkedBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * Дата создания
      * @type {string}
@@ -134,10 +134,10 @@ export interface InlineResponse20041 {
     checkedAt?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20041
      */
-    buyer?: ApiV1AnnouncementsMyCreatedBy;
+    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * Савка супервайзера.
      * @type {number}
@@ -158,10 +158,10 @@ export interface InlineResponse20041 {
     redFlags?: Array<ApiV1BoxesClientsLightProductRedFlags>;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
+     * @type {Array<ApiV1BuyersProductsVacTags>}
      * @memberof InlineResponse20041
      */
-    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
+    tags?: Array<ApiV1BuyersProductsVacTags>;
     /**
      * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
      * @type {number}

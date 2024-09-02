@@ -30,11 +30,10 @@ export class BuyerFreeOrdersViewModel extends DataGridFilterTableModel {
       filtersFields: getFilterFields(columnsModel, ['maxProductionTerm', 'amazonTitle', 'skuByClient']),
       mainMethodURL: 'buyers/orders/vac/pag?',
       tableKey: DataGridTablesKeys.BUYER_FREE_ORDERS,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
-
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
     this.initHistory()
 
     const orderId = new URL(window.location.href)?.searchParams?.get('orderId')
@@ -43,8 +42,7 @@ export class BuyerFreeOrdersViewModel extends DataGridFilterTableModel {
       this.onChangeFullFieldMenuItem([orderId], 'id')
     }
 
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   goToMyOrders() {

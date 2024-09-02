@@ -16,69 +16,74 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { useStyles } from './sub-users-view.style'
-
 import { Header } from './header/header'
 import { SubUsersViewModel } from './sub-users-view.model'
 
 export const SubUsersView = observer(() => {
-  const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new SubUsersViewModel())
 
   return (
-    <>
+    <div className="viewWrapper">
       <Header
         onChangeUnserverSearchValue={viewModel.onChangeUnserverSearchValue}
         onToggleAddSubUserModal={viewModel.onToggleAddSubUserModal}
       />
 
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          disableEnforceFocus
-          disableRowSelectionOnClick
-          sortingMode="client"
-          paginationMode="client"
-          rowCount={viewModel.rowCount}
-          rows={viewModel.filteredData}
-          sortModel={viewModel.sortModel}
-          columns={viewModel.columnsModel}
-          filterModel={viewModel.filterModel}
-          pinnedColumns={viewModel.pinnedColumns}
-          rowSelectionModel={viewModel.selectedRows}
-          paginationModel={viewModel.paginationModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          getRowHeight={() => 'auto'}
-          getRowId={({ _id }: GridRowModel) => _id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        disableEnforceFocus
+        disableRowSelectionOnClick
+        sortingMode="client"
+        paginationMode="client"
+        rowCount={viewModel.rowCount}
+        rows={viewModel.filteredData}
+        sortModel={viewModel.sortModel}
+        columns={viewModel.columnsModel}
+        filterModel={viewModel.filterModel}
+        pinnedColumns={viewModel.pinnedColumns}
+        rowSelectionModel={viewModel.selectedRows}
+        paginationModel={viewModel.paginationModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        getRowHeight={() => 'auto'}
+        getRowId={({ _id }: GridRowModel) => _id}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-        />
-      </div>
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
+          },
+        }}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+      />
 
       <Modal
         openModal={viewModel.showAddSubUserModal}
@@ -110,6 +115,6 @@ export const SubUsersView = observer(() => {
           onSubmit={viewModel.onSubmitUserPermissionsForm}
         />
       </Modal>
-    </>
+    </div>
   )
 })

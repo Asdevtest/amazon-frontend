@@ -1,33 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  searchInputWrapper: {
-    marginTop: 20,
+  header: {
     display: 'flex',
-    justifyContent: 'center',
-  },
-
-  searchInput: {
-    width: 400,
-  },
-
-  dataGridWrapper: {
-    marginTop: 20,
-    height: '70vh',
-    width: '100%',
-  },
-
-  badge: {
-    height: 20,
-    width: 'fit-content',
-    background: theme.palette.primary.main,
-    padding: '1px 6px',
-    fontSize: '12px',
-    borderRadius: 30,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#fff',
+    justifyContent: 'space-between',
+    gap: '20px',
   },
 
   attentionRow: {
@@ -44,5 +21,30 @@ export const useStyles = makeStyles()(theme => ({
       height: '98%',
       background: '#C69109',
     },
+  },
+
+  optionRender: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '10px',
+  },
+
+  optionRenderLabel: {
+    flex: 'auto',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+  },
+
+  optionRenderBadge: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: theme.palette.primary.main,
+    padding: '2px 6px',
+    fontSize: '12px',
+    lineHeight: '12px',
+    borderRadius: 6,
+    color: '#fff',
   },
 }))

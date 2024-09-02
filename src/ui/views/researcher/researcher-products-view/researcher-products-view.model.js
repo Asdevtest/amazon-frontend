@@ -42,12 +42,11 @@ export class ResearcherProductsViewModel extends DataGridTableModel {
       columnsModel: columns,
       filtersFields,
       tableKey: DataGridTablesKeys.RESEARCHER_PRODUCTS,
+      defaultSortModel: [{ field: 'createdAt', sort: 'desc' }],
     })
 
-    this.sortModel = [{ field: 'createdAt', sort: 'desc' }]
     this.initHistory()
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
 
     makeObservable(this, researcherProductsViewConfig)
   }

@@ -27,7 +27,6 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { FireIcon } from '@components/shared/svg-icons'
-import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { RequestSelect } from '@views/shared/create-or-edit-request-view/request-select/request-select'
@@ -432,11 +431,15 @@ export const CreateOrEditRequestContent = memo(props => {
       ...prevFormFields,
       request: data,
     }))
+    setAnnouncement(undefined)
+    setChosenExecutor(undefined)
   }
 
   const handleClear = () => {
     setFormFields(getSourceFormFields())
     setDefaultRequestTemplateSelectValue(null)
+    setAnnouncement(undefined)
+    setChosenExecutor(undefined)
   }
 
   return (
@@ -529,9 +532,11 @@ export const CreateOrEditRequestContent = memo(props => {
                         data={permissionsData || []}
                         width="100%"
                         selectedItemName={
-                          formFields?.request?.asin ||
-                          (formFields?.request?.asin === '' && t(TranslationKey.Missing)) ||
-                          t(TranslationKey['Select ASIN'])
+                          formFields?.request?.asin === '' || formFields?.request?.asin === 'undefined'
+                            ? t(TranslationKey.Missing)
+                            : formFields?.request?.asin
+                            ? formFields.request.asin
+                            : t(TranslationKey['Select ASIN'])
                         }
                         onScrollItemList={loadMorePermissionsDataHadler}
                         onClickSubmitSearch={onClickSubmitSearch}
@@ -725,13 +730,9 @@ export const CreateOrEditRequestContent = memo(props => {
                       checked={formFields.request.withoutConfirmation}
                       onChange={onChangeField('request')('withoutConfirmation')}
                     />
-                    <Text
-                      tooltipPosition={'corner'}
-                      className={styles.subTitle}
-                      tooltipInfoContent={t(TranslationKey['Allow execution without confirmation'])}
-                    >
+                    <p title={t(TranslationKey['Allow execution without confirmation'])} className={styles.subTitle}>
                       {t(TranslationKey['Allow execution without confirmation'])}
-                    </Text>
+                    </p>
                   </div>
 
                   <div className={styles.checkbox}>
@@ -740,15 +741,14 @@ export const CreateOrEditRequestContent = memo(props => {
                       checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
                       onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
                     />
-                    <Text
-                      tooltipPosition={'corner'}
+                    <p
                       className={styles.subTitle}
-                      tooltipInfoContent={t(
+                      title={t(
                         TranslationKey['After providing the result, the same performer may make a new proposal'],
                       )}
                     >
                       {t(TranslationKey['Disable multiple execution'])}
-                    </Text>
+                    </p>
                   </div>
                 </div>
 
@@ -765,9 +765,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         }
                       }}
                     />
-                    <Text className={styles.subTitle} tooltipPosition={'corner'}>
-                      {t(TranslationKey['Set urgent priority'])}
-                    </Text>
+                    <p className={styles.subTitle}>{t(TranslationKey['Set urgent priority'])}</p>
                     <FireIcon className={styles.fireIcon} />
                   </div>
                 </div>

@@ -32,14 +32,12 @@ export class AdminWarehouseBoxesViewModel extends DataGridFilterTableModel {
       fieldsForSearch: ['asin', 'skuByClient', 'amazonTitle'],
       tableKey: DataGridTablesKeys.ADMIN_BOXES,
       operatorsSettings,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   async setCurrentOpenedBox(row: IBox) {

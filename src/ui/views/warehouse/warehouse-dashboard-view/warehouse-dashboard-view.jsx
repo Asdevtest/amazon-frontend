@@ -10,6 +10,7 @@ import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -29,14 +30,16 @@ export const WarehouseDashboardView = observer(({ history }) => {
         <div className={styles.userInfoLeftWrapper}>
           <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
-          <div>
+          <div className={styles.info}>
             <DashboardBalance user={viewModel.userInfo} />
 
-            {viewModel.storekeeperDestination ? <p className={styles.adress}>{viewModel.adress}</p> : null}
+            {viewModel.storekeeperDestination ? <Text text={viewModel.adress} /> : null}
 
-            <Button onClick={viewModel.onClickAddressBtn}>
-              {viewModel.storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add address'])}
-            </Button>
+            <div>
+              <Button onClick={viewModel.onClickAddressBtn}>
+                {viewModel.storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add address'])}
+              </Button>
+            </div>
           </div>
         </div>
 

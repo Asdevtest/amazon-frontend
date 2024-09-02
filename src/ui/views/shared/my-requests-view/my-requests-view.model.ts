@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RadioChangeEvent } from 'antd'
 import { makeObservable, runInAction } from 'mobx'
 import { MutableRefObject } from 'react'
 import { toast } from 'react-toastify'
@@ -31,9 +32,9 @@ import { ICustomRequest } from '@typings/models/requests/custom-request'
 import { IRequest } from '@typings/models/requests/request'
 import { IFullUser } from '@typings/shared/full-user'
 
+import { observerConfig } from './my-requests-view.config'
 import { fieldsForSearch, filtersFields } from './my-requests-view.constants'
 import { SwitcherCondition } from './my-requests-view.type'
-import { observerConfig } from './observer-config'
 
 export class MyRequestsViewModel extends DataGridFilterTableModel {
   showRequestForm = false
@@ -72,7 +73,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   isRequestsAtWork = true
   onlyWaitedProposals = false
 
-  switcherCondition = SwitcherCondition.IN_PROGRESS
+  radioButtonOption = SwitcherCondition.IN_PROGRESS
   statusGroup = SwitcherCondition.IN_PROGRESS
 
   acceptProposalResultSetting = {}
@@ -129,30 +130,30 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
       defaultFilterParams,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     makeObservable(this, observerConfig)
 
     this.dataGridApi = dataGridApi
 
     this.initHistory()
-    this.sortModel = [{ field: 'priority', sort: 'desc' }]
 
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
-  onClickChangeCatigory(value: SwitcherCondition) {
-    this.switcherCondition = value
+  onChangeRadioButtonOption(event: RadioChangeEvent) {
+    const currentValue = event.target.value
+    this.radioButtonOption = currentValue
 
-    if (value === SwitcherCondition.IN_PROGRESS) {
+    if (currentValue === SwitcherCondition.IN_PROGRESS) {
       this.onlyWaitedProposals = false
-      this.statusGroup = value
-    } else if (value === SwitcherCondition.READY_TO_CHECK) {
+      this.statusGroup = currentValue
+    } else if (currentValue === SwitcherCondition.READY_TO_CHECK) {
       this.onlyWaitedProposals = true
       this.statusGroup = SwitcherCondition.IN_PROGRESS
-    } else if (value === SwitcherCondition.COMPLETED) {
+    } else if (currentValue === SwitcherCondition.COMPLETED) {
       this.onlyWaitedProposals = false
-      this.statusGroup = value
+      this.statusGroup = currentValue
     }
 
     this.getCurrentData()

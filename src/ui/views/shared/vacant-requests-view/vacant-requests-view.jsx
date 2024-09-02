@@ -12,8 +12,8 @@ import { VacantRequestListCard } from '@components/cards/vacant-request-list-car
 import { VacantRequestShortCard } from '@components/cards/vacant-request-short-card'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomPageSwitcher } from '@components/shared/custom-page-switcher'
-import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
@@ -44,19 +44,20 @@ export const VacantRequestsView = observer(({ history }) => {
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.tablePanelWrapper}>
         <FreelanceTypeTaskSelect
-          selectedSpec={viewModel.selectedSpec}
           specs={viewModel.userInfo?.allowedSpec}
-          onClickSpec={viewModel.onClickSpec}
+          selectedSpec={viewModel.specOption}
+          onChangeSpec={viewModel.onChangeSpec}
         />
 
-        <SearchInput
-          placeholder={t(TranslationKey['Search by Title, ASIN, SKU, ID'])}
-          inputClasses={styles.searchInput}
-          value={viewModel.nameSearchValue}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by Title, ASIN, SKU, ID"
+          onSearch={viewModel.onSearchSubmit}
         />
 
         <ViewCardsSelect withTabelView viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
@@ -108,42 +109,40 @@ export const VacantRequestsView = observer(({ history }) => {
           )}
         </div>
       ) : viewModel.viewMode === tableViewMode.TABLE ? (
-        <div className={styles.dataGridWrapper}>
-          <CustomDataGrid
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            rows={viewModel.currentData}
-            rowHeight={75}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
+        <CustomDataGrid
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          rowHeight={75}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: viewModel.columnMenuSettings,
+            toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
               },
-              columnMenu: viewModel.columnMenuSettings,
-              toolbar: {
-                resetFiltersBtnSettings: {
-                  onClickResetFilters: viewModel.onClickResetFilters,
-                  isSomeFilterOn: viewModel.isSomeFilterOn,
-                },
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-            }}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-            getRowClassName={getRowClassName}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onPaginationModelChange}
-            onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
-          />
-        </div>
+            },
+          }}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          getRowClassName={getRowClassName}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
+        />
       ) : (
         !viewModel.currentData?.length &&
         loadingStatus.SUCCESS && (
@@ -165,6 +164,6 @@ export const VacantRequestsView = observer(({ history }) => {
           onClickOpenNewTab={viewModel.onClickOpenInNewTab}
         />
       ) : null}
-    </>
+    </div>
   )
 })

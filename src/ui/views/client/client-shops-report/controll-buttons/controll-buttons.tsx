@@ -2,15 +2,17 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomButton } from '@components/shared/custom-button'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
 import { useStyles } from './controll-buttons.style'
+
+import { createRadioButtonOptions } from '../client-shops-report-view.config'
 
 interface СontrollButtonsProps {
   currentSearchValue: string
@@ -19,27 +21,25 @@ interface СontrollButtonsProps {
   onClickMoveGoodsToInventory: () => void
   onClickBindStockGoodsToInventory: () => void
   onClickDeleteBtn: () => void
-  onChangeSearchValue: (value: string) => void
+  onSearchSubmit: (value: string) => void
+  onChangeTab: (value: ShopReportsTabsValues) => void
 }
 
 export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
-  const { classes: styles } = useStyles()
-
   const {
-    currentSearchValue,
     selectedRows,
     currentTabKey,
     onClickMoveGoodsToInventory,
     onClickBindStockGoodsToInventory,
     onClickDeleteBtn,
-    onChangeSearchValue,
+    onSearchSubmit,
+    onChangeTab,
   } = props
 
+  const { classes: styles } = useStyles()
+
   const noSelectedRows = !selectedRows?.length
-  const isInventoryShipments = currentTabKey === ShopReportsTabsValues.INVENTORY_SHIPMENTS
-
   const disableButton = currentTabKey !== ShopReportsTabsValues.STOCK_REPORT || noSelectedRows
-
   const disableBindButton =
     currentTabKey !== ShopReportsTabsValues.INVENTORY &&
     (currentTabKey !== ShopReportsTabsValues.STOCK_REPORT || noSelectedRows)
@@ -47,30 +47,38 @@ export const ControllButtons: FC<СontrollButtonsProps> = memo(props => {
   return (
     <div className={styles.root}>
       <div className={styles.buttonsWrapper}>
-        <Button disabled={disableButton} onClick={onClickMoveGoodsToInventory}>
-          {t(TranslationKey['Move to inventory'])}
-        </Button>
+        <CustomSelect size="large" options={createRadioButtonOptions()} value={currentTabKey} onChange={onChangeTab} />
 
-        <Button disabled={disableBindButton} onClick={onClickBindStockGoodsToInventory}>
+        <CustomButton size="large" type="primary" disabled={disableButton} onClick={onClickMoveGoodsToInventory}>
+          {t(TranslationKey['Move to inventory'])}
+        </CustomButton>
+        <CustomButton
+          size="large"
+          type="primary"
+          disabled={disableBindButton}
+          onClick={onClickBindStockGoodsToInventory}
+        >
           {t(TranslationKey['Inventory integration'])}
-        </Button>
+        </CustomButton>
       </div>
 
-      <SearchInput
-        value={currentSearchValue}
-        placeholder={`${t(TranslationKey['Search by'])} ${
-          !isInventoryShipments ? t(TranslationKey.ASIN) + ', ' : ''
-        }${t(TranslationKey.SKU)}`}
-        onSubmit={onChangeSearchValue}
+      <CustomInputSearch
+        enterButton
+        allowClear
+        size="large"
+        placeholder="Search by SKU, ASIN, Title"
+        onSearch={onSearchSubmit}
       />
 
-      <Button
-        styleType={ButtonStyle.DANGER}
+      <CustomButton
+        danger
+        size="large"
+        type="primary"
         disabled={noSelectedRows || selectedRows.length > 1}
         onClick={onClickDeleteBtn}
       >
         {t(TranslationKey.Remove)}
-      </Button>
+      </CustomButton>
     </div>
   )
 })

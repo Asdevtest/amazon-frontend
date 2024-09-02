@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
-import { Text } from '@components/shared/text'
 import { OrderModalBodyRow } from '@components/table/table-rows/client/inventory/order-product-modal/order-modal-body-row'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
@@ -86,7 +85,7 @@ export const OrderProductModal = memo(props => {
                 .find(el => el._id === reorderOrder.storekeeper?._id)
                 ?.tariffLogistics.map(el => el._id)
                 .includes(reorderOrder.logicsTariff?._id)
-                ? reorderOrder.logicsTariff?._id
+                ? reorderOrder?.logicsTariff?._id
                 : '',
             },
             variationTariff: {
@@ -106,17 +105,17 @@ export const OrderProductModal = memo(props => {
             expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
             priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
             deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
-            productId: reorderOrder.product?._id,
+            productId: reorderOrder?.product?._id,
           }
         })
       : selectedProductsData.map(product => ({
           ...product,
           amount: 1,
-          clientComment: isPendingOrdering ? product.clientComment : '',
+          clientComment: isPendingOrdering ? product?.clientComment : '',
           expressChinaDelivery: false,
           priority: '30',
           deadline: null,
-          variationTariffId: product.variationTariff?._id,
+          variationTariffId: product?.variationTariff?._id,
 
           destination: {
             _id: null,
@@ -151,7 +150,7 @@ export const OrderProductModal = memo(props => {
             transparencyFile: '',
             tmpTransparencyFile: [],
 
-            productId: reorderOrder.product._id,
+            productId: reorderOrder?.product?._id,
             images: [],
 
             destination: {
@@ -161,7 +160,7 @@ export const OrderProductModal = memo(props => {
               _id: storekeepers
                 .find(el => el._id === reorderOrder.storekeeper?._id)
                 ?.tariffLogistics.map(el => el._id)
-                .includes(reorderOrder.logicsTariff?._id)
+                .includes(reorderOrder?.logicsTariff?._id)
                 ? reorderOrder.logicsTariff?._id
                 : '',
             },
@@ -354,75 +353,66 @@ export const OrderProductModal = memo(props => {
                 <p className={styles.cellText}>{t(TranslationKey.Product)}</p>
               </TableCell>
               <TableCell className={styles.priceCell}>
-                <Text
-                  className={styles.priceCellBtn}
-                  tooltipInfoContent={t(TranslationKey['Unit price of the selected supplier'])}
-                >
+                <p className={styles.priceCellBtn} title={t(TranslationKey['Unit price of the selected supplier'])}>
                   {t(TranslationKey['Price without delivery']) + ' $'}
-                </Text>
+                </p>
               </TableCell>
 
               <TableCell className={styles.deliveryCell}>
-                <Text
-                  className={styles.deliveryCellBtn}
-                  tooltipInfoContent={t(TranslationKey['Delivery costs to the prep center'])}
-                >
+                <p className={styles.deliveryCellBtn} title={t(TranslationKey['Delivery costs to the prep center'])}>
                   {t(TranslationKey['Delivery per unit.']) + ' $'}
-                </Text>
+                </p>
               </TableCell>
               <TableCell className={styles.qntCell}>
-                <Text
+                <p
                   className={styles.qntCellBtn}
-                  tooltipInfoContent={t(TranslationKey['Specify the amount of goods you want to order'])}
+                  title={t(TranslationKey['Specify the amount of goods you want to order'])}
                 >
                   {t(TranslationKey.Quantity)}
-                </Text>
+                </p>
               </TableCell>
               <TableCell className={styles.totalCell}>
-                <Text
-                  className={styles.totalCellBtn}
-                  tooltipInfoContent={t(TranslationKey['Order amount for a specific product'])}
-                >
+                <p className={styles.totalCellBtn} title={t(TranslationKey['Order amount for a specific product'])}>
                   {t(TranslationKey.Total) + ' $'}
-                </Text>
+                </p>
               </TableCell>
               <TableCell className={styles.totalCell}>
-                <Text className={styles.totalCellBtn}>{t(TranslationKey['Price variations'])}</Text>
+                <p className={styles.totalCellBtn}>{t(TranslationKey['Price variations'])}</p>
               </TableCell>
               <TableCell className={styles.barCodeCell}>
-                <Text className={styles.barCodeCellBtn}>
+                <p className={styles.barCodeCellBtn}>
                   {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency Codes'])}`}
-                </Text>
+                </p>
               </TableCell>
               <TableCell className={styles.tariffCell}>
-                <Text
+                <p
                   className={styles.tariffCellBtn}
-                  tooltipInfoContent={t(
+                  title={t(
                     TranslationKey['Choose a prep center in China and the rate at which the delivery will take place'],
                   )}
                 >
                   {`Storekeeper ${t(TranslationKey.and)} ${t(TranslationKey.Tariff)}`}
-                </Text>
+                </p>
               </TableCell>
               <TableCell className={styles.warehouseCell}>
-                <Text
+                <p
                   className={styles.warehouseCellBtn}
-                  tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
+                  title={t(TranslationKey["Amazon's final warehouse in the United States"])}
                 >
                   {t(TranslationKey.Destination)}
-                </Text>
+                </p>
               </TableCell>
 
               <TableCell className={styles.commentCell}>
-                <Text
+                <p
                   className={styles.commentCellBtn}
-                  tooltipInfoContent={t(TranslationKey['Comments on the order for the Buyer and the Prep Center'])}
+                  title={t(TranslationKey['Comments on the order for the Buyer and the Prep Center'])}
                 >
                   {t(TranslationKey['Client comment'])}
-                </Text>
+                </p>
               </TableCell>
               <TableCell className={styles.deadlineCell}>
-                <Text className={styles.cellText}>{'Deadline'}</Text>
+                <p className={styles.cellText}>{'Deadline'}</p>
               </TableCell>
             </TableRow>
           </TableHead>

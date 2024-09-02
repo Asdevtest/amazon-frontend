@@ -98,6 +98,9 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
             '& .MuiDataGrid-row': styles.row,
           }}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             toolbar: {
               children: (
                 <Toolbar

@@ -2,13 +2,8 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-  NormDateCell,
-  NormDateWithoutTimeCell,
-  ProductAsinCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -31,7 +26,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: params => <MultilineTextCell twoLines text={params.value?.name} />,
+      renderCell: params => <Text isCell text={params.value?.name} />,
       width: 150,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
@@ -45,9 +40,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       headerName: `${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`,
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.ASIN)} / ${t(TranslationKey.SKU)}`} />,
 
-      renderCell: params => (
-        <ProductAsinCell withoutImage withoutTitle asin={params.row?.asin} skuByClient={params.row?.sku} />
-      ),
+      renderCell: params => <ProductCell asin={params.row?.asin} sku={params.row?.sku} />,
 
       fields: getProductColumnMenuItems({ withoutTitle: true }),
       columnMenuConfig: getProductColumnMenuValue({
@@ -56,8 +49,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -65,7 +57,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       headerName: t(TranslationKey.Title),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-      renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
@@ -77,7 +69,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       headerName: t(TranslationKey.Date),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
 
-      renderCell: params => <NormDateWithoutTimeCell value={params.value} />,
+      renderCell: params => <NormDateCell dateWithoutTime value={params.value} />,
       width: 115,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
@@ -87,7 +79,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       field: 'unitsorganic',
       headerName: 'Unitsorganic',
       renderHeader: () => <MultilineTextHeaderCell text={'Unitsorganic'} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 200,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
@@ -97,7 +89,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       field: 'unitsppc',
       headerName: 'Unitsppc',
       renderHeader: () => <MultilineTextHeaderCell text={'Unitsppc'} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 200,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
@@ -107,7 +99,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       field: 'netprofit',
       headerName: 'Netprofit',
       renderHeader: () => <MultilineTextHeaderCell text={'Netprofit'} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,

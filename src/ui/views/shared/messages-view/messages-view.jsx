@@ -14,10 +14,10 @@ import { ChatsList } from '@components/chat/chats-list'
 import { AddNewChatByEmailForm } from '@components/forms/add-new-chat-by-email-form'
 import { AddUsersToGroupChatForm } from '@components/forms/add-users-to-group-chat-form'
 import { EditGroupChatInfoForm } from '@components/forms/edit-group-chat-info-form'
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 import { NewDialogIcon, NoSelectedChat } from '@components/shared/svg-icons'
 
 import { checkIsResearcher, isNotUndefined } from '@utils/checks'
@@ -89,10 +89,11 @@ export const MessagesView = observer(({ history }) => {
         })}
       >
         <div className={styles.searchWrapper}>
-          <SearchInput
-            inputClasses={styles.searchInput}
-            value={viewModel.nameSearchValue}
-            placeholder={t(TranslationKey['Search companion'])}
+          <CustomInputSearch
+            allowClear
+            size="large"
+            wrapperClassName={styles.searchInput}
+            placeholder="Search companion"
             onChange={viewModel.onChangeNameSearchValue}
           />
 
@@ -115,12 +116,14 @@ export const MessagesView = observer(({ history }) => {
                 />
               </div>
 
-              <Button
+              <CustomButton
+                type="primary"
+                size="large"
                 disabled={checkIsResearcher(UserRoleCodeMap[viewModel.user.role])}
                 onClick={viewModel.onClickAddNewChatByEmail}
               >
                 {isMobileResolution ? <NewDialogIcon /> : t(TranslationKey['New Dialog'])}
-              </Button>
+              </CustomButton>
             </div>
           )}
         </div>
@@ -154,12 +157,14 @@ export const MessagesView = observer(({ history }) => {
               />
             </div>
 
-            <Button
+            <CustomButton
+              type="primary"
+              size="large"
               disabled={checkIsResearcher(UserRoleCodeMap[viewModel.user.role])}
               onClick={viewModel.onClickAddNewChatByEmail}
             >
               {isMobileResolution ? <NewDialogIcon /> : t(TranslationKey['New Dialog'])}
-            </Button>
+            </CustomButton>
           </div>
         )}
 

@@ -130,7 +130,11 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
                 <div className={styles.iconWrapper}>
                   {icon}
 
-                  <Tooltip arrow title={tooltipText} className={styles.tooltip}>
+                  <Tooltip
+                    arrow
+                    title={t(TranslationKey[tooltipText as keyof typeof TranslationKey])}
+                    className={styles.tooltip}
+                  >
                     <div>
                       <TooltipInfoIcon />
                     </div>

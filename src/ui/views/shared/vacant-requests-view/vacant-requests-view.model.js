@@ -27,7 +27,7 @@ export class VacantRequestsViewModel {
 
   nameSearchValue = ''
 
-  selectedSpec = Specs.DEFAULT
+  specOption = Specs.DEFAULT
   showRequestDetailModal = false
 
   get currentData() {
@@ -108,17 +108,18 @@ export class VacantRequestsViewModel {
     })
   }
 
-  onChangeViewMode(value) {
-    this.viewMode = value
+  onChangeViewMode(event) {
+    const currentValue = event.target.value
+    this.viewMode = currentValue
 
     this.setTableModeState()
   }
 
-  onClickSpec(specType) {
-    this.selectedSpec = specType
+  onChangeSpec(value) {
+    this.specOption = value
 
     // spec - for "_id:string", specType - for "type:number"
-    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+    this.onChangeFullFieldMenuItem(value === Specs.DEFAULT ? [] : [value], 'specType', true)
 
     this.getRequestsVacant()
   }
@@ -173,12 +174,17 @@ export class VacantRequestsViewModel {
 
   getFilter(exclusion) {
     return objectToUrlQs(
-      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
-        'title',
-        'humanFriendlyId',
-        'asin',
-        'skuByClient',
-      ]),
+      dataGridFiltersConverter(
+        this.columnMenuSettings,
+        this.nameSearchValue,
+        exclusion,
+        filtersFields,
+        ['title', 'humanFriendlyId', 'asin', 'skuByClient'],
+        {},
+        {
+          proposalSub: '$any',
+        },
+      ),
     )
   }
 
@@ -242,7 +248,7 @@ export class VacantRequestsViewModel {
   }
 
   onClickResetFilters() {
-    this.selectedSpec = Specs.DEFAULT
+    this.specOption = Specs.DEFAULT
 
     this.columnMenuSettings = {
       ...this.columnMenuSettings,

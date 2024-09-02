@@ -10,59 +10,64 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { useStyles } from './client-orders-notifications-view.style'
-
 import { ClientOrdersNotificationsViewModel } from './client-orders-notifications-view.model'
 
 export const ClientOrdersNotificationsView = observer(() => {
-  const { classes: styles } = useStyles()
-
   const [viewModel] = useState(() => new ClientOrdersNotificationsViewModel())
 
   return (
-    <>
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rowCount={viewModel.rowCount}
-          rows={viewModel.currentData}
-          sortingMode="client"
-          paginationMode="client"
-          rowHeight={140}
-          getRowId={({ _id }) => _id}
-          pinnedColumns={viewModel.pinnedColumns}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+    <div className="viewWrapper">
+      <CustomDataGrid
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rowCount={viewModel.rowCount}
+        rows={viewModel.currentData}
+        sortingMode="client"
+        paginationMode="client"
+        rowHeight={140}
+        getRowId={({ _id }) => _id}
+        pinnedColumns={viewModel.pinnedColumns}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-            toolbar: {
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
 
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
             },
-          }}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
+
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
+          },
+        }}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+      />
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal
@@ -77,6 +82,6 @@ export const ClientOrdersNotificationsView = observer(() => {
           onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
         />
       ) : null}
-    </>
+    </div>
   )
 })

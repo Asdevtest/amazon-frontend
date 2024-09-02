@@ -13,14 +13,15 @@ import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 
 export const getPriorityConfig = () => {
   const defaultConfig = Object.keys(mapTaskPriorityStatusEnum)?.map(el => ({
-    label: () =>
-      taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[el as unknown as keyof typeof mapTaskPriorityStatusEnum]),
+    label: taskPriorityStatusTranslate(
+      mapTaskPriorityStatusEnum[el as unknown as keyof typeof mapTaskPriorityStatusEnum],
+    ),
     value: el,
   }))
 
   defaultConfig?.unshift({
-    label: () => t(TranslationKey['All priorities']),
-    value: undefined as unknown as string,
+    label: t(TranslationKey['All priorities']),
+    value: 'all',
   })
 
   return defaultConfig
@@ -28,13 +29,13 @@ export const getPriorityConfig = () => {
 
 export const getStatusConfig = () => {
   const defaultConfig = Object.keys(mapTaskStatusKeyToEnum)?.map(el => ({
-    label: () => TaskStatusTranslate(mapTaskStatusKeyToEnum[el as unknown as keyof typeof mapTaskStatusKeyToEnum]),
+    label: TaskStatusTranslate(mapTaskStatusKeyToEnum[el as unknown as keyof typeof mapTaskStatusKeyToEnum]),
     value: el,
   }))
 
   defaultConfig?.unshift({
-    label: () => t(TranslationKey['All statuses']),
-    value: undefined as unknown as string,
+    label: t(TranslationKey['All statuses']),
+    value: 'all',
   })
 
   return defaultConfig
@@ -42,13 +43,13 @@ export const getStatusConfig = () => {
 
 export const getStorekeepersConfig = (storekeepersData: IStorekeeper[]) => {
   const defaultConfig = storekeepersData?.map(storekeeper => ({
-    label: () => storekeeper.name,
+    label: storekeeper.name,
     value: storekeeper._id,
   }))
 
   defaultConfig?.unshift({
-    label: () => t(TranslationKey['All warehouses']) || '',
-    value: undefined as unknown as string,
+    label: t(TranslationKey['All warehouses']),
+    value: 'all',
   })
 
   return defaultConfig
@@ -56,16 +57,15 @@ export const getStorekeepersConfig = (storekeepersData: IStorekeeper[]) => {
 
 export const getTypeConfig = () => {
   const defaultConfig = Object.keys(mapTaskOperationTypeKeyToEnum)?.map(el => ({
-    label: () =>
-      taskOperationTypeTranslate(
-        mapTaskOperationTypeEnumToKey[el as unknown as keyof typeof mapTaskOperationTypeEnumToKey],
-      ),
+    label: taskOperationTypeTranslate(
+      mapTaskOperationTypeEnumToKey[el as unknown as keyof typeof mapTaskOperationTypeEnumToKey],
+    ),
     value: el,
   }))
 
   defaultConfig?.unshift({
-    label: () => t(TranslationKey['All tasks']),
-    value: undefined as unknown as string,
+    label: t(TranslationKey['All tasks']),
+    value: 'all',
   })
 
   return defaultConfig

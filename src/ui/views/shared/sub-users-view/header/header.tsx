@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, memo } from 'react'
+import { FC, memo } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,8 +11,8 @@ import { t } from '@utils/translations'
 import { useStyles } from './header.style'
 
 interface HeaderProps {
-  onChangeUnserverSearchValue: ChangeEventHandler<HTMLInputElement>
-  onToggleAddSubUserModal: VoidFunction
+  onChangeUnserverSearchValue: (value: string) => void
+  onToggleAddSubUserModal: () => void
 }
 
 export const Header: FC<HeaderProps> = memo(props => {
@@ -24,8 +24,14 @@ export const Header: FC<HeaderProps> = memo(props => {
     <div className={styles.header}>
       {/* <CustomButton type="primary">{t(TranslationKey['Assign permissions'])}</CustomButton> */}
       <div />
-      <CustomInputSearch allowClear placeholder="Search by name, email" onChange={onChangeUnserverSearchValue} />
-      <CustomButton type="primary" icon={<FiPlus />} onClick={onToggleAddSubUserModal}>
+      <CustomInputSearch
+        enterButton
+        allowClear
+        size="large"
+        placeholder="Search by name, email"
+        onSearch={onChangeUnserverSearchValue}
+      />
+      <CustomButton type="primary" size="large" icon={<FiPlus />} onClick={onToggleAddSubUserModal}>
         {t(TranslationKey['Add a user'])}
       </CustomButton>
     </div>

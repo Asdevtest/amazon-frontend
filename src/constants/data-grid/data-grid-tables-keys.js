@@ -5,7 +5,6 @@ export const DataGridTablesKeys = {
   ADMIN_TASKS: 'adminTasksDataGridState',
   ADMIN_BOXES: 'adminBoxesDataGridState',
   ADMIN_USER_FINANCES: 'adminUserFinancesDataGridState',
-  // ADMIN_BATCHES: 'adminBatchesDataGridState',
   ADMIN_DESTINATIONS: 'adminDestinationsDataGridState',
   ADMIN_TAGS: 'adminTagsDataGridState',
 
@@ -140,4 +139,6 @@ export const DataGridTablesKeys = {
   UPDATED_PATH_NOUTES: 'updatedPatchNoutes',
   PRODUCT_LISTING_REPORTS: 'productListingReports',
   PRODUCT_BATCHES_DATA: 'productBatchesData',
+  PARSING_PROFILES: 'parsingProfiles',
+  PARSING_REQUESTS: 'parsingRequests',
 }

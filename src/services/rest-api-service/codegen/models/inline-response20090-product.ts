@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { InlineResponse20045Shop } from './inline-response20045-shop';
 
 /**
@@ -60,10 +60,10 @@ export interface InlineResponse20090Product {
     amazonTitle?: string;
     /**
      * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20090Product
      */
-    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * ID магазина продукта
      * @type {string}

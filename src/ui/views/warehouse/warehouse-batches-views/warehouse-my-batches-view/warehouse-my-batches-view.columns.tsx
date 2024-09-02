@@ -7,14 +7,13 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   BatchBoxesCell,
   BatchTrackingCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  ToFixedWithKgSignCell,
   WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
-import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
@@ -41,53 +40,53 @@ export const warehouseMyBatchesViewColumns = (columnsProps: IColumnsProps) => {
       field: 'title',
       headerName: t(TranslationKey['Batch title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.title} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.title} />,
       width: 150,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: columnnsKeys.shared.STRING,
     },
 
     {
       field: 'destination',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.boxes?.[0]?.destination?.name} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.boxes?.[0]?.destination?.name} />,
       width: 130,
       filterable: false,
       sortable: false,
-      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {
       field: 'quantityBoxes',
       headerName: t(TranslationKey.Boxes),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.quantityBoxes} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.quantityBoxes} />,
       type: 'number',
       width: 70,
       filterable: false,
       sortable: false,
-      columnKey: columnnsKeys.shared.NUMBER,
+      columnKey: columnnsKeys.shared.QUANTITY,
     },
 
     {
       field: 'humanFriendlyId',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.humanFriendlyId} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.humanFriendlyId} />,
       type: 'number',
       width: 80,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: columnnsKeys.shared.STRING,
     },
 
     {
       field: 'logicsTariff',
       headerName: t(TranslationKey.Tariff),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(row.boxes[0])} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={getNewTariffTextForBoxOrOrder(row.boxes[0])} />,
       width: 250,
       filterable: false,
       sortable: false,
-      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {
@@ -113,9 +112,9 @@ export const warehouseMyBatchesViewColumns = (columnsProps: IColumnsProps) => {
       field: 'finalWeight',
       headerName: t(TranslationKey['Final weight']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-      renderCell: ({ row }: GridRowModel) => <ToFixedWithKgSignCell value={row.finalWeight} fix={2} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={toFixedWithKg(row.finalWeight, 2)} />,
       width: 120,
-      columnKey: columnnsKeys.shared.NUMBER,
+      columnKey: columnnsKeys.shared.QUANTITY,
     },
 
     {
@@ -123,12 +122,12 @@ export const warehouseMyBatchesViewColumns = (columnsProps: IColumnsProps) => {
       headerName: t(TranslationKey['Delivery cost']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
       renderCell: ({ row }: GridRowModel) => (
-        <MultilineTextCell text={toFixedWithDollarSign(row.deliveryTotalPrice, 2)} />
+        <Text isCell text={toFixedWithDollarSign(row.totalPriceFromOrderSupplier, 2)} />
       ),
       width: 120,
       filterable: false,
       sortable: false,
-      columnKey: columnnsKeys.shared.NUMBER,
+      columnKey: columnnsKeys.shared.QUANTITY,
     },
 
     {

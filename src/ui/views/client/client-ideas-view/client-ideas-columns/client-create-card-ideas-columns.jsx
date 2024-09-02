@@ -6,13 +6,13 @@ import {
   CreateCardIdeaActionsCell,
   IdeaProductCell,
   ManyUserLinkCell,
-  MultilineTextCell,
+  MediaContentCell,
   MultilineTextHeaderCell,
-  ProductAsinCell,
-  ShortDateCell,
-  SmallRowImageCell,
+  NormDateCell,
+  ProductCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -36,11 +36,11 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
         const product = params.value
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
@@ -48,8 +48,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -57,7 +56,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
+      renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
       disableCustomSort: true,
 
@@ -72,9 +71,9 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
       renderCell: params => (
-        <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
+        <MediaContentCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
       ),
-      width: 96,
+      width: 70,
       disableCustomSort: true,
       filterable: false,
     },
@@ -103,7 +102,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
       headerName: t(TranslationKey['Client comment']),
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -114,7 +113,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
       headerName: t(TranslationKey['Buyer comment']),
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -180,7 +179,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Status Updated']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
-      renderCell: params => <ShortDateCell value={params.value} />,
+      renderCell: params => <NormDateCell value={params.value} />,
       width: 91,
       columnKey: columnnsKeys.shared.DATE,
     },

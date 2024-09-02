@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1RequestProposalsCreatedBy } from './api-v1-request-proposals-created-by';
 import { ApiV1RequestProposalsDetailsCustom } from './api-v1-request-proposals-details-custom';
 import { ApiV1RequestProposalsMedia } from './api-v1-request-proposals-media';
@@ -112,10 +112,10 @@ export interface InlineResponse20085 {
     lastModifiedById?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20085
      */
-    sub?: ApiV1AnnouncementsMyCreatedBy;
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
      * @type {Array<ApiV1RequestProposalsSourceFiles>}

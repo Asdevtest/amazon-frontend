@@ -10,14 +10,14 @@ import {
 } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { styles } from './reasearcher-add-product-form.style'
@@ -114,14 +114,14 @@ export const ResearcherAddProductFormRaw = observer(
           </Box>
 
           <Box className={styles.btnsWrapper}>
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              tooltipInfoContent={t(TranslationKey['Create a product card based on an Amazon ID number'])}
+            <CustomButton
+              type="primary"
+              size="large"
               disabled={errorMsg || formFields.strategyStatus < 10}
-              onClick={onClickCheckAndAddProductBtn}
+              onClick={throttle(onClickCheckAndAddProductBtn)}
             >
               {t(TranslationKey['Add a product card'])}
-            </Button>
+            </CustomButton>
           </Box>
         </div>
 

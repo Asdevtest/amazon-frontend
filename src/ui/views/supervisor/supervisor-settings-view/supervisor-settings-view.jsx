@@ -7,15 +7,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
 import { EditAsinCheckerModal } from '@components/modals/edit-asin-checker-modal'
 import { FailedAsinsModal } from '@components/modals/failed-asins-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './supervisor-settings-view.style'
@@ -28,20 +27,22 @@ export const SupervisorSettingsView = observer(() => {
   const [viewModel] = useState(() => new SupervisorSettingsViewModel())
 
   return (
-    <>
-      <CustomSwitcher
-        switchMode="medium"
-        condition={viewModel.condition}
-        switcherSettings={switcherSettings}
-        changeConditionHandler={viewModel.onChangeСondition}
-      />
-
+    <div className="viewWrapper">
       <div className={styles.flexContainer}>
-        <SearchInput
-          inputClasses={styles.searchInput}
-          value={viewModel.currentSearchValue}
-          placeholder={t(TranslationKey['Search by ASIN, Reason'])}
-          onChange={viewModel.onChangeUnserverSearchValue}
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={switcherSettings}
+          defaultValue={viewModel.condition}
+          onChange={event => viewModel.onChangeСondition(event.target.value)}
+        />
+
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by ASIN, Reason"
+          onSearch={viewModel.onChangeUnserverSearchValue}
         />
 
         <div className={styles.flexContainer}>
@@ -51,65 +52,67 @@ export const SupervisorSettingsView = observer(() => {
             cancelText={t(TranslationKey.No)}
             onConfirm={viewModel.onRemoveAsins}
           >
-            <Button styleType={ButtonStyle.DANGER} disabled={!viewModel.selectedRows.length}>
+            <CustomButton danger size="large" type="primary" disabled={!viewModel.selectedRows.length}>
               {t(TranslationKey['Delete selected ASINs'])}
-            </Button>
+            </CustomButton>
           </Popconfirm>
 
-          <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}>
+          <CustomButton
+            size="large"
+            type="primary"
+            onClick={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}
+          >
             ASIN checker
-          </Button>
+          </CustomButton>
         </div>
       </div>
 
-      <div className={styles.dataGridWrapper}>
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          sortingMode="client"
-          paginationMode="client"
-          rowCount={viewModel.rowCount}
-          rows={viewModel.filteredData}
-          sortModel={viewModel.sortModel}
-          columns={viewModel.columnsModel}
-          filterModel={viewModel.filterModel}
-          pinnedColumns={viewModel.pinnedColumns}
-          rowSelectionModel={viewModel.selectedRows}
-          paginationModel={viewModel.paginationModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          getRowHeight={() => 'auto'}
-          getRowId={({ _id }) => _id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        sortingMode="client"
+        paginationMode="client"
+        rowCount={viewModel.currentData?.length}
+        rows={viewModel.filteredData}
+        sortModel={viewModel.sortModel}
+        columns={viewModel.columnsModel}
+        filterModel={viewModel.filterModel}
+        pinnedColumns={viewModel.pinnedColumns}
+        rowSelectionModel={viewModel.selectedRows}
+        paginationModel={viewModel.paginationModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        getRowHeight={() => 'auto'}
+        getRowId={({ _id }) => _id}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-        />
-      </div>
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+          },
+        }}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+      />
 
       <Modal
         openModal={viewModel.showEditAsinCheckerModal}
@@ -143,6 +146,6 @@ export const SupervisorSettingsView = observer(() => {
           onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showFailedAsinsModal')}
         />
       </Modal>
-    </>
+    </div>
   )
 })

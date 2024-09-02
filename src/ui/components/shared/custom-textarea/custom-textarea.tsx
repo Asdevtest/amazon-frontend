@@ -14,7 +14,6 @@ const { TextArea } = Input
 
 interface CustomTextareaProps extends TextAreaProps, IDefaultPropsExtensionAntdComponent {
   resize?: boolean
-  required?: boolean
   placeholder?: string
 }
 
@@ -39,7 +38,7 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
       {label ? (
         <p className={cx(styles.label, labelClassName)}>
           {t(TranslationKey[label as TranslationKey])}
-          {required ? <span>{'*'}</span> : null}
+          {required ? <span>*</span> : null}
         </p>
       ) : null}
       <TextArea

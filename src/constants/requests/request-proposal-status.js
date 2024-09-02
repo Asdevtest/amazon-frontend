@@ -176,6 +176,8 @@ export const MyRequestStatusTranslate = s => {
       return t(TranslationKey['Proposal conditions accepted'])
     case RequestProposalStatus.CREATED:
       return t(TranslationKey.Created)
+    default:
+      return ''
   }
 }
 

@@ -1,15 +1,15 @@
+import { MdOutlineDelete } from 'react-icons/md'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  AsinCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
-  ShortDateCell,
-  TextCell,
+  NormDateCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
-import { CrossIcon } from '@components/shared/svg-icons'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -20,7 +20,7 @@ export const sourceFilesColumns = rowHandlers => [
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <MultilineTextCell leftAlign twoLines maxLength={52} text={params.value || '-'} />,
+    renderCell: params => <Text isCell text={params.value || '-'} />,
     width: 205,
   },
 
@@ -28,8 +28,8 @@ export const sourceFilesColumns = rowHandlers => [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-    renderCell: params => <MultilineTextCell text={params.value || '-'} />,
-    width: 80,
+    renderCell: params => <Text isCell text={params.value || '-'} />,
+    width: 70,
     headerAlign: 'center',
     align: 'center',
   },
@@ -38,7 +38,7 @@ export const sourceFilesColumns = rowHandlers => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <ShortDateCell value={params.value} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
   },
 
@@ -67,7 +67,7 @@ export const sourceFilesColumns = rowHandlers => [
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
     width: 180,
-    renderCell: params => <AsinCell asin={params.value} />,
+    renderCell: params => <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={params.value} />,
   },
 
   {
@@ -76,7 +76,8 @@ export const sourceFilesColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
     width: 250,
     renderCell: params => (
-      <TextCell
+      <Text
+        isCell
         editMode
         text={params.row.originalData.sourceFile}
         onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'sourceFile', value)}
@@ -90,7 +91,8 @@ export const sourceFilesColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
     width: 240,
     renderCell: params => (
-      <TextCell
+      <Text
+        isCell
         editMode
         text={params.row.originalData.comments}
         onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'comments', value)}
@@ -106,7 +108,7 @@ export const sourceFilesColumns = rowHandlers => [
       <ActionButtonsCell
         isFirstButton
         iconButton
-        firstButtonElement={<CrossIcon />}
+        firstButtonElement={<MdOutlineDelete />}
         firstButtonStyle={ButtonStyle.DANGER}
         firstDescriptionText="Do you want to delete the source file?"
         onClickFirstButton={() => rowHandlers.onClickRemoveBtn(params.row._id)}

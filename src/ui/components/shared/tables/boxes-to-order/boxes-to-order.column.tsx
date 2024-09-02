@@ -1,14 +1,10 @@
 import { GridRowModel } from '@mui/x-data-grid'
 
-import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
+import { boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  FilesCell,
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-  ProductAsinCell,
-} from '@components/data-grid/data-grid-cells'
+import { FilesCell, MultilineTextHeaderCell, ProductCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { calcPriceForBox } from '@utils/calculation'
 import { formatNormDateTime } from '@utils/date-time'
@@ -21,13 +17,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
   {
     field: 'status',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: ({ row }: GridRowModel) => (
-      <MultilineTextCell
-        leftAlign
-        customTextStyles={colorByBoxStatus(row.status)}
-        text={boxStatusTranslateKey(row.status)}
-      />
-    ),
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={boxStatusTranslateKey(row.status)} />,
     filterable: false,
     sortable: false,
     width: 105,
@@ -36,7 +26,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
   {
     field: 'updated',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatNormDateTime(row.updatedAt)} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={formatNormDateTime(row.updatedAt)} />,
     filterable: false,
     sortable: false,
     width: 95,
@@ -46,17 +36,11 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     field: 'product',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     renderCell: ({ row }: GridRowModel) => (
-      <ProductAsinCell
-        image={row.boxProductPreview}
-        amazonTitle={row.amazonTitle}
-        asin={row.asin}
-        skuByClient={row.skuByClient}
-      />
+      <ProductCell image={row.boxProductPreview} title={row.amazonTitle} asin={row.asin} sku={row.skuByClient} />
     ),
     filterable: false,
     sortable: false,
-    width: 260,
-    minWidth: 100,
+    width: 170,
   },
 
   {
@@ -78,7 +62,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
           ? `${row.amount} x ${row.items[0]?.amount} ${t(TranslationKey['pcs.'])}`
           : `${row.items[0]?.amount} ${t(TranslationKey['pcs.'])}`
 
-      return <MultilineTextCell text={totalQuantityText} />
+      return <Text isCell text={totalQuantityText} />
     },
     filterable: false,
     sortable: false,
@@ -88,7 +72,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
   {
     field: 'warehouse',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.destination?.name} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.destination?.name} />,
     filterable: false,
     sortable: false,
     width: 100,
@@ -97,7 +81,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
   {
     field: 'boxes',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={`ID: ${row.humanFriendlyId}`} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={`ID: ${row.humanFriendlyId}`} />,
     filterable: false,
     sortable: false,
     width: 85,
@@ -106,7 +90,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
   {
     field: 'price',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={toFixedWithDollarSign(calcPriceForBox(row))} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={toFixedWithDollarSign(calcPriceForBox(row))} />,
     filterable: false,
     sortable: false,
     width: 90,
@@ -116,7 +100,8 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     field: 'finalWeight',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: ({ row }: GridRowModel) => (
-      <MultilineTextCell
+      <Text
+        isCell
         text={toFixedWithKg(
           Math.max(
             row.weighGrossKgWarehouse
@@ -138,7 +123,8 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     field: 'grossWeight',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Gross weight'])} />,
     renderCell: ({ row }: GridRowModel) => (
-      <MultilineTextCell
+      <Text
+        isCell
         text={toFixedWithKg(row.weighGrossKgWarehouse ? row.weighGrossKgWarehouse : row.weighGrossKgSupplier)}
       />
     ),

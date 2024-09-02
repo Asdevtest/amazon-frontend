@@ -43,6 +43,8 @@ import { InlineObject164 } from '../models';
 // @ts-ignore
 import { InlineObject165 } from '../models';
 // @ts-ignore
+import { InlineObject166 } from '../models';
+// @ts-ignore
 import { InlineResponse200115 } from '../models';
 // @ts-ignore
 import { InlineResponse200116 } from '../models';
@@ -258,6 +260,48 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ## Изменить status профиля.
+         * @summary # Изменить статус профиля в \"REGISTERED\". (Для Админа)
+         * @param {string} guid 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsParserAdminsProfilesGuidRegisteredPatch: async (guid: string, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'guid' is not null or undefined
+            assertParamExists('apiV1IntegrationsParserAdminsProfilesGuidRegisteredPatch', 'guid', guid)
+            const localVarPath = `/api/v1/integrations/parser/admins/profiles/{guid}/registered`
+                .replace(`{${"guid"}}`, encodeURIComponent(String(guid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -501,6 +545,48 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
+         * ## Привязать к товару SKU. Проверки:  Только для клиента  Только магазины клиента
+         * @summary # Привязать к товару SKU. (Все таблицы или выброчно)
+         * @param {InlineObject166} [body] 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsParserClientsProductsLinkSkuPatch: async (body?: InlineObject166, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/integrations/parser/clients/products_link_sku`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * ## Сигнал на проверку почты к доступам sellercentral
          * @summary # Сигнал на проверку.
          * @param {InlineObject158} [body] 
@@ -536,6 +622,48 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ## Изменить status профиля.
+         * @summary # Изменить статус профиля в \"INVITED\". (Для Клиента)
+         * @param {string} guid 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsParserClientsProfilesGuidInvitedPatch: async (guid: string, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'guid' is not null or undefined
+            assertParamExists('apiV1IntegrationsParserClientsProfilesGuidInvitedPatch', 'guid', guid)
+            const localVarPath = `/api/v1/integrations/parser/clients/profiles/{guid}/invited`
+                .replace(`{${"guid"}}`, encodeURIComponent(String(guid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -697,6 +825,18 @@ export const ParserApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * ## Изменить status профиля.
+         * @summary # Изменить статус профиля в \"REGISTERED\". (Для Админа)
+         * @param {string} guid 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1IntegrationsParserAdminsProfilesGuidRegisteredPatch(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsProfilesGuidRegisteredPatch(guid, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * ## Создать аккаунт(профиль).
          * @summary # Создать аккаунт(профиль).
          * @param {InlineObject160} [body] 
@@ -762,6 +902,18 @@ export const ParserApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * ## Привязать к товару SKU. Проверки:  Только для клиента  Только магазины клиента
+         * @summary # Привязать к товару SKU. (Все таблицы или выброчно)
+         * @param {InlineObject166} [body] 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1IntegrationsParserClientsProductsLinkSkuPatch(body?: InlineObject166, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserClientsProductsLinkSkuPatch(body, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * ## Сигнал на проверку почты к доступам sellercentral
          * @summary # Сигнал на проверку.
          * @param {InlineObject158} [body] 
@@ -771,6 +923,18 @@ export const ParserApiFp = function(configuration?: Configuration) {
          */
         async apiV1IntegrationsParserClientsProfilesCheckPatch(body?: InlineObject158, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserClientsProfilesCheckPatch(body, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * ## Изменить status профиля.
+         * @summary # Изменить статус профиля в \"INVITED\". (Для Клиента)
+         * @param {string} guid 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1IntegrationsParserClientsProfilesGuidInvitedPatch(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserClientsProfilesGuidInvitedPatch(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -861,6 +1025,17 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.apiV1IntegrationsParserAdminsProfilesGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
+         * ## Изменить status профиля.
+         * @summary # Изменить статус профиля в \"REGISTERED\". (Для Админа)
+         * @param {string} guid 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsParserAdminsProfilesGuidRegisteredPatch(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+            return localVarFp.apiV1IntegrationsParserAdminsProfilesGuidRegisteredPatch(guid, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
          * ## Создать аккаунт(профиль).
          * @summary # Создать аккаунт(профиль).
          * @param {InlineObject160} [body] 
@@ -921,6 +1096,17 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.apiV1IntegrationsParserAdminsProfilesStopPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
+         * ## Привязать к товару SKU. Проверки:  Только для клиента  Только магазины клиента
+         * @summary # Привязать к товару SKU. (Все таблицы или выброчно)
+         * @param {InlineObject166} [body] 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsParserClientsProductsLinkSkuPatch(body?: InlineObject166, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+            return localVarFp.apiV1IntegrationsParserClientsProductsLinkSkuPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
          * ## Сигнал на проверку почты к доступам sellercentral
          * @summary # Сигнал на проверку.
          * @param {InlineObject158} [body] 
@@ -930,6 +1116,17 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
          */
         apiV1IntegrationsParserClientsProfilesCheckPatch(body?: InlineObject158, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsParserClientsProfilesCheckPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Изменить status профиля.
+         * @summary # Изменить статус профиля в \"INVITED\". (Для Клиента)
+         * @param {string} guid 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsParserClientsProfilesGuidInvitedPatch(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+            return localVarFp.apiV1IntegrationsParserClientsProfilesGuidInvitedPatch(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменить профиль.
@@ -1098,6 +1295,27 @@ export interface ParserApiApiV1IntegrationsParserAdminsProfilesGuidPatchRequest 
 }
 
 /**
+ * Request parameters for apiV1IntegrationsParserAdminsProfilesGuidRegisteredPatch operation in ParserApi.
+ * @export
+ * @interface ParserApiApiV1IntegrationsParserAdminsProfilesGuidRegisteredPatchRequest
+ */
+export interface ParserApiApiV1IntegrationsParserAdminsProfilesGuidRegisteredPatchRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesGuidRegisteredPatch
+     */
+    readonly guid: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesGuidRegisteredPatch
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
  * Request parameters for apiV1IntegrationsParserAdminsProfilesPost operation in ParserApi.
  * @export
  * @interface ParserApiApiV1IntegrationsParserAdminsProfilesPostRequest
@@ -1238,6 +1456,27 @@ export interface ParserApiApiV1IntegrationsParserAdminsProfilesStopPatchRequest 
 }
 
 /**
+ * Request parameters for apiV1IntegrationsParserClientsProductsLinkSkuPatch operation in ParserApi.
+ * @export
+ * @interface ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatchRequest
+ */
+export interface ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatchRequest {
+    /**
+     * 
+     * @type {InlineObject166}
+     * @memberof ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatch
+     */
+    readonly body?: InlineObject166
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatch
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
  * Request parameters for apiV1IntegrationsParserClientsProfilesCheckPatch operation in ParserApi.
  * @export
  * @interface ParserApiApiV1IntegrationsParserClientsProfilesCheckPatchRequest
@@ -1254,6 +1493,27 @@ export interface ParserApiApiV1IntegrationsParserClientsProfilesCheckPatchReques
      * 
      * @type {string}
      * @memberof ParserApiApiV1IntegrationsParserClientsProfilesCheckPatch
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
+ * Request parameters for apiV1IntegrationsParserClientsProfilesGuidInvitedPatch operation in ParserApi.
+ * @export
+ * @interface ParserApiApiV1IntegrationsParserClientsProfilesGuidInvitedPatchRequest
+ */
+export interface ParserApiApiV1IntegrationsParserClientsProfilesGuidInvitedPatchRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ParserApiApiV1IntegrationsParserClientsProfilesGuidInvitedPatch
+     */
+    readonly guid: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ParserApiApiV1IntegrationsParserClientsProfilesGuidInvitedPatch
      */
     readonly acceptEncoding?: string
 }
@@ -1363,6 +1623,18 @@ export class ParserApi extends BaseAPI {
     }
 
     /**
+     * ## Изменить status профиля.
+     * @summary # Изменить статус профиля в \"REGISTERED\". (Для Админа)
+     * @param {ParserApiApiV1IntegrationsParserAdminsProfilesGuidRegisteredPatchRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ParserApi
+     */
+    public apiV1IntegrationsParserAdminsProfilesGuidRegisteredPatch(requestParameters: ParserApiApiV1IntegrationsParserAdminsProfilesGuidRegisteredPatchRequest, options?: any) {
+        return ParserApiFp(this.configuration).apiV1IntegrationsParserAdminsProfilesGuidRegisteredPatch(requestParameters.guid, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * ## Создать аккаунт(профиль).
      * @summary # Создать аккаунт(профиль).
      * @param {ParserApiApiV1IntegrationsParserAdminsProfilesPostRequest} requestParameters Request parameters.
@@ -1423,6 +1695,18 @@ export class ParserApi extends BaseAPI {
     }
 
     /**
+     * ## Привязать к товару SKU. Проверки:  Только для клиента  Только магазины клиента
+     * @summary # Привязать к товару SKU. (Все таблицы или выброчно)
+     * @param {ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatchRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ParserApi
+     */
+    public apiV1IntegrationsParserClientsProductsLinkSkuPatch(requestParameters: ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatchRequest = {}, options?: any) {
+        return ParserApiFp(this.configuration).apiV1IntegrationsParserClientsProductsLinkSkuPatch(requestParameters.body, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * ## Сигнал на проверку почты к доступам sellercentral
      * @summary # Сигнал на проверку.
      * @param {ParserApiApiV1IntegrationsParserClientsProfilesCheckPatchRequest} requestParameters Request parameters.
@@ -1432,6 +1716,18 @@ export class ParserApi extends BaseAPI {
      */
     public apiV1IntegrationsParserClientsProfilesCheckPatch(requestParameters: ParserApiApiV1IntegrationsParserClientsProfilesCheckPatchRequest = {}, options?: any) {
         return ParserApiFp(this.configuration).apiV1IntegrationsParserClientsProfilesCheckPatch(requestParameters.body, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * ## Изменить status профиля.
+     * @summary # Изменить статус профиля в \"INVITED\". (Для Клиента)
+     * @param {ParserApiApiV1IntegrationsParserClientsProfilesGuidInvitedPatchRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ParserApi
+     */
+    public apiV1IntegrationsParserClientsProfilesGuidInvitedPatch(requestParameters: ParserApiApiV1IntegrationsParserClientsProfilesGuidInvitedPatchRequest, options?: any) {
+        return ParserApiFp(this.configuration).apiV1IntegrationsParserClientsProfilesGuidInvitedPatch(requestParameters.guid, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

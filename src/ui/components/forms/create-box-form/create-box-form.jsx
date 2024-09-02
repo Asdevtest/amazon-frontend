@@ -254,7 +254,6 @@ export const CreateBoxForm = observer(
             />
 
             <Field
-              tooltipInfoContent={t(TranslationKey['Current order status'])}
               label={t(TranslationKey.Status)}
               containerClasses={styles.fieldContainer}
               inputComponent={

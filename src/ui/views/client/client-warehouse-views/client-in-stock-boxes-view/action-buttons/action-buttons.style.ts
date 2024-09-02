@@ -9,6 +9,6 @@ export const useStyles = makeStyles()(() => ({
 
   leftBtnsWrapper: {
     display: 'flex',
-    gap: '10px',
+    gap: '20px',
   },
 }))

@@ -1,16 +1,15 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-
-import FileDownloadIcon from '@mui/icons-material/FileDownload'
+import { BsDownload } from 'react-icons/bs'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
 import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
@@ -37,13 +36,16 @@ export const WarehouseMyTasksView = observer(({ history }) => {
     params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && styles.successRow
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.headerWrapper}>
         <TaskPrioritySelector
           currentPriority={viewModel.curTaskPriority}
-          handleActivePriority={viewModel.onClickTaskPriorityBtn}
+          onActivePriority={viewModel.onClickTaskPriorityBtn}
         />
-        <Button
+        <CustomButton
+          size="large"
+          type="primary"
+          icon={<BsDownload />}
           disabled={
             !viewModel.selectedTasks.length ||
             viewModel.selectedTasks.length > 1 ||
@@ -53,8 +55,7 @@ export const WarehouseMyTasksView = observer(({ history }) => {
           onClick={viewModel.onClickReportBtn}
         >
           {t(TranslationKey['Download task file'])}
-          <FileDownloadIcon />
-        </Button>
+        </CustomButton>
       </div>
 
       <div className={styles.headerWrapper}>
@@ -63,49 +64,49 @@ export const WarehouseMyTasksView = observer(({ history }) => {
           onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
         />
 
-        <SearchInput
-          value={viewModel.nameSearchValue}
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          wrapperClassName={styles.searchInput}
+          placeholder="Search by ASIN, Order ID, Item, Track number"
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          getRowClassName={getRowClassName}
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        getRowClassName={getRowClassName}
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-            toolbar: {
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-            },
-          }}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={params => viewModel.onClickResolveBtn(params.row.originalData._id)}
-        />
-      </div>
+          },
+        }}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowDoubleClick={params => viewModel.onClickResolveBtn(params.row.originalData._id)}
+      />
 
       <Modal
         openModal={viewModel.showEditPriorityData}
@@ -151,6 +152,6 @@ export const WarehouseMyTasksView = observer(({ history }) => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </>
+    </div>
   )
 })

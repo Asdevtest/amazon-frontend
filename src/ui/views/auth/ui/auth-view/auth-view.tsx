@@ -43,7 +43,7 @@ export const AuthView: FC<AuthViewProps> = observer(({ history, auth }) => {
 
             <div className={styles.flexContainer}>
               <CustomButton type="link" className={styles.themeSelector} onClick={viewModel.onChangeTheme}>
-                {SettingsModel.uiTheme === UiTheme.light ? <IoMoonSharp size={18} /> : <IoSunnySharp size={18} />}
+                {SettingsModel.uiTheme === UiTheme.light ? <IoSunnySharp size={18} /> : <IoMoonSharp size={18} />}
               </CustomButton>
 
               <LanguageSelector />

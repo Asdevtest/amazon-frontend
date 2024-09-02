@@ -26,13 +26,13 @@ export class SupervisorReadyToCheckViewModel extends DataGridTableModel {
       tableKey: isCreatedByClient
         ? DataGridTablesKeys.SUPERVISOR_CHECK_CLIENT
         : DataGridTablesKeys.SUPERVISOR_CHECK_RESEATCHER,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     this.isCreatedByClient = isCreatedByClient
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    this.getDataGridState()
-    this.getCurrentData()
+
     this.initHistory()
+    this.getTableSettingsPreset()
 
     makeObservable(this, supervisorReadyToCheckConfig)
   }

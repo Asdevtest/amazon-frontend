@@ -2,9 +2,10 @@ import { Radio } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextCell, SmallRowImageCell } from '@components/data-grid/data-grid-cells'
+import { MediaContentCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
 import { DeleteIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -35,8 +36,8 @@ export const inventoryColumns = (handlers, selectedRow) => [
   {
     field: 'image',
     headerName: t(TranslationKey.Image),
-    width: 100,
-    renderCell: params => <SmallRowImageCell image={params.row.images[0]} />,
+    width: 70,
+    renderCell: params => <MediaContentCell image={params.row.images[0]} />,
     filterable: false,
     sortable: false,
   },
@@ -54,7 +55,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 120,
     filterable: false,
     sortable: false,
@@ -63,7 +64,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: 'sku',
     headerName: t(TranslationKey.SKU),
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 130,
     filterable: false,
     sortable: false,
@@ -72,7 +73,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: 'title',
     headerName: 'Title',
-    renderCell: params => <MultilineTextCell leftAlign threeLines text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 120,
     filterable: false,
     sortable: false,
@@ -81,7 +82,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: 'fbaFbmStock',
     headerName: 'FBA/FBM Stock',
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 140,
     filterable: false,
     sortable: false,
@@ -90,7 +91,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: 'reserved',
     headerName: 'Reserved',
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 110,
     filterable: false,
     sortable: false,
@@ -99,7 +100,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: 'roi',
     headerName: t(TranslationKey.ROI),
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 100,
     filterable: false,
     sortable: false,

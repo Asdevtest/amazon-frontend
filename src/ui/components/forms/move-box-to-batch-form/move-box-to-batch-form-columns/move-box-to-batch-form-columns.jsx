@@ -2,14 +2,10 @@ import { Radio } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-  NormDateCell,
-  ToFixedWithKgSignCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
-import { toFixedWithDollarSign } from '@utils/text'
+import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
@@ -33,7 +29,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 110,
   },
 
@@ -42,7 +38,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 110,
   },
 
@@ -51,8 +47,8 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    renderCell: params => <Text isCell text={params.value} />,
+    width: 60,
   },
 
   {
@@ -60,7 +56,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 120,
   },
 
@@ -79,7 +75,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     headerName: t(TranslationKey['Volume weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Volume weight'])} />,
 
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    renderCell: params => <Text isCell text={toFixedWithKg(params.value)} />,
     type: 'number',
     width: 90,
   },
@@ -89,7 +85,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
 
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    renderCell: params => <Text isCell text={toFixedWithKg(params.value)} />,
     type: 'number',
     width: 120,
   },
@@ -99,7 +95,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 120,
     type: 'number',
   },

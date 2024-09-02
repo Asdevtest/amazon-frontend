@@ -1,19 +1,17 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineStatusCell,
-  MultilineTextCell,
+  MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
   RedFlagsCell,
-  SmallRowImageCell,
   TagsCell,
-  ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
+import { Text } from '@components/shared/text'
 
-import { toFixedWithDollarSign } from '@utils/text'
+import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -24,8 +22,8 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Image),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
 
-    width: 100,
-    renderCell: params => <SmallRowImageCell image={params.row.images[0]} />,
+    width: 70,
+    renderCell: params => <MediaContentCell image={params.row.images[0]} />,
     filterable: false,
     sortable: false,
   },
@@ -35,7 +33,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
-    renderCell: params => <MultilineStatusCell status={params.value} />,
+    renderCell: params => <Text isCell text={params.value?.replace(/_/g, ' ')} />,
 
     width: 140,
   },
@@ -45,7 +43,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Category),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 140,
   },
 
@@ -54,7 +52,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey['Amazon price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 110,
     type: 'number',
   },
@@ -64,7 +62,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Weight),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Weight)} />,
 
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    renderCell: params => <Text isCell text={toFixedWithKg(params.value)} />,
     width: 90,
     type: 'number',
   },
@@ -74,7 +72,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.BSR),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 70,
     type: 'number',
   },
@@ -84,7 +82,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey['Recommend amount']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 130,
     type: 'number',
   },

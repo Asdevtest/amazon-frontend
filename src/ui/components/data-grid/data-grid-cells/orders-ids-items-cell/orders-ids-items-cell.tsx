@@ -1,5 +1,6 @@
-import { MultilineTextCell } from '..'
 import { FC, memo } from 'react'
+
+import { Text } from '@components/shared/text'
 
 import { useStyles } from './orders-ids-items-cell.style'
 
@@ -15,8 +16,8 @@ export const OrdersIdsItemsCell: FC<OrdersIdsItemsCellProps> = memo(({ value }) 
 
   return (
     <div className={styles.orderIdsItemsWrapper}>
-      <MultilineTextCell text={orderIds} />
-      <MultilineTextCell text={ordersItems} />
+      <Text text={orderIds} />
+      <Text text={ordersItems} />
     </div>
   )
 })

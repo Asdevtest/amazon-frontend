@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   modalMainWrapper: {
-    width: 1130,
+    width: 1200,
   },
 
   headerWrapper: {
@@ -53,7 +53,7 @@ export const useStyles = makeStyles()(theme => ({
 
   fieldRemarks: {
     marginBottom: '0 !important',
-    width: '100%',
+    width: '300px',
   },
 
   linkInput: {
@@ -103,7 +103,7 @@ export const useStyles = makeStyles()(theme => ({
 
   heightFieldAuto: {
     height: 'auto',
-    width: '100%',
+    width: '300px',
 
     padding: 0,
   },

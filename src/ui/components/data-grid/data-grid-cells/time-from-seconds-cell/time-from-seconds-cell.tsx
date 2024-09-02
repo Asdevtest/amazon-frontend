@@ -1,7 +1,8 @@
-import { MultilineTextCell } from '..'
-import { CSSProperties, FC, memo } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { Text } from '@components/shared/text'
 
 import { secondsToTime } from '@utils/text'
 import { t } from '@utils/translations'
@@ -10,7 +11,7 @@ import { useStyles } from './time-from-seconds-cell.style'
 
 interface TimeFromSecondsCellProps {
   seconds: number
-  color?: CSSProperties
+  color?: string
 }
 
 export const TimeFromSecondsCell: FC<TimeFromSecondsCellProps> = memo(({ seconds, color }) => {
@@ -40,6 +41,6 @@ export const TimeFromSecondsCell: FC<TimeFromSecondsCellProps> = memo(({ seconds
       )}
     </div>
   ) : (
-    <MultilineTextCell color={color} text={time.seconds > 0 ? `${time.seconds} ${t(TranslationKey.sec)}` : `${0}`} />
+    <Text isCell color={color} text={time.seconds > 0 ? `${time.seconds} ${t(TranslationKey.sec)}` : `${0}`} />
   )
 })

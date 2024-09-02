@@ -5,11 +5,11 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'flex-end',
     flexDirection: 'column',
-    gap: 10,
+    gap: 20,
   },
 
-  datagridWrapper: {
-    height: '70vh',
+  tableWrapper: {
+    height: '77vh',
     width: '100%',
   },
 }))

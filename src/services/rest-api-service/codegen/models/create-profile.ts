@@ -25,7 +25,7 @@ export interface CreateProfile {
      * @type {string}
      * @memberof CreateProfile
      */
-    gologinId?: string;
+    gologinId: string;
     /**
      * Name
      * @type {string}
@@ -55,31 +55,19 @@ export interface CreateProfile {
      * @type {string}
      * @memberof CreateProfile
      */
-    email?: string;
+    email: string;
     /**
      * Password
      * @type {string}
      * @memberof CreateProfile
      */
-    password?: string;
+    password: string;
     /**
      * OTP
      * @type {string}
      * @memberof CreateProfile
      */
-    otp?: string;
-    /**
-     * Driver session data (JSONB object)
-     * @type {object}
-     * @memberof CreateProfile
-     */
-    driverSessionData?: object;
-    /**
-     * Port of browser
-     * @type {number}
-     * @memberof CreateProfile
-     */
-    port?: number;
+    otp: string;
 }
 
 

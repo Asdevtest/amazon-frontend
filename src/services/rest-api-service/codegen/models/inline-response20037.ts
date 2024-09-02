@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
@@ -96,10 +96,10 @@ export interface InlineResponse20037 {
     storekeeperId?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20037
      */
-    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
+    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * Дата создания.
      * @type {string}

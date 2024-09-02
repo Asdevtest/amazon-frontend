@@ -69,51 +69,49 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, on
         </Button>
       </div>
 
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          rows={viewModel.rows}
-          rowCount={viewModel.rowCount}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          pinnedColumns={viewModel.pinnedColumns}
-          paginationModel={viewModel.paginationModel}
-          rowSelectionModel={viewModel.selectedRows}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          getRowHeight={() => 'auto'}
-          getRowId={({ _id }: GridRowModel) => _id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        rows={viewModel.rows}
+        rowCount={viewModel.rowCount}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        pinnedColumns={viewModel.pinnedColumns}
+        paginationModel={viewModel.paginationModel}
+        rowSelectionModel={viewModel.selectedRows}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        getRowHeight={() => 'auto'}
+        getRowId={({ _id }: GridRowModel) => _id}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onChangePinnedColumns={viewModel.handlePinColumn}
-        />
-      </div>
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+          },
+        }}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onChangePinnedColumns={viewModel.handlePinColumn}
+      />
 
       {viewModel.showBatchInfoModal ? (
         // @ts-ignore

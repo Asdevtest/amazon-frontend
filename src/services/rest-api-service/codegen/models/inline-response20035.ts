@@ -13,8 +13,8 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BuyersOrdersMyOrderSupplier } from './api-v1-buyers-orders-my-order-supplier';
 import { ApiV1BuyersOrdersMyPayments } from './api-v1-buyers-orders-my-payments';
 import { ApiV1BuyersOrdersMyProduct } from './api-v1-buyers-orders-my-product';
@@ -159,10 +159,10 @@ export interface InlineResponse20035 {
     createdById?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20035
      */
-    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
+    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
      * @type {ApiV1BuyersOrdersMyProduct}

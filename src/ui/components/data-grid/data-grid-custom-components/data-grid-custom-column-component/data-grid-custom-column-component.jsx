@@ -29,7 +29,6 @@ import {
   OrderOrItemMenuItem,
   OrderStatusMenuItem,
   PriorityMenuItem,
-  ProductMenuItem,
   RedFlagsCellMenuItem,
   SecondsCellMenuItem,
   YesNoCellMenuItem,
@@ -312,27 +311,6 @@ export const DataGridCustomColumnMenuComponent = props => {
           field={currentColumn.field}
           data={props}
           table={currentColumn.table}
-          onClose={hideMenu}
-          onClickFilterBtn={onClickFilterBtn}
-          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-          onClickAccept={onClickAccept}
-        />
-      </CustomMenuContainer>
-    )
-  }
-
-  if (
-    [columnnsKeys.shared.BATCHES_PRODUCTS, columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT].includes(
-      currentColumn.columnKey,
-    )
-  ) {
-    return (
-      <CustomMenuContainer {...props}>
-        <ProductMenuItem
-          withoutSku
-          data={props}
-          table={currentColumn.table}
-          filterRequestStatus={filterRequestStatus}
           onClose={hideMenu}
           onClickFilterBtn={onClickFilterBtn}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}

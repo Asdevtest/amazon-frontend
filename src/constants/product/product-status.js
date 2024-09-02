@@ -214,6 +214,9 @@ export const productStatusTranslateKey = status => {
 
     case ProductStatus.SUPPLIER_FOUND:
       return TranslationKey['Supplier found']
+
+    default:
+      return ''
   }
 }
 

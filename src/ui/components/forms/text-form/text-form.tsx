@@ -14,10 +14,11 @@ interface TextFormProps {
   title: string
   onClose: () => void
   onSubmit: (text: string) => void
+  maxLength?: number
 }
 
 export const TextForm: FC<TextFormProps> = memo(props => {
-  const { title, onClose, onSubmit } = props
+  const { title, onClose, onSubmit, maxLength } = props
 
   const { classes: styles } = useStyles()
 
@@ -37,6 +38,7 @@ export const TextForm: FC<TextFormProps> = memo(props => {
 
       <input
         type="text"
+        maxLength={maxLength}
         value={text}
         placeholder={t(TranslationKey.Title) + '...'}
         className={styles.input}

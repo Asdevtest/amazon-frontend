@@ -36,6 +36,7 @@ models/admin-user-patch-dto-schema.ts
 models/api-v1-admins-feedback-user.ts
 models/api-v1-admins-get-products-by-status-box-amounts.ts
 models/api-v1-admins-get-products-by-status-box-properties.ts
+models/api-v1-admins-get-products-by-status-created-by.ts
 models/api-v1-admins-get-products-by-status-payment-methods.ts
 models/api-v1-admins-get-products-by-status-price-variations.ts
 models/api-v1-admins-get-products-by-status-red-flags.ts
@@ -57,7 +58,6 @@ models/api-v1-admins-set-setting-tech-pause.ts
 models/api-v1-admins-tasks-light-boxes.ts
 models/api-v1-admins-tasks-light-storekeeper.ts
 models/api-v1-admins-tasks-light-variation-tariff.ts
-models/api-v1-announcements-my-created-by.ts
 models/api-v1-announcements-my-requests.ts
 models/api-v1-announcements-my-spec.ts
 models/api-v1-batches-batch.ts
@@ -92,6 +92,7 @@ models/api-v1-buyers-orders-my-payments.ts
 models/api-v1-buyers-orders-my-product.ts
 models/api-v1-buyers-orders-ready-for-payment-guid-order-payments.ts
 models/api-v1-buyers-products-guid-tags.ts
+models/api-v1-buyers-products-vac-tags.ts
 models/api-v1-clients-products-guid-red-flags.ts
 models/api-v1-clients-products-listing-reports-listing-launches.ts
 models/api-v1-gologin-profile-navigator.ts
@@ -128,7 +129,6 @@ models/api-v1-requests-custom-request-links-to-media-files.ts
 models/api-v1-requests-custom-request.ts
 models/api-v1-shop-sell-statistics.ts
 models/api-v1-shop-sell-statistics1.ts
-models/api-v1-shops-with-profiles-profile.ts
 models/api-v1-storekeepers-boxes-guid-items.ts
 models/api-v1-storekeepers-tariff-logistics-destination-variations.ts
 models/api-v1-storekeepers-tariff-warehouses.ts
@@ -228,6 +228,7 @@ models/inline-object167.ts
 models/inline-object168.ts
 models/inline-object169.ts
 models/inline-object17.ts
+models/inline-object170.ts
 models/inline-object18.ts
 models/inline-object19.ts
 models/inline-object2.ts
@@ -398,6 +399,11 @@ models/inline-response20039-all-files.ts
 models/inline-response20039-all-images.ts
 models/inline-response20039-all-video.ts
 models/inline-response20039.ts
+models/inline-response2004-allowed-spec.ts
+models/inline-response2004-allowed-urls.ts
+models/inline-response2004-permission-groups.ts
+models/inline-response2004-permissions.ts
+models/inline-response2004-sub-users.ts
 models/inline-response2004.ts
 models/inline-response20040.ts
 models/inline-response20041.ts
@@ -460,12 +466,8 @@ models/inline-response20058-checking.ts
 models/inline-response20058-products.ts
 models/inline-response20058.ts
 models/inline-response20059.ts
-models/inline-response2006-allowed-spec.ts
-models/inline-response2006-allowed-urls.ts
-models/inline-response2006-permission-groups.ts
-models/inline-response2006-permissions.ts
-models/inline-response2006-sub-users.ts
 models/inline-response2006.ts
+models/inline-response20060-rows.ts
 models/inline-response20060.ts
 models/inline-response20061.ts
 models/inline-response20062.ts
@@ -535,6 +537,8 @@ models/inline-response20093.ts
 models/inline-response20094.ts
 models/inline-response20095.ts
 models/inline-response20096.ts
+models/inline-response20097-profile.ts
+models/inline-response20097-rows.ts
 models/inline-response20097.ts
 models/inline-response20098.ts
 models/inline-response20099.ts

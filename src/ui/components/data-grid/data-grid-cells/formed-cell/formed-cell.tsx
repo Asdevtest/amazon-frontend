@@ -1,7 +1,10 @@
-import { CheckboxCell, MultilineTextCell } from '..'
 import { FC, memo } from 'react'
 
+import { Text } from '@components/shared/text'
+
 import { useStyles } from './formed-cell.style'
+
+import { CheckboxCell } from '../checkbox-cell/checkbox-cell'
 
 interface ISub {
   name: string
@@ -21,7 +24,7 @@ export const FormedCell: FC<FormedCellProps> = memo(({ sub, disable, isChecked, 
   return (
     <div className={styles.wrapper}>
       <CheckboxCell disabled={disable} checked={isChecked} onClick={onChangeIsFormedInBox} />
-      {sub?.name && <MultilineTextCell text={sub.name} />}
+      {sub?.name ? <Text text={sub.name} /> : null}
     </div>
   )
 })

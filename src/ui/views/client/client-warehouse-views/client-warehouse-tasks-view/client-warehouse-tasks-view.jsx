@@ -1,16 +1,16 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+import { BsDownload } from 'react-icons/bs'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomSelect } from '@components/shared/custom-select'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
-import { DownloadIcon } from '@components/shared/svg-icons'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
@@ -28,96 +28,112 @@ export const ClientWarehouseTasksView = observer(() => {
   const [viewModel] = useState(() => new ClientWarehouseTasksViewModel())
 
   return (
-    <div className={styles.container}>
+    <div className="viewWrapper">
       <div className={styles.headerWrapper}>
-        <div />
-
-        <SearchInput
-          value={viewModel.nameSearchValue}
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by ASIN, Order ID, Item'])}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by ASIN, Order ID, Item"
+          onSearch={viewModel.onSearchSubmit}
         />
 
-        <Button disabled={viewModel.isDisabledDownload} onClick={viewModel.onClickReportBtn}>
-          {t(TranslationKey['Download task file'])}
-          <DownloadIcon
-            className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: viewModel.isDisabledDownload })}
+        <div className={styles.filters}>
+          <CustomSelect
+            size="large"
+            options={getPriorityConfig()}
+            value={viewModel.selectedPriority}
+            onChange={el => viewModel.setFilters('selectedPriority', el)}
           />
-        </Button>
+          <CustomSelect
+            size="large"
+            options={getStatusConfig()}
+            value={viewModel.selectedStatus}
+            onChange={el => viewModel.setFilters('selectedStatus', el)}
+          />
+          <CustomSelect
+            size="large"
+            options={getTypeConfig()}
+            value={viewModel.selectedType}
+            onChange={el => viewModel.setFilters('selectedType', el)}
+          />
+          <CustomSelect
+            size="large"
+            options={getStorekeepersConfig(viewModel.storekeepersData)}
+            value={viewModel.selectedStorekeeper}
+            onChange={el => viewModel.setFilters('selectedStorekeeper', el)}
+          />
+        </div>
+
+        <CustomButton
+          type="primary"
+          size="large"
+          icon={<BsDownload />}
+          disabled={viewModel.isDisabledDownload}
+          onClick={viewModel.onClickReportBtn}
+        >
+          {t(TranslationKey['Download task file'])}
+        </CustomButton>
       </div>
 
-      <div className={styles.filters}>
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel.selectedPriority}
-          switcherSettings={getPriorityConfig()}
-          changeConditionHandler={el => viewModel.setFilters('selectedPriority', el)}
-        />
-
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel.selectedStatus}
-          switcherSettings={getStatusConfig()}
-          changeConditionHandler={el => viewModel.setFilters('selectedStatus', el)}
-        />
-
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel.selectedType}
-          switcherSettings={getTypeConfig()}
-          changeConditionHandler={el => viewModel.setFilters('selectedType', el)}
-        />
-
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel.selectedStorekeeper}
-          switcherSettings={getStorekeepersConfig(viewModel.storekeepersData)}
-          changeConditionHandler={el => viewModel.setFilters('selectedStorekeeper', el)}
-        />
-      </div>
-
-      <div className={styles.tasksWrapper}>
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          getRowId={row => row._id}
-          pinnedColumns={viewModel.pinnedColumns}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        getRowId={row => row._id}
+        pinnedColumns={viewModel.pinnedColumns}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
-
-            toolbar: {
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          columns={viewModel.columnsModel}
-          rowCount={viewModel.rowCount}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+          },
+
+          sortSettings: {
+            sortModel: viewModel.sortModel,
+            columnsModel: viewModel.columnsModel,
+            onSortModelChange: viewModel.onChangeSortingModel,
+          },
+
+          tablePresets: {
+            showPresetsSelect: viewModel.showPresetsSelect,
+            presetsTableData: viewModel.presetsTableData,
+            handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+            handleSetPresetActive: viewModel.handleSetPresetActive,
+            handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+            handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+            handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+            onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+          },
+        }}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        columns={viewModel.columnsModel}
+        rowCount={viewModel.rowCount}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+      />
 
       <Modal
         openModal={viewModel.showEditPriorityData}

@@ -1,17 +1,17 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
+import { BsDownload } from 'react-icons/bs'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
-import { DownloadIcon } from '@components/shared/svg-icons'
 import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
@@ -42,86 +42,82 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
       TaskOperationType.RECEIVE
 
   return (
-    <>
-      <div>
-        <div className={styles.headerWrapper}>
-          <TaskPrioritySelector
-            currentPriority={viewModel.curTaskPriority}
-            handleActivePriority={viewModel.onClickTaskPriorityBtn}
-          />
+    <div className="viewWrapper">
+      <div className={styles.headerWrapper}>
+        <TaskPrioritySelector
+          currentPriority={viewModel.curTaskPriority}
+          onActivePriority={viewModel.onClickTaskPriorityBtn}
+        />
 
-          {window.innerWidth < 1282 && (
-            <Button disabled={!viewModel.selectedTasks.length} onClick={viewModel.onClickPickupManyTasksBtn}>
-              {t(TranslationKey['Take on the work of the selected'])}
-            </Button>
-          )}
-
-          <Button disabled={isDisableDowloadButton} onClick={viewModel.onClickReportBtn}>
-            {t(TranslationKey['Download task file'])}
-            <DownloadIcon
-              className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: isDisableDowloadButton })}
-            />
-          </Button>
-        </div>
-
-        <div className={styles.headerWrapper}>
-          <div className={styles.headerContainer}>
-            {window.innerWidth > 1281 && (
-              <Button disabled={!viewModel.selectedTasks.length} onClick={viewModel.onClickPickupManyTasksBtn}>
-                {t(TranslationKey['Take on the work of the selected'])}
-              </Button>
-            )}
-
-            <BuyerTypeTaskSelect
-              curTaskType={viewModel.curTaskType}
-              onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
-            />
-          </div>
-
-          <SearchInput
-            value={viewModel.nameSearchValue}
-            inputClasses={styles.searchInput}
-            placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
-            onSubmit={viewModel.onSearchSubmit}
-          />
-        </div>
-
-        <div className={styles.tableWrapper}>
-          <CustomDataGrid
-            checkboxSelection
-            disableRowSelectionOnClick
-            getRowClassName={getRowClassName}
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            rows={viewModel.currentData}
-            getRowHeight={() => 'auto'}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
-              },
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-            onRowSelectionModelChange={viewModel.onSelectionModel}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onPaginationModelChange}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onRowDoubleClick={params => viewModel.setCurrentOpenedTask(params.row.originalData)}
-          />
-        </div>
+        <BuyerTypeTaskSelect
+          curTaskType={viewModel.curTaskType}
+          onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
+        />
       </div>
+
+      <div className={styles.headerWrapper}>
+        <CustomButton
+          type="primary"
+          size="large"
+          disabled={!viewModel.selectedTasks.length}
+          onClick={viewModel.onClickPickupManyTasksBtn}
+        >
+          {t(TranslationKey['Take on the work of the selected'])}
+        </CustomButton>
+
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          wrapperClassName={styles.searchInput}
+          placeholder="Search by ASIN, Order ID, Item, Track number"
+          onSearch={viewModel.onSearchSubmit}
+        />
+
+        <CustomButton
+          type="primary"
+          size="large"
+          ico={<BsDownload />}
+          disabled={isDisableDowloadButton}
+          onClick={viewModel.onClickReportBtn}
+        >
+          {t(TranslationKey['Download task file'])}
+        </CustomButton>
+      </div>
+
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        getRowClassName={getRowClassName}
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+            },
+          },
+        }}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowDoubleClick={params => viewModel.setCurrentOpenedTask(params.row.originalData)}
+      />
 
       <Modal
         openModal={viewModel.showTaskInfoModal}
@@ -177,6 +173,6 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </>
+    </div>
   )
 })

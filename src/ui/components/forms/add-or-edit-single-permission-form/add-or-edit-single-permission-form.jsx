@@ -46,8 +46,12 @@ export const AddOrEditSinglePermissionForm = observer(
       } else if (fieldName === 'key') {
         setOnKeyFieldEditing(true)
         newFormFields[fieldName] = clearSpecialCharacters(event.target.value)
-      } else if (fieldName === 'hierarchy' && !checkIsPositiveNum(event.target.value)) {
-        return
+      } else if (fieldName === 'hierarchy') {
+        const value = event.target.value
+        if (!checkIsPositiveNum(value) || Number(value) > 200) {
+          return
+        }
+        newFormFields[fieldName] = value
       } else {
         newFormFields[fieldName] = event.target.value
       }

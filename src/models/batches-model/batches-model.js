@@ -75,7 +75,7 @@ export class BatchesModelStatic {
   }
 
   getBatchesWithFiltersPag = async body => {
-    const response = await restApiService.batchesApi.apiV1BatchesWithFiltersGet(body)
+    const response = await restApiService.batchesApi.apiV1BatchesWithFiltersGet({ ...body, noCache: true })
     return response.data
   }
 

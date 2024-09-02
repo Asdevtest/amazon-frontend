@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
+import { useGridApiRef } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
@@ -10,14 +12,13 @@ import { MyOrderModal } from '@components/modals/my-order-modal/my-order-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-orders-view.style'
@@ -29,88 +30,103 @@ export const ClientOrdersView = observer(history => {
 
   const [viewModel] = useState(() => new ClientOrdersViewModel(history))
 
+  const apiRef = useGridApiRef()
+
   return (
-    <>
-      <div className={styles.topHeaderBtnsWrapper}>
+    <div className={styles.container}>
+      <div className={styles.flexRow}>
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by SKU, ASIN, Title"
+          onSearch={viewModel.onSearchSubmit}
+        />
+
         {viewModel.isPendingOrdering ? (
-          <div className={styles.topHeaderBtnsSubWrapper}>
-            <Button
-              styleType={ButtonStyle.SUCCESS}
+          <div className={styles.flexRow}>
+            <CustomButton
+              type="primary"
+              size="large"
               disabled={!viewModel.selectedRows.length}
               onClick={viewModel.onClickManyReorder}
             >
               {t(TranslationKey['To order'])}
-            </Button>
+            </CustomButton>
 
-            <Button
-              styleType={ButtonStyle.DANGER}
+            <CustomButton
+              danger
+              type="primary"
+              size="large"
               disabled={!viewModel.selectedRows.length}
               onClick={viewModel.onConfirmCancelManyReorder}
             >
               {t(TranslationKey['Cancel order'])}
-            </Button>
+            </CustomButton>
           </div>
         ) : (
           <div />
         )}
-
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
-          onSubmit={viewModel.onSearchSubmit}
-        />
-
-        <div className={cx({ [styles.invis]: viewModel.isPendingOrdering })} />
       </div>
 
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          disableRowSelectionOnClick
-          checkboxSelection={viewModel.isPendingOrdering}
-          pinnedColumns={viewModel.pinnedColumns}
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          getRowId={row => row._id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        disableRowSelectionOnClick
+        apiRef={apiRef}
+        checkboxSelection={viewModel.isPendingOrdering}
+        pinnedColumns={viewModel.pinnedColumns}
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        getRowId={row => row._id}
+        rowSelectionModel={viewModel.selectedRows}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          rowSelectionModel={viewModel.selectedRows}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowClick={params => viewModel.onClickMyOrderModal(params.row._id)}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
+          },
+        }}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowClick={params => viewModel.onClickMyOrderModal(params.row._id)}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+      />
 
       <Modal
         openModal={viewModel.showSetBarcodeModal}
@@ -214,6 +230,6 @@ export const ClientOrdersView = observer(history => {
       >
         <ProductDataForm product={viewModel.selectedWarehouseOrderProduct} onAmazon={viewModel.onAmazon} />
       </Modal>
-    </>
+    </div>
   )
 })

@@ -154,14 +154,16 @@ export class WarehouseVacantViewModel {
     this.getTasksVacant()
   }
 
-  onClickOperationTypeBtn(type) {
-    this.curTaskType = type
+  onClickOperationTypeBtn(event) {
+    const currentValue = event.target.value
+    this.curTaskType = currentValue
 
     this.getTasksVacant()
   }
 
-  onClickTaskPriorityBtn(type) {
-    this.curTaskPriority = type
+  onClickTaskPriorityBtn(event) {
+    const currentValue = event.target.value
+    this.curTaskPriority = currentValue
 
     this.getTasksVacant()
   }

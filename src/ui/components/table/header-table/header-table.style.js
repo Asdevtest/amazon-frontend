@@ -1,23 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  searchWrapper: {
+  flexRow: {
     display: 'flex',
-    justifyContent: 'center',
-  },
-
-  btnsWrapper: {
-    display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'space-between',
-  },
-
-  btnsSubWrapper: {
-    display: 'flex',
     gap: 20,
   },
 
   searchInput: {
-    width: 550,
+    width: 450,
   },
 }))

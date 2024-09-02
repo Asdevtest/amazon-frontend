@@ -38,6 +38,12 @@ export interface InlineResponse20059 {
      * @memberof InlineResponse20059
      */
     productCount?: number;
+    /**
+     * Tag color
+     * @type {string}
+     * @memberof InlineResponse20059
+     */
+    color?: string;
 }
 
 

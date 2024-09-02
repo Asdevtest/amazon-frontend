@@ -65,7 +65,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   textField: {
-    marginBottom: '40px',
+    marginBottom: '0px',
   },
 
   editorWrapper: {

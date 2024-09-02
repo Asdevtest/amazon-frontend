@@ -1,12 +1,11 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineStatusCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  ProductAsinCell,
+  ProductCell,
   SupplierCell,
+  Text,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -42,23 +41,22 @@ export const exchangeCanceledColumns = () => [
       const product = params.row.originalData
 
       return (
-        <ProductAsinCell
+        <ProductCell
           image={product?.images?.[0]}
-          amazonTitle={product?.amazonTitle}
+          title={product?.amazonTitle}
           asin={product?.asin}
-          skuByClient={product?.skuByClient}
+          sku={product?.skuByClient}
         />
       )
     },
-    width: 260,
-    minWidth: 100,
+    width: 170,
   },
   {
     field: 'strategyStatus',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    renderCell: params => <MultilineStatusCell status={params.value} />,
+    renderCell: params => <Text text={params.value?.replace(/_/g, ' ')} />,
     width: 250,
   },
   {
@@ -66,7 +64,7 @@ export const exchangeCanceledColumns = () => [
     headerName: t(TranslationKey.Price),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
 
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <Text text={toFixedWithDollarSign(params.value, 2)} />,
     width: 150,
     type: 'number',
   },
@@ -119,7 +117,7 @@ export const exchangeCanceledColumns = () => [
     headerName: t(TranslationKey.Profit),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
 
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <Text text={toFixedWithDollarSign(params.value, 2)} />,
     width: 150,
     type: 'number',
   },
@@ -128,7 +126,7 @@ export const exchangeCanceledColumns = () => [
     headerName: t(TranslationKey.Margin),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Margin)} />,
 
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <Text text={toFixedWithDollarSign(params.value, 2)} />,
     width: 150,
     type: 'number',
   },
@@ -137,7 +135,7 @@ export const exchangeCanceledColumns = () => [
     headerName: t(TranslationKey.BSR),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
     width: 150,
     type: 'number',
   },
@@ -146,7 +144,7 @@ export const exchangeCanceledColumns = () => [
     headerName: t(TranslationKey['FBA fee , $']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
 
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <Text text={toFixedWithDollarSign(params.value, 2)} />,
     width: 150,
     type: 'number',
   },
@@ -155,7 +153,7 @@ export const exchangeCanceledColumns = () => [
     headerName: t(TranslationKey['FBA Amount']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA Amount'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
     width: 150,
     type: 'number',
   },

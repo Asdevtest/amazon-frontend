@@ -23,16 +23,15 @@ import { SelectionSupplierModal } from '@components/modals/selection-supplier-mo
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { useStyles } from '@views/client/client-ideas-view/client-ideas-view.style'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
@@ -59,69 +58,79 @@ export const ClientIdeasView = observer(({ history }) => {
   }
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.controls}>
-        <div />
-
-        <SearchInput
-          inputClasses={styles.searchInput}
-          value={viewModel.currentSearchValue}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by SKU, ASIN, Title"
+          onSearch={viewModel.onSearchSubmit}
         />
 
         {['/client/ideas/new', '/client/ideas/all'].includes(viewModel.history.location.pathname) && (
-          <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickProductLaunch}>
-            <FiPlus style={{ width: 16, height: 16 }} />
+          <CustomButton type="primary" size="large" icon={<FiPlus />} onClick={viewModel.onClickProductLaunch}>
             {t(TranslationKey['Create idea'])}
-          </Button>
+          </CustomButton>
         )}
       </div>
 
-      <div className={styles.datagridWrapper}>
-        <CustomDataGrid
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          pinnedColumns={viewModel.pinnedColumns}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          getRowId={({ _id }) => _id}
-          slotProps={{
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
+      <CustomDataGrid
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        pinnedColumns={viewModel.pinnedColumns}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        getRowId={({ _id }) => _id}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-          }}
-          getRowClassName={getRowClassName}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={params => viewModel.getDataForIdeaModal(params.row)}
-        />
-      </div>
+
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+            },
+
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
+          },
+        }}
+        getRowClassName={getRowClassName}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowDoubleClick={params => viewModel.getDataForIdeaModal(params.row)}
+      />
 
       <Modal
         openModal={viewModel.showProductLaunch}
@@ -303,6 +312,6 @@ export const ClientIdeasView = observer(({ history }) => {
           onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
         />
       </Modal>
-    </>
+    </div>
   )
 })

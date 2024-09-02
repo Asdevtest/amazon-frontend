@@ -15,6 +15,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
 import { Button } from '@components/shared/button'
+import { CustomInputNumber } from '@components/shared/custom-input-number'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -102,7 +103,7 @@ export const AdminUserEditContent = observer(
     const onChangeFormField = fieldName => event => {
       const newFormFields = { ...formFields }
       if (fieldName === 'rate') {
-        newFormFields[fieldName] = event.target.value.replace(/[-]/, '')
+        newFormFields[fieldName] = event
       } else if (['fba', 'canByMasterUser', 'hideSuppliers', 'isUserPreprocessingCenterUSA'].includes(fieldName)) {
         newFormFields[fieldName] = event.target.checked
       } else if (
@@ -167,6 +168,8 @@ export const AdminUserEditContent = observer(
 
       const dataToSubmit = {
         ...formFields,
+        email: formFields.email?.trim(),
+        name: formFields.name?.trim(),
         allowedRoles: selectedAllowedRoles.includes(Number(formFields.role))
           ? [...selectedAllowedRoles]
           : [...selectedAllowedRoles, Number(formFields.role)],
@@ -188,8 +191,8 @@ export const AdminUserEditContent = observer(
 
     const disabledSubmitButton =
       !emailIsValid ||
-      formFields.name === '' ||
-      formFields.email === '' ||
+      formFields.name?.trim() === '' ||
+      formFields.email?.trim() === '' ||
       formFields.rate === '' ||
       (isEqual(changedAllowedRoles, selectedAllowedRoles) && isEqual(sourceFormFields, formFields))
 
@@ -439,11 +442,11 @@ export const AdminUserEditContent = observer(
               />
 
               {!editUserFormFields?.masterUser ? (
-                <Field
-                  inputProps={{ maxLength: 8 }}
-                  containerClasses={styles.rateContainer}
-                  label={t(TranslationKey.Rate)}
+                <CustomInputNumber
+                  labelClassName={styles.allowedRoleWrapperTitle}
+                  label="Rate"
                   value={formFields.rate}
+                  maxLength={8}
                   onChange={onChangeFormField('rate')}
                 />
               ) : null}

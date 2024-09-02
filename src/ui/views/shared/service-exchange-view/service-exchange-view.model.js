@@ -20,7 +20,7 @@ export class ServiceExchangeViewModel {
 
   announcements = []
 
-  selectedSpec = Specs.DEFAULT
+  specOption = Specs.DEFAULT
 
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
@@ -123,11 +123,11 @@ export class ServiceExchangeViewModel {
     )
   }
 
-  onClickSpec(specType) {
-    this.selectedSpec = specType
+  onChangeSpec(value) {
+    this.specOption = value
 
     // spec - for "_id:string", specType - for "type:number"
-    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+    this.onChangeFullFieldMenuItem(value === Specs.DEFAULT ? [] : [value], 'specType', true)
 
     this.options.offset = 0
     this.options.filters = this.getFilter()
@@ -153,8 +153,9 @@ export class ServiceExchangeViewModel {
     )
   }
 
-  onChangeViewMode(value) {
-    this.viewMode = value
+  onChangeViewMode(event) {
+    const currentValue = event.target.value
+    this.viewMode = currentValue
 
     this.setTableModeState()
   }

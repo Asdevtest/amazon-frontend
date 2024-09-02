@@ -5,13 +5,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './tab-destinations.style'
@@ -23,40 +22,38 @@ export const TabDestinations = observer(() => {
   const [viewModel] = useState(() => new AdminSettingsDestinationsModel())
 
   return (
-    <div className={styles.wrapper}>
-      <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
+    <div className="viewWrapper">
+      <CustomButton type="primary" size="large" onClick={viewModel.onClickAddBtn}>
         {t(TranslationKey['Add a destination'])}
-      </Button>
+      </CustomButton>
 
-      <div className={styles.datagridWrapper}>
-        <CustomDataGrid
-          sortModel={viewModel.sortModel}
-          sortingMode="client"
-          paginationMode="client"
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        sortModel={viewModel.sortModel}
+        sortingMode="client"
+        paginationMode="client"
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-            toolbar: {
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-            },
-          }}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-        />
-      </div>
+          },
+        }}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+      />
 
       <Modal openModal={viewModel.showAddOrEditDestinationModal} setOpenModal={viewModel.onClickToggleAddOrEditModal}>
         <AddOrEditDestinationForm

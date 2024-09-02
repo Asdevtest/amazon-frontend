@@ -3,16 +3,17 @@ import { useEffect } from 'react'
 import { useFaviconNotification } from 'react-favicon-notification'
 import { Redirect, Route, useLocation } from 'react-router-dom'
 
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
 
 import { ChatModel } from '@models/chat-model'
 import { UserModel } from '@models/user-model'
 
+import { resetAccessTokenByTime } from '@services/axios/reset-api'
+
 import { Layout } from '@components/layout'
 
 import { isHaveMasterUser } from '@utils/checks'
-import { resetAccessTokenByTime } from '@utils/reset'
 
 export const PrivateRoutes = observer(() => {
   const location = useLocation()
@@ -41,7 +42,7 @@ export const PrivateRoutes = observer(() => {
     if (UserModel.isAuthenticated()) {
       ChatModel.init()
       ChatModel.getUnreadMessagesCount()
-      resetAccessTokenByTime(UserModel.accessToken, UserModel.refreshToken)
+      resetAccessTokenByTime()
     }
   }, [])
 
@@ -67,13 +68,7 @@ export const PrivateRoutes = observer(() => {
           return <Route key={index} component={route.component} exact={route.exact} path={route.routePath} />
         })}
 
-        {notAllowedRoute ? (
-          allowedRoutes[0] ? (
-            <Redirect to={allowedRoutes[0].routePath} />
-          ) : (
-            <Redirect to={'/auth'} />
-          )
-        ) : null}
+        {notAllowedRoute ? <Redirect to={`/${UserRoleCodeMapForRoutes[userInfo.role]}/dashboard`} /> : null}
       </>
     )
   }

@@ -15,21 +15,20 @@ import { FreelanceRequestDetailsModal } from '@components/modals/freelance-reque
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './my-requests-view.style'
 
-import { switcherConfig } from './my-requests-view.constants'
+import { radioButtonOptions } from './my-requests-view.constants'
 import { MyRequestsViewModel } from './my-requests-view.model'
 
 export const MyRequestsView = observer(() => {
@@ -40,11 +39,12 @@ export const MyRequestsView = observer(() => {
   const [viewModel] = useState(() => new MyRequestsViewModel({ dataGridApi: apiRef }))
 
   const getCellClassName = params => {
-    if (
-      (params.row.countProposalsByStatuses.waitedProposals && params.field === 'waitedProposals') ||
-      (params.field === 'freelanceNotices' && params.row.freelanceNotices > 0)
-    ) {
+    if (params.row.countProposalsByStatuses.waitedProposals && params.field === 'waitedProposals') {
       return styles.waitingCheckedBacklighting
+    }
+
+    if (params.field === 'freelanceNotices' && params.row.freelanceNotices > 0) {
+      return styles.unreadMessages
     }
   }
 
@@ -64,81 +64,87 @@ export const MyRequestsView = observer(() => {
   )
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.header}>
-        <div />
-
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.SEARCH_BY_TITLE)}, ${t(
-            TranslationKey.ASIN,
-          )}, ${t(TranslationKey.ID)}`}
-          value={viewModel.currentSearchValue}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={radioButtonOptions}
+          defaultValue={viewModel.radioButtonOption}
+          onChange={viewModel.onChangeRadioButtonOption}
         />
 
-        <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickAddBtn}>
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by SKU, ASIN, Title"
+          onSearch={viewModel.onSearchSubmit}
+        />
+
+        <CustomButton size="large" type="primary" onClick={viewModel.onClickAddBtn}>
           {t(TranslationKey['Create request'])}
-        </Button>
+        </CustomButton>
       </div>
 
-      <CustomSwitcher
-        fullWidth
-        switchMode="big"
-        condition={viewModel.switcherCondition}
-        switcherSettings={switcherConfig}
-        changeConditionHandler={viewModel.onClickChangeCatigory}
+      <CustomDataGrid
+        apiRef={viewModel.dataGridApi}
+        getCellClassName={getCellClassName}
+        getRowClassName={getRowClassName}
+        pinnedColumns={viewModel.pinnedColumns}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rowCount={viewModel.rowCount}
+        sortModel={viewModel.sortModel}
+        rows={viewModel.currentData}
+        rowHeight={130}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          columnMenu: viewModel.columnMenuSettings,
+
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
+            },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+            },
+
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
+          },
+        }}
+        getRowId={row => row._id}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowDoubleClick={e => viewModel.handleOpenRequestDetailModal(e)}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
       />
-
-      <div className={styles.datagridWrapper}>
-        <CustomDataGrid
-          apiRef={viewModel.dataGridApi}
-          getCellClassName={getCellClassName}
-          getRowClassName={getRowClassName}
-          pinnedColumns={viewModel.pinnedColumns}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          rows={viewModel.currentData}
-          rowHeight={130}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
-            },
-            columnMenu: viewModel.columnMenuSettings,
-
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
-            },
-          }}
-          getRowId={row => row._id}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={e => viewModel.handleOpenRequestDetailModal(e)}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
 
       <Modal openModal={viewModel.showRequestForm} setOpenModal={() => viewModel.onTriggerOpenModal('showRequestForm')}>
         <Typography variant="h5">{t(TranslationKey['New request'])}</Typography>
@@ -253,6 +259,6 @@ export const MyRequestsView = observer(() => {
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
       ) : null}
-    </>
+    </div>
   )
 })

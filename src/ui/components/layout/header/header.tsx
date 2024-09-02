@@ -29,6 +29,7 @@ import { ExitIcon, HintsOffIcon, HintsOnIcon, MenuIcon } from '@components/share
 import { checkIsResearcher } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { getShortenStringIfLongerThanCount, toFixedWithDollarSign } from '@utils/text'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { HintsContext } from '@contexts/hints-context'
@@ -188,7 +189,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
             switchMode="header"
             condition={role}
             switcherSettings={roles}
-            changeConditionHandler={onChangeUserInfo}
+            changeConditionHandler={throttle(onChangeUserInfo)}
           />
         </div>
 
@@ -260,7 +261,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
                         className={cx(styles.userRole, {
                           [styles.currentAllowedRolesItem]: roleCode === role,
                         })}
-                        onClick={() => onChangeUserInfo(roleCode)}
+                        onClick={() => throttle(() => onChangeUserInfo(roleCode))}
                       >
                         {(UserRoleCodeMap as { [key: number]: string })[roleCode]}
                       </p>

@@ -15,18 +15,17 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ActionButtonsCell,
   DeadlineCell,
-  DownloadAndCopyBtnsCell,
   IconHeaderCell,
-  MultilineTextCell,
+  LinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
-  ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
-import { toFixedWithDollarSign } from '@utils/text'
+import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 
@@ -35,7 +34,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-    renderCell: params => <MultilineTextCell text={params.row.idItem} />,
+    renderCell: params => <Text isCell text={params.row.idItem} />,
     width: 100,
     type: 'number',
   },
@@ -83,8 +82,8 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
 
     width: 160,
     renderCell: params => (
-      <MultilineTextCell
-        leftAlign
+      <Text
+        isCell
         text={OrderStatusTranslate(OrderStatusByCode[params.row.originalData.status], 'client')}
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />
@@ -122,11 +121,10 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    width: 210,
-    renderCell: params => (
-      <DownloadAndCopyBtnsCell value={params.value} isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id} />
-    ),
+    width: 100,
+    renderCell: params => <LinkCell value={params.value} />,
     sortable: false,
+    align: 'center',
   },
 
   {
@@ -134,7 +132,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
 
     type: 'number',
     width: 90,
@@ -158,7 +156,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey['Where to']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 120,
     sortable: false,
   },
@@ -172,7 +170,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
       const orderSupplier = params.row.originalData?.orderSupplier
 
       return orderSupplier ? (
-        <MultilineTextCell text={`${orderSupplier?.minProductionTerm} - ${orderSupplier?.maxProductionTerm}`} />
+        <Text isCell text={`${orderSupplier?.minProductionTerm} - ${orderSupplier?.maxProductionTerm}`} />
       ) : null
     },
     width: 160,
@@ -187,7 +185,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
       params.row.originalData.status < 20 ? (
         <DeadlineCell deadline={params.row.deadline} />
       ) : (
-        <MultilineTextCell text={'-'} />
+        <Text isCell text={'-'} />
       ),
     width: 100,
   },
@@ -198,7 +196,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
 
     width: 140,
-    renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+    renderCell: params => <Text isCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
   },
 
   {
@@ -208,7 +206,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
 
     type: 'number',
     width: 140,
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
 
   {
@@ -218,7 +216,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
 
     type: 'number',
     width: 110,
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    renderCell: params => <Text isCell text={toFixedWithKg(params.value)} />,
     sortable: false,
   },
   {
@@ -227,7 +225,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
     width: 160,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
   },
 
   {
@@ -235,7 +233,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey['Buyer comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 120,
     sortable: false,
   },
@@ -245,7 +243,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 120,
     sortable: false,
   },

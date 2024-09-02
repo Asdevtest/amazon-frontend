@@ -7,7 +7,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   MultipleAsinCell,
   NormDateFromUnixCell,
@@ -15,6 +14,7 @@ import {
   TaskDescriptionCell,
   TaskTypeCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -53,7 +53,8 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Priority),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
     renderCell: params => (
-      <MultilineTextCell
+      <Text
+        isCell
         color={colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[params.value])}
         text={taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[params.value])}
       />

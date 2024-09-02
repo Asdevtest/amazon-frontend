@@ -13,9 +13,9 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
-import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
 
 /**
  * 
@@ -97,34 +97,34 @@ export interface InlineResponse200103Rows {
     redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
+     * @type {Array<ApiV1BuyersProductsVacTags>}
      * @memberof InlineResponse200103Rows
      */
-    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
+    tags?: Array<ApiV1BuyersProductsVacTags>;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse200103Rows
      */
-    buyer?: ApiV1AnnouncementsMyCreatedBy;
+    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse200103Rows
      */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse200103Rows
      */
-    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse200103Rows
      */
-    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * Дата создания
      * @type {string}

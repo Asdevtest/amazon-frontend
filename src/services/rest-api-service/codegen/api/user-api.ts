@@ -21,7 +21,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { ApiV1AnnouncementsMyCreatedBy } from '../models';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from '../models';
 // @ts-ignore
 import { BadRequestError } from '../models';
 // @ts-ignore
@@ -1597,12 +1597,14 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * ## Получение preset-settings юзера
          * @summary # Получение preset-settings юзера
          * @param {string} [filters]                Возможные поля:                type: (request,order,box,proposal,idea),                data: ($contains -&gt; anyValue)               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
          * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPresetsSettingsMyGet: async (filters?: string, noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1UsersPresetsSettingsMyGet: async (filters?: string, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/users/presets/settings/my`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1617,6 +1619,14 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
 
             if (filters !== undefined) {
                 localVarQueryParameter['filters'] = filters;
+            }
+
+            if (sortField !== undefined) {
+                localVarQueryParameter['sortField'] = sortField;
+            }
+
+            if (sortType !== undefined) {
+                localVarQueryParameter['sortType'] = sortType;
             }
 
             if (noCache !== undefined) {
@@ -2146,7 +2156,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersMastersGet(role: number, guid: string, specs?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1AnnouncementsMyCreatedBy>>> {
+        async apiV1UsersMastersGet(role: number, guid: string, specs?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1AdminsGetProductsByStatusCreatedBy>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersMastersGet(role, guid, specs, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2322,13 +2332,15 @@ export const UserApiFp = function(configuration?: Configuration) {
          * ## Получение preset-settings юзера
          * @summary # Получение preset-settings юзера
          * @param {string} [filters]                Возможные поля:                type: (request,order,box,proposal,idea),                data: ($contains -&gt; anyValue)               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
          * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersPresetsSettingsMyGet(filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200111>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersPresetsSettingsMyGet(filters, noCache, acceptEncoding, options);
+        async apiV1UsersPresetsSettingsMyGet(filters?: string, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200111>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersPresetsSettingsMyGet(filters, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2642,7 +2654,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersMastersGet(role: number, guid: string, specs?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1AnnouncementsMyCreatedBy>> {
+        apiV1UsersMastersGet(role: number, guid: string, specs?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1AdminsGetProductsByStatusCreatedBy>> {
             return localVarFp.apiV1UsersMastersGet(role, guid, specs, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2804,13 +2816,15 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * ## Получение preset-settings юзера
          * @summary # Получение preset-settings юзера
          * @param {string} [filters]                Возможные поля:                type: (request,order,box,proposal,idea),                data: ($contains -&gt; anyValue)               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
          * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPresetsSettingsMyGet(filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200111>> {
-            return localVarFp.apiV1UsersPresetsSettingsMyGet(filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
+        apiV1UsersPresetsSettingsMyGet(filters?: string, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200111>> {
+            return localVarFp.apiV1UsersPresetsSettingsMyGet(filters, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Создать новый preset-settings
@@ -3750,6 +3764,20 @@ export interface UserApiApiV1UsersPresetsSettingsMyGetRequest {
     readonly filters?: string
 
     /**
+     * Название поля
+     * @type {string}
+     * @memberof UserApiApiV1UsersPresetsSettingsMyGet
+     */
+    readonly sortField?: string
+
+    /**
+     * Тип сортировки
+     * @type {'ASC' | 'DESC'}
+     * @memberof UserApiApiV1UsersPresetsSettingsMyGet
+     */
+    readonly sortType?: 'ASC' | 'DESC'
+
+    /**
      * Игнорировать данные в кеше
      * @type {boolean}
      * @memberof UserApiApiV1UsersPresetsSettingsMyGet
@@ -4309,7 +4337,7 @@ export class UserApi extends BaseAPI {
      * @memberof UserApi
      */
     public apiV1UsersPresetsSettingsMyGet(requestParameters: UserApiApiV1UsersPresetsSettingsMyGetRequest = {}, options?: any) {
-        return UserApiFp(this.configuration).apiV1UsersPresetsSettingsMyGet(requestParameters.filters, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+        return UserApiFp(this.configuration).apiV1UsersPresetsSettingsMyGet(requestParameters.filters, requestParameters.sortField, requestParameters.sortType, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

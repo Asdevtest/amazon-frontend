@@ -1,12 +1,11 @@
 import { GridCellParams } from '@mui/x-data-grid'
 
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineRequestStatusCell,
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -18,7 +17,7 @@ export const linkRequestColumns = () => {
       field: 'humanFriendlyId',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: (params: GridCellParams) => <MultilineTextCell leftAlign text={params.row.humanFriendlyId} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row.humanFriendlyId} />,
 
       width: 80,
     },
@@ -27,7 +26,9 @@ export const linkRequestColumns = () => {
       field: 'status',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-      renderCell: (params: GridCellParams) => <MultilineRequestStatusCell status={params.row.status} />,
+      renderCell: (params: GridCellParams) => (
+        <Text isCell text={MyRequestStatusTranslate(params.row.status)} color={colorByStatus(params.row.status)} />
+      ),
       width: 120,
     },
 
@@ -35,9 +36,7 @@ export const linkRequestColumns = () => {
       field: 'title',
       headerName: t(TranslationKey.Title),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
-      renderCell: (params: GridCellParams) => (
-        <MultilineTextCell leftAlign twoLines maxLength={60} text={params.row.title} />
-      ),
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row.title} />,
       width: 260,
     },
 
@@ -45,7 +44,7 @@ export const linkRequestColumns = () => {
       field: 'spec',
       headerName: t(TranslationKey['Request type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-      renderCell: (params: GridCellParams) => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row.spec?.title} />,
       width: 110,
     },
   ]

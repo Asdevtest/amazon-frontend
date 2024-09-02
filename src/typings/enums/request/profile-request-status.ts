@@ -1,0 +1,15 @@
+export enum ProfileRequestStatus {
+  PENDING = 'PENDING',
+  REJECTED = 'REJECTED',
+  APPROVED = 'APPROVED',
+}
+
+export enum ProfileStatus {
+  VACANT = 'VACANT',
+  RESERVED = 'RESERVED',
+  WAITING_INVITE = 'WAITING_INVITE',
+  INVITED = 'INVITED',
+  REGISTERED = 'REGISTERED',
+  READY_TO_CHECKING = 'READY_TO_CHECKING',
+  IN_USE = 'IN_USE',
+}

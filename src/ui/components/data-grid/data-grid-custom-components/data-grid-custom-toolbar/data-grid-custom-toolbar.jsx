@@ -2,8 +2,10 @@ import { GridPagination, GridToolbarContainer, GridToolbarExport } from '@mui/x-
 
 import { useStyles } from './data-grid-custom-toolbar.style'
 
+import { PresetsMenu } from '../data-grid-presets'
 import { DataGridResetFilterButton } from '../data-grid-reset-filter-button'
 import { DataGridTableSetting } from '../data-grid-table-setting'
+import { QuickPresets } from '../quick-presets'
 import { SelectedTags } from '../selected-tags'
 import { SortSettings } from '../sort-settings'
 import { TagSearch } from '../tag-search'
@@ -16,6 +18,7 @@ export const DataGridCustomToolbar = props => {
     presetsSettings,
     sortSettings,
     tagSearchSettings,
+    tablePresets,
     excelOptions,
     ...restProps
   } = props
@@ -37,6 +40,8 @@ export const DataGridCustomToolbar = props => {
             {sortSettings ? <SortSettings {...sortSettings} /> : null}
 
             {tagSearchSettings ? <TagSearch {...tagSearchSettings} /> : null}
+
+            {tablePresets ? <PresetsMenu {...tablePresets} /> : null}
 
             {!!resetFiltersBtnSettings?.isSomeFilterOn && (
               <DataGridResetFilterButton
@@ -65,6 +70,8 @@ export const DataGridCustomToolbar = props => {
           setActiveProductsTag={tagSearchSettings?.setActiveProductsTag}
         />
       ) : null}
+
+      {tablePresets ? <QuickPresets {...tablePresets} /> : null}
     </GridToolbarContainer>
   )
 }

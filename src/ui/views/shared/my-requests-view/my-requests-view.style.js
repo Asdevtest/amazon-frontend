@@ -5,22 +5,15 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
-    paddingRight: 10,
-  },
-
-  searchInput: {
-    width: '400px',
-  },
-
-  datagridWrapper: {
-    height: '73vh',
-    width: '100%',
-    marginTop: 20,
   },
 
   waitingCheckedBacklighting: {
     background: theme.palette.background.green,
+    zIndex: 7,
+  },
+
+  unreadMessages: {
+    background: theme.palette.background.chatMyMessage,
     zIndex: 7,
   },
 

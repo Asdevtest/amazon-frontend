@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RadioChangeEvent } from 'antd'
 import { makeObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -12,6 +13,7 @@ import { BoxesModel } from '@models/boxes-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -21,7 +23,7 @@ import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 
 import { clientBatchesViewColumns } from '../client-awaiting-batches-view/client-batches-columns'
 
-import { fieldsForSearch, filtersFields } from './client-sent-batches-view.constants'
+import { additionalFilterFields, fieldsForSearch } from './client-sent-batches-view.constants'
 import { observerConfig } from './observer-config'
 
 export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
@@ -39,6 +41,8 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
     const rowHandlers = {
       changeViewModeHandler: (value: tableProductViewMode) => this.changeViewModeHandler(value),
       onClickSaveArrivalDate: (id: string, date: string) => this.onClickSaveArrivalDate(id, date),
+      onClickSaveTrackingNumber: (id: string, trackingNumber: string) =>
+        this.onClickSaveTrackingNumber(id, trackingNumber),
     }
 
     const columnsModel = clientBatchesViewColumns(rowHandlers, () => this.productViewMode)
@@ -52,11 +56,12 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
     super({
       getMainDataMethod: BatchesModel.getBatchesWithFiltersPag,
       columnsModel,
-      filtersFields,
+      filtersFields: getFilterFields(columnsModel, additionalFilterFields),
       mainMethodURL: `batches/with_filters?status=${BatchStatus.HAS_DISPATCHED}&`,
       fieldsForSearch,
       tableKey: DataGridTablesKeys.CLIENT_BATCHES,
       defaultGetCurrentDataOptions,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     makeObservable(this, observerConfig)
 
@@ -65,11 +70,8 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
       this.isArchive = history.location.state.isArchive
     }
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
-    this.getDataGridState()
+    this.getTableSettingsPreset()
     this.getStorekeepers()
-    this.getCurrentData()
 
     reaction(
       () => this.productViewMode,
@@ -128,9 +130,10 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickStorekeeperBtn(currentStorekeeperId: string) {
+  onClickStorekeeperBtn(event: RadioChangeEvent) {
+    const currentValue = event.target.value
     this.selectedRows = []
-    this.currentStorekeeperId = currentStorekeeperId
+    this.currentStorekeeperId = currentValue
 
     this.getCurrentData()
   }
@@ -189,12 +192,25 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
   }
 
   async onClickSaveArrivalDate(id: string, date: string) {
-    const newDate = new Date(date)
-    newDate.setUTCHours(0)
-    newDate.setUTCSeconds(0)
-    const arrivalDate = newDate.toISOString()
+    let arrivalDate = null
+
+    if (date) {
+      const newDate = new Date(date)
+      newDate.setUTCHours(0)
+      newDate.setUTCSeconds(0)
+      arrivalDate = newDate.toISOString()
+    }
 
     await BatchesModel.changeBatch(id, { arrivalDate })
     this.getCurrentData()
+  }
+
+  async onClickSaveTrackingNumber(id: string, trackingNumber: string) {
+    try {
+      await BatchesModel.changeBatch(id, { trackingNumber })
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

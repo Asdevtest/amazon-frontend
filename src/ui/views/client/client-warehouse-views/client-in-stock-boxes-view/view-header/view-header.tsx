@@ -3,9 +3,9 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Badge } from '@components/shared/badge'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
+import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
@@ -43,7 +43,6 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
   const {
     currentStorekeeperId,
     storekeepersData,
-    nameSearchValue,
     curDestinationId,
     clientDestinations,
     selectedRows,
@@ -65,44 +64,48 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
   return (
     <div className={styles.viewHeaderWrapper}>
       <div className={styles.topHeaderBtnsWrapper}>
-        <CustomSwitcher
-          switchMode="medium"
-          condition={currentStorekeeperId}
-          switcherSettings={[
-            ...storekeepersData
-              .filter(storekeeper => storekeeper.boxesCount !== 0)
-              .sort((a, b) => (a.name || '')?.localeCompare(b.name || ''))
-              .map(storekeeper => ({
-                label: () => storekeeper.name || '',
-                value: storekeeper._id,
-                icon: <Badge>{storekeeper.boxesCount}</Badge>,
-              })),
-            { label: () => t(TranslationKey['All warehouses']) || '', value: '' },
-          ]}
-          changeConditionHandler={onClickStorekeeperBtn}
-        />
+        <div className={styles.topHeaderBtnsWrapper}>
+          <CustomRadioButton
+            size="large"
+            buttonStyle="solid"
+            options={[
+              { label: t(TranslationKey['All warehouses']) || '', value: '' },
+              ...storekeepersData
+                .filter(storekeeper => storekeeper.boxesCount !== 0)
+                .sort((a, b) => (a.name || '')?.localeCompare(b.name || ''))
+                .map(storekeeper => ({
+                  label: storekeeper.name || '',
+                  value: storekeeper._id,
+                  badge: storekeeper.boxesCount,
+                })),
+            ]}
+            defaultValue={currentStorekeeperId}
+            onChange={onClickStorekeeperBtn}
+          />
 
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
-          startText={nameSearchValue}
-          onSubmit={onSearchSubmit}
+          <CustomSelect
+            size="large"
+            options={[
+              { label: t(TranslationKey.All), value: 'all' },
+              { label: t(TranslationKey.Undistributed), value: null },
+              ...clientDestinations
+                .sort((a, b) => a.name?.localeCompare(b.name))
+                .map(destination => ({ label: destination?.name, value: destination?._id })),
+            ]}
+            value={curDestinationId}
+            onChange={onClickDestinationBtn}
+          />
+        </div>
+
+        <CustomInputSearch
+          enterButton
+          allowClear
+          wrapperClassName={styles.searchInput}
+          size="large"
+          placeholder="Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box"
+          onSearch={onSearchSubmit}
         />
       </div>
-
-      <CustomSwitcher
-        switchMode="medium"
-        condition={curDestinationId}
-        switcherSettings={[
-          ...clientDestinations
-            .sort((a, b) => a.name?.localeCompare(b.name))
-            .map(destination => ({ label: () => destination?.name, value: destination?._id })),
-
-          { label: () => t(TranslationKey.Undistributed), value: null },
-          { label: () => t(TranslationKey.All), value: undefined },
-        ]}
-        changeConditionHandler={onClickDestinationBtn}
-      />
 
       <ActionButtons
         selectedRows={selectedRows}

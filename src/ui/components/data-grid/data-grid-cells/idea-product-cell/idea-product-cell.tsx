@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ProductAsinCell } from '..'
+import { ProductCell } from '..'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -29,11 +29,10 @@ export const IdeaProductCell: FC<IdeaProductCellProps> = memo(({ onClickCreateCa
       )}
 
       {!!rowData.childProduct && (
-        <ProductAsinCell
-          withoutImage
-          amazonTitle={rowData.childProduct?.amazonTitle}
+        <ProductCell
+          title={rowData.childProduct?.amazonTitle}
           asin={rowData.childProduct?.asin}
-          skuByClient={rowData.childProduct?.skuByClient}
+          sku={rowData.childProduct?.skuByClient}
         />
       )}
     </div>

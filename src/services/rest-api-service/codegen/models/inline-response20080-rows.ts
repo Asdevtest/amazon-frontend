@@ -13,8 +13,7 @@
  */
 
 
-import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-by';
-import { InlineResponse20080EntityProduct } from './inline-response20080-entity-product';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
@@ -23,106 +22,41 @@ import { InlineResponse20080EntityProduct } from './inline-response20080-entity-
  */
 export interface InlineResponse20080Rows {
     /**
-     * GUID платежа
+     * 
      * @type {string}
      * @memberof InlineResponse20080Rows
      */
     _id?: string;
     /**
-     * Дата создания.
+     * ASIN продукта
      * @type {string}
      * @memberof InlineResponse20080Rows
      */
-    createdAt?: string;
+    asin?: string;
+    /**
+     * SKU введенным клиентом.
+     * @type {string}
+     * @memberof InlineResponse20080Rows
+     */
+    skuByClient?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20080Rows
+     */
+    images?: Array<string>;
+    /**
+     * Заголовок на товар с сайта амазон.
+     * @type {string}
+     * @memberof InlineResponse20080Rows
+     */
+    amazonTitle?: string;
     /**
      * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20080Rows
      */
-    createdBy?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Роль пользователя на момент инициации платежа.
-     * @type {number}
-     * @memberof InlineResponse20080Rows
-     */
-    role?: number;
-    /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20080Rows
-     */
-    subUser?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * GUID товара или услуги.
-     * @type {string}
-     * @memberof InlineResponse20080Rows
-     */
-    entityId?: string;
-    /**
-     * Тип товара или услуги
-     * @type {string}
-     * @memberof InlineResponse20080Rows
-     */
-    entityType?: InlineResponse20080RowsEntityTypeEnum;
-    /**
-     * Тип платежа
-     * @type {string}
-     * @memberof InlineResponse20080Rows
-     */
-    paymentType?: InlineResponse20080RowsPaymentTypeEnum;
-    /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20080Rows
-     */
-    recipient?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
-     * @type {number}
-     * @memberof InlineResponse20080Rows
-     */
-    sum?: number;
-    /**
-     * комментарий
-     * @type {string}
-     * @memberof InlineResponse20080Rows
-     */
-    comment?: string;
-    /**
-     * 
-     * @type {Array<InlineResponse20080EntityProduct>}
-     * @memberof InlineResponse20080Rows
-     */
-    entityProduct?: Array<InlineResponse20080EntityProduct>;
+    users?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20080RowsEntityTypeEnum {
-    Product = 'PRODUCT',
-    Order = 'ORDER',
-    Box = 'BOX',
-    Batch = 'BATCH',
-    User = 'USER',
-    RequestCustom = 'REQUEST-CUSTOM',
-    RequestSearchProduct = 'REQUEST-SEARCH_PRODUCT',
-    RequestSearchNiche = 'REQUEST-SEARCH_NICHE',
-    RequestProposalCustom = 'REQUEST-PROPOSAL-CUSTOM',
-    RequestProposalSearchProduct = 'REQUEST-PROPOSAL-SEARCH_PRODUCT',
-    RequestProposalSearchNiche = 'REQUEST-PROPOSAL-SEARCH_NICHE',
-    Other = 'OTHER'
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20080RowsPaymentTypeEnum {
-    Replenish = 'REPLENISH',
-    Fine = 'FINE',
-    Zero = 'ZERO'
-}
-
 
 

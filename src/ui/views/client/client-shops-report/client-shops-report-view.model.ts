@@ -16,11 +16,11 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
+import { observerConfig } from './client-shops-report-view.config'
 import { getClassParams } from './helpers/get-class-params'
-import { observerConfig } from './observer.config'
 
 export class ClientShopsViewModel extends DataGridFilterTableModel {
-  tabKey = ShopReportsTabsValues.PPC_ORGANIC_BY_DAY
+  tabValue = ShopReportsTabsValues.PPC_ORGANIC_BY_DAY
 
   inventoryProducts: any = []
 
@@ -40,11 +40,11 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       mainMethodURL,
       fieldsForSearch,
       tableKey,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     this.history = history
 
-    this.tabKey = currentTabsValues
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+    this.tabValue = currentTabsValues
 
     this.getDataGridState()
     this.initUserSettings()
@@ -52,26 +52,29 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     makeObservable(this, observerConfig)
   }
 
-  changeTabHandler = (key: ShopReportsTabsValues) => {
-    this.tabKey = key
+  onChangeTab(value: ShopReportsTabsValues) {
+    this.tabValue = value
 
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch, tableKey } =
-      getClassParams(key)
+      getClassParams(value)
+
+    const columns = columnsModel()
 
     this.getMainDataMethod = getMainDataMethod
-    this.columnsModel = columnsModel()
+    this.columnsModel = columns
+    this.defaultColumnsModel = columns
     this.filtersFields = filtersFields
     this.setColumnMenuSettings(filtersFields)
     this.mainMethodURL = mainMethodURL
     this.tableKey = tableKey
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+    this.defaultSortModel = [{ field: 'updatedAt', sort: 'desc' }]
     this.paginationModel = paginationModelInitialValue
 
     this.filterModel = filterModelInitialValue
     this.fieldsForSearch = fieldsForSearch
 
-    this.getTableData()
+    this.getTableSettingsPreset()
   }
 
   initUserSettings() {
@@ -80,7 +83,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     const currentShopId = url.searchParams.get('shopId')
 
     if (!currentReport || !currentShopId) {
-      this.getTableData()
+      this.getTableSettingsPreset()
       return
     }
 
@@ -100,11 +103,11 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     }
 
     if (currentReport) {
-      this.tabKey = currentReport
+      this.tabValue = currentReport
       this.history.push(this.history.location.pathname)
     }
 
-    this.getTableData()
+    this.getTableSettingsPreset()
   }
 
   async moveGoodsToInventoryHandler() {
@@ -156,7 +159,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      await SellerBoardModel.deleteIntegrationsReport(this.tabKey, this.selectedRows)
+      await SellerBoardModel.deleteIntegrationsReport(this.tabValue, this.selectedRows)
 
       await this.getCurrentData()
 
@@ -168,7 +171,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   }
 
   async bindStockGoodsToInventoryHandler() {
-    if (this.tabKey === ShopReportsTabsValues.INVENTORY) {
+    if (this.tabValue === ShopReportsTabsValues.INVENTORY) {
       await this.getShopsData()
 
       this.onTriggerOpenModal('showSelectShopsModal')
@@ -249,14 +252,8 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.onTriggerOpenModal('showSelectShopsModal')
-      toast.error(t(TranslationKey['Something went wrong']))
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
-  }
-
-  getTableData() {
-    this.getDataGridState()
-    this.getCurrentData()
   }
 }

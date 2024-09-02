@@ -2,15 +2,14 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    padding: 40,
+    padding: 30,
     width: 840,
-    minHeight: 540,
     background: theme.palette.background.general,
     boxShadow: theme.palette.boxShadow.paper,
-    borderRadius: 4,
+    borderRadius: 16,
     display: 'flex',
     flexDirection: 'column',
-    gap: 30,
+    gap: 20,
   },
   announcementTitle: {
     fontWeight: 600,
@@ -47,11 +46,8 @@ export const useStyles = makeStyles()(theme => ({
     overflowY: 'hidden',
   },
   labelClass: {
-    fontWeight: 400,
     fontSize: 14,
-    lineHeight: '14px',
-
-    margin: 0,
+    lineHeight: '19px',
     marginBottom: 5,
   },
   descriptionField: {
