@@ -53,4 +53,9 @@ export const useStyles = makeStyles()(theme => ({
   noTagsText: {
     color: theme.palette.text.second,
   },
+
+  customTag: {
+    marginTop: '2px',
+    marginBottom: '2px',
+  },
 }))

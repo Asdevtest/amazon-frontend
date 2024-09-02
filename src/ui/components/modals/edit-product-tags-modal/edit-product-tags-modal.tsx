@@ -66,6 +66,7 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
               <CustomTag
                 closable
                 withTooltip
+                className={styles.customTag}
                 tag={currentTag as ITag}
                 onMouseDown={onPreventMouseDown}
                 onClose={onClose}
