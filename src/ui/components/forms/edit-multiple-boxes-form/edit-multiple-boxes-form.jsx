@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
+import { MdDone } from 'react-icons/md'
 
-import DoneIcon from '@mui/icons-material/Done'
 import { Checkbox, Typography } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
@@ -399,7 +399,7 @@ export const EditMultipleBoxesForm = observer(
                 />
 
                 <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('destinationId')}>
-                  {applyBtnsClicked.destinationId ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  {applyBtnsClicked.destinationId ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
@@ -425,7 +425,7 @@ export const EditMultipleBoxesForm = observer(
                 />
 
                 <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('logicsTariffId')}>
-                  {applyBtnsClicked.logicsTariffId ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  {applyBtnsClicked.logicsTariffId ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
@@ -442,7 +442,7 @@ export const EditMultipleBoxesForm = observer(
                 />
 
                 <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('fbaShipment')}>
-                  {applyBtnsClicked.fbaShipment ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  {applyBtnsClicked.fbaShipment ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
@@ -462,7 +462,7 @@ export const EditMultipleBoxesForm = observer(
                   }
                 />
                 <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('tmpShippingLabel')}>
-                  {applyBtnsClicked.tmpShippingLabel ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  {applyBtnsClicked.tmpShippingLabel ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
@@ -481,7 +481,7 @@ export const EditMultipleBoxesForm = observer(
                   }
                 />
                 <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('tmpBarCode')}>
-                  {applyBtnsClicked.tmpBarCode ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  {applyBtnsClicked.tmpBarCode ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
@@ -508,7 +508,7 @@ export const EditMultipleBoxesForm = observer(
                   disabled={disabledApplyBtn}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpTransparencyFile')}
                 >
-                  {applyBtnsClicked.tmpTransparencyFile ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  {applyBtnsClicked.tmpTransparencyFile ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
@@ -533,7 +533,11 @@ export const EditMultipleBoxesForm = observer(
                     disabled={disabledApplyBtn}
                     onClick={() => onApplySharedValuesToAllBoxes('isShippingLabelAttachedByStorekeeper')}
                   >
-                    {applyBtnsClicked.isShippingLabelAttachedByStorekeeper ? <DoneIcon /> : t(TranslationKey.Apply)}
+                    {applyBtnsClicked.isShippingLabelAttachedByStorekeeper ? (
+                      <MdDone size={18} />
+                    ) : (
+                      t(TranslationKey.Apply)
+                    )}
                   </Button>
                 </div>
               ) : null}
@@ -599,7 +603,7 @@ export const EditMultipleBoxesForm = observer(
                     disabled={disabledApplyBtn}
                     onClick={() => onApplySharedValuesToAllBoxes('isBarcodeLabelAttached')}
                   >
-                    {applyBtnsClicked.isBarcodeLabelAttached ? <DoneIcon /> : t(TranslationKey.Apply)}
+                    {applyBtnsClicked.isBarcodeLabelAttached ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                   </Button>
                 </div>
               )}

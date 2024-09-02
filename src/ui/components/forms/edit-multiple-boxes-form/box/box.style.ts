@@ -177,4 +177,8 @@ export const useStyles = makeStyles()(theme => ({
   icon: {
     padding: 4,
   },
+
+  blue: {
+    color: theme.palette.text.main,
+  },
 }))

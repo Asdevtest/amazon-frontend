@@ -1,8 +1,7 @@
 import { useState } from 'react'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Collapse, List, ListItemIcon, ListItemText, Menu, Typography } from '@mui/material'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
@@ -300,9 +299,9 @@ export const NavbarCollapse = ({
               </Typography>
 
               {menuAnchor ? (
-                <ArrowDropUpIcon className={cx({ [styles.selected]: index === activeCategory })} fontSize="small" />
+                <MdArrowDropUp size={24} className={cx({ [styles.selected]: index === activeCategory })} fontSize="small" />
               ) : (
-                <ArrowDropDownIcon className={cx({ [styles.selected]: index === activeCategory })} fontSize="small" />
+                <MdArrowDropDown size={24}  className={cx({ [styles.selected]: index === activeCategory })} fontSize="small" />
               )}
             </div>
           ) : null}

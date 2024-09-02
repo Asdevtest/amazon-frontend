@@ -1,10 +1,8 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
+import { MdArrowDropDown, MdArrowDropUp, MdDeleteOutline } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
@@ -552,7 +550,7 @@ export const IdeaViewAndEditCard = observer(
                                         className={styles.deleteBtnWrapper}
                                         onClick={() => onRemoveLink(index)}
                                       >
-                                        <DeleteOutlineOutlinedIcon className={styles.deleteBtn} />
+                                        <MdDeleteOutline size={24} className={styles.deleteBtn} />
                                       </IconButton>
                                     )}
                                   </div>
@@ -699,7 +697,11 @@ export const IdeaViewAndEditCard = observer(
                   {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
                 </Typography>
 
-                {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+                {!showFullCard ? (
+                  <MdArrowDropDown size={22} className={styles.icon} />
+                ) : (
+                  <MdArrowDropUp size={22} className={styles.icon} />
+                )}
               </div>
             ) : (
               <OpenInNewTab

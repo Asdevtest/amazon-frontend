@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useState } from 'react'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton } from '@mui/material'
 
@@ -279,7 +278,11 @@ export const Box: FC<BoxProps> = memo(props => {
                     {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
                   </p>
 
-                  {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+                  {!showFullCard ? (
+                    <MdArrowDropDown size={22} className={styles.blue} />
+                  ) : (
+                    <MdArrowDropUp size={22} className={styles.blue} />
+                  )}
                 </div>
               </div>
             </div>

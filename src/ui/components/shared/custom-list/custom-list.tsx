@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
+import { FaCircle } from 'react-icons/fa'
 
-import CircleIcon from '@mui/icons-material/Circle'
 import { List, ListItem, ListItemText, Typography } from '@mui/material'
 
 import { useStyles } from './custom-list.style'
@@ -21,7 +21,7 @@ export const CustomList: FC<Props> = memo(({ dataList, title }) => {
         {dataList
           ? dataList.map(item => (
               <ListItem key={item} className={styles.listItem}>
-                <CircleIcon classes={{ root: styles.dot }} style={{ width: '8px' }} />
+                <FaCircle size={10} className={styles.dot} style={{ width: '8px' }} />
 
                 <ListItemText className={styles.listItemText}>{item}</ListItemText>
               </ListItem>

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+import { MdDeleteOutline } from 'react-icons/md'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox, IconButton } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -129,7 +129,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
                       <p className={styles.skuItemTitle}>{formFields.skuByClient}</p>
 
                       <IconButton className={styles.deleteBtnWrapper} onClick={onRemoveSku}>
-                        <DeleteIcon className={styles.deleteBtn} />
+                        <MdDeleteOutline size={24} className={styles.deleteBtn} />
                       </IconButton>
                     </div>
                   </div>

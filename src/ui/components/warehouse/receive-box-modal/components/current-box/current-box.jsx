@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react'
+import { MdArrowLeft } from 'react-icons/md'
 
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import { Tooltip } from '@mui/material'
 
@@ -109,7 +109,7 @@ export const CurrentBox = memo(({ boxesBefore, volumeWeightCoefficient, totalPro
 
         <div className={styles.arrowButtons}>
           <button disabled={isDisableArrow || isDisableArrowLeft} onClick={handlePrev}>
-            <ArrowLeftIcon className={cx(styles.arrowIcon, isDisableArrowLeft && styles.arrowIconDisable)} />
+            <MdArrowLeft size={20} className={cx(styles.arrowIcon, isDisableArrowLeft && styles.arrowIconDisable)} />
           </button>
           <p className={styles.footerTitle}>{`${currentIndex + 1} / ${boxesBefore.length}`}</p>
           <button disabled={isDisableArrow || isDisableArrowRight} onClick={handleNext}>

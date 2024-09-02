@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
-
-import RotateLeftOutlinedIcon from '@mui/icons-material/RotateLeftOutlined'
-import RotateRightOutlinedIcon from '@mui/icons-material/RotateRightOutlined'
+import { MdOutlineRotateLeft, MdOutlineRotateRight } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -83,10 +81,10 @@ export const ImageEditForm = observer(({ item, onSave, setOpenModal }) => {
       <div className={styles.btnsWrapper}>
         <div className={styles.btnsSubWrapper}>
           <Button onClick={handleRotateLeft}>
-            <RotateLeftOutlinedIcon />
+            <MdOutlineRotateLeft size={22} />
           </Button>
           <Button onClick={handleRotateRight}>
-            <RotateRightOutlinedIcon />
+            <MdOutlineRotateRight size={22} />
           </Button>
         </div>
 

@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react'
 import { ChangeEvent, FC } from 'react'
+import { MdAutorenew, MdDeleteOutline } from 'react-icons/md'
 
-import AutorenewIcon from '@mui/icons-material/Autorenew'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
@@ -78,8 +77,7 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
           ) : null}
 
           <Button className={styles.button}>
-            <AutorenewIcon className={styles.icon} />
-
+            <MdAutorenew size={20} className={styles.icon} />
             <input
               type="file"
               defaultValue=""
@@ -89,7 +87,7 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
           </Button>
 
           <Button styleType={ButtonStyle.DANGER} className={styles.button} onClick={() => onRemoveFile(mediaFileIndex)}>
-            <DeleteOutlineOutlinedIcon className={styles.icon} />
+            <MdDeleteOutline size={20} className={styles.icon} />
           </Button>
         </>
       ) : null}

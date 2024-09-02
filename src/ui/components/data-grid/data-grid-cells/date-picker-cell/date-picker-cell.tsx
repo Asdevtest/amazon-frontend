@@ -1,7 +1,5 @@
 import { FC, memo, useEffect, useState } from 'react'
-
-import ClearIcon from '@mui/icons-material/Clear'
-import DoneIcon from '@mui/icons-material/Done'
+import { MdClear, MdDone } from 'react-icons/md'
 
 import { DatePicker } from '@components/shared/date-picker'
 import { SaveIcon } from '@components/shared/svg-icons'
@@ -33,7 +31,7 @@ export const DatePickerCell: FC<DatePickerCellProps> = memo(props => {
       {!!onClickSaveArrivalDate && (
         <div>
           {isShow && arrivalDate !== value ? (
-            <DoneIcon classes={{ root: cx(styles.doneIcon, styles.arrivalDateIcon) }} />
+            <MdDone size={20} className={cx(styles.doneIcon, styles.arrivalDateIcon)} />
           ) : arrivalDate !== value ? (
             <div className={cx(styles.iconWrapper, styles.iconWrapperArrivalDate)}>
               <SaveIcon
@@ -46,8 +44,9 @@ export const DatePickerCell: FC<DatePickerCellProps> = memo(props => {
                   onClickSaveArrivalDate(id, value)
                 }}
               />
-              <ClearIcon
-                classes={{ root: cx(styles.clearIcon, styles.arrivalDateIcon) }}
+              <MdClear
+                size={20}
+                className={cx(styles.clearIcon, styles.arrivalDateIcon)}
                 onClick={() => setValue(arrivalDate)}
               />
             </div>

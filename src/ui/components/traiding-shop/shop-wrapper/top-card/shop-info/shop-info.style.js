@@ -96,4 +96,8 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
     marginBottom: '20px',
   },
+
+  green: {
+    color: theme.palette.success.main,
+  },
 }))

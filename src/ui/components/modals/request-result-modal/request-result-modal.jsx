@@ -1,6 +1,5 @@
 import { memo, useEffect, useState } from 'react'
-
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import { MdDeleteOutline } from 'react-icons/md'
 
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -117,7 +116,7 @@ export const RequestResultModal = memo(props => {
                     <div className={styles.linksBtnsWrapper}>
                       <CopyValue text={el} />
                       {!proposal && (
-                        <DeleteOutlineOutlinedIcon className={styles.deleteBtn} onClick={() => onRemoveLink(index)} />
+                        <MdDeleteOutline size={24} className={styles.deleteBtn} onClick={() => onRemoveLink(index)} />
                       )}
                     </div>
                   </div>

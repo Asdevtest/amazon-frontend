@@ -1,4 +1,6 @@
-import { FormatAlignLeft, Search } from '@material-ui/icons'
+import { IoSearchOutline } from 'react-icons/io5'
+import { MdFormatAlignLeft } from 'react-icons/md'
+
 import { Button, IconButton, InputAdornment, MenuItem, Select, Toolbar, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,14 +22,14 @@ export const TableToolbar = ({ rowsPerPage, handlerRowsPerPage }) => {
         startAdornment={
           <InputAdornment className={styles.searchAdornment} position="start">
             <IconButton className={styles.iconButton}>
-              <Search className={styles.icon} />
+              <IoSearchOutline className={styles.icon} />
             </IconButton>
           </InputAdornment>
         }
       />
 
       <div className={styles.filter}>
-        <Button classes={{ iconSizeMedium: styles.icon }} startIcon={<FormatAlignLeft />}>
+        <Button classes={{ iconSizeMedium: styles.icon }} startIcon={<MdFormatAlignLeft />}>
           <Typography className={styles.filterTitle}>{t(TranslationKey.Filter)}</Typography>
         </Button>
       </div>

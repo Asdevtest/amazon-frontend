@@ -38,4 +38,7 @@ export const styles = theme => ({
     marginTop: '30px',
     color: theme.palette.text.second,
   },
+  icon: {
+    color: theme.palette.text.main,
+  },
 })

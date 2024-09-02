@@ -1,8 +1,7 @@
 import { useState } from 'react'
+import { MdArrowDropDown, MdArrowDropUp,MdCheckBox } from 'react-icons/md'
 
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import CheckBoxIcon from '@mui/icons-material/CheckBox'
+
 import { Divider, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -134,11 +133,7 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                       />
 
                       {!disableFirstRow ? (
-                        <CheckBoxIcon
-                          fontSize="medium"
-                          classes={{ root: styles.actionButton }}
-                          onClick={() => addIndicator()}
-                        />
+                        <MdCheckBox size={24} classes={{ root: styles.actionButton }} onClick={() => addIndicator()} />
                       ) : (
                         <div
                           className={cx(styles.actionDelButton, {
@@ -401,9 +396,9 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                   inputComponent={
                     <div className={styles.percentWrapper}>
                       {trafficСhange < 0 ? (
-                        <ArrowDropDownIcon color="error" />
+                        <MdArrowDropDown size={22} className={styles.red} />
                       ) : (
-                        <ArrowDropUpIcon color="success" className={styles.green} />
+                        <MdArrowDropUp size={22} className={styles.green} />
                       )}
                       <Typography className={cx(styles.green, { [styles.red]: trafficСhange < 0 })}>{`${toFixed(
                         isNaN(trafficСhange) ? 0 : trafficСhange,
@@ -422,9 +417,9 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                     inputComponent={
                       <div className={styles.percentWrapper}>
                         {grossIncomeСhange < 0 ? (
-                          <ArrowDropDownIcon color="error" />
+                          <MdArrowDropDown size={22} className={styles.red} />
                         ) : (
-                          <ArrowDropUpIcon color="success" className={styles.green} />
+                          <MdArrowDropUp size={22} className={styles.red} />
                         )}
                         <Typography className={cx(styles.green, { [styles.red]: grossIncomeСhange < 0 })}>{`${toFixed(
                           isNaN(grossIncomeСhange) ? 0 : grossIncomeСhange,
@@ -442,9 +437,9 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                     inputComponent={
                       <div className={styles.percentWrapper}>
                         {pureIncomeСhange < 0 ? (
-                          <ArrowDropDownIcon color="error" />
+                          <MdArrowDropDown size={22} className={styles.red} />
                         ) : (
-                          <ArrowDropUpIcon color="success" className={styles.green} />
+                          <MdArrowDropUp size={22} className={styles.red} />
                         )}
                         <Typography className={cx(styles.green, { [styles.red]: pureIncomeСhange < 0 })}>{`${toFixed(
                           isNaN(pureIncomeСhange) ? 0 : pureIncomeСhange,

@@ -319,6 +319,9 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
     alignItems: 'center',
   },
+  icon: {
+    color: theme.palette.primary.main,
+  },
   iconBtn: {
     maxHeight: 40,
     maxWidth: 40,

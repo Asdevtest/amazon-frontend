@@ -95,4 +95,8 @@ export const useStyles = makeStyles()(theme => ({
   dashboardCardWrapperList: {
     gridTemplateColumns: '1fr',
   },
+
+  icon: {
+    color: theme.palette.text.main,
+  },
 }))
