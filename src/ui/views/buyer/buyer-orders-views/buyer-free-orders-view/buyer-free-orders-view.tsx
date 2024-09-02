@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,7 +16,7 @@ import { IOrder } from '@typings/models/orders/order'
 import { BuyerFreeOrdersViewModel } from './buyer-free-orders-view.model'
 
 export const BuyerFreeOrdersView = observer(() => {
-  const [viewModel] = useState(() => new BuyerFreeOrdersViewModel())
+  const viewModel = useMemo(() => new BuyerFreeOrdersViewModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -63,6 +63,17 @@ export const BuyerFreeOrdersView = observer(() => {
               sortModel: viewModel.sortModel,
               columnsModel: viewModel.columnsModel,
               onSortModelChange: viewModel.onChangeSortingModel,
+            },
+
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
             },
           },
         }}

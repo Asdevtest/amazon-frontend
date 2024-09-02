@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { MouseEvent } from 'react'
 import { toast } from 'react-toastify'
 
@@ -12,7 +12,7 @@ import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { ITagList } from '@typings/models/generals/tag-list'
+import { ITag } from '@typings/shared/tag'
 
 import { IHandleUpdateRow } from './edit-product-tags.type'
 
@@ -21,22 +21,36 @@ export class EditProductTagModel {
   requestTagsByIdStatus: loadingStatus = loadingStatus.SUCCESS
 
   productId: string = ''
+  newTagTitle: string = ''
 
   offset: number = 0
   limit: number = 50
 
-  tags: ITagList[] = []
-  selectedTags: ITagList[] = []
+  tags: ITag[] = []
+  selectedTags: ITag[] = []
 
   isCanLoadMore = true
 
   searchValue: string = ''
+  debounceSearchValue: string = ''
+
+  set setDebounceSearchValue(value: string) {
+    this.debounceSearchValue = value
+  }
+
+  showAddOrEditTagModal = false
 
   constructor(productId: string) {
     this.productId = productId
     makeAutoObservable(this, undefined, { autoBind: true })
 
+    this.getTagsAll()
     this.getTagsByProductId()
+
+    reaction(
+      () => this.debounceSearchValue,
+      () => this.onClickSubmitSearch(this.debounceSearchValue),
+    )
   }
 
   async getTagsAll() {
@@ -51,7 +65,7 @@ export class EditProductTagModel {
       const result = await this.getTagsData()
 
       runInAction(() => {
-        this.tags = result?.rows as ITagList[]
+        this.tags = result?.rows as ITag[]
       })
 
       runInAction(() => {
@@ -73,10 +87,7 @@ export class EditProductTagModel {
 
       const result = await ProductModel.getProductTagsByGuid(this.productId)
       runInAction(() => {
-        this.selectedTags = result as ITagList[]
-      })
-
-      runInAction(() => {
+        this.selectedTags = result as ITag[]
         this.requestTagsByIdStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
@@ -87,14 +98,20 @@ export class EditProductTagModel {
     }
   }
 
-  async handleCreateTag(titleTag: string) {
+  async handleCreateTag(tag: ITag) {
     try {
-      const result = await GeneralModel.createTag(titleTag)
+      const result = await GeneralModel.createTag({
+        title: tag?.title,
+        color: tag?.color,
+      })
 
       this.selectedTags?.push({
         _id: result._id,
-        title: titleTag,
-      } as ITagList)
+        title: tag?.title,
+        color: tag?.color,
+      } as ITag)
+
+      this.onClickToggleAddOrEditModal()
 
       toast.success(t(TranslationKey['Tag was successfully created and added to the list']))
     } catch (error) {
@@ -122,7 +139,7 @@ export class EditProductTagModel {
         const result = await this.getTagsData()
 
         runInAction(() => {
-          this.tags = this.tags.concat(result?.rows as ITagList[])
+          this.tags = this.tags.concat(result?.rows as ITag[])
 
           if ((result?.rows?.length || 0) < this.limit) {
             this.isCanLoadMore = false
@@ -140,7 +157,7 @@ export class EditProductTagModel {
 
   async onClickSubmitSearch(searchValue: string) {
     runInAction(() => {
-      this.searchValue = searchValue
+      this.debounceSearchValue = searchValue
     })
 
     if (this.requestStatus !== loadingStatus.SUCCESS) {
@@ -156,7 +173,7 @@ export class EditProductTagModel {
       const result = await this.getTagsData()
 
       runInAction(() => {
-        this.tags = result?.rows as ITagList[]
+        this.tags = result?.rows as ITag[]
       })
     } catch (error) {
       console.error(error)
@@ -168,7 +185,10 @@ export class EditProductTagModel {
       const result = await GeneralModel.getPagTagList({
         offset: this.offset,
         limit: this.limit,
-        filters: objectToUrlQs(dataGridFiltersConverter({}, this.searchValue, '', [], ['title'])),
+        filters:
+          objectToUrlQs(
+            dataGridFiltersConverter({}, this.debounceSearchValue ? this.debounceSearchValue : '', '', [], ['title']),
+          ) || '',
       })
       return result
     } catch (error) {
@@ -176,18 +196,12 @@ export class EditProductTagModel {
     }
   }
 
-  handleResetTags() {
-    this.tags = []
+  handleSelectTag(tag: ITag) {
+    this.selectedTags?.push(tag)
   }
 
-  handleClickTag(tag: ITagList) {
-    const tagIndex = this.selectedTags?.findIndex(el => el?._id === tag?._id)
-
-    if (tagIndex === -1) {
-      this.selectedTags = [...this.selectedTags, tag]
-    } else {
-      this.selectedTags = this.selectedTags?.filter(el => el?._id !== tag?._id)
-    }
+  handleDeleteTag(tagId: string) {
+    this.selectedTags = this.selectedTags?.filter(selectedTag => selectedTag?._id !== tagId)
   }
 
   async handleBindTagsToProduct(handleUpdateRow: IHandleUpdateRow) {
@@ -197,5 +211,17 @@ export class EditProductTagModel {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  setNewTagTitle(value: string) {
+    this.newTagTitle = value
+  }
+
+  onClickToggleAddOrEditModal() {
+    this.showAddOrEditTagModal = !this.showAddOrEditTagModal
+  }
+
+  onSearch(value: string) {
+    this.searchValue = value
   }
 }

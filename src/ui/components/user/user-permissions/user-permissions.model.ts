@@ -59,10 +59,11 @@ export class UserPermissionsModel extends DataGridTableModel {
       columnsModel,
       tableKey,
       fieldsForSearch: ['title', 'key', 'url'],
+      defaultSortModel: [{ field: 'key', sort: 'asc' }],
     })
 
-    this.getDataGridState()
-    this.getPermissions()
+    this.getTableSettingsPreset()
+    this.getSinglePermissions()
 
     makeObservable(this, observerConfig)
   }
@@ -81,8 +82,8 @@ export class UserPermissionsModel extends DataGridTableModel {
     this.tableKey = tableKey
     this.setDefaultPinnedColumns()
 
-    this.getDataGridState()
-    this.getPermissions()
+    this.getTableSettingsPreset()
+    this.getSinglePermissions()
   }
 
   async createPermission(data: IPermission | IPermissionGroup) {

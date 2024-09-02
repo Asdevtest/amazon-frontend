@@ -85,7 +85,8 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
   const disabledSubmit =
     maxBoxSizeFromOption(sizeSetting, Number(editingBox.lengthCmWarehouse)) ||
     maxBoxSizeFromOption(sizeSetting, Number(editingBox.widthCmWarehouse)) ||
-    maxBoxSizeFromOption(sizeSetting, Number(editingBox.heightCmWarehouse))
+    maxBoxSizeFromOption(sizeSetting, Number(editingBox.heightCmWarehouse)) ||
+    maxBoxSizeFromOption(sizeSetting, Number(editingBox.weighGrossKgWarehouse))
 
   return (
     <div className={styles.wrapper}>

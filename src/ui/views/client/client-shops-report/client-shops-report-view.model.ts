@@ -75,8 +75,6 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.fieldsForSearch = fieldsForSearch
 
     this.getTableSettingsPreset()
-
-    console.log('this.columnsModel', this.columnsModel)
   }
 
   initUserSettings() {

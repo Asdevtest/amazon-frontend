@@ -298,7 +298,9 @@ class ClientModelStatic {
   }
 
   getShopsExport = async body => {
-    const response = await restApiService.clientApi.apiV1ClientsShopsExportGet(body)
+    const response = await restApiService.clientApi.apiV1ClientsShopsExportGet(body, {
+      responseType: 'blob',
+    })
     return response.data
   }
 }

@@ -347,7 +347,7 @@ export const SelectFields = ({
             multiline
             minRows={4}
             maxRows={4}
-            inputClasses={styles.commentInput}
+            inputClasses={cx(styles.commentInput, orderFields.clientComment && styles.commentActive)}
             labelClasses={styles.label}
             value={orderFields.clientComment}
             label={t(TranslationKey['Client comment'])}

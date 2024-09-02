@@ -34,13 +34,11 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
       mainMethodURL,
       fieldsForSearch,
       tableKey: DataGridTablesKeys.PARSING_PROFILES,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
-
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    this.getDataGridState()
-    this.getCurrentData()
-
     makeObservable(this, parsingProfileViewConfig)
+
+    this.getTableSettingsPreset()
   }
 
   onToggleProfileModal() {

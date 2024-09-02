@@ -40,15 +40,13 @@ export class AdminExchangeViewModel extends DataGridFilterTableModel {
       mainMethodURL: 'admins/products/pag?',
       tableKey: DataGridTablesKeys.ADMIN_EXCHANGE,
       defaultFilterParams,
+      defaultSortModel: [{ field: 'createdAt', sort: 'desc' }],
     })
     makeObservable(this, observerConfig)
 
     this.initHistory()
 
-    this.sortModel = [{ field: 'createdAt', sort: 'desc' }]
-
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   onChangeSubCategory(value: AdminExchangeStatuses) {
