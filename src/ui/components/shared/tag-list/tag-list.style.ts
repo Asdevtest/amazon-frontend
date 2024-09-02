@@ -7,7 +7,7 @@ export const useStyles = makeStyles()(theme => ({
     alignContent: 'flex-start',
     flexWrap: 'wrap',
     height: '160px',
-    gap: 10,
+    gap: 5,
 
     overflowY: 'auto',
     padding: '5px',

@@ -4,17 +4,17 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { ITagList } from '@typings/models/generals/tag-list'
+import { ITag } from '@typings/shared/tag'
 
 import { useStyles } from './tag-list.style'
 
 import { CircleSpinner } from '../circle-spinner'
-import { TagItem } from '../tag-item'
+import { CustomTag } from '../custom-tag'
 
 interface TagListProps {
   isLoading: boolean
-  selectedTags: ITagList[]
-  handleClickTag: (tag: ITagList) => void
+  selectedTags: ITag[]
+  handleClickTag: (tag: ITag) => void
 }
 
 export const TagList: FC<TagListProps> = memo(({ isLoading, selectedTags, handleClickTag }) => {
@@ -32,11 +32,15 @@ export const TagList: FC<TagListProps> = memo(({ isLoading, selectedTags, handle
     <div className={cx(styles.tagsList, { [styles.noTagsWrapper]: !selectedTags?.length })}>
       {selectedTags?.length ? (
         selectedTags?.map(tag => (
-          <TagItem
+          <CustomTag
             key={tag._id}
-            option={tag.title}
-            onClickRemove={handleClickTag ? () => handleClickTag(tag) : undefined}
-          />
+            title={tag.title}
+            color={tag.color}
+            tooltipText={tag.title}
+            onClick={handleClickTag ? () => handleClickTag(tag) : undefined}
+          >
+            {tag.title}
+          </CustomTag>
         ))
       ) : (
         <p className={styles.noTagsText}>{t(TranslationKey['No data'])}</p>

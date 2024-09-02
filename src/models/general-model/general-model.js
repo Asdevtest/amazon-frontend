@@ -16,8 +16,8 @@ class GeneralModelStatic {
     return response.data
   }
 
-  createTag = async title => {
-    const response = await restApiService.generalApi.apiV1GeneralTagsPost({ body: { title } })
+  createTag = async body => {
+    const response = await restApiService.generalApi.apiV1GeneralTagsPost({ body })
     return response.data
   }
 }
