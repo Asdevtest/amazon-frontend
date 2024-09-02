@@ -27,13 +27,11 @@ export class ParsingRequestsViewModel extends DataGridFilterTableModel {
       mainMethodURL,
       fieldsForSearch: additionalSearchFields,
       tableKey: DataGridTablesKeys.PARSING_REQUESTS,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
-
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    this.getDataGridState()
-    this.getCurrentData()
-
     makeObservable(this, parsingRequestsViewConfig)
+
+    this.getTableSettingsPreset()
   }
 
   async onApproveProfile(id: string, profileId: string) {

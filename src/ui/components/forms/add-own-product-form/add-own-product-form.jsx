@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
 
 import { Checkbox, IconButton } from '@mui/material'
@@ -8,6 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -15,11 +17,9 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 import { useStyles } from './add-own-product-form.style'
 
-export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressValue }) => {
+export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressValue, onShowAddSuppliersModal }) => {
   const { classes: styles } = useStyles()
 
   const [skuLine, setSkuLine] = useState('')
@@ -164,9 +164,13 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
       )}
 
       <div className={styles.btnsWrapper}>
-        <Button
-          isSmallButton
-          styleType={ButtonStyle.SUCCESS}
+        <CustomButton disabled type="primary" size="large" icon={<FiPlus />} onClick={onShowAddSuppliersModal}>
+          {t(TranslationKey['Supplier list'])}
+        </CustomButton>
+
+        <CustomButton
+          type="primary"
+          size="large"
           disabled={disableSubmitBtn}
           onClick={() => {
             onSubmit(formFields, images, isNoAsin)
@@ -174,7 +178,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
           }}
         >
           {t(TranslationKey.Add)}
-        </Button>
+        </CustomButton>
       </div>
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}

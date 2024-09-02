@@ -126,8 +126,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   setFavouriteBtn: {
-    height: 30,
-    width: 30,
+    fontSize: 30,
     color: theme.palette.background.disabled,
     borderRadius: 30,
     transition: '.3s ease',

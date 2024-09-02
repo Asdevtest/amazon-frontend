@@ -84,6 +84,17 @@ export const SupervisorProductsView = observer(() => {
               columnsModel: viewModel.columnsModel,
               onSortModelChange: viewModel.onChangeSortingModel,
             },
+
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
           },
         }}
         rowCount={viewModel.rowCount}

@@ -1,23 +1,3 @@
-export const filtersFields: string[] = [
-  'asin',
-  'amazonTitle',
-  'title',
-  'destination',
-  'humanFriendlyId',
-  'storekeeper',
-  'logicsTariff',
-  'finalWeight',
-  'deliveryTotalPrice',
-  'totalPrice',
-  'etd',
-  'eta',
-  'cls',
-  'updatedAt',
-  'amount',
-  'trackingNumber',
-  'arrivalDate',
-  'quantityBoxes',
-  'subUsers',
-]
+export const additionalFilterFields = ['asin', 'amazonTitle', 'etd', 'eta']
 
 export const fieldsForSearch = ['amazonTitle', 'humanFriendlyId', 'asin']

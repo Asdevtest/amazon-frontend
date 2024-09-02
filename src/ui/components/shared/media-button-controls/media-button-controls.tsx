@@ -1,11 +1,13 @@
 import { observer } from 'mobx-react'
 import { ChangeEvent, FC } from 'react'
-import { MdAutorenew, MdDeleteOutline } from 'react-icons/md'
-
-import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
-import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
-import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
+import {
+  MdAutorenew,
+  MdDeleteOutline,
+  MdOutlineDownload,
+  MdOutlineModeEdit,
+  MdOutlineStar,
+  MdZoomOutMap,
+} from 'react-icons/md'
 
 import { Button } from '@components/shared/button'
 
@@ -51,11 +53,11 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
   return (
     <div className={styles.controls}>
       <Button className={styles.button} onClick={() => onDownloadFile(mediaFile)}>
-        <DownloadOutlinedIcon className={styles.icon} />
+        <MdOutlineDownload size={20} className={styles.icon} />
       </Button>
 
       <Button className={styles.button} onClick={onOpenImageZoomModal}>
-        <ZoomOutMapOutlinedIcon className={styles.icon} />
+        <MdZoomOutMap size={20} className={styles.icon} />
       </Button>
 
       {isEditable ? (
@@ -66,13 +68,13 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
               className={styles.button}
               onClick={() => onMakeMainFile(mediaFile, mediaFileIndex)}
             >
-              <StarOutlinedIcon className={cx({ [styles.starIcon]: mediaFileIndex === 0 })} />
+              <MdOutlineStar size={20} className={cx({ [styles.starIcon]: mediaFileIndex === 0 })} />
             </Button>
           ) : null}
 
           {isImageType ? (
             <Button className={styles.button} onClick={() => onImageEditToggle?.()}>
-              <ModeOutlinedIcon className={styles.icon} />
+              <MdOutlineModeEdit size={20} className={styles.icon} />
             </Button>
           ) : null}
 

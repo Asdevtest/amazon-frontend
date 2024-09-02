@@ -5,13 +5,13 @@ export const useStyles = makeStyles()(() => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: '20px',
   },
 
   minimazed: {
     display: 'flex',
     alignItems: 'flex-end',
     flexDirection: 'row',
-    gap: 10,
+    gap: '20px',
   },
 }))

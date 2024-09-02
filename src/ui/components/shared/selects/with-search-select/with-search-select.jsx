@@ -1,8 +1,8 @@
 import isEqual from 'lodash.isequal'
 import { Fragment, memo, useEffect, useState } from 'react'
+import { IoMdStar } from 'react-icons/io'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import { Checkbox, ClickAwayListener, Popover, Tooltip, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -293,7 +293,7 @@ export const WithSearchSelect = memo(
                           {masterUserSelect && <MasterUserItem id={el?._id} name={el?.name} rating={el?.rating} />}
 
                           {favourites ? (
-                            <StarOutlinedIcon
+                            <IoMdStar
                               className={cx(styles.setFavouriteBtn, {
                                 [styles.setFavouriteBtnIsSelected]: favourites?.find(favouriteItem =>
                                   isEqual(

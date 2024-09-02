@@ -55,7 +55,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
       renderCell: params => <Text isCell text={params.value} />,
       width: 150,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -65,7 +65,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderCell: params => <Text isCell text={params.row?.boxes?.[0]?.destination?.name} />,
       width: 130,
       sortable: false,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       table: DataGridFilterTables.BOXES,
       disableCustomSort: true,
     },
@@ -79,7 +79,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       width: 70,
       filterable: false,
       sortable: false,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
       disableCustomSort: true,
     },
 
@@ -90,7 +90,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderCell: params => <Text isCell text={params.value} />,
       type: 'number',
       width: 80,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -102,7 +102,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       ),
       width: 150,
       sortable: false,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       table: DataGridFilterTables.BOXES,
       disableCustomSort: true,
     },
@@ -129,7 +129,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       table: DataGridFilterTables.PRODUCTS,
       filterable: false,
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
@@ -139,7 +139,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderCell: params => <Text isCell text={getNewTariffTextForBoxOrOrder(params.row.boxes[0])} />,
       width: 160,
       sortable: false,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       table: DataGridFilterTables.BOXES,
       disableCustomSort: true,
     },
@@ -171,7 +171,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       renderCell: params => <Text isCell text={toFixedWithKg(params.row.finalWeight)} />,
       type: 'number',
       width: 100,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
@@ -182,7 +182,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       type: 'number',
       width: 110,
       sortable: false,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
       table: DataGridFilterTables.BOXES,
       disableCustomSort: true,
     },

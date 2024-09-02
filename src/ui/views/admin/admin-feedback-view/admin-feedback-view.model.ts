@@ -1,5 +1,6 @@
 import { makeObservable } from 'mobx'
 
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
 import { AdministratorModel } from '@models/administrator-model'
@@ -33,12 +34,13 @@ export class AdminFeedbackViewModel extends DataGridTableModel {
     super({
       getMainDataMethod: AdministratorModel.getFeedback,
       columnsModel,
+      tableKey: DataGridTablesKeys.ADMIN_FEEDBACK,
       fieldsForSearch,
+      defaultSortModel: sortConfig,
     })
-    this.sortModel = sortConfig
-    this.getCurrentData()
-    this.initHistory()
     makeObservable(this, adminFeedbackConfig)
+
+    this.getTableSettingsPreset()
   }
 
   onClickOpenFeedback(feedback: IFeedback) {

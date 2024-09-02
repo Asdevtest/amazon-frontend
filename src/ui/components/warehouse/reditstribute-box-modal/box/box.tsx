@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useState } from 'react'
-import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
+import { MdArrowDropDown, MdArrowDropUp, MdDeleteOutline } from 'react-icons/md'
 
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
@@ -270,7 +269,7 @@ export const Box: FC<BoxProps> = memo(props => {
           {isNewBox && (
             <div className={styles.bottomBlockWrapper}>
               <IconButton classes={{ root: styles.icon }} onClick={() => onRemoveBox(box._id)}>
-                <DeleteOutlineOutlinedIcon />
+                <MdDeleteOutline size={22} />
               </IconButton>
               <div className={styles.incomingBtnWrapper}>
                 <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>

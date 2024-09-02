@@ -1,3 +1,4 @@
+import { theme } from 'antd'
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
@@ -114,5 +115,9 @@ export const useStyles = makeStyles()(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
+  },
+
+  icon: {
+    color: theme.palette.primary.main,
   },
 }))

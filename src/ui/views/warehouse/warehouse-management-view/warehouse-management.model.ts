@@ -58,10 +58,10 @@ export class WarehouseTariffModel extends DataGridTableModel {
       getMainDataMethod,
       columnsModel: logisticsTariffsColumns(columnsProps),
       fieldsForSearch: ['name'],
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
     this.getDestinations()
 
     makeObservable(this, warehouseTariffsConfig)

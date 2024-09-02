@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react'
+import { MdFileDownload } from 'react-icons/md'
 
-import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Divider, Typography } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
@@ -193,7 +193,7 @@ export const EditTaskModal = memo(
             {task.operationType === TaskOperationType.RECEIVE && (
               <Button onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download task file'])}
-                <FileDownloadIcon />
+                <MdFileDownload size={22} />
               </Button>
             )}
           </div>

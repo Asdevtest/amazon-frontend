@@ -78,13 +78,11 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
       fieldsForSearch,
       tableKey: isSentBatches ? DataGridTablesKeys.WAREHOUSE_BATCHES : DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES,
       additionalPropertiesGetFilters,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
-
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    this.getDataGridState()
-    this.getCurrentData()
-
     makeObservable(this, warehouseMyBatchesConfig)
+
+    this.getTableSettingsPreset()
 
     reaction(
       () => this.isArchive,

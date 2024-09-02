@@ -1,6 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
+  popup: {
+    padding: '5px',
+  },
+
+  selectTags: {
+    width: '100%',
+  },
+
   container: {
     width: '420px',
     display: 'flex',
@@ -27,6 +35,12 @@ export const useStyles = makeStyles()(theme => ({
     boxShadow: theme.palette.boxShadow.filter,
   },
 
+  footerModal: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
   buttonsWrapper: {
     display: 'flex',
     gap: '5px',
@@ -42,5 +56,10 @@ export const useStyles = makeStyles()(theme => ({
 
   noTagsText: {
     color: theme.palette.text.second,
+  },
+
+  customTag: {
+    marginTop: '2px',
+    marginBottom: '2px',
   },
 }))

@@ -187,6 +187,7 @@ export const ClientInventoryView = observer(({ history }) => {
           showProgress={viewModel.showProgress}
           progressValue={viewModel.progressValue}
           onSubmit={viewModel.onSubmitCreateProduct}
+          onShowAddSuppliersModal={() => viewModel.onTriggerOpenModal('showAddSuppliersModal')}
         />
       </Modal>
 

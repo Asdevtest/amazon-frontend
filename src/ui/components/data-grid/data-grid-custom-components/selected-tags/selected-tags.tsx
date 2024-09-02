@@ -1,20 +1,20 @@
 import { FC, memo } from 'react'
 
-import { TagItem } from '@components/shared/tag-item'
+import { CustomTag } from '@components/shared/custom-tag'
 
-import { IItemWithTitle } from '@hooks/use-select'
+import { ITag } from '@typings/shared/tag'
 
 import { useStyles } from './selected-tags.style'
 
 interface SelectedTagsProps {
-  activeTags: IItemWithTitle[]
-  setActiveProductsTag: (tags: IItemWithTitle[]) => void
+  activeTags: ITag[]
+  setActiveProductsTag: (tags: ITag[]) => void
 }
 
 export const SelectedTags: FC<SelectedTagsProps> = memo(({ activeTags, setActiveProductsTag }) => {
   const { classes: styles } = useStyles()
 
-  const handleRemoveTags = (tag: IItemWithTitle) => {
+  const handleRemoveTags = (tag: ITag) => {
     const newTags = activeTags.filter(el => el?._id !== tag?._id)
 
     setActiveProductsTag(newTags)
@@ -23,7 +23,14 @@ export const SelectedTags: FC<SelectedTagsProps> = memo(({ activeTags, setActive
   return (
     <div className={styles.activeTagsWrapper}>
       {activeTags?.map(tag => (
-        <TagItem key={tag._id} option={tag.title} onClickRemove={() => handleRemoveTags(tag)} />
+        <CustomTag
+          key={tag._id}
+          closable
+          title={tag.title}
+          color={tag.color}
+          tooltipText={tag.title}
+          onClose={() => handleRemoveTags(tag)}
+        />
       ))}
     </div>
   )
