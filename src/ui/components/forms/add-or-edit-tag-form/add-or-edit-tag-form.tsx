@@ -90,8 +90,8 @@ export const AddOrEditTagForm: FC<AddOrEditTagFormProps> = observer(props => {
           <p className={styles.label}>{t(TranslationKey['Tag preview'])}</p>
 
           <div className={styles.tagsWrapper}>
-            <CustomTag tag={formField} />
-            <CustomTag tag={formField} />
+            <CustomTag title={formField.title} color={formField.color} prefix="#" tooltipText={formField.title} />
+            <CustomTag title={formField.title} color={formField.color} prefix="#" tooltipText={formField.title} />
           </div>
         </div>
       ) : null}

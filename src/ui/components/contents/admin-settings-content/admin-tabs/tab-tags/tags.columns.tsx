@@ -26,7 +26,9 @@ export const tagsColumns = (handlers: IRowHandlers) => {
       field: 'title',
       headerName: t(TranslationKey['Tag name']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tag name'])} />,
-      renderCell: params => (params.value ? <CustomTag tag={params.row as ITag} /> : null),
+      renderCell: params => (
+        <CustomTag title={params.row.title} tooltipText={params.row.title} color={params.row.color} />
+      ),
       width: 300,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,

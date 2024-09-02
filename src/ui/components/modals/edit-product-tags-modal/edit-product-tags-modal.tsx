@@ -52,7 +52,8 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
           fieldNames={{ label: 'title', value: '_id' }}
           value={viewModel.selectedTags?.map(tag => ({ value: tag._id }))}
           options={viewModel.tags}
-          style={{ width: '100%' }}
+          className={styles.selectTags}
+          maxCount={20}
           tagRender={tagRenderProps => {
             const { value, onClose } = tagRenderProps
             const onPreventMouseDown = (event: MouseEvent<HTMLSpanElement>) => {
@@ -65,9 +66,10 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
             return (
               <CustomTag
                 closable
-                withTooltip
                 className={styles.customTag}
-                tag={currentTag as ITag}
+                title={currentTag?.title}
+                color={currentTag?.color}
+                tooltipText={currentTag?.title}
                 onMouseDown={onPreventMouseDown}
                 onClose={onClose}
               />

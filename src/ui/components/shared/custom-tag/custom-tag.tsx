@@ -1,29 +1,27 @@
 import { Tag, TagProps, Tooltip } from 'antd'
-import { FC, memo } from 'react'
-
-import { ITag } from '@typings/shared/tag'
+import { FC, PropsWithChildren, memo } from 'react'
 
 import { useStyles } from './custom-tag.style'
 
-interface CustomTagProps extends TagProps {
-  tag: ITag
-  onClickTag?: (tag: ITag) => void
-  className?: string
+interface CustomTagProps extends TagProps, PropsWithChildren {
+  title?: string
+  color?: string
+  tooltipText?: string
   prefix?: string
-  withTooltip?: boolean
+  className?: string
+  onClickTag?: () => void
 }
 
 export const CustomTag: FC<CustomTagProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
-  const { tag, withTooltip, prefix = '', className, onClickTag, ...restProps } = props
-  const { title, color } = tag
+  const { color, tooltipText, prefix = '', title, className, onClickTag, children, ...restProps } = props
 
   const TagComponent = (
     <Tag
       color={color}
       className={cx(styles.tagItem, { [styles.activeButton]: !!onClickTag }, className)}
-      onClick={() => onClickTag?.(tag)}
+      onClick={onClickTag}
       {...restProps}
     >
       <p className={styles.tagTitle}>{`${prefix}${title}`}</p>
@@ -32,8 +30,8 @@ export const CustomTag: FC<CustomTagProps> = memo(props => {
 
   return (
     <>
-      {withTooltip ? (
-        <Tooltip placement="top" title={title}>
+      {tooltipText ? (
+        <Tooltip placement="top" title={tooltipText}>
           {TagComponent}
         </Tooltip>
       ) : (

@@ -23,7 +23,14 @@ export const SelectedTags: FC<SelectedTagsProps> = memo(({ activeTags, setActive
   return (
     <div className={styles.activeTagsWrapper}>
       {activeTags?.map(tag => (
-        <CustomTag key={tag._id} closable tag={tag} onClose={() => handleRemoveTags(tag)} />
+        <CustomTag
+          key={tag._id}
+          closable
+          title={tag.title}
+          color={tag.color}
+          tooltipText={tag.title}
+          onClose={() => handleRemoveTags(tag)}
+        />
       ))}
     </div>
   )

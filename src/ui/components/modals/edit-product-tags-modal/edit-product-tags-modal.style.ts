@@ -5,6 +5,10 @@ export const useStyles = makeStyles()(theme => ({
     padding: '5px',
   },
 
+  selectTags: {
+    width: '100%',
+  },
+
   container: {
     width: '420px',
     display: 'flex',

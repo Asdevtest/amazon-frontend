@@ -24,7 +24,14 @@ export const TagsCell: FC<TagsCellProps> = memo(({ tags, onClickTag, onClickEdit
     <div className={styles.tagsWrapper}>
       <div className={styles.tags}>
         {tags?.map(el => (
-          <CustomTag key={el._id} tag={el} prefix="#" onClickTag={onClickTag} />
+          <CustomTag
+            key={el._id}
+            prefix="#"
+            title={el.title}
+            color={el.color}
+            tooltipText={el.title}
+            onClickTag={() => onClickTag?.(el)}
+          />
         ))}
       </div>
 

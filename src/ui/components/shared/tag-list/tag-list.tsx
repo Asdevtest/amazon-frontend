@@ -32,7 +32,13 @@ export const TagList: FC<TagListProps> = memo(({ isLoading, selectedTags, handle
     <div className={cx(styles.tagsList, { [styles.noTagsWrapper]: !selectedTags?.length })}>
       {selectedTags?.length ? (
         selectedTags?.map(tag => (
-          <CustomTag key={tag._id} tag={tag} onClick={handleClickTag ? () => handleClickTag(tag) : undefined}>
+          <CustomTag
+            key={tag._id}
+            title={tag.title}
+            color={tag.color}
+            tooltipText={tag.title}
+            onClick={handleClickTag ? () => handleClickTag(tag) : undefined}
+          >
             {tag.title}
           </CustomTag>
         ))
