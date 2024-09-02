@@ -90,6 +90,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       },
       width: 145,
       columnKey: columnnsKeys.shared.STRING_VALUE,
+      transformValueMethod: convertToSentenceCase,
     },
     {
       field: 'access',

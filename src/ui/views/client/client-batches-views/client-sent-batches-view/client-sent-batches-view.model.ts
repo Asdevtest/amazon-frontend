@@ -13,6 +13,7 @@ import { BoxesModel } from '@models/boxes-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -22,7 +23,7 @@ import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 
 import { clientBatchesViewColumns } from '../client-awaiting-batches-view/client-batches-columns'
 
-import { fieldsForSearch, filtersFields } from './client-sent-batches-view.constants'
+import { additionalFilterFields, fieldsForSearch } from './client-sent-batches-view.constants'
 import { observerConfig } from './observer-config'
 
 export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
@@ -55,7 +56,7 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
     super({
       getMainDataMethod: BatchesModel.getBatchesWithFiltersPag,
       columnsModel,
-      filtersFields,
+      filtersFields: getFilterFields(columnsModel, additionalFilterFields),
       mainMethodURL: `batches/with_filters?status=${BatchStatus.HAS_DISPATCHED}&`,
       fieldsForSearch,
       tableKey: DataGridTablesKeys.CLIENT_BATCHES,

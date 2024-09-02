@@ -69,16 +69,14 @@ export class ShopsCascaderModel {
         statusGroup,
         onAmazon,
       }
-      const response = await ClientModel.getShopsExport(data)
+      const response = (await ClientModel.getShopsExport(data)) as unknown as Blob
 
       if (response) {
-        const jsonData = JSON.stringify(response)
-        const blob = new Blob([jsonData], { type: 'application/json' })
-        const href = URL.createObjectURL(blob)
         const link = document.createElement('a')
-        link.href = href
         const formattedDate = format(new Date(), 'yyyy-MM-dd_HH-mm-ss')
-        link.download = `store_report_${formattedDate}.json`
+        link.download = `store_report_${formattedDate}.xlsx`
+        const href = URL.createObjectURL(response)
+        link.href = href
         document.body.appendChild(link)
         link.click()
         document.body.removeChild(link)
@@ -90,7 +88,7 @@ export class ShopsCascaderModel {
     } catch (error) {
       toast.error(t(TranslationKey['Error while exporting data']))
     } finally {
-      this.open = false
+      runInAction(() => (this.open = false))
       this.clearSelection()
     }
   }

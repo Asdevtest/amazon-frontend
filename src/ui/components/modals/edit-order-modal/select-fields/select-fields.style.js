@@ -16,6 +16,12 @@ export const useStyles = makeStyles()(theme => ({
     width: 231,
     padding: 0,
   },
+
+  commentActive: {
+    border: '1px solid red !important',
+    '& .MuiInputBase-input.Mui-disabled': { WebkitTextFillColor: theme.palette.text.general },
+  },
+
   priceOptionsWrapper: {
     width: '573px',
     marginTop: '30px',

@@ -65,7 +65,14 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
             onToggleParsingData={viewModel.onToggleParsingData}
           />
           <Form.Item<FieldType> name="email" className={styles.field} rules={[{ required: !isEditMode, message: '' }]}>
-            <CustomInput allowClear disabled={isEditMode} size="large" label="Email" wrapperClassName={styles.input} />
+            <CustomInput
+              allowClear
+              required={!isEditMode}
+              disabled={isEditMode}
+              size="large"
+              label="Email"
+              wrapperClassName={styles.input}
+            />
           </Form.Item>
           <Form.Item<FieldType>
             name="password"
@@ -85,10 +92,10 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
             />
           </Form.Item>
           <Form.Item<FieldType> name="name" className={styles.field} rules={[{ required: !isEditMode, message: '' }]}>
-            <CustomInput allowClear size="large" label="Name" wrapperClassName={styles.input} />
+            <CustomInput allowClear required={!isEditMode} size="large" label="Name" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType> name="otp" className={styles.field} rules={[{ required: !isEditMode, message: '' }]}>
-            <CustomInput allowClear size="large" label="OTP" wrapperClassName={styles.input} />
+            <CustomInput allowClear required={!isEditMode} size="large" label="OTP" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType>
             name="gologinId"
@@ -97,6 +104,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
           >
             <CustomInput
               allowClear
+              required={!isEditMode}
               disabled={isEditMode}
               size="large"
               label="Gologin ID"
@@ -108,21 +116,39 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
             className={styles.field}
             rules={[{ required: !isEditMode, message: '' }]}
           >
-            <CustomInput allowClear size="large" label="Performance ID" wrapperClassName={styles.input} />
+            <CustomInput
+              allowClear
+              required={!isEditMode}
+              size="large"
+              label="Performance ID"
+              wrapperClassName={styles.input}
+            />
           </Form.Item>
           <Form.Item<FieldType>
             name="spreadsheetsIdImport"
             className={styles.field}
             rules={[{ required: !isEditMode, message: '' }]}
           >
-            <CustomInput allowClear size="large" label="Import ID" wrapperClassName={styles.input} />
+            <CustomInput
+              allowClear
+              required={!isEditMode}
+              size="large"
+              label="Import ID"
+              wrapperClassName={styles.input}
+            />
           </Form.Item>
           <Form.Item<FieldType>
             name="spreadsheetsIdMain"
             className={styles.field}
             rules={[{ required: !isEditMode, message: '' }]}
           >
-            <CustomInput allowClear size="large" label="SpeadsheetMain ID" wrapperClassName={styles.input} />
+            <CustomInput
+              allowClear
+              required={!isEditMode}
+              size="large"
+              label="SpeadsheetMain ID"
+              wrapperClassName={styles.input}
+            />
           </Form.Item>
         </div>
 
