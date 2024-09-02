@@ -341,7 +341,6 @@ export enum TranslationKey {
   'Time' = 'Time',
   'Deadline' = 'Deadline',
   'hour' = 'hour',
-  'No vacant applications yet' = 'No vacant applications yet',
   'Create request' = 'Create request',
   'Total proposals' = 'Total proposals',
   'Suggest a deal' = 'Suggest a deal',

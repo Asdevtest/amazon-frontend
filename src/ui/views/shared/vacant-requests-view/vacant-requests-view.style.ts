@@ -1,50 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  tablePanelWrapper: {
+  header: {
     display: 'flex',
-    alignItems: 'center',
     justifyContent: 'space-between',
-  },
-
-  tablePanelSubWrapper: {
-    display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    gap: 20,
-  },
-
-  tablePanelSortWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    transition: '0.3s ease',
-    cursor: 'pointer',
-
-    '&:hover': {
-      opacity: '.8',
-    },
-  },
-
-  tablePanelViewText: {
-    fontSize: '16px',
-    lineHeight: '19px',
-    color: theme.palette.primary.main,
-    marginRight: '15px',
-  },
-
-  emptyTableWrapper: {
-    width: '100%',
-    height: '40vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    gap: 30,
-  },
-
-  emptyTableText: {
-    fontSize: 25,
-    color: theme.palette.text.second,
+    gap: '20px',
   },
 
   deadlineBorder: {
