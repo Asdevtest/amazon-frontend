@@ -24,4 +24,5 @@ export enum DataGridFilterTables {
   SHOPS = 'shops',
   PARSING_PROFILES = 'PROFILE',
   PARSING_REQUESTS = 'RECEIVING_REQUESTS',
+  TAGS = 'tags',
 }
