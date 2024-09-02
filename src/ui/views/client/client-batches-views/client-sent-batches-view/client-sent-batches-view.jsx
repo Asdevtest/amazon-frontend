@@ -82,25 +82,32 @@ export const ClientSentBatchesView = observer(({ history }) => {
           baseTooltip: {
             title: t(TranslationKey.Filter),
           },
-          columsBtnSettings: {
-            columnsModel: viewModel.columnsModel,
-            columnVisibilityModel: viewModel.columnVisibilityModel,
-            onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-          },
-          sortSettings: {
-            sortModel: viewModel.sortModel,
-            columnsModel: viewModel.columnsModel,
-            onSortModelChange: viewModel.onChangeSortingModel,
-          },
-          tablePresets: {
-            showPresetsSelect: viewModel.showPresetsSelect,
-            presetsTableData: viewModel.presetsTableData,
-            handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
-            handleSetPresetActive: viewModel.handleSetPresetActive,
-            handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
-            handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
-            handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
-            onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+          columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
+            },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+            },
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            },
           },
         }}
         columns={viewModel.columnsModel}
