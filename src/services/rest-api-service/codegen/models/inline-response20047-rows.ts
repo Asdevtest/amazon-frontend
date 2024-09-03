@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
-import { InlineResponse20029VariationTariff } from './inline-response20029-variation-tariff';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { InlineResponse20021VariationTariff } from './inline-response20021-variation-tariff';
 import { InlineResponse20047Destination } from './inline-response20047-destination';
 import { InlineResponse20047LogicsTariff } from './inline-response20047-logics-tariff';
 import { InlineResponse20047OrderSupplier } from './inline-response20047-order-supplier';
@@ -136,10 +136,10 @@ export interface InlineResponse20047Rows {
     product?: InlineResponse20047Product;
     /**
      * 
-     * @type {InlineResponse20029VariationTariff}
+     * @type {InlineResponse20021VariationTariff}
      * @memberof InlineResponse20047Rows
      */
-    variationTariff?: InlineResponse20029VariationTariff;
+    variationTariff?: InlineResponse20021VariationTariff;
     /**
      * 
      * @type {InlineResponse20047LogicsTariff}
@@ -148,10 +148,10 @@ export interface InlineResponse20047Rows {
     logicsTariff?: InlineResponse20047LogicsTariff;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20047Rows
      */
-    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
+    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
      * @type {InlineResponse20047OrderSupplier}

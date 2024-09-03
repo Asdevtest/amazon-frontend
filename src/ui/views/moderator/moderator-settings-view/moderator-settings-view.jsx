@@ -1,19 +1,7 @@
-import { withStyles } from 'tss-react/mui'
+import { useStyles } from './moderator-settings-view.style'
 
-import { Typography } from '@mui/material'
+export const ModeratorSettingsView = props => {
+  const { classes: styles } = useStyles()
 
-import { styles } from './moderator-settings-view.style'
-
-export const ModeratorSettingsViewRaw = props => {
-  const { classes: styles } = props
-
-  return (
-    <>
-      <div>
-        <Typography className={styles.inProcess}>{'В разработке...'}</Typography>
-      </div>
-    </>
-  )
+  return <p className={styles.inProcess}>{'В разработке...'}</p>
 }
-
-export const ModeratorSettingsView = withStyles(ModeratorSettingsViewRaw, styles)

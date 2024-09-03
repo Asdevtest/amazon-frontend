@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
 
 /**
  * 
@@ -22,59 +21,11 @@ import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags'
  */
 export interface InlineObject35 {
     /**
-     * 
-     * @type {number}
-     * @memberof InlineObject35
-     */
-    amazon?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineObject35
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineObject35
-     */
-    fbafee?: number;
-    /**
-     * ФБА кол-во
-     * @type {number}
-     * @memberof InlineObject35
-     */
-    fbaamount?: number;
-    /**
-     * Код статуса
-     * @type {number}
-     * @memberof InlineObject35
-     */
-    status?: number;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineObject35
-     */
-    profit?: number;
-    /**
-     * Маржа
-     * @type {number}
-     * @memberof InlineObject35
-     */
-    margin?: number;
-    /**
-     * Примечания байера.
+     * GUID коробки разделение которой отменяем.
      * @type {string}
      * @memberof InlineObject35
      */
-    buyersComment?: string;
-    /**
-     * 
-     * @type {Array<ApiV1BuyersProductsGuidTags>}
-     * @memberof InlineObject35
-     */
-    tags?: Array<ApiV1BuyersProductsGuidTags>;
+    guid?: string;
 }
 
 

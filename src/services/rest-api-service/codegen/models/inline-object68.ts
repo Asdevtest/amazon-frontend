@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
  * 
@@ -21,35 +22,29 @@
  */
 export interface InlineObject68 {
     /**
-     * Название партии
+     * Гуид продукта
      * @type {string}
      * @memberof InlineObject68
      */
-    title?: string;
+    productId: string;
     /**
-     * Метод подсчта массы партии
+     * New product price
      * @type {number}
      * @memberof InlineObject68
      */
-    calculationMethod?: number;
+    newProductPrice?: number;
     /**
-     * Делитель объема партии
-     * @type {number}
-     * @memberof InlineObject68
-     */
-    volumeWeightDivide?: number;
-    /**
-     * Трек номер партии
+     * Description of product_listing_report
      * @type {string}
      * @memberof InlineObject68
      */
-    trackingNumber?: string;
+    description?: string;
     /**
-     * Настоящая стоимость доставки
-     * @type {number}
+     * 
+     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
      * @memberof InlineObject68
      */
-    actualShippingCost?: number;
+    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
 }
 
 

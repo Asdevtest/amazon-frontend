@@ -21,17 +21,17 @@
  */
 export interface InlineObject71 {
     /**
-     * 
-     * @type {Array<string>}
+     * Тег
+     * @type {string}
      * @memberof InlineObject71
      */
-    batchIds: Array<string>;
+    title: string;
     /**
-     * Заархивирована ли партия
-     * @type {boolean}
+     * Color
+     * @type {string}
      * @memberof InlineObject71
      */
-    archive: boolean;
+    color?: string;
 }
 
 

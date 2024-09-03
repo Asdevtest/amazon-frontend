@@ -1,4 +1,6 @@
-export const styles = {
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(() => ({
   inProcess: {
     fontSize: '40px',
   },
@@ -8,4 +10,4 @@ export const styles = {
     alignItems: 'center',
     gap: 20,
   },
-}
+}))
