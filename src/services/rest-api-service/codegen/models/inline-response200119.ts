@@ -16,10 +16,10 @@
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 import { ApiV1RequestsCustomProduct } from './api-v1-requests-custom-product';
-import { InlineResponse20091Announcement } from './inline-response20091-announcement';
-import { InlineResponse20091CountProposalsByStatuses } from './inline-response20091-count-proposals-by-statuses';
-import { InlineResponse20091DetailsCustom } from './inline-response20091-details-custom';
-import { InlineResponse20091Media } from './inline-response20091-media';
+import { InlineResponse20090Announcement } from './inline-response20090-announcement';
+import { InlineResponse20090CountProposalsByStatuses } from './inline-response20090-count-proposals-by-statuses';
+import { InlineResponse20090DetailsCustom } from './inline-response20090-details-custom';
+import { InlineResponse20090Media } from './inline-response20090-media';
 
 /**
  * Схема заявки.
@@ -191,16 +191,16 @@ export interface InlineResponse200119 {
     uploadedToListing?: boolean;
     /**
      * 
-     * @type {Array<InlineResponse20091Media>}
+     * @type {Array<InlineResponse20090Media>}
      * @memberof InlineResponse200119
      */
-    media?: Array<InlineResponse20091Media>;
+    media?: Array<InlineResponse20090Media>;
     /**
      * 
-     * @type {InlineResponse20091Announcement}
+     * @type {InlineResponse20090Announcement}
      * @memberof InlineResponse200119
      */
-    announcement?: InlineResponse20091Announcement;
+    announcement?: InlineResponse20090Announcement;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
@@ -227,10 +227,10 @@ export interface InlineResponse200119 {
     createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
-     * @type {InlineResponse20091CountProposalsByStatuses}
+     * @type {InlineResponse20090CountProposalsByStatuses}
      * @memberof InlineResponse200119
      */
-    countProposalsByStatuses?: InlineResponse20091CountProposalsByStatuses;
+    countProposalsByStatuses?: InlineResponse20090CountProposalsByStatuses;
     /**
      * Count of unread messages
      * @type {number}
@@ -245,10 +245,10 @@ export interface InlineResponse200119 {
     product?: ApiV1RequestsCustomProduct;
     /**
      * 
-     * @type {InlineResponse20091DetailsCustom}
+     * @type {InlineResponse20090DetailsCustom}
      * @memberof InlineResponse200119
      */
-    detailsCustom?: InlineResponse20091DetailsCustom;
+    detailsCustom?: InlineResponse20090DetailsCustom;
 }
 
 /**

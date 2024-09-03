@@ -21,17 +21,23 @@
  */
 export interface InlineResponse20034 {
     /**
-     * GUID в базе данных
-     * @type {string}
+     * total price in yuan for these statuses
+     * @type {number}
      * @memberof InlineResponse20034
      */
-    _id?: string;
+    totalPriceInYuan?: number;
     /**
-     * Имя пользователя.
-     * @type {string}
+     * total price in USD for these statuses
+     * @type {number}
      * @memberof InlineResponse20034
      */
-    name?: string;
+    totalPriceInUSD?: number;
+    /**
+     * Total partialPaymentAmountRmb
+     * @type {number}
+     * @memberof InlineResponse20034
+     */
+    partialPaymentAmountRmb?: number;
 }
 
 

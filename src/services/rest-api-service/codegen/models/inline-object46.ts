@@ -15,17 +15,17 @@
 
 
 /**
- * 
+ * Схема комментарии байера.
  * @export
  * @interface InlineObject46
  */
 export interface InlineObject46 {
     /**
-     * Зашита листинга (bool)
-     * @type {boolean}
+     * Комментарии байера.
+     * @type {string}
      * @memberof InlineObject46
      */
-    transparency?: boolean;
+    buyerComment: string;
 }
 
 

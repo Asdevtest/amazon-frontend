@@ -15,7 +15,7 @@
 
 
 /**
- * Успешный ответ.
+ * 
  * @export
  * @interface InlineResponse2011
  */

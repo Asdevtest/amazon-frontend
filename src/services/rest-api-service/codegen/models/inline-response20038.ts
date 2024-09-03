@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20038Rows } from './inline-response20038-rows';
 
 /**
  * 
@@ -22,17 +21,17 @@ import { InlineResponse20038Rows } from './inline-response20038-rows';
  */
 export interface InlineResponse20038 {
     /**
-     * Кол-во товаров
-     * @type {number}
+     * GUID в базе данных
+     * @type {string}
      * @memberof InlineResponse20038
      */
-    count?: number;
+    _id?: string;
     /**
-     * Массив товаров.
-     * @type {Array<InlineResponse20038Rows>}
+     * Имя пользователя.
+     * @type {string}
      * @memberof InlineResponse20038
      */
-    rows?: Array<InlineResponse20038Rows>;
+    name?: string;
 }
 
 

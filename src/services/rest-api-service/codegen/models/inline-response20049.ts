@@ -13,55 +13,19 @@
  */
 
 
-import { InlineResponse20049Batch } from './inline-response20049-batch';
-import { InlineResponse20049Boxes } from './inline-response20049-boxes';
-import { InlineResponse20049Orders } from './inline-response20049-orders';
-import { InlineResponse20049Products } from './inline-response20049-products';
-import { InlineResponse20049Requests } from './inline-response20049-requests';
-import { InlineResponse20049Shops } from './inline-response20049-shops';
 
 /**
- * 
+ * цену для клиента на поиск поставщика
  * @export
  * @interface InlineResponse20049
  */
 export interface InlineResponse20049 {
     /**
      * 
-     * @type {InlineResponse20049Orders}
+     * @type {number}
      * @memberof InlineResponse20049
      */
-    orders?: InlineResponse20049Orders;
-    /**
-     * 
-     * @type {InlineResponse20049Shops}
-     * @memberof InlineResponse20049
-     */
-    shops?: InlineResponse20049Shops;
-    /**
-     * 
-     * @type {InlineResponse20049Requests}
-     * @memberof InlineResponse20049
-     */
-    requests?: InlineResponse20049Requests;
-    /**
-     * 
-     * @type {InlineResponse20049Products}
-     * @memberof InlineResponse20049
-     */
-    products?: InlineResponse20049Products;
-    /**
-     * 
-     * @type {InlineResponse20049Batch}
-     * @memberof InlineResponse20049
-     */
-    batch?: InlineResponse20049Batch;
-    /**
-     * 
-     * @type {InlineResponse20049Boxes}
-     * @memberof InlineResponse20049
-     */
-    boxes?: InlineResponse20049Boxes;
+    priceForClient?: number;
 }
 
 

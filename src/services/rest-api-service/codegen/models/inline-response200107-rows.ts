@@ -76,7 +76,8 @@ export enum InlineResponse200107RowsTypeEnum {
     Idea = 'idea',
     Request = 'request',
     Shop = 'shop',
-    Launch = 'launch'
+    Launch = 'launch',
+    Parser = 'parser'
 }
 
 
