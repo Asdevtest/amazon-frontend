@@ -20,9 +20,9 @@ import { IGridColumn } from '@typings/shared/grid-column'
 
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
-import { IColumnsProps } from './warehouse-my-batches-view.config'
+import { ColumnsProps } from './warehouse-my-batches-view.config'
 
-export const warehouseMyBatchesViewColumns = (columnsProps: IColumnsProps) => {
+export const warehouseMyBatchesViewColumns = (columnsProps: ColumnsProps) => {
   const columns: IGridColumn[] = [
     {
       field: 'asin',

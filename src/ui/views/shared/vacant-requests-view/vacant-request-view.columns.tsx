@@ -1,5 +1,3 @@
-import { GridRowModel } from '@mui/x-data-grid-premium'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
@@ -28,16 +26,16 @@ import { IGridColumn } from '@typings/shared/grid-column'
 
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
-import { IColumnsProps } from './vacant-requests-view.config'
+import { ColumnsProps } from './vacant-requests-view.type'
 
-export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => {
+export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
   const columns: IGridColumn[] = [
     {
       field: 'priority',
       headerName: t(TranslationKey.Priority),
       renderHeader: () => <MultilineTextHeaderCell textCenter component={<img src="/assets/icons/bookmark.svg" />} />,
 
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <PriorityAndChinaDeliverCell
           isRequest
           priority={row.priority}
@@ -52,7 +50,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => 
       field: 'taskComplexity',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
       headerName: t(TranslationKey.Category),
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <Text
           isCell
           text={difficultyLevelTranslate(difficultyLevelByCode[row.taskComplexity])}
@@ -67,7 +65,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => 
       field: 'title',
       headerName: t(TranslationKey['Request title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.title} />,
+      renderCell: ({ row }) => <Text isCell text={row.title} />,
       width: 110,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -76,7 +74,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => 
       field: 'asin',
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <ProductCell
           image={row?.product?.images?.[0]}
           title={row?.product?.amazonTitle}
@@ -94,36 +92,34 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => 
       field: 'humanFriendlyId',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.humanFriendlyId} />,
+      renderCell: ({ row }) => <Text isCell text={row.humanFriendlyId} />,
       width: 70,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
       field: 'createdBy',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <UserMiniCell userName={row.createdBy?.name} userId={row.createdBy?._id} />
-      ),
+      renderCell: ({ row }) => <UserMiniCell userName={row.createdBy?.name} userId={row.createdBy?._id} />,
       width: 145,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
       field: 'price',
       headerName: t(TranslationKey['Request price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request price'])} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={toFixedWithDollarSign(row.price, 2)} />,
+      renderCell: ({ row }) => <Text isCell text={toFixedWithDollarSign(row.price, 2)} />,
       width: 100,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
       field: 'status',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <Text isCell text={MyRequestStatusTranslate(row.status)} color={colorByStatus(row.status)} />
       ),
       width: 120,
@@ -134,16 +130,16 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => 
       field: 'spec',
       headerName: t(TranslationKey['Request type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.spec?.title} />,
+      renderCell: ({ row }) => <Text isCell text={row.spec?.title} />,
       width: 110,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
       field: 'timeoutAt',
       headerName: t(TranslationKey.Deadline),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.timeoutAt} />,
+      renderCell: ({ row }) => <NormDateCell value={row.timeoutAt} />,
       width: 87,
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -152,9 +148,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => 
       field: 'deadline',
       headerName: t(TranslationKey['Time till deadline']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time till deadline'])} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <Text isCell text={timeToDeadlineInDaysAndHours({ date: row.timeoutAt })} />
-      ),
+      renderCell: ({ row }) => <Text isCell text={timeToDeadlineInDaysAndHours({ date: row.timeoutAt })} />,
       width: 80,
       filterable: false,
     },
@@ -163,11 +157,9 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => 
       field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <Text isCell text={row.product?.shop?.name || t(TranslationKey.Missing)} />
-      ),
+      renderCell: ({ row }) => <Text isCell text={row.product?.shop?.name || t(TranslationKey.Missing)} />,
       width: 110,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
@@ -175,11 +167,9 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => 
       headerName: t(TranslationKey.Announcement),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Announcement)} />,
 
-      renderCell: ({ row }: GridRowModel) => (
-        <Text isCell text={row.announcement?.title || t(TranslationKey.Missing)} />
-      ),
+      renderCell: ({ row }) => <Text isCell text={row.announcement?.title || t(TranslationKey.Missing)} />,
       width: 130,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
@@ -187,7 +177,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => 
       headerName: t(TranslationKey.Performer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
       width: 145,
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <UserMiniCell
           userName={row.proposals?.[0]?.sub?.name || row.announcement?.createdBy?.name}
           userId={row.proposals?.[0]?.sub?._id || row.announcement?.createdBy?._id}
@@ -200,7 +190,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => 
       field: 'cashBackInPercent',
       headerName: t(TranslationKey.CashBack),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.CashBack)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={toFixed(row.cashBackInPercent, 2) + ' %'} />,
+      renderCell: ({ row }) => <Text isCell text={toFixed(row.cashBackInPercent, 2) + ' %'} />,
       width: 90,
       filterable: false,
     },
@@ -209,18 +199,18 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => 
       field: 'priceAmazon',
       headerName: t(TranslationKey['Product price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Product price'])} />,
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <VacantRequestPriceCell price={row.priceAmazon} cashBackInPercent={row.cashBackInPercent} />
       ),
       width: 130,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
       field: 'maxAmountOfProposals',
       headerName: t(TranslationKey['Remaining offers']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Remaining offers'])} />,
-      renderCell: ({ row }: GridRowModel) => {
+      renderCell: ({ row }) => {
         const text = `${row.maxAmountOfProposals - row.countProposalsByStatuses.acceptedProposals} ${t(
           TranslationKey['out of'],
         )} ${row.maxAmountOfProposals}`
@@ -235,7 +225,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => 
       field: 'withoutConfirmation',
       headerName: t(TranslationKey['To work without confirmation']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['To work without confirmation'])} />,
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <Text isCell text={row.withoutConfirmation ? t(TranslationKey.Yes) : t(TranslationKey.No)} />
       ),
       width: 140,
@@ -246,7 +236,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: IColumnsProps) => 
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
+      renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       width: 105,
       columnKey: columnnsKeys.shared.DATE,
     },

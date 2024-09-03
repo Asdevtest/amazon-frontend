@@ -16,8 +16,9 @@ import { Specs } from '@typings/enums/specs'
 import { ICustomRequest } from '@typings/models/requests/custom-request'
 import { IFullUser } from '@typings/shared/full-user'
 
-import { vacantRequestColumns } from './vacant-request.columns'
-import { IColumnsProps, fieldsForSearch, vacantRequestsConfig } from './vacant-requests-view.config'
+import { vacantRequestColumns } from './vacant-request-view.columns'
+import { fieldsForSearch, vacantRequestsConfig } from './vacant-requests-view.config'
+import { ColumnsProps } from './vacant-requests-view.type'
 
 export class VacantRequestsViewModel extends DataGridFilterTableModel {
   specOption = Specs.DEFAULT
@@ -32,7 +33,7 @@ export class VacantRequestsViewModel extends DataGridFilterTableModel {
   }
 
   constructor() {
-    const columnsProps: IColumnsProps = {
+    const columnsProps: ColumnsProps = {
       onClickViewMore: id => this.onClickViewMore(id),
       onClickOpenInNewTab: id => this.onClickOpenInNewTab(id),
     }
@@ -67,8 +68,6 @@ export class VacantRequestsViewModel extends DataGridFilterTableModel {
     makeObservable(this, vacantRequestsConfig)
 
     this.initHistory()
-    this.getDataGridState()
-    this.getCurrentData()
     this.getTableSettingsPreset()
   }
 

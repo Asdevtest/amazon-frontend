@@ -19,8 +19,3 @@ export const vacantRequestsConfig = {
 }
 
 export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient']
-
-export interface IColumnsProps {
-  onClickViewMore: (id: string) => void
-  onClickOpenInNewTab: (id: string) => void
-}

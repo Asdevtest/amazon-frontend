@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowModel, GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -22,7 +22,7 @@ import { VacantRequestsViewModel } from './vacant-requests-view.model'
 
 export const VacantRequestsView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new VacantRequestsViewModel())
+  const viewModel = useMemo(() => new VacantRequestsViewModel(), [])
 
   const getRowClassName = (params: GridRowParams) => {
     if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= ONE_DAY_IN_SECONDS) {
