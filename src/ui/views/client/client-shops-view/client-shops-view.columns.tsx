@@ -33,7 +33,7 @@ export const shopsColumns = (props: IColumnProps) => {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
+      renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       width: 115,
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -41,7 +41,7 @@ export const shopsColumns = (props: IColumnProps) => {
       field: 'name',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.name} />,
+      renderCell: ({ row }) => <Text isCell text={row.name} />,
       width: 240,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -49,10 +49,8 @@ export const shopsColumns = (props: IColumnProps) => {
       field: 'profileEmail',
       headerName: t(TranslationKey['Parsing profile']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing profile'])} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />
-      ),
-      valueGetter: ({ row }: GridRowModel) => row.profile?.email || '',
+      renderCell: ({ row }) => <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />,
+      valueGetter: ({ row }) => row.profile?.email || '',
       width: 320,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -64,14 +62,14 @@ export const shopsColumns = (props: IColumnProps) => {
           text={`${t(TranslationKey.Access)} ${t(TranslationKey.and)} ${t(TranslationKey.invitation)}`}
         />
       ),
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <ParsingAccessCell
           profile={row.profile}
           onAccess={() => onParsingAccess(row.profile?.email)}
           onParsingProfileInvited={() => onParsingProfileInvited(row.profile?._id)}
         />
       ),
-      valueGetter: ({ row }: GridRowModel) => row.profile?.access,
+      valueGetter: ({ row }) => row.profile?.access,
       width: 170,
       disableCustomSort: true,
       filterable: false,
@@ -80,8 +78,8 @@ export const shopsColumns = (props: IColumnProps) => {
       field: 'status',
       headerName: t(TranslationKey['Parsing status']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing status'])} />,
-      valueGetter: ({ row }: GridRowModel) => row.profile?.status || '',
-      renderCell: ({ row }: GridRowModel) => {
+      valueGetter: ({ row }) => row.profile?.status || '',
+      renderCell: ({ row }) => {
         const disabled =
           !row.profile ||
           [ProfileRequestStatus.PENDING, ProfileRequestStatus.REJECTED].includes(row.profile?.requestStatus) ||

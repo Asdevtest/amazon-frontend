@@ -79,7 +79,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'action',
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <ActionButtonsCell
           iconButton
           fullWidth
@@ -110,7 +110,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'createdAt',
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
+      renderCell: ({ row }) => <NormDateCell value={row.createdAt} />,
       valueGetter: (row: GridRowModel) => formatShortDateTime(row?.createdAt),
       width: 100,
       columnKey: columnnsKeys.shared.DATE,
@@ -120,7 +120,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'launchType',
       headerName: t(TranslationKey['Launch type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Launch type'])} />,
-      renderCell: ({ row }: GridRowModel) => <Launches isCell launches={row.listingLaunches || []} />,
+      renderCell: ({ row }) => <Launches isCell launches={row.listingLaunches || []} />,
       valueGetter: (launch: GridRowModel) =>
         `${getLaunchName(launch?.type, launch?.showShortName ?? true)} - ${launch?.value}%`,
       width: 330,
@@ -131,7 +131,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'newProductPrice',
       headerName: t(TranslationKey['New product price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['New product price'])} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={String(toFixedWithDollarSign(row.newProductPrice))} />,
+      renderCell: ({ row }) => <Text isCell text={String(toFixedWithDollarSign(row.newProductPrice))} />,
       width: 140,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -140,7 +140,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'createdBy',
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <UserMiniCell userName={row.sub?.name || row.createdBy?.name} userId={row.sub?._id || row.createdBy?._id} />
       ),
       valueGetter: (row: GridRowModel) => row?.sub?.name || row?.createdBy?.name,
@@ -207,7 +207,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'description',
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.description} />,
+      renderCell: ({ row }) => <Text isCell text={row.description} />,
       flex: 1,
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -216,7 +216,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
+      renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       valueGetter: (row: GridRowModel) => formatShortDateTime(row?.updatedAt),
       width: 105,
       columnKey: columnnsKeys.shared.DATE,
