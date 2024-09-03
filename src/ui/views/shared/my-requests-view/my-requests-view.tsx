@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 
 import { Typography } from '@mui/material'
-import { useGridApiRef } from '@mui/x-data-grid-premium'
+import { GridCellParams, GridRowModel, useGridApiRef } from '@mui/x-data-grid-premium'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
@@ -33,13 +33,11 @@ import { MyRequestsViewModel } from './my-requests-view.model'
 
 export const MyRequestsView = observer(() => {
   const { classes: styles, cx } = useStyles()
-
   const apiRef = useGridApiRef()
-
   const [viewModel] = useState(() => new MyRequestsViewModel({ dataGridApi: apiRef }))
 
-  const getCellClassName = params => {
-    if (params.row.countProposalsByStatuses.waitedProposals && params.field === 'waitedProposals') {
+  const getCellClassName = (params: GridCellParams) => {
+    if (params.row?.countProposalsByStatuses?.waitedProposals && params.field === 'waitedProposals') {
       return styles.waitingCheckedBacklighting
     }
 
@@ -47,8 +45,7 @@ export const MyRequestsView = observer(() => {
       return styles.unreadMessages
     }
   }
-
-  const getRowClassName = params => {
+  const getRowClassName = (params: GridCellParams) => {
     if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= ONE_DAY_IN_SECONDS && viewModel.isRequestsAtWork) {
       return cx(styles.deadlineBorder, styles.redBorder)
     } else if (
@@ -59,9 +56,11 @@ export const MyRequestsView = observer(() => {
     }
   }
 
-  const isReworkAndReceive = [RequestProposalStatus.READY_TO_VERIFY, RequestProposalStatus.CORRECTED].includes(
-    viewModel.curProposal?.proposal?.status,
-  )
+  const isReworkAndReceive =
+    viewModel.curProposal?.proposal?.status &&
+    [RequestProposalStatus.READY_TO_VERIFY, RequestProposalStatus.CORRECTED].includes(
+      viewModel.curProposal?.proposal?.status,
+    )
 
   return (
     <div className="viewWrapper">
@@ -98,7 +97,7 @@ export const MyRequestsView = observer(() => {
         rowCount={viewModel.rowCount}
         sortModel={viewModel.sortModel}
         rows={viewModel.currentData}
-        rowHeight={130}
+        getRowHeight={() => 'auto'}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),
@@ -134,7 +133,7 @@ export const MyRequestsView = observer(() => {
             },
           },
         }}
-        getRowId={row => row._id}
+        getRowId={({ _id }: GridRowModel) => _id}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -142,8 +141,8 @@ export const MyRequestsView = observer(() => {
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
-        onRowDoubleClick={e => viewModel.handleOpenRequestDetailModal(e)}
         onPinnedColumnsChange={viewModel.handlePinColumn}
+        onRowDoubleClick={(row: GridRowModel) => viewModel.handleOpenRequestDetailModal(row)}
       />
 
       <Modal openModal={viewModel.showRequestForm} setOpenModal={() => viewModel.onTriggerOpenModal('showRequestForm')}>
@@ -164,7 +163,6 @@ export const MyRequestsView = observer(() => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           title={t(TranslationKey.Attention)}
           message={viewModel.confirmModalSettings.message}
-          smallMessage={viewModel.confirmModalSettings.smallMessage}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
@@ -216,6 +214,7 @@ export const MyRequestsView = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
       >
         <RequestDesignerResultClientForm
+          // @ts-ignore
           onlyRead
           userInfo={viewModel.userInfo}
           request={viewModel.currentRequestDetails}
@@ -225,7 +224,7 @@ export const MyRequestsView = observer(() => {
         />
       </Modal>
 
-      {viewModel.showMainRequestResultModal ? (
+      {viewModel.showMainRequestResultModal && viewModel.curProposal ? (
         <MainRequestResultModal
           readOnly={!isReworkAndReceive}
           customProposal={viewModel.curProposal}

@@ -22,7 +22,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
   requestStatus = undefined
-
   uploadedFiles = []
   requestId = undefined
   request = undefined
@@ -31,9 +30,7 @@ export class OwnerRequestDetailCustomViewModel {
   curResultMedia = []
   currentReviews = []
   currentReviewModalUser = undefined
-
   findRequestProposalForCurChat = undefined
-
   showConfirmModal = false
   showRequestForm = false
   showConfirmWithCommentModal = false
@@ -43,7 +40,6 @@ export class OwnerRequestDetailCustomViewModel {
   showReviewModal = false
   showResultToCorrectFormModal = false
   readOnlyRequestDesignerResultClientForm = true
-
   confirmModalSettings = {
     isWarning: false,
     message: '',
@@ -53,16 +49,13 @@ export class OwnerRequestDetailCustomViewModel {
       this.showConfirmWithCommentModal = false
     },
   }
-
   acceptProposalResultSetting = {
     onSubmit: () => {},
   }
-
   chatSelectedId = undefined
   chatIsConnected = false
   scrollToChat = undefined
   showMainRequestResultModal = false
-
   mesSearchValue = ''
   messagesFound = []
   curFoundedMessage = undefined
@@ -70,23 +63,18 @@ export class OwnerRequestDetailCustomViewModel {
   get isMuteChats() {
     return SettingsModel.isMuteChats
   }
-
   get mutedChats() {
     return SettingsModel.mutedChats
   }
-
   get userInfo() {
     return UserModel.userInfo
   }
-
   get typingUsers() {
     return ChatModel.typingUsers
   }
-
   get chats() {
     return ChatModel.chats
   }
-
   get platformSettings() {
     return UserModel.platformSettings
   }
@@ -161,14 +149,10 @@ export class OwnerRequestDetailCustomViewModel {
     ChatModel.typingMessage({ chatId })
   }
 
-  async loadData() {
-    try {
-      await this.getCustomRequestCur()
-      await this.getCustomProposalsForRequestCur()
-      await this.getAnnouncementsByGuid(this.request?.request?.announcementId)
-    } catch (error) {
-      console.error(error)
-    }
+  loadData() {
+    this.getCustomRequestCur()
+    this.getCustomProposalsForRequestCur()
+    this.getAnnouncementsByGuid(this.request?.request?.announcementId)
   }
 
   onChangeCurFoundedMessage(index) {

@@ -17,8 +17,8 @@ import { useStyles } from './service-exchange-list-card.style'
 
 interface ServiceExchangeCardListProps {
   service: IAnnoucement
-  choose: boolean
-  order: boolean
+  choose?: boolean
+  order?: boolean
   pathname: string
   onClickButton: (data: IAnnoucement) => void
 }

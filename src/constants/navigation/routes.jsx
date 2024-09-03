@@ -3,9 +3,9 @@ import { lazy } from 'react'
 import { UserRole } from '@constants/keys/user-roles'
 import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
 
-import { ParsingProdileView } from '@views/shared/parsing/parsing-profile-view'
-import { ParsingRequestsView } from '@views/shared/parsing/parsing-requests-view'
-import { ParsingView } from '@views/shared/parsing/parsing-view'
+import { ParsingProdileView } from '@views/shared/parsing-view/parsing-profile-view'
+import { ParsingRequestsView } from '@views/shared/parsing-view/parsing-requests-view'
+import { ParsingView } from '@views/shared/parsing-view/parsing-view'
 
 import { t } from '@utils/translations'
 

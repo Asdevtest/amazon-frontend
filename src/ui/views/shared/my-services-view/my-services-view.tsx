@@ -13,19 +13,21 @@ import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { t } from '@utils/translations'
 
+import { HistoryType } from '@typings/types/history'
+
 import { useStyles } from './my-services-view.style'
 
 import { MyServicesViewModel } from './my-services-view.model'
 
-export const MyServicesView = observer(({ history }) => {
-  const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new MyServicesViewModel({ history }))
+export const MyServicesView = observer(({ history }: { history: HistoryType }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new MyServicesViewModel(history))
 
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
 
   return (
     <>
-      <div className={styles.header}>
+      <div className={styles.flexContainer}>
         <div className={styles.flexContainer}>
           <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
@@ -45,7 +47,7 @@ export const MyServicesView = observer(({ history }) => {
         />
 
         <div className={styles.flexContainer}>
-          <CustomButton size="large" onClick={() => viewModel.onToggleArchive(!viewModel.archive)}>
+          <CustomButton size="large" onClick={viewModel.onToggleArchive}>
             {t(TranslationKey[viewModel.archive ? 'To the actual' : 'Open archive'])}
           </CustomButton>
 
@@ -61,16 +63,14 @@ export const MyServicesView = observer(({ history }) => {
             <ServiceExchangeCardList
               key={serviceKey}
               service={service}
-              pathname={viewModel.history?.location?.pathname}
-              onClickThumbnail={viewModel.onClickThumbnail}
+              pathname={history?.location?.pathname}
               onClickButton={viewModel.onClickOpenButton}
             />
           ) : (
             <ServiceExchangeCard
               key={serviceKey}
               service={service}
-              pathname={viewModel.history?.location?.pathname}
-              onClickThumbnail={viewModel.onClickThumbnail}
+              pathname={history?.location?.pathname}
               onClickButton={viewModel.onClickOpenButton}
             />
           ),
