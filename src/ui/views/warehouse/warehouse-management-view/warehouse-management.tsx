@@ -39,8 +39,6 @@ export const WarehouseManagementView = observer(() => {
     [viewModel.storekeeperDestination],
   )
 
-  console.log('tabIndex :>> ', viewModel.tabIndex)
-
   return (
     <div className="viewWrapper">
       <div className={styles.flexRow}>
@@ -114,6 +112,11 @@ export const WarehouseManagementView = observer(() => {
               columnsModel: viewModel.columnsModel,
               columnVisibilityModel: viewModel.columnVisibilityModel,
               onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+            },
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
             },
             tablePresets: {
               showPresetsSelect: viewModel.showPresetsSelect,
