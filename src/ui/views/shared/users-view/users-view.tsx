@@ -1,32 +1,29 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { HistoryType } from '@typings/types/history'
 
 import { useStyles } from './users-view.style'
 
 import { UsersViewModel } from './users-view.model'
 
-export const UsersView = observer(props => {
+export const UsersView = observer(({ history }: { history: HistoryType }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new UsersViewModel({ history: props.history }))
+  const [viewModel] = useState(() => new UsersViewModel(history))
 
   return (
     <>
       <p className={styles.title}>{t(TranslationKey['Choose a section in Users'])}</p>
 
-      <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickSubUsers}>
+      <CustomButton type="primary" size="large" onClick={viewModel.onClickSubUsers}>
         {t(TranslationKey['My users'])}
-        <ArrowRightAltIcon />
-      </Button>
+      </CustomButton>
     </>
   )
 })
