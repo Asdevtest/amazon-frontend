@@ -22,7 +22,7 @@ export const TableToolbar = ({ rowsPerPage, handlerRowsPerPage }) => {
         startAdornment={
           <InputAdornment className={styles.searchAdornment} position="start">
             <IconButton className={styles.iconButton}>
-              <IoSearchOutline className={styles.icon} />
+              <IoSearchOutline size={16} className={styles.icon} />
             </IconButton>
           </InputAdornment>
         }

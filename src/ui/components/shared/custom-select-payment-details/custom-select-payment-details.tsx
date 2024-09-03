@@ -56,7 +56,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
     setValue(initValue)
   }, [orderPayments])
 
-  const EditIconToRender = () => <MdEdit className={styles.editIcon} />
+  const EditIconToRender = () => <MdEdit size={13} className={styles.editIcon} />
 
   const selectContentToRender = (valuesToRender: IPaymentMethod[], isReadOnly: boolean): JSX.Element => {
     if (valuesToRender.length) {
@@ -81,7 +81,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
           {!isReadOnly ? (
             <>
               <Typography className={styles.placeholderText}>{t(TranslationKey.Add)}</Typography>
-              <MdAdd className={styles.addIcon} />
+              <MdAdd size={13} className={styles.addIcon} />
             </>
           ) : (
             <Typography className={styles.placeholderText}>{t(TranslationKey.Missing)}</Typography>

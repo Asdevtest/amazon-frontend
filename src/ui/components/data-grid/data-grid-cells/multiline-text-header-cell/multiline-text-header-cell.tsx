@@ -47,7 +47,7 @@ export const MultilineTextHeaderCell: FC<MultilineTextHeaderCellProps> = memo(pr
       {component}
       {withIcon || isShowIconOnHover || isFilterActive ? (
         <MdOutlineFilterAlt
-          size={20}
+          size={14}
           className={cx(styles.headerIcon, {
             [styles.headerIconBlue]: isFilterActive,
           })}

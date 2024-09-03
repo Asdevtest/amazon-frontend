@@ -28,7 +28,7 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
 
             <div className={styles.statusWrapper}>
               <Typography className={styles.status}>{'Продается'}</Typography>
-              <MdOutlineFiberManualRecord classes={{ root: styles.statusIcon }} size={20} />
+              <MdOutlineFiberManualRecord className={styles.statusIcon} size={12} />
             </div>
           </div>
 

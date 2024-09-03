@@ -280,8 +280,6 @@ export const useStyles = makeStyles()(theme => ({
 
   deleteBtn: {
     color: theme.palette.text.second,
-    width: '20px',
-    height: '20px',
   },
 
   ideaTitle: {

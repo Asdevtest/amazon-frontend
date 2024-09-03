@@ -53,11 +53,11 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
   return (
     <div className={styles.controls}>
       <Button className={styles.button} onClick={() => onDownloadFile(mediaFile)}>
-        <MdOutlineDownload size={20} className={styles.icon} />
+        <MdOutlineDownload size={20} />
       </Button>
 
       <Button className={styles.button} onClick={onOpenImageZoomModal}>
-        <MdZoomOutMap size={20} className={styles.icon} />
+        <MdZoomOutMap size={20} />
       </Button>
 
       {isEditable ? (
@@ -74,12 +74,12 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
 
           {isImageType ? (
             <Button className={styles.button} onClick={() => onImageEditToggle?.()}>
-              <MdOutlineModeEdit size={20} className={styles.icon} />
+              <MdOutlineModeEdit size={20} />
             </Button>
           ) : null}
 
           <Button className={styles.button}>
-            <MdAutorenew size={20} className={styles.icon} />
+            <MdAutorenew size={20} />
             <input
               type="file"
               defaultValue=""
@@ -89,7 +89,7 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
           </Button>
 
           <Button styleType={ButtonStyle.DANGER} className={styles.button} onClick={() => onRemoveFile(mediaFileIndex)}>
-            <MdDeleteOutline size={20} className={styles.icon} />
+            <MdDeleteOutline size={20} />
           </Button>
         </>
       ) : null}

@@ -550,7 +550,7 @@ export const IdeaViewAndEditCard = observer(
                                         className={styles.deleteBtnWrapper}
                                         onClick={() => onRemoveLink(index)}
                                       >
-                                        <MdDeleteOutline size={24} className={styles.deleteBtn} />
+                                        <MdDeleteOutline size={20} className={styles.deleteBtn} />
                                       </IconButton>
                                     )}
                                   </div>

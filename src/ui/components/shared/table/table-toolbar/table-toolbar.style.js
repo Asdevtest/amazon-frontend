@@ -9,7 +9,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: '8px',
   },
   icon: {
-    fontSize: '16px',
     color: theme.palette.primary.main,
     '& > *:first-of-type': {
       fontSize: '16px',

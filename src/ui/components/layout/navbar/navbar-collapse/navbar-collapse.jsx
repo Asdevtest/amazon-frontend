@@ -299,9 +299,9 @@ export const NavbarCollapse = ({
               </Typography>
 
               {menuAnchor ? (
-                <MdArrowDropUp size={24} className={cx({ [styles.selected]: index === activeCategory })} fontSize="small" />
+                <MdArrowDropUp size={24} className={cx({ [styles.selected]: index === activeCategory })} />
               ) : (
-                <MdArrowDropDown size={24}  className={cx({ [styles.selected]: index === activeCategory })} fontSize="small" />
+                <MdArrowDropDown size={24} className={cx({ [styles.selected]: index === activeCategory })} />
               )}
             </div>
           ) : null}

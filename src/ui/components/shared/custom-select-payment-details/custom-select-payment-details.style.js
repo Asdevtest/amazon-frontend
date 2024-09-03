@@ -71,8 +71,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   addIcon: {
-    width: 13,
-    height: 13,
     color: theme.palette.primary.main,
   },
 
@@ -89,8 +87,6 @@ export const useStyles = makeStyles()(theme => ({
   editIcon: {
     position: 'absolute',
     right: 25,
-    width: '13px !important',
-    height: '13px !important',
     color: theme.palette.primary.main,
   },
 

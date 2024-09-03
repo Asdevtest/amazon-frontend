@@ -294,6 +294,7 @@ export const WithSearchSelect = memo(
 
                           {favourites ? (
                             <IoMdStar
+                              size={30}
                               className={cx(styles.setFavouriteBtn, {
                                 [styles.setFavouriteBtnIsSelected]: favourites?.find(favouriteItem =>
                                   isEqual(

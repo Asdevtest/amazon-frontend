@@ -129,7 +129,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
                       <p className={styles.skuItemTitle}>{formFields.skuByClient}</p>
 
                       <IconButton className={styles.deleteBtnWrapper} onClick={onRemoveSku}>
-                        <MdDeleteOutline size={24} className={styles.deleteBtn} />
+                        <MdDeleteOutline size={24} />
                       </IconButton>
                     </div>
                   </div>

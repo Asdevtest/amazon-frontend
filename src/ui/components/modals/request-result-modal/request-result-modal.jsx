@@ -115,9 +115,7 @@ export const RequestResultModal = memo(props => {
 
                     <div className={styles.linksBtnsWrapper}>
                       <CopyValue text={el} />
-                      {!proposal && (
-                        <MdDeleteOutline size={24} className={styles.deleteBtn} onClick={() => onRemoveLink(index)} />
-                      )}
+                      {!proposal && <MdDeleteOutline size={24} onClick={() => onRemoveLink(index)} />}
                     </div>
                   </div>
                 ))}

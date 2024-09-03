@@ -21,7 +21,7 @@ export const CustomList: FC<Props> = memo(({ dataList, title }) => {
         {dataList
           ? dataList.map(item => (
               <ListItem key={item} className={styles.listItem}>
-                <FaCircle size={10} className={styles.dot} style={{ width: '8px' }} />
+                <FaCircle size={10} className={styles.dot} />
 
                 <ListItemText className={styles.listItemText}>{item}</ListItemText>
               </ListItem>

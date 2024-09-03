@@ -62,9 +62,9 @@ export const TableAsinAndReason = observer(({ userRole, data, onClickRemoveCell 
                 )}
                 <TableCell className={cx(styles.clearCell)}>
                   {checkIsAdmin(userRole) ? (
-                    <MdClear size={20} className={styles.icon} onClick={() => onClickRemoveCell(item)} />
+                    <MdClear size={20} onClick={() => onClickRemoveCell(item)} />
                   ) : (
-                    <MdClear size={20} className={styles.icon} onClick={() => onClickRemoveCell(item.asin)} />
+                    <MdClear size={20} onClick={() => onClickRemoveCell(item.asin)} />
                   )}
                 </TableCell>
               </TableRow>
