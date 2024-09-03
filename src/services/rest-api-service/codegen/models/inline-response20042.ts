@@ -13,8 +13,7 @@
  */
 
 
-import { InlineResponse20042BoxAmounts } from './inline-response20042-box-amounts';
-import { InlineResponse20042Orders } from './inline-response20042-orders';
+import { InlineResponse20042Rows } from './inline-response20042-rows';
 
 /**
  * 
@@ -23,125 +22,17 @@ import { InlineResponse20042Orders } from './inline-response20042-orders';
  */
 export interface InlineResponse20042 {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
-     * @memberof InlineResponse20042
-     */
-    _id?: string;
-    /**
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineResponse20042
-     */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20042
-     */
-    skuByClient?: string;
-    /**
-     * ID магазина для продукта
-     * @type {string}
-     * @memberof InlineResponse20042
-     */
-    shopId?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20042
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20042
-     */
-    amazonTitle?: string;
-    /**
-     * Сколько такого продукта находится в заказах.
+     * Кол-во товаров
      * @type {number}
      * @memberof InlineResponse20042
      */
-    amountInOrders?: number;
+    count?: number;
     /**
-     * Дата изменения
-     * @type {string}
+     * Массив товаров.
+     * @type {Array<InlineResponse20042Rows>}
      * @memberof InlineResponse20042
      */
-    updatedAt?: string;
-    /**
-     * Каков должен быть сток за 4 месяца
-     * @type {number}
-     * @memberof InlineResponse20042
-     */
-    fourMonthesStock?: number;
-    /**
-     * “sumStock”=“boxAmounts” + ”inTransfer” + ”productsInWarehouse”(“reserved” + ”fbaFbmStock” + ”sentToFba”) + “amountInOrders“ + “stockUSA“
-     * @type {number}
-     * @memberof InlineResponse20042
-     */
-    sumStock?: number;
-    /**
-     * “purchaseQuantity”=”fourMonthesStock” - “sumStock” - меньше нуля быть не может, если отрицательное значение выставляем 0
-     * @type {number}
-     * @memberof InlineResponse20042
-     */
-    purchaseQuantity?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20042
-     */
-    reservedSum?: number;
-    /**
-     * Сколько такого продукта находится в заказах в статусах 0, 2, 3.
-     * @type {number}
-     * @memberof InlineResponse20042
-     */
-    amountInPendingOrders?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20042
-     */
-    sentToFbaSum?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20042
-     */
-    fbaFbmStockSum?: number;
-    /**
-     * Кол-во товаров, которые находятся в пути
-     * @type {number}
-     * @memberof InlineResponse20042
-     */
-    inTransfer?: number;
-    /**
-     * Стоимость стока товара
-     * @type {number}
-     * @memberof InlineResponse20042
-     */
-    stockCost?: number;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof InlineResponse20042
-     */
-    productsInWarehouseSchema?: Array<object>;
-    /**
-     * 
-     * @type {Array<InlineResponse20042BoxAmounts>}
-     * @memberof InlineResponse20042
-     */
-    boxAmounts?: Array<InlineResponse20042BoxAmounts>;
-    /**
-     * 
-     * @type {Array<InlineResponse20042Orders>}
-     * @memberof InlineResponse20042
-     */
-    orders?: Array<InlineResponse20042Orders>;
+    rows?: Array<InlineResponse20042Rows>;
 }
 
 
