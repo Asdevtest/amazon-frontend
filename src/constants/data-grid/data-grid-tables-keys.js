@@ -141,4 +141,5 @@ export const DataGridTablesKeys = {
   PRODUCT_BATCHES_DATA: 'productBatchesData',
   PARSING_PROFILES: 'parsingProfiles',
   PARSING_REQUESTS: 'parsingRequests',
+  SERVICES_DETAILS: 'servicesDetails',
 }
