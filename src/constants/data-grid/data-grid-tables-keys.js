@@ -40,6 +40,8 @@ export const DataGridTablesKeys = {
 
   WAREHOUSE_LOGISTICS_TARIFFS: 'warehouseLogisticsTariffsDataGridState',
   WAREHOUSE_SELF_TARIFFS: 'warehouseSelfTariffsDataGridState',
+  WAREHOUSE_MANAGEMENT_LOGISTICS_TARIFFS: 'warehouseManagementLogisticsTariffsDataGridState',
+  WAREHOUSE_MANAGEMENT_WAREHOUSE_SERVICES: 'warehouseManagementWarehouseServicesDataGridState',
 
   RESEARCHER_PRODUCTS: 'researcherProductsDataGridState',
   RESEARCHER_PRODUCT_VACANT_REQUESTS: 'researcherProductVacantRequestsDataGridState',

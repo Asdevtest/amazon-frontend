@@ -39,6 +39,8 @@ export const WarehouseManagementView = observer(() => {
     [viewModel.storekeeperDestination],
   )
 
+  console.log('tabIndex :>> ', viewModel.tabIndex)
+
   return (
     <div className="viewWrapper">
       <div className={styles.flexRow}>
