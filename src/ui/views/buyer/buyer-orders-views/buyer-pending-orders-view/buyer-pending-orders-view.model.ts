@@ -88,8 +88,25 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitCancelOrder() {
+  async onSubmitCancelOrder(order: IOrder, orderFields: IOrder, hsCode: IHSCode) {
+    const orderFieldsToSave = {
+      ...orderFields,
+      images: this.readyImages,
+    }
     try {
+      await this.onSaveOrder(order, orderFieldsToSave)
+
+      if (hsCode) {
+        await ProductModel.editProductsHsCods([
+          {
+            productId: hsCode._id,
+            chinaTitle: hsCode.chinaTitle || null,
+            hsCode: hsCode.hsCode || null,
+            material: hsCode.material || null,
+            productUsage: hsCode.productUsage || null,
+          },
+        ])
+      }
       await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {
         buyerComment: this.dataToCancelOrder.buyerComment,
       })
@@ -97,8 +114,10 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
       this.getCurrentData()
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showOrderModal')
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -155,29 +174,24 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
       if (
         Number(orderFields.status) === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER as keyof typeof OrderStatusByKey]
       ) {
-        runInAction(() => {
-          this.dataToCancelOrder = { orderId: order._id, buyerComment: orderFields.buyerComment }
-          this.confirmModalSettings = {
-            title: t(TranslationKey['Attention. Are you sure?']),
-            isWarning: true,
-            message: t(TranslationKey['Are you sure you want to cancel the order?']),
-            onSubmit: () => this.onSubmitCancelOrder(),
-            onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
-          }
-        })
+        this.dataToCancelOrder = { orderId: order._id, buyerComment: orderFields.buyerComment }
+        this.confirmModalSettings = {
+          title: t(TranslationKey['Attention. Are you sure?']),
+          isWarning: true,
+          message: t(TranslationKey['Are you sure you want to cancel the order?']),
+          onSubmit: () => this.onSubmitCancelOrder(order, orderFields, hsCode),
+          onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+        }
 
         this.onTriggerOpenModal('showConfirmModal')
+        return
       }
 
       if (Number(order.status) === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT as keyof typeof OrderStatusByKey]) {
         await OrderModel.changeOrderComments(order._id, { buyerComment: orderFields.buyerComment })
+        await OrderModel.orderReadyForBoyout(order._id)
       } else {
         await this.onSaveOrder(order, orderFieldsToSave)
-        if (
-          Number(orderFields.status) === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT as keyof typeof OrderStatusByKey]
-        ) {
-          await OrderModel.orderReadyForBoyout(order._id)
-        }
       }
 
       if (hsCode) {
