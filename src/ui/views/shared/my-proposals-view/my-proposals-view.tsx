@@ -112,7 +112,7 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
         onFilterModelChange={viewModel.onChangeFilterModel}
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         onPaginationModelChange={viewModel.onPaginationModelChange}
-        onRowClick={(params: GridRowParams) => viewModel.onOpenRequestDetailModal(params.row._id)}
+        onRowClick={(params: GridRowParams) => viewModel.onOpenRequestDetailModal(params.row.request?._id)}
       />
 
       {viewModel.showConfirmModal ? (
