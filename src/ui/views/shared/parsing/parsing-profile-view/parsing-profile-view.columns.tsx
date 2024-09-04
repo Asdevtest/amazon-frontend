@@ -29,7 +29,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
 
   const columns: IGridColumn[] = [
     {
-      field: 'profileName',
+      field: 'name',
       headerName: t(TranslationKey.Name),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row.name} />,
@@ -57,7 +57,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       hideEmptyObject: true,
     },
     {
-      field: 'profileEmail',
+      field: 'email',
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row.email} />,
@@ -137,7 +137,6 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
           secondButtonStyle={ButtonStyle.PRIMARY}
           thirdButtonElement={t(TranslationKey.Remove)}
           thirdButtonStyle={ButtonStyle.DANGER}
-          disabledThirdButton={row?.shop}
           onClickFirstButton={() => onEditProfileModal(row)}
           onClickSecondButton={throttle(() => onParsingProfileRegistred(row._id))}
           onClickThirdButton={throttle(() => onParsingProfileRemoved(row._id))}
