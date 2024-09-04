@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { InlineResponse20087Request } from './inline-response20087-request';
 
 /**
@@ -90,16 +90,16 @@ export interface InlineResponse20087Rows {
     request?: InlineResponse20087Request;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20087Rows
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20087Rows
      */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    sub?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * Дата создания
      * @type {string}

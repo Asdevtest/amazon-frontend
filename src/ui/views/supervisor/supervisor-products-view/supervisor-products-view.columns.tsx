@@ -69,8 +69,11 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
           color={colorByProductStatus(ProductStatusByCode[row?.status])}
         />
       ),
-      // @ts-ignore
-      valueFormatter: ({ row }: GridRowModel) => t(productStatusTranslateKey(ProductStatusByCode[row?.status])),
+      transformValueMethod: status =>
+        productStatusTranslateKey(ProductStatusByCode[status as keyof typeof ProductStatusByCode]),
+      valueFormatter: ({ row }: GridRowModel) =>
+        // @ts-ignore
+        t(productStatusTranslateKey(ProductStatusByCode[row?.status as keyof typeof ProductStatusByCode])),
       width: 160,
       columnKey: columnnsKeys.client.INVENTORY_STATUS,
     },
