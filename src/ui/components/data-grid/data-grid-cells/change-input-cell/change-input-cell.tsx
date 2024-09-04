@@ -17,14 +17,18 @@ interface ChangeInputCellProps {
   maxLength?: number
   isString?: boolean
   isPepurchase?: boolean
+  minValue?: number
+  maxValue?: number
 }
 
 export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
-  const { rowId, onClickSubmit, text, disabled, isInteger, maxLength, isString, isPepurchase } = props
+  const { rowId, onClickSubmit, text, disabled, isInteger, maxLength, isString, isPepurchase, minValue, maxValue } =
+    props
 
   const { classes: styles } = useStyles()
   const [value, setValue] = useState(text || '')
   const [isShow, setIsShow] = useState(false)
+  const [isInvalidValue, setIsInvalidValue] = useState(false)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value
@@ -36,6 +40,18 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
 
     if (isString) {
       setValue(inputValue)
+    }
+
+    if (isPepurchase && isInteger) {
+      const numericValue = Number(inputValue)
+      if (numericValue === 0) {
+        // Allow 0 value
+        setIsInvalidValue(false)
+      } else if ((minValue && numericValue < minValue) || (maxValue && numericValue > maxValue)) {
+        setIsInvalidValue(true)
+      } else {
+        setIsInvalidValue(false)
+      }
     }
   }
 
@@ -54,7 +70,8 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
     }
   }, [text])
 
-  const disabledSave = !isPepurchase || (!isNaN(Number(value)) && (Number(value) === 0 || Number(value) >= 50))
+  const disabledSave =
+    !isPepurchase || (!isNaN(Number(value)) && (Number(value) === 0 || Number(value) >= 50) && !isInvalidValue)
 
   return (
     <Input
