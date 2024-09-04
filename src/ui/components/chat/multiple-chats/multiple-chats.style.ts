@@ -18,6 +18,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 auto',
+    gap: 15,
   },
 
   chatWrapper: {
