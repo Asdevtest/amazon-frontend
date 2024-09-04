@@ -386,7 +386,7 @@ const SourceFilesView = lazy(() =>
 )
 
 const ServiceDetailsView = lazy(() =>
-  import('@views/shared/services-detail-view').then(module => ({
+  import('@views/shared/services-details-view').then(module => ({
     default: module.ServiceDetailsView,
   })),
 )
