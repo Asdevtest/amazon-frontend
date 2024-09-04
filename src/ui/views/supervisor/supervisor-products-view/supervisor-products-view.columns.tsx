@@ -35,7 +35,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
     {
       field: 'link',
       renderHeader: () => null,
-      renderCell: ({ row }: GridRowModel) => <OpenInNewTabCell onClickOpenInNewTab={() => onClickTableRow(row?._id)} />,
+      renderCell: ({ row }) => <OpenInNewTabCell onClickOpenInNewTab={() => onClickTableRow(row?._id)} />,
       width: 50,
       sortable: false,
       filterable: false,
@@ -46,7 +46,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'asin',
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <ProductCell image={row?.images?.[0]} title={row?.amazonTitle} asin={row?.asin} sku={row?.skuByClient} />
       ),
 
@@ -60,7 +60,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'status',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <Text
           isCell
           // @ts-ignore
@@ -70,7 +70,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
         />
       ),
       // @ts-ignore
-      valueFormatter: ({ row }: GridRowModel) => t(productStatusTranslateKey(ProductStatusByCode[row?.status])),
+      valueFormatter: ({ row }) => t(productStatusTranslateKey(ProductStatusByCode[row?.status])),
       width: 160,
       columnKey: columnnsKeys.client.INVENTORY_STATUS,
     },
@@ -79,7 +79,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'strategyStatus',
       headerName: t(TranslationKey.Strategy),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         // @ts-ignore
         <Text isCell text={productStrategyStatusesEnum[row?.strategyStatus]?.replace(/_/g, ' ')} />
       ),
@@ -92,8 +92,8 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'amazon',
       headerName: t(TranslationKey['Amazon price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={toFixedWithDollarSign(row?.amazon, 2)} />,
-      valueGetter: ({ row }: GridRowModel) => (row?.amazon ? toFixedWithDollarSign(row?.amazon, 2) : '-'),
+      renderCell: ({ row }) => <Text isCell text={toFixedWithDollarSign(row?.amazon, 2)} />,
+      valueGetter: ({ row }) => (row?.amazon ? toFixedWithDollarSign(row?.amazon, 2) : '-'),
       width: 100,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -102,10 +102,8 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'createdBy',
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <UserMiniCell userName={row?.createdBy?.name} userId={row?.createdBy?._id} />
-      ),
-      valueGetter: ({ row }: GridRowModel) => row?.createdBy?.name,
+      renderCell: ({ row }) => <UserMiniCell userName={row?.createdBy?.name} userId={row?.createdBy?._id} />,
+      valueGetter: ({ row }) => row?.createdBy?.name,
       width: 180,
       columnKey: columnnsKeys.shared.OBJECT,
     },
@@ -114,8 +112,8 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'buyer',
       headerName: t(TranslationKey.Buyer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
-      renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row?.buyer?.name} userId={row?.buyer?._id} />,
-      valueGetter: ({ row }: GridRowModel) => row?.buyer?.name,
+      renderCell: ({ row }) => <UserMiniCell userName={row?.buyer?.name} userId={row?.buyer?._id} />,
+      valueGetter: ({ row }) => row?.buyer?.name,
 
       width: 180,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -125,7 +123,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'bsr',
       headerName: t(TranslationKey.BSR),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.bsr} />,
+      renderCell: ({ row }) => <Text isCell text={row?.bsr} />,
       width: 70,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -134,8 +132,8 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'fbafee',
       headerName: t(TranslationKey['FBA fee , $']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
-      valueGetter: ({ row }: GridRowModel) => (row?.fbafee ? toFixedWithDollarSign(row?.fbafee, 2) : ''),
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={toFixedWithDollarSign(row?.fbafee, 2)} />,
+      valueGetter: ({ row }) => (row?.fbafee ? toFixedWithDollarSign(row?.fbafee, 2) : ''),
+      renderCell: ({ row }) => <Text isCell text={toFixedWithDollarSign(row?.fbafee, 2)} />,
       width: 120,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -144,7 +142,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'ordered',
       headerName: t(TranslationKey.Ordered),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Ordered)} />,
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <Text
           isCell
           color={row?.ordered ? '#00b746' : 'red'}
@@ -161,8 +159,8 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'tags',
       headerName: t(TranslationKey.Tags),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
-      valueGetter: ({ row }: GridRowModel) => row?.tags?.map((el: { title: string }) => `#${el.title}`).join(),
-      renderCell: ({ row }: GridRowModel) => <TagsCell tags={row?.tags} />,
+      valueGetter: ({ row }) => row?.tags?.map((el: { title: string }) => `#${el.title}`).join(),
+      renderCell: ({ row }) => <TagsCell tags={row?.tags} />,
       width: 180,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.TAGS,
@@ -172,7 +170,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'redFlags',
       headerName: t(TranslationKey['Red flags']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
-      renderCell: ({ row }: GridRowModel) => <RedFlagsCell flags={row?.redFlags} />,
+      renderCell: ({ row }) => <RedFlagsCell flags={row?.redFlags} />,
       width: 130,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.RED_FLAGS,
@@ -204,7 +202,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'createdAt',
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row?.createdAt} />,
+      renderCell: ({ row }) => <NormDateCell value={row?.createdAt} />,
       valueFormatter: ({ row }: GridRowModel) => formatNormDateTime(row?.createdAt),
       width: 100,
       columnKey: columnnsKeys.shared.DATE,
@@ -214,7 +212,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row?.updatedAt} />,
+      renderCell: ({ row }) => <NormDateCell value={row?.updatedAt} />,
       valueFormatter: ({ row }: GridRowModel) => formatNormDateTime(row?.updatedAt),
       width: 115,
       columnKey: columnnsKeys.shared.DATE,
