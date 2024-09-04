@@ -29,7 +29,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
 
   const columns: IGridColumn[] = [
     {
-      field: 'name',
+      field: 'profileName',
       headerName: t(TranslationKey.Name),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row.name} />,
@@ -57,7 +57,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       hideEmptyObject: true,
     },
     {
-      field: 'email',
+      field: 'profileEmail',
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row.email} />,
