@@ -1,7 +1,3 @@
-import { TranslationKey } from '@constants/translations/translation-key'
-
-import { t } from '@utils/translations'
-
 import { ProductStatus } from '@typings/enums/product/product-status'
 
 export const warningStatuses = [
@@ -37,62 +33,62 @@ export enum UserInfoStatusKeys {
 
 export const filterStatusConfig = [
   {
-    label: t(TranslationKey.All),
+    label: 'All',
     value: null,
     userInfoKey: UserInfoStatusKeys.ALL_PRODUCTS,
   },
   {
-    label: t(TranslationKey['Rejected by Supervisor']),
+    label: 'Rejected by Supervisor',
     value: 'rejectedBySupervisor',
     userInfoKey: UserInfoStatusKeys.REJECTED_BY_SUPERVISOR,
   },
   {
-    label: t(TranslationKey["Buyer's product in progress"]),
+    label: "Buyer's product in progress",
     value: 'productInProgress',
     userInfoKey: UserInfoStatusKeys.AT_THE_BUYER_IN_WORK,
   },
   {
-    label: t(TranslationKey['Buyer found a supplier']),
+    label: 'Buyer found a supplier',
     value: 'buyerFoundSupplier',
     userInfoKey: UserInfoStatusKeys.BUYER_FOUND_SUPPLIER,
   },
   {
-    label: t(TranslationKey['Paid by the Client']),
+    label: 'Paid by the Client',
     value: 'paidByClient',
     userInfoKey: UserInfoStatusKeys.PAID_BY_THE_CLIENT,
   },
   {
-    label: t(TranslationKey['Product is appropriate']),
+    label: 'Product is appropriate',
     value: 'productAppropriate',
     userInfoKey: UserInfoStatusKeys.PRODUCT_IS_APPROPRIATE,
   },
   {
-    label: t(TranslationKey['Supplier found']),
+    label: 'Supplier found',
     value: 'supplierFoundFromSupervisor',
     userInfoKey: UserInfoStatusKeys.SEARCH_COMPLETE,
   },
   {
-    label: t(TranslationKey['Supplier price does not fit']),
+    label: 'Supplier price does not fit',
     value: 'supplierPriceNotFit',
     userInfoKey: UserInfoStatusKeys.SUPPLIER_PRICE_DOES_NOT_FIT,
   },
   {
-    label: t(TranslationKey['Supplier was not found']),
+    label: 'Supplier was not found',
     value: 'supplierNotFoundFromSupervisor',
     userInfoKey: UserInfoStatusKeys.SUPPLIER_WAS_NOT_FOUND,
   },
   {
-    label: t(TranslationKey['Search for supplier from client']),
+    label: 'Search for supplier from client',
     value: 'searchSupplierFromClient',
     userInfoKey: UserInfoStatusKeys.SUPPLIER_SEARCH_FROM_CLIENT,
   },
   {
-    label: t(TranslationKey['Product check from a researcher']),
+    label: 'Product check from a researcher',
     value: 'productCheckFromResearcher',
     userInfoKey: UserInfoStatusKeys.CHECKING_PRODUCT_FROM_RESEARCHER,
   },
   {
-    label: t(TranslationKey['Temporarily delayed']),
+    label: 'Temporarily delayed',
     value: 'temporarilyDelayed',
     userInfoKey: UserInfoStatusKeys.TEMPORARILY_DELAYED,
   },

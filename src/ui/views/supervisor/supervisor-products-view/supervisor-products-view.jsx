@@ -23,7 +23,7 @@ export const SupervisorProductsView = observer(() => {
 
   const customSwitcherConfig = filterStatusConfig.map(status => ({
     badge: viewModel.userInfo[status.userInfoKey] ? viewModel.userInfo[status.userInfoKey] : null,
-    label: status.label,
+    label: t(TranslationKey[status.label]),
     value: status.value,
   }))
 
