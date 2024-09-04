@@ -29,7 +29,7 @@ export class CreateOrEditServicesViewModel {
   async getAnnouncementsDataByGuid() {
     try {
       if (this.requestId) {
-        const response = await AnnouncementsModel.getAnnouncementsByGuid(this.requestId)
+        const response = await AnnouncementsModel.getAnnouncementsByGuid({ guid: this.requestId })
 
         runInAction(() => {
           this.requestToEdit = response

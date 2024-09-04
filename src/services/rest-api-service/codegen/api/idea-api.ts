@@ -41,7 +41,7 @@ import { InlineResponse20063Rows } from '../models';
 // @ts-ignore
 import { InlineResponse20064 } from '../models';
 // @ts-ignore
-import { InlineResponse2014 } from '../models';
+import { InlineResponse2015 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 /**
@@ -1090,7 +1090,7 @@ export const IdeaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasPost(body?: InlineObject77, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2014>> {
+        async apiV1IdeasPost(body?: InlineObject77, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2015>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1333,7 +1333,7 @@ export const IdeaApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasPost(body?: InlineObject77, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2014> {
+        apiV1IdeasPost(body?: InlineObject77, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2015> {
             return localVarFp.apiV1IdeasPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

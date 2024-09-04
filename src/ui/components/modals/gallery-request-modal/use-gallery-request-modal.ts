@@ -17,6 +17,7 @@ export const useGalleryRequestModal = (data: IData, mediaFiles: IRequestMedia[],
   const [mediaFilesStates, setMediaFilesStates] = useState<IState | undefined>(undefined)
   const [documentsStates, setDocumentsStates] = useState<IState | undefined>(undefined)
   const [allFilesToAdd, setAllFilesToAdd] = useState<IRequestMedia[]>([])
+  const [isAllSelected, setIsAllSelected] = useState(false)
 
   useEffect(() => {
     const initialMediaFilesStates: IState = {}
@@ -64,6 +65,27 @@ export const useGalleryRequestModal = (data: IData, mediaFiles: IRequestMedia[],
     }
   }
 
+  const handleSelectAllFiles = () => {
+    const selectedFiles = [
+      ...(mediaFilesStates ? Object.values(mediaFilesStates).flat() : []),
+      ...(documentsStates ? Object.values(documentsStates).flat() : []),
+    ]
+
+    if (isAllSelected) {
+      setAllFilesToAdd([])
+    } else {
+      setAllFilesToAdd(
+        selectedFiles.map(file => ({
+          fileLink: file,
+          commentByPerformer: '',
+          commentByClient: '',
+          _id: uuid(),
+        })),
+      )
+    }
+    setIsAllSelected(prevState => !prevState)
+  }
+
   const getCheckboxState = (mediaFile: string) => allFilesToAdd.some(fileToAdd => fileToAdd.fileLink === mediaFile)
   const getDisabledCheckbox = (mediaFile: string) => {
     const isFileAdded = allFilesToAdd.some(fileToAdd => fileToAdd.fileLink === mediaFile)
@@ -87,5 +109,7 @@ export const useGalleryRequestModal = (data: IData, mediaFiles: IRequestMedia[],
     onResetAllFilesToAdd: handleResetAllFilesToAdd,
     getCheckboxState,
     getDisabledCheckbox,
+    onSelectAllFiles: handleSelectAllFiles,
+    isAllSelected,
   }
 }

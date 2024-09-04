@@ -21,53 +21,17 @@
  */
 export interface InlineResponse20089 {
     /**
-     * Цена за каждое предложение.
-     * @type {number}
+     * Гуид заявки
+     * @type {string}
      * @memberof InlineResponse20089
      */
-    price?: number;
+    _id?: string;
     /**
-     * Процент с каждого предложения, маржа платформы, в процентах.
+     * удобный ключ заявки
      * @type {number}
      * @memberof InlineResponse20089
      */
-    requestPlatformMarginInPercent?: number;
-    /**
-     * Услуги платформы.
-     * @type {number}
-     * @memberof InlineResponse20089
-     */
-    platformMargin?: number;
-    /**
-     * Процент с каждого предложения для супервайзера, в процентах.
-     * @type {number}
-     * @memberof InlineResponse20089
-     */
-    requestSupervisorFeeInPercent?: number;
-    /**
-     * Услуги супервайзера.
-     * @type {number}
-     * @memberof InlineResponse20089
-     */
-    supervisorFee?: number;
-    /**
-     * Сумма.
-     * @type {number}
-     * @memberof InlineResponse20089
-     */
-    unitCost?: number;
-    /**
-     * Количество предложений, не менее.
-     * @type {number}
-     * @memberof InlineResponse20089
-     */
-    maxAmountOfProposals?: number;
-    /**
-     * Итого.
-     * @type {number}
-     * @memberof InlineResponse20089
-     */
-    totalCost?: number;
+    humanFriendlyId?: number;
 }
 
 
