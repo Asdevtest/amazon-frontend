@@ -89,12 +89,8 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
   }
 
   async onSubmitCancelOrder(order: IOrder, orderFields: IOrder, hsCode: IHSCode) {
-    const orderFieldsToSave = {
-      ...orderFields,
-      images: this.readyImages,
-    }
     try {
-      await this.onSaveOrder(order, orderFieldsToSave)
+      await this.onSaveOrder(order, orderFields)
 
       if (hsCode) {
         await ProductModel.editProductsHsCods([
