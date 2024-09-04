@@ -113,6 +113,11 @@ export const WarehouseManagementView = observer(() => {
               columnVisibilityModel: viewModel.columnVisibilityModel,
               onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
             tablePresets: {
               showPresetsSelect: viewModel.showPresetsSelect,
               presetsTableData: viewModel.presetsTableData,

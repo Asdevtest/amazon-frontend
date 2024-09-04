@@ -60,6 +60,7 @@ export const logisticsTariffsColumns = ({
     sortable: false,
     colSpan: 4,
     hideable: false,
+    disableCustomSort: true,
   },
   {
     field: 'weight',
@@ -69,6 +70,7 @@ export const logisticsTariffsColumns = ({
     filterable: false,
     sortable: false,
     hideable: false,
+    disableCustomSort: true,
   },
 
   {
@@ -79,6 +81,7 @@ export const logisticsTariffsColumns = ({
     filterable: false,
     sortable: false,
     hideable: false,
+    disableCustomSort: true,
   },
   {
     field: 'rates',
@@ -87,6 +90,7 @@ export const logisticsTariffsColumns = ({
     width: 88,
     filterable: false,
     sortable: false,
+    disableCustomSort: true,
   },
 
   {
@@ -97,6 +101,7 @@ export const logisticsTariffsColumns = ({
     width: 320,
     filterable: false,
     sortable: false,
+    disableCustomSort: true,
   },
 
   {
@@ -105,6 +110,8 @@ export const logisticsTariffsColumns = ({
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
     renderCell: ({ row }: GridRowModel) => <Text isCell text={row.deliveryTimeInDay} />,
     width: 110,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -141,6 +148,7 @@ export const logisticsTariffsColumns = ({
     width: 140,
     filterable: false,
     sortable: false,
+    disableCustomSort: true,
   },
 
   {
@@ -149,6 +157,8 @@ export const logisticsTariffsColumns = ({
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
     width: 115,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -157,5 +167,7 @@ export const logisticsTariffsColumns = ({
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
     width: 115,
+    filterable: false,
+    sortable: false,
   },
 ]
