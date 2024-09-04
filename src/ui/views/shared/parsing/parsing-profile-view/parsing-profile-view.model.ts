@@ -89,10 +89,10 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
   async onParsingProfileRemoved(id: string) {
     try {
       await ParserModel.onParsingProfileRemoved(id)
-      toast.success(t(TranslationKey['Data saved successfully']))
+      toast.success(t(TranslationKey['Parsing profile successfully deleted']))
       this.getCurrentData()
     } catch (error) {
-      toast.error(t(TranslationKey['Data saved successfully']))
+      toast.error(t(TranslationKey['Error deleting parsing profile']))
     }
   }
 }
