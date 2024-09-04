@@ -2046,5 +2046,7 @@
   "Invited": "已邀请",
   "Registered": "已注册",
   "Ready to checking": "准备检查",
-  "In use": "正在使用"
+  "In use": "正在使用",
+  "Parsing profile successfully deleted": "解析配置文件已成功删除",
+  "Error deleting parsing profile": "删除解析配置文件时出错"
 }

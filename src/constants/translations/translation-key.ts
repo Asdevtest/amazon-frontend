@@ -2054,4 +2054,6 @@ export enum TranslationKey {
   'Registered' = 'Registered',
   'Ready to checking' = 'Ready to checking',
   'In use' = 'In use',
+  'Parsing profile successfully deleted' = 'Parsing profile successfully deleted',
+  'Error deleting parsing profile' = 'Error deleting parsing profile',
 }
