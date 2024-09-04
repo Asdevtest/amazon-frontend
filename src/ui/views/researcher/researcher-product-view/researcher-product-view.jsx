@@ -11,7 +11,7 @@ import { t } from '@utils/translations'
 import { ResearcherProductViewModel } from './researcher-product-view.model'
 
 export const ResearcherProductView = observer(({ history }) => {
-  const [viewModel] = useState(() => new ResearcherProductViewModel({ history }))
+  const [viewModel] = useState(() => new ResearcherProductViewModel(history))
 
   return (
     <>

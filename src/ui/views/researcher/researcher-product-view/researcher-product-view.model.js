@@ -70,7 +70,7 @@ export class ResearcherProductViewModel {
     return this.product
   }
 
-  constructor({ history }) {
+  constructor(history) {
     this.history = history
 
     if (history.location.state) {
