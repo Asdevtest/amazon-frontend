@@ -1131,7 +1131,7 @@ export enum TranslationKey {
   'Your ID' = 'Your ID',
   'New product' = 'New product',
   'Researcher found supplier' = 'Researcher found supplier',
-  'Rejected by Supervisor' = 'Rejected by Supervisor',
+  'Rejected by supervisor' = 'Rejected by supervisor',
   'Is in search of a Buyer' = 'Is in search of a Buyer',
   'Product at the Buyer in work' = 'Product at the Buyer in work',
   'Buyer found a supplier' = 'Buyer found a supplier',

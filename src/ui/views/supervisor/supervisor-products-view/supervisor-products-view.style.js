@@ -23,6 +23,10 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
+  select: {
+    width: 320,
+  },
+
   optionRender: {
     display: 'flex',
     justifyContent: 'space-between',
