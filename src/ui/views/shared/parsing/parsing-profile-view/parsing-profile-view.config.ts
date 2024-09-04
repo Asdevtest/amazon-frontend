@@ -6,11 +6,13 @@ export const parsingProfileViewConfig = {
   selectedProfile: observable,
   showToggleProfileModal: observable,
 
+  onToggleProfileModal: action.bound,
   onEditProfileModal: action.bound,
   onAddProfileModal: action.bound,
   onForceStart: action.bound,
   onForceStop: action.bound,
-  onToggleProfileModal: action.bound,
+  onParsingProfileRegistred: action.bound,
+  onParsingProfileRemoved: action.bound,
 }
 
 export const fieldsForSearch = ['name', 'email']
@@ -20,4 +22,5 @@ export interface ColumnsProps {
   onForceStart: (ids?: string[]) => void
   onForceStop: (ids?: string[]) => void
   onParsingProfileRegistred: (id: string) => void
+  onParsingProfileRemoved: (id: string) => void
 }

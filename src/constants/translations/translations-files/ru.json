@@ -2053,5 +2053,7 @@
   "Invited": "Приглашение получено",
   "Registered": "Зарегистрирован",
   "Ready to checking": "Готов к проверке",
-  "In use": "Используется"
+  "In use": "Используется",
+  "Parsing profile successfully deleted": "Профиль парсинга успешно удалён",
+  "Error deleting parsing profile": "Ошибка при удалении профиля парсинга"
 }

@@ -25,7 +25,7 @@ import { getProfileStatusColor } from './helpers/get-profile-status-color'
 import { ColumnsProps } from './parsing-profile-view.config'
 
 export const parsingProfileViewColumns = (props: ColumnsProps) => {
-  const { onEditProfileModal, onForceStart, onForceStop, onParsingProfileRegistred } = props
+  const { onEditProfileModal, onForceStart, onForceStop, onParsingProfileRegistred, onParsingProfileRemoved } = props
 
   const columns: IGridColumn[] = [
     {
@@ -129,13 +129,18 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
         <ActionButtonsCell
           isFirstButton
           isSecondButton
+          isThirdButton
           disabledSecondButton={row?.status !== ProfileStatus.INVITED}
           firstButtonElement={t(TranslationKey.Edit)}
           firstButtonStyle={ButtonStyle.PRIMARY}
           secondButtonElement={t(TranslationKey.Registered)}
           secondButtonStyle={ButtonStyle.PRIMARY}
+          thirdButtonElement={t(TranslationKey.Remove)}
+          thirdButtonStyle={ButtonStyle.DANGER}
+          disabledThirdButton={!row?.shop}
           onClickFirstButton={() => onEditProfileModal(row)}
           onClickSecondButton={throttle(() => onParsingProfileRegistred(row._id))}
+          onClickThirdButton={throttle(() => onParsingProfileRemoved(row._id))}
         />
       ),
       disableCustomSort: true,
