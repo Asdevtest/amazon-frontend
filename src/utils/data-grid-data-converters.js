@@ -66,30 +66,6 @@ export const myRequestsDataConverter = (data, shopsData) =>
     shopId: shopsData?.find(el => el._id === item?.product?.shopId)?.name || '',
   }))
 
-export const clientProductsDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-
-    researcherName: item.createdBy?.name,
-    buyerName: item.buyer?.name,
-    supervisorName: item.checkedBy?.name,
-
-    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
-
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-
-    images: item.images,
-    category: item.category,
-    weight: item.weight,
-    fbaamount: item.fbaamount,
-
-    amazon: item.amazon,
-    bsr: item.bsr,
-
-    id: item._id,
-  }))
-
 export const clientInventoryDataConverter = data =>
   data.map(item => ({
     originalData: item,
