@@ -137,6 +137,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
           secondButtonStyle={ButtonStyle.PRIMARY}
           thirdButtonElement={t(TranslationKey.Remove)}
           thirdButtonStyle={ButtonStyle.DANGER}
+          disabledThirdButton={row?.shop}
           onClickFirstButton={() => onEditProfileModal(row)}
           onClickSecondButton={throttle(() => onParsingProfileRegistred(row._id))}
           onClickThirdButton={throttle(() => onParsingProfileRemoved(row._id))}
