@@ -32,7 +32,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'name',
       headerName: t(TranslationKey.Name),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.name} />,
+      renderCell: ({ row }) => <Text isCell text={row.name} />,
       width: 220,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -40,8 +40,8 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'client',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
-      valueGetter: ({ row }: GridRowModel) => row.client?.name || '',
+      renderCell: ({ row }) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
+      valueGetter: ({ row }) => row.client?.name || '',
       width: 160,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       hideEmptyObject: true,
@@ -50,8 +50,8 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.shop?.name} />,
-      valueGetter: ({ row }: GridRowModel) => row.shop?.name || '',
+      renderCell: ({ row }) => <Text isCell text={row.shop?.name} />,
+      valueGetter: ({ row }) => row.shop?.name || '',
       width: 220,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       hideEmptyObject: true,
@@ -60,7 +60,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'email',
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.email} />,
+      renderCell: ({ row }) => <Text isCell text={row.email} />,
       width: 270,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -68,7 +68,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'isActive',
       headerName: t(TranslationKey.Active),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Active)} />,
-      renderCell: ({ row }: GridRowModel) => {
+      renderCell: ({ row }) => {
         const value = [row._id]
         const handleSubmit = () => (row.isActive ? onForceStop(value) : onForceStart(value))
         const disabled = !row.client?._id || !row.access
@@ -83,7 +83,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'status',
       headerName: t(TranslationKey['Profile status']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Profile status'])} />,
-      renderCell: ({ row }: GridRowModel) => {
+      renderCell: ({ row }) => {
         const text = t(TranslationKey[convertToSentenceCase(row.status) as TranslationKey])
 
         return <Text isCell center copyable={false} color={getProfileStatusColor(row.status)} text={text} />
@@ -96,7 +96,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'access',
       headerName: t(TranslationKey.Access),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Access)} />,
-      renderCell: ({ row }: GridRowModel) => {
+      renderCell: ({ row }) => {
         const text = row.access ? t(TranslationKey.Yes) : t(TranslationKey.No)
 
         return <Text isCell center copyable={false} text={text} />
@@ -109,7 +109,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
+      renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       width: 115,
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -117,7 +117,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'createdAt',
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
+      renderCell: ({ row }) => <NormDateCell value={row.createdAt} />,
       width: 115,
       columnKey: columnnsKeys.shared.DATE,
     },

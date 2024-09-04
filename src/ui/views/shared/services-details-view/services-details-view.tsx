@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
+
+import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReviewsForm } from '@components/forms/reviews-form'
-import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MyServicesInfo } from '@components/my-services/my-services-info'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -12,47 +13,41 @@ import { Modal } from '@components/shared/modal'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { HistoryType } from '@typings/types/history'
 
-import { useStyles } from './services-detail-view.style'
+import { ServiceDetailsViewModel } from './services-details-view.model'
 
-import { ServiceDetailsViewModel } from './services-detail-view.model'
-
-export const ServiceDetailsView = observer(props => {
-  const [viewModel] = useState(
-    () =>
-      new ServiceDetailsViewModel({
-        history: props.history,
-      }),
-  )
-  const { classes: styles } = useStyles()
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+export const ServiceDetailsView = observer(({ history }: { history: HistoryType }) => {
+  const viewModel = useMemo(() => new ServiceDetailsViewModel(history), [])
 
   return (
     <div className="viewWrapper">
       <MyServicesInfo
-        announcementData={viewModel.announcementData}
+        announcementData={viewModel.currentData}
         onClickReview={viewModel.onClickReview}
         onClickEditBtn={viewModel.onClickEditBtn}
         onClickBackBtn={viewModel.onClickBackBtn}
-        onClickCloseAnnouncementBtn={viewModel.onClickCloseAnnouncementBtn}
+        onClickCloseAnnouncementBtn={viewModel.deleteAnnouncementsByGuid}
       />
 
       <CustomDataGrid
-        rowCount={viewModel.rowCount}
-        columnVisibilityModel={viewModel.columnVisibilityModel}
-        paginationModel={viewModel.paginationModel}
         sortModel={viewModel.sortModel}
         filterModel={viewModel.filterModel}
-        rows={viewModel.currentData}
-        rowHeight={143}
+        pinnedColumns={viewModel.pinnedColumns}
+        paginationModel={viewModel.paginationModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        rows={viewModel.rows}
+        getRowHeight={() => 'auto'}
+        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),
           },
           toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
+            },
             columsBtnSettings: {
               columnsModel: viewModel.columnsModel,
               columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -60,29 +55,15 @@ export const ServiceDetailsView = observer(props => {
             },
           },
         }}
-        density={viewModel.densityModel}
+        rowCount={viewModel.rows.length}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
         onSortModelChange={viewModel.onChangeSortingModel}
-        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-        onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
       />
-
-      {viewModel.showConfirmModal ? (
-        <ConfirmationModal
-          // @ts-ignore
-          openModal={viewModel.showConfirmModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-          isWarning={viewModel.confirmModalSettings?.isWarning}
-          title={viewModel.confirmModalSettings.confirmTitle}
-          message={viewModel.confirmModalSettings.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Close)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
 
       <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
         <ReviewsForm

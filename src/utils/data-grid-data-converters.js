@@ -66,30 +66,6 @@ export const myRequestsDataConverter = (data, shopsData) =>
     shopId: shopsData?.find(el => el._id === item?.product?.shopId)?.name || '',
   }))
 
-export const clientProductsDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-
-    researcherName: item.createdBy?.name,
-    buyerName: item.buyer?.name,
-    supervisorName: item.checkedBy?.name,
-
-    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
-
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-
-    images: item.images,
-    category: item.category,
-    weight: item.weight,
-    fbaamount: item.fbaamount,
-
-    amazon: item.amazon,
-    bsr: item.bsr,
-
-    id: item._id,
-  }))
-
 export const clientInventoryDataConverter = data =>
   data.map(item => ({
     originalData: item,
@@ -321,19 +297,6 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
       .slice(0, -2)}  item №: ${item?.items
       .reduce((acc, cur) => (acc += (cur?.order?.item ? cur.order?.item : '-') + ', '), '')
       .slice(0, -2)}`,
-  }))
-
-export const freelancerServiceDetaildsDataConverter = data =>
-  data.requests.map(item => ({
-    id: item?._id,
-    originalData: item,
-    createdBy: item.createdBy,
-    price: item?.price,
-    status: item?.status,
-    timeoutAt: item?.timeoutAt,
-    updatedAt: item?.updatedAt,
-    title: item?.title,
-    humanFriendlyId: item?.humanFriendlyId,
   }))
 
 export const SourceFilesDataConverter = data =>

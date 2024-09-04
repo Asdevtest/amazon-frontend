@@ -212,7 +212,9 @@ export class DataGridTableModel extends DefaultModel {
         this.presetsTableData = result as ITablePreset[]
       })
     } catch (error) {
-      this.presetsTableData = []
+      runInAction(() => {
+        this.presetsTableData = []
+      })
       console.error(error)
     }
 

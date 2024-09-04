@@ -312,7 +312,7 @@ export class OwnerRequestDetailCustomViewModel {
   async getAnnouncementsByGuid(guid) {
     try {
       if (guid) {
-        const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
+        const result = await AnnouncementsModel.getAnnouncementsByGuid({ guid })
 
         runInAction(() => {
           this.requestAnnouncement = result

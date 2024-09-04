@@ -4,14 +4,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { ActiveSession } from '@typings/shared/active-session'
+import { IActiveSession } from '@typings/shared/active-session'
 
 import { useStyles } from './active-sessions.style'
 
 import { Session } from './session'
 
 interface ActiveSessionsProps {
-  activeSessions: ActiveSession[]
+  activeSessions: IActiveSession[]
   onLogoutSession: (sessionCreatedAt: string) => void
 }
 

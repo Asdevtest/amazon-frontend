@@ -140,7 +140,7 @@ export const timeToDeadlineInHoursAndMins = ({ date, withSeconds, now }) => {
   }${withSeconds ? seconds + t(TranslationKey['s.']) : ''}`
 }
 
-export const timeToDeadlineInDaysAndHours = ({ date, now }) => {
+export const timeToDeadlineInDaysAndHours = ({ date, now = new Date() }) => {
   const secondsToDeadline = getDistanceBetweenDatesInSeconds(date, now)
 
   const isExpired = secondsToDeadline < 0
