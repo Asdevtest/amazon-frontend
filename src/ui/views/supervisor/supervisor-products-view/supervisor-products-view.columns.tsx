@@ -70,7 +70,8 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
         />
       ),
       transformValueMethod: status =>
-        productStatusTranslateKey(ProductStatusByCode[status as keyof typeof ProductStatusByCode]),
+        // @ts-ignore
+        t(productStatusTranslateKey(ProductStatusByCode[status as keyof typeof ProductStatusByCode])),
       valueFormatter: ({ row }: GridRowModel) =>
         // @ts-ignore
         t(productStatusTranslateKey(ProductStatusByCode[row?.status as keyof typeof ProductStatusByCode])),
