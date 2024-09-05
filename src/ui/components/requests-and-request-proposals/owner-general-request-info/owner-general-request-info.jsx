@@ -74,6 +74,7 @@ export const OwnerGeneralRequestInfo = props => {
           price={request?.request?.price}
           updatedAt={request?.request?.updatedAt}
           status={request?.request?.status}
+          taskComplexity={request?.request?.taskComplexity}
         />
       )}
 
