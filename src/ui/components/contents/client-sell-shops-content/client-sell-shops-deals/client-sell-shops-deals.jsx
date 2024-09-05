@@ -1,9 +1,8 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { useHistory } from 'react-router-dom'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Typography } from '@mui/material'
 
 import {
@@ -71,9 +70,9 @@ export const ClientSellShopsDeals = observer(() => {
               <Typography className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
               {sortMode === tableSortMode.DESK ? (
-                <ArrowDropDownIcon color="primary" />
+                <MdArrowDropDown size={22} className={styles.icon} />
               ) : (
-                <ArrowDropUpIcon color="primary" />
+                <MdArrowDropUp size={22} className={styles.icon} />
               )}
             </div>
           </div>

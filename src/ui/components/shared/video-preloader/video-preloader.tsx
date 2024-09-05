@@ -1,6 +1,5 @@
 import { FC, memo } from 'react'
-
-import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined'
+import { MdPlayCircle } from 'react-icons/md'
 
 import { useStyles } from './video-preloader.style'
 
@@ -33,7 +32,7 @@ export const VideoPreloader: FC<VideoPreloaderProps> = memo(props => {
     <div className={cx(styles.wrapper, wrapperClassName)} onClick={onClick}>
       <VideoPlayer preloader videoSource={videoSource} />
       <div className={cx(styles.preloader, preloaderClassName)}>
-        <PlayCircleFilledWhiteOutlinedIcon className={cx(styles.preloaderIcon, iconPlayClassName)} />
+        <MdPlayCircle size={24} className={cx(styles.preloaderIcon, iconPlayClassName)} />
       </div>
     </div>
   )

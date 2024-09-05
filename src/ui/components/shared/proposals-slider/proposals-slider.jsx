@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
-
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+import { MdArrowLeft, MdArrowRight } from 'react-icons/md'
 
 import {
   RequestProposalStatusColor,
@@ -91,7 +89,8 @@ export const ProposalsSlider = ({
         <div className={styles.header}>
           <div className={styles.arrowsWrapper}>
             <button disabled={isDisableArrow || isDisableArrowLeft} onClick={handlePrev}>
-              <ArrowLeftIcon
+              <MdArrowLeft
+                size={24}
                 className={cx(styles.arrowIcon, {
                   [styles.arrowIconDisable]: isDisableArrow || isDisableArrowLeft,
                 })}
@@ -101,7 +100,8 @@ export const ProposalsSlider = ({
             <p className={styles.proposalTitle}>{`${title} ${currentIndex + 1}`}</p>
 
             <button disabled={isDisableArrow || isDisableArrowRight} onClick={handleNext}>
-              <ArrowRightIcon
+              <MdArrowRight
+                size={24}
                 className={cx(styles.arrowIcon, {
                   [styles.arrowIconDisable]: isDisableArrow || isDisableArrowRight,
                 })}

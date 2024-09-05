@@ -1,6 +1,5 @@
 import { t } from 'i18n-js'
-
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import { MdOutlineFilterAlt } from 'react-icons/md'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import {
@@ -75,7 +74,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
         <MultilineTextHeaderCell
           isFilterActive={isActiveFilter}
           text={t(TranslationKey.Status)}
-          Icon={FilterAltOutlinedIcon}
+          Icon={<MdOutlineFilterAlt size={20} />}
         />
       )
     },

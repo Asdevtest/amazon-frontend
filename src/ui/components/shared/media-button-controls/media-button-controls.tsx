@@ -1,12 +1,13 @@
 import { observer } from 'mobx-react'
 import { ChangeEvent, FC } from 'react'
-
-import AutorenewIcon from '@mui/icons-material/Autorenew'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
-import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
-import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
+import {
+  MdAutorenew,
+  MdDeleteOutline,
+  MdOutlineDownload,
+  MdOutlineModeEdit,
+  MdOutlineStar,
+  MdZoomOutMap,
+} from 'react-icons/md'
 
 import { Button } from '@components/shared/button'
 
@@ -52,11 +53,11 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
   return (
     <div className={styles.controls}>
       <Button className={styles.button} onClick={() => onDownloadFile(mediaFile)}>
-        <DownloadOutlinedIcon className={styles.icon} />
+        <MdOutlineDownload size={20} />
       </Button>
 
       <Button className={styles.button} onClick={onOpenImageZoomModal}>
-        <ZoomOutMapOutlinedIcon className={styles.icon} />
+        <MdZoomOutMap size={20} />
       </Button>
 
       {isEditable ? (
@@ -67,19 +68,18 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
               className={styles.button}
               onClick={() => onMakeMainFile(mediaFile, mediaFileIndex)}
             >
-              <StarOutlinedIcon className={cx({ [styles.starIcon]: mediaFileIndex === 0 })} />
+              <MdOutlineStar size={20} className={cx({ [styles.starIcon]: mediaFileIndex === 0 })} />
             </Button>
           ) : null}
 
           {isImageType ? (
             <Button className={styles.button} onClick={() => onImageEditToggle?.()}>
-              <ModeOutlinedIcon className={styles.icon} />
+              <MdOutlineModeEdit size={20} />
             </Button>
           ) : null}
 
           <Button className={styles.button}>
-            <AutorenewIcon className={styles.icon} />
-
+            <MdAutorenew size={20} />
             <input
               type="file"
               defaultValue=""
@@ -89,7 +89,7 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
           </Button>
 
           <Button styleType={ButtonStyle.DANGER} className={styles.button} onClick={() => onRemoveFile(mediaFileIndex)}>
-            <DeleteOutlineOutlinedIcon className={styles.icon} />
+            <MdDeleteOutline size={20} />
           </Button>
         </>
       ) : null}

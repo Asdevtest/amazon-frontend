@@ -1,6 +1,6 @@
 import { memo, useState } from 'react'
+import { MdOutlineDownload } from 'react-icons/md'
 
-import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import { Checkbox, Link, Typography } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
@@ -238,7 +238,7 @@ export const RequestDesignerResultClientForm = memo(props => {
             </div>
 
             <Button disabled={!imagesForDownload.length} onClick={onClickAllDownload}>
-              <DownloadOutlinedIcon />
+              <MdOutlineDownload size={24} />
             </Button>
 
             <Button

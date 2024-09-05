@@ -1,7 +1,5 @@
 import { ChangeEvent, FC, KeyboardEvent, memo, useEffect, useState } from 'react'
-
-import ClearIcon from '@mui/icons-material/Clear'
-import DoneIcon from '@mui/icons-material/Done'
+import { MdClear, MdDone } from 'react-icons/md'
 
 import { Input } from '@components/shared/input'
 import { SaveIcon } from '@components/shared/svg-icons'
@@ -64,7 +62,7 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
       value={String(value)}
       endAdornment={
         <>
-          {isShow ? <DoneIcon className={styles.doneIcon} /> : null}
+          {isShow ? <MdDone size={16} className={styles.doneIcon} /> : null}
 
           {Number(text) !== Number(value) ? (
             <div className={styles.icons}>
@@ -72,7 +70,7 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
                 <SaveIcon className={styles.saveIcon} />
               </button>
               <button className={styles.button} onClick={() => setValue(text)}>
-                <ClearIcon className={styles.clearIcon} />
+                <MdClear size={16} className={styles.clearIcon} />
               </button>
             </div>
           ) : null}

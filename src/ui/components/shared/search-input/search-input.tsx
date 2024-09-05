@@ -1,8 +1,8 @@
 import { ClassNamesArg } from '@emotion/react'
 import { ChangeEvent, FC, KeyboardEventHandler, useEffect, useState } from 'react'
+import { IoIosCloseCircle } from 'react-icons/io'
+import { MdSearch } from 'react-icons/md'
 
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import SearchIcon from '@mui/icons-material/Search'
 import { InputAdornment } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -98,13 +98,13 @@ export const SearchInput: FC<Props> = ({
             <InputAdornment classes={{ root: styles.inputAdornmentRoot }} position={onSubmit ? 'end' : 'start'}>
               {onSubmit ? (
                 <div className={styles.searchWrapper}>
-                  {internalValue ? <CloseRoundedIcon className={styles.closeIcon} onClick={onClickCloseIcon} /> : null}
+                  {internalValue ? <IoIosCloseCircle className={styles.closeIcon} onClick={onClickCloseIcon} /> : null}
                   <Button isSmallButton onClick={searchAndClearSpaces}>
                     {defaultPlaceholder}
                   </Button>
                 </div>
               ) : (
-                <SearchIcon className={styles.icon} />
+                <MdSearch size={24} className={styles.icon} />
               )}
             </InputAdornment>
           )}

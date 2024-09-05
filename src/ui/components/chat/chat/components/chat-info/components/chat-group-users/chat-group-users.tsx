@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { FiPlus } from 'react-icons/fi'
+import { MdClose } from 'react-icons/md'
 
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Avatar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -50,9 +50,9 @@ export const ChatGroupUsers: FC<ChatGroupUsersProps> = memo(props => {
               </div>
 
               {el._id !== chat.info?.createdBy && userId === chat.info?.createdBy ? (
-                <CloseOutlinedIcon
+                <MdClose
+                  size={22}
                   className={styles.pencilEditIcon}
-                  fontSize="small"
                   onClick={() => onRemoveUsersFromGroupChat([el._id])}
                 />
               ) : null}

@@ -29,8 +29,6 @@ export const useStyles = makeStyles()(theme => ({
 
   doneIcon: {
     marginRight: 10,
-    width: '16px !important',
-    height: '16px !important',
     color: theme.palette.text.green,
   },
 
@@ -41,8 +39,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   clearIcon: {
-    width: '16px !important',
-    height: '16px !important',
     color: theme.palette.text.second,
   },
 }))

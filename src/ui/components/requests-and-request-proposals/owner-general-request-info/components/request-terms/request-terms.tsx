@@ -1,6 +1,5 @@
 import { FC, memo } from 'react'
-
-import DoneIcon from '@mui/icons-material/Done'
+import { MdDone } from 'react-icons/md'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
@@ -51,7 +50,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
 
         {withoutConfirmation && (
           <div className={styles.confirmationWrapper}>
-            <DoneIcon className={styles.doneIcon} />
+            <MdDone size={19} className={styles.doneIcon} />
 
             <p
               title={t(TranslationKey['Allowed to the performer to take the application to work without confirmation'])}

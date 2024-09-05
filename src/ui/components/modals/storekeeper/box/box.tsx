@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useState } from 'react'
+import { MdArrowDropDown, MdArrowDropUp, MdDeleteOutline } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -279,7 +277,7 @@ export const Box: FC<BoxProps> = memo(props => {
           {isNewBox && (
             <div className={styles.bottomBlockWrapper}>
               <IconButton classes={{ root: styles.icon }} onClick={() => onRemoveBox(box._id)}>
-                <DeleteOutlineOutlinedIcon />
+                <MdDeleteOutline size={22} />
               </IconButton>
               <Button
                 tooltipAttentionContent={isNotAllDimensionsAdded ? t(TranslationKey['Specify dimensions']) : ''}
@@ -301,7 +299,11 @@ export const Box: FC<BoxProps> = memo(props => {
                     {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
                   </p>
 
-                  {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+                  {!showFullCard ? (
+                    <MdArrowDropDown size={22} className={styles.icon} />
+                  ) : (
+                    <MdArrowDropUp size={22} className={styles.icon} />
+                  )}
                 </div>
               </div>
             </div>
