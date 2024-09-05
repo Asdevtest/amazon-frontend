@@ -47,7 +47,7 @@ export const Box: FC<BoxProps> = memo(props => {
     onClickBasicBoxRadio,
   } = props
 
-  const [showFullCard, setShowFullCard] = useState(isNewBox ? false : true)
+  const [showFullCard, setShowFullCard] = useState(false)
 
   useEffect(() => {
     if (isActiveOneBox) {
