@@ -1,11 +1,9 @@
-import { useRef, useState } from 'react'
-import { MdDeleteOutline } from 'react-icons/md'
-
-import { Popover, Tooltip } from '@mui/material'
+import { Dropdown, Tooltip } from 'antd'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CheckInCircleIcon, ReplyIcon } from '@components/shared/svg-icons'
+import { CustomButton } from '@components/shared/custom-button'
+import { ReplyIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -17,50 +15,29 @@ interface ChatMessageControlsOverlayProps {
 
 export const ChatMessageControlsOverlay = (props: ChatMessageControlsOverlayProps) => {
   const { classes: styles, cx } = useStyles()
-  const controlsWrapperRef = useRef<HTMLDivElement>(null)
-  const [isShowAdditionalControls, setIsShowAdditionalControls] = useState(false)
+
+  const items = [
+    {
+      key: 'reply',
+      label: (
+        <CustomButton icon={<ReplyIcon />} onClick={props.onClickReply}>
+          {t(TranslationKey.Reply)}
+        </CustomButton>
+      ),
+    },
+  ]
 
   return (
-    <div className={cx(styles.controlsOverlay, 'controlsOverlay', { [styles.showOverlay]: isShowAdditionalControls })}>
-      <div ref={controlsWrapperRef} className={styles.controls}>
-        <Tooltip
-          disableInteractive
-          title={t(TranslationKey.Reply)}
-          placement="left"
-          classes={{ tooltip: styles.tooltip }}
-        >
-          <button onClick={props.onClickReply}>
-            <ReplyIcon />
-          </button>
-        </Tooltip>
-      </div>
-
-      <Popover
-        open={isShowAdditionalControls}
-        anchorEl={controlsWrapperRef.current}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        classes={{ paper: styles.additionalControlsWrapper }}
-        onClose={() => setIsShowAdditionalControls(false)}
-      >
-        <div className={styles.additionalControls}>
-          <button className={styles.additionalControlsBtn}>
-            <ReplyIcon className={styles.replyIconReversed} /> Resend
-          </button>
-          <button className={styles.additionalControlsBtn}>
-            <CheckInCircleIcon /> {t(TranslationKey.Select)}
-          </button>
-          <button className={cx(styles.additionalControlsBtn, styles.removeButton)}>
-            <MdDeleteOutline size={24} /> {t(TranslationKey.Delete)}
-          </button>
+    <div className={cx(styles.controlsOverlay, 'controlsOverlay')}>
+      <Dropdown menu={{ items }} trigger={['contextMenu']}>
+        <div className={styles.controls}>
+          <Tooltip title={t(TranslationKey.Reply)} placement="left">
+            <button onClick={props.onClickReply}>
+              <ReplyIcon />
+            </button>
+          </Tooltip>
         </div>
-      </Popover>
+      </Dropdown>
     </div>
   )
 }
