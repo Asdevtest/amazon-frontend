@@ -1,8 +1,7 @@
 import isEqual from 'lodash.isequal'
 import { memo, useEffect, useMemo, useState } from 'react'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Box, Divider, ListItemText, MenuItem, Select, Tabs, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import Tooltip from '@mui/material/Tooltip'
@@ -310,7 +309,11 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                         <ListItemText primary={`${item.title}`} />
                       </div>
                       <div className={styles.iconWrapper}>
-                        {!showPermissions ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+                        {!showPermissions ? (
+                          <MdArrowDropDown size={22} className={styles.icon} />
+                        ) : (
+                          <MdArrowDropUp size={22} className={styles.icon} />
+                        )}
                       </div>
                     </div>
                   </div>

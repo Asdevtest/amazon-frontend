@@ -256,7 +256,6 @@ export const useStyles = makeStyles()(theme => {
         backgroundColor: primaryHoverBackground,
 
         '> svg': {
-          fill: primaryHoverBackground,
           color: primaryHoverColor,
         },
       },

@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
 
@@ -61,10 +61,10 @@ export interface InlineResponse20086 {
     productId?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20086
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * Дата создания.
      * @type {string}

@@ -1,5 +1,4 @@
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+import { MdDeleteOutline, MdOutlineEdit } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -115,13 +114,13 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
         isThirdButton
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         firstButtonTooltipText={t(TranslationKey.Edit)}
-        firstButtonElement={<EditOutlinedIcon />}
+        firstButtonElement={<MdOutlineEdit size={20} />}
         firstButtonStyle={ButtonStyle.PRIMARY}
         secondButtonTooltipText={t(TranslationKey['Move to archive'])}
         secondButtonElement={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'}
         secondButtonStyle={isArchive ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
         thirdButtonTooltipText={t(TranslationKey.Remove)}
-        thirdButtonElement={<DeleteOutlineOutlinedIcon />}
+        thirdButtonElement={<MdDeleteOutline size={20} />}
         thirdButtonStyle={ButtonStyle.DANGER}
         onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
         onClickSecondButton={() => handlers.onTriggerArchive(params.row.originalData)}

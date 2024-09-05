@@ -1129,7 +1129,7 @@
   "Your ID": "Ваш ID",
   "New product": "Новий товар",
   "Researcher found supplier": "Ресерчер знайшов постачальника",
-  "Rejected by Supervisor": "Відхилено Супервайзером",
+  "Rejected by supervisor": "Відхилено супервайзером",
   "Is in search of a Buyer": "У Купівельника на пошуку",
   "Product at the Buyer in work": "Товар у Купівельника в роботі",
   "Buyer found a supplier": "Купівельник знайшов постачальника",
@@ -2050,5 +2050,7 @@
   "Invited": "Запрошення отримано",
   "Registered": "Зареєстровано",
   "Ready to checking": "Готовий до перевірки",
-  "In use": "Використовується"
+  "In use": "Використовується",
+  "Parsing profile successfully deleted": "Профіль парсингу успішно видалено",
+  "Error deleting parsing profile": "Помилка при видаленні профілю парсингу"
 }

@@ -21,19 +21,7 @@
  */
 export interface InlineObject16 {
     /**
-     * GUID спека
-     * @type {string}
-     * @memberof InlineObject16
-     */
-    specId?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject16
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * 
+     * Название красного флага
      * @type {string}
      * @memberof InlineObject16
      */
@@ -43,7 +31,7 @@ export interface InlineObject16 {
      * @type {string}
      * @memberof InlineObject16
      */
-    description?: string;
+    iconImage?: string;
 }
 
 

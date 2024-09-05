@@ -1,6 +1,5 @@
 import { FC, MouseEvent, PropsWithChildren, memo, useState } from 'react'
-
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
+import { MdClose } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -53,7 +52,7 @@ export const Modal: FC<ModalProps> = memo(props => {
         onMouseUp={handleMouseUp}
       >
         <div className={cx(styles.contentWrapper, { [styles.alternativeBackground]: isSecondBackground })}>
-          <CloseRoundedIcon className={styles.closeIcon} fontSize="large" onClick={handleCloseModal} />
+          <MdClose className={styles.closeIcon} size={30} onClick={handleCloseModal} />
 
           <div className={styles.content}>{children}</div>
         </div>

@@ -1,10 +1,7 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
+import { MdAutorenew, MdDeleteOutline, MdOutlineHighlightOff, MdOutlineModeEditOutline } from 'react-icons/md'
 
-import AutorenewIcon from '@mui/icons-material/Autorenew'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -62,10 +59,10 @@ export const TabRedFlags = observer(() => {
               <div className={styles.actionIconWrapper}>
                 <div className={styles.actionIcon}>
                   <input type="file" accept="image/*" className={styles.input} onChange={viewModel.onImageUpload} />
-                  <AutorenewIcon fontSize="small" />
+                  <MdAutorenew size={18} />
                 </div>
 
-                <HighlightOffIcon fontSize="small" onClick={viewModel.onRemoveImg} />
+                <MdOutlineHighlightOff size={18} onClick={viewModel.onRemoveImg} />
               </div>
             </div>
           </div>
@@ -94,12 +91,14 @@ export const TabRedFlags = observer(() => {
                 <div className={styles.iconsWrapper}>
                   <CopyValue text={flag.title} />
 
-                  <EditOutlinedIcon
+                  <MdOutlineModeEditOutline
+                    size={24}
                     className={styles.iconAction}
                     onClick={() => viewModel.onClickEditRedFlag(flag._id)}
                   />
 
-                  <DeleteOutlineOutlinedIcon
+                  <MdDeleteOutline
+                    size={24}
                     className={styles.iconAction}
                     onClick={() => viewModel.onClickRemoveRedFlag(flag._id)}
                   />

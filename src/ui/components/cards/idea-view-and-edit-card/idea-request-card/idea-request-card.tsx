@@ -1,6 +1,5 @@
 import { FC } from 'react'
-
-import ClearIcon from '@mui/icons-material/Clear'
+import { MdClear } from 'react-icons/md'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
@@ -75,7 +74,8 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
           </div>
         </div>
 
-        <ClearIcon
+        <MdClear
+          size={20}
           className={styles.clearIcon}
           onClick={e => {
             e.stopPropagation()

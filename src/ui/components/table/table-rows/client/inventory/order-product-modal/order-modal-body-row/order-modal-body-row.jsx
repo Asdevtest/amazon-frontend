@@ -1,8 +1,8 @@
 import { isValid } from 'date-fns'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
+import { MdOutlineDelete } from 'react-icons/md'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox, IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -331,7 +331,7 @@ export const OrderModalBodyRow = ({
         {withRemove && (
           <TableCell className={styles.deleteCell}>
             <IconButton onClick={() => onRemoveProduct(item._id)}>
-              <DeleteIcon />
+              <MdOutlineDelete size={24} />
             </IconButton>
           </TableCell>
         )}

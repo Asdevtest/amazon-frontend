@@ -50,4 +50,8 @@ export const useStyles = makeStyles()(theme => ({
     width: '290px',
     height: '40px',
   },
+
+  icon: {
+    color: theme.palette.text.main,
+  },
 }))

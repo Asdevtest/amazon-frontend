@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useEffect, useState } from 'react'
+import { MdOutlineMoreHoriz } from 'react-icons/md'
 
-import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
 import { Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -62,7 +62,7 @@ export const StringListCell: FC<StringListCellProps> = memo(props => {
 
       {items?.length > maxItemsDisplay && (
         <Button styleType={ButtonStyle.TRANSPARENT} onClick={handleClick}>
-          <MoreHorizOutlinedIcon color="primary" />
+          <MdOutlineMoreHoriz size={24} className={styles.icon} />
         </Button>
       )}
 

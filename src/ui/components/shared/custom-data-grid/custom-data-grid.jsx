@@ -1,6 +1,8 @@
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
+import { MdOutlineFilterAlt } from 'react-icons/md'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+// change to react-icons MdOutlineFilterAlt if needed
 import { DataGridPremium } from '@mui/x-data-grid-premium'
 
 import { SettingsModel } from '@models/settings-model'

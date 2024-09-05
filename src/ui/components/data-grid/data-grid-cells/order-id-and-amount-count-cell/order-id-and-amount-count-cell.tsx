@@ -1,6 +1,5 @@
 import { FC, memo } from 'react'
-
-import WatchLaterSharpIcon from '@mui/icons-material/WatchLaterSharp'
+import { MdOutlineWatchLater } from 'react-icons/md'
 
 import { useStyles } from './order-id-and-amount-count-cell.style'
 
@@ -21,7 +20,7 @@ export const OrderIdAndAmountCountCell: FC<OrderIdAndAmountCountCellProps> = mem
         </p>
         {amount >= 1 && (
           <div className={styles.amountWithClocks}>
-            <WatchLaterSharpIcon /> {amount}
+            <MdOutlineWatchLater size={20} /> {amount}
           </div>
         )}
       </div>

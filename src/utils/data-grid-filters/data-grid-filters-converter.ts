@@ -1,6 +1,6 @@
 interface ColumnMenuSettings {
   [key: string]: {
-    currentFilterData: string[] | number[] | Array<Record<string, unknown>>
+    currentFilterData: string[] | number[] | Array<Record<string, unknown>> | boolean[]
   }
 }
 

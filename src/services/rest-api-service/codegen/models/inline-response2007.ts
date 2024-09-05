@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-by';
 
 /**
  * 
@@ -21,17 +22,100 @@
  */
 export interface InlineResponse2007 {
     /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse2007
-     */
-    tech_pause?: number;
-    /**
-     * 
+     * GUID платежа
      * @type {string}
      * @memberof InlineResponse2007
      */
-    message?: string;
+    _id?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    createdAt?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @memberof InlineResponse2007
+     */
+    createdBy?: ApiV1AdminsPaymentsCreatedBy;
+    /**
+     * Роль пользователя на момент инициации платежа.
+     * @type {number}
+     * @memberof InlineResponse2007
+     */
+    role?: number;
+    /**
+     * 
+     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @memberof InlineResponse2007
+     */
+    subUser?: ApiV1AdminsPaymentsCreatedBy;
+    /**
+     * GUID товара или услуги.
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    entityId?: string;
+    /**
+     * Тип товара или услуги
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    entityType?: InlineResponse2007EntityTypeEnum;
+    /**
+     * Тип платежа
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    paymentType?: InlineResponse2007PaymentTypeEnum;
+    /**
+     * 
+     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @memberof InlineResponse2007
+     */
+    recipient?: ApiV1AdminsPaymentsCreatedBy;
+    /**
+     * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+     * @type {number}
+     * @memberof InlineResponse2007
+     */
+    sum?: number;
+    /**
+     * комментарий
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    comment?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse2007EntityTypeEnum {
+    Product = 'PRODUCT',
+    Order = 'ORDER',
+    Box = 'BOX',
+    Batch = 'BATCH',
+    User = 'USER',
+    RequestCustom = 'REQUEST-CUSTOM',
+    RequestSearchProduct = 'REQUEST-SEARCH_PRODUCT',
+    RequestSearchNiche = 'REQUEST-SEARCH_NICHE',
+    RequestProposalCustom = 'REQUEST-PROPOSAL-CUSTOM',
+    RequestProposalSearchProduct = 'REQUEST-PROPOSAL-SEARCH_PRODUCT',
+    RequestProposalSearchNiche = 'REQUEST-PROPOSAL-SEARCH_NICHE',
+    Other = 'OTHER'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse2007PaymentTypeEnum {
+    Replenish = 'REPLENISH',
+    Fine = 'FINE',
+    Zero = 'ZERO'
+}
+
 
 

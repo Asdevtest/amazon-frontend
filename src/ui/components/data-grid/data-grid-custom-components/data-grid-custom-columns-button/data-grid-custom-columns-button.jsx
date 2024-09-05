@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
+import { IoSettingsOutline } from 'react-icons/io5'
 
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import { Checkbox, Menu, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -62,7 +62,7 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
     <div>
       <Button variant={ButtonVariant.OUTLINED} className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
         <div className={cx(className, styles.mainFilterBtnInsert)}>
-          <SettingsOutlinedIcon fontSize="small" />
+          <IoSettingsOutline size={20} />
 
           <Typography className={styles.mainFilterBtnInsertText}>{t(TranslationKey.Parameters)}</Typography>
         </div>

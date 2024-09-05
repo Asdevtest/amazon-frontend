@@ -221,6 +221,48 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
+         * ## Удалить профиль.
+         * @summary # Удалить профиль. (Для Админа)
+         * @param {string} guid 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsParserAdminsProfilesGuidDelete: async (guid: string, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'guid' is not null or undefined
+            assertParamExists('apiV1IntegrationsParserAdminsProfilesGuidDelete', 'guid', guid)
+            const localVarPath = `/api/v1/integrations/parser/admins/profiles/{guid}`
+                .replace(`{${"guid"}}`, encodeURIComponent(String(guid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * ## Изменить профиль.
          * @summary # Изменить профиль. (Для Админа)
          * @param {string} guid 
@@ -812,6 +854,18 @@ export const ParserApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * ## Удалить профиль.
+         * @summary # Удалить профиль. (Для Админа)
+         * @param {string} guid 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1IntegrationsParserAdminsProfilesGuidDelete(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsProfilesGuidDelete(guid, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * ## Изменить профиль.
          * @summary # Изменить профиль. (Для Админа)
          * @param {string} guid 
@@ -1011,6 +1065,17 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
          */
         apiV1IntegrationsParserAdminsProfilesGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200115> {
             return localVarFp.apiV1IntegrationsParserAdminsProfilesGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Удалить профиль.
+         * @summary # Удалить профиль. (Для Админа)
+         * @param {string} guid 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsParserAdminsProfilesGuidDelete(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+            return localVarFp.apiV1IntegrationsParserAdminsProfilesGuidDelete(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменить профиль.
@@ -1262,6 +1327,27 @@ export interface ParserApiApiV1IntegrationsParserAdminsProfilesGetRequest {
      * 
      * @type {string}
      * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesGet
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
+ * Request parameters for apiV1IntegrationsParserAdminsProfilesGuidDelete operation in ParserApi.
+ * @export
+ * @interface ParserApiApiV1IntegrationsParserAdminsProfilesGuidDeleteRequest
+ */
+export interface ParserApiApiV1IntegrationsParserAdminsProfilesGuidDeleteRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesGuidDelete
+     */
+    readonly guid: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesGuidDelete
      */
     readonly acceptEncoding?: string
 }
@@ -1608,6 +1694,18 @@ export class ParserApi extends BaseAPI {
      */
     public apiV1IntegrationsParserAdminsProfilesGet(requestParameters: ParserApiApiV1IntegrationsParserAdminsProfilesGetRequest = {}, options?: any) {
         return ParserApiFp(this.configuration).apiV1IntegrationsParserAdminsProfilesGet(requestParameters.filters, requestParameters.limit, requestParameters.offset, requestParameters.sortField, requestParameters.sortType, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * ## Удалить профиль.
+     * @summary # Удалить профиль. (Для Админа)
+     * @param {ParserApiApiV1IntegrationsParserAdminsProfilesGuidDeleteRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ParserApi
+     */
+    public apiV1IntegrationsParserAdminsProfilesGuidDelete(requestParameters: ParserApiApiV1IntegrationsParserAdminsProfilesGuidDeleteRequest, options?: any) {
+        return ParserApiFp(this.configuration).apiV1IntegrationsParserAdminsProfilesGuidDelete(requestParameters.guid, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

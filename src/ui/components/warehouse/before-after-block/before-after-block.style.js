@@ -397,4 +397,8 @@ export const useStyles = makeStyles()(theme => ({
     border: '1px solid #F5CF00',
     borderRadius: 10,
   },
+
+  icon: {
+    color: theme.palette.text.main,
+  },
 }))

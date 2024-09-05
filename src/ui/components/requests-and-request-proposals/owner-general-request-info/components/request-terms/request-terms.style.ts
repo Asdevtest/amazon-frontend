@@ -15,7 +15,6 @@ export const useStyles = makeStyles()(theme => ({
 
   sectionTitle: {
     fontSize: 14,
-    fontWeight: 400,
     color: theme.palette.text.second,
     display: 'flex',
     justifyContent: 'center',
@@ -29,8 +28,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   doneIcon: {
-    width: '19px !important',
-    height: '19px !important',
     color: theme.palette.other.succes,
   },
 
@@ -73,8 +70,9 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  pricesWrapper: {
+  flexRow: {
     display: 'flex',
+    alignItems: 'center',
     gap: 5,
   },
 

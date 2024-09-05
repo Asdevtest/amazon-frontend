@@ -1,7 +1,6 @@
 import { useState } from 'react'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -124,7 +123,11 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
               {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
             </Typography>
 
-            {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+            {!showFullCard ? (
+              <MdArrowDropDown size={22} className={styles.icon} />
+            ) : (
+              <MdArrowDropUp size={22} className={styles.icon} />
+            )}
           </div>
         </div>
       </div>

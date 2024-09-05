@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse2001 } from './inline-response2001';
+import { InlineResponse2003 } from './inline-response2003';
 
 /**
  * 
@@ -29,10 +29,10 @@ export interface InlineResponse20033 {
     count?: number;
     /**
      * Массив заказов.
-     * @type {Array<InlineResponse2001>}
+     * @type {Array<InlineResponse2003>}
      * @memberof InlineResponse20033
      */
-    rows?: Array<InlineResponse2001>;
+    rows?: Array<InlineResponse2003>;
 }
 
 
