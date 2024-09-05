@@ -73,9 +73,7 @@ export const resetAccessTokenByTime = () => {
     const delayInSeconds = expValue - iatValue
     const nextResetTime = delayInSeconds - 30
 
-    console.warn('nextResetTime :>> ', `${nextResetTime} seconds, ${nextResetTime / 60} minutes`)
-
-    setTimeout(() => {
+    return setTimeout(() => {
       resetTokens()
       resetAccessTokenByTime()
       console.warn(`${new Date().toLocaleString()}. Next reset access token in ${nextResetTime} seconds`)

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useFaviconNotification } from 'react-favicon-notification'
 import { Redirect, Route, useLocation } from 'react-router-dom'
 
@@ -17,6 +17,7 @@ import { isHaveMasterUser } from '@utils/checks'
 
 export const PrivateRoutes = observer(() => {
   const location = useLocation()
+  const resetAccessTimer = useRef(null)
 
   const [config, setConfig] = useFaviconNotification()
 
@@ -42,7 +43,11 @@ export const PrivateRoutes = observer(() => {
     if (UserModel.isAuthenticated()) {
       ChatModel.init()
       ChatModel.getUnreadMessagesCount()
-      resetAccessTokenByTime()
+      resetAccessTimer.current = resetAccessTokenByTime()
+    }
+
+    return () => {
+      clearTimeout(resetAccessTimer.current)
     }
   }, [])
 
