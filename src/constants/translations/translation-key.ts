@@ -864,6 +864,7 @@ export enum TranslationKey {
   'Order amount for a specific product' = 'Order amount for a specific product',
   'Choose a prep center in China and the rate at which the delivery will take place' = 'Choose a prep center in China and the rate at which the delivery will take place',
   'Comments on the order for the Buyer and the Prep Center' = 'Comments on the order for the Buyer and the Prep Center',
+  'Specify a deadline' = 'Specify a deadline',
   'Complete the order (freezes the required amount of the order from the balance)' = 'Complete the order (freezes the required amount of the order from the balance)',
   'Close the checkout window without saving' = 'Close the checkout window without saving',
   'Bind the selected product from the inventory to an item from the store' = 'Bind the selected product from the inventory to an item from the store',

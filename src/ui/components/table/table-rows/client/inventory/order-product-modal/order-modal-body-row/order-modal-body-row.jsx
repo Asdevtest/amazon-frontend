@@ -35,6 +35,7 @@ export const OrderModalBodyRow = ({
   storekeepers,
   item,
   itemIndex,
+  isPendingOrder,
   setOrderStateFiled,
   onClickBarcode,
   onClickExpressChinaDelivery,
@@ -319,7 +320,7 @@ export const OrderModalBodyRow = ({
           <div className={styles.datePickerWrapper}>
             <DatePicker
               disablePast
-              // error={!isValid(parsedDeadline) || isPast(parsedDeadline)}
+              error={isPendingOrder && !deadline}
               minDate={minDate}
               value={deadline}
               onChange={e => onChangeInput(e, 'deadline')}
