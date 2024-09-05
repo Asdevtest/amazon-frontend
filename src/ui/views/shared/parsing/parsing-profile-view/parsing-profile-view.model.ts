@@ -1,14 +1,11 @@
 import { makeObservable } from 'mobx'
-import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { ParserModel } from '@models/parser-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
-import { t } from '@utils/translations'
 
 import { IParsingProfile } from '@typings/models/parser/parsing-profile'
 
@@ -25,7 +22,6 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
       onForceStart: ids => this.onForceStart(ids),
       onForceStop: ids => this.onForceStop(ids),
       onParsingProfileRegistred: id => this.onParsingProfileRegistred(id),
-      onParsingProfileRemoved: id => this.onParsingProfileRemoved(id),
     }
     const columnsModel = parsingProfileViewColumns(columnsProps)
     const filtersFields = getFilterFields(columnsModel)
@@ -83,16 +79,6 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
       this.getCurrentData()
     } catch (error) {
       console.error(error)
-    }
-  }
-
-  async onParsingProfileRemoved(id: string) {
-    try {
-      await ParserModel.onParsingProfileRemoved(id)
-      toast.success(t(TranslationKey['Parsing profile successfully deleted']))
-      this.getCurrentData()
-    } catch (error) {
-      toast.error(t(TranslationKey['Error deleting parsing profile']))
     }
   }
 }
