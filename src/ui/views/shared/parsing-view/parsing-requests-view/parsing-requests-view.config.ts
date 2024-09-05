@@ -5,7 +5,7 @@ export const parsingRequestsViewConfig = {
   onRejectProfile: action.bound,
 }
 
-export const additionalSearchFields = ['name', 'email']
+export const fieldsForSearch = ['profileName', 'profileEmail']
 
 export interface ColumnsProps {
   onApproveProfile: (id: string, profileId: string) => void

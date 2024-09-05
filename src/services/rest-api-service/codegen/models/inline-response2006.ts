@@ -13,81 +13,161 @@
  */
 
 
-import { ApiV1AdminsTasksLightBoxes } from './api-v1-admins-tasks-light-boxes';
-import { ApiV1AdminsTasksLightStorekeeper } from './api-v1-admins-tasks-light-storekeeper';
+import { InlineResponse2006AllowedSpec } from './inline-response2006-allowed-spec';
+import { InlineResponse2006PermissionGroups } from './inline-response2006-permission-groups';
+import { InlineResponse2006Permissions } from './inline-response2006-permissions';
+import { InlineResponse2006SubUsers } from './inline-response2006-sub-users';
 
 /**
- * 
+ * Пользователь системы
  * @export
  * @interface InlineResponse2006
  */
 export interface InlineResponse2006 {
     /**
-     * GUID элемента
+     * GUID пользователя в БД.
      * @type {string}
      * @memberof InlineResponse2006
      */
-    _id?: string;
+    _id: string;
     /**
-     * Дата создания.
-     * @type {number}
-     * @memberof InlineResponse2006
-     */
-    createdAt?: number;
-    /**
-     * Дата обновления.
-     * @type {number}
-     * @memberof InlineResponse2006
-     */
-    updatedAt?: number;
-    /**
-     * Тип операции
+     * Имя пользователя.
      * @type {string}
      * @memberof InlineResponse2006
      */
-    operationType?: string;
+    name: string;
     /**
-     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+     * email
+     * @type {string}
+     * @memberof InlineResponse2006
+     */
+    email: string;
+    /**
+     * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    roles.moderator = 60    
      * @type {number}
      * @memberof InlineResponse2006
      */
-    status?: number;
+    role: number;
     /**
-     * Проклеены ли все баркоды в задаче
+     * Флаг fba.
      * @type {boolean}
      * @memberof InlineResponse2006
      */
-    isBarCodeAttached?: boolean;
+    fba: boolean;
     /**
-     * Приоритет задачи
+     * Если истина - пользователь активен. Если нет - заблокирован админом.
+     * @type {boolean}
+     * @memberof InlineResponse2006
+     */
+    active: boolean;
+    /**
+     * Поле отвечает за то, берется ли в расчет бокс этого юзера(сторкипера) при подсчете товаров в дороге
+     * @type {boolean}
+     * @memberof InlineResponse2006
+     */
+    isUserPreprocessingCenterUSA?: boolean;
+    /**
+     * Ставка, по который оплачивается сотрудник.
      * @type {number}
      * @memberof InlineResponse2006
      */
-    priority?: number;
+    rate: number;
     /**
-     * reason of priority
+     * Баланс пользователя.
+     * @type {number}
+     * @memberof InlineResponse2006
+     */
+    balance?: number;
+    /**
+     * Замороженная при оплате ордера сумма..
+     * @type {number}
+     * @memberof InlineResponse2006
+     */
+    balanceFreeze?: number;
+    /**
+     * Сумма на которую может уходить в минус пользователь.
+     * @type {number}
+     * @memberof InlineResponse2006
+     */
+    overdraft?: number;
+    /**
+     * Массив permission-ов.
+     * @type {Array<InlineResponse2006Permissions>}
+     * @memberof InlineResponse2006
+     */
+    permissions?: Array<InlineResponse2006Permissions>;
+    /**
+     * Массив групп permission-ов.
+     * @type {Array<InlineResponse2006PermissionGroups>}
+     * @memberof InlineResponse2006
+     */
+    permissionGroups?: Array<InlineResponse2006PermissionGroups>;
+    /**
+     * GUID мастер пользователя к которму относится данный субпользователь.
      * @type {string}
      * @memberof InlineResponse2006
      */
-    reason?: string;
+    masterUser?: string;
+    /**
+     * Массив доступных стратегий.
+     * @type {Array<number>}
+     * @memberof InlineResponse2006
+     */
+    allowedStrategies?: Array<number>;
+    /**
+     * Массив массив ролей.
+     * @type {Array<number>}
+     * @memberof InlineResponse2006
+     */
+    allowedRoles?: Array<number>;
+    /**
+     * Может ли данный пользователь быть мастер юзером.
+     * @type {boolean}
+     * @memberof InlineResponse2006
+     */
+    canByMasterUser?: boolean;
+    /**
+     * Рейтинг пользователя.
+     * @type {number}
+     * @memberof InlineResponse2006
+     */
+    rating?: number;
+    /**
+     * Массив id сабюзеров.
+     * @type {Array<InlineResponse2006SubUsers>}
+     * @memberof InlineResponse2006
+     */
+    subUsers?: Array<InlineResponse2006SubUsers>;
     /**
      * 
-     * @type {ApiV1AdminsTasksLightStorekeeper}
+     * @type {InlineResponse2006SubUsers}
      * @memberof InlineResponse2006
      */
-    storekeeper?: ApiV1AdminsTasksLightStorekeeper;
+    masterUserInfo?: InlineResponse2006SubUsers;
     /**
-     * Массив коробок которые были до переформирования коробок.
-     * @type {Array<ApiV1AdminsTasksLightBoxes>}
+     * Массив доступных специализаций фрилансера.
+     * @type {Array<InlineResponse2006AllowedSpec>}
      * @memberof InlineResponse2006
      */
-    boxes?: Array<ApiV1AdminsTasksLightBoxes>;
+    allowedSpec?: Array<InlineResponse2006AllowedSpec>;
     /**
-     * Массив коробок которые были до переформирования коробок.
-     * @type {Array<ApiV1AdminsTasksLightBoxes>}
+     * Скрывать поставщиков от пользователя.
+     * @type {boolean}
      * @memberof InlineResponse2006
      */
-    boxesBefore?: Array<ApiV1AdminsTasksLightBoxes>;
+    hideSuppliers?: boolean;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse2006
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse2006
+     */
+    updatedAt?: string;
 }
 
 

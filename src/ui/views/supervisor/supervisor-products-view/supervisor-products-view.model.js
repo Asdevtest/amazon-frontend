@@ -12,7 +12,7 @@ import { supervisorProductsViewColumns } from './supervisor-products-view.column
 import { additionalFields, supervisorProductsConfig } from './supervisor-products-view.config'
 
 export class SupervisorProductsViewModel extends DataGridFilterTableModel {
-  switcherFilterStatuses = 'all'
+  switcherFilterStatuses = null
   showProductModal = false
 
   get userInfo() {
@@ -49,8 +49,6 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
       },
     }
     const additionalPropertiesGetFilters = () => ({
-      status: { $eq: this.switcherFilterStatuses === 'all' ? undefined : this.switcherFilterStatuses },
-
       ...(this.columnMenuSettings.orderedYesNoFilterData.yes && this.columnMenuSettings.orderedYesNoFilterData.no
         ? {}
         : {
@@ -63,6 +61,10 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
     const columns = supervisorProductsViewColumns(rowHandlers)
     const filtersFields = getFilterFields(columns, additionalFields)
 
+    const defaultFilterParams = () => ({
+      ...(this.switcherFilterStatuses ? { statusGroup: { $eq: this.switcherFilterStatuses } } : {}),
+    })
+
     super({
       getMainDataMethod: SupervisorModel.getProductsMyPag,
       columnsModel: columns,
@@ -73,6 +75,7 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
       defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
+      defaultFilterParams,
     })
     makeObservable(this, supervisorProductsConfig)
 

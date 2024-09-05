@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse200 } from './inline-response200';
 
 /**
  * 
@@ -22,17 +21,11 @@ import { InlineResponse200 } from './inline-response200';
  */
 export interface InlineResponse20010 {
     /**
-     * Количество товаров
+     * 
      * @type {number}
      * @memberof InlineResponse20010
      */
-    count?: number;
-    /**
-     * Массив товаров
-     * @type {Array<InlineResponse200>}
-     * @memberof InlineResponse20010
-     */
-    rows?: Array<InlineResponse200>;
+    tech_pause?: number;
 }
 
 

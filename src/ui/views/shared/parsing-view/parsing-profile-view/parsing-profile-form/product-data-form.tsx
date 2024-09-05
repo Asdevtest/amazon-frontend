@@ -42,9 +42,14 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
     }
   }, [])
 
-  const onFinish = async (values: FieldType) => {
+  const handleSendForm = async (values: FieldType) => {
     isEditMode ? await viewModel.onEditProfile(profile?._id, values) : await viewModel.onCreateProfile(values)
     form.resetFields()
+    onClose?.()
+    onUpdateData?.()
+  }
+  const handleRemoveProfile = async () => {
+    await viewModel.onParsingProfileRemoved()
     onClose?.()
     onUpdateData?.()
   }
@@ -55,7 +60,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
     <div className={styles.wrapper}>
       <p className={styles.title}>{t(TranslationKey[title as TranslationKey])}</p>
 
-      <Form name="parsing profile" autoComplete="off" form={form} onFinish={onFinish}>
+      <Form name="parsing profile" autoComplete="off" form={form} onFinish={handleSendForm}>
         <div className={styles.container}>
           <ParsingDataBlock
             shop={viewModel.profile?.shop}
@@ -153,6 +158,16 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
         </div>
 
         <div className={styles.buttons}>
+          <CustomButton
+            danger
+            type="primary"
+            size="large"
+            disabled={!!viewModel.profile?.shop}
+            onClick={handleRemoveProfile}
+          >
+            {t(TranslationKey.Delete)}
+          </CustomButton>
+
           <Form.Item shouldUpdate className={styles.field}>
             <CustomButton loading={viewModel.loading} size="large" type="primary" htmlType="submit">
               {t(TranslationKey.Save)}

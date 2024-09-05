@@ -58,7 +58,6 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
   async onForceStart(ids?: string[]) {
     try {
       await ParserModel.onForceStart(ids || this.selectedRows)
-
       this.getCurrentData()
     } catch (error) {
       console.error(error)
@@ -68,7 +67,6 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
   async onForceStop(ids?: string[]) {
     try {
       await ParserModel.onForceStop(ids || this.selectedRows)
-
       this.getCurrentData()
     } catch (error) {
       console.error(error)
@@ -78,7 +76,6 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
   async onParsingProfileRegistred(id: string) {
     try {
       await ParserModel.onParsingProfileRegistred(id)
-
       this.getCurrentData()
     } catch (error) {
       console.error(error)

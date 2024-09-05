@@ -1,6 +1,7 @@
 import { RadioChangeEvent } from 'antd'
 import { makeObservable } from 'mobx'
 
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { tariffTypes } from '@constants/keys/tariff-types'
 
 import { ClientModel } from '@models/client-model'
@@ -14,14 +15,17 @@ import { IFullUser } from '@typings/shared/full-user'
 import { ILogicTariff } from '@typings/shared/logic-tariff'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
+import { getColumns } from './helpers/get-columns'
+import { getMainDataMethod } from './helpers/get-main-data-method'
+import { getTableKey } from './helpers/get-table-key'
 import { logisticsTariffsColumns } from './warehouse-logistics-tariffs.columns'
 import { warehouseTariffsConfig } from './warehouse-management.config'
-import { warehouseTariffsColumns } from './warehouse-tariffs.columns'
+import { WarehouseTabs } from './warehouse-management.types'
 
 export class WarehouseTariffModel extends DataGridTableModel {
   tariffToEdit?: ILogicTariff
   showAddOrEditWarehouseTariffModal = false
-  tabIndex = 0
+  tabIndex = WarehouseTabs.LOGISTICS_TARIFFS
   isArchive = false
   storekeeperDestination?: IDestination
   showAddOrEditLogisticTariffModal = false
@@ -46,19 +50,25 @@ export class WarehouseTariffModel extends DataGridTableModel {
       onTriggerArchive: (row: ILogicTariff) => this.onTriggerArchive(row),
       isArchive: () => this.isArchive,
     }
-    const getMainDataMethod = () =>
-      this.tabIndex
-        ? StorekeeperModel.getWarehouseTariffs()
-        : StorekeeperModel.getLogisticsTariffs({
-            tariffType: tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF,
-            archive: this.isArchive,
-          })
+
+    const defaultGetCurrentDataOptions = () => {
+      if (this.tabIndex === WarehouseTabs.LOGISTICS_TARIFFS) {
+        return {
+          tariffType: tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF,
+          archive: this.isArchive,
+        }
+      } else {
+        return {}
+      }
+    }
 
     super({
-      getMainDataMethod,
+      getMainDataMethod: StorekeeperModel.getLogisticsTariffs,
       columnsModel: logisticsTariffsColumns(columnsProps),
+      tableKey: DataGridTablesKeys.WAREHOUSE_MANAGEMENT_LOGISTICS_TARIFFS,
       fieldsForSearch: ['name'],
       defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
+      defaultGetCurrentDataOptions,
     })
 
     this.getTableSettingsPreset()
@@ -114,6 +124,7 @@ export class WarehouseTariffModel extends DataGridTableModel {
   onChangeTabIndex(event: RadioChangeEvent) {
     const currentValue = event.target.value
     this.tabIndex = currentValue
+    this.tableKey = getTableKey(currentValue)
 
     const columnsProps = {
       onRemoveWarehouseTariff: (id: string) => this.onRemoveWarehouseTariff(id),
@@ -122,8 +133,14 @@ export class WarehouseTariffModel extends DataGridTableModel {
       onTriggerArchive: (row: ILogicTariff) => this.onTriggerArchive(row),
       isArchive: () => this.isArchive,
     }
-    this.columnsModel = this.tabIndex ? warehouseTariffsColumns(columnsProps) : logisticsTariffsColumns(columnsProps)
-    this.getCurrentData()
+
+    this.getMainDataMethod = getMainDataMethod(this.tabIndex)
+    const columns = getColumns(this.tabIndex)(columnsProps)
+
+    this.columnsModel = columns
+    this.defaultColumnsModel = columns
+
+    this.getTableSettingsPreset()
   }
 
   onToggleArchive() {

@@ -195,8 +195,7 @@ export const MultipleChats = observer(
                 requestStatus={requestStatus}
                 onChangeRequestStatus={onChangeRequestStatus}
                 onSubmitMessage={(message: string, files: UploadFileType[], replyMessageId: string | null) =>
-                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  onSubmitMessage(message, files, chatSelectedId!, replyMessageId)
+                  onSubmitMessage(message, files, chatSelectedId as string, replyMessageId)
                 }
                 onTypingMessage={onTypingMessage}
                 onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}

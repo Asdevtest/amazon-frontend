@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-by';
+import { UserAdminFullSchema } from './user-admin-full-schema';
 
 /**
  * 
@@ -22,100 +22,23 @@ import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-b
  */
 export interface InlineResponse2005 {
     /**
-     * GUID платежа
-     * @type {string}
-     * @memberof InlineResponse2005
-     */
-    _id?: string;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse2005
-     */
-    createdAt?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse2005
-     */
-    createdBy?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Роль пользователя на момент инициации платежа.
+     * Count of total items
      * @type {number}
      * @memberof InlineResponse2005
      */
-    role?: number;
+    count?: number;
+    /**
+     * Массив пользователей.
+     * @type {Array<UserAdminFullSchema>}
+     * @memberof InlineResponse2005
+     */
+    rows?: Array<UserAdminFullSchema>;
     /**
      * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @type {object}
      * @memberof InlineResponse2005
      */
-    subUser?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * GUID товара или услуги.
-     * @type {string}
-     * @memberof InlineResponse2005
-     */
-    entityId?: string;
-    /**
-     * Тип товара или услуги
-     * @type {string}
-     * @memberof InlineResponse2005
-     */
-    entityType?: InlineResponse2005EntityTypeEnum;
-    /**
-     * Тип платежа
-     * @type {string}
-     * @memberof InlineResponse2005
-     */
-    paymentType?: InlineResponse2005PaymentTypeEnum;
-    /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse2005
-     */
-    recipient?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
-     * @type {number}
-     * @memberof InlineResponse2005
-     */
-    sum?: number;
-    /**
-     * комментарий
-     * @type {string}
-     * @memberof InlineResponse2005
-     */
-    comment?: string;
+    meta?: object;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse2005EntityTypeEnum {
-    Product = 'PRODUCT',
-    Order = 'ORDER',
-    Box = 'BOX',
-    Batch = 'BATCH',
-    User = 'USER',
-    RequestCustom = 'REQUEST-CUSTOM',
-    RequestSearchProduct = 'REQUEST-SEARCH_PRODUCT',
-    RequestSearchNiche = 'REQUEST-SEARCH_NICHE',
-    RequestProposalCustom = 'REQUEST-PROPOSAL-CUSTOM',
-    RequestProposalSearchProduct = 'REQUEST-PROPOSAL-SEARCH_PRODUCT',
-    RequestProposalSearchNiche = 'REQUEST-PROPOSAL-SEARCH_NICHE',
-    Other = 'OTHER'
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse2005PaymentTypeEnum {
-    Replenish = 'REPLENISH',
-    Fine = 'FINE',
-    Zero = 'ZERO'
-}
-
 
 

@@ -1124,7 +1124,7 @@
   "Your ID": "你ID",
   "New product": "新产品",
   "Researcher found supplier": "研究员找到了供货方",
-  "Rejected by Supervisor": "由主管拒绝",
+  "Rejected by supervisor": "由主管拒绝",
   "Is in search of a Buyer": "正在寻找买方",
   "Product at the Buyer in work": "产品在买房工作中",
   "Buyer found a supplier": "买方找到了供货方",
@@ -2043,5 +2043,7 @@
   "Invited": "已邀请",
   "Registered": "已注册",
   "Ready to checking": "准备检查",
-  "In use": "正在使用"
+  "In use": "正在使用",
+  "Parsing profile successfully deleted": "解析配置文件已成功删除",
+  "Error deleting parsing profile": "删除解析配置文件时出错"
 }

@@ -3,6 +3,11 @@ import { MdDone } from 'react-icons/md'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
+import {
+  colorByDifficultyLevel,
+  difficultyLevelByCode,
+  difficultyLevelTranslate,
+} from '@constants/statuses/difficulty-level'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -26,6 +31,7 @@ interface RequestTermsProps {
   price: number
   updatedAt: string
   status: string
+  taskComplexity: number
 }
 
 export const RequestTerms: FC<RequestTermsProps> = memo(props => {
@@ -41,6 +47,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
     price,
     updatedAt,
     status,
+    taskComplexity,
   } = props
 
   return (
@@ -60,6 +67,16 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
             </p>
           </div>
         )}
+
+        <div className={styles.flexRow}>
+          <p className={styles.sectionTitle}>{t(TranslationKey.Category)}:</p>
+          <p
+            className={styles.sectionTitle}
+            style={{ color: colorByDifficultyLevel(difficultyLevelByCode[taskComplexity]) }}
+          >
+            {difficultyLevelTranslate(difficultyLevelByCode[taskComplexity])}
+          </p>
+        </div>
       </div>
 
       <div className={styles.requestInfoWrapper}>
@@ -82,7 +99,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
           <div className={styles.blockInfoWrapper}>
             <div className={styles.blockInfoCell}>
               <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Product price'])}</p>
-              <div className={styles.pricesWrapper}>
+              <div className={styles.flexRow}>
                 {newProductPrice && (
                   <p className={cx(styles.blockInfoCellText, { [styles.newPrice]: !!newProductPrice })}>
                     {'$ ' + toFixed(newProductPrice, 2)}

@@ -51,7 +51,10 @@ export class ShopsCascaderModel {
 
   async getShopsExport() {
     try {
-      const shopIds = this.selectedShopsOptions.length > 0 ? this.selectedShopsOptions?.join(',') : undefined
+      const shopIds =
+        this.selectedShopsOptions.length > 0
+          ? this.selectedShopsOptions?.filter(item => !item.includes('select-all-shops'))?.join(',')
+          : undefined
       const table = this.selectedTableOptions?.[0][0]
       const statusGroup = this.selectedTableOptions?.find(option => !option.includes('BATCHES'))
         ? this.selectedTableOptions?.[0][1]

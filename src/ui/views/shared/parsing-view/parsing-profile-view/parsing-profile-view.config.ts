@@ -6,11 +6,12 @@ export const parsingProfileViewConfig = {
   selectedProfile: observable,
   showToggleProfileModal: observable,
 
+  onToggleProfileModal: action.bound,
   onEditProfileModal: action.bound,
   onAddProfileModal: action.bound,
   onForceStart: action.bound,
   onForceStop: action.bound,
-  onToggleProfileModal: action.bound,
+  onParsingProfileRegistred: action.bound,
 }
 
 export const fieldsForSearch = ['name', 'email']
