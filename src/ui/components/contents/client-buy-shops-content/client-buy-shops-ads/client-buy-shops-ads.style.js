@@ -56,4 +56,8 @@ export const useStyles = makeStyles()(theme => ({
     gap: '40px',
     marginBottom: 10,
   },
+
+  icon: {
+    color: theme.palette.text.main,
+  },
 }))

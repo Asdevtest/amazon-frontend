@@ -17,11 +17,6 @@ export const useStyles = makeStyles()(() => ({
     borderRadius: 7,
   },
 
-  icon: {
-    width: '20px !important',
-    height: '20px !important',
-  },
-
   starIcon: {
     color: '#faaf00',
   },

@@ -60,7 +60,4 @@ export const useStyles = makeStyles()(theme => ({
     padding: 0,
     margin: 0,
   },
-  icon: {
-    width: '20px !important',
-  },
 }))

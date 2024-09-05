@@ -1,6 +1,5 @@
 import { FC, memo } from 'react'
-
-import InboxIcon from '@mui/icons-material/Inbox'
+import { MdInbox } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -65,7 +64,7 @@ export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = memo(
       ) : (
         <div className={styles.emptyProposalsIconWrapper}>
           <div className={styles.emptyProposalsIcon}>
-            <InboxIcon style={{ color: '#C4C4C4', fontSize: '76px' }} />
+            <MdInbox style={{ color: '#C4C4C4', fontSize: '76px' }} />
           </div>
           <p className={styles.emptyProposalsDescription}>{t(TranslationKey['No new proposals at the moment'])}</p>
         </div>

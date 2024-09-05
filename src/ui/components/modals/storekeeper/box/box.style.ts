@@ -158,4 +158,8 @@ export const useStyles = makeStyles()(theme => ({
   labelWrapperStyles: {
     gap: '19px',
   },
+
+  blue: {
+    color: theme.palette.text.main,
+  },
 }))

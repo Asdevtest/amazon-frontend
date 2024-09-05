@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, KeyboardEvent, memo, useState } from 'react'
+import { IoSettingsOutline } from 'react-icons/io5'
 
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import { Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -49,7 +49,7 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
         className={styles.parametersButton}
         onClick={(event: any) => setMenuAnchor(event.currentTarget)}
       >
-        <SettingsOutlinedIcon fontSize="small" />
+        <IoSettingsOutline size={20} />
       </Button>
 
       {Boolean(menuAnchor) && (

@@ -9,16 +9,17 @@ import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantDealsListCard } from '@components/cards/vacant-deals-list-card'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { styles } from './deals-on-review-view.style'
+import { styles } from './vacant-deals-view.style'
 
-import { DealsOnReviewModel } from './deals-on-review-view.model'
+import { VacantDealsViewModel } from './vacant-deals-view.model'
 
-export const DealsOnReviewViewRaw = props => {
-  const [viewModel] = useState(() => new DealsOnReviewModel({ history: props.history }))
+export const VacantDealsViewRaw = props => {
+  const [viewModel] = useState(() => new VacantDealsViewModel({ history: props.history }))
   const { classes: styles } = props
 
   useEffect(() => {
@@ -49,20 +50,20 @@ export const DealsOnReviewViewRaw = props => {
             )}
           </div>
         </div>
-
-        <div className={styles.dealsOnReviewWrapper}>
+        <div className={styles.vacantDealsWrapper}>
           {getSortedData(viewModel.sortMode).length ? (
-            getSortedData(viewModel.sortMode).map((deal, index) =>
-              viewModel.viewMode === tableViewMode.LIST ? (
-                <VacantDealsListCard
-                  key={index}
-                  showDetails
-                  item={deal}
-                  onClickViewMore={viewModel.onClickViewMore}
-                  // onClickGetToWorkModal={viewModel.onClickGetToWorkModal}
-                />
-              ) : null,
-            )
+            <>
+              {getSortedData(viewModel.sortMode).map((deal, index) =>
+                viewModel.viewMode === tableViewMode.LIST ? (
+                  <VacantDealsListCard
+                    key={index}
+                    item={deal}
+                    onClickViewMore={viewModel.onClickViewMore}
+                    onClickGetToWorkModal={viewModel.onClickGetToWorkModal}
+                  />
+                ) : null,
+              )}
+            </>
           ) : (
             <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
@@ -73,8 +74,22 @@ export const DealsOnReviewViewRaw = props => {
           )}
         </div>
       </div>
+
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Taking the deal check to work?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={() => viewModel.onClickGetToWork(viewModel.proposalId, viewModel.requestId)}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
     </>
   )
 }
 
-export const DealsOnReviewView = withStyles(observer(DealsOnReviewViewRaw), styles)
+export const VacantDealsView = withStyles(observer(VacantDealsViewRaw), styles)

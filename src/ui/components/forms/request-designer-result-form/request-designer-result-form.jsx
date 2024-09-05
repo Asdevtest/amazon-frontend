@@ -2,10 +2,10 @@ import { useCallback, useState } from 'react'
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
 import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
 import { FiPlus } from 'react-icons/fi'
+import { IoCloseOutline } from 'react-icons/io5'
+import { MdExpandMore } from 'react-icons/md'
 import { v4 as uuid } from 'uuid'
 
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -96,7 +96,7 @@ const Slot = ({
           {slot.fileLink ? (
             <CrossInRectangleIcon className={styles.removeIcon} />
           ) : (
-            <CloseOutlinedIcon className={styles.removeIcon} />
+            <IoCloseOutline size={24} className={styles.removeIcon} />
           )}
         </div>
 
@@ -272,7 +272,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
               onChange={onClickToShowDetails}
             >
               <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
+                expandIcon={<MdExpandMore size={20} />}
                 classes={{
                   root: styles.accordion,
                   content: styles.accordionContent,

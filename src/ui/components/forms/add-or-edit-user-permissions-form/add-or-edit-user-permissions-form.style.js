@@ -242,4 +242,8 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '5px',
   },
+
+  icon: {
+    color: theme.palette.text.main,
+  },
 }))

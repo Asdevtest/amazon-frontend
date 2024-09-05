@@ -1,9 +1,24 @@
 export const styles = theme => ({
-  dealsOnReviewWrapper: {
+  vacantDealsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     gap: '30px',
   },
+
+  emptyTableWrapper: {
+    width: '100%',
+    height: '40vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  emptyTableText: {
+    marginTop: '30px',
+    color: theme.palette.text.second,
+  },
+
   tablePanelWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -26,18 +41,7 @@ export const styles = theme => ({
     color: theme.palette.primary.main,
     marginRight: '15px',
   },
-  emptyTableWrapper: {
-    width: '100%',
-    height: '40vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  emptyTableText: {
-    marginTop: '30px',
-    color: theme.palette.text.second,
-  },
+
   icon: {
     color: theme.palette.text.main,
   },

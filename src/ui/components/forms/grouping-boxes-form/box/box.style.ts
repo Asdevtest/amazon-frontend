@@ -258,4 +258,8 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     width: '50%',
   },
+
+  blue: {
+    color: theme.palette.text.main,
+  },
 }))

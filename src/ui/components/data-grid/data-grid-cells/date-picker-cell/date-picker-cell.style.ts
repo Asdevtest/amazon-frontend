@@ -37,8 +37,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   clearIcon: {
-    width: '20px !important',
-    height: '20px !important',
     transition: '.3s ease',
     cursor: 'pointer',
     '&:hover': {

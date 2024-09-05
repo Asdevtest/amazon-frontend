@@ -2,8 +2,8 @@ import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
+import { MdDeleteOutline } from 'react-icons/md'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { MenuItem, Select } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -208,7 +208,7 @@ export const AddOrEditSinglePermissionForm = observer(
                     </Select>
 
                     <Button iconButton styleType={ButtonStyle.DANGER} onClick={() => onRemovePermission(index)}>
-                      <DeleteIcon />
+                      <MdDeleteOutline size={24} />
                     </Button>
                   </div>
                 ))}

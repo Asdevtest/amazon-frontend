@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useEffect, useState } from 'react'
+import { MdArrowDropDown, MdArrowDropUp, MdDeleteOutline } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton, Radio } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -227,7 +225,7 @@ export const Box: FC<BoxProps> = memo(props => {
 
         <div className={styles.bottomBlockWrapper}>
           <IconButton classes={{ root: styles.icon }} onClick={() => onRemoveBox(isNewBox ? index : box._id)}>
-            <DeleteOutlineOutlinedIcon className={styles.deleteBtn} />
+            <MdDeleteOutline size={24} className={styles.deleteBtn} />
           </IconButton>
           {isNewBox && (
             <div className={styles.prepId}>
@@ -241,7 +239,11 @@ export const Box: FC<BoxProps> = memo(props => {
                 {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
               </p>
 
-              {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+              {!showFullCard ? (
+                <MdArrowDropDown size={22} className={styles.blue} />
+              ) : (
+                <MdArrowDropUp size={22} className={styles.blue} />
+              )}
             </div>
           </div>
         </div>

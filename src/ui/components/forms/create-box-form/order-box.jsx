@@ -1,6 +1,6 @@
 import { memo } from 'react'
+import { MdDeleteOutline } from 'react-icons/md'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -159,7 +159,7 @@ export const OrderBox = memo(props => {
 
       <div>
         <Button iconButton variant={ButtonVariant.OUTLINED} onClick={() => onRemoveBox(orderBoxIndex)}>
-          <DeleteIcon />
+          <MdDeleteOutline size={24} />
         </Button>
       </div>
     </div>

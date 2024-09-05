@@ -41,4 +41,7 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'pre-line',
     wordBreak: 'break-word',
   },
+  icon: {
+    color: theme.palette.text.main,
+  },
 }))

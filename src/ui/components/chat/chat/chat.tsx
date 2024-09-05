@@ -4,11 +4,10 @@
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { ChangeEvent, FC, KeyboardEvent, ReactElement, memo, useEffect, useRef, useState } from 'react'
+import { MdKeyboardArrowDown, MdMoreVert } from 'react-icons/md'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 import { VirtuosoHandle } from 'react-virtuoso'
 
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
@@ -293,7 +292,7 @@ export const Chat: FC<ChatProps> = memo(
             {isShowChatInfo ? (
               <HideArrowIcon className={cx(styles.arrowIcon, styles.hideArrow)} />
             ) : (
-              <MoreVertOutlinedIcon className={styles.arrowIcon} />
+              <MdMoreVert size={22} className={styles.arrowIcon} />
             )}
           </div>
 
@@ -305,7 +304,7 @@ export const Chat: FC<ChatProps> = memo(
               })}
               onClick={onClickScrollToBottom}
             >
-              <KeyboardArrowDownIcon />
+              <MdKeyboardArrowDown size={22} />
             </div>
           )}
 

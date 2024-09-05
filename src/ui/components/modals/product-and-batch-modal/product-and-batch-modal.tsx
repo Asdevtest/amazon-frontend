@@ -1,6 +1,7 @@
 import { FC, memo, useEffect, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+// change to react-icons MdOutlineFilterAlt if needed
 import { Divider } from '@mui/material'
 import { GridRowModel } from '@mui/x-data-grid'
 

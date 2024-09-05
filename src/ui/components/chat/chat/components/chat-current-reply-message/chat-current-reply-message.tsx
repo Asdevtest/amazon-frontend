@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
+import { MdClose } from 'react-icons/md'
 
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Typography } from '@mui/material'
 
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
@@ -38,7 +38,7 @@ export const ChatCurrentReplyMessage: FC<ChatCurrentReplyMessageProps> = memo(
         </div>
         <div className={styles.controls}>
           <ReplyIcon className={cx(styles.icon, styles.replyIcon)} onClick={scrollToMessage} />
-          <CloseOutlinedIcon className={styles.icon} onClick={() => setMessageToReply(null)} />
+          <MdClose size={22} className={styles.icon} onClick={() => setMessageToReply(null)} />
         </div>
       </div>
     )

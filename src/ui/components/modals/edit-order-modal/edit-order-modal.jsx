@@ -1,7 +1,6 @@
 import { memo, useEffect, useState } from 'react'
+import { MdFiberManualRecord, MdOutlineVisibility } from 'react-icons/md'
 
-import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import VisibilityIcon from '@mui/icons-material/Visibility'
 import { InputAdornment, MenuItem, Select, Typography } from '@mui/material'
 
 import {
@@ -541,7 +540,8 @@ export const EditOrderModal = memo(
                     <Input
                       startAdornment={
                         <InputAdornment position="start">
-                          <FiberManualRecordRoundedIcon
+                          <MdFiberManualRecord
+                            size={24}
                             className={cx({
                               [styles.orange]: statusColorGroups.orange.includes(
                                 isStatusChange ? Number(tmpNewOrderFieldsState?.status) : orderFields.status,
@@ -718,7 +718,7 @@ export const EditOrderModal = memo(
 
           <Button onClick={() => setCommentModalModal(!commentModal)}>
             {t(TranslationKey['See comments'])}
-            <VisibilityIcon className={styles.seeCommentsIcon} />
+            <MdOutlineVisibility size={24} className={styles.seeCommentsIcon} />
           </Button>
         </div>
 
