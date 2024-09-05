@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useCategoryRootViewStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(() => ({
   title: {
     fontSize: '18px',
     lineHeight: '140%',

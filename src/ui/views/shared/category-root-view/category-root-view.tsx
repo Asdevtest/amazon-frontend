@@ -6,15 +6,16 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 
 import { CategoryRootViewModel } from '@views/shared/category-root-view/category-root-view.model'
-import { useCategoryRootViewStyles } from '@views/shared/category-root-view/category-root-view.style'
+import { useStyles } from '@views/shared/category-root-view/category-root-view.style'
 
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { HistoryType } from '@typings/types/history'
 
-export const CategoryRootView = observer(props => {
-  const [viewModel] = useState(() => new CategoryRootViewModel({ history: props.history }))
-  const { classes: styles } = useCategoryRootViewStyles()
+export const CategoryRootView = observer(({ history }: { history: HistoryType }) => {
+  const [viewModel] = useState(() => new CategoryRootViewModel(history))
+  const { classes: styles } = useStyles()
 
   useEffect(() => {
     viewModel.setSubRoutes()

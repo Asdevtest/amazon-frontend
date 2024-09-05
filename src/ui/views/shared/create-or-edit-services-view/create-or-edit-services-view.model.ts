@@ -5,23 +5,29 @@ import { UserModel } from '@models/user-model'
 
 import { onSubmitPostImages } from '@utils/upload-files'
 
-export class CreateOrEditServicesViewModel {
-  history = undefined
+import { IRequest } from '@typings/models/requests/request'
+import { IFullUser } from '@typings/shared/full-user'
+import { HistoryType } from '@typings/types/history'
 
-  requestId = undefined
-  requestToEdit = undefined
+export class CreateOrEditServicesViewModel {
+  history?: HistoryType
+  requestId?: string
+  requestToEdit?: IRequest
   uploadedFiles = []
 
   get userInfo() {
-    return UserModel.userInfo
+    return UserModel.userInfo as unknown as IFullUser
   }
 
-  constructor({ history }) {
+  constructor(history: HistoryType) {
     this.history = history
 
     if (history.location.state) {
+      // @ts-ignore
       this.requestId = history.location.state.requestId
     }
+
+    this.getAnnouncementsDataByGuid()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -29,7 +35,9 @@ export class CreateOrEditServicesViewModel {
   async getAnnouncementsDataByGuid() {
     try {
       if (this.requestId) {
-        const response = await AnnouncementsModel.getAnnouncementsByGuid({ guid: this.requestId })
+        const response = (await AnnouncementsModel.getAnnouncementsByGuid({
+          guid: this.requestId,
+        })) as unknown as IRequest
 
         runInAction(() => {
           this.requestToEdit = response
@@ -40,17 +48,10 @@ export class CreateOrEditServicesViewModel {
     }
   }
 
-  loadData() {
-    try {
-      this.getAnnouncementsDataByGuid()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickCreateBtn(data) {
+  async onClickCreateBtn(data: any) {
     try {
       if (data.linksToMediaFiles?.length) {
+        // @ts-ignore
         await onSubmitPostImages.call(this, { images: data.linksToMediaFiles, type: 'uploadedFiles' })
       }
 
@@ -63,13 +64,14 @@ export class CreateOrEditServicesViewModel {
     } catch (error) {
       console.error(error)
     } finally {
-      this.history.push('/freelancer/freelance/my-services')
+      this.history?.push('/freelancer/freelance/my-services')
     }
   }
 
-  async onClickEditBtn(data) {
+  async onClickEditBtn(data: any) {
     try {
       if (data.linksToMediaFiles?.length) {
+        // @ts-ignore
         await onSubmitPostImages.call(this, { images: data.linksToMediaFiles, type: 'uploadedFiles' })
       }
 
@@ -78,15 +80,15 @@ export class CreateOrEditServicesViewModel {
         linksToMediaFiles: this.uploadedFiles,
       }
 
-      await AnnouncementsModel.editAnnouncement(this.requestToEdit._id, dataWithFiles)
+      await AnnouncementsModel.editAnnouncement(this.requestToEdit?._id, dataWithFiles)
     } catch (error) {
       console.error(error)
     } finally {
-      this.history.push('/freelancer/freelance/my-services')
+      this.history?.push('/freelancer/freelance/my-services')
     }
   }
 
   onClickBackBtn() {
-    this.history.goBack()
+    this.history?.goBack()
   }
 }

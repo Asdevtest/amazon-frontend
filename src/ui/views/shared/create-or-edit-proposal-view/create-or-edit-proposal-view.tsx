@@ -8,14 +8,17 @@ import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices
 
 import { t } from '@utils/translations'
 
+import { HistoryType } from '@typings/types/history'
+
 import { CreateOrEditProposalViewModel } from './create-or-edit-proposal-view.model'
 
-export const CreateOrEditProposalView = observer(({ history }) => {
-  const [viewModel] = useState(() => new CreateOrEditProposalViewModel({ history }))
+export const CreateOrEditProposalView = observer(({ history }: { history: HistoryType }) => {
+  const [viewModel] = useState(() => new CreateOrEditProposalViewModel(history))
 
   return (
     <>
       <CreateOrEditProposalContent
+        // @ts-ignore
         progressValue={viewModel.progressValue}
         showProgress={viewModel.showProgress}
         request={viewModel.request}
@@ -33,7 +36,6 @@ export const CreateOrEditProposalView = observer(({ history }) => {
             viewModel.onTriggerOpenModal('showResultModal')
             viewModel.onClickResultModal({ goBack: true })
           }}
-          title={viewModel.infoModalText}
           topBtnText={t(TranslationKey['Go to request'])}
           bottomBtnText={t(TranslationKey['To vacant requests'])}
           thirdBtnText={t(TranslationKey['To the list of proposals'])}

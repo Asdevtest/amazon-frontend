@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,24 +11,24 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
+import { HistoryType } from '@typings/types/history'
+
 import { VacantDealsDetailsViewModel } from './deals-on-review-details-view.model'
 
-export const DealsOnReviewDetailsView = observer(({ history }) => {
-  const [viewModel] = useState(() => new VacantDealsDetailsViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+export const DealsOnReviewDetailsView = observer(({ history }: { history: HistoryType }) => {
+  const [viewModel] = useState(() => new VacantDealsDetailsViewModel(history))
 
   return (
     <>
       <DealDetailsCard
+        dealsOnReview={false}
         request={viewModel.request}
         requestProposals={viewModel.requestProposals}
         proposalId={viewModel.curProposalId}
         onClickConfirmDealModal={viewModel.onClickConfirmDealModal}
         onClickRejectDealModal={viewModel.onClickRejectDealModal}
         onSubmitSendInForRework={viewModel.onSubmitSendInForRework}
+        onClickGetToWorkModal={() => {}}
       />
 
       {viewModel.showConfirmModal ? (
