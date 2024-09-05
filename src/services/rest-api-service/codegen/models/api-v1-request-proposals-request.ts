@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1RequestProposalsRequestDetailsCustom } from './api-v1-request-proposals-request-details-custom';
 
 /**
@@ -24,10 +24,10 @@ import { ApiV1RequestProposalsRequestDetailsCustom } from './api-v1-request-prop
 export interface ApiV1RequestProposalsRequest {
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof ApiV1RequestProposalsRequest
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * Простое название
      * @type {string}

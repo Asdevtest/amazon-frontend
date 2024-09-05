@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { InlineResponse20063Suppliers } from './inline-response20063-suppliers';
 
 /**
@@ -79,16 +79,16 @@ export interface InlineResponse20063ChildProduct {
     barCode?: string;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20063ChildProduct
      */
-    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20063ChildProduct
      */
-    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
     /**
      * 
      * @type {Array<InlineResponse20063Suppliers>}

@@ -21,7 +21,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from '../models';
+import { ApiV1AnnouncementsMyCreatedBy } from '../models';
 // @ts-ignore
 import { BadRequestError } from '../models';
 // @ts-ignore
@@ -2156,7 +2156,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersMastersGet(role: number, guid: string, specs?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1AdminsGetProductsByStatusCreatedBy>>> {
+        async apiV1UsersMastersGet(role: number, guid: string, specs?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1AnnouncementsMyCreatedBy>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersMastersGet(role, guid, specs, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2654,7 +2654,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersMastersGet(role: number, guid: string, specs?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1AdminsGetProductsByStatusCreatedBy>> {
+        apiV1UsersMastersGet(role: number, guid: string, specs?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1AnnouncementsMyCreatedBy>> {
             return localVarFp.apiV1UsersMastersGet(role, guid, specs, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

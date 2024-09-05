@@ -21,17 +21,35 @@
  */
 export interface InlineObject88 {
     /**
-     * Комментарий клиента
+     * ASIN продукта
      * @type {string}
      * @memberof InlineObject88
      */
-    clientComment?: string;
+    asin?: string;
     /**
-     * Комментарий баера
+     * Причина
      * @type {string}
      * @memberof InlineObject88
      */
-    buyerComment?: string;
+    reason?: string;
+    /**
+     * Стратегия
+     * @type {string}
+     * @memberof InlineObject88
+     */
+    strategy?: InlineObject88StrategyEnum;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject88StrategyEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40'
+}
+
 
 

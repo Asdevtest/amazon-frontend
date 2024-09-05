@@ -28,6 +28,7 @@ export const SupervisorProductsView = observer(() => {
       value: status.value,
       key: viewModel.userInfo[status.userInfoKey] || null,
     }))
+
   const getRowClassName = params => warningStatuses.includes(params.row.statusForAttention) && styles.attentionRow
 
   return (

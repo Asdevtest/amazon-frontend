@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 import { ApiV1RequestsCustomProduct } from './api-v1-requests-custom-product';
 import { InlineResponse20090Announcement } from './inline-response20090-announcement';
@@ -203,10 +203,10 @@ export interface InlineResponse200119 {
     announcement?: InlineResponse20090Announcement;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse200119
      */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    sub?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
      * @type {Array<object>}
@@ -215,16 +215,16 @@ export interface InlineResponse200119 {
     proposals?: Array<object>;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse200119
      */
-    executor?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    executor?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse200119
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
      * @type {InlineResponse20090CountProposalsByStatuses}

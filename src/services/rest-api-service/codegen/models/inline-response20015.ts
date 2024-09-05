@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20014 } from './inline-response20014';
 
 /**
  * 
@@ -22,17 +21,17 @@ import { InlineResponse20014 } from './inline-response20014';
  */
 export interface InlineResponse20015 {
     /**
-     * Count of rows
-     * @type {number}
+     * Гуид юзера
+     * @type {string}
      * @memberof InlineResponse20015
      */
-    count?: number;
+    _id?: string;
     /**
-     * 
-     * @type {Array<InlineResponse20014>}
+     * Имя юзера
+     * @type {string}
      * @memberof InlineResponse20015
      */
-    rows?: Array<InlineResponse20014>;
+    name?: string;
 }
 
 
