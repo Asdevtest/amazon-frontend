@@ -2,6 +2,11 @@ import { Typography } from '@mui/material'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
+import {
+  colorByDifficultyLevel,
+  difficultyLevelByCode,
+  difficultyLevelTranslate,
+} from '@constants/statuses/difficulty-level'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -71,6 +76,21 @@ export const RequestTermsList = props => {
           inputComponent={
             <p className={styles.accentText} style={{ color: colorByStatus(request?.status) }}>
               {MyRequestStatusTranslate(request?.status)}
+            </p>
+          }
+        />
+      </div>
+      <div style={{ height: '100%' }}>
+        <Field
+          labelClasses={styles.fieldLabel}
+          containerClasses={styles.fieldContainer}
+          label={t(TranslationKey.Category)}
+          inputComponent={
+            <p
+              className={styles.accentText}
+              style={{ color: colorByDifficultyLevel(difficultyLevelByCode[request?.taskComplexity]) }}
+            >
+              {difficultyLevelTranslate(difficultyLevelByCode[request?.taskComplexity])}
             </p>
           }
         />

@@ -38,7 +38,7 @@ export const filterStatusConfig = [
     userInfoKey: UserInfoStatusKeys.ALL_PRODUCTS,
   },
   {
-    label: 'Rejected by Supervisor',
+    label: 'Rejected by supervisor',
     value: 'rejectedBySupervisor',
     userInfoKey: UserInfoStatusKeys.REJECTED_BY_SUPERVISOR,
   },

@@ -12,7 +12,6 @@ export const parsingProfileViewConfig = {
   onForceStart: action.bound,
   onForceStop: action.bound,
   onParsingProfileRegistred: action.bound,
-  onParsingProfileRemoved: action.bound,
 }
 
 export const fieldsForSearch = ['name', 'email']
@@ -22,5 +21,4 @@ export interface ColumnsProps {
   onForceStart: (ids?: string[]) => void
   onForceStop: (ids?: string[]) => void
   onParsingProfileRegistred: (id: string) => void
-  onParsingProfileRemoved: (id: string) => void
 }

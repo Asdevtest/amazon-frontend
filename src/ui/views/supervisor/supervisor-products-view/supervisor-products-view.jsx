@@ -21,11 +21,13 @@ export const SupervisorProductsView = observer(() => {
   const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new SupervisorProductsViewModel())
 
-  const customSwitcherConfig = filterStatusConfig.map(status => ({
-    badge: viewModel.userInfo[status.userInfoKey] ? viewModel.userInfo[status.userInfoKey] : null,
-    label: t(TranslationKey[status.label]),
-    value: status.value,
-  }))
+  const createStatusOptions = () =>
+    filterStatusConfig.map(status => ({
+      badge: viewModel.userInfo[status.userInfoKey] || null,
+      label: t(TranslationKey[status.label]),
+      value: status.value,
+      key: viewModel.userInfo[status.userInfoKey] || null,
+    }))
 
   const getRowClassName = params => warningStatuses.includes(params.row.statusForAttention) && styles.attentionRow
 
@@ -40,8 +42,10 @@ export const SupervisorProductsView = observer(() => {
               {option.data?.badge ? <div className={styles.optionRenderBadge}>{option.data?.badge}</div> : null}
             </div>
           )}
-          options={customSwitcherConfig}
+          options={createStatusOptions()}
+          labelRender={label => <>{`${label.label} (${label.key})`}</>}
           value={viewModel.switcherFilterStatuses}
+          className={styles.select}
           onChange={viewModel.onClickStatusFilterButton}
         />
 

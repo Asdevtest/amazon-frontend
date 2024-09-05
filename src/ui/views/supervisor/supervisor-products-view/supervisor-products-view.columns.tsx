@@ -75,7 +75,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
         // @ts-ignore
         t(productStatusTranslateKey(ProductStatusByCode[row?.status as keyof typeof ProductStatusByCode])),
       width: 160,
-      columnKey: columnnsKeys.client.INVENTORY_STATUS,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
