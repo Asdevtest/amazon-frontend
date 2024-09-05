@@ -8,7 +8,7 @@ import { ParserModel } from '@models/parser-model'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
 import { parsingRequestsViewColumns } from './parsing-requests-view.columns'
-import { ColumnsProps, additionalSearchFields, parsingRequestsViewConfig } from './parsing-requests-view.config'
+import { ColumnsProps, fieldsForSearch, parsingRequestsViewConfig } from './parsing-requests-view.config'
 
 export class ParsingRequestsViewModel extends DataGridFilterTableModel {
   constructor() {
@@ -25,7 +25,7 @@ export class ParsingRequestsViewModel extends DataGridFilterTableModel {
       columnsModel,
       filtersFields,
       mainMethodURL,
-      fieldsForSearch: additionalSearchFields,
+      fieldsForSearch,
       tableKey: DataGridTablesKeys.PARSING_REQUESTS,
       defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
