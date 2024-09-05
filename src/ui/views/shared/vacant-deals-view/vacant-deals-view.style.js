@@ -1,28 +1,8 @@
-import { makeStyles } from 'tss-react/mui'
-
-export const useStyles = makeStyles()(theme => ({
-  dealsOnReviewWrapper: {
+export const styles = theme => ({
+  vacantDealsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     gap: '30px',
-  },
-
-  tablePanelSortWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '20px',
-    transition: '0.3s ease',
-    cursor: 'pointer',
-    '&:hover': {
-      opacity: '.8',
-    },
-  },
-
-  tablePanelViewText: {
-    fontSize: '16px',
-    lineHeight: '19px',
-    color: theme.palette.primary.main,
-    marginRight: '15px',
   },
 
   emptyTableWrapper: {
@@ -39,7 +19,30 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
 
+  tablePanelWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    height: 52,
+  },
+  tablePanelSortWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      opacity: '.8',
+    },
+  },
+  tablePanelViewText: {
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
+    marginRight: '15px',
+  },
+
   icon: {
     color: theme.palette.text.main,
   },
-}))
+})

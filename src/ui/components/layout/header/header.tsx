@@ -1,14 +1,10 @@
 import { observer } from 'mobx-react'
 import { FC, useContext, useEffect, useRef, useState } from 'react'
+import { IoMdSunny } from 'react-icons/io'
+import { MdArrowDropDown, MdBrightness3, MdNotifications, MdNotificationsOff, MdPerson } from 'react-icons/md'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
-import NotificationsIcon from '@mui/icons-material/Notifications'
-import NotificationsOffIcon from '@mui/icons-material/NotificationsOff'
-import PersonIcon from '@mui/icons-material/Person'
-import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
 import { Avatar, Divider } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -197,17 +193,17 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
 
         <div className={styles.selectorsWrapper}>
           {isEnabledNotifications ? (
-            <NotificationsIcon className={styles.notificationIcon} onClick={handleNotifications} />
+            <MdNotifications size={24} className={styles.notificationIcon} onClick={handleNotifications} />
           ) : (
-            <NotificationsOffIcon className={styles.notificationIcon} onClick={handleNotifications} />
+            <MdNotificationsOff size={24} className={styles.notificationIcon} onClick={handleNotifications} />
           )}
 
           <LanguageSelector className={styles.languageSelector} />
 
           {SettingsModel.uiTheme === UiTheme.light ? (
-            <WbSunnyRoundedIcon className={styles.themeIcon} onClick={() => onClickThemeIcon(UiTheme.dark)} />
+            <IoMdSunny size={24} className={styles.themeIcon} onClick={() => onClickThemeIcon(UiTheme.dark)} />
           ) : (
-            <Brightness3RoundedIcon className={styles.themeIcon} onClick={() => onClickThemeIcon(UiTheme.light)} />
+            <MdBrightness3 size={24} className={styles.themeIcon} onClick={() => onClickThemeIcon(UiTheme.light)} />
           )}
         </div>
 
@@ -223,7 +219,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
               <p className={styles.balance}>{toFixedWithDollarSign(balance, 2)}</p>
             )}
           </div>
-          <ArrowDropDownIcon className={styles.hideOnModile} />
+          <MdArrowDropDown size={20} className={styles.hideOnModile} />
         </div>
       </div>
 
@@ -285,7 +281,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
                 handleClose()
               }}
             >
-              <PersonIcon className={styles.icon} />
+              <MdPerson size={22} className={styles.icon} />
               {t(TranslationKey.Profile)}
             </MenuItem>
             <MenuItem

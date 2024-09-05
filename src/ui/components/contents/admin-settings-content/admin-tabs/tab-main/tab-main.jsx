@@ -1,7 +1,7 @@
 import isEqual from 'lodash.isequal'
 import { memo, useEffect, useState } from 'react'
+import { MdDeleteOutline } from 'react-icons/md'
 
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -105,7 +105,8 @@ export const TabMain = memo(props => {
 
                     <div className={styles.iconsWrapper}>
                       <CopyValue text={proxy} />
-                      <DeleteOutlineOutlinedIcon
+                      <MdDeleteOutline
+                        size={24}
                         className={styles.deleteProxy}
                         onClick={() => handleDeleteProxy(proxy)}
                       />

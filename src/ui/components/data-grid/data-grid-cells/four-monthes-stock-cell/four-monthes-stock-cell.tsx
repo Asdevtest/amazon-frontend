@@ -15,10 +15,22 @@ interface FourMonthesStockCellProps {
   title?: string
   disabled?: boolean
   isNotPepurchase?: boolean
+  minValue?: number
+  maxValue?: number
 }
 
 export const FourMonthesStockCell: FC<FourMonthesStockCellProps> = memo(props => {
-  const { title, rowId, value, fourMonthesStockValue, isNotPepurchase, onClick, disabled = false } = props
+  const {
+    title,
+    rowId,
+    value,
+    fourMonthesStockValue,
+    isNotPepurchase,
+    minValue,
+    maxValue,
+    onClick,
+    disabled = false,
+  } = props
 
   const { classes: styles } = useStyles()
 
@@ -32,6 +44,8 @@ export const FourMonthesStockCell: FC<FourMonthesStockCellProps> = memo(props =>
         disabled={disabled}
         rowId={rowId}
         text={fourMonthesStockValue}
+        minValue={minValue}
+        maxValue={maxValue}
         onClickSubmit={onClick}
       />
     </div>

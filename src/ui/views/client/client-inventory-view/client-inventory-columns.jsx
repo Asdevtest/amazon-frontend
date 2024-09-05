@@ -263,6 +263,8 @@ export const clientInventoryColumns = ({
           rowId={params.row?._id}
           value={params.value}
           fourMonthesStockValue={params.row.fourMonthesStock}
+          minValue={100}
+          maxValue={99999}
           onClick={fourMonthesStockHandlers.onClickSaveFourMonthsStock}
         />
       ),

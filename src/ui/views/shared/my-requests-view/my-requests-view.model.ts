@@ -49,7 +49,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   researchIdToRemove = undefined
   currentRequestDetails: any = undefined
 
-  curProposal: ICustomRequest | null = null
+  curProposal?: ICustomRequest
 
   openModal = null
   showRequestDesignerResultClientModal = false
@@ -76,7 +76,9 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   radioButtonOption = SwitcherCondition.IN_PROGRESS
   statusGroup = SwitcherCondition.IN_PROGRESS
 
-  acceptProposalResultSetting = {}
+  acceptProposalResultSetting = {
+    onSubmit: (data: any) => {},
+  }
 
   constructor({ dataGridApi }: { dataGridApi: MutableRefObject<any> }) {
     const rowHandlers = {
@@ -296,7 +298,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   }
 
   async handleOpenRequestDetailModal(e: any) {
-    if (e.row.countProposalsByStatuses.acceptedProposals > 0) {
+    if (e.row?.countProposalsByStatuses?.acceptedProposals > 0) {
       this.isAcceptedProposals = true
     } else {
       this.isAcceptedProposals = false
@@ -321,9 +323,6 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
       })
     } catch (error) {
       console.error(error)
-      runInAction(() => {
-        this.curProposal = null
-      })
     }
   }
 
@@ -497,7 +496,11 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickProposalResultAccept(proposalId: string) {
+  onClickProposalResultAccept(proposalId?: string) {
+    if (!proposalId) {
+      return
+    }
+
     this.acceptProposalResultSetting = {
       onSubmit: (data: any) => this.onClickProposalResultAcceptForm(proposalId, data),
     }

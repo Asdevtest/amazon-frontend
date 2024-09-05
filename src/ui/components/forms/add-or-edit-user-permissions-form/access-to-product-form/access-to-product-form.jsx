@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react'
+import { MdOutlineArrowDropDown } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import {
   Accordion,
   AccordionDetails,
@@ -173,7 +173,7 @@ export const AccessToProductForm = memo(props => {
         }}
       >
         <AccordionSummary
-          expandIcon={<ArrowDropDownIcon />}
+          expandIcon={<MdOutlineArrowDropDown size={20} />}
           classes={{ root: styles.accordionSummary, expanded: styles.accordionExpanded }}
         >
           <div className={styles.accardionTitleWrapper}>

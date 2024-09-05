@@ -1,6 +1,6 @@
 import { memo } from 'react'
+import { MdAutorenew } from 'react-icons/md'
 
-import AutorenewIcon from '@mui/icons-material/Autorenew'
 import { Avatar, Rating } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
@@ -46,7 +46,7 @@ export const UserProfile = memo(props => {
 
             {!isAnotherUser ? (
               <div className={styles.autorenewWrapper}>
-                <AutorenewIcon color="primary" fontSize="large" />
+                <MdAutorenew size={24} className={styles.icon} />
               </div>
             ) : null}
           </div>

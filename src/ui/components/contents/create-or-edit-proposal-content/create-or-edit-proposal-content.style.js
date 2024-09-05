@@ -30,7 +30,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   listItemDot: {
-    width: '8px !important',
+    color: theme.palette.text.primary,
   },
 
   adviceListItemText: {

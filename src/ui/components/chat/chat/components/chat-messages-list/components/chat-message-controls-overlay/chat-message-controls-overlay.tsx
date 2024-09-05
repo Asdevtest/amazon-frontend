@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
+import { MdDeleteOutline } from 'react-icons/md'
 
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import { Popover, Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -57,7 +57,7 @@ export const ChatMessageControlsOverlay = (props: ChatMessageControlsOverlayProp
             <CheckInCircleIcon /> {t(TranslationKey.Select)}
           </button>
           <button className={cx(styles.additionalControlsBtn, styles.removeButton)}>
-            <DeleteOutlineIcon /> {t(TranslationKey.Delete)}
+            <MdDeleteOutline size={24} /> {t(TranslationKey.Delete)}
           </button>
         </div>
       </Popover>

@@ -1,9 +1,8 @@
 import isEqual from 'lodash.isequal'
 import { Fragment, memo, useEffect, useState } from 'react'
+import { IoMdStar } from 'react-icons/io'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import { Checkbox, ClickAwayListener, Popover, Tooltip, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -154,9 +153,9 @@ export const WithSearchSelect = memo(
               </Typography>
 
               {open ? (
-                <ArrowDropUpIcon className={cx(styles.icon, { [styles.darkIcon]: darkIcon })} />
+                <MdArrowDropDown size={22} className={styles.icon} />
               ) : (
-                <ArrowDropDownIcon className={cx(styles.icon, { [styles.darkIcon]: darkIcon })} />
+                <MdArrowDropUp size={22} className={styles.icon} />
               )}
             </div>
 
@@ -294,7 +293,8 @@ export const WithSearchSelect = memo(
                           {masterUserSelect && <MasterUserItem id={el?._id} name={el?.name} rating={el?.rating} />}
 
                           {favourites ? (
-                            <StarOutlinedIcon
+                            <IoMdStar
+                              size={30}
                               className={cx(styles.setFavouriteBtn, {
                                 [styles.setFavouriteBtnIsSelected]: favourites?.find(favouriteItem =>
                                   isEqual(

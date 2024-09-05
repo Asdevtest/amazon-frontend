@@ -1,3 +1,4 @@
+import { RadioChangeEvent } from 'antd'
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
@@ -11,32 +12,29 @@ import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/dat
 import { objectToUrlQs } from '@utils/text'
 
 import { Specs } from '@typings/enums/specs'
+import { IAnnoucement } from '@typings/models/announcements/annoucement'
+import { IFullUser } from '@typings/shared/full-user'
+import { HistoryType } from '@typings/types/history'
 
 import { filterFields } from './my-services-view.constants'
 
 export class MyServicesViewModel {
-  history = undefined
-
+  history?: HistoryType
   specOption = Specs.DEFAULT
-  announcements = []
-  nameSearchValue = undefined
+  announcements: IAnnoucement[] = []
+  nameSearchValue = ''
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
   archive = false
-
   showConfirmModal = false
-
   columnMenuSettings = {
-    onClickFilterBtn: () => {},
-    onChangeFullFieldMenuItem: () => {},
-    onClickAccept: () => {},
-
     ...dataGridFiltersInitializer(filterFields),
     archive: { currentFilterData: [false] }, // default init value
+    specType: { currentFilterData: [] as Specs[] }, // default init value
   }
 
   get userInfo() {
-    return UserModel.userInfo
+    return UserModel.userInfo as unknown as IFullUser
   }
 
   get currentData() {
@@ -51,7 +49,7 @@ export class MyServicesViewModel {
     }
   }
 
-  constructor({ history }) {
+  constructor(history: HistoryType) {
     this.history = history
 
     this.getMyAnnouncements()
@@ -61,9 +59,9 @@ export class MyServicesViewModel {
 
   async getMyAnnouncements() {
     try {
-      const response = await AnnouncementsModel.getMyAnnouncements({
+      const response = (await AnnouncementsModel.getMyAnnouncements({
         filters: this.getFilter(),
-      })
+      })) as unknown as IAnnoucement[]
 
       runInAction(() => {
         this.announcements = response
@@ -73,21 +71,19 @@ export class MyServicesViewModel {
     }
   }
 
-  getFilter(exclusion) {
-    return objectToUrlQs(
-      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filterFields, []),
-    )
+  getFilter() {
+    return objectToUrlQs(dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, '', filterFields, []))
   }
 
   onClickCreateService() {
-    this.history.push(`/freelancer/freelance/my-services/create-service`)
+    this.history?.push(`/freelancer/freelance/my-services/create-service`)
   }
 
-  onChangeFullFieldMenuItem(value, field) {
+  onChangeFullFieldMenuItem(value: boolean[] | Specs[], field: 'archive' | 'specType') {
     this.columnMenuSettings[field].currentFilterData = value
   }
 
-  onChangeSpec(value) {
+  onChangeSpec(value: Specs) {
     this.specOption = value
 
     // spec - for "_id:string", specType - for "type:number"
@@ -104,7 +100,7 @@ export class MyServicesViewModel {
     this.getMyAnnouncements()
   }
 
-  onChangeViewMode(event) {
+  onChangeViewMode(event: RadioChangeEvent) {
     const currentValue = event.target.value
     this.viewMode = currentValue
 
@@ -117,15 +113,11 @@ export class MyServicesViewModel {
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.MY_SERVICES)
   }
 
-  onClickOpenButton(data) {
-    this.history.push(`/freelancer/freelance/my-services/service-detailds?${data._id}`)
+  onClickOpenButton(data: IAnnoucement) {
+    this.history?.push(`/freelancer/freelance/my-services/service-detailds?${data._id}`)
   }
 
-  onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
-  }
-
-  onSearchSubmit(value) {
+  onSearchSubmit(value: string) {
     this.nameSearchValue = value
   }
 }

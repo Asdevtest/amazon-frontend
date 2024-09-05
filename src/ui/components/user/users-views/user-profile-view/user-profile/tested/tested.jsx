@@ -1,4 +1,5 @@
-import CheckIcon from '@mui/icons-material/Check'
+import { FaCheck } from 'react-icons/fa6'
+
 import { Box, Paper, Typography } from '@mui/material'
 
 import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
@@ -14,7 +15,7 @@ export const Tested = ({ user }) => {
   const CheckedStrategyRow = ({ label, icon }) => (
     <>
       <Box className={styles.checkedStrategyRow} mb={1}>
-        {icon ? icon : <CheckIcon className={styles.acUnitIcon} />}
+        {icon ? icon : <FaCheck className={styles.acUnitIcon} />}
         <Typography className={styles.text}>{label}</Typography>
       </Box>
     </>

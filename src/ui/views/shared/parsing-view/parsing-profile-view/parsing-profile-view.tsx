@@ -31,7 +31,7 @@ export const ParsingProdileView = observer(() => {
           disabled={!viewModel.selectedRows.length}
           size="large"
           type="primary"
-          icon={<FaPlay size="12" />}
+          icon={<FaPlay size={12} />}
           onClick={() => viewModel.onForceStart()}
         >
           {t(TranslationKey['Force start'])}
@@ -45,7 +45,7 @@ export const ParsingProdileView = observer(() => {
           onSearch={viewModel.onSearchSubmit}
         />
 
-        <CustomButton size="large" type="primary" icon={<FaPlus size="12" />} onClick={viewModel.onAddProfileModal}>
+        <CustomButton size="large" type="primary" icon={<FaPlus size={12} />} onClick={viewModel.onAddProfileModal}>
           {t(TranslationKey['Add profile'])}
         </CustomButton>
       </div>

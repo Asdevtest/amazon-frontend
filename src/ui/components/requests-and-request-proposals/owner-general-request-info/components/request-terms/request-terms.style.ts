@@ -29,8 +29,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   doneIcon: {
-    width: '19px !important',
-    height: '19px !important',
     color: theme.palette.other.succes,
   },
 

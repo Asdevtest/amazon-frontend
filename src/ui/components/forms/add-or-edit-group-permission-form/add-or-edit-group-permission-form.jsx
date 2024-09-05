@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+import { MdDeleteOutline } from 'react-icons/md'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, Input, MenuItem, Select, Tooltip, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
@@ -280,7 +280,7 @@ export const AddOrEditGroupPermissionForm = observer(
                         })`}</Typography>
 
                         <IconButton onClick={() => onRemovePermission(index)}>
-                          <DeleteIcon />
+                          <MdDeleteOutline size={24} />
                         </IconButton>
                       </div>
                     </Tooltip>

@@ -38,8 +38,6 @@ export const useStyles = makeStyles()(theme => ({
 
   arrowIcon: {
     cursor: 'pointer',
-    width: '25px !important',
-    height: '25px !important',
     color: theme.palette.primary.main,
   },
 

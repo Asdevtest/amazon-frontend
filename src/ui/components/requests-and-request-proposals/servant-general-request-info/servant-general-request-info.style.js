@@ -4,9 +4,10 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     padding: 30,
     display: 'flex',
-    borderRadius: 4,
+    borderRadius: 16,
     background: theme.palette.background.general,
     boxShadow: theme.palette.boxShadow.paper,
+    marginBottom: 20,
   },
 
   mainBlockWrapper: {
