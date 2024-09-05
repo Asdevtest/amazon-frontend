@@ -9,7 +9,7 @@ export const useStyles = makeStyles()(theme => ({
     right: 0,
     bottom: 0,
     left: 0,
-    background: 'rgba(0,0,0, .1)',
+    // background: 'rgba(0,0,0, .1)',
     borderRadius: '20px',
     margin: '0 42px',
     justifyContent: 'flex-end',

@@ -1,4 +1,6 @@
 import { Dropdown, Tooltip } from 'antd'
+import { MdReply } from 'react-icons/md'
+import { RiShareForwardFill } from 'react-icons/ri'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,7 +22,15 @@ export const ChatMessageControlsOverlay = (props: ChatMessageControlsOverlayProp
     {
       key: 'reply',
       label: (
-        <CustomButton icon={<ReplyIcon />} onClick={props.onClickReply}>
+        <CustomButton icon={<MdReply />} onClick={props.onClickReply}>
+          {t(TranslationKey.Reply)}
+        </CustomButton>
+      ),
+    },
+    {
+      key: 'forward',
+      label: (
+        <CustomButton icon={<RiShareForwardFill />} onClick={props.onClickReply}>
           {t(TranslationKey.Reply)}
         </CustomButton>
       ),

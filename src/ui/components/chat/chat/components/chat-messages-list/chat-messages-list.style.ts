@@ -47,6 +47,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'relative',
 
     '&:hover': {
+      background: 'rgba(0,0,0, .1)',
       '.controlsOverlay': {
         display: 'flex',
       },
