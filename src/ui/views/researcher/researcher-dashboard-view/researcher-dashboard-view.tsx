@@ -13,14 +13,15 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { isResearcher } from '@typings/guards/roles'
+import { HistoryType } from '@typings/types/history'
 
 import { useStyles } from './researcher-dashboard-view.style'
 
 import { ResearcherDashboardViewModel } from './researcher-dashboard-view.model'
 
-export const ResearcherDashboardView = observer(({ history }) => {
+export const ResearcherDashboardView = observer(({ history }: { history: HistoryType }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ResearcherDashboardViewModel({ history }))
+  const [viewModel] = useState(() => new ResearcherDashboardViewModel(history))
 
   return (
     <>
@@ -49,6 +50,7 @@ export const ResearcherDashboardView = observer(({ history }) => {
       {getResearcherDashboardCardConfig().map(item => (
         <DashboardOneLineCardsList
           key={item.key}
+          // @ts-ignore
           config={item}
           valuesData={viewModel.dashboardData}
           onClickViewMore={viewModel.onClickInfoCardViewMode}
