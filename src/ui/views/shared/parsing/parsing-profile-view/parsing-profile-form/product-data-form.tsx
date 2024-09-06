@@ -1,4 +1,4 @@
-import { Form } from 'antd'
+import { Form, Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
 
@@ -42,14 +42,14 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
     }
   }, [])
 
-  const handleSendForm = async (values: FieldType) => {
-    isEditMode ? await viewModel.onEditProfile(profile?._id, values) : await viewModel.onCreateProfile(values)
+  const handleSendForm = async (values: FieldType, isRemove?: boolean) => {
+    isEditMode ? await viewModel.onEditProfile(profile?._id, values, isRemove) : await viewModel.onCreateProfile(values)
+
+    if (isRemove) {
+      await viewModel.onParsingProfileRemoved()
+    }
+
     form.resetFields()
-    onClose?.()
-    onUpdateData?.()
-  }
-  const handleRemoveProfile = async () => {
-    await viewModel.onParsingProfileRemoved()
     onClose?.()
     onUpdateData?.()
   }
@@ -158,15 +158,16 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
         </div>
 
         <div className={styles.buttons}>
-          <CustomButton
-            danger
-            type="primary"
-            size="large"
-            disabled={!!viewModel.profile?.shop}
-            onClick={handleRemoveProfile}
+          <Popconfirm
+            title={t(TranslationKey['Are you sure you want to delete profile?'])}
+            okText={t(TranslationKey.Yes)}
+            cancelText={t(TranslationKey.No)}
+            onConfirm={() => handleSendForm(form.getFieldsValue(), true)}
           >
-            {t(TranslationKey.Delete)}
-          </CustomButton>
+            <CustomButton danger type="primary" size="large" disabled={!!viewModel.profile?.shop}>
+              {t(TranslationKey.Delete)}
+            </CustomButton>
+          </Popconfirm>
 
           <Form.Item shouldUpdate className={styles.field}>
             <CustomButton loading={viewModel.loading} size="large" type="primary" htmlType="submit">
