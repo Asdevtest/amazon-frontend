@@ -111,9 +111,6 @@ export class ProfileViewModel extends DataGridTableModel {
 
     try {
       await OtherModel.postAvatar(formData)
-
-      this.onTriggerOpenModal('showAvatarEditModal')
-
       toast.success(t(TranslationKey['The avatar has been uploaded. The update will take place within a few minutes.']))
     } catch (error) {
       console.error(error)

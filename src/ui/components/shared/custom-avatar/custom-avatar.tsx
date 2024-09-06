@@ -1,59 +1,151 @@
-import { PlusOutlined } from '@ant-design/icons'
-import { Avatar, Image, Upload } from 'antd'
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import { Image, Upload } from 'antd'
 import type { UploadFile, UploadProps } from 'antd'
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
+import { toast } from 'react-toastify'
 
-const getBase64 = (file: File): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result as string)
-    reader.onerror = error => reject(error)
-  })
+import { TranslationKey } from '@constants/translations/translation-key'
 
-const CustomAvatar: FC = () => {
+import { t } from '@utils/translations'
+
+import { UploadFileType } from '@typings/shared/upload-file'
+
+import { useStyles } from './custom-avatar.style'
+
+interface CustomAvatarProps {
+  initialImageUrl?: string
+  isAnotherUser?: boolean
+  className?: string
+  onSubmitAvatarEdit?: (imageData: UploadFileType) => void
+}
+
+const CustomAvatar: FC<CustomAvatarProps> = ({ initialImageUrl, isAnotherUser = false, onSubmitAvatarEdit }) => {
   const [previewOpen, setPreviewOpen] = useState(false)
-  const [previewImage, setPreviewImage] = useState('')
-  const [file, setFile] = useState<UploadFile[]>([])
+  const [previewImage, setPreviewImage] = useState<string | undefined>(initialImageUrl)
+  const [loading, setLoading] = useState(false)
+  const [fileList, setFileList] = useState<UploadFile[]>(
+    initialImageUrl
+      ? [
+          {
+            uid: '-1',
+            name: 'avatar.png',
+            status: 'done',
+            url: initialImageUrl,
+          },
+        ]
+      : [],
+  )
+  const { classes: styles } = useStyles()
 
   const handlePreview = async (file: UploadFile) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj as File)
+    const imageSrc = file.url || file.preview
+    if (!imageSrc) {
+      const reader = new FileReader()
+      reader.readAsDataURL(file.originFileObj as File)
+      reader.onload = () => setPreviewImage(reader.result as string)
+    } else {
+      setPreviewImage(imageSrc)
     }
-    setPreviewImage(file.url || (file.preview as string))
     setPreviewOpen(true)
   }
 
-  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-    // Allow only one image in fileList (for profile avatar)
-    setFile(newFileList.slice(-1))
+  const convertToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onloadend = () => resolve(reader.result as string)
+      reader.onerror = () => reject('Error converting file to Base64')
+      reader.readAsDataURL(file)
+    })
+  }
+
+  const handleChange: UploadProps['onChange'] = async ({ fileList: newFileList }) => {
+    setFileList(newFileList.slice(-1))
+    const lastFile = newFileList[0]
+
+    if (lastFile?.originFileObj) {
+      const file = lastFile.originFileObj as File
+      const isFileSizeOk = file.size <= 15728640 // 15MB limit
+      const isFileTypeOk = [
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/ico',
+        'image/gif',
+        'image/svg',
+        'image/webp',
+        'image/avif',
+      ].includes(file.type)
+
+      if (!isFileSizeOk) {
+        toast.warning(t(TranslationKey['The file is too big!']))
+        setFileList([])
+        return
+      }
+      if (!isFileTypeOk) {
+        toast.warning(t(TranslationKey['Inappropriate format!']))
+        setFileList([])
+        return
+      }
+
+      setLoading(true)
+      try {
+        const base64String = await convertToBase64(file)
+        onSubmitAvatarEdit?.(base64String)
+      } catch (error) {
+        console.log('Upload failed')
+      } finally {
+        setLoading(false)
+      }
+    } else if (lastFile?.status === 'error') {
+      setLoading(false)
+      console.log('Upload failed')
+    }
+  }
+
+  const handleRemove = () => {
+    setFileList([])
+    setPreviewImage(undefined)
+    setLoading(false)
   }
 
   const uploadButton = (
-    <button style={{ border: 0, background: 'none' }} type="button">
-      <PlusOutlined />
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
       <div style={{ marginTop: 8 }}>Upload</div>
-    </button>
+    </div>
   )
 
   return (
     <>
       <Upload
-        action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+        className={styles.upload}
+        accept="image/*"
         listType="picture-circle"
-        fileList={file}
+        fileList={fileList}
+        maxCount={1}
+        disabled={isAnotherUser}
+        previewFile={async file => URL.createObjectURL(file)}
+        beforeUpload={() => false}
+        showUploadList={{
+          showPreviewIcon: true,
+          showRemoveIcon: !isAnotherUser,
+        }}
+        onRemove={handleRemove}
         onPreview={handlePreview}
-        // onChange={handleChange}
-      ></Upload>
+        onChange={handleChange}
+      >
+        {fileList.length >= 1 || isAnotherUser ? null : uploadButton}
+      </Upload>
+
       {previewImage && (
         <Image
           wrapperStyle={{ display: 'none' }}
           preview={{
             visible: previewOpen,
-            onVisibleChange: visible => setPreviewOpen(visible),
-            afterOpenChange: visible => !visible && setPreviewImage(''),
+            onVisibleChange: setPreviewOpen,
           }}
           src={previewImage}
+          width={300}
         />
       )}
     </>

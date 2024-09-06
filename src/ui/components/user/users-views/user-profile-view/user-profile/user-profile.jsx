@@ -1,7 +1,6 @@
 import { memo } from 'react'
-import { MdAutorenew } from 'react-icons/md'
 
-import { Avatar, Rating } from '@mui/material'
+import { Rating } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -27,7 +26,7 @@ export const UserProfile = memo(props => {
     user,
     curUser,
     headerInfoData,
-    onClickChangeAvatar,
+    onSubmitAvatarEdit,
     onClickChangeUserInfo,
     tabHistory,
     setTabHistory,
@@ -42,15 +41,12 @@ export const UserProfile = memo(props => {
     <div className={styles.wrapper}>
       <div className={styles.flexColumnContainer}>
         <div className={styles.userInfoConatiner}>
-          <div className={styles.avatarWrapper} onClick={() => (!isAnotherUser ? onClickChangeAvatar() : undefined)}>
-            {/* <Avatar src={getUserAvatarSrc(user._id)} className={styles.avatar} />
-
-            {!isAnotherUser ? (
-              <div className={styles.autorenewWrapper}>
-                <MdAutorenew size={24} className={styles.icon} />
-              </div>
-            ) : null} */}
-            <CustomAvatar />
+          <div className={styles.avatarWrapper}>
+            <CustomAvatar
+              initialImageUrl={getUserAvatarSrc(user._id)}
+              isAnotherUser={isAnotherUser}
+              onSubmitAvatarEdit={onSubmitAvatarEdit}
+            />
           </div>
 
           <div className={styles.userInfo}>

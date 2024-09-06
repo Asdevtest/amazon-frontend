@@ -7,7 +7,6 @@ import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { CLIENT_USER_MANAGERS_LIST } from '@constants/mocks'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AvatarEditorForm } from '@components/forms/avatar-editor-form'
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { UserInfoEditForm } from '@components/forms/user-info-edit-form'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -36,7 +35,7 @@ export const UserProfileView = observer(() => {
         tabHistory={viewModel.tabHistory}
         setTabHistory={viewModel.onChangeTabHistory}
         reviews={viewModel.reviews}
-        onClickChangeAvatar={() => viewModel.onTriggerOpenModal('showAvatarEditModal')}
+        onSubmitAvatarEdit={viewModel.onSubmitAvatarEdit}
         onClickChangeUserInfo={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
         onClickReview={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
       />
@@ -96,16 +95,6 @@ export const UserProfileView = observer(() => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showTabModal')}
           selected={viewModel.selectedUser}
           managersList={CLIENT_USER_MANAGERS_LIST}
-        />
-      </Modal>
-
-      <Modal
-        openModal={viewModel.showAvatarEditModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAvatarEditModal')}
-      >
-        <AvatarEditorForm
-          onSubmit={viewModel.onSubmitAvatarEdit}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showAvatarEditModal')}
         />
       </Modal>
 
