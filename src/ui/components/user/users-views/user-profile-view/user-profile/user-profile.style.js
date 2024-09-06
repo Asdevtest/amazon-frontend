@@ -1,7 +1,6 @@
-import { theme } from 'antd'
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     padding: 20,
     display: 'flex',

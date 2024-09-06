@@ -262,4 +262,22 @@ export const useStyles = makeStyles()(theme => ({
   blue: {
     color: theme.palette.text.main,
   },
+
+  prepIdContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+    margin: 0,
+  },
+
+  prepIdLabel: {
+    color: theme.palette.text.second,
+    margin: 0,
+    fontSize: '14px',
+  },
+
+  prepIdText: {
+    margin: 0,
+    fontSize: '14px',
+  },
 }))
