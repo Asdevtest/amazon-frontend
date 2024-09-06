@@ -2,8 +2,6 @@ import { FC, memo } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { IoMdCheckmark, IoMdClose } from 'react-icons/io'
 
-// import AcceptIcon from '@material-ui/icons/Check'
-// import AcceptRevokeIcon from '@material-ui/icons/Clear' // Replace or change icons if needed
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'

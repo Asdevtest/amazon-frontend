@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
-
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
 import { tableSortMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -26,11 +24,7 @@ export const DealsOnReviewView = observer(({ history }: { history: HistoryType }
       <div className={styles.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
         <p className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</p>
 
-        {viewModel.sortMode === tableSortMode.DESK ? (
-          <ArrowDropDownIcon color="primary" />
-        ) : (
-          <ArrowDropUpIcon color="primary" />
-        )}
+        {viewModel.sortMode === tableSortMode.DESK ? <MdArrowDropDown /> : <MdArrowDropUp />}
       </div>
 
       <div className={styles.dealsOnReviewWrapper}>
