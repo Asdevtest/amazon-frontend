@@ -1,4 +1,3 @@
-import { IPermission } from '../models/permissions/permission'
 import { IPermissionGroup } from '../models/permissions/permission-group'
 
 import { IMasterUser } from './master-user'
@@ -16,7 +15,7 @@ export interface IFullUser {
   balance: number
   balanceFreeze: number
   overdraft: number
-  permissions: Array<IPermission>
+  permissions: string[]
   permissionGroups: Array<IPermissionGroup>
   masterUser: IMasterUser
   allowedStrategies: Array<number>

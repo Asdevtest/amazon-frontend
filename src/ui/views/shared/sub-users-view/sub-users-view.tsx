@@ -3,15 +3,13 @@ import { useState } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
 import { LinkSubUserForm } from '@components/forms/link-sub-user-form'
+import { PermissionsForm } from '@components/forms/permissions-form'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { checkIsClient, checkIsWithoutProductPermissions } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -99,20 +97,9 @@ export const SubUsersView = observer(() => {
         openModal={viewModel.showPermissionModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
       >
-        <AddOrEditUserPermissionsForm
-          // @ts-ignore
-          isWithoutProductPermissions={checkIsWithoutProductPermissions(UserRoleCodeMap[viewModel.userRole])}
-          isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[viewModel.userRole])}
-          curUserProductPermissions={viewModel.curUserProductPermissions}
-          curUserShopsPermissions={viewModel.curUserShopsPermissions}
-          permissionsToSelect={viewModel.singlePermissions}
-          permissionGroupsToSelect={viewModel.groupPermissions}
-          sourceData={viewModel.selectedSubUser}
-          shops={viewModel.shopsData}
-          specs={viewModel.specs}
-          productPermissionsData={viewModel.productPermissionsData}
+        <PermissionsForm
+          subUser={viewModel.selectedSubUser}
           onCloseModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
-          onSubmit={viewModel.onSubmitUserPermissionsForm}
         />
       </Modal>
     </div>

@@ -11,7 +11,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
+import { PermissionsForm } from '@components/forms/permissions-form'
 import { Button } from '@components/shared/button'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 import { Field } from '@components/shared/field'
@@ -670,7 +670,7 @@ export const AdminUserEditContent = observer(
         </div>
 
         <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
-          <AddOrEditUserPermissionsForm
+          <PermissionsForm
             isWithoutProductPermissions
             shops={[]}
             specs={specs}

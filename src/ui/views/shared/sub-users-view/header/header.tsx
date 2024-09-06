@@ -22,8 +22,9 @@ export const Header: FC<HeaderProps> = memo(props => {
 
   return (
     <div className={styles.header}>
-      {/* <CustomButton type="primary">{t(TranslationKey['Assign permissions'])}</CustomButton> */}
-      <div />
+      <CustomButton disabled size="large" type="primary">
+        {t(TranslationKey['Assign permissions'])}
+      </CustomButton>
       <CustomInputSearch
         enterButton
         allowClear
