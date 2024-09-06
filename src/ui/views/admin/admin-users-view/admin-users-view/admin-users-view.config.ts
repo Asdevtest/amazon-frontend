@@ -22,7 +22,7 @@ const filterableRoles = [
   UserRole.FREELANCER,
 ]
 
-const getSwitcherConfig = (userRoles: string[]) => {
+export const getSwitcherConfig = () => {
   const defaultConfig: any = [
     {
       label: t(TranslationKey.All),
@@ -30,14 +30,12 @@ const getSwitcherConfig = (userRoles: string[]) => {
     },
   ]
 
-  const options = Object.values(userRoles).map(item => ({
-    label: `${item}S`,
+  const options = Object.values(filterableRoles).map(item => ({
+    label: item,
     value: mapUserRoleEnumToKey[item],
   }))
 
   return defaultConfig.concat(options)
 }
-
-export const switcherConfig = getSwitcherConfig(filterableRoles)
 
 export const fieldsForSearch = ['name', 'email']
