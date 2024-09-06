@@ -218,24 +218,6 @@ export const Box: FC<BoxProps> = memo(props => {
                 labelValue={box.shippingLabel}
                 lableLinkTitle={t(TranslationKey.View)}
               />
-
-              {!isNewBox && (
-                <Field
-                  // @ts-ignore
-                  inputProps={{ maxLength: 255 }}
-                  containerClasses={styles.field}
-                  labelClasses={styles.label}
-                  className={styles.fieldInput}
-                  label={'Prep ID'}
-                  value={box.fbaShipment}
-                  inputComponent={
-                    <div className={styles.prepIdWrapper}>
-                      <p className={styles.standartText}>{box.prepId || t(TranslationKey.Missing)}</p>
-                      {box.prepId && <CopyValue text={box.prepId} />}
-                    </div>
-                  }
-                />
-              )}
             </div>
           </div>
         ) : null}
