@@ -1,18 +1,14 @@
 import { FC, memo, useEffect, useState } from 'react'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-// change to react-icons MdOutlineFilterAlt if needed
 import { Divider } from '@mui/material'
 import { GridRowModel } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { SeparatorIcon } from '@components/shared/svg-icons'
 
 import { formatShortDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
@@ -143,11 +139,6 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
             columns={columns}
             getRowId={({ _id }: GridRowModel) => _id}
             getRowHeight={() => 'auto'}
-            slots={{
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-              columnResizeIcon: SeparatorIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
