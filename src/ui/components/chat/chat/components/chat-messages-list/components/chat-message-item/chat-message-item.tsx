@@ -21,6 +21,7 @@ interface ChatMessageItemProps {
   firstItemIndex: number
   selectedMessages: string[]
   onSelectMessage: (messageId: string) => void
+  onClickForwardMessages?: () => void
 }
 
 export const ChatMessageItem: FC<any> = memo(props => {
@@ -43,6 +44,7 @@ export const ChatMessageItem: FC<any> = memo(props => {
     onClickReply,
     selectedMessages,
     onSelectMessage,
+    onClickForwardMessages,
   } = props
 
   const messageItemHover = useHover()
@@ -90,6 +92,7 @@ export const ChatMessageItem: FC<any> = memo(props => {
         isSelectedMessage={isSelectedMessage}
         onSelectMessage={() => onSelectMessage(messageItem._id)}
         onClickReply={() => onClickReply(messageItem)}
+        onClickForwardMessages={onClickForwardMessages}
       >
         <div
           className={cx(styles.messageWrapper, {

@@ -34,6 +34,7 @@ interface ChatMessagesListProps {
   messageToScroll: number | undefined
   selectedMessages?: string[]
   onSelectMessage?: (messageId: string) => void
+  onClickForwardMessages?: () => void
 }
 
 export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
@@ -57,6 +58,7 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
     handleScrollToBottomButtonVisibility,
     selectedMessages,
     onSelectMessage,
+    onClickForwardMessages,
   } = props
 
   const { isMobileResolution } = useCreateBreakpointResolutions()
@@ -109,6 +111,7 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
           selectedMessages={selectedMessages}
           onSelectMessage={onSelectMessage}
           onClickReply={onClickReply}
+          onClickForwardMessages={onClickForwardMessages}
         />
       )}
       followOutput={isAtBottom => {

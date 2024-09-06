@@ -46,6 +46,7 @@ interface ChatHeaderProps {
   onClickBackButton: () => void
   onChangeMesSearchValue: (value: string, chatId: string) => void
   onChangeCurFoundedMessage: (index: number) => void
+  onClickForwardMessages: () => void
 }
 
 export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
@@ -68,6 +69,7 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
     onChangeMesSearchValue,
     onChangeCurFoundedMessage,
     onClickBackButton,
+    onClickForwardMessages,
   } = props
 
   const onChangeCurrentMessage = async (index: number, messageId: string) => {
@@ -91,10 +93,10 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
   return (
     <div className={styles.header}>
       {selectedMessages?.length ? (
-        <div>
-          <CustomButton size="large" icon={<RiShareForwardFill />}>{`${t(TranslationKey.Forward)} ${
-            selectedMessages.length
-          }`}</CustomButton>
+        <div className={styles.forwardWrapper}>
+          <CustomButton size="large" icon={<RiShareForwardFill />} onClick={onClickForwardMessages}>{`${t(
+            TranslationKey.Forward,
+          )} ${selectedMessages.length}`}</CustomButton>
 
           <CustomButton size="large" onClick={onClearSelectedMessages}>
             {t(TranslationKey.Cancel)}

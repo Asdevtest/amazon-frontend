@@ -22,6 +22,7 @@ export class MessagesViewModel {
   showAddNewChatByEmailModal = false
   showAddUsersToGroupChatModal = false
   showEditGroupChatInfoModal = false
+  showForwardMessagesModal = false
 
   nameSearchValue = ''
   mesSearchValue = ''
@@ -343,5 +344,9 @@ export class MessagesViewModel {
 
   onClearSelectedMessages() {
     this.selectedMessages = []
+  }
+
+  onClickForwardMessages() {
+    this.onTriggerOpenModal('showForwardMessagesModal')
   }
 }

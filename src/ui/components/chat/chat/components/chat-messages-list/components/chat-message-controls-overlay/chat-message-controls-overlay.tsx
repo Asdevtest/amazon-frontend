@@ -17,10 +17,11 @@ interface ChatMessageControlsOverlayProps extends PropsWithChildren {
   isSelectedMessage: boolean
   onSelectMessage: () => void
   onClickReply: () => void
+  onClickForwardMessages: () => void
 }
 
 export const ChatMessageControlsOverlay: FC<ChatMessageControlsOverlayProps> = memo(props => {
-  const { showDropdown, onClickReply, children, isSelectedMessage, onSelectMessage } = props
+  const { showDropdown, onClickReply, children, isSelectedMessage, onSelectMessage, onClickForwardMessages } = props
 
   if (!showDropdown) {
     return <>{children}</>
@@ -49,7 +50,7 @@ export const ChatMessageControlsOverlay: FC<ChatMessageControlsOverlayProps> = m
       {
         key: 'forward',
         label: (
-          <CustomButton className={styles.button} icon={<RiShareForwardFill />} onClick={onClickReply}>
+          <CustomButton className={styles.button} icon={<RiShareForwardFill />} onClick={onClickForwardMessages}>
             {t(TranslationKey.Forward)}
           </CustomButton>
         ),

@@ -2055,5 +2055,6 @@
   "Parsing profile successfully deleted": "Профиль парсинга успешно удалён",
   "Error deleting parsing profile": "Ошибка при удалении профиля парсинга",
   "Forward": "Переслать",
-  "Deselect": "Отменить выделение"
+  "Deselect": "Отменить выделение",
+  "Forward to": "Переслать к"
 }

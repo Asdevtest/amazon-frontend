@@ -65,6 +65,7 @@ interface ChatProps {
   onClickEditGroupChatInfo: () => void
   selectedMessages?: string[]
   onSelectMessage?: (messageId: string) => void
+  onClickForwardMessages?: () => void
 }
 
 export const Chat: FC<ChatProps> = memo(
@@ -90,6 +91,7 @@ export const Chat: FC<ChatProps> = memo(
     onChangeRequestStatus,
     selectedMessages,
     onSelectMessage,
+    onClickForwardMessages,
   }) => {
     const { classes: styles, cx } = useStyles()
     const { isTabletResolution } = useCreateBreakpointResolutions()
@@ -292,6 +294,7 @@ export const Chat: FC<ChatProps> = memo(
             handleScrollToBottomButtonVisibility={handleScrollToBottomButtonVisibility}
             selectedMessages={selectedMessages}
             onSelectMessage={onSelectMessage}
+            onClickForwardMessages={onClickForwardMessages}
           />
 
           <div className={styles.hideAndShowIconWrapper} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>

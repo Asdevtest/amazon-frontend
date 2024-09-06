@@ -156,4 +156,11 @@ export const useStyles = makeStyles()(theme => ({
       width: '100%',
     },
   },
+
+  forwardWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    marginLeft: '10px',
+  },
 }))

@@ -14,6 +14,7 @@ import { ChatsList } from '@components/chat/chats-list'
 import { AddNewChatByEmailForm } from '@components/forms/add-new-chat-by-email-form'
 import { AddUsersToGroupChatForm } from '@components/forms/add-users-to-group-chat-form'
 import { EditGroupChatInfoForm } from '@components/forms/edit-group-chat-info-form'
+import { ForwardMessagesForm } from '@components/forms/forward-messages-form'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
@@ -191,6 +192,7 @@ export const MessagesView = observer(({ history }) => {
                 isMuteCurrentChat={isMuteCurrentChat}
                 curFoundedMessageIndex={viewModel.curFoundedMessageIndex}
                 selectedMessages={viewModel.selectedMessages}
+                onClickForwardMessages={viewModel.onClickForwardMessages}
                 onClearSelectedMessages={viewModel.onClearSelectedMessages}
                 onToggleMuteCurrentChat={viewModel.onToggleMuteCurrentChat}
                 onClickBackButton={viewModel.onClickBackButton}
@@ -202,6 +204,7 @@ export const MessagesView = observer(({ history }) => {
             selectedMessages={viewModel.selectedMessages}
             onSelectMessage={viewModel.onSelectMessage}
             onChangeRequestStatus={viewModel.setRequestStatus}
+            onClickForwardMessages={viewModel.onClickForwardMessages}
             onSubmitMessage={(message, files, replyMessageId) =>
               viewModel.onSubmitMessage(message, files, viewModel.chatSelectedId, replyMessageId)
             }
@@ -254,6 +257,13 @@ export const MessagesView = observer(({ history }) => {
           onSubmit={viewModel.onSubmitPatchInfoGroupChat}
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
         />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showForwardMessagesModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showForwardMessagesModal')}
+      >
+        <ForwardMessagesForm user={viewModel.user} chats={filteredChats} />
       </Modal>
     </div>
   )
