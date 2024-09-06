@@ -1,4 +1,5 @@
 import { FC, memo } from 'react'
+import { RiShareForwardFill } from 'react-icons/ri'
 
 import { Link } from '@mui/material'
 
@@ -11,6 +12,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 
 import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
 import { CurrentOpponent } from '@components/chat/multiple-chats'
+import { CustomButton } from '@components/shared/custom-button'
 import { ArrowBackIcon } from '@components/shared/svg-icons'
 
 import { checkOnline } from '@utils/checks/check-online/check-online'
@@ -36,7 +38,9 @@ interface ChatHeaderProps {
   curFoundedMessageIndex: number
   unreadMessages: number
   currentOpponent?: CurrentOpponent
+  selectedMessages: string[]
 
+  onClearSelectedMessages: () => void
   handleLoadMoreMessages: (direction?: PaginationDirection, selectedMessageId?: string) => void
   onToggleMuteCurrentChat: () => void
   onClickBackButton: () => void
@@ -57,6 +61,8 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
     currentOpponent,
     curFoundedMessageIndex,
     isMuteCurrentChat,
+    selectedMessages,
+    onClearSelectedMessages,
     handleLoadMoreMessages,
     onToggleMuteCurrentChat,
     onChangeMesSearchValue,
@@ -78,14 +84,23 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
   const lastSeenMessage =
     dateGap > ONE_DAY_IN_SECONDS
       ? // @ts-ignore
-
         `${t(TranslationKey['Last seen'], { date: formatDateWithoutTime(new Date(currentOpponent?.lastSeen)) })}`
       : // @ts-ignore
         `${t(TranslationKey.Today)} ${formatDateTimeHourAndMinutes(new Date(currentOpponent?.lastSeen))}`
 
   return (
     <div className={styles.header}>
-      {isChatSelectedAndFound && (
+      {selectedMessages?.length ? (
+        <div>
+          <CustomButton size="large" icon={<RiShareForwardFill />}>{`${t(TranslationKey.Forward)} ${
+            selectedMessages.length
+          }`}</CustomButton>
+
+          <CustomButton size="large" onClick={onClearSelectedMessages}>
+            {t(TranslationKey.Cancel)}
+          </CustomButton>
+        </div>
+      ) : isChatSelectedAndFound ? (
         <div className={styles.leftSideHeader}>
           <div className={styles.infoContainer}>
             <div className={styles.arrowBackIconWrapper}>
@@ -146,7 +161,7 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
             onChangeCurFoundedMessage={onChangeCurrentMessage}
           />
         </div>
-      )}
+      ) : null}
     </div>
   )
 })

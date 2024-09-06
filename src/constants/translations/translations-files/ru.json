@@ -2053,5 +2053,6 @@
   "In use": "Используется",
   "Parsing profile successfully deleted": "Профиль парсинга успешно удалён",
   "Error deleting parsing profile": "Ошибка при удалении профиля парсинга",
-  "Forward": "Переслать"
+  "Forward": "Переслать",
+  "Deselect": "Отменить выделение"
 }

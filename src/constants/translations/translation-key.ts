@@ -2054,4 +2054,5 @@ export enum TranslationKey {
   'Parsing profile successfully deleted' = 'Parsing profile successfully deleted',
   'Error deleting parsing profile' = 'Error deleting parsing profile',
   'Forward' = 'Forward',
+  'Deselect' = 'Deselect',
 }

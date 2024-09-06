@@ -36,6 +36,8 @@ export class MessagesViewModel {
 
   showProgress = false
 
+  selectedMessages = []
+
   get chatSelectedId() {
     return ChatModel.chatSelectedId
   }
@@ -329,5 +331,17 @@ export class MessagesViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  onSelectMessage(messageId) {
+    if (this.selectedMessages.includes(messageId)) {
+      this.selectedMessages = this.selectedMessages.filter(el => el !== messageId)
+    } else {
+      this.selectedMessages = [...this.selectedMessages, messageId]
+    }
+  }
+
+  onClearSelectedMessages() {
+    this.selectedMessages = []
   }
 }

@@ -2046,5 +2046,6 @@
   "In use": "正在使用",
   "Parsing profile successfully deleted": "解析配置文件已成功删除",
   "Error deleting parsing profile": "删除解析配置文件时出错",
-  "Forward": "转发"
+  "Forward": "转发",
+  "Deselect": "取消选择"
 }

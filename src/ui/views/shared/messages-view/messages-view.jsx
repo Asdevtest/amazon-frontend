@@ -190,6 +190,8 @@ export const MessagesView = observer(({ history }) => {
                 foundMessages={viewModel.messagesFound}
                 isMuteCurrentChat={isMuteCurrentChat}
                 curFoundedMessageIndex={viewModel.curFoundedMessageIndex}
+                selectedMessages={viewModel.selectedMessages}
+                onClearSelectedMessages={viewModel.onClearSelectedMessages}
                 onToggleMuteCurrentChat={viewModel.onToggleMuteCurrentChat}
                 onClickBackButton={viewModel.onClickBackButton}
                 onChangeMesSearchValue={viewModel.onChangeMesSearchValue}
@@ -197,6 +199,8 @@ export const MessagesView = observer(({ history }) => {
                 {...props}
               />
             )}
+            selectedMessages={viewModel.selectedMessages}
+            onSelectMessage={viewModel.onSelectMessage}
             onChangeRequestStatus={viewModel.setRequestStatus}
             onSubmitMessage={(message, files, replyMessageId) =>
               viewModel.onSubmitMessage(message, files, viewModel.chatSelectedId, replyMessageId)

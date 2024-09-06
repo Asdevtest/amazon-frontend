@@ -63,6 +63,8 @@ interface ChatProps {
   onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
+  selectedMessages?: string[]
+  onSelectMessage?: (messageId: string) => void
 }
 
 export const Chat: FC<ChatProps> = memo(
@@ -86,6 +88,8 @@ export const Chat: FC<ChatProps> = memo(
     classNamesWrapper,
     requestStatus,
     onChangeRequestStatus,
+    selectedMessages,
+    onSelectMessage,
   }) => {
     const { classes: styles, cx } = useStyles()
     const { isTabletResolution } = useCreateBreakpointResolutions()
@@ -286,6 +290,8 @@ export const Chat: FC<ChatProps> = memo(
             firstItemIndex={firstItemIndex}
             handleLoadMoreMessages={handleLoadMoreMessages}
             handleScrollToBottomButtonVisibility={handleScrollToBottomButtonVisibility}
+            selectedMessages={selectedMessages}
+            onSelectMessage={onSelectMessage}
           />
 
           <div className={styles.hideAndShowIconWrapper} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
