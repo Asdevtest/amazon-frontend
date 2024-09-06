@@ -356,7 +356,7 @@ export const navbarConfig = {
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_SHOPS_REPORTS_CLIENT),
         },
         {
-          subtitle: () => 'Parsing reports',
+          subtitle: () => t(TranslationKey['Parsing reports']),
           subRoute: '/client/shops/parsing-reports',
 
           // checkHideSubBlock: user =>
