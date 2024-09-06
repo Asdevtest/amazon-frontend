@@ -1,7 +1,5 @@
 import { makeStyles } from 'tss-react/mui'
 
-import { height, width } from '@mui/system'
-
 export const useStyles = makeStyles()(theme => ({
   root: {
     width: 576,
