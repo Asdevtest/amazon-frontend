@@ -7,6 +7,7 @@ import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { CustomAvatar } from '@components/shared/custom-avatar'
 import { PurchaseHistory } from '@components/user/users-views/user-profile-view/purchase-history'
 import { Reviews } from '@components/user/users-views/user-profile-view/reviews'
 
@@ -42,13 +43,14 @@ export const UserProfile = memo(props => {
       <div className={styles.flexColumnContainer}>
         <div className={styles.userInfoConatiner}>
           <div className={styles.avatarWrapper} onClick={() => (!isAnotherUser ? onClickChangeAvatar() : undefined)}>
-            <Avatar src={getUserAvatarSrc(user._id)} className={styles.avatar} />
+            {/* <Avatar src={getUserAvatarSrc(user._id)} className={styles.avatar} />
 
             {!isAnotherUser ? (
               <div className={styles.autorenewWrapper}>
                 <MdAutorenew size={24} className={styles.icon} />
               </div>
-            ) : null}
+            ) : null} */}
+            <CustomAvatar />
           </div>
 
           <div className={styles.userInfo}>
