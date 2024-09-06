@@ -51,16 +51,10 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     transition: '.3s ease',
     cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
 
   disabledCheckboxWrapper: {
     cursor: 'auto',
-    '&:hover': {
-      transform: 'none',
-    },
   },
 
   checkbox: {
