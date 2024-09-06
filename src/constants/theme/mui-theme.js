@@ -180,11 +180,7 @@ export const lightTheme = createTheme({
           right: -2,
           width: '20px !important',
           height: '20px !important',
-
-          '.MuiSvgIcon-root': {
-            width: 14,
-            height: 14,
-          },
+          padding: 0,
         },
 
         iconButtonContainer: {
@@ -648,11 +644,7 @@ export const darkTheme = createTheme({
           right: -3,
           width: '20px !important',
           height: '20px !important',
-
-          '.MuiSvgIcon-root': {
-            width: 14,
-            height: 14,
-          },
+          padding: 0,
         },
 
         iconButtonContainer: {
