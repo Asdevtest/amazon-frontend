@@ -46,7 +46,7 @@ export enum InlineObject161TableEnum {
     Transactions = 'TRANSACTIONS',
     Inventory = 'INVENTORY',
     Campaigns = 'CAMPAIGNS',
-    PerfomanceNotifications = 'PERFOMANCE_NOTIFICATIONS',
+    PerformanceNotifications = 'PERFORMANCE_NOTIFICATIONS',
     FbaInventory = 'FBA_INVENTORY',
     AccountHealth = 'ACCOUNT_HEALTH',
     Returns = 'RETURNS',
