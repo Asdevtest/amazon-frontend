@@ -528,7 +528,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     priorityReason: string,
   ) {
     this.onTriggerOpenModal('showConfirmModal')
-
+    console.log('onClickConfirmCreateChangeTasks', boxData)
+    console.log('selectedProduct', this.selectedProduct)
     this.confirmModalSettings = {
       isWarning: false,
       title: '',
@@ -1075,6 +1076,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           dataWithFiles: dataToBarCodeChange,
           nameOfField: 'tmpBarCode',
         })
+        console.log('dataToBarCodeChange', dataToBarCodeChange)
       }
 
       const getNewItems = async () => {
@@ -1141,10 +1143,11 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
             : boxData.shippingLabel === null
             ? null
             : '',
+          clientComment: boxData.clientComment,
         },
         updateBoxWhiteList,
       )
-
+      console.log('requestBox', requestBox)
       const editBoxesResult = await this.editBox(id, requestBox)
 
       await this.updateBarCodesInInventory(dataToBarCodeChange)
