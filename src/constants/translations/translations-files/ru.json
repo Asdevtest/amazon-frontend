@@ -2052,5 +2052,6 @@
   "Ready to checking": "Готов к проверке",
   "In use": "Используется",
   "Parsing profile successfully deleted": "Профиль парсинга успешно удалён",
-  "Error deleting parsing profile": "Ошибка при удалении профиля парсинга"
+  "Error deleting parsing profile": "Ошибка при удалении профиля парсинга",
+  "Are you sure you want to delete profile?": "Вы уверены, что хотите удалить профиль?"
 }

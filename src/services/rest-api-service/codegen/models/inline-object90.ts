@@ -21,131 +21,34 @@
  */
 export interface InlineObject90 {
     /**
-     * Кол-во продукта по этой позиции.
-     * @type {number}
-     * @memberof InlineObject90
-     */
-    amount?: number;
-    /**
-     * Гуид сапплаера
+     * ASIN продукта
      * @type {string}
      * @memberof InlineObject90
      */
-    orderSupplierId?: string;
+    asin?: string;
     /**
-     * Склад для изменения
+     * Причина
      * @type {string}
      * @memberof InlineObject90
      */
-    storekeeperId?: string;
+    reason?: string;
     /**
-     * Пункт назначения
+     * Стратегия
      * @type {string}
      * @memberof InlineObject90
      */
-    destinationId?: string;
-    /**
-     * Тариф для изменения
-     * @type {string}
-     * @memberof InlineObject90
-     */
-    logicsTariffId?: string;
-    /**
-     * Тариф для вариации
-     * @type {string}
-     * @memberof InlineObject90
-     */
-    variationTariffId?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject90
-     */
-    images?: Array<string>;
-    /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
-     * @type {number}
-     * @memberof InlineObject90
-     */
-    totalPrice?: number;
-    /**
-     * Защита листинга
-     * @type {string}
-     * @memberof InlineObject90
-     */
-    transparencyFile?: string;
-    /**
-     * Комментарий баера
-     * @type {string}
-     * @memberof InlineObject90
-     */
-    buyerComment?: string;
-    /**
-     * Не настоящий ключ, используется только для нужд юзера
-     * @type {string}
-     * @memberof InlineObject90
-     */
-    item?: string;
-    /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
-     * @memberof InlineObject90
-     */
-    needsResearch?: boolean;
-    /**
-     * Дедлайн выкупа заказа
-     * @type {string}
-     * @memberof InlineObject90
-     */
-    deadline?: string;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineObject90
-     */
-    priority?: InlineObject90PriorityEnum;
-    /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
-     * @type {boolean}
-     * @memberof InlineObject90
-     */
-    expressChinaDelivery?: boolean;
-    /**
-     * Стоимость доставки до склада.
-     * @type {number}
-     * @memberof InlineObject90
-     */
-    deliveryCostToTheWarehouse?: number;
-    /**
-     * Комментарий клтента в заказе
-     * @type {string}
-     * @memberof InlineObject90
-     */
-    clientComment?: string;
-    /**
-     * Цена в юанях
-     * @type {number}
-     * @memberof InlineObject90
-     */
-    priceInYuan?: number;
-    /**
-     * Цена доставки партии в юанях
-     * @type {number}
-     * @memberof InlineObject90
-     */
-    priceBatchDeliveryInYuan?: number;
+    strategy?: InlineObject90StrategyEnum;
 }
 
 /**
     * @export
     * @enum {string}
     */
-export enum InlineObject90PriorityEnum {
+export enum InlineObject90StrategyEnum {
     _10 = '10',
     _20 = '20',
     _30 = '30',
-    _40 = '40',
-    _50 = '50'
+    _40 = '40'
 }
 
 
