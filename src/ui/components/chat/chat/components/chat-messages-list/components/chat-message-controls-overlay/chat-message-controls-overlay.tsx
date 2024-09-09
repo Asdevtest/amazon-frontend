@@ -2,7 +2,7 @@ import { Dropdown } from 'antd'
 import { FC, PropsWithChildren, memo, useMemo } from 'react'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { FaRegCheckCircle } from 'react-icons/fa'
-import { MdReply } from 'react-icons/md'
+import { MdOutlineContentCopy, MdReply } from 'react-icons/md'
 import { RiShareForwardFill } from 'react-icons/ri'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,14 +15,23 @@ import { useStyles } from './chat-message-controls-overlay.style'
 
 interface ChatMessageControlsOverlayProps extends PropsWithChildren {
   showDropdown: boolean
-  isSelectedMessage: boolean
-  onSelectMessage: () => void
-  onClickReply: () => void
-  onClickForwardMessages: () => void
+  isSelectedMessage?: boolean
+  onSelectMessage?: () => void
+  onClickReply?: () => void
+  onClickForwardMessages?: () => void
+  onClickCopyMessageText?: () => void
 }
 
 export const ChatMessageControlsOverlay: FC<ChatMessageControlsOverlayProps> = memo(props => {
-  const { showDropdown, onClickReply, children, isSelectedMessage, onSelectMessage, onClickForwardMessages } = props
+  const {
+    children,
+    showDropdown,
+    isSelectedMessage,
+    onClickReply,
+    onSelectMessage,
+    onClickForwardMessages,
+    onClickCopyMessageText,
+  } = props
 
   if (!showDropdown) {
     return <>{children}</>
@@ -59,11 +68,19 @@ export const ChatMessageControlsOverlay: FC<ChatMessageControlsOverlayProps> = m
             className={styles.button}
             icon={<RiShareForwardFill />}
             onClick={() => {
-              onSelectMessage()
-              onClickForwardMessages()
+              onSelectMessage?.()
+              onClickForwardMessages?.()
             }}
           >
             {t(TranslationKey.Forward)}
+          </CustomButton>
+        ),
+      },
+      {
+        key: 'copy',
+        label: (
+          <CustomButton className={styles.button} icon={<MdOutlineContentCopy />} onClick={onClickCopyMessageText}>
+            {t(TranslationKey['Copy text'])}
           </CustomButton>
         ),
       },

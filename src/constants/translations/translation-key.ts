@@ -2059,4 +2059,6 @@ export enum TranslationKey {
   'Forward to' = 'Forward to',
   'Are you sure you want to delete profile?' = 'Are you sure you want to delete profile?',
   'forwarded messages' = 'forwarded messages',
+  'Forwarded from' = 'Forwarded from',
+  'Copy text' = 'Copy text',
 }

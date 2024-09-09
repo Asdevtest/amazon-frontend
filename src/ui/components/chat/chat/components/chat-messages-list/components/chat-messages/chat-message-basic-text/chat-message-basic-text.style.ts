@@ -120,4 +120,22 @@ export const useStyles = makeStyles()(theme => ({
   noReadIcon: {
     color: theme.palette.text.second,
   },
+
+  forwardedMessage: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    gap: 5,
+    alignItems: 'center',
+  },
+
+  forwardedMessageTitle: {
+    fontSize: 12,
+    color: theme.palette.text.second,
+  },
+
+  forwardedMessageName: {
+    fontSize: 14,
+    color: theme.palette.primary.main,
+    fontWeight: 600,
+  },
 }))

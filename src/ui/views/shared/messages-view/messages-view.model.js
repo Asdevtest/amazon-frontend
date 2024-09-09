@@ -319,11 +319,7 @@ export class MessagesViewModel {
       })
 
       if (messagesToForward?.length) {
-        console.log('messagesToForward :>> ', messagesToForward)
-
         for (const message of messagesToForward) {
-          console.log('message :>> ', message)
-
           await ChatModel.sendMessage({
             chatId,
             crmItemId: null,

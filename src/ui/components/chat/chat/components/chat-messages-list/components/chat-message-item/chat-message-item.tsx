@@ -8,23 +8,38 @@ import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contrac
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
+import { PaginationDirection } from '@typings/enums/pagination-direction'
+
 import { useHover } from '@hooks/use-hover'
 
 import { useStyles } from './chat-message-item.style'
 
 import { ChatMessageByType } from '../chat-message-by-type'
 import { ChatMessageControlsOverlay } from '../chat-message-controls-overlay'
+import { ChatMessageRequestProposalDesignerResultEditedHandlers } from '../chat-messages/chat-message-designer-proposal-edited-result'
 
 interface ChatMessageItemProps {
   messageItem: ChatMessageContract
   indexFromTable: number
   firstItemIndex: number
-  selectedMessages: string[]
-  onSelectMessage: (message: ChatMessageContract) => void
+  userId: string
+  messages: ChatMessageContract[]
+  messagesFoundIds: string[]
+  onClickReply: (messageItem: ChatMessageContract) => void
+  messageToScroll?: number
+  selectedMessages?: string[]
+  handlers?: ChatMessageRequestProposalDesignerResultEditedHandlers
+  searchPhrase?: string
+  isGroupChat?: boolean
+  isFreelanceOwner?: boolean
+  isMobileResolution?: boolean
+  isShowChatInfo?: boolean
+  onSelectMessage?: (message: ChatMessageContract) => void
   onClickForwardMessages?: () => void
+  handleLoadMoreMessages?: (direction?: PaginationDirection | undefined, messageId?: string) => void
 }
 
-export const ChatMessageItem: FC<any> = memo(props => {
+export const ChatMessageItem: FC<ChatMessageItemProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const {
     messageItem,
@@ -71,7 +86,12 @@ export const ChatMessageItem: FC<any> = memo(props => {
   const isDisabledControls = messageItem.type !== ChatMessageType.USER
 
   const isRequestOrProposal = !!messageItem.data
-  const isSelectedMessage = selectedMessages.some((message: ChatMessageContract) => message?._id === messageItem._id)
+  // @ts-ignore
+  const isSelectedMessage = selectedMessages?.some((message: ChatMessageContract) => message?._id === messageItem?._id)
+
+  const onClickCopyMessageText = () => {
+    navigator.clipboard.writeText(messageItem.text)
+  }
 
   return (
     <div
@@ -90,9 +110,10 @@ export const ChatMessageItem: FC<any> = memo(props => {
       <ChatMessageControlsOverlay
         showDropdown={!isDisabledControls && messageItemHover?.[0]}
         isSelectedMessage={isSelectedMessage}
-        onSelectMessage={() => onSelectMessage(messageItem)}
+        onSelectMessage={() => onSelectMessage?.(messageItem)}
         onClickReply={() => onClickReply(messageItem)}
         onClickForwardMessages={onClickForwardMessages}
+        onClickCopyMessageText={onClickCopyMessageText}
       >
         <div
           className={cx(styles.messageWrapper, {
@@ -131,7 +152,7 @@ export const ChatMessageItem: FC<any> = memo(props => {
                   className={styles.repleyWrapper}
                   onClick={e => {
                     e.stopPropagation()
-                    handleLoadMoreMessages(undefined, messageItem?.replyMessage?._id)
+                    handleLoadMoreMessages?.(undefined, messageItem?.replyMessage?._id)
                   }}
                 >
                   <div className={styles.repleyDivider} />

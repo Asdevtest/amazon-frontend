@@ -2057,5 +2057,7 @@
   "Deselect": "Відмінити",
   "Forward to": "Переслати до",
   "Are you sure you want to delete profile?": "Ви впевнені, що хочете видалити профіль?",
-  "forwarded messages": "{{count}} повідомлень переслано"
+  "forwarded messages": "{{count}} повідомлень переслано",
+  "Forwarded from": "Переслано від",
+  "Copy text": "Копіювати текст"
 }

@@ -2058,5 +2058,7 @@
   "Deselect": "Отменить выделение",
   "Forward to": "Переслать к",
   "Are you sure you want to delete profile?": "Вы уверены, что хотите удалить профиль?",
-  "forwarded messages": "{{count}} пересланные сообщения"
+  "forwarded messages": "{{count}} пересланные сообщения",
+  "Forwarded from": "Переслан от",
+  "Copy text": "Скопировать текст"
 }
