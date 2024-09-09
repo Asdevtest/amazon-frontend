@@ -17,21 +17,21 @@
 /**
  * 
  * @export
- * @interface InlineObject91
+ * @interface ApiV1ClientsProductsVacTags
  */
-export interface InlineObject91 {
+export interface ApiV1ClientsProductsVacTags {
     /**
-     * текст отзыва/репорта
+     * Гуид тега
      * @type {string}
-     * @memberof InlineObject91
+     * @memberof ApiV1ClientsProductsVacTags
      */
-    text: string;
+    _id?: string;
     /**
-     * Прикрепленные ссылки на медиа для репорта/отзыва
-     * @type {Array<string>}
-     * @memberof InlineObject91
+     * Тег
+     * @type {string}
+     * @memberof ApiV1ClientsProductsVacTags
      */
-    media?: Array<string>;
+    title?: string;
 }
 
 

@@ -2056,5 +2056,6 @@
   "Error deleting parsing profile": "Ошибка при удалении профиля парсинга",
   "Forward": "Переслать",
   "Deselect": "Отменить выделение",
-  "Forward to": "Переслать к"
+  "Forward to": "Переслать к",
+  "Are you sure you want to delete profile?": "Вы уверены, что хотите удалить профиль?"
 }

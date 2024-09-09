@@ -2057,4 +2057,5 @@ export enum TranslationKey {
   'Forward' = 'Forward',
   'Deselect' = 'Deselect',
   'Forward to' = 'Forward to',
+  'Are you sure you want to delete profile?' = 'Are you sure you want to delete profile?',
 }

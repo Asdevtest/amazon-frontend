@@ -42,4 +42,5 @@ export const filtersFields = [
   'logicsTariffId',
   'redFlags',
   'storage',
+  'clientComment',
 ]

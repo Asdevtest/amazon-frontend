@@ -91,6 +91,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
   return (
     <div ref={selectWrapperRef} id="presets" onClick={() => handleChangeSelectState(!showPresetsSelect)}>
       <CustomSelect
+        className={styles.presetsSelect}
         getPopupContainer={() => document.getElementById('presets') as HTMLElement}
         open={showPresetsSelect}
         options={convertedPresets}

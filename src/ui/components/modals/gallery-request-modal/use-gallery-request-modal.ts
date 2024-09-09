@@ -52,17 +52,28 @@ export const useGalleryRequestModal = (data: IData, mediaFiles: IRequestMedia[],
   }, [mediaFiles])
 
   const handleResetAllFilesToAdd = () => setAllFilesToAdd([])
+
   const handleToggleFile = (mediaFile: string) => {
     const findMediaFile = allFilesToAdd.find(fileToAdd => fileToAdd.fileLink === mediaFile)
 
+    let updatedFiles
     if (findMediaFile) {
-      setAllFilesToAdd(prevFiles => prevFiles.filter(fileToAdd => fileToAdd.fileLink !== mediaFile))
+      updatedFiles = allFilesToAdd.filter(fileToAdd => fileToAdd.fileLink !== mediaFile)
     } else {
-      setAllFilesToAdd(prevFiles => [
-        ...prevFiles,
+      updatedFiles = [
+        ...allFilesToAdd,
         { fileLink: mediaFile, commentByPerformer: '', commentByClient: '', _id: uuid() },
-      ])
+      ]
     }
+
+    setAllFilesToAdd(updatedFiles)
+
+    const totalFiles = [
+      ...(mediaFilesStates ? Object.values(mediaFilesStates).flat() : []),
+      ...(documentsStates ? Object.values(documentsStates).flat() : []),
+    ]
+
+    setIsAllSelected(updatedFiles.length === totalFiles.length)
   }
 
   const handleSelectAllFiles = () => {

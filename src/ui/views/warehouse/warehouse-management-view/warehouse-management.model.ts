@@ -84,7 +84,7 @@ export class WarehouseTariffModel extends DataGridTableModel {
 
   onClickEditTariff(row: ILogicTariff) {
     this.tariffToEdit = row
-    this.tabIndex
+    this.tabIndex === WarehouseTabs.WAREHOUSE_SERVICES
       ? this.onTriggerOpenModal('showAddOrEditWarehouseTariffModal')
       : this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
   }

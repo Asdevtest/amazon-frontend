@@ -38,7 +38,7 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
         <CustomRadioButton
           size="large"
           buttonStyle="solid"
-          options={customSwitcherSettings}
+          options={customSwitcherSettings()}
           defaultValue={viewModel.switcherCondition}
           onChange={viewModel.onClickChangeCatigory}
         />
@@ -52,7 +52,6 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
         />
 
         <FreelanceTypeTaskSelect
-          // @ts-ignore
           specs={viewModel.userInfo?.allowedSpec}
           selectedSpec={viewModel.specOption}
           onChangeSpec={viewModel.onChangeSpec}
