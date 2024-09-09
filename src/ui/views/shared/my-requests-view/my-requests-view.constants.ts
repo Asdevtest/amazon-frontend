@@ -25,7 +25,7 @@ export const filtersFields = [
   'shopId',
 ]
 
-export const radioButtonOptions = [
+export const radioButtonOptions = () => [
   {
     label: t(TranslationKey['Requests in progress']),
     value: SwitcherCondition.IN_PROGRESS,
