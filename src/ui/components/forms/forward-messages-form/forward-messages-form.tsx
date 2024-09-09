@@ -25,6 +25,8 @@ export const ForwardMessagesForm: FC<ForwardMessagesFormProps> = memo(props => {
   const { user, chats } = props
   const { classes: styles } = useStyles()
 
+  console.log('chats', chats)
+
   const [nameSearchValue, setNameSearchValue] = useState<string>('')
 
   const renderData = useMemo(() => {
@@ -54,18 +56,21 @@ export const ForwardMessagesForm: FC<ForwardMessagesFormProps> = memo(props => {
       <p className={styles.title}>{t(TranslationKey['Forward to'])}</p>
 
       <CustomInputSearch
+        wrapperClassName={styles.inputSearch}
         value={nameSearchValue}
         placeholder="Title"
         onChange={event => setNameSearchValue(event.target.value)}
       />
 
-      <div>
+      <div className={styles.chatList}>
         {renderData.map(chat => (
           <ChatItem key={chat._id} chat={chat} user={user} />
         ))}
       </div>
 
-      <CustomButton danger>{t(TranslationKey.Close)}</CustomButton>
+      <div className={styles.footer}>
+        <CustomButton>{t(TranslationKey.Close)}</CustomButton>
+      </div>
     </div>
   )
 })

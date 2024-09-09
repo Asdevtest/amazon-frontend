@@ -2,13 +2,16 @@ import { Avatar } from 'antd'
 import { FC, memo, useMemo } from 'react'
 
 import { chatsType } from '@constants/keys/chats'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
 
+import { CustomButton } from '@components/shared/custom-button'
 import { FavoritesIcon } from '@components/shared/svg-icons/favorites-icon/favorites-icon'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { t } from '@utils/translations'
 
 import { IFullUser } from '@typings/shared/full-user'
 
@@ -22,29 +25,33 @@ interface ChatItemProps {
 }
 
 export const ChatItem: FC<ChatItemProps> = memo(({ chat, user }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const isFavoritesChat = useMemo(() => chat?.type === 'SAVED', [])
   const isGroupChat = useMemo(() => chat.type === chatsType.GROUP, [])
+  const isDefaultChat = useMemo(() => chat.type === chatsType.DEFAULT, [])
   const chatTitle = useMemo(() => getChatTitle(chat, user), [])
   const chatUsers = useMemo(() => chat.users, [])
   const oponentUser = useMemo(() => chatUsers.find(chatUser => chatUser._id !== user._id), [])
 
   return (
-    <div>
+    <CustomButton className={styles.chatItemWrapper} type="text">
       {isFavoritesChat ? (
-        <FavoritesIcon className={cx(styles.favoritesIcon, styles.avatar)} />
+        <FavoritesIcon className={styles.favoritesIcon} />
       ) : (
         <Avatar
-          src={isGroupChat ? getAmazonImageUrl(chat.info?.image) : getUserAvatarSrc(oponentUser?._id)}
           className={styles.avatar}
+          shape="circle"
+          src={isGroupChat ? getAmazonImageUrl(chat.info?.image) : getUserAvatarSrc(oponentUser?._id)}
         />
       )}
 
-      <div>
-        <p>{chatTitle}</p>
-        <p>{chatUsers?.length}</p>
+      <div className={styles.chatItemInfo}>
+        <p className={styles.chatItemTitle}>{chatTitle}</p>
+        {chatUsers?.length && !isDefaultChat && !isFavoritesChat ? (
+          <p>{`${chatUsers?.length} ${t(TranslationKey.Members)}`}</p>
+        ) : null}
       </div>
-    </div>
+    </CustomButton>
   )
 })
