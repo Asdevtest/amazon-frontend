@@ -13,7 +13,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './admin-users-view.style'
 
-import { switcherConfig } from './admin-users-view.config'
+import { getSwitcherConfig } from './admin-users-view.config'
 import { AdminUsersViewModel } from './admin-users-view.model'
 
 export const AdminUsersView = observer(() => {
@@ -30,7 +30,7 @@ export const AdminUsersView = observer(() => {
         <CustomRadioButton
           size="large"
           buttonStyle="solid"
-          options={switcherConfig}
+          options={getSwitcherConfig()}
           defaultValue={viewModel.switcherCondition}
           onChange={viewModel.onClickChangeRole}
         />

@@ -35,7 +35,7 @@ export const UserPermissions = observer(() => {
         <CustomRadioButton
           size="large"
           buttonStyle="solid"
-          options={switcherSettings}
+          options={switcherSettings()}
           defaultValue={viewModel.tabIndex}
           onChange={(e: RadioChangeEvent) => viewModel.onChangeTabIndex(e.target.value)}
         />
