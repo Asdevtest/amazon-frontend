@@ -242,6 +242,16 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
   },
 
   {
+    field: 'clientComment',
+    headerName: t(TranslationKey['Client comment']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
+
+    renderCell: params => <Text isCell text={params.row?.originalData?.clientComment} />,
+    width: 280,
+    columnKey: columnnsKeys.shared.STRING_VALUE,
+  },
+
+  {
     field: 'prepId',
     headerName: 'PREP ID',
     renderHeader: () => <MultilineTextHeaderCell text={'PREP ID'} />,

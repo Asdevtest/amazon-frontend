@@ -32,6 +32,12 @@ export interface ApiV1BuyersProductsVacTags {
      * @memberof ApiV1BuyersProductsVacTags
      */
     title?: string;
+    /**
+     * Color
+     * @type {string}
+     * @memberof ApiV1BuyersProductsVacTags
+     */
+    color?: string;
 }
 
 
