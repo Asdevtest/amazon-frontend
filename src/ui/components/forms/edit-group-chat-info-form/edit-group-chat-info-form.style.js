@@ -65,9 +65,13 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   editImageContainer: {
-    height: 150,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  avatarContainer: {
+    height: 150,
+    width: 150,
   },
 }))

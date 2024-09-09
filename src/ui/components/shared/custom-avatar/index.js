@@ -1,3 +1,1 @@
-import CustomAvatar from './custom-avatar'
-
-export { CustomAvatar }
+export { CustomAvatar } from './custom-avatar'

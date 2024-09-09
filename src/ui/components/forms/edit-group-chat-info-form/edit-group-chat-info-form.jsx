@@ -47,7 +47,9 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
       />
 
       <div className={styles.editImageContainer}>
-        <CustomAvatar initialImageUrl={currentChatAvatar} onSubmitAvatarEdit={onChangeImage} />
+        <div className={styles.avatarContainer}>
+          <CustomAvatar isEditable initialUrl={currentChatAvatar} onSubmit={onChangeImage} />
+        </div>
       </div>
 
       <div className={styles.textsWrapper}>
@@ -58,7 +60,7 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
         <p className={cx(styles.standartText, { [styles.successText]: state.preview })}>
           {t(TranslationKey['Allowed image formats'])}
           {'('}
-          {<span className={styles.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}
+          {<span className={styles.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'svg', 'avif'`}</span>}
           {')'}
         </p>
       </div>

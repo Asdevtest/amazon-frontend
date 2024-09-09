@@ -2,15 +2,23 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   upload: {
-    width: 140,
-    height: 140,
-    '& .ant-upload-list-item-container': {
-      width: '140px !important',
-      height: '140px !important',
+    width: '100%',
+    height: '100%',
+    '& .ant-upload-list-item-container, & .ant-upload.ant-upload-select, & .ant-upload-list': {
+      width: '100% !important',
+      height: '100% !important',
     },
-    '& .ant-upload.ant-upload-select': {
-      width: '140px !important',
-      height: '140px !important',
-    },
+  },
+
+  buttonWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  buttonText: {
+    fontSize: '16px',
+    marginTop: '10px',
   },
 }))

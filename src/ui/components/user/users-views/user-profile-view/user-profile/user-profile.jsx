@@ -43,9 +43,9 @@ export const UserProfile = memo(props => {
         <div className={styles.userInfoConatiner}>
           <div className={styles.avatarWrapper}>
             <CustomAvatar
-              initialImageUrl={getUserAvatarSrc(user._id)}
-              isAnotherUser={isAnotherUser}
-              onSubmitAvatarEdit={onSubmitAvatarEdit}
+              initialUrl={getUserAvatarSrc(user._id)}
+              isEditable={!isAnotherUser}
+              onSubmit={onSubmitAvatarEdit}
             />
           </div>
 

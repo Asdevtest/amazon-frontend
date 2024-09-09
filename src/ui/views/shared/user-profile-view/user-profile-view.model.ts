@@ -23,7 +23,6 @@ import { userProfileColumns } from './user-profile-view.columns'
 import { userProfileConfig } from './user-profile-view.config'
 
 export class ProfileViewModel extends DataGridTableModel {
-  showAvatarEditModal = false
   showUserInfoModal = false
   showTabModal = false
   showConfirmWorkResultFormModal = false

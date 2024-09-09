@@ -26,3 +26,12 @@ export const imageValidTypes: string[] = [
   '.jfif',
   'placeimg.com',
 ]
+
+export const avatarValidTypes: string[] = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/svg',
+  'image/webp',
+  'image/avif',
+]
