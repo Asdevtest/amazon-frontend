@@ -1,6 +1,6 @@
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { KeyboardEvent, useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ONE_MINUTE_IN_MILLISECONDS } from '@constants/time'
@@ -81,6 +81,17 @@ export const MessagesView = observer(({ history }) => {
 
   const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && currentChat
   const isMuteCurrentChat = viewModel.mutedChats.includes(viewModel.chatSelectedId)
+
+  useEffect(() => {
+    const escListener = event => {
+      if (event.key === 'Escape') {
+        viewModel.onClickBackButton()
+      }
+    }
+
+    document.addEventListener('keydown', escListener)
+    return () => document.removeEventListener('keydown', escListener)
+  })
 
   return (
     <div className={styles.wrapper}>

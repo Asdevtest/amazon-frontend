@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { IsReadIcon, NoReadIcon } from '@components/shared/svg-icons'
 import { UserLink } from '@components/user/user-link'
 
-import { formatDateTimeHourAndMinutes } from '@utils/date-time'
+import { formatDateTimeHourAndMinutesLocal } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
@@ -83,7 +83,7 @@ export const ChatMessageBasicText: FC<ChatMessageBasicTextProps> = memo(props =>
       </div>
 
       <div className={styles.infoContainer}>
-        <p className={styles.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
+        <p className={styles.timeText}>{formatDateTimeHourAndMinutesLocal(message.createdAt)}</p>
 
         {!isIncomming && unReadMessage ? (
           <NoReadIcon className={cx(styles.icon, styles.noReadIcon)} />

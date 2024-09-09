@@ -17,7 +17,7 @@ import { ArrowBackIcon } from '@components/shared/svg-icons'
 
 import { checkOnline } from '@utils/checks/check-online/check-online'
 import { getDistanceBetweenDatesSeconds } from '@utils/checks/get-distance-between-dates-seconds/get-distance-between-dates-seconds'
-import { formatDateTimeHourAndMinutes, formatDateWithoutTime } from '@utils/date-time'
+import { formatDateTimeHourAndMinutesLocal, formatDateWithoutTimeLocal } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -86,9 +86,9 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
   const lastSeenMessage =
     dateGap > ONE_DAY_IN_SECONDS
       ? // @ts-ignore
-        `${t(TranslationKey['Last seen'], { date: formatDateWithoutTime(new Date(currentOpponent?.lastSeen)) })}`
+        `${t(TranslationKey['Last seen'], { date: formatDateWithoutTimeLocal(new Date(currentOpponent?.lastSeen)) })}`
       : // @ts-ignore
-        `${t(TranslationKey.Today)} ${formatDateTimeHourAndMinutes(new Date(currentOpponent?.lastSeen))}`
+        `${t(TranslationKey.Today)} ${formatDateTimeHourAndMinutesLocal(new Date(currentOpponent?.lastSeen))}`
 
   return (
     <div className={styles.header}>

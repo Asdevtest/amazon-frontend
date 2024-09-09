@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
 
-import { formatDateWithoutTime } from '@utils/date-time'
+import { formatDateWithoutTimeLocal } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
 import { PaginationDirection } from '@typings/enums/pagination-direction'
@@ -89,6 +89,9 @@ export const ChatMessageItem: FC<ChatMessageItemProps> = memo(props => {
   // @ts-ignore
   const isSelectedMessage = selectedMessages?.some((message: ChatMessageContract) => message?._id === messageItem?._id)
 
+  const createdAtLocalDatePrevMessage = messages[index - 1]?.createdAt
+  const createdAtLocalDate = messageItem.createdAt
+
   const onClickCopyMessageText = () => {
     navigator.clipboard.writeText(messageItem.text)
   }
@@ -101,9 +104,9 @@ export const ChatMessageItem: FC<ChatMessageItemProps> = memo(props => {
       {...messageItemHover?.[1]}
     >
       {index === 0 ||
-      formatDateWithoutTime(messages[index - 1]?.createdAt) !== formatDateWithoutTime(messageItem?.createdAt) ? (
+      formatDateWithoutTimeLocal(createdAtLocalDatePrevMessage) !== formatDateWithoutTimeLocal(createdAtLocalDate) ? (
         <div className={styles.timeTextWrapper}>
-          <p className={styles.timeText}>{formatDateWithoutTime(messageItem?.createdAt)}</p>
+          <p className={styles.timeText}>{formatDateWithoutTimeLocal(createdAtLocalDate)}</p>
         </div>
       ) : null}
 
