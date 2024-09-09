@@ -37,6 +37,7 @@ import { useStyles } from './chat.style'
 import { CurrentOpponent } from '../multiple-chats'
 
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './components/chat-messages-list/components/chat-messages/chat-message-designer-proposal-edited-result'
+import { ForwardMessages } from './components/forward-messages'
 import { ChatCurrentReplyMessage, ChatFilesInput, ChatInfo, ChatMessagesList } from './components/index'
 import { OnEmojiSelectEvent, RenderAdditionalButtonsParams } from './helpers/chat.interface'
 import { getLanguageTag } from './helpers/get-language-tag'
@@ -58,14 +59,20 @@ interface ChatProps {
   headerChatComponent?: (...args: { [key: string]: any }[]) => ReactElement
   onChangeRequestStatus: (status: loadingStatus) => void
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
-  onSubmitMessage: (message: string, files: UploadFileType[], replyMessageId: string | null) => void
+  onSubmitMessage: (
+    message: string,
+    files: UploadFileType[],
+    replyMessageId: string | null,
+    messagesToForward?: ChatMessageContract[],
+  ) => void
   onTypingMessage: (chatId: string) => void
   onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
   selectedMessages?: string[]
-  onSelectMessage?: (messageId: string) => void
+  onSelectMessage?: (message: ChatMessageContract) => void
   onClickForwardMessages?: () => void
+  onClickClearForwardMessages?: (chat: ChatContract) => void
 }
 
 export const Chat: FC<ChatProps> = memo(
@@ -92,6 +99,7 @@ export const Chat: FC<ChatProps> = memo(
     selectedMessages,
     onSelectMessage,
     onClickForwardMessages,
+    onClickClearForwardMessages,
   }) => {
     const { classes: styles, cx } = useStyles()
     const { isTabletResolution } = useCreateBreakpointResolutions()
@@ -203,7 +211,7 @@ export const Chat: FC<ChatProps> = memo(
       setMessageToReply(null)
       resetAllInputs()
       await onClickScrollToBottom()
-      onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
+      onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null, chat?.messagesToForward)
     }
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
@@ -294,6 +302,7 @@ export const Chat: FC<ChatProps> = memo(
             handleScrollToBottomButtonVisibility={handleScrollToBottomButtonVisibility}
             selectedMessages={selectedMessages}
             onSelectMessage={onSelectMessage}
+            onClickClearForwardMessages={onClickClearForwardMessages}
             onClickForwardMessages={onClickForwardMessages}
           />
 
@@ -335,6 +344,13 @@ export const Chat: FC<ChatProps> = memo(
             message={messageToReply}
             setMessageToReply={setMessageToReply}
             scrollToMessage={() => scrollToMessage(messages.findIndex(el => el._id === messageToReply?._id))}
+          />
+        ) : null}
+
+        {chat?.messagesToForward?.length ? (
+          <ForwardMessages
+            messages={chat?.messagesToForward}
+            onClickClearForwardMessages={() => onClickClearForwardMessages?.(chat)}
           />
         ) : null}
 
@@ -412,7 +428,7 @@ export const Chat: FC<ChatProps> = memo(
               onPaste={evt => onPasteFiles(evt)}
             />
 
-            <Button disabled={disabledSubmit} onClick={() => onSubmitMessageInternal()}>
+            <Button disabled={disabledSubmit && !chat?.messagesToForward?.length} onClick={onSubmitMessageInternal}>
               {t(TranslationKey.Send)}
               <SendIcon />
             </Button>

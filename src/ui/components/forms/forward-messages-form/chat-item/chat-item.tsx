@@ -22,9 +22,11 @@ import { getChatTitle } from '../helpers/get-chat-title'
 interface ChatItemProps {
   chat: ChatContract
   user: IFullUser
+  onClickChat: () => void
 }
 
-export const ChatItem: FC<ChatItemProps> = memo(({ chat, user }) => {
+export const ChatItem: FC<ChatItemProps> = memo(props => {
+  const { chat, user, onClickChat } = props
   const { classes: styles } = useStyles()
 
   const isFavoritesChat = useMemo(() => chat?.type === 'SAVED', [])
@@ -35,7 +37,7 @@ export const ChatItem: FC<ChatItemProps> = memo(({ chat, user }) => {
   const oponentUser = useMemo(() => chatUsers.find(chatUser => chatUser._id !== user._id), [])
 
   return (
-    <CustomButton className={styles.chatItemWrapper} type="text">
+    <CustomButton className={styles.chatItemWrapper} type="text" onClick={onClickChat}>
       {isFavoritesChat ? (
         <FavoritesIcon className={styles.favoritesIcon} />
       ) : (

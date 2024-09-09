@@ -2050,5 +2050,6 @@
   "Forward": "转发",
   "Deselect": "取消选择",
   "Forward to": "转发至",
-  "Are you sure you want to delete profile?": "您确定要删除个人资料吗?"
+  "Are you sure you want to delete profile?": "您确定要删除个人资料吗?",
+  "forwarded messages": "{{count}} 转发消息"
 }

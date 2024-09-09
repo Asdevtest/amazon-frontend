@@ -1,5 +1,6 @@
 import { Dropdown } from 'antd'
 import { FC, PropsWithChildren, memo, useMemo } from 'react'
+import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdReply } from 'react-icons/md'
 import { RiShareForwardFill } from 'react-icons/ri'
@@ -34,7 +35,11 @@ export const ChatMessageControlsOverlay: FC<ChatMessageControlsOverlayProps> = m
       {
         key: 'select',
         label: (
-          <CustomButton className={styles.button} icon={<FaRegCheckCircle />} onClick={onSelectMessage}>
+          <CustomButton
+            className={styles.button}
+            icon={isSelectedMessage ? <AiOutlineCloseCircle /> : <FaRegCheckCircle />}
+            onClick={onSelectMessage}
+          >
             {isSelectedMessage ? t(TranslationKey.Deselect) : t(TranslationKey.Select)}
           </CustomButton>
         ),
@@ -50,13 +55,20 @@ export const ChatMessageControlsOverlay: FC<ChatMessageControlsOverlayProps> = m
       {
         key: 'forward',
         label: (
-          <CustomButton className={styles.button} icon={<RiShareForwardFill />} onClick={onClickForwardMessages}>
+          <CustomButton
+            className={styles.button}
+            icon={<RiShareForwardFill />}
+            onClick={() => {
+              onSelectMessage()
+              onClickForwardMessages()
+            }}
+          >
             {t(TranslationKey.Forward)}
           </CustomButton>
         ),
       },
     ],
-    [],
+    [isSelectedMessage],
   )
 
   return (

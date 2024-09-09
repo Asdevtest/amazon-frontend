@@ -33,8 +33,9 @@ interface ChatMessagesListProps {
   isFreelanceOwner?: boolean
   messageToScroll: number | undefined
   selectedMessages?: string[]
-  onSelectMessage?: (messageId: string) => void
+  onSelectMessage?: (message: ChatMessageContract) => void
   onClickForwardMessages?: () => void
+  onClickClearForwardMessages?: (chat: ChatContract) => void
 }
 
 export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
@@ -59,6 +60,7 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
     selectedMessages,
     onSelectMessage,
     onClickForwardMessages,
+    onClickClearForwardMessages,
   } = props
 
   const { isMobileResolution } = useCreateBreakpointResolutions()
@@ -68,6 +70,7 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
 
   const onClickReply = (messageItem: ChatMessageContract) => {
     setMessageToReply(messageItem)
+    onClickClearForwardMessages?.(chat)
   }
 
   useEffect(() => {

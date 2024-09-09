@@ -251,12 +251,18 @@ export class MessagesViewModel {
     SettingsModel.setMutedChat(chatId)
   }
 
-  onClickChat(chat) {
-    ChatModel.resetChat(this.chatSelectedId)
-
+  onClickChat(chat, isNotChangeChat = false) {
     if (this.messagesFound?.length) {
       this.onChangeMesSearchValue('', this.chatSelectedId)
     }
+
+    this.selectedMessages = []
+
+    if (isNotChangeChat) {
+      return
+    }
+
+    ChatModel.resetChat(this.chatSelectedId)
 
     if (this.chatSelectedId === chat._id) {
       ChatModel.onChangeChatSelectedId(undefined)
@@ -296,7 +302,7 @@ export class MessagesViewModel {
     this.setRequestStatus(loadingStatus.SUCCESS)
   }
 
-  async onSubmitMessage(message, files, chatId, replyMessageId) {
+  async onSubmitMessage(message, files, chatId, replyMessageId, messagesToForward) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
@@ -311,6 +317,27 @@ export class MessagesViewModel {
         },
         ...(replyMessageId && { replyMessageId }),
       })
+
+      if (messagesToForward?.length) {
+        console.log('messagesToForward :>> ', messagesToForward)
+
+        for (const message of messagesToForward) {
+          console.log('message :>> ', message)
+
+          await ChatModel.sendMessage({
+            chatId,
+            crmItemId: null,
+            text: '',
+            user: {
+              name: UserModel.userInfo.name,
+              _id: UserModel.userInfo._id,
+            },
+            forwardedMessageId: message._id,
+          })
+        }
+      }
+
+      this.onClickClearForwardMessages({ _id: chatId })
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -334,11 +361,11 @@ export class MessagesViewModel {
     this.requestStatus = requestStatus
   }
 
-  onSelectMessage(messageId) {
-    if (this.selectedMessages.includes(messageId)) {
-      this.selectedMessages = this.selectedMessages.filter(el => el !== messageId)
+  onSelectMessage(message) {
+    if (this.selectedMessages.some(el => el?._id === message._id)) {
+      this.selectedMessages = this.selectedMessages.filter(el => el?._id !== message?._id)
     } else {
-      this.selectedMessages = [...this.selectedMessages, messageId]
+      this.selectedMessages = [...this.selectedMessages, message]
     }
   }
 
@@ -348,5 +375,16 @@ export class MessagesViewModel {
 
   onClickForwardMessages() {
     this.onTriggerOpenModal('showForwardMessagesModal')
+  }
+
+  onClickForwardToChat(chat) {
+    ChatModel.onClickForwardMessages(chat?._id, this.selectedMessages)
+    this.onClickChat(chat, this.chatSelectedId === chat._id)
+
+    this.showForwardMessagesModal = false
+  }
+
+  onClickClearForwardMessages(chat) {
+    ChatModel.clearMessagesToForward(chat?._id)
   }
 }

@@ -20,7 +20,7 @@ interface ChatMessageItemProps {
   indexFromTable: number
   firstItemIndex: number
   selectedMessages: string[]
-  onSelectMessage: (messageId: string) => void
+  onSelectMessage: (message: ChatMessageContract) => void
   onClickForwardMessages?: () => void
 }
 
@@ -71,7 +71,7 @@ export const ChatMessageItem: FC<any> = memo(props => {
   const isDisabledControls = messageItem.type !== ChatMessageType.USER
 
   const isRequestOrProposal = !!messageItem.data
-  const isSelectedMessage = selectedMessages.includes(messageItem._id)
+  const isSelectedMessage = selectedMessages.some((message: ChatMessageContract) => message?._id === messageItem._id)
 
   return (
     <div
@@ -90,7 +90,7 @@ export const ChatMessageItem: FC<any> = memo(props => {
       <ChatMessageControlsOverlay
         showDropdown={!isDisabledControls && messageItemHover?.[0]}
         isSelectedMessage={isSelectedMessage}
-        onSelectMessage={() => onSelectMessage(messageItem._id)}
+        onSelectMessage={() => onSelectMessage(messageItem)}
         onClickReply={() => onClickReply(messageItem)}
         onClickForwardMessages={onClickForwardMessages}
       >

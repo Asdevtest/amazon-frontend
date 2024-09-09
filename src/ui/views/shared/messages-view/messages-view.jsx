@@ -205,8 +205,9 @@ export const MessagesView = observer(({ history }) => {
             onSelectMessage={viewModel.onSelectMessage}
             onChangeRequestStatus={viewModel.setRequestStatus}
             onClickForwardMessages={viewModel.onClickForwardMessages}
-            onSubmitMessage={(message, files, replyMessageId) =>
-              viewModel.onSubmitMessage(message, files, viewModel.chatSelectedId, replyMessageId)
+            onClickClearForwardMessages={viewModel.onClickClearForwardMessages}
+            onSubmitMessage={(message, files, replyMessageId, messagesToForward) =>
+              viewModel.onSubmitMessage(message, files, viewModel.chatSelectedId, replyMessageId, messagesToForward)
             }
             onTypingMessage={viewModel.onTypingMessage}
             onClickAddUsersToGroupChat={viewModel.onClickAddUsersToGroupChat}
@@ -263,7 +264,7 @@ export const MessagesView = observer(({ history }) => {
         openModal={viewModel.showForwardMessagesModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showForwardMessagesModal')}
       >
-        <ForwardMessagesForm user={viewModel.user} chats={filteredChats} />
+        <ForwardMessagesForm user={viewModel.user} chats={filteredChats} onClickChat={viewModel.onClickForwardToChat} />
       </Modal>
     </div>
   )

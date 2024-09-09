@@ -19,13 +19,12 @@ import { getChatTitle } from './helpers/get-chat-title'
 interface ForwardMessagesFormProps {
   user: IFullUser
   chats: ChatContract[]
+  onClickChat: (chat: ChatContract) => void
 }
 
 export const ForwardMessagesForm: FC<ForwardMessagesFormProps> = memo(props => {
-  const { user, chats } = props
+  const { user, chats, onClickChat } = props
   const { classes: styles } = useStyles()
-
-  console.log('chats', chats)
 
   const [nameSearchValue, setNameSearchValue] = useState<string>('')
 
@@ -64,7 +63,7 @@ export const ForwardMessagesForm: FC<ForwardMessagesFormProps> = memo(props => {
 
       <div className={styles.chatList}>
         {renderData.map(chat => (
-          <ChatItem key={chat._id} chat={chat} user={user} />
+          <ChatItem key={chat._id} chat={chat} user={user} onClickChat={() => onClickChat(chat)} />
         ))}
       </div>
 

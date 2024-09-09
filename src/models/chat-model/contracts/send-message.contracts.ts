@@ -24,6 +24,9 @@ export class SendMessageRequestParamsContract {
   public replyMessageId?: string | null
 
   @IsOptional()
+  public forwardedMessageId?: string
+
+  @IsOptional()
   public user?: Omit<ICreatedBy, 'rating'>
 
   @IsOptional()
