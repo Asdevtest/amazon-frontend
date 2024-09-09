@@ -123,7 +123,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
           />
         )
       },
-      fields: getProductColumnMenuItems({ withoutSku: true }),
+      fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
