@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { InlineResponse200114Rows } from './inline-response200114-rows';
 
 /**
  * 
@@ -22,47 +22,17 @@ import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created
  */
 export interface InlineResponse200114 {
     /**
-     * GUID записи
-     * @type {string}
-     * @memberof InlineResponse200114
-     */
-    _id?: string;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse200114
-     */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * Роль юзера, когда он оставлял отзыв
+     * Count of rows
      * @type {number}
      * @memberof InlineResponse200114
      */
-    role?: number;
-    /**
-     * Комментарий к оценке
-     * @type {string}
-     * @memberof InlineResponse200114
-     */
-    comment?: string;
-    /**
-     * Оценка, целое число от 1 до 5
-     * @type {number}
-     * @memberof InlineResponse200114
-     */
-    rating?: number;
+    count?: number;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {Array<InlineResponse200114Rows>}
      * @memberof InlineResponse200114
      */
-    sub?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse200114
-     */
-    createdAt?: string;
+    rows?: Array<InlineResponse200114Rows>;
 }
 
 

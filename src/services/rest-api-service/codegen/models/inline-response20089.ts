@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20089Rows } from './inline-response20089-rows';
 
 /**
  * 
@@ -21,17 +22,17 @@
  */
 export interface InlineResponse20089 {
     /**
-     * Гуид заявки
-     * @type {string}
-     * @memberof InlineResponse20089
-     */
-    _id?: string;
-    /**
-     * удобный ключ заявки
+     * 
      * @type {number}
      * @memberof InlineResponse20089
      */
-    humanFriendlyId?: number;
+    count?: number;
+    /**
+     * Массив заявок.
+     * @type {Array<InlineResponse20089Rows>}
+     * @memberof InlineResponse20089
+     */
+    rows?: Array<InlineResponse20089Rows>;
 }
 
 

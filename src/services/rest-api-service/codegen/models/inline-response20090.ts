@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20090Rows } from './inline-response20090-rows';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 
 /**
  * 
@@ -22,17 +22,47 @@ import { InlineResponse20090Rows } from './inline-response20090-rows';
  */
 export interface InlineResponse20090 {
     /**
-     * 
+     * GUID заявки
+     * @type {string}
+     * @memberof InlineResponse20090
+     */
+    _id?: string;
+    /**
+     * Номер заявки
      * @type {number}
      * @memberof InlineResponse20090
      */
-    count?: number;
+    humanFriendlyId?: number;
     /**
-     * Массив заявок.
-     * @type {Array<InlineResponse20090Rows>}
+     * 
+     * @type {ApiV1AnnouncementsMySpec}
      * @memberof InlineResponse20090
      */
-    rows?: Array<InlineResponse20090Rows>;
+    spec?: ApiV1AnnouncementsMySpec;
+    /**
+     * Название заявки
+     * @type {string}
+     * @memberof InlineResponse20090
+     */
+    title?: string;
+    /**
+     * Статус заявки
+     * @type {string}
+     * @memberof InlineResponse20090
+     */
+    status?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20090
+     */
+    onFinishedIdeaId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20090
+     */
+    onCheckedIdeaId?: string;
 }
 
 

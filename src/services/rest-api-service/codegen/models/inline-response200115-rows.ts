@@ -14,7 +14,8 @@
 
 
 import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { InlineResponse200115Client } from './inline-response200115-client';
+import { InlineResponse200114Client } from './inline-response200114-client';
+import { InlineResponse200115Profile } from './inline-response200115-profile';
 
 /**
  * 
@@ -29,35 +30,17 @@ export interface InlineResponse200115Rows {
      */
     _id?: string;
     /**
-     * GoLogin id
-     * @type {string}
+     * 
+     * @type {InlineResponse200115Profile}
      * @memberof InlineResponse200115Rows
      */
-    gologinId?: string;
-    /**
-     * Имя в профиле.
-     * @type {string}
-     * @memberof InlineResponse200115Rows
-     */
-    name?: string;
-    /**
-     * email
-     * @type {string}
-     * @memberof InlineResponse200115Rows
-     */
-    email?: string;
-    /**
-     * Хешированный пароль от профиля
-     * @type {string}
-     * @memberof InlineResponse200115Rows
-     */
-    passwordHash?: string;
+    profile?: InlineResponse200115Profile;
     /**
      * 
-     * @type {InlineResponse200115Client}
+     * @type {InlineResponse200114Client}
      * @memberof InlineResponse200115Rows
      */
-    client?: InlineResponse200115Client;
+    client?: InlineResponse200114Client;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusShop}
@@ -65,19 +48,7 @@ export interface InlineResponse200115Rows {
      */
     shop?: ApiV1AdminsGetProductsByStatusShop;
     /**
-     * Parser state
-     * @type {boolean}
-     * @memberof InlineResponse200115Rows
-     */
-    isActive?: boolean;
-    /**
-     * Profile access to sellercentral
-     * @type {boolean}
-     * @memberof InlineResponse200115Rows
-     */
-    access?: boolean;
-    /**
-     * Profile status
+     * Receiving request status
      * @type {string}
      * @memberof InlineResponse200115Rows
      */

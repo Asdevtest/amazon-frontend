@@ -21,17 +21,17 @@
  */
 export interface InlineObject91 {
     /**
-     * Комментарий клиента
+     * текст отзыва/репорта
      * @type {string}
      * @memberof InlineObject91
      */
-    clientComment?: string;
+    text: string;
     /**
-     * Комментарий баера
-     * @type {string}
+     * Прикрепленные ссылки на медиа для репорта/отзыва
+     * @type {Array<string>}
      * @memberof InlineObject91
      */
-    buyerComment?: string;
+    media?: Array<string>;
 }
 
 

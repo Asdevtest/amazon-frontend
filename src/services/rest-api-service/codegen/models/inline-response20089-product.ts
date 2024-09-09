@@ -14,7 +14,7 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20042Shop } from './inline-response20042-shop';
+import { InlineResponse20045Shop } from './inline-response20045-shop';
 
 /**
  * 
@@ -48,10 +48,10 @@ export interface InlineResponse20089Product {
     images?: Array<string>;
     /**
      * 
-     * @type {InlineResponse20042Shop}
+     * @type {InlineResponse20045Shop}
      * @memberof InlineResponse20089Product
      */
-    shop?: InlineResponse20042Shop;
+    shop?: InlineResponse20045Shop;
     /**
      * Заголовок на товар с сайта амазон.
      * @type {string}

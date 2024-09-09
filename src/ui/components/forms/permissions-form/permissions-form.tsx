@@ -1,6 +1,6 @@
 import { Cascader, Skeleton } from 'antd'
 import { observer } from 'mobx-react'
-import { FC, useEffect, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -28,12 +28,6 @@ export const PermissionsForm: FC<PermissionsFormPorps> = observer(props => {
   const viewModel = useMemo(() => new PermissionsFormModel(subUser), [])
   const { classes: styles } = useStyles()
 
-  useEffect(() => {
-    return () => {
-      viewModel.setProductsLoadedState(false) // Reset flag when form is closed
-    }
-  }, [onCloseModal])
-
   return (
     <div className={styles.root}>
       <CustomRadioButton
@@ -57,8 +51,16 @@ export const PermissionsForm: FC<PermissionsFormPorps> = observer(props => {
           value={viewModel.currentPermissionOptions}
           onChange={viewModel.onChangePermissionOptions}
         />
-      ) : (
+      ) : viewModel.products.length === 0 ? (
         <Skeleton.Button active block className={styles.skeleton} />
+      ) : (
+        <Cascader.Panel
+          multiple
+          options={viewModel.shopsOptions}
+          className={styles.cascaderPanel}
+          // value={viewModel.currentPermissionOptions}
+          // onChange={viewModel.onChangePermissionOptions}
+        />
       )}
 
       <div className={styles.footer}>
@@ -81,36 +83,6 @@ export const PermissionsForm: FC<PermissionsFormPorps> = observer(props => {
             )}
           </div>
         ) : null}
-
-        {/* {isFreelancer ? (
-          <div className={styles.requestTypeWrapper}>
-            <p>{t(TranslationKey['Available request types'])}</p>
-
-            <Select
-              multiple
-              displayEmpty
-              value={currentSpecs}
-              className={styles.requestTypeField}
-              renderValue={selected =>
-                !selected?.length
-                  ? t(TranslationKey['Select from the list'])
-                  : selected?.map(item => specs?.find(({ type }) => type === item)?.title)?.join(', ')
-              }
-              onChange={e => selectSpecHandler(e.target.value)}
-            >
-              <MenuItem disabled value={null}>
-                {t(TranslationKey['Select from the list'])}
-              </MenuItem>
-
-              {specs?.map(spec => (
-                <MenuItem key={spec?._id} value={spec?.type}>
-                  <Checkbox checked={currentSpecs.includes(spec?.type)} />
-                  {spec?.title}
-                </MenuItem>
-              ))}
-            </Select>
-          </div>
-        ) : null} */}
 
         <CustomButton type="primary" size="large" disabled={viewModel.mainLoading}>
           {t(TranslationKey.Save)}

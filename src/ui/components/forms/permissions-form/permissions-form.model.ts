@@ -1,25 +1,19 @@
 import { RadioChangeEvent } from 'antd'
-import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BuyerModel } from '@models/buyer-model'
-import { ClientModel } from '@models/client-model'
 import { PermissionsModel } from '@models/permissions-model'
-import { ResearcherModel } from '@models/researcher-model'
-import { ShopModel } from '@models/shop-model'
-import { SupervisorModel } from '@models/supervisor-model'
 import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
 
 import { Specs } from '@typings/enums/specs'
-import { isBuyer, isClient, isFreelancer, isResearcher, isSupervisor } from '@typings/guards/roles'
+import { isClient, isFreelancer } from '@typings/guards/roles'
 import { IPermission } from '@typings/models/permissions/permission'
 import { IPermissionGroup } from '@typings/models/permissions/permission-group'
 import { IPermissions } from '@typings/models/permissions/permissions'
-import { IShop } from '@typings/models/shops/shop'
 import { IFullUser } from '@typings/shared/full-user'
 import { ISpec } from '@typings/shared/spec'
 
@@ -33,10 +27,10 @@ export class PermissionsFormModel {
   productsLoading = false
   specs: ISpec[] = []
   selectedSpecs: Specs[][] = []
-  shops: IShop[] = []
+  shops: any[] = []
+  products: any[] = []
   currentPermissionOptions: string[][] = []
   subUser?: IFullUser
-  isProductsLoaded = false
 
   get userInfo() {
     return UserModel?.userInfo as unknown as IFullUser
@@ -73,6 +67,29 @@ export class PermissionsFormModel {
   get showSpecsCascader() {
     return isFreelancer(this.userInfo?.role)
   }
+  get shopsOptions() {
+    const mainOptions = this.shops.slice(0, 2000).map(item => ({
+      label: item.name,
+      value: item._id,
+      children: item.products.map((el: any) => ({
+        label: el.amazonTitle,
+        value: el._id,
+      })),
+    }))
+    const extraOption =
+      this.products.length > 0
+        ? {
+            label: 'Без группы', // t(TranslationKey['Without the group']),
+            value: 'WITHOUT_GROUP',
+            children: this.products.map(el => ({
+              label: el.amazonTitle,
+              value: el._id,
+            })),
+          }
+        : null
+
+    return [...(extraOption ? [extraOption] : []), ...mainOptions]
+  }
 
   constructor(subUser?: IFullUser) {
     this.subUser = subUser
@@ -81,57 +98,20 @@ export class PermissionsFormModel {
     this.initSelectedSpecs()
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.permissionTab,
-      () => {
-        if (this.permissionTab === PermissionsTab.ACCESS_TO_PRODUCTS && !this.isProductsLoaded) {
-          this.getProduts()
-
-          this.setProductsLoadedState(true)
-        }
-      },
-    )
   }
 
   async getProduts() {
-    if (!isFreelancer(this.userInfo?.role)) {
-      const response = await PermissionsModel.getProductsPermissionsForUserById(this.subUser?._id)
-
-      console.log('getProductsPermissionsForUserById', response)
-    }
-
-    const methodByRole = () => {
-      if (isClient(this.userInfo?.role)) {
-        return ClientModel.getProductPermissionsData()
-      }
-      if (isBuyer(this.userInfo?.role)) {
-        return BuyerModel.getProductsMyLight()
-      }
-      if (isSupervisor(this.userInfo?.role)) {
-        return SupervisorModel.getProductsMyLight()
-      }
-      if (isResearcher(this.userInfo?.role)) {
-        return ResearcherModel.getProductsVacant()
-      }
-      if (isClient(this.userInfo?.role)) {
-        return ClientModel.getProductPermissionsData()
-      }
-
+    if (isFreelancer(this.userInfo?.role)) {
       return
     }
 
-    if (isClient(this.userInfo?.role)) {
-      const response = await PermissionsModel.getPermissionsShopsByGuid(this.subUser?._id)
+    const responseProducts = await PermissionsModel.getProductsPermissionsForUserById(this.subUser?._id)
+    const responseShops = await PermissionsModel.getPermissionsShopsByGuid(this.subUser?._id)
 
-      console.log('getPermissionsShopsByGuid', response)
-    }
-
-    const response = await methodByRole()
-
-    console.log('methodByRole', response)
-
-    this.getShops()
+    runInAction(() => {
+      this.products = responseProducts
+      this.shops = responseShops
+    })
   }
 
   onChangePermissionTab(event: RadioChangeEvent) {
@@ -152,10 +132,6 @@ export class PermissionsFormModel {
     })
   }
 
-  setProductsLoadedState(loaded: boolean) {
-    this.isProductsLoaded = loaded
-  }
-
   async loadData() {
     runInAction(() => (this.mainLoading = true))
 
@@ -174,6 +150,8 @@ export class PermissionsFormModel {
         })
       })
     })
+
+    this.getProduts()
   }
 
   async getGroupPermissions() {
@@ -241,20 +219,6 @@ export class PermissionsFormModel {
 
       runInAction(() => {
         this.specs = response
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async getShops() {
-    try {
-      const response = (await ShopModel.getMyShops()) as unknown as IShop[]
-
-      console.log('shops', response)
-
-      runInAction(() => {
-        this.shops = response
       })
     } catch (error) {
       console.error(error)

@@ -13,8 +13,8 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
 
 /**
@@ -163,16 +163,16 @@ export interface InlineResponse20030 {
     redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
     /**
      * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20030
      */
-    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20030
      */
-    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * Дата создания
      * @type {string}

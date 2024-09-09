@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
@@ -53,10 +53,10 @@ export interface InlineResponse20081Rows {
     amazonTitle?: string;
     /**
      * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20081Rows
      */
-    users?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    users?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
 }
 
 

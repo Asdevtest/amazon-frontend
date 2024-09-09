@@ -13,9 +13,8 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
-import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
+import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
+import { InlineResponse200114Client } from './inline-response200114-client';
 
 /**
  * 
@@ -24,107 +23,65 @@ import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products
  */
 export interface InlineResponse200114Rows {
     /**
-     * GUID продукта в базе данных
+     * GUID в БД.
      * @type {string}
      * @memberof InlineResponse200114Rows
      */
     _id?: string;
     /**
-     * ASIN продукта
+     * GoLogin id
      * @type {string}
      * @memberof InlineResponse200114Rows
      */
-    asin?: string;
+    gologinId?: string;
     /**
-     * SKU введенным клиентом.
+     * Имя в профиле.
      * @type {string}
      * @memberof InlineResponse200114Rows
      */
-    skuByClient?: string;
+    name?: string;
     /**
-     * Есть ли товар в заказах
+     * email
+     * @type {string}
+     * @memberof InlineResponse200114Rows
+     */
+    email?: string;
+    /**
+     * Хешированный пароль от профиля
+     * @type {string}
+     * @memberof InlineResponse200114Rows
+     */
+    passwordHash?: string;
+    /**
+     * 
+     * @type {InlineResponse200114Client}
+     * @memberof InlineResponse200114Rows
+     */
+    client?: InlineResponse200114Client;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusShop}
+     * @memberof InlineResponse200114Rows
+     */
+    shop?: ApiV1AdminsGetProductsByStatusShop;
+    /**
+     * Parser state
      * @type {boolean}
      * @memberof InlineResponse200114Rows
      */
-    ordered?: boolean;
+    isActive?: boolean;
     /**
-     * 
-     * @type {number}
+     * Profile access to sellercentral
+     * @type {boolean}
      * @memberof InlineResponse200114Rows
      */
-    bsr?: number;
+    access?: boolean;
     /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse200114Rows
-     */
-    amazon?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineResponse200114Rows
-     */
-    fbafee?: number;
-    /**
-     * Код текущего статуса
-     * @type {number}
-     * @memberof InlineResponse200114Rows
-     */
-    status?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse200114Rows
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
+     * Profile status
      * @type {string}
      * @memberof InlineResponse200114Rows
      */
-    amazonTitle?: string;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineResponse200114Rows
-     */
-    strategyStatus?: number;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
-     * @memberof InlineResponse200114Rows
-     */
-    redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
-     * @memberof InlineResponse200114Rows
-     */
-    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200114Rows
-     */
-    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200114Rows
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
-     * @memberof InlineResponse200114Rows
-     */
-    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
-     * @memberof InlineResponse200114Rows
-     */
-    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    status?: string;
     /**
      * Дата создания
      * @type {string}

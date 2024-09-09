@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
-import { ApiV1ShopSellStatistics } from './api-v1-shop-sell-statistics';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
 
 /**
  * Схема получение лайт версии продажи магазина
@@ -30,10 +30,28 @@ export interface InlineResponse20094 {
     _id?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20094
      */
-    owner?: ApiV1AnnouncementsMyCreatedBy;
+    owner?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * GUID покупателя магазина
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    bidderId?: string;
+    /**
+     * GUID модератора магазина
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    moderatorId?: string;
+    /**
+     * GUID чата
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    chatId?: string;
     /**
      * Имя магазина для продажи
      * @type {string}
@@ -59,17 +77,29 @@ export interface InlineResponse20094 {
      */
     price?: number;
     /**
+     * Ежемесячная прибыль
+     * @type {number}
+     * @memberof InlineResponse20094
+     */
+    monthlyProfit?: number;
+    /**
+     * Ежемесячная чистая прибыль
+     * @type {number}
+     * @memberof InlineResponse20094
+     */
+    monthlyPureProfit?: number;
+    /**
      * Ежемесячный множитель
      * @type {number}
      * @memberof InlineResponse20094
      */
     monthlyMultiplier?: number;
     /**
-     * 
-     * @type {ApiV1ShopSellStatistics}
+     * Статистика магазина по месяцам
+     * @type {Array<ApiV1ShopSellStatistics1>}
      * @memberof InlineResponse20094
      */
-    statistics?: ApiV1ShopSellStatistics;
+    statistics?: Array<ApiV1ShopSellStatistics1>;
     /**
      * Дата создания бизнеса
      * @type {string}
@@ -82,6 +112,66 @@ export interface InlineResponse20094 {
      * @memberof InlineResponse20094
      */
     shopDetails?: string;
+    /**
+     * Ссылка магазина
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    shopLink?: string;
+    /**
+     * Массив активов
+     * @type {Array<string>}
+     * @memberof InlineResponse20094
+     */
+    shopAssets?: Array<string>;
+    /**
+     * Массив возможностей
+     * @type {Array<string>}
+     * @memberof InlineResponse20094
+     */
+    opportunities?: Array<string>;
+    /**
+     * Массив рисков
+     * @type {Array<string>}
+     * @memberof InlineResponse20094
+     */
+    risks?: Array<string>;
+    /**
+     * Массив требуемых навыков
+     * @type {Array<string>}
+     * @memberof InlineResponse20094
+     */
+    requiredSkills?: Array<string>;
+    /**
+     * Поддержка продавца включает
+     * @type {Array<string>}
+     * @memberof InlineResponse20094
+     */
+    sellIncludes?: Array<string>;
+    /**
+     * Причины продажи
+     * @type {Array<string>}
+     * @memberof InlineResponse20094
+     */
+    reasonForSale?: Array<string>;
+    /**
+     * Дополнительная информация
+     * @type {Array<string>}
+     * @memberof InlineResponse20094
+     */
+    additionalInfo?: Array<string>;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    updatedAt?: string;
 }
 
 

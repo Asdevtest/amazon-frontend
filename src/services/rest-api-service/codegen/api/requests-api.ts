@@ -49,9 +49,11 @@ import { InlineObject170 } from '../models';
 // @ts-ignore
 import { InlineObject5 } from '../models';
 // @ts-ignore
+import { InlineResponse200118 } from '../models';
+// @ts-ignore
 import { InlineResponse200119 } from '../models';
 // @ts-ignore
-import { InlineResponse200120 } from '../models';
+import { InlineResponse20087 } from '../models';
 // @ts-ignore
 import { InlineResponse20088 } from '../models';
 // @ts-ignore
@@ -60,8 +62,6 @@ import { InlineResponse20089 } from '../models';
 import { InlineResponse20090 } from '../models';
 // @ts-ignore
 import { InlineResponse20091 } from '../models';
-// @ts-ignore
-import { InlineResponse20092 } from '../models';
 // @ts-ignore
 import { InlineResponse20112 } from '../models';
 // @ts-ignore
@@ -1160,7 +1160,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsByProductLightGuidGet(guid: string, status?: string, excludeIdeaId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20091>>> {
+        async apiV1RequestsByProductLightGuidGet(guid: string, status?: string, excludeIdeaId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20090>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsByProductLightGuidGet(guid, status, excludeIdeaId, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1172,7 +1172,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsCalculateRequestCostGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20088>> {
+        async apiV1RequestsCalculateRequestCostGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20087>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsCalculateRequestCostGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1208,7 +1208,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsCustomGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200119>>> {
+        async apiV1RequestsCustomGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200118>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsCustomGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1221,7 +1221,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsCustomGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200120>> {
+        async apiV1RequestsCustomGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200119>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsCustomGuidGet(guid, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1266,7 +1266,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsGet(kind: 'VACANT' | 'MY' | 'PICKUPED_BY_ME' | 'ALL', productId?: string, onlyWaitedProposals?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20090>> {
+        async apiV1RequestsGet(kind: 'VACANT' | 'MY' | 'PICKUPED_BY_ME' | 'ALL', productId?: string, onlyWaitedProposals?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20089>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsGet(kind, productId, onlyWaitedProposals, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1279,7 +1279,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsGetExistingRequestsSpecTypeGuidGet(guid: string, specType: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20089>>> {
+        async apiV1RequestsGetExistingRequestsSpecTypeGuidGet(guid: string, specType: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20088>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsGetExistingRequestsSpecTypeGuidGet(guid, specType, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1392,7 +1392,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20092>>> {
+        async apiV1RequestsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20091>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsMediaGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1466,7 +1466,7 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsByProductLightGuidGet(guid: string, status?: string, excludeIdeaId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20091>> {
+        apiV1RequestsByProductLightGuidGet(guid: string, status?: string, excludeIdeaId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20090>> {
             return localVarFp.apiV1RequestsByProductLightGuidGet(guid, status, excludeIdeaId, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1477,7 +1477,7 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsCalculateRequestCostGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20088> {
+        apiV1RequestsCalculateRequestCostGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20087> {
             return localVarFp.apiV1RequestsCalculateRequestCostGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1510,7 +1510,7 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsCustomGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200119>> {
+        apiV1RequestsCustomGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200118>> {
             return localVarFp.apiV1RequestsCustomGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1522,7 +1522,7 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsCustomGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200120> {
+        apiV1RequestsCustomGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200119> {
             return localVarFp.apiV1RequestsCustomGuidGet(guid, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1564,7 +1564,7 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsGet(kind: 'VACANT' | 'MY' | 'PICKUPED_BY_ME' | 'ALL', productId?: string, onlyWaitedProposals?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20090> {
+        apiV1RequestsGet(kind: 'VACANT' | 'MY' | 'PICKUPED_BY_ME' | 'ALL', productId?: string, onlyWaitedProposals?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20089> {
             return localVarFp.apiV1RequestsGet(kind, productId, onlyWaitedProposals, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1576,7 +1576,7 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsGetExistingRequestsSpecTypeGuidGet(guid: string, specType: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20089>> {
+        apiV1RequestsGetExistingRequestsSpecTypeGuidGet(guid: string, specType: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20088>> {
             return localVarFp.apiV1RequestsGetExistingRequestsSpecTypeGuidGet(guid, specType, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1680,7 +1680,7 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20092>> {
+        apiV1RequestsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20091>> {
             return localVarFp.apiV1RequestsMediaGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

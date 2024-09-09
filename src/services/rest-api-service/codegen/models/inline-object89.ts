@@ -21,17 +21,11 @@
  */
 export interface InlineObject89 {
     /**
-     * текст отзыва/репорта
+     * uri полный путь до файла, для скачивания
      * @type {string}
      * @memberof InlineObject89
      */
-    text: string;
-    /**
-     * Прикрепленные ссылки на медиа для репорта/отзыва
-     * @type {Array<string>}
-     * @memberof InlineObject89
-     */
-    media?: Array<string>;
+    fileUrl: string;
 }
 
 
