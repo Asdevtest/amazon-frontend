@@ -53,9 +53,11 @@ export const TabTags = observer(() => {
       </div>
 
       <CustomDataGrid
+        checkboxSelection
         rowCount={viewModel.rowCount}
         sortModel={viewModel.sortModel}
         filterModel={viewModel.filterModel}
+        rowSelectionModel={viewModel.selectedRows}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         paginationModel={viewModel.paginationModel}
         pinnedColumns={viewModel.pinnedColumns}
@@ -94,6 +96,7 @@ export const TabTags = observer(() => {
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
       />
 
       <Modal openModal={viewModel.showAddOrEditTagModal} setOpenModal={viewModel.onClickToggleAddOrEditModal}>
