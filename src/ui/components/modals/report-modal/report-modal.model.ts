@@ -1,7 +1,7 @@
 import { BaseOptionType } from 'antd/es/select'
 import dayjs from 'dayjs'
 import { makeObservable, runInAction } from 'mobx'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, UIEvent } from 'react'
 import { toast } from 'react-toastify'
 import { v4 as uuid } from 'uuid'
 
@@ -22,7 +22,7 @@ import { ILaunch } from '@typings/shared/launch'
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { reportModalColumns } from './report-modal.columns'
-import { excludedLaunches, launchOptions, reportModalConfig } from './report-modal.config'
+import { excludedLaunches, getAsinOptions, launchOptions, reportModalConfig } from './report-modal.config'
 import {
   ChangeCommentCellValueType,
   ChangeDateCellValueType,
@@ -75,6 +75,9 @@ export class ReportModalModel extends UseProductsPermissions {
         ...listingLaunch.request,
         launch: listingLaunch,
       })) as IRequestWithLaunch[]
+  }
+  get asinOptions() {
+    return getAsinOptions(this.currentPermissionsData)
   }
 
   constructor({ reportId, defaultProduct }: IReportModalModelProps) {
@@ -323,4 +326,21 @@ export class ReportModalModel extends UseProductsPermissions {
       console.error(error)
     }
   } */
+
+  onPopupScroll = (e: UIEvent<HTMLElement>) => {
+    const element = e.target as HTMLElement
+    const scrollTop = element?.scrollTop
+    const containerHeight = element?.clientHeight
+    const contentHeight = element?.scrollHeight
+
+    if (contentHeight - (scrollTop + containerHeight) < 90) {
+      this.loadMoreDataHadler()
+    }
+  }
+
+  onDropdownVisibleChange = (isOpen: boolean) => {
+    if (isOpen) {
+      this.onGetProducts()
+    }
+  }
 }

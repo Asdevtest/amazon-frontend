@@ -33,7 +33,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       headerName: t(TranslationKey['Launch type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Launch type'])} />,
       renderCell: ({ row }: GridRowModel) => <LaunchCell row={row} product={product} onAddRequest={onAddRequest} />,
-      width: 170,
+      width: 165,
     },
 
     {
@@ -84,7 +84,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           onChange={onChangeCommentCellValue(row._id, 'comment')}
         />
       ),
-      width: 245,
+      width: 240,
     },
 
     {
