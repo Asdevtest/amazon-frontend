@@ -5,7 +5,6 @@ export const useStyles = makeStyles()(theme => ({
     position: 'relative',
     width: '100%',
     display: 'flex',
-    flexDirection: 'column',
     flex: '1 1 auto',
     overflowY: 'auto',
     background: theme.palette.background.second,

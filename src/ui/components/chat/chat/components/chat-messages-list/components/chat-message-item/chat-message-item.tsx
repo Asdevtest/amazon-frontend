@@ -102,6 +102,11 @@ export const ChatMessageItem: FC<ChatMessageItemProps> = memo(props => {
         [styles.unReadMessage]: unReadMessage && userId !== messageItem.user?._id,
       })}
       {...messageItemHover?.[1]}
+      onClick={() => {
+        if (selectedMessages?.length) {
+          onSelectMessage?.(messageItem)
+        }
+      }}
     >
       {index === 0 ||
       formatDateWithoutTimeLocal(createdAtLocalDatePrevMessage) !== formatDateWithoutTimeLocal(createdAtLocalDate) ? (

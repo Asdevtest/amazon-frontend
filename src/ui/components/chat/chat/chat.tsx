@@ -306,6 +306,18 @@ export const Chat: FC<ChatProps> = memo(
             onClickForwardMessages={onClickForwardMessages}
           />
 
+          {isShowChatInfo && (
+            <ChatInfo
+              chat={chat}
+              currentOpponent={currentOpponent}
+              isGroupChat={isGroupChat}
+              userId={userId}
+              onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
+              onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
+              onClickEditGroupChatInfo={onClickEditGroupChatInfo}
+            />
+          )}
+
           <div className={styles.hideAndShowIconWrapper} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
             {isShowChatInfo ? (
               <HideArrowIcon className={cx(styles.arrowIcon, styles.hideArrow)} />
@@ -324,18 +336,6 @@ export const Chat: FC<ChatProps> = memo(
             >
               <MdKeyboardArrowDown size={22} />
             </div>
-          )}
-
-          {isShowChatInfo && (
-            <ChatInfo
-              chat={chat}
-              currentOpponent={currentOpponent}
-              isGroupChat={isGroupChat}
-              userId={userId}
-              onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
-              onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
-              onClickEditGroupChatInfo={onClickEditGroupChatInfo}
-            />
           )}
         </div>
 

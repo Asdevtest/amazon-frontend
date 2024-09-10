@@ -70,7 +70,7 @@ export const useStyles = makeStyles()(theme => ({
 
   messageText: {
     width: '100%',
-    fontSize: 18,
+    fontSize: 16,
     lineHeight: '25px',
     wordWrap: 'break-word',
     whiteSpace: 'pre-wrap',

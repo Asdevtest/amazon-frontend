@@ -32,7 +32,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'end',
     flexDirection: 'row-reverse',
     gap: 10,
-    padding: '10px 0px',
+    padding: '5px 0px',
 
     '&:hover': {
       background: 'rgba(0,0,0, .1)',

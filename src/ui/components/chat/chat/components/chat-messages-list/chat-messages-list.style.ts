@@ -8,7 +8,6 @@ export const useStyles = makeStyles()(() => ({
       '& > div': {
         display: 'flex',
         flexDirection: 'column',
-        gap: '10px',
       },
     },
   },
