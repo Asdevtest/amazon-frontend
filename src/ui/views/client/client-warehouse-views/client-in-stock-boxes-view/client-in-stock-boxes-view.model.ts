@@ -528,8 +528,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     priorityReason: string,
   ) {
     this.onTriggerOpenModal('showConfirmModal')
-    console.log('onClickConfirmCreateChangeTasks', boxData)
-    console.log('selectedProduct', this.selectedProduct)
     this.confirmModalSettings = {
       isWarning: false,
       title: '',
@@ -1076,7 +1074,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           dataWithFiles: dataToBarCodeChange,
           nameOfField: 'tmpBarCode',
         })
-        console.log('dataToBarCodeChange', dataToBarCodeChange)
       }
 
       const getNewItems = async () => {
