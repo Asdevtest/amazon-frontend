@@ -1,6 +1,7 @@
 import { UploadFile } from 'antd'
 import { makeAutoObservable } from 'mobx'
 import { toast } from 'react-toastify'
+import { v4 as uuid } from 'uuid'
 
 import { avatarValidTypes } from '@constants/media/image-types'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,7 +13,7 @@ import { UploadFileType } from '@typings/shared/upload-file'
 
 export class CustomAvatarModel {
   previewOpen = false
-  previewImage: string | undefined = undefined
+  previewImage: string = ''
   loading = false
   fileList: UploadFile[] = []
 
@@ -20,7 +21,7 @@ export class CustomAvatarModel {
     if (initialUrl) {
       this.fileList = [
         {
-          uid: '-1',
+          uid: uuid(),
           name: 'avatar.png',
           status: 'done',
           url: initialUrl,
@@ -42,28 +43,23 @@ export class CustomAvatarModel {
     this.fileList = newFileList
   }
 
-  handlePreview = async (file: UploadFile) => {
-    const imageSrc = file.url || file.preview
-    if (!imageSrc) {
-      const reader = new FileReader()
-      reader.readAsDataURL(file.originFileObj as File)
-      reader.onload = () => {
-        this.previewImage = reader.result as string
-        this.setPreviewOpen(true)
-      }
+  onPreviewImage = async (file: UploadFile) => {
+    if (!file.url && file.originFileObj) {
+      const base64 = await convertToBase64(file.originFileObj)
+      this.previewImage = base64
     } else {
-      this.previewImage = imageSrc
-      this.setPreviewOpen(true)
+      this.previewImage = file.url || file.preview || ''
     }
+    this.setPreviewOpen(true)
   }
 
-  handleRemove = () => {
+  onRemoveImage = () => {
     this.fileList = []
-    this.previewImage = undefined
+    this.previewImage = ''
     this.loading = false
   }
 
-  handleChange = async (newFileList: UploadFile[], onSubmit?: (imageData: UploadFileType) => void) => {
+  onChangeImage = async (newFileList: UploadFile[], onSubmit?: (imageData: UploadFileType) => void) => {
     const lastFile = newFileList.slice(-1)[0]
     if (!lastFile) return
 

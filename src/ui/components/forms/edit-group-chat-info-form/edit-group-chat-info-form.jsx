@@ -46,10 +46,8 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
         onChange={e => setState({ ...state, title: e.target.value })}
       />
 
-      <div className={styles.editImageContainer}>
-        <div className={styles.avatarContainer}>
-          <CustomAvatar isEditable initialUrl={currentChatAvatar} onSubmit={onChangeImage} />
-        </div>
+      <div className={styles.avatarContainer}>
+        <CustomAvatar isEditable initialUrl={currentChatAvatar} onSubmit={onChangeImage} />
       </div>
 
       <div className={styles.btnsWrapper}>
