@@ -14,6 +14,7 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { InlineResponse20046Destination } from './inline-response20046-destination';
 import { InlineResponse20046OrderSupplier } from './inline-response20046-order-supplier';
@@ -22,6 +23,11 @@ import { InlineResponse20046Product } from './inline-response20046-product';
 /**
  * Заказ.
 =======
+=======
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { InlineResponse20046ListingLaunches } from './inline-response20046-listing-launches';
+import { InlineResponse20046Product } from './inline-response20046-product';
+>>>>>>> pre-release
 
 /**
  * 
@@ -31,6 +37,7 @@ import { InlineResponse20046Product } from './inline-response20046-product';
  */
 export interface InlineResponse20046Rows {
     /**
+<<<<<<< HEAD
 <<<<<<< HEAD
      * id заказ.
      * @type {number}
@@ -42,11 +49,15 @@ export interface InlineResponse20046Rows {
 =======
      * GUID продукта в базе данных
 >>>>>>> pre-release
+=======
+     * GUID в базе данных
+>>>>>>> pre-release
      * @type {string}
      * @memberof InlineResponse20046Rows
      */
     _id?: string;
     /**
+<<<<<<< HEAD
 <<<<<<< HEAD
      * Комментарии клиента.
      * @type {string}
@@ -137,6 +148,19 @@ export interface InlineResponse20046Rows {
      * @memberof InlineResponse20046Rows
      */
     productId?: string;
+=======
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20046Rows
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20046Rows
+     */
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+>>>>>>> pre-release
     /**
      * 
      * @type {InlineResponse20046Product}
@@ -144,6 +168,7 @@ export interface InlineResponse20046Rows {
      */
     product?: InlineResponse20046Product;
     /**
+<<<<<<< HEAD
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20046Rows
@@ -173,40 +198,43 @@ export enum InlineResponse20046RowsPriorityEnum {
 
 =======
      * ASIN продукта
+=======
+     * Is Actual report
+     * @type {boolean}
+     * @memberof InlineResponse20046Rows
+     */
+    isActive?: boolean;
+    /**
+     * New product price
+     * @type {number}
+     * @memberof InlineResponse20046Rows
+     */
+    newProductPrice?: number;
+    /**
+     * Description of product_listing_report
+>>>>>>> pre-release
      * @type {string}
      * @memberof InlineResponse20046Rows
      */
-    asin?: string;
+    description?: string;
     /**
-     * ID магазинa для продукта
+     * 
+     * @type {Array<InlineResponse20046ListingLaunches>}
+     * @memberof InlineResponse20046Rows
+     */
+    listingLaunches?: Array<InlineResponse20046ListingLaunches>;
+    /**
+     * 
      * @type {string}
      * @memberof InlineResponse20046Rows
      */
-    shopId?: string;
+    createdAt?: string;
     /**
-     * Заголовок на товар с сайта амазон.
+     * 
      * @type {string}
      * @memberof InlineResponse20046Rows
      */
-    amazonTitle?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20046Rows
-     */
-    skuByClient?: string;
-    /**
-     * GUID пользователя(байера)
-     * @type {string}
-     * @memberof InlineResponse20046Rows
-     */
-    buyerId?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20046Rows
-     */
-    images?: Array<string>;
+    updatedAt?: string;
 }
 
 

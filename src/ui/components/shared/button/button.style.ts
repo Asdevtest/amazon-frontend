@@ -178,14 +178,14 @@ export const useStyles = makeStyles()(theme => {
       position: 'absolute',
       top: '-9px',
       right: '-9px',
-      zIndex: 7,
+      zIndex: 6,
     },
 
     tooltipsCenterWrapper: {
       position: 'absolute',
       top: 'calc(50% - 10.5px)',
       right: 15,
-      zIndex: 7,
+      zIndex: 6,
     },
 
     tooltip: {
@@ -256,7 +256,6 @@ export const useStyles = makeStyles()(theme => {
         backgroundColor: primaryHoverBackground,
 
         '> svg': {
-          fill: primaryHoverBackground,
           color: primaryHoverColor,
         },
       },

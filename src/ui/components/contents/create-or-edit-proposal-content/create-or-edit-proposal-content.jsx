@@ -159,7 +159,7 @@ export const CreateOrEditProposalContent = memo(props => {
         <div className={styles.infoBlockWrapper}>
           <div className={styles.infoCellWrapper}>
             <p className={styles.requestTitleName}>{t(TranslationKey['Request title'])}</p>
-            <p>{request?.request?.title}</p>
+            <p className={styles.requestTitle}>{request?.request?.title}</p>
           </div>
 
           <div className={styles.infoCellWrapper}>
@@ -250,7 +250,7 @@ export const CreateOrEditProposalContent = memo(props => {
             className={styles.descriptionField}
             containerClasses={styles.descriptionConrainer}
             labelClasses={styles.spanLabel}
-            inputProps={{ maxLength: 2100 }}
+            inputProps={{ maxLength: 2000 }}
             minRows={7}
             maxRows={7}
             label={t(TranslationKey['Describe your proposal'])}

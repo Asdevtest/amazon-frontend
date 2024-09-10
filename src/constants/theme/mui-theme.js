@@ -22,6 +22,21 @@ const baseThemeSettings = {
 }
 
 export const globalStyles = theme => ({
+  '.viewWrapper': {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+    gap: '10px',
+  },
+
+  '.tableWrapper': {
+    flex: 1,
+    padding: '3px',
+    overflow: 'auto',
+    width: '100%',
+  },
+
   '::-webkit-scrollbar': {
     width: '10px',
     height: '10px',
@@ -99,6 +114,11 @@ export const globalStyles = theme => ({
   '.MuiCheckbox-root': {
     padding: '0 !important',
   },
+
+  // filter menu popup
+  '.MuiPopper-root': {
+    zIndex: '7 !important',
+  },
 })
 
 export const lightTheme = createTheme({
@@ -152,10 +172,6 @@ export const lightTheme = createTheme({
         columnHeaderTitleContainer: {
           flexDirection: 'row !important',
           paddingRight: 25,
-
-          '.MuiDataGrid-columnHeaderTitleContainerContent': {
-            width: '100%',
-          },
         },
 
         menuIconButton: {
@@ -389,6 +405,7 @@ export const lightTheme = createTheme({
 
     background: {
       general: '#fff',
+      generalInverted: '#2B2B34',
       second: '#F8F8F8',
       third: '#f4f4f4',
       chatIncomeMessage: '#EBEBEB',
@@ -447,7 +464,7 @@ export const lightTheme = createTheme({
       xls: '#0F8105',
       pdf: '#D70D0D',
       doc: '#0A6FE8',
-      txt: '#F17048',
+      txt: '#C69109',
       zip: '#6D56F8',
       file: '#475467',
       icon: '#E9F0FA',
@@ -622,10 +639,6 @@ export const darkTheme = createTheme({
         columnHeaderTitleContainer: {
           flexDirection: 'row !important',
           paddingRight: 25,
-
-          '.MuiDataGrid-columnHeaderTitleContainerContent': {
-            width: '100%',
-          },
         },
 
         menuIconButton: {
@@ -954,6 +967,7 @@ export const darkTheme = createTheme({
 
     background: {
       general: '#2B2B34',
+      generalInverted: '#fff',
       second: '#21212B',
       third: '#25252D',
       searchSelectHover: '#25252D',
@@ -1013,7 +1027,7 @@ export const darkTheme = createTheme({
       xls: '#02AE44',
       pdf: '#DD2121',
       doc: '#4CA1DE',
-      txt: '#E37451',
+      txt: '#C69109',
       zip: '#8B79F9',
       file: '#A2ADBD',
       icon: '#475467',

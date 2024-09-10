@@ -1,4 +1,3 @@
-import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -6,14 +5,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   IdeaRequestsCell,
   ManyUserLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
-  ProductAsinCell,
+  NormDateCell,
+  ProductCell,
   RealizedIdeaActionsCell,
-  ShortDateCell,
   TimeFromSecondsCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -36,11 +35,11 @@ export const clientRealizedIdeasColumns = rowHandlers => {
         const product = params.value
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
@@ -49,8 +48,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -58,7 +56,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
+      renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
 
       width: 100,
       disableCustomSort: true,
@@ -77,11 +75,11 @@ export const clientRealizedIdeasColumns = rowHandlers => {
         const product = params.value
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
@@ -90,8 +88,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.CHILD }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -110,7 +107,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Ordered quantity']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ordered quantity'])} />,
 
-      renderCell: params => <MultilineTextCell text={params.row?.order?.amount} />,
+      renderCell: params => <Text isCell text={params.row?.order?.amount} />,
       width: 110,
       filterable: false,
       disableCustomSort: true,
@@ -121,7 +118,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Order date']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order date'])} />,
 
-      renderCell: params => <ShortDateCell value={params.row?.order?.createdAt} />,
+      renderCell: params => <NormDateCell value={params.row?.order?.createdAt} />,
       width: 110,
       filterable: false,
       disableCustomSort: true,
@@ -202,7 +199,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -213,7 +210,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
       headerName: t(TranslationKey['Client comment']),
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
@@ -224,7 +221,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Status Updated']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
-      renderCell: params => <ShortDateCell value={params.value} />,
+      renderCell: params => <NormDateCell value={params.value} />,
       width: 91,
       columnKey: columnnsKeys.shared.DATE,
     },

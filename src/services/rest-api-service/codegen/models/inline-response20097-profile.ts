@@ -50,6 +50,15 @@ export interface InlineResponse20097Profile {
      * @memberof InlineResponse20097Profile
      */
     requestStatus?: string;
+<<<<<<< HEAD
+=======
+    /**
+     * Profile status
+     * @type {string}
+     * @memberof InlineResponse20097Profile
+     */
+    status?: string;
+>>>>>>> pre-release
 }
 
 

@@ -13,18 +13,16 @@ import {
   FourMonthesStockCell,
   InStockCell,
   ManyUserLinkCell,
-  MultilineStatusCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
+  NormDateCell,
   OrderIdAndAmountCountCell,
-  ProductAsinCell,
+  ProductCell,
   ProductVariationsCell,
   RedFlagsCell,
   SelectRowCell,
-  ShortDateCell,
   TagsCell,
-  ToFixedCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -34,6 +32,7 @@ import { productionTimeColumnMenuItems } from '@config/data-grid-column-menu/pro
 
 import { complexCells } from './cell-types'
 import { productionTimeColumnMenuValue } from './client-inventory-view.config'
+import { inventoryAdditionalFilterFields } from './client-inventory-view.constants'
 import { getCellType } from './helpers/get-cell-type'
 
 export const clientInventoryColumns = ({
@@ -42,7 +41,6 @@ export const clientInventoryColumns = ({
   fourMonthesStockHandlers,
   stockUsHandlers,
   otherHandlers,
-  additionalFields,
   storekeepers,
 }) => {
   const defaultColumns = [
@@ -86,26 +84,19 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
       renderCell: ({ row }) => (
-        <ProductAsinCell
-          image={row?.images?.[0]}
-          amazonTitle={row?.amazonTitle}
-          asin={row?.asin}
-          skuByClient={row?.skuByClient}
-        />
+        <ProductCell image={row?.images?.[0]} title={row?.amazonTitle} asin={row?.asin} sku={row?.skuByClient} />
       ),
-
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
-      field: 'shopId',
+      field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: params => <MultilineTextCell twoLines text={params.row?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row?.shop?.name} />,
       valueGetter: ({ row }) => row?.shop?.name,
       width: 90,
       disableCustomSort: true,
@@ -116,18 +107,17 @@ export const clientInventoryColumns = ({
       field: 'strategyStatus',
       headerName: t(TranslationKey.Strategy),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
-      renderCell: params => <MultilineTextCell text={productStrategyStatusesEnum[params.value]?.replace(/_/g, ' ')} />,
+      renderCell: params => <Text isCell text={productStrategyStatusesEnum[params.value]?.replace(/_/g, ' ')} />,
       transformValueMethod: status => productStrategyStatusesEnum[status]?.replace(/_/g, ' '),
       width: 140,
       columnKey: columnnsKeys.shared.STRING_VALUE,
-
     },
 
     {
       field: 'fbaFbmStockSum',
       headerName: 'Available',
       renderHeader: () => <MultilineTextHeaderCell text={'Available'} />,
-      renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
+      renderCell: params => <Text isCell text={String(params.value)} />,
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -136,7 +126,7 @@ export const clientInventoryColumns = ({
       field: 'reservedSum',
       headerName: t(TranslationKey.Reserved),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
-      renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
+      renderCell: params => <Text isCell text={String(params.value)} />,
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -146,16 +136,17 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.Inbound),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
       renderCell: params => (
-        <MultilineTextCell
-          link={Number(params.value) > 0}
-          text={String(params.value)}
-          onClickText={e => {
+        <div
+          type="submit"
+          onClick={e => {
             if (Number(params.value) > 0) {
               e.stopPropagation()
               otherHandlers.onOpenProductDataModal(params.row, true)
             }
           }}
-        />
+        >
+          <Text isCell text={String(params.value)} />
+        </div>
       ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -199,19 +190,20 @@ export const clientInventoryColumns = ({
 
     {
       field: 'inTransfer',
-      headerName: 'in Transfer',
-      renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
+      headerName: 'In Transfer',
+      renderHeader: () => <MultilineTextHeaderCell text={'In Transfer'} />,
       renderCell: params => (
-        <MultilineTextCell
-          link={Number(params.value) > 0}
-          text={String(params.value)}
-          onClickText={e => {
+        <div
+          type="submit"
+          onClick={e => {
             if (Number(params.value) > 0) {
               e.stopPropagation()
               otherHandlers.onOpenProductDataModal(params.row, false)
             }
           }}
-        />
+        >
+          <Text isCell text={String(params.value)} />
+        </div>
       ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -243,7 +235,7 @@ export const clientInventoryColumns = ({
       field: 'sumStock',
       headerName: t(TranslationKey['Stock sum']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
-      renderCell: params => <MultilineTextCell text={Math.round(params.value)} />,
+      renderCell: params => <Text isCell text={Math.round(params.value)} />,
       valueGetter: ({ row }) => toFixed(row?.sumStock, 2),
       width: 120,
       type: 'number',
@@ -254,7 +246,7 @@ export const clientInventoryColumns = ({
       field: 'stockCost',
       headerName: t(TranslationKey['Stock cost']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock cost'])} />,
-      renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       valueGetter: ({ row }) => toFixed(row?.stockCost, 2),
       width: 120,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -284,7 +276,7 @@ export const clientInventoryColumns = ({
       field: 'amazon',
       headerName: t(TranslationKey['Amazon price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-      renderCell: params => <ToFixedCell value={params.value} fix={2} />,
+      renderCell: params => <Text isCell value={toFixed(params.value, 2)} />,
       width: 80,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -293,7 +285,7 @@ export const clientInventoryColumns = ({
       field: 'profit',
       headerName: t(TranslationKey.Profit),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
-      renderCell: params => <ToFixedCell value={params.value} fix={2} />,
+      renderCell: params => <Text isCell value={toFixed(params.value, 2)} />,
       width: 90,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -302,7 +294,7 @@ export const clientInventoryColumns = ({
       field: 'fbafee',
       headerName: t(TranslationKey.FBA),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FBA)} />,
-      renderCell: params => <ToFixedCell value={params.value} fix={2} />,
+      renderCell: params => <Text isCell value={toFixed(params.value, 2)} />,
       width: 70,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -315,7 +307,7 @@ export const clientInventoryColumns = ({
         const currentSupplier = params.row.currentSupplier
 
         return currentSupplier ? (
-          <MultilineTextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
+          <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
         ) : null
       },
       valueGetter: params => {
@@ -364,7 +356,7 @@ export const clientInventoryColumns = ({
       field: 'transparency',
       headerName: 'Transparency Codes',
       renderHeader: () => <MultilineTextHeaderCell text={'Transparency Codes'} />,
-      renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+      renderCell: params => <Text isCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
       width: 135,
       columnKey: columnnsKeys.shared.YES_NO,
     },
@@ -411,7 +403,8 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: params => (
-        <MultilineTextCell
+        <Text
+          isCell
           text={t(productStatusTranslateKey(ProductStatusByCode[params.row?.status]))}
           color={colorByProductStatus(ProductStatusByCode[params.row?.status])}
         />
@@ -425,7 +418,7 @@ export const clientInventoryColumns = ({
       field: 'createdAt',
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-      renderCell: params => <ShortDateCell value={params.value} />,
+      renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -434,7 +427,7 @@ export const clientInventoryColumns = ({
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: params => <ShortDateCell value={params.value} />,
+      renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -443,7 +436,7 @@ export const clientInventoryColumns = ({
       field: 'ideasOnCheck',
       headerName: t(TranslationKey['Ideas to Check']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Ideas to Check'])} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 100,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -452,7 +445,7 @@ export const clientInventoryColumns = ({
       field: 'ideasClosed',
       headerName: t(TranslationKey['Closed Ideas']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Closed Ideas'])} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 100,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -461,7 +454,7 @@ export const clientInventoryColumns = ({
       field: 'ideasFinished',
       headerName: t(TranslationKey['Verified ideas']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Verified ideas'])} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 120,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -504,7 +497,7 @@ export const clientInventoryColumns = ({
       field: 'clientComment',
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       valueGetter: ({ row }) => row?.clientComment,
       width: 400,
       disableCustomSort: true,
@@ -590,45 +583,38 @@ export const clientInventoryColumns = ({
     defaultColumns.splice(11, 1, ...storekeeperCells)
   }
 
-  if (additionalFields) {
-    for (const table in additionalFields) {
-      if (additionalFields[table]) {
-        const columns = additionalFields[table]
+  for (const table in inventoryAdditionalFilterFields) {
+    if (inventoryAdditionalFilterFields[table]) {
+      const columns = inventoryAdditionalFilterFields[table]
 
-        if (columns?.some(column => complexCells?.includes(column))) {
-          const formedTableName = formatCamelCaseString(table)
+      if (columns?.some(column => complexCells?.includes(column))) {
+        const formedTableName = formatCamelCaseString(table)
 
-          const complexCell = {
-            field: table,
-            headerName: `${formedTableName} product`,
-            renderHeader: () => <MultilineTextHeaderCell text={`${formedTableName} product`} />,
-            valueGetter: ({ row }) => row?.[table]?.asin,
-            renderCell: ({ row }) => {
-              const product = row?.[table]
+        const complexCell = {
+          field: table,
+          headerName: `${formedTableName} product`,
+          renderHeader: () => <MultilineTextHeaderCell text={`${formedTableName} product`} />,
+          valueGetter: ({ row }) => row?.[table]?.asin,
+          renderCell: ({ row }) => {
+            const product = row?.[table]
 
-              return (
-                <ProductAsinCell withoutTitle image={product?.image} asin={product?.asin} skuByClient={product?.sku} />
-              )
-            },
+            return <ProductCell image={product?.image} asin={product?.asin} sku={product?.sku} />
+          },
 
-            fields: getProductColumnMenuItems({ withoutTitle: true }),
-            columnMenuConfig: getProductColumnMenuValue({
-              isSimpleSku: true,
-            }),
-            columnKey: columnnsKeys.shared.MULTIPLE,
-            width: 260,
-            minWidth: 100,
-          }
-
-          defaultColumns.push(complexCell)
+          fields: getProductColumnMenuItems({ withoutTitle: true }),
+          columnMenuConfig: getProductColumnMenuValue(),
+          columnKey: columnnsKeys.shared.MULTIPLE,
+          width: 170,
         }
 
-        for (const column of columns) {
-          const cell = getCellType(column, table)
+        defaultColumns.push(complexCell)
+      }
 
-          if (cell) {
-            defaultColumns.push(cell)
-          }
+      for (const column of columns) {
+        const cell = getCellType(column, table)
+
+        if (cell) {
+          defaultColumns.push(cell)
         }
       }
     }

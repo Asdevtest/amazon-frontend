@@ -14,8 +14,16 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+<<<<<<< HEAD
 import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
+=======
+import { ApiV1RequestProposalsCreatedBy } from './api-v1-request-proposals-created-by';
+import { ApiV1RequestProposalsDetailsCustom } from './api-v1-request-proposals-details-custom';
+import { ApiV1RequestProposalsMedia } from './api-v1-request-proposals-media';
+import { ApiV1RequestProposalsRequest } from './api-v1-request-proposals-request';
+import { ApiV1RequestProposalsSourceFiles } from './api-v1-request-proposals-source-files';
+>>>>>>> pre-release
 
 /**
  * 
@@ -24,59 +32,174 @@ import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-
  */
 export interface InlineResponse20086 {
     /**
-     * Гуид медиа
+     * Guid продожения к заявке.
      * @type {string}
      * @memberof InlineResponse20086
      */
     _id?: string;
     /**
-     * Файл для записи в FreelanceSource
+     * Guid заявки к которой относится данное предложение.
      * @type {string}
      * @memberof InlineResponse20086
      */
-    sourceFile?: string;
+    requestId?: string;
     /**
-     * Комментарий к файлу
+     * Тип предложения.
      * @type {string}
      * @memberof InlineResponse20086
      */
-    comments?: string;
+    type?: string;
     /**
-     * 
-     * @type {ApiV1RequestProposalsFreelanceSourcesProposal}
-     * @memberof InlineResponse20086
-     */
-    proposal?: ApiV1RequestProposalsFreelanceSourcesProposal;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMySpec}
-     * @memberof InlineResponse20086
-     */
-    spec?: ApiV1AnnouncementsMySpec;
-    /**
-     * гуид продукта
+     *  CREATED - предложение по заявке создано, с ценой и временем выполнения от исполнителя OFFER_CONDITIONS_ACCEPTED - условия предложения были приняты клиентом, после этого начиначется отсчет времени на выполнение заявки, с этого статуса можно перейти только на READY_TO_VERIFY, с этого момента начинаем учитывать этого исполнителя в счетчике людей работающих по заявке OFFER_CONDITIONS_REJECTED - условия предложения были отклонены клиентом. После изменения условий клиентом выставляется статус OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_CORRECTED - исполнитель отредактировал свои условия по предложению чтобы клиент опять их посмотрел и решил принимает или нет, после этого статуса можно опять перейти на OFFER_CONDITIONS_ACCEPTED или OFFER_CONDITIONS_REJECTED READY_TO_VERIFY - статус выставляет исполнитель, статус говорит о том что исполнитель выполнил работу и клиент/супервизор может ее проверять, после этого статуса можно выставить VERIFYING_BY_SUPERVISOR или TO_CORRECT, а так же закрывающие статусы VERIFYING_BY_SUPERVISOR - работа проверяется супервизором TO_CORRECT - отправляется на доработку от клиента/супервизора CORRECTED - исполнитель отмечает работу как исправленная CANCELED_BY_CREATOR_OF_REQUEST - предложение закрывается клиентом, обязательно с комментарием, финальный статус, может быть выставлено только при статусе OFFER_CONDITIONS_REJECTED. Думаю что тут будет еще условия но нужно это обсудить. Этот статус не очень безопасный или может привести к перегрузу админа для решения конфликтных ситуаций CANCELED_BY_SUPERVISOR - предложение закрывается супервизором, обязательно с комментарием, финальный статус, может быть выставлен в любой момент. Тут должна появиться возможность создать запрос в поддержку для решения конфликтных ситуаций, это позже обсудим. CANCELED_BY_EXECUTOR - закрыто исполнителем, обязательно с комментарием, финальный статус, может быть выставлен в любой момент ACCEPTED_BY_CLIENT - принято клиентом, происходи оплата ACCEPTED_BY_SUPERVISOR - принято супервизором, происходи оплата EXPIRED - проставляется автоматически, если время указанное в предложении от исполнителя истекло а предложение не было уже в одном из финальных статусов 
      * @type {string}
      * @memberof InlineResponse20086
      */
-    productId?: string;
+    status?: InlineResponse20086StatusEnum;
     /**
+<<<<<<< HEAD
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20086
      */
     createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+=======
+     * Время закрытия предложения.
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    timeoutAt?: string;
+>>>>>>> pre-release
     /**
-     * Дата создания.
+     * Время на выполнение, в часах.
+     * @type {number}
+     * @memberof InlineResponse20086
+     */
+    execution_time?: number;
+    /**
+     * Количество попыток, подать предложение или исправить результат работы.
+     * @type {number}
+     * @memberof InlineResponse20086
+     */
+    attempts?: number;
+    /**
+     * Цена предложения.
+     * @type {number}
+     * @memberof InlineResponse20086
+     */
+    price?: number;
+    /**
+     * Комментарий к предложению.
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    comment?: string;
+    /**
+     * Ссылки на медиафайлы.
+     * @type {Array<string>}
+     * @memberof InlineResponse20086
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * GUID клиента .
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    clientId?: string;
+    /**
+     * GUID супервизора.
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    supervisorId?: string;
+    /**
+     * GUID чата.
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    chatId?: string;
+    /**
+     * GUID любого, кто последний редактировал предложение.
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    lastModifiedById?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20086
+     */
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {Array<ApiV1RequestProposalsSourceFiles>}
+     * @memberof InlineResponse20086
+     */
+    sourceFiles?: Array<ApiV1RequestProposalsSourceFiles>;
+    /**
+     * 
+     * @type {Array<ApiV1RequestProposalsMedia>}
+     * @memberof InlineResponse20086
+     */
+    media?: Array<ApiV1RequestProposalsMedia>;
+    /**
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse20086
      */
     createdAt?: string;
     /**
-     * Дата создания.
+     * Дата изменения
      * @type {string}
      * @memberof InlineResponse20086
      */
     updatedAt?: string;
+    /**
+     * Название предложения
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    title?: string;
+    /**
+     * 
+     * @type {ApiV1RequestProposalsCreatedBy}
+     * @memberof InlineResponse20086
+     */
+    createdBy?: ApiV1RequestProposalsCreatedBy;
+    /**
+     * 
+     * @type {ApiV1RequestProposalsDetailsCustom}
+     * @memberof InlineResponse20086
+     */
+    detailsCustom?: ApiV1RequestProposalsDetailsCustom;
+    /**
+     * 
+     * @type {ApiV1RequestProposalsRequest}
+     * @memberof InlineResponse20086
+     */
+    request?: ApiV1RequestProposalsRequest;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20086StatusEnum {
+    Created = 'CREATED',
+    OfferConditionsAccepted = 'OFFER_CONDITIONS_ACCEPTED',
+    ReadyToVerify = 'READY_TO_VERIFY',
+    OfferConditionsRejected = 'OFFER_CONDITIONS_REJECTED',
+    OfferConditionsCorrected = 'OFFER_CONDITIONS_CORRECTED',
+    VerifyingBySupervisor = 'VERIFYING_BY_SUPERVISOR',
+    ToCorrect = 'TO_CORRECT',
+    Corrected = 'CORRECTED',
+    CanceledByCreatorOfRequest = 'CANCELED_BY_CREATOR_OF_REQUEST',
+    CanceledBySupervisor = 'CANCELED_BY_SUPERVISOR',
+    CanceledByExecutor = 'CANCELED_BY_EXECUTOR',
+    AcceptedByClient = 'ACCEPTED_BY_CLIENT',
+    AcceptedBySupervisor = 'ACCEPTED_BY_SUPERVISOR',
+    Expired = 'EXPIRED',
+    CompleteProposalsAmountAchieved = 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED'
+}
+
 
 

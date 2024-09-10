@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { SearchInput } from '@components/shared/search-input'
-import { TextWithCopy } from '@components/shared/text-with-copy'
 
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
@@ -17,6 +16,8 @@ import { t } from '@utils/translations'
 import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './string-list-cell.style'
+
+import { Text } from '../../../shared/text/text'
 
 interface StringListCellProps {
   sourceString: string | string[]
@@ -57,7 +58,7 @@ export const StringListCell: FC<StringListCellProps> = memo(props => {
         items
           ?.slice(0, maxItemsDisplay)
           ?.filter(el => el)
-          ?.map((item, i) => <TextWithCopy key={i} text={item} />)}
+          ?.map((item, i) => <Text key={i} text={item} />)}
 
       {items?.length > maxItemsDisplay && (
         <Button styleType={ButtonStyle.TRANSPARENT} onClick={handleClick}>

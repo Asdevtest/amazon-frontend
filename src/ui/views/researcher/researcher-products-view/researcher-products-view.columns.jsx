@@ -8,15 +8,11 @@ import {
 import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  AsinCell,
-  MultilineStatusCell,
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-  NormDateCell,
-  ToFixedWithDollarSignCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
+import { Text } from '@components/shared/text'
 
+import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const researcherProductsViewColumns = () => [
@@ -24,7 +20,7 @@ export const researcherProductsViewColumns = () => [
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-    renderCell: params => <AsinCell asin={params.row.asin} />,
+    renderCell: params => <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={params.value} />,
     width: 180,
   },
 
@@ -44,7 +40,7 @@ export const researcherProductsViewColumns = () => [
         ? colorByProductStatus(ProductStatusByCode[params.row.status])
         : null
 
-      return <MultilineTextCell leftAlign text={status} color={color} />
+      return <Text isCell text={status} color={color} />
     },
     width: 280,
   },
@@ -54,7 +50,7 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
     renderCell: params => (
-      <MultilineStatusCell leftAlign status={productStrategyStatusesEnum[params.row.strategyStatus]} />
+      <Text isCell text={productStrategyStatusesEnum[params.row.strategyStatus]?.replace(/_/g, ' ')} />
     ),
     width: 180,
   },
@@ -63,7 +59,7 @@ export const researcherProductsViewColumns = () => [
     field: 'amazon',
     headerName: t(TranslationKey['Amazon price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-    renderCell: params => <ToFixedWithDollarSignCell leftAlign value={params.row.amazon} fix={2} />,
+    renderCell: params => <Text isCell text={toFixedWithDollarSign(params.row.amazon)} />,
     type: 'number',
     width: 150,
   },
@@ -72,7 +68,7 @@ export const researcherProductsViewColumns = () => [
     field: 'supervisorComment',
     headerName: t(TranslationKey["Supervisor's comment"]),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey["Supervisor's comment"])} />,
-    renderCell: params => <MultilineTextCell leftAlign twoLines text={params.row.checkednotes} />,
+    renderCell: params => <Text isCell text={params.row.checkednotes} />,
     filterable: false,
     sortable: false,
     flex: 1,

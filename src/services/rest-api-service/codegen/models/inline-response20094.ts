@@ -13,20 +13,30 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1ShopSellStatistics } from './api-v1-shop-sell-statistics';
+=======
+>>>>>>> pre-release
 
 /**
- * Схема получение лайт версии продажи магазина
+ * Успешный ответ.
  * @export
  * @interface InlineResponse20094
  */
 export interface InlineResponse20094 {
     /**
-     * GUID магазина на продажу.
+     * Флаг, показывает есть ли такой ASIN в базе или нет
+     * @type {boolean}
+     * @memberof InlineResponse20094
+     */
+    isExist?: boolean;
+    /**
+     * Причина из таблицы с асинами
      * @type {string}
      * @memberof InlineResponse20094
      */
+<<<<<<< HEAD
     _id?: string;
     /**
      * 
@@ -82,6 +92,9 @@ export interface InlineResponse20094 {
      * @memberof InlineResponse20094
      */
     shopDetails?: string;
+=======
+    reason?: string;
+>>>>>>> pre-release
 }
 
 

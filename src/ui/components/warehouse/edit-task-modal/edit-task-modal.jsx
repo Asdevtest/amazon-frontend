@@ -148,7 +148,15 @@ export const EditTaskModal = memo(
     const noTariffInSomeBox = task?.boxesBefore.some(box => !box.logicsTariff)
     const receiveNotFromBuyer = isReciveTypeTask && (isManyItemsInSomeBox || noTariffInSomeBox)
     const isSomeBoxHasntImageToRecive = isReciveTypeTask && newBoxes.some(box => !box?.images?.length)
-    const isSomeBoxHasntImageToEdit = isEditTask && newBoxes.some(box => !box?.images?.length)
+
+    const isImagesWereChanged = task?.boxesBefore.some(box => {
+      const newBox = newBoxes.find(newBox => newBox.humanFriendlyId === box.humanFriendlyId)
+
+      if (newBox) {
+        return newBox.images?.some((item, itemIndex) => item !== box?.images?.[itemIndex])
+      }
+    })
+
     const isTaskChangeBarcodeOrTransparency =
       isEditTask &&
       task?.boxesBefore.some(box => {
@@ -162,7 +170,9 @@ export const EditTaskModal = memo(
           })
         }
       })
-    const isNoChangesBarcodeOrTransparency = isTaskChangeBarcodeOrTransparency && isSomeBoxHasntImageToEdit
+
+    const isNoChangesBarcodeOrTransparency = isTaskChangeBarcodeOrTransparency && !isImagesWereChanged
+
     const disableSaveButton =
       !newBoxes.length ||
       requestStatus === loadingStatus.IS_LOADING ||
@@ -317,7 +327,7 @@ export const EditTaskModal = memo(
           )}
         </div>
 
-        <Modal openModal={receiveBoxModal} setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}>
+        <Modal missClickModalOn openModal={receiveBoxModal} setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}>
           <ReceiveBoxModal
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}

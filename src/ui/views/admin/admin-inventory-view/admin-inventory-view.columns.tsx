@@ -5,16 +5,16 @@ import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@consta
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  DownloadAndCopyBtnsCell,
   FeesValuesWithCalculateBtnCell,
-  MultilineTextCell,
+  LinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OpenInNewTabCell,
-  ProductAsinCell,
+  ProductCell,
   SupplierCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -51,11 +51,11 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
         const product = params.row
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
@@ -64,8 +64,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -74,7 +73,8 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
       renderCell: params => (
-        <MultilineTextCell
+        <Text
+          isCell
           color={colorByProductStatus(ProductStatusByCode[params.value as keyof typeof ProductStatusByCode])}
           // @ts-ignore
           text={t(productStatusTranslateKey(ProductStatusByCode[params.value]))}
@@ -96,7 +96,8 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
       renderCell: params => (
-        <MultilineTextCell
+        <Text
+          isCell
           text={humanFriendlyStategyStatus(
             productStrategyStatusesEnum[params?.value as keyof typeof productStrategyStatusesEnum],
           )}
@@ -137,7 +138,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Price),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
 
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
       type: 'number',
       width: 100,
       columnKey: columnnsKeys.shared.NUMBER,
@@ -148,9 +149,9 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 210,
-      renderCell: params => <DownloadAndCopyBtnsCell value={params.value} />,
-
+      width: 100,
+      renderCell: params => <LinkCell value={params.value} />,
+      align: 'center',
       disableCustomSort: true,
       filterable: false,
     },
@@ -223,7 +224,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Profit),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
 
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
       width: 150,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.NUMBER,
@@ -234,7 +235,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Margin),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Margin)} />,
 
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
       width: 150,
       type: 'number',
       columnKey: columnnsKeys.shared.NUMBER,
@@ -245,7 +246,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.BSR),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 150,
       type: 'number',
       columnKey: columnnsKeys.shared.NUMBER,
@@ -256,7 +257,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey['FBA fee , $']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
 
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
       width: 150,
       type: 'number',
       columnKey: columnnsKeys.shared.NUMBER,
@@ -267,7 +268,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey['FBA Amount']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA Amount'])} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 150,
       type: 'number',
       columnKey: columnnsKeys.shared.NUMBER,

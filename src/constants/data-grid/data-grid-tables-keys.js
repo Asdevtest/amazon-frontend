@@ -5,7 +5,6 @@ export const DataGridTablesKeys = {
   ADMIN_TASKS: 'adminTasksDataGridState',
   ADMIN_BOXES: 'adminBoxesDataGridState',
   ADMIN_USER_FINANCES: 'adminUserFinancesDataGridState',
-  // ADMIN_BATCHES: 'adminBatchesDataGridState',
   ADMIN_DESTINATIONS: 'adminDestinationsDataGridState',
   ADMIN_TAGS: 'adminTagsDataGridState',
 
@@ -41,6 +40,8 @@ export const DataGridTablesKeys = {
 
   WAREHOUSE_LOGISTICS_TARIFFS: 'warehouseLogisticsTariffsDataGridState',
   WAREHOUSE_SELF_TARIFFS: 'warehouseSelfTariffsDataGridState',
+  WAREHOUSE_MANAGEMENT_LOGISTICS_TARIFFS: 'warehouseManagementLogisticsTariffsDataGridState',
+  WAREHOUSE_MANAGEMENT_WAREHOUSE_SERVICES: 'warehouseManagementWarehouseServicesDataGridState',
 
   RESEARCHER_PRODUCTS: 'researcherProductsDataGridState',
   RESEARCHER_PRODUCT_VACANT_REQUESTS: 'researcherProductVacantRequestsDataGridState',
@@ -140,4 +141,6 @@ export const DataGridTablesKeys = {
   UPDATED_PATH_NOUTES: 'updatedPatchNoutes',
   PRODUCT_LISTING_REPORTS: 'productListingReports',
   PRODUCT_BATCHES_DATA: 'productBatchesData',
+  PARSING_PROFILES: 'parsingProfiles',
+  PARSING_REQUESTS: 'parsingRequests',
 }

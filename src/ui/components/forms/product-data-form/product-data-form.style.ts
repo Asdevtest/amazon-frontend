@@ -3,6 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   wrapper: {
     width: 1200,
+    height: 650,
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
@@ -55,10 +56,5 @@ export const useStyles = makeStyles()(() => ({
   links: {
     display: 'flex',
     flexDirection: 'column',
-  },
-
-  tableWrapper: {
-    height: 500,
-    width: '100%',
   },
 }))

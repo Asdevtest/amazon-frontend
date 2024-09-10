@@ -1,15 +1,18 @@
 import { Avatar, Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -68,7 +71,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
               <div className={styles.timeItemInfoWrapper}>
                 <Typography className={styles.text}>{t(TranslationKey.Status)}</Typography>
 
-                <RequestStatusCell status={item.status} />
+                <Text text={MyRequestStatusTranslate(item.status)} color={colorByStatus(item.status)} />
               </div>
             </div>
             <div className={styles.rightSubBlockWrapper}>
@@ -86,7 +89,10 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
           </div>
           <div className={!showDetails ? styles.buttonsWrapper : styles.buttonWrapper}>
             {!showDetails && (
-              <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickGetToWorkModal(item._id, item.requestId)}>
+              <Button
+                styleType={ButtonStyle.SUCCESS}
+                onClick={() => throttle(onClickGetToWorkModal(item._id, item.requestId))}
+              >
                 {t(TranslationKey['Get to work'])}
               </Button>
             )}

@@ -9,6 +9,7 @@ import { Modal } from '@components/shared/modal'
 import { FileIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -59,7 +60,7 @@ export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
         {showFiles ? <UploadFilesInput images={images} setImages={setImages} /> : null}
 
         <div className={styles.buttons}>
-          <Button disabled={disabledSubmitButton} onClick={handleClickSendButton}>
+          <Button disabled={disabledSubmitButton} onClick={throttle(handleClickSendButton)}>
             {t(TranslationKey.Send)}
           </Button>
           <Button styleType={ButtonStyle.CASUAL} onClick={() => setIsShowConfirmationModal(true)}>

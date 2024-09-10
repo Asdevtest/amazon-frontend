@@ -13,9 +13,12 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
 import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
+=======
+>>>>>>> pre-release
 
 /**
  * 
@@ -24,16 +27,17 @@ import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products
  */
 export interface InlineResponse20030 {
     /**
-     * GUID продукта в базе данных
+     * GUID в базе данных
      * @type {string}
      * @memberof InlineResponse20030
      */
     _id?: string;
     /**
-     * ASIN продукта
+     * Имя пользователя.
      * @type {string}
      * @memberof InlineResponse20030
      */
+<<<<<<< HEAD
     asin?: string;
     /**
      * SKU введенным клиентом.
@@ -185,6 +189,9 @@ export interface InlineResponse20030 {
      * @memberof InlineResponse20030
      */
     updatedAt?: string;
+=======
+    name?: string;
+>>>>>>> pre-release
 }
 
 

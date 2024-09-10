@@ -1,94 +1,122 @@
-import { CSSProperties, FC, PropsWithChildren, ReactElement, memo, useContext, useState } from 'react'
+import { Popconfirm } from 'antd'
+import { TextAreaProps } from 'antd/es/input'
+import Paragraph from 'antd/es/typography/Paragraph'
+import { ChangeEvent, FC, MouseEvent, ReactNode, memo, useEffect, useState } from 'react'
+import { MdOutlineEdit } from 'react-icons/md'
 
-import { Typography } from '@mui/material'
-import Tooltip from '@mui/material/Tooltip'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import { TooltipAttentionIcon, TooltipInfoIcon } from '@components/shared/svg-icons'
+import { CustomTextarea } from '@components/shared/custom-textarea'
 
-import { HintsContext } from '@contexts/hints-context'
+import { t } from '@utils/translations'
+
+import { useHover } from '@hooks/use-hover'
 
 import { useStyles } from './text.style'
 
-enum tooltipPositions {
-  Corner = 'corner',
-  Center = 'center',
-  BaseLine = 'baseLine',
-}
+/**
+ * The emphasis is on the "Textarea" component, additional props for the "Text" component must be added.
+ *
+ * @returns {HTMLElement} Returns a custom Text component.
+ */
 
-interface TextProps extends PropsWithChildren {
-  tooltipAttentionContent?: ReactElement | string
-  tooltipInfoContent?: ReactElement | string
-  tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner | tooltipPositions.BaseLine
+interface TextCellProps extends TextAreaProps {
+  text: string
+  isCell?: boolean
+  icon?: ReactNode
+  color?: string
+  center?: boolean
+  copyable?: boolean
+  editMode?: boolean
+  textRows?: number
   className?: string
-  containerClasses?: string
-  color?: CSSProperties['color']
+  type?: 'secondary' | 'success' | 'warning' | 'danger'
+  onClickSubmit?: (id: string, comment?: string) => void
 }
 
-export const Text: FC<TextProps> = memo(props => {
-  const { tooltipAttentionContent, tooltipInfoContent, tooltipPosition, children, className, containerClasses, color } =
-    props
+export const Text: FC<TextCellProps> = memo(props => {
+  const {
+    text,
+    isCell,
+    icon = null,
+    color,
+    center,
+    copyable = true,
+    rows = 3, // rows for Textarea compoent
+    editMode,
+    textRows = 3, // rows for Text component
+    className,
+    type,
+    onClickSubmit,
+    ...restProps
+  } = props
 
   const { classes: styles, cx } = useStyles()
+  const [value, setValue] = useState<string>('')
+  const [isHover, onMouseFunctions] = useHover()
 
-  const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
-  const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
+  useEffect(() => {
+    if (text) {
+      setValue(String(text))
+    }
+  }, [text])
 
-  const { hints } = useContext(HintsContext)
+  const handleChangeValue = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(event.target.value)
+  }
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      setValue(text)
+    }
+  }
+  const handleExpand = (event: MouseEvent) => {
+    event.stopPropagation()
+  }
+  const handleSubmit = () => {
+    onClickSubmit?.(value)
+    setValue('')
+  }
+
+  const isCopyable = !!text?.length && isHover && copyable
+
+  const paragraph = (
+    <div className={styles.container}>
+      {icon}
+      <Paragraph
+        type={type}
+        copyable={isCopyable}
+        ellipsis={{ tooltip: text, rows: textRows, onExpand: handleExpand }}
+        style={{ margin: 0, color, textAlign: center ? 'center' : 'left' }}
+        className={className}
+      >
+        {text}
+      </Paragraph>
+      {editMode ? <MdOutlineEdit className={styles.icon} /> : null}
+    </div>
+  )
 
   return (
-    <div
-      className={cx(
-        tooltipPosition && ['corner', 'baseLine'].includes(tooltipPosition)
-          ? styles.noFlextextWrapper
-          : styles.textWrapper,
-        containerClasses,
-      )}
-    >
-      <Typography className={className} style={{ color }}>
-        {children}
-      </Typography>
-
-      {tooltipAttentionContent || tooltipInfoContent ? (
-        <div
-          className={
-            tooltipPosition === 'corner'
-              ? styles.cornerTooltipsWrapper
-              : tooltipPosition === 'baseLine'
-              ? styles.baseLineTooltipsWrapper
-              : styles.tooltipsWrapper
+    <div {...onMouseFunctions} className={cx(styles.wrapper, { [styles.cell]: isCell })}>
+      {editMode ? (
+        <Popconfirm
+          title=""
+          icon={null}
+          placement="bottomLeft"
+          description={
+            <CustomTextarea {...restProps} allowClear rows={rows} value={value} onChange={handleChangeValue} />
           }
+          okText={t(TranslationKey.Save)}
+          cancelText={t(TranslationKey.Cancel)}
+          overlayClassName={styles.popconfirm}
+          onConfirm={handleSubmit}
+          onCancel={() => setValue(text)}
+          onOpenChange={handleOpenChange}
         >
-          {tooltipAttentionContent ? (
-            <Tooltip
-              arrow
-              open={openAttentionTooltip}
-              title={tooltipAttentionContent}
-              placement="top-end"
-              onClose={() => setOpenAttentionTooltip(false)}
-              onOpen={() => setOpenAttentionTooltip(true)}
-            >
-              <button onClick={() => setOpenAttentionTooltip(true)}>
-                <TooltipAttentionIcon className={styles.tooltip} />
-              </button>
-            </Tooltip>
-          ) : null}
-
-          {tooltipInfoContent && hints ? (
-            <Tooltip
-              arrow
-              open={openInfoTooltip}
-              title={tooltipInfoContent}
-              placement="top-end"
-              onClose={() => setOpenInfoTooltip(false)}
-              onOpen={() => setOpenInfoTooltip(true)}
-            >
-              <button onClick={() => setOpenInfoTooltip(true)}>
-                <TooltipInfoIcon className={cx(styles.tooltip, styles.tooltipInfo)} />
-              </button>
-            </Tooltip>
-          ) : null}
-        </div>
-      ) : null}
+          {paragraph}
+        </Popconfirm>
+      ) : (
+        paragraph
+      )}
     </div>
   )
 })

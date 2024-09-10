@@ -9,6 +9,7 @@ import { Field } from '@components/shared/field'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { objectDeepCompare } from '@utils/object'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -41,10 +42,19 @@ export const CreateOrEditServiceContent = memo(props => {
   }
 
   const disabledSubmitButton =
-    !formFields.title ||
-    !formFields.description ||
+    !formFields.title.trim() ||
+    !formFields.description.trim() ||
     !formFields.specId ||
     (objectDeepCompare(formFields, sourceFormFields) && !formFields.linksToMediaFiles.length)
+
+  const handleSubmit = () => {
+    const data = {
+      ...formFields,
+      title: formFields.title.trim(),
+      description: formFields.description.trim(),
+    }
+    isEdit ? onClickEditBtn(data) : onClickCreateBtn(data)
+  }
 
   return (
     <div className={styles.root}>
@@ -108,15 +118,11 @@ export const CreateOrEditServiceContent = memo(props => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonStyle.CASUAL} onClick={onClickBackBtn}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={throttle(onClickBackBtn)}>
           {t(TranslationKey.Close)}
         </Button>
 
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          disabled={disabledSubmitButton}
-          onClick={() => (isEdit ? onClickEditBtn(formFields) : onClickCreateBtn(formFields))}
-        >
+        <Button styleType={ButtonStyle.SUCCESS} disabled={disabledSubmitButton} onClick={throttle(handleSubmit)}>
           {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
         </Button>
       </div>

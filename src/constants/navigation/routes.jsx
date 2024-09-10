@@ -3,6 +3,10 @@ import { lazy } from 'react'
 import { UserRole } from '@constants/keys/user-roles'
 import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
 
+import { ParsingProdileView } from '@views/shared/parsing/parsing-profile-view'
+import { ParsingRequestsView } from '@views/shared/parsing/parsing-requests-view'
+import { ParsingView } from '@views/shared/parsing/parsing-view'
+
 import { t } from '@utils/translations'
 
 import { permissionsKeys } from '../keys/permissions'
@@ -115,12 +119,6 @@ const BuyerSearchSupplierBySupervisorView = lazy(() =>
   })),
 )
 
-const BuyerIdeasNotificationsView = lazy(() =>
-  import('@views/buyer/buyer-notifications-views/buyer-ideas-notifications-view').then(module => ({
-    default: module.BuyerIdeasNotificationsView,
-  })),
-)
-
 const BuyerNotificationsView = lazy(() =>
   import('@views/buyer/buyer-notifications-views/buyer-notifications-view').then(module => ({
     default: module.BuyerNotificationsView,
@@ -225,6 +223,10 @@ const ClientShopsView = lazy(() =>
 )
 const ClientShopsReportView = lazy(() =>
   import('@views/client/client-shops-report').then(module => ({ default: module.ClientShopsReportView })),
+)
+
+const ParsingReports = lazy(() =>
+  import('@views/client/parsing-reports').then(module => ({ default: module.ParsingReports })),
 )
 
 const ClientBuyShopsView = lazy(() =>
@@ -881,23 +883,6 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: '',
       title: () => t(TranslationKey.Notifications),
-    },
-  },
-
-  {
-    routePath: '/buyer/notifications/ideas-notifications',
-    component: BuyerIdeasNotificationsView,
-    exact: false,
-    permission: [UserRole.BUYER],
-
-    permissionKey: permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER,
-
-    crumbNameKey: TranslationKey['On ideas'],
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
-      activeSubCategory: 0,
-      title: () => t(TranslationKey['Notifications on ideas']),
     },
   },
 
@@ -1590,6 +1575,22 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/client/shops/parsing-reports',
+    component: ParsingReports,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.SHOW_SHOPS_CLIENT,
+
+    crumbNameKey: TranslationKey['Parsing reports'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_SHOPS,
+      activeSubCategory: 2,
+      title: () => 'Parsing reports',
+    },
+  },
+
+  {
     routePath: '/client/warehouse',
     component: ClientWarehouseView,
     exact: true,
@@ -1986,7 +1987,7 @@ export const privateRoutesConfigs = [
     },
   },
   {
-    routePath: '/supervisor/ready-to-check',
+    routePath: '/supervisor/ready-to-check-by-researcher',
     component: SupervisorReadyToCheckView,
     exact: true,
     permission: [UserRole.SUPERVISOR],
@@ -2484,6 +2485,48 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
       activeSubCategory: 2,
       title: () => t(TranslationKey.Destinations),
+    },
+  },
+
+  {
+    routePath: '/admin/parsing',
+    component: ParsingView,
+    exact: true,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Parsing,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_PARSING,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Parsing),
+    },
+  },
+
+  {
+    routePath: '/admin/parsing/profiles',
+    component: ParsingProdileView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Profiles,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_PARSING,
+      activeSubCategory: 0,
+      title: () => t(TranslationKey.Profiles),
+    },
+  },
+
+  {
+    routePath: '/admin/parsing/requests',
+    component: ParsingRequestsView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Requests,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_PARSING,
+      activeSubCategory: 1,
+      title: () => t(TranslationKey.Requests),
     },
   },
 

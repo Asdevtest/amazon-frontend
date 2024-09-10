@@ -15,13 +15,9 @@ import { t } from '@utils/translations'
 import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { styles } from './admin-destinations-view.style'
-
 import { AdminDestinationsViewModel } from './admin-destinations-view.model'
 
-export const AdminDestinationsViewRaw = props => {
-  const { classes: styles, history } = props
-
+export const AdminDestinationsView = observer(props => {
   const [viewModel] = useState(() => new AdminDestinationsViewModel({ history }))
 
   useEffect(() => {
@@ -29,30 +25,31 @@ export const AdminDestinationsViewRaw = props => {
   }, [])
 
   return (
-    <>
-      <div className={styles.placeAddBtnWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
-          {t(TranslationKey['Add a destination'])}
-        </Button>
-      </div>
+    <div className="viewWrapper">
+      <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
+        {t(TranslationKey['Add a destination'])}
+      </Button>
 
-      <div className={styles.tableWrapper}>
-        <CustomDataGrid
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          rowHeight={120}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-        />
-      </div>
+      <CustomDataGrid
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        rowHeight={120}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+        }}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+      />
 
       <Modal
         openModal={viewModel.showAddOrEditDestinationModal}
@@ -80,8 +77,6 @@ export const AdminDestinationsViewRaw = props => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </>
+    </div>
   )
-}
-
-export const AdminDestinationsView = withStyles(observer(AdminDestinationsViewRaw), styles)
+})

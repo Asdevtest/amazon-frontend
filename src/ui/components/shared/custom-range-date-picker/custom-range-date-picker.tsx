@@ -14,9 +14,7 @@ import { rangePresets } from './custom-range-date-picker.config'
 
 const { RangePicker } = DatePicker
 
-interface CustomRangeDatePickerProps extends RangePickerProps, IDefaultPropsExtensionAntdComponent {
-  required?: boolean
-}
+interface CustomRangeDatePickerProps extends RangePickerProps, IDefaultPropsExtensionAntdComponent {}
 
 export const CustomRangeDatePicker: FC<CustomRangeDatePickerProps> = memo(props => {
   const { isRow, isCell, label, required, className, labelClassName, wrapperClassName, ...restProps } = props
@@ -28,7 +26,7 @@ export const CustomRangeDatePicker: FC<CustomRangeDatePickerProps> = memo(props 
       {label ? (
         <p className={cx(styles.label, labelClassName)}>
           {t(TranslationKey[label as TranslationKey])}
-          {required ? <span>{'*'}</span> : null}
+          {required ? <span>*</span> : null}
         </p>
       ) : null}
       <RangePicker allowClear presets={rangePresets} {...restProps} className={cx(styles.datePicker, className)} />

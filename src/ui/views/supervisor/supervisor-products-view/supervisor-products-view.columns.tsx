@@ -8,17 +8,15 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ManyUserLinkCell,
-  MultilineStatusCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OpenInNewTabCell,
-  ProductAsinCell,
+  ProductCell,
   RedFlagsCell,
   TagsCell,
-  ToFixedWithDollarSignCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
@@ -49,19 +47,13 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
       renderCell: ({ row }: GridRowModel) => (
-        <ProductAsinCell
-          image={row?.images?.[0]}
-          amazonTitle={row?.amazonTitle}
-          asin={row?.asin}
-          skuByClient={row?.skuByClient}
-        />
+        <ProductCell image={row?.images?.[0]} title={row?.amazonTitle} asin={row?.asin} sku={row?.skuByClient} />
       ),
 
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -69,18 +61,22 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: ({ row }: GridRowModel) => (
-        <MultilineTextCell
-          maxLength={48}
+        <Text
+          isCell
           // @ts-ignore
           text={t(productStatusTranslateKey(ProductStatusByCode[row?.status]))}
           // @ts-ignore
           color={colorByProductStatus(ProductStatusByCode[row?.status])}
         />
       ),
-      // @ts-ignore
-      valueFormatter: ({ row }: GridRowModel) => t(productStatusTranslateKey(ProductStatusByCode[row?.status])),
+      transformValueMethod: status =>
+        // @ts-ignore
+        t(productStatusTranslateKey(ProductStatusByCode[status as keyof typeof ProductStatusByCode])),
+      valueFormatter: ({ row }: GridRowModel) =>
+        // @ts-ignore
+        t(productStatusTranslateKey(ProductStatusByCode[row?.status as keyof typeof ProductStatusByCode])),
       width: 160,
-      columnKey: columnnsKeys.client.INVENTORY_STATUS,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -89,7 +85,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
       renderCell: ({ row }: GridRowModel) => (
         // @ts-ignore
-        <MultilineStatusCell leftAlign status={productStrategyStatusesEnum[row?.strategyStatus]} />
+        <Text isCell text={productStrategyStatusesEnum[row?.strategyStatus]?.replace(/_/g, ' ')} />
       ),
       width: 140,
       align: 'center',
@@ -100,7 +96,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'amazon',
       headerName: t(TranslationKey['Amazon price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-      renderCell: ({ row }: GridRowModel) => <ToFixedWithDollarSignCell value={row?.amazon} fix={2} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={toFixedWithDollarSign(row?.amazon, 2)} />,
       valueGetter: ({ row }: GridRowModel) => (row?.amazon ? toFixedWithDollarSign(row?.amazon, 2) : '-'),
       width: 100,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -133,7 +129,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'bsr',
       headerName: t(TranslationKey.BSR),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.bsr} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.bsr} />,
       width: 70,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -143,7 +139,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       headerName: t(TranslationKey['FBA fee , $']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
       valueGetter: ({ row }: GridRowModel) => (row?.fbafee ? toFixedWithDollarSign(row?.fbafee, 2) : ''),
-      renderCell: ({ row }: GridRowModel) => <ToFixedWithDollarSignCell value={row?.fbafee} fix={2} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={toFixedWithDollarSign(row?.fbafee, 2)} />,
       width: 120,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -153,20 +149,8 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       headerName: t(TranslationKey.Ordered),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Ordered)} />,
       renderCell: ({ row }: GridRowModel) => (
-        <MultilineTextCell
-          customTextStyles={
-            row?.ordered
-              ? {
-                  background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }
-              : {
-                  background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }
-          }
+        <Text
+          isCell
           color={row?.ordered ? '#00b746' : 'red'}
           text={row?.ordered ? t(TranslationKey.Yes) : t(TranslationKey.No)}
         />

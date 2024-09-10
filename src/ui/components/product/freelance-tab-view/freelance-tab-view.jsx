@@ -7,8 +7,8 @@ import { RequestDesignerResultClientForm } from '@components/forms/request-desig
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 
 import { t } from '@utils/translations'
@@ -29,19 +29,20 @@ export const Freelance = observer(({ productId, modal }) => {
   }, [])
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.header}>
         <FreelanceTypeTaskSelect
-          selectedSpec={viewModel.selectedSpec}
           specs={viewModel.specs}
-          onClickSpec={viewModel.onClickSpec}
+          selectedSpec={viewModel.specOption}
+          onChangeSpec={viewModel.onChangeSpec}
         />
 
-        <SearchInput
-          placeholder={t(TranslationKey['Search by Title, ID'])}
-          inputClasses={styles.searchInput}
-          value={viewModel.nameSearchValue}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by Title, ID"
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 
@@ -110,6 +111,6 @@ export const Freelance = observer(({ productId, modal }) => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
         />
       ) : null}
-    </>
+    </div>
   )
 })

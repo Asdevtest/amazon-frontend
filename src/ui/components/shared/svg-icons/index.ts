@@ -40,6 +40,7 @@ export { ExtendedViewIcon } from '@components/shared/svg-icons/extended-view-ico
 export { EyeIcon } from '@components/shared/svg-icons/eye-icon/eye-icon'
 export { FeedbackIcon } from '@components/shared/svg-icons/feedback-icon/feedback-icon'
 export { FileIcon } from '@components/shared/svg-icons/file-icon/file-icon'
+export { FilesIcon } from '@components/shared/svg-icons/files-icon/files-icon'
 export { FineIcon } from '@components/shared/svg-icons/fine-icon/fine-icon'
 export { FireIcon } from '@components/shared/svg-icons/fire-icon/fire-icon'
 export { FreeOrdersIcon } from '@components/shared/svg-icons/free-orders-icon/free-orders-icon'

@@ -10,14 +10,4 @@ export const useStyles = makeStyles()(() => ({
   isDraftRow: {
     opacity: 0.5,
   },
-
-  searchInput: {
-    width: 550,
-  },
-
-  datagridWrapper: {
-    marginTop: 20,
-    height: '82vh',
-    width: '100%',
-  },
 }))

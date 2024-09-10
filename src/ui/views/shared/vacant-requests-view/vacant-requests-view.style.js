@@ -5,19 +5,13 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-
-  searchInput: {
-    width: 400,
   },
 
   tablePanelSubWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginBottom: 10,
-    gap: 30,
+    gap: 20,
   },
 
   tablePanelSortWrapper: {
@@ -36,11 +30,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.primary.main,
     marginRight: '15px',
-  },
-
-  dataGridWrapper: {
-    height: '80vh',
-    width: '100%',
   },
 
   emptyTableWrapper: {

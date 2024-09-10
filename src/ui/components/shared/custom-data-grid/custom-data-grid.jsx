@@ -13,24 +13,26 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { SeparatorIcon } from '../svg-icons'
 
 export const CustomDataGrid = ({ ...restProps }) => (
-  <DataGridPremium
-    key={SettingsModel.languageTag}
-    pagination
-    hideFooter
-    useResizeContainer
-    disableVirtualization
-    sortingMode="server"
-    paginationMode="server"
-    pageSizeOptions={[15, 25, 50, 100]}
-    localeText={getLocalizationByLanguageTag()}
-    slots={{
-      toolbar: DataGridCustomToolbar,
-      columnMenuIcon: FilterAltOutlinedIcon,
-      columnMenu: DataGridCustomColumnMenuComponent,
-      columnResizeIcon: SeparatorIcon,
-      detailPanelExpandIcon: IoIosArrowDown,
-      detailPanelCollapseIcon: IoIosArrowUp,
-    }}
-    {...restProps}
-  />
+  <div className="tableWrapper">
+    <DataGridPremium
+      key={SettingsModel.languageTag}
+      pagination
+      hideFooter
+      useResizeContainer
+      disableVirtualization
+      sortingMode="server"
+      paginationMode="server"
+      pageSizeOptions={[15, 25, 50, 100]}
+      localeText={getLocalizationByLanguageTag()}
+      slots={{
+        toolbar: DataGridCustomToolbar,
+        columnMenuIcon: FilterAltOutlinedIcon,
+        columnMenu: DataGridCustomColumnMenuComponent,
+        columnResizeIcon: SeparatorIcon,
+        detailPanelExpandIcon: IoIosArrowDown,
+        detailPanelCollapseIcon: IoIosArrowUp,
+      }}
+      {...restProps}
+    />
+  </div>
 )

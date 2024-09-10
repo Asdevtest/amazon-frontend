@@ -1,6 +1,7 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AsinCell, MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, Text } from '@components/data-grid/data-grid-cells'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
@@ -10,7 +11,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-    renderCell: params => <AsinCell asin={params.value} />,
+    renderCell: params => <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={params.value} />,
     width: 190,
   },
 
@@ -18,7 +19,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
     field: 'shop',
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-    renderCell: params => <MultilineTextCell text={params.row?.product?.shop?.name} />,
+    renderCell: params => <Text text={params.row?.product?.shop?.name} />,
     filterable: false,
     sortable: false,
     disableCustomSort: true,
@@ -30,7 +31,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
     width: 200,
   },
 
@@ -38,7 +39,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
     field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-    renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    renderCell: params => <Text text={params.row.spec?.title} />,
     width: 200,
   },
 
@@ -46,14 +47,14 @@ export const clientFreelanceNotificationsColumns = handlers => [
     field: 'humanFriendlyId',
     headerName: `ID ${t(TranslationKey.Requests)}`,
     renderHeader: () => <MultilineTextHeaderCell text={`ID ${t(TranslationKey.Requests)}`} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
   },
 
   {
     field: 'unreadMessages',
     headerName: t(TranslationKey['Unread messages']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Unread messages'])} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
     width: 200,
   },
 

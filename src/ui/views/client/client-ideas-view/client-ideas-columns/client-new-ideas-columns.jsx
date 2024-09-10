@@ -6,13 +6,13 @@ import {
   IdeaActionsCell,
   IdeaRequestsCell,
   ManyUserLinkCell,
-  MultilineTextCell,
+  MediaContentCell,
   MultilineTextHeaderCell,
-  ProductAsinCell,
-  ShortDateCell,
-  SmallRowImageCell,
+  NormDateCell,
+  ProductCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -32,7 +32,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Idea title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
 
-      renderCell: params => <MultilineTextCell twoLines maxLength={45} text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 198,
       filterable: false,
 
@@ -48,11 +48,11 @@ export const clientNewIdeasColumns = rowHandlers => {
         const product = params.row.parentProduct
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
@@ -61,8 +61,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       columnMenuConfig: getProductColumnMenuValue({ columnType: ProductColumnMenuType.PARENT }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -70,7 +69,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
+      renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
       disableCustomSort: true,
 
@@ -84,9 +83,8 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Idea),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-      renderCell: params => <SmallRowImageCell image={params.value?.find(el => checkIsMediaFileLink(el))} />,
-      width: 96,
-
+      renderCell: params => <MediaContentCell image={params.value?.find(el => checkIsMediaFileLink(el))} />,
+      width: 70,
       filterable: false,
       disableCustomSort: true,
     },
@@ -96,7 +94,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 251,
 
       columnKey: columnnsKeys.shared.STRING,
@@ -108,7 +106,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Buyer comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 251,
 
       columnKey: columnnsKeys.shared.STRING,
@@ -137,7 +135,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Status Updated']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
 
-      renderCell: params => <ShortDateCell value={params.value} />,
+      renderCell: params => <NormDateCell value={params.value} />,
       width: 91,
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -147,7 +145,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-      renderCell: params => <ShortDateCell value={params.value} />,
+      renderCell: params => <NormDateCell value={params.value} />,
       width: 91,
       columnKey: columnnsKeys.shared.DATE,
     },

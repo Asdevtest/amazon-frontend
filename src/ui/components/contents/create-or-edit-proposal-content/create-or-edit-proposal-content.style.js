@@ -96,7 +96,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   requestTitle: {
-    marginBottom: 20,
+    wordBreak: 'break-word',
   },
 
   editorWrapper: {

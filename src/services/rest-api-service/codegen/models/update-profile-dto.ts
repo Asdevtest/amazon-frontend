@@ -69,6 +69,12 @@ export interface UpdateProfileDto {
      */
     shopId?: string;
     /**
+     * Status
+     * @type {string}
+     * @memberof UpdateProfileDto
+     */
+    status?: string;
+    /**
      * Guid of client
      * @type {string}
      * @memberof UpdateProfileDto

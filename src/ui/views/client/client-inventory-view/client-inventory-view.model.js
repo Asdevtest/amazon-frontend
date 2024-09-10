@@ -245,7 +245,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
 
     const defaultGetCurrentDataOptions = () => ({
-      preset: true,
       noCache: true,
     })
 
@@ -296,6 +295,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       stockUsHandlers,
       otherHandlers,
     })
+
     const filtersFields = getFilterFields(columns, additionalFilterFields)
 
     super({
@@ -308,42 +308,23 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       defaultGetCurrentDataOptions,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
+      defaultSortModel: [{ field: 'sumStock', sort: 'desc' }],
     })
 
-    this.sortModel = [{ field: 'sumStock', sort: 'desc' }]
-
-    this.handleHideColumns(defaultHiddenColumns)
-
-    this.getDataGridState()
+    makeObservable(this, observerConfig)
 
     const url = new URL(window.location.href)
     this.isArchive = url.searchParams.get('isArchive') || false
 
-    makeObservable(this, observerConfig)
-
-    this.loadData()
+    this.getTableSettingsPreset()
 
     const getValidColumns = async () => {
-      const activeFields = this.presetsData.reduce((acc, el) => {
-        if (el?._id) {
-          acc[el.table] = []
-          for (const field of el.fields) {
-            if (field?.checked) {
-              acc[el.table].push(field?.field)
-            }
-          }
-        }
-
-        return acc
-      }, {})
-
       const newColumns = clientInventoryColumns({
         barCodeHandlers,
         hsCodeHandlers,
         fourMonthesStockHandlers,
         stockUsHandlers,
         otherHandlers,
-        additionalFields: activeFields,
         storekeepers: this.meta?.storekeepers,
       })
 
@@ -352,13 +333,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.columnsModel = newColumns
       this.filtersFields = newFiltersFields
       this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
-      this.getDataGridState()
     }
-
-    reaction(
-      () => this.presetsData,
-      () => getValidColumns(),
-    )
 
     reaction(
       () => this.meta?.storekeepers?.length,
@@ -537,16 +512,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async loadData() {
-    try {
-      this.getPresets()
-      this.getCurrentData()
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-    }
-  }
-
   setActiveProductsTag(tags) {
     this.columnMenuSettings?.onChangeFullFieldMenuItem(tags, TAGS)
     this.columnMenuSettings?.onClickAccept()
@@ -566,175 +531,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
 
     this.setActiveProductsTag(newTags)
-  }
-
-  async getPresets() {
-    try {
-      const currentPresets = await this.getCurrentPresets()
-      const allPresets = await this.getAllPresets()
-
-      const presetsData = []
-
-      if (currentPresets) {
-        for (const preset of allPresets) {
-          const presetData = {}
-          const existPreset = currentPresets.find(currentPreset => currentPreset?.table === preset?.table)
-
-          if (existPreset) {
-            presetData._id = existPreset?._id
-            presetData.table = existPreset?.table
-
-            const existFields = existPreset?.fields?.map(field => ({
-              field,
-              checked: true,
-              name: formatCamelCaseString(field),
-            }))
-
-            const notExistFields = preset?.fields
-              ?.filter(field => !existPreset?.fields?.includes(field))
-              ?.map(field => ({
-                field,
-                checked: false,
-                name: formatCamelCaseString(field),
-              }))
-
-            presetData.fields = [...existFields, ...notExistFields]
-          } else {
-            presetData._id = undefined
-            presetData.table = preset?.table
-            presetData.fields = preset?.fields?.map(field => ({
-              field,
-              checked: false,
-              name: formatCamelCaseString(field),
-            }))
-          }
-
-          presetsData.push(presetData)
-        }
-      } else {
-        for (const preset of allPresets) {
-          const presetData = {}
-
-          presetData.fields = preset?.fields?.map(field => ({
-            field,
-            checked: false,
-            name: formatCamelCaseString(field),
-          }))
-          presetData.table = preset?.table
-          presetData._id = undefined
-
-          presetsData.push(presetData)
-        }
-      }
-
-      runInAction(() => {
-        this.presetsData = presetsData
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async getAllPresets() {
-    try {
-      const result = await OtherModel.getPresets()
-
-      return result
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async getCurrentPresets() {
-    try {
-      const result = await UserModel.getUsersPresets()
-
-      return result
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async resetPresetsHandler() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      for await (const preset of this.presetsData) {
-        if (!preset?._id) {
-          continue
-        }
-
-        await UserModel.deleteUsersPresetsByGuid(preset?._id)
-
-        preset.fields = preset?.fields?.map(field => ({
-          ...field,
-          checked: false,
-        }))
-        preset._id = undefined
-      }
-
-      await this.getCurrentData()
-      runInAction(() => {
-        this.presetsData = [...this.presetsData]
-      })
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-    }
-  }
-
-  async savePresetsHandler(presetsData) {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      for await (const preset of presetsData) {
-        const presetId = preset?._id
-        const presetTable = preset?.table
-        const presetEndpoint = 'clients/products/my_with_pag_v2'
-        const fields = preset?.fields?.filter(field => field?.checked)?.map(field => field?.field)
-
-        if (!presetId) {
-          if (!fields?.length) {
-            continue
-          }
-
-          const body = {
-            endpoint: presetEndpoint,
-            table: presetTable,
-            fields,
-          }
-
-          const response = await UserModel.postUsersPresets(body)
-
-          preset._id = response.guid
-        } else {
-          if (!fields?.length) {
-            await UserModel.deleteUsersPresetsByGuid(presetId)
-            preset._id = undefined
-          } else {
-            const body = {
-              endpoint: presetEndpoint,
-              table: presetTable,
-              fields,
-            }
-
-            await UserModel.patchUsersPresetsByGuid(presetId, body)
-          }
-        }
-      }
-
-      await this.getCurrentData()
-      runInAction(() => {
-        this.presetsData = [...this.presetsData]
-      })
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-    }
   }
 
   async onClickVariationRadioButton() {
@@ -1468,13 +1264,18 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       await ProductModel.addSuppliersToProduct(this.selectedRowId || this.selectedRows[0], [createSupplierResult.guid])
 
-      await this.loadData()
+      await this.getCurrentData()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
+  }
+
+  async onClickEditTags(productId) {
+    this.selectedRowId = productId
+    this.onTriggerOpenModal('showEditProductTagsModal')
   }
 
   async getCurrentData(options) {
@@ -1502,8 +1303,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
           limit: this.paginationModel.pageSize,
           offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-          sortField: this.sortModel.length ? sortField : 'updatedAt',
-          sortType: this.sortModel.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
+          sortField: this.sortModel?.length ? sortField : 'updatedAt',
+          sortType: this.sortModel?.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
           storekeeper: storekeeperId,
 
           ...this.defaultGetCurrentDataOptions?.(),
@@ -1525,8 +1326,172 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickEditTags(productId) {
-    this.selectedRowId = productId
-    this.onTriggerOpenModal('showEditProductTagsModal')
+  async getPresets() {
+    try {
+      const currentPresets = await this.getCurrentPresets()
+      const allPresets = await this.getAllPresets()
+
+      const presetsData = []
+
+      if (currentPresets) {
+        for (const preset of allPresets) {
+          const presetData = {}
+          const existPreset = currentPresets.find(currentPreset => currentPreset?.table === preset?.table)
+
+          if (existPreset) {
+            presetData._id = existPreset?._id
+            presetData.table = existPreset?.table
+
+            const existFields = existPreset?.fields?.map(field => ({
+              field,
+              checked: true,
+              name: formatCamelCaseString(field),
+            }))
+
+            const notExistFields = preset?.fields
+              ?.filter(field => !existPreset?.fields?.includes(field))
+              ?.map(field => ({
+                field,
+                checked: false,
+                name: formatCamelCaseString(field),
+              }))
+
+            presetData.fields = [...existFields, ...notExistFields]
+          } else {
+            presetData._id = undefined
+            presetData.table = preset?.table
+            presetData.fields = preset?.fields?.map(field => ({
+              field,
+              checked: false,
+              name: formatCamelCaseString(field),
+            }))
+          }
+
+          presetsData.push(presetData)
+        }
+      } else {
+        for (const preset of allPresets) {
+          const presetData = {}
+
+          presetData.fields = preset?.fields?.map(field => ({
+            field,
+            checked: false,
+            name: formatCamelCaseString(field),
+          }))
+          presetData.table = preset?.table
+          presetData._id = undefined
+
+          presetsData.push(presetData)
+        }
+      }
+
+      runInAction(() => {
+        this.presetsData = presetsData
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getAllPresets() {
+    try {
+      const result = await OtherModel.getPresets()
+
+      return result
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getCurrentPresets() {
+    try {
+      const result = await UserModel.getUsersPresets()
+
+      return result
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async resetPresetsHandler() {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      for await (const preset of this.presetsData) {
+        if (!preset?._id) {
+          continue
+        }
+
+        await UserModel.deleteUsersPresetsByGuid(preset?._id)
+
+        preset.fields = preset?.fields?.map(field => ({
+          ...field,
+          checked: false,
+        }))
+        preset._id = undefined
+      }
+
+      await this.getCurrentData()
+      runInAction(() => {
+        this.presetsData = [...this.presetsData]
+      })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
+    }
+  }
+
+  async savePresetsHandler(presetsData) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      for await (const preset of presetsData) {
+        const presetId = preset?._id
+        const presetTable = preset?.table
+        const presetEndpoint = 'clients/products/my_with_pag_v2'
+        const fields = preset?.fields?.filter(field => field?.checked)?.map(field => field?.field)
+
+        if (!presetId) {
+          if (!fields?.length) {
+            continue
+          }
+
+          const body = {
+            endpoint: presetEndpoint,
+            table: presetTable,
+            fields,
+          }
+
+          const response = await UserModel.postUsersPresets(body)
+
+          preset._id = response.guid
+        } else {
+          if (!fields?.length) {
+            await UserModel.deleteUsersPresetsByGuid(presetId)
+            preset._id = undefined
+          } else {
+            const body = {
+              endpoint: presetEndpoint,
+              table: presetTable,
+              fields,
+            }
+
+            await UserModel.patchUsersPresetsByGuid(presetId, body)
+          }
+        }
+      }
+
+      await this.getCurrentData()
+      runInAction(() => {
+        this.presetsData = [...this.presetsData]
+      })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
+    }
   }
 }

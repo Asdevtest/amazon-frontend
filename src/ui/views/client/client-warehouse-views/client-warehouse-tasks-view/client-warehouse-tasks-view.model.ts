@@ -30,10 +30,10 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
   showProgress = false
   storekeepersData: IStorekeeper[] = []
 
-  selectedPriority = undefined
-  selectedStatus = undefined
-  selectedStorekeeper = undefined
-  selectedType = undefined
+  selectedPriority = 'all'
+  selectedStatus = 'all'
+  selectedStorekeeper = 'all'
+  selectedType = 'all'
   curOpenedTask: ITask | null = null
 
   showConfirmWithCommentModal = false
@@ -78,10 +78,10 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
     const columnsModel = clientTasksViewColumns(rowTaskHandlers) as GridColDef[]
 
     const defaultGetCurrentDataOptions = () => ({
-      storekeeperId: this.selectedStorekeeper,
-      priority: this.selectedPriority,
-      status: this.selectedStatus,
-      operationType: this.selectedType,
+      storekeeperId: this.selectedStorekeeper === 'all' ? undefined : this.selectedStorekeeper,
+      priority: this.selectedPriority === 'all' ? undefined : this.selectedPriority,
+      status: this.selectedStatus === 'all' ? undefined : this.selectedStatus,
+      operationType: this.selectedType === 'all' ? undefined : this.selectedType,
     })
 
     super({
@@ -92,21 +92,17 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
       fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient', 'id', 'item', 'humanFriendlyId'],
       tableKey: DataGridTablesKeys.CLIENT_WAREHOUSE_TASKS,
       defaultGetCurrentDataOptions,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
-    this.getDataGridState()
-
     this.getStorekeepers()
-
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
-  setFilters(filterCategory: keyof this, filterValue: string) {
+  setFilters(filterCategory: string, value: string) {
     // @ts-ignore
-    this[filterCategory] = filterValue
+    this[filterCategory] = value
 
     this.getCurrentData()
   }

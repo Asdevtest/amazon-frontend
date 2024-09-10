@@ -4,6 +4,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
+import { WarehouseTabs } from './warehouse-management.types'
+
 export const warehouseTariffsConfig = {
   tariffToEdit: observable,
   showAddOrEditWarehouseTariffModal: observable,
@@ -34,7 +36,7 @@ export const warehouseTariffsConfig = {
   onClickAddWarehouseTariff: action.bound,
 }
 
-export const switcherConfig = [
-  { label: () => t(TranslationKey['Weight-based logistics tariffs']), value: 0 },
-  { label: () => t(TranslationKey['Tariffs of warehouse services']), value: 1 },
+export const createSwitcherConfig = () => [
+  { label: t(TranslationKey['Weight-based logistics tariffs']), value: WarehouseTabs.LOGISTICS_TARIFFS },
+  { label: t(TranslationKey['Tariffs of warehouse services']), value: WarehouseTabs.WAREHOUSE_SERVICES },
 ]

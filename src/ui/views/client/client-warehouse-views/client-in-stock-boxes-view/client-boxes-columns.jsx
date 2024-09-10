@@ -7,23 +7,23 @@ import {
   ChangeChipCell,
   ChangeInputCell,
   DeadlineCell,
+  DimensionsCell,
+  DimensionsHeaderCell,
   FormedCell,
   ManyUserLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
   RedFlagsCell,
-  TextCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells'
-import { Dimensions } from '@components/shared/dimensions'
-import { SizeSwitcher } from '@components/shared/size-switcher'
+import { Text } from '@components/shared/text'
 
+import { calcFinalWeightForBox } from '@utils/calculation'
 import { findTariffInStorekeepersData } from '@utils/checks'
 import { formatNormDateTime } from '@utils/date-time'
-import { toFixedWithDollarSign, trimBarcode } from '@utils/text'
+import { toFixed, toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
@@ -41,7 +41,8 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.Storekeeper),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value?.name} />,
+      renderCell: params => <Text isCell text={params?.row.storekeeper?.name} />,
+      valueGetter: ({ row }) => row.storekeeper?.name,
       width: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -52,7 +53,9 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <MultilineTextCell twoLines text={params.row.items?.[0]?.product?.shop?.name} />,
+      renderCell: params => <Text isCell text={params.row.items?.[0]?.product?.shop?.name} />,
+
+      valueGetter: ({ row }) => row.items?.[0]?.product?.shop?.name,
 
       width: 100,
       disableCustomSort: true,
@@ -67,12 +70,7 @@ export const clientBoxesViewColumns = (
 
       width: 160,
       renderCell: params => (
-        <MultilineTextCell
-          leftAlign
-          threeLines
-          text={boxStatusTranslateKey(params.value)}
-          customTextStyles={colorByBoxStatus(params.value)}
-        />
+        <Text isCell text={boxStatusTranslateKey(params.value)} color={colorByBoxStatus(params.value)} />
       ),
       valueFormatter: params => boxStatusTranslateKey(params.value),
 
@@ -86,7 +84,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       type: 'number',
       width: 80,
 
@@ -98,7 +96,8 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey['№ Order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
-      renderCell: params => <MultilineTextCell text={params.row.items?.[0]?.order?.id} />,
+      renderCell: params => <Text isCell text={params.row.items?.[0]?.order?.id} />,
+      valueGetter: ({ row }) => row.items?.[0]?.order?.id,
       width: 160,
 
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -178,7 +177,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       type: 'number',
       width: 95,
 
@@ -208,6 +207,18 @@ export const clientBoxesViewColumns = (
           ''
         )
       },
+      valueGetter: ({ row }) => {
+        const storekeepers = getStorekeepersData()
+        const destinations = getDestinations()
+
+        const selectedDestination = destinations.find(el => el?._id === row?.destination?._id)?.name
+        const currentStorekeeper = storekeepers?.find(el => el._id === row?.storekeeper?._id)
+        const currentTariff = currentStorekeeper?.tariffLogistics?.find(el => el?._id === row?.logicsTariff?._id)
+
+        return `Destination: ${selectedDestination || t(TranslationKey['Not chosen'])}, Tariff: ${
+          currentTariff?.name || t(TranslationKey['Not chosen'])
+        }`
+      },
       width: 215,
       filterable: false,
       disableCustomSort: true,
@@ -220,7 +231,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey['Total price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
       type: 'number',
       width: 110,
       disableCustomSort: true,
@@ -242,7 +253,8 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
       renderCell: params => (
-        <TextCell
+        <Text
+          isCell
           editMode
           text={params.value}
           onClickSubmit={comment => handlers.onClickSaveClientComment(params.row._id, comment)}
@@ -269,7 +281,10 @@ export const clientBoxesViewColumns = (
         const subUsers = product?.subUsers || []
         const subUsersByShop = product?.subUsersByShop || []
 
-        return subUsers?.concat(subUsersByShop).join(', ')
+        return subUsers
+          ?.concat(subUsersByShop)
+          ?.map(user => user?.name)
+          .join(', ')
       },
       width: 187,
       table: DataGridFilterTables.PRODUCTS,
@@ -320,19 +335,25 @@ export const clientBoxesViewColumns = (
     },
 
     {
-      field: 'dimansions',
+      field: 'dimensions',
       headerName: t(TranslationKey.Dimensions),
-      renderHeader: () => (
-        <MultilineTextHeaderCell
-          text={t(TranslationKey.Dimensions)}
-          component={<SizeSwitcher condition={getUnitsOption()} onChangeCondition={handlers.onChangeUnitsOption} />}
+      renderHeader: params => (
+        <DimensionsHeaderCell
+          data={params.row}
+          transmittedSizeSetting={getUnitsOption()}
+          onChangeUnitsOption={handlers.onChangeUnitsOption}
         />
       ),
       renderCell: params => (
-        <Dimensions isCell isTotalWeight data={params.row} transmittedSizeSetting={getUnitsOption()} />
+        <DimensionsCell isCell isTotalWeight data={params.row} transmittedSizeSetting={getUnitsOption()} />
       ),
-      width: 210,
+      valueGetter: ({ row }) => {
+        const boxFinalWeight = toFixed(calcFinalWeightForBox(row, row.volumeWeightCoefficient), 2)
+        return `L:${row?.lengthCmWarehouse}, W:${row?.widthCmWarehouse}, H:${row?.heightCmWarehouse}, FW:${boxFinalWeight}`
+      },
+      minWidth: 230,
       disableCustomSort: true,
+      filterable: false,
     },
 
     {

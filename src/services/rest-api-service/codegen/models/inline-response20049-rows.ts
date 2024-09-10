@@ -14,6 +14,7 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { InlineResponse20049ListingLaunches } from './inline-response20049-listing-launches';
 import { InlineResponse20049Product } from './inline-response20049-product';
@@ -26,6 +27,9 @@ import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products
 import { InlineResponse20049Inventory } from './inline-response20049-inventory';
 import { InlineResponse20049Shop } from './inline-response20049-shop';
 >>>>>>> pre-release
+=======
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+>>>>>>> pre-release
 
 /**
  * 
@@ -35,9 +39,13 @@ import { InlineResponse20049Shop } from './inline-response20049-shop';
 export interface InlineResponse20049Rows {
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * GUID в базе данных
 =======
      * GUID продукта в базе данных
+>>>>>>> pre-release
+=======
+     * Guid of shop
 >>>>>>> pre-release
      * @type {string}
      * @memberof InlineResponse20049Rows
@@ -45,65 +53,22 @@ export interface InlineResponse20049Rows {
     _id?: string;
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
      * ASIN продукта
+=======
+     * Name of shop
+>>>>>>> pre-release
      * @type {string}
      * @memberof InlineResponse20049Rows
      */
-    asin?: string;
+    name?: string;
     /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20049Rows
-     */
-    skuByClient?: string;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusSuppliers>}
-     * @memberof InlineResponse20049Rows
-     */
-    suppliers?: Array<ApiV1AdminsGetProductsByStatusSuppliers>;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusSuppliers}
-     * @memberof InlineResponse20049Rows
-     */
-    currentSupplier?: ApiV1AdminsGetProductsByStatusSuppliers;
-    /**
-     * GUID поставщика в базе данных
-     * @type {string}
-     * @memberof InlineResponse20049Rows
-     */
-    currentSupplierId?: string;
-    /**
-     * Гуид родительского продукта
-     * @type {string}
-     * @memberof InlineResponse20049Rows
-     */
-    parentProductId?: string;
-    /**
-     * Имеет ли дочерние продукты данный продукт (по parentProductId)
-     * @type {boolean}
-     * @memberof InlineResponse20049Rows
-     */
-    hasChildren?: boolean;
-    /**
-     * Категория
-     * @type {string}
-     * @memberof InlineResponse20049Rows
-     */
-    category?: string;
-    /**
-     * Ссылка на этот продукт на амазоне.
-     * @type {string}
-     * @memberof InlineResponse20049Rows
-     */
-    lamazon?: string;
-    /**
-     * 
+     * Count of shop products
      * @type {number}
      * @memberof InlineResponse20049Rows
      */
+<<<<<<< HEAD
     bsr?: number;
     /**
      * Признак fba
@@ -550,17 +515,21 @@ export interface InlineResponse20049Rows {
      * @memberof InlineResponse20049Rows
      */
     ideasClosed?: number;
+=======
+    productsCount?: number;
+>>>>>>> pre-release
     /**
      * 
      * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20049Rows
      */
-    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    shopUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
      * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20049Rows
      */
+<<<<<<< HEAD
     subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
@@ -610,6 +579,9 @@ export interface InlineResponse20049Rows {
      * @memberof InlineResponse20049Rows
      */
     inventory?: InlineResponse20049Inventory;
+>>>>>>> pre-release
+=======
+    productUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
 >>>>>>> pre-release
 }
 

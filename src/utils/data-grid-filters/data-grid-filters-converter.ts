@@ -21,7 +21,15 @@ const onlyDigitsRegex = /^\d+$/
 const onlyNumberColumns = ['humanFriendlyId', 'id', 'orderHumanFriendlyId', 'batchHumanFriendlyId']
 
 const searchOperatorByColumn = {
-  $eq: ['humanFriendlyId', 'id', 'orderHumanFriendlyId', 'orderHumanFriendlyId', 'productId', 'batchHumanFriendlyId'],
+  $eq: [
+    'humanFriendlyId',
+    'id',
+    'orderHumanFriendlyId',
+    'orderHumanFriendlyId',
+    'productId',
+    'batchHumanFriendlyId',
+    'productCount',
+  ],
 }
 const filterOperatorByColumn = {
   $any: ['tags', 'redFlags', 'buyer', 'createdBy'],

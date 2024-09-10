@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20056Finances } from './inline-response20056-finances';
 
 /**
  * 
@@ -21,23 +22,11 @@
  */
 export interface InlineResponse20059 {
     /**
-     * Гуид тега
-     * @type {string}
+     * 
+     * @type {InlineResponse20056Finances}
      * @memberof InlineResponse20059
      */
-    _id?: string;
-    /**
-     * Тег
-     * @type {string}
-     * @memberof InlineResponse20059
-     */
-    title?: string;
-    /**
-     * Кол-во продуктов, которые используют этот тег
-     * @type {number}
-     * @memberof InlineResponse20059
-     */
-    productCount?: number;
+    finances?: InlineResponse20056Finances;
 }
 
 

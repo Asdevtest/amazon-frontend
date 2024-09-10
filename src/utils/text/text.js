@@ -2,7 +2,6 @@ import { hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes } from
 import QueryString from 'qs'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { getTranslationNotificationType } from '@constants/notifications/notification-type'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
@@ -80,11 +79,7 @@ export const minsToTime = mins => {
           ? Math.floor(hours) + ' ' + t(TranslationKey.hour)
           : Math.floor(hours % 24) + ' ' + t(TranslationKey.hour)
         : ''
-    } ${
-      Math.floor(lastMins) === 0
-        ? Math.floor(lastMins * 60) + ' ' + t(TranslationKey.sec)
-        : Math.floor(lastMins) + ' ' + t(TranslationKey.minute) + '.'
-    }`
+    } ${Math.floor(lastMins) + ' ' + t(TranslationKey.minute) + '.'}`
   } else {
     return null
   }
@@ -193,7 +188,7 @@ export const getTableByColumn = (column, hint) => {
       'proposalSub',
       'quantityBoxes',
       'updatedAt',
-      'storage'
+      'storage',
     ].includes(column)
   ) {
     if (
@@ -481,7 +476,7 @@ export const getHumanFriendlyNotificationType = type => {
       return t(TranslationKey.Launches)
 
     default:
-      break
+      return ''
   }
 }
 
@@ -507,3 +502,15 @@ export const formatCamelCaseString = str =>
     .replaceAll(/([a-zA-Z])(\d)/g, '$1 $2')
     .replaceAll(/(\d)([a-zA-Z])/g, '$1 $2')
     .replace(/\b\w/g, c => c.toUpperCase())
+
+export const formatSnakeCaseString = str =>
+  str
+    .toLowerCase()
+    .replaceAll('_', ' ')
+    .replace(/\b\w/g, c => c.toUpperCase())
+
+export const convertToSentenceCase = str =>
+  str
+    .toLowerCase()
+    .replaceAll('_', ' ')
+    .replace(/^\w/, c => c.toUpperCase())

@@ -67,6 +67,11 @@ export class RequestDetailCustomViewModel {
 
     this.requestId = url.searchParams.get('request-id')
 
+    const chatId = url.searchParams.get('chatId')
+    if (chatId) {
+      this.chatSelectedId = chatId
+    }
+
     reaction(
       () => this.chatSelectedId,
       () => {
@@ -76,10 +81,6 @@ export class RequestDetailCustomViewModel {
     )
 
     this.history = history
-
-    if (history.location?.state?.chatId) {
-      this.chatSelectedId = history?.location?.state?.chatId
-    }
 
     reaction(
       () => this.mesSearchValue,

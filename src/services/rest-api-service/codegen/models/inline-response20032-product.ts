@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse2002ProductShop } from './inline-response2002-product-shop';
 
 /**
  * 
@@ -22,7 +21,7 @@ import { InlineResponse2002ProductShop } from './inline-response2002-product-sho
  */
 export interface InlineResponse20032Product {
     /**
-     * Гуид продукта
+     * 
      * @type {string}
      * @memberof InlineResponse20032Product
      */
@@ -40,6 +39,12 @@ export interface InlineResponse20032Product {
      */
     skuByClient?: string;
     /**
+     * ID магазина продукта
+     * @type {string}
+     * @memberof InlineResponse20032Product
+     */
+    shopId?: string;
+    /**
      * Массив картинок.
      * @type {Array<string>}
      * @memberof InlineResponse20032Product
@@ -52,11 +57,17 @@ export interface InlineResponse20032Product {
      */
     amazonTitle?: string;
     /**
-     * 
-     * @type {InlineResponse2002ProductShop}
+     * Баркод
+     * @type {string}
      * @memberof InlineResponse20032Product
      */
-    shop?: InlineResponse2002ProductShop;
+    barCode?: string;
+    /**
+     * hsCode продукта.
+     * @type {string}
+     * @memberof InlineResponse20032Product
+     */
+    hsCode?: string;
 }
 
 

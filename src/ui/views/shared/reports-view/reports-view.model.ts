@@ -59,10 +59,10 @@ export class ReportsViewModel extends DataGridFilterTableModel {
       tableKey: DataGridTablesKeys.PRODUCT_LISTING_REPORTS,
       defaultGetCurrentDataOptions,
       operatorsSettings,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    this.onGetCurrentData()
+    this.getTableSettingsPreset()
 
     makeObservable(this, reportsViewConfig)
   }
@@ -74,7 +74,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
       const launchDateTo = [getDateWithoutTime(lteDateValueForBackendPostgreSQL)]
       this.onChangeFullFieldMenuItem(launchDateFrom, 'launchDateFrom')
       this.onChangeFullFieldMenuItem(launchDateTo, 'launchDateTo')
-      this.onGetCurrentData()
+      this.getCurrentData()
     } else {
       this.onClickResetFilters()
     }
@@ -98,7 +98,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
 
       toast.success(t(TranslationKey['Data removed successfully']))
 
-      this.onGetCurrentData()
+      this.getCurrentData()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -106,10 +106,5 @@ export class ReportsViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatus.FAILED)
       toast.error(t(TranslationKey['Data not removed']))
     }
-  }
-
-  onGetCurrentData() {
-    this.getDataGridState()
-    this.getCurrentData()
   }
 }

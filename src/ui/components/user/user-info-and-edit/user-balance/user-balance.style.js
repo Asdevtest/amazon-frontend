@@ -8,6 +8,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tableWrapper: {
+    display: 'flex',
     marginTop: '20px',
     height: '68vh',
     width: '100%',

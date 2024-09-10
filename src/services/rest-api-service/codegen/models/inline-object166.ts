@@ -31,7 +31,43 @@ export interface InlineObject166 {
      * @type {Array<string>}
      * @memberof InlineObject166
      */
+<<<<<<< HEAD
     tables?: Array<string>;
+=======
+    tables?: Array<InlineObject166TablesEnum>;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject166TablesEnum {
+    BusinessReports = 'BUSINESS_REPORTS',
+    Orders = 'ORDERS',
+    TotalBalance = 'TOTAL_BALANCE',
+    Feedback = 'FEEDBACK',
+    Transactions = 'TRANSACTIONS',
+    Inventory = 'INVENTORY',
+    Campaigns = 'CAMPAIGNS',
+    PerformanceNotifications = 'PERFORMANCE_NOTIFICATIONS',
+    FbaInventory = 'FBA_INVENTORY',
+    AccountHealth = 'ACCOUNT_HEALTH',
+    Returns = 'RETURNS',
+    InventoryPlanning = 'INVENTORY_PLANNING',
+    BrandsReview = 'BRANDS_REVIEW',
+    InventoryShipments = 'INVENTORY_SHIPMENTS',
+    Voice = 'VOICE',
+    FypOutOfStock = 'FYP_OUT_OF_STOCK',
+    FypSearchSuppressed = 'FYP_SEARCH_SUPPRESSED',
+    Income = 'INCOME',
+    PpcSalesWeeks = 'PPC_SALES_WEEKS',
+    PpcOrganic = 'PPC_ORGANIC',
+    All = 'ALL',
+    CheckPermissions = 'CHECK_PERMISSIONS',
+    Profile = 'PROFILE',
+    ReceivingRequests = 'RECEIVING_REQUESTS'
+>>>>>>> pre-release
+}
+
 
 

@@ -3,12 +3,12 @@ import { FiPlus } from 'react-icons/fi'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ButtonHeaderCell,
   InputOrTextCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   TableDataControlsButtonsCell,
 } from '@components/data-grid/data-grid-cells'
+import { CustomButton } from '@components/shared/custom-button'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -70,22 +70,20 @@ export const tabFreelanceColumns = ({
   {
     field: 'archive',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Archive)} />,
-    renderCell: ({ row }) => <MultilineTextCell leftAlign text={row.archive ? t(TranslationKey.Archive) : ''} />,
+    renderCell: ({ row }) => <Text isCell text={row.archive ? t(TranslationKey.Archive) : ''} />,
     filterable: false,
     sortable: false,
-    width: 80,
+    flex: 1,
   },
 
   {
     field: 'button',
     renderHeader: () => (
-      <ButtonHeaderCell
-        text={t(TranslationKey['New specialty'])}
-        icon={<FiPlus style={{ width: 16, height: 16 }} />}
-        onOpenModal={onClickToggleAddOrEditTextModal}
-      />
+      <CustomButton type="primary" icon={<FiPlus size={16} />} onClick={onClickToggleAddOrEditTextModal}>
+        {t(TranslationKey['New specialty'])}
+      </CustomButton>
     ),
     sortable: false,
-    flex: 1,
+    minWidth: 230,
   },
 ]

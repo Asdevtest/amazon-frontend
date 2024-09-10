@@ -5,10 +5,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineTextAlignLeftCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  Text,
   WarehouseTariffDatesCell,
   WarehouseTariffDestinationCell,
   WarehouseTariffRatesCell,
@@ -25,7 +24,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff name'])} />,
 
     width: 165,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
   },
 
   {
@@ -34,7 +33,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
     width: 290,
-    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
   },
 
   {
@@ -90,7 +89,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
 
     type: 'number',
     width: 120,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
   },
 
   {
@@ -100,7 +99,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
 
     type: 'number',
     width: 120,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
   },
 
   {

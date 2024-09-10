@@ -14,18 +14,18 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   DeadlineCell,
-  DownloadAndCopyBtnsCell,
   IconHeaderCell,
+  LinkCell,
   ManyUserLinkCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   PaymentMethodsCell,
   PriorityAndChinaDeliverCell,
-  ProductAsinCell,
+  ProductCell,
   UserLinkCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
@@ -59,7 +59,7 @@ export const buyerOrdersColumns = ({
       field: 'id',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
 
       sortable: true,
       width: 100,
@@ -93,11 +93,11 @@ export const buyerOrdersColumns = ({
         const product = params.row.product
 
         return (
-          <ProductAsinCell
+          <ProductCell
             image={product?.images?.[0]}
-            amazonTitle={product?.amazonTitle}
+            title={product?.amazonTitle}
             asin={product?.asin}
-            skuByClient={product?.skuByClient}
+            sku={product?.skuByClient}
           />
         )
       },
@@ -107,8 +107,7 @@ export const buyerOrdersColumns = ({
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 260,
-      minWidth: 100,
+      width: 170,
     },
 
     {
@@ -128,9 +127,9 @@ export const buyerOrdersColumns = ({
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: params => (
-        <MultilineTextCell
+        <Text
+          isCell
           text={OrderStatusTranslate(OrderStatusByCode[params.row.status as keyof typeof OrderStatusByCode])}
-          maxLength={50}
           color={orderColorByStatus(OrderStatusByCode[params.row.status as keyof typeof OrderStatusByCode])}
         />
       ),
@@ -144,7 +143,7 @@ export const buyerOrdersColumns = ({
       field: 'amount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 130,
       type: 'number',
       sortable: false,
@@ -156,7 +155,7 @@ export const buyerOrdersColumns = ({
       field: 'totalPrice',
       headerName: t(TranslationKey.Price),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.totalPrice, 2)} />,
+      renderCell: params => <Text isCell text={toFixedWithDollarSign(params.row.totalPrice, 2)} />,
       valueGetter: params => toFixedWithDollarSign(params.row.totalPrice, 2),
       width: 90,
       type: 'number',
@@ -188,7 +187,8 @@ export const buyerOrdersColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['To pay']) + ', Ұ'} />,
 
       renderCell: params => (
-        <MultilineTextCell
+        <Text
+          isCell
           text={
             toFixed(params.row.partialPayment ? params.row.partialPaymentAmountRmb : params.row.priceInYuan, 2) || '0'
           }
@@ -208,17 +208,12 @@ export const buyerOrdersColumns = ({
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-      renderCell: params => (
-        <DownloadAndCopyBtnsCell
-          showViewTooltip={false}
-          value={params.row.product.barCode}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        />
-      ),
-      minWidth: 210,
+      renderCell: params => <LinkCell value={params.row.product.barCode} />,
+      minWidth: 100,
       sortable: false,
       filterable: false,
       disableCustomSort: true,
+      align: 'center',
     },
 
     {
@@ -243,9 +238,7 @@ export const buyerOrdersColumns = ({
       renderCell: params => {
         const currentSupplier = params.row.orderSupplier
 
-        return (
-          <MultilineTextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
-        )
+        return <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
       },
       valueGetter: params => {
         const currentSupplier = params.row.orderSupplier
@@ -266,7 +259,7 @@ export const buyerOrdersColumns = ({
       headerName: t(TranslationKey.Deadline),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: params =>
-        params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <MultilineTextCell text={'-'} />,
+        params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <Text isCell text={'-'} />,
       valueGetter: params => (params.row.deadline ? formatDate(params.row.deadline) : ''),
       width: 100,
 
@@ -278,8 +271,8 @@ export const buyerOrdersColumns = ({
       headerName: t(TranslationKey['Payment date']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment date'])} />,
       renderCell: params => (
-        <MultilineTextCell
-          withLineBreaks
+        <Text
+          isCell
           color={
             Math.abs(getDistanceBetweenDatesInSeconds(params.row.paymentDateToSupplier)) >
               convertDaysToSeconds(params.row.orderSupplier?.productionTerm) &&
@@ -301,7 +294,7 @@ export const buyerOrdersColumns = ({
       field: 'needsResearch',
       headerName: t(TranslationKey['Re-search supplier']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
-      renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+      renderCell: params => <Text isCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
       width: 140,
 
       columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
@@ -326,7 +319,7 @@ export const buyerOrdersColumns = ({
       field: 'destination',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-      renderCell: params => <MultilineTextCell leftAlign threeLines text={params.row.destination?.name} />,
+      renderCell: params => <Text isCell text={params.row.destination?.name} />,
       valueGetter: params => params.row.destination?.name,
       width: 130,
       sortable: false,
@@ -339,7 +332,7 @@ export const buyerOrdersColumns = ({
       field: 'clientComment',
       headerName: t(TranslationKey['Client comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 400,
       sortable: false,
 
@@ -350,7 +343,7 @@ export const buyerOrdersColumns = ({
       field: 'buyerComment',
       headerName: t(TranslationKey['Buyer comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 400,
       sortable: false,
 
@@ -410,7 +403,7 @@ export const buyerOrdersColumns = ({
       field: 'partiallyPaid',
       headerName: t(TranslationKey['Paid for']) + ', Ұ',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Paid for']) + ', Ұ'} />,
-      renderCell: params => <MultilineTextCell text={toFixed(params.row.partiallyPaid, 2) || '0'} />,
+      renderCell: params => <Text isCell text={toFixed(params.row.partiallyPaid, 2) || '0'} />,
       width: 110,
       type: 'number',
 

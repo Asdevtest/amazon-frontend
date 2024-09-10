@@ -6,8 +6,10 @@ export const observerConfig = {
   currentData: observable,
   rowCount: observable,
   meta: observable,
+  loading: observable,
 
   getCurrentData: action.bound,
   setRequestStatus: action.bound,
   initHistory: action.bound,
+  setLoading: action.bound,
 }

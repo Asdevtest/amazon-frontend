@@ -29,7 +29,7 @@ export class FreelanceModel {
   curRequest = null
   curProposal = null
 
-  selectedSpec = Specs.DEFAULT
+  specOption = Specs.DEFAULT
 
   showRequestDesignerResultClientModal = false
   showMainRequestResultModal = false
@@ -115,11 +115,11 @@ export class FreelanceModel {
     }
   }
 
-  onClickSpec(specType) {
-    this.selectedSpec = specType
+  onChangeSpec(value) {
+    this.specOption = value
 
     // spec - for "_id:string", specType - for "type:number"
-    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+    this.onChangeFullFieldMenuItem(value === Specs.DEFAULT ? [] : [value], 'specType', true)
 
     this.getCustomRequests()
   }
@@ -189,7 +189,7 @@ export class FreelanceModel {
   }
 
   onClickResetFilters() {
-    this.selectedSpec = Specs.DEFAULT
+    this.specOption = Specs.DEFAULT
 
     this.columnMenuSettings = {
       ...this.columnMenuSettings,

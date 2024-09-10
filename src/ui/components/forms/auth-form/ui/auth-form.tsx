@@ -1,4 +1,4 @@
-import { Form, Input } from 'antd'
+import { Form } from 'antd'
 import { FC, memo, useCallback, useEffect } from 'react'
 import { MdOutlineEmail } from 'react-icons/md'
 import { RiLockPasswordLine, RiUser3Line } from 'react-icons/ri'
@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomInput } from '@components/shared/custom-input'
 
 import { FieldData } from '@views/auth/model/types/field'
 
@@ -80,15 +81,16 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
     <Form name="user-form" size="large" form={form} rootClassName={styles.form} onFinish={onFinish}>
       {!auth ? (
         <Form.Item hasFeedback name="name" validateTrigger="onBlur" rules={nameValidationRules}>
-          <Input maxLength={MAX_INPUT_LENGTH} placeholder={t(TranslationKey.Name)} prefix={<RiUser3Line />} />
+          <CustomInput fullWidth={editUser} maxLength={MAX_INPUT_LENGTH} placeholder="Name" prefix={<RiUser3Line />} />
         </Form.Item>
       ) : null}
 
       <Form.Item<FieldData> hasFeedback validateTrigger="onBlur" name="email" rules={emailValidationRules}>
-        <Input
+        <CustomInput
+          fullWidth={editUser}
           maxLength={MAX_INPUT_LENGTH}
           disabled={editUser}
-          placeholder={t(TranslationKey.Email)}
+          placeholder="Email"
           autoComplete={!auth ? 'username' : 'on'}
           prefix={<MdOutlineEmail />}
         />
@@ -101,10 +103,12 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
           validateTrigger={['onBlur', 'onChange']}
           rules={passwordValidationRules}
         >
-          <Input.Password
+          <CustomInput
+            password
+            fullWidth={editUser}
             maxLength={MAX_INPUT_LENGTH}
             type="password"
-            placeholder={t(TranslationKey['Old password'])}
+            placeholder="Old password"
             autoComplete="off"
             prefix={<RiLockPasswordLine />}
           />
@@ -118,10 +122,12 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
         dependencies={['oldPassword']}
         rules={editUser ? newPasswordValidationRules : passwordValidationRules}
       >
-        <Input.Password
+        <CustomInput
+          password
+          fullWidth={editUser}
           maxLength={MAX_INPUT_LENGTH}
           type="password"
-          placeholder={t(TranslationKey[editUser ? 'New password' : 'Password'])}
+          placeholder={editUser ? 'New password' : 'Password'}
           autoComplete={!auth ? 'new-password' : 'on'}
           prefix={<RiLockPasswordLine />}
         />
@@ -135,9 +141,11 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
           validateTrigger={['onBlur', 'onChange']}
           rules={confirmPasswordValidationRules}
         >
-          <Input.Password
+          <CustomInput
+            password
+            fullWidth={editUser}
             maxLength={MAX_INPUT_LENGTH}
-            placeholder={t(TranslationKey['Confirm password'])}
+            placeholder="Confirm password"
             prefix={<RiLockPasswordLine />}
           />
         </Form.Item>

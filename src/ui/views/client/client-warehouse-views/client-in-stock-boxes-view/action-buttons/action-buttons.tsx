@@ -3,7 +3,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
@@ -46,56 +46,76 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
   return (
     <div className={styles.btnsWrapper}>
       <div className={styles.leftBtnsWrapper}>
-        <Button
-          tooltipInfoContent={t(TranslationKey['Form for requesting the shipment of boxes in a batch'])}
+        <CustomButton
+          type="primary"
+          size="large"
+          title={t(TranslationKey['Form for requesting the shipment of boxes in a batch'])}
           disabled={!selectedRows?.length || isHaveRequestSendToBatch}
           onClick={onClickRequestToSendBatch}
         >
           {t(TranslationKey['Send batch'])}
-        </Button>
+        </CustomButton>
 
-        <Button
-          tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
+        <CustomButton
+          type="primary"
+          size="large"
+          title={t(TranslationKey['Form for merging several boxes'])}
           disabled={selectedRows?.length <= 1 || isHaveRequestSendToBatch}
           onClick={onClickMergeBtn}
         >
           {t(TranslationKey.Merge)}
-        </Button>
+        </CustomButton>
 
-        <Button
+        <CustomButton
+          type="primary"
+          size="large"
+          title={t(TranslationKey['Form for distributing to multiple boxes'])}
           disabled={selectedRows?.length !== 1 || isHaveRequestSendToBatch}
-          tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
           onClick={onClickSplitBtn}
         >
           {t(TranslationKey.Redistribute)}
-        </Button>
-        <Button
-          tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
+        </CustomButton>
+        <CustomButton
+          type="primary"
+          size="large"
+          title={t(TranslationKey['Form for changing the box data'])}
           disabled={!selectedRows?.length || isHaveRequestSendToBatch}
           onClick={onClickEditBtn}
         >
           {t(TranslationKey.Edit)}
-        </Button>
+        </CustomButton>
 
-        <Button disabled={!selectedRows?.length || isHaveRequestSendToBatch} onClick={onClickGroupingBtn}>
+        <CustomButton
+          type="primary"
+          size="large"
+          disabled={!selectedRows?.length || isHaveRequestSendToBatch}
+          onClick={onClickGroupingBtn}
+        >
           {t(TranslationKey.Grouping)}
-        </Button>
+        </CustomButton>
 
-        <Button
+        <CustomButton
+          type="primary"
+          size="large"
           disabled={!selectedRows?.length || !isChoosenOnlySendToBatchBoxes}
           onClick={onClickReturnBoxesToStockBtn}
         >
           {t(TranslationKey['Return to stock'])}
-        </Button>
+        </CustomButton>
 
-        <Button disabled={selectedRows?.length !== 1} onClick={onClickWarehouseOrderButton}>
+        <CustomButton
+          type="primary"
+          size="large"
+          disabled={selectedRows?.length !== 1}
+          onClick={onClickWarehouseOrderButton}
+        >
           {t(TranslationKey['Warehouse and orders'])}
-        </Button>
+        </CustomButton>
       </div>
 
-      <Button disabled={!storekeepersData} onClick={() => onClickCurrentTariffsBtn()}>
+      <CustomButton type="primary" size="large" disabled={!storekeepersData} onClick={onClickCurrentTariffsBtn}>
         {t(TranslationKey['Current tariffs'])}
-      </Button>
+      </CustomButton>
     </div>
   )
 })

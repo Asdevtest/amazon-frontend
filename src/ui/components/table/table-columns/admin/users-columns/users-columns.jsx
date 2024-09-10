@@ -6,13 +6,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   ProductVariationsCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
-import { TextWithCopy } from '@components/shared/text-with-copy'
+import { Text } from '@components/shared/text'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -53,7 +52,7 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey.Balance),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Balance)} />,
 
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
+      renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value)} />,
       width: 100,
       columnKey: columnnsKeys.shared.NUMBER,
       transformValueMethod: balance => toFixedWithDollarSign(balance),
@@ -64,7 +63,7 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey.Freeze),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Freeze)} />,
 
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
+      renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value)} />,
       width: 120,
       columnKey: columnnsKeys.shared.NUMBER,
       transformValueMethod: balance => toFixedWithDollarSign(balance),
@@ -74,7 +73,7 @@ export const adminUsersViewColumns = handlers => {
       field: 'email',
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Email)} />,
-      renderCell: ({ row }) => <TextWithCopy text={row.email} justifyContent={'flex-end'} />,
+      renderCell: ({ row }) => <Text isCell text={row.email} />,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 200,
     },
@@ -84,7 +83,7 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey.Rate),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Rate)} />,
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 100,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -94,7 +93,7 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey.Role),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Role)} />,
 
-      renderCell: ({ row }) => <MultilineTextCell text={userRoleTranslateKey(row?.role)} />,
+      renderCell: ({ row }) => <Text isCell text={userRoleTranslateKey(row?.role)} />,
       width: 150,
       transformValueMethod: userRoleTranslateKey,
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -105,7 +104,7 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey['User status']),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey['User status'])} />,
 
-      renderCell: ({ row }) => <MultilineTextCell text={userStatusTranslateKey(row?.active)} />,
+      renderCell: ({ row }) => <Text isCell text={userStatusTranslateKey(row?.active)} />,
       transformValueMethod: userStatusTranslateKey,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 160,

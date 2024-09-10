@@ -1,16 +1,15 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
-  ToFixedWithKgSignCell,
+  Text,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
-import { toFixedWithDollarSign } from '@utils/text'
+import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const clientBoxesReadyToBatchViewColumns = () => [
@@ -19,7 +18,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
     type: 'number',
     width: 80,
   },
@@ -63,7 +62,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value * params.row.originalData.amount} />,
+    renderCell: params => <Text text={params.value * params.row.originalData.amount} />,
     type: 'number',
     width: 100,
   },
@@ -73,7 +72,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
     width: 130,
   },
 
@@ -93,7 +92,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text text={params.value} />,
     width: 200,
   },
 
@@ -102,7 +101,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <Text text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     width: 140,
   },
@@ -112,7 +111,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
 
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    renderCell: params => <Text text={toFixedWithKg(params.value)} />,
     type: 'number',
     width: 150,
   },
@@ -122,7 +121,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey['Total weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total weight'])} />,
 
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    renderCell: params => <Text text={toFixedWithKg(params.value)} />,
     type: 'number',
     width: 120,
   },

@@ -1,11 +1,10 @@
+import { MdOutlineDelete } from 'react-icons/md'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  ActionButtonsCell,
-  MultilineTextAlignLeftCell,
-  MultilineTextHeaderCell,
-} from '@components/data-grid/data-grid-cells'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
+import { ActionButtonsCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { EditIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -17,7 +16,7 @@ export const supervisorSettingsViewColumns = props => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: params => <MultilineTextAlignLeftCell isAsin text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 200,
     },
 
@@ -25,7 +24,7 @@ export const supervisorSettingsViewColumns = props => {
       field: 'reason',
       headerName: t(TranslationKey.Reason),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reason)} />,
-      renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
       flex: 1,
     },
     {
@@ -40,7 +39,7 @@ export const supervisorSettingsViewColumns = props => {
           isSecondButton
           firstButtonElement={<EditIcon />}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<CrossIcon />}
+          secondButtonElement={<MdOutlineDelete size={18} />}
           secondButtonStyle={ButtonStyle.DANGER}
           secondDescriptionText="Are you sure you want to delete ASIN?"
           onClickFirstButton={() => props.onEditAsin(row)}

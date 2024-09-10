@@ -1,15 +1,14 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextCell,
+  MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  SmallRowImageCell,
-  ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
-import { toFixedWithDollarSign } from '@utils/text'
+import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const vacByUserIdExchangeColumns = () => [
@@ -18,8 +17,8 @@ export const vacByUserIdExchangeColumns = () => [
     headerName: t(TranslationKey.Image),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
 
-    width: 100,
-    renderCell: params => <SmallRowImageCell image={params.row.images[0]} />,
+    width: 70,
+    renderCell: params => <MediaContentCell image={params.row.images[0]} />,
     filterable: false,
     sortable: false,
   },
@@ -38,7 +37,7 @@ export const vacByUserIdExchangeColumns = () => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 150,
   },
 
@@ -47,7 +46,7 @@ export const vacByUserIdExchangeColumns = () => [
     headerName: t(TranslationKey.Category),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 140,
   },
 
@@ -56,7 +55,7 @@ export const vacByUserIdExchangeColumns = () => [
     headerName: t(TranslationKey['Amazon price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     width: 100,
   },
@@ -66,7 +65,7 @@ export const vacByUserIdExchangeColumns = () => [
     headerName: t(TranslationKey.Weight),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Weight)} />,
 
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    renderCell: params => <Text isCell text={toFixedWithKg(params.value)} />,
     type: 'number',
     width: 70,
   },
@@ -76,7 +75,7 @@ export const vacByUserIdExchangeColumns = () => [
     headerName: t(TranslationKey.BSR),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     type: 'number',
     width: 90,
   },
@@ -86,7 +85,7 @@ export const vacByUserIdExchangeColumns = () => [
     headerName: t(TranslationKey['Recommend amount']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.value} />,
     width: 130,
     type: 'number',
   },

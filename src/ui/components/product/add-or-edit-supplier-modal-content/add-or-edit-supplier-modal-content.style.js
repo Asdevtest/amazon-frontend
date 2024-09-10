@@ -12,10 +12,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '840px',
   },
   titleDivider: {
-    margin: '30px 0',
-  },
-  fieldsDivider: {
-    margin: '20px 0 20px',
+    margin: '20px 0',
   },
 
   saveBtnWrapperClient: {
@@ -43,10 +40,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
   },
 
-  imageFileInputWrapper: {
-    width: '798px',
-  },
-
   makeMainSupplierСheckboxWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -58,16 +51,10 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     transition: '.3s ease',
     cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
 
   disabledCheckboxWrapper: {
     cursor: 'auto',
-    '&:hover': {
-      transform: 'none',
-    },
   },
 
   checkbox: {
@@ -136,7 +123,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   divider: {
-    margin: '35px 10px 10px 10px',
+    margin: '35px 10px 20px 10px',
   },
 
   boxInfoMainWrapper: {
@@ -215,5 +202,11 @@ export const useStyles = makeStyles()(theme => ({
 
   error: {
     borderColor: 'red',
+  },
+
+  flexContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '0 20px',
   },
 }))

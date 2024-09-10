@@ -1,5 +1,7 @@
 import { action, computed, observable } from 'mobx'
 
+import { GridSortModel } from '@mui/x-data-grid-premium'
+
 export const adminFeedbackConfig = {
   showReplyFeedbackModal: observable,
   selectedFeedback: observable,
@@ -12,4 +14,4 @@ export const adminFeedbackConfig = {
 }
 
 export const fieldsForSearch = ['email', 'name']
-export const sortConfig = [{ field: 'updatedAt', sort: 'desc' }]
+export const sortConfig: GridSortModel = [{ field: 'updatedAt', sort: 'desc' }]

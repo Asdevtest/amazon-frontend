@@ -16,8 +16,8 @@ import { BoxModal } from '@components/modals/box-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
 import { StorekeeperRedistributeBox } from '@components/modals/storekeeper'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
@@ -42,7 +42,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
   const disableSelectionCells = ['prepId']
 
   return (
-    <>
+    <div className="viewWrapper">
       <div className={styles.headerWrapper}>
         <ActionButtons
           selectedBoxes={viewModel.selectedBoxes}
@@ -52,61 +52,61 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           onClickGroupingBtn={viewModel.onClickGroupingBtn}
         />
 
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
-          onSubmit={viewModel.onSearchSubmit}
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box"
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 
-      <div className={styles.datagridWrapper}>
-        <CustomDataGrid
-          checkboxSelection
-          disableRowSelectionOnClick
-          isRowSelectable={params =>
-            params.row.isDraft === false &&
-            params.row.originalData.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
-            params.row.originalData.status !== BoxStatus.IN_BATCH
-          }
-          getRowClassName={getRowClassName}
-          rowCount={viewModel.rowCount}
-          rowSelectionModel={viewModel.selectedBoxes}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          getRowHeight={() => 'auto'}
-          slotProps={{
-            columnMenu: viewModel.columnMenuSettings,
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
+      <CustomDataGrid
+        checkboxSelection
+        disableRowSelectionOnClick
+        isRowSelectable={params =>
+          params.row.isDraft === false &&
+          params.row.originalData.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
+          params.row.originalData.status !== BoxStatus.IN_BATCH
+        }
+        getRowClassName={getRowClassName}
+        rowCount={viewModel.rowCount}
+        rowSelectionModel={viewModel.selectedBoxes}
+        sortModel={viewModel.sortModel}
+        filterModel={viewModel.filterModel}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
+        paginationModel={viewModel.paginationModel}
+        rows={viewModel.currentData}
+        getRowHeight={() => 'auto'}
+        slotProps={{
+          columnMenu: viewModel.columnMenuSettings,
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+          toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: viewModel.onClickResetFilters,
+              isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-          }}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onCellDoubleClick={params =>
-            !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
-          }
-        />
-      </div>
+          },
+        }}
+        density={viewModel.densityModel}
+        columns={viewModel.columnsModel}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onSortModelChange={viewModel.onChangeSortingModel}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onFilterModelChange={viewModel.onChangeFilterModel}
+        onCellDoubleClick={params =>
+          !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
+        }
+      />
 
       <Modal
         openModal={viewModel.showBoxMoveToBatchModal}
@@ -268,6 +268,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
         />
       </Modal>
-    </>
+    </div>
   )
 })

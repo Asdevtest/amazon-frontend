@@ -8,7 +8,7 @@ import { IDestinationVariationWithCalculations } from '@typings/shared/destinati
 
 import { useStyles } from './approximate-cell.style'
 
-import { MultilineTextCell } from '../multiline-text-cell/multiline-text-cell'
+import { Text } from '../../../shared/text/text'
 
 import { getCellValue } from './helpers/get-cell-value'
 
@@ -32,7 +32,7 @@ export const ApproximateCell: FC<ApproximateCellProps> = memo(props => {
         [styles.borderRight]: borderRight,
       })}
     >
-      <MultilineTextCell text={text} maxLength={25} />
+      <Text text={text} />
     </div>
   )
 

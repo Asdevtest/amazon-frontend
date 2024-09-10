@@ -30,6 +30,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '16px',
     wordBreak: 'break-word',
+    position: 'absolute',
   },
 
   successText: {

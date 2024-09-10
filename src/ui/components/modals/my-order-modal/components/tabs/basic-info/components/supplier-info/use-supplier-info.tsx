@@ -25,6 +25,9 @@ export const useSupplierInfo = ({
   isOrderEditable,
   isPendingOrdering,
   formFields,
+  isMultiple,
+  isNotMultiple,
+  amountInBox,
   setFormFields,
 }: SupplierInfoProps) => {
   const { classes: styles, cx } = useStyles()
@@ -64,14 +67,22 @@ export const useSupplierInfo = ({
       title: t(TranslationKey['Quantity (pcs.)']),
       text: undefined,
       element: (
-        <input
-          name="amount"
-          maxLength={8}
-          value={formFields?.amount || 0}
-          disabled={!isOrderEditable}
-          className={styles.inputAmount}
-          onChange={handleChangeField('amount')}
-        />
+        <div className={styles.flexColumn}>
+          <input
+            name="amount"
+            maxLength={8}
+            value={formFields?.amount || 0}
+            disabled={!isOrderEditable}
+            className={styles.inputAmount}
+            onChange={handleChangeField('amount')}
+          />
+          <span className={styles.errorText}>
+            {isNotMultiple && ` ${t(TranslationKey['Not a multiple of'])} ${amountInBox}`}
+          </span>
+          <span className={styles.successText}>
+            {isMultiple && ` ${t(TranslationKey['Value multiple of'])} ${amountInBox}`}
+          </span>
+        </div>
       ),
     },
     {

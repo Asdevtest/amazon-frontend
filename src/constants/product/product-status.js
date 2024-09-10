@@ -144,7 +144,7 @@ export const productStatusTranslateKey = status => {
       return TranslationKey['Product is appropriate']
 
     case ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP:
-      return TranslationKey['Rejected by Supervisor']
+      return TranslationKey['Rejected by supervisor']
 
     case ProductStatus.TO_BUYER_FOR_RESEARCH:
       return TranslationKey['Is in search of a Buyer']
@@ -214,6 +214,9 @@ export const productStatusTranslateKey = status => {
 
     case ProductStatus.SUPPLIER_FOUND:
       return TranslationKey['Supplier found']
+
+    default:
+      return ''
   }
 }
 
@@ -232,7 +235,7 @@ export const translateStatusForResearcher = status => {
       return TranslationKey['Product is appropriate']
 
     case ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP:
-      return TranslationKey['Rejected by Supervisor']
+      return TranslationKey['Rejected by supervisor']
 
     default:
       return TranslationKey.Ok

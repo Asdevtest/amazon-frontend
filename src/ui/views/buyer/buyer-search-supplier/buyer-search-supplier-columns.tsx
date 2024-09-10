@@ -1,12 +1,9 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  ActionButtonsCell,
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-  NormDateCell,
-} from '@components/data-grid/data-grid-cells'
+import { ActionButtonsCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -32,7 +29,7 @@ export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
             firstButtonTooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
             firstButtonElement={t(TranslationKey['Get to work'])}
             firstButtonStyle={ButtonStyle.PRIMARY}
-            onClickFirstButton={() => handlers.onPickUp(params.row as IProduct)}
+            onClickFirstButton={throttle(() => handlers.onPickUp(params.row as IProduct))}
           />
         )
       },
@@ -45,7 +42,7 @@ export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
       field: 'checkednotes',
       headerName: t(TranslationKey["Supervisor's comment"]),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey["Supervisor's comment"])} />,
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={165} text={params.value} />,
+      renderCell: params => <Text isCell text={params.value} />,
 
       width: 400,
     },

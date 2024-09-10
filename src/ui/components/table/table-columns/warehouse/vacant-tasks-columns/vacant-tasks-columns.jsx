@@ -11,9 +11,10 @@ import {
   TaskDescriptionCell,
   TaskPriorityCell,
   TaskTypeCell,
-  TextCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -35,7 +36,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
           secondButtonTooltipText={t(TranslationKey['The task will be canceled, the box will keep its previous state'])}
           secondButtonElement={t(TranslationKey.Cancel)}
           secondButtonStyle={ButtonStyle.DANGER}
-          onClickFirstButton={() => handlers.onClickPickupBtn(params.row.originalData)}
+          onClickFirstButton={throttle(() => handlers.onClickPickupBtn(params.row.originalData))}
           onClickSecondButton={() =>
             handlers.onClickCancelTask(
               params.row.originalData.boxes[0]?._id,
@@ -68,7 +69,8 @@ export const warehouseVacantTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Comment)} />,
       renderCell: params => (
-        <TextCell
+        <Text
+          isCell
           editMode
           text={params.row.originalData.reason}
           onClickSubmit={reason =>

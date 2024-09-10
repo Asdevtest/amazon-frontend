@@ -78,13 +78,11 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
       fieldsForSearch,
       tableKey: isSentBatches ? DataGridTablesKeys.WAREHOUSE_BATCHES : DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES,
       additionalPropertiesGetFilters,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
-
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    this.getDataGridState()
-    this.getCurrentData()
-
     makeObservable(this, warehouseMyBatchesConfig)
+
+    this.getTableSettingsPreset()
 
     reaction(
       () => this.isArchive,
@@ -270,10 +268,14 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
 
   async onClickSaveArrivalDate(id: string, date: string) {
     try {
-      const newDate = new Date(date)
-      newDate.setUTCHours(0)
-      newDate.setUTCSeconds(0)
-      const arrivalDate = newDate.toISOString()
+      let arrivalDate = null
+
+      if (date) {
+        const newDate = new Date(date)
+        newDate.setUTCHours(0)
+        newDate.setUTCSeconds(0)
+        arrivalDate = newDate.toISOString()
+      }
 
       await BatchesModel.changeBatch(id, { arrivalDate })
       this.getCurrentData()

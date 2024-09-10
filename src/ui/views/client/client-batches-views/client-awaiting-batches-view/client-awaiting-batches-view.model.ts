@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RadioChangeEvent } from 'antd'
 import { makeObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -74,15 +75,13 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey: DataGridTablesKeys.CLIENT_AWAITING_BATCHES,
       defaultGetCurrentDataOptions,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
     if (!isModalModel) {
-      this.getDataGridState()
       this.getStorekeepers()
-      this.getCurrentData()
+      this.getTableSettingsPreset()
     }
 
     reaction(
@@ -131,10 +130,12 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickStorekeeperBtn(currentStorekeeperId: string) {
+  onClickStorekeeperBtn(event: RadioChangeEvent) {
+    const currentValue = event.target.value
+
     this.onSelectionModel([])
 
-    this.currentStorekeeperId = currentStorekeeperId
+    this.currentStorekeeperId = currentValue
 
     this.getCurrentData()
   }

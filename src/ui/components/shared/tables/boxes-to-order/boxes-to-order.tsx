@@ -52,6 +52,9 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(props => {
             '& .MuiDataGrid-columnHeaderDraggableContainer': styles.columnHeaderTitleContainer,
           }}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             toolbar: {
               children: (
                 <div className={styles.toolbar}>

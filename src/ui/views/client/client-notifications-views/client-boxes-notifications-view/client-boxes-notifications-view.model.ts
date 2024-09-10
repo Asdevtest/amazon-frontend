@@ -52,14 +52,12 @@ export class ClientBoxesNotificationsViewModel extends DataGridFilterTableModel 
       filtersFields: getFilterFields(columnsModel),
       mainMethodURL: 'boxes/pag/clients_light?',
       defaultFilterParams,
+      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-
-    this.getDataGridState()
-    this.getCurrentData()
+    this.getTableSettingsPreset()
   }
 
   onTriggerOpenConfirmModal(row: IBox) {

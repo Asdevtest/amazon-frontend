@@ -3,9 +3,13 @@ import { FC, useCallback, useState } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 import { CustomTextarea } from '@components/shared/custom-textarea'
+
+import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IProduct } from '@typings/models/products/product'
@@ -53,21 +57,24 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         onScrollAsinSelect={viewModel.loadMoreDataHadler}
       />
 
-      <div className={styles.tableContainer}>
-        <CustomDataGrid
-          disableRowSelectionOnClick
-          rows={viewModel.launches}
-          rowCount={viewModel.launches.length}
-          columns={viewModel.columnsModel}
-          getRowHeight={() => 'auto'}
-          columnHeaderHeight={35}
-          // getRowId={({ type }: GridRowModel) => type}
-          getRowId={({ _id }: GridRowModel) => _id}
-          slots={null}
-          className={styles.dataGridRoot}
-          loading={viewModel.requestTableStatus === loadingStatus.IS_LOADING}
-        />
-      </div>
+      <CustomDataGrid
+        disableRowSelectionOnClick
+        rows={viewModel.launches}
+        rowCount={viewModel.launches.length}
+        columns={viewModel.columnsModel}
+        getRowHeight={() => 'auto'}
+        columnHeaderHeight={35}
+        // getRowId={({ type }: GridRowModel) => type}
+        getRowId={({ _id }: GridRowModel) => _id}
+        slots={null}
+        className={styles.dataGridRoot}
+        loading={viewModel.requestTableStatus === loadingStatus.IS_LOADING}
+        slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
+        }}
+      />
 
       <div className={styles.flexRowContainer}>
         <div className={styles.inputContainer}>

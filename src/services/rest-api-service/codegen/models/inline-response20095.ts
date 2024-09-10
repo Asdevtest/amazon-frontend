@@ -14,7 +14,11 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+<<<<<<< HEAD
 import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
+=======
+import { ApiV1ShopSellStatistics } from './api-v1-shop-sell-statistics';
+>>>>>>> pre-release
 
 /**
  * Схема получение лайт версии продажи магазина
@@ -34,6 +38,7 @@ export interface InlineResponse20095 {
      * @memberof InlineResponse20095
      */
     owner?: ApiV1AdminsGetProductsByStatusCreatedBy;
+<<<<<<< HEAD
     /**
      * GUID покупателя магазина
      * @type {string}
@@ -52,6 +57,8 @@ export interface InlineResponse20095 {
      * @memberof InlineResponse20095
      */
     chatId?: string;
+=======
+>>>>>>> pre-release
     /**
      * Имя магазина для продажи
      * @type {string}
@@ -77,29 +84,17 @@ export interface InlineResponse20095 {
      */
     price?: number;
     /**
-     * Ежемесячная прибыль
-     * @type {number}
-     * @memberof InlineResponse20095
-     */
-    monthlyProfit?: number;
-    /**
-     * Ежемесячная чистая прибыль
-     * @type {number}
-     * @memberof InlineResponse20095
-     */
-    monthlyPureProfit?: number;
-    /**
      * Ежемесячный множитель
      * @type {number}
      * @memberof InlineResponse20095
      */
     monthlyMultiplier?: number;
     /**
-     * Статистика магазина по месяцам
-     * @type {Array<ApiV1ShopSellStatistics1>}
+     * 
+     * @type {ApiV1ShopSellStatistics}
      * @memberof InlineResponse20095
      */
-    statistics?: Array<ApiV1ShopSellStatistics1>;
+    statistics?: ApiV1ShopSellStatistics;
     /**
      * Дата создания бизнеса
      * @type {string}
@@ -112,66 +107,6 @@ export interface InlineResponse20095 {
      * @memberof InlineResponse20095
      */
     shopDetails?: string;
-    /**
-     * Ссылка магазина
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    shopLink?: string;
-    /**
-     * Массив активов
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    shopAssets?: Array<string>;
-    /**
-     * Массив возможностей
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    opportunities?: Array<string>;
-    /**
-     * Массив рисков
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    risks?: Array<string>;
-    /**
-     * Массив требуемых навыков
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    requiredSkills?: Array<string>;
-    /**
-     * Поддержка продавца включает
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    sellIncludes?: Array<string>;
-    /**
-     * Причины продажи
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    reasonForSale?: Array<string>;
-    /**
-     * Дополнительная информация
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    additionalInfo?: Array<string>;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    updatedAt?: string;
 }
 
 

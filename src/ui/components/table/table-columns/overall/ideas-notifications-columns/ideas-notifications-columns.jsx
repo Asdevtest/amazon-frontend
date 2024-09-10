@@ -3,12 +3,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  MultilineTextCell,
   MultilineTextHeaderCell,
-  ProductAsinCell,
-  ShortDateCell,
+  NormDateCell,
+  ProductCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -20,7 +20,7 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <ShortDateCell value={params.value} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 85,
     // type: 'date',
   },
@@ -52,17 +52,16 @@ export const ideasNotificationsViewColumns = handlers => [
       const product = params?.row?.originalData?.product
 
       return (
-        <ProductAsinCell
+        <ProductCell
           image={product?.images?.[0]}
-          amazonTitle={product?.amazonTitle}
+          title={product?.amazonTitle}
           asin={product?.asin}
-          skuByClient={product?.skuByClient}
+          sku={product?.skuByClient}
         />
       )
     },
 
-    width: 260,
-    minWidth: 100,
+    width: 170,
   },
 
   {
@@ -82,7 +81,8 @@ export const ideasNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea Status'])} />,
 
     renderCell: params => (
-      <MultilineTextCell
+      <Text
+        isCell
         text={params?.value}
         color={colorByIdeaStatus(ideaStatusByCode[params.row.originalData.idea.status])}
       />
@@ -95,7 +95,7 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey['Name idea']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Name idea'])} />,
 
-    renderCell: params => <MultilineTextCell leftAlign text={params?.row?.productName} />,
+    renderCell: params => <Text isCell text={params?.row?.productName} />,
     // width: 200,
     flex: 1,
   },

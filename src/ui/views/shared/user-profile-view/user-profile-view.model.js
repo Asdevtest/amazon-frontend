@@ -151,7 +151,7 @@ export class ProfileViewModel {
       const { name, email, oldPassword, password } = data
 
       if (name || email) {
-        await UserModel.changeUserInfo({ name: data.name })
+        await UserModel.changeUserInfo({ name: data.name?.trim() })
       }
 
       if (oldPassword && password) {

@@ -26,6 +26,15 @@ export interface InlineObject14 {
      * @memberof InlineObject14
      */
     title: string;
+<<<<<<< HEAD
+=======
+    /**
+     * Color
+     * @type {string}
+     * @memberof InlineObject14
+     */
+    color?: string;
+>>>>>>> pre-release
 }
 
 

@@ -6,6 +6,6 @@ import { AdminExchangeStatuses, adminExchangeStatusesTranslations } from './admi
 
 export const getSwitcherConfig = () =>
   Object.values(AdminExchangeStatuses).map(status => ({
-    label: () => t(TranslationKey[adminExchangeStatusesTranslations[status] as keyof typeof TranslationKey]),
+    label: t(TranslationKey[adminExchangeStatusesTranslations[status] as keyof typeof TranslationKey]),
     value: status,
   }))

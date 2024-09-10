@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { IPatchNoteToCreate } from '@views/shared/patch-noutes-view/patch-noutes-view.type'
 
@@ -24,6 +24,8 @@ export const usePatchNoteForm = ({ onUpdatePatchNote, onCreatePatchNotes, editPa
         }
   const [patchNotes, setPatchNotes] = useState<IPatchNoteToCreate[]>([generatePatchNote()])
   const [error, setError] = useState(false)
+  const [disabledAddButton, setDisabledAddButton] = useState(false)
+  const patchNotesRef = useRef<HTMLDivElement | null>(null)
 
   const handleChangePatchNote = (patchNoteIndex: number, field: string) => (e: EventType) => {
     setPatchNotes(prevPatchNotes => {
@@ -50,7 +52,9 @@ export const usePatchNoteForm = ({ onUpdatePatchNote, onCreatePatchNotes, editPa
   }
 
   const handleAddPatchNote = () => {
-    if (patchNotes?.[0]?.title.length === 0 || patchNotes?.[0]?.version.length === 0) {
+    setDisabledAddButton(true)
+
+    if (patchNotes?.[0]?.title.trim().length === 0 || patchNotes?.[0]?.version.trim().length === 0) {
       setError(true)
 
       setTimeout(() => {
@@ -67,6 +71,14 @@ export const usePatchNoteForm = ({ onUpdatePatchNote, onCreatePatchNotes, editPa
         },
       ])
     }
+
+    setTimeout(() => {
+      if (patchNotesRef.current) {
+        patchNotesRef.current.scrollTop = patchNotesRef.current.scrollHeight
+      }
+
+      setDisabledAddButton(false)
+    }, 300)
   }
 
   const handleRemovePatchNote = (patchNoteIndex: number) => {
@@ -94,8 +106,10 @@ export const usePatchNoteForm = ({ onUpdatePatchNote, onCreatePatchNotes, editPa
     patchNotes,
     patchNotesRoles: patchNotes.map(({ role }) => role),
     error,
+    disabledAddButton,
     showAddRoleButton,
     disabledSubmitButton,
+    patchNotesRef,
     onAddPatchNote: handleAddPatchNote,
     onRemovePatchNote: handleRemovePatchNote,
     onChangePatchNote: handleChangePatchNote,

@@ -100,14 +100,16 @@ export class WarehouseCompletedViewModel {
     this.getCompletedTasksPagMy()
   }
 
-  onClickOperationTypeBtn(type) {
-    this.curTaskType = type
+  onClickOperationTypeBtn(event) {
+    const currentValue = event.target.value
+    this.curTaskType = currentValue
 
     this.getCompletedTasksPagMy()
   }
 
-  onClickTaskPriorityBtn(type) {
-    this.curTaskPriority = type
+  onClickTaskPriorityBtn(event) {
+    const currentValue = event.target.value
+    this.curTaskPriority = currentValue
 
     this.getCompletedTasksPagMy()
   }

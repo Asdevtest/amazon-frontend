@@ -296,6 +296,13 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1ClientsProductsListingReportsGuidDelete({ guid })
     return response.data
   }
+
+  getShopsExport = async body => {
+    const response = await restApiService.clientApi.apiV1ClientsShopsExportGet(body, {
+      responseType: 'blob',
+    })
+    return response.data
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

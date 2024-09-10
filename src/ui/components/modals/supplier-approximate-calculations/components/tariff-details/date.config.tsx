@@ -1,23 +1,19 @@
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { ClsIcon, EtaIcon, EtdIcon } from '@components/shared/svg-icons'
-
-import { t } from '@utils/translations'
 
 export const dateConfig = [
   {
     param: 'cls',
     icon: <ClsIcon />,
-    tooltipText: t(TranslationKey['CLS (batch closing date)']),
+    tooltipText: 'CLS (batch closing date)',
   },
   {
     param: 'etd',
     icon: <EtdIcon />,
-    tooltipText: t(TranslationKey['ETD (date of shipment)']),
+    tooltipText: 'ETD (date of shipment)',
   },
   {
     param: 'eta',
     icon: <EtaIcon />,
-    tooltipText: t(TranslationKey['ETA (arrival date)']),
+    tooltipText: 'ETA (arrival date)',
   },
 ]

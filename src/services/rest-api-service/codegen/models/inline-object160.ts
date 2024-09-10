@@ -25,7 +25,7 @@ export interface InlineObject160 {
      * @type {string}
      * @memberof InlineObject160
      */
-    gologinId?: string;
+    gologinId: string;
     /**
      * Name
      * @type {string}
@@ -55,31 +55,19 @@ export interface InlineObject160 {
      * @type {string}
      * @memberof InlineObject160
      */
-    email?: string;
+    email: string;
     /**
      * Password
      * @type {string}
      * @memberof InlineObject160
      */
-    password?: string;
+    password: string;
     /**
      * OTP
      * @type {string}
      * @memberof InlineObject160
      */
-    otp?: string;
-    /**
-     * Driver session data (JSONB object)
-     * @type {object}
-     * @memberof InlineObject160
-     */
-    driverSessionData?: object;
-    /**
-     * Port of browser
-     * @type {number}
-     * @memberof InlineObject160
-     */
-    port?: number;
+    otp: string;
 }
 
 

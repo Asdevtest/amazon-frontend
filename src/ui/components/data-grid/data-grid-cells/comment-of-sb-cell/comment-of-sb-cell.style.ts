@@ -25,7 +25,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   commentOfSbSubWrapper: {
-    maxHeight: '100%',
+    height: '57px',
     width: '100%',
     overflow: 'auto',
   },

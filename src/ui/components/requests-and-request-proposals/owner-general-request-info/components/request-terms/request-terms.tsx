@@ -2,10 +2,16 @@ import { FC, memo } from 'react'
 
 import DoneIcon from '@mui/icons-material/Done'
 
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { colorByStatus } from '@constants/requests/request-status'
+import {
+  colorByDifficultyLevel,
+  difficultyLevelByCode,
+  difficultyLevelTranslate,
+} from '@constants/statuses/difficulty-level'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date-time'
@@ -26,6 +32,7 @@ interface RequestTermsProps {
   price: number
   updatedAt: string
   status: string
+  taskComplexity: number
 }
 
 export const RequestTerms: FC<RequestTermsProps> = memo(props => {
@@ -41,6 +48,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
     price,
     updatedAt,
     status,
+    taskComplexity,
   } = props
 
   return (
@@ -52,16 +60,24 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
           <div className={styles.confirmationWrapper}>
             <DoneIcon className={styles.doneIcon} />
 
-            <Text
-              tooltipInfoContent={t(
-                TranslationKey['Allowed to the performer to take the application to work without confirmation'],
-              )}
+            <p
+              title={t(TranslationKey['Allowed to the performer to take the application to work without confirmation'])}
               className={styles.sectionTitle}
             >
               {`(${t(TranslationKey['Without confirmation']).toLocaleLowerCase()})`}
-            </Text>
+            </p>
           </div>
         )}
+
+        <div className={styles.flexRow}>
+          <p className={styles.sectionTitle}>{t(TranslationKey.Category)}:</p>
+          <p
+            className={styles.sectionTitle}
+            style={{ color: colorByDifficultyLevel(difficultyLevelByCode[taskComplexity]) }}
+          >
+            {difficultyLevelTranslate(difficultyLevelByCode[taskComplexity])}
+          </p>
+        </div>
       </div>
 
       <div className={styles.requestInfoWrapper}>
@@ -84,7 +100,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
           <div className={styles.blockInfoWrapper}>
             <div className={styles.blockInfoCell}>
               <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Product price'])}</p>
-              <div className={styles.pricesWrapper}>
+              <div className={styles.flexRow}>
                 {newProductPrice && (
                   <p className={cx(styles.blockInfoCellText, { [styles.newPrice]: !!newProductPrice })}>
                     {'$ ' + toFixed(newProductPrice, 2)}
@@ -111,16 +127,8 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
         <div className={cx(styles.blockInfoWrapper)}>
           <div className={styles.blockInfoCell}>
             <p className={styles.blockInfoCellTitle}>{t(TranslationKey.Status)}</p>
-            <RequestStatusCell
-              status={status}
-              textStyle={{
-                fontWeight: 600,
-                fontSize: 14,
-                lineHeight: '19px',
-                textAlign: 'left',
-                whiteSpace: 'pre-wrap',
-              }}
-            />
+
+            <Text text={MyRequestStatusTranslate(status)} color={colorByStatus(status)} />
           </div>
 
           <div className={styles.blockInfoCell}>

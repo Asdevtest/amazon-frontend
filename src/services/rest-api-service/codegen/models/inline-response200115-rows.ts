@@ -77,6 +77,12 @@ export interface InlineResponse200115Rows {
      */
     access?: boolean;
     /**
+     * Profile status
+     * @type {string}
+     * @memberof InlineResponse200115Rows
+     */
+    status?: string;
+    /**
      * Дата создания
      * @type {string}
      * @memberof InlineResponse200115Rows

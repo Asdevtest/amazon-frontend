@@ -13,7 +13,10 @@
  */
 
 
+<<<<<<< HEAD
 import { InlineResponse20097Rows } from './inline-response20097-rows';
+=======
+>>>>>>> pre-release
 
 /**
  * 
@@ -28,11 +31,25 @@ export interface InlineResponse20097 {
      */
     count?: number;
     /**
+<<<<<<< HEAD
      * 
      * @type {Array<InlineResponse20097Rows>}
      * @memberof InlineResponse20097
      */
     rows?: Array<InlineResponse20097Rows>;
+=======
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    updatedAt?: string;
+>>>>>>> pre-release
 }
 
 

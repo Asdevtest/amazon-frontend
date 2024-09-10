@@ -550,7 +550,7 @@ export class ClientProductViewModel {
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
         await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
-        await this.getProductById()
+        // await this.getProductById()
       }
 
       await this.onSaveForceProductData()
