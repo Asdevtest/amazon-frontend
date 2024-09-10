@@ -1987,7 +1987,7 @@ export const privateRoutesConfigs = [
     },
   },
   {
-    routePath: '/supervisor/ready-to-check',
+    routePath: '/supervisor/ready-to-check-by-researcher',
     component: SupervisorReadyToCheckView,
     exact: true,
     permission: [UserRole.SUPERVISOR],

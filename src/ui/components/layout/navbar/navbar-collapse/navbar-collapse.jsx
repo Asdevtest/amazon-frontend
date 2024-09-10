@@ -224,7 +224,7 @@ export const NavbarCollapse = ({
             {userInfo?.purchaseOrderRequired?.length ? userInfo?.purchaseOrderRequired?.length : 0}
           </div>
         )
-      case '/supervisor/ready-to-check':
+      case '/supervisor/ready-to-check-by-researcher':
         return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo?.vacFromResearcher}</div>
       case '/supervisor/ready-to-check-by-client':
         return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo?.vacFromClient}</div>
