@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 
 /**
  * 
@@ -22,47 +21,53 @@ import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created
  */
 export interface InlineResponse200114 {
     /**
-     * GUID записи
+     * GUID пользователя.
      * @type {string}
      * @memberof InlineResponse200114
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse200114
-     */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * Роль юзера, когда он оставлял отзыв
-     * @type {number}
-     * @memberof InlineResponse200114
-     */
-    role?: number;
-    /**
-     * Комментарий к оценке
+     * Имя пользователя.
      * @type {string}
      * @memberof InlineResponse200114
      */
-    comment?: string;
+    name?: string;
     /**
-     * Оценка, целое число от 1 до 5
+     * Рейтинг пользователя.
      * @type {number}
      * @memberof InlineResponse200114
      */
     rating?: number;
     /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * Количество положительных отзыв
+     * @type {number}
      * @memberof InlineResponse200114
      */
-    sub?: ApiV1AnnouncementsMyCreatedBy;
+    numberOfPositiveFeedbacks?: number;
     /**
-     * Дата создания.
+     * Количество негативных отзыв
+     * @type {number}
+     * @memberof InlineResponse200114
+     */
+    numberOfNegativeFeedbacks?: number;
+    /**
+     * Страна
      * @type {string}
      * @memberof InlineResponse200114
      */
-    createdAt?: string;
+    country?: string;
+    /**
+     * Пользователь онлайн
+     * @type {boolean}
+     * @memberof InlineResponse200114
+     */
+    isOnline?: boolean;
+    /**
+     * Количество общих сделок
+     * @type {number}
+     * @memberof InlineResponse200114
+     */
+    countsOfDeals?: number;
 }
 
 

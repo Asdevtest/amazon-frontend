@@ -15,17 +15,29 @@
 
 
 /**
- * цену для клиента на поиск поставщика
+ * 
  * @export
  * @interface InlineResponse20049
  */
 export interface InlineResponse20049 {
     /**
-     * 
+     * total price in yuan for these statuses
      * @type {number}
      * @memberof InlineResponse20049
      */
-    priceForClient?: number;
+    totalPriceInYuan?: number;
+    /**
+     * total price in USD for these statuses
+     * @type {number}
+     * @memberof InlineResponse20049
+     */
+    totalPriceInUSD?: number;
+    /**
+     * Total partialPaymentAmountRmb
+     * @type {number}
+     * @memberof InlineResponse20049
+     */
+    partialPaymentAmountRmb?: number;
 }
 
 

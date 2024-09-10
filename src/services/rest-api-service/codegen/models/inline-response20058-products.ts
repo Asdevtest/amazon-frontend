@@ -31,19 +31,31 @@ export interface InlineResponse20058Products {
      * @type {number}
      * @memberof InlineResponse20058Products
      */
-    publishedOnExchange?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20058Products
-     */
-    paid?: number;
+    completed?: number;
     /**
      * 
      * @type {number}
      * @memberof InlineResponse20058Products
      */
     rejected?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20058Products
+     */
+    inWork?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20058Products
+     */
+    searchSupplierFromBuyer?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20058Products
+     */
+    withoutStatus?: number;
 }
 
 

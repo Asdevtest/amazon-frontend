@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20081Rows } from './inline-response20081-rows';
+import { ApiV1PermissionsShopsV2GuidProducts } from './api-v1-permissions-shops-v2-guid-products';
 
 /**
  * 
@@ -22,17 +22,23 @@ import { InlineResponse20081Rows } from './inline-response20081-rows';
  */
 export interface InlineResponse20081 {
     /**
-     * Count of rows
-     * @type {number}
+     * ID магазина.
+     * @type {string}
      * @memberof InlineResponse20081
      */
-    count?: number;
+    _id?: string;
+    /**
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * @type {string}
+     * @memberof InlineResponse20081
+     */
+    name?: string;
     /**
      * 
-     * @type {Array<InlineResponse20081Rows>}
+     * @type {Array<ApiV1PermissionsShopsV2GuidProducts>}
      * @memberof InlineResponse20081
      */
-    rows?: Array<InlineResponse20081Rows>;
+    products?: Array<ApiV1PermissionsShopsV2GuidProducts>;
 }
 
 
