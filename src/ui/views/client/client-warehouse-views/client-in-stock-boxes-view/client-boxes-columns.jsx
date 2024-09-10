@@ -13,8 +13,8 @@ import {
   ManyUserLinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderCell,
   OrderManyItemsCell,
+  ProductCell,
   RedFlagsCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells'
@@ -106,29 +106,23 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
       renderCell: params => {
+        const error =
+          !findTariffInStorekeepersData(
+            getStorekeepersData(),
+            params.row.storekeeper?._id,
+            params.row.logicsTariff?._id,
+          ) && t(TranslationKey['The tariff is invalid or has been removed!'])
+
         return params.row?.items.length > 1 ? (
-          <OrderManyItemsCell
-            box={params.row}
-            error={
-              !findTariffInStorekeepersData(
-                getStorekeepersData(),
-                params.row.storekeeper?._id,
-                params.row.logicsTariff?._id,
-              ) && t(TranslationKey['The tariff is invalid or has been removed!'])
-            }
-          />
+          <OrderManyItemsCell box={params.row} error={error} />
         ) : (
-          <OrderCell
-            box={params.row}
-            product={params.row.items[0]?.product}
-            superbox={params.row.amount > 1 && params.row.amount}
-            error={
-              !findTariffInStorekeepersData(
-                getStorekeepersData(),
-                params.row.storekeeper?._id,
-                params.row.logicsTariff?._id,
-              ) && t(TranslationKey['The tariff is invalid or has been removed!'])
-            }
+          <ProductCell
+            asin={params.row.items[0]?.product?.asin}
+            image={params.row.items?.[0]?.product?.images?.[0]}
+            sku={params.row.items[0]?.product?.skuByClient}
+            title={params.row.items[0]?.product?.amazonTitle}
+            errorMessage={error}
+            superbox={params.row.amount}
           />
         )
       },
@@ -143,7 +137,7 @@ export const clientBoxesViewColumns = (
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 320,
+      width: 200,
     },
 
     {

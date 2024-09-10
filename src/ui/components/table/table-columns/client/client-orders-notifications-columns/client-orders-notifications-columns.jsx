@@ -7,8 +7,8 @@ import {
   LinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderCell,
   PriorityAndChinaDeliverCell,
+  ProductCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -90,8 +90,15 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       headerName: t(TranslationKey.Orders),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Orders)} />,
 
-      width: 250,
-      renderCell: params => <OrderCell product={params.row.product} />,
+      width: 170,
+      renderCell: params => (
+        <ProductCell
+          asin={params.row.product?.asin}
+          image={params.row.product?.images?.[0]}
+          sku={params.row.product?.skuByClient}
+          title={params.row.product?.amazonTitle}
+        />
+      ),
       disableCustomSort: true,
     },
 
