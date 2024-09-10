@@ -1880,6 +1880,7 @@ export enum TranslationKey {
   'Data not removed' = 'Data not removed',
   'Quantity in box' = 'Quantity in box',
   'Fine' = 'Fine',
+  'Penalty' = 'Penalty',
   'Replenish' = 'Replenish',
   'Zero' = 'Zero',
   'Shutdown' = 'Shutdown',

@@ -21,8 +21,11 @@ export const getEntityTypeTranslations = (paymentType: EntityType) => {
     case EntityType.WITHDRAW:
       return t(TranslationKey['Write-off'])
 
-    default:
+    case EntityType.REQUEST_PROPOSAL_CUSTOM:
       return t(TranslationKey.Proposal)
+
+    default:
+      return t(TranslationKey.Penalty)
   }
 }
 
