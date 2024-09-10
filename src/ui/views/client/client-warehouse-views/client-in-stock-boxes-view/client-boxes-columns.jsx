@@ -55,6 +55,8 @@ export const clientBoxesViewColumns = (
 
       renderCell: params => <Text isCell text={params.row.items?.[0]?.product?.shop?.name} />,
 
+      valueGetter: ({ row }) => row.items?.[0]?.product?.shop?.name,
+
       width: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
@@ -95,6 +97,7 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
       renderCell: params => <Text isCell text={params.row.items?.[0]?.order?.id} />,
+      valueGetter: ({ row }) => row.items?.[0]?.order?.id,
       width: 160,
 
       columnKey: columnnsKeys.shared.QUANTITY,
