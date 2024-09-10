@@ -32,6 +32,12 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
 
   const [viewModel] = useState(() => new MyProposalsViewModel({ allProposals }))
 
+  const getRowClassName = (params: GridRowParams) => {
+    if (params?.row?.request?.freelanceNotices > 0) {
+      return styles.redBorder
+    }
+  }
+
   return (
     <div className="viewWrapper">
       <div className={styles.tablePanelWrapper}>
@@ -107,6 +113,7 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
             },
           },
         }}
+        getRowClassName={getRowClassName}
         onPinnedColumnsChange={viewModel.handlePinColumn}
         onSortModelChange={viewModel.onChangeSortingModel}
         onFilterModelChange={viewModel.onChangeFilterModel}
