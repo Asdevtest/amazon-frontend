@@ -17,7 +17,7 @@ import { UserModel } from '@models/user-model'
 
 import { IShop } from '@components/data-grid/data-grid-cells/shop-notification-message-cell/shop-notification.type'
 
-import { checkIsClient, checkIsFreelancer } from '@utils/checks'
+import { checkIsClient, checkIsFreelancer, checkIsStorekeeper } from '@utils/checks'
 import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
@@ -198,8 +198,13 @@ export class SubUsersViewModel extends DataGridTableModel {
     try {
       await PermissionsModel.setPermissionsForUser(id, data)
 
-      if (!checkIsFreelancer(UserRoleCodeMap[this.userRole])) {
-        await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedItems?.selectedProducts })
+      const userRole = UserRoleCodeMap[this.userRole]
+
+      if (!(checkIsFreelancer(userRole) || checkIsStorekeeper(userRole))) {
+        await PermissionsModel.setProductsPermissionsForUser({
+          userId: id,
+          productIds: allowedItems?.selectedProducts,
+        })
       }
 
       if (checkIsClient(UserRoleCodeMap[this.userRole])) {
