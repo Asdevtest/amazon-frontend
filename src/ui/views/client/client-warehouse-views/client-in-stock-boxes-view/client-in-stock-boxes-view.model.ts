@@ -1144,7 +1144,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         },
         updateBoxWhiteList,
       )
-      console.log('requestBox', requestBox)
       const editBoxesResult = await this.editBox(id, requestBox)
 
       await this.updateBarCodesInInventory(dataToBarCodeChange)
