@@ -52,19 +52,6 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
         </div>
       </div>
 
-      <div className={styles.textsWrapper}>
-        <p className={cx(styles.standartText, { [styles.successText]: state.preview })}>
-          {t(TranslationKey['The image size should not exceed'])} {<span className={styles.spanText}>{'15 mb.'}</span>}
-        </p>
-
-        <p className={cx(styles.standartText, { [styles.successText]: state.preview })}>
-          {t(TranslationKey['Allowed image formats'])}
-          {'('}
-          {<span className={styles.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'svg', 'avif'`}</span>}
-          {')'}
-        </p>
-      </div>
-
       <div className={styles.btnsWrapper}>
         <Button disabled={disanledSubmit} onClick={() => onSubmit(state, sourceState)}>
           {t(TranslationKey.Save)}
