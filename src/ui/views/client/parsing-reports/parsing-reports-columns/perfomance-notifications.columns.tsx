@@ -89,7 +89,7 @@ export const perfomanceNotificationsColumns = () => {
 
   for (const column of columns) {
     if (!column.table) {
-      column.table = ParsingReportsType.PERFOMANCE_NOTIFICATIONS
+      column.table = ParsingReportsType.PERFORMANCE_NOTIFICATIONS
     }
 
     column.sortable = false
