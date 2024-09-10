@@ -15,29 +15,17 @@
 
 
 /**
- * Схема создания/апдейта рекомендаций
+ * Схема комментарии байера.
  * @export
  * @interface InlineObject66
  */
 export interface InlineObject66 {
     /**
-     * GUID продукта.
+     * Комментарии байера.
      * @type {string}
      * @memberof InlineObject66
      */
-    productId: string;
-    /**
-     * GUID сторкипера.
-     * @type {string}
-     * @memberof InlineObject66
-     */
-    storekeeperId: string;
-    /**
-     * Рекомендуемое значение
-     * @type {number}
-     * @memberof InlineObject66
-     */
-    recommendedValue: number;
+    buyerComment: string;
 }
 
 

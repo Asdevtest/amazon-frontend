@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20047Rows } from './inline-response20047-rows';
+import { InlineResponse20045 } from './inline-response20045';
 
 /**
  * Результат запроса с пагинацией
@@ -28,11 +28,11 @@ export interface InlineResponse20047 {
      */
     count?: number;
     /**
-     * Массив заказов c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20047Rows>}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20045>}
      * @memberof InlineResponse20047
      */
-    rows?: Array<InlineResponse20047Rows>;
+    rows?: Array<InlineResponse20045>;
 }
 
 

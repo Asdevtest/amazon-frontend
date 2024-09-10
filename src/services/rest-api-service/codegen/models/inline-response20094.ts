@@ -13,75 +13,25 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
-import { ApiV1ShopSellStatistics } from './api-v1-shop-sell-statistics';
 
 /**
- * Схема получение лайт версии продажи магазина
+ * Успешный ответ.
  * @export
  * @interface InlineResponse20094
  */
 export interface InlineResponse20094 {
     /**
-     * GUID магазина на продажу.
+     * Флаг, показывает есть ли такой ASIN в базе или нет
+     * @type {boolean}
+     * @memberof InlineResponse20094
+     */
+    isExist?: boolean;
+    /**
+     * Причина из таблицы с асинами
      * @type {string}
      * @memberof InlineResponse20094
      */
-    _id?: string;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse20094
-     */
-    owner?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * Имя магазина для продажи
-     * @type {string}
-     * @memberof InlineResponse20094
-     */
-    title?: string;
-    /**
-     * Статус магазина для продажи
-     * @type {string}
-     * @memberof InlineResponse20094
-     */
-    status?: string;
-    /**
-     * Файлы, которые привязаны к магазину
-     * @type {Array<string>}
-     * @memberof InlineResponse20094
-     */
-    files?: Array<string>;
-    /**
-     * Стоимость магазина
-     * @type {number}
-     * @memberof InlineResponse20094
-     */
-    price?: number;
-    /**
-     * Ежемесячный множитель
-     * @type {number}
-     * @memberof InlineResponse20094
-     */
-    monthlyMultiplier?: number;
-    /**
-     * 
-     * @type {ApiV1ShopSellStatistics}
-     * @memberof InlineResponse20094
-     */
-    statistics?: ApiV1ShopSellStatistics;
-    /**
-     * Дата создания бизнеса
-     * @type {string}
-     * @memberof InlineResponse20094
-     */
-    businessStartDate?: string;
-    /**
-     * Детали магазина
-     * @type {string}
-     * @memberof InlineResponse20094
-     */
-    shopDetails?: string;
+    reason?: string;
 }
 
 

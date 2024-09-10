@@ -15,17 +15,17 @@
 
 
 /**
- * Схема редактирования в первый раз shippingLabel коробки
+ * 
  * @export
  * @interface InlineObject70
  */
 export interface InlineObject70 {
     /**
-     * shippingLabel
-     * @type {string}
+     * Сумма воврата
+     * @type {number}
      * @memberof InlineObject70
      */
-    shippingLabel: string;
+    refundPrice?: number;
 }
 
 

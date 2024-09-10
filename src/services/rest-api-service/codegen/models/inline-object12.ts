@@ -21,11 +21,17 @@
  */
 export interface InlineObject12 {
     /**
-     * массив GUIDов оплаченных товаров
-     * @type {Array<string>}
+     * Название красного флага
+     * @type {string}
      * @memberof InlineObject12
      */
-    guids?: Array<string>;
+    title: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject12
+     */
+    iconImage?: string;
 }
 
 
