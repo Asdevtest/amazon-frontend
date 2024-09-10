@@ -44,7 +44,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
       <Header
         subView={subView}
         product={viewModel.product}
-        products={viewModel.currentPermissionsData}
+        asinOptions={viewModel.asinOptions}
         editMode={!!viewModel.reportId}
         launchOptions={viewModel.launchOptions}
         selectLaunchValue={viewModel.selectLaunchValue}
@@ -52,9 +52,9 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         onRemoveRequest={viewModel.onRemoveRequest}
         onSelectLaunch={viewModel.onSelectLaunch}
         onSelectProduct={viewModel.onSelectProduct}
-        onGetProducts={viewModel.onGetProducts}
+        onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
         onSearchAsinSelect={viewModel.onClickSubmitSearch}
-        onScrollAsinSelect={viewModel.loadMoreDataHadler}
+        onPopupScroll={viewModel.onPopupScroll}
       />
 
       <CustomDataGrid
