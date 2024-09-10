@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20088Rows } from './inline-response20088-rows';
 
 /**
  * 
@@ -21,53 +22,17 @@
  */
 export interface InlineResponse20088 {
     /**
-     * Цена за каждое предложение.
+     * 
      * @type {number}
      * @memberof InlineResponse20088
      */
-    price?: number;
+    count?: number;
     /**
-     * Процент с каждого предложения, маржа платформы, в процентах.
-     * @type {number}
+     * 
+     * @type {Array<InlineResponse20088Rows>}
      * @memberof InlineResponse20088
      */
-    requestPlatformMarginInPercent?: number;
-    /**
-     * Услуги платформы.
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    platformMargin?: number;
-    /**
-     * Процент с каждого предложения для супервайзера, в процентах.
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    requestSupervisorFeeInPercent?: number;
-    /**
-     * Услуги супервайзера.
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    supervisorFee?: number;
-    /**
-     * Сумма.
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    unitCost?: number;
-    /**
-     * Количество предложений, не менее.
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    maxAmountOfProposals?: number;
-    /**
-     * Итого.
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    totalCost?: number;
+    rows?: Array<InlineResponse20088Rows>;
 }
 
 

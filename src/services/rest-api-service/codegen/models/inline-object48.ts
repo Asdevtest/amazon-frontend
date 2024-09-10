@@ -21,47 +21,23 @@
  */
 export interface InlineObject48 {
     /**
-     * комментарии байера.
-     * @type {string}
-     * @memberof InlineObject48
-     */
-    buyerComment?: string;
-    /**
      * GUID storekeeper-a
      * @type {string}
      * @memberof InlineObject48
      */
-    storekeeperId?: string;
+    storekeeperId: string;
     /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject48
-     */
-    paymentDetails?: Array<string>;
-    /**
-     * Цена в юанях
-     * @type {number}
-     * @memberof InlineObject48
-     */
-    priceInYuan?: number;
-    /**
-     * Цена доставки партии в юанях
-     * @type {number}
-     * @memberof InlineObject48
-     */
-    priceBatchDeliveryInYuan?: number;
-    /**
-     * GUID тарифа доставки.
+     * GUID баера
      * @type {string}
      * @memberof InlineObject48
      */
-    logicsTariffId?: string;
+    buyerId?: string;
     /**
-     * GUID пункта назначения.
+     * Защита листинга
      * @type {string}
      * @memberof InlineObject48
      */
-    destinationId?: string;
+    transparencyFile?: string;
     /**
      * 
      * @type {string}
@@ -69,17 +45,35 @@ export interface InlineObject48 {
      */
     item?: string;
     /**
-     * Массив картинок.
-     * @type {Array<string>}
+     * GUID тарифа доставки
+     * @type {string}
      * @memberof InlineObject48
      */
-    images?: Array<string>;
+    logicsTariffId: string;
     /**
-     * Курс юань доллар.
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject48
+     */
+    variationTariffId?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject48
+     */
+    priority?: InlineObject48PriorityEnum;
+    /**
+     * GUID пункта назначения.
+     * @type {string}
+     * @memberof InlineObject48
+     */
+    destinationId?: string;
+    /**
+     * Кол-во продукта по этой позиции.
      * @type {number}
      * @memberof InlineObject48
      */
-    yuanToDollarRate?: number;
+    amount: number;
     /**
      * Стоимость доставки до склада.
      * @type {number}
@@ -87,41 +81,60 @@ export interface InlineObject48 {
      */
     deliveryCostToTheWarehouse?: number;
     /**
-     * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
+     * Комментарии клиента.
      * @type {string}
      * @memberof InlineObject48
      */
-    trackingNumberChina?: string;
+    clientComment?: string;
     /**
-     * GUID поставщика, для данного заказа.
+     * GUID заказанного продукта
      * @type {string}
      * @memberof InlineObject48
      */
-    orderSupplierId?: string;
+    productId: string;
     /**
-     * Cумма частичной оплаты
-     * @type {number}
+     * Массив изображений.
+     * @type {Array<string>}
      * @memberof InlineObject48
      */
-    partialPaymentAmountRmb?: number;
+    images?: Array<string>;
     /**
-     * Cумма частичной оплаты
-     * @type {number}
-     * @memberof InlineObject48
-     */
-    partiallyPaid?: number;
-    /**
-     * Оплачивается ли заказ частично
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
      * @type {boolean}
      * @memberof InlineObject48
      */
-    partialPayment?: boolean;
+    expressChinaDelivery?: boolean;
     /**
-     * Кол-во в заказе
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineObject48
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
+     * @type {string}
+     * @memberof InlineObject48
+     */
+    deadline?: string;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
      * @type {number}
      * @memberof InlineObject48
      */
-    amount?: number;
+    totalPrice?: number;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject48PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

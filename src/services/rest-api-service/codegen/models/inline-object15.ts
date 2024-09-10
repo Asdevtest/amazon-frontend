@@ -21,17 +21,29 @@
  */
 export interface InlineObject15 {
     /**
-     * Название красного флага
+     * ГУид продукта
      * @type {string}
      * @memberof InlineObject15
      */
-    title: string;
+    productId: string;
     /**
-     * 
+     * Гуид баера
      * @type {string}
      * @memberof InlineObject15
      */
-    iconImage?: string;
+    buyerId?: string;
+    /**
+     * Гуид супервизора
+     * @type {string}
+     * @memberof InlineObject15
+     */
+    checkedById?: string;
+    /**
+     * Гуид клиента
+     * @type {string}
+     * @memberof InlineObject15
+     */
+    clientId?: string;
 }
 
 

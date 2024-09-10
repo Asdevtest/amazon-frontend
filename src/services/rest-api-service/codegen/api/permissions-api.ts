@@ -21,6 +21,8 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
+import { ApiV1PermissionsShopsV2GuidProducts } from '../models';
+// @ts-ignore
 import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
@@ -40,6 +42,8 @@ import { InlineResponse20080 } from '../models';
 import { InlineResponse20081 } from '../models';
 // @ts-ignore
 import { InlineResponse20082 } from '../models';
+// @ts-ignore
+import { InlineResponse20083 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -704,6 +708,48 @@ export const PermissionsApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
+         * ## Получить список разрешений для продуктов юзера по его айди.
+         * @summary Получить список разрешений для продуктов юзера по его айди.
+         * @param {string} guid GUID permission в БД
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1PermissionsProductsV2GuidGet: async (guid: string, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'guid' is not null or undefined
+            assertParamExists('apiV1PermissionsProductsV2GuidGet', 'guid', guid)
+            const localVarPath = `/api/v1/permissions/products/v2/{guid}`
+                .replace(`{${"guid"}}`, encodeURIComponent(String(guid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * ## !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid.   
          * @summary #   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid
          * @param {string} guid GUID permission в БД
@@ -827,6 +873,48 @@ export const PermissionsApiAxiosParamCreator = function (configuration?: Configu
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ## Получить список разрешений для магазинов юзера по его айди.
+         * @summary Получить список разрешений для магазинов юзера по его айди. (New)
+         * @param {string} guid GUID permission в БД
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1PermissionsShopsV2GuidGet: async (guid: string, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'guid' is not null or undefined
+            assertParamExists('apiV1PermissionsShopsV2GuidGet', 'guid', guid)
+            const localVarPath = `/api/v1/permissions/shops/v2/{guid}`
+                .replace(`{${"guid"}}`, encodeURIComponent(String(guid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -989,7 +1077,7 @@ export const PermissionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1PermissionsProductsGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20082>>> {
+        async apiV1PermissionsProductsGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20083>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsProductsGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1004,7 +1092,7 @@ export const PermissionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1PermissionsProductsPagGet(filters?: string, limit?: number, offset?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20081>> {
+        async apiV1PermissionsProductsPagGet(filters?: string, limit?: number, offset?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20082>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsProductsPagGet(filters, limit, offset, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1018,6 +1106,18 @@ export const PermissionsApiFp = function(configuration?: Configuration) {
          */
         async apiV1PermissionsProductsPatch(body?: InlineObject92, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsProductsPatch(body, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * ## Получить список разрешений для продуктов юзера по его айди.
+         * @summary Получить список разрешений для продуктов юзера по его айди.
+         * @param {string} guid GUID permission в БД
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1PermissionsProductsV2GuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1PermissionsShopsV2GuidProducts>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsProductsV2GuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1055,6 +1155,18 @@ export const PermissionsApiFp = function(configuration?: Configuration) {
          */
         async apiV1PermissionsShopsPatch(body?: InlineObject93, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsShopsPatch(body, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * ## Получить список разрешений для магазинов юзера по его айди.
+         * @summary Получить список разрешений для магазинов юзера по его айди. (New)
+         * @param {string} guid GUID permission в БД
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1PermissionsShopsV2GuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20081>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsShopsV2GuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1202,7 +1314,7 @@ export const PermissionsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsProductsGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20082>> {
+        apiV1PermissionsProductsGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20083>> {
             return localVarFp.apiV1PermissionsProductsGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1216,7 +1328,7 @@ export const PermissionsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsProductsPagGet(filters?: string, limit?: number, offset?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20081> {
+        apiV1PermissionsProductsPagGet(filters?: string, limit?: number, offset?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20082> {
             return localVarFp.apiV1PermissionsProductsPagGet(filters, limit, offset, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1229,6 +1341,17 @@ export const PermissionsApiFactory = function (configuration?: Configuration, ba
          */
         apiV1PermissionsProductsPatch(body?: InlineObject92, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1PermissionsProductsPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Получить список разрешений для продуктов юзера по его айди.
+         * @summary Получить список разрешений для продуктов юзера по его айди.
+         * @param {string} guid GUID permission в БД
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1PermissionsProductsV2GuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1PermissionsShopsV2GuidProducts>> {
+            return localVarFp.apiV1PermissionsProductsV2GuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid.   
@@ -1263,6 +1386,17 @@ export const PermissionsApiFactory = function (configuration?: Configuration, ba
          */
         apiV1PermissionsShopsPatch(body?: InlineObject93, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1PermissionsShopsPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Получить список разрешений для магазинов юзера по его айди.
+         * @summary Получить список разрешений для магазинов юзера по его айди. (New)
+         * @param {string} guid GUID permission в БД
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1PermissionsShopsV2GuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20081>> {
+            return localVarFp.apiV1PermissionsShopsV2GuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1625,6 +1759,27 @@ export interface PermissionsApiApiV1PermissionsProductsPatchRequest {
 }
 
 /**
+ * Request parameters for apiV1PermissionsProductsV2GuidGet operation in PermissionsApi.
+ * @export
+ * @interface PermissionsApiApiV1PermissionsProductsV2GuidGetRequest
+ */
+export interface PermissionsApiApiV1PermissionsProductsV2GuidGetRequest {
+    /**
+     * GUID permission в БД
+     * @type {string}
+     * @memberof PermissionsApiApiV1PermissionsProductsV2GuidGet
+     */
+    readonly guid: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof PermissionsApiApiV1PermissionsProductsV2GuidGet
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
  * Request parameters for apiV1PermissionsSetForUserGuidPatch operation in PermissionsApi.
  * @export
  * @interface PermissionsApiApiV1PermissionsSetForUserGuidPatchRequest
@@ -1690,6 +1845,27 @@ export interface PermissionsApiApiV1PermissionsShopsPatchRequest {
      * 
      * @type {string}
      * @memberof PermissionsApiApiV1PermissionsShopsPatch
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
+ * Request parameters for apiV1PermissionsShopsV2GuidGet operation in PermissionsApi.
+ * @export
+ * @interface PermissionsApiApiV1PermissionsShopsV2GuidGetRequest
+ */
+export interface PermissionsApiApiV1PermissionsShopsV2GuidGetRequest {
+    /**
+     * GUID permission в БД
+     * @type {string}
+     * @memberof PermissionsApiApiV1PermissionsShopsV2GuidGet
+     */
+    readonly guid: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof PermissionsApiApiV1PermissionsShopsV2GuidGet
      */
     readonly acceptEncoding?: string
 }
@@ -1870,6 +2046,18 @@ export class PermissionsApi extends BaseAPI {
     }
 
     /**
+     * ## Получить список разрешений для продуктов юзера по его айди.
+     * @summary Получить список разрешений для продуктов юзера по его айди.
+     * @param {PermissionsApiApiV1PermissionsProductsV2GuidGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PermissionsApi
+     */
+    public apiV1PermissionsProductsV2GuidGet(requestParameters: PermissionsApiApiV1PermissionsProductsV2GuidGetRequest, options?: any) {
+        return PermissionsApiFp(this.configuration).apiV1PermissionsProductsV2GuidGet(requestParameters.guid, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * ## !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid.   
      * @summary #   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid
      * @param {PermissionsApiApiV1PermissionsSetForUserGuidPatchRequest} requestParameters Request parameters.
@@ -1903,5 +2091,17 @@ export class PermissionsApi extends BaseAPI {
      */
     public apiV1PermissionsShopsPatch(requestParameters: PermissionsApiApiV1PermissionsShopsPatchRequest = {}, options?: any) {
         return PermissionsApiFp(this.configuration).apiV1PermissionsShopsPatch(requestParameters.body, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * ## Получить список разрешений для магазинов юзера по его айди.
+     * @summary Получить список разрешений для магазинов юзера по его айди. (New)
+     * @param {PermissionsApiApiV1PermissionsShopsV2GuidGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PermissionsApi
+     */
+    public apiV1PermissionsShopsV2GuidGet(requestParameters: PermissionsApiApiV1PermissionsShopsV2GuidGetRequest, options?: any) {
+        return PermissionsApiFp(this.configuration).apiV1PermissionsShopsV2GuidGet(requestParameters.guid, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 }
