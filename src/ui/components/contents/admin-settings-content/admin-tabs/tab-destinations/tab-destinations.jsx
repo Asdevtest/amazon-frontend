@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,7 +19,7 @@ import { AdminSettingsDestinationsModel } from './tab-destinations.model'
 
 export const TabDestinations = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new AdminSettingsDestinationsModel())
+  const viewModel = useMemo(() => new AdminSettingsDestinationsModel(), [])
 
   return (
     <div className="viewWrapper">

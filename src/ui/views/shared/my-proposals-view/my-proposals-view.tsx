@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -30,7 +30,7 @@ import { MyProposalsViewModel } from './my-proposals-view.model'
 export const MyProposalsView = observer(({ allProposals }: { allProposals: boolean }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new MyProposalsViewModel({ allProposals }))
+  const viewModel = useMemo(() => new MyProposalsViewModel({ allProposals }), [])
 
   return (
     <div className="viewWrapper">

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +13,7 @@ import { HistoryType } from '@typings/types/history'
 import { CreateOrEditProposalViewModel } from './create-or-edit-proposal-view.model'
 
 export const CreateOrEditProposalView = observer(({ history }: { history: HistoryType }) => {
-  const [viewModel] = useState(() => new CreateOrEditProposalViewModel(history))
+  const viewModel = useMemo(() => new CreateOrEditProposalViewModel(history), [])
 
   return (
     <>

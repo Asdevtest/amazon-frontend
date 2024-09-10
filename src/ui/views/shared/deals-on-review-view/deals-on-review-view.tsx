@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
 import { tableSortMode } from '@constants/table/table-view-modes'
@@ -17,7 +17,7 @@ import { DealsOnReviewModel } from './deals-on-review-view.model'
 
 export const DealsOnReviewView = observer(({ history }: { history: HistoryType }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new DealsOnReviewModel(history))
+  const viewModel = useMemo(() => new DealsOnReviewModel(history), [])
 
   return (
     <>

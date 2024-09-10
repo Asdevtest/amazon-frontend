@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { withStyles } from 'tss-react/mui'
 
@@ -19,7 +19,7 @@ import { styles } from './vacant-deals-view.style'
 import { VacantDealsViewModel } from './vacant-deals-view.model'
 
 export const VacantDealsViewRaw = props => {
-  const [viewModel] = useState(() => new VacantDealsViewModel({ history: props.history }))
+  const viewModel = useMemo(() => new VacantDealsViewModel({ history: props.history }), [])
   const { classes: styles } = props
 
   useEffect(() => {

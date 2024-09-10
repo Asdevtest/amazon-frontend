@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,7 +15,7 @@ import { WarehouseTasksViewModel } from './warehouse-tasks-view.model'
 
 export const WarehouseTasksView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new WarehouseTasksViewModel({ history }))
+  const viewModel = useMemo(() => new WarehouseTasksViewModel({ history }), [])
 
   return (
     <div>

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useCallback, useState } from 'react'
+import { FC, useCallback, useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -29,7 +29,7 @@ export const LinkRequestForm: FC<LinkRequestFormProps> = observer(props => {
   const { onClose, product, onAddRequest } = props
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new LinkRequestModel(product))
+  const viewModel = useMemo(() => new LinkRequestModel(product), [])
 
   const handleSave = useCallback(() => {
     onAddRequest?.(viewModel.selectedRequest)

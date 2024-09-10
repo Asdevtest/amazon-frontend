@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -21,7 +21,7 @@ import { AdminOrdersAllViewModel } from './admin-orders-views.model'
 
 export const AdminOrdersViews = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new AdminOrdersAllViewModel())
+  const viewModel = useMemo(() => new AdminOrdersAllViewModel(), [])
 
   return (
     <div className="viewWrapper">

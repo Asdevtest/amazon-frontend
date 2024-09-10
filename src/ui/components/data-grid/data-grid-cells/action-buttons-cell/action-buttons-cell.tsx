@@ -75,7 +75,7 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
           variant,
           styleType,
           tooltipInfoContent: tooltipText,
-          className: buttonClassName,
+          className: cx(buttonClassName, { [styles.fullWidth]: fullWidth }),
           children: buttonElement,
           onClick,
         }

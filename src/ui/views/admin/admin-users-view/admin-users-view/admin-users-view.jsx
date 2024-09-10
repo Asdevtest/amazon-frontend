@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,7 +18,7 @@ import { AdminUsersViewModel } from './admin-users-view.model'
 
 export const AdminUsersView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new AdminUsersViewModel())
+  const viewModel = useMemo(() => new AdminUsersViewModel(), [])
 
   return (
     <div className="viewWrapper">

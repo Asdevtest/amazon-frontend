@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
 import { Paper, Typography } from '@mui/material'
@@ -26,7 +26,7 @@ import { ClientDashboardViewModel } from './client-dashboard-view.model'
 export const ClientDashboardView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
 
-  const [viewModel] = useState(() => new ClientDashboardViewModel({ history }))
+  const viewModel = useMemo(() => new ClientDashboardViewModel({ history }), [])
 
   useEffect(() => {
     viewModel.loadData()

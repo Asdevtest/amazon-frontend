@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -20,7 +20,7 @@ import { Header } from './header/header'
 import { SubUsersViewModel } from './sub-users-view.model'
 
 export const SubUsersView = observer(() => {
-  const [viewModel] = useState(() => new SubUsersViewModel())
+  const viewModel = useMemo(() => new SubUsersViewModel(), [])
 
   return (
     <div className="viewWrapper">

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { BsDownload } from 'react-icons/bs'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
@@ -26,7 +26,7 @@ import { WarehouseVacantViewModel } from './warehouse-vacant-tasks-view.model'
 
 export const WarehouseVacantTasksView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new WarehouseVacantViewModel({ history }))
+  const viewModel = useMemo(() => new WarehouseVacantViewModel({ history }), [])
 
   useEffect(() => {
     viewModel.loadData()

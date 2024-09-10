@@ -35,8 +35,8 @@ import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './merge-boxes-modal.style'
 
+import { SetFileForm } from '../../forms/set-file-form'
 import { ConfirmationModal } from '../confirmation-modal'
-import { SetShippingLabelModal } from '../set-shipping-label-modal'
 import { SupplierApproximateCalculationsModal } from '../supplier-approximate-calculations'
 
 import { BoxForMerge } from './box-for-merge'
@@ -164,7 +164,7 @@ export const MergeBoxesModal = ({
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
 
-  const setShippingLabel = () => value => {
+  const setShippingLabel = value => {
     const newFormFields = { ...boxBody }
     newFormFields.tmpShippingLabel = value
 
@@ -449,15 +449,10 @@ export const MergeBoxesModal = ({
         openModal={showSetShippingLabelModal}
         setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
       >
-        <SetShippingLabelModal
-          tmpShippingLabel={boxBody.tmpShippingLabel}
-          item={boxBody}
-          requestStatus={requestStatus}
-          onClickSaveShippingLabel={shippingLabel => {
-            setShippingLabel()(shippingLabel)
-            setShowSetShippingLabelModal(!showSetShippingLabelModal)
-          }}
-          onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+        <SetFileForm
+          data={boxBody?.shippingLabel}
+          onSubmit={setShippingLabel}
+          onClose={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
         />
       </Modal>
 

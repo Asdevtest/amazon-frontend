@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -8,7 +8,7 @@ import { OrderContent } from '@components/contents/order-content'
 import { AdminOrderViewModel } from './admin-order-view.model'
 
 export const AdminOrderView = observer(({ history }) => {
-  const [viewModel] = useState(() => new AdminOrderViewModel({ history }))
+  const viewModel = useMemo(() => new AdminOrderViewModel({ history }), [])
 
   useEffect(() => {
     viewModel.loadData()

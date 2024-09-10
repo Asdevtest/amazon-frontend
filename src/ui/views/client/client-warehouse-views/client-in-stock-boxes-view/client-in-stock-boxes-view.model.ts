@@ -406,17 +406,17 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSaveShippingLabel(tmpShippingLabel: IUploadFile[]) {
-    if (tmpShippingLabel.length) {
+  async onClickSaveShippingLabel(data: IUploadFile[]) {
+    if (data.length) {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       // @ts-ignore
-      await onSubmitPostImages.call(this, { images: tmpShippingLabel, type: 'uploadedFiles' })
+      await onSubmitPostImages.call(this, { images: data, type: 'uploadedFiles' })
       this.setRequestStatus(loadingStatus.SUCCESS)
     }
 
     if (this.selectedBox?.shippingLabel === null) {
       await ClientModel.editShippingLabelFirstTime(this.selectedBox._id, {
-        shippingLabel: this.uploadedFiles?.[0] || tmpShippingLabel?.[0],
+        shippingLabel: this.uploadedFiles?.[0],
       })
 
       this.checkAndOpenFbaShipmentEdit()

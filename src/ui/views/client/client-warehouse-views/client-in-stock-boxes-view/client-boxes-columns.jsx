@@ -1,10 +1,12 @@
+import { MdOutlineEdit } from 'react-icons/md'
+
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ChangeChipCell,
+  ActionButtonsCell,
   ChangeInputCell,
   DeadlineCell,
   DimensionsCell,
@@ -24,6 +26,8 @@ import { findTariffInStorekeepersData } from '@utils/checks'
 import { formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
@@ -277,12 +281,10 @@ export const clientBoxesViewColumns = (
       field: 'fbaShipment',
       headerName: 'FBA Shipment / Shipping Label',
       renderHeader: () => <MultilineTextHeaderCell text={'FBA Shipment / Shipping Label'} />,
-
       renderCell: params => {
-        return params.row ? (
+        /* return params.row ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', padding: '10px 0' }}>
             <ChangeChipCell
-              label={t(TranslationKey['Shipping label']) + ':'}
               disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
               row={params.row}
               value={params.row.shippingLabel}
@@ -293,7 +295,6 @@ export const clientBoxesViewColumns = (
             />
 
             <ChangeChipCell
-              label={t(TranslationKey['FBA Shipment']) + ':'}
               disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
               row={params.row}
               value={params.row.fbaShipment}
@@ -303,14 +304,42 @@ export const clientBoxesViewColumns = (
               onDeleteChip={handlers.onDeleteFbaShipment}
             />
           </div>
-        ) : null
+        ) : null */
+
+        const firstButtonElement = (
+          <>
+            <span>{t(TranslationKey['Shipping label'])}</span>
+            {params.row.shippingLabel ? <MdOutlineEdit /> : null}
+          </>
+        )
+        const secondButtonElement = (
+          <>
+            <span>{t(TranslationKey['FBA Shipment'])}</span>
+            {params.row.fbaShipment ? <MdOutlineEdit /> : null}
+          </>
+        )
+
+        return (
+          <ActionButtonsCell
+            fullWidth
+            isFirstButton
+            isSecondButton
+            firstButtonElement={firstButtonElement}
+            firstButtonStyle={ButtonStyle.PRIMARY}
+            disabledFirstButton={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
+            secondButtonElement={secondButtonElement}
+            secondButtonStyle={ButtonStyle.PRIMARY}
+            disabledSecondButton={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
+            onClickFirstButton={() => handlers.onClickShippingLabel(params.row)}
+            onClickSecondButton={() => handlers.onClickFbaShipment(params.row)}
+          />
+        )
       },
       valueGetter: params =>
         `Shipping Label:${params.row.shippingLabel ? trimBarcode(params.row.shippingLabel) : '-'}\n FBA Shipment:${
           params.row.fbaShipment || ''
         }`,
-      width: 150,
-      headerAlign: 'center',
+      width: 180,
       disableCustomSort: true,
     },
 

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 
 import { GridRowModel, GridRowParams } from '@mui/x-data-grid'
 
@@ -30,7 +30,7 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(props => {
   const { formFields, platformSettings } = props
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new BoxesToOrderModel(formFields))
+  const viewModel = useMemo(() => new BoxesToOrderModel(formFields), [])
 
   return (
     <>

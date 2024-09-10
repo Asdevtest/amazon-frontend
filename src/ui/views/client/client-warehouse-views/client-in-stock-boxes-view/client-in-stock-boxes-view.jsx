@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,14 +12,14 @@ import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-for
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
 import { ProductDataForm } from '@components/forms/product-data-form'
 import { RequestToSendBatchForm } from '@components/forms/request-to-send-batch-form'
+import { SetFileForm } from '@components/forms/set-file-form'
+import { SetStringValueForm } from '@components/forms/set-string-value-form'
 import { BoxModal } from '@components/modals/box-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
 import { MyOrderModal } from '@components/modals/my-order-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal'
-import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
-import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -40,7 +40,7 @@ import { ViewHeader } from './view-header/view-header'
 
 export const ClientInStockBoxesView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ClientInStockBoxesViewModel(history))
+  const viewModel = useMemo(() => new ClientInStockBoxesViewModel(history), [])
 
   const getRowClassName = params =>
     (params.row.isDraft === true ||
@@ -279,11 +279,10 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         openModal={viewModel.showSetShippingLabelModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSetShippingLabelModal')}
       >
-        <SetShippingLabelModal
-          requestStatus={viewModel.requestStatus}
-          item={viewModel.selectedBox}
-          onClickSaveShippingLabel={viewModel.onClickSaveShippingLabel}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showSetShippingLabelModal')}
+        <SetFileForm
+          data={viewModel.selectedBox?.shippingLabel}
+          onSubmit={viewModel.onClickSaveShippingLabel}
+          onClose={() => viewModel.onTriggerOpenModal('showSetShippingLabelModal')}
         />
       </Modal>
 
@@ -370,19 +369,13 @@ export const ClientInStockBoxesView = observer(({ history }) => {
 
       <Modal
         openModal={viewModel.showSetChipValueModal}
-        setOpenModal={() => {
-          viewModel.onTriggerOpenModal('showSetChipValueModal')
-          viewModel.onCloseShippingLabelModal()
-        }}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSetChipValueModal')}
       >
-        <SetChipValueModal
+        <SetStringValueForm
           title={t(TranslationKey['Set FBA shipment'])}
           sourceValue={viewModel.selectedBox?.fbaShipment}
           onSubmit={viewModel.onClickSaveFbaShipment}
-          onCloseModal={() => {
-            viewModel.onTriggerOpenModal('showSetChipValueModal')
-            viewModel.onCloseShippingLabelModal()
-          }}
+          onClose={() => viewModel.onTriggerOpenModal('showSetChipValueModal')}
         />
       </Modal>
 

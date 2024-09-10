@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 import { PiAlarmDuotone } from 'react-icons/pi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -28,8 +28,7 @@ interface ShutdownProps {
 
 export const Shutdown: FC<ShutdownProps> = observer(({ techPause }) => {
   const { classes: styles, cx } = useStyles()
-
-  const [viewModel] = useState(() => new ShutdownModel(techPause))
+  const viewModel = useMemo(() => new ShutdownModel(techPause), [])
 
   const selectAfter = (
     <CustomSelect
