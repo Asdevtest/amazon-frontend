@@ -21,7 +21,18 @@ export const useStyles = makeStyles()(theme => ({
       width: 5,
       height: 72,
 
-      backgroundColor: theme.palette.text.red,
+      backgroundColor: theme.palette.other.rejected,
     },
+
+    background: theme.palette.background.redRow,
+
+    '&:hover': {
+      background: theme.palette.background.redRow,
+    },
+  },
+
+  unreadMessages: {
+    background: theme.palette.background.chatMyMessage,
+    zIndex: 7,
   },
 }))

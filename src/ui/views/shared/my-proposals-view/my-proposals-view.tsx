@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { GridRowParams } from '@mui/x-data-grid-premium'
+import { GridCellParams, GridRowParams } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -35,6 +35,12 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
   const getRowClassName = (params: GridRowParams) => {
     if (params?.row?.request?.freelanceNotices > 0) {
       return styles.redBorder
+    }
+  }
+
+  const getCellClassName = (params: GridCellParams) => {
+    if (params?.field === 'freelanceNotices' && params.row?.request?.freelanceNotices > 0) {
+      return styles.unreadMessages
     }
   }
 
@@ -114,6 +120,7 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
           },
         }}
         getRowClassName={getRowClassName}
+        getCellClassName={getCellClassName}
         onPinnedColumnsChange={viewModel.handlePinColumn}
         onSortModelChange={viewModel.onChangeSortingModel}
         onFilterModelChange={viewModel.onChangeFilterModel}
