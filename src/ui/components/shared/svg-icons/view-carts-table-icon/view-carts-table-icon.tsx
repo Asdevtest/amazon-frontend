@@ -2,7 +2,6 @@ import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon'
 
 export const ViewCartsTableIcon = (props: SvgIconProps) => (
   <SvgIcon {...props} width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg"> */}
     <rect width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
     <rect y="3" width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
     <rect y="6" width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />

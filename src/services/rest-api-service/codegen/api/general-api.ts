@@ -27,9 +27,9 @@ import { ConflictInTheState } from '../models';
 // @ts-ignore
 import { InlineObject71 } from '../models';
 // @ts-ignore
-import { InlineResponse20059 } from '../models';
+import { InlineResponse20053 } from '../models';
 // @ts-ignore
-import { InlineResponse20060 } from '../models';
+import { InlineResponse20054 } from '../models';
 // @ts-ignore
 import { InlineResponse2018 } from '../models';
 // @ts-ignore
@@ -284,7 +284,7 @@ export const GeneralApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GeneralTagsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20059>>> {
+        async apiV1GeneralTagsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20053>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GeneralTagsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -301,7 +301,7 @@ export const GeneralApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GeneralTagsPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20060>> {
+        async apiV1GeneralTagsPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20054>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GeneralTagsPagGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -348,7 +348,7 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralTagsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20059>> {
+        apiV1GeneralTagsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20053>> {
             return localVarFp.apiV1GeneralTagsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -364,7 +364,7 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralTagsPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20060> {
+        apiV1GeneralTagsPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20054> {
             return localVarFp.apiV1GeneralTagsPagGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

@@ -13,70 +13,80 @@
  */
 
 
-import { InlineResponse20098Shop } from './inline-response20098-shop';
+import { InlineResponse20098Profile } from './inline-response20098-profile';
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineResponse20098Rows
  */
 export interface InlineResponse20098Rows {
     /**
-     * GUID нотификации в базе данных
+     * ID магазина.
      * @type {string}
      * @memberof InlineResponse20098Rows
      */
     _id?: string;
     /**
-     * JSON нотификации
-     * @type {object}
-     * @memberof InlineResponse20098Rows
-     */
-    data?: object;
-    /**
-     * Тип нотификации
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
      * @type {string}
      * @memberof InlineResponse20098Rows
      */
-    type?: InlineResponse20098RowsTypeEnum;
+    name?: string;
+    /**
+     * URL для скачивания ежедневных отчетов SellerBoard.
+     * @type {string}
+     * @memberof InlineResponse20098Rows
+     */
+    sellerBoardWarehouseReportUrlDaily?: string;
+    /**
+     * URL для скачивания отчетов SellerBoard за последний месяц.
+     * @type {string}
+     * @memberof InlineResponse20098Rows
+     */
+    sellerBoardWarehouseReportUrlMonthly?: string;
+    /**
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
+     * @memberof InlineResponse20098Rows
+     */
+    reportAccountUrl?: string;
+    /**
+     * GUID, владелеца.
+     * @type {string}
+     * @memberof InlineResponse20098Rows
+     */
+    ownerId?: string;
+    /**
+     * GUID любого, кто последний создал.
+     * @type {string}
+     * @memberof InlineResponse20098Rows
+     */
+    createdById?: string;
+    /**
+     * GUID любого, кто последний редактировал.
+     * @type {string}
+     * @memberof InlineResponse20098Rows
+     */
+    lastModifiedById?: string;
     /**
      * 
-     * @type {InlineResponse20098Shop}
+     * @type {InlineResponse20098Profile}
      * @memberof InlineResponse20098Rows
      */
-    shop?: InlineResponse20098Shop;
+    profile?: InlineResponse20098Profile;
     /**
-     * Заархивирована ли нотификация
-     * @type {boolean}
-     * @memberof InlineResponse20098Rows
-     */
-    archive?: boolean;
-    /**
-     * Дата создания.
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse20098Rows
      */
     createdAt?: string;
     /**
-     * Дата создания.
+     * Дата изменения
      * @type {string}
      * @memberof InlineResponse20098Rows
      */
     updatedAt?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20098RowsTypeEnum {
-    Box = 'box',
-    Order = 'order',
-    Product = 'product',
-    Idea = 'idea',
-    Request = 'request',
-    Shop = 'shop'
-}
-
 
 

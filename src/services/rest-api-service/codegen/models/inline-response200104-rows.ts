@@ -13,7 +13,9 @@
  */
 
 
-import { InlineResponse200104Shop } from './inline-response200104-shop';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
+import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
 
 /**
  * 
@@ -22,62 +24,119 @@ import { InlineResponse200104Shop } from './inline-response200104-shop';
  */
 export interface InlineResponse200104Rows {
     /**
-     * GUID нотификации в базе данных
+     * GUID продукта в базе данных
      * @type {string}
      * @memberof InlineResponse200104Rows
      */
     _id?: string;
     /**
-     * JSON нотификации
-     * @type {object}
-     * @memberof InlineResponse200104Rows
-     */
-    data?: object;
-    /**
-     * Тип нотификации
+     * ASIN продукта
      * @type {string}
      * @memberof InlineResponse200104Rows
      */
-    type?: InlineResponse200104RowsTypeEnum;
+    asin?: string;
     /**
-     * 
-     * @type {InlineResponse200104Shop}
+     * SKU введенным клиентом.
+     * @type {string}
      * @memberof InlineResponse200104Rows
      */
-    shop?: InlineResponse200104Shop;
+    skuByClient?: string;
     /**
-     * Заархивирована ли нотификация
+     * Есть ли товар в заказах
      * @type {boolean}
      * @memberof InlineResponse200104Rows
      */
-    archive?: boolean;
+    ordered?: boolean;
     /**
-     * Дата создания.
+     * 
+     * @type {number}
+     * @memberof InlineResponse200104Rows
+     */
+    bsr?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse200104Rows
+     */
+    amazon?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineResponse200104Rows
+     */
+    fbafee?: number;
+    /**
+     * Код текущего статуса
+     * @type {number}
+     * @memberof InlineResponse200104Rows
+     */
+    status?: number;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse200104Rows
+     */
+    images?: Array<string>;
+    /**
+     * Заголовок на товар с сайта амазон.
+     * @type {string}
+     * @memberof InlineResponse200104Rows
+     */
+    amazonTitle?: string;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineResponse200104Rows
+     */
+    strategyStatus?: number;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
+     * @memberof InlineResponse200104Rows
+     */
+    redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsVacTags>}
+     * @memberof InlineResponse200104Rows
+     */
+    tags?: Array<ApiV1BuyersProductsVacTags>;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse200104Rows
+     */
+    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse200104Rows
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse200104Rows
+     */
+    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse200104Rows
+     */
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse200104Rows
      */
     createdAt?: string;
     /**
-     * Дата создания.
+     * Дата изменения
      * @type {string}
      * @memberof InlineResponse200104Rows
      */
     updatedAt?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse200104RowsTypeEnum {
-    Box = 'box',
-    Order = 'order',
-    Product = 'product',
-    Idea = 'idea',
-    Request = 'request',
-    Shop = 'shop',
-    Launch = 'launch'
-}
-
 
 
