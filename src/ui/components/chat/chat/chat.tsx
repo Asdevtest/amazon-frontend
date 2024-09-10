@@ -131,7 +131,7 @@ export const Chat: FC<ChatProps> = memo(
       changeMessageAndState,
       resetAllInputs,
       changeFilesAndState,
-    } = useChatInputControl(messageInitialState)
+    } = useChatInputControl(messageInitialState, chat?._id)
 
     const START_INDEX = Math.max(chat?.messagesCount || 0, 1000000000)
     const prevChatId = usePrevious(chat?._id)
@@ -212,6 +212,7 @@ export const Chat: FC<ChatProps> = memo(
       resetAllInputs()
       await onClickScrollToBottom()
       onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null, chat?.messagesToForward)
+      sessionStorage.removeItem(chat?._id)
     }
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
@@ -254,7 +255,9 @@ export const Chat: FC<ChatProps> = memo(
     useEffect(() => {
       ChatModel.getChatMessages?.(chat?._id, PaginationDirection.START)
 
-      setMessage(messageInitialState.message)
+      const chatMessageText = sessionStorage?.getItem?.(chat?._id)
+
+      setMessage(chatMessageText || messageInitialState.message)
       setFiles(messageInitialState.files)
       setIsShowChatInfo(false)
 
