@@ -21,29 +21,11 @@
  */
 export interface InlineObject6 {
     /**
-     * Название patch_note.
+     * 
      * @type {string}
      * @memberof InlineObject6
      */
-    title?: string;
-    /**
-     * Описание patch_note.
-     * @type {string}
-     * @memberof InlineObject6
-     */
-    description?: string;
-    /**
-     * Для какой роли
-     * @type {number}
-     * @memberof InlineObject6
-     */
-    role?: number;
-    /**
-     * Update version
-     * @type {string}
-     * @memberof InlineObject6
-     */
-    version?: string;
+    title: string;
 }
 
 

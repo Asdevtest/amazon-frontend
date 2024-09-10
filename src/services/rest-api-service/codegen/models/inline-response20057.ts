@@ -13,7 +13,9 @@
  */
 
 
-import { InlineResponse20054Finances } from './inline-response20054-finances';
+import { InlineResponse20057Batches } from './inline-response20057-batches';
+import { InlineResponse20057Boxes } from './inline-response20057-boxes';
+import { InlineResponse20057Tasks } from './inline-response20057-tasks';
 
 /**
  * 
@@ -23,10 +25,22 @@ import { InlineResponse20054Finances } from './inline-response20054-finances';
 export interface InlineResponse20057 {
     /**
      * 
-     * @type {InlineResponse20054Finances}
+     * @type {InlineResponse20057Tasks}
      * @memberof InlineResponse20057
      */
-    finances?: InlineResponse20054Finances;
+    tasks?: InlineResponse20057Tasks;
+    /**
+     * 
+     * @type {InlineResponse20057Boxes}
+     * @memberof InlineResponse20057
+     */
+    boxes?: InlineResponse20057Boxes;
+    /**
+     * 
+     * @type {InlineResponse20057Batches}
+     * @memberof InlineResponse20057
+     */
+    batches?: InlineResponse20057Batches;
 }
 
 

@@ -13,9 +13,6 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20054ListingLaunches } from './inline-response20054-listing-launches';
-import { InlineResponse20054Product } from './inline-response20054-product';
 
 /**
  * 
@@ -24,65 +21,29 @@ import { InlineResponse20054Product } from './inline-response20054-product';
  */
 export interface InlineResponse20054Rows {
     /**
-     * GUID в базе данных
+     * Гуид тега
      * @type {string}
      * @memberof InlineResponse20054Rows
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * Тег
+     * @type {string}
      * @memberof InlineResponse20054Rows
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    title?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20054Rows
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {InlineResponse20054Product}
-     * @memberof InlineResponse20054Rows
-     */
-    product?: InlineResponse20054Product;
-    /**
-     * Is Actual report
-     * @type {boolean}
-     * @memberof InlineResponse20054Rows
-     */
-    isActive?: boolean;
-    /**
-     * New product price
+     * Кол-во продуктов, которые используют этот тег
      * @type {number}
      * @memberof InlineResponse20054Rows
      */
-    newProductPrice?: number;
+    productCount?: number;
     /**
-     * Description of product_listing_report
+     * Color
      * @type {string}
      * @memberof InlineResponse20054Rows
      */
-    description?: string;
-    /**
-     * 
-     * @type {Array<InlineResponse20054ListingLaunches>}
-     * @memberof InlineResponse20054Rows
-     */
-    listingLaunches?: Array<InlineResponse20054ListingLaunches>;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20054Rows
-     */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20054Rows
-     */
-    updatedAt?: string;
+    color?: string;
 }
 
 

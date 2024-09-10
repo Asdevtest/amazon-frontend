@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
+import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tags';
 
 /**
  * 
@@ -167,10 +167,10 @@ export interface InlineObject121 {
     shopId?: string;
     /**
      * 
-     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @type {Array<ApiV1ClientsProductsGuidTags>}
      * @memberof InlineObject121
      */
-    tags?: Array<ApiV1BuyersProductsGuidTags>;
+    tags?: Array<ApiV1ClientsProductsGuidTags>;
 }
 
 
