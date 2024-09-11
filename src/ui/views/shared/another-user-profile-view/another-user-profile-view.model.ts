@@ -56,6 +56,8 @@ export class AnotherProfileViewModel extends DataGridTableModel {
       defaultGetCurrentDataOptions,
     })
 
+    this.initHistory()
+
     this.userId = history.location.search.slice(1)
     this.getUserById()
     this.getCurrentData()
