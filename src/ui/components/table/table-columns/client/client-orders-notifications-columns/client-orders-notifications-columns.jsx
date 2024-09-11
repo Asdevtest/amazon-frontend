@@ -15,8 +15,6 @@ import { Text } from '@components/shared/text'
 import { toFixed, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const clientOrdersNotificationsViewColumns = handlers => {
   const columns = [
     {
@@ -71,14 +69,13 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       width: 160,
       renderCell: params => (
         <ActionButtonsCell
-          isFirstButton
-          isSecondButton
-          firstButtonElement={t(TranslationKey.Confirm)}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={t(TranslationKey.Reject)}
-          secondButtonStyle={ButtonStyle.DANGER}
-          onClickFirstButton={() => handlers.onTriggerOpenConfirmModal(params.row)}
-          onClickSecondButton={() => handlers.onTriggerOpenRejectModal(params.row)}
+          showFirst
+          showSecond
+          secondDanger
+          firstContent={t(TranslationKey.Confirm)}
+          secondContent={t(TranslationKey.Reject)}
+          onClickFirst={() => handlers.onTriggerOpenConfirmModal(params.row)}
+          onClickSecond={() => handlers.onTriggerOpenRejectModal(params.row)}
         />
       ),
       filterable: false,

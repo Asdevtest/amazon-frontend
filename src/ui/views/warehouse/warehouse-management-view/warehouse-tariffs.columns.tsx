@@ -1,14 +1,14 @@
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
+
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { ILogicTariff } from '@typings/shared/logic-tariff'
 
 interface IWarehouseTariffsColumns {
@@ -45,18 +45,16 @@ export const warehouseTariffsColumns = ({ onClickEditTariff, onRemoveWarehouseTa
     renderCell: ({ row }: GridRowModel) => (
       <ActionButtonsCell
         row
-        iconButton
-        isFirstButton
-        isSecondButton
-        firstButtonTooltipText={t(TranslationKey.Edit)}
-        firstButtonElement={<EditIcon />}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        secondButtonTooltipText={t(TranslationKey.Remove)}
-        secondButtonElement={<CrossIcon />}
-        secondButtonStyle={ButtonStyle.DANGER}
-        secondDescriptionText="Are you sure you want to delete the tariff?"
-        onClickFirstButton={() => onClickEditTariff(row)}
-        onClickSecondButton={() => onRemoveWarehouseTariff(row._id)}
+        showFirst
+        showSecond
+        secondDanger
+        firstGhost
+        secondGhost
+        firstIcon={<MdOutlineEdit size={16} />}
+        secondIcon={<MdOutlineDelete size={16} />}
+        secondDescription="Are you sure you want to delete the tariff?"
+        onClickFirst={() => onClickEditTariff(row)}
+        onClickSecond={() => onRemoveWarehouseTariff(row._id)}
       />
     ),
     width: 100,

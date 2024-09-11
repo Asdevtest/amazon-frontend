@@ -12,8 +12,6 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const ideasNotificationsViewColumns = handlers => [
   {
     field: 'updatedAt',
@@ -33,10 +31,9 @@ export const ideasNotificationsViewColumns = handlers => [
     width: 200,
     renderCell: params => (
       <ActionButtonsCell
-        isFirstButton
-        firstButtonElement={t(TranslationKey.View)}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        onClickFirstButton={() => handlers.onClickViewBtn(params?.row?.product?._id)}
+        showFirst
+        firstContent={t(TranslationKey.View)}
+        onClickFirst={() => handlers.onClickViewBtn(params?.row?.product?._id)}
       />
     ),
     filterable: false,

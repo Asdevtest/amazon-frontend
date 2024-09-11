@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(() => ({
     padding: '10px 0',
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: '5px',
   },
 
   wrapperRow: {
@@ -14,6 +14,5 @@ export const useStyles = makeStyles()(() => ({
 
   fullWidth: {
     width: '100%',
-    alignItems: 'center',
   },
 }))

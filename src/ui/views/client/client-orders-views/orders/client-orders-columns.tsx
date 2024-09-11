@@ -30,7 +30,6 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -153,15 +152,12 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
 
         return (
           <ActionButtonsCell
-            isFirstButton
-            isSecondButton
-            firstButtonStyle={firstButtonCondition ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
-            secondButtonStyle={ButtonStyle.PRIMARY}
-            secondButtonVariant={ButtonVariant.OUTLINED}
-            firstButtonElement={firstButtonText}
-            secondButtonElement={t(TranslationKey.Stocks)}
-            onClickFirstButton={() => rowHandlers.onClickReorder(params.row as IOrder, firstButtonCondition)}
-            onClickSecondButton={() => rowHandlers.onClickWarehouseOrderButton(params.row.product._id)}
+            showFirst
+            showSecond
+            firstContent={firstButtonText}
+            secondContent={t(TranslationKey.Stocks)}
+            onClickFirst={() => rowHandlers.onClickReorder(params.row as IOrder, firstButtonCondition)}
+            onClickSecond={() => rowHandlers.onClickWarehouseOrderButton(params.row.product._id)}
           />
         )
       },

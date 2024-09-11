@@ -15,7 +15,6 @@ import { Text } from '@components/shared/text'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IBox } from '@typings/models/boxes/box'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -57,17 +56,14 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       width: 150,
       renderCell: ({ row }) => (
         <ActionButtonsCell
-          isFirstRow
-          isFirstButton
-          isSecondButton
-          firstButtonElement={t(TranslationKey.Confirm)}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={t(TranslationKey.Reject)}
-          secondButtonStyle={ButtonStyle.DANGER}
-          firstButtonTooltipText={t(TranslationKey['Choose another tariff'])}
-          secondDescriptionText="The box will be returned to warehouse"
-          onClickFirstButton={() => handlers.onTriggerOpenConfirmModal(row as IBox)}
-          onClickSecondButton={() => handlers.onTriggerOpenRejectModal(row as IBox)}
+          showFirst
+          showSecond
+          secondDanger
+          firstContent={t(TranslationKey.Confirm)}
+          secondContent={t(TranslationKey.Reject)}
+          secondDescription="The box will be returned to warehouse"
+          onClickFirst={() => handlers.onTriggerOpenConfirmModal(row as IBox)}
+          onClickSecond={() => handlers.onTriggerOpenRejectModal(row as IBox)}
         />
       ),
       filterable: false,

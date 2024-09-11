@@ -14,10 +14,7 @@ import {
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 export const warehouseVacantTasksViewColumns = handlers => {
   const columns = [
@@ -27,17 +24,13 @@ export const warehouseVacantTasksViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Action)} />,
       renderCell: params => (
         <ActionButtonsCell
-          isFirstButton
-          isSecondButton={params.row.originalData.operationType !== TaskOperationType.RECEIVE}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-          firstButtonTooltipText={t(TranslationKey['Take the task to work'])}
-          firstButtonElement={t(TranslationKey['Get to work'])}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonTooltipText={t(TranslationKey['The task will be canceled, the box will keep its previous state'])}
-          secondButtonElement={t(TranslationKey.Cancel)}
-          secondButtonStyle={ButtonStyle.DANGER}
-          onClickFirstButton={throttle(() => handlers.onClickPickupBtn(params.row.originalData))}
-          onClickSecondButton={() =>
+          showFirst
+          secondDanger
+          showSecond={params.row.originalData.operationType !== TaskOperationType.RECEIVE}
+          firstContent={t(TranslationKey['Get to work'])}
+          secondContent={t(TranslationKey.Cancel)}
+          onClickFirst={() => handlers.onClickPickupBtn(params.row.originalData)}
+          onClickSecond={() =>
             handlers.onClickCancelTask(
               params.row.originalData.boxes[0]?._id,
               params.row.originalData._id,

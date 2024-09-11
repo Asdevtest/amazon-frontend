@@ -14,10 +14,8 @@ import {
 import { Text } from '@components/shared/text'
 
 import { convertToSentenceCase } from '@utils/text'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { ProfileStatus } from '@typings/enums/request/profile-request-status'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -127,20 +125,18 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
       renderCell: ({ row }: GridRowModel) => (
         <ActionButtonsCell
-          isFirstButton
-          isSecondButton
-          disabledSecondButton={row?.status !== ProfileStatus.INVITED}
-          firstButtonElement={t(TranslationKey.Edit)}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={t(TranslationKey.Registered)}
-          secondButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={() => onEditProfileModal(row)}
-          onClickSecondButton={throttle(() => onParsingProfileRegistred(row._id))}
+          showFirst
+          showSecond
+          secondDisabled={row?.status !== ProfileStatus.INVITED}
+          firstContent={t(TranslationKey.Edit)}
+          secondContent={t(TranslationKey.Registered)}
+          onClickFirst={() => onEditProfileModal(row)}
+          onClickSecond={() => onParsingProfileRegistred(row._id)}
         />
       ),
       disableCustomSort: true,
       filterable: false,
-      width: 180,
+      width: 160,
     },
   ]
 
