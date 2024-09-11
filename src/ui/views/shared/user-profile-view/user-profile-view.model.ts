@@ -23,7 +23,6 @@ import { userProfileColumns } from './user-profile-view.columns'
 import { userProfileConfig } from './user-profile-view.config'
 
 export class ProfileViewModel extends DataGridTableModel {
-  showAvatarEditModal = false
   showUserInfoModal = false
   showTabModal = false
   showConfirmWorkResultFormModal = false
@@ -111,9 +110,6 @@ export class ProfileViewModel extends DataGridTableModel {
 
     try {
       await OtherModel.postAvatar(formData)
-
-      this.onTriggerOpenModal('showAvatarEditModal')
-
       toast.success(t(TranslationKey['The avatar has been uploaded. The update will take place within a few minutes.']))
     } catch (error) {
       console.error(error)

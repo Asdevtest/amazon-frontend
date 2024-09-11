@@ -18,8 +18,8 @@ import {
   LinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderCell,
   PriorityAndChinaDeliverCell,
+  ProductCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -59,8 +59,16 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    width: 300,
-    renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    width: 200,
+    renderCell: params => (
+      <ProductCell
+        asin={params.row.originalData.items[0]?.product?.asin}
+        image={params.row.originalData.items?.[0]?.product?.images?.[0]}
+        sku={params.row.originalData.items[0]?.product?.skuByClient}
+        title={params.row.originalData.items[0]?.product?.amazonTitle}
+        superbox={params.row.originalData.amount}
+      />
+    ),
     sortable: false,
   },
 

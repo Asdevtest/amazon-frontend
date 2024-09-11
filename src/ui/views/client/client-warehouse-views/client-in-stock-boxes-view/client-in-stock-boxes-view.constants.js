@@ -19,6 +19,7 @@ export const updateBoxWhiteList = [
   'isShippingLabelAttachedByStorekeeper',
   'isBarCodeAlreadyAttachedByTheSupplier',
   'items',
+  'clientComment',
   'images',
   'destinationId',
   'storekeeperId',

@@ -2047,5 +2047,6 @@
   "In use": "正在使用",
   "Parsing profile successfully deleted": "解析配置文件已成功删除",
   "Error deleting parsing profile": "删除解析配置文件时出错",
-  "Are you sure you want to delete profile?": "您确定要删除个人资料吗?"
+  "Are you sure you want to delete profile?": "您确定要删除个人资料吗?",
+  "qty": "数量"
 }

@@ -3,8 +3,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderBoxesCell,
+  OrderManyItemsCell,
   OrdersIdsItemsCell,
+  ProductCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -32,29 +33,19 @@ export const addOrEditBatchFormColumns = isClient => [
   {
     field: 'boxes',
     headerName: t(TranslationKey.Boxes),
-    width: 295,
+    width: 200,
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
-        <div>
-          <OrderBoxesCell
-            superbox
-            withQuantity
-            qty={params.row.qty}
-            superboxQty={params.row.originalData.amount}
-            box={params.row.originalData}
-          />
-        </div>
+        <OrderManyItemsCell box={params.row.originalData} />
       ) : (
-        <div>
-          <OrderBoxesCell
-            withQuantity
-            qty={params.row.qty}
-            superboxQty={params.row.originalData.amount > 1 && params.row.originalData.amount}
-            box={params.row.originalData}
-            product={params.row.originalData.items[0].product}
-          />
-        </div>
+        <ProductCell
+          asin={params.row.originalData.items[0]?.product?.asin}
+          image={params.row.originalData.items?.[0]?.product?.images?.[0]}
+          sku={params.row.originalData.items[0]?.product?.skuByClient}
+          title={params.row.originalData.items[0]?.product?.amazonTitle}
+          superbox={params.row.originalData.amount}
+        />
       ),
     filterable: false,
     sortable: false,

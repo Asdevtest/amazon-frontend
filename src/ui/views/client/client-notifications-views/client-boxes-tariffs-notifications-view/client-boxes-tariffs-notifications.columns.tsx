@@ -6,8 +6,8 @@ import {
   ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderCell,
   OrderManyItemsCell,
+  ProductCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -79,15 +79,17 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-      width: 280,
+      width: 200,
       renderCell: params => {
         return params.row.items.length > 1 ? (
           <OrderManyItemsCell box={params.row} />
         ) : (
-          <OrderCell
-            product={params.row.items[0].product}
-            superbox={params.row.amount > 1 && params.row.amount}
-            box={params.row}
+          <ProductCell
+            asin={params.row.items[0]?.product?.asin}
+            image={params.row.items?.[0]?.product?.images?.[0]}
+            sku={params.row.items[0]?.product?.skuByClient}
+            title={params.row.items[0]?.product?.amazonTitle}
+            superbox={params.row.amount}
           />
         )
       },
