@@ -35,7 +35,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       width: 198,
       filterable: false,
 
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {

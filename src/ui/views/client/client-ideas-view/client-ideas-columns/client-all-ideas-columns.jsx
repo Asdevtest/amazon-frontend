@@ -36,7 +36,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       renderCell: params => <Text isCell text={params.value} />,
       width: 190,
 
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
     },
 
