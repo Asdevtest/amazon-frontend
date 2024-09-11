@@ -4,14 +4,14 @@ import { IoWarningOutline } from 'react-icons/io5'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Text } from '@components/shared/text'
+
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useHover } from '@hooks/use-hover'
 
 import { useStyles } from './product-cell.style'
-
-import { Text } from '../../../shared/text/text'
 
 const { Text: AntText, Link } = Typography
 

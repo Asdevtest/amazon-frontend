@@ -6,28 +6,30 @@ import { Tooltip } from '@mui/material'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { findTariffInStorekeepersData } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useStyles } from './order-many-items-cell.style'
+import { IBox } from '@typings/models/boxes/box'
+import { IBoxItem } from '@typings/models/boxes/box-item'
+import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
+
+import { useStyles } from './products-cell.style'
 
 import { ProductCell } from '../product-cell/product-cell'
 
-interface OrderManyItemsCellProps {
-  box: any
-  error?: string
+interface ProductsCellProps {
+  box: IBox
+  storekeepers?: IStorekeeper[]
 }
 
-export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
-  const { box, error } = props
-
+export const ProductsCell: FC<ProductsCellProps> = memo(({ box, storekeepers }) => {
   const { classes: styles, cx } = useStyles()
 
-  const isPriceIncreased = box.deliveryTotalPrice - box.deliveryTotalPriceChanged < 0
-  const needsConfirmation = box.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE
-  const extraPaymentAmount = toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)
-  const extraPaymentText = `${t(TranslationKey['Extra payment required!'])} (${extraPaymentAmount})`
+  const errorMessage = !findTariffInStorekeepersData(storekeepers, box?.storekeeper?._id, box?.logicsTariff?._id)
+    ? t(TranslationKey['The tariff is invalid or has been removed!'])
+    : ''
 
   const renderTooltip = () => (
     <div className={styles.tooltipWrapper}>
@@ -48,7 +50,7 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
             title={item.product?.amazonTitle}
             asin={item.product?.asin}
             sku={item.product?.skuByClient}
-            errorMessage={error}
+            errorMessage={errorMessage}
             errorDescription={errorDescription}
           />
         )
@@ -56,25 +58,30 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
     </div>
   )
 
-  return (
+  return box?.items?.length > 1 ? (
     <Tooltip title={renderTooltip()} classes={{ tooltip: styles.tooltip }}>
-      <div className={styles.mainWrapper}>
-        <div className={styles.items}>
-          {box.items?.slice(0, 4).map((product: any, productIndex: number) => (
-            <div key={productIndex} className={styles.item}>
-              <img
-                alt={`product-${productIndex}`}
-                className={styles.itemImage}
-                src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
-              />
-              <p className={styles.itemText}>{`x${product.amount}`}</p>
-            </div>
-          ))}
-          {box.items?.length > 4 && <p className={cx(styles.itemText, styles.itemTextPoints)}>...</p>}
-        </div>
-        {error && <span className={styles.error}>{error}</span>}
-        {needsConfirmation || isPriceIncreased ? <span className={styles.needPay}>{extraPaymentText}</span> : null}
+      <div className={styles.root}>
+        {box.items?.slice(0, 4).map((item: IBoxItem, index: number) => (
+          <div key={index} className={styles.item}>
+            <img
+              alt={`item-${index}`}
+              className={styles.itemImage}
+              src={getAmazonImageUrl(item.product?.images?.[0])}
+            />
+            <p className={styles.itemText}>{`x ${item?.amount}`}</p>
+          </div>
+        ))}
+        {box.items?.length > 4 && <p className={cx(styles.itemText, styles.itemTextPoints)}>...</p>}
       </div>
     </Tooltip>
+  ) : (
+    <ProductCell
+      asin={box?.items?.[0]?.product?.asin}
+      image={box?.items?.[0]?.product?.images?.[0]}
+      sku={box?.items?.[0]?.product?.skuByClient}
+      title={box?.items?.[0]?.product?.amazonTitle}
+      superbox={box?.amount}
+      errorMessage={errorMessage}
+    />
   )
 })

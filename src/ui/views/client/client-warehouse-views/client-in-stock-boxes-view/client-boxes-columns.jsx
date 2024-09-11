@@ -13,14 +13,12 @@ import {
   ManyUserLinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderManyItemsCell,
-  ProductCell,
+  ProductsCell,
   RedFlagsCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
-import { findTariffInStorekeepersData } from '@utils/checks'
 import { formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
@@ -104,28 +102,7 @@ export const clientBoxesViewColumns = (
       field: 'asin',
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-
-      renderCell: params => {
-        const error =
-          !findTariffInStorekeepersData(
-            getStorekeepersData(),
-            params.row.storekeeper?._id,
-            params.row.logicsTariff?._id,
-          ) && t(TranslationKey['The tariff is invalid or has been removed!'])
-
-        return params.row?.items.length > 1 ? (
-          <OrderManyItemsCell box={params.row} error={error} />
-        ) : (
-          <ProductCell
-            asin={params.row.items?.[0]?.product?.asin}
-            image={params.row.items?.[0]?.product?.images?.[0]}
-            sku={params.row.items?.[0]?.product?.skuByClient}
-            title={params.row.items?.[0]?.product?.amazonTitle}
-            errorMessage={error}
-            superbox={params.row.amount}
-          />
-        )
-      },
+      renderCell: params => <ProductsCell box={params.row} storekeepers={getStorekeepersData()} />,
       valueGetter: params =>
         params.row.items
           ?.filter(item => Boolean(item.product.asin))

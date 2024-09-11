@@ -7,9 +7,8 @@ import {
   ChangeInputCell,
   DownloadAndPrintFilesCell,
   MultilineTextHeaderCell,
-  OrderManyItemsCell,
   OrdersIdsItemsCell,
-  ProductCell,
+  ProductsCell,
   RedFlagsCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
@@ -62,20 +61,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
             }`,
         )
         .join(', '),
-    renderCell: params => {
-      return params.row.originalData.items.length > 1 ? (
-        <OrderManyItemsCell box={params.row.originalData} />
-      ) : (
-        <ProductCell
-          asin={params.row.originalData.items?.[0]?.product?.asin}
-          image={params.row.originalData.items?.[0]?.product?.images?.[0]}
-          sku={params.row.originalData.items?.[0]?.product?.skuByClient}
-          title={params.row.originalData.items?.[0]?.product?.amazonTitle}
-          superbox={params.row.originalData.amount}
-        />
-      )
-    },
-
+    renderCell: params => <ProductsCell box={params.row.originalData} />,
     fields: getProductColumnMenuItems(),
     columnMenuConfig: getProductColumnMenuValue(),
     columnKey: columnnsKeys.shared.MULTIPLE,
