@@ -4,8 +4,7 @@ import { useState } from 'react'
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
-import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
+import { ServiceExchangeCard } from '@components/cards/service-exchange-card/service-exchange-card'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
@@ -57,24 +56,16 @@ export const MyServicesView = observer(({ history }: { history: HistoryType }) =
         </div>
       </div>
 
-      <div className={styles.dashboardCardWrapper}>
-        {viewModel.currentData.map((service, serviceKey) =>
-          isListPosition ? (
-            <ServiceExchangeCardList
-              key={serviceKey}
-              service={service}
-              pathname={history?.location?.pathname}
-              onClickButton={viewModel.onClickOpenButton}
-            />
-          ) : (
-            <ServiceExchangeCard
-              key={serviceKey}
-              service={service}
-              pathname={history?.location?.pathname}
-              onClickButton={viewModel.onClickOpenButton}
-            />
-          ),
-        )}
+      <div className={isListPosition ? styles.dashboardListWrapper : styles.dashboardCardWrapper}>
+        {viewModel.currentData.map((service, serviceKey) => (
+          <ServiceExchangeCard
+            key={serviceKey}
+            service={service}
+            pathname={history?.location?.pathname}
+            variant={isListPosition ? 'list' : 'card'}
+            onClickButton={viewModel.onClickOpenButton}
+          />
+        ))}
       </div>
 
       {!viewModel.currentData.length && (

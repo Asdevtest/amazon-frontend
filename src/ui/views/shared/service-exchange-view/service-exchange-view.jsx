@@ -5,7 +5,6 @@ import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
-import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
@@ -47,7 +46,7 @@ export const ServiceExchangeView = observer(({ history }) => {
       </div>
 
       <div
-        className={styles.dashboardCardWrapper}
+        className={isListPosition ? styles.dashboardListWrapper : styles.dashboardCardWrapper}
         onScroll={e => {
           const element = e.target
           const scrollTop = element?.scrollTop
@@ -59,18 +58,15 @@ export const ServiceExchangeView = observer(({ history }) => {
           }
         }}
       >
-        {viewModel.currentData.map(service =>
-          isListPosition ? (
-            <ServiceExchangeCardList
-              key={service._id}
-              order
-              service={service}
-              onClickButton={viewModel.onClickOrderBtn}
-            />
-          ) : (
-            <ServiceExchangeCard key={service._id} order service={service} onClickButton={viewModel.onClickOrderBtn} />
-          ),
-        )}
+        {viewModel.currentData.map(service => (
+          <ServiceExchangeCard
+            key={service._id}
+            order
+            service={service}
+            variant={isListPosition ? 'list' : 'card'}
+            onClickButton={viewModel.onClickOrderBtn}
+          />
+        ))}
       </div>
 
       {!viewModel.currentData.length ? (
