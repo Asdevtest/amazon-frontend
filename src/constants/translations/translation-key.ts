@@ -2062,4 +2062,6 @@ export enum TranslationKey {
   'Forwarded from' = 'Forwarded from',
   'Copy text' = 'Copy text',
   'qty' = 'qty',
+  'Chat name' = 'Chat name',
+  'Enter chat name' = 'Enter chat name',
 }

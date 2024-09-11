@@ -2054,5 +2054,7 @@
   "Forwarded from": "转发来自",
   "Copy text": "复制文本",
   "Are you sure you want to delete profile?": "您确定要删除个人资料吗?",
-  "qty": "数量"
+  "qty": "数量",
+  "Chat name": "聊天名称",
+  "Enter chat name": "请输入聊天名称"
 }

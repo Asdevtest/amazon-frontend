@@ -2061,5 +2061,7 @@
   "Forwarded from": "Переслан от",
   "Copy text": "Скопировать текст",
   "Are you sure you want to delete profile?": "Вы уверены, что хотите удалить профиль?",
-  "qty": "кол-во"
+  "qty": "кол-во",
+  "Chat name": "Название чата",
+  "Enter chat name": "Введите название чата"
 }

@@ -15,6 +15,7 @@ import { AddNewChatByEmailForm } from '@components/forms/add-new-chat-by-email-f
 import { AddUsersToGroupChatForm } from '@components/forms/add-users-to-group-chat-form'
 import { EditGroupChatInfoForm } from '@components/forms/edit-group-chat-info-form'
 import { ForwardMessagesForm } from '@components/forms/forward-messages-form'
+import { CreateNewChatModal } from '@components/modals/create-new-chat-modal'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
@@ -173,7 +174,7 @@ export const MessagesView = observer(({ history }) => {
               type="primary"
               size="large"
               disabled={checkIsResearcher(UserRoleCodeMap[viewModel.user.role])}
-              onClick={viewModel.onClickAddNewChatByEmail}
+              onClick={viewModel.onClickCreateChatModal}
             >
               {isMobileResolution ? <NewDialogIcon /> : t(TranslationKey['New Dialog'])}
             </CustomButton>
@@ -239,6 +240,13 @@ export const MessagesView = observer(({ history }) => {
       {viewModel.showProgress && <CircularProgressWithLabel title={'...'} />}
 
       <Modal
+        openModal={viewModel.showCreateNewChatModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showCreateNewChatModal', false)}
+      >
+        <CreateNewChatModal closeModal={() => viewModel.onTriggerOpenModal('showCreateNewChatModal', false)} />
+      </Modal>
+
+      {/* <Modal
         openModal={viewModel.showAddNewChatByEmailModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddNewChatByEmailModal')}
       >
@@ -247,9 +255,9 @@ export const MessagesView = observer(({ history }) => {
           usersData={viewModel.usersData}
           onSubmit={viewModel.onSubmitAddNewChat}
         />
-      </Modal>
+      </Modal> */}
 
-      <Modal
+      {/* <Modal
         openModal={viewModel.showAddUsersToGroupChatModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddUsersToGroupChatModal')}
       >
@@ -258,9 +266,9 @@ export const MessagesView = observer(({ history }) => {
           usersData={viewModel.usersData}
           onSubmit={viewModel.onSubmitAddUsersToGroupChat}
         />
-      </Modal>
+      </Modal> */}
 
-      <Modal
+      {/* <Modal
         openModal={viewModel.showEditGroupChatInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
       >
@@ -269,7 +277,7 @@ export const MessagesView = observer(({ history }) => {
           onSubmit={viewModel.onSubmitPatchInfoGroupChat}
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
         />
-      </Modal>
+      </Modal> */}
 
       <Modal
         openModal={viewModel.showForwardMessagesModal}

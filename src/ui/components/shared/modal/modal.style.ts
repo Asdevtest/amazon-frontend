@@ -40,7 +40,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   alternativeBackground: {
-    background: theme.palette.background.second,
+    background: theme.palette.background.general,
   },
 
   content: {

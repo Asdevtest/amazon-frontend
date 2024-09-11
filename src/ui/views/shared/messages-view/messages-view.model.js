@@ -19,6 +19,9 @@ export class MessagesViewModel {
   requestStatus = loadingStatus.SUCCESS
 
   showConfirmModal = false
+
+  showCreateNewChatModal = false
+
   showAddNewChatByEmailModal = false
   showAddUsersToGroupChatModal = false
   showEditGroupChatInfoModal = false
@@ -166,6 +169,10 @@ export class MessagesViewModel {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  onClickCreateChatModal() {
+    this.onTriggerOpenModal('showCreateNewChatModal', true)
   }
 
   onClickEditGroupChatInfo() {
@@ -349,8 +356,8 @@ export class MessagesViewModel {
     ChatModel.onChangeChatSelectedId(undefined)
   }
 
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+  onTriggerOpenModal(modal, value) {
+    this[modal] = value === undefined ? !this[modal] : value
   }
 
   setRequestStatus(requestStatus) {

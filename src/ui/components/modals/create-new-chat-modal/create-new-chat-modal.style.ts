@@ -1,0 +1,29 @@
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    width: '450px',
+  },
+
+  userSelect: {
+    width: '100%',
+  },
+
+  title: {
+    fontWeight: 600,
+  },
+
+  avatarContainer: {
+    display: 'flex',
+    alignSelf: 'center',
+    height: 150,
+    width: 150,
+  },
+
+  createButton: {
+    alignSelf: 'flex-end',
+  },
+}))
