@@ -123,10 +123,10 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
               <RequestDetailsItem showAllDetails request={request.request} />
 
               <ProductCell
-                asin={request.request.product?.asin}
-                image={request.request.product?.images?.[0]}
-                sku={request.request.product?.skuByClient}
-                title={request.request.product?.amazonTitle}
+                asin={request.request?.product?.asin}
+                image={request.request?.product?.images?.[0]}
+                sku={request.request?.product?.skuByClient}
+                title={request.request?.product?.amazonTitle}
               />
             </div>
 

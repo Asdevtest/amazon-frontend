@@ -19,7 +19,7 @@ export const ppcSalesWeeksColumns = () => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => <ProductCell asin={row?.asin} sku={row?.sku} />,
+      renderCell: ({ row }) => <ProductCell asin={row.asin} sku={row.sku} />,
 
       fields: getProductColumnMenuItems({ withoutTitle: true }),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({

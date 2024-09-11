@@ -117,10 +117,10 @@ export const clientBoxesViewColumns = (
           <OrderManyItemsCell box={params.row} error={error} />
         ) : (
           <ProductCell
-            asin={params.row.items[0]?.product?.asin}
+            asin={params.row.items?.[0]?.product?.asin}
             image={params.row.items?.[0]?.product?.images?.[0]}
-            sku={params.row.items[0]?.product?.skuByClient}
-            title={params.row.items[0]?.product?.amazonTitle}
+            sku={params.row.items?.[0]?.product?.skuByClient}
+            title={params.row.items?.[0]?.product?.amazonTitle}
             errorMessage={error}
             superbox={params.row.amount}
           />

@@ -30,7 +30,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
       renderCell: (params: GridCellParams) => (
         <ProductCell
-          sku={params.row.product?.skuByClient || params.row.parentProduct?.skuByClient}
+          sku={params.row.product?.skuByClient}
           image={params.row.product?.images?.[0]}
           title={params.row.product?.amazonTitle}
           asin={params.row.product?.asin}

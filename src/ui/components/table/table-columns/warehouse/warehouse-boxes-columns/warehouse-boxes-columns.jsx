@@ -67,10 +67,10 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
         <OrderManyItemsCell box={params.row.originalData} />
       ) : (
         <ProductCell
-          asin={params.row.originalData.items[0]?.product?.asin}
+          asin={params.row.originalData.items?.[0]?.product?.asin}
           image={params.row.originalData.items?.[0]?.product?.images?.[0]}
-          sku={params.row.originalData.items[0]?.product?.skuByClient}
-          title={params.row.originalData.items[0]?.product?.amazonTitle}
+          sku={params.row.originalData.items?.[0]?.product?.skuByClient}
+          title={params.row.originalData.items?.[0]?.product?.amazonTitle}
           superbox={params.row.originalData.amount}
         />
       )

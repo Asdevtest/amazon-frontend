@@ -82,10 +82,10 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
           <OrderManyItemsCell box={params.row} />
         ) : (
           <ProductCell
-            asin={params.row.items[0]?.product?.asin}
+            asin={params.row.items?.[0]?.product?.asin}
             image={params.row.items?.[0]?.product?.images?.[0]}
-            sku={params.row.items[0]?.product?.skuByClient}
-            title={params.row.items[0]?.product?.amazonTitle}
+            sku={params.row.items?.[0]?.product?.skuByClient}
+            title={params.row.items?.[0]?.product?.amazonTitle}
             superbox={params.row.amount}
           />
         )
