@@ -1,7 +1,6 @@
 import { action, computed, observable } from 'mobx'
 
 export const userProfileConfig = {
-  showAvatarEditModal: observable,
   showUserInfoModal: observable,
   showTabModal: observable,
   showConfirmWorkResultFormModal: observable,
