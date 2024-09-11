@@ -3,8 +3,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderCell,
   OrderManyItemsCell,
+  ProductCell,
   Text,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -38,20 +38,18 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    width: 400,
+    width: 200,
     renderCell: params =>
-      params.row.originalData ? (
-        params.row.originalData.items.length > 1 ? (
-          <OrderManyItemsCell box={(() => ({ ...params.row.originalData }))()} />
-        ) : (
-          <OrderCell
-            box={(() => ({ ...params.row.originalData }))()}
-            product={params.row.originalData.items[0].product}
-            superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
-          />
-        )
+      params.row.originalData.items.length > 1 ? (
+        <OrderManyItemsCell box={params.row.originalData} />
       ) : (
-        ''
+        <ProductCell
+          asin={params.row.originalData.items[0]?.product?.asin}
+          image={params.row.originalData.items?.[0]?.product?.images?.[0]}
+          sku={params.row.originalData.items[0]?.product?.skuByClient}
+          title={params.row.originalData.items[0]?.product?.amazonTitle}
+          superbox={params.row.originalData.amount}
+        />
       ),
     filterable: false,
     sortable: false,

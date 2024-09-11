@@ -7,6 +7,8 @@ export const useStyles = makeStyles()(theme => ({
     padding: '5px 0px',
     display: 'flex',
     flexDirection: 'column',
+    gap: '3px',
+    position: 'relative',
   },
 
   text: {
@@ -30,5 +32,20 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '4px',
     overflow: 'hidden',
     boxShadow: theme.palette.boxShadow.paper,
+  },
+
+  superbox: {
+    color: theme.palette.primary.main,
+    fontWeight: 600,
+  },
+
+  warning: {
+    position: 'absolute',
+    bottom: '5px',
+    right: 0,
+  },
+
+  warningText: {
+    color: theme.palette.text.red,
   },
 }))

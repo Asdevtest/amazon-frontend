@@ -7,9 +7,9 @@ import {
   ChangeInputCell,
   DownloadAndPrintFilesCell,
   MultilineTextHeaderCell,
-  OrderCell,
   OrderManyItemsCell,
   OrdersIdsItemsCell,
+  ProductCell,
   RedFlagsCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
@@ -66,11 +66,12 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
       return params.row.originalData.items.length > 1 ? (
         <OrderManyItemsCell box={params.row.originalData} />
       ) : (
-        <OrderCell
-          imageSize={'big'}
-          box={params.row.originalData}
-          product={params.row.originalData.items[0]?.product}
-          superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
+        <ProductCell
+          asin={params.row.originalData.items[0]?.product?.asin}
+          image={params.row.originalData.items?.[0]?.product?.images?.[0]}
+          sku={params.row.originalData.items[0]?.product?.skuByClient}
+          title={params.row.originalData.items[0]?.product?.amazonTitle}
+          superbox={params.row.originalData.amount}
         />
       )
     },
@@ -78,7 +79,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     fields: getProductColumnMenuItems(),
     columnMenuConfig: getProductColumnMenuValue(),
     columnKey: columnnsKeys.shared.MULTIPLE,
-    width: 320,
+    width: 200,
   },
 
   {
