@@ -130,6 +130,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                     mesSearchValue={viewModel.mesSearchValue}
                     curFoundedMessage={viewModel.curFoundedMessage}
                     chatSelectedId={viewModel.chatSelectedId}
+                    currentOpponent={findRequestProposalForCurChat?.proposal?.createdBy}
                     chatMessageHandlers={{
                       onClickOpenRequest: viewModel.onClickOpenRequest,
                     }}
