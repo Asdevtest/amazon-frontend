@@ -6,7 +6,7 @@ import { RequestProposalStatus } from '@constants/requests/request-proposal-stat
 import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { OrderCell } from '@components/data-grid/data-grid-cells'
+import { ProductCell } from '@components/data-grid/data-grid-cells'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
@@ -122,9 +122,12 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
             <div className={styles.titleAndIdWrapper}>
               <RequestDetailsItem showAllDetails request={request.request} />
 
-              <div>
-                <OrderCell withoutSku imageSize={'small'} product={request.request.product} />
-              </div>
+              <ProductCell
+                asin={request.request.product?.asin}
+                image={request.request.product?.images?.[0]}
+                sku={request.request.product?.skuByClient}
+                title={request.request.product?.amazonTitle}
+              />
             </div>
 
             <div>

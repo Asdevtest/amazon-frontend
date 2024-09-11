@@ -8,11 +8,11 @@ import {
   ActualCostWithDelivery,
   ActualCostWithDeliveryPerUnit,
   FinalPricePerUnitCell,
-  ManyItemsPriceCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrdersIdsItemsCell,
   PricePerUnitCell,
+  ProductCell,
   StringListCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
@@ -51,9 +51,15 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Boxes),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
 
-    renderCell: params => <ManyItemsPriceCell withoutSku withoutAsin params={params.row} />,
+    renderCell: params => (
+      <ProductCell
+        image={params.row.items?.[0]?.product?.images?.[0]}
+        title={params.row.items?.[0]?.product?.amazonTitle}
+        superbox={params.row.items?.[0]?.amount}
+      />
+    ),
     valueGetter: ({ row }) => row?.amount,
-    width: 280,
+    width: 170,
   },
 
   {

@@ -5,8 +5,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderCell,
   OrderManyItemsCell,
+  ProductCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -84,10 +84,12 @@ export const adminWarehouseBoxesColumns = () => {
         params.row?.items?.length > 1 ? (
           <OrderManyItemsCell box={params?.row} />
         ) : (
-          <OrderCell
-            box={params.row}
-            product={params.row?.items?.[0]?.product}
-            superbox={params.row?.amount > 1 && params.row?.amount}
+          <ProductCell
+            asin={params.row.items[0]?.product?.asin}
+            image={params.row.items?.[0]?.product?.images?.[0]}
+            sku={params.row.items[0]?.product?.skuByClient}
+            title={params.row.items[0]?.product?.amazonTitle}
+            superbox={params.row.amount}
           />
         ),
 
@@ -95,7 +97,7 @@ export const adminWarehouseBoxesColumns = () => {
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 200,
     },
 
     {

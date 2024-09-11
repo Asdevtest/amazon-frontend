@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, Fragment, memo } from 'react'
+import { FC, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
 
@@ -12,7 +12,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './order-many-items-cell.style'
 
-import { ProductCell } from '../product-asin-cell/product-asin-cell'
+import { ProductCell } from '../product-cell/product-cell'
 
 interface OrderManyItemsCellProps {
   box: any
@@ -37,24 +37,20 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
             item?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) &&
           itemIndex === 0
         const extraPaymentValue = toFixedWithDollarSign(item.deliveryTotalPriceChanged - item.deliveryTotalPrice, 2)
+        const errorDescription = isExtraPayment
+          ? `${t(TranslationKey['Extra payment required!'])} (${extraPaymentValue})`
+          : ''
 
         return (
-          <Fragment key={itemIndex}>
-            <ProductCell
-              image={item.product.images?.[0]}
-              title={item.product.amazonTitle}
-              asin={item.product.asin}
-              sku={item.product.skuByClient}
-            />
-
-            {isExtraPayment ? (
-              <span className={styles.error}>{`${t(
-                TranslationKey['Extra payment required!'],
-              )} (${extraPaymentValue})`}</span>
-            ) : null}
-
-            {error ? <span className={styles.error}>{error}</span> : null}
-          </Fragment>
+          <ProductCell
+            key={itemIndex}
+            image={item.product.images?.[0]}
+            title={item.product.amazonTitle}
+            asin={item.product.asin}
+            sku={item.product.skuByClient}
+            errorMessage={error}
+            errorDescription={errorDescription}
+          />
         )
       })}
     </div>
@@ -64,7 +60,7 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
     <Tooltip title={renderTooltip()} classes={{ tooltip: styles.tooltip }}>
       <div className={styles.mainWrapper}>
         <div className={styles.items}>
-          {box.items.slice(0, 6).map((product: any, productIndex: number) => (
+          {box.items.slice(0, 4).map((product: any, productIndex: number) => (
             <div key={productIndex} className={styles.item}>
               <img
                 alt={`product-${productIndex}`}
@@ -74,10 +70,9 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
               <p className={styles.itemText}>{`x${product.amount}`}</p>
             </div>
           ))}
-          {box.items.length > 6 && <p className={cx(styles.itemText, styles.itemTextPoints)}>...</p>}
+          {box.items.length > 4 && <p className={cx(styles.itemText, styles.itemTextPoints)}>...</p>}
         </div>
         {error && <span className={styles.error}>{error}</span>}
-
         {needsConfirmation || isPriceIncreased ? <span className={styles.needPay}>{extraPaymentText}</span> : null}
       </div>
     </Tooltip>

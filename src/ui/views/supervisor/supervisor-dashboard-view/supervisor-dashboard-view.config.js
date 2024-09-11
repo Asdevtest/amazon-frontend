@@ -63,7 +63,7 @@ export const getSupervisorDashboardCardConfig = () => [
         dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_RESEARCHER,
         title: t(TranslationKey['To check from the resercher']),
 
-        route: '/supervisor/ready-to-check',
+        route: '/supervisor/ready-to-check-by-researcher',
       },
       {
         dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT,

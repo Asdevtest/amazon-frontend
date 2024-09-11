@@ -257,7 +257,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
                         className={cx(styles.userRole, {
                           [styles.currentAllowedRolesItem]: roleCode === role,
                         })}
-                        onClick={() => throttle(() => onChangeUserInfo(roleCode))}
+                        onClick={throttle(() => onChangeUserInfo(roleCode))}
                       >
                         {(UserRoleCodeMap as { [key: number]: string })[roleCode]}
                       </p>

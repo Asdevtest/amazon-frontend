@@ -3,14 +3,14 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     width: 280,
-    height: '40px',
+    height: '30px',
     position: 'relative',
 
     display: 'visible !important',
   },
 
   selectHeight: {
-    height: 40,
+    height: 30,
   },
 
   disableRoot: {
@@ -39,14 +39,14 @@ export const useStyles = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: '100px',
     transition: '0.3s ease',
-    height: 40,
+    height: 30,
     overflow: 'hidden',
     position: 'absolute',
   },
 
   grayBorder: {
-    height: 40,
-    maxHeight: 40,
+    height: 30,
+    maxHeight: 30,
     border: `1px solid ${theme.palette.input.customBorder}`,
   },
 
@@ -54,7 +54,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 36,
+    height: 30,
     marginBottom: 10,
     // borderBottom: '1px solid #E0E0E0',
     padding: '0 17px',
@@ -67,7 +67,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   chosenItemNoHover: {
-    height: 40,
+    height: 30,
     '&:hover': {
       transform: 'unset',
       backgroundColor: 'unset',

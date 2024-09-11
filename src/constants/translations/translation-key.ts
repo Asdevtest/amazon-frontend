@@ -2061,4 +2061,5 @@ export enum TranslationKey {
   'forwarded messages' = 'forwarded messages',
   'Forwarded from' = 'Forwarded from',
   'Copy text' = 'Copy text',
+  'qty' = 'qty',
 }

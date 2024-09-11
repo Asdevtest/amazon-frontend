@@ -86,7 +86,7 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
       additionalPropertiesGetFilters,
       defaultFilterParams,
       operatorsSettings,
-      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
+      defaultSortModel: [{ field: 'freelanceNotices', sort: 'desc' }],
     })
     makeObservable(this, observerConfig)
 
