@@ -1,8 +1,13 @@
 import { FC, memo } from 'react'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
 import { TabPanel } from '@components/shared/tab-panel'
+
+import { t } from '@utils/translations'
 
 import { IRequestMedia } from '@typings/models/requests/request-media'
 
@@ -46,6 +51,8 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
     onResetAllFilesToAdd,
     getCheckboxState,
     getDisabledCheckbox,
+    onSelectAllFiles,
+    isAllSelected,
   } = useGalleryRequestModal(data, mediaFiles, maxNumber)
 
   return (
@@ -57,7 +64,13 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
       }}
     >
       <div className={styles.wrapper}>
-        <Header title={filesCounter} />
+        <div className={styles.headerContainer}>
+          <Header title={filesCounter} />
+
+          <CustomCheckbox checked={isAllSelected} onChange={onSelectAllFiles}>
+            {t(TranslationKey['Select all'])}
+          </CustomCheckbox>
+        </div>
 
         <CustomSwitcher
           fullWidth
