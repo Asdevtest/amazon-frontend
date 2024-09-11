@@ -35,6 +35,7 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
     : order
     ? t(TranslationKey['To order'])
     : t(TranslationKey.Open)
+
   const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
   const isSuccess = choose || order
   const isCard = variant === 'card'
