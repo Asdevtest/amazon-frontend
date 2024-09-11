@@ -27,9 +27,12 @@ interface ProductsCellProps {
 export const ProductsCell: FC<ProductsCellProps> = memo(({ box, storekeepers }) => {
   const { classes: styles, cx } = useStyles()
 
-  const errorMessage = !findTariffInStorekeepersData(storekeepers, box?.storekeeper?._id, box?.logicsTariff?._id)
-    ? t(TranslationKey['The tariff is invalid or has been removed!'])
-    : ''
+  const errorMessage =
+    !!storekeepers &&
+    storekeepers?.length > 0 &&
+    !findTariffInStorekeepersData(storekeepers, box?.storekeeper?._id, box?.logicsTariff?._id)
+      ? t(TranslationKey['The tariff is invalid or has been removed!'])
+      : ''
 
   const renderTooltip = () => (
     <div className={styles.tooltipWrapper}>
