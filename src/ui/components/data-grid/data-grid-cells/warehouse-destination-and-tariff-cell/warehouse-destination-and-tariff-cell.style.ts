@@ -1,5 +1,7 @@
 import { makeStyles } from 'tss-react/mui'
 
+import { height } from '@mui/system'
+
 export const useStyles = makeStyles()(() => ({
   destinationAndTariffWrapper: {
     padding: '10px 0',
@@ -16,5 +18,9 @@ export const useStyles = makeStyles()(() => ({
     display: '-webkit-box',
     WebkitLineClamp: 1,
     WebkitBoxOrient: 'vertical',
+  },
+
+  tariffButton: {
+    height: 30,
   },
 }))
