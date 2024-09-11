@@ -10,7 +10,6 @@ import { OrderCell } from '@components/data-grid/data-grid-cells'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
-import { ProposalsSlider } from '@components/shared/proposals-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
@@ -20,6 +19,7 @@ import { RequestPriority } from '@typings/enums/request/request-priority'
 
 import { useStyles } from './servant-general-request-info.style'
 
+import { ProposalsSlider } from './proposals-slider'
 import { RequestDetailsItem } from './request-details-item/request-details-item'
 
 export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestProposals, onJoinChat }) => {
