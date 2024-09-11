@@ -2339,11 +2339,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-<<<<<<< HEAD
-        async apiV1UsersPresetsSettingsMyGet(filters?: string, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200111>>> {
-=======
         async apiV1UsersPresetsSettingsMyGet(filters?: string, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200112>>> {
->>>>>>> pre-release
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersPresetsSettingsMyGet(filters, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2827,11 +2823,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-<<<<<<< HEAD
-        apiV1UsersPresetsSettingsMyGet(filters?: string, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200111>> {
-=======
         apiV1UsersPresetsSettingsMyGet(filters?: string, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200112>> {
->>>>>>> pre-release
             return localVarFp.apiV1UsersPresetsSettingsMyGet(filters, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

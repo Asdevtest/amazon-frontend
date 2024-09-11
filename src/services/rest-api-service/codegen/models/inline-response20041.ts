@@ -13,27 +13,83 @@
  */
 
 
-<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
-import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
 import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
-=======
->>>>>>> pre-release
+import { ApiV1ClientsProductsVacTags } from './api-v1-clients-products-vac-tags';
 
 /**
- * цену для клиента на поиск поставщика
+ * 
  * @export
  * @interface InlineResponse20041
  */
 export interface InlineResponse20041 {
     /**
+     * GUID продукта в базе данных
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    _id?: string;
+    /**
+     * Категория
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    category?: string;
+    /**
      * 
      * @type {number}
      * @memberof InlineResponse20041
      */
+    bsr?: number;
+    /**
+     * ASIN продукта
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    asin?: string;
+    /**
+     * SKU введенным клиентом.
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    skuByClient?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    amazon?: number;
+    /**
+     * Вес
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    weight?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    fbaamount?: number;
+    /**
+     * Код текущего статуса
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    status?: number;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20041
+     */
+    images?: Array<string>;
+    /**
+     * Цена для клиента
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
     priceForClient?: number;
-<<<<<<< HEAD
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusSuppliers}
@@ -102,10 +158,10 @@ export interface InlineResponse20041 {
     redFlags?: Array<ApiV1BoxesClientsLightProductRedFlags>;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
+     * @type {Array<ApiV1ClientsProductsVacTags>}
      * @memberof InlineResponse20041
      */
-    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
+    tags?: Array<ApiV1ClientsProductsVacTags>;
     /**
      * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
      * @type {number}
@@ -166,8 +222,6 @@ export interface InlineResponse20041 {
      * @memberof InlineResponse20041
      */
     amazonTitle?: string;
-=======
->>>>>>> pre-release
 }
 
 

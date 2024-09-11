@@ -13,11 +13,6 @@
  */
 
 
-<<<<<<< HEAD
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1ShopSellStatistics } from './api-v1-shop-sell-statistics';
-=======
->>>>>>> pre-release
 
 /**
  * Успешный ответ.
@@ -36,65 +31,7 @@ export interface InlineResponse20094 {
      * @type {string}
      * @memberof InlineResponse20094
      */
-<<<<<<< HEAD
-    _id?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20094
-     */
-    owner?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Имя магазина для продажи
-     * @type {string}
-     * @memberof InlineResponse20094
-     */
-    title?: string;
-    /**
-     * Статус магазина для продажи
-     * @type {string}
-     * @memberof InlineResponse20094
-     */
-    status?: string;
-    /**
-     * Файлы, которые привязаны к магазину
-     * @type {Array<string>}
-     * @memberof InlineResponse20094
-     */
-    files?: Array<string>;
-    /**
-     * Стоимость магазина
-     * @type {number}
-     * @memberof InlineResponse20094
-     */
-    price?: number;
-    /**
-     * Ежемесячный множитель
-     * @type {number}
-     * @memberof InlineResponse20094
-     */
-    monthlyMultiplier?: number;
-    /**
-     * 
-     * @type {ApiV1ShopSellStatistics}
-     * @memberof InlineResponse20094
-     */
-    statistics?: ApiV1ShopSellStatistics;
-    /**
-     * Дата создания бизнеса
-     * @type {string}
-     * @memberof InlineResponse20094
-     */
-    businessStartDate?: string;
-    /**
-     * Детали магазина
-     * @type {string}
-     * @memberof InlineResponse20094
-     */
-    shopDetails?: string;
-=======
     reason?: string;
->>>>>>> pre-release
 }
 
 

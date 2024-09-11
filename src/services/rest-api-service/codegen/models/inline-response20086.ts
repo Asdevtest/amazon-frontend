@@ -14,16 +14,11 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-<<<<<<< HEAD
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
-import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
-=======
 import { ApiV1RequestProposalsCreatedBy } from './api-v1-request-proposals-created-by';
 import { ApiV1RequestProposalsDetailsCustom } from './api-v1-request-proposals-details-custom';
 import { ApiV1RequestProposalsMedia } from './api-v1-request-proposals-media';
 import { ApiV1RequestProposalsRequest } from './api-v1-request-proposals-request';
 import { ApiV1RequestProposalsSourceFiles } from './api-v1-request-proposals-source-files';
->>>>>>> pre-release
 
 /**
  * 
@@ -56,19 +51,11 @@ export interface InlineResponse20086 {
      */
     status?: InlineResponse20086StatusEnum;
     /**
-<<<<<<< HEAD
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20086
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-=======
      * Время закрытия предложения.
      * @type {string}
      * @memberof InlineResponse20086
      */
     timeoutAt?: string;
->>>>>>> pre-release
     /**
      * Время на выполнение, в часах.
      * @type {number}

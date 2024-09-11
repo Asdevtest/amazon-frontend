@@ -31,9 +31,6 @@ export interface InlineObject166 {
      * @type {Array<string>}
      * @memberof InlineObject166
      */
-<<<<<<< HEAD
-    tables?: Array<string>;
-=======
     tables?: Array<InlineObject166TablesEnum>;
 }
 
@@ -66,7 +63,6 @@ export enum InlineObject166TablesEnum {
     CheckPermissions = 'CHECK_PERMISSIONS',
     Profile = 'PROFILE',
     ReceivingRequests = 'RECEIVING_REQUESTS'
->>>>>>> pre-release
 }
 
 

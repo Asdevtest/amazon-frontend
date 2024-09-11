@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tags';
 
 /**
  * 
@@ -23,58 +22,10 @@ import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tag
 export interface InlineObject63 {
     /**
      * 
-     * @type {number}
+     * @type {Array<string>}
      * @memberof InlineObject63
      */
-    amazon?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineObject63
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineObject63
-     */
-    fbafee?: number;
-    /**
-     * ФБА кол-во
-     * @type {number}
-     * @memberof InlineObject63
-     */
-    fbaamount?: number;
-    /**
-     * Код статуса
-     * @type {number}
-     * @memberof InlineObject63
-     */
-    status?: number;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineObject63
-     */
-    profit?: number;
-    /**
-     * Маржа
-     * @type {number}
-     * @memberof InlineObject63
-     */
-    margin?: number;
-    /**
-     * Примечания байера.
-     * @type {string}
-     * @memberof InlineObject63
-     */
-    buyersComment?: string;
-    /**
-     * 
-     * @type {Array<ApiV1ClientsProductsGuidTags>}
-     * @memberof InlineObject63
-     */
-    tags?: Array<ApiV1ClientsProductsGuidTags>;
+    productIds: Array<string>;
 }
 
 

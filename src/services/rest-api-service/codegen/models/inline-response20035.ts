@@ -13,46 +13,95 @@
  */
 
 
-<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
 import { ApiV1BuyersOrdersMyOrderSupplier } from './api-v1-buyers-orders-my-order-supplier';
 import { ApiV1BuyersOrdersMyPayments } from './api-v1-buyers-orders-my-payments';
 import { ApiV1BuyersOrdersMyProduct } from './api-v1-buyers-orders-my-product';
-=======
-import { InlineResponse20035SupplierImage } from './inline-response20035-supplier-image';
->>>>>>> pre-release
 
 /**
- * 
+ * Заказ.
  * @export
  * @interface InlineResponse20035
  */
 export interface InlineResponse20035 {
     /**
-     * 
-     * @type {Array<string>}
+     * id заказ.
+     * @type {number}
      * @memberof InlineResponse20035
      */
-    productImages?: Array<string>;
+    id?: number;
+    /**
+     * GUID данной записи в БД.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    _id?: string;
+    /**
+     * кол-во
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    amount?: number;
+    /**
+     * Комментарии клиента.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    clientComment?: string;
+    /**
+     * комментарии байера.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    buyerComment?: string;
     /**
      * 
-     * @type {Array<string>}
+     * @type {ApiV1AdminsOrdersDestination}
      * @memberof InlineResponse20035
      */
-    latestSeoFiles?: Array<string>;
+    destination?: ApiV1AdminsOrdersDestination;
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof InlineResponse20035
      */
-    currentSupplierImage?: Array<string>;
+    item?: string;
+    /**
+     * Цена в юанях
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    priceInYuan?: number;
+    /**
+     * Сумма частичной оплаты
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    partialPaymentAmountRmb?: number;
+    /**
+     * Используется ли частичная оплата
+     * @type {boolean}
+     * @memberof InlineResponse20035
+     */
+    partialPayment?: boolean;
+    /**
+     * Есть ли реквизиты в ордере
+     * @type {boolean}
+     * @memberof InlineResponse20035
+     */
+    paymentDetailsAttached?: boolean;
+    /**
+     * Cумма частичной оплаты
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    partiallyPaid?: number;
     /**
      * 
-     * @type {Array<InlineResponse20035SupplierImage>}
+     * @type {Array<ApiV1BuyersOrdersMyPayments>}
      * @memberof InlineResponse20035
      */
-<<<<<<< HEAD
     payments?: Array<ApiV1BuyersOrdersMyPayments>;
     /**
      * 
@@ -150,9 +199,7 @@ export enum InlineResponse20035PriorityEnum {
     _30 = '30',
     _40 = '40',
     _50 = '50'
-=======
-    supplierImage?: Array<InlineResponse20035SupplierImage>;
->>>>>>> pre-release
 }
+
 
 

@@ -13,17 +13,8 @@
  */
 
 
-<<<<<<< HEAD
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1RequestProposalsCreatedBy } from './api-v1-request-proposals-created-by';
-import { ApiV1RequestProposalsDetailsCustom } from './api-v1-request-proposals-details-custom';
-import { ApiV1RequestProposalsMedia } from './api-v1-request-proposals-media';
-import { ApiV1RequestProposalsRequest } from './api-v1-request-proposals-request';
-import { ApiV1RequestProposalsSourceFiles } from './api-v1-request-proposals-source-files';
-=======
 import { ApiV1ProductsKeepaOffers } from './api-v1-products-keepa-offers';
 import { ApiV1ProductsKeepaStats } from './api-v1-products-keepa-stats';
->>>>>>> pre-release
 
 /**
  * 
@@ -81,27 +72,6 @@ export interface InlineResponse20085 {
     frequentlyBoughtTogether?: Array<string>;
     /**
      * 
-<<<<<<< HEAD
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20085
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {Array<ApiV1RequestProposalsSourceFiles>}
-     * @memberof InlineResponse20085
-     */
-    sourceFiles?: Array<ApiV1RequestProposalsSourceFiles>;
-    /**
-     * 
-     * @type {Array<ApiV1RequestProposalsMedia>}
-     * @memberof InlineResponse20085
-     */
-    media?: Array<ApiV1RequestProposalsMedia>;
-    /**
-     * Дата создания
-=======
->>>>>>> pre-release
      * @type {string}
      * @memberof InlineResponse20085
      */

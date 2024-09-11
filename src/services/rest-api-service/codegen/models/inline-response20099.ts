@@ -13,10 +13,6 @@
  */
 
 
-<<<<<<< HEAD
-import { InlineResponse2006 } from './inline-response2006';
-=======
->>>>>>> pre-release
 
 /**
  * 
@@ -31,19 +27,11 @@ export interface InlineResponse20099 {
      */
     _id: string;
     /**
-<<<<<<< HEAD
-     * 
-     * @type {Array<InlineResponse2006>}
-     * @memberof InlineResponse20099
-     */
-    rows?: Array<InlineResponse2006>;
-=======
      * Название магазина
      * @type {string}
      * @memberof InlineResponse20099
      */
     name: string;
->>>>>>> pre-release
 }
 
 

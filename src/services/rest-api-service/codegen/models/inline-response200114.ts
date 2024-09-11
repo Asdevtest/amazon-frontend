@@ -13,10 +13,6 @@
  */
 
 
-<<<<<<< HEAD
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-=======
->>>>>>> pre-release
 
 /**
  * 
@@ -31,23 +27,7 @@ export interface InlineResponse200114 {
      */
     _id?: string;
     /**
-<<<<<<< HEAD
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200114
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Роль юзера, когда он оставлял отзыв
-     * @type {number}
-     * @memberof InlineResponse200114
-     */
-    role?: number;
-    /**
-     * Комментарий к оценке
-=======
      * Имя пользователя.
->>>>>>> pre-release
      * @type {string}
      * @memberof InlineResponse200114
      */
@@ -59,19 +39,11 @@ export interface InlineResponse200114 {
      */
     rating?: number;
     /**
-<<<<<<< HEAD
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200114
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-=======
      * Количество положительных отзыв
      * @type {number}
      * @memberof InlineResponse200114
      */
     numberOfPositiveFeedbacks?: number;
->>>>>>> pre-release
     /**
      * Количество негативных отзыв
      * @type {number}

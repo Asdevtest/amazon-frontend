@@ -13,19 +13,9 @@
  */
 
 
-<<<<<<< HEAD
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
-import { ApiV1RequestsCustomProduct } from './api-v1-requests-custom-product';
-import { InlineResponse20090Announcement } from './inline-response20090-announcement';
-import { InlineResponse20090CountProposalsByStatuses } from './inline-response20090-count-proposals-by-statuses';
-import { InlineResponse20090DetailsCustom } from './inline-response20090-details-custom';
-import { InlineResponse20090Media } from './inline-response20090-media';
-=======
 import { ApiV1RequestProposalsCustomByRequestIdGuidDetails } from './api-v1-request-proposals-custom-by-request-id-guid-details';
 import { ApiV1RequestProposalsCustomByRequestIdGuidProposal } from './api-v1-request-proposals-custom-by-request-id-guid-proposal';
 import { ApiV1RequestProposalsCustomByRequestIdGuidRequest } from './api-v1-request-proposals-custom-by-request-id-guid-request';
->>>>>>> pre-release
 
 /**
  * Схема универсального предложения
@@ -50,100 +40,7 @@ export interface InlineResponse200119 {
      * @type {ApiV1RequestProposalsCustomByRequestIdGuidRequest}
      * @memberof InlineResponse200119
      */
-<<<<<<< HEAD
-    uploadedToListing?: boolean;
-    /**
-     * 
-     * @type {Array<InlineResponse20090Media>}
-     * @memberof InlineResponse200119
-     */
-    media?: Array<InlineResponse20090Media>;
-    /**
-     * 
-     * @type {InlineResponse20090Announcement}
-     * @memberof InlineResponse200119
-     */
-    announcement?: InlineResponse20090Announcement;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200119
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof InlineResponse200119
-     */
-    proposals?: Array<object>;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200119
-     */
-    executor?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200119
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {InlineResponse20090CountProposalsByStatuses}
-     * @memberof InlineResponse200119
-     */
-    countProposalsByStatuses?: InlineResponse20090CountProposalsByStatuses;
-    /**
-     * Count of unread messages
-     * @type {number}
-     * @memberof InlineResponse200119
-     */
-    freelanceNotices?: number;
-    /**
-     * 
-     * @type {ApiV1RequestsCustomProduct}
-     * @memberof InlineResponse200119
-     */
-    product?: ApiV1RequestsCustomProduct;
-    /**
-     * 
-     * @type {InlineResponse20090DetailsCustom}
-     * @memberof InlineResponse200119
-     */
-    detailsCustom?: InlineResponse20090DetailsCustom;
-}
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse200119StatusEnum {
-    Draft = 'DRAFT',
-    Published = 'PUBLISHED',
-    InProcess = 'IN_PROCESS',
-    ForbidNewProposals = 'FORBID_NEW_PROPOSALS',
-    CompleteProposalsAmountAchieved = 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED',
-    CanceledByCreator = 'CANCELED_BY_CREATOR',
-    Expired = 'EXPIRED',
-    ReadyToVerifyByAdmin = 'READY_TO_VERIFY_BY_ADMIN',
-    VerifyingByAdmin = 'VERIFYING_BY_ADMIN',
-    ToCorrectByAdmin = 'TO_CORRECT_BY_ADMIN',
-    CanceledByAdmin = 'CANCELED_BY_ADMIN',
-    ReadyToVerifyBySupervisor = 'READY_TO_VERIFY_BY_SUPERVISOR',
-    VerifyingBySupervisor = 'VERIFYING_BY_SUPERVISOR',
-    ToCorrectBySupervisor = 'TO_CORRECT_BY_SUPERVISOR'
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse200119DirectionEnum {
-    In = 'IN',
-    Out = 'OUT'
-=======
     request?: ApiV1RequestProposalsCustomByRequestIdGuidRequest;
->>>>>>> pre-release
 }
 
 

@@ -13,16 +13,12 @@
  */
 
 
-<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusBoxAmounts } from './api-v1-admins-get-products-by-status-box-amounts';
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
 import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
 import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
 import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
-=======
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
->>>>>>> pre-release
 
 /**
  * 
@@ -31,35 +27,34 @@ import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-pro
  */
 export interface InlineResponse20044Rows {
     /**
-     * Guid of shop
+     * GUID продукта в базе данных
      * @type {string}
      * @memberof InlineResponse20044Rows
      */
     _id?: string;
     /**
-     * Name of shop
+     * ASIN продукта
      * @type {string}
      * @memberof InlineResponse20044Rows
      */
-    name?: string;
+    asin?: string;
     /**
-     * Count of shop products
-     * @type {number}
+     * SKU введенным клиентом.
+     * @type {string}
      * @memberof InlineResponse20044Rows
      */
-    productsCount?: number;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
-     * @memberof InlineResponse20044Rows
-     */
-    shopUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    skuByClient?: string;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusSuppliers>}
      * @memberof InlineResponse20044Rows
      */
-<<<<<<< HEAD
+    suppliers?: Array<ApiV1AdminsGetProductsByStatusSuppliers>;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusSuppliers}
+     * @memberof InlineResponse20044Rows
+     */
     currentSupplier?: ApiV1AdminsGetProductsByStatusSuppliers;
     /**
      * GUID поставщика в базе данных
@@ -553,9 +548,6 @@ export interface InlineResponse20044Rows {
      * @memberof InlineResponse20044Rows
      */
     stockCost?: number;
-=======
-    productUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
->>>>>>> pre-release
 }
 
 

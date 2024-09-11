@@ -46,11 +46,6 @@ import { InlineObject168 } from '../models';
 import { InlineObject169 } from '../models';
 // @ts-ignore
 import { InlineObject170 } from '../models';
-<<<<<<< HEAD
-// @ts-ignore
-import { InlineObject5 } from '../models';
-=======
->>>>>>> pre-release
 // @ts-ignore
 import { InlineObject5 } from '../models';
 // @ts-ignore

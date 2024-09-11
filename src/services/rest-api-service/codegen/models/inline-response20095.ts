@@ -14,11 +14,7 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-<<<<<<< HEAD
-import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
-=======
 import { ApiV1ShopSellStatistics } from './api-v1-shop-sell-statistics';
->>>>>>> pre-release
 
 /**
  * Схема получение лайт версии продажи магазина
@@ -38,27 +34,6 @@ export interface InlineResponse20095 {
      * @memberof InlineResponse20095
      */
     owner?: ApiV1AdminsGetProductsByStatusCreatedBy;
-<<<<<<< HEAD
-    /**
-     * GUID покупателя магазина
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    bidderId?: string;
-    /**
-     * GUID модератора магазина
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    moderatorId?: string;
-    /**
-     * GUID чата
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    chatId?: string;
-=======
->>>>>>> pre-release
     /**
      * Имя магазина для продажи
      * @type {string}
