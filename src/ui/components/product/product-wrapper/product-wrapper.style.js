@@ -11,7 +11,7 @@ export const useStyles = makeStyles()(() => ({
 
   customSwitcher: {
     position: 'sticky',
-    top: 0,
+    top: -10,
     left: 0,
     zIndex: 7,
   },

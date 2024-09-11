@@ -43,7 +43,7 @@ export const getTableColumns = (activeTable: ParsingReportsType) => {
     case ParsingReportsType.CAMPAIGNS:
       return campaignsColumns()
 
-    case ParsingReportsType.PERFOMANCE_NOTIFICATIONS:
+    case ParsingReportsType.PERFORMANCE_NOTIFICATIONS:
       return perfomanceNotificationsColumns()
 
     case ParsingReportsType.FBA_INVENTORY:
