@@ -1,6 +1,6 @@
 import { Button, ButtonProps, Dropdown } from 'antd'
-import { FC, memo } from 'react'
-import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
+import { ItemType } from 'antd/es/menu/interface'
+import { FC, MouseEvent, memo } from 'react'
 
 import { useStyles } from './custom-button.style'
 
@@ -8,52 +8,30 @@ interface CustomButtonProps extends ButtonProps {
   isCell?: boolean
   wrapperClassName?: string
   dropdown?: boolean
-  onClickEdit?: () => void
-  onClickRemove?: () => void
+  menuItems?: ItemType[]
 }
 
 export const CustomButton: FC<CustomButtonProps> = memo(props => {
-  const {
-    isCell,
-    icon,
-    className,
-    wrapperClassName,
-    dropdown,
-    onClickEdit,
-    onClickRemove,
-    onClick,
-    children,
-    ...restProps
-  } = props
+  const { isCell, icon, className, wrapperClassName, dropdown, children, menuItems, onClick, ...restProps } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    event.stopPropagation()
-    onClick?.(event)
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+    onClick?.(e)
   }
 
-  const items = [
-    {
-      key: '1',
-      label: <MdOutlineEdit size={16} />,
-      onClick: onClickEdit,
-    },
-    {
-      key: '2',
-      label: <MdOutlineDelete size={16} />,
-      onClick: onClickRemove,
-    },
-  ]
+  const showDropdownButton = dropdown && !icon
 
   return (
-    <div className={cx(styles.root, { [styles.cell]: isCell }, wrapperClassName)}>
-      {dropdown ? (
+    <div className={cx(styles.root, wrapperClassName)}>
+      {showDropdownButton ? (
         <Dropdown.Button
           {...restProps}
-          icon={icon}
-          className={cx(styles.button, { [styles.iconButton]: !!icon }, className)}
-          menu={{ items }}
+          destroyPopupOnHide
+          overlayClassName={styles.dropdown}
+          className={styles.dropdownButton}
+          menu={{ items: menuItems }}
           onClick={handleClick}
         >
           {children}
