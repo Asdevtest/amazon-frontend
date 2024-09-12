@@ -11,7 +11,6 @@ import { PriorityForm } from '@components/forms/priority-form/priority-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
-import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
@@ -38,6 +37,8 @@ import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-i
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './edit-box-form.style'
+
+import { SetFileForm } from '../set-file-form'
 
 export const EditBoxForm = memo(
   ({
@@ -141,7 +142,7 @@ export const EditBoxForm = memo(
       setBoxFields(newFormFields)
     }
 
-    const setShippingLabel = () => value => {
+    const setShippingLabel = value => {
       const newFormFields = { ...boxFields }
       newFormFields.shippingLabel = newFormFields.shippingLabel === null ? null : ''
       newFormFields.tmpShippingLabel = value
@@ -647,15 +648,10 @@ export const EditBoxForm = memo(
           openModal={showSetShippingLabelModal}
           setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
         >
-          <SetShippingLabelModal
-            tmpShippingLabel={boxFields.tmpShippingLabel}
-            item={boxFields}
-            requestStatus={requestStatus}
-            onClickSaveShippingLabel={shippingLabel => {
-              setShippingLabel()(shippingLabel)
-              setShowSetShippingLabelModal(!showSetShippingLabelModal)
-            }}
-            onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+          <SetFileForm
+            data={boxFields?.shippingLabel}
+            onSubmit={setShippingLabel}
+            onClose={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
           />
         </Modal>
 

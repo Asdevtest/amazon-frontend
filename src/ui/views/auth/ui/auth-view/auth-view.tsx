@@ -1,6 +1,6 @@
 import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 import { IoMoonSharp, IoSunnySharp } from 'react-icons/io5'
 
 import { appVersion } from '@constants/app-version'
@@ -29,7 +29,7 @@ interface AuthViewProps {
 
 export const AuthView: FC<AuthViewProps> = observer(({ history, auth }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new AuthViewModel({ history, auth }))
+  const viewModel = useMemo(() => new AuthViewModel({ history, auth }), [])
   const title = auth ? t(TranslationKey['Sign in']) : t(TranslationKey.Registration)
 
   return (

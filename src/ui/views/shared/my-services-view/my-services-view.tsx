@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -21,7 +21,7 @@ import { MyServicesViewModel } from './my-services-view.model'
 
 export const MyServicesView = observer(({ history }: { history: HistoryType }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new MyServicesViewModel(history))
+  const viewModel = useMemo(() => new MyServicesViewModel(history), [])
 
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
 

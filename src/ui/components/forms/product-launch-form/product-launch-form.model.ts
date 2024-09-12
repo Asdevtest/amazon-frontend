@@ -11,10 +11,10 @@ import { IProduct } from '@typings/models/products/product'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
-import { productLaunchConfig } from './product-launch-form.config'
+import { RadioValue, productLaunchConfig } from './product-launch-form.config'
 
 export class ProductLaunchFormModel extends UseProductsPermissions {
-  radioValue = 0 // 0 - new product, 1 - variation (boolean false/true)
+  radioValue = RadioValue.NEW
   selectedProduct?: IProduct
 
   get disabledSubmit() {

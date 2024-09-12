@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -25,7 +25,7 @@ export const TabFreelance = observer(props => {
   const { formFields, isFormFieldsChanged, onSubmit, onChangeField } = props
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new AdminSettingsFreelanceModel())
+  const viewModel = useMemo(() => new AdminSettingsFreelanceModel(), [])
 
   const disabledSubmit =
     !isFormFieldsChanged ||

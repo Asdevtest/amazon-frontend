@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { useGridApiRef } from '@mui/x-data-grid-premium'
 
@@ -28,7 +28,7 @@ import { ClientOrdersViewModel } from './client-orders-view.model'
 export const ClientOrdersView = observer(history => {
   const { classes: styles, cx } = useStyles()
 
-  const [viewModel] = useState(() => new ClientOrdersViewModel(history))
+  const viewModel = useMemo(() => new ClientOrdersViewModel(history), [])
 
   const apiRef = useGridApiRef()
 

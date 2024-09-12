@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,7 +15,7 @@ import { styles } from './client-batches-view.style'
 import { ClientBatchesViewModel } from './client-batches-view.model'
 
 export const ClientBatchesViewRaw = props => {
-  const [viewModel] = useState(() => new ClientBatchesViewModel({ history: props.history }))
+  const viewModel = useMemo(() => new ClientBatchesViewModel({ history: props.history }), [])
   const { classes: styles } = props
 
   return (

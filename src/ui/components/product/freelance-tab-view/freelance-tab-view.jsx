@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,7 +22,7 @@ import { FreelanceModel } from './freelance-tab-view.model'
 export const Freelance = observer(({ productId, modal }) => {
   const { classes: styles, cx } = useStyles()
 
-  const [viewModel] = useState(() => new FreelanceModel(productId))
+  const viewModel = useMemo(() => new FreelanceModel(productId), [])
 
   useEffect(() => {
     viewModel.loadData()

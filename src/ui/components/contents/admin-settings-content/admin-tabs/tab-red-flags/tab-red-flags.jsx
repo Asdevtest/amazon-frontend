@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { MdAutorenew, MdDeleteOutline, MdOutlineHighlightOff, MdOutlineModeEditOutline } from 'react-icons/md'
 
 import { Typography } from '@mui/material'
@@ -22,7 +22,7 @@ import { AdminSettingsRedFlagsModel } from './tab-red-flags.model'
 
 export const TabRedFlags = observer(() => {
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new AdminSettingsRedFlagsModel())
+  const viewModel = useMemo(() => new AdminSettingsRedFlagsModel(), [])
   const [isDisableButton, setIsDisableButton] = useState(true)
 
   useEffect(() => {

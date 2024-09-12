@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowClassNameParams, GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -23,7 +23,7 @@ import { BuyerMyProductsViewModel } from './buyer-my-products-view.model'
 export const BuyerMyProductsView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new BuyerMyProductsViewModel())
+  const viewModel = useMemo(() => new BuyerMyProductsViewModel(), [])
 
   const ideasSheldStyle = (params: GridRowClassNameParams) =>
     (!params.row.ideasOnCheck && !!params.row.ideasVerified && styles.ideaRowGreen) ||

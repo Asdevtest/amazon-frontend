@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,7 +17,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { AdminDestinationsViewModel } from './admin-destinations-view.model'
 
 export const AdminDestinationsView = observer(props => {
-  const [viewModel] = useState(() => new AdminDestinationsViewModel({ history }))
+  const viewModel = useMemo(() => new AdminDestinationsViewModel({ history }), [])
 
   useEffect(() => {
     viewModel.loadData()

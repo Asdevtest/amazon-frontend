@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md'
 
 import { navbarConfig } from '@constants/navigation/navbar'
@@ -23,7 +23,7 @@ export const Navbar = observer(props => {
   const { shortNavbar, activeCategory, activeSubCategory, isOpenModal, onShowNavbar, onToggleModal } = props
 
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(new NavbarModel())
+  const viewModel = useMemo(() => new NavbarModel(), [])
   const [curNavbar] = useState(navbarConfig)
 
   return (
