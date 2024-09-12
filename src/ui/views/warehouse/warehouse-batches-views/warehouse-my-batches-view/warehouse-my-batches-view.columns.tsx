@@ -53,7 +53,6 @@ export const warehouseMyBatchesViewColumns = (columnsProps: ColumnsProps) => {
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT,
       table: DataGridFilterTables.BOXES,
-      disableCustomSort: true,
     },
 
     {
@@ -66,7 +65,6 @@ export const warehouseMyBatchesViewColumns = (columnsProps: ColumnsProps) => {
       filterable: false,
       sortable: false,
       columnKey: columnnsKeys.shared.QUANTITY,
-      disableCustomSort: true,
     },
 
     {
@@ -89,7 +87,6 @@ export const warehouseMyBatchesViewColumns = (columnsProps: ColumnsProps) => {
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT,
       table: DataGridFilterTables.BOXES,
-      disableCustomSort: true,
     },
 
     {
