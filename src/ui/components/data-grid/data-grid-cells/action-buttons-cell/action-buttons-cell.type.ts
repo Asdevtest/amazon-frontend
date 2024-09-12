@@ -4,6 +4,10 @@ export interface ActionButtonsCellProps {
   block?: boolean
   row?: boolean
 
+  firstDropdown?: boolean
+  secondDropdown?: boolean
+  thirdDropdown?: boolean
+
   showFirst?: boolean
   showSecond?: boolean
   showThird?: boolean

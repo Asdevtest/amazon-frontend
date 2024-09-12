@@ -21,6 +21,7 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
     <div className={cx(styles.wrapper, { [styles.wrapperRow]: row, [styles.fullWidth]: block }, wrapperClassName)}>
       {getButtonActionsConfig(props).map((button, index) => {
         const {
+          dropdown,
           showButton,
           danger,
           ghost,
@@ -41,6 +42,7 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
         }
 
         const buttonProps = {
+          dropdown,
           block: block && !icon,
           danger,
           ghost,
@@ -55,19 +57,23 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
           onClick,
         }
 
-        return description ? (
-          <Popconfirm
-            key={index}
-            title={t(TranslationKey[description as TranslationKey])}
-            okText={t(TranslationKey.Yes)}
-            cancelText={t(TranslationKey.No)}
-            onConfirm={onClick}
-          >
-            <CustomButton {...buttonProps} onClick={undefined}>
-              {content}
-            </CustomButton>
-          </Popconfirm>
-        ) : (
+        if (description) {
+          return (
+            <Popconfirm
+              key={index}
+              title={t(TranslationKey[description as TranslationKey])}
+              okText={t(TranslationKey.Yes)}
+              cancelText={t(TranslationKey.No)}
+              onConfirm={onClick}
+            >
+              <CustomButton {...buttonProps} onClick={undefined}>
+                {content}
+              </CustomButton>
+            </Popconfirm>
+          )
+        }
+
+        return (
           <CustomButton key={index} {...buttonProps}>
             {content}
           </CustomButton>

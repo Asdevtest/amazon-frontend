@@ -4,6 +4,7 @@ import { ActionButtonsCellProps } from './action-buttons-cell.type'
 
 export const getButtonActionsConfig = (props: ActionButtonsCellProps) => [
   {
+    dropdown: props.firstDropdown,
     showButton: props.showFirst,
     danger: props.firstDanger,
     ghost: props.firstGhost,
@@ -19,6 +20,7 @@ export const getButtonActionsConfig = (props: ActionButtonsCellProps) => [
     onClick: throttle(props.onClickFirst),
   },
   {
+    dropdown: props.secondDropdown,
     showButton: props.showSecond,
     danger: props.secondDanger,
     ghost: props.secondGhost,
@@ -34,6 +36,7 @@ export const getButtonActionsConfig = (props: ActionButtonsCellProps) => [
     onClick: throttle(props.onClickSecond),
   },
   {
+    dropdown: props.thirdDropdown,
     showButton: props.showThird,
     danger: props.thirdDanger,
     ghost: props.thirdGhost,
