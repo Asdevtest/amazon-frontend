@@ -1,94 +1,66 @@
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { throttle } from '@utils/throttle'
 
 import { ActionButtonsCellProps } from './action-buttons-cell.type'
 
-export const handleClickButton = (onClick?: () => void) => (): void => {
-  if (onClick) {
-    onClick()
-  }
-}
-
-export const getButtonStyle = (style?: ButtonStyle): ButtonStyle => {
-  switch (style) {
-    case ButtonStyle.SUCCESS:
-      return ButtonStyle.SUCCESS
-    case ButtonStyle.DANGER:
-      return ButtonStyle.DANGER
-    case ButtonStyle.PRIMARY:
-      return ButtonStyle.PRIMARY
-    case ButtonStyle.TRANSPARENT:
-      return ButtonStyle.TRANSPARENT
-    case ButtonStyle.CASUAL:
-      return ButtonStyle.CASUAL
-    default:
-      return ButtonStyle.DEFAULT
-  }
-}
-
-export const getButtonVariant = (variant?: ButtonVariant): ButtonVariant => {
-  switch (variant) {
-    case ButtonVariant.OUTLINED:
-      return ButtonVariant.OUTLINED
-    default:
-      return ButtonVariant.CONTAINED
-  }
-}
-
-export const getButtonActionsConfig = ({
-  isFirstRow = false,
-  firstButtonElement,
-  secondButtonElement,
-  thirdButtonElement,
-  firstButtonTooltipText,
-  secondButtonTooltipText,
-  thirdButtonTooltipText,
-  isFirstButton = false,
-  isSecondButton = false,
-  isThirdButton = false,
-  firstButtonStyle,
-  secondButtonStyle,
-  thirdButtonStyle,
-  firstButtonVariant,
-  secondButtonVariant,
-  thirdButtonVariant,
-  disabledFirstButton,
-  disabledSecondButton,
-  disabledThirdButton,
-  firstDescriptionText,
-  secondDescriptionText,
-  thirdDescriptionText,
-  onClickFirstButton,
-  onClickSecondButton,
-  onClickThirdButton,
-}: ActionButtonsCellProps) => [
+export const getButtonActionsConfig = (props: ActionButtonsCellProps) => [
   {
-    showButton: isFirstButton,
-    buttonElement: firstButtonElement,
-    tooltipText: isFirstRow ? firstButtonTooltipText : '',
-    styleType: getButtonStyle(firstButtonStyle),
-    variant: getButtonVariant(firstButtonVariant),
-    disabled: disabledFirstButton,
-    descriptionText: firstDescriptionText,
-    onClick: handleClickButton(onClickFirstButton),
+    dropdown: props.firstDropdown,
+    showButton: props.showFirst,
+    showEdit: props.showFirstEdit,
+    showRemove: props.showFirstRemove,
+    danger: props.firstDanger,
+    ghost: props.firstGhost,
+    icon: props.firstIcon,
+    iconPosition: props.firstIconPosition,
+    loading: props.firstLoading,
+    shape: props.firstShape,
+    size: props.firstSize,
+    type: props.firstType,
+    content: props.firstContent,
+    disabled: props.firstDisabled,
+    description: props.firstDescription,
+    onClick: throttle(props.onClickFirst),
+    onClickEdit: throttle(props.onClickEditFirst),
+    onClickRemove: throttle(props.onClickRemoveFirst),
   },
   {
-    showButton: isSecondButton,
-    buttonElement: secondButtonElement,
-    tooltipText: isFirstRow ? secondButtonTooltipText : '',
-    styleType: getButtonStyle(secondButtonStyle),
-    variant: getButtonVariant(secondButtonVariant),
-    disabled: disabledSecondButton,
-    descriptionText: secondDescriptionText,
-    onClick: handleClickButton(onClickSecondButton),
+    dropdown: props.secondDropdown,
+    showButton: props.showSecond,
+    showEdit: props.showSecondEdit,
+    showRemove: props.showSecondRemove,
+    danger: props.secondDanger,
+    ghost: props.secondGhost,
+    icon: props.secondIcon,
+    iconPosition: props.secondIconPosition,
+    loading: props.secondLoading,
+    shape: props.secondShape,
+    size: props.secondSize,
+    type: props.secondType,
+    content: props.secondContent,
+    disabled: props.secondDisabled,
+    description: props.secondDescription,
+    onClick: throttle(props.onClickSecond),
+    onClickEdit: throttle(props.onClickEditSecond),
+    onClickRemove: throttle(props.onClickRemoveSecond),
   },
   {
-    showButton: isThirdButton,
-    buttonElement: thirdButtonElement,
-    tooltipText: isFirstRow ? thirdButtonTooltipText : '',
-    styleType: getButtonStyle(thirdButtonStyle),
-    variant: getButtonVariant(thirdButtonVariant),
-    disabled: disabledThirdButton,
-    descriptionText: thirdDescriptionText,
-    onClick: handleClickButton(onClickThirdButton),
+    dropdown: props.thirdDropdown,
+    showButton: props.showThird,
+    showEdit: props.showThirdEdit,
+    showRemove: props.showThirdRemove,
+    danger: props.thirdDanger,
+    ghost: props.thirdGhost,
+    icon: props.thirdIcon,
+    iconPosition: props.thirdIconPosition,
+    loading: props.thirdLoading,
+    shape: props.thirdShape,
+    size: props.thirdSize,
+    type: props.thirdType,
+    content: props.thirdContent,
+    disabled: props.thirdDisabled,
+    description: props.thirdDescription,
+    onClick: throttle(props.onClickThird),
+    onClickEdit: throttle(props.onClickEditThird),
+    onClickRemove: throttle(props.onClickRemoveThird),
   },
 ]

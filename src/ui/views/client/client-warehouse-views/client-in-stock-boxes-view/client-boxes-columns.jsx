@@ -15,19 +15,17 @@ import {
   ManyUserLinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderCell,
-  OrderManyItemsCell,
+  ProductsCell,
   RedFlagsCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
-import { findTariffInStorekeepersData } from '@utils/checks'
+import { calcFinalWeightForBox } from '@utils/calculation'
 import { formatNormDateTime } from '@utils/date-time'
-import { toFixedWithDollarSign, trimBarcode } from '@utils/text'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
@@ -44,7 +42,8 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.Storekeeper),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
-      renderCell: params => <Text isCell text={params.value?.name} />,
+      renderCell: params => <Text isCell text={params?.row.storekeeper?.name} />,
+      valueGetter: ({ row }) => row.storekeeper?.name,
       width: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -56,6 +55,8 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <Text isCell text={params.row.items?.[0]?.product?.shop?.name} />,
+
+      valueGetter: ({ row }) => row.items?.[0]?.product?.shop?.name,
 
       width: 100,
       disableCustomSort: true,
@@ -97,6 +98,7 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
       renderCell: params => <Text isCell text={params.row.items?.[0]?.order?.id} />,
+      valueGetter: ({ row }) => row.items?.[0]?.order?.id,
       width: 160,
 
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -108,34 +110,7 @@ export const clientBoxesViewColumns = (
       field: 'asin',
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-
-      renderCell: params => {
-        return params.row?.items.length > 1 ? (
-          <OrderManyItemsCell
-            box={params.row}
-            error={
-              !findTariffInStorekeepersData(
-                getStorekeepersData(),
-                params.row.storekeeper?._id,
-                params.row.logicsTariff?._id,
-              ) && t(TranslationKey['The tariff is invalid or has been removed!'])
-            }
-          />
-        ) : (
-          <OrderCell
-            box={params.row}
-            product={params.row.items[0]?.product}
-            superbox={params.row.amount > 1 && params.row.amount}
-            error={
-              !findTariffInStorekeepersData(
-                getStorekeepersData(),
-                params.row.storekeeper?._id,
-                params.row.logicsTariff?._id,
-              ) && t(TranslationKey['The tariff is invalid or has been removed!'])
-            }
-          />
-        )
-      },
+      renderCell: params => <ProductsCell box={params.row} storekeepers={getStorekeepersData()} />,
       valueGetter: params =>
         params.row.items
           ?.filter(item => Boolean(item.product.asin))
@@ -147,7 +122,7 @@ export const clientBoxesViewColumns = (
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 320,
+      width: 200,
     },
 
     {
@@ -205,6 +180,18 @@ export const clientBoxesViewColumns = (
         ) : (
           ''
         )
+      },
+      valueGetter: ({ row }) => {
+        const storekeepers = getStorekeepersData()
+        const destinations = getDestinations()
+
+        const selectedDestination = destinations.find(el => el?._id === row?.destination?._id)?.name
+        const currentStorekeeper = storekeepers?.find(el => el._id === row?.storekeeper?._id)
+        const currentTariff = currentStorekeeper?.tariffLogistics?.find(el => el?._id === row?.logicsTariff?._id)
+
+        return `Destination: ${selectedDestination || t(TranslationKey['Not chosen'])}, Tariff: ${
+          currentTariff?.name || t(TranslationKey['Not chosen'])
+        }`
       },
       width: 215,
       filterable: false,
@@ -268,7 +255,10 @@ export const clientBoxesViewColumns = (
         const subUsers = product?.subUsers || []
         const subUsersByShop = product?.subUsersByShop || []
 
-        return subUsers?.concat(subUsersByShop).join(', ')
+        return subUsers
+          ?.concat(subUsersByShop)
+          ?.map(user => user?.name)
+          .join(', ')
       },
       width: 187,
       table: DataGridFilterTables.PRODUCTS,
@@ -318,28 +308,28 @@ export const clientBoxesViewColumns = (
             {params.row.fbaShipment ? <MdOutlineEdit /> : null}
           </>
         )
+        const disabled = params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK
 
         return (
           <ActionButtonsCell
-            fullWidth
-            isFirstButton
-            isSecondButton
-            firstButtonElement={firstButtonElement}
-            firstButtonStyle={ButtonStyle.PRIMARY}
-            disabledFirstButton={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-            secondButtonElement={secondButtonElement}
-            secondButtonStyle={ButtonStyle.PRIMARY}
-            disabledSecondButton={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-            onClickFirstButton={() => handlers.onClickShippingLabel(params.row)}
-            onClickSecondButton={() => handlers.onClickFbaShipment(params.row)}
+            showFirst
+            showSecond
+            firstContent={firstButtonElement}
+            firstDisabled={disabled}
+            secondContent={secondButtonElement}
+            secondDisabled={disabled}
+            onClickFirst={() => handlers.onClickShippingLabel(params.row)}
+            onClickSecond={() => handlers.onClickFbaShipment(params.row)}
           />
         )
       },
       valueGetter: params =>
-        `Shipping Label:${params.row.shippingLabel ? trimBarcode(params.row.shippingLabel) : '-'}\n FBA Shipment:${
-          params.row.fbaShipment || ''
-        }`,
-      width: 180,
+        `Shipping Label: ${
+          params.row.shippingLabel ? getAmazonImageUrl(params.row.shippingLabel, true) : '-'
+        } / FBA Shipment: ${params.row.fbaShipment || ''}`,
+
+      width: 150,
+      headerAlign: 'center',
       disableCustomSort: true,
     },
 
@@ -356,6 +346,10 @@ export const clientBoxesViewColumns = (
       renderCell: params => (
         <DimensionsCell isCell isTotalWeight data={params.row} transmittedSizeSetting={getUnitsOption()} />
       ),
+      valueGetter: ({ row }) => {
+        const boxFinalWeight = toFixed(calcFinalWeightForBox(row, row.volumeWeightCoefficient), 2)
+        return `L:${row?.lengthCmWarehouse}, W:${row?.widthCmWarehouse}, H:${row?.heightCmWarehouse}, FW:${boxFinalWeight}`
+      },
       minWidth: 230,
       disableCustomSort: true,
       filterable: false,

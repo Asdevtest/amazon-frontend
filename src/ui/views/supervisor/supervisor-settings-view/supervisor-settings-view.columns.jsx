@@ -1,14 +1,11 @@
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
-import { EditIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 export const supervisorSettingsViewColumns = props => {
   const columns = [
@@ -34,16 +31,16 @@ export const supervisorSettingsViewColumns = props => {
       renderCell: ({ row }) => (
         <ActionButtonsCell
           row
-          iconButton
-          isFirstButton
-          isSecondButton
-          firstButtonElement={<EditIcon />}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<MdOutlineDelete size={18} />}
-          secondButtonStyle={ButtonStyle.DANGER}
-          secondDescriptionText="Are you sure you want to delete ASIN?"
-          onClickFirstButton={() => props.onEditAsin(row)}
-          onClickSecondButton={() => props.onRemoveAsin(row._id)}
+          showFirst
+          showSecond
+          secondDanger
+          firstGhost
+          secondGhost
+          firstIcon={<MdOutlineEdit size={16} />}
+          secondIcon={<MdOutlineDelete size={16} />}
+          secondDescription="Are you sure you want to delete ASIN?"
+          onClickFirst={() => props.onEditAsin(row)}
+          onClickSecond={() => props.onRemoveAsin(row._id)}
         />
       ),
       disableCustomSort: true,

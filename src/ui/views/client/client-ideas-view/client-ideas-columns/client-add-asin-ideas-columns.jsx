@@ -3,7 +3,7 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  AddAsinIdeaActionsCell,
+  ActionButtonsCell,
   ChangeChipCell,
   IdeaRequestsCell,
   ManyUserLinkCell,
@@ -35,7 +35,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       width: 198,
       filterable: false,
 
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -132,7 +132,14 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-      renderCell: params => <AddAsinIdeaActionsCell rowHandlers={rowHandlers} row={params.row} />,
+      renderCell: params => (
+        <ActionButtonsCell
+          showFirst
+          firstContent={t(TranslationKey.Accept)}
+          firstDisabled={params.row?.variation ? !params.row.childProduct?.barCode : !params.row.parentProduct?.barCode}
+          onClickFirst={() => rowHandlers.onClickAcceptOnAddingAsin(params.row._id)}
+        />
+      ),
       width: 160,
       disableCustomSort: true,
       filterable: false,

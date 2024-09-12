@@ -1,4 +1,4 @@
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
@@ -6,12 +6,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
 import { CustomTag } from '@components/shared/custom-tag'
-import { EditIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 import { ITag } from '@typings/shared/tag'
 
@@ -54,15 +52,15 @@ export const tagsColumns = (handlers: IRowHandlers) => {
         return (
           <ActionButtonsCell
             row
-            iconButton
-            isFirstButton
-            isSecondButton
-            firstButtonElement={<EditIcon />}
-            firstButtonStyle={ButtonStyle.PRIMARY}
-            secondButtonElement={<MdOutlineDelete size={18} />}
-            secondButtonStyle={ButtonStyle.DANGER}
-            onClickFirstButton={() => handlers.onClickEditBtn(currentTag)}
-            onClickSecondButton={() => handlers.onClickRemoveBtn(currentTag)}
+            showFirst
+            showSecond
+            secondDanger
+            firstGhost
+            secondGhost
+            firstIcon={<MdOutlineEdit size={16} />}
+            secondIcon={<MdOutlineDelete size={16} />}
+            onClickFirst={() => handlers.onClickEditBtn(currentTag)}
+            onClickSecond={() => handlers.onClickRemoveBtn(currentTag)}
           />
         )
       },

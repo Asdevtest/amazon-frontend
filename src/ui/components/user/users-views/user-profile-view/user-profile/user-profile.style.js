@@ -25,40 +25,6 @@ export const useStyles = makeStyles()(theme => ({
     width: 140,
   },
 
-  avatar: {
-    height: '100%',
-    width: '100%',
-    borderRadius: '50%',
-    objectFit: 'cover',
-  },
-
-  autorenewWrapper: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '100%',
-    width: '100%',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    svg: {
-      opacity: 0,
-    },
-
-    '&:hover': {
-      background: 'rgba(0, 0, 0, 0.5)',
-      transition: '0.3s ease',
-
-      svg: {
-        opacity: 1,
-        transform: 'rotate(90deg)',
-        transition: '0.3s ease',
-      },
-    },
-  },
-
   userInfo: {
     display: 'flex',
     flexDirection: 'column',
@@ -114,9 +80,5 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
-  },
-
-  icon: {
-    color: theme.palette.primary.main,
   },
 }))

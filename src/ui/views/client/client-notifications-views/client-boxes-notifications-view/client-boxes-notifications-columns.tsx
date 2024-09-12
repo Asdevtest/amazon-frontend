@@ -6,8 +6,7 @@ import {
   ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderCell,
-  OrderManyItemsCell,
+  ProductsCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -15,7 +14,6 @@ import { Text } from '@components/shared/text'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IBox } from '@typings/models/boxes/box'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -56,14 +54,13 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       width: 150,
       renderCell: ({ row }) => (
         <ActionButtonsCell
-          isFirstButton
-          isSecondButton
-          firstButtonElement={t(TranslationKey.Confirm)}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={t(TranslationKey.Reject)}
-          secondButtonStyle={ButtonStyle.DANGER}
-          onClickFirstButton={() => handlers.onTriggerOpenConfirmModal(row as IBox)}
-          onClickSecondButton={() => handlers.onTriggerOpenRejectModal(row as IBox)}
+          showFirst
+          showSecond
+          secondDanger
+          firstContent={t(TranslationKey.Confirm)}
+          secondContent={t(TranslationKey.Reject)}
+          onClickFirst={() => handlers.onTriggerOpenConfirmModal(row as IBox)}
+          onClickSecond={() => handlers.onTriggerOpenRejectModal(row as IBox)}
         />
       ),
 
@@ -75,19 +72,8 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       field: 'orders',
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-
-      width: 270,
-      renderCell: params => {
-        return params.row.items.length > 1 ? (
-          <OrderManyItemsCell box={params.row} />
-        ) : (
-          <OrderCell
-            product={params.row.items[0].product}
-            superbox={params.row.amount > 1 && params.row.amount}
-            box={params.row}
-          />
-        )
-      },
+      width: 200,
+      renderCell: params => <ProductsCell box={params.row as IBox} />,
       filterable: false,
       disableCustomSort: true,
     },

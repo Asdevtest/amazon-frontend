@@ -7,9 +7,8 @@ import {
   ChangeInputCell,
   DownloadAndPrintFilesCell,
   MultilineTextHeaderCell,
-  OrderCell,
-  OrderManyItemsCell,
   OrdersIdsItemsCell,
+  ProductsCell,
   RedFlagsCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
@@ -62,23 +61,11 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
             }`,
         )
         .join(', '),
-    renderCell: params => {
-      return params.row.originalData.items.length > 1 ? (
-        <OrderManyItemsCell box={params.row.originalData} />
-      ) : (
-        <OrderCell
-          imageSize={'big'}
-          box={params.row.originalData}
-          product={params.row.originalData.items[0]?.product}
-          superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
-        />
-      )
-    },
-
+    renderCell: params => <ProductsCell box={params.row.originalData} />,
     fields: getProductColumnMenuItems(),
     columnMenuConfig: getProductColumnMenuValue(),
     columnKey: columnnsKeys.shared.MULTIPLE,
-    width: 320,
+    width: 200,
   },
 
   {
@@ -230,13 +217,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
 
     width: 230,
 
-    renderCell: params => (
-      <WarehouseBoxesBtnsCell
-        row={params.row.originalData}
-        handlers={handlers}
-        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-      />
-    ),
+    renderCell: params => <WarehouseBoxesBtnsCell row={params.row.originalData} handlers={handlers} />,
     filterable: false,
     sortable: false,
   },

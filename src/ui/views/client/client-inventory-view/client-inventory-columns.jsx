@@ -84,7 +84,7 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
       renderCell: ({ row }) => (
-        <ProductCell image={row?.images?.[0]} title={row?.amazonTitle} asin={row?.asin} sku={row?.skuByClient} />
+        <ProductCell image={row.images?.[0]} title={row.amazonTitle} asin={row.asin} sku={row.skuByClient} />
       ),
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
@@ -278,7 +278,7 @@ export const clientInventoryColumns = ({
       field: 'amazon',
       headerName: t(TranslationKey['Amazon price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-      renderCell: params => <Text isCell value={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 80,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -287,7 +287,7 @@ export const clientInventoryColumns = ({
       field: 'profit',
       headerName: t(TranslationKey.Profit),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
-      renderCell: params => <Text isCell value={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 90,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -296,7 +296,7 @@ export const clientInventoryColumns = ({
       field: 'fbafee',
       headerName: t(TranslationKey.FBA),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FBA)} />,
-      renderCell: params => <Text isCell value={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 70,
       columnKey: columnnsKeys.shared.QUANTITY,
     },

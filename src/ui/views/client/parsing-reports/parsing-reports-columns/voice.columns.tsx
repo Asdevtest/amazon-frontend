@@ -39,7 +39,7 @@ export const voiceColumns = () => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => <ProductCell title={row?.productName} asin={row?.asin} sku={row?.sku} />,
+      renderCell: ({ row }) => <ProductCell title={row.productName} asin={row.asin} sku={row.sku} />,
 
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue({

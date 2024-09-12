@@ -7,7 +7,7 @@ import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/t
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
-import { SetFileForm } from '@components/forms/set-file-form'
+import { PriorityForm } from '@components/forms/priority-form/priority-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
@@ -20,7 +20,6 @@ import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
-import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SizeSwitcher } from '@components/shared/size-switcher'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
@@ -38,6 +37,8 @@ import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-i
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './edit-box-form.style'
+
+import { SetFileForm } from '../set-file-form'
 
 export const EditBoxForm = memo(
   ({

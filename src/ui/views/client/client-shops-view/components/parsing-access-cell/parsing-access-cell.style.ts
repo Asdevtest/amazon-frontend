@@ -15,8 +15,4 @@ export const useStyles = makeStyles()(() => ({
     lineHeight: '19px',
     padding: '5px 10px',
   },
-
-  button: {
-    width: '100%',
-  },
 }))

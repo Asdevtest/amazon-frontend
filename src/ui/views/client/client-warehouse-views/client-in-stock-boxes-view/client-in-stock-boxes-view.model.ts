@@ -528,7 +528,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     priorityReason: string,
   ) {
     this.onTriggerOpenModal('showConfirmModal')
-
     this.confirmModalSettings = {
       isWarning: false,
       title: '',
@@ -1141,10 +1140,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
             : boxData.shippingLabel === null
             ? null
             : '',
+          clientComment: boxData.clientComment,
         },
         updateBoxWhiteList,
       )
-
       const editBoxesResult = await this.editBox(id, requestBox)
 
       await this.updateBarCodesInInventory(dataToBarCodeChange)
