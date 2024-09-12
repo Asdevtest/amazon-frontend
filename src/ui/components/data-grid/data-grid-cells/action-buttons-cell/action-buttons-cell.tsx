@@ -1,5 +1,8 @@
 import { Popconfirm } from 'antd'
+import { ItemType } from 'antd/es/menu/interface'
 import { FC, memo } from 'react'
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
+import { v4 as uuid } from 'uuid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,16 +16,18 @@ import { getButtonActionsConfig } from './action-buttons-cell.helper'
 import { ActionButtonsCellProps } from './action-buttons-cell.type'
 
 export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
-  const { block = true, row, wrapperClassName, className } = props
+  const { row, wrapperClassName, className } = props
 
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles, cx, theme } = useStyles()
 
   return (
-    <div className={cx(styles.wrapper, { [styles.wrapperRow]: row, [styles.fullWidth]: block }, wrapperClassName)}>
+    <div className={cx(styles.wrapper, { [styles.wrapperRow]: row }, wrapperClassName)}>
       {getButtonActionsConfig(props).map((button, index) => {
         const {
           dropdown,
           showButton,
+          showEdit,
+          showRemove,
           danger,
           ghost,
           icon,
@@ -35,15 +40,33 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
           disabled,
           description,
           onClick,
+          onClickEdit,
+          onClickRemove,
         } = button
 
         if (!showButton) {
           return null
         }
 
+        const menuItems: ItemType[] = [
+          showEdit && dropdown
+            ? {
+                key: uuid(),
+                label: <MdOutlineEdit size={16} color={theme.palette.primary.main} />,
+                onClick: onClickEdit,
+              }
+            : null,
+          showRemove && dropdown
+            ? {
+                key: uuid(),
+                label: <MdOutlineDelete size={16} color={theme.palette.text.red} />,
+                onClick: onClickRemove,
+              }
+            : null,
+        ]
         const buttonProps = {
-          dropdown,
-          block: block && !icon,
+          dropdown: dropdown && (showEdit || showRemove),
+          block: !icon,
           danger,
           ghost,
           icon,
@@ -54,6 +77,7 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
           type,
           disabled,
           className,
+          menuItems,
           onClick,
         }
 

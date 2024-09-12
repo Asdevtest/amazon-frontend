@@ -3,7 +3,7 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  IdeaActionsCell,
+  ActionButtonsCell,
   IdeaRequestsCell,
   ManyUserLinkCell,
   MediaContentCell,
@@ -119,9 +119,14 @@ export const clientNewIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => (
-        <IdeaActionsCell
-          onClickToCheck={() => rowHandlers.onClickToCheck(params.row._id)}
-          onClickReject={() => rowHandlers.onClickReject(params.row._id)}
+        <ActionButtonsCell
+          showFirst
+          showSecond
+          secondDanger
+          firstContent={t(TranslationKey['To check'])}
+          secondContent={t(TranslationKey.Reject)}
+          onClickFirst={() => rowHandlers.onClickToCheck(params.row._id)}
+          onClickSecond={() => rowHandlers.onClickReject(params.row._id)}
         />
       ),
 

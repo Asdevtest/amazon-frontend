@@ -154,7 +154,6 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
           <ActionButtonsCell
             showFirst
             showSecond
-            firstDropdown
             firstContent={firstButtonText}
             secondContent={t(TranslationKey.Stocks)}
             onClickFirst={() => rowHandlers.onClickReorder(params.row as IOrder, firstButtonCondition)}
@@ -162,7 +161,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
           />
         )
       },
-      width: 200,
+      width: 150,
       filterable: false,
       disableCustomSort: true,
     },
