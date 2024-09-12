@@ -5,10 +5,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
-import { usePriorityFormStyles } from '@components/shared/priority-form/priority-form.style'
 import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 
 import { t } from '@utils/translations'
+
+import { usePriorityFormStyles } from './priority-form.style'
 
 interface PriorityFormProps {
   currentPriority?: number

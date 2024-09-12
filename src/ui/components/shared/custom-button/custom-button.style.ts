@@ -10,6 +10,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   button: {
+    width: '100%',
     borderRadius: 16, // delete when completely switching to antd
   },
 

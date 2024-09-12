@@ -62,7 +62,7 @@ export const inventoryColumns = () => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => <ProductCell image={row?.image} title={row?.title} asin={row?.asin} sku={row?.sku} />,
+      renderCell: ({ row }) => <ProductCell image={row.image} title={row.title} asin={row.asin} sku={row.sku} />,
 
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({

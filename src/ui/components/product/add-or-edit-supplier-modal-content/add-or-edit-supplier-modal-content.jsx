@@ -415,12 +415,28 @@ export const AddOrEditSupplierModalContent = memo(props => {
     2,
   )
 
+  const isNormalLength = useMemo(
+    () => maxBoxSizeFromOption(sizeSetting, Number(tmpSupplier.boxProperties?.boxLengthCm)),
+    [tmpSupplier.boxProperties?.boxLengthCm],
+  )
+  const isNormalWidth = useMemo(
+    () => maxBoxSizeFromOption(sizeSetting, Number(tmpSupplier.boxProperties?.boxWidthCm)),
+    [tmpSupplier.boxProperties?.boxWidthCm],
+  )
+  const isNormalHeight = useMemo(
+    () => maxBoxSizeFromOption(sizeSetting, Number(tmpSupplier.boxProperties?.boxHeightCm)),
+    [tmpSupplier.boxProperties?.boxHeightCm],
+  )
+
   const boxPropertiesIsFull =
     tmpSupplier.boxProperties?.amountInBox &&
     tmpSupplier.boxProperties?.boxLengthCm &&
     tmpSupplier.boxProperties?.boxWidthCm &&
     tmpSupplier.boxProperties?.boxHeightCm &&
-    tmpSupplier.boxProperties?.boxWeighGrossKg
+    tmpSupplier.boxProperties?.boxWeighGrossKg &&
+    !isNormalHeight &&
+    !isNormalWidth &&
+    !isNormalLength
 
   const boxPropertiesIsFullAndMainsValues =
     boxPropertiesIsFull && tmpSupplier.amount && tmpSupplier.minlot && tmpSupplier.priceInYuan && tmpSupplier.price
@@ -438,19 +454,6 @@ export const AddOrEditSupplierModalContent = memo(props => {
       !tmpSupplier?.weighUnit ||
       !tmpSupplier?.lengthUnit ||
       editPhotosOfUnit?.length < 4)
-
-  const isNormalLength = useMemo(
-    () => maxBoxSizeFromOption(sizeSetting, Number(tmpSupplier.boxProperties.boxLengthCm)),
-    [tmpSupplier.boxProperties.boxLengthCm],
-  )
-  const isNormalWidth = useMemo(
-    () => maxBoxSizeFromOption(sizeSetting, Number(tmpSupplier.boxProperties.boxWidthCm)),
-    [tmpSupplier.boxProperties.boxWidthCm],
-  )
-  const isNormalHeight = useMemo(
-    () => maxBoxSizeFromOption(sizeSetting, Number(tmpSupplier.boxProperties.boxHeightCm)),
-    [tmpSupplier.boxProperties.boxHeightCm],
-  )
 
   const diasabledSubmit =
     itHaveBigInt ||
@@ -477,10 +480,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     isNeedUnitInfo ||
     ('' !== tmpSupplier.minProductionTerm &&
       '' !== tmpSupplier.maxProductionTerm &&
-      Number(tmpSupplier.minProductionTerm) > Number(tmpSupplier.maxProductionTerm)) ||
-    isNormalHeight ||
-    isNormalWidth ||
-    isNormalLength
+      Number(tmpSupplier.minProductionTerm) > Number(tmpSupplier.maxProductionTerm))
 
   return (
     <div className={styles.modalContainer}>

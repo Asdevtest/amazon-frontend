@@ -1,4 +1,4 @@
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -17,14 +17,12 @@ import {
 } from '@components/data-grid/data-grid-cells'
 import { Launches } from '@components/shared/launches'
 import { getLaunchName } from '@components/shared/launches/helpers/get-launch-name'
-import { EditIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { formatShortDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IFullUser } from '@typings/shared/full-user'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -46,10 +44,10 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
         renderCell: ({ row }: GridRowModel) => (
           <ProductCell
-            image={row.product.images[0]}
-            title={row.product.amazonTitle}
-            asin={row.product.asin}
-            sku={row.product.skuByClient}
+            image={row.product?.images?.[0]}
+            title={row.product?.amazonTitle}
+            asin={row.product?.asin}
+            sku={row.product?.skuByClient}
           />
         ),
         valueGetter: (row: GridRowModel) => row?.product?.asin,
@@ -81,19 +79,18 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
       renderCell: ({ row }) => (
         <ActionButtonsCell
-          iconButton
-          fullWidth
           row
-          isFirstButton
-          isSecondButton
-          disabledSecondButton={row.listingLaunches.length > 0}
-          firstButtonElement={<EditIcon />}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<MdOutlineDelete size={18} />}
-          secondButtonStyle={ButtonStyle.DANGER}
-          secondDescriptionText="Are you sure you want to remove the report?"
-          onClickFirstButton={() => onToggleReportModalEditMode(row._id)}
-          onClickSecondButton={() => onClickRemoveReport(row._id)}
+          showFirst
+          showSecond
+          secondDanger
+          firstGhost
+          secondGhost
+          firstIcon={<MdOutlineEdit size={16} />}
+          secondDisabled={row.listingLaunches.length > 0}
+          secondIcon={<MdOutlineDelete size={16} />}
+          secondDescription="Are you sure you want to remove the report?"
+          onClickFirst={() => onToggleReportModalEditMode(row._id)}
+          onClickSecond={() => onClickRemoveReport(row._id)}
         />
       ),
       disableExport: true,

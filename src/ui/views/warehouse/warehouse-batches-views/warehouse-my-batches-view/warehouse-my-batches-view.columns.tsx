@@ -27,7 +27,7 @@ export const warehouseMyBatchesViewColumns = (columnsProps: ColumnsProps) => {
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
       renderCell: ({ row }) => <BatchBoxesCell boxes={row.boxes} />,
-      width: 400,
+      width: 200,
       fields: getProductColumnMenuItems({ withoutSku: true }),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
