@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,7 +19,7 @@ import { SupervisorProductsViewModel } from './supervisor-products-view.model'
 
 export const SupervisorProductsView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new SupervisorProductsViewModel())
+  const viewModel = useMemo(() => new SupervisorProductsViewModel(), [])
 
   const createStatusOptions = () =>
     filterStatusConfig.map(status => ({

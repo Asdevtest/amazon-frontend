@@ -26,8 +26,6 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
         const {
           dropdown,
           showButton,
-          showEdit,
-          showRemove,
           danger,
           ghost,
           icon,
@@ -49,14 +47,14 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
         }
 
         const menuItems: ItemType[] = [
-          showEdit && dropdown
+          onClickEdit
             ? {
                 key: uuid(),
                 label: <MdOutlineEdit size={16} color={theme.palette.primary.main} />,
                 onClick: onClickEdit,
               }
             : null,
-          showRemove && dropdown
+          onClickRemove
             ? {
                 key: uuid(),
                 label: <MdOutlineDelete size={16} color={theme.palette.text.red} />,
@@ -65,8 +63,8 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
             : null,
         ]
         const buttonProps = {
-          dropdown: dropdown && (showEdit || showRemove),
-          block: !icon,
+          dropdown: dropdown && (!!onClickEdit || !!onClickRemove),
+          block: !!content,
           danger,
           ghost,
           icon,

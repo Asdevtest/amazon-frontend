@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Paper } from '@mui/material'
@@ -19,7 +19,7 @@ import { styles } from './admin-dashboard-view.style'
 import { AdminDashboardViewModel } from './admin-dashboard-view.model'
 
 export const AdminDashboardViewRaw = props => {
-  const [viewModel] = useState(() => new AdminDashboardViewModel({ history: props.history }))
+  const viewModel = useMemo(() => new AdminDashboardViewModel({ history: props.history }), [])
   const { classes: styles } = props
 
   useEffect(() => {

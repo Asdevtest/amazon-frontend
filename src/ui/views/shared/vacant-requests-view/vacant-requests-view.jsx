@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
@@ -26,7 +26,7 @@ import { VacantRequestsViewModel } from './vacant-requests-view.model'
 
 export const VacantRequestsView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new VacantRequestsViewModel({ history }))
+  const viewModel = useMemo(() => new VacantRequestsViewModel({ history }), [])
 
   useEffect(() => {
     viewModel.loadData()

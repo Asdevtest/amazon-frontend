@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +13,7 @@ import { ModeratorDashboardViewModel } from './moderator-dashboard-view.model'
 
 export const ModeratorDashboardView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ModeratorDashboardViewModel())
+  const viewModel = useMemo(() => new ModeratorDashboardViewModel(), [])
 
   return (
     <>

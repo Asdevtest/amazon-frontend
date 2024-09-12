@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -20,7 +20,7 @@ import { IOrder } from '@typings/models/orders/order'
 import { BuyerMyOrdersViewModel } from './buyer-pending-orders-view.model'
 
 export const BuyerPendingOrdersView = observer(() => {
-  const [viewModel] = useState(() => new BuyerMyOrdersViewModel())
+  const viewModel = useMemo(() => new BuyerMyOrdersViewModel(), [])
 
   return (
     <div className="viewWrapper">

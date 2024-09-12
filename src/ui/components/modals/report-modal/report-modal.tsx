@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useCallback, useState } from 'react'
+import { FC, useCallback, useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -31,7 +31,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
   const { onClose, subView, reportId, defaultProduct, onUpdateTableData } = props
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ReportModalModel({ reportId, defaultProduct }))
+  const viewModel = useMemo(() => new ReportModalModel({ reportId, defaultProduct }), [])
 
   const handleSave = useCallback(async () => {
     viewModel.reportId ? await viewModel.updateListingReport() : await viewModel.createListingReport()

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,7 +14,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { SupervisorReadyToCheckViewModel } from './supervisor-ready-to-check-view.model'
 
 export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
-  const [viewModel] = useState(() => new SupervisorReadyToCheckViewModel(isCreatedByClient))
+  const viewModel = useMemo(() => new SupervisorReadyToCheckViewModel(isCreatedByClient), [])
 
   return (
     <div className="viewWrapper">

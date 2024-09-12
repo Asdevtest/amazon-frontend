@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { BsDownload } from 'react-icons/bs'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -25,7 +25,7 @@ import { getPriorityConfig, getStatusConfig, getStorekeepersConfig, getTypeConfi
 
 export const ClientWarehouseTasksView = observer(() => {
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new ClientWarehouseTasksViewModel())
+  const viewModel = useMemo(() => new ClientWarehouseTasksViewModel(), [])
 
   return (
     <div className="viewWrapper">

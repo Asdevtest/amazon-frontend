@@ -11,10 +11,10 @@ import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
+import { SetFileForm } from '@components/forms/set-file-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
-import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/button'
@@ -644,14 +644,10 @@ export const EditMultipleBoxesForm = observer(
           openModal={showSetShippingLabelModal}
           setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
         >
-          <SetShippingLabelModal
-            tmpShippingLabel={sharedFields.tmpShippingLabel}
-            item={sharedFields}
-            onClickSaveShippingLabel={shippingLabel => {
-              setShippingLabel(shippingLabel)
-              setShowSetShippingLabelModal(!showSetShippingLabelModal)
-            }}
-            onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+          <SetFileForm
+            data={sharedFields.shippingLabel}
+            onSubmit={setShippingLabel}
+            onClose={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
           />
         </Modal>
 

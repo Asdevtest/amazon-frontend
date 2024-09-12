@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
 import { ideaStatusByKey } from '@constants/statuses/idea-status'
@@ -37,7 +37,7 @@ import { ClientIdeasViewModel } from './client-ideas-view.model'
 
 export const ClientIdeasView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ClientIdeasViewModel({ history }))
+  const viewModel = useMemo(() => new ClientIdeasViewModel({ history }), [])
 
   const getRowClassName = params => {
     if (params.row.status === ideaStatusByKey.SUPPLIER_NOT_FOUND) {

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,7 +16,7 @@ import { t } from '@utils/translations'
 import { ClientOrderViewModel } from './client-order-view.model'
 
 export const ClientOrderView = observer(() => {
-  const [viewModel] = useState(() => new ClientOrderViewModel())
+  const viewModel = useMemo(() => new ClientOrderViewModel(), [])
 
   useEffect(() => {
     viewModel.loadData()

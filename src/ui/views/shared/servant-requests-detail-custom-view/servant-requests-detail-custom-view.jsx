@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -35,7 +35,7 @@ const requestProposalCancelAllowedStatuses = [
 
 export const RequestDetailCustomView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new RequestDetailCustomViewModel({ history }))
+  const viewModel = useMemo(() => new RequestDetailCustomViewModel({ history }), [])
 
   useEffect(() => {
     viewModel.loadData()

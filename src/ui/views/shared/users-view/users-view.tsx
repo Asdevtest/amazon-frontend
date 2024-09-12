@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,7 +15,7 @@ import { UsersViewModel } from './users-view.model'
 
 export const UsersView = observer(({ history }: { history: HistoryType }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new UsersViewModel(history))
+  const viewModel = useMemo(() => new UsersViewModel(history), [])
 
   return (
     <>
