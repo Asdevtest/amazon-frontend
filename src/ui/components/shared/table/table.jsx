@@ -21,6 +21,7 @@ export const Table = observer(
     handlerPageChange,
     renderButtons,
     rowsHandlers,
+    wrapperClassName,
     ...restProps
   }) => {
     const { classes: styles } = useStyles()
@@ -28,7 +29,7 @@ export const Table = observer(
     const dataWithPages = data.slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage)
 
     return (
-      <Paper>
+      <Paper className={wrapperClassName}>
         {!rowsOnly && <TableToolbar handlerRowsPerPage={handlerRowsPerPage} rowsPerPage={rowsPerPage} />}
         <TableContainer>
           <MuiTable className={styles.table}>
