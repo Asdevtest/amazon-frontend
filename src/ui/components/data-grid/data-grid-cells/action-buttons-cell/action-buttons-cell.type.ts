@@ -1,34 +1,77 @@
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
-
 export interface ActionButtonsCellProps {
-  fullWidth?: boolean
-  isFirstRow?: boolean
-  iconButton?: boolean
+  wrapperClassName?: string
+  className?: string
   row?: boolean
-  buttonWrapperClassName?: string
-  buttonClassName?: string
-  firstButtonElement?: string | JSX.Element
-  secondButtonElement?: string | JSX.Element
-  thirdButtonElement?: string | JSX.Element
-  firstButtonTooltipText?: string
-  secondButtonTooltipText?: string
-  thirdButtonTooltipText?: string
-  isFirstButton?: boolean
-  isSecondButton?: boolean
-  isThirdButton?: boolean
-  firstButtonStyle?: ButtonStyle
-  secondButtonStyle?: ButtonStyle
-  thirdButtonStyle?: ButtonStyle
-  firstButtonVariant?: ButtonVariant
-  secondButtonVariant?: ButtonVariant
-  thirdButtonVariant?: ButtonVariant
-  disabledFirstButton?: boolean
-  disabledSecondButton?: boolean
-  disabledThirdButton?: boolean
-  firstDescriptionText?: string
-  secondDescriptionText?: string
-  thirdDescriptionText?: string
-  onClickFirstButton?: () => void
-  onClickSecondButton?: () => void
-  onClickThirdButton?: () => void
+
+  firstDropdown?: boolean
+  secondDropdown?: boolean
+  thirdDropdown?: boolean
+
+  showFirstEdit?: boolean
+  showSecondEdit?: boolean
+  showThirdEdit?: boolean
+
+  showFirstRemove?: boolean
+  showSecondRemove?: boolean
+  showThirdRemove?: boolean
+
+  showFirst?: boolean
+  showSecond?: boolean
+  showThird?: boolean
+
+  firstDanger?: boolean
+  secondDanger?: boolean
+  thirdDanger?: boolean
+
+  firstGhost?: boolean
+  secondGhost?: boolean
+  thirdGhost?: boolean
+
+  firstIcon?: React.ReactNode
+  secondIcon?: React.ReactNode
+  thirdIcon?: React.ReactNode
+
+  firstIconPosition?: 'start' | 'end'
+  secondIconPosition?: 'start' | 'end'
+  thirdIconPosition?: 'start' | 'end'
+
+  firstLoading?: boolean
+  secondLoading?: boolean
+  thirdLoading?: boolean
+
+  firstShape?: 'circle' | 'round' | 'default'
+  secondShape?: 'circle' | 'round' | 'default'
+  thirdShape?: 'circle' | 'round' | 'default'
+
+  firstSize?: 'small' | 'middle' | 'large'
+  secondSize?: 'small' | 'middle' | 'large'
+  thirdSize?: 'small' | 'middle' | 'large'
+
+  firstType?: 'primary' | 'dashed' | 'link' | 'text' | 'default'
+  secondType?: 'primary' | 'dashed' | 'link' | 'text' | 'default'
+  thirdType?: 'primary' | 'dashed' | 'link' | 'text' | 'default'
+
+  firstContent?: React.ReactNode
+  secondContent?: React.ReactNode
+  thirdContent?: React.ReactNode
+
+  firstDisabled?: boolean
+  secondDisabled?: boolean
+  thirdDisabled?: boolean
+
+  firstDescription?: string
+  secondDescription?: string
+  thirdDescription?: string
+
+  onClickFirst?: () => void
+  onClickSecond?: () => void
+  onClickThird?: () => void
+
+  onClickEditFirst?: () => void
+  onClickEditSecond?: () => void
+  onClickEditThird?: () => void
+
+  onClickRemoveFirst?: () => void
+  onClickRemoveSecond?: () => void
+  onClickRemoveThird?: () => void
 }

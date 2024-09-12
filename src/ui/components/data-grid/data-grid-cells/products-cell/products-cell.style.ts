@@ -1,6 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
+  tooltipWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
+
   tooltip: {
     maxHeight: 300,
     overflow: 'auto',
@@ -8,32 +14,23 @@ export const useStyles = makeStyles()(theme => ({
     background: theme.palette.background.general,
     boxShadow: theme.palette.boxShadow.paper,
     border: `1px solid ${theme.palette.background.second}`,
-    borderRadius: 10,
+    borderRadius: 16,
   },
 
-  mainWrapper: {
-    padding: '10px 0',
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    gap: 10,
-    marginRight: 10,
-  },
-
-  items: {
-    padding: 10,
+  root: {
+    padding: '5px',
     display: 'flex',
     alignItems: 'center',
     gap: 5,
     border: `1px solid ${theme.palette.primary.main}`,
-    borderRadius: 10,
+    borderRadius: 16,
   },
 
   item: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    gap: 3,
+    gap: '5px',
   },
 
   itemImage: {
@@ -52,24 +49,5 @@ export const useStyles = makeStyles()(theme => ({
   itemTextPoints: {
     fontSize: 18,
     lineHeight: '25px',
-  },
-
-  error: {
-    fontSize: 12,
-    lineHeight: '16px',
-    fontWeight: 600,
-    color: theme.palette.text.red,
-  },
-
-  tooltipWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 5,
-  },
-
-  needPay: {
-    color: 'red',
-    fontWeight: 'bold',
-    width: 'fit-content',
   },
 }))

@@ -95,6 +95,21 @@ export const getConfirmPasswordValidationRules = (): Rule[] => [
 ]
 
 export const getNewPasswordValidationRules = (): Rule[] => [
+  { max: 62, message: t(TranslationKey['The password is too long! (Maximum 32 characters)']) },
+  { min: 8, message: t(TranslationKey['The password is too short! (Minimum 8 characters)']) },
+  {
+    pattern: /(?=.*[A-Z])/,
+    message: t(TranslationKey['The password must contain at least one uppercase letter!']),
+  },
+  {
+    pattern: /(?=.*[a-z])/,
+    message: t(TranslationKey['The password must contain at least one lowercase letter!']),
+  },
+  { pattern: /(?=.*\d)/, message: t(TranslationKey['The password must contain at least one digit!']) },
+  {
+    pattern: /^[A-Za-z\d\s!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]*$/,
+    message: t(TranslationKey['The password must contain only English letters!']),
+  },
   ({ getFieldValue }) => ({
     validator(_, value) {
       if (value && value.trim() !== value) {

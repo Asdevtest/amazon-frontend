@@ -5,12 +5,10 @@ import { FiPlus } from 'react-icons/fi'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IdeaRequestCard } from '@components/cards/idea-view-and-edit-card/idea-request-card'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './idea-requests.style'
 
@@ -69,11 +67,12 @@ export const IdeaRequestsCell: FC<IdeaRequestsProps> = memo(props => {
       })}
       {!withoutControls && (
         <div className={styles.ideaRequestsControls}>
-          <Button styleType={ButtonStyle.SUCCESS} onClick={onClickCreateRequest}>
-            <FiPlus style={{ width: 16, height: 16 }} />
+          <CustomButton type="primary" size="small" icon={<FiPlus size={16} />} onClick={onClickCreateRequest}>
             {t(TranslationKey['Create request'])}
-          </Button>
-          <Button onClick={onClickLinkRequest}>{t(TranslationKey['Link request'])}</Button>
+          </CustomButton>
+          <CustomButton type="primary" size="small" onClick={onClickLinkRequest}>
+            {t(TranslationKey['Link request'])}
+          </CustomButton>
         </div>
       )}
     </div>

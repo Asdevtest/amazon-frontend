@@ -1,16 +1,14 @@
-export const throttle = <T extends unknown[]>(callback: (...args: T) => void, delay: number = 2000) => {
-  let isWaiting = false
+export const throttle = (callback?: (...args: any[]) => void, delay: number = 2000) => {
+  let throttleFlag = false
 
-  return (...args: T) => {
-    if (isWaiting) {
-      return
+  return (...args: any[]) => {
+    if (!throttleFlag && callback) {
+      callback(...args)
+      throttleFlag = true
+
+      setTimeout(() => {
+        throttleFlag = false
+      }, delay)
     }
-
-    callback(...args)
-    isWaiting = true
-
-    setTimeout(() => {
-      isWaiting = false
-    }, delay)
   }
 }

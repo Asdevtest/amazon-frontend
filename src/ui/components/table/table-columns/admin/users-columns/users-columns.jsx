@@ -16,8 +16,6 @@ import { Text } from '@components/shared/text'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const adminUsersViewColumns = handlers => {
   const columns = [
     {
@@ -130,11 +128,10 @@ export const adminUsersViewColumns = handlers => {
 
       renderCell: params => (
         <ActionButtonsCell
-          isFirstButton
-          disabledFirstButton={params.row?.originalData?.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
-          firstButtonElement={t(TranslationKey['Edit and balance'])}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={() => handlers.onClickUser(params.row)}
+          showFirst
+          firstDisabled={params.row?.originalData?.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
+          firstContent={t(TranslationKey['Edit and balance'])}
+          onClickFirst={() => handlers.onClickUser(params.row)}
         />
       ),
       filterable: false,

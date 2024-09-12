@@ -5,12 +5,32 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
   },
 
-  cell: {
-    padding: '10px 0',
+  button: {
+    borderRadius: '16px', // delete when completely switching to antd
   },
 
-  button: {
-    borderRadius: 16, // delete when completely switching to antd
+  dropdown: {
+    '& > ul': {
+      padding: '0 !important',
+      borderRadius: '8px !important',
+
+      li: {
+        padding: '8px !important',
+
+        span: {
+          height: '16px !important',
+        },
+      },
+    },
+  },
+
+  dropdownButton: {
+    'button:nth-of-type(1)': {
+      width: '100%',
+    },
+    '.ant-btn': {
+      borderRadius: '16px', // delete when completely switching to antd
+    },
   },
 
   iconButton: {
