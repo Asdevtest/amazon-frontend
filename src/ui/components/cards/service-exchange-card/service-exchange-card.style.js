@@ -1,7 +1,5 @@
 import { makeStyles } from 'tss-react/mui'
 
-import { display } from '@mui/system'
-
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: '100%',
@@ -10,6 +8,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: '15px',
     boxShadow: theme.palette.boxShadow.paper,
     background: theme.palette.background.general,
+    cursor: 'pointer',
     borderRadius: 16,
   },
 
@@ -19,10 +18,13 @@ export const useStyles = makeStyles()(theme => ({
 
   serviceWrapper: {
     width: 250,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
   },
 
   image: {
-    borderRadius: 16,
+    borderRadius: '16px',
     overflow: 'hidden',
   },
 
@@ -30,7 +32,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
-    marginTop: '10px',
   },
 
   serviceType: {
@@ -38,11 +39,11 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
     width: 'fit-content',
     fontSize: '14px',
+    lineHeight: '19px',
   },
 
   descriptionWrapper: {
     display: 'flex',
-    cursor: 'pointer',
     flexDirection: 'column',
     justifyContent: 'space-between',
     gap: 10,
@@ -53,32 +54,19 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    display: '-webkit-box',
-    WebkitBoxOrient: 'vertical',
-    WebkitLineClamp: 2,
     color: theme.palette.text.general,
   },
 
   cardDescription: {
-    height: 57,
     fontSize: '14px',
     lineHeight: '19px',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    display: '-webkit-box',
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
   },
 
   actionButton: {
-    display: 'flex',
-    width: 'fit-content',
-    alignSelf: 'end',
+    alignSelf: 'flex-end',
   },
 
-  detailsSubWrapper: {
+  detailsText: {
     display: 'flex',
     alignItems: 'center',
     gap: 10,
@@ -95,13 +83,5 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-
-  detailsWrapperAll: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
   },
 }))

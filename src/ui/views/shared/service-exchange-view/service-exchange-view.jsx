@@ -11,6 +11,8 @@ import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { t } from '@utils/translations'
 
+import { CardVariant } from '@typings/enums/card-variant'
+
 import { useStyles } from './service-exchange-view.style'
 
 import { ServiceExchangeViewModel } from './service-exchange-view.model'
@@ -21,7 +23,8 @@ export const ServiceExchangeView = observer(({ history }) => {
   const [viewModel] = useState(() => new ServiceExchangeViewModel({ history }))
 
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
-
+  const positionStyle = isListPosition ? styles.dashboardListWrapper : styles.dashboardCardWrapper
+  const cardVariant = isListPosition ? CardVariant.List : CardVariant.Card
   return (
     <>
       <div className={styles.tablePanelWrapper}>
@@ -46,16 +49,9 @@ export const ServiceExchangeView = observer(({ history }) => {
       </div>
 
       <div
-        className={isListPosition ? styles.dashboardListWrapper : styles.dashboardCardWrapper}
+        className={positionStyle}
         onScroll={e => {
-          const element = e.target
-          const scrollTop = element?.scrollTop
-          const containerHeight = element?.clientHeight
-          const contentHeight = element?.scrollHeight
-
-          if (contentHeight - (scrollTop + containerHeight) < 200) {
-            viewModel.loadMoreDataHadler()
-          }
+          viewModel.onScroll(e)
         }}
       >
         {viewModel.currentData.map(service => (
@@ -63,7 +59,7 @@ export const ServiceExchangeView = observer(({ history }) => {
             key={service._id}
             order
             service={service}
-            variant={isListPosition ? 'list' : 'card'}
+            variant={cardVariant}
             onClickButton={viewModel.onClickOrderBtn}
           />
         ))}

@@ -4,14 +4,14 @@ import { FC, memo, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomTag } from '@components/shared/custom-tag'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 
 import { useStyles } from './service-exchange-card.style'
@@ -35,8 +35,8 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
     : order
     ? t(TranslationKey['To order'])
     : t(TranslationKey.Open)
+
   const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
-  const isSuccess = choose || order
   const isCard = variant === 'card'
 
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -45,17 +45,22 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
     setIsOpenModal(!isOpenModal)
   }
 
+  const handleImageClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
+    e.preventDefault()
+  }
+
   return (
     <>
-      <div className={cx(styles.wrapper, { [styles.cardWrapper]: isCard })}>
+      <div className={cx(styles.wrapper, { [styles.cardWrapper]: isCard })} onClick={handleToggleModal}>
         <div className={!isCard ? styles.serviceWrapper : ''}>
-          <div className={styles.image}>
-            <Image
-              width={isCard ? '100%' : 250}
-              height={isCard ? 150 : 135}
-              src={getAmazonImageUrl(service.linksToMediaFiles[0])}
-            />
-          </div>
+          <Image
+            width={isCard ? '100%' : 250}
+            wrapperClassName={styles.image}
+            height={isCard ? 150 : 135}
+            src={getAmazonImageUrl(service.linksToMediaFiles[0])}
+            onClick={handleImageClick}
+          />
 
           <div className={styles.serviceInfo}>
             <CustomTag title={detailDescription} className={styles.serviceType} />
@@ -74,26 +79,20 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
         </div>
 
         <div className={styles.descriptionWrapper} onClick={handleToggleModal}>
-          <p className={styles.cardTitle}>{service.title}</p>
+          <Text className={styles.cardTitle} textRows={2} copyable={false} text={service.title} />
 
-          <p className={styles.cardDescription}>{service.description}</p>
+          <Text className={styles.cardDescription} copyable={false} text={service.description} />
 
           {!isNotMyServices ? (
-            <div className={styles.detailsWrapperAll}>
-              <div className={styles.detailsSubWrapper}>
-                <p className={styles.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</p>
-                <p className={styles.detailDescription}>{service.requests.length}</p>
-              </div>
-            </div>
+            <p className={styles.detailsText}>
+              <span className={styles.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</span>
+              <span className={styles.detailDescription}>{service.requests.length}</span>
+            </p>
           ) : null}
 
-          <Button
-            className={styles.actionButton}
-            styleType={isSuccess ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
-            onClick={() => onClickButton(service)}
-          >
+          <CustomButton type="primary" wrapperClassName={styles.actionButton} onClick={() => onClickButton(service)}>
             {buttonContent}
-          </Button>
+          </CustomButton>
         </div>
       </div>
 

@@ -12,6 +12,7 @@ import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { t } from '@utils/translations'
 
+import { CardVariant } from '@typings/enums/card-variant'
 import { HistoryType } from '@typings/types/history'
 
 import { useStyles } from './my-services-view.style'
@@ -23,6 +24,8 @@ export const MyServicesView = observer(({ history }: { history: HistoryType }) =
   const [viewModel] = useState(() => new MyServicesViewModel(history))
 
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
+  const positionStyle = isListPosition ? styles.dashboardListWrapper : styles.dashboardCardWrapper
+  const cardVariant = isListPosition ? CardVariant.List : CardVariant.Card
 
   return (
     <>
@@ -56,13 +59,13 @@ export const MyServicesView = observer(({ history }: { history: HistoryType }) =
         </div>
       </div>
 
-      <div className={isListPosition ? styles.dashboardListWrapper : styles.dashboardCardWrapper}>
+      <div className={positionStyle}>
         {viewModel.currentData.map((service, serviceKey) => (
           <ServiceExchangeCard
             key={serviceKey}
             service={service}
             pathname={history?.location?.pathname}
-            variant={isListPosition ? 'list' : 'card'}
+            variant={cardVariant}
             onClickButton={viewModel.onClickOpenButton}
           />
         ))}

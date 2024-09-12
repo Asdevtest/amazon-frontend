@@ -51,7 +51,7 @@ export const useStyles = makeStyles()(theme => ({
     gridTemplateColumns: 'repeat(4, 1fr)',
     maxHeight: '80vh',
     overflow: 'auto',
-    [theme.breakpoints.down(1440)]: {
+    [theme.breakpoints.down(1680)]: {
       gridTemplateColumns: 'repeat(3, 1fr)',
     },
     [theme.breakpoints.down(1280)]: {
