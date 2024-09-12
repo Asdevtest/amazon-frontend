@@ -23,6 +23,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   flexColumn: {
+    minWidth: '80px',
     display: 'flex',
     flexDirection: 'column',
   },
