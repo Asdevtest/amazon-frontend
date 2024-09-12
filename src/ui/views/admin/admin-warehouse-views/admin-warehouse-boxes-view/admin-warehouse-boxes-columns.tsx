@@ -5,8 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderManyItemsCell,
-  ProductCell,
+  ProductsCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -14,6 +13,7 @@ import { Text } from '@components/shared/text'
 import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { IBox } from '@typings/models/boxes/box'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
@@ -80,19 +80,7 @@ export const adminWarehouseBoxesColumns = () => {
       field: 'asin',
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-      renderCell: params =>
-        params.row?.items?.length > 1 ? (
-          <OrderManyItemsCell box={params?.row} />
-        ) : (
-          <ProductCell
-            asin={params.row.items[0]?.product?.asin}
-            image={params.row.items?.[0]?.product?.images?.[0]}
-            sku={params.row.items[0]?.product?.skuByClient}
-            title={params.row.items[0]?.product?.amazonTitle}
-            superbox={params.row.amount}
-          />
-        ),
-
+      renderCell: params => <ProductsCell box={params?.row as IBox} />,
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,

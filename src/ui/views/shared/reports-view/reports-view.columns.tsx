@@ -46,10 +46,10 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
         renderCell: ({ row }: GridRowModel) => (
           <ProductCell
-            image={row.product.images[0]}
-            title={row.product.amazonTitle}
-            asin={row.product.asin}
-            sku={row.product.skuByClient}
+            image={row.product?.images?.[0]}
+            title={row.product?.amazonTitle}
+            asin={row.product?.asin}
+            sku={row.product?.skuByClient}
           />
         ),
         valueGetter: (row: GridRowModel) => row?.product?.asin,

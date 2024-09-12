@@ -17,7 +17,7 @@ export const adminBatchesViewColumns = () => [
     field: 'orders',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    width: 550,
+    width: 200,
     renderCell: params => <BatchBoxesCell boxes={params.row.boxes} />,
     filterable: false,
     sortable: false,

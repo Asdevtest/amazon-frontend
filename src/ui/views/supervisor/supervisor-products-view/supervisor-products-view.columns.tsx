@@ -47,7 +47,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
       renderCell: ({ row }) => (
-        <ProductCell image={row?.images?.[0]} title={row?.amazonTitle} asin={row?.asin} sku={row?.skuByClient} />
+        <ProductCell image={row.images?.[0]} title={row.amazonTitle} asin={row.asin} sku={row.skuByClient} />
       ),
 
       fields: getProductColumnMenuItems(),
