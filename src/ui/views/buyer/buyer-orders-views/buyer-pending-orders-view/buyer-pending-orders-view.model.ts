@@ -41,8 +41,6 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
   paymentMethods: IPaymentMethod[] = []
   hsCodeData: IHSCode | null = null
 
-  dataToCancelOrder: { orderId: string; buyerComment: string } = { orderId: '', buyerComment: '' }
-
   progressValue = 0
   readyImages = []
 
@@ -103,8 +101,8 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
           },
         ])
       }
-      await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {
-        buyerComment: this.dataToCancelOrder.buyerComment,
+      await BuyerModel.returnOrder(order._id, {
+        buyerComment: orderFields.buyerComment,
       })
       await UserModel.getUsersInfoCounters()
       this.getCurrentData()
@@ -170,7 +168,6 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
       if (
         Number(orderFields.status) === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER as keyof typeof OrderStatusByKey]
       ) {
-        this.dataToCancelOrder = { orderId: order._id, buyerComment: orderFields.buyerComment }
         this.confirmModalSettings = {
           title: t(TranslationKey['Attention. Are you sure?']),
           isWarning: true,
@@ -183,7 +180,10 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         return
       }
 
-      if (Number(order.status) === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT as keyof typeof OrderStatusByKey]) {
+      if (
+        Number(orderFields.status) === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT as keyof typeof OrderStatusByKey]
+      ) {
+        await OrderModel.orderReadyForBoyout(order._id)
         await OrderModel.changeOrderComments(order._id, { buyerComment: orderFields.buyerComment })
         await OrderModel.orderReadyForBoyout(order._id)
       } else {
