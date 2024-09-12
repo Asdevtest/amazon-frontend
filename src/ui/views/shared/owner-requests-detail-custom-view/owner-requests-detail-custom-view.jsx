@@ -19,7 +19,6 @@ import { CustomSearchRequestForm } from '@components/requests-and-request-propos
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
-import { RequestProposalsCardList } from '@components/shared/request-proposals-card-list'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -31,6 +30,7 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { useStyles } from './owner-requests-detail-custom-view.style'
 
 import { OwnerRequestDetailCustomViewModel } from './owner-requests-detail-custom-view.model'
+import { RequestProposalsCardList } from './request-proposals-card-list'
 
 const statusesReworkAndReceiveButtons = [RequestProposalStatus.READY_TO_VERIFY, RequestProposalStatus.CORRECTED]
 const statusesOrderAndRejectButtons = [RequestProposalStatus.CREATED, RequestProposalStatus.OFFER_CONDITIONS_CORRECTED]

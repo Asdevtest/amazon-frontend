@@ -23,7 +23,7 @@ import {
   getNameValidationRules,
   getNewPasswordValidationRules,
   getPasswordValidationRules,
-} from '../model/config/rules'
+} from './rules'
 
 interface AuthFormFormProps {
   onSubmit: (values: FieldData) => void
