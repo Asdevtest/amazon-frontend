@@ -41,7 +41,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     ),
     filterable: false,
     sortable: false,
-    width: 160,
+    width: 110,
   },
 
   {

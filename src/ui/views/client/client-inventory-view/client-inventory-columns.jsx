@@ -7,7 +7,7 @@ import { productStrategyStatusesEnum } from '@constants/product/product-strategy
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ChangeChipCell,
+  ActionButtonsCell,
   ChangeInputCell,
   CommentOfSbCell,
   FourMonthesStockCell,
@@ -368,16 +368,16 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
       renderCell: ({ row }) => (
-        <ChangeChipCell
-          text={t(TranslationKey.BarCode)}
-          value={row?.barCode}
-          onClickChip={() => barCodeHandlers.onClickBarcode(row)}
-          onDoubleClickChip={() => barCodeHandlers.onDoubleClickBarcode(row)}
-          onDeleteChip={!row?.barCode ? undefined : () => barCodeHandlers.onDeleteBarcode(row)}
+        <ActionButtonsCell
+          showFirst
+          firstDropdown={!!row?.barCode}
+          firstContent={t(TranslationKey.BarCode)}
+          onClickFirst={() => barCodeHandlers.onClickBarcode(row)}
+          onClickRemoveFirst={() => barCodeHandlers.onDeleteBarcode(row)}
         />
       ),
 
-      width: 210,
+      width: 130,
       columnKey: columnnsKeys.client.INVENTORY_BARCODE,
     },
 
@@ -386,11 +386,12 @@ export const clientInventoryColumns = ({
       headerName: 'HS code',
       renderHeader: () => <MultilineTextHeaderCell text={'HS code'} />,
       renderCell: ({ row }) => (
-        <ChangeChipCell
-          text={t(TranslationKey['HS code'])}
-          value={row?.hsCode}
-          onClickChip={() => hsCodeHandlers.onClickHsCode(row)}
-          onDeleteChip={!row?.hsCode ? undefined : () => hsCodeHandlers.onDeleteHsCode(row)}
+        <ActionButtonsCell
+          showFirst
+          firstDropdown={!row?.hsCode}
+          firstContent={t(TranslationKey['HS code'])}
+          onClickFirst={() => hsCodeHandlers.onClickHsCode(row)}
+          onClickRemoveFirst={() => hsCodeHandlers.onDeleteHsCode(row)}
         />
       ),
 

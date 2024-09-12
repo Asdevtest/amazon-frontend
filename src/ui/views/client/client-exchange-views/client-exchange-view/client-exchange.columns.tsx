@@ -2,6 +2,7 @@ import { productStrategyStatusesEnum } from '@constants/product/product-strategy
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -9,13 +10,11 @@ import {
   TagsCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
-import { Button } from '@components/shared/button'
 import { Text } from '@components/shared/text'
 
 import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IProduct } from '@typings/models/products/product'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -139,14 +138,13 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-      width: 190,
+      width: 150,
       renderCell: params => (
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          onClick={() => rowHandlers.onClickLaunchPrivateLabelBtn(params.row as IProduct)}
-        >
-          {t(TranslationKey['Buy for'])} {toFixedWithDollarSign(params.row.priceForClient, 2)}
-        </Button>
+        <ActionButtonsCell
+          showFirst
+          firstContent={`${t(TranslationKey['Buy for'])} ${toFixedWithDollarSign(params.row.priceForClient, 2)}`}
+          onClickFirst={() => rowHandlers.onClickLaunchPrivateLabelBtn(params.row as IProduct)}
+        />
       ),
     },
 

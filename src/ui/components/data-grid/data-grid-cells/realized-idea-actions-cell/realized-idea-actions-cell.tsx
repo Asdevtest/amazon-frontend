@@ -15,7 +15,7 @@ interface RealizedIdeaActionsCellProps {
 }
 
 export const RealizedIdeaActionsCell: FC<RealizedIdeaActionsCellProps> = memo(({ rowHandlers, row }) => (
-  <>
+  <div style={{ width: '100%' }}>
     {(row.variation ? !row.childProduct?.order : !row.parentProduct.order) ? (
       <CustomButton
         block
@@ -28,5 +28,5 @@ export const RealizedIdeaActionsCell: FC<RealizedIdeaActionsCellProps> = memo(({
     ) : (
       <p>{t(TranslationKey.Ordered)}</p>
     )}
-  </>
+  </div>
 ))

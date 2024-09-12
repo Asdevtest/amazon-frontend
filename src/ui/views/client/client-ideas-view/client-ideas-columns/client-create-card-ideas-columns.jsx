@@ -132,7 +132,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
           onClickFirst={() => rowHandlers.onClickAcceptOnCreatingProduct(params.row._id)}
         />
       ),
-      width: 160,
+      width: 130,
       disableCustomSort: true,
       filterable: false,
     },

@@ -39,7 +39,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
           }
         />
       ),
-      width: window.innerWidth < 1282 ? 150 : 170,
+      width: 150,
       sortable: false,
     },
 

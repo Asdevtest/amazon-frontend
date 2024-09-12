@@ -124,7 +124,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    width: 100,
+    width: 70,
     renderCell: params => <LinkCell value={params.value} />,
     sortable: false,
     align: 'center',

@@ -88,7 +88,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
 
       disableCustomSort: true,
       filterable: false,
-      width: 180,
+      width: 150,
       disableExport: true,
     },
 
@@ -151,7 +151,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
 
       disableCustomSort: true,
       filterable: false,
-      width: 100,
+      width: 70,
       align: 'center',
     },
 

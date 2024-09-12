@@ -33,7 +33,7 @@ export const moderatorUpdatedColumns = ({
     renderCell: ({ row }: GridRowModel) => <Text isCell text={row.title} />,
     filterable: false,
     sortable: false,
-    width: 300,
+    width: 290,
   },
 
   {
@@ -114,7 +114,7 @@ export const moderatorUpdatedColumns = ({
     ),
     filterable: false,
     sortable: false,
-    width: 90,
+    width: 100,
     align: 'center',
   },
 ]

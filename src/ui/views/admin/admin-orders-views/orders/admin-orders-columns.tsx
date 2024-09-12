@@ -97,7 +97,7 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 100,
+      width: 70,
       renderCell: params => <LinkCell value={params.row.product.barCode} />,
       align: 'center',
       filterable: false,
