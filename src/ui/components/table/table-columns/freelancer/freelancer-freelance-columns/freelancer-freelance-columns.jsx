@@ -13,8 +13,6 @@ import { Text } from '@components/shared/text'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const freelancerFreelanceColumns = handlers => [
   {
     field: 'status',
@@ -77,10 +75,9 @@ export const freelancerFreelanceColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     renderCell: params => (
       <ActionButtonsCell
-        isFirstButton
-        firstButtonElement={t(TranslationKey.Open)}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        onClickFirstButton={() => handlers.onClickOpenButton(params.row._id)}
+        showFirst
+        firstContent={t(TranslationKey.Open)}
+        onClickFirst={() => handlers.onClickOpenButton(params.row._id)}
       />
     ),
     width: 190,

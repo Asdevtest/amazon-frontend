@@ -1,4 +1,4 @@
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid'
 
@@ -10,13 +10,11 @@ import {
   NormDateCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
-import { EditIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { Roles } from '@typings/enums/roles'
 import { IPatchNote } from '@typings/shared/patch-notes'
 
@@ -103,15 +101,15 @@ export const moderatorUpdatedColumns = ({
     renderCell: ({ row }: GridRowModel) => (
       <ActionButtonsCell
         row
-        iconButton
-        isFirstButton
-        isSecondButton
-        firstButtonElement={<EditIcon />}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        secondButtonElement={<MdOutlineDelete size={18} />}
-        secondButtonStyle={ButtonStyle.DANGER}
-        onClickFirstButton={() => onToggleEditPatchNote(row)}
-        onClickSecondButton={() => onClickRemovePatchNote(row._id)}
+        showFirst
+        showSecond
+        secondDanger
+        firstGhost
+        secondGhost
+        firstIcon={<MdOutlineEdit size={16} />}
+        secondIcon={<MdOutlineDelete size={16} />}
+        onClickFirst={() => onToggleEditPatchNote(row)}
+        onClickSecond={() => onClickRemovePatchNote(row._id)}
       />
     ),
     filterable: false,

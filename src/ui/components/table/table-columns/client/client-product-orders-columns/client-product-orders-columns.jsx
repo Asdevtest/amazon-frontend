@@ -26,8 +26,6 @@ import { Text } from '@components/shared/text'
 
 import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
   {
     field: 'id',
@@ -107,15 +105,13 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderCell: params => {
       const isRepeatOrder =
         Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
-      const currentStyle = isRepeatOrder ? ButtonStyle.PRIMARY : ButtonStyle.SUCCESS
       const currentText = isRepeatOrder ? t(TranslationKey['Repeat order']) : t(TranslationKey['To order'])
 
       return (
         <ActionButtonsCell
-          isFirstButton
-          firstButtonElement={currentText}
-          firstButtonStyle={currentStyle}
-          onClickFirstButton={() => handlers.onClickReorder(params.row.originalData, !isRepeatOrder)}
+          showFirst
+          firstContent={currentText}
+          onClickFirst={() => handlers.onClickReorder(params.row.originalData, !isRepeatOrder)}
         />
       )
     },

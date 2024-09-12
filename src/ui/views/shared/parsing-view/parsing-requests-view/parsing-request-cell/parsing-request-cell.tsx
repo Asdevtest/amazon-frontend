@@ -7,7 +7,6 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { ProfileRequestStatus } from '@typings/enums/request/profile-request-status'
 
 import { useStyles } from './parsing-request-cell.style'
@@ -26,14 +25,13 @@ export const ParsingRequestCell: FC<ParsingRequestCellProps> = memo(props => {
   if (status === ProfileRequestStatus.PENDING) {
     return (
       <ActionButtonsCell
-        isFirstButton
-        isSecondButton
-        firstButtonElement={t(TranslationKey.Approve)}
-        secondButtonElement={t(TranslationKey.Reject)}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        secondButtonStyle={ButtonStyle.DANGER}
-        onClickFirstButton={onApproveProfile}
-        onClickSecondButton={onRejectProfile}
+        showFirst
+        showSecond
+        secondDanger
+        firstContent={t(TranslationKey.Approve)}
+        secondContent={t(TranslationKey.Reject)}
+        onClickFirst={onApproveProfile}
+        onClickSecond={onRejectProfile}
       />
     )
   }

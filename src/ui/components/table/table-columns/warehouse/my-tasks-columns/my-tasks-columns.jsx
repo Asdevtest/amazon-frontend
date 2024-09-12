@@ -16,8 +16,6 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const warehouseMyTasksViewColumns = handlers => [
   {
     field: 'action',
@@ -25,18 +23,14 @@ export const warehouseMyTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     renderCell: params => (
       <ActionButtonsCell
-        isFirstButton
-        isSecondButton
-        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        firstButtonTooltipText={t(TranslationKey['Open a window to perform a task'])}
-        firstButtonElement={t(TranslationKey.Resolve)}
-        firstButtonStyle={ButtonStyle.SUCCESS}
-        secondButtonTooltipText={t(TranslationKey['The task will be canceled, the box will keep its previous state'])}
-        secondButtonElement={t(TranslationKey.Cancel)}
-        secondButtonStyle={ButtonStyle.DANGER}
-        disabledSecondButton={params.row.originalData.operationType === TaskOperationType.RECEIVE}
-        onClickFirstButton={() => handlers.onClickResolveBtn(params.row.originalData._id)}
-        onClickSecondButton={() =>
+        showFirst
+        showSecond
+        secondDanger
+        firstContent={t(TranslationKey.Resolve)}
+        secondContent={t(TranslationKey.Cancel)}
+        secondDisabled={params.row.originalData.operationType === TaskOperationType.RECEIVE}
+        onClickFirst={() => handlers.onClickResolveBtn(params.row.originalData._id)}
+        onClickSecond={() =>
           handlers.onClickCancelTask(
             params.row.originalData.boxes[0]?._id,
             params.row.originalData._id,
@@ -47,7 +41,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     ),
     filterable: false,
     sortable: false,
-    width: window.innerWidth < 1282 ? 115 : 165,
+    width: 160,
   },
 
   {

@@ -217,13 +217,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
 
     width: 230,
 
-    renderCell: params => (
-      <WarehouseBoxesBtnsCell
-        row={params.row.originalData}
-        handlers={handlers}
-        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-      />
-    ),
+    renderCell: params => <WarehouseBoxesBtnsCell row={params.row.originalData} handlers={handlers} />,
     filterable: false,
     sortable: false,
   },

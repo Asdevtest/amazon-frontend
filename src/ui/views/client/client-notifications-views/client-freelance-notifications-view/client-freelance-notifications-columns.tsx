@@ -6,7 +6,6 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 interface IRowHandlers {
@@ -74,10 +73,9 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
       renderCell: ({ row }) => (
         <ActionButtonsCell
-          isFirstButton
-          firstButtonElement={t(TranslationKey.Reply)}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={() => handlers.onClickReplyBtn(row.request._id, row.chatId)}
+          showFirst
+          firstContent={t(TranslationKey.Reply)}
+          onClickFirst={() => handlers.onClickReplyBtn(row.request._id, row.chatId)}
         />
       ),
       width: 140,
