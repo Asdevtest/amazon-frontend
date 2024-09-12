@@ -1,5 +1,3 @@
-import { MdOutlineEdit } from 'react-icons/md'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
@@ -272,54 +270,22 @@ export const clientBoxesViewColumns = (
       headerName: 'FBA Shipment / Shipping Label',
       renderHeader: () => <MultilineTextHeaderCell text={'FBA Shipment / Shipping Label'} />,
       renderCell: params => {
-        /* return params.row ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', padding: '10px 0' }}>
-            <ChangeChipCell
-              disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-              row={params.row}
-              value={params.row.shippingLabel}
-              text={'Set Shipping Label'}
-              onClickChip={handlers.onClickShippingLabel}
-              onDoubleClickChip={handlers.onDoubleClickShippingLabel}
-              onDeleteChip={handlers.onDeleteShippingLabel}
-            />
-
-            <ChangeChipCell
-              disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-              row={params.row}
-              value={params.row.fbaShipment}
-              text={t(TranslationKey['FBA Shipment'])}
-              onClickChip={handlers.onClickFbaShipment}
-              onDoubleClickChip={handlers.onDoubleClickFbaShipment}
-              onDeleteChip={handlers.onDeleteFbaShipment}
-            />
-          </div>
-        ) : null */
-
-        const firstButtonElement = (
-          <>
-            <span>{t(TranslationKey['Shipping label'])}</span>
-            {params.row.shippingLabel ? <MdOutlineEdit /> : null}
-          </>
-        )
-        const secondButtonElement = (
-          <>
-            <span>{t(TranslationKey['FBA Shipment'])}</span>
-            {params.row.fbaShipment ? <MdOutlineEdit /> : null}
-          </>
-        )
         const disabled = params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK
 
         return (
           <ActionButtonsCell
             showFirst
             showSecond
-            firstContent={firstButtonElement}
+            firstDropdown={!!params.row.shippingLabel}
+            secondDropdown={!!params.row.fbaShipment}
+            firstContent={t(TranslationKey['Shipping label'])}
             firstDisabled={disabled}
-            secondContent={secondButtonElement}
+            secondContent={t(TranslationKey['FBA Shipment'])}
             secondDisabled={disabled}
             onClickFirst={() => handlers.onClickShippingLabel(params.row)}
             onClickSecond={() => handlers.onClickFbaShipment(params.row)}
+            onClickRemoveFirst={() => handlers.onDeleteShippingLabel(params.row)}
+            onClickRemoveSecond={() => handlers.onDeleteFbaShipment(params.row)}
           />
         )
       },
@@ -328,7 +294,7 @@ export const clientBoxesViewColumns = (
           params.row.shippingLabel ? getAmazonImageUrl(params.row.shippingLabel, true) : '-'
         } / FBA Shipment: ${params.row.fbaShipment || ''}`,
 
-      width: 150,
+      width: 170,
       headerAlign: 'center',
       disableCustomSort: true,
     },

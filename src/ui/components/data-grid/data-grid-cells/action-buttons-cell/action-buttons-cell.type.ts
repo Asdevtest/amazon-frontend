@@ -7,14 +7,6 @@ export interface ActionButtonsCellProps {
   secondDropdown?: boolean
   thirdDropdown?: boolean
 
-  showFirstEdit?: boolean
-  showSecondEdit?: boolean
-  showThirdEdit?: boolean
-
-  showFirstRemove?: boolean
-  showSecondRemove?: boolean
-  showThirdRemove?: boolean
-
   showFirst?: boolean
   showSecond?: boolean
   showThird?: boolean

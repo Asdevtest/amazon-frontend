@@ -148,11 +148,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   constructor(history: any) {
     const rowHandlers = {
       onClickFbaShipment: (item: IBox) => this.onClickFbaShipment(item),
-      onDoubleClickFbaShipment: (item: IBox) => this.onDoubleClickFbaShipment(item),
       onDeleteFbaShipment: (item: IBox) => this.onDeleteFbaShipment(item),
 
       onClickShippingLabel: (item: IBox) => this.onClickShippingLabel(item),
-      onDoubleClickShippingLabel: (item: IBox) => this.onDoubleClickShippingLabel(item),
       onDeleteShippingLabel: (item: IBox) => this.onDeleteShippingLabel(item),
       onChangeIsFormedInBox: (item: IBox) => this.onChangeIsFormedInBox(item),
 
@@ -350,12 +348,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     }
-  }
-
-  onDoubleClickShippingLabel = (item: IBox) => {
-    this.setSelectedBox(item)
-
-    this.onTriggerOpenModal('showSetShippingLabelModal')
   }
 
   onChangeIsFormed(value: boolean) {
@@ -560,11 +552,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   }
 
   onClickFbaShipment(item: IBox) {
-    this.setSelectedBox(item)
-    this.onTriggerOpenModal('showSetChipValueModal')
-  }
-
-  onDoubleClickFbaShipment = (item: IBox) => {
     this.setSelectedBox(item)
     this.onTriggerOpenModal('showSetChipValueModal')
   }

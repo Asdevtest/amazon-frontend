@@ -21,11 +21,9 @@ export const CustomButton: FC<CustomButtonProps> = memo(props => {
     onClick?.(e)
   }
 
-  const showDropdownButton = dropdown && !icon
-
   return (
     <div className={cx(styles.root, wrapperClassName)}>
-      {showDropdownButton ? (
+      {dropdown ? (
         <Dropdown.Button
           {...restProps}
           destroyPopupOnHide
