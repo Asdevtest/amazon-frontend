@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(() => ({
     border: '1px solid #0B903E',
     borderRadius: '20px',
     fontSize: '14px',
-    lineHeight: '19px',
-    padding: '5px 10px',
+    lineHeight: '18px',
+    padding: '2px 10px',
   },
 }))

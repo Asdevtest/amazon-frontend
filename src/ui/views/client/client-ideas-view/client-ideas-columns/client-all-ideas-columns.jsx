@@ -170,7 +170,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => <AllIdeasActionsCell row={params.row} rowHandlers={rowHandlers} />,
-      width: 160,
+      width: 140,
       disableCustomSort: true,
       filterable: false,
     },

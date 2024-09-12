@@ -77,6 +77,7 @@ export const sourceFilesColumns = rowHandlers => [
       <Text
         isCell
         editMode
+        textRows={2}
         text={params.row.originalData.sourceFile}
         onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'sourceFile', value)}
       />
@@ -92,6 +93,7 @@ export const sourceFilesColumns = rowHandlers => [
       <Text
         isCell
         editMode
+        textRows={2}
         text={params.row.originalData.comments}
         onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'comments', value)}
       />
@@ -106,6 +108,7 @@ export const sourceFilesColumns = rowHandlers => [
       <ActionButtonsCell
         showFirst
         firstDanger
+        firstGhost
         firstIcon={<MdOutlineDelete />}
         firstDescription="Do you want to delete the source file?"
         onClickFirst={() => rowHandlers.onClickRemoveBtn(params.row._id)}

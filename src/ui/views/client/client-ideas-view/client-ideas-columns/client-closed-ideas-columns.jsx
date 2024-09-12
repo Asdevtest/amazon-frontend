@@ -286,7 +286,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
           onClickSecond={() => rowHandlers.onClickClose(params.row._id)}
         />
       ),
-      width: 160,
+      width: 140,
       filterable: false,
       disableCustomSort: true,
     },

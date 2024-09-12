@@ -28,7 +28,7 @@ export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
           />
         )
       },
-      width: 180,
+      width: 150,
       filterable: false,
       disableCustomSort: true,
     },
