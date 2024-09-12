@@ -2056,5 +2056,6 @@
   "In use": "Використовується",
   "Parsing profile successfully deleted": "Профіль парсингу успішно видалено",
   "Error deleting parsing profile": "Помилка при видаленні профілю парсингу",
-  "Are you sure you want to delete profile?": "Ви впевнені, що хочете видалити профіль?"
+  "Are you sure you want to delete profile?": "Ви впевнені, що хочете видалити профіль?",
+  "Month value": "Місячна вартість"
 }

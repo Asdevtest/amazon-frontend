@@ -165,6 +165,26 @@ export const inventoryColumns = () => {
     },
 
     {
+      field: 'soldBy',
+      headerName: 'Sold by',
+      renderHeader: () => <MultilineTextHeaderCell text="Sold by" />,
+
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 115,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
+      field: 'sellersDateUpdated',
+      headerName: 'Sellers date updated',
+      renderHeader: () => <MultilineTextHeaderCell text="Sellers date updated" />,
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
       field: 'historicalDaysOfSupply',
       headerName: 'Historical days of supply',
       renderHeader: () => <MultilineTextHeaderCell text="Historical days of supply" />,

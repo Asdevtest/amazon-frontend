@@ -71,12 +71,13 @@ export const returnsColumns = () => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => <ProductCell asin={row?.asin} sku={row?.sku} />,
+      renderCell: ({ row }) => <ProductCell title={row?.productName} asin={row?.asin} sku={row?.sku} />,
 
-      fields: getProductColumnMenuItems({ withoutTitle: true }),
+      fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({
         isSimpleSku: true,
         table: ParsingReportsType.RETURNS,
+        customTitleField: 'productName',
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       width: 170,
@@ -86,6 +87,16 @@ export const returnsColumns = () => {
       field: 'reason',
       headerName: 'Reason',
       renderHeader: () => <MultilineTextHeaderCell text="Reason" />,
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
+      field: 'fnsku',
+      headerName: 'Fnsku',
+      renderHeader: () => <MultilineTextHeaderCell text="Fnsku" />,
       renderCell: params => <Text isCell text={params.value} />,
       width: 120,
 
@@ -103,31 +114,51 @@ export const returnsColumns = () => {
     },
 
     {
-      field: 'dateReversal',
-      headerName: 'Date reversal',
-      renderHeader: () => <MultilineTextHeaderCell text="Date reversal" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
-    },
-
-    {
-      field: 'dateReceived',
-      headerName: 'Date received',
-      renderHeader: () => <MultilineTextHeaderCell text="Date received" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
-    },
-
-    {
       field: 'disposition',
       headerName: 'Disposition',
       renderHeader: () => <MultilineTextHeaderCell text="Disposition" />,
       renderCell: params => <Text isCell text={params.value?.replaceAll('_', ' ')} />,
       transformValueMethod: value => value?.replaceAll('_', ' '),
+      width: 120,
+
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
+      field: 'quantity',
+      headerName: 'Quantity',
+      renderHeader: () => <MultilineTextHeaderCell text="Quantity" />,
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.NUMBER,
+    },
+
+    {
+      field: 'fulfillmentCenterId',
+      headerName: 'Fulfillment Center Id',
+      renderHeader: () => <MultilineTextHeaderCell text="Fulfillment Center Id" />,
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
+      field: 'licencePlateNumber',
+      headerName: 'Licence Plate Number',
+      renderHeader: () => <MultilineTextHeaderCell text="Licence Plate Number" />,
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
+      field: 'customerComments',
+      headerName: 'Customer comments',
+      renderHeader: () => <MultilineTextHeaderCell text="Customer comments" />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 120,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,

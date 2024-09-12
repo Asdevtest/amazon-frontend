@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20034Rows } from './inline-response20034-rows';
 
 /**
  * 
@@ -22,17 +21,23 @@ import { InlineResponse20034Rows } from './inline-response20034-rows';
  */
 export interface InlineResponse20034 {
     /**
-     * Кол-во товаров
+     * total price in yuan for these statuses
      * @type {number}
      * @memberof InlineResponse20034
      */
-    count?: number;
+    totalPriceInYuan?: number;
     /**
-     * Массив товаров.
-     * @type {Array<InlineResponse20034Rows>}
+     * total price in USD for these statuses
+     * @type {number}
      * @memberof InlineResponse20034
      */
-    rows?: Array<InlineResponse20034Rows>;
+    totalPriceInUSD?: number;
+    /**
+     * Total partialPaymentAmountRmb
+     * @type {number}
+     * @memberof InlineResponse20034
+     */
+    partialPaymentAmountRmb?: number;
 }
 
 

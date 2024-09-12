@@ -13,7 +13,9 @@
  */
 
 
-import { InlineResponse200105Author } from './inline-response200105-author';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
+import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
 
 /**
  * 
@@ -22,49 +24,115 @@ import { InlineResponse200105Author } from './inline-response200105-author';
  */
 export interface InlineResponse200105Rows {
     /**
-     * GUID пользователя в БД.
+     * GUID продукта в базе данных
      * @type {string}
      * @memberof InlineResponse200105Rows
      */
     _id?: string;
     /**
-     * Название patch_note.
+     * ASIN продукта
      * @type {string}
      * @memberof InlineResponse200105Rows
      */
-    title?: string;
+    asin?: string;
     /**
-     * Описание patch_note.
+     * SKU введенным клиентом.
      * @type {string}
      * @memberof InlineResponse200105Rows
      */
-    description?: string;
+    skuByClient?: string;
     /**
-     * Для какой роли
+     * Есть ли товар в заказах
+     * @type {boolean}
+     * @memberof InlineResponse200105Rows
+     */
+    ordered?: boolean;
+    /**
+     * 
      * @type {number}
      * @memberof InlineResponse200105Rows
      */
-    role?: number;
+    bsr?: number;
     /**
      * 
-     * @type {InlineResponse200105Author}
+     * @type {number}
      * @memberof InlineResponse200105Rows
      */
-    author?: InlineResponse200105Author;
+    amazon?: number;
     /**
-     * Update version
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineResponse200105Rows
+     */
+    fbafee?: number;
+    /**
+     * Код текущего статуса
+     * @type {number}
+     * @memberof InlineResponse200105Rows
+     */
+    status?: number;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse200105Rows
+     */
+    images?: Array<string>;
+    /**
+     * Заголовок на товар с сайта амазон.
      * @type {string}
      * @memberof InlineResponse200105Rows
      */
-    version?: string;
+    amazonTitle?: string;
     /**
-     * Дата создания склада.
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineResponse200105Rows
+     */
+    strategyStatus?: number;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
+     * @memberof InlineResponse200105Rows
+     */
+    redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsVacTags>}
+     * @memberof InlineResponse200105Rows
+     */
+    tags?: Array<ApiV1BuyersProductsVacTags>;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse200105Rows
+     */
+    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse200105Rows
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse200105Rows
+     */
+    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse200105Rows
+     */
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse200105Rows
      */
     createdAt?: string;
     /**
-     * Дата обновления склада.
+     * Дата изменения
      * @type {string}
      * @memberof InlineResponse200105Rows
      */

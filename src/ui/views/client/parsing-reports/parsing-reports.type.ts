@@ -20,3 +20,10 @@ export enum ParsingReportsType {
   PPC_SALES_WEEKS = 'PPC_SALES_WEEKS',
   PPC_ORGANIC = 'PPC_ORGANIC',
 }
+
+export interface IFbaCapacityLimits {
+  _id: string
+  inventoryPlanningId: string
+  month: string
+  value: number
+}

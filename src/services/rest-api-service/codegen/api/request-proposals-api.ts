@@ -53,13 +53,13 @@ import { InlineObject112 } from '../models';
 // @ts-ignore
 import { InlineObject167 } from '../models';
 // @ts-ignore
-import { InlineResponse200119 } from '../models';
-// @ts-ignore
-import { InlineResponse20086 } from '../models';
+import { InlineResponse200120 } from '../models';
 // @ts-ignore
 import { InlineResponse20087 } from '../models';
 // @ts-ignore
 import { InlineResponse20088 } from '../models';
+// @ts-ignore
+import { InlineResponse20089 } from '../models';
 // @ts-ignore
 import { InlineResponse20111 } from '../models';
 // @ts-ignore
@@ -1195,7 +1195,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200119>>> {
+        async apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200120>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsCustomByRequestIdGuidGet(guid, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1232,7 +1232,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsFreelanceSourcesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20087>>> {
+        async apiV1RequestProposalsFreelanceSourcesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20088>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsFreelanceSourcesGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1284,7 +1284,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsGet(type: 'CUSTOM' | 'SEARCH_NICHE' | 'SEARCH_PRODUCT', kind: 'VACANT' | 'LINKED_TO_ME' | 'ALL', noCache?: boolean, status?: Set<'CREATED' | 'OFFER_CONDITIONS_ACCEPTED' | 'READY_TO_VERIFY' | 'OFFER_CONDITIONS_REJECTED' | 'OFFER_CONDITIONS_CORRECTED' | 'VERIFYING_BY_SUPERVISOR' | 'TO_CORRECT' | 'CORRECTED' | 'CANCELED_BY_CREATOR_OF_REQUEST' | 'CANCELED_BY_SUPERVISOR' | 'CANCELED_BY_EXECUTOR' | 'ACCEPTED_BY_CLIENT' | 'ACCEPTED_BY_SUPERVISOR' | 'EXPIRED' | 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED'>, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20086>>> {
+        async apiV1RequestProposalsGet(type: 'CUSTOM' | 'SEARCH_NICHE' | 'SEARCH_PRODUCT', kind: 'VACANT' | 'LINKED_TO_ME' | 'ALL', noCache?: boolean, status?: Set<'CREATED' | 'OFFER_CONDITIONS_ACCEPTED' | 'READY_TO_VERIFY' | 'OFFER_CONDITIONS_REJECTED' | 'OFFER_CONDITIONS_CORRECTED' | 'VERIFYING_BY_SUPERVISOR' | 'TO_CORRECT' | 'CORRECTED' | 'CANCELED_BY_CREATOR_OF_REQUEST' | 'CANCELED_BY_SUPERVISOR' | 'CANCELED_BY_EXECUTOR' | 'ACCEPTED_BY_CLIENT' | 'ACCEPTED_BY_SUPERVISOR' | 'EXPIRED' | 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED'>, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20087>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGet(type, kind, noCache, status, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1470,7 +1470,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsPagMyAllGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20088>> {
+        async apiV1RequestProposalsPagMyAllGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20089>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsPagMyAllGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1487,7 +1487,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20088>> {
+        async apiV1RequestProposalsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20089>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsPagMyGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1510,7 +1510,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200119>> {
+        apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200120>> {
             return localVarFp.apiV1RequestProposalsCustomByRequestIdGuidGet(guid, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1544,7 +1544,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsFreelanceSourcesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20087>> {
+        apiV1RequestProposalsFreelanceSourcesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20088>> {
             return localVarFp.apiV1RequestProposalsFreelanceSourcesGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1592,7 +1592,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGet(type: 'CUSTOM' | 'SEARCH_NICHE' | 'SEARCH_PRODUCT', kind: 'VACANT' | 'LINKED_TO_ME' | 'ALL', noCache?: boolean, status?: Set<'CREATED' | 'OFFER_CONDITIONS_ACCEPTED' | 'READY_TO_VERIFY' | 'OFFER_CONDITIONS_REJECTED' | 'OFFER_CONDITIONS_CORRECTED' | 'VERIFYING_BY_SUPERVISOR' | 'TO_CORRECT' | 'CORRECTED' | 'CANCELED_BY_CREATOR_OF_REQUEST' | 'CANCELED_BY_SUPERVISOR' | 'CANCELED_BY_EXECUTOR' | 'ACCEPTED_BY_CLIENT' | 'ACCEPTED_BY_SUPERVISOR' | 'EXPIRED' | 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED'>, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20086>> {
+        apiV1RequestProposalsGet(type: 'CUSTOM' | 'SEARCH_NICHE' | 'SEARCH_PRODUCT', kind: 'VACANT' | 'LINKED_TO_ME' | 'ALL', noCache?: boolean, status?: Set<'CREATED' | 'OFFER_CONDITIONS_ACCEPTED' | 'READY_TO_VERIFY' | 'OFFER_CONDITIONS_REJECTED' | 'OFFER_CONDITIONS_CORRECTED' | 'VERIFYING_BY_SUPERVISOR' | 'TO_CORRECT' | 'CORRECTED' | 'CANCELED_BY_CREATOR_OF_REQUEST' | 'CANCELED_BY_SUPERVISOR' | 'CANCELED_BY_EXECUTOR' | 'ACCEPTED_BY_CLIENT' | 'ACCEPTED_BY_SUPERVISOR' | 'EXPIRED' | 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED'>, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20087>> {
             return localVarFp.apiV1RequestProposalsGet(type, kind, noCache, status, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1764,7 +1764,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsPagMyAllGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20088> {
+        apiV1RequestProposalsPagMyAllGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20089> {
             return localVarFp.apiV1RequestProposalsPagMyAllGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1780,7 +1780,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20088> {
+        apiV1RequestProposalsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20089> {
             return localVarFp.apiV1RequestProposalsPagMyGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };

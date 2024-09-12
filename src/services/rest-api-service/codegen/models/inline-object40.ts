@@ -25,13 +25,7 @@ export interface InlineObject40 {
      * @type {Array<string>}
      * @memberof InlineObject40
      */
-    boxIds: Array<string>;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof InlineObject40
-     */
-    newAmounts: Array<number>;
+    boxesIds: Array<string>;
 }
 
 
