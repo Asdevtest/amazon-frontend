@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,7 +19,7 @@ interface LaunchesReportsProps {
 
 export const LaunchesReports: FC<LaunchesReportsProps> = observer(({ timeBeforeLaunchDeadline }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new LaunchesReportsModel(timeBeforeLaunchDeadline))
+  const viewModel = useMemo(() => new LaunchesReportsModel(timeBeforeLaunchDeadline), [])
 
   return (
     <div className={styles.wrapper}>

@@ -25,6 +25,8 @@ export const useStyles = makeStyles()(() => ({
   },
 
   dropdownButton: {
+    width: '100%',
+
     'button:nth-of-type(1)': {
       width: '100%',
     },

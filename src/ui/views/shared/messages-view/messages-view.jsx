@@ -1,6 +1,6 @@
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ONE_MINUTE_IN_MILLISECONDS } from '@constants/time'
@@ -34,7 +34,7 @@ export const MessagesView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
   const { isMobileResolution, isTabletResolution } = useCreateBreakpointResolutions()
 
-  const [viewModel] = useState(() => new MessagesViewModel({ history }))
+  const viewModel = useMemo(() => new MessagesViewModel({ history }), [])
 
   useEffect(() => {
     viewModel.loadData()

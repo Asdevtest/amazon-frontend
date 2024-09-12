@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,7 +19,7 @@ import { CreateOrEditRequestViewModel } from './create-or-edit-request-view.mode
 
 export const CreateOrEditRequestView = observer(({ history }) => {
   const mainContentRef = useRef()
-  const [viewModel] = useState(() => new CreateOrEditRequestViewModel({ history }))
+  const viewModel = useMemo(() => new CreateOrEditRequestViewModel({ history }), [])
   const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { useGridApiRef } from '@mui/x-data-grid-premium'
 
@@ -47,7 +47,7 @@ import { Header } from './header'
 export const ClientInventoryView = observer(({ history }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientInventoryViewModel())
+  const viewModel = useMemo(() => new ClientInventoryViewModel(), [])
   viewModel.initHistory()
 
   const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Paper, Typography } from '@mui/material'
@@ -20,7 +20,7 @@ import { styles } from './buyer-dashboard-view.style'
 import { BuyerDashboardViewModel } from './buyer-dashboard-view.model'
 
 export const BuyerDashboardViewRaw = props => {
-  const [viewModel] = useState(() => new BuyerDashboardViewModel({ history: props.history }))
+  const viewModel = useMemo(() => new BuyerDashboardViewModel({ history: props.history }), [])
   const { classes: styles } = props
 
   useEffect(() => {

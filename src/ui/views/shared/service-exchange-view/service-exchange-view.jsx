@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,7 +20,7 @@ import { ServiceExchangeViewModel } from './service-exchange-view.model'
 export const ServiceExchangeView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
 
-  const [viewModel] = useState(() => new ServiceExchangeViewModel({ history }))
+  const viewModel = useMemo(() => new ServiceExchangeViewModel({ history }), [])
 
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
   const positionStyle = isListPosition ? styles.dashboardListWrapper : styles.dashboardCardWrapper

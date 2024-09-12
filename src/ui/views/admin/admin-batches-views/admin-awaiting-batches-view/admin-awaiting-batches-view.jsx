@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,7 +14,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { AdminAwaitingBatchesViewModel } from './admin-awaiting-batches-view.model'
 
 export const AdminAwaitingBatchesView = observer(props => {
-  const [viewModel] = useState(() => new AdminAwaitingBatchesViewModel({ history: props.history }))
+  const viewModel = useMemo(() => new AdminAwaitingBatchesViewModel({ history: props.history }), [])
 
   useEffect(() => {
     viewModel.loadData()

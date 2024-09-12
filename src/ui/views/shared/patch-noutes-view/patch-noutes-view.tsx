@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid'
 
@@ -23,7 +23,7 @@ import { ModalNames } from './patch-noutes-view.type'
 export const PatchNoutesView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new PatchNoutesViewModel())
+  const viewModel = useMemo(() => new PatchNoutesViewModel(), [])
 
   const patchNodesModalTitle = viewModel.editPatchNote
     ? t(TranslationKey['Edit a patch note'])

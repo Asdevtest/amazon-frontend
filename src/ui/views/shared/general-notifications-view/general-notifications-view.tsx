@@ -1,6 +1,6 @@
 import { History } from 'history'
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { NotificationTypes } from '@constants/notifications/notification-type'
@@ -31,7 +31,7 @@ interface GeneralNotificationsViewProps {
 export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = observer(({ history }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new GeneralNotificationsViewModel({ history }))
+  const viewModel = useMemo(() => new GeneralNotificationsViewModel({ history }), [])
 
   const currentUserRole = viewModel?.userInfo?.role || -1
   const isCurrentUserClient = checkIsClient(UserRoleCodeMap[currentUserRole])

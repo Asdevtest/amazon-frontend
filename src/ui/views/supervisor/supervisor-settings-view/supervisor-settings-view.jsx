@@ -1,6 +1,6 @@
 import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -24,7 +24,7 @@ import { SupervisorSettingsViewModel } from './supervisor-settings-view.model'
 
 export const SupervisorSettingsView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new SupervisorSettingsViewModel())
+  const viewModel = useMemo(() => new SupervisorSettingsViewModel(), [])
 
   return (
     <div className="viewWrapper">

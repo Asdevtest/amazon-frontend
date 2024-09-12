@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
 
@@ -44,7 +44,7 @@ import { useStyles } from './add-or-edit-batch-form.style'
 import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 
 export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batchToEdit, sourceBox }) => {
-  const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel(true))
+  const viewModel = useMemo(() => new ClientAwaitingBatchesViewModel(true), [])
 
   const { classes: styles, cx } = useStyles()
 

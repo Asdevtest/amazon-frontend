@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -15,7 +15,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { ParsingRequestsViewModel } from './parsing-requests-view.model'
 
 export const ParsingRequestsView: FC = observer(() => {
-  const [viewModel] = useState(() => new ParsingRequestsViewModel())
+  const viewModel = useMemo(() => new ParsingRequestsViewModel(), [])
 
   return (
     <div className="viewWrapper">

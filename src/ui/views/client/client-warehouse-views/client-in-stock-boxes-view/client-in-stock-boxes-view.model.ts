@@ -148,11 +148,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   constructor(history: any) {
     const rowHandlers = {
       onClickFbaShipment: (item: IBox) => this.onClickFbaShipment(item),
-      onDoubleClickFbaShipment: (item: IBox) => this.onDoubleClickFbaShipment(item),
       onDeleteFbaShipment: (item: IBox) => this.onDeleteFbaShipment(item),
 
       onClickShippingLabel: (item: IBox) => this.onClickShippingLabel(item),
-      onDoubleClickShippingLabel: (item: IBox) => this.onDoubleClickShippingLabel(item),
       onDeleteShippingLabel: (item: IBox) => this.onDeleteShippingLabel(item),
       onChangeIsFormedInBox: (item: IBox) => this.onChangeIsFormedInBox(item),
 
@@ -352,12 +350,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onDoubleClickShippingLabel = (item: IBox) => {
-    this.setSelectedBox(item)
-
-    this.onTriggerOpenModal('showSetShippingLabelModal')
-  }
-
   onChangeIsFormed(value: boolean) {
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
@@ -406,17 +398,17 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSaveShippingLabel(tmpShippingLabel: IUploadFile[]) {
-    if (tmpShippingLabel.length) {
+  async onClickSaveShippingLabel(data: IUploadFile[]) {
+    if (data.length) {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       // @ts-ignore
-      await onSubmitPostImages.call(this, { images: tmpShippingLabel, type: 'uploadedFiles' })
+      await onSubmitPostImages.call(this, { images: data, type: 'uploadedFiles' })
       this.setRequestStatus(loadingStatus.SUCCESS)
     }
 
     if (this.selectedBox?.shippingLabel === null) {
       await ClientModel.editShippingLabelFirstTime(this.selectedBox._id, {
-        shippingLabel: this.uploadedFiles?.[0] || tmpShippingLabel?.[0],
+        shippingLabel: this.uploadedFiles?.[0],
       })
 
       this.checkAndOpenFbaShipmentEdit()
@@ -560,11 +552,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   }
 
   onClickFbaShipment(item: IBox) {
-    this.setSelectedBox(item)
-    this.onTriggerOpenModal('showSetChipValueModal')
-  }
-
-  onDoubleClickFbaShipment = (item: IBox) => {
     this.setSelectedBox(item)
     this.onTriggerOpenModal('showSetChipValueModal')
   }
