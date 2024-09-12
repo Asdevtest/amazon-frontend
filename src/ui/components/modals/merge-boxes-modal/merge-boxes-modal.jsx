@@ -8,12 +8,12 @@ import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/t
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
+import { PriorityForm } from '@components/forms/priority-form/priority-form'
 import { BoxMerge } from '@components/shared/boxes/box-merge'
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
-import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SizeSwitcher } from '@components/shared/size-switcher'
 import { UploadFilesInput } from '@components/shared/upload-files-input'

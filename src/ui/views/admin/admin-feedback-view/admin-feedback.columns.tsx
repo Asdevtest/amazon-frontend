@@ -1,3 +1,5 @@
+import { FaEye } from 'react-icons/fa'
+
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -9,12 +11,10 @@ import {
   NormDateCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
-import { EyeIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IFeedback } from '@typings/models/administrators/feedback'
 
 interface IAdminFeedbackViewColumns {
@@ -62,14 +62,7 @@ export const adminFeedbackViewColumns = ({ onClickOpenFeedback }: IAdminFeedback
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     renderCell: ({ row }: GridRowModel) => (
-      <ActionButtonsCell
-        isFirstButton
-        iconButton
-        fullWidth
-        firstButtonElement={<EyeIcon />}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        onClickFirstButton={() => onClickOpenFeedback(row)}
-      />
+      <ActionButtonsCell showFirst firstGhost firstIcon={<FaEye />} onClickFirst={() => onClickOpenFeedback(row)} />
     ),
     filterable: false,
     sortable: false,

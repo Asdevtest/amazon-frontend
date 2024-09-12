@@ -13,8 +13,6 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const sourceFilesColumns = rowHandlers => [
   {
     field: 'title',
@@ -106,12 +104,11 @@ export const sourceFilesColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     renderCell: params => (
       <ActionButtonsCell
-        isFirstButton
-        iconButton
-        firstButtonElement={<MdOutlineDelete />}
-        firstButtonStyle={ButtonStyle.DANGER}
-        firstDescriptionText="Do you want to delete the source file?"
-        onClickFirstButton={() => rowHandlers.onClickRemoveBtn(params.row._id)}
+        showFirst
+        firstDanger
+        firstIcon={<MdOutlineDelete />}
+        firstDescription="Do you want to delete the source file?"
+        onClickFirst={() => rowHandlers.onClickRemoveBtn(params.row._id)}
       />
     ),
     width: 100,

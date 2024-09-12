@@ -3,9 +3,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderManyItemsCell,
   OrdersIdsItemsCell,
-  ProductCell,
+  ProductsCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -35,18 +34,7 @@ export const addOrEditBatchFormColumns = isClient => [
     headerName: t(TranslationKey.Boxes),
     width: 200,
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
-    renderCell: params =>
-      params.row.originalData.items.length > 1 ? (
-        <OrderManyItemsCell box={params.row.originalData} />
-      ) : (
-        <ProductCell
-          asin={params.row.originalData.items[0]?.product?.asin}
-          image={params.row.originalData.items?.[0]?.product?.images?.[0]}
-          sku={params.row.originalData.items[0]?.product?.skuByClient}
-          title={params.row.originalData.items[0]?.product?.amazonTitle}
-          superbox={params.row.originalData.amount}
-        />
-      ),
+    renderCell: params => <ProductsCell box={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },

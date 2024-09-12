@@ -33,7 +33,6 @@ import { PerformerSelect } from '@views/shared/my-proposals-view/performer-selec
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
@@ -251,27 +250,25 @@ export const proposalsColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
       renderCell: (params: GridCellParams) => (
         <ActionButtonsCell
-          isFirstButton
           row
-          isSecondButton
-          isThirdButton
-          firstButtonStyle={ButtonStyle.CASUAL}
-          secondButtonStyle={ButtonStyle.DANGER}
-          secondButtonVariant={ButtonVariant.OUTLINED}
-          thirdButtonVariant={ButtonVariant.CONTAINED}
-          thirdButtonStyle={ButtonStyle.PRIMARY}
-          disabledFirstButton={!noDisabledEditBtnStatuses.includes(params.row?.status)}
-          disabledSecondButton={disabledCancelBtnStatuses.includes(params.row?.status)}
-          disabledThirdButton={!showResultStatuses.includes(params.row?.status)}
-          firstButtonElement={<MdOutlineEdit size={18} />}
-          secondButtonElement={<MdOutlineDelete size={18} />}
-          thirdButtonElement={t(TranslationKey.Result)}
-          onClickFirstButton={() => handlers.onClickEditButton(params.row?.request?._id, params.row?._id)}
-          onClickSecondButton={() => handlers.onClickDeleteButton(params.row?._id, params.row?.status)}
-          onClickThirdButton={() => handlers.onClickResultButton(params.row?._id)}
+          showFirst
+          showSecond
+          showThird
+          secondDanger
+          firstGhost
+          secondGhost
+          firstDisabled={!noDisabledEditBtnStatuses.includes(params.row?.status)}
+          secondDisabled={disabledCancelBtnStatuses.includes(params.row?.status)}
+          thirdDisabled={!showResultStatuses.includes(params.row?.status)}
+          firstIcon={<MdOutlineEdit size={16} />}
+          secondIcon={<MdOutlineDelete size={16} />}
+          thirdContent={t(TranslationKey.Result)}
+          onClickFirst={() => handlers.onClickEditButton(params.row?.request?._id, params.row?._id)}
+          onClickSecond={() => handlers.onClickDeleteButton(params.row?._id, params.row?.status)}
+          onClickThird={() => handlers.onClickResultButton(params.row?._id)}
         />
       ),
-      width: 265,
+      width: 160,
       disableCustomSort: true,
       filterable: false,
     },

@@ -8,8 +8,6 @@ import { Text } from '@components/shared/text'
 import { formatDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => [
   {
     field: 'id',
@@ -67,10 +65,9 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     renderCell: ({ row }: GridRowModel) => (
       <ActionButtonsCell
-        isFirstButton
-        firstButtonElement={t(TranslationKey['Watch the batch'])}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        onClickFirstButton={() => handleOpenBatchModal(row._id)}
+        showFirst
+        firstContent={t(TranslationKey['Watch the batch'])}
+        onClickFirst={() => handleOpenBatchModal(row._id)}
       />
     ),
     width: 180,
