@@ -78,7 +78,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
           onClickFirst={() => handlers.onClickReplyBtn(row.request._id, row.chatId)}
         />
       ),
-      width: 140,
+      width: 110,
       disableCustomSort: true,
     },
   ]

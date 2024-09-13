@@ -130,7 +130,7 @@ export const clientNewIdeasColumns = rowHandlers => {
         />
       ),
 
-      width: 160,
+      width: 140,
       disableCustomSort: true,
       filterable: false,
     },

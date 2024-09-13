@@ -16,7 +16,7 @@ import { getButtonActionsConfig } from './action-buttons-cell.helper'
 import { ActionButtonsCellProps } from './action-buttons-cell.type'
 
 export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
-  const { row, wrapperClassName, className } = props
+  const { block = true, row, wrapperClassName, className } = props
 
   const { classes: styles, cx, theme } = useStyles()
 
@@ -64,7 +64,7 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
         ]
         const buttonProps = {
           dropdown: dropdown && (!!onClickEdit || !!onClickRemove),
-          block: !!content,
+          block: !!content && block,
           danger,
           ghost,
           icon,

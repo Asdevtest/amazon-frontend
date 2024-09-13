@@ -56,7 +56,7 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-      width: 190,
+      width: 140,
       align: 'center',
       renderCell: params => (
         <ActionButtonsCell

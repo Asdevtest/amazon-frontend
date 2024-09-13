@@ -2,6 +2,7 @@ export interface ActionButtonsCellProps {
   wrapperClassName?: string
   className?: string
   row?: boolean
+  block?: boolean
 
   firstDropdown?: boolean
   secondDropdown?: boolean

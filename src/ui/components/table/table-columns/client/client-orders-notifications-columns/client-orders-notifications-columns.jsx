@@ -66,7 +66,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       field: 'action',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
       headerName: t(TranslationKey.Action),
-      width: 160,
+      width: 130,
       renderCell: params => (
         <ActionButtonsCell
           showFirst
@@ -151,7 +151,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 100,
+      width: 70,
       renderCell: params => <LinkCell value={params.row.product.barCode} />,
       disableCustomSort: true,
     },

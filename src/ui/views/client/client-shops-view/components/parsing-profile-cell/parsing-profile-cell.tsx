@@ -27,5 +27,5 @@ export const ParsingProfileCell: FC<ParsingProfileCellProps> = memo(props => {
     return <Text isCell text={profile.email} />
   }
 
-  return <ActionButtonsCell showFirst firstContent={t(TranslationKey.Ask)} onClickFirst={onConfirm} />
+  return <ActionButtonsCell showFirst block={false} firstContent={t(TranslationKey.Ask)} onClickFirst={onConfirm} />
 })

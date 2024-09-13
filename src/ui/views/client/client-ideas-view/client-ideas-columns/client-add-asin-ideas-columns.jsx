@@ -4,7 +4,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  ChangeChipCell,
   IdeaRequestsCell,
   ManyUserLinkCell,
   MultilineTextHeaderCell,
@@ -112,17 +111,17 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
         const product = params.row.variation ? params.row?.childProduct : params.row?.parentProduct
 
         return (
-          <ChangeChipCell
-            disabled={params.row.variation && !params.row.childProduct}
-            text={t(TranslationKey.BarCode)}
-            value={product?.barCode}
-            onClickChip={() => rowHandlers.barCodeHandlers.onClickBarcode(product)}
-            onDoubleClickChip={() => rowHandlers.barCodeHandlers.onDoubleClickBarcode(product)}
-            onDeleteChip={!product?.barCode ? undefined : () => rowHandlers.barCodeHandlers.onDeleteBarcode(product)}
+          <ActionButtonsCell
+            showFirst
+            firstDropdown={!!product?.barCode}
+            firstContent={t(TranslationKey.BarCode)}
+            firstDisabled={params.row.variation && !params.row.childProduct}
+            onClickFirst={() => rowHandlers.barCodeHandlers.onClickBarcode(product)}
+            onClickRemoveFirst={() => rowHandlers.barCodeHandlers.onDeleteBarcode(product)}
           />
         )
       },
-      width: 200,
+      width: 130,
       disableCustomSort: true,
       filterable: false,
     },
@@ -140,7 +139,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
           onClickFirst={() => rowHandlers.onClickAcceptOnAddingAsin(params.row._id)}
         />
       ),
-      width: 160,
+      width: 130,
       disableCustomSort: true,
       filterable: false,
     },
