@@ -147,7 +147,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: (params: GridCellParams) => (
-        <Text isCell text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />
+        <Text isCell text={params.row.request?.product?.shop?.name || t(TranslationKey.Missing)} />
       ),
       width: 100,
 
