@@ -44,7 +44,6 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       valueGetter: ({ row }: GridRowModel) => row.client?.name || '',
       width: 160,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
-      hideEmptyObject: true,
     },
     {
       field: 'shop',
@@ -54,7 +53,6 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       valueGetter: ({ row }: GridRowModel) => row.shop?.name || '',
       width: 220,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
-      hideEmptyObject: true,
     },
     {
       field: 'email',
