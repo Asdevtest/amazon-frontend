@@ -24,7 +24,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-      width: 160,
+      width: 130,
 
       renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row} />,
       filterable: false,
