@@ -8,6 +8,9 @@ export const getAdditionalFiltersFields = (activeTable: ParsingReportsType) => {
     case ParsingReportsType.INVENTORY:
       return ['title', 'sku']
 
+    case ParsingReportsType.INVENTORY_PLANNING:
+      return ['fbaCapacityLimitsMonth', 'fbaCapacityLimitsValue']
+
     case ParsingReportsType.ORDERS:
     case ParsingReportsType.PPC_SALES_WEEKS:
     case ParsingReportsType.RETURNS:

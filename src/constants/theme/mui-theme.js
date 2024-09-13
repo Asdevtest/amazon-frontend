@@ -92,6 +92,9 @@ export const globalStyles = theme => ({
       },
     },
   },
+  '.MuiDataGrid-columnHeaderTitleContainerContent': {
+    width: '100%',
+  },
 
   // MuiTablePagination
   '.MuiTablePagination-input': {

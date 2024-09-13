@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse200118Rows } from './inline-response200118-rows';
 
 /**
  * 
@@ -28,10 +29,10 @@ export interface InlineResponse200118 {
     count?: number;
     /**
      * 
-     * @type {Array<object>}
+     * @type {Array<InlineResponse200118Rows>}
      * @memberof InlineResponse200118
      */
-    rows?: Array<object>;
+    rows?: Array<InlineResponse200118Rows>;
 }
 
 

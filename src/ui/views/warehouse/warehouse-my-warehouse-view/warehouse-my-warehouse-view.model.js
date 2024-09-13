@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -72,7 +72,7 @@ export class WarehouseMyWarehouseViewModel {
     onEditBox: item => this.onEditBox(item),
     onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
     onClickSaveStorage: (item, value) => this.onClickSaveStorage(item, value),
-    onChangeUnitsOption: (option, allColumns) => this.onChangeUnitsOption(option, allColumns),
+    onChangeUnitsOption: option => this.onChangeUnitsOption(option),
   }
 
   uploadedImages = []
@@ -89,7 +89,7 @@ export class WarehouseMyWarehouseViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
   densityModel = 'compact'
-  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.unitsOption)
+  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, () => this.unitsOption)
 
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
@@ -127,6 +127,11 @@ export class WarehouseMyWarehouseViewModel {
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
+
+    reaction(
+      () => this.unitsOption,
+      () => (this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, () => this.unitsOption)),
+    )
   }
 
   setDestinationsFavouritesItem(item) {
@@ -1042,16 +1047,9 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  onChangeUnitsOption(option, allColumns) {
-    this.unitsOption = option
-
-    this.columnsModel = allColumns.map(column => {
-      if (column.field === 'dimansions') {
-        column.dimensions = option
-      }
-
-      return column
-    })
+  onChangeUnitsOption(event) {
+    const currentValue = event.target.value
+    this.unitsOption = currentValue
   }
 
   onChangeFullFieldMenuItem(value, field) {

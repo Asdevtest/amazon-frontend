@@ -13,26 +13,159 @@
  */
 
 
-import { InlineResponse20023 } from './inline-response20023';
+import { ApiV1BatchesStorekeeper } from './api-v1-batches-storekeeper';
+import { InlineResponse20016Rows } from './inline-response20016-rows';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20026
  */
 export interface InlineResponse20026 {
     /**
-     * Всего кол-во записей в результате запроса
+     * GUID партии.
+     * @type {string}
+     * @memberof InlineResponse20026
+     */
+    _id?: string;
+    /**
+     * Человекочитаемый id партии.
      * @type {number}
      * @memberof InlineResponse20026
      */
-    count?: number;
+    humanFriendlyId?: number;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20023>}
+     * Статус партии.
+     * @type {string}
      * @memberof InlineResponse20026
      */
-    rows?: Array<InlineResponse20023>;
+    status?: string;
+    /**
+     * id корабля.
+     * @type {string}
+     * @memberof InlineResponse20026
+     */
+    shipId?: string;
+    /**
+     * Название партии
+     * @type {string}
+     * @memberof InlineResponse20026
+     */
+    title?: string;
+    /**
+     * Стоимость доставки при расчете из коробок
+     * @type {number}
+     * @memberof InlineResponse20026
+     */
+    calculatedShippingCost?: number;
+    /**
+     * Настоящая стоимость доставки
+     * @type {number}
+     * @memberof InlineResponse20026
+     */
+    actualShippingCost?: number;
+    /**
+     * Трек номер партии
+     * @type {string}
+     * @memberof InlineResponse20026
+     */
+    trackingNumber?: string;
+    /**
+     * Массив ссылок на файлов документации к партии.
+     * @type {Array<string>}
+     * @memberof InlineResponse20026
+     */
+    attachedDocuments?: Array<string>;
+    /**
+     * Финальный вес партии, если считать все коробки как одну большую коробу.
+     * @type {number}
+     * @memberof InlineResponse20026
+     */
+    finalWeightAsOneBox?: number;
+    /**
+     * Финальный вес партии, если сложить все веса коробок по отдельности.
+     * @type {number}
+     * @memberof InlineResponse20026
+     */
+    finalWeightSumEachBoxAmount?: number;
+    /**
+     * Заархивирована ли партия
+     * @type {boolean}
+     * @memberof InlineResponse20026
+     */
+    archive?: boolean;
+    /**
+     * Массив id коробок.
+     * @type {Array<InlineResponse20016Rows>}
+     * @memberof InlineResponse20026
+     */
+    boxes?: Array<InlineResponse20016Rows>;
+    /**
+     * Метод подсчта массы партии
+     * @type {number}
+     * @memberof InlineResponse20026
+     */
+    calculationMethod?: number;
+    /**
+     * Делитель объема партии
+     * @type {number}
+     * @memberof InlineResponse20026
+     */
+    volumeWeightDivide?: number;
+    /**
+     * Масса партии
+     * @type {number}
+     * @memberof InlineResponse20026
+     */
+    finalWeight?: number;
+    /**
+     * Количество коробок в партии.
+     * @type {number}
+     * @memberof InlineResponse20026
+     */
+    quantityBoxes?: number;
+    /**
+     * Общая стоимость от поставщика заказа.
+     * @type {number}
+     * @memberof InlineResponse20026
+     */
+    totalPriceFromOrderSupplier?: number;
+    /**
+     * 
+     * @type {ApiV1BatchesStorekeeper}
+     * @memberof InlineResponse20026
+     */
+    storekeeper?: ApiV1BatchesStorekeeper;
+    /**
+     * 
+     * @type {ApiV1BatchesStorekeeper}
+     * @memberof InlineResponse20026
+     */
+    createdBy?: ApiV1BatchesStorekeeper;
+    /**
+     * 
+     * @type {ApiV1BatchesStorekeeper}
+     * @memberof InlineResponse20026
+     */
+    lastModifiedBy?: ApiV1BatchesStorekeeper;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20026
+     */
+    arrivalDate?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20026
+     */
+    createdAt?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20026
+     */
+    updatedAt?: string;
 }
 
 

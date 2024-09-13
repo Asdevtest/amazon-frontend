@@ -1021,8 +1021,6 @@
   "Edit box parameters": "Редактировать параметры коробки",
   "Save task data": "Сохранить данные задачи",
   "Create new box parameters": "Создать параметры новой коробки",
-  "Add a box to a new or existing batch": "Добавить коробку в новую или существующую партию",
-  "Move a box from the current batch to another": "Переместить коробку из текущей партии в другую",
   "After confirmation it will be impossible to return the batch": "После подтверждения вернуть партию будет невозможно",
   "Add/remove a box or files to a batch": "Добавить/удалить коробку или файлы к партии",
   "Open a form to create a new batch": "Открыть форму для создания новой партии",
@@ -2047,5 +2045,6 @@
   "Parsing profile successfully deleted": "Профиль парсинга успешно удалён",
   "Error deleting parsing profile": "Ошибка при удалении профиля парсинга",
   "Are you sure you want to delete profile?": "Вы уверены, что хотите удалить профиль?",
-  "qty": "кол-во"
+  "qty": "кол-во",
+  "Month value": "Значение месяца"
 }
