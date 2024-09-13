@@ -60,7 +60,7 @@ export class SupervisorReadyToCheckViewModel extends DataGridTableModel {
       await SupervisorModel.pickupProduct(id)
 
       if (!noPush) {
-        const currentPartPath = this.isCreatedByClient ? 'ready-to-check-by-client' : 'ready-to-check'
+        const currentPartPath = this.isCreatedByClient ? 'ready-to-check-by-client' : 'ready-to-check-by-researcher'
 
         this.history.push({
           pathname: `/supervisor/${currentPartPath}/product`,

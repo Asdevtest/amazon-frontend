@@ -1958,7 +1958,7 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/supervisor/ready-to-check/product',
+    routePath: '/supervisor/ready-to-check-by-researcher/product',
     component: SupervisorProductView,
     exact: false,
     permission: [UserRole.SUPERVISOR],
