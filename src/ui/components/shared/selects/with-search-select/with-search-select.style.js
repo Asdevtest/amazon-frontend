@@ -5,12 +5,11 @@ export const useStyles = makeStyles()(theme => ({
     width: 280,
     height: '30px',
     position: 'relative',
-
     display: 'visible !important',
   },
 
   selectHeight: {
-    height: 30,
+    height: '30px',
   },
 
   disableRoot: {
@@ -39,14 +38,14 @@ export const useStyles = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: '100px',
     transition: '0.3s ease',
-    height: 30,
+    height: '30px',
     overflow: 'hidden',
     position: 'absolute',
   },
 
   grayBorder: {
-    height: 30,
-    maxHeight: 30,
+    height: '30px',
+    maxHeight: '30px',
     border: `1px solid ${theme.palette.input.customBorder}`,
   },
 
@@ -54,7 +53,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 30,
+    height: '30px',
     marginBottom: 10,
     // borderBottom: '1px solid #E0E0E0',
     padding: '0 17px',
@@ -67,7 +66,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   chosenItemNoHover: {
-    height: 30,
+    height: '30px',
     '&:hover': {
       transform: 'unset',
       backgroundColor: 'unset',

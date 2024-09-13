@@ -2048,4 +2048,5 @@ export enum TranslationKey {
   'Error deleting parsing profile' = 'Error deleting parsing profile',
   'Are you sure you want to delete profile?' = 'Are you sure you want to delete profile?',
   'qty' = 'qty',
+  'Month value' = 'Month value',
 }

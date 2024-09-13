@@ -13,123 +13,80 @@
  */
 
 
-import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
-import { InlineResponse20099DestinationVariations } from './inline-response20099-destination-variations';
+import { InlineResponse20099Profile } from './inline-response20099-profile';
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineResponse20099Rows
  */
 export interface InlineResponse20099Rows {
     /**
-     * 
+     * ID магазина.
      * @type {string}
      * @memberof InlineResponse20099Rows
      */
     _id?: string;
     /**
-     * Тип тарифа
-     * @type {number}
-     * @memberof InlineResponse20099Rows
-     */
-    tariffType?: number;
-    /**
-     * Название тарифа
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
      * @type {string}
      * @memberof InlineResponse20099Rows
      */
     name?: string;
     /**
-     * Описание тарифа
+     * URL для скачивания ежедневных отчетов SellerBoard.
      * @type {string}
      * @memberof InlineResponse20099Rows
      */
-    description?: string;
+    sellerBoardWarehouseReportUrlDaily?: string;
     /**
-     * Время доставки, днях
+     * URL для скачивания отчетов SellerBoard за последний месяц.
      * @type {string}
      * @memberof InlineResponse20099Rows
      */
-    deliveryTimeInDay?: string;
+    sellerBoardWarehouseReportUrlMonthly?: string;
+    /**
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
+     * @memberof InlineResponse20099Rows
+     */
+    reportAccountUrl?: string;
+    /**
+     * GUID, владелеца.
+     * @type {string}
+     * @memberof InlineResponse20099Rows
+     */
+    ownerId?: string;
+    /**
+     * GUID любого, кто последний создал.
+     * @type {string}
+     * @memberof InlineResponse20099Rows
+     */
+    createdById?: string;
+    /**
+     * GUID любого, кто последний редактировал.
+     * @type {string}
+     * @memberof InlineResponse20099Rows
+     */
+    lastModifiedById?: string;
     /**
      * 
-     * @type {string}
+     * @type {InlineResponse20099Profile}
      * @memberof InlineResponse20099Rows
      */
-    storekeeperId?: string;
+    profile?: InlineResponse20099Profile;
     /**
-     * Дата закрытия приема новых грузов.
-     * @type {string}
-     * @memberof InlineResponse20099Rows
-     */
-    cls?: string;
-    /**
-     * Ожидаема дата отбытия.
-     * @type {string}
-     * @memberof InlineResponse20099Rows
-     */
-    etd?: string;
-    /**
-     * Ожидаема дата прибытия.
-     * @type {string}
-     * @memberof InlineResponse20099Rows
-     */
-    eta?: string;
-    /**
-     * Минимальный вес, в кг
-     * @type {number}
-     * @memberof InlineResponse20099Rows
-     */
-    minWeightInKg?: number;
-    /**
-     * Заархивирован ли тариф
-     * @type {boolean}
-     * @memberof InlineResponse20099Rows
-     */
-    archive?: boolean;
-    /**
-     * 
-     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
-     * @memberof InlineResponse20099Rows
-     */
-    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
-    /**
-     * Стоимость за единицу с доставкой в Китай
-     * @type {number}
-     * @memberof InlineResponse20099Rows
-     */
-    costUnitWithDeliveryToChina?: number;
-    /**
-     * Average Roi
-     * @type {number}
-     * @memberof InlineResponse20099Rows
-     */
-    avgRoi?: number;
-    /**
-     * Average CostUnitWithDeliveryToUsa
-     * @type {number}
-     * @memberof InlineResponse20099Rows
-     */
-    avgCostUnitWithDeliveryToUsa?: number;
-    /**
-     * 
-     * @type {Array<InlineResponse20099DestinationVariations>}
-     * @memberof InlineResponse20099Rows
-     */
-    destinationVariations?: Array<InlineResponse20099DestinationVariations>;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20099Rows
-     */
-    updatedAt?: string;
-    /**
-     * 
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse20099Rows
      */
     createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20099Rows
+     */
+    updatedAt?: string;
 }
 
 

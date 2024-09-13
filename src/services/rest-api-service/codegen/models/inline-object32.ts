@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
 
 /**
  * 
@@ -22,17 +21,17 @@ import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
  */
 export interface InlineObject32 {
     /**
-     * Массив коробок.
+     * 
      * @type {Array<string>}
      * @memberof InlineObject32
      */
-    guids: Array<string>;
+    boxIds: Array<string>;
     /**
      * 
-     * @type {ApiV1BoxesMergeBoxBody}
+     * @type {Array<number>}
      * @memberof InlineObject32
      */
-    boxBody: ApiV1BoxesMergeBoxBody;
+    newAmounts: Array<number>;
 }
 
 

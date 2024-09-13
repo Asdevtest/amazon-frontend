@@ -21,35 +21,35 @@
  */
 export interface InlineObject39 {
     /**
-     * 
+     * Название партии
+     * @type {string}
+     * @memberof InlineObject39
+     */
+    title?: string;
+    /**
+     * Метод подсчта массы партии
      * @type {number}
      * @memberof InlineObject39
      */
-    lengthCmWarehouse?: number;
+    calculationMethod?: number;
     /**
-     * 
+     * Делитель объема партии
      * @type {number}
      * @memberof InlineObject39
      */
-    widthCmWarehouse?: number;
+    volumeWeightDivide?: number;
     /**
-     * 
+     * Трек номер партии
+     * @type {string}
+     * @memberof InlineObject39
+     */
+    trackingNumber?: string;
+    /**
+     * Настоящая стоимость доставки
      * @type {number}
      * @memberof InlineObject39
      */
-    heightCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject39
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Массив ссылок на фотографии.
-     * @type {Array<string>}
-     * @memberof InlineObject39
-     */
-    images?: Array<string>;
+    actualShippingCost?: number;
 }
 
 

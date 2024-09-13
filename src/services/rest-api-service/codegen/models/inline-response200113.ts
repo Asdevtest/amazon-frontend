@@ -21,35 +21,53 @@
  */
 export interface InlineResponse200113 {
     /**
-     * Курс юаня к доллару.
-     * @type {number}
+     * ID пресета.
+     * @type {string}
      * @memberof InlineResponse200113
      */
-    yuanToDollarRate?: number;
+    _id?: string;
     /**
-     * Коэффициент расчета объемного веса.
-     * @type {number}
+     * Эндпоинт пресета
+     * @type {string}
      * @memberof InlineResponse200113
      */
-    volumeWeightCoefficient?: number;
+    endpoint?: string;
     /**
-     * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
-     * @type {number}
+     * Состояние  preset-settings.
+     * @type {boolean}
      * @memberof InlineResponse200113
      */
-    requestMinAmountPriceOfProposal?: number;
+    activeSetting?: boolean;
     /**
-     * Комиссия за оплату предложения
-     * @type {number}
+     * 
+     * @type {object}
      * @memberof InlineResponse200113
      */
-    requestPlatformMarginInPercent?: number;
+    settings?: object;
     /**
-     * Лимит на кол-во в ордере
-     * @type {number}
+     * Title of preset
+     * @type {string}
      * @memberof InlineResponse200113
      */
-    orderAmountLimit?: number;
+    title?: string;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineResponse200113
+     */
+    isFavorite?: boolean;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200113
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200113
+     */
+    updatedAt?: string;
 }
 
 

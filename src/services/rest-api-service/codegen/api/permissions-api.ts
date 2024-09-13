@@ -21,8 +21,6 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { ApiV1PermissionsShopsV2GuidProducts } from '../models';
-// @ts-ignore
 import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
@@ -44,6 +42,8 @@ import { InlineResponse20081 } from '../models';
 import { InlineResponse20082 } from '../models';
 // @ts-ignore
 import { InlineResponse20083 } from '../models';
+// @ts-ignore
+import { InlineResponse20084 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -711,11 +711,14 @@ export const PermissionsApiAxiosParamCreator = function (configuration?: Configu
          * ## Получить список разрешений для продуктов юзера по его айди.
          * @summary Получить список разрешений для продуктов юзера по его айди.
          * @param {string} guid GUID permission в БД
+         * @param {number} [offset] Отступ от первой записи получаемой в запросе
+         * @param {number} [limit] Кол-во получаемых записей
+         * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsProductsV2GuidGet: async (guid: string, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1PermissionsProductsV2GuidGet: async (guid: string, offset?: number, limit?: number, noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1PermissionsProductsV2GuidGet', 'guid', guid)
             const localVarPath = `/api/v1/permissions/products/v2/{guid}`
@@ -733,6 +736,18 @@ export const PermissionsApiAxiosParamCreator = function (configuration?: Configu
 
             // authentication AccessTokenBearer required
             await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (noCache !== undefined) {
+                localVarQueryParameter['noCache'] = noCache;
+            }
 
             if (acceptEncoding !== undefined && acceptEncoding !== null) {
                 localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
@@ -883,11 +898,14 @@ export const PermissionsApiAxiosParamCreator = function (configuration?: Configu
          * ## Получить список разрешений для магазинов юзера по его айди.
          * @summary Получить список разрешений для магазинов юзера по его айди. (New)
          * @param {string} guid GUID permission в БД
+         * @param {number} [offset] Отступ от первой записи получаемой в запросе
+         * @param {number} [limit] Кол-во получаемых записей
+         * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsShopsV2GuidGet: async (guid: string, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1PermissionsShopsV2GuidGet: async (guid: string, offset?: number, limit?: number, noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1PermissionsShopsV2GuidGet', 'guid', guid)
             const localVarPath = `/api/v1/permissions/shops/v2/{guid}`
@@ -905,6 +923,18 @@ export const PermissionsApiAxiosParamCreator = function (configuration?: Configu
 
             // authentication AccessTokenBearer required
             await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (noCache !== undefined) {
+                localVarQueryParameter['noCache'] = noCache;
+            }
 
             if (acceptEncoding !== undefined && acceptEncoding !== null) {
                 localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
@@ -1112,12 +1142,15 @@ export const PermissionsApiFp = function(configuration?: Configuration) {
          * ## Получить список разрешений для продуктов юзера по его айди.
          * @summary Получить список разрешений для продуктов юзера по его айди.
          * @param {string} guid GUID permission в БД
+         * @param {number} [offset] Отступ от первой записи получаемой в запросе
+         * @param {number} [limit] Кол-во получаемых записей
+         * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1PermissionsProductsV2GuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1PermissionsShopsV2GuidProducts>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsProductsV2GuidGet(guid, acceptEncoding, options);
+        async apiV1PermissionsProductsV2GuidGet(guid: string, offset?: number, limit?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20084>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsProductsV2GuidGet(guid, offset, limit, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1161,12 +1194,15 @@ export const PermissionsApiFp = function(configuration?: Configuration) {
          * ## Получить список разрешений для магазинов юзера по его айди.
          * @summary Получить список разрешений для магазинов юзера по его айди. (New)
          * @param {string} guid GUID permission в БД
+         * @param {number} [offset] Отступ от первой записи получаемой в запросе
+         * @param {number} [limit] Кол-во получаемых записей
+         * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1PermissionsShopsV2GuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20081>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsShopsV2GuidGet(guid, acceptEncoding, options);
+        async apiV1PermissionsShopsV2GuidGet(guid: string, offset?: number, limit?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20081>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsShopsV2GuidGet(guid, offset, limit, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1346,12 +1382,15 @@ export const PermissionsApiFactory = function (configuration?: Configuration, ba
          * ## Получить список разрешений для продуктов юзера по его айди.
          * @summary Получить список разрешений для продуктов юзера по его айди.
          * @param {string} guid GUID permission в БД
+         * @param {number} [offset] Отступ от первой записи получаемой в запросе
+         * @param {number} [limit] Кол-во получаемых записей
+         * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsProductsV2GuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1PermissionsShopsV2GuidProducts>> {
-            return localVarFp.apiV1PermissionsProductsV2GuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
+        apiV1PermissionsProductsV2GuidGet(guid: string, offset?: number, limit?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20084> {
+            return localVarFp.apiV1PermissionsProductsV2GuidGet(guid, offset, limit, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid.   
@@ -1391,12 +1430,15 @@ export const PermissionsApiFactory = function (configuration?: Configuration, ba
          * ## Получить список разрешений для магазинов юзера по его айди.
          * @summary Получить список разрешений для магазинов юзера по его айди. (New)
          * @param {string} guid GUID permission в БД
+         * @param {number} [offset] Отступ от первой записи получаемой в запросе
+         * @param {number} [limit] Кол-во получаемых записей
+         * @param {boolean} [noCache] Игнорировать данные в кеше
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsShopsV2GuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20081>> {
-            return localVarFp.apiV1PermissionsShopsV2GuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
+        apiV1PermissionsShopsV2GuidGet(guid: string, offset?: number, limit?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20081> {
+            return localVarFp.apiV1PermissionsShopsV2GuidGet(guid, offset, limit, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1772,6 +1814,27 @@ export interface PermissionsApiApiV1PermissionsProductsV2GuidGetRequest {
     readonly guid: string
 
     /**
+     * Отступ от первой записи получаемой в запросе
+     * @type {number}
+     * @memberof PermissionsApiApiV1PermissionsProductsV2GuidGet
+     */
+    readonly offset?: number
+
+    /**
+     * Кол-во получаемых записей
+     * @type {number}
+     * @memberof PermissionsApiApiV1PermissionsProductsV2GuidGet
+     */
+    readonly limit?: number
+
+    /**
+     * Игнорировать данные в кеше
+     * @type {boolean}
+     * @memberof PermissionsApiApiV1PermissionsProductsV2GuidGet
+     */
+    readonly noCache?: boolean
+
+    /**
      * 
      * @type {string}
      * @memberof PermissionsApiApiV1PermissionsProductsV2GuidGet
@@ -1861,6 +1924,27 @@ export interface PermissionsApiApiV1PermissionsShopsV2GuidGetRequest {
      * @memberof PermissionsApiApiV1PermissionsShopsV2GuidGet
      */
     readonly guid: string
+
+    /**
+     * Отступ от первой записи получаемой в запросе
+     * @type {number}
+     * @memberof PermissionsApiApiV1PermissionsShopsV2GuidGet
+     */
+    readonly offset?: number
+
+    /**
+     * Кол-во получаемых записей
+     * @type {number}
+     * @memberof PermissionsApiApiV1PermissionsShopsV2GuidGet
+     */
+    readonly limit?: number
+
+    /**
+     * Игнорировать данные в кеше
+     * @type {boolean}
+     * @memberof PermissionsApiApiV1PermissionsShopsV2GuidGet
+     */
+    readonly noCache?: boolean
 
     /**
      * 
@@ -2054,7 +2138,7 @@ export class PermissionsApi extends BaseAPI {
      * @memberof PermissionsApi
      */
     public apiV1PermissionsProductsV2GuidGet(requestParameters: PermissionsApiApiV1PermissionsProductsV2GuidGetRequest, options?: any) {
-        return PermissionsApiFp(this.configuration).apiV1PermissionsProductsV2GuidGet(requestParameters.guid, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+        return PermissionsApiFp(this.configuration).apiV1PermissionsProductsV2GuidGet(requestParameters.guid, requestParameters.offset, requestParameters.limit, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2102,6 +2186,6 @@ export class PermissionsApi extends BaseAPI {
      * @memberof PermissionsApi
      */
     public apiV1PermissionsShopsV2GuidGet(requestParameters: PermissionsApiApiV1PermissionsShopsV2GuidGetRequest, options?: any) {
-        return PermissionsApiFp(this.configuration).apiV1PermissionsShopsV2GuidGet(requestParameters.guid, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+        return PermissionsApiFp(this.configuration).apiV1PermissionsShopsV2GuidGet(requestParameters.guid, requestParameters.offset, requestParameters.limit, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 }

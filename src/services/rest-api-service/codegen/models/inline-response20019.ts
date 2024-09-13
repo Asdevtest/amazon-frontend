@@ -14,7 +14,11 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1BatchesByProductGuidBoxes } from './api-v1-batches-by-product-guid-boxes';
+import { ApiV1BoxesClientsLightBatch } from './api-v1-boxes-clients-light-batch';
+import { ApiV1BoxesClientsLightDestination } from './api-v1-boxes-clients-light-destination';
+import { ApiV1BoxesClientsLightItems } from './api-v1-boxes-clients-light-items';
+import { ApiV1BoxesClientsLightLogicsTariff } from './api-v1-boxes-clients-light-logics-tariff';
+import { InlineResponse20017VariationTariff } from './inline-response20017-variation-tariff';
 
 /**
  * 
@@ -23,47 +27,245 @@ import { ApiV1BatchesByProductGuidBoxes } from './api-v1-batches-by-product-guid
  */
 export interface InlineResponse20019 {
     /**
-     * GUID партии.
+     * GUID коробки.
      * @type {string}
      * @memberof InlineResponse20019
      */
     _id?: string;
     /**
-     * Человекочитаемый id партии.
+     * Номер коробки.
      * @type {number}
      * @memberof InlineResponse20019
      */
     humanFriendlyId?: number;
     /**
-     * Название партии
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    title?: string;
-    /**
-     * Заархивирована ли партия
-     * @type {boolean}
-     * @memberof InlineResponse20019
-     */
-    archive?: boolean;
-    /**
-     * 
-     * @type {Array<ApiV1BatchesByProductGuidBoxes>}
-     * @memberof InlineResponse20019
-     */
-    boxes?: Array<ApiV1BatchesByProductGuidBoxes>;
-    /**
-     * Общее кол-во продуктов
+     * ККоличества в коробке.
      * @type {number}
      * @memberof InlineResponse20019
      */
-    amountInBatch?: number;
+    amount?: number;
+    /**
+     * Total Amount
+     * @type {number}
+     * @memberof InlineResponse20019
+     */
+    totalAmount?: number;
+    /**
+     * Total Price
+     * @type {number}
+     * @memberof InlineResponse20019
+     */
+    totalPrice?: number;
+    /**
+     * Final weight
+     * @type {number}
+     * @memberof InlineResponse20019
+     */
+    finalWeight?: number;
+    /**
+     * Статус коробки
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    status?: string;
+    /**
+     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
+     * @type {boolean}
+     * @memberof InlineResponse20019
+     */
+    isActual?: boolean;
+    /**
+     * Если true - значит коробку черновик.
+     * @type {boolean}
+     * @memberof InlineResponse20019
+     */
+    isDraft?: boolean;
+    /**
+     * Сформирована ли коробка
+     * @type {boolean}
+     * @memberof InlineResponse20019
+     */
+    isFormed?: boolean;
+    /**
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    shippingLabel?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    trackNumberText?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20019
+     */
+    trackNumberFile?: Array<string>;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    prepId?: string;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    upsTrackNumber?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    referenceId?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    clientComment?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    storekeeperComment?: string;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20019
+     */
+    lengthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20019
+     */
+    widthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20019
+     */
+    heightCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20019
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+     * @type {boolean}
+     * @memberof InlineResponse20019
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    fbaNumber?: string;
+    /**
+     * Итого за доставку.
+     * @type {number}
+     * @memberof InlineResponse20019
+     */
+    deliveryTotalPrice?: number;
+    /**
+     * Обновление итога за доставку.
+     * @type {number}
+     * @memberof InlineResponse20019
+     */
+    deliveryTotalPriceChanged?: number;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20019
+     */
+    images?: Array<string>;
+    /**
+     * Nullable ISO Date
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    deadline?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    createdAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    updatedAt?: string;
+    /**
+     * 
+     * @type {InlineResponse20017VariationTariff}
+     * @memberof InlineResponse20019
+     */
+    variationTariff?: InlineResponse20017VariationTariff;
+    /**
+     * Массив коробок.
+     * @type {Array<ApiV1BoxesClientsLightItems>}
+     * @memberof InlineResponse20019
+     */
+    items?: Array<ApiV1BoxesClientsLightItems>;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20019
+     */
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20019
      */
     storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20019
+     */
+    client?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20019
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1BoxesClientsLightDestination}
+     * @memberof InlineResponse20019
+     */
+    destination?: ApiV1BoxesClientsLightDestination;
+    /**
+     * 
+     * @type {ApiV1BoxesClientsLightLogicsTariff}
+     * @memberof InlineResponse20019
+     */
+    logicsTariff?: ApiV1BoxesClientsLightLogicsTariff;
+    /**
+     * 
+     * @type {ApiV1BoxesClientsLightBatch}
+     * @memberof InlineResponse20019
+     */
+    batch?: ApiV1BoxesClientsLightBatch;
 }
 
 

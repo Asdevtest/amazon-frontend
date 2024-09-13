@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesSplitNewBoxesParams } from './api-v1-boxes-split-new-boxes-params';
 
 /**
  * 
@@ -21,17 +22,17 @@
  */
 export interface InlineObject26 {
     /**
-     * 
-     * @type {Array<string>}
+     * GUID коробки, которую делим
+     * @type {string}
      * @memberof InlineObject26
      */
-    batchIds: Array<string>;
+    guid?: string;
     /**
-     * Заархивирована ли партия
-     * @type {boolean}
+     * 
+     * @type {Array<ApiV1BoxesSplitNewBoxesParams>}
      * @memberof InlineObject26
      */
-    archive: boolean;
+    newBoxesParams?: Array<ApiV1BoxesSplitNewBoxesParams>;
 }
 
 

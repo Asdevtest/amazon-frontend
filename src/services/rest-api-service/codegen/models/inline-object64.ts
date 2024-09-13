@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
 
 /**
  * 
@@ -23,10 +22,16 @@ import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buye
 export interface InlineObject64 {
     /**
      * 
-     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
+     * @type {string}
      * @memberof InlineObject64
      */
-    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
+    clientComment: string;
+    /**
+     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @type {number}
+     * @memberof InlineObject64
+     */
+    priceForClient: number;
 }
 
 
