@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,7 +15,7 @@ import { ITask } from '@typings/models/tasks/task'
 import { AdminWarehouseTasksViewModel } from './admin-warehouse-tasks-view.model'
 
 export const AdminWarehouseTasksView = observer(() => {
-  const [viewModel] = useState(() => new AdminWarehouseTasksViewModel())
+  const viewModel = useMemo(() => new AdminWarehouseTasksViewModel(), [])
 
   return (
     <div className="viewWrapper">

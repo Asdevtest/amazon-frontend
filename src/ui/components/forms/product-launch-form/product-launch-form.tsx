@@ -15,6 +15,7 @@ import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './product-launch-form.style'
 
+import { RadioValue } from './product-launch-form.config'
 import { ProductLaunchFormModel } from './product-launch-form.model'
 
 interface ProductLaunchFormProps {
@@ -35,14 +36,14 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
 
       <Radio.Group value={viewModel.radioValue} className={styles.radioGroup} onChange={viewModel.onChangeRadioValue}>
         <div className={styles.radioOptionContainer}>
-          <Radio value={0}>{t(TranslationKey['New product'])}</Radio>
+          <Radio value={RadioValue.NEW}>{t(TranslationKey['New product'])}</Radio>
           <div className={cx(styles.iconContainer, styles.iconCreate)}>
             <ParentProductLaunchIcon />
           </div>
         </div>
 
         <div className={styles.radioOptionContainer}>
-          <Radio value={1}>{t(TranslationKey.Variation)}</Radio>
+          <Radio value={RadioValue.VARIATION}>{t(TranslationKey.Variation)}</Radio>
           <div className={cx(styles.iconContainer, styles.iconSelect)}>
             <ChildProductLaunchIcon />
           </div>

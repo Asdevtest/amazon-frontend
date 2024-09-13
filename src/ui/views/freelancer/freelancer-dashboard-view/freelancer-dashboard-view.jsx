@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Paper, Typography } from '@mui/material'
@@ -20,7 +20,7 @@ import { styles } from './freelancer-dashboard-view.style'
 import { FreelancerDashboardViewModel } from './freelacer-dashboard-view.model'
 
 export const FreelancerDashboardViewRaw = props => {
-  const [viewModel] = useState(() => new FreelancerDashboardViewModel({ history: props.history }))
+  const viewModel = useMemo(() => new FreelancerDashboardViewModel({ history: props.history }), [])
   const { classes: styles } = props
 
   useEffect(() => {

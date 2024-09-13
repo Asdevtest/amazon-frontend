@@ -3,7 +3,7 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  CreateCardIdeaActionsCell,
+  ActionButtonsCell,
   IdeaProductCell,
   ManyUserLinkCell,
   MediaContentCell,
@@ -124,8 +124,15 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
       headerName: t(TranslationKey.Action),
 
-      renderCell: params => <CreateCardIdeaActionsCell row={params.row} rowHandlers={rowHandlers} />,
-      width: 160,
+      renderCell: params => (
+        <ActionButtonsCell
+          showFirst
+          firstContent={t(TranslationKey.Accept)}
+          firstDisabled={!params.row.childProduct && params.row.variation}
+          onClickFirst={() => rowHandlers.onClickAcceptOnCreatingProduct(params.row._id)}
+        />
+      ),
+      width: 130,
       disableCustomSort: true,
       filterable: false,
     },

@@ -1,8 +1,8 @@
 export interface ActionButtonsCellProps {
   wrapperClassName?: string
   className?: string
-  block?: boolean
   row?: boolean
+  block?: boolean
 
   firstDropdown?: boolean
   secondDropdown?: boolean
@@ -59,4 +59,12 @@ export interface ActionButtonsCellProps {
   onClickFirst?: () => void
   onClickSecond?: () => void
   onClickThird?: () => void
+
+  onClickEditFirst?: () => void
+  onClickEditSecond?: () => void
+  onClickEditThird?: () => void
+
+  onClickRemoveFirst?: () => void
+  onClickRemoveSecond?: () => void
+  onClickRemoveThird?: () => void
 }

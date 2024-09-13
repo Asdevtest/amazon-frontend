@@ -1,6 +1,6 @@
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -31,7 +31,7 @@ import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.mod
 export const WarehouseMyWarehouseView = observer(({ history }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new WarehouseMyWarehouseViewModel({ history }))
+  const viewModel = useMemo(() => new WarehouseMyWarehouseViewModel({ history }), [])
 
   useEffect(() => {
     viewModel.loadData()

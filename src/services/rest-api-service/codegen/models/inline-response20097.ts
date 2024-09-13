@@ -13,61 +13,153 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
 
 /**
- * Схема магазина.
+ * Схема получение лайт версии продажи магазина
  * @export
  * @interface InlineResponse20097
  */
 export interface InlineResponse20097 {
     /**
-     * ID магазина.
+     * GUID магазина на продажу.
      * @type {string}
      * @memberof InlineResponse20097
      */
     _id?: string;
     /**
-     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
-     * @type {string}
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20097
      */
-    name?: string;
+    owner?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
-     * URL для скачивания ежедневных отчетов SellerBoard.
+     * GUID покупателя магазина
      * @type {string}
      * @memberof InlineResponse20097
      */
-    sellerBoardWarehouseReportUrlDaily?: string;
+    bidderId?: string;
     /**
-     * URL для скачивания отчетов SellerBoard за последний месяц.
+     * GUID модератора магазина
      * @type {string}
      * @memberof InlineResponse20097
      */
-    sellerBoardWarehouseReportUrlMonthly?: string;
+    moderatorId?: string;
     /**
-     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * GUID чата
      * @type {string}
      * @memberof InlineResponse20097
      */
-    reportAccountUrl?: string;
+    chatId?: string;
     /**
-     * GUID, владелеца.
+     * Имя магазина для продажи
      * @type {string}
      * @memberof InlineResponse20097
      */
-    ownerId?: string;
+    title?: string;
     /**
-     * GUID любого, кто последний создал.
+     * Статус магазина для продажи
      * @type {string}
      * @memberof InlineResponse20097
      */
-    createdById?: string;
+    status?: string;
     /**
-     * GUID любого, кто последний редактировал.
+     * Файлы, которые привязаны к магазину
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    files?: Array<string>;
+    /**
+     * Стоимость магазина
+     * @type {number}
+     * @memberof InlineResponse20097
+     */
+    price?: number;
+    /**
+     * Ежемесячная прибыль
+     * @type {number}
+     * @memberof InlineResponse20097
+     */
+    monthlyProfit?: number;
+    /**
+     * Ежемесячная чистая прибыль
+     * @type {number}
+     * @memberof InlineResponse20097
+     */
+    monthlyPureProfit?: number;
+    /**
+     * Ежемесячный множитель
+     * @type {number}
+     * @memberof InlineResponse20097
+     */
+    monthlyMultiplier?: number;
+    /**
+     * Статистика магазина по месяцам
+     * @type {Array<ApiV1ShopSellStatistics1>}
+     * @memberof InlineResponse20097
+     */
+    statistics?: Array<ApiV1ShopSellStatistics1>;
+    /**
+     * Дата создания бизнеса
      * @type {string}
      * @memberof InlineResponse20097
      */
-    lastModifiedById?: string;
+    businessStartDate?: string;
+    /**
+     * Детали магазина
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    shopDetails?: string;
+    /**
+     * Ссылка магазина
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    shopLink?: string;
+    /**
+     * Массив активов
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    shopAssets?: Array<string>;
+    /**
+     * Массив возможностей
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    opportunities?: Array<string>;
+    /**
+     * Массив рисков
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    risks?: Array<string>;
+    /**
+     * Массив требуемых навыков
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    requiredSkills?: Array<string>;
+    /**
+     * Поддержка продавца включает
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    sellIncludes?: Array<string>;
+    /**
+     * Причины продажи
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    reasonForSale?: Array<string>;
+    /**
+     * Дополнительная информация
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    additionalInfo?: Array<string>;
     /**
      * Дата создания
      * @type {string}

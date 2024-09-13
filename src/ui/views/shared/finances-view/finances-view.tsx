@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -23,7 +23,7 @@ import { getEntityTypeConfig, getPaymentTypeConfig } from './finances.config'
 export const FinancesView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new FinancesViewModel())
+  const viewModel = useMemo(() => new FinancesViewModel(), [])
 
   return (
     <div className="viewWrapper">

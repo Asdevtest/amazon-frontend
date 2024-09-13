@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 
@@ -40,7 +40,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
 
   const chatRef = useRef()
 
-  const [viewModel] = useState(
+  const viewModel = useMemo(
     () =>
       new OwnerRequestDetailCustomViewModel({
         history,
@@ -50,6 +50,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           }
         },
       }),
+    [],
   )
 
   useEffect(() => {

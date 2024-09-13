@@ -154,7 +154,6 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
           <ActionButtonsCell
             showFirst
             showSecond
-            firstDropdown
             firstContent={firstButtonText}
             secondContent={t(TranslationKey.Stocks)}
             onClickFirst={() => rowHandlers.onClickReorder(params.row as IOrder, firstButtonCondition)}
@@ -162,7 +161,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
           />
         )
       },
-      width: 200,
+      width: 160,
       filterable: false,
       disableCustomSort: true,
     },
@@ -171,7 +170,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-      width: 100,
+      width: 70,
       renderCell: params => <LinkCell value={params.row?.product?.barCode} />,
       // @ts-ignore
       valueFormatter: ({ row }) =>

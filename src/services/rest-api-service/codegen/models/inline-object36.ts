@@ -13,7 +13,6 @@
  */
 
 
-import { InlineObject27 } from './inline-object27';
 
 /**
  * 
@@ -22,17 +21,35 @@ import { InlineObject27 } from './inline-object27';
  */
 export interface InlineObject36 {
     /**
-     * GUID для которой подтверждаем действие.
+     * Название партии
      * @type {string}
      * @memberof InlineObject36
      */
-    guid?: string;
+    title?: string;
     /**
-     * Массив дополнительных коробок которые случились при обработки.
-     * @type {Array<InlineObject27>}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject36
      */
-    additionalBoxes?: Array<InlineObject27>;
+    boxesIds: Array<string>;
+    /**
+     * Метод подсчта массы партии
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    calculationMethod?: number;
+    /**
+     * Делитель объема партии
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    volumeWeightDivide?: number;
+    /**
+     * Настоящая стоимость доставки
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    actualShippingCost?: number;
 }
 
 

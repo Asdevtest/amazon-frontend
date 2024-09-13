@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useCallback, useState } from 'react'
+import { FC, useCallback, useMemo } from 'react'
 
 import { DataGridPremiumProps, GridCellParams, GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -64,7 +64,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
 
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(
+  const viewModel = useMemo(
     () =>
       new SupplierApproximateCalculationsModel({
         supplierId: currentSupplierId,
@@ -77,6 +77,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
         ideaId,
         isSkipWeightCheck,
       }),
+    [],
   )
 
   const getRowClassName = (params: GridRowClassNameParams) =>

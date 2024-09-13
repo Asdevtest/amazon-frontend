@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { MdAutorenew, MdDeleteOutline, MdOutlineHighlightOff, MdOutlineModeEditOutline } from 'react-icons/md'
 
 import { Typography } from '@mui/material'
@@ -24,7 +24,7 @@ import { AdminSettingsPaymentMethodsModel } from './tab-payment-methods.model'
 
 export const TabPaymentMethods = observer(() => {
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new AdminSettingsPaymentMethodsModel())
+  const viewModel = useMemo(() => new AdminSettingsPaymentMethodsModel(), [])
   const [isDisableButton, setIsDisableButton] = useState(true)
 
   useEffect(() => {

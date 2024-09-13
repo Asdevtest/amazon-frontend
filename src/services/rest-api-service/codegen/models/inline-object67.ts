@@ -15,17 +15,17 @@
 
 
 /**
- * Схема изменения итоговой цены, totalPriceChanged
+ * Схема апдейта рекомендаций
  * @export
  * @interface InlineObject67
  */
 export interface InlineObject67 {
     /**
-     * новое значение изменения итоговой цены.
+     * Рекомендуемое значение
      * @type {number}
      * @memberof InlineObject67
      */
-    totalPriceChanged: number;
+    recommendedValue: number;
 }
 
 

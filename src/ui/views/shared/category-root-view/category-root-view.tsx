@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,7 +14,7 @@ import { ButtonVariant } from '@typings/enums/button-style'
 import { HistoryType } from '@typings/types/history'
 
 export const CategoryRootView = observer(({ history }: { history: HistoryType }) => {
-  const [viewModel] = useState(() => new CategoryRootViewModel(history))
+  const viewModel = useMemo(() => new CategoryRootViewModel(history), [])
   const { classes: styles } = useStyles()
 
   useEffect(() => {

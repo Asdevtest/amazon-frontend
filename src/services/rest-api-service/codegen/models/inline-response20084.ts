@@ -13,169 +13,33 @@
  */
 
 
+import { InlineResponse20081Products } from './inline-response20081-products';
+import { InlineResponse20084Meta } from './inline-response20084-meta';
 
 /**
- * Схема парсинга.
+ * 
  * @export
  * @interface InlineResponse20084
  */
 export interface InlineResponse20084 {
     /**
-     * 
+     * Count of rows
      * @type {number}
      * @memberof InlineResponse20084
      */
-    amazonFee?: number;
+    count?: number;
     /**
-     * 
-     * @type {number}
+     * Массив разрешенных продуктов для юзера.
+     * @type {Array<InlineResponse20081Products>}
      * @memberof InlineResponse20084
      */
-    width?: number;
+    rows?: Array<InlineResponse20081Products>;
     /**
      * 
-     * @type {number}
+     * @type {InlineResponse20084Meta}
      * @memberof InlineResponse20084
      */
-    height?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20084
-     */
-    length?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20084
-     */
-    weight?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    weightUnitString?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20084
-     */
-    isWhiteGloveRequired?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    subCategory?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    fnsku?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    dimensionUnit?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    link?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    binding?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    dimensionUnitString?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20084
-     */
-    price?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    imageUrl?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20084
-     */
-    isAfn?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    gl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    TRexId?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20084
-     */
-    isAsinLimits?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    originalUrl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    productGroup?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    thumbStringUrl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    asin?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    encryptedMarketplaceId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20084
-     */
-    weightUnit?: string;
+    meta?: InlineResponse20084Meta;
 }
 
 

@@ -1,6 +1,6 @@
 import { Form, Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -29,7 +29,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
   const isEditMode = !!profile
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ParsingProfileFormModel(profile))
+  const viewModel = useMemo(() => new ParsingProfileFormModel(profile), [])
   const [form] = Form.useForm()
 
   useEffect(() => {

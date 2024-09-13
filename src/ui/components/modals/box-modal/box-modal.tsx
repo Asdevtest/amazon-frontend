@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
@@ -25,7 +25,7 @@ export const BoxModal: FC<BoxModalProps> = observer(props => {
   const { boxId, onToggleModal, onUpdateData } = props
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new BoxModalModel({ boxId, onUpdateData }))
+  const viewModel = useMemo(() => new BoxModalModel({ boxId, onUpdateData }), [])
 
   return (
     <div className={styles.wrapper}>

@@ -32,7 +32,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     ),
     filterable: false,
     sortable: false,
-    width: 130,
+    width: 110,
   },
 
   {

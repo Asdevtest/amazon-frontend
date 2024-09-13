@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { getResearcherDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -21,7 +21,7 @@ import { ResearcherDashboardViewModel } from './researcher-dashboard-view.model'
 
 export const ResearcherDashboardView = observer(({ history }: { history: HistoryType }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ResearcherDashboardViewModel(history))
+  const viewModel = useMemo(() => new ResearcherDashboardViewModel(history), [])
 
   return (
     <>

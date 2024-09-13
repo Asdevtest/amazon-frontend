@@ -69,7 +69,7 @@ export const shopsColumns = (props: IColumnProps) => {
         />
       ),
       valueGetter: ({ row }) => row.profile?.access,
-      width: 170,
+      width: 200,
       disableCustomSort: true,
       filterable: false,
     },

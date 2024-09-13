@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
@@ -29,10 +29,10 @@ export interface InlineResponse20046BoxAmounts {
     _id?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20046BoxAmounts
      */
-    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
+    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * GUID продукта в базе данных
      * @type {string}

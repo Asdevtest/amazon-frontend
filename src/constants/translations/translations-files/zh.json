@@ -2049,5 +2049,6 @@
   "qty": "数量",
   "Chat name": "聊天名称",
   "Enter chat name": "请输入聊天名称",
-  "Chat already exists": "聊天已存在"
+  "Chat already exists": "聊天已存在",
+  "Month value": "月份值"
 }

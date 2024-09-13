@@ -61,6 +61,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
               {asin ? (
                 <Link
                   {...hoverAsin[1]}
+                  ellipsis
                   target="_blank"
                   copyable={hoverAsin[0] && !!asin}
                   href={`https://www.amazon.com/dp/${asin}`}
@@ -72,7 +73,13 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
               ) : null}
 
               {sku ? (
-                <AntText {...hoverSku[1]} copyable={hoverSku[0] && !!sku} type="secondary" className={styles.text}>
+                <AntText
+                  {...hoverSku[1]}
+                  ellipsis
+                  copyable={hoverSku[0] && !!sku}
+                  type="secondary"
+                  className={styles.text}
+                >
                   {sku}
                 </AntText>
               ) : null}

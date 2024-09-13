@@ -18,6 +18,8 @@ export const getButtonActionsConfig = (props: ActionButtonsCellProps) => [
     disabled: props.firstDisabled,
     description: props.firstDescription,
     onClick: throttle(props.onClickFirst),
+    onClickEdit: props.onClickEditFirst ? throttle(props.onClickEditFirst) : undefined,
+    onClickRemove: props.onClickRemoveFirst ? throttle(props.onClickRemoveFirst) : undefined,
   },
   {
     dropdown: props.secondDropdown,
@@ -34,6 +36,8 @@ export const getButtonActionsConfig = (props: ActionButtonsCellProps) => [
     disabled: props.secondDisabled,
     description: props.secondDescription,
     onClick: throttle(props.onClickSecond),
+    onClickEdit: props.onClickEditSecond ? throttle(props.onClickEditSecond) : undefined,
+    onClickRemove: props.onClickRemoveSecond ? throttle(props.onClickRemoveSecond) : undefined,
   },
   {
     dropdown: props.thirdDropdown,
@@ -50,5 +54,7 @@ export const getButtonActionsConfig = (props: ActionButtonsCellProps) => [
     disabled: props.thirdDisabled,
     description: props.thirdDescription,
     onClick: throttle(props.onClickThird),
+    onClickEdit: props.onClickEditThird ? throttle(props.onClickEditThird) : undefined,
+    onClickRemove: props.onClickRemoveThird ? throttle(props.onClickRemoveThird) : undefined,
   },
 ]

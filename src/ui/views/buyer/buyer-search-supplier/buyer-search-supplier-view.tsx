@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,7 +14,7 @@ import { IProduct } from '@typings/models/products/product'
 import { BuyerSearchSupplierBySupervisorModel } from './buyer-search-supplier-view.model'
 
 export const BuyerSearchSupplierBySupervisorView = observer(() => {
-  const [viewModel] = useState(() => new BuyerSearchSupplierBySupervisorModel())
+  const viewModel = useMemo(() => new BuyerSearchSupplierBySupervisorModel(), [])
 
   return (
     <div className="viewWrapper">

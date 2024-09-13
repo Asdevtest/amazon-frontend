@@ -7,8 +7,8 @@ import { IconButton } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
+import { SetFileForm } from '@components/forms/set-file-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
@@ -79,7 +79,7 @@ export const Box: FC<BoxProps> = memo(props => {
   const isNotAllDimensionsAdded =
     !box.widthCmWarehouse || !box.weighGrossKgWarehouse || !box.lengthCmWarehouse || !box.heightCmWarehouse
 
-  const setShippingLabel = () => (value: any) => {
+  const setShippingLabel = (value: any) => {
     onChangeField({ target: { value } }, 'tmpShippingLabel', box._id)
   }
 
@@ -315,14 +315,10 @@ export const Box: FC<BoxProps> = memo(props => {
         openModal={showSetShippingLabelModal}
         setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
       >
-        <SetShippingLabelModal
-          tmpShippingLabel={box.tmpShippingLabel}
-          item={box}
-          onClickSaveShippingLabel={(shippingLabel: string) => {
-            setShippingLabel()(shippingLabel)
-            setShowSetShippingLabelModal(!showSetShippingLabelModal)
-          }}
-          onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+        <SetFileForm
+          data={box?.shippingLabel}
+          onSubmit={setShippingLabel}
+          onClose={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
         />
       </Modal>
 

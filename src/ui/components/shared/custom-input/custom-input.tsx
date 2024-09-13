@@ -28,6 +28,7 @@ export const CustomInput: FC<CustomInputProps> = memo(props => {
     labelClassName,
     wrapperClassName,
     fullWidth,
+    maxLength = 255,
     ...restProps
   } = props
 
@@ -54,6 +55,7 @@ export const CustomInput: FC<CustomInputProps> = memo(props => {
         title={placeholderText}
         className={cx(styles.input, className)}
         placeholder={placeholderText}
+        maxLength={maxLength}
       />
     </div>
   )

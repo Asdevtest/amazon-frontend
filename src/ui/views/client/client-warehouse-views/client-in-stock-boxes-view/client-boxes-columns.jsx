@@ -4,7 +4,7 @@ import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/s
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ChangeChipCell,
+  ActionButtonsCell,
   ChangeInputCell,
   DeadlineCell,
   DimensionsCell,
@@ -22,7 +22,7 @@ import { Text } from '@components/shared/text'
 import { calcFinalWeightForBox } from '@utils/calculation'
 import { formatNormDateTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { toFixed, toFixedWithDollarSign, trimBarcode } from '@utils/text'
+import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
@@ -269,40 +269,32 @@ export const clientBoxesViewColumns = (
       field: 'fbaShipment',
       headerName: 'FBA Shipment / Shipping Label',
       renderHeader: () => <MultilineTextHeaderCell text={'FBA Shipment / Shipping Label'} />,
-
       renderCell: params => {
-        return params.row ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', padding: '10px 0' }}>
-            <ChangeChipCell
-              label={t(TranslationKey['Shipping label']) + ':'}
-              disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-              row={params.row}
-              value={params.row.shippingLabel}
-              text={'Set Shipping Label'}
-              onClickChip={handlers.onClickShippingLabel}
-              onDoubleClickChip={handlers.onDoubleClickShippingLabel}
-              onDeleteChip={handlers.onDeleteShippingLabel}
-            />
+        const disabled = params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK
 
-            <ChangeChipCell
-              label={t(TranslationKey['FBA Shipment']) + ':'}
-              disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-              row={params.row}
-              value={params.row.fbaShipment}
-              text={t(TranslationKey['FBA Shipment'])}
-              onClickChip={handlers.onClickFbaShipment}
-              onDoubleClickChip={handlers.onDoubleClickFbaShipment}
-              onDeleteChip={handlers.onDeleteFbaShipment}
-            />
-          </div>
-        ) : null
+        return (
+          <ActionButtonsCell
+            showFirst
+            showSecond
+            firstDropdown={!!params.row.shippingLabel}
+            secondDropdown={!!params.row.fbaShipment}
+            firstContent={t(TranslationKey['Shipping label'])}
+            firstDisabled={disabled}
+            secondContent={t(TranslationKey['FBA Shipment'])}
+            secondDisabled={disabled}
+            onClickFirst={() => handlers.onClickShippingLabel(params.row)}
+            onClickSecond={() => handlers.onClickFbaShipment(params.row)}
+            onClickRemoveFirst={() => handlers.onDeleteShippingLabel(params.row)}
+            onClickRemoveSecond={() => handlers.onDeleteFbaShipment(params.row)}
+          />
+        )
       },
       valueGetter: params =>
         `Shipping Label: ${
           params.row.shippingLabel ? getAmazonImageUrl(params.row.shippingLabel, true) : '-'
         } / FBA Shipment: ${params.row.fbaShipment || ''}`,
 
-      width: 150,
+      width: 170,
       headerAlign: 'center',
       disableCustomSort: true,
     },

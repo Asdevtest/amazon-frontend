@@ -18,7 +18,7 @@ export const supervisorReadyToCheckColumns = ({ onPickUp }) => {
           onClickFirst={() => throttle(onPickUp(row._id))}
         />
       ),
-      width: 200,
+      width: 150,
       disableCustomSort: true,
     },
 

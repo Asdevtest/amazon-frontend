@@ -132,7 +132,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
       renderCell: params => <LinkCell value={params.row.product.barCode} />,
       disableCustomSort: true,
-      minWidth: 100,
+      width: 70,
       align: 'center',
     },
 

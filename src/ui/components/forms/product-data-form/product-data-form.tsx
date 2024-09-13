@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -31,7 +31,7 @@ interface ProductDataFormProps {
 export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, onAmazon, isBatches }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ProductDataFormModel({ product, onAmazon, isBatches }))
+  const viewModel = useMemo(() => new ProductDataFormModel({ product, onAmazon, isBatches }), [])
 
   const title = isBatches
     ? 'Product batches data'

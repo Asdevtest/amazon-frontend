@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { CreateOrEditServiceContent } from '@components/contents/create-or-edit-services-content/create-or-edit-services-content'
 
@@ -12,7 +12,7 @@ import { CreateOrEditServicesViewModel } from './create-or-edit-services-view.mo
 export const CreateOrEditServicesView = observer(({ history }: { history: HistoryType }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new CreateOrEditServicesViewModel(history))
+  const viewModel = useMemo(() => new CreateOrEditServicesViewModel(history), [])
 
   return (
     <div className={styles.root}>

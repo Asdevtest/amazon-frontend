@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -28,7 +28,7 @@ import { WarehouseTabs } from './warehouse-management.types'
 
 export const WarehouseManagementView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new WarehouseTariffModel())
+  const viewModel = useMemo(() => new WarehouseTariffModel(), [])
 
   const currentAddress = useMemo(
     () =>

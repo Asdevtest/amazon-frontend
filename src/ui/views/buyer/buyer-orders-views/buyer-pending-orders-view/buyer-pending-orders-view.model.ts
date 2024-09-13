@@ -88,6 +88,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
 
   async onSubmitCancelOrder(order: IOrder, orderFields: IOrder, hsCode: IHSCode) {
     try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       await this.onSaveOrder(order, orderFields)
 
       if (hsCode) {
@@ -155,8 +156,6 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     hsCode: IHSCode
   }) {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
       // @ts-ignore
       await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
 
@@ -179,6 +178,8 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         this.onTriggerOpenModal('showConfirmModal')
         return
       }
+
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       if (
         Number(orderFields.status) === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT as keyof typeof OrderStatusByKey]

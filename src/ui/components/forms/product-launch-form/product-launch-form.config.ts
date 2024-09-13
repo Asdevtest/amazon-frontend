@@ -13,3 +13,8 @@ export const productLaunchConfig = {
   onPopupScroll: action.bound,
   onDropdownVisibleChange: action.bound,
 }
+
+export enum RadioValue {
+  NEW = 0,
+  VARIATION = 1,
+}
