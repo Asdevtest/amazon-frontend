@@ -17,15 +17,17 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   serviceWrapper: {
-    width: 250,
     display: 'flex',
-    flexDirection: 'column',
     gap: '10px',
+    flexDirection: 'column',
+  },
+
+  serviceListWrapper: {
+    width: 250,
   },
 
   image: {
     borderRadius: '16px',
-    overflow: 'hidden',
   },
 
   serviceInfo: {
@@ -48,6 +50,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     gap: 10,
     width: '100%',
+    height: '100%',
   },
 
   cardTitle: {
@@ -64,6 +67,7 @@ export const useStyles = makeStyles()(theme => ({
 
   actionButton: {
     alignSelf: 'flex-end',
+    justifySelf: 'flex-end',
   },
 
   detailsText: {

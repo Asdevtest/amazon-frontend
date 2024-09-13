@@ -1,10 +1,10 @@
-import { Image } from 'antd'
 import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomImage } from '@components/shared/custom-image'
 import { CustomTag } from '@components/shared/custom-tag'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
@@ -45,21 +45,15 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
     setIsOpenModal(!isOpenModal)
   }
 
-  const handleImageClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation()
-    e.preventDefault()
-  }
-
   return (
     <>
       <div className={cx(styles.wrapper, { [styles.cardWrapper]: isCard })} onClick={handleToggleModal}>
-        <div className={!isCard ? styles.serviceWrapper : ''}>
-          <Image
+        <div className={cx(styles.serviceWrapper, { [styles.serviceListWrapper]: !isCard })}>
+          <CustomImage
             width={isCard ? '100%' : 250}
-            wrapperClassName={styles.image}
             height={isCard ? 150 : 135}
-            src={getAmazonImageUrl(service.linksToMediaFiles[0])}
-            onClick={handleImageClick}
+            wrapperClassName={styles.image}
+            imageUrl={getAmazonImageUrl(service.linksToMediaFiles[0])}
           />
 
           <div className={styles.serviceInfo}>
