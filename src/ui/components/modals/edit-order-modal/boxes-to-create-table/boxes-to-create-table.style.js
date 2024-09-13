@@ -129,4 +129,9 @@ export const useStyles = makeStyles()(theme => ({
   itemsEqualTotal: {
     color: theme.palette.text.green,
   },
+
+  tableWrapper: {
+    maxHeight: '600px',
+    overflow: 'auto',
+  },
 }))
