@@ -2055,5 +2055,6 @@
   "Are you sure you want to delete profile?": "Are you sure you want to delete profile?",
   "qty": "qty.",
   "Chat name": "Chat name",
-  "Enter chat name": "Enter chat name"
+  "Enter chat name": "Enter chat name",
+  "Chat already exists": "Chat already exists"
 }

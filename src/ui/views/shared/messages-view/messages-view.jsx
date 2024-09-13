@@ -11,8 +11,6 @@ import { ChatModel } from '@models/chat-model'
 import { Chat } from '@components/chat/chat'
 import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
 import { ChatsList } from '@components/chat/chats-list'
-import { AddNewChatByEmailForm } from '@components/forms/add-new-chat-by-email-form'
-import { AddUsersToGroupChatForm } from '@components/forms/add-users-to-group-chat-form'
 import { EditGroupChatInfoForm } from '@components/forms/edit-group-chat-info-form'
 import { ForwardMessagesForm } from '@components/forms/forward-messages-form'
 import { CreateNewChatModal } from '@components/modals/create-new-chat-modal'
@@ -224,7 +222,7 @@ export const MessagesView = observer(({ history }) => {
             onTypingMessage={viewModel.onTypingMessage}
             onClickAddUsersToGroupChat={viewModel.onClickAddUsersToGroupChat}
             onRemoveUsersFromGroupChat={viewModel.onRemoveUsersFromGroupChat}
-            onClickEditGroupChatInfo={viewModel.onClickEditGroupChatInfo}
+            onClickEditGroupChatInfo={viewModel.onClickCreateChatModal}
           />
         ) : !isMobileResolution ? (
           <div className={styles.noSelectedChatWrapper}>
@@ -240,22 +238,15 @@ export const MessagesView = observer(({ history }) => {
       {viewModel.showProgress && <CircularProgressWithLabel title={'...'} />}
 
       <Modal
+        unsetHidden
         openModal={viewModel.showCreateNewChatModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showCreateNewChatModal', false)}
       >
-        <CreateNewChatModal closeModal={() => viewModel.onTriggerOpenModal('showCreateNewChatModal', false)} />
-      </Modal>
-
-      {/* <Modal
-        openModal={viewModel.showAddNewChatByEmailModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddNewChatByEmailModal')}
-      >
-        <AddNewChatByEmailForm
-          closeModal={() => viewModel.onTriggerOpenModal('showAddNewChatByEmailModal')}
-          usersData={viewModel.usersData}
-          onSubmit={viewModel.onSubmitAddNewChat}
+        <CreateNewChatModal
+          chatToEdit={viewModel.simpleChats.find(el => el._id === viewModel.chatSelectedId)}
+          closeModal={() => viewModel.onTriggerOpenModal('showCreateNewChatModal', false)}
         />
-      </Modal> */}
+      </Modal>
 
       {/* <Modal
         openModal={viewModel.showAddUsersToGroupChatModal}

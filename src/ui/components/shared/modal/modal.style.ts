@@ -55,6 +55,10 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
+  unsetHidden: {
+    overflow: 'unset',
+  },
+
   closeIcon: {
     position: 'absolute',
     top: -25,

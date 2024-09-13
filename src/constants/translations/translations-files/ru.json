@@ -2055,5 +2055,6 @@
   "Are you sure you want to delete profile?": "Вы уверены, что хотите удалить профиль?",
   "qty": "кол-во",
   "Chat name": "Название чата",
-  "Enter chat name": "Введите название чата"
+  "Enter chat name": "Введите название чата",
+  "Chat already exists": "Чат уже существует"
 }

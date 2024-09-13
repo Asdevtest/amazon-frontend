@@ -4,8 +4,10 @@ export const observerConfig = {
   chatName: observable,
   chatImage: observable,
   selectedUsersId: observable,
+  closeModalMethod: observable,
 
   disableCreateButton: computed,
+  isNoChanges: computed,
 
   onSelectUser: action.bound,
   onDeselectUser: action.bound,
@@ -14,4 +16,6 @@ export const observerConfig = {
   createSimpleChat: action.bound,
   createGroupChat: action.bound,
   onClickCreateChat: action.bound,
+  uploadChatImage: action.bound,
+  getChatUsers: action.bound,
 }

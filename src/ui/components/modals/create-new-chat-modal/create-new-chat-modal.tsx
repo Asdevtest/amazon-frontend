@@ -3,6 +3,8 @@ import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ChatContract } from '@models/chat-model/contracts'
+
 import { CustomAvatar } from '@components/shared/custom-avatar'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
@@ -10,39 +12,45 @@ import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 import { useStyles } from './create-new-chat-modal.style'
 
 import { CreateNewChatModalModel } from './create-new-chat-modal.model'
 
-interface CreateNewChatModalProps {
+export interface CreateNewChatModalProps {
+  chatToEdit?: ChatContract
   closeModal: () => void
 }
 
 export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props => {
-  const { closeModal } = props
+  const { chatToEdit, closeModal } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const viewModel = useMemo(() => new CreateNewChatModalModel(), [])
+  const viewModel = useMemo(() => new CreateNewChatModalModel({ chatToEdit, closeModal }), [])
 
   return (
     <div className={styles.root}>
       <p className={styles.title}>{t(TranslationKey['Create a new dialog'])}</p>
 
-      <CustomSelect
-        required
-        mode="multiple"
-        maxTagCount="responsive"
-        label="Users"
-        placeholder="Choose your speaker"
-        className={styles.userSelect}
-        options={viewModel.currentData}
-        value={viewModel.selectedUsersId}
-        fieldNames={{ label: 'name', value: '_id' }}
-        filterOption={(inputValue, option) => option?.name?.toLowerCase().includes(inputValue.toLowerCase())}
-        onSelect={viewModel.onSelectUser}
-        onDeselect={viewModel.onDeselectUser}
-      />
+      <div id="create-new-chat">
+        <CustomSelect
+          required
+          mode="multiple"
+          maxTagCount="responsive"
+          label="Users"
+          placeholder="Choose your speaker"
+          className={styles.userSelect}
+          options={viewModel.currentData}
+          value={viewModel.selectedUsersId}
+          fieldNames={{ label: 'name', value: '_id' }}
+          filterOption={(inputValue, option) => option?.name?.toLowerCase().includes(inputValue.toLowerCase())}
+          getPopupContainer={() => document.getElementById('create-new-chat') as HTMLElement}
+          onSelect={viewModel.onSelectUser}
+          onDeselect={viewModel.onDeselectUser}
+        />
+      </div>
 
       {viewModel.selectedUsersId?.length > 1 ? (
         <>
@@ -67,11 +75,12 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
       <CustomButton
         size="large"
         type="primary"
-        disabled={viewModel.disableCreateButton}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+        disabled={viewModel.disableCreateButton || viewModel.isNoChanges}
         wrapperClassName={styles.createButton}
         onClick={viewModel.onClickCreateChat}
       >
-        {t(TranslationKey.Create)}
+        {t(TranslationKey[chatToEdit ? 'Save' : 'Create'])}
       </CustomButton>
     </div>
   )

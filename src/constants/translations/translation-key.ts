@@ -2056,4 +2056,5 @@ export enum TranslationKey {
   'qty' = 'qty',
   'Chat name' = 'Chat name',
   'Enter chat name' = 'Enter chat name',
+  'Chat already exists' = 'Chat already exists',
 }
