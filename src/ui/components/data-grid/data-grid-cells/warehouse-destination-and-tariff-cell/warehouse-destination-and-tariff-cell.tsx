@@ -89,6 +89,7 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
       <Button
         disabled={disabled}
         variant={ButtonVariant.OUTLINED}
+        className={styles.tariffButton}
         onClick={() => {
           onClickSetTariff(boxesMy)
           setShowSelectionStorekeeperAndTariffModal()
