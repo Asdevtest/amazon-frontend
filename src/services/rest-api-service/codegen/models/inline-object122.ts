@@ -13,8 +13,8 @@
  */
 
 
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
 import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
-import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tags';
 
 /**
  * 
@@ -234,10 +234,10 @@ export interface InlineObject122 {
     redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
     /**
      * 
-     * @type {Array<ApiV1ClientsProductsGuidTags>}
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
      * @memberof InlineObject122
      */
-    tags?: Array<ApiV1ClientsProductsGuidTags>;
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
 }
 
 

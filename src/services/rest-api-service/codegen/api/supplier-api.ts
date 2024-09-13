@@ -33,7 +33,7 @@ import { InlineObject142 } from '../models';
 // @ts-ignore
 import { InlineObject143 } from '../models';
 // @ts-ignore
-import { InlineResponse200105 } from '../models';
+import { InlineResponse200106 } from '../models';
 // @ts-ignore
 import { InlineResponse20114 } from '../models';
 // @ts-ignore
@@ -447,7 +447,7 @@ export const SupplierApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1SuppliersPaymentMethodsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200105>>> {
+        async apiV1SuppliersPaymentMethodsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200106>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SuppliersPaymentMethodsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -549,7 +549,7 @@ export const SupplierApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1SuppliersPaymentMethodsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200105>> {
+        apiV1SuppliersPaymentMethodsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200106>> {
             return localVarFp.apiV1SuppliersPaymentMethodsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
