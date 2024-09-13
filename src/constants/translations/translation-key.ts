@@ -1022,8 +1022,6 @@ export enum TranslationKey {
   'Edit box parameters' = 'Edit box parameters',
   'Save task data' = 'Save task data',
   'Create new box parameters' = 'Create new box parameters',
-  'Add a box to a new or existing batch' = 'Add a box to a new or existing batch',
-  'Move a box from the current batch to another' = 'Move a box from the current batch to another',
   'After confirmation it will be impossible to return the batch' = 'After confirmation it will be impossible to return the batch',
   'Add/remove a box or files to a batch' = 'Add/remove a box or files to a batch',
   'Open a form to create a new batch' = 'Open a form to create a new batch',

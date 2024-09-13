@@ -1021,8 +1021,6 @@
   "Edit box parameters": "Редагувати параметри коробки",
   "Save task data": "Зберегти дані завдання",
   "Create new box parameters": "Створити параметри нової коробки",
-  "Add a box to a new or existing batch": "Додати коробку до нової чи існуючої партії",
-  "Move a box from the current batch to another": "Перемістити коробку з поточної партії в іншу",
   "After confirmation it will be impossible to return the batch": "Після підтвердження повернути партію буде неможливо",
   "Add/remove a box or files to a batch": "Додати/видалити коробку або файли до партії",
   "Open a form to create a new batch": "Відкрити форму для створення нової партії",

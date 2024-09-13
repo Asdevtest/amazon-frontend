@@ -5,7 +5,7 @@ import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-s
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
@@ -97,9 +97,9 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
           />
         )}
 
-        <Button disabled={disableSeeResultButton /* || !proposals?.length */} onClick={onClickResultButton}>
+        <CustomButton type="primary" size="small" disabled={disableSeeResultButton} onClick={onClickResultButton}>
           {t(TranslationKey['See result'])}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )
