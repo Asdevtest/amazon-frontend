@@ -1,5 +1,3 @@
-import { ReactNode } from 'react'
-
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 export interface ActionButtonsCellProps {
@@ -27,9 +25,9 @@ export interface ActionButtonsCellProps {
   disabledFirstButton?: boolean
   disabledSecondButton?: boolean
   disabledThirdButton?: boolean
-  firstDescriptionText?: ReactNode
-  secondDescriptionText?: ReactNode
-  thirdDescriptionText?: ReactNode
+  firstDescriptionText?: string
+  secondDescriptionText?: string
+  thirdDescriptionText?: string
   onClickFirstButton?: () => void
   onClickSecondButton?: () => void
   onClickThirdButton?: () => void
