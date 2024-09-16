@@ -116,11 +116,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
               wrapperClassName={styles.input}
             />
           </Form.Item>
-          <Form.Item<FieldType>
-            name="spreadsheetsIdPerformance"
-            className={styles.field}
-            rules={[{ required: !isEditMode, message: '' }]}
-          >
+          <Form.Item<FieldType> name="spreadsheetsIdPerformance" className={styles.field}>
             <CustomInput
               allowClear
               required={!isEditMode}
@@ -129,11 +125,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
               wrapperClassName={styles.input}
             />
           </Form.Item>
-          <Form.Item<FieldType>
-            name="spreadsheetsIdImport"
-            className={styles.field}
-            rules={[{ required: !isEditMode, message: '' }]}
-          >
+          <Form.Item<FieldType> name="spreadsheetsIdImport" className={styles.field}>
             <CustomInput
               allowClear
               required={!isEditMode}
@@ -142,11 +134,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
               wrapperClassName={styles.input}
             />
           </Form.Item>
-          <Form.Item<FieldType>
-            name="spreadsheetsIdMain"
-            className={styles.field}
-            rules={[{ required: !isEditMode, message: '' }]}
-          >
+          <Form.Item<FieldType> name="spreadsheetsIdMain" className={styles.field}>
             <CustomInput
               allowClear
               required={!isEditMode}
