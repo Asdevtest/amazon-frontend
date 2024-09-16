@@ -118,7 +118,7 @@ export const ResearcherAddProductFormRaw = observer(
               type="primary"
               size="large"
               disabled={errorMsg || formFields.strategyStatus < 10}
-              onClick={throttle(onClickCheckAndAddProductBtn)}
+              onClick={throttle(onClickCheckAndAddProductBtn)} //* needs work
             >
               {t(TranslationKey['Add a product card'])}
             </CustomButton>
