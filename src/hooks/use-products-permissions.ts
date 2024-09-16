@@ -25,6 +25,7 @@ export interface IPermissionsData {
   humanFriendlyId?: string
   name?: string
   allowedSpec?: ISpec[]
+  email?: string
 }
 
 /*
