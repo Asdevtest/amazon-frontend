@@ -27,11 +27,11 @@ export const useStyles = makeStyles()(theme => ({
       width: '100%',
 
       '& > ul:nth-of-type(1)': {
-        width: '180px',
+        width: '250px',
       },
 
       '& > ul:nth-of-type(2)': {
-        width: '650px',
+        width: '580px',
       },
     },
   },

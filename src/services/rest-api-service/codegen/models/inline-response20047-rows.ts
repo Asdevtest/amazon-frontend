@@ -135,12 +135,6 @@ export interface InlineResponse20047Rows {
     product?: InlineResponse20047Product;
     /**
      * 
-     * @type {InlineResponse20017VariationTariff}
-     * @memberof InlineResponse20047Rows
-     */
-    variationTariff?: InlineResponse20017VariationTariff;
-    /**
-     * 
      * @type {InlineResponse20047LogicsTariff}
      * @memberof InlineResponse20047Rows
      */

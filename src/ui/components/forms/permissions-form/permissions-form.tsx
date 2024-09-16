@@ -58,8 +58,8 @@ export const PermissionsForm: FC<PermissionsFormPorps> = observer(props => {
           multiple
           options={viewModel.shopsOptions}
           className={styles.cascaderPanel}
-          // value={viewModel.currentPermissionOptions}
-          // onChange={viewModel.onChangePermissionOptions}
+          value={viewModel.currentProductOptions}
+          onChange={viewModel.onChangeProductsOptions}
         />
       )}
 

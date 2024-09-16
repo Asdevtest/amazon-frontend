@@ -14,6 +14,7 @@ import { isClient, isFreelancer } from '@typings/guards/roles'
 import { IPermission } from '@typings/models/permissions/permission'
 import { IPermissionGroup } from '@typings/models/permissions/permission-group'
 import { IPermissions } from '@typings/models/permissions/permissions'
+import { IProduct } from '@typings/models/products/product'
 import { IFullUser } from '@typings/shared/full-user'
 import { ISpec } from '@typings/shared/spec'
 
@@ -29,7 +30,10 @@ export class PermissionsFormModel {
   selectedSpecs: Specs[][] = []
   shops: any[] = []
   products: any[] = []
+  allProductsCount = 0
+  selectedProductsCount = 0
   currentPermissionOptions: string[][] = []
+  currentProductOptions: string[][] = []
   subUser?: IFullUser
 
   get userInfo() {
@@ -68,22 +72,24 @@ export class PermissionsFormModel {
     return isFreelancer(this.userInfo?.role)
   }
   get shopsOptions() {
-    const mainOptions = this.shops.slice(0, 2000).map(item => ({
+    const mainOptions = this.shops.map(item => ({
       label: item.name,
       value: item._id,
       children: item.products.map((el: any) => ({
         label: el.amazonTitle,
         value: el._id,
+        selected: el.selected,
       })),
     }))
     const extraOption =
       this.products.length > 0
         ? {
-            label: 'Без группы', // t(TranslationKey['Without the group']),
+            label: `Без группы (${this.selectedProductsCount}/${this.allProductsCount})`, // t(TranslationKey['Without the group']),
             value: 'WITHOUT_GROUP',
             children: this.products.map(el => ({
               label: el.amazonTitle,
               value: el._id,
+              selected: el.selected,
             })),
           }
         : null
@@ -105,12 +111,29 @@ export class PermissionsFormModel {
       return
     }
 
-    const responseProducts = await PermissionsModel.getProductsPermissionsForUserById(this.subUser?._id)
-    const responseShops = await PermissionsModel.getPermissionsShopsByGuid(this.subUser?._id)
+    const responseProducts: any = await PermissionsModel.getProductsPermissionsForUserByIdV2(this.subUser?._id)
+    const responseShops: any = await PermissionsModel.getPermissionsShopsByGuidV2(this.subUser?._id)
 
     runInAction(() => {
-      this.products = responseProducts
-      this.shops = responseShops
+      this.products = responseProducts?.rows
+      this.allProductsCount = responseProducts?.count
+      this.selectedProductsCount = responseProducts.rows?.reduce(
+        (acc: number, el: IProduct) => acc + Number(el.selected),
+        0,
+      )
+      this.shops = responseShops.rows
+
+      this.shopsOptions.forEach(el => {
+        if (el.children?.length === 0) {
+          this.currentProductOptions.push([el.value])
+        } else {
+          el.children?.forEach((item: any) => {
+            if (item.selected) {
+              this.currentProductOptions.push([el.value, item.value])
+            }
+          })
+        }
+      })
     })
   }
 
@@ -120,6 +143,10 @@ export class PermissionsFormModel {
 
   onChangePermissionOptions(value: string[][]) {
     this.currentPermissionOptions = value
+  }
+
+  onChangeProductsOptions(value: string[][]) {
+    this.currentProductOptions = value
   }
 
   onChangeSpecs(value: Specs[][]) {
