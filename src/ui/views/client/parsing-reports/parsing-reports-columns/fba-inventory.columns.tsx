@@ -165,16 +165,6 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'currency',
-      headerName: 'Currency',
-      renderHeader: () => <MultilineTextHeaderCell text="Currency" />,
-
-      renderCell: params => <Text isCell text={params.value} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
-    },
-
-    {
       field: 'unitsShippedT7',
       headerName: 'Units shipped T7',
       renderHeader: () => <MultilineTextHeaderCell text="Units shipped T7" />,
