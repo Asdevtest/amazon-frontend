@@ -1,3 +1,4 @@
+import { Avatar } from 'antd'
 import { FC, memo } from 'react'
 import { RiShareForwardFill } from 'react-icons/ri'
 
@@ -119,7 +120,7 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
                     underline="none"
                   >
                     <div className={styles.opponentWrapper}>
-                      <img src={getUserAvatarSrc(currentOpponent?._id)} className={styles.avatar} alt="avatar" />
+                      <Avatar src={getUserAvatarSrc(currentOpponent?._id)} alt="avatar" size={40} />
                       <div>
                         <p className={styles.opponentName}>{currentOpponent?.name}</p>
                         {isOnlineUser ? (
@@ -139,7 +140,7 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
             ) : (
               <>
                 <div className={styles.opponentWrapper}>
-                  <img src={getAmazonImageUrl(currentChat?.info?.image)} className={styles.avatar} />
+                  <Avatar src={getAmazonImageUrl(currentChat?.info?.image)} alt="avatar" size={40} />
                   <div>
                     <p className={styles.opponentName}>{currentChat?.info?.title}</p>
                     <p className={styles.usersCount}>{`${currentChat?.users?.length} ${t(
