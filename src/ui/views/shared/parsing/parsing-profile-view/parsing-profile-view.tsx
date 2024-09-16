@@ -92,6 +92,7 @@ export const ParsingProdileView = observer(() => {
               handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
               handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
               onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+              onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
             },
           },
         }}
