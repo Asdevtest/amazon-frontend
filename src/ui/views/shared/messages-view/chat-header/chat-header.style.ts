@@ -103,17 +103,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  avatar: {
-    width: 40,
-    height: 40,
-    cursor: 'pointer',
-    transition: '.3s ease',
-    borderRadius: '50%',
-    '&:hover': {
-      opacity: '0.8',
-    },
-  },
-
   opponentName: {
     maxWidth: 200,
     fontSize: 18,
