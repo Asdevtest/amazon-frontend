@@ -2,12 +2,22 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   chatHeader: {
-    position: 'relative',
+    padding: '10px',
+    gap: '10px',
     height: 178,
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: theme.palette.background.general,
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
 
     [theme.breakpoints.down(768)]: {
       height: 143,
     },
+  },
+
+  chatAvatarWrapper: {
+    aspectRatio: '1 / 1',
+    height: '100%',
   },
 
   headerSavedChat: {
@@ -28,47 +38,46 @@ export const useStyles = makeStyles()(theme => ({
     height: '100px !important',
   },
 
-  chatHeaderOverlay: {
-    position: 'absolute',
-    maxHeight: '100%',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    background: 'linear-gradient(to bottom, transparent 65%, rgba(0, 0, 0, 0.7) 100%)',
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '8px 10px',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-end',
-    width: '100%',
-    height: '100%',
-  },
-
   chatTitle: {
     width: '100%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    color: '#fff',
-    fontSize: 18,
-    lineHeight: '25px',
-    fontWeight: 600,
+    fontWeight: 500,
   },
 
   chatSubTitle: {
-    color: '#fff',
+    color: theme.palette.text.second,
     fontSize: 12,
-    lineHeight: '16px',
   },
 
-  pencilEditIcon: {
-    transition: '.3s ease',
-    cursor: 'pointer',
-    alignSelf: 'flex-end',
-    marginTop: '-24px',
+  chatHeaderContent: {
+    overflow: 'hidden',
+    flex: 1,
+    display: 'flex',
+    gap: '10px',
+  },
 
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
+  chatInfoTitle: {
+    fontSize: 18,
+    fontWeight: 600,
+  },
+
+  chatInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+  },
+
+  chatTitleWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  chatInfoHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 }))

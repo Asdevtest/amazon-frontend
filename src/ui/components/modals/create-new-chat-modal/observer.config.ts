@@ -7,7 +7,9 @@ export const observerConfig = {
   closeModalMethod: observable,
 
   disableCreateButton: computed,
-  isNoChanges: computed,
+  isChatNameNotChanged: computed,
+  isChatImageNotChanged: computed,
+  isChatUsersNotChanged: computed,
 
   onSelectUser: action.bound,
   onDeselectUser: action.bound,
@@ -18,4 +20,8 @@ export const observerConfig = {
   onClickCreateChat: action.bound,
   uploadChatImage: action.bound,
   getChatUsers: action.bound,
+  onSubmitPatchInfoGroupChat: action.bound,
+  addUsersToGroupChat: action.bound,
+  removeUsersFromGroupChat: action.bound,
+  getUsersToAddAndRemove: action.bound,
 }

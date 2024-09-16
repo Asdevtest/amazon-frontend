@@ -3,7 +3,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-import { ChangeEvent, FC, KeyboardEvent, ReactElement, memo, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, FC, KeyboardEvent, ReactElement, memo, useCallback, useEffect, useRef, useState } from 'react'
+import { FaArrowLeft } from 'react-icons/fa'
 import { MdKeyboardArrowDown, MdMoreVert } from 'react-icons/md'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 import { VirtuosoHandle } from 'react-virtuoso'
@@ -21,6 +22,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { Button } from '@components/shared/button'
 import { CircleSpinner } from '@components/shared/circle-spinner'
+import { CustomButton } from '@components/shared/custom-button'
 import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared/svg-icons'
 
 import { checkIsExternalVideoLink } from '@utils/checks'
@@ -66,7 +68,6 @@ interface ChatProps {
     messagesToForward?: ChatMessageContract[],
   ) => void
   onTypingMessage: (chatId: string) => void
-  onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
   selectedMessages?: string[]
@@ -89,7 +90,6 @@ export const Chat: FC<ChatProps> = memo(
     onSubmitMessage,
     renderAdditionalButtons,
     onTypingMessage,
-    onClickAddUsersToGroupChat,
     onRemoveUsersFromGroupChat,
     onClickEditGroupChatInfo,
     isFreelanceOwner,
@@ -238,6 +238,9 @@ export const Chat: FC<ChatProps> = memo(
       }
     }
 
+    const onClickOpenChatInfo = useCallback(() => setIsShowChatInfo(true), [])
+    const onClickCloseChatInfo = useCallback(() => setIsShowChatInfo(false), [])
+
     useEffect(() => {
       if (isSendTypingPossible && message) {
         onTypingMessage(chat?._id)
@@ -315,19 +318,18 @@ export const Chat: FC<ChatProps> = memo(
               currentOpponent={currentOpponent}
               isGroupChat={isGroupChat}
               userId={userId}
-              onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
               onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
               onClickEditGroupChatInfo={onClickEditGroupChatInfo}
+              onClickCloseChatInfo={onClickCloseChatInfo}
             />
           )}
 
-          <div className={styles.hideAndShowIconWrapper} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
-            {isShowChatInfo ? (
-              <HideArrowIcon className={cx(styles.arrowIcon, styles.hideArrow)} />
-            ) : (
-              <MdMoreVert size={22} className={styles.arrowIcon} />
-            )}
-          </div>
+          {isShowChatInfo ? null : (
+            <div className={styles.hideAndShowIconWrapper}>
+              <CustomButton icon={<FaArrowLeft />} onClick={onClickOpenChatInfo} />
+              {/* {isShowChatInfo ? <HideArrowIcon className={cx(styles.arrowIcon, styles.hideArrow)} /> : null} */}
+            </div>
+          )}
 
           {isShowScrollToBottomBtn && (
             <div

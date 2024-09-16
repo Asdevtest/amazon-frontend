@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
+import { chatsType } from '@constants/keys/chats'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
@@ -41,6 +42,7 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
           maxTagCount="responsive"
           label="Users"
           placeholder="Choose your speaker"
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           className={styles.userSelect}
           options={viewModel.currentData}
           value={viewModel.selectedUsersId}
@@ -52,7 +54,7 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
         />
       </div>
 
-      {viewModel.selectedUsersId?.length > 1 ? (
+      {viewModel.selectedUsersId?.length > 1 || viewModel.chatToEdit?.type === chatsType.GROUP ? (
         <>
           <CustomInput
             required
@@ -76,9 +78,12 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
         size="large"
         type="primary"
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        disabled={viewModel.disableCreateButton || viewModel.isNoChanges}
+        disabled={
+          viewModel.disableCreateButton ||
+          (viewModel.isChatNameNotChanged && viewModel.isChatImageNotChanged && viewModel.isChatUsersNotChanged)
+        }
         wrapperClassName={styles.createButton}
-        onClick={viewModel.onClickCreateChat}
+        onClick={chatToEdit ? viewModel.onSubmitPatchInfoGroupChat : viewModel.onClickCreateChat}
       >
         {t(TranslationKey[chatToEdit ? 'Save' : 'Create'])}
       </CustomButton>

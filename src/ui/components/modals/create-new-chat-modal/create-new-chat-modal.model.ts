@@ -44,15 +44,21 @@ export class CreateNewChatModalModel extends DefaultModel {
     }
   }
 
-  get isNoChanges() {
+  get isChatNameNotChanged() {
     if (this.chatToEdit) {
-      const chatUsers = this.getChatUsers(this.chatToEdit?.users)
+      return this.chatName === this.chatToEdit?.info?.title
+    }
+  }
 
-      return (
-        this.chatName === this.chatToEdit?.info?.title &&
-        this.chatImage === this.chatToEdit?.info?.image &&
-        isEqual(this.selectedUsersId, chatUsers)
-      )
+  get isChatImageNotChanged() {
+    if (this.chatToEdit) {
+      return this.chatImage === getAmazonImageUrl(this.chatToEdit?.info?.image, true)
+    }
+  }
+
+  get isChatUsersNotChanged() {
+    if (this.chatToEdit) {
+      return isEqual(this.selectedUsersId, this.getChatUsers(this.chatToEdit?.users))
     }
   }
 
@@ -121,7 +127,7 @@ export class CreateNewChatModalModel extends DefaultModel {
       await ChatsModel.createSimpleGroupChat({
         userIds: this.selectedUsersId,
         title: this.chatName,
-        image,
+        image: image as string,
       })
 
       this.closeModalMethod()
@@ -132,21 +138,71 @@ export class CreateNewChatModalModel extends DefaultModel {
     }
   }
 
-  // async onSubmitPatchInfoGroupChat(state, sourceState) {
-  //   try {
-  //     this.onTriggerOpenModal('showEditGroupChatInfoModal')
+  async onSubmitPatchInfoGroupChat() {
+    this.getUsersToAddAndRemove()
 
-  //     const imageIsNeedChange = state.preview !== sourceState.preview && state.preview
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+      const { usersToAdd, usersToRemove } = this.getUsersToAddAndRemove()
 
-  //     await ChatModel.patchInfoGroupChat({
-  //       chatId: this.chatSelectedId,
-  //       title: state.title,
-  //       image: imageIsNeedChange ? this.readyImages[0] : state.preview,
-  //     })
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
+      if (usersToAdd?.length) {
+        await this.addUsersToGroupChat(usersToAdd)
+      }
+
+      if (usersToRemove?.length) {
+        await this.removeUsersFromGroupChat(usersToRemove)
+      }
+
+      if (!this.isChatNameNotChanged || !this.isChatImageNotChanged) {
+        await this.patchGroupChatInfo()
+      }
+
+      this.closeModalMethod()
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatus.SUCCESS)
+      console.error(error)
+    }
+  }
+
+  async addUsersToGroupChat(users: string[]) {
+    try {
+      await ChatModel.addUsersToGroupChat({ chatId: this.chatToEdit?._id as string, users })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async removeUsersFromGroupChat(users: string[]) {
+    try {
+      await ChatModel.removeUsersFromGroupChat({ chatId: this.chatToEdit?._id as string, users })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async patchGroupChatInfo() {
+    let image = this.chatToEdit?.info?.image
+
+    if (!this.isChatImageNotChanged) {
+      image = await this.uploadChatImage(this.chatImage)
+    }
+
+    await ChatModel.patchInfoGroupChat({
+      chatId: this.chatToEdit?._id as string,
+      title: this.chatName,
+      image: image as string,
+    })
+  }
+
+  getUsersToAddAndRemove() {
+    const originalUsers = this.getChatUsers(this.chatToEdit?.users as ChatUserContract[])
+
+    const usersToAdd = this.selectedUsersId?.filter(userId => !originalUsers.includes(userId))
+    const usersToRemove = originalUsers.filter(userId => !this.selectedUsersId?.includes(userId))
+
+    return { usersToAdd, usersToRemove }
+  }
 
   async uploadChatImage(image: UploadFileType) {
     try {

@@ -27,6 +27,9 @@ export const useStyles = makeStyles()(theme => ({
     flex: '1 1 auto',
     overflowY: 'auto',
     padding: '0 10px',
+
+    backgroundColor: theme.palette.background.general,
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
   },
 
   imageList: {
@@ -81,5 +84,15 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 7,
+  },
+
+  customSwitcher: {
+    padding: '10px 0',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    backgroundColor: theme.palette.background.general,
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
   },
 }))

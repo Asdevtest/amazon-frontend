@@ -65,7 +65,6 @@ interface MultipleChatsProps {
   onClickChat: (chat: ChatContract) => void
   onTypingMessage: (chatId: string) => void
   onClickBackButton: () => void
-  onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
   onToggleMuteCurrentChat: () => void
@@ -95,7 +94,6 @@ export const MultipleChats = observer(
         renderAdditionalButtons,
         onTypingMessage,
         currentOpponent,
-        onClickAddUsersToGroupChat,
         onRemoveUsersFromGroupChat,
         onClickEditGroupChatInfo,
         onToggleMuteCurrentChat,
@@ -198,7 +196,6 @@ export const MultipleChats = observer(
                   onSubmitMessage(message, files, chatSelectedId as string, replyMessageId)
                 }
                 onTypingMessage={onTypingMessage}
-                onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
                 onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
                 onClickEditGroupChatInfo={onClickEditGroupChatInfo}
               />

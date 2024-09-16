@@ -22,9 +22,7 @@ export class MessagesViewModel {
 
   showCreateNewChatModal = false
 
-  showAddNewChatByEmailModal = false
   showAddUsersToGroupChatModal = false
-  showEditGroupChatInfoModal = false
   showForwardMessagesModal = false
 
   nameSearchValue = ''
@@ -140,43 +138,8 @@ export class MessagesViewModel {
     }
   }
 
-  async onClickAddNewChatByEmail() {
-    try {
-      const res = await ChatsModel.getUsersNames()
-
-      runInAction(() => {
-        this.usersData = res.filter(el => el._id !== this.user._id)
-      })
-
-      this.onTriggerOpenModal('showAddNewChatByEmailModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickAddUsersToGroupChat() {
-    try {
-      const res = await ChatsModel.getUsersNames()
-
-      const currentUsersIdsInCurrentChat =
-        this.simpleChats.find(el => el._id === this.chatSelectedId)?.users.map(el => el._id) || []
-
-      runInAction(() => {
-        this.usersData = res.filter(el => !currentUsersIdsInCurrentChat.includes(el._id) && el._id !== this.user._id)
-      })
-
-      this.onTriggerOpenModal('showAddUsersToGroupChatModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   onClickCreateChatModal() {
     this.onTriggerOpenModal('showCreateNewChatModal', true)
-  }
-
-  onClickEditGroupChatInfo() {
-    this.onTriggerOpenModal('showEditGroupChatInfoModal')
   }
 
   async onSubmitAddUsersToGroupChat(users) {
@@ -192,59 +155,6 @@ export class MessagesViewModel {
   async onRemoveUsersFromGroupChat(usersIds) {
     try {
       await ChatModel.removeUsersFromGroupChat({ chatId: this.chatSelectedId, users: usersIds })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onSubmitPatchInfoGroupChat(state, sourceState) {
-    try {
-      this.onTriggerOpenModal('showEditGroupChatInfoModal')
-
-      const imageIsNeedChange = state.preview !== sourceState.preview && state.preview
-
-      if (imageIsNeedChange) {
-        const file = dataURLtoFile(state.preview, this.user._id)
-
-        await onSubmitPostImages.call(this, { images: [{ file }], type: 'readyImages' })
-      }
-
-      await ChatModel.patchInfoGroupChat({
-        chatId: this.chatSelectedId,
-        title: state.title,
-        image: imageIsNeedChange ? this.readyImages[0] : state.preview,
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onSubmitAddNewChat(formFields) {
-    try {
-      if (formFields.chosenUsers.length === 1) {
-        const existedChatsUsers = this.simpleChats.reduce(
-          (acc, cur) => acc.concat(cur.users.length === 2 ? cur.users.map(user => user._id) : []),
-          [],
-        )
-
-        if (existedChatsUsers.includes(formFields.chosenUsers[0]?._id)) {
-          toast.warning(t(TranslationKey['Such dialogue already exists']))
-        } else {
-          await ChatsModel.createSimpleChatByUserId(formFields.chosenUsers[0]?._id)
-        }
-      } else {
-        if (formFields.images.length) {
-          await onSubmitPostImages.call(this, { images: formFields.images, type: 'readyImages' })
-        }
-
-        await ChatsModel.createSimpleGroupChat({
-          userIds: formFields.chosenUsers.map(el => el._id),
-          title: formFields.title,
-          image: this.readyImages[0] || '',
-        })
-      }
-
-      this.onTriggerOpenModal('showAddNewChatByEmailModal')
     } catch (error) {
       console.error(error)
     }

@@ -11,7 +11,6 @@ import { ChatModel } from '@models/chat-model'
 import { Chat } from '@components/chat/chat'
 import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
 import { ChatsList } from '@components/chat/chats-list'
-import { EditGroupChatInfoForm } from '@components/forms/edit-group-chat-info-form'
 import { ForwardMessagesForm } from '@components/forms/forward-messages-form'
 import { CreateNewChatModal } from '@components/modals/create-new-chat-modal'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
@@ -220,7 +219,6 @@ export const MessagesView = observer(({ history }) => {
               viewModel.onSubmitMessage(message, files, viewModel.chatSelectedId, replyMessageId, messagesToForward)
             }
             onTypingMessage={viewModel.onTypingMessage}
-            onClickAddUsersToGroupChat={viewModel.onClickAddUsersToGroupChat}
             onRemoveUsersFromGroupChat={viewModel.onRemoveUsersFromGroupChat}
             onClickEditGroupChatInfo={viewModel.onClickCreateChatModal}
           />
@@ -256,17 +254,6 @@ export const MessagesView = observer(({ history }) => {
           closeModal={() => viewModel.onTriggerOpenModal('showAddUsersToGroupChatModal')}
           usersData={viewModel.usersData}
           onSubmit={viewModel.onSubmitAddUsersToGroupChat}
-        />
-      </Modal> */}
-
-      {/* <Modal
-        openModal={viewModel.showEditGroupChatInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
-      >
-        <EditGroupChatInfoForm
-          chat={viewModel.simpleChats.find(el => el._id === viewModel.chatSelectedId)}
-          onSubmit={viewModel.onSubmitPatchInfoGroupChat}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
         />
       </Modal> */}
 
