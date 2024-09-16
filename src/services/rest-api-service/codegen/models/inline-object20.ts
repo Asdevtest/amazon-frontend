@@ -13,56 +13,31 @@
  */
 
 
-import { ApiV1BoxesItems } from './api-v1-boxes-items';
 
 /**
- * Коробка
+ * 
  * @export
  * @interface InlineObject20
  */
 export interface InlineObject20 {
     /**
-     * Сколько таких же коробок в одной коробке
-     * @type {number}
-     * @memberof InlineObject20
-     */
-    amount?: number;
-    /**
-     * true - если создаем черновик заказа.
-     * @type {boolean}
-     * @memberof InlineObject20
-     */
-    isDraft?: boolean;
-    /**
-     * Storage in boxes
+     * Название партии
      * @type {string}
      * @memberof InlineObject20
      */
-    storage?: string;
-    /**
-     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
-     * @type {number}
-     * @memberof InlineObject20
-     */
-    lengthCmSupplier?: number;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineObject20
-     */
-    trackNumberText?: string;
+    title?: string;
     /**
      * Метод подсчта массы партии
      * @type {number}
      * @memberof InlineObject20
      */
-    widthCmSupplier?: number;
+    calculationMethod?: number;
     /**
-     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+     * Делитель объема партии
      * @type {number}
      * @memberof InlineObject20
      */
-    heightCmSupplier?: number;
+    volumeWeightDivide?: number;
     /**
      * Трек номер партии
      * @type {string}
@@ -74,109 +49,7 @@ export interface InlineObject20 {
      * @type {number}
      * @memberof InlineObject20
      */
-    weighGrossKgSupplier?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineObject20
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineObject20
-     */
-    widthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineObject20
-     */
-    heightCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineObject20
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineObject20
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineObject20
-     */
-    clientComment?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineObject20
-     */
-    referenceId?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineObject20
-     */
-    storekeeperComment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject20
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject20
-     */
-    fbaNumber?: string;
-    /**
-     * Массив коробок.
-     * @type {Array<ApiV1BoxesItems>}
-     * @memberof InlineObject20
-     */
-    items: Array<ApiV1BoxesItems>;
-    /**
-     * Массив ссылок на фотографии.
-     * @type {Array<string>}
-     * @memberof InlineObject20
-     */
-    images?: Array<string>;
-    /**
-     * destination GUID 
-     * @type {string}
-     * @memberof InlineObject20
-     */
-    destinationId?: string;
-    /**
-     * GUID тарифа доставки 
-     * @type {string}
-     * @memberof InlineObject20
-     */
-    logicsTariffId?: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject20
-     */
-    variationTariffId?: string;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineObject20
-     */
-    prepId?: string;
-    /**
-     * GUID сторкипера
-     * @type {string}
-     * @memberof InlineObject20
-     */
-    storekeeperId?: string;
+    actualShippingCost?: number;
 }
 
 

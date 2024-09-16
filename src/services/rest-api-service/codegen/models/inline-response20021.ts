@@ -27,7 +27,13 @@ import { InlineResponse20019VariationTariff } from './inline-response20019-varia
  */
 export interface InlineResponse20021 {
     /**
-     * Count of rows
+     * GUID коробки.
+     * @type {string}
+     * @memberof InlineResponse20021
+     */
+    _id?: string;
+    /**
+     * Номер коробки.
      * @type {number}
      * @memberof InlineResponse20021
      */
@@ -94,7 +100,7 @@ export interface InlineResponse20021 {
     trackNumberText?: string;
     /**
      * 
-     * @type {Array<InlineResponse20020>}
+     * @type {Array<string>}
      * @memberof InlineResponse20021
      */
     trackNumberFile?: Array<string>;

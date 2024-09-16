@@ -13,17 +13,19 @@
  */
 
 
-import globalAxios, { AxiosInstance, AxiosPromise } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, createRequestFunction, serializeDataIfNeeded, setApiKeyToObject, setSearchParams, toPathString } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, BaseAPI, RequestArgs, RequiredError } from '../base';
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
 import { ApiV1AdminsOrdersDestination } from '../models';
 // @ts-ignore
+import { BadRequestError } from '../models';
 // @ts-ignore
+import { ConflictInTheState } from '../models';
 // @ts-ignore
 import { InlineObject1 } from '../models';
 // @ts-ignore
@@ -105,7 +107,9 @@ import { InlineResponse2015 } from '../models';
 // @ts-ignore
 import { InlineResponse2016 } from '../models';
 // @ts-ignore
+import { InternalServerError } from '../models';
 // @ts-ignore
+import { NotFoundError } from '../models';
 /**
  * ClientApi - axios parameter creator
  * @export

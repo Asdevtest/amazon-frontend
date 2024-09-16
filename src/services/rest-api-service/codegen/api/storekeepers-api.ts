@@ -13,19 +13,23 @@
  */
 
 
-import globalAxios, { AxiosInstance, AxiosPromise } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, createRequestFunction, serializeDataIfNeeded, setApiKeyToObject, setSearchParams, toPathString } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, BaseAPI, RequestArgs, RequiredError } from '../base';
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
 import { ApiV1AdminsOrdersLogicsTariff } from '../models';
 // @ts-ignore
+import { ApiV1BatchesBoxes } from '../models';
+// @ts-ignore
 import { ApiV1StorekeepersTariffWarehouses } from '../models';
 // @ts-ignore
+import { BadRequestError } from '../models';
 // @ts-ignore
+import { ConflictInTheState } from '../models';
 // @ts-ignore
 import { InlineObject127 } from '../models';
 // @ts-ignore
@@ -63,7 +67,9 @@ import { InlineResponse2006 } from '../models';
 // @ts-ignore
 import { InlineResponse2016 } from '../models';
 // @ts-ignore
+import { InternalServerError } from '../models';
 // @ts-ignore
+import { NotFoundError } from '../models';
 /**
  * StorekeepersApi - axios parameter creator
  * @export
@@ -1631,7 +1637,7 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersBoxesGet(noCache?: boolean, offset?: number, limit?: number, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20016Rows>>> {
+        async apiV1StorekeepersBoxesGet(noCache?: boolean, offset?: number, limit?: number, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesBoxes>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersBoxesGet(noCache, offset, limit, sortField, sortType, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2056,7 +2062,7 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersBoxesGet(noCache?: boolean, offset?: number, limit?: number, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20016Rows>> {
+        apiV1StorekeepersBoxesGet(noCache?: boolean, offset?: number, limit?: number, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesBoxes>> {
             return localVarFp.apiV1StorekeepersBoxesGet(noCache, offset, limit, sortField, sortType, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
