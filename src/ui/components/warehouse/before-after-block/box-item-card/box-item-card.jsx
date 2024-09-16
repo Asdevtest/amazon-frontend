@@ -7,6 +7,7 @@ import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
+import { Text } from '@components/shared/text'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
@@ -279,7 +280,7 @@ export const BoxItemCard = ({
                 <div className={styles.copyValueWrapper}>
                   <div className={styles.asinWrapper}>
                     <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
-                    <Typography className={styles.asinTitle}>{item.product?.asin}</Typography>
+                    <Text className={styles.asinTitle} copyable={false} text={item.product?.asin} />
                     {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
                   </div>
                 </div>
@@ -415,7 +416,7 @@ export const BoxItemCard = ({
           </div>
           <div className={styles.asinWrapper}>
             <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
-            <Typography className={styles.asinTitle}>{item.product?.asin}</Typography>
+            <Text className={styles.asinTitle} copyable={false} text={item.product?.asin} />
           </div>
           <Typography className={styles.title}>{item.product?.amazonTitle}</Typography>
         </div>
