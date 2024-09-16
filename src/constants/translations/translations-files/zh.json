@@ -1017,8 +1017,6 @@
   "Edit box parameters": "编辑箱子参数",
   "Save task data": "保存任务数据",
   "Create new box parameters": "创建新箱子的参数",
-  "Add a box to a new or existing batch": "将箱子添加到新批次或有的批此",
-  "Move a box from the current batch to another": "将箱子从当前批次移动到别的批次",
   "After confirmation it will be impossible to return the batch": "确认后，无法返回批次",
   "Add/remove a box or files to a batch": "将文档或箱子添加/删除到批次",
   "Open a form to create a new batch": "打开创建新批次的窗体",

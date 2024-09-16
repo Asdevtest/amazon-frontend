@@ -5,12 +5,13 @@ import { FiPlus } from 'react-icons/fi'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IdeaRequestCard } from '@components/cards/idea-view-and-edit-card/idea-request-card'
-import { CustomButton } from '@components/shared/custom-button'
 
 import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { useStyles } from './idea-requests.style'
+
+import { ActionButtonsCell } from '../action-buttons-cell/action-buttons-cell'
 
 interface IdeaRequestsProps {
   row: any
@@ -47,33 +48,34 @@ export const IdeaRequestsCell: FC<IdeaRequestsProps> = memo(props => {
   }, [row?.requestsOnCheck, row?.requestsOnFinished])
 
   return (
-    <div className={styles.ideaRequestsWrapper}>
-      {requests?.map((request: any, requestIndex: number) => {
-        return (
-          <IdeaRequestCard
-            key={requestIndex}
-            requestTitle={request.spec?.title}
-            requestId={request.humanFriendlyId}
-            requestStatus={request.status}
-            executor={request.executor}
-            disableSeeResultButton={
-              !request?.proposals?.some((proposal: any) => checkIsValidProposalStatusToShowResoult(proposal.status))
-            }
-            onClickRequestId={() => onClickRequestId(request._id)}
-            onClickResultButton={() => onClickResultButton(request)}
-            onClickUnbindButton={() => onClickUnbindButton(request._id)}
-          />
-        )
-      })}
+    <div className={styles.root}>
+      {requests?.map((request: any, requestIndex: number) => (
+        <IdeaRequestCard
+          key={requestIndex}
+          requestTitle={request.spec?.title}
+          requestId={request.humanFriendlyId}
+          requestStatus={request.status}
+          executor={request.executor}
+          disableSeeResultButton={
+            !request?.proposals?.some((proposal: any) => checkIsValidProposalStatusToShowResoult(proposal.status))
+          }
+          onClickRequestId={() => onClickRequestId(request._id)}
+          onClickResultButton={() => onClickResultButton(request)}
+          onClickUnbindButton={() => onClickUnbindButton(request._id)}
+        />
+      ))}
+
       {!withoutControls && (
-        <div className={styles.ideaRequestsControls}>
-          <CustomButton type="primary" size="small" icon={<FiPlus size={16} />} onClick={onClickCreateRequest}>
-            {t(TranslationKey['Create request'])}
-          </CustomButton>
-          <CustomButton type="primary" size="small" onClick={onClickLinkRequest}>
-            {t(TranslationKey['Link request'])}
-          </CustomButton>
-        </div>
+        <ActionButtonsCell
+          showFirst
+          showSecond
+          block={false}
+          firstContent={t(TranslationKey['Create request'])}
+          firstIcon={<FiPlus size={16} />}
+          secondContent={t(TranslationKey['Link request'])}
+          onClickFirst={onClickCreateRequest}
+          onClickSecond={onClickLinkRequest}
+        />
       )}
     </div>
   )

@@ -1,11 +1,9 @@
 import { FC, memo } from 'react'
-
-import { Tooltip } from '@mui/material'
+import { MdLocalPrintshop } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
-import { PrintIcon } from '@components/shared/svg-icons'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
@@ -44,17 +42,22 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = mem
 
           {file.fileUrl ? (
             <div className={styles.buttons}>
-              <Tooltip title={file.fileName}>
-                <Button isSmallButton fullWidth isTableButton onClick={() => handleClickOpenNewTab(file.fileUrl)}>
-                  <p className={styles.text}>{file.fileName}</p>
-                </Button>
-              </Tooltip>
+              <CustomButton
+                type="primary"
+                size="small"
+                className={styles.button}
+                onClick={() => handleClickOpenNewTab(file.fileUrl)}
+              >
+                {file.fileName}
+              </CustomButton>
 
-              <div>
-                <Button iconButton onClick={() => handleClickOpenNewTab(file.fileUrl)}>
-                  <PrintIcon />
-                </Button>
-              </div>
+              <CustomButton
+                ghost
+                type="primary"
+                size="small"
+                icon={<MdLocalPrintshop />}
+                onClick={() => handleClickOpenNewTab(file.fileUrl)}
+              />
             </div>
           ) : (
             <p>{t(TranslationKey['Not added'])}</p>

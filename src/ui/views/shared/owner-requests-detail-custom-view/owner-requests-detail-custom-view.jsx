@@ -21,6 +21,7 @@ import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 
 import { toFixedWithDollarSign } from '@utils/text'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
@@ -264,7 +265,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           reviewLabel={t(TranslationKey["Review of the performer's work"])}
           confirmButtonText={t(TranslationKey.Confirm)}
           cancelBtnText={t(TranslationKey.Reject)}
-          onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
+          onSubmit={throttle(viewModel.acceptProposalResultSetting.onSubmit)}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
       ) : null}
