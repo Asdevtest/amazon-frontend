@@ -3,6 +3,7 @@ import { FC, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell } from '@components/data-grid/data-grid-cells'
+import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
@@ -40,17 +41,5 @@ export const ParsingRequestCell: FC<ParsingRequestCellProps> = memo(props => {
   const statusText = status === ProfileRequestStatus.APPROVED ? t(TranslationKey.Approved) : t(TranslationKey.Rejected)
   const color = status === ProfileRequestStatus.APPROVED ? theme.palette.primary.main : theme.palette.text.red
 
-  /* return <Text isCell color={color} text={statusText} /> */
-  return (
-    <ActionButtonsCell
-      isFirstButton
-      isSecondButton
-      firstButtonElement={t(TranslationKey.Approve)}
-      secondButtonElement={t(TranslationKey.Reject)}
-      firstButtonStyle={ButtonStyle.PRIMARY}
-      secondButtonStyle={ButtonStyle.DANGER}
-      onClickFirstButton={onApproveProfile}
-      onClickSecondButton={onRejectProfile}
-    />
-  )
+  return <Text isCell color={color} text={statusText} />
 })
