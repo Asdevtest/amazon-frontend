@@ -261,7 +261,12 @@ export const MessagesView = observer(({ history }) => {
         openModal={viewModel.showForwardMessagesModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showForwardMessagesModal')}
       >
-        <ForwardMessagesForm user={viewModel.user} chats={filteredChats} onClickChat={viewModel.onClickForwardToChat} />
+        <ForwardMessagesForm
+          user={viewModel.user}
+          chats={filteredChats}
+          onClickChat={viewModel.onClickForwardToChat}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showForwardMessagesModal')}
+        />
       </Modal>
     </div>
   )

@@ -20,10 +20,11 @@ interface ForwardMessagesFormProps {
   user: IFullUser
   chats: ChatContract[]
   onClickChat: (chat: ChatContract) => void
+  onCloseModal: () => void
 }
 
 export const ForwardMessagesForm: FC<ForwardMessagesFormProps> = memo(props => {
-  const { user, chats, onClickChat } = props
+  const { user, chats, onClickChat, onCloseModal } = props
   const { classes: styles } = useStyles()
 
   const [nameSearchValue, setNameSearchValue] = useState<string>('')
@@ -68,7 +69,7 @@ export const ForwardMessagesForm: FC<ForwardMessagesFormProps> = memo(props => {
       </div>
 
       <div className={styles.footer}>
-        <CustomButton>{t(TranslationKey.Close)}</CustomButton>
+        <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

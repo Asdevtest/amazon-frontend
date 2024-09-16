@@ -20,12 +20,6 @@ export const useStyles = makeStyles()(theme => ({
     height: '100%',
   },
 
-  headerSavedChat: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
   chatAvatar: {
     width: '100%',
     height: '100%',
@@ -68,11 +62,14 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
+    flex: 1,
+    overflow: 'hidden',
   },
 
   chatTitleWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
   },
 
   chatInfoHeader: {

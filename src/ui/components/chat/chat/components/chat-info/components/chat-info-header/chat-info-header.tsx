@@ -29,7 +29,7 @@ interface Props {
 
 export const ChatInfoHeader: FC<Props> = memo(props => {
   const { chat, currentOpponent, isGroupChat, userId, onClickEditGroupChatInfo, onClickCloseChatInfo } = props
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const isSavedChat = chat.type === chatsType.SAVED
 
@@ -38,8 +38,10 @@ export const ChatInfoHeader: FC<Props> = memo(props => {
       ? getUserAvatarSrc(currentOpponent?._id)
       : getAmazonImageUrl(chat?.info?.image) || '/assets/img/no-photo.jpg'
 
+  const chatInfoTitle = isGroupChat ? chat?.info?.title : currentOpponent?.name
+
   return (
-    <div className={cx(styles.chatHeader, { [styles.headerSavedChat]: isSavedChat })}>
+    <div className={styles.chatHeader}>
       <div className={styles.chatInfoHeader}>
         <p className={styles.chatInfoTitle}>{t(TranslationKey['Chat info'])}</p>
 
@@ -47,36 +49,32 @@ export const ChatInfoHeader: FC<Props> = memo(props => {
       </div>
 
       <div className={styles.chatHeaderContent}>
-        <div className={styles.chatAvatarWrapper}>
-          <CustomAvatar initialUrl={chatAvatar} />
-        </div>
-
-        {isSavedChat ? null : (
-          <div className={styles.chatInfo}>
-            <div className={styles.chatTitleWrapper}>
-              <div>
-                <p className={styles.chatTitle}>{(isGroupChat && chat?.info?.title) || currentOpponent?.name}</p>
-              </div>
-
-              {isGroupChat ? (
-                <p className={styles.chatSubTitle}>
-                  {`${chat?.users?.length} ${t(TranslationKey.Participants).toLocaleLowerCase()}`}
-                </p>
-              ) : null}
-            </div>
-
-            {isGroupChat && userId === chat.info?.createdBy ? (
-              <CustomButton type="primary" icon={<PencilIcon />} onClick={onClickEditGroupChatInfo} />
-            ) : null}
+        {isSavedChat ? (
+          <FavoritesIcon className={styles.favoritesIcon} />
+        ) : (
+          <div className={styles.chatAvatarWrapper}>
+            <CustomAvatar initialUrl={chatAvatar} />
           </div>
         )}
-      </div>
 
-      {/* {isSavedChat ? (
-        <FavoritesIcon className={styles.favoritesIcon} />
-      ) : (
-        <img src={chatAvatar} alt="chat avatar" className={styles.chatAvatar} />
-      )} */}
+        <div className={styles.chatInfo}>
+          <div className={styles.chatTitleWrapper}>
+            <p className={styles.chatTitle} title={chatInfoTitle}>
+              {isSavedChat ? t(TranslationKey.Favorites) : chatInfoTitle}
+            </p>
+
+            {isGroupChat ? (
+              <p className={styles.chatSubTitle}>
+                {`${chat?.users?.length} ${t(TranslationKey.Participants).toLocaleLowerCase()}`}
+              </p>
+            ) : null}
+          </div>
+
+          {isGroupChat && userId === chat.info?.createdBy ? (
+            <CustomButton type="primary" icon={<PencilIcon />} onClick={onClickEditGroupChatInfo} />
+          ) : null}
+        </div>
+      </div>
     </div>
   )
 })
