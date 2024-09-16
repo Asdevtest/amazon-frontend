@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1ProductsKeepaOffers } from './api-v1-products-keepa-offers';
-import { ApiV1ProductsKeepaStats } from './api-v1-products-keepa-stats';
 
 /**
  * 
@@ -24,136 +22,16 @@ import { ApiV1ProductsKeepaStats } from './api-v1-products-keepa-stats';
 export interface InlineResponse20083 {
     /**
      * 
-     * @type {boolean}
-     * @memberof InlineResponse20083
-     */
-    isRecommended?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20083
-     */
-    trackingSince?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20083
-     */
-    lastRatingUpdate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20083
-     */
-    rootCategory?: number;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof InlineResponse20083
-     */
-    categories?: Array<number>;
-    /**
-     * 
      * @type {string}
      * @memberof InlineResponse20083
      */
-    parentAsin?: string;
+    productId?: string;
     /**
-     * 
+     * Гуид магазина
      * @type {string}
      * @memberof InlineResponse20083
      */
-    variationCSV?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse20083
-     */
-    frequentlyBoughtTogether?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20083
-     */
-    manufacturer?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20083
-     */
-    brand?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20083
-     */
-    productGroup?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20083
-     */
-    publicationDate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20083
-     */
-    releaseDate?: number;
-    /**
-     * 
-     * @type {Array<Array<number>>}
-     * @memberof InlineResponse20083
-     */
-    contributors?: Array<Array<number>>;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20083
-     */
-    size?: string;
-    /**
-     * 
-     * @type {object}
-     * @memberof InlineResponse20083
-     */
-    salesRanks?: object;
-    /**
-     * 
-     * @type {Array<ApiV1ProductsKeepaOffers>}
-     * @memberof InlineResponse20083
-     */
-    offers?: Array<ApiV1ProductsKeepaOffers>;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof InlineResponse20083
-     */
-    liveOffersOrder?: Array<number>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse20083
-     */
-    buyBoxSellerIdHistory?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20083
-     */
-    availabilityAmazon?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20083
-     */
-    newPriceIsMAP?: boolean;
-    /**
-     * 
-     * @type {ApiV1ProductsKeepaStats}
-     * @memberof InlineResponse20083
-     */
-    stats?: ApiV1ProductsKeepaStats;
+    shopId?: string;
 }
 
 

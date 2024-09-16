@@ -15,17 +15,29 @@
 
 
 /**
- * 
+ * Схема подтверждения возрата коробок на склад
  * @export
  * @interface InlineObject54
  */
 export interface InlineObject54 {
     /**
-     * Зашита листинга (bool)
-     * @type {boolean}
+     * GUID коробки, который планируем изменить
+     * @type {string}
      * @memberof InlineObject54
      */
-    transparency?: boolean;
+    boxId: string;
+    /**
+     * GUID тарифа, на которую планируем изменить
+     * @type {string}
+     * @memberof InlineObject54
+     */
+    logicsTariffId: string;
+    /**
+     * GUID дестинейшена.
+     * @type {string}
+     * @memberof InlineObject54
+     */
+    destinationId?: string;
 }
 
 

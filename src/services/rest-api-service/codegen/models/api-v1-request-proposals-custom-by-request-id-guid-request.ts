@@ -14,7 +14,7 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { InlineResponse20040RequestSpec } from './inline-response20040-request-spec';
 
 /**
  * 
@@ -54,10 +54,10 @@ export interface ApiV1RequestProposalsCustomByRequestIdGuidRequest {
     createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
-     * @type {ApiV1AnnouncementsMySpec}
+     * @type {InlineResponse20040RequestSpec}
      * @memberof ApiV1RequestProposalsCustomByRequestIdGuidRequest
      */
-    spec?: ApiV1AnnouncementsMySpec;
+    spec?: InlineResponse20040RequestSpec;
 }
 
 

@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tags';
 
 /**
  * 
@@ -21,11 +22,269 @@
  */
 export interface InlineObject50 {
     /**
-     * Сумма воврата
+     * ASIN продукта
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    asin: string;
+    /**
+     * SKU введенным клиентом.
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    skuByClient?: string;
+    /**
+     * GUID поставщика, если передать строку \"clear\" то поставщику будет сброшен (у байера и ресечера).
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    currentSupplierId?: string;
+    /**
+     * Гуид родительского продукта
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    parentProductId?: string;
+    /**
+     * Категория
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    category?: string;
+    /**
+     * Ссылка на этот продукт на амазоне.
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    lamazon?: string;
+    /**
+     * 
      * @type {number}
      * @memberof InlineObject50
      */
-    refundPrice?: number;
+    bsr?: number;
+    /**
+     * Признак fba
+     * @type {boolean}
+     * @memberof InlineObject50
+     */
+    fba?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    amazon?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    height?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    width?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    length?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    weight?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    fbafee?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    fbaamount?: number;
+    /**
+     * Комментарии к товару.
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    icomment?: string;
+    /**
+     * Комментарии к товару, от клиента.
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    clientComment?: string;
+    /**
+     * Массив изображений.
+     * @type {Array<string>}
+     * @memberof InlineObject50
+     */
+    images: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    amazonDescription?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    amazonDetail?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    amazonTitle?: string;
+    /**
+     * Материл продукта
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    material?: string;
+    /**
+     * Применение продукта
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    productUsage?: string;
+    /**
+     * chinese title?
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    chinaTitle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    barCode?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    minpurchase?: number;
+    /**
+     * Прибыль
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    margin?: number;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    strategyStatus?: number;
+    /**
+     * Признак needCheckBySupervisor
+     * @type {boolean}
+     * @memberof InlineObject50
+     */
+    needCheckBySupervisor?: boolean;
+    /**
+     * hsCode продукта.
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    hsCode?: string;
+    /**
+     * Гуид баера, Байер создал идею для продукта. Клиенту понравилась идея, он создал на основе ее карточку.
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    buyerId?: string;
+    /**
+     * Ниша
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    niche?: string;
+    /**
+     * Асины
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    asins?: string;
+    /**
+     * Общий доход
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    totalRevenue?: string;
+    /**
+     * Коэффициент прибыли
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    coefficient?: string;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    avgReviews?: string;
+    /**
+     * Поле для калькуляции дозакупок
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    fourMonthesStock?: number;
+    /**
+     * GUIDы поставщиков продукта
+     * @type {Array<string>}
+     * @memberof InlineObject50
+     */
+    suppliersIds?: Array<string>;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsGuidTags>}
+     * @memberof InlineObject50
+     */
+    tags?: Array<ApiV1ClientsProductsGuidTags>;
 }
 
 

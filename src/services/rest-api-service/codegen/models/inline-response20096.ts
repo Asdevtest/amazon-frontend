@@ -13,26 +13,75 @@
  */
 
 
-import { InlineResponse20096Rows } from './inline-response20096-rows';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1ShopSellStatistics } from './api-v1-shop-sell-statistics';
 
 /**
- * 
+ * Схема получение лайт версии продажи магазина
  * @export
  * @interface InlineResponse20096
  */
 export interface InlineResponse20096 {
     /**
-     * Count of rows
+     * GUID магазина на продажу.
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20096
+     */
+    owner?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Имя магазина для продажи
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    title?: string;
+    /**
+     * Статус магазина для продажи
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    status?: string;
+    /**
+     * Файлы, которые привязаны к магазину
+     * @type {Array<string>}
+     * @memberof InlineResponse20096
+     */
+    files?: Array<string>;
+    /**
+     * Стоимость магазина
      * @type {number}
      * @memberof InlineResponse20096
      */
-    count?: number;
+    price?: number;
     /**
-     * 
-     * @type {Array<InlineResponse20096Rows>}
+     * Ежемесячный множитель
+     * @type {number}
      * @memberof InlineResponse20096
      */
-    rows?: Array<InlineResponse20096Rows>;
+    monthlyMultiplier?: number;
+    /**
+     * 
+     * @type {ApiV1ShopSellStatistics}
+     * @memberof InlineResponse20096
+     */
+    statistics?: ApiV1ShopSellStatistics;
+    /**
+     * Дата создания бизнеса
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    businessStartDate?: string;
+    /**
+     * Детали магазина
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    shopDetails?: string;
 }
 
 

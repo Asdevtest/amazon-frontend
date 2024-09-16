@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1PermissionsShopsGuidProducts } from './api-v1-permissions-shops-guid-products';
 
 /**
  * 
@@ -22,23 +21,11 @@ import { ApiV1PermissionsShopsGuidProducts } from './api-v1-permissions-shops-gu
  */
 export interface InlineResponse20080 {
     /**
-     * ID магазина.
-     * @type {string}
-     * @memberof InlineResponse20080
-     */
-    _id?: string;
-    /**
-     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
-     * @type {string}
-     * @memberof InlineResponse20080
-     */
-    name?: string;
-    /**
      * 
-     * @type {Array<ApiV1PermissionsShopsGuidProducts>}
+     * @type {Array<string>}
      * @memberof InlineResponse20080
      */
-    products?: Array<ApiV1PermissionsShopsGuidProducts>;
+    shopIds?: Array<string>;
 }
 
 

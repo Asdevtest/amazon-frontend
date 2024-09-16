@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 
 /**
  * 
@@ -22,47 +21,53 @@ import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
  */
 export interface InlineResponse20090 {
     /**
-     * GUID заявки
-     * @type {string}
-     * @memberof InlineResponse20090
-     */
-    _id?: string;
-    /**
-     * Номер заявки
+     * Цена за каждое предложение.
      * @type {number}
      * @memberof InlineResponse20090
      */
-    humanFriendlyId?: number;
+    price?: number;
     /**
-     * 
-     * @type {ApiV1AnnouncementsMySpec}
+     * Процент с каждого предложения, маржа платформы, в процентах.
+     * @type {number}
      * @memberof InlineResponse20090
      */
-    spec?: ApiV1AnnouncementsMySpec;
+    requestPlatformMarginInPercent?: number;
     /**
-     * Название заявки
-     * @type {string}
+     * Услуги платформы.
+     * @type {number}
      * @memberof InlineResponse20090
      */
-    title?: string;
+    platformMargin?: number;
     /**
-     * Статус заявки
-     * @type {string}
+     * Процент с каждого предложения для супервайзера, в процентах.
+     * @type {number}
      * @memberof InlineResponse20090
      */
-    status?: string;
+    requestSupervisorFeeInPercent?: number;
     /**
-     * 
-     * @type {string}
+     * Услуги супервайзера.
+     * @type {number}
      * @memberof InlineResponse20090
      */
-    onFinishedIdeaId?: string;
+    supervisorFee?: number;
     /**
-     * 
-     * @type {string}
+     * Сумма.
+     * @type {number}
      * @memberof InlineResponse20090
      */
-    onCheckedIdeaId?: string;
+    unitCost?: number;
+    /**
+     * Количество предложений, не менее.
+     * @type {number}
+     * @memberof InlineResponse20090
+     */
+    maxAmountOfProposals?: number;
+    /**
+     * Итого.
+     * @type {number}
+     * @memberof InlineResponse20090
+     */
+    totalCost?: number;
 }
 
 

@@ -25,13 +25,13 @@ export interface InlineObject40 {
      * @type {Array<string>}
      * @memberof InlineObject40
      */
-    boxIds: Array<string>;
+    userIds: Array<string>;
     /**
-     * 
-     * @type {Array<number>}
+     * Название группового чата
+     * @type {string}
      * @memberof InlineObject40
      */
-    newAmounts: Array<number>;
+    title: string;
 }
 
 

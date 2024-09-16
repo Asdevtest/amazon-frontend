@@ -21,11 +21,11 @@
  */
 export interface InlineObject42 {
     /**
-     * Сформирована ли коробка
-     * @type {boolean}
+     * Массив ссылок для seo-файлов
+     * @type {Array<string>}
      * @memberof InlineObject42
      */
-    isFormed: boolean;
+    latestSeoFiles?: Array<string>;
 }
 
 

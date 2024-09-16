@@ -13,32 +13,34 @@
  */
 
 
-import { InlineResponse20045Rows } from './inline-response20045-rows';
+import { InlineResponse20045Batches } from './inline-response20045-batches';
+import { InlineResponse20045Boxes } from './inline-response20045-boxes';
+import { InlineResponse20045Tasks } from './inline-response20045-tasks';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20045
  */
 export interface InlineResponse20045 {
     /**
-     * Всего кол-во записей в результате запроса
-     * @type {number}
+     * 
+     * @type {InlineResponse20045Tasks}
      * @memberof InlineResponse20045
      */
-    count?: number;
-    /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20045Rows>}
-     * @memberof InlineResponse20045
-     */
-    rows?: Array<InlineResponse20045Rows>;
+    tasks?: InlineResponse20045Tasks;
     /**
      * 
-     * @type {object}
+     * @type {InlineResponse20045Boxes}
      * @memberof InlineResponse20045
      */
-    meta?: object;
+    boxes?: InlineResponse20045Boxes;
+    /**
+     * 
+     * @type {InlineResponse20045Batches}
+     * @memberof InlineResponse20045
+     */
+    batches?: InlineResponse20045Batches;
 }
 
 

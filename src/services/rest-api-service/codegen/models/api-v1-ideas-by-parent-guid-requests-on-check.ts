@@ -14,8 +14,8 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 import { ApiV1IdeasByParentGuidProposals } from './api-v1-ideas-by-parent-guid-proposals';
+import { InlineResponse20040RequestSpec } from './inline-response20040-request-spec';
 
 /**
  * 
@@ -49,10 +49,10 @@ export interface ApiV1IdeasByParentGuidRequestsOnCheck {
     status?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMySpec}
+     * @type {InlineResponse20040RequestSpec}
      * @memberof ApiV1IdeasByParentGuidRequestsOnCheck
      */
-    spec?: ApiV1AnnouncementsMySpec;
+    spec?: InlineResponse20040RequestSpec;
     /**
      * 
      * @type {Array<ApiV1IdeasByParentGuidProposals>}

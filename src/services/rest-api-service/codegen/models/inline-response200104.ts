@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1UsersFreelanceNoticesRequest } from './api-v1-users-freelance-notices-request';
+import { InlineResponse200104Rows } from './inline-response200104-rows';
 
 /**
  * 
@@ -22,29 +22,17 @@ import { ApiV1UsersFreelanceNoticesRequest } from './api-v1-users-freelance-noti
  */
 export interface InlineResponse200104 {
     /**
-     * GUID в базе данных
-     * @type {string}
-     * @memberof InlineResponse200104
-     */
-    _id?: string;
-    /**
-     * Кол-во непрочитаных сообщений по заявке
+     * Кол-во значений
      * @type {number}
      * @memberof InlineResponse200104
      */
-    unreadMessages?: number;
+    count?: number;
     /**
-     * Гуид чата
-     * @type {string}
+     * Массив данных о складах.
+     * @type {Array<InlineResponse200104Rows>}
      * @memberof InlineResponse200104
      */
-    chatId?: string;
-    /**
-     * 
-     * @type {ApiV1UsersFreelanceNoticesRequest}
-     * @memberof InlineResponse200104
-     */
-    request?: ApiV1UsersFreelanceNoticesRequest;
+    rows?: Array<InlineResponse200104Rows>;
 }
 
 

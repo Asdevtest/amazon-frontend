@@ -13,20 +13,193 @@
  */
 
 
-import { InlineResponse20054Finances } from './inline-response20054-finances';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
+import { ApiV1BuyersOrdersMyOrderSupplier } from './api-v1-buyers-orders-my-order-supplier';
+import { ApiV1BuyersOrdersMyPayments } from './api-v1-buyers-orders-my-payments';
+import { ApiV1BuyersOrdersMyProduct } from './api-v1-buyers-orders-my-product';
 
 /**
- * 
+ * Заказ.
  * @export
  * @interface InlineResponse20057
  */
 export interface InlineResponse20057 {
     /**
-     * 
-     * @type {InlineResponse20054Finances}
+     * id заказ.
+     * @type {number}
      * @memberof InlineResponse20057
      */
-    finances?: InlineResponse20054Finances;
+    id?: number;
+    /**
+     * GUID данной записи в БД.
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    _id?: string;
+    /**
+     * кол-во
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    amount?: number;
+    /**
+     * Комментарии клиента.
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    clientComment?: string;
+    /**
+     * комментарии байера.
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    buyerComment?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsOrdersDestination}
+     * @memberof InlineResponse20057
+     */
+    destination?: ApiV1AdminsOrdersDestination;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    item?: string;
+    /**
+     * Цена в юанях
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    priceInYuan?: number;
+    /**
+     * Сумма частичной оплаты
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    partialPaymentAmountRmb?: number;
+    /**
+     * Используется ли частичная оплата
+     * @type {boolean}
+     * @memberof InlineResponse20057
+     */
+    partialPayment?: boolean;
+    /**
+     * Есть ли реквизиты в ордере
+     * @type {boolean}
+     * @memberof InlineResponse20057
+     */
+    paymentDetailsAttached?: boolean;
+    /**
+     * Cумма частичной оплаты
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    partiallyPaid?: number;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersOrdersMyPayments>}
+     * @memberof InlineResponse20057
+     */
+    payments?: Array<ApiV1BuyersOrdersMyPayments>;
+    /**
+     * 
+     * @type {ApiV1BuyersOrdersMyOrderSupplier}
+     * @memberof InlineResponse20057
+     */
+    orderSupplier?: ApiV1BuyersOrdersMyOrderSupplier;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    priority?: InlineResponse20057PriorityEnum;
+    /**
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * @type {boolean}
+     * @memberof InlineResponse20057
+     */
+    expressChinaDelivery?: boolean;
+    /**
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineResponse20057
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    deadline?: string;
+    /**
+     * Дата оплаты поставщтку
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    paymentDateToSupplier?: string;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    totalPrice?: number;
+    /**
+     * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    totalPriceChanged?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    createdById?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20057
+     */
+    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1BuyersOrdersMyProduct}
+     * @memberof InlineResponse20057
+     */
+    product?: ApiV1BuyersOrdersMyProduct;
+    /**
+     *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      needConfirmingReceiving: 27 - Этот статус промежуточный между 25 и 30     С этого статуса заказ можно переводить в статусы 25,30,35     inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
+     * @type {number}
+     * @memberof InlineResponse20057
+     */
+    status?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    createdAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20057
+     */
+    updatedAt?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20057PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

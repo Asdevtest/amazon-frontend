@@ -14,7 +14,7 @@
 
 
 import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { InlineResponse200114Client } from './inline-response200114-client';
+import { InlineResponse200117Client } from './inline-response200117-client';
 
 /**
  * 
@@ -54,10 +54,10 @@ export interface GetClientProfile {
     passwordHash?: string;
     /**
      * 
-     * @type {InlineResponse200114Client}
+     * @type {InlineResponse200117Client}
      * @memberof GetClientProfile
      */
-    client?: InlineResponse200114Client;
+    client?: InlineResponse200117Client;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusShop}

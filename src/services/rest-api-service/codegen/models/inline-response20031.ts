@@ -13,6 +13,10 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
+import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
+import { ApiV1ClientsProductsVacTags } from './api-v1-clients-products-vac-tags';
 
 /**
  * 
@@ -27,6 +31,18 @@ export interface InlineResponse20031 {
      */
     _id?: string;
     /**
+     * Категория
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    category?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    bsr?: number;
+    /**
      * ASIN продукта
      * @type {string}
      * @memberof InlineResponse20031
@@ -39,13 +55,169 @@ export interface InlineResponse20031 {
      */
     skuByClient?: string;
     /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    amazon?: number;
+    /**
+     * Вес
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    weight?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    fbaamount?: number;
+    /**
+     * Код текущего статуса
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    status?: number;
+    /**
      * Массив картинок.
      * @type {Array<string>}
      * @memberof InlineResponse20031
      */
     images?: Array<string>;
     /**
-     * Заголовок на товар с сайта амазон.
+     * Цена для клиента
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    priceForClient?: number;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusSuppliers}
+     * @memberof InlineResponse20031
+     */
+    currentSupplier?: ApiV1AdminsGetProductsByStatusSuppliers;
+    /**
+     * GUID поставщика в базе данных
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    currentSupplierId?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20031
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20031
+     */
+    checkedBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    updatedAt?: string;
+    /**
+     * Дата проверки
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    checkedAt?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20031
+     */
+    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Савка супервайзера.
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    supervisorRate?: number;
+    /**
+     * Савка байера.
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    buyerRate?: number;
+    /**
+     * 
+     * @type {Array<ApiV1BoxesClientsLightProductRedFlags>}
+     * @memberof InlineResponse20031
+     */
+    redFlags?: Array<ApiV1BoxesClientsLightProductRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsVacTags>}
+     * @memberof InlineResponse20031
+     */
+    tags?: Array<ApiV1ClientsProductsVacTags>;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    strategyStatus?: number;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    avgReviews?: string;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineResponse20031
+     */
+    fbafee?: number;
+    /**
+     * Штрихкод продукта
+     * @type {string}
+     * @memberof InlineResponse20031
+     */
+    barCode?: string;
+    /**
+     * Зашита листинга (bool)
+     * @type {boolean}
+     * @memberof InlineResponse20031
+     */
+    transparency?: boolean;
+    /**
+     * Title амазона
      * @type {string}
      * @memberof InlineResponse20031
      */

@@ -13,19 +13,20 @@
  */
 
 
+import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
 
 /**
- * Схема апдейта рекомендаций
+ * 
  * @export
  * @interface InlineObject67
  */
 export interface InlineObject67 {
     /**
-     * Рекомендуемое значение
-     * @type {number}
+     * 
+     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
      * @memberof InlineObject67
      */
-    recommendedValue: number;
+    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
 }
 
 

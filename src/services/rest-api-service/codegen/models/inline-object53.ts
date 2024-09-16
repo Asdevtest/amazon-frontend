@@ -21,11 +21,17 @@
  */
 export interface InlineObject53 {
     /**
-     * Массив ссылок для seo-файлов
-     * @type {Array<string>}
+     * 
+     * @type {string}
      * @memberof InlineObject53
      */
-    latestSeoFiles?: Array<string>;
+    clientComment: string;
+    /**
+     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @type {number}
+     * @memberof InlineObject53
+     */
+    priceForClient: number;
 }
 
 

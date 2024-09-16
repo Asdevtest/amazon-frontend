@@ -15,17 +15,113 @@
 
 
 /**
- * Схема редактирования в первый раз shippingLabel коробки
+ * 
  * @export
  * @interface InlineObject70
  */
 export interface InlineObject70 {
     /**
-     * shippingLabel
+     * комментарии байера.
      * @type {string}
      * @memberof InlineObject70
      */
-    shippingLabel: string;
+    buyerComment?: string;
+    /**
+     * GUID storekeeper-a
+     * @type {string}
+     * @memberof InlineObject70
+     */
+    storekeeperId?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject70
+     */
+    paymentDetails?: Array<string>;
+    /**
+     * Цена в юанях
+     * @type {number}
+     * @memberof InlineObject70
+     */
+    priceInYuan?: number;
+    /**
+     * Цена доставки партии в юанях
+     * @type {number}
+     * @memberof InlineObject70
+     */
+    priceBatchDeliveryInYuan?: number;
+    /**
+     * GUID тарифа доставки.
+     * @type {string}
+     * @memberof InlineObject70
+     */
+    logicsTariffId?: string;
+    /**
+     * GUID пункта назначения.
+     * @type {string}
+     * @memberof InlineObject70
+     */
+    destinationId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject70
+     */
+    item?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineObject70
+     */
+    images?: Array<string>;
+    /**
+     * Курс юань доллар.
+     * @type {number}
+     * @memberof InlineObject70
+     */
+    yuanToDollarRate?: number;
+    /**
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineObject70
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
+     * @type {string}
+     * @memberof InlineObject70
+     */
+    trackingNumberChina?: string;
+    /**
+     * GUID поставщика, для данного заказа.
+     * @type {string}
+     * @memberof InlineObject70
+     */
+    orderSupplierId?: string;
+    /**
+     * Cумма частичной оплаты
+     * @type {number}
+     * @memberof InlineObject70
+     */
+    partialPaymentAmountRmb?: number;
+    /**
+     * Cумма частичной оплаты
+     * @type {number}
+     * @memberof InlineObject70
+     */
+    partiallyPaid?: number;
+    /**
+     * Оплачивается ли заказ частично
+     * @type {boolean}
+     * @memberof InlineObject70
+     */
+    partialPayment?: boolean;
+    /**
+     * Кол-во в заказе
+     * @type {number}
+     * @memberof InlineObject70
+     */
+    amount?: number;
 }
 
 

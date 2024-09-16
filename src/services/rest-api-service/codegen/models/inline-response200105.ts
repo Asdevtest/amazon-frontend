@@ -22,13 +22,13 @@ import { InlineResponse200105Rows } from './inline-response200105-rows';
  */
 export interface InlineResponse200105 {
     /**
-     * Кол-во записей
+     * Общее кол-во записей
      * @type {number}
      * @memberof InlineResponse200105
      */
     count?: number;
     /**
-     * 
+     * Массив товаров.
      * @type {Array<InlineResponse200105Rows>}
      * @memberof InlineResponse200105
      */

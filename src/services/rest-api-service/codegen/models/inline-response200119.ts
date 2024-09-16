@@ -13,27 +13,25 @@
  */
 
 
-import { InlineResponse200119Details } from './inline-response200119-details';
-import { InlineResponse20089Rows } from './inline-response20089-rows';
 
 /**
- * Схема детали на поиск ниш.
+ * 
  * @export
  * @interface InlineResponse200119
  */
 export interface InlineResponse200119 {
     /**
-     * 
-     * @type {InlineResponse20089Rows}
+     * Count of rows
+     * @type {number}
      * @memberof InlineResponse200119
      */
-    request?: InlineResponse20089Rows;
+    count?: number;
     /**
      * 
-     * @type {InlineResponse200119Details}
+     * @type {Array<object>}
      * @memberof InlineResponse200119
      */
-    details?: InlineResponse200119Details;
+    rows?: Array<object>;
 }
 
 

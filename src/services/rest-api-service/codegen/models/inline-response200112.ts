@@ -21,53 +21,59 @@
  */
 export interface InlineResponse200112 {
     /**
-     * GUID пользователя.
+     * ID пресета.
      * @type {string}
      * @memberof InlineResponse200112
      */
     _id?: string;
     /**
-     * Имя пользователя.
+     * Название таблицы
      * @type {string}
      * @memberof InlineResponse200112
      */
-    name?: string;
+    table?: string;
     /**
-     * Рейтинг пользователя.
-     * @type {number}
-     * @memberof InlineResponse200112
-     */
-    rating?: number;
-    /**
-     * Количество положительных отзыв
-     * @type {number}
-     * @memberof InlineResponse200112
-     */
-    numberOfPositiveFeedbacks?: number;
-    /**
-     * Количество негативных отзыв
-     * @type {number}
-     * @memberof InlineResponse200112
-     */
-    numberOfNegativeFeedbacks?: number;
-    /**
-     * Страна
+     * Эндпоинт пресета
      * @type {string}
      * @memberof InlineResponse200112
      */
-    country?: string;
+    endpoint?: string;
     /**
-     * Пользователь онлайн
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse200112
+     */
+    fields?: Array<string>;
+    /**
+     * Состояние пресета.
      * @type {boolean}
      * @memberof InlineResponse200112
      */
-    isOnline?: boolean;
+    isActive?: boolean;
     /**
-     * Количество общих сделок
-     * @type {number}
+     * ID юзера.
+     * @type {string}
      * @memberof InlineResponse200112
      */
-    countsOfDeals?: number;
+    userId?: string;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineResponse200112
+     */
+    isFavorite?: boolean;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    updatedAt?: string;
 }
 
 

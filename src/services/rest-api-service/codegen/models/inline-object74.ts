@@ -21,11 +21,29 @@
  */
 export interface InlineObject74 {
     /**
-     * id профайла
+     * GUID спека
      * @type {string}
      * @memberof InlineObject74
      */
-    profileId: string;
+    specId?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject74
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject74
+     */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject74
+     */
+    description?: string;
 }
 
 

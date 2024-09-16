@@ -13,6 +13,9 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
+import { InlineResponse20040RequestSpec } from './inline-response20040-request-spec';
 
 /**
  * 
@@ -21,17 +24,59 @@
  */
 export interface InlineResponse20088 {
     /**
-     * Гуид заявки
+     * Гуид медиа
      * @type {string}
      * @memberof InlineResponse20088
      */
     _id?: string;
     /**
-     * удобный ключ заявки
-     * @type {number}
+     * Файл для записи в FreelanceSource
+     * @type {string}
      * @memberof InlineResponse20088
      */
-    humanFriendlyId?: number;
+    sourceFile?: string;
+    /**
+     * Комментарий к файлу
+     * @type {string}
+     * @memberof InlineResponse20088
+     */
+    comments?: string;
+    /**
+     * 
+     * @type {ApiV1RequestProposalsFreelanceSourcesProposal}
+     * @memberof InlineResponse20088
+     */
+    proposal?: ApiV1RequestProposalsFreelanceSourcesProposal;
+    /**
+     * 
+     * @type {InlineResponse20040RequestSpec}
+     * @memberof InlineResponse20088
+     */
+    spec?: InlineResponse20040RequestSpec;
+    /**
+     * гуид продукта
+     * @type {string}
+     * @memberof InlineResponse20088
+     */
+    productId?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20088
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20088
+     */
+    createdAt?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20088
+     */
+    updatedAt?: string;
 }
 
 

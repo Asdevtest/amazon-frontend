@@ -25,13 +25,7 @@ export interface InlineObject51 {
      * @type {Array<string>}
      * @memberof InlineObject51
      */
-    userIds: Array<string>;
-    /**
-     * Название группового чата
-     * @type {string}
-     * @memberof InlineObject51
-     */
-    title: string;
+    productIds: Array<string>;
 }
 
 

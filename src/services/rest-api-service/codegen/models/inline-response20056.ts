@@ -13,8 +13,6 @@
  */
 
 
-import { InlineResponse20054Finances } from './inline-response20054-finances';
-import { InlineResponse20056Products } from './inline-response20056-products';
 
 /**
  * 
@@ -23,17 +21,23 @@ import { InlineResponse20056Products } from './inline-response20056-products';
  */
 export interface InlineResponse20056 {
     /**
-     * 
-     * @type {InlineResponse20056Products}
+     * total price in yuan for these statuses
+     * @type {number}
      * @memberof InlineResponse20056
      */
-    products?: InlineResponse20056Products;
+    totalPriceInYuan?: number;
     /**
-     * 
-     * @type {InlineResponse20054Finances}
+     * total price in USD for these statuses
+     * @type {number}
      * @memberof InlineResponse20056
      */
-    finances?: InlineResponse20054Finances;
+    totalPriceInUSD?: number;
+    /**
+     * Total partialPaymentAmountRmb
+     * @type {number}
+     * @memberof InlineResponse20056
+     */
+    partialPaymentAmountRmb?: number;
 }
 
 

@@ -13,7 +13,12 @@
  */
 
 
-import { InlineResponse20043SupplierImage } from './inline-response20043-supplier-image';
+import { InlineResponse20043Batch } from './inline-response20043-batch';
+import { InlineResponse20043Boxes } from './inline-response20043-boxes';
+import { InlineResponse20043Orders } from './inline-response20043-orders';
+import { InlineResponse20043Products } from './inline-response20043-products';
+import { InlineResponse20043Requests } from './inline-response20043-requests';
+import { InlineResponse20043Shops } from './inline-response20043-shops';
 
 /**
  * 
@@ -23,28 +28,40 @@ import { InlineResponse20043SupplierImage } from './inline-response20043-supplie
 export interface InlineResponse20043 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {InlineResponse20043Orders}
      * @memberof InlineResponse20043
      */
-    productImages?: Array<string>;
+    orders?: InlineResponse20043Orders;
     /**
      * 
-     * @type {Array<string>}
+     * @type {InlineResponse20043Shops}
      * @memberof InlineResponse20043
      */
-    latestSeoFiles?: Array<string>;
+    shops?: InlineResponse20043Shops;
     /**
      * 
-     * @type {Array<string>}
+     * @type {InlineResponse20043Requests}
      * @memberof InlineResponse20043
      */
-    currentSupplierImage?: Array<string>;
+    requests?: InlineResponse20043Requests;
     /**
      * 
-     * @type {Array<InlineResponse20043SupplierImage>}
+     * @type {InlineResponse20043Products}
      * @memberof InlineResponse20043
      */
-    supplierImage?: Array<InlineResponse20043SupplierImage>;
+    products?: InlineResponse20043Products;
+    /**
+     * 
+     * @type {InlineResponse20043Batch}
+     * @memberof InlineResponse20043
+     */
+    batch?: InlineResponse20043Batch;
+    /**
+     * 
+     * @type {InlineResponse20043Boxes}
+     * @memberof InlineResponse20043
+     */
+    boxes?: InlineResponse20043Boxes;
 }
 
 

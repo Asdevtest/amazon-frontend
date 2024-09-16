@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse200101Rows } from './inline-response200101-rows';
+import { InlineResponse2006 } from './inline-response2006';
 
 /**
  * 
@@ -22,17 +22,17 @@ import { InlineResponse200101Rows } from './inline-response200101-rows';
  */
 export interface InlineResponse200101 {
     /**
-     * Кол-во значений
+     * Общее кол-во записей
      * @type {number}
      * @memberof InlineResponse200101
      */
     count?: number;
     /**
-     * Массив данных о складах.
-     * @type {Array<InlineResponse200101Rows>}
+     * 
+     * @type {Array<InlineResponse2006>}
      * @memberof InlineResponse200101
      */
-    rows?: Array<InlineResponse200101Rows>;
+    rows?: Array<InlineResponse2006>;
 }
 
 

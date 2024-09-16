@@ -21,53 +21,29 @@
  */
 export interface InlineResponse200110 {
     /**
-     * ID пресета.
+     * 
      * @type {string}
      * @memberof InlineResponse200110
      */
     _id?: string;
     /**
-     * Эндпоинт пресета
-     * @type {string}
-     * @memberof InlineResponse200110
-     */
-    endpoint?: string;
-    /**
-     * Состояние  preset-settings.
-     * @type {boolean}
-     * @memberof InlineResponse200110
-     */
-    activeSetting?: boolean;
-    /**
      * 
-     * @type {object}
-     * @memberof InlineResponse200110
-     */
-    settings?: object;
-    /**
-     * Title of preset
      * @type {string}
      * @memberof InlineResponse200110
      */
     title?: string;
     /**
-     * Является ли пресет избранным.
+     * 
+     * @type {number}
+     * @memberof InlineResponse200110
+     */
+    type?: number;
+    /**
+     * 
      * @type {boolean}
      * @memberof InlineResponse200110
      */
-    isFavorite?: boolean;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse200110
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse200110
-     */
-    updatedAt?: string;
+    archive?: boolean;
 }
 
 

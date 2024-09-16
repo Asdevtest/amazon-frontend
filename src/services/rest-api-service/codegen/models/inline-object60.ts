@@ -21,11 +21,17 @@
  */
 export interface InlineObject60 {
     /**
-     * 
+     * Тег
      * @type {string}
      * @memberof InlineObject60
      */
-    clientComment?: string;
+    title: string;
+    /**
+     * Color
+     * @type {string}
+     * @memberof InlineObject60
+     */
+    color?: string;
 }
 
 

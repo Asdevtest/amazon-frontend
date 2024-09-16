@@ -21,29 +21,35 @@
  */
 export interface InlineObject17 {
     /**
-     * GUID спека
-     * @type {string}
-     * @memberof InlineObject17
-     */
-    specId?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject17
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * 
+     * Название партии
      * @type {string}
      * @memberof InlineObject17
      */
     title?: string;
     /**
      * 
-     * @type {string}
+     * @type {Array<string>}
      * @memberof InlineObject17
      */
-    description?: string;
+    boxesIds: Array<string>;
+    /**
+     * Метод подсчта массы партии
+     * @type {number}
+     * @memberof InlineObject17
+     */
+    calculationMethod?: number;
+    /**
+     * Делитель объема партии
+     * @type {number}
+     * @memberof InlineObject17
+     */
+    volumeWeightDivide?: number;
+    /**
+     * Настоящая стоимость доставки
+     * @type {number}
+     * @memberof InlineObject17
+     */
+    actualShippingCost?: number;
 }
 
 

@@ -21,11 +21,11 @@
  */
 export interface InlineObject75 {
     /**
-     * id профайла
-     * @type {string}
+     * 
+     * @type {boolean}
      * @memberof InlineObject75
      */
-    profileId: string;
+    archive: boolean;
 }
 
 

@@ -13,26 +13,43 @@
  */
 
 
-import { InlineResponse200106Rows } from './inline-response200106-rows';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse200106
  */
 export interface InlineResponse200106 {
     /**
-     * Всего кол-во записей в результате запроса
-     * @type {number}
+     * GUID метода оплаты в базе данных
+     * @type {string}
      * @memberof InlineResponse200106
      */
-    count?: number;
+    _id?: string;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse200106Rows>}
+     * 
+     * @type {string}
      * @memberof InlineResponse200106
      */
-    rows?: Array<InlineResponse200106Rows>;
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200106
+     */
+    iconImage?: string;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200106
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse200106
+     */
+    updatedAt?: string;
 }
 
 

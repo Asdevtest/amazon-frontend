@@ -15,17 +15,29 @@
 
 
 /**
- * 
+ * Схема создания/апдейта рекомендаций
  * @export
  * @interface InlineObject55
  */
 export interface InlineObject55 {
     /**
-     * массив GUIDов оплаченных товаров
-     * @type {Array<string>}
+     * GUID продукта.
+     * @type {string}
      * @memberof InlineObject55
      */
-    guids?: Array<string>;
+    productId: string;
+    /**
+     * GUID сторкипера.
+     * @type {string}
+     * @memberof InlineObject55
+     */
+    storekeeperId: string;
+    /**
+     * Рекомендуемое значение
+     * @type {number}
+     * @memberof InlineObject55
+     */
+    recommendedValue: number;
 }
 
 

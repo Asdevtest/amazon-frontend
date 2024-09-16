@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { InlineResponse20040RequestSpec } from './inline-response20040-request-spec';
 
 /**
  * 
@@ -41,10 +41,10 @@ export interface InlineResponse20040Request {
     status?: InlineResponse20040RequestStatusEnum;
     /**
      * 
-     * @type {ApiV1AnnouncementsMySpec}
+     * @type {InlineResponse20040RequestSpec}
      * @memberof InlineResponse20040Request
      */
-    spec?: ApiV1AnnouncementsMySpec;
+    spec?: InlineResponse20040RequestSpec;
 }
 
 /**

@@ -21,35 +21,17 @@
  */
 export interface InlineResponse200111 {
     /**
-     * Курс юаня к доллару.
-     * @type {number}
+     * userAgent с которым был получен токен
+     * @type {string}
      * @memberof InlineResponse200111
      */
-    yuanToDollarRate?: number;
+    device: string;
     /**
-     * Коэффициент расчета объемного веса.
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineResponse200111
      */
-    volumeWeightCoefficient?: number;
-    /**
-     * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
-     * @type {number}
-     * @memberof InlineResponse200111
-     */
-    requestMinAmountPriceOfProposal?: number;
-    /**
-     * Комиссия за оплату предложения
-     * @type {number}
-     * @memberof InlineResponse200111
-     */
-    requestPlatformMarginInPercent?: number;
-    /**
-     * Лимит на кол-во в ордере
-     * @type {number}
-     * @memberof InlineResponse200111
-     */
-    orderAmountLimit?: number;
+    createdAt: string;
 }
 
 

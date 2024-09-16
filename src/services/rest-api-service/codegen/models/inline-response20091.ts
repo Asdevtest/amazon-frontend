@@ -21,53 +21,17 @@
  */
 export interface InlineResponse20091 {
     /**
-     * GUID в базе данных
+     * Гуид заявки
      * @type {string}
      * @memberof InlineResponse20091
      */
     _id?: string;
     /**
-     * Guid заявки к которой относится данное media.
-     * @type {string}
+     * удобный ключ заявки
+     * @type {number}
      * @memberof InlineResponse20091
      */
-    requestId?: string;
-    /**
-     * Guid предложения к которой относится данное media.
-     * @type {string}
-     * @memberof InlineResponse20091
-     */
-    proposalId?: string;
-    /**
-     * комментарий клиента
-     * @type {string}
-     * @memberof InlineResponse20091
-     */
-    commentByClient?: string;
-    /**
-     * комментарий исполнителя
-     * @type {string}
-     * @memberof InlineResponse20091
-     */
-    commentByPerformer?: string;
-    /**
-     * Ссылка на файл
-     * @type {string}
-     * @memberof InlineResponse20091
-     */
-    fileLink?: string;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse20091
-     */
-    createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse20091
-     */
-    updatedAt?: string;
+    humanFriendlyId?: number;
 }
 
 

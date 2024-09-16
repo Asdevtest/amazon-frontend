@@ -21,11 +21,11 @@
  */
 export interface InlineObject63 {
     /**
-     * 
-     * @type {Array<string>}
+     * id профайла
+     * @type {string}
      * @memberof InlineObject63
      */
-    productIds: Array<string>;
+    profileId: string;
 }
 
 

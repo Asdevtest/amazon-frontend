@@ -15,71 +15,23 @@
 
 
 /**
- * Схема магазина.
+ * Успешный ответ.
  * @export
  * @interface InlineResponse20095
  */
 export interface InlineResponse20095 {
     /**
-     * ID магазина.
-     * @type {string}
+     * Флаг, показывает есть ли такой ASIN в базе или нет
+     * @type {boolean}
      * @memberof InlineResponse20095
      */
-    _id?: string;
+    isExist?: boolean;
     /**
-     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * Причина из таблицы с асинами
      * @type {string}
      * @memberof InlineResponse20095
      */
-    name?: string;
-    /**
-     * URL для скачивания ежедневных отчетов SellerBoard.
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    sellerBoardWarehouseReportUrlDaily?: string;
-    /**
-     * URL для скачивания отчетов SellerBoard за последний месяц.
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    sellerBoardWarehouseReportUrlMonthly?: string;
-    /**
-     * uri полный путь до файла, для скачивания отчетов amazon_data
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    reportAccountUrl?: string;
-    /**
-     * GUID, владелеца.
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    ownerId?: string;
-    /**
-     * GUID любого, кто последний создал.
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    createdById?: string;
-    /**
-     * GUID любого, кто последний редактировал.
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    lastModifiedById?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    updatedAt?: string;
+    reason?: string;
 }
 
 
