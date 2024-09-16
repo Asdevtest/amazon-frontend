@@ -36,6 +36,7 @@ export const SupervisorProductsView = observer(() => {
       <div className={styles.header}>
         <CustomSelect
           size="large"
+          virtual={false}
           optionRender={option => (
             <div className={styles.optionRender}>
               <div className={styles.optionRenderLabel}>{option.label}</div>
