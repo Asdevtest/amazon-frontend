@@ -39,9 +39,10 @@ export const useStyles = makeStyles()(theme => ({
   serviceType: {
     display: 'flex',
     justifyContent: 'center',
-    width: 'fit-content',
     fontSize: '14px',
     lineHeight: '19px',
+    minWidth: '120px',
+    width: '120px',
   },
 
   descriptionWrapper: {
