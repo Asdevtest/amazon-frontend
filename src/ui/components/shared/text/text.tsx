@@ -30,6 +30,7 @@ interface TextCellProps extends TextAreaProps {
   editMode?: boolean
   textRows?: number
   className?: string
+  textStyle?: React.CSSProperties
   type?: 'secondary' | 'success' | 'warning' | 'danger'
   onClickSubmit?: (id: string, comment?: string) => void
 }
@@ -46,6 +47,7 @@ export const Text: FC<TextCellProps> = memo(props => {
     editMode,
     textRows = 3, // rows for Text component
     className,
+    textStyle,
     type,
     onClickSubmit,
     ...restProps
@@ -86,7 +88,7 @@ export const Text: FC<TextCellProps> = memo(props => {
         type={type}
         copyable={isCopyable}
         ellipsis={{ tooltip: text, rows: textRows, onExpand: handleExpand }}
-        style={{ margin: 0, color, textAlign: center ? 'center' : 'left' }}
+        style={{ margin: 0, color, textAlign: center ? 'center' : 'left', ...textStyle }}
         className={className}
       >
         {text}
