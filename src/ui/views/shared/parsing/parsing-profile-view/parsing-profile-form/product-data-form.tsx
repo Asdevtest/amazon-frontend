@@ -117,31 +117,13 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
             />
           </Form.Item>
           <Form.Item<FieldType> name="spreadsheetsIdPerformance" className={styles.field}>
-            <CustomInput
-              allowClear
-              required={!isEditMode}
-              size="large"
-              label="Performance ID"
-              wrapperClassName={styles.input}
-            />
+            <CustomInput allowClear size="large" label="Performance ID" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType> name="spreadsheetsIdImport" className={styles.field}>
-            <CustomInput
-              allowClear
-              required={!isEditMode}
-              size="large"
-              label="Import ID"
-              wrapperClassName={styles.input}
-            />
+            <CustomInput allowClear size="large" label="Import ID" wrapperClassName={styles.input} />
           </Form.Item>
           <Form.Item<FieldType> name="spreadsheetsIdMain" className={styles.field}>
-            <CustomInput
-              allowClear
-              required={!isEditMode}
-              size="large"
-              label="SpeadsheetMain ID"
-              wrapperClassName={styles.input}
-            />
+            <CustomInput allowClear size="large" label="SpeadsheetMain ID" wrapperClassName={styles.input} />
           </Form.Item>
         </div>
 
