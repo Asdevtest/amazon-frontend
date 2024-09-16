@@ -57,6 +57,16 @@ export const brandsReviewColumns = () => {
     },
 
     {
+      field: 'date',
+      headerName: t(TranslationKey.Date),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
       field: 'author',
       headerName: 'Author',
       renderHeader: () => <MultilineTextHeaderCell text="Author" />,
