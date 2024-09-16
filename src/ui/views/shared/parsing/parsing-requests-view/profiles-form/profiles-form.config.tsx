@@ -1,5 +1,7 @@
 import { action, computed, observable } from 'mobx'
 
+import { Text } from '@components/shared/text'
+
 import { IPermissionsData } from '@hooks/use-products-permissions'
 
 export const profilesFormConfig = {
@@ -12,9 +14,15 @@ export const profilesFormConfig = {
 export const requestOptions = {
   sortField: 'updatedAt',
   sortType: 'DESC',
+  filters: 'status[$eq]="VACANT"',
 }
 
 export const searchFields = ['name', 'email']
 
 export const getProfilesOptions = (profiles: IPermissionsData[]) =>
-  profiles.map(profile => ({ label: profile.name, value: profile._id }))
+  profiles.map(profile => ({
+    label: (
+      <Text textRows={1} copyable={false} text={`${profile.email} (${profile.name})`} textStyle={{ maxWidth: 350 }} />
+    ),
+    value: profile._id,
+  }))

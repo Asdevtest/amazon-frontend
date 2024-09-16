@@ -21,7 +21,6 @@ export class ProfilesFormModel extends UseProductsPermissions {
     this.value = profileId || ''
     this.permissionsData = []
     this.isCanLoadMore = true
-    this.setOptions({ offset: 0, filters: '' })
     this.getPermissionsData()
 
     makeObservable(this, profilesFormConfig)
