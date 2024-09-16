@@ -113,6 +113,17 @@ export class ServiceExchangeViewModel {
     }
   }
 
+  onScroll = e => {
+    const element = e.currentTarget
+    const scrollTop = element.scrollTop
+    const containerHeight = element.clientHeight
+    const contentHeight = element.scrollHeight
+
+    if (contentHeight - (scrollTop + containerHeight) < 200) {
+      this.loadMoreDataHadler()
+    }
+  }
+
   onChangeFullFieldMenuItem(value, field) {
     this.columnMenuSettings[field].currentFilterData = value
   }
