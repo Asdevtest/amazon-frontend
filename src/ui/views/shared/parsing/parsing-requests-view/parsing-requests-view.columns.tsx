@@ -14,7 +14,7 @@ import { IGridColumn } from '@typings/shared/grid-column'
 import { ParsingRequestCell } from './parsing-request-cell'
 import { ColumnsProps } from './parsing-requests-view.config'
 
-export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }: ColumnsProps) => {
+export const parsingRequestsViewColumns = ({ onOpenProfileModal, onRejectProfile }: ColumnsProps) => {
   const columns: IGridColumn[] = [
     {
       field: 'client',
@@ -77,7 +77,7 @@ export const parsingRequestsViewColumns = ({ onApproveProfile, onRejectProfile }
       renderCell: ({ row }: GridRowModel) => (
         <ParsingRequestCell
           status={row.status}
-          onApproveProfile={() => onApproveProfile(row._id, row.profile?._id)}
+          onApproveProfile={() => onOpenProfileModal(row._id, row.profile?._id)}
           onRejectProfile={() => onRejectProfile(row._id)}
         />
       ),
