@@ -6,7 +6,7 @@ export enum ParsingReportsType {
   TRANSACTIONS = 'TRANSACTIONS',
   INVENTORY = 'INVENTORY',
   CAMPAIGNS = 'CAMPAIGNS',
-  PERFOMANCE_NOTIFICATIONS = 'PERFOMANCE_NOTIFICATIONS',
+  PERFORMANCE_NOTIFICATIONS = 'PERFORMANCE_NOTIFICATIONS',
   FBA_INVENTORY = 'FBA_INVENTORY',
   ACCOUNT_HEALTH = 'ACCOUNT_HEALTH',
   RETURNS = 'RETURNS',
@@ -19,4 +19,11 @@ export enum ParsingReportsType {
   INCOME = 'INCOME',
   PPC_SALES_WEEKS = 'PPC_SALES_WEEKS',
   PPC_ORGANIC = 'PPC_ORGANIC',
+}
+
+export interface IFbaCapacityLimits {
+  _id: string
+  inventoryPlanningId: string
+  month: string
+  value: number
 }

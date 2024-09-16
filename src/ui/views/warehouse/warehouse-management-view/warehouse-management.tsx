@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -24,10 +24,11 @@ import { useStyles } from './warehouse-management.style'
 
 import { createSwitcherConfig } from './warehouse-management.config'
 import { WarehouseTariffModel } from './warehouse-management.model'
+import { WarehouseTabs } from './warehouse-management.types'
 
 export const WarehouseManagementView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new WarehouseTariffModel())
+  const viewModel = useMemo(() => new WarehouseTariffModel(), [])
 
   const currentAddress = useMemo(
     () =>
@@ -58,7 +59,7 @@ export const WarehouseManagementView = observer(() => {
           onSearch={viewModel.onChangeUnserverSearchValue}
         />
 
-        {viewModel.tabIndex ? (
+        {viewModel.tabIndex === WarehouseTabs.WAREHOUSE_SERVICES ? (
           <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickAddWarehouseTariff}>
             {t(TranslationKey['Create a tariff'])}
           </Button>

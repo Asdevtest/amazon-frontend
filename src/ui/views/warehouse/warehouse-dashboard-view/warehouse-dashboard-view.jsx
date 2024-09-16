@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { getWarehouseDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -22,7 +22,7 @@ import { WarehouseDashboardViewModel } from './warehouse-dashboard-view.model'
 
 export const WarehouseDashboardView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new WarehouseDashboardViewModel(history))
+  const viewModel = useMemo(() => new WarehouseDashboardViewModel(history), [])
 
   return (
     <>

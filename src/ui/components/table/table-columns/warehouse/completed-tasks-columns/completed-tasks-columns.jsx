@@ -18,8 +18,6 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const warehouseCompletedTasksViewColumns = handlers => [
   {
     field: 'action',
@@ -27,17 +25,14 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     renderCell: params => (
       <ActionButtonsCell
-        isFirstButton
-        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        firstButtonTooltipText={t(TranslationKey['Open the window with task information'])}
-        firstButtonElement={t(TranslationKey.View)}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        onClickFirstButton={() => handlers.setCurrentOpenedTask(params.row.originalData)}
+        showFirst
+        firstContent={t(TranslationKey.View)}
+        onClickFirst={() => handlers.setCurrentOpenedTask(params.row.originalData)}
       />
     ),
     filterable: false,
     sortable: false,
-    width: 150,
+    width: 110,
   },
 
   {

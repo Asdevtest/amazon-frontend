@@ -165,6 +165,12 @@ export interface InlineResponse20014 {
      * @type {string}
      * @memberof InlineResponse20014
      */
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse20014
+     */
     updatedAt?: string;
 }
 

@@ -9,8 +9,6 @@ import { Text } from '@components/shared/text'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, getOnHover) => [
   {
     field: 'updatedAt',
@@ -134,22 +132,20 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     renderCell: params => {
-      const disableSecondButton =
+      const secondDisabled =
         !params.row.originalData.countProposalsByStatuses.acceptedProposals &&
         !params.row.originalData.countProposalsByStatuses.atWorkProposals &&
         !params.row.originalData.countProposalsByStatuses.verifyingProposals
 
       return (
         <ActionButtonsCell
-          isFirstButton
-          isSecondButton
-          firstButtonElement={t(TranslationKey['Open a request'])}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={t(TranslationKey['Open result'])}
-          secondButtonStyle={ButtonStyle.SUCCESS}
-          disabledSecondButton={disableSecondButton}
-          onClickFirstButton={() => handlers.onClickOpenRequest(params.row.originalData._id)}
-          onClickSecondButton={() => handlers.onClickOpenResult(params.row.originalData)}
+          showFirst
+          showSecond
+          firstContent={t(TranslationKey['Open a request'])}
+          secondContent={t(TranslationKey['Open result'])}
+          secondDisabled={secondDisabled}
+          onClickFirst={() => handlers.onClickOpenRequest(params.row.originalData._id)}
+          onClickSecond={() => handlers.onClickOpenResult(params.row.originalData)}
         />
       )
     },

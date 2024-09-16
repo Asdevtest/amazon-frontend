@@ -47,7 +47,7 @@ export class ParsingProfileFormModel {
     }
   }
 
-  async onEditProfile(id: string, values: FieldType) {
+  async onEditProfile(id: string, values: FieldType, isRemove?: boolean) {
     try {
       this.onToggleLoading(true)
 
@@ -65,7 +65,7 @@ export class ParsingProfileFormModel {
 
       this.onToggleLoading(false)
 
-      toast.success(t(TranslationKey['Data saved successfully']))
+      !isRemove && toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
     }

@@ -4,11 +4,9 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './idea-product-cell.style'
 
@@ -23,9 +21,9 @@ export const IdeaProductCell: FC<IdeaProductCellProps> = memo(({ onClickCreateCa
   return (
     <div className={styles.ideaWrapper}>
       {!rowData.childProduct && rowData.variation && (
-        <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickCreateCard(rowData)}>
+        <CustomButton type="primary" size="small" onClick={() => onClickCreateCard(rowData)}>
           {t(TranslationKey['Create a product card'])}
-        </Button>
+        </CustomButton>
       )}
 
       {!!rowData.childProduct && (

@@ -36,7 +36,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       renderCell: params => <Text isCell text={params.value} />,
       width: 190,
 
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
     },
 
@@ -170,7 +170,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => <AllIdeasActionsCell row={params.row} rowHandlers={rowHandlers} />,
-      width: 160,
+      width: 140,
       disableCustomSort: true,
       filterable: false,
     },

@@ -62,7 +62,7 @@ export const inventoryColumns = () => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => <ProductCell image={row?.image} title={row?.title} asin={row?.asin} sku={row?.sku} />,
+      renderCell: ({ row }) => <ProductCell image={row.image} title={row.title} asin={row.asin} sku={row.sku} />,
 
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({
@@ -162,6 +162,26 @@ export const inventoryColumns = () => {
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
+      field: 'soldBy',
+      headerName: 'Sold by',
+      renderHeader: () => <MultilineTextHeaderCell text="Sold by" />,
+
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 115,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
+      field: 'sellersDateUpdated',
+      headerName: 'Sellers date updated',
+      renderHeader: () => <MultilineTextHeaderCell text="Sellers date updated" />,
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.DATE,
     },
 
     {

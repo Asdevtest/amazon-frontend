@@ -21,7 +21,7 @@ import { ApiV1BoxesClientsLightItems } from './api-v1-boxes-clients-light-items'
 import { InlineResponse20019VariationTariff } from './inline-response20019-variation-tariff';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20022
  */
@@ -43,7 +43,7 @@ export interface InlineResponse20022 {
      * @type {number}
      * @memberof InlineResponse20022
      */
-    amount?: number;
+    count?: number;
     /**
      * Total Amount
      * @type {number}

@@ -97,7 +97,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => <RealizedIdeaActionsCell rowHandlers={rowHandlers} row={params.row} />,
-      width: 160,
+      width: 120,
       disableCustomSort: true,
       filterable: false,
     },

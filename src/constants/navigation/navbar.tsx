@@ -103,7 +103,7 @@ export const navbarConfig = {
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY,
           checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
-            user?.permissions?.some(item => item === permissionsKeys.client.inventory.SHOW_INVENTORY_CLIENT),
+            user?.permissions?.some(item => item === permissionsKeys.client.inventory.SHOW_PRODUCTS_INVENTORY_CLIENT),
         },
 
         {
@@ -118,7 +118,7 @@ export const navbarConfig = {
       key: navBarActiveCategory.NAVBAR_INVENTORY,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
-        user?.permissions?.some(item => Object.values(permissionsKeys.client.inventory).includes(item as string)),
+        user?.permissions?.some(item => item === permissionsKeys.client.inventory.SHOW_INVENTORY_CLIENT),
     },
 
     {
@@ -186,7 +186,7 @@ export const navbarConfig = {
       key: navBarActiveCategory.NAVBAR_IDEAS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
-        user?.permissions?.some(item => Object.values(permissionsKeys.client.ideas).includes(item as string)),
+        user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_IDEAS_CLIENT),
     },
 
     {
@@ -263,11 +263,7 @@ export const navbarConfig = {
       key: navBarActiveCategory.NAVBAR_MY_ORDERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
-        user?.permissions?.some(
-          item =>
-            item === permissionsKeys.client.SHOW_ORDERS_CLIENT ||
-            item === permissionsKeys.client.SHOW_PENDING_ORDERS_CLIENT,
-        ),
+        user?.permissions?.some(item => item === permissionsKeys.client.SHOW_MYORDERS_CLIENT),
     },
     {
       icon: MyWarehouseIcon,
@@ -356,7 +352,7 @@ export const navbarConfig = {
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_SHOPS_REPORTS_CLIENT),
         },
         {
-          subtitle: () => 'Parsing reports',
+          subtitle: () => t(TranslationKey['Parsing reports']),
           subRoute: '/client/shops/parsing-reports',
 
           // checkHideSubBlock: user =>
@@ -570,14 +566,7 @@ export const navbarConfig = {
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
-        user?.permissions?.some(
-          item =>
-            item === permissionsKeys.freelancer.SHOW_SOURCES_FREELANCER ||
-            item === permissionsKeys.freelancer.SHOW_ANNOUNCEMENTS_FREELANCER ||
-            item === permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER ||
-            item === permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER ||
-            item === permissionsKeys.freelancer.SHOW_FREELANCE_ALLPROPOSALS_FREELANCER,
-        ),
+        user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_FREELANCE_FREELANCER),
     },
 
     {
@@ -660,7 +649,7 @@ export const navbarConfig = {
       subtitles: [
         {
           subtitle: () => t(TranslationKey['From the Researcher']),
-          subRoute: '/supervisor/ready-to-check',
+          subRoute: '/supervisor/ready-to-check-by-researcher',
           key: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_RESEARCHER,
           checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
@@ -678,11 +667,7 @@ export const navbarConfig = {
       key: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
-        user?.permissions?.some(
-          item =>
-            item === permissionsKeys.supervisor.SHOW_VAC_BY_RES_SUPERVISOR ||
-            item === permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR,
-        ),
+        user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_READYTOCHECK_SUPERVISOR),
     },
     {
       icon: MyProductsIcon,
@@ -840,17 +825,7 @@ export const navbarConfig = {
       ],
       key: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
-        user?.permissions?.some(
-          item =>
-            item === permissionsKeys.buyer.SHOW_ORDERS_BUYER ||
-            item === permissionsKeys.buyer.SHOW_ORDERS_NOT_PAID_BUYER ||
-            item === permissionsKeys.buyer.SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER ||
-            item === permissionsKeys.buyer.SHOW_ORDERS_INBOUND_BUYER ||
-            item === permissionsKeys.buyer.SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER ||
-            item === permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER ||
-            item === permissionsKeys.buyer.SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER,
-        ),
+        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_MYORDERS_BUYER),
     },
 
     {
@@ -892,12 +867,7 @@ export const navbarConfig = {
       ],
       key: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
-        user?.permissions?.some(
-          item =>
-            item === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER ||
-            item === permissionsKeys.buyer.SHOW_VAC_BY_SUP_BUYER,
-        ),
+        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_SUPSEARCH_BUYER),
     },
 
     {

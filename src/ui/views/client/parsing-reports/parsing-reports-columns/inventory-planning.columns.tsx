@@ -1,3 +1,4 @@
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -9,7 +10,7 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { ParsingReportsType } from '../parsing-reports.type'
+import { IFbaCapacityLimits, ParsingReportsType } from '../parsing-reports.type'
 
 export const inventoryPlanningColumns = () => {
   const columns: IGridColumn<ParsingReportsType>[] = [
@@ -54,6 +55,44 @@ export const inventoryPlanningColumns = () => {
       width: 120,
 
       columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
+      field: 'fbaCapacityLimitsValue',
+      headerName: 'Fba capacity limits',
+      renderHeader: () => <MultilineTextHeaderCell text="Fba capacity limits" />,
+      renderCell: params => (
+        <div>
+          {params.row?.fbaCapacityLimits?.map((item: IFbaCapacityLimits) => (
+            <Text key={item?._id} text={`${item?.month}: ${item?.value}`} />
+          ))}
+        </div>
+      ),
+
+      fields: [
+        {
+          label: 'Month',
+          value: 0,
+        },
+        {
+          label: 'Month value',
+          value: 1,
+        },
+      ],
+      columnMenuConfig: [
+        {
+          field: 'fbaCapacityLimitsMonth',
+          table: ParsingReportsType.INVENTORY_PLANNING,
+          columnKey: ColumnMenuKeys.STRING,
+        },
+        {
+          field: 'fbaCapacityLimitsValue',
+          table: ParsingReportsType.INVENTORY_PLANNING,
+          columnKey: ColumnMenuKeys.NUMBER,
+        },
+      ],
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      width: 170,
     },
 
     {

@@ -22,7 +22,6 @@ import { toFixedWithDollarSign } from '@utils/text'
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { OrderPriority } from '@typings/enums/order/order-priority'
 import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
@@ -81,18 +80,15 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
       renderCell: params => (
         <ActionButtonsCell
-          isFirstButton
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row._id}
-          firstButtonTooltipText={t(TranslationKey['To assign the order to Byer'])}
-          firstButtonElement={t(TranslationKey['Get to work'])}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={throttle(() => handlers.onClickTableRowBtn(params.row as IOrder))}
+          showFirst
+          firstContent={t(TranslationKey['Get to work'])}
+          onClickFirst={throttle(() => handlers.onClickTableRowBtn(params.row as IOrder))}
         />
       ),
 
       disableCustomSort: true,
       filterable: false,
-      width: 180,
+      width: 150,
       disableExport: true,
     },
 
@@ -155,7 +151,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
 
       disableCustomSort: true,
       filterable: false,
-      width: 100,
+      width: 70,
       align: 'center',
     },
 

@@ -1,12 +1,10 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { useGridApiRef } from '@mui/x-data-grid-premium'
 
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { ClientModel } from '@models/client-model'
 
 import { AddOwnProductForm } from '@components/forms/add-own-product-form'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
@@ -35,8 +33,6 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
-
 import { useStyles } from './client-inventory-view.style'
 
 import {
@@ -51,15 +47,8 @@ import { Header } from './header'
 export const ClientInventoryView = observer(({ history }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientInventoryViewModel())
+  const viewModel = useMemo(() => new ClientInventoryViewModel(), [])
   viewModel.initHistory()
-
-  const [useProductsPermissions] = useState(
-    () =>
-      new UseProductsPermissions(ClientModel.getProductPermissionsData, {
-        isChild: false,
-      }),
-  )
 
   const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell
 
@@ -196,13 +185,9 @@ export const ClientInventoryView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
       >
         <ProductLaunchForm
-          selectedProductToLaunch={viewModel.selectedProductToLaunch}
-          productsToLaunch={useProductsPermissions.currentPermissionsData}
-          loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
-          onClickVariationRadioButton={() => useProductsPermissions.getPermissionsData()}
-          onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
-          onClickNextButton={viewModel.onClickNextButton}
-          onClickCancelButton={() => viewModel.onTriggerOpenModal('showProductLaunch')}
+          selectedProduct={viewModel.selectedProductToLaunch}
+          onSubmit={viewModel.onClickNextButton}
+          onClose={() => viewModel.onTriggerOpenModal('showProductLaunch')}
         />
       </Modal>
 

@@ -60,7 +60,7 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
       isSentBatches,
     }
     const columnsModel = warehouseMyBatchesViewColumns(columnsProps)
-    const filtersFields = getFilterFields(columnsModel, ['amazonTitle', 'arrivalDate'])
+    const filtersFields = getFilterFields(columnsModel, ['amazonTitle', 'arrivalDate', 'etd', 'eta'])
 
     const additionalPropertiesGetFilters = () => ({
       status: {

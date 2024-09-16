@@ -17,7 +17,6 @@ import { formatDate } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 interface IProductInTransferColumns {
@@ -168,11 +167,10 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
       renderCell: ({ row }: GridRowModel) => (
         <ActionButtonsCell
-          isFirstButton
-          disabledFirstButton={!row.batch}
-          firstButtonElement={t(TranslationKey['Watch the batch'])}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={() => onClickChangeVariation(row?.batch?._id)}
+          showFirst
+          firstDisabled={!row.batch}
+          firstContent={t(TranslationKey['Watch the batch'])}
+          onClickFirst={() => onClickChangeVariation(row?.batch?._id)}
         />
       ),
       disableColumnMenu: true,

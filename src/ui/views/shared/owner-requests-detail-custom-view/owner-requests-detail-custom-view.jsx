@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 
@@ -19,9 +19,9 @@ import { CustomSearchRequestForm } from '@components/requests-and-request-propos
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
-import { RequestProposalsCardList } from '@components/shared/request-proposals-card-list'
 
 import { toFixedWithDollarSign } from '@utils/text'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
@@ -31,6 +31,7 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { useStyles } from './owner-requests-detail-custom-view.style'
 
 import { OwnerRequestDetailCustomViewModel } from './owner-requests-detail-custom-view.model'
+import { RequestProposalsCardList } from './request-proposals-card-list'
 
 const statusesReworkAndReceiveButtons = [RequestProposalStatus.READY_TO_VERIFY, RequestProposalStatus.CORRECTED]
 const statusesOrderAndRejectButtons = [RequestProposalStatus.CREATED, RequestProposalStatus.OFFER_CONDITIONS_CORRECTED]
@@ -40,7 +41,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
 
   const chatRef = useRef()
 
-  const [viewModel] = useState(
+  const viewModel = useMemo(
     () =>
       new OwnerRequestDetailCustomViewModel({
         history,
@@ -50,6 +51,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           }
         },
       }),
+    [],
   )
 
   useEffect(() => {
@@ -262,7 +264,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           reviewLabel={t(TranslationKey["Review of the performer's work"])}
           confirmButtonText={t(TranslationKey.Confirm)}
           cancelBtnText={t(TranslationKey.Reject)}
-          onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
+          onSubmit={throttle(viewModel.acceptProposalResultSetting.onSubmit)}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
       ) : null}

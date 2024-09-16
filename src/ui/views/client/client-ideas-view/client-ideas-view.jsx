@@ -1,12 +1,11 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
 import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ClientModel } from '@models/client-model'
 import { UserModel } from '@models/user-model'
 
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
@@ -34,20 +33,11 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
-
 import { ClientIdeasViewModel } from './client-ideas-view.model'
 
 export const ClientIdeasView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ClientIdeasViewModel({ history }))
-
-  const [useProductsPermissions] = useState(
-    () =>
-      new UseProductsPermissions(ClientModel.getProductPermissionsData, {
-        isChild: false,
-      }),
-  )
+  const viewModel = useMemo(() => new ClientIdeasViewModel({ history }), [])
 
   const getRowClassName = params => {
     if (params.row.status === ideaStatusByKey.SUPPLIER_NOT_FOUND) {
@@ -134,21 +124,11 @@ export const ClientIdeasView = observer(({ history }) => {
 
       <Modal
         openModal={viewModel.showProductLaunch}
-        setOpenModal={() => {
-          useProductsPermissions.resetOptions()
-          viewModel.onTriggerOpenModal('showProductLaunch')
-        }}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
       >
         <ProductLaunchForm
-          productsToLaunch={useProductsPermissions.currentPermissionsData}
-          loadMorePermissionsDataHadler={useProductsPermissions.loadMoreDataHadler}
-          onClickVariationRadioButton={useProductsPermissions.getPermissionsData}
-          onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
-          onClickNextButton={viewModel.onClickNextButton}
-          onClickCancelButton={() => {
-            useProductsPermissions.resetOptions()
-            viewModel.onTriggerOpenModal('showProductLaunch')
-          }}
+          onSubmit={viewModel.onClickNextButton}
+          onClose={() => viewModel.onTriggerOpenModal('showProductLaunch')}
         />
       </Modal>
 

@@ -1,5 +1,4 @@
-import { BsPersonFillGear } from 'react-icons/bs'
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -16,7 +15,6 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { IColumnProps } from './sub-users-view.config'
@@ -73,16 +71,16 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       renderCell: ({ row }: GridRowModel) => (
         <ActionButtonsCell
           row
-          isFirstButton
-          isSecondButton
-          iconButton
-          firstButtonElement={<BsPersonFillGear style={{ fill: 'currentColor' }} />}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<MdOutlineDelete size={18} />}
-          secondButtonStyle={ButtonStyle.DANGER}
-          secondDescriptionText="Are you sure you want to unbind the sub-user?"
-          onClickFirstButton={() => onClickEdit(row)}
-          onClickSecondButton={() => onClickRemove(row._id)}
+          showFirst
+          showSecond
+          secondDanger
+          firstGhost
+          secondGhost
+          firstIcon={<MdOutlineEdit size={16} />}
+          secondIcon={<MdOutlineDelete size={16} />}
+          secondDescription="Are you sure you want to unbind the sub-user?"
+          onClickFirst={() => onClickEdit(row)}
+          onClickSecond={() => onClickRemove(row._id)}
         />
       ),
       width: 100,

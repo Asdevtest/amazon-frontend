@@ -38,39 +38,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  mainWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: 20,
-
-    '& > div:first-of-type': {
-      width: '100%',
-
-      '& > div': {
-        width: '100% !important',
-      },
-    },
-
-    [theme.breakpoints.down(768)]: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      gap: 15,
-    },
-  },
-
-  avatar: {
-    width: 180,
-    height: 180,
-    borderRadius: '50%',
-
-    [theme.breakpoints.down(768)]: {
-      width: 160,
-      height: 160,
-    },
-  },
-
   standartText: {
     color: theme.palette.text.general,
 
@@ -95,5 +62,12 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       justifyContent: 'space-between',
     },
+  },
+
+  avatarContainer: {
+    height: 150,
+    width: 150,
+    display: 'flex',
+    alignSelf: 'center',
   },
 }))

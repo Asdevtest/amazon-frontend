@@ -1,13 +1,19 @@
 import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
-import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
+import {
+  colorByIdeaStatus,
+  ideaStatus,
+  ideaStatusByCode,
+  ideaStatusByKey,
+  ideaStatusTranslate,
+} from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import {
-  ClosedIdeaActionsCell,
+  ActionButtonsCell,
   ManyUserLinkCell,
   MediaContentCell,
   MultilineTextHeaderCell,
@@ -267,8 +273,20 @@ export const clientClosedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-      renderCell: params => <ClosedIdeaActionsCell row={params.row} rowHandlers={rowHandlers} />,
-      width: 160,
+      renderCell: params => (
+        <ActionButtonsCell
+          showFirst
+          showSecond
+          secondDanger
+          firstContent={t(TranslationKey.Restore)}
+          firstDisabled={ideaStatusByKey[ideaStatus.CLOSED] === params.row.status}
+          secondContent={t(TranslationKey.Close)}
+          secondDisabled={ideaStatusByKey[ideaStatus.CLOSED] === params.row.status}
+          onClickFirst={() => rowHandlers.onClickRestore(params.row._id)}
+          onClickSecond={() => rowHandlers.onClickClose(params.row._id)}
+        />
+      ),
+      width: 140,
       filterable: false,
       disableCustomSort: true,
     },

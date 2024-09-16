@@ -27,7 +27,7 @@ export const warehouseMyBatchesViewColumns = (columnsProps: ColumnsProps) => {
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
       renderCell: ({ row }) => <BatchBoxesCell boxes={row.boxes} />,
-      width: 400,
+      width: 200,
       fields: getProductColumnMenuItems({ withoutSku: true }),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
@@ -52,6 +52,7 @@ export const warehouseMyBatchesViewColumns = (columnsProps: ColumnsProps) => {
       filterable: false,
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT,
+      table: DataGridFilterTables.BOXES,
     },
 
     {
@@ -85,6 +86,7 @@ export const warehouseMyBatchesViewColumns = (columnsProps: ColumnsProps) => {
       filterable: false,
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT,
+      table: DataGridFilterTables.BOXES,
     },
 
     {
@@ -116,7 +118,7 @@ export const warehouseMyBatchesViewColumns = (columnsProps: ColumnsProps) => {
     },
 
     {
-      field: 'deliveryTotalPrice',
+      field: 'totalPriceFromOrderSupplier',
       headerName: t(TranslationKey['Delivery cost']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
       renderCell: ({ row }) => <Text isCell text={toFixedWithDollarSign(row.totalPriceFromOrderSupplier, 2)} />,
@@ -141,6 +143,8 @@ export const warehouseMyBatchesViewColumns = (columnsProps: ColumnsProps) => {
       filterable: false,
       sortable: false,
       columnKey: columnnsKeys.shared.BATCHES_SHIPPING_DATE,
+      table: DataGridFilterTables.BOXES,
+      disableCustomSort: true,
     },
 
     {

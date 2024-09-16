@@ -1,7 +1,7 @@
 import { Tooltip } from 'antd'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -43,7 +43,7 @@ export const BatchInfoModal = observer(
   ({ openModal, setOpenModal, batch, onSubmitChangeBoxFields, patchActualShippingCostBatch }) => {
     const { classes: styles, cx } = useStyles()
 
-    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel(true))
+    const viewModel = useMemo(() => new ClientAwaitingBatchesViewModel(true), [])
     const [isFileDownloading, setIsFileDownloading] = useState(false)
     const [nameSearchValue, setNameSearchValue] = useState('')
     const [currentBatch, setCurrentBatch] = useState(undefined)

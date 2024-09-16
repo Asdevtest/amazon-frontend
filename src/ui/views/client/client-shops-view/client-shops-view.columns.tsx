@@ -16,7 +16,6 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { ProfileRequestStatus } from '@typings/enums/request/profile-request-status'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -70,7 +69,7 @@ export const shopsColumns = (props: IColumnProps) => {
         />
       ),
       valueGetter: ({ row }) => row.profile?.access,
-      width: 170,
+      width: 200,
       disableCustomSort: true,
       filterable: false,
     },
@@ -104,16 +103,16 @@ export const shopsColumns = (props: IColumnProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <ActionButtonsCell
           row
-          iconButton
-          isFirstButton
-          isSecondButton
-          firstButtonElement={<MdOutlineEdit style={{ fill: 'currentcolor' }} />}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<MdOutlineDelete />}
-          secondButtonStyle={ButtonStyle.DANGER}
-          secondDescriptionText="Are you sure you want to delete the store?"
-          onClickFirstButton={() => onEditShop(row)}
-          onClickSecondButton={() => onRemoveShop(row._id)}
+          showFirst
+          showSecond
+          secondDanger
+          firstGhost
+          secondGhost
+          firstIcon={<MdOutlineEdit size={16} />}
+          secondIcon={<MdOutlineDelete size={16} />}
+          secondDescription="Are you sure you want to delete the store?"
+          onClickFirst={() => onEditShop(row)}
+          onClickSecond={() => onRemoveShop(row._id)}
         />
       ),
       minWidth: 90,

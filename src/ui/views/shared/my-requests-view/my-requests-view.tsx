@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { Typography } from '@mui/material'
 import { GridCellParams, GridRowModel, useGridApiRef } from '@mui/x-data-grid-premium'
@@ -34,7 +34,7 @@ import { MyRequestsViewModel } from './my-requests-view.model'
 export const MyRequestsView = observer(() => {
   const { classes: styles, cx } = useStyles()
   const apiRef = useGridApiRef()
-  const [viewModel] = useState(() => new MyRequestsViewModel({ dataGridApi: apiRef }))
+  const viewModel = useMemo(() => new MyRequestsViewModel({ dataGridApi: apiRef }), [])
 
   const getCellClassName = (params: GridCellParams) => {
     if (params.row?.countProposalsByStatuses?.waitedProposals && params.field === 'waitedProposals') {
@@ -68,7 +68,7 @@ export const MyRequestsView = observer(() => {
         <CustomRadioButton
           size="large"
           buttonStyle="solid"
-          options={radioButtonOptions}
+          options={radioButtonOptions()}
           defaultValue={viewModel.radioButtonOption}
           onChange={viewModel.onChangeRadioButtonOption}
         />

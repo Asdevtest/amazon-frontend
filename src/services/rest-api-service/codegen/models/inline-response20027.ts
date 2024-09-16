@@ -16,7 +16,7 @@
 import { InlineResponse20027Rows } from './inline-response20027-rows';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20027
  */

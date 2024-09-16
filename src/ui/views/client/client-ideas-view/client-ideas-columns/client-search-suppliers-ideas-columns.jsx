@@ -10,13 +10,13 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   FilesCell,
   IdeaSupplierCell,
   ManyUserLinkCell,
   MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OnCheckingIdeaActionsCell,
   ProductCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -88,13 +88,18 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => (
-        <OnCheckingIdeaActionsCell
-          isAcceptDisabled={params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
-          onClickAccept={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id, params.row)}
-          onClickReject={() => rowHandlers.onClickReject(params.row._id)}
+        <ActionButtonsCell
+          showFirst
+          showSecond
+          secondDanger
+          firstContent={t(TranslationKey.Accept)}
+          firstDisabled={params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
+          secondContent={t(TranslationKey.Reject)}
+          onClickFirst={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id, params.row)}
+          onClickSecond={() => rowHandlers.onClickReject(params.row._id)}
         />
       ),
-      width: 160,
+      width: 130,
       disableCustomSort: true,
       filterable: false,
     },

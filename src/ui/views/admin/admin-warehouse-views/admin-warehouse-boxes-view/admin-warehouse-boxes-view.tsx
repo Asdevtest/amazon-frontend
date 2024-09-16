@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -18,7 +18,7 @@ import { IBox } from '@typings/models/boxes/box'
 import { AdminWarehouseBoxesViewModel } from './admin-warehouse-boxes-view.model'
 
 export const AdminWarehouseBoxesView = observer(() => {
-  const [viewModel] = useState(() => new AdminWarehouseBoxesViewModel())
+  const viewModel = useMemo(() => new AdminWarehouseBoxesViewModel(), [])
 
   return (
     <div className="viewWrapper">

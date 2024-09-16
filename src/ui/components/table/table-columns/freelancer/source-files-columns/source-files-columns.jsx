@@ -13,8 +13,6 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const sourceFilesColumns = rowHandlers => [
   {
     field: 'title',
@@ -79,6 +77,7 @@ export const sourceFilesColumns = rowHandlers => [
       <Text
         isCell
         editMode
+        textRows={2}
         text={params.row.originalData.sourceFile}
         onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'sourceFile', value)}
       />
@@ -94,6 +93,7 @@ export const sourceFilesColumns = rowHandlers => [
       <Text
         isCell
         editMode
+        textRows={2}
         text={params.row.originalData.comments}
         onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'comments', value)}
       />
@@ -106,12 +106,12 @@ export const sourceFilesColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     renderCell: params => (
       <ActionButtonsCell
-        isFirstButton
-        iconButton
-        firstButtonElement={<MdOutlineDelete />}
-        firstButtonStyle={ButtonStyle.DANGER}
-        firstDescriptionText="Do you want to delete the source file?"
-        onClickFirstButton={() => rowHandlers.onClickRemoveBtn(params.row._id)}
+        showFirst
+        firstDanger
+        firstGhost
+        firstIcon={<MdOutlineDelete />}
+        firstDescription="Do you want to delete the source file?"
+        onClickFirst={() => rowHandlers.onClickRemoveBtn(params.row._id)}
       />
     ),
     width: 100,

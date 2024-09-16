@@ -8,12 +8,12 @@ import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/t
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
+import { PriorityForm } from '@components/forms/priority-form/priority-form'
 import { BoxMerge } from '@components/shared/boxes/box-merge'
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
-import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SizeSwitcher } from '@components/shared/size-switcher'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -35,8 +35,8 @@ import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './merge-boxes-modal.style'
 
+import { SetFileForm } from '../../forms/set-file-form'
 import { ConfirmationModal } from '../confirmation-modal'
-import { SetShippingLabelModal } from '../set-shipping-label-modal'
 import { SupplierApproximateCalculationsModal } from '../supplier-approximate-calculations'
 
 import { BoxForMerge } from './box-for-merge'
@@ -164,7 +164,7 @@ export const MergeBoxesModal = ({
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
 
-  const setShippingLabel = () => value => {
+  const setShippingLabel = value => {
     const newFormFields = { ...boxBody }
     newFormFields.tmpShippingLabel = value
 
@@ -449,15 +449,10 @@ export const MergeBoxesModal = ({
         openModal={showSetShippingLabelModal}
         setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
       >
-        <SetShippingLabelModal
-          tmpShippingLabel={boxBody.tmpShippingLabel}
-          item={boxBody}
-          requestStatus={requestStatus}
-          onClickSaveShippingLabel={shippingLabel => {
-            setShippingLabel()(shippingLabel)
-            setShowSetShippingLabelModal(!showSetShippingLabelModal)
-          }}
-          onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+        <SetFileForm
+          data={boxBody?.shippingLabel}
+          onSubmit={setShippingLabel}
+          onClose={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
         />
       </Modal>
 

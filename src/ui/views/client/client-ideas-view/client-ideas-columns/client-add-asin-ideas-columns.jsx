@@ -3,8 +3,7 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  AddAsinIdeaActionsCell,
-  ChangeChipCell,
+  ActionButtonsCell,
   IdeaRequestsCell,
   ManyUserLinkCell,
   MultilineTextHeaderCell,
@@ -35,7 +34,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       width: 198,
       filterable: false,
 
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -112,17 +111,17 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
         const product = params.row.variation ? params.row?.childProduct : params.row?.parentProduct
 
         return (
-          <ChangeChipCell
-            disabled={params.row.variation && !params.row.childProduct}
-            text={t(TranslationKey.BarCode)}
-            value={product?.barCode}
-            onClickChip={() => rowHandlers.barCodeHandlers.onClickBarcode(product)}
-            onDoubleClickChip={() => rowHandlers.barCodeHandlers.onDoubleClickBarcode(product)}
-            onDeleteChip={!product?.barCode ? undefined : () => rowHandlers.barCodeHandlers.onDeleteBarcode(product)}
+          <ActionButtonsCell
+            showFirst
+            firstDropdown={!!product?.barCode}
+            firstContent={t(TranslationKey.BarCode)}
+            firstDisabled={params.row.variation && !params.row.childProduct}
+            onClickFirst={() => rowHandlers.barCodeHandlers.onClickBarcode(product)}
+            onClickRemoveFirst={() => rowHandlers.barCodeHandlers.onDeleteBarcode(product)}
           />
         )
       },
-      width: 200,
+      width: 130,
       disableCustomSort: true,
       filterable: false,
     },
@@ -132,8 +131,15 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-      renderCell: params => <AddAsinIdeaActionsCell rowHandlers={rowHandlers} row={params.row} />,
-      width: 160,
+      renderCell: params => (
+        <ActionButtonsCell
+          showFirst
+          firstContent={t(TranslationKey.Accept)}
+          firstDisabled={params.row?.variation ? !params.row.childProduct?.barCode : !params.row.parentProduct?.barCode}
+          onClickFirst={() => rowHandlers.onClickAcceptOnAddingAsin(params.row._id)}
+        />
+      ),
+      width: 130,
       disableCustomSort: true,
       filterable: false,
     },

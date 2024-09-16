@@ -1,6 +1,6 @@
 import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TextareaAutosize, Typography } from '@mui/material'
 
@@ -20,7 +20,7 @@ import { UserSettingsModel } from './user-settings-form.model'
 
 export const UserSettingsForm = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new UserSettingsModel())
+  const viewModel = useMemo(() => new UserSettingsModel(), [])
 
   return (
     <div className={styles.mainWrapper}>

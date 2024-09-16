@@ -3,12 +3,12 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   IdeaRequestsCell,
   ManyUserLinkCell,
   MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OnCheckingIdeaActionsCell,
   ProductCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -108,12 +108,17 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => (
-        <OnCheckingIdeaActionsCell
-          onClickAccept={() => rowHandlers.onClickAcceptOnCheckingStatus(params.row._id)}
-          onClickReject={() => rowHandlers.onClickReject(params.row._id)}
+        <ActionButtonsCell
+          showFirst
+          showSecond
+          secondDanger
+          firstContent={t(TranslationKey.Accept)}
+          secondContent={t(TranslationKey.Reject)}
+          onClickFirst={() => rowHandlers.onClickAcceptOnCheckingStatus(params.row._id)}
+          onClickSecond={() => rowHandlers.onClickReject(params.row._id)}
         />
       ),
-      width: 160,
+      width: 130,
       disableCustomSort: true,
       filterable: false,
     },

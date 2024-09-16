@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
-import { GridRowParams } from '@mui/x-data-grid-premium'
+import { GridCellParams, GridRowParams } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -30,7 +30,19 @@ import { MyProposalsViewModel } from './my-proposals-view.model'
 export const MyProposalsView = observer(({ allProposals }: { allProposals: boolean }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new MyProposalsViewModel({ allProposals }))
+  const viewModel = useMemo(() => new MyProposalsViewModel({ allProposals }), [])
+
+  const getRowClassName = (params: GridRowParams) => {
+    if (params?.row?.request?.freelanceNotices > 0) {
+      return styles.redBorder
+    }
+  }
+
+  const getCellClassName = (params: GridCellParams) => {
+    if (params?.field === 'freelanceNotices' && params.row?.request?.freelanceNotices > 0) {
+      return styles.unreadMessages
+    }
+  }
 
   return (
     <div className="viewWrapper">
@@ -38,7 +50,7 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
         <CustomRadioButton
           size="large"
           buttonStyle="solid"
-          options={customSwitcherSettings}
+          options={customSwitcherSettings()}
           defaultValue={viewModel.switcherCondition}
           onChange={viewModel.onClickChangeCatigory}
         />
@@ -52,7 +64,6 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
         />
 
         <FreelanceTypeTaskSelect
-          // @ts-ignore
           specs={viewModel.userInfo?.allowedSpec}
           selectedSpec={viewModel.specOption}
           onChangeSpec={viewModel.onChangeSpec}
@@ -107,6 +118,8 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
             },
           },
         }}
+        getRowClassName={getRowClassName}
+        getCellClassName={getCellClassName}
         onPinnedColumnsChange={viewModel.handlePinColumn}
         onSortModelChange={viewModel.onChangeSortingModel}
         onFilterModelChange={viewModel.onChangeFilterModel}

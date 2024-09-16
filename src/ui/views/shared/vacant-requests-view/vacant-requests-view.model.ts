@@ -17,7 +17,7 @@ import { ICustomRequest } from '@typings/models/requests/custom-request'
 import { IFullUser } from '@typings/shared/full-user'
 
 import { vacantRequestColumns } from './vacant-request-view.columns'
-import { fieldsForSearch, vacantRequestsConfig } from './vacant-requests-view.config'
+import { additionalFields, fieldsForSearch, vacantRequestsConfig } from './vacant-requests-view.config'
 import { ColumnsProps } from './vacant-requests-view.type'
 
 export class VacantRequestsViewModel extends DataGridFilterTableModel {
@@ -38,7 +38,7 @@ export class VacantRequestsViewModel extends DataGridFilterTableModel {
       onClickOpenInNewTab: id => this.onClickOpenInNewTab(id),
     }
     const columnsModel = vacantRequestColumns(columnsProps)
-    const filtersFields = getFilterFields(columnsModel)
+    const filtersFields = getFilterFields(columnsModel, additionalFields)
     const defaultGetCurrentDataOptions = () => ({
       kind: RequestSubType.VACANT,
     })

@@ -19,3 +19,4 @@ export const vacantRequestsConfig = {
 }
 
 export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient']
+export const additionalFields = ['amazonTitle', 'skuByClient']

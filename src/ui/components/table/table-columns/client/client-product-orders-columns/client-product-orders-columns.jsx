@@ -18,15 +18,13 @@ import {
   LinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderCell,
   PriorityAndChinaDeliverCell,
+  ProductCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
   {
@@ -59,8 +57,16 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    width: 300,
-    renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    width: 200,
+    renderCell: params => (
+      <ProductCell
+        asin={params.row.originalData.items?.[0]?.product?.asin}
+        image={params.row.originalData.items?.[0]?.product?.images?.[0]}
+        sku={params.row.originalData.items?.[0]?.product?.skuByClient}
+        title={params.row.originalData.items?.[0]?.product?.amazonTitle}
+        superbox={params.row.originalData.amount}
+      />
+    ),
     sortable: false,
   },
 
@@ -99,15 +105,13 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderCell: params => {
       const isRepeatOrder =
         Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
-      const currentStyle = isRepeatOrder ? ButtonStyle.PRIMARY : ButtonStyle.SUCCESS
       const currentText = isRepeatOrder ? t(TranslationKey['Repeat order']) : t(TranslationKey['To order'])
 
       return (
         <ActionButtonsCell
-          isFirstButton
-          firstButtonElement={currentText}
-          firstButtonStyle={currentStyle}
-          onClickFirstButton={() => handlers.onClickReorder(params.row.originalData, !isRepeatOrder)}
+          showFirst
+          firstContent={currentText}
+          onClickFirst={() => handlers.onClickReorder(params.row.originalData, !isRepeatOrder)}
         />
       )
     },
@@ -120,7 +124,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    width: 100,
+    width: 70,
     renderCell: params => <LinkCell value={params.value} />,
     sortable: false,
     align: 'center',

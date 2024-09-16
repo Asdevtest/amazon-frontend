@@ -13,19 +13,15 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosInstance, AxiosPromise } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, createRequestFunction, serializeDataIfNeeded, setApiKeyToObject, setSearchParams, toPathString } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { BASE_PATH, BaseAPI, RequestArgs, RequiredError } from '../base';
 // @ts-ignore
-import { ApiV1BatchesBoxes } from '../models';
 // @ts-ignore
-import { BadRequestError } from '../models';
-// @ts-ignore
-import { ConflictInTheState } from '../models';
 // @ts-ignore
 import { InlineObject } from '../models';
 // @ts-ignore
@@ -51,17 +47,14 @@ import { InlineObject33 } from '../models';
 // @ts-ignore
 import { InlineObject34 } from '../models';
 // @ts-ignore
-import { InlineObject35 } from '../models';
 // @ts-ignore
-import { InlineObject36 } from '../models';
+import { InlineResponse20016Rows } from '../models';
 // @ts-ignore
-import { InlineObject37 } from '../models';
 // @ts-ignore
-import { InlineObject38 } from '../models';
+import { InlineResponse20018 } from '../models';
 // @ts-ignore
 import { InlineObject39 } from '../models';
 // @ts-ignore
-import { InlineResponse20018 } from '../models';
 // @ts-ignore
 import { InlineResponse20019 } from '../models';
 // @ts-ignore
@@ -87,9 +80,7 @@ import { InlineResponse2012 } from '../models';
 // @ts-ignore
 import { InlineResponse2013 } from '../models';
 // @ts-ignore
-import { InternalServerError } from '../models';
 // @ts-ignore
-import { NotFoundError } from '../models';
 /**
  * BoxesApi - axios parameter creator
  * @export
@@ -1721,7 +1712,7 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesByOrderGuidGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesBoxes>>> {
+        async apiV1BoxesByOrderGuidGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20016Rows>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesByOrderGuidGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1733,7 +1724,7 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesByProductGuidGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesBoxes>>> {
+        async apiV1BoxesByProductGuidGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20016Rows>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesByProductGuidGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1745,7 +1736,7 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesByProductGuidLightGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesBoxes>>> {
+        async apiV1BoxesByProductGuidLightGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20016Rows>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesByProductGuidLightGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1822,7 +1813,7 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesClientsGet(status: string, hasBatch?: boolean, storekeeperId?: string, destinationId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesBoxes>>> {
+        async apiV1BoxesClientsGet(status: string, hasBatch?: boolean, storekeeperId?: string, destinationId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20016Rows>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesClientsGet(status, hasBatch, storekeeperId, destinationId, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2163,7 +2154,7 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesByOrderGuidGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesBoxes>> {
+        apiV1BoxesByOrderGuidGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20016Rows>> {
             return localVarFp.apiV1BoxesByOrderGuidGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2174,7 +2165,7 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesByProductGuidGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesBoxes>> {
+        apiV1BoxesByProductGuidGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20016Rows>> {
             return localVarFp.apiV1BoxesByProductGuidGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2185,7 +2176,7 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesByProductGuidLightGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesBoxes>> {
+        apiV1BoxesByProductGuidLightGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20016Rows>> {
             return localVarFp.apiV1BoxesByProductGuidLightGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2256,7 +2247,7 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesClientsGet(status: string, hasBatch?: boolean, storekeeperId?: string, destinationId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesBoxes>> {
+        apiV1BoxesClientsGet(status: string, hasBatch?: boolean, storekeeperId?: string, destinationId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20016Rows>> {
             return localVarFp.apiV1BoxesClientsGet(status, hasBatch, storekeeperId, destinationId, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

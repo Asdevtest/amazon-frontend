@@ -13,15 +13,14 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosInstance, AxiosPromise } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, createRequestFunction, serializeDataIfNeeded, setApiKeyToObject, setSearchParams, toPathString } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { BASE_PATH, BaseAPI, RequestArgs, RequiredError } from '../base';
 // @ts-ignore
-import { BadRequestError } from '../models';
 // @ts-ignore
 import { InlineObject16 } from '../models';
 // @ts-ignore
@@ -31,27 +30,19 @@ import { InlineObject18 } from '../models';
 // @ts-ignore
 import { InlineObject19 } from '../models';
 // @ts-ignore
-import { InlineObject20 } from '../models';
 // @ts-ignore
-import { InlineObject21 } from '../models';
 // @ts-ignore
-import { InlineObject22 } from '../models';
 // @ts-ignore
-import { InlineObject23 } from '../models';
 // @ts-ignore
 import { InlineResponse20014 } from '../models';
 // @ts-ignore
 import { InlineResponse20015 } from '../models';
 // @ts-ignore
-import { InlineResponse20016 } from '../models';
 // @ts-ignore
-import { InlineResponse20017 } from '../models';
 // @ts-ignore
 import { InlineResponse201 } from '../models';
 // @ts-ignore
-import { InternalServerError } from '../models';
 // @ts-ignore
-import { NotFoundError } from '../models';
 /**
  * BatchesApi - axios parameter creator
  * @export

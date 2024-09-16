@@ -13,8 +13,8 @@
  */
 
 
-import { InlineResponse20042Product } from './inline-response20042-product';
 import { InlineResponse20043MetaActiveLaunches } from './inline-response20043-meta-active-launches';
+import { InlineResponse20043MetaProduct } from './inline-response20043-meta-product';
 
 /**
  * 
@@ -24,10 +24,10 @@ import { InlineResponse20043MetaActiveLaunches } from './inline-response20043-me
 export interface InlineResponse20043Meta {
     /**
      * 
-     * @type {InlineResponse20042Product}
+     * @type {InlineResponse20043MetaProduct}
      * @memberof InlineResponse20043Meta
      */
-    product?: InlineResponse20042Product;
+    product?: InlineResponse20043MetaProduct;
     /**
      * 
      * @type {Array<InlineResponse20043MetaActiveLaunches>}

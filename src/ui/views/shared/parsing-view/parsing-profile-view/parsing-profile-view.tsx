@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { FaPlay, FaPlus } from 'react-icons/fa'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
@@ -22,7 +22,7 @@ import { ParsingProdileViewModel } from './parsing-profile-view.model'
 
 export const ParsingProdileView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ParsingProdileViewModel())
+  const viewModel = useMemo(() => new ParsingProdileViewModel(), [])
 
   return (
     <div className="viewWrapper">

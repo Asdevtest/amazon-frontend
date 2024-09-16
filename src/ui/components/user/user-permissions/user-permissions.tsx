@@ -1,6 +1,6 @@
 import { RadioChangeEvent } from 'antd'
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -27,7 +27,7 @@ import { UserPermissionsModel } from './user-permissions.model'
 export const UserPermissions = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new UserPermissionsModel())
+  const viewModel = useMemo(() => new UserPermissionsModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -35,7 +35,7 @@ export const UserPermissions = observer(() => {
         <CustomRadioButton
           size="large"
           buttonStyle="solid"
-          options={switcherSettings}
+          options={switcherSettings()}
           defaultValue={viewModel.tabIndex}
           onChange={(e: RadioChangeEvent) => viewModel.onChangeTabIndex(e.target.value)}
         />

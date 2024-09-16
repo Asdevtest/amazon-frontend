@@ -2,32 +2,31 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   wrapper: {
-    padding: '10px 0',
-    width: '100%',
+    padding: '5px 0',
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: '5px',
   },
 
   title: {
+    fontSize: 14,
+    lineHeight: '19px',
     fontWeight: 600,
   },
 
   file: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 5,
+    gap: '3px',
   },
 
   buttons: {
     display: 'flex',
     alignItems: 'center',
-    gap: 10,
+    gap: '5px',
   },
 
-  text: {
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
+  button: {
+    width: '130px',
   },
 }))

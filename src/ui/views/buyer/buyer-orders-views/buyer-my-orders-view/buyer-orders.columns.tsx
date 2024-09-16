@@ -209,7 +209,7 @@ export const buyerOrdersColumns = ({
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
       renderCell: params => <LinkCell value={params.row.product.barCode} />,
-      minWidth: 100,
+      width: 70,
       sortable: false,
       filterable: false,
       disableCustomSort: true,
