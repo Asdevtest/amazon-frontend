@@ -72,6 +72,7 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
     lineHeight: '19px',
     fontWeight: 600,
+    maxWidth: '250px',
   },
 
   countSubWrapper: {

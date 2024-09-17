@@ -277,12 +277,10 @@ export const BoxItemCard = ({
                     {box.prepId ? <CopyValue text={box.prepId} /> : null}
                   </div>
                 )}
-                <div className={styles.copyValueWrapper}>
-                  <div className={styles.asinWrapper}>
-                    <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
-                    <Text className={styles.asinTitle} copyable={false} text={item.product?.asin} />
-                    {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
-                  </div>
+
+                <div className={styles.asinWrapper}>
+                  <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
+                  <Text className={styles.asinTitle} text={item.product?.asin} />
                 </div>
               </>
 
