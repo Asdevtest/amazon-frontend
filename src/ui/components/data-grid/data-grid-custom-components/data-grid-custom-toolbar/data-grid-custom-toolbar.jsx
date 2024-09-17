@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import { GridPagination, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
 
 import { useStyles } from './data-grid-custom-toolbar.style'
@@ -10,7 +12,7 @@ import { SelectedTags } from '../selected-tags'
 import { SortSettings } from '../sort-settings'
 import { TagSearch } from '../tag-search'
 
-export const DataGridCustomToolbar = props => {
+export const DataGridCustomToolbar = memo(props => {
   const {
     resetFiltersBtnSettings,
     columsBtnSettings,
@@ -74,4 +76,4 @@ export const DataGridCustomToolbar = props => {
       {tablePresets ? <QuickPresets {...tablePresets} /> : null}
     </GridToolbarContainer>
   )
-}
+})
