@@ -14,7 +14,7 @@ export const aboutProductsColumns = [
   {
     field: 'id',
     headerName: t(TranslationKey.ID),
-    renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.ID)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: ({ row }: GridRowModel) => <Text isCell text={row.id} />,
     width: 80,
   },
@@ -38,7 +38,7 @@ export const aboutProductsColumns = [
   {
     field: 'deadline',
     headerName: t(TranslationKey.Deadline),
-    renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Deadline)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: ({ row }: GridRowModel) => <DeadlineCell deadline={row.deadline} />,
     width: 130,
   },

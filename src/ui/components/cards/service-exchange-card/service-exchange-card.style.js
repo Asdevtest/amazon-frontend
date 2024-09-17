@@ -1,60 +1,81 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  cardWrapper: {
-    height: 450,
-    width: '24%',
-    padding: '20px',
+  wrapper: {
+    width: '100%',
+    padding: 15,
+    display: 'flex',
+    gap: '15px',
     boxShadow: theme.palette.boxShadow.paper,
     background: theme.palette.background.general,
+    cursor: 'pointer',
     borderRadius: 16,
+  },
+
+  cardWrapper: {
+    flexDirection: 'column',
+  },
+
+  serviceWrapper: {
+    display: 'flex',
+    gap: '10px',
+    flexDirection: 'column',
+  },
+
+  serviceListWrapper: {
+    width: 250,
+  },
+
+  image: {
+    borderRadius: '16px',
+  },
+
+  serviceInfo: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
+
+  serviceType: {
+    display: 'flex',
+    justifyContent: 'center',
+    fontSize: '14px',
+    lineHeight: '19px',
+    minWidth: '120px',
+    width: '120px',
+  },
+
+  descriptionWrapper: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    gap: '10px',
+    gap: 10,
+    width: '100%',
+    height: '100%',
   },
 
   cardTitle: {
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
     color: theme.palette.text.general,
   },
 
   cardDescription: {
-    height: 57,
     fontSize: '14px',
     lineHeight: '19px',
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    display: '-webkit-box',
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
   },
 
-  detailedDescription: {
-    width: 'max-content',
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: theme.palette.primary.main,
+  actionButton: {
+    alignSelf: 'flex-end',
+    justifySelf: 'flex-end',
   },
 
-  detailsWrapper: {
+  detailsText: {
     display: 'flex',
-    justifyContent: 'space-between',
+    alignItems: 'center',
     gap: 10,
-    padding: '0 30px',
-    marginBottom: 20,
-  },
-
-  detailsSubWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
+    width: '100%',
   },
 
   detailTitle: {
@@ -64,30 +85,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   detailDescription: {
-    maxWidth: 120,
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-  },
-
-  detailsWrapperAll: {
-    flexDirection: 'column',
-  },
-
-  detailsSubWrapperAll: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-
-  buttonWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-
-  image: {
-    borderRadius: 16,
   },
 }))
