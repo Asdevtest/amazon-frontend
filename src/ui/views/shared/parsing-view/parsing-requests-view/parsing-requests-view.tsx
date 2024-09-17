@@ -9,12 +9,13 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
 
+import { ProfilesForm } from '@views/shared/parsing/parsing-requests-view/profiles-form'
+
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { ParsingRequestsViewModel } from './parsing-requests-view.model'
-import { ProfilesForm } from './profiles-form'
 
 export const ParsingRequestsView: FC = observer(() => {
   const viewModel = useMemo(() => new ParsingRequestsViewModel(), [])
