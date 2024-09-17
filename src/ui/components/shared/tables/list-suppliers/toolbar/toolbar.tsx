@@ -150,80 +150,72 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
       <p className={styles.tableTitle}>{t(TranslationKey['List of suppliers'])}</p>
 
       <div className={styles.buttons}>
-        {showViewCalculationButton ? (
-          <Button
-            variant={ButtonVariant.OUTLINED}
-            disabled={!boxPropertiesIsFullAndMainsValues}
-            className={styles.buttonWithText}
-            onClick={onSupplierApproximateCalculationsModal}
-          >
-            {t(TranslationKey['View an oriented calculation'])}
-          </Button>
-        ) : null}
+        <Button
+          variant={ButtonVariant.OUTLINED}
+          disabled={!boxPropertiesIsFullAndMainsValues || !showViewCalculationButton}
+          className={styles.buttonWithText}
+          onClick={onSupplierApproximateCalculationsModal}
+        >
+          {t(TranslationKey['View an oriented calculation'])}
+        </Button>
 
-        {showAddSupplierButton ? (
-          <Button
-            iconButton
-            className={styles.button}
-            disabled={isAtProcessOrder || disabledAddSupplierButtonWhenCreateIdea}
-            onClick={() => onSupplierActions(ModalModes.ADD)}
-          >
-            <FiPlus style={{ width: 16, height: 16 }} />
-          </Button>
-        ) : null}
+        <Button
+          iconButton
+          className={styles.button}
+          disabled={isAtProcessOrder || disabledAddSupplierButtonWhenCreateIdea || !showAddSupplierButton}
+          onClick={() => onSupplierActions(ModalModes.ADD)}
+        >
+          <FiPlus style={{ width: 16, height: 16 }} />
+        </Button>
 
-        {showEditSupplierButton ? (
-          <Button
-            iconButton
-            tooltipAttentionContent={tooltipAttentionContentEditSupplierButton}
-            className={styles.button}
-            disabled={disabledEditSupplierButton}
-            onClick={() => onSupplierActions(ModalModes.EDIT)}
-          >
-            <EditIcon />
-          </Button>
-        ) : null}
+        <Button
+          iconButton
+          tooltipAttentionContent={tooltipAttentionContentEditSupplierButton}
+          className={styles.button}
+          disabled={disabledEditSupplierButton || !showEditSupplierButton}
+          onClick={() => onSupplierActions(ModalModes.EDIT)}
+        >
+          <EditIcon />
+        </Button>
 
-        {isSupplerSelected ? (
-          <Button iconButton className={styles.button} onClick={() => onSupplierActions(ModalModes.VIEW)}>
-            <EyeIcon />
-          </Button>
-        ) : null}
+        <Button
+          iconButton
+          disabled={!isSupplerSelected}
+          className={styles.button}
+          onClick={() => onSupplierActions(ModalModes.VIEW)}
+        >
+          <EyeIcon />
+        </Button>
 
-        {showToggleCurrentSupplierButton && isCurrentSupplierSelected ? (
-          <Button
-            iconButton
-            styleType={ButtonStyle.DANGER}
-            className={styles.button}
-            disabled={isAtProcessOrder}
-            onClick={() => onSupplierActions(ModalModes.ACCERT_REVOKE)}
-          >
-            <AcceptRevokeIcon />
-          </Button>
-        ) : null}
+        <Button
+          iconButton
+          styleType={ButtonStyle.DANGER}
+          className={styles.button}
+          disabled={isAtProcessOrder || !(showToggleCurrentSupplierButton && isCurrentSupplierSelected)}
+          onClick={() => onSupplierActions(ModalModes.ACCERT_REVOKE)}
+        >
+          <AcceptRevokeIcon />
+        </Button>
 
-        {showToggleCurrentSupplierButton && !isCurrentSupplierSelected ? (
-          <Button
-            iconButton
-            styleType={ButtonStyle.SUCCESS}
-            className={styles.button}
-            disabled={isAtProcessOrder}
-            onClick={() => onSupplierActions(ModalModes.ACCEPT)}
-          >
-            <AcceptIcon />
-          </Button>
-        ) : null}
+        <Button
+          iconButton
+          styleType={ButtonStyle.SUCCESS}
+          className={styles.button}
+          disabled={isAtProcessOrder || !(showToggleCurrentSupplierButton && !isCurrentSupplierSelected)}
+          onClick={() => onSupplierActions(ModalModes.ACCEPT)}
+        >
+          <AcceptIcon />
+        </Button>
 
-        {showRemoveCurrentSupplierButton ? (
-          <Button
-            iconButton
-            styleType={ButtonStyle.DANGER}
-            className={styles.button}
-            onClick={() => onSupplierActions(ModalModes.DELETE)}
-          >
-            <DeleteIcon />
-          </Button>
-        ) : null}
+        <Button
+          iconButton
+          disabled={!showRemoveCurrentSupplierButton}
+          styleType={ButtonStyle.DANGER}
+          className={styles.button}
+          onClick={() => onSupplierActions(ModalModes.DELETE)}
+        >
+          <DeleteIcon />
+        </Button>
       </div>
     </div>
   )
