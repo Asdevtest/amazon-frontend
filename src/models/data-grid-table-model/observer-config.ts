@@ -45,4 +45,5 @@ export const observerConfig = {
   onChangeShowPresetsSelect: action.bound,
   onClickAddQuickAccess: action.bound,
   setDefaultPinnedColumns: action.bound,
+  onClickSaveRenamedPreset: action.bound,
 }
