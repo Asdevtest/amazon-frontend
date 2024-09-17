@@ -34,7 +34,7 @@ export const totalBalanceColumns = () => {
     },
 
     {
-      field: 'amountUsd',
+      field: 'amountUs',
       headerName: 'Amount usd',
       renderHeader: () => <MultilineTextHeaderCell text="Amount Usd" />,
 
@@ -44,7 +44,7 @@ export const totalBalanceColumns = () => {
     },
 
     {
-      field: 'amountCad',
+      field: 'amountCa',
       headerName: 'Amount cad',
       renderHeader: () => <MultilineTextHeaderCell text="Amount cad" />,
 
@@ -54,7 +54,7 @@ export const totalBalanceColumns = () => {
     },
 
     {
-      field: 'amountMxn',
+      field: 'amountMx',
       headerName: 'Amount mxn',
       renderHeader: () => <MultilineTextHeaderCell text="Amount mxn" />,
 

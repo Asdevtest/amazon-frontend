@@ -12,6 +12,10 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
   },
 
+  input: {
+    width: '200px',
+  },
+
   buttonWrapper: {
     display: 'flex',
     gap: '5px',

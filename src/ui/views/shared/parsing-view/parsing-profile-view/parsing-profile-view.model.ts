@@ -27,6 +27,11 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
     const filtersFields = getFilterFields(columnsModel)
     const mainMethodURL = 'integrations/parser/admins/profiles?'
 
+    const operatorsSettings = {
+      client: '$any',
+      shop: '$any',
+    }
+
     super({
       getMainDataMethod: ParserModel.getProfiles,
       columnsModel,
@@ -34,6 +39,7 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
       mainMethodURL,
       fieldsForSearch,
       tableKey: DataGridTablesKeys.PARSING_PROFILES,
+      operatorsSettings,
       defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     makeObservable(this, parsingProfileViewConfig)

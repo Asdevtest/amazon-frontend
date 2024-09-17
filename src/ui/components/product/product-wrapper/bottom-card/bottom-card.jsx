@@ -13,7 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
 
-import { checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
+import { checkIsClient } from '@utils/checks'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
@@ -26,19 +26,24 @@ const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT],
   ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND],
   ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
+
+  ProductStatusByKey[ProductStatus.TEMPORARILY_DELAYED],
+  ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
+  ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
+  ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
+  ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR],
 ]
 
 export const BottomCard = observer(
   ({ curUserRole, product, productBase, onChangeField, formFieldsValidationErrors }) => {
     const { classes: styles } = useStyles()
 
-    const clientCanEdit =
-      checkIsClient(curUserRole) &&
-      product.isCreatedByClient &&
-      clientToEditStatuses.includes(productBase.status) &&
+    const defaultFieldDisable = !(
+      checkIsClient(curUserRole) ||
+      product.isCreatedByClient ||
+      clientToEditStatuses.includes(productBase.status) ||
       !product.archive
-
-    const defaultFieldDisable = !(checkIsResearcher(curUserRole) || clientCanEdit)
+    )
 
     return (
       <>

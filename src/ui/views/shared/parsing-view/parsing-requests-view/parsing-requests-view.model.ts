@@ -11,9 +11,13 @@ import { parsingRequestsViewColumns } from './parsing-requests-view.columns'
 import { ColumnsProps, fieldsForSearch, parsingRequestsViewConfig } from './parsing-requests-view.config'
 
 export class ParsingRequestsViewModel extends DataGridFilterTableModel {
+  showProfilesModal = false
+  requestId?: string
+  profileId?: string
+
   constructor() {
     const columnsProps: ColumnsProps = {
-      onApproveProfile: (id, profileId) => this.onApproveProfile(id, profileId),
+      onOpenProfileModal: (requestId, profileId) => this.onOpenProfileModal(requestId, profileId),
       onRejectProfile: id => this.onRejectProfile(id),
     }
     const columnsModel = parsingRequestsViewColumns(columnsProps)
@@ -32,6 +36,16 @@ export class ParsingRequestsViewModel extends DataGridFilterTableModel {
     makeObservable(this, parsingRequestsViewConfig)
 
     this.getTableSettingsPreset()
+  }
+
+  onOpenProfileModal = (requestId: string, profileId: string) => {
+    this.requestId = requestId
+    this.profileId = profileId
+    this.onToggleProfileModal()
+  }
+
+  onToggleProfileModal = () => {
+    this.showProfilesModal = !this.showProfilesModal
   }
 
   async onApproveProfile(id: string, profileId: string) {

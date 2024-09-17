@@ -2047,4 +2047,5 @@ export enum TranslationKey {
   'Are you sure you want to delete profile?' = 'Are you sure you want to delete profile?',
   'qty' = 'qty',
   'Month value' = 'Month value',
+  'Rename' = 'Rename',
 }
