@@ -33,7 +33,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
     {
       field: 'priority',
       headerName: t(TranslationKey.Priority),
-      renderHeader: () => <MultilineTextHeaderCell textCenter component={<img src="/assets/icons/bookmark.svg" />} />,
+      renderHeader: () => <MultilineTextHeaderCell component={<img src="/assets/icons/bookmark.svg" />} />,
 
       renderCell: ({ row }) => (
         <PriorityAndChinaDeliverCell

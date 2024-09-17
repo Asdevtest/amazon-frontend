@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridCellParams } from '@mui/x-data-grid'
@@ -50,7 +49,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
     {
       field: 'priority',
       headerName: t(TranslationKey.Priority),
-      renderHeader: () => <MultilineTextHeaderCell textCenter component={<img src="/assets/icons/bookmark.svg" />} />,
+      renderHeader: () => <MultilineTextHeaderCell component={<img src="/assets/icons/bookmark.svg" />} />,
       width: 80,
       renderCell: (params: GridCellParams) => {
         const request = params.row?.request
