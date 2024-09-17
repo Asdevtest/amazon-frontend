@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -71,11 +69,11 @@ export const EstimateCreateTradingShopForm = ({
 
   return (
     <div className={styles.modalMessageWrapper}>
-      <Typography className={styles.modalMessageTitle}>
+      <p className={styles.modalMessageTitle}>
         {isEdit
           ? t(TranslationKey['Editing an ad to sell the store'])
           : t(TranslationKey['Adding an ad to sell the store'])}
-      </Typography>
+      </p>
 
       <div className={cx(styles.fieldsWrapper, { [styles.oneFieldInRow]: !makeEstimate })}>
         <Field
@@ -91,7 +89,7 @@ export const EstimateCreateTradingShopForm = ({
             label={t(TranslationKey['Estimated cost'])}
             inputComponent={
               <div className={styles.estimateCostWrapper}>
-                <Typography>{toFixed(averagePureIncome * reqMultiplier, 2)}</Typography>
+                <p>{toFixed(averagePureIncome * reqMultiplier, 2)}</p>
 
                 <Button variant={ButtonVariant.OUTLINED} onClick={applyReqMultiplier}>
                   {t(TranslationKey.Apply)}
@@ -134,21 +132,19 @@ export const EstimateCreateTradingShopForm = ({
           inputClasses={styles.fieldInput}
           inputComponent={
             <div className={styles.multiplierWrapper}>
-              <Typography>{`${toFixed(monthlyMultiplier, 2)} X`}</Typography>
+              <p>{`${toFixed(monthlyMultiplier, 2)} X`}</p>
 
-              <Typography className={styles.reqMultiplier}>{`${t(
-                TranslationKey.req,
-              )} (${reqMultiplier} X)`}</Typography>
+              <p className={styles.reqMultiplier}>{`${t(TranslationKey.req)} (${reqMultiplier} X)`}</p>
             </div>
           }
         />
       </div>
 
-      <Typography className={styles.confirmText}>
+      <p className={styles.confirmText}>
         {isEdit
           ? `${t(TranslationKey['Accept the changes'])}?`
           : `${t(TranslationKey['Post an ad for a store for'])} ${formFields.price || 0} $ ?`}
-      </Typography>
+      </p>
 
       <div className={styles.buttonsWrapper}>
         <Button styleType={ButtonStyle.SUCCESS} disabled={submitIsClicked} onClick={onClickSubmit}>

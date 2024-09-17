@@ -1,7 +1,7 @@
 import { IoSearchOutline } from 'react-icons/io5'
 import { MdFormatAlignLeft } from 'react-icons/md'
 
-import { Button, IconButton, InputAdornment, MenuItem, Select, Toolbar, Typography } from '@mui/material'
+import { Button, IconButton, InputAdornment, MenuItem, Select, Toolbar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -30,11 +30,11 @@ export const TableToolbar = ({ rowsPerPage, handlerRowsPerPage }) => {
 
       <div className={styles.filter}>
         <Button classes={{ iconSizeMedium: styles.icon }} startIcon={<MdFormatAlignLeft />}>
-          <Typography className={styles.filterTitle}>{t(TranslationKey.Filter)}</Typography>
+          <p className={styles.filterTitle}>{t(TranslationKey.Filter)}</p>
         </Button>
       </div>
 
-      <Typography className={styles.selectTitle}>{t(TranslationKey['Rows per page'])}</Typography>
+      <p className={styles.selectTitle}>{t(TranslationKey['Rows per page'])}</p>
       <Select input={<Input className={styles.selectRoot} />} value={rowsPerPage} onChange={handlerRowsPerPage}>
         <MenuItem value={5}>5</MenuItem>
         <MenuItem value={10}>10</MenuItem>

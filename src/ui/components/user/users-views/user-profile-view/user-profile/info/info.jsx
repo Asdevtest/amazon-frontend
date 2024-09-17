@@ -1,4 +1,4 @@
-import { Box, Divider, Paper, Typography } from '@mui/material'
+import { Box, Divider, Paper } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,14 +12,14 @@ export const Info = ({ headerInfoData }) => {
 
   const InfoRow = ({ label, value }) => (
     <Box className={styles.infoRow}>
-      <Typography className={cx(styles.text, styles.typoLabel)}>{label}</Typography>
-      <Typography className={cx(styles.text, styles.typoValue)}>{value}</Typography>
+      <p className={cx(styles.text, styles.typoLabel)}>{label}</p>
+      <p className={cx(styles.text, styles.typoValue)}>{value}</p>
     </Box>
   )
 
   return (
     <Paper elevation={0} className={styles.paper}>
-      <Typography className={styles.title}>{t(TranslationKey.Info)}</Typography>
+      <p className={styles.title}>{t(TranslationKey.Info)}</p>
 
       <Divider orientation={'horizontal'} className={styles.divider} />
 

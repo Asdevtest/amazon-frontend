@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Link, Typography } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -45,7 +45,7 @@ export const ProductParameters = ({
       label={label}
       containerClasses={styles.parameterTableCellWrapper}
       labelClasses={styles.fieldLabel}
-      inputComponent={<Typography className={styles.text}>{value}</Typography>}
+      inputComponent={<p className={styles.text}>{value}</p>}
     />
   )
 
@@ -90,10 +90,10 @@ export const ProductParameters = ({
         inputComponent={
           <div>
             {order.orderSupplier?.link === ACCESS_DENIED ? (
-              <Typography className={styles.scrollingText}>{order.orderSupplier?.link}</Typography>
+              <p className={styles.scrollingText}>{order.orderSupplier?.link}</p>
             ) : (
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.orderSupplier?.link)}>
-                <Typography className={styles.scrollingText}>{order.orderSupplier?.link}</Typography>
+                <p className={styles.scrollingText}>{order.orderSupplier?.link}</p>
               </Link>
             )}
           </div>
@@ -110,12 +110,12 @@ export const ProductParameters = ({
           <div className={styles.sizesWrapper}>
             <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
 
-            <Typography className={styles.text}>{`
+            <p className={styles.text}>{`
             ${
               order.product.width && order.product.height && order.product.length
                 ? `${width} x ${height} x ${length}`
                 : t(TranslationKey['No data'])
-            }`}</Typography>
+            }`}</p>
           </div>
         }
       />

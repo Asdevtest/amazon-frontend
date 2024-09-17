@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { MdDone } from 'react-icons/md'
 
-import { Checkbox, Typography } from '@mui/material'
+import { Checkbox } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -359,14 +359,14 @@ export const EditMultipleBoxesForm = observer(
     return (
       <div className={styles.root}>
         <div className={styles.modalTitleWrapper}>
-          <Typography className={styles.modalTitle}>{t(TranslationKey['Editing boxes'])}</Typography>
+          <p className={styles.modalTitle}>{t(TranslationKey['Editing boxes'])}</p>
           <BoxEdit />
         </div>
 
         <div className={styles.boxesWrapper}>
           <div className={styles.currentBox}>
             <div className={styles.currentBoxTitle}>
-              <Typography className={styles.sectionTitle}>{t(TranslationKey['Shared options'])}</Typography>
+              <p className={styles.sectionTitle}>{t(TranslationKey['Shared options'])}</p>
             </div>
 
             <div className={styles.sharedItemSubWrapper}>
@@ -525,7 +525,7 @@ export const EditMultipleBoxesForm = observer(
                           checked={sharedFields.isShippingLabelAttachedByStorekeeper}
                           onChange={e => onChangeSharedFields(e, 'isShippingLabelAttachedByStorekeeper')}
                         />
-                        {/* <Typography className={styles.checkboxLabel}>{t(TranslationKey.FBA)}</Typography> */}
+                        {/* <p className={styles.checkboxLabel}>{t(TranslationKey.FBA)}</p> */}
                       </div>
                     }
                   />

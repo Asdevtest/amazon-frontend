@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { EstimateCreateTradingShopForm } from '@components/forms/estimate-create-trading-shop-form'
@@ -206,7 +204,7 @@ export const CreateOrEditTradingShopContent = ({
               t(TranslationKey.Save)
             ) : (
               <div className={styles.successBtnTextWrapper}>
-                <Typography>{t(TranslationKey.Next)}</Typography>
+                <p>{t(TranslationKey.Next)}</p>
                 <img
                   src="/assets/icons/right-arrow.svg"
                   className={cx(styles.successBtnArrow, {
@@ -224,13 +222,9 @@ export const CreateOrEditTradingShopContent = ({
   return (
     <div className={styles.mainWrapper}>
       <div className={styles.headerWrapper}>
-        <Typography className={styles.mainTitle}>
-          {t(TranslationKey['We will find a reliable buyer of your store'])}
-        </Typography>
+        <p className={styles.mainTitle}>{t(TranslationKey['We will find a reliable buyer of your store'])}</p>
 
-        <Typography className={styles.mainSubTitle}>
-          {t(TranslationKey['Fill in basic information about your store'])}
-        </Typography>
+        <p className={styles.mainSubTitle}>{t(TranslationKey['Fill in basic information about your store'])}</p>
       </div>
 
       <div className={styles.mainContentWrapper}>
@@ -294,13 +288,13 @@ export const CreateOrEditTradingShopContent = ({
             style={{ backgroundColor: curStep === stepVariant.STEP_THREE ? '#00B746' : '#c4c4c4' }}
           ></div>
         </div>
-        <Typography className={styles.stepTitle}>
+        <p className={styles.stepTitle}>
           {curStep === stepVariant.STEP_ONE
             ? `${t(TranslationKey.Step)} 1`
             : curStep === stepVariant.STEP_TWO
             ? `${t(TranslationKey.Step)} 2`
             : `${t(TranslationKey.Step)} 3`}
-        </Typography>
+        </p>
       </div>
 
       <Modal openModal={showEstimateModal} setOpenModal={() => setShowEstimateModal(!showEstimateModal)}>

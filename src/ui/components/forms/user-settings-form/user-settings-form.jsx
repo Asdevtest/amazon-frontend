@@ -2,7 +2,7 @@ import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
-import { TextareaAutosize, Typography } from '@mui/material'
+import { TextareaAutosize } from '@mui/material'
 
 import { renderSettingsRuLabelByKey } from '@constants/keys/user-settings-labels-to-render'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -25,7 +25,7 @@ export const UserSettingsForm = observer(() => {
   return (
     <div className={styles.mainWrapper}>
       {!viewModel.sourceUserSettings && (
-        <Typography className={styles.noSettingsWarning}>{t(TranslationKey['No user settings'])}</Typography>
+        <p className={styles.noSettingsWarning}>{t(TranslationKey['No user settings'])}</p>
       )}
 
       {viewModel.userSettingsAvailable?.map((item, i) => (

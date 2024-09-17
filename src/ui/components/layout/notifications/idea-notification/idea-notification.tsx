@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import { FC } from 'react'
 
-import { Avatar, Typography } from '@mui/material'
+import { Avatar } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -65,25 +65,23 @@ export const IdeaNotification: FC<IdeaNotificationProps> = props => {
       />
 
       <div className={styles.centerWrapper}>
-        <Typography className={styles.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
+        <p className={styles.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</p>
         <div className={styles.centerSubWrapper}>
           <div className={styles.itemWrapper}>
             <UserLink name={noticeItem?.creator.name} userId={noticeItem?.creator._id} />
-            <Typography className={styles.messageText}>
-              {t(TranslationKey['updated data on idea to product']) + ':'}
-            </Typography>
+            <p className={styles.messageText}>{t(TranslationKey['updated data on idea to product']) + ':'}</p>
           </div>
           <div className={styles.itemWrapper}>
-            <Typography className={styles.asin}>{'ASIN:'}</Typography>
-            <Typography className={styles.asinText} onClick={onClickNoticeItem}>
+            <p className={styles.asin}>{'ASIN:'}</p>
+            <p className={styles.asinText} onClick={onClickNoticeItem}>
               {noticeItem?.asin}
-            </Typography>
+            </p>
           </div>
         </div>
       </div>
 
       <div className={styles.footer}>
-        <Typography className={styles.messageDate}>{format(new Date(), 'HH:mm')}</Typography>
+        <p className={styles.messageDate}>{format(new Date(), 'HH:mm')}</p>
       </div>
     </div>
   )

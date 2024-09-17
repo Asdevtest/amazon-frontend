@@ -112,7 +112,7 @@ export const IsFormedMenuItem = memo(
                     }
                   />
 
-                  <Typography title={t(TranslationKey.Formed)}>{t(TranslationKey.Formed)}</Typography>
+                  <p title={t(TranslationKey.Formed)}>{t(TranslationKey.Formed)}</p>
                 </div>
 
                 <div className={styles.shop}>
@@ -130,7 +130,7 @@ export const IsFormedMenuItem = memo(
                     }
                   />
 
-                  <Typography tile={t(TranslationKey['Not formed'])}>{t(TranslationKey['Not formed'])}</Typography>
+                  <p title={t(TranslationKey['Not formed'])}>{t(TranslationKey['Not formed'])}</p>
                 </div>
               </div>
             </div>
@@ -217,9 +217,7 @@ export const IsNeedPurchaseFilterMenuItem = memo(
           {currentOption === 'first' && (
             <div className={styles.isFormedWrapper}>
               <div className={styles.isFormedSubWrapper}>
-                <Typography title={t(TranslationKey['Not need refills'])}>
-                  {t(TranslationKey['Not need refills'])}
-                </Typography>
+                <p title={t(TranslationKey['Not need refills'])}>{t(TranslationKey['Not need refills'])}</p>
 
                 <Checkbox
                   color="primary"
@@ -235,7 +233,7 @@ export const IsNeedPurchaseFilterMenuItem = memo(
               </div>
 
               <div className={styles.isFormedSubWrapper}>
-                <Typography title={t(TranslationKey['Need refills'])}>{t(TranslationKey['Need refills'])}</Typography>
+                <p title={t(TranslationKey['Need refills'])}>{t(TranslationKey['Need refills'])}</p>
 
                 <Checkbox
                   color="primary"
@@ -279,7 +277,7 @@ export const IsHaveBarCodeFilterMenuItem = memo(
     ({ classes: styles, isHaveBarCodeFilterData }) => (
       <div title="" className={styles.isFormedWrapper}>
         <div className={styles.isFormedSubWrapper}>
-          <Typography title={t(TranslationKey['Got barcode'])}>{t(TranslationKey['Got barcode'])}</Typography>
+          <p title={t(TranslationKey['Got barcode'])}>{t(TranslationKey['Got barcode'])}</p>
 
           <Checkbox
             color="primary"
@@ -299,7 +297,7 @@ export const IsHaveBarCodeFilterMenuItem = memo(
         </div>
 
         <div className={styles.isFormedSubWrapper}>
-          <Typography title={t(TranslationKey['No barcode'])}>{t(TranslationKey['No barcode'])}</Typography>
+          <p title={t(TranslationKey['No barcode'])}>{t(TranslationKey['No barcode'])}</p>
 
           <Checkbox
             color="primary"
@@ -356,7 +354,7 @@ export const OrderStatusMenuItem = memo(
       <div title="" className={styles.isFormedWrapper}>
         {checkboxes.map(item => (
           <div key={item.name} className={styles.isFormedSubWrapper}>
-            <Typography title={item.label}>{item.label}</Typography>
+            <p title={item.label}>{item.label}</p>
 
             <Checkbox color="primary" name={item.name} checked={item.checked} onChange={onCheckboxChange} />
           </div>
@@ -438,9 +436,9 @@ export const MyRequestsStatusMenuItem = memo(
                   })}
                 </>
               ) : (
-                <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
+                <p title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                   {t(TranslationKey['No options'])}
-                </Typography>
+                </p>
               )}
             </>
           </div>
@@ -540,9 +538,9 @@ export const FreelanceRequestType = memo(
                   })}
                 </>
               ) : (
-                <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
+                <p title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                   {t(TranslationKey['No options'])}
-                </Typography>
+                </p>
               )}
             </>
           </div>
@@ -663,9 +661,9 @@ export const CreatedByMenuItem = memo(
                       })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
+                    <p title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
-                    </Typography>
+                    </p>
                   )}
                 </>
               )}
@@ -831,9 +829,9 @@ export const ObJectFieldMenuItem = memo(
                       })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
+                    <p title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
-                    </Typography>
+                    </p>
                   )}
                 </>
               )}
@@ -985,9 +983,9 @@ export const IdeaShopsFieldMenuItem = memo(
                       })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
+                    <p title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
-                    </Typography>
+                    </p>
                   )}
                 </>
               )}
@@ -1216,9 +1214,9 @@ export const NormalFieldMenuItem = memo(
                     })}
                   </>
                 ) : (
-                  <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
+                  <p title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                     {t(TranslationKey['No options'])}
-                  </Typography>
+                  </p>
                 )}
               </>
             )}
@@ -1536,9 +1534,9 @@ export const OrderOrItemMenuItem = memo(
                       })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
+                    <p title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
-                    </Typography>
+                    </p>
                   )}
                 </>
               )}
@@ -1706,9 +1704,9 @@ export const DestinationMenuItem = memo(
                     })}
                   </>
                 ) : (
-                  <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
+                  <p title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                     {t(TranslationKey['No options'])}
-                  </Typography>
+                  </p>
                 )}
               </>
             )}
@@ -1797,9 +1795,9 @@ export const FromToDateMenuItem = memo(
           <div className={styles.fromToDatesWrapper}>
             {headerControls && <div>{headerControls()}</div>}
             <div className={styles.fromToDatesSubWrapper}>
-              <Typography title={t(TranslationKey.From)} className={styles.fromToText}>
+              <p title={t(TranslationKey.From)} className={styles.fromToText}>
                 {t(TranslationKey.From)}
-              </Typography>
+              </p>
               <DatePicker
                 maxDate={new Date()}
                 disablePast={false}
@@ -1810,9 +1808,9 @@ export const FromToDateMenuItem = memo(
               />
             </div>
             <div className={styles.fromToDatesSubWrapper}>
-              <Typography title={t(TranslationKey.To)} className={styles.fromToText}>
+              <p title={t(TranslationKey.To)} className={styles.fromToText}>
                 {t(TranslationKey.To)}
-              </Typography>
+              </p>
 
               <DatePicker
                 minDate={new Date(fromDate)}
@@ -1860,9 +1858,9 @@ export const FromToDateMenuItem = memo(
                       })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
+                    <p title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
-                    </Typography>
+                    </p>
                   )}
                 </>
               )}
@@ -2155,9 +2153,9 @@ export const NumberFieldMenuItem = memo(
                       })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
+                    <p title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
-                    </Typography>
+                    </p>
                   )}
                 </>
               )}
@@ -2295,9 +2293,9 @@ export const InStockMenuItem = memo(
                       })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
+                    <p title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
-                    </Typography>
+                    </p>
                   )}
                 </>
               )}
@@ -2384,7 +2382,7 @@ export const OnListingCellMenuItem = memo(
                 }}
               />
 
-              <Typography title={t(TranslationKey.Yes)}>{t(TranslationKey.Yes)}</Typography>
+              <p title={t(TranslationKey.Yes)}>{t(TranslationKey.Yes)}</p>
             </div>
 
             <div className={styles.shop}>
@@ -2400,7 +2398,7 @@ export const OnListingCellMenuItem = memo(
                 }}
               />
 
-              <Typography title={t(TranslationKey.No)}>{t(TranslationKey.No)}</Typography>
+              <p title={t(TranslationKey.No)}>{t(TranslationKey.No)}</p>
             </div>
           </div>
         </div>
@@ -2443,7 +2441,7 @@ export const YesNoCellMenuItem = memo(
                 }}
               />
 
-              <Typography title={yesCustomText}>{yesCustomText}</Typography>
+              <p title={yesCustomText}>{yesCustomText}</p>
             </div>
 
             <div className={styles.shop}>
@@ -2465,7 +2463,7 @@ export const YesNoCellMenuItem = memo(
                 }}
               />
 
-              <Typography title={noCustomText}>{noCustomText}</Typography>
+              <p title={noCustomText}>{noCustomText}</p>
             </div>
           </div>
         </div>
@@ -2769,7 +2767,7 @@ export const SecondsCellMenuItem = memo(
                     ))}
                   </>
                 ) : (
-                  <Typography className={styles.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                  <p className={styles.noOptionText}>{t(TranslationKey['No options'])}</p>
                 )}
               </>
             )}

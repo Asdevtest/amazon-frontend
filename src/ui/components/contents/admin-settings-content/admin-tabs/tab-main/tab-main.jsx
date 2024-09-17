@@ -2,8 +2,6 @@ import isEqual from 'lodash.isequal'
 import { memo, useEffect, useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
@@ -91,7 +89,7 @@ export const TabMain = memo(props => {
 
         <div className={styles.proxyContent}>
           <div className={styles.proxyAdd}>
-            <Typography className={styles.label}>{t(TranslationKey['Proxy servers for parsing'])}</Typography>
+            <p className={styles.label}>{t(TranslationKey['Proxy servers for parsing'])}</p>
             <CustomButton type="primary" size="large" onClick={onClickToggleProxyModal}>
               {t(TranslationKey['Add proxy'])}
             </CustomButton>
@@ -101,7 +99,7 @@ export const TabMain = memo(props => {
             {showProxies
               ? updatedProxy?.map((proxy, index) => (
                   <div key={index} className={styles.proxyWrapper}>
-                    <Typography className={styles.proxy}>{proxy}</Typography>
+                    <p className={styles.proxy}>{proxy}</p>
 
                     <div className={styles.iconsWrapper}>
                       <CopyValue text={proxy} />

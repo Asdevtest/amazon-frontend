@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -81,7 +79,7 @@ export const AddOrEditDestinationForm = observer(
                       userId={destinationToEdit.storekeeper?._id}
                     />
                   ) : (
-                    <Typography className={styles.standartText}>{t(TranslationKey.Missing)}</Typography>
+                    <p className={styles.standartText}>{t(TranslationKey.Missing)}</p>
                   )}
                 </>
               }

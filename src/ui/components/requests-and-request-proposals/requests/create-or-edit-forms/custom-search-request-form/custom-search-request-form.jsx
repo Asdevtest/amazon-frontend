@@ -1,7 +1,7 @@
 import { parseISO } from 'date-fns/esm'
 import { useState } from 'react'
 
-import { Button, Checkbox, ListItemText, MenuItem, Select, TextareaAutosize, Typography } from '@mui/material'
+import { Button, Checkbox, ListItemText, MenuItem, Select, TextareaAutosize } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
@@ -71,9 +71,7 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
   return (
     <div className={styles.root}>
       <div className={styles.form}>
-        <Typography variant="h3" className={styles.title}>
-          {'title'}
-        </Typography>
+        <h3 className={styles.title}>{'title'}</h3>
 
         <Field
           containerClasses={styles.field}

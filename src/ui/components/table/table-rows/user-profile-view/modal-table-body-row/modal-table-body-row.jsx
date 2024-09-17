@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { MenuItem, Select, TableCell, TableRow, Typography } from '@mui/material'
+import { MenuItem, Select, TableCell, TableRow } from '@mui/material'
 
 import { Input } from '@components/shared/input'
 
@@ -21,10 +21,10 @@ const ModalTableBodyRowRaw = ({ product, managersList, ...restProps }) => {
         <img alt="" src={product.categoryImg} className={styles.img} />
       </TableCell>
       <TableCell className={styles.categoryCell}>
-        <Typography>{product.category}</Typography>
+        <p>{product.category}</p>
       </TableCell>
       <TableCell className={styles.priceCell}>
-        <Typography>{toFixedWithDollarSign(product.price + product.deliveryPrice)}</Typography>
+        <p>{toFixedWithDollarSign(product.price + product.deliveryPrice)}</p>
       </TableCell>
       <TableCell>
         <Input
@@ -34,27 +34,25 @@ const ModalTableBodyRowRaw = ({ product, managersList, ...restProps }) => {
         />
       </TableCell>
       <TableCell className={styles.avgPriceCell}>
-        <Typography>{toFixedWithDollarSign(product.avgPrice)}</Typography>
+        <p>{toFixedWithDollarSign(product.avgPrice)}</p>
       </TableCell>
       <TableCell>
-        <Typography>{product.recConsignmentQty}</Typography>
+        <p>{product.recConsignmentQty}</p>
       </TableCell>
       <TableCell>
-        <Typography>{product.recConsignmentWeight}</Typography>
+        <p>{product.recConsignmentWeight}</p>
       </TableCell>
       <TableCell>
-        <Typography>{product.avgBSR}</Typography>
+        <p>{product.avgBSR}</p>
       </TableCell>
       <TableCell>
-        <Typography>{product.avgReviews}</Typography>
+        <p>{product.avgReviews}</p>
       </TableCell>
       <TableCell>
-        <Typography>{product.avgRevenue}</Typography>
+        <p>{product.avgRevenue}</p>
       </TableCell>
       <TableCell>
-        <Typography className={styles.costStart}>
-          {priceCalculation(product.price, product.deliveryPrice, qty)}
-        </Typography>
+        <p className={styles.costStart}>{priceCalculation(product.price, product.deliveryPrice, qty)}</p>
       </TableCell>
       <TableCell>
         <Select

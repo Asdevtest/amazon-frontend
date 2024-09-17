@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { IoSettingsOutline } from 'react-icons/io5'
 
-import { Checkbox, Menu, Typography } from '@mui/material'
+import { Checkbox, Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -64,7 +64,7 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
         <div className={cx(className, styles.mainFilterBtnInsert)}>
           <IoSettingsOutline size={20} />
 
-          <Typography className={styles.mainFilterBtnInsertText}>{t(TranslationKey.Parameters)}</Typography>
+          <p className={styles.mainFilterBtnInsertText}>{t(TranslationKey.Parameters)}</p>
         </div>
       </Button>
 
@@ -78,7 +78,7 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
           onClose={handleClose}
         >
           <div className={styles.mainWrapper}>
-            <Typography className={styles.titleText}>{t(TranslationKey.Columns)}</Typography>
+            <p className={styles.titleText}>{t(TranslationKey.Columns)}</p>
             <div className={styles.searchInputWrapper}>
               <SearchInput
                 inputClasses={styles.searchInput}

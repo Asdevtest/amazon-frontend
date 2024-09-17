@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { TableCell, TableRow, Typography } from '@mui/material'
+import { TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -27,9 +27,9 @@ const TableBodyBoxRow = ({ item, handlers, ...restProps }) => {
           <div className={styles.imgBlock}>
             <img className={styles.imgBox} src={getAmazonImageUrl(item.image)} />
             <div className={styles.imgSubBlock}>
-              <Typography className={styles.productTitle}>{item.amazonTitle}</Typography>
+              <p className={styles.productTitle}>{item.amazonTitle}</p>
 
-              <Typography className={styles.boxTitle}>{`ASIN: ${item.asin}`}</Typography>
+              <p className={styles.boxTitle}>{`ASIN: ${item.asin}`}</p>
             </div>
           </div>
         </div>
@@ -37,11 +37,9 @@ const TableBodyBoxRow = ({ item, handlers, ...restProps }) => {
 
       <TableCell>
         <div className={styles.countBlock}>
-          <Typography className={styles.amount}>{item.qty}</Typography>
+          <p className={styles.amount}>{item.qty}</p>
 
-          {restProps.box.amount > 1 && (
-            <Typography className={styles.superboxTypo}>{`Superbox x ${restProps.box.amount}`}</Typography>
-          )}
+          {restProps.box.amount > 1 && <p className={styles.superboxTypo}>{`Superbox x ${restProps.box.amount}`}</p>}
         </div>
       </TableCell>
 
@@ -95,9 +93,7 @@ export const AddOrEditHsCodeInBox = observer(({ box, setOpenModal, onSubmit, sta
 
   return (
     <div className={styles.form}>
-      <Typography className={styles.modalTitle} variant="h5">
-        {`${t(TranslationKey.Box)} ${box.humanFriendlyId}`}
-      </Typography>
+      <h5 className={styles.modalTitle}>{`${t(TranslationKey.Box)} ${box.humanFriendlyId}`}</h5>
 
       <Table
         rowsOnly

@@ -1,4 +1,4 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,9 +15,9 @@ export const UserBalanceHistory = ({ historyData, title }) => {
 
   return (
     <Paper className={styles.mainWrapper}>
-      <Typography paragraph variant="h5" className={styles.mainTitle}>
+      <p paragraph variant="h5" className={styles.mainTitle}>
         {title}
-      </Typography>
+      </p>
       <div>
         {historyData.length > 0 ? (
           <TableContainer>
@@ -61,7 +61,7 @@ export const UserBalanceHistory = ({ historyData, title }) => {
             </Table>
           </TableContainer>
         ) : (
-          <Typography className={styles.subTitle}>{t(TranslationKey['No transactions'])}</Typography>
+          <p className={styles.subTitle}>{t(TranslationKey['No transactions'])}</p>
         )}
       </div>
     </Paper>

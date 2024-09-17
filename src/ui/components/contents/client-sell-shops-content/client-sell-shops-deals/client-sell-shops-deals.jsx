@@ -3,8 +3,6 @@ import { useEffect, useRef } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { useHistory } from 'react-router-dom'
 
-import { Typography } from '@mui/material'
-
 import {
   /* tableViewMode,*/
   tableSortMode,
@@ -67,7 +65,7 @@ export const ClientSellShopsDeals = observer(() => {
             />
 
             <div className={styles.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-              <Typography className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+              <p className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</p>
 
               {sortMode === tableSortMode.DESK ? (
                 <MdArrowDropDown size={22} className={styles.icon} />
@@ -86,9 +84,7 @@ export const ClientSellShopsDeals = observer(() => {
           ) : (
             <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={styles.emptyTableText}>
-                {t(TranslationKey['No deals yet'])}
-              </Typography>
+              <h5 className={styles.emptyTableText}>{t(TranslationKey['No deals yet'])}</h5>
             </div>
           )}
         </>

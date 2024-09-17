@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { Typography } from '@mui/material'
-
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -210,9 +208,7 @@ export const SuppliersAndIdeas = observer(props => {
           ) : (
             <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={styles.emptyTableText}>
-                {t(TranslationKey['No ideas yet'])}
-              </Typography>
+              <h5 className={styles.emptyTableText}>{t(TranslationKey['No ideas yet'])}</h5>
             </div>
           )}
         </>
@@ -256,9 +252,7 @@ export const SuppliersAndIdeas = observer(props => {
           ) : (
             <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={styles.emptyTableText}>
-                {t(TranslationKey['No ideas yet'])}
-              </Typography>
+              <h5 className={styles.emptyTableText}>{t(TranslationKey['No ideas yet'])}</h5>
             </div>
           )}
         </>

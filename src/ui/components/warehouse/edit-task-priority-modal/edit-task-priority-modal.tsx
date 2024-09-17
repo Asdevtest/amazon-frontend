@@ -1,7 +1,5 @@
 import { ChangeEvent, FC, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import {
   TaskPriorityStatus,
   colorByTaskPriorityStatus,
@@ -44,25 +42,25 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
   return (
     <div className={styles.body}>
       <div className={styles.titleWrapper}>
-        <Typography className={styles.title}>
+        <p className={styles.title}>
           {t(TranslationKey['Change the priority to'])}{' '}
           {!withSelect && (
             <span style={{ color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[data.newPriority]) }}>
               {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[data.newPriority])}
             </span>
           )}
-        </Typography>
+        </p>
 
         {withSelect && (
           <PrioritySelect setCurrentPriority={priority => setCurPriority(priority)} currentPriority={curPriority} />
         )}
       </div>
-      {/* <Typography className={styles.title}>
+      {/* <p className={styles.title}>
         {t(TranslationKey['Change the priority to'])}{' '}
         <span style={{color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[data.newPriority])}}>
           {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[data.newPriority])}
         </span>
-      </Typography> */}
+      </p> */}
 
       <Field
         labelClasses={styles.reasonLabel}

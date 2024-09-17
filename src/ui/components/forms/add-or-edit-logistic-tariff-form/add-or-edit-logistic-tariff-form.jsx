@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -202,9 +200,7 @@ export const AddOrEditLogisticTariffForm = observer(
 
     return (
       <div className={styles.root}>
-        <Typography variant="h5" className={styles.modalTitle}>
-          {t(TranslationKey['Adding tariff'])}
-        </Typography>
+        <h5 className={styles.modalTitle}>{t(TranslationKey['Adding tariff'])}</h5>
 
         <div className={styles.form}>
           <div className={styles.nameDeliveryWrapper}>
@@ -348,9 +344,7 @@ export const AddOrEditLogisticTariffForm = observer(
               </div>
             </div>
 
-            <Typography variant="h5" className={styles.modalSubTitle}>
-              {t(TranslationKey['Shipping dates'])}
-            </Typography>
+            <h5 className={styles.modalSubTitle}>{t(TranslationKey['Shipping dates'])}</h5>
 
             <div className={styles.blockWrapper}>
               <div className={styles.blockItem}>

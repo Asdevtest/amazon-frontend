@@ -2,7 +2,7 @@ import isEqual from 'lodash.isequal'
 import { memo, useEffect, useMemo, useState } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import { Box, Divider, ListItemText, MenuItem, Select, Tabs, Typography } from '@mui/material'
+import { Box, Divider, ListItemText, MenuItem, Select, Tabs } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
@@ -254,7 +254,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
             <Divider flexItem orientation={'vertical'} className={styles.divider} />
 
             <div className={styles.rightSideWrapper}>
-              <Typography className={styles.rightSideTitle}>{rightSide?.title}</Typography>
+              <p className={styles.rightSideTitle}>{rightSide?.title}</p>
 
               {rightSide?.permissions
                 ?.slice()
@@ -271,13 +271,13 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                   >
                     <Box className={styles.permissionWrapper} onClick={() => onChangePermissionCheckbox(item._id)}>
                       <Checkbox color="primary" checked={formFields.includes(item._id)} />
-                      <Typography
+                      <p
                         className={cx(styles.standartText, {
                           [styles.keyPermission]: item.key.startsWith('SHOW_'),
                         })}
                       >
                         {item.title}
-                      </Typography>
+                      </p>
                     </Box>
                   </Tooltip>
                 ))}
@@ -335,9 +335,9 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                               onClick={() => onChangePermissionCheckbox(item._id)}
                             >
                               <Checkbox color="primary" checked={formFields.includes(item._id)} />
-                              <Typography className={cx({ [styles.keyPermission]: item.key.startsWith('SHOW_') })}>
+                              <p className={cx({ [styles.keyPermission]: item.key.startsWith('SHOW_') })}>
                                 {item.title}
-                              </Typography>
+                              </p>
                             </Box>
                           </Tooltip>
                         ))}
@@ -361,7 +361,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                 onClick={onClickChooseAllProductCheck}
               />
 
-              <Typography className={styles.title}>{t(TranslationKey['Select all'])}</Typography>
+              <p className={styles.title}>{t(TranslationKey['Select all'])}</p>
             </div>
           ) : null}
           {sourceDataToProductsPermissions

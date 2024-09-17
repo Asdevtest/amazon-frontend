@@ -1,4 +1,4 @@
-import { Paper, Tab, Table, TableBody, TableContainer, TableHead, Tabs, Typography } from '@mui/material'
+import { Paper, Tab, Table, TableBody, TableContainer, TableHead, Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,9 +13,7 @@ export const ActiveOrders = ({ tabExchange, setTabExchange, productList, handler
 
   const renderProductList =
     productList.length === 0 ? (
-      <Typography className={(styles.text, styles.noActiveOffers)}>
-        {t(TranslationKey['No active offers found'])}
-      </Typography>
+      <p className={(styles.text, styles.noActiveOffers)}>{t(TranslationKey['No active offers found'])}</p>
     ) : (
       <TableContainer>
         <Table>
@@ -36,9 +34,7 @@ export const ActiveOrders = ({ tabExchange, setTabExchange, productList, handler
 
   return (
     <>
-      <Typography variant="h6" className={styles.mainTitle}>
-        {t(TranslationKey['Active offers on the commodity exchange'])}
-      </Typography>
+      <h6 className={styles.mainTitle}>{t(TranslationKey['Active offers on the commodity exchange'])}</h6>
       <Paper>
         <Tabs
           value={tabExchange}

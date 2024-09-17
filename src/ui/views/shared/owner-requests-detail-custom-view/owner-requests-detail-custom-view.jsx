@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useEffect, useMemo, useRef } from 'react'
 
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -194,7 +194,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
       </div>
 
       <Modal openModal={viewModel.showRequestForm} setOpenModal={() => viewModel.onTriggerOpenModal('showRequestForm')}>
-        <Typography variant="h5">{t(TranslationKey['New request'])}</Typography>
+        <h5>{t(TranslationKey['New request'])}</h5>
         <CustomSearchRequestForm
           isEdit
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestForm')}

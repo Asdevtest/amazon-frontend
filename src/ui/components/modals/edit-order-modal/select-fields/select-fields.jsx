@@ -1,4 +1,4 @@
-import { Box, Checkbox, Grid, Typography } from '@mui/material'
+import { Box, Checkbox, Grid } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -87,21 +87,21 @@ export const SelectFields = ({
                     })}
                   >
                     <div className={styles.deliveredGoodsSubWrapper}>
-                      <Typography
+                      <p
                         className={cx(styles.deliveredGoodsLeftText, {
                           [styles.deliveredGoodsSuccessText]: deliveredQuantity >= order.amount,
                         })}
                       >
                         {deliveredQuantity || 0}
-                      </Typography>
-                      <Typography className={styles.deliveredGoodsMiddleText}>{t(TranslationKey['out of'])}</Typography>
-                      <Typography
+                      </p>
+                      <p className={styles.deliveredGoodsMiddleText}>{t(TranslationKey['out of'])}</p>
+                      <p
                         className={cx(styles.deliveredGoodsRightText, {
                           [styles.deliveredGoodsSuccessText]: deliveredQuantity >= order.amount,
                         })}
                       >
                         {order.amount}
-                      </Typography>
+                      </p>
                     </div>
                     {deliveredQuantity < order.amount && <img src="/assets/icons/attention.svg" />}
                   </div>
@@ -390,7 +390,7 @@ export const SelectFields = ({
                       checked={orderFields.needsResearch}
                       color="primary"
                     />
-                    <Typography className={styles.researchLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
+                    <p className={styles.researchLabel}>{t(TranslationKey['Re-search supplier'])}</p>
                   </div>
                 </div>
               </div>
@@ -418,7 +418,7 @@ export const SelectFields = ({
                 color="primary"
                 onChange={() => setOrderField('partialPayment')({ target: { value: !orderFields.partialPayment } })}
               />
-              <Typography className={styles.label}>{t(TranslationKey['Partial payment'])}</Typography>
+              <p className={styles.label}>{t(TranslationKey['Partial payment'])}</p>
             </div>
 
             <div className={styles.partialPaymentFields}>
@@ -524,7 +524,7 @@ export const SelectFields = ({
           {order.product.subUsers?.length ? (
             <div className={styles.subUsersWrapper}>
               <div className={styles.subUsersTitleWrapper}>
-                <Typography className={styles.subUsersTitle}>{t(TranslationKey['Product available'])}</Typography>
+                <p className={styles.subUsersTitle}>{t(TranslationKey['Product available'])}</p>
               </div>
               <div className={styles.subUsersBodyWrapper}>
                 <div className={styles.subUsersBody}>

@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
 
-import { IconButton, Input, MenuItem, Select, Tooltip, Typography } from '@mui/material'
+import { IconButton, Input, MenuItem, Select, Tooltip } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
@@ -93,17 +93,17 @@ export const AddOrEditGroupPermissionForm = observer(
 
     const renderPermissionInfo = perm => (
       <div className={styles.permissionInfoWrapper}>
-        <Typography>{t(TranslationKey.Key) + ':'}</Typography>
-        <Typography>{perm.key}</Typography>
+        <p>{t(TranslationKey.Key) + ':'}</p>
+        <p>{perm.key}</p>
 
-        <Typography>{t(TranslationKey.Description) + ':'}</Typography>
-        <Typography>{perm.description}</Typography>
+        <p>{t(TranslationKey.Description) + ':'}</p>
+        <p>{perm.description}</p>
 
-        <Typography>{t(TranslationKey['Allowed Endpoints']) + ':'}</Typography>
+        <p>{t(TranslationKey['Allowed Endpoints']) + ':'}</p>
         {perm.allowedUrls.map((item, itemIndex) => (
           <div key={itemIndex}>
-            <Typography>{item.url}</Typography>
-            <Typography>{item.httpMethod}</Typography>
+            <p>{item.url}</p>
+            <p>{item.httpMethod}</p>
           </div>
         ))}
       </div>
@@ -268,16 +268,14 @@ export const AddOrEditGroupPermissionForm = observer(
                 />
 
                 <div>
-                  <Typography className={styles.permissionsSubTitle}>
-                    {t(TranslationKey['Permissions will be created:'])}
-                  </Typography>
+                  <p className={styles.permissionsSubTitle}>{t(TranslationKey['Permissions will be created:'])}</p>
 
                   {newSinglePermission.map((el, index) => (
                     <Tooltip key={index} title={renderPermissionInfo(el)}>
                       <div className={styles.newSinglePermissionWrapper}>
-                        <Typography className={styles.singlePermission}>{`${el.title} (ключ: ${el.key}) (роль: ${
+                        <p className={styles.singlePermission}>{`${el.title} (ключ: ${el.key}) (роль: ${
                           UserRoleCodeMap[el.role]
-                        })`}</Typography>
+                        })`}</p>
 
                         <IconButton onClick={() => onRemovePermission(index)}>
                           <MdDeleteOutline size={24} />

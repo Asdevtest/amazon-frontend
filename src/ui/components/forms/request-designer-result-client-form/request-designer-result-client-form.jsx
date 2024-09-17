@@ -1,7 +1,7 @@
 import { memo, useState } from 'react'
 import { MdOutlineDownload } from 'react-icons/md'
 
-import { Checkbox, Link, Typography } from '@mui/material'
+import { Checkbox, Link } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -132,9 +132,9 @@ export const RequestDesignerResultClientForm = memo(props => {
     <>
       <div className={styles.modalMainWrapper}>
         <div className={styles.headerWrapper}>
-          <Typography className={styles.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
+          <p className={styles.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
             proposal?.request?.humanFriendlyId
-          }`}</Typography>
+          }`}</p>
           <div className={styles.headerRightSubWrapper}>
             <Field
               labelClasses={styles.fieldLabel}
@@ -153,7 +153,7 @@ export const RequestDesignerResultClientForm = memo(props => {
                   </div>
                 ) : (
                   <div className={styles.shippingLabelWrapper}>
-                    <Typography className={styles.miss}>{t(TranslationKey['Not available'])}</Typography>
+                    <p className={styles.miss}>{t(TranslationKey['Not available'])}</p>
                   </div>
                 )
               }
@@ -163,13 +163,13 @@ export const RequestDesignerResultClientForm = memo(props => {
               labelClasses={styles.fieldLabel}
               label={t(TranslationKey['Time to check'])}
               containerClasses={styles.containerField}
-              inputComponent={<Typography className={styles.simpleSpan}>{minsToTime(1440)}</Typography>}
+              inputComponent={<p className={styles.simpleSpan}>{minsToTime(1440)}</p>}
             />
             <Field
               labelClasses={styles.fieldLabel}
               label={t(TranslationKey['Number of illustrations'])}
               containerClasses={styles.containerField}
-              inputComponent={<Typography className={styles.simpleSpan}>{mediaToShow.length}</Typography>}
+              inputComponent={<p className={styles.simpleSpan}>{mediaToShow.length}</p>}
             />
             <Field
               labelClasses={styles.fieldLabel}
@@ -234,7 +234,7 @@ export const RequestDesignerResultClientForm = memo(props => {
           <div className={styles.downloadsWrapper}>
             <div className={styles.downloadsCheckWrapper} onClick={onClickAllAddDownload}>
               <Checkbox color="primary" checked={imagesForDownload.length === imagesData.length} />
-              <Typography>{t(TranslationKey['Select all'])}</Typography>
+              <p>{t(TranslationKey['Select all'])}</p>
             </div>
 
             <Button disabled={!imagesForDownload.length} onClick={onClickAllDownload}>

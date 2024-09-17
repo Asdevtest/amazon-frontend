@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { MdFiberManualRecord } from 'react-icons/md'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -61,19 +59,19 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
         <div className={styles.buttonsWrapper}>
           <div className={styles.barStatusWrapper}>
             <MdFiberManualRecord size={22} color="primary" />
-            <Typography className={styles.cardTitle}>
+            <p className={styles.cardTitle}>
               {isRevenue
                 ? t(TranslationKey['Gross income']).toLowerCase()
                 : t(TranslationKey['View page']).toLowerCase()}
-            </Typography>
+            </p>
           </div>
           <div className={styles.barStatusWrapper}>
             <MdFiberManualRecord size={22} classes={{ root: styles.indicator }} />
-            <Typography className={styles.cardTitle}>
+            <p className={styles.cardTitle}>
               {isRevenue
                 ? t(TranslationKey['Pure profit']).toLowerCase()
                 : t(TranslationKey['Unique visitors']).toLowerCase()}
-            </Typography>
+            </p>
           </div>
         </div>
       </div>

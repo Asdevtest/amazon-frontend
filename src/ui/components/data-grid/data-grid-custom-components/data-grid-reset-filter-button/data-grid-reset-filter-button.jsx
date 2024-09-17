@@ -2,8 +2,6 @@ import { t } from 'i18n-js'
 import { memo } from 'react'
 import { MdOutlineFilterAlt } from 'react-icons/md'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -29,7 +27,7 @@ export const DataGridResetFilterButton = memo(props => {
         <div className={cx(className, styles.mainFilterBtnInsert)}>
           <MdOutlineFilterAlt size={20} />
 
-          <Typography className={styles.mainFilterBtnInsertText}>{t(TranslationKey['Reset filters'])}</Typography>
+          <p className={styles.mainFilterBtnInsertText}>{t(TranslationKey['Reset filters'])}</p>
         </div>
       </Button>
     </div>

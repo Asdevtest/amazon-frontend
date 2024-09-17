@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
-import { Typography } from '@mui/material'
 import { GridCellParams, GridRowModel, useGridApiRef } from '@mui/x-data-grid-premium'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
@@ -146,7 +145,7 @@ export const MyRequestsView = observer(() => {
       />
 
       <Modal openModal={viewModel.showRequestForm} setOpenModal={() => viewModel.onTriggerOpenModal('showRequestForm')}>
-        <Typography variant="h5">{t(TranslationKey['New request'])}</Typography>
+        <h5>{t(TranslationKey['New request'])}</h5>
         <CustomSearchRequestForm
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestForm')}
           requestToEdit={viewModel.requestFormSettings.request}

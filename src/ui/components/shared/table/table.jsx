@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 
 import { Pagination } from '@material-ui/lab'
-import { Table as MuiTable, Paper, TableBody, TableContainer, TableHead, Toolbar, Typography } from '@mui/material'
+import { Table as MuiTable, Paper, TableBody, TableContainer, TableHead, Toolbar } from '@mui/material'
 
 import { useStyles } from './table.style'
 
@@ -51,7 +51,7 @@ export const Table = observer(
 
         {!data.length && (
           <div className={styles.noRowsTitleWrapper}>
-            <Typography>{noRowsTitle}</Typography>
+            <p>{noRowsTitle}</p>
           </div>
         )}
 

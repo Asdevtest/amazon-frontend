@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useMemo, useState } from 'react'
 import { MdAutorenew, MdDeleteOutline, MdOutlineHighlightOff, MdOutlineModeEditOutline } from 'react-icons/md'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -88,7 +86,7 @@ export const TabPaymentMethods = observer(() => {
                 <div key={method._id} className={styles.paymentMethodWrapper}>
                   <div className={styles.iconContainer}>
                     <img src={getAmazonImageUrl(method.iconImage)} alt={method.title} className={styles.iconImage} />
-                    <Typography className={styles.paymentMethod}>{method.title}</Typography>
+                    <p className={styles.paymentMethod}>{method.title}</p>
                   </div>
 
                   <div className={styles.iconsWrapper}>

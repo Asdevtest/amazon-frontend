@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useMemo, useState } from 'react'
 import { MdAutorenew, MdDeleteOutline, MdOutlineHighlightOff, MdOutlineModeEditOutline } from 'react-icons/md'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -85,7 +83,7 @@ export const TabRedFlags = observer(() => {
               <div key={flag._id} className={styles.redFlagWrapper}>
                 <div className={styles.iconContainer}>
                   <img src={getAmazonImageUrl(flag.iconImage)} alt={flag.title} className={styles.iconImage} />
-                  <Typography className={styles.redFlag}>{flag.title}</Typography>
+                  <p className={styles.redFlag}>{flag.title}</p>
                 </div>
 
                 <div className={styles.iconsWrapper}>

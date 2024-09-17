@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useEffect, useMemo, useState } from 'react'
 
-import { FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
+import { FormControlLabel, Radio, RadioGroup } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import {
@@ -349,9 +349,9 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
 
   return (
     <div className={styles.root}>
-      <Typography className={styles.modalTitle}>
+      <p className={styles.modalTitle}>
         {batchToEdit ? t(TranslationKey['Editing a batch']) : t(TranslationKey['Creating a batch'])}
-      </Typography>
+      </p>
 
       <div className={styles.form}>
         <div className={styles.filtersWrapper}>
@@ -439,7 +439,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
         </div>
 
         <div className={styles.searchWrapper}>
-          <Typography>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
+          <p>{t(TranslationKey['Choose boxes from the list:'])}</p>
 
           <SearchInput
             inputClasses={styles.searchInput}
@@ -473,10 +473,8 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
                 },
                 children: (
                   <div className={styles.boxCounterWrapper}>
-                    <Typography className={styles.boxCounterText}>
-                      {t(TranslationKey['Selected boxes']) + ':'}
-                    </Typography>
-                    <Typography className={styles.boxCounterCount}>
+                    <p className={styles.boxCounterText}>{t(TranslationKey['Selected boxes']) + ':'}</p>
+                    <p className={styles.boxCounterCount}>
                       {[
                         ...addOrEditBatchDataConverter(
                           boxesData,
@@ -492,7 +490,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
                       ]
                         .filter(el => boxesToAddIds.includes(el._id))
                         .reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
-                    </Typography>
+                    </p>
                   </div>
                 ),
               },
@@ -526,7 +524,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
               onClickSelect={item => changeBatchFields('calculationMethod')(item.methodStatus)}
             />
 
-            <Typography className={styles.volumeWeightDivider}>{t(TranslationKey.Divider) + ':'}</Typography>
+            <p className={styles.volumeWeightDivider}>{t(TranslationKey.Divider) + ':'}</p>
 
             <RadioGroup
               row
@@ -550,7 +548,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
         </div>
 
         <div className={styles.searchWrapper}>
-          <Typography>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
+          <p>{t(TranslationKey['Boxes in batch']) + ':'}</p>
 
           <SearchInput
             inputClasses={styles.searchInput}
@@ -580,12 +578,10 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
                 },
                 children: (
                   <div className={styles.boxCounterWrapper}>
-                    <Typography className={styles.boxCounterText}>
-                      {t(TranslationKey['Quantity of boxes']) + ':'}
-                    </Typography>
-                    <Typography className={styles.boxCounterCount}>
+                    <p className={styles.boxCounterText}>{t(TranslationKey['Quantity of boxes']) + ':'}</p>
+                    <p className={styles.boxCounterCount}>
                       {chosenBoxesBase.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
-                    </Typography>
+                    </p>
                   </div>
                 ),
               },

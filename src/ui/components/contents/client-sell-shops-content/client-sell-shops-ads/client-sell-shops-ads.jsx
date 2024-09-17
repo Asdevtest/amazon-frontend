@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TradingShopCard } from '@components/cards/trading-shop-card'
@@ -93,9 +91,7 @@ export const ClientSellShopsAds = observer(() => {
       ) : (
         <div className={styles.emptyTableWrapper}>
           <img src="/assets/icons/empty-table.svg" />
-          <Typography variant="h5" className={styles.emptyTableText}>
-            {t(TranslationKey['No stores for sale yet'])}
-          </Typography>
+          <h5 className={styles.emptyTableText}>{t(TranslationKey['No stores for sale yet'])}</h5>
         </div>
       )}
     </>

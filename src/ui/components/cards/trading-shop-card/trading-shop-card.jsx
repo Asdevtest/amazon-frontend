@@ -1,6 +1,6 @@
 import { MdArrowDropDown, MdArrowDropUp, MdOutlineFiberManualRecord } from 'react-icons/md'
 
-import { Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -24,10 +24,10 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
 
         <div className={styles.subWrapper}>
           <div className={styles.titleWrapper}>
-            <Typography className={styles.title}>{item.title}</Typography>
+            <p className={styles.title}>{item.title}</p>
 
             <div className={styles.statusWrapper}>
-              <Typography className={styles.status}>{'Продается'}</Typography>
+              <p className={styles.status}>{'Продается'}</p>
               <MdOutlineFiberManualRecord className={styles.statusIcon} size={12} />
             </div>
           </div>
@@ -37,18 +37,14 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
               labelClasses={styles.shortInfoLabel}
               containerClasses={styles.shortInfoContainer}
               label={t(TranslationKey['Total price'])}
-              inputComponent={
-                <Typography className={styles.shortInfoValue}>{toFixedWithDollarSign(item.price, 2)}</Typography>
-              }
+              inputComponent={<p className={styles.shortInfoValue}>{toFixedWithDollarSign(item.price, 2)}</p>}
             />
             <Field
               labelClasses={styles.shortInfoLabel}
               containerClasses={styles.shortInfoContainer}
               label={t(TranslationKey['Average. Monthly net profit'])}
               inputComponent={
-                <Typography className={styles.shortInfoValue}>
-                  {toFixedWithDollarSign(item.statistics.monthlyPureProfit, 2)}
-                </Typography>
+                <p className={styles.shortInfoValue}>{toFixedWithDollarSign(item.statistics.monthlyPureProfit, 2)}</p>
               }
             />
             <Field
@@ -56,39 +52,35 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
               containerClasses={styles.shortInfoContainer}
               label={t(TranslationKey['Average. Monthly income'])}
               inputComponent={
-                <Typography className={styles.shortInfoValue}>
-                  {toFixedWithDollarSign(item.statistics.monthlyProfit, 2)}
-                </Typography>
+                <p className={styles.shortInfoValue}>{toFixedWithDollarSign(item.statistics.monthlyProfit, 2)}</p>
               }
             />
             {/* <Field
               labelClasses={styles.shortInfoLabel}
               containerClasses={styles.shortInfoContainer}
               label={'Монетизация'}
-              inputComponent={<Typography className={styles.shortInfoValue}>{item.monetization}</Typography>}
+              inputComponent={<p className={styles.shortInfoValue}>{item.monetization}</p>}
             /> */}
             <Field
               labelClasses={styles.shortInfoLabel}
               containerClasses={styles.shortInfoContainer}
               label={t(TranslationKey['Monthly multiplier'])}
               inputComponent={
-                <Typography className={styles.shortInfoValue}>{`${toFixed(
+                <p className={styles.shortInfoValue}>{`${toFixed(
                   item.price / item.statistics.monthlyPureProfit,
                   2,
-                )}x`}</Typography>
+                )}x`}</p>
               }
             />
             <Field
               labelClasses={styles.shortInfoLabel}
               containerClasses={styles.shortInfoContainer}
               label={t(TranslationKey['Business is made'])}
-              inputComponent={
-                <Typography className={styles.shortInfoValue}>{getYearDate(item.businessStartDate)}</Typography>
-              }
+              inputComponent={<p className={styles.shortInfoValue}>{getYearDate(item.businessStartDate)}</p>}
             />
           </div>
 
-          <Typography className={styles.description}>{item.shopDetails}</Typography>
+          <p className={styles.description}>{item.shopDetails}</p>
 
           <div className={styles.footer}>
             <div className={styles.footerInfoWrapper}>
@@ -104,11 +96,11 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
                     ) : (
                       <MdArrowDropUp size={22} className={styles.green} />
                     )}
-                    <Typography
+                    <p
                       className={cx(styles.green, {
                         [styles.red]: item.statistics.monthlyPureProfitDiffPercentage < 0,
                       })}
-                    >{`${toFixed(item.statistics.monthlyPureProfitDiffPercentage)} %`}</Typography>
+                    >{`${toFixed(item.statistics.monthlyPureProfitDiffPercentage)} %`}</p>
                   </div>
                 }
               />
@@ -124,11 +116,11 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
                     ) : (
                       <MdArrowDropUp size={22} className={styles.green} />
                     )}
-                    <Typography
+                    <p
                       className={cx(styles.green, {
                         [styles.red]: item.statistics.monthlyProfitDiffPercentage < 0,
                       })}
-                    >{`${toFixed(item.statistics.monthlyProfitDiffPercentage)} %`}</Typography>
+                    >{`${toFixed(item.statistics.monthlyProfitDiffPercentage)} %`}</p>
                   </div>
                 }
               />
@@ -144,11 +136,11 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
                     ) : (
                       <MdArrowDropUp size={22} className={styles.green} />
                     )}
-                    <Typography
+                    <p
                       className={cx(styles.green, {
                         [styles.red]: item.statistics.webpageVisitsDiffPercentage < 0,
                       })}
-                    >{`${toFixed(item.statistics.webpageVisitsDiffPercentage)} %`}</Typography>
+                    >{`${toFixed(item.statistics.webpageVisitsDiffPercentage)} %`}</p>
                   </div>
                 }
               />

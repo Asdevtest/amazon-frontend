@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import {
   humanFriendlyStategyStatus,
@@ -105,17 +103,13 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
     <div className={styles.modalMessageWrapper}>
       <div className={styles.modalTitle}>
         {checkIsAdmin(userRole) ? (
-          <Typography variant="h5" className={styles.modalMessageTitle}>
-            {t(TranslationKey['Proxy servers for parsing'])}
-          </Typography>
+          <h5 className={styles.modalMessageTitle}>{t(TranslationKey['Proxy servers for parsing'])}</h5>
         ) : (
-          <Typography variant="h5" className={styles.modalMessageTitle}>
-            {t(TranslationKey['ASIN list'])}
-          </Typography>
+          <h5 className={styles.modalMessageTitle}>{t(TranslationKey['ASIN list'])}</h5>
         )}
 
         {checkIsAdmin(userRole) ? null : (
-          <Typography className={styles.standartText}>{humanFriendlyStategyStatus(strategy)?.toUpperCase()}</Typography>
+          <p className={styles.standartText}>{humanFriendlyStategyStatus(strategy)?.toUpperCase()}</p>
         )}
       </div>
       <div className={styles.modalFieldsWrapper}>
@@ -155,7 +149,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
 
       <div className={styles.tableWrapper}>
         <div className={styles.tableSearchWrapper}>
-          <Typography className={styles.tableSearchTitle}>{t(TranslationKey['To be added to the list'])}</Typography>
+          <p className={styles.tableSearchTitle}>{t(TranslationKey['To be added to the list'])}</p>
           <SearchInput
             inputClasses={styles.searchInput}
             value={nameSearchValue}

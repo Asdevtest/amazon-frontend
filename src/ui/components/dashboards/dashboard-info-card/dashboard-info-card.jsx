@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 
-import { Paper, Typography } from '@mui/material'
+import { Paper } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,10 +20,10 @@ export const DashboardInfoCard = observer(
       SettingsModel.languageTag && (
         <Paper className={styles.root}>
           <div className={styles.circle} style={{ borderColor: color }}>
-            <Typography className={styles.circleTitle}>{value || 0}</Typography>
+            <p className={styles.circleTitle}>{value || 0}</p>
           </div>
           <div className={styles.titleWrapper}>
-            <Typography className={styles.title}>{title}</Typography>
+            <p className={styles.title}>{title}</p>
           </div>
           {route ? (
             <div className={styles.subTitleWrapper}>

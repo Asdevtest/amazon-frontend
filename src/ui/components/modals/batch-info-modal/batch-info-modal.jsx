@@ -3,8 +3,6 @@ import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useEffect, useMemo, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { BatchWeightCalculationMethodTranslateKey } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -346,12 +344,10 @@ export const BatchInfoModal = observer(
                 },
                 children: (
                   <div className={styles.boxCounterWrapper}>
-                    <Typography className={styles.boxCounterText}>
-                      {t(TranslationKey['Quantity of boxes in batch']) + ':'}
-                    </Typography>
-                    <Typography className={styles.boxCounterCount}>
+                    <p className={styles.boxCounterText}>{t(TranslationKey['Quantity of boxes in batch']) + ':'}</p>
+                    <p className={styles.boxCounterCount}>
                       {currentBatch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
-                    </Typography>
+                    </p>
                   </div>
                 ),
               },

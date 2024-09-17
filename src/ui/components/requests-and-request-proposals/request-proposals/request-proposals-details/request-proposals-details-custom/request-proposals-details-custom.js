@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react'
 
-import { Typography } from '@mui/material'
-
 import { useStyles } from './request-proposals-details-custom.style'
 
 import { RequestProposalsDetailsCustomItem } from './request-proposals-details-custom-item'
@@ -11,7 +9,7 @@ export const RequestProposalsDetailsCustom = observer(({ requestProposals }) => 
   return (
     <div className={styles.root}>
       <div className={styles.titleWrapper}>
-        <Typography variant="h5">Предложения</Typography>
+        <h5>Предложения</h5>
       </div>
       <div className={styles.requestProposalsWrappper}>
         {requestProposals.length ? (
@@ -24,7 +22,7 @@ export const RequestProposalsDetailsCustom = observer(({ requestProposals }) => 
             </div>
           ))
         ) : (
-          <Typography variant="p">Предложений пока нет</Typography>
+          <p variant="p">Предложений пока нет</p>
         )}
       </div>
     </div>

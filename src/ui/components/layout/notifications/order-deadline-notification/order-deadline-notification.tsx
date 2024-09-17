@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import { FC } from 'react'
 
-import { Avatar, Typography } from '@mui/material'
+import { Avatar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -46,30 +46,30 @@ export const OrderDeadlineNotification: FC<OrderDeadlineNotificationProps> = pro
       />
 
       <div className={styles.centerWrapper}>
-        <Typography className={styles.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
+        <p className={styles.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</p>
         <div className={styles.centerSubWrapper}>
           {noticeItem
             ?.sort(sortObjectsArrayByFiledDateWithParseISOAsc('deadline'))
             .map((el: InoticeItem, index: number) => (
               <div key={index} className={styles.itemWrapper} onClick={() => onClickNoticeItem(el._id)}>
                 <div className={styles.titleWrapper}>
-                  <Typography className={styles.title}>{`${t(TranslationKey.Order)} № ${el.id}`}</Typography>
+                  <p className={styles.title}>{`${t(TranslationKey.Order)} № ${el.id}`}</p>
                 </div>
 
-                <Typography className={styles.messageText}>{`${t(
+                <p className={styles.messageText}>{`${t(
                   TranslationKey[
                     getDistanceBetweenDatesInSeconds(el.deadline) > 0
                       ? 'The redemption deadline expires'
                       : 'The redemption deadline has expired'
                   ],
-                )} ${formatDateDistanceFromNowStrict(el.deadline)}`}</Typography>
+                )} ${formatDateDistanceFromNowStrict(el.deadline)}`}</p>
               </div>
             ))}
         </div>
       </div>
 
       <div className={styles.footer}>
-        <Typography className={styles.messageDate}>{format(new Date(), 'HH:mm')}</Typography>
+        <p className={styles.messageDate}>{format(new Date(), 'HH:mm')}</p>
       </div>
     </div>
   )

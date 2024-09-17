@@ -1,4 +1,4 @@
-import { Divider, InputBase, Paper, Typography } from '@mui/material'
+import { Divider, InputBase, Paper } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,8 +17,8 @@ export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
 
   const InfoRow = ({ label, value }) => (
     <div className={styles.textWrapper}>
-      <Typography className={cx(styles.text, styles.label)}>{label}</Typography>
-      <Typography className={cx(styles.text, styles.value)}>{value}</Typography>
+      <p className={cx(styles.text, styles.label)}>{label}</p>
+      <p className={cx(styles.text, styles.value)}>{value}</p>
     </div>
   )
 
@@ -28,11 +28,11 @@ export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
         <img alt="item image" className={styles.img} src={getAmazonImageUrl(item.images[0], true)} />
       </div>
       <div className={styles.wrapper}>
-        <Typography className={styles.category}>{item.category}</Typography>
+        <p className={styles.category}>{item.category}</p>
 
         <InfoRow label={t(TranslationKey.Price)} value={toFixedWithDollarSign(item.amazon, 2)} />
         <div className={styles.textWrapper}>
-          <Typography className={cx(styles.text, styles.label)}>{t(TranslationKey.Quantity)}</Typography>
+          <p className={cx(styles.text, styles.label)}>{t(TranslationKey.Quantity)}</p>
           <InputBase classes={{ root: styles.inputWrapper, input: styles.input }} defaultValue={100} />
         </div>
 

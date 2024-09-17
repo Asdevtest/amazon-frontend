@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import {
   inchesCoefficient,
   maxLengthInputInSizeBox,
@@ -257,7 +255,7 @@ export const CreateBoxForm = observer(
               label={t(TranslationKey.Status)}
               containerClasses={styles.fieldContainer}
               inputComponent={
-                <Typography
+                <p
                   className={cx({
                     [styles.orange]:
                       `${formItem.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
@@ -274,7 +272,7 @@ export const CreateBoxForm = observer(
                   })}
                 >
                   {OrderStatusTranslate(getOrderStatusOptionByCode(formItem.status).key)}
-                </Typography>
+                </p>
               }
             />
           </div>

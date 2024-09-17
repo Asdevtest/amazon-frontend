@@ -3,7 +3,7 @@ import { Fragment, memo, useEffect, useState } from 'react'
 import { IoMdStar } from 'react-icons/io'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import { Checkbox, ClickAwayListener, Popover, Tooltip, Typography } from '@mui/material'
+import { Checkbox, ClickAwayListener, Popover, Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -143,14 +143,14 @@ export const WithSearchSelect = memo(
                 !disabled && handleClick(e)
               }}
             >
-              <Typography
+              <p
                 className={cx(styles.selectedItemName, {
                   [styles.disabledSelectedItemName]: disabled,
                   [styles.blackSelectedItem]: blackSelectedItem,
                 })}
               >
                 {selectedItemName}
-              </Typography>
+              </p>
 
               {open ? (
                 <MdArrowDropDown size={22} className={styles.icon} />
@@ -258,14 +258,14 @@ export const WithSearchSelect = memo(
                               )}
                               {!isWithoutItemsTooltip ? (
                                 <Tooltip followCursor title={getRowValue ? getRowValue(el) : el[fieldName]}>
-                                  <Typography className={cx(styles.fieldName, fieldNameStyles)}>
+                                  <p className={cx(styles.fieldName, fieldNameStyles)}>
                                     {getRowValue ? getRowValue(el) : el[fieldName]}
-                                  </Typography>
+                                  </p>
                                 </Tooltip>
                               ) : (
-                                <Typography className={cx(styles.fieldName, fieldNameStyles)}>
+                                <p className={cx(styles.fieldName, fieldNameStyles)}>
                                   {getRowValue ? getRowValue(el) : el[fieldName]}
-                                </Typography>
+                                </p>
                               )}
                             </Fragment>
                           ))}
@@ -283,9 +283,7 @@ export const WithSearchSelect = memo(
                                 />
                               )}
                               <Tooltip key={index} followCursor title={getRowValue ? getRowValue(el) : el}>
-                                <Typography className={styles.fieldName}>
-                                  {getRowValue ? getRowValue(el) : el}
-                                </Typography>
+                                <p className={styles.fieldName}>{getRowValue ? getRowValue(el) : el}</p>
                               </Tooltip>
                             </>
                           )}

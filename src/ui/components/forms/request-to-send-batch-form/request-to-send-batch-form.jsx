@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -117,9 +115,7 @@ export const RequestToSendBatchForm = observer(
 
     return (
       <div className={styles.content}>
-        <Typography className={styles.modalTitle} variant="h5">
-          {t(TranslationKey['Sending boxes'])}
-        </Typography>
+        <h5 className={styles.modalTitle}>{t(TranslationKey['Sending boxes'])}</h5>
         <div className={styles.boxesWrapper}>
           {boxesGroupedByWarehouseAndDeliveryMethod.map((selectedGroup, i) => (
             <div key={i}>
@@ -136,17 +132,14 @@ export const RequestToSendBatchForm = observer(
           ))}
         </div>
         <div className={styles.warningWrapper}>
-          <Typography
-            variant="subtitle1"
-            className={cx(styles.warningText, { [styles.noWarningText]: !disabledSubmit })}
-          >
+          <p className={cx(styles.warningText, { [styles.noWarningText]: !disabledSubmit })}>
             {'*' +
               t(
                 TranslationKey[
                   'Boxes marked in red will not be shipped because they have no dimensions or insufficient data'
                 ],
               )}
-          </Typography>
+          </p>
         </div>
 
         <div className={styles.btnsWrapper}>

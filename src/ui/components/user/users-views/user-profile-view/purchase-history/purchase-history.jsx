@@ -1,4 +1,4 @@
-import { Paper, Tab, Tabs, Typography } from '@mui/material'
+import { Paper, Tab, Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,9 +10,9 @@ export const PurchaseHistory = ({ user, tabHistory, setTabHistory }) => {
   const { classes: styles, cx } = useStyles()
   return (
     <>
-      <Typography variant="h6" className={styles.mainTitle}>
+      <h6 className={styles.mainTitle}>
         {t(TranslationKey['The history of your purchases from']) + ((user && user.username) || '')}
-      </Typography>
+      </h6>
       <Paper>
         <Tabs
           value={tabHistory}
@@ -48,9 +48,7 @@ export const PurchaseHistory = ({ user, tabHistory, setTabHistory }) => {
         </Tabs>
         <div className={styles.tabContent} role="tabpanel">
           <div className={styles.subTabWrapper}>
-            <Typography className={cx(styles.text, styles.typoNoHistory)}>
-              {t(TranslationKey['No transaction history found'])}
-            </Typography>
+            <p className={cx(styles.text, styles.typoNoHistory)}>{t(TranslationKey['No transaction history found'])}</p>
           </div>
         </div>
       </Paper>

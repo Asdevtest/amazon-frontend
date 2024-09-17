@@ -1,7 +1,7 @@
 import isEqual from 'lodash.isequal'
 import { memo, useState } from 'react'
 
-import { Divider, Typography } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -326,7 +326,7 @@ export const EditBoxStorekeeperForm = memo(
     return (
       <div className={styles.root}>
         <div className={styles.titleWrapper}>
-          <Typography className={styles.title}>{t(TranslationKey['Editing the box'])}</Typography>
+          <p className={styles.title}>{t(TranslationKey['Editing the box'])}</p>
           <BoxEdit />
         </div>
 
@@ -344,9 +344,7 @@ export const EditBoxStorekeeperForm = memo(
                       label={`${t(TranslationKey.Box)} №`}
                       inputComponent={
                         <div className={styles.boxTitleWrapper}>
-                          <Typography className={styles.tableTitle}>{`${
-                            formItem && formItem.humanFriendlyId
-                          }`}</Typography>
+                          <p className={styles.tableTitle}>{`${formItem && formItem.humanFriendlyId}`}</p>
                         </div>
                       }
                     />
@@ -376,9 +374,7 @@ export const EditBoxStorekeeperForm = memo(
                     value={allItemsCount}
                   />
                 </div>
-                <Typography className={styles.amountSpan}>
-                  {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
-                </Typography>
+                <p className={styles.amountSpan}>{boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}</p>
 
                 <Divider className={styles.divider} />
 
@@ -510,7 +506,7 @@ export const EditBoxStorekeeperForm = memo(
                         </div>
 
                         <div className={styles.rightProductColumn}>
-                          <Typography className={styles.amazonTitle}>{item.product.amazonTitle}</Typography>
+                          <p className={styles.amazonTitle}>{item.product.amazonTitle}</p>
 
                           {item.product.asin ? (
                             <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item.product.asin} />
@@ -726,7 +722,7 @@ export const EditBoxStorekeeperForm = memo(
                             }
                           />
                         ) : (
-                          <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
+                          <p>{`${t(TranslationKey['no photo track number'])}...`}</p>
                         )}
                       </div>
                     </div>
@@ -763,9 +759,9 @@ export const EditBoxStorekeeperForm = memo(
                 </div>
 
                 <div className={styles.boxPhotoWrapper}>
-                  <Typography className={styles.standartLabel}>
+                  <p className={styles.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
-                  </Typography>
+                  </p>
                   <SlideshowGallery slidesToShow={2} files={boxFields.images} />
                 </div>
 

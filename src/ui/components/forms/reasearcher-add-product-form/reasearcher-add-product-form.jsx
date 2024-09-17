@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { withStyles } from 'tss-react/mui'
 
-import { Alert, Box, MenuItem, Select, TextareaAutosize, Typography } from '@mui/material'
+import { Alert, Box, MenuItem, Select, TextareaAutosize } from '@mui/material'
 
 import {
   ProductStrategyStatus,
@@ -63,7 +63,7 @@ export const ResearcherAddProductFormRaw = observer(
               {errorMessagesTranslate(errorMsg)}
               {reasonErrorMsg ? (
                 <>
-                  <Typography className={styles.reasonTitleAlert}>{`${t(TranslationKey.Reason)}:`}</Typography>
+                  <p className={styles.reasonTitleAlert}>{`${t(TranslationKey.Reason)}:`}</p>
                   <TextareaAutosize className={styles.alertMessage} value={errorMessagesTranslate(reasonErrorMsg)} />
                 </>
               ) : null}

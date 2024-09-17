@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { MdOutlineDelete } from 'react-icons/md'
 
-import { Checkbox, IconButton, TableCell, TableRow, Typography } from '@mui/material'
+import { Checkbox, IconButton, TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -153,26 +153,24 @@ export const OrderModalBodyRow = ({
           <ProductCell image={item.images[0]} title={item.amazonTitle} asin={item.asin} sku={item.skuByClient} />
 
           {!item.currentSupplier && (
-            <Typography className={styles.noCurrentSupplierText}>
-              {t(TranslationKey['No supplier selected!'])}
-            </Typography>
+            <p className={styles.noCurrentSupplierText}>{t(TranslationKey['No supplier selected!'])}</p>
           )}
         </TableCell>
 
         <TableCell className={styles.cell}>
-          <Typography className={styles.standartText}>
+          <p className={styles.standartText}>
             {item.currentSupplier ? toFixed(item.currentSupplier.price, 2) : <span>—</span>}
-          </Typography>
+          </p>
         </TableCell>
 
         <TableCell className={styles.cell}>
-          <Typography className={styles.standartText}>
+          <p className={styles.standartText}>
             {item.currentSupplier ? (
               toFixed(item.currentSupplier.batchDeliveryCostInDollar / item.currentSupplier.amount, 2)
             ) : (
               <span>—</span>
             )}
-          </Typography>
+          </p>
         </TableCell>
 
         <TableCell className={styles.cell}>
@@ -201,13 +199,13 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={styles.cell}>
-          <Typography className={cx(styles.standartText, { [styles.errorSpace]: isLocalPriseOutOfLimit })}>
+          <p className={cx(styles.standartText, { [styles.errorSpace]: isLocalPriseOutOfLimit })}>
             {toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}
-          </Typography>
+          </p>
           {isLocalPriseOutOfLimit && (
-            <Typography className={styles.error}>
+            <p className={styles.error}>
               {t(TranslationKey['At least'])} {platformSettings?.orderAmountLimit}$
-            </Typography>
+            </p>
           )}
         </TableCell>
 
@@ -357,7 +355,7 @@ export const OrderModalBodyRow = ({
               containerClasses={styles.containerField}
               labelClasses={styles.labelField}
               label={`${t(TranslationKey['Production time'])}, ${t(TranslationKey.days)}`}
-              inputComponent={<Typography className={styles.sumText}>{productionTerm}</Typography>}
+              inputComponent={<p className={styles.sumText}>{productionTerm}</p>}
             />
 
             <Field
@@ -365,7 +363,7 @@ export const OrderModalBodyRow = ({
               containerClasses={styles.containerField}
               labelClasses={styles.labelField}
               label={`${t(TranslationKey['Minimum batch'])}, ${t(TranslationKey.units)}`}
-              inputComponent={<Typography className={styles.sumText}>{item.currentSupplier?.minlot}</Typography>}
+              inputComponent={<p className={styles.sumText}>{item.currentSupplier?.minlot}</p>}
             />
 
             <Field
@@ -374,9 +372,7 @@ export const OrderModalBodyRow = ({
               labelClasses={styles.labelField}
               label={t(TranslationKey['Weight 1 unit'])}
               inputComponent={
-                <Typography className={styles.sumText}>
-                  {toFixed(weightOfOneBox, 2) || t(TranslationKey['No data'])}
-                </Typography>
+                <p className={styles.sumText}>{toFixed(weightOfOneBox, 2) || t(TranslationKey['No data'])}</p>
               }
             />
 
@@ -386,9 +382,7 @@ export const OrderModalBodyRow = ({
               labelClasses={styles.labelField}
               label={t(TranslationKey['Batch weight'])}
               inputComponent={
-                <Typography className={styles.sumText}>
-                  {toFixed(weightOfBatch, 2) || t(TranslationKey['No data'])}
-                </Typography>
+                <p className={styles.sumText}>{toFixed(weightOfBatch, 2) || t(TranslationKey['No data'])}</p>
               }
             />
 
@@ -398,9 +392,7 @@ export const OrderModalBodyRow = ({
               labelClasses={styles.labelField}
               label={t(TranslationKey['Batch delivery cost']) + ',$'}
               inputComponent={
-                <Typography className={styles.sumText}>
-                  {toFixed(costDeliveryOfBatch, 2) || t(TranslationKey['No data'])}
-                </Typography>
+                <p className={styles.sumText}>{toFixed(costDeliveryOfBatch, 2) || t(TranslationKey['No data'])}</p>
               }
             />
 
@@ -409,21 +401,19 @@ export const OrderModalBodyRow = ({
               containerClasses={styles.containerField}
               labelClasses={styles.labelField}
               label={t(TranslationKey['Cost per unit in the USA']) + ',$'}
-              inputComponent={<Typography className={styles.sumText}>{pricePerUnit}</Typography>}
+              inputComponent={<p className={styles.sumText}>{pricePerUnit}</p>}
             />
           </div>
           <div className={styles.mainCheckboxWrapper}>
             <div className={styles.checkboxWrapper}>
               <div className={styles.expressWrapper} onClick={onClickPriority}>
                 <Checkbox className={styles.checkbox} checked={item.priority === '40'} color="primary" />
-                <Typography className={styles.sumText}>{t(TranslationKey['Mark an order as urgent'])}</Typography>
+                <p className={styles.sumText}>{t(TranslationKey['Mark an order as urgent'])}</p>
                 <img className={styles.deliveryImg} src="/assets/icons/fire.svg" alt="" />
               </div>
               <div className={styles.expressWrapper} onClick={onClickExpressChinaDelivery}>
                 <Checkbox className={styles.checkbox} checked={item.expressChinaDelivery} color="primary" />
-                <Typography className={styles.sumText}>
-                  {t(TranslationKey['Order express delivery in China'])}
-                </Typography>
+                <p className={styles.sumText}>{t(TranslationKey['Order express delivery in China'])}</p>
                 <TruckIcon className={styles.deliveryImg} />
               </div>
             </div>

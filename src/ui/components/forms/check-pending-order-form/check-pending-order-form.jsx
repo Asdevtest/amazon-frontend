@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Link, Typography } from '@mui/material'
+import { Link } from '@mui/material'
 
 // import {useState} from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -30,15 +30,13 @@ export const CheckPendingOrderForm = ({
 
   return (
     <div className={styles.root}>
-      <Typography className={styles.warning}>{t(TranslationKey.Attention)}</Typography>
+      <p className={styles.warning}>{t(TranslationKey.Attention)}</p>
 
       <div className={styles.asinsWrapper}>
-        <Typography className={cx(styles.text, styles.description)}>
-          {t(TranslationKey['Orders already exist']) + ':'}
-        </Typography>
+        <p className={cx(styles.text, styles.description)}>{t(TranslationKey['Orders already exist']) + ':'}</p>
 
         {existingProducts?.map((product, productIndex) => (
-          <Typography key={productIndex} className={styles.text}>
+          <p key={productIndex} className={styles.text}>
             {`${t(TranslationKey.ASIN)} ${product.asin}  ${t(TranslationKey.Orders).toLowerCase()}: `}
             {product.orders.map((order, orderIndex) => (
               <Link
@@ -49,7 +47,7 @@ export const CheckPendingOrderForm = ({
                 {`№${order?.id}${orderIndex + 1 !== product.orders.length ? ', ' : ''}`}
               </Link>
             ))}
-          </Typography>
+          </p>
         ))}
       </div>
       <div className={styles.buttonGroup}>

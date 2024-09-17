@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 
-import { Paper, Typography } from '@mui/material'
+import { Paper } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,8 +18,8 @@ export const BottomCard = observer(({ data }) => {
       <div className={styles.bottomCardsWrapper}>
         <div className={styles.topWrapper}>
           <Paper className={styles.detailsWrapper}>
-            <Typography className={styles.title}>{t(TranslationKey['Store Details'])}</Typography>
-            <Typography>{data?.shopDetails}</Typography>
+            <p className={styles.title}>{t(TranslationKey['Store Details'])}</p>
+            <p>{data?.shopDetails}</p>
           </Paper>
           <Paper className={styles.featuresWrapper}>
             <CustomList title={t(TranslationKey.Features)} dataList={data?.opportunities} />

@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
@@ -231,12 +229,12 @@ export const MergeBoxesModal = ({
   return (
     <div className={styles.root}>
       <div className={styles.modalTitleWrapper}>
-        <Typography className={styles.modalTitle}>{t(TranslationKey['Merging boxes'])}</Typography>
+        <p className={styles.modalTitle}>{t(TranslationKey['Merging boxes'])}</p>
         <BoxMerge />
       </div>
       <div className={styles.mainWrapper}>
         <div>
-          <Typography className={styles.boxTitle}>{t(TranslationKey['Source boxes'])}</Typography>
+          <p className={styles.boxTitle}>{t(TranslationKey['Source boxes'])}</p>
           <div className={styles.marginBox}>
             {selectedBoxes.map((box, boxIndex) => (
               <BoxForMerge
@@ -251,7 +249,7 @@ export const MergeBoxesModal = ({
         </div>
 
         <div>
-          <Typography className={styles.boxTitle}>{t(TranslationKey['Final box data'])}</Typography>
+          <p className={styles.boxTitle}>{t(TranslationKey['Final box data'])}</p>
 
           <div className={styles.finalBoxWrapper}>
             {finalBoxData &&
@@ -260,20 +258,18 @@ export const MergeBoxesModal = ({
                   <img className={styles.img} src={getAmazonImageUrl(order.product?.images[0])} />
                   <div>
                     <div className={styles.asinWrapper}>
-                      <Typography className={styles.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
+                      <p className={styles.asinTitle}>{t(TranslationKey.ASIN)}</p>
                       <div className={styles.asinTextWrapper}>
-                        <Typography className={styles.asinValue}>{order.product?.asin}</Typography>
+                        <p className={styles.asinValue}>{order.product?.asin}</p>
                         {order.product?.asin && <CopyValue text={order.product?.asin} />}
                       </div>
                     </div>
                     <div className={styles.asinWrapper}>
-                      <Typography className={styles.asinTitle}>{t(TranslationKey.Order)}</Typography>
-                      <Typography className={styles.asinValue}>{order.order.id}</Typography>
+                      <p className={styles.asinTitle}>{t(TranslationKey.Order)}</p>
+                      <p className={styles.asinValue}>{order.order.id}</p>
                     </div>
 
-                    <Typography className={styles.title}>
-                      {getShortenStringIfLongerThanCount(order.product?.amazonTitle, 85)}
-                    </Typography>
+                    <p className={styles.title}>{getShortenStringIfLongerThanCount(order.product?.amazonTitle, 85)}</p>
                   </div>
 
                   <div>
@@ -420,9 +416,7 @@ export const MergeBoxesModal = ({
       </div>
       <div className={cx(styles.modalFooter, { [styles.modalAlternateFooter]: !isDifferentStorekeepers })}>
         {isDifferentStorekeepers ? (
-          <Typography className={styles.attentionDifStorekeepers}>
-            {t(TranslationKey['Intermediate warehouses must match!'])}
-          </Typography>
+          <p className={styles.attentionDifStorekeepers}>{t(TranslationKey['Intermediate warehouses must match!'])}</p>
         ) : (
           <div />
         )}

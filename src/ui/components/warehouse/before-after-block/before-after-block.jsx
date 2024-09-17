@@ -1,7 +1,7 @@
 import { memo, useState } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import { Checkbox, Divider, Paper, Tooltip, Typography } from '@mui/material'
+import { Checkbox, Divider, Paper, Tooltip } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -187,17 +187,15 @@ const Box = memo(props => {
 
             <div className={styles.imagesWrapper}>
               <div className={styles.photoWrapper}>
-                <Typography className={styles.photoAndFilesTitle}>{`${t(
+                <p className={styles.photoAndFilesTitle}>{`${t(
                   TranslationKey['Photos and documents of the box'],
-                )}:`}</Typography>
+                )}:`}</p>
 
                 <SlideshowGallery slidesToShow={2} files={box.images} />
               </div>
 
               <div className={styles.photoWrapper}>
-                <Typography className={styles.photoAndFilesTitle}>{`${t(
-                  TranslationKey['Photos and order documents'],
-                )}:`}</Typography>
+                <p className={styles.photoAndFilesTitle}>{`${t(TranslationKey['Photos and order documents'])}:`}</p>
                 <SlideshowGallery slidesToShow={2} files={box.items[0].order.images} />
               </div>
             </div>
@@ -242,9 +240,9 @@ const Box = memo(props => {
                 labelClasses={styles.label}
                 inputComponent={
                   <Tooltip title={box?.trackNumberText?.length > 70 && box?.trackNumberText}>
-                    <Typography className={styles.trackNum}>
+                    <p className={styles.trackNum}>
                       {getShortenStringIfLongerThanCount(box.trackNumberText, 70) || t(TranslationKey['Not available'])}
-                    </Typography>
+                    </p>
                   </Tooltip>
                 }
               />
@@ -253,9 +251,7 @@ const Box = memo(props => {
                 {box.trackNumberFile.length ? (
                   <SlideshowGallery slidesToShow={2} files={box.trackNumberFile} />
                 ) : (
-                  <Typography className={styles.trackNumberNoPhotoText}>
-                    {`${t(TranslationKey['no photo track number'])}...`}
-                  </Typography>
+                  <p className={styles.trackNumberNoPhotoText}>{`${t(TranslationKey['no photo track number'])}...`}</p>
                 )}
               </div>
             </div>
@@ -292,9 +288,9 @@ const Box = memo(props => {
               </div>
             )}
             <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
-              <Typography className={styles.tablePanelViewText}>
+              <p className={styles.tablePanelViewText}>
                 {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
-              </Typography>
+              </p>
 
               {!showFullCard ? (
                 <MdArrowDropDown size={22} className={styles.icon} />
@@ -309,9 +305,9 @@ const Box = memo(props => {
         <div className={styles.bottomBlockWrapper}>
           <div className={styles.incomingBtnWrapper}>
             <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
-              <Typography className={styles.tablePanelViewText}>
+              <p className={styles.tablePanelViewText}>
                 {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
-              </Typography>
+              </p>
 
               {!showFullCard ? (
                 <MdArrowDropDown size={22} className={styles.icon} />

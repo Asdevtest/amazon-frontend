@@ -1,6 +1,6 @@
 import { memo, useState } from 'react'
 
-import { Checkbox, Typography } from '@mui/material'
+import { Checkbox } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -55,7 +55,7 @@ export const RequestToSendBatchBox = memo(
         }}
       >
         <div className={cx(tableCellClsx, styles.indexCell)}>
-          <Typography variant="subtitle2">{`№ ${box.humanFriendlyId}`}</Typography>
+          <p>{`№ ${box.humanFriendlyId}`}</p>
         </div>
 
         <div className={cx(tableCellClsx, styles.productCell)}>
@@ -65,10 +65,10 @@ export const RequestToSendBatchBox = memo(
                 <img src={getAmazonImageUrl(box.items[0].product.images[0])} className={styles.img} />
 
                 <div className={styles.boxItemSubWrapper}>
-                  <Typography className={styles.amazonTitle}>{`${getShortenStringIfLongerThanCount(
+                  <p className={styles.amazonTitle}>{`${getShortenStringIfLongerThanCount(
                     box.items[0].product.amazonTitle,
                     40,
-                  )}`}</Typography>
+                  )}`}</p>
 
                   <div className={styles.boxItemSubInfoWrapper}>
                     <div>
@@ -79,24 +79,20 @@ export const RequestToSendBatchBox = memo(
                         link={box.items[0].product.asin}
                       />
 
-                      <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${box.items[0].amount} ${t(
-                        TranslationKey['pcs.'],
-                      )}`}</Typography>
+                      <p>{`${t(TranslationKey.Quantity)} ${box.items[0].amount} ${t(TranslationKey['pcs.'])}`}</p>
 
-                      <Typography className={styles.superBoxTypo}>{`Superbox x ${box.amount}`}</Typography>
+                      <p className={styles.superBoxTypo}>{`Superbox x ${box.amount}`}</p>
                     </div>
 
                     <div className={styles.barCodeLabelWrapper}>
-                      <Typography className={cx(styles.spanText, { [styles.alertSpan]: !box.items[0].barCode })}>
+                      <p className={cx(styles.spanText, { [styles.alertSpan]: !box.items[0].barCode })}>
                         {t(TranslationKey.BarCode)}
-                      </Typography>
+                      </p>
 
                       <LabelWithCopy labelValue={box.items[0].barCode} lableLinkTitle={t(TranslationKey.View)} />
 
                       <div className={styles.checkboxWrapper}>
-                        <Typography className={cx({ [styles.alertSpan]: isNoBarCodGlued })}>
-                          {t(TranslationKey.glued)}
-                        </Typography>
+                        <p className={cx({ [styles.alertSpan]: isNoBarCodGlued })}>{t(TranslationKey.glued)}</p>
 
                         <Checkbox
                           disabled
@@ -110,14 +106,14 @@ export const RequestToSendBatchBox = memo(
                     </div>
 
                     <div className={styles.barCodeLabelWrapper}>
-                      <Typography
+                      <p
                         className={cx(styles.spanText, {
                           [styles.alertSpan]:
                             !box.items?.[0]?.transparencyFile && box.items?.[0]?.product?.transparency,
                         })}
                       >
                         {t(TranslationKey['Transparency Codes'])}
-                      </Typography>
+                      </p>
 
                       <LabelWithCopy
                         labelValue={box.items[0].transparencyFile}
@@ -125,9 +121,7 @@ export const RequestToSendBatchBox = memo(
                       />
 
                       <div className={styles.checkboxWrapper}>
-                        <Typography className={cx({ [styles.alertSpan]: isNoTransparencyGlued })}>
-                          {t(TranslationKey.glued)}
-                        </Typography>
+                        <p className={cx({ [styles.alertSpan]: isNoTransparencyGlued })}>{t(TranslationKey.glued)}</p>
 
                         <Checkbox
                           disabled
@@ -148,10 +142,10 @@ export const RequestToSendBatchBox = memo(
                   <img src={getAmazonImageUrl(item.product.images[0])} className={styles.img} />
 
                   <div className={styles.boxItemSubWrapper}>
-                    <Typography className={styles.amazonTitle}>{`${getShortenStringIfLongerThanCount(
+                    <p className={styles.amazonTitle}>{`${getShortenStringIfLongerThanCount(
                       item.product.amazonTitle,
                       40,
-                    )}`}</Typography>
+                    )}`}</p>
 
                     <div className={styles.boxItemSubInfoWrapper}>
                       <div>
@@ -162,22 +156,18 @@ export const RequestToSendBatchBox = memo(
                           link={box.items[0].product.asin}
                         />
 
-                        <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${item.amount} ${t(
-                          TranslationKey['pcs.'],
-                        )}`}</Typography>
+                        <p>{`${t(TranslationKey.Quantity)} ${item.amount} ${t(TranslationKey['pcs.'])}`}</p>
                       </div>
 
                       <div className={styles.barCodeLabelWrapper}>
-                        <Typography className={cx(styles.spanText, { [styles.alertSpan]: !item.barCode })}>
+                        <p className={cx(styles.spanText, { [styles.alertSpan]: !item.barCode })}>
                           {t(TranslationKey.BarCode)}
-                        </Typography>
+                        </p>
 
                         <LabelWithCopy labelValue={box.items[0].barCode} lableLinkTitle={t(TranslationKey.View)} />
 
                         <div className={styles.checkboxWrapper}>
-                          <Typography className={cx({ [styles.alertSpan]: isNoBarCodGlued })}>
-                            {t(TranslationKey.glued)}
-                          </Typography>
+                          <p className={cx({ [styles.alertSpan]: isNoBarCodGlued })}>{t(TranslationKey.glued)}</p>
 
                           <Checkbox
                             disabled
@@ -191,14 +181,14 @@ export const RequestToSendBatchBox = memo(
                       </div>
 
                       <div className={styles.barCodeLabelWrapper}>
-                        <Typography
+                        <p
                           className={cx(styles.spanText, {
                             [styles.alertSpan]:
                               !box.items?.[0]?.transparencyFile && box.items?.[0]?.product?.transparency,
                           })}
                         >
                           {t(TranslationKey['Transparency Codes'])}
-                        </Typography>
+                        </p>
 
                         <LabelWithCopy
                           labelValue={box.items[0].transparencyFile}
@@ -206,9 +196,7 @@ export const RequestToSendBatchBox = memo(
                         />
 
                         <div className={styles.checkboxWrapper}>
-                          <Typography className={cx({ [styles.alertSpan]: isNoTransparencyGlued })}>
-                            {t(TranslationKey.glued)}
-                          </Typography>
+                          <p className={cx({ [styles.alertSpan]: isNoTransparencyGlued })}>{t(TranslationKey.glued)}</p>
 
                           <Checkbox
                             disabled
@@ -230,59 +218,59 @@ export const RequestToSendBatchBox = memo(
 
         <div className={cx(tableCellClsx, styles.dementionsCell)}>
           <div className={styles.dementionsSubWrapper}>
-            <Typography className={styles.dementionsTitle}>{t(TranslationKey['Actual weight'])}</Typography>
+            <p className={styles.dementionsTitle}>{t(TranslationKey['Actual weight'])}</p>
 
-            <Typography className={styles.dementionsSpanText}>{toFixedWithKg(box.weighGrossKgWarehouse, 2)}</Typography>
+            <p className={styles.dementionsSpanText}>{toFixedWithKg(box.weighGrossKgWarehouse, 2)}</p>
           </div>
 
           <div className={styles.dementionsSubWrapper}>
-            <Typography className={styles.dementionsTitle}>{t(TranslationKey['Volume weight'])}</Typography>
+            <p className={styles.dementionsTitle}>{t(TranslationKey['Volume weight'])}</p>
 
-            <Typography className={styles.dementionsSpanText}>
+            <p className={styles.dementionsSpanText}>
               {toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
-            </Typography>
+            </p>
           </div>
 
           <div className={styles.dementionsSubWrapper}>
-            <Typography
+            <p
               className={cx(styles.dementionsTitle, {
                 [styles.alertText]: isSmallWeight,
               })}
             >
               {t(TranslationKey['Final weight'])}
-            </Typography>
+            </p>
 
-            <Typography
+            <p
               className={cx(styles.dementionsSpanText, {
                 [styles.alertText]: isSmallWeight,
               })}
             >
               {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)}
-            </Typography>
+            </p>
           </div>
 
           {calcFinalWeightForBox(box, volumeWeightCoefficient) < box?.variationTariff?.minBoxWeight || 0 ? (
-            <Typography className={styles.alertText}>{`${t(TranslationKey['Weight less than'])} ${
+            <p className={styles.alertText}>{`${t(TranslationKey['Weight less than'])} ${
               box?.variationTariff?.minBoxWeight
-            } ${t(TranslationKey.kg)}!`}</Typography>
+            } ${t(TranslationKey.kg)}!`}</p>
           ) : null}
 
           {box.amount > 1 ? (
             <div className={styles.dementionsSubWrapper}>
-              <Typography className={styles.dementionsTitle}>{t(TranslationKey['Total final weight'])}</Typography>
+              <p className={styles.dementionsTitle}>{t(TranslationKey['Total final weight'])}</p>
 
-              <Typography className={styles.dementionsSpanText}>
+              <p className={styles.dementionsSpanText}>
                 {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient) * box.amount, 2)}
-              </Typography>
+              </p>
             </div>
           ) : null}
         </div>
 
         <td>
           <div className={styles.shippingLabelWrapper}>
-            <Typography className={cx(styles.spanText, { [styles.alertSpan]: !box.shippingLabel })}>
+            <p className={cx(styles.spanText, { [styles.alertSpan]: !box.shippingLabel })}>
               {t(TranslationKey['Shipping label'])}
-            </Typography>
+            </p>
 
             {box.shippingLabel ? (
               <div className={styles.linkWrapper}>
@@ -298,7 +286,7 @@ export const RequestToSendBatchBox = memo(
                 <CopyValue text={box.shippingLabel} />
               </div>
             ) : (
-              <Typography className={styles.alertSpan}>{t(TranslationKey.Missing)}</Typography>
+              <p className={styles.alertSpan}>{t(TranslationKey.Missing)}</p>
             )}
           </div>
         </td>
@@ -317,15 +305,13 @@ export const RequestToSendBatchBox = memo(
             return (
               <div key={index}>
                 <div className={cx(tableCellClsx, styles.priceCell)}>
-                  <Typography className={styles.dementionsTitle}>
-                    {t(TranslationKey['Average delivery cost per pc'])}
-                  </Typography>
+                  <p className={styles.dementionsTitle}>{t(TranslationKey['Average delivery cost per pc'])}</p>
                 </div>
 
                 <div className={cx(tableCellClsx, styles.priceCellRight)}>
-                  <Typography className={styles.priceText}>
+                  <p className={styles.priceText}>
                     {deliveryCostPerPcs ? toFixedWithDollarSign(deliveryCostPerPcs, 2) : t(TranslationKey['No data'])}
-                  </Typography>
+                  </p>
                 </div>
               </div>
             )
@@ -336,29 +322,29 @@ export const RequestToSendBatchBox = memo(
           <td className={styles.suberboxPriceCellWrapper}>
             <div className={styles.suberboxPriceCell}>
               <div className={styles.priceCell}>
-                <Typography className={styles.dementionsTitle}>{t(TranslationKey['Box delivery cost'])}</Typography>
+                <p className={styles.dementionsTitle}>{t(TranslationKey['Box delivery cost'])}</p>
               </div>
               <div className={styles.priceCellRight}>
-                <Typography className={styles.priceText}>{toFixedWithDollarSign(price / box.amount, 2)}</Typography>
+                <p className={styles.priceText}>{toFixedWithDollarSign(price / box.amount, 2)}</p>
               </div>
             </div>
             <div className={styles.suberboxPriceCell}>
               <div className={styles.priceCell}>
-                <Typography className={styles.dementionsTitle}>{t(TranslationKey['Delivery cost'])}</Typography>
+                <p className={styles.dementionsTitle}>{t(TranslationKey['Delivery cost'])}</p>
               </div>
               <div className={styles.priceCellRight}>
-                <Typography className={styles.priceText}>{toFixedWithDollarSign(price, 2)}</Typography>
+                <p className={styles.priceText}>{toFixedWithDollarSign(price, 2)}</p>
               </div>
             </div>
           </td>
         ) : (
           <>
             <td className={cx(tableCellClsx, styles.priceCell)}>
-              <Typography className={styles.spanText}>{t(TranslationKey['Box delivery cost'])}</Typography>
+              <p className={styles.spanText}>{t(TranslationKey['Box delivery cost'])}</p>
             </td>
             <td className={cx(tableCellClsx, styles.priceCellRight)}>
-              {/* <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography> */}
-              <Typography className={styles.priceText}>{toFixedWithDollarSign(price, 2)}</Typography>
+              {/* <p variant="h5">{toFixedWithDollarSign(price, 2)}</p> */}
+              <p className={styles.priceText}>{toFixedWithDollarSign(price, 2)}</p>
             </td>
           </>
         )}

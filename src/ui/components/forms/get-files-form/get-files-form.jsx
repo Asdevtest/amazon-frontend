@@ -1,4 +1,4 @@
-import { Link, Typography } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,7 +14,7 @@ export const GetFilesForm = ({ receivedFiles, onClose }) => {
 
   return (
     <div className={styles.root}>
-      <Typography className={styles.modalText}>{t(TranslationKey['Received files'])}</Typography>
+      <p className={styles.modalText}>{t(TranslationKey['Received files'])}</p>
 
       <Link href={checkAndMakeAbsoluteUrl(receivedFiles)} download="file.xlsx" target="_blank">
         {t(TranslationKey.download)}

@@ -2,7 +2,7 @@ import { t } from 'i18n-js'
 import { useState } from 'react'
 import { MdOutlineFilterAlt } from 'react-icons/md'
 
-import { Menu, Typography } from '@mui/material'
+import { Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -32,7 +32,7 @@ export const DataGridCustomFilterButton = props => {
         <div className={cx(className, styles.mainFilterBtnInsert)}>
           <MdOutlineFilterAlt size={18} />
 
-          <Typography className={styles.mainFilterBtnInsertText}>{t(TranslationKey['My filter'])}</Typography>
+          <p className={styles.mainFilterBtnInsertText}>{t(TranslationKey['My filter'])}</p>
         </div>
       </Button>
 

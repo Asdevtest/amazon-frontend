@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-import { Link, Typography } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,16 +20,16 @@ export const UserMoneyTransferModal = memo(({ openModal, setOpenModal, isWithdra
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.modalMessageWrapper}>
-        <Typography paragraph className={styles.title}>
+        <p className={styles.title}>
           {!isWithdraw ? t(TranslationKey['Withdraw money']) : t(TranslationKey['Add money'])}
-        </Typography>
+        </p>
 
-        <Typography paragraph className={styles.text}>
+        <p className={styles.text}>
           {t(TranslationKey['Money transfer is possible with the administrator at the link below:'])}
-        </Typography>
+        </p>
 
         <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl('ссылка')}>
-          <Typography className={styles.link}>{t(TranslationKey['Money transfer link'])}</Typography>
+          <p className={styles.link}>{t(TranslationKey['Money transfer link'])}</p>
         </Link>
 
         <Button styleType={ButtonStyle.SUCCESS} onClick={setOpenModal}>

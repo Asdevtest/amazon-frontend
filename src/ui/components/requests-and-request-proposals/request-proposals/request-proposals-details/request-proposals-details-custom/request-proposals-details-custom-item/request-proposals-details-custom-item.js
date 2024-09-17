@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react'
 
-import { Typography } from '@mui/material'
-
 import { Button } from '@components/shared/button'
 
 import { formatDateTime } from '@utils/date-time'
@@ -16,16 +14,16 @@ export const RequestProposalsDetailsCustomItem = observer(({ requestProposal }) 
   return (
     <div className={styles.root}>
       <div className={styles.infoWrapper}>
-        <Typography className={styles.text}>{formatDateTime(createdAt)}</Typography>
+        <p className={styles.text}>{formatDateTime(createdAt)}</p>
       </div>
       <div className={styles.infoWrapper}>
-        <Typography className={styles.text}>{`User: ${createdById}`}</Typography>
+        <p className={styles.text}>{`User: ${createdById}`}</p>
       </div>
       <div className={styles.resultWrapper}>
-        <Typography className={styles.text}>{result}</Typography>
+        <p className={styles.text}>{result}</p>
       </div>
       <div className={styles.commentWrapper}>
-        <Typography className={styles.text}>{comment}</Typography>
+        <p className={styles.text}>{comment}</p>
       </div>
 
       <Button disabled>{'Открыть'}</Button>

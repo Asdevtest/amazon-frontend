@@ -21,10 +21,10 @@ export const AppealDetailsCard = () => {
       <div className={styles.cardWrapper}>
         <div className={styles.leftBlockWrapper}>
           <div>
-            <Typography>{'Обращение от клиента Вася'}</Typography>
+            <p>{'Обращение от клиента Вася'}</p>
             <div className={styles.cardTitleBlockHeaderWrapper}>
-              <Typography className={styles.cardTitle}>{'Причина обращения'}</Typography>
-              <Typography className={styles.cardDescription}>{'Текст обращения'}</Typography>
+              <p className={styles.cardTitle}>{'Причина обращения'}</p>
+              <p className={styles.cardDescription}>{'Текст обращения'}</p>
             </div>
           </div>
           <SlideshowGallery
@@ -34,10 +34,8 @@ export const AppealDetailsCard = () => {
             ]}
           />
           <div className={styles.timeOnReviewWrapper}>
-            <Typography className={styles.timeOnReviewTitle}>
-              {'Жалоба должна быть принята к рассмотрению в течение 48 часов'}
-            </Typography>
-            <Typography className={styles.timeOnReview}>{'24ч 00мин'}</Typography>
+            <p className={styles.timeOnReviewTitle}>{'Жалоба должна быть принята к рассмотрению в течение 48 часов'}</p>
+            <p className={styles.timeOnReview}>{'24ч 00мин'}</p>
           </div>
         </div>
 
@@ -45,33 +43,33 @@ export const AppealDetailsCard = () => {
           <div className={styles.subBlockWrapper}>
             <div className={styles.leftSubBlockWrapper}>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography>{'Дата обращения'}</Typography>
+                <p>{'Дата обращения'}</p>
 
-                <Typography>{'2.08.22'}</Typography>
+                <p>{'2.08.22'}</p>
               </div>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography>{'Срок'}</Typography>
+                <p>{'Срок'}</p>
 
-                <Typography>{'3.08.22'}</Typography>
+                <p>{'3.08.22'}</p>
               </div>
             </div>
             <div className={styles.rightSubBlockWrapper}>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography>{'Статус'}</Typography>
+                <p>{'Статус'}</p>
 
-                <Typography>{'На проверке'}</Typography>
+                <p>{'На проверке'}</p>
               </div>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey['Total price'])}</Typography>
+                <p>{t(TranslationKey['Total price'])}</p>
 
-                <Typography className={styles.cardPrice}>{toFixedWithDollarSign(22, 2)}</Typography>
+                <p className={styles.cardPrice}>{toFixedWithDollarSign(22, 2)}</p>
               </div>
             </div>
           </div>
 
           <div className={styles.usersInfoBlockWrapper}>
             <div className={styles.userInfoWrapper}>
-              <Typography className={styles.userInfoName}>{t(TranslationKey.Client)}</Typography>
+              <p className={styles.userInfoName}>{t(TranslationKey.Client)}</p>
               <div className={styles.userInfo}>
                 <Avatar src={''} className={styles.cardImg} />
 
@@ -82,7 +80,7 @@ export const AppealDetailsCard = () => {
               </div>
             </div>
             <div className={styles.userInfoWrapper}>
-              <Typography className={styles.userInfoName}>{t(TranslationKey.Performer)}</Typography>
+              <p className={styles.userInfoName}>{t(TranslationKey.Performer)}</p>
               <div className={styles.userInfo}>
                 <Avatar src={''} className={styles.cardImg} />
 
@@ -95,15 +93,13 @@ export const AppealDetailsCard = () => {
           </div>
 
           <div className={styles.footerWrapper}>
-            <Typography className={styles.timeOnReviewTitle}>
-              {'Время на рассмотрение с момента принятия 48 часов'}
-            </Typography>
+            <p className={styles.timeOnReviewTitle}>{'Время на рассмотрение с момента принятия 48 часов'}</p>
             <Button styleType={ButtonStyle.SUCCESS}>{'Принять к рассмотрению'}</Button>
           </div>
         </div>
       </div>
       <div className={styles.chatWrapper}>
-        <Typography className={styles.inProcess}>{'Тут будет чат'}</Typography>
+        <p className={styles.inProcess}>{'Тут будет чат'}</p>
       </div>
     </Grid>
   )

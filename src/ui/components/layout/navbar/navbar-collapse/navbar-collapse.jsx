@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 
-import { Collapse, List, ListItemIcon, ListItemText, Menu, Typography } from '@mui/material'
+import { Collapse, List, ListItemIcon, ListItemText, Menu } from '@mui/material'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
@@ -295,9 +295,7 @@ export const NavbarCollapse = ({
               aria-haspopup="true"
               onClick={handleClick}
             >
-              <Typography className={cx(styles.collapseText, { [styles.selected]: index === activeCategory })}>
-                {'...'}
-              </Typography>
+              <p className={cx(styles.collapseText, { [styles.selected]: index === activeCategory })}>{'...'}</p>
 
               {menuAnchor ? (
                 <MdArrowDropUp size={24} className={cx({ [styles.selected]: index === activeCategory })} />

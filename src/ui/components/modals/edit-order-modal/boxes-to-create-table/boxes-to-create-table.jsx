@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { TableCell, TableRow, Typography } from '@mui/material'
+import { TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -54,7 +54,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
   return (
     <TableRow className={styles.row}>
       <TableCell>
-        <Typography className={styles.boxTitle}>{item._id}</Typography>
+        <p className={styles.boxTitle}>{item._id}</p>
         <div className={styles.descriptionWrapper}>
           <img
             className={styles.img}
@@ -64,7 +64,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
               getAmazonImageUrl(item.items[0].product.images[0])
             }
           />
-          <Typography className={styles.title}>{`${itemIndex + 1}. ${item.items[0].product.amazonTitle}`}</Typography>
+          <p className={styles.title}>{`${itemIndex + 1}. ${item.items[0].product.amazonTitle}`}</p>
         </div>
       </TableCell>
 
@@ -83,15 +83,15 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
       <TableCell className={styles.normalCell}>
         <div className={styles.sizesWrapper}>
           <div className={styles.sizeWrapper}>
-            <Typography>{t(TranslationKey.H) + ': '}</Typography>
+            <p>{t(TranslationKey.H) + ': '}</p>
             <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={height} />
           </div>
           <div className={styles.sizeWrapper}>
-            <Typography>{t(TranslationKey.W) + ': '}</Typography>
+            <p>{t(TranslationKey.W) + ': '}</p>
             <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={width} />
           </div>
           <div className={styles.sizeWrapper}>
-            <Typography>{t(TranslationKey.L) + ': '}</Typography>
+            <p>{t(TranslationKey.L) + ': '}</p>
             <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={length} />
           </div>
         </div>

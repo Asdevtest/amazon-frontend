@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { Divider, Paper, Typography } from '@mui/material'
+import { Divider, Paper } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -53,7 +53,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
   return (
     <div className={styles.mainWrapper}>
       <Paper className={styles.productBlockWrapper}>
-        <Typography className={styles.title}>{t(TranslationKey['Details about the product:'])}</Typography>
+        <p className={styles.title}>{t(TranslationKey['Details about the product:'])}</p>
 
         <div className={styles.productSubBlockWrapper}>
           <div className={styles.sideBlockWrapper}>
@@ -139,15 +139,13 @@ export const Listing = observer(({ productId, onClickBack }) => {
 
             <div className={styles.photosWrapper}>
               <div className={styles.photosLeftSubWrapper}>
-                <Typography className={styles.subTitle}>
-                  {t(TranslationKey['Photos of the product in boxes:'])}
-                </Typography>
+                <p className={styles.subTitle}>{t(TranslationKey['Photos of the product in boxes:'])}</p>
 
                 <SlideshowGallery slidesToShow={2} files={imagesFromBoxes} />
               </div>
 
               <div>
-                <Typography className={styles.subTitle}>{t(TranslationKey['Listing photos:'])}</Typography>
+                <p className={styles.subTitle}>{t(TranslationKey['Listing photos:'])}</p>
 
                 <SlideshowGallery slidesToShow={2} files={listingProduct.listingImages} />
               </div>

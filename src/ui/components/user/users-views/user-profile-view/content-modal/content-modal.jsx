@@ -23,7 +23,7 @@ export const ContentModal = props => {
   const { classes: styles } = useStyles()
   return (
     <Container disableGutters>
-      <Typography className={styles.modalTitle}>{t(TranslationKey['Order of goods'])}</Typography>
+      <p className={styles.modalTitle}>{t(TranslationKey['Order of goods'])}</p>
       <Divider className={styles.divider} />
       <TableContainer className={styles.tableWrapper}>
         <Table className={styles.table}>

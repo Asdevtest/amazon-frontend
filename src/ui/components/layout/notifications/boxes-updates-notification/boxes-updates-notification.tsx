@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 import { History } from 'history'
 import { FC } from 'react'
 
-import { Avatar, Link, Typography } from '@mui/material'
+import { Avatar, Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -69,7 +69,7 @@ export const BoxesUpdatesNotification: FC<BoxesUpdatesNotificationProps> = props
         />
 
         <div className={styles.centerWrapper}>
-          <Typography className={styles.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
+          <p className={styles.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</p>
 
           <ul className={styles.listWrapper}>
             {noticeItem?.map(el => (
@@ -98,7 +98,7 @@ export const BoxesUpdatesNotification: FC<BoxesUpdatesNotificationProps> = props
       </div>
 
       <div className={styles.footer}>
-        <Typography className={styles.messageDate}>{format(new Date(), 'HH:mm')}</Typography>
+        <p className={styles.messageDate}>{format(new Date(), 'HH:mm')}</p>
       </div>
     </div>
   )

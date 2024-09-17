@@ -1,4 +1,4 @@
-import { Paper, Typography } from '@mui/material'
+import { Paper } from '@mui/material'
 
 import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 
@@ -12,63 +12,63 @@ export const ProductSearchRequestDetails = ({ request }) => {
   return (
     <Paper>
       <div className={styles.root}>
-        <Typography variant="h3">{'productTitle'}</Typography>
+        <h3>{'productTitle'}</h3>
 
-        <Typography variant="h5">{`Заявка # ${request._id}`}</Typography>
+        <h5>{`Заявка # ${request._id}`}</h5>
 
         <div className={styles.requestDataWrapper}>
           <div className={styles.row}>
             <div className={styles.leftColumn}>
-              <Typography className={styles.columnHead}>{'parameterFieldTypo'}</Typography>
+              <p className={styles.columnHead}>{'parameterFieldTypo'}</p>
             </div>
             <div className={styles.rightHeadColumn}>
-              <Typography className={styles.columnHead}>{'valueFieldTypo'}</Typography>
+              <p className={styles.columnHead}>{'valueFieldTypo'}</p>
             </div>
           </div>
 
           <div className={styles.defaultBlock}>
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'tableBudgetField'}</Typography>
+                <p>{'tableBudgetField'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{toFixedWithDollarSign(request.budget, 2)}</Typography>
+                <p>{toFixedWithDollarSign(request.budget, 2)}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'tableTargetDateField'}</Typography>
+                <p>{'tableTargetDateField'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{request.deadline}</Typography>
+                <p>{request.deadline}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'Price of proposal'}</Typography>
+                <p>{'Price of proposal'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{request.budget / request.amountOfProposals || 0}</Typography>
+                <p>{request.budget / request.amountOfProposals || 0}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'Amount of proposals'}</Typography>
+                <p>{'Amount of proposals'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{request.amountOfProposals || 0}</Typography>
+                <p>{request.amountOfProposals || 0}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'Max amount of proposals'}</Typography>
+                <p>{'Max amount of proposals'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{request.maxAmountOfProposals || 0}</Typography>
+                <p>{request.maxAmountOfProposals || 0}</p>
               </div>
             </div>
           </div>
@@ -76,124 +76,124 @@ export const ProductSearchRequestDetails = ({ request }) => {
           <div className={styles.defaultBlock}>
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'tableStrategyField'}</Typography>
+                <p>{'tableStrategyField'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{productStrategyStatusesEnum[request.strategy]}</Typography>
+                <p>{productStrategyStatusesEnum[request.strategy]}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'tableMonthlySalesField'}</Typography>
+                <p>{'tableMonthlySalesField'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{request.monthlySales}</Typography>
+                <p>{request.monthlySales}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'tableMinProductsField'}</Typography>
+                <p>{'tableMinProductsField'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{request.minProductInProposals}</Typography>
+                <p>{request.minProductInProposals}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'tableMinKeywordsField'}</Typography>
+                <p>{'tableMinKeywordsField'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{request.minKeywords}</Typography>
+                <p>{request.minKeywords}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'tableAmazonPriceField'}</Typography>
+                <p>{'tableAmazonPriceField'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{`from ${toFixedWithDollarSign(request.minAmazonPrice, 2)} to ${toFixedWithDollarSign(
+                <p>{`from ${toFixedWithDollarSign(request.minAmazonPrice, 2)} to ${toFixedWithDollarSign(
                   request.maxAmazonPrice,
                   2,
-                )}`}</Typography>
+                )}`}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'tableAverageBsrField'}</Typography>
+                <p>{'tableAverageBsrField'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{`from ${request.minBSR} to ${request.maxBSR}`}</Typography>
+                <p>{`from ${request.minBSR} to ${request.maxBSR}`}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'tableAverageReviewsField'}</Typography>
+                <p>{'tableAverageReviewsField'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{`from ${request.minReviews} to ${request.maxReviews}`}</Typography>
+                <p>{`from ${request.minReviews} to ${request.maxReviews}`}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'tableAverageRevenueField'}</Typography>
+                <p>{'tableAverageRevenueField'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{`from ${toFixedWithDollarSign(request.minRevenue, 2)} to ${toFixedWithDollarSign(
+                <p>{`from ${toFixedWithDollarSign(request.minRevenue, 2)} to ${toFixedWithDollarSign(
                   request.maxRevenue,
                   2,
-                )}`}</Typography>
+                )}`}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'tableNotesField'}</Typography>
+                <p>{'tableNotesField'}</p>
               </div>
               <div className={cx(styles.rightColumn, styles.clientComment)}>
-                <Typography>{request.clientComment}</Typography>
+                <p>{request.clientComment}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'formCheckboxForbidLabel'}</Typography>
+                <p>{'formCheckboxForbidLabel'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{request.checkboxForbid ? 'ДА' : 'НЕТ'}</Typography>
+                <p>{request.checkboxForbid ? 'ДА' : 'НЕТ'}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'formCheckboxNoPayLabel'}</Typography>
+                <p>{'formCheckboxNoPayLabel'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{request.checkboxNoPay ? 'ДА' : 'НЕТ'}</Typography>
+                <p>{request.checkboxNoPay ? 'ДА' : 'НЕТ'}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'formCheckboxNoCheckLabel'}</Typography>
+                <p>{'formCheckboxNoCheckLabel'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{request.checkboxNoCheck ? 'ДА' : 'НЕТ'}</Typography>
+                <p>{request.checkboxNoCheck ? 'ДА' : 'НЕТ'}</p>
               </div>
             </div>
 
             <div className={styles.row}>
               <div className={styles.leftColumn}>
-                <Typography>{'formCheckboxNoPurchasedProducts'}</Typography>
+                <p>{'formCheckboxNoPurchasedProducts'}</p>
               </div>
               <div className={styles.rightColumn}>
-                <Typography>{request.checkboxNoCheck ? 'ДА' : 'НЕТ'}</Typography>
+                <p>{request.checkboxNoCheck ? 'ДА' : 'НЕТ'}</p>
               </div>
             </div>
           </div>

@@ -54,7 +54,7 @@ export const CustomPageSwitcher: FC<CustomPageSwitcherProps> = observer(props =>
           >
             {pageSizeOptions.map((pageOption: number, pageOptionIndex: number) => (
               <MenuItem key={pageOptionIndex} value={pageOption}>
-                <Typography className={styles.switcherText}>{pageOption}</Typography>
+                <p className={styles.switcherText}>{pageOption}</p>
               </MenuItem>
             ))}
           </Select>
@@ -62,11 +62,11 @@ export const CustomPageSwitcher: FC<CustomPageSwitcherProps> = observer(props =>
       />
 
       <div className={styles.switcherControlWrapper}>
-        <Typography className={styles.switcherText}>
+        <p className={styles.switcherText}>
           {`${paginationModel.page ? paginationModel.page * paginationModel.pageSize + 1 : 1}–${
             morePagesAvailable ? humanFriendlyPageCount * paginationModel.pageSize : rowCount
           } ${t(TranslationKey.of)} ${rowCount}`}
-        </Typography>
+        </p>
 
         <MdNavigateBefore
           size={20}

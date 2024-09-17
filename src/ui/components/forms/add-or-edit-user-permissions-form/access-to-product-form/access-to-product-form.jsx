@@ -184,16 +184,16 @@ export const AccessToProductForm = memo(props => {
               onClick={onClickChooseAllCheck}
             />
 
-            <Typography className={styles.title}>{shop?.name}</Typography>
+            <p className={styles.title}>{shop?.name}</p>
 
-            <Typography
+            <p
               className={cx(styles.chosenText, {
                 [styles.chosenTextSelectAll]:
                   shop.tmpProductsIds.length && shop.tmpProductsIds.length === sourceData.length,
               })}
             >
               {`${t(TranslationKey.chosen)}: ${shop.tmpProductsIds.length} / ${sourceData.length}`}
-            </Typography>
+            </p>
           </div>
         </AccordionSummary>
 
@@ -224,9 +224,7 @@ export const AccessToProductForm = memo(props => {
             ) : null}
 
             <div className={styles.searchWrapper}>
-              <Typography className={styles.standartText}>
-                {t(TranslationKey['Search by product description and ASIN, SKU:'])}
-              </Typography>
+              <p className={styles.standartText}>{t(TranslationKey['Search by product description and ASIN, SKU:'])}</p>
               <div>
                 <SearchInput
                   inputClasses={styles.searchInput}

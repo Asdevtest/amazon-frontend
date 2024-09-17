@@ -1,7 +1,7 @@
 import { memo, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
-import { Box, Grid, Link, MenuItem, Radio, Select, Typography } from '@mui/material'
+import { Box, Grid, Link, MenuItem, Radio, Select } from '@mui/material'
 
 import { UserRole } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
@@ -102,7 +102,7 @@ export const FieldsAndSuppliers = memo(props => {
                     href={checkAndMakeAbsoluteUrl(product?.lamazon)}
                     className={cx(styles.inputLink, { [styles.linkDecoration]: !edit || !product?.lamazon })}
                   >
-                    <Typography className={styles.lamazonText}>{product?.lamazon}</Typography>
+                    <p className={styles.lamazonText}>{product?.lamazon}</p>
                   </Link>
                 ) : (
                   <Input
@@ -228,7 +228,7 @@ export const FieldsAndSuppliers = memo(props => {
           )}
 
           <div className={styles.productCheckboxBoxesWrapper}>
-            <Typography className={styles.label}>{t(TranslationKey['Delivery Method'])}</Typography>
+            <p className={styles.label}>{t(TranslationKey['Delivery Method'])}</p>
             <div className={styles.productCheckboxBoxWrapper}>
               <Box className={styles.productCheckboxBox}>
                 <Radio
@@ -247,7 +247,7 @@ export const FieldsAndSuppliers = memo(props => {
                   checked={product?.fba}
                   onChange={() => onChangeField?.('fba')({ target: { value: !product?.fba } })}
                 />
-                <Typography className={styles.radioLabel}>{t(TranslationKey.FBA)}</Typography>
+                <p className={styles.radioLabel}>{t(TranslationKey.FBA)}</p>
               </Box>
 
               <Box className={styles.productCheckboxBox}>
@@ -267,7 +267,7 @@ export const FieldsAndSuppliers = memo(props => {
                   checked={!product?.fba}
                   onChange={() => onChangeField?.('fba')({ target: { value: !product?.fba } })}
                 />
-                <Typography className={styles.radioLabel}>{'FBM'}</Typography>
+                <p className={styles.radioLabel}>{'FBM'}</p>
               </Box>
             </div>
           </div>
@@ -328,7 +328,7 @@ export const FieldsAndSuppliers = memo(props => {
         {(isEditRedFlags || !!product?.redFlags?.length) && (
           <div>
             <div className={styles.subUsersTitleWrapper}>
-              <Typography className={styles.subUsersTitle}>{t(TranslationKey['Red flags'])}</Typography>
+              <p className={styles.subUsersTitle}>{t(TranslationKey['Red flags'])}</p>
             </div>
             <div className={cx(styles.redFlags, { [styles.redFlagsView]: !isEditRedFlags })}>
               <RedFlags
@@ -434,9 +434,7 @@ export const FieldsAndSuppliers = memo(props => {
           {(checkIsClient(curUserRole) || checkIsBuyer(curUserRole)) && product?.subUsers?.length ? (
             <div className={styles.subUsersWrapper}>
               <div className={styles.subUsersTitleWrapper}>
-                <Typography className={styles.subUsersTitle}>
-                  {t(TranslationKey['Users with access to the product']) + ':'}
-                </Typography>
+                <p className={styles.subUsersTitle}>{t(TranslationKey['Users with access to the product']) + ':'}</p>
               </div>
               <div className={styles.subUsersBodyWrapper}>
                 <div className={styles.subUsersBody}>

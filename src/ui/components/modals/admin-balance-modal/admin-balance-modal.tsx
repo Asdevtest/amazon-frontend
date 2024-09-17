@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 
-import { Container, MenuItem, Select, Typography } from '@mui/material'
+import { Container, MenuItem, Select } from '@mui/material'
 
 import { EntityType } from '@constants/finances/entity-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -83,9 +83,7 @@ export const AdminBalanceModal: FC<AdminBalanceModalProps> = ({ user, isWithdraw
   return (
     <>
       <Container disableGutters className={styles.modalContainer}>
-        <Typography paragraph variant="h3" className={styles.title}>
-          {isWithdraw ? t(TranslationKey.Withdraw) : t(TranslationKey.Deposit)}
-        </Typography>
+        <h3 className={styles.title}>{isWithdraw ? t(TranslationKey.Withdraw) : t(TranslationKey.Deposit)}</h3>
 
         {isWithdraw && (
           <Field
@@ -138,7 +136,7 @@ export const AdminBalanceModal: FC<AdminBalanceModalProps> = ({ user, isWithdraw
 
       <Modal openModal={showConfirmModal} setOpenModal={onTriggerConfirmModal}>
         <div className={styles.confirmModal}>
-          <Typography paragraph>{confirmMsg()}</Typography>
+          <p>{confirmMsg()}</p>
           <div className={styles.buttonWrapper}>
             <Button onClick={onConfirm}>{t(TranslationKey.Yes)}</Button>
             <Button styleType={ButtonStyle.CASUAL} onClick={onDecline}>

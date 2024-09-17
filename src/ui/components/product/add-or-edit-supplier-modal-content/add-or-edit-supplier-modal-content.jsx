@@ -1,6 +1,6 @@
 import { memo, useEffect, useMemo, useState } from 'react'
 
-import { Divider, Typography } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import {
   inchesCoefficient,
@@ -485,14 +485,14 @@ export const AddOrEditSupplierModalContent = memo(props => {
   return (
     <div className={styles.modalContainer}>
       {onlyRead ? (
-        <Typography className={styles.modalTitle}>{t(TranslationKey['Viewing Supplier'])}</Typography>
+        <p className={styles.modalTitle}>{t(TranslationKey['Viewing Supplier'])}</p>
       ) : (
-        <Typography className={styles.modalTitle}>{title}</Typography>
+        <p className={styles.modalTitle}>{title}</p>
       )}
       <Divider className={styles.titleDivider} />
 
       <div>
-        <Typography className={styles.modalTitle}>{t(TranslationKey['Basic information'])}</Typography>
+        <p className={styles.modalTitle}>{t(TranslationKey['Basic information'])}</p>
 
         <div className={styles.nameBlock}>
           <Field
@@ -590,7 +590,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
       <div>
         <div className={styles.costBlock}>
-          <Typography className={styles.modalTitle}>{t(TranslationKey['Total price'])}</Typography>
+          <p className={styles.modalTitle}>{t(TranslationKey['Total price'])}</p>
 
           <Field
             oneLine
@@ -620,7 +620,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
         <div className={styles.calculationMainWrapper}>
           <div>
-            <Typography className={styles.modalTitle}>{'¥'}</Typography>
+            <p className={styles.modalTitle}>{'¥'}</p>
 
             <div className={styles.flexContainer}>
               <Field
@@ -692,7 +692,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <Divider flexItem orientation="vertical" className={styles.divider} />
 
           <div>
-            <Typography className={styles.modalTitle}>{'$'}</Typography>
+            <p className={styles.modalTitle}>{'$'}</p>
 
             <div className={styles.flexContainer}>
               <Field
@@ -783,7 +783,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
         </div>
 
         <div className={styles.boxInfoMainWrapper}>
-          <Typography className={styles.modalTitle}>{t(TranslationKey['Box info'])}</Typography>
+          <p className={styles.modalTitle}>{t(TranslationKey['Box info'])}</p>
 
           <div className={styles.boxInfoWrapper}>
             <Dimensions

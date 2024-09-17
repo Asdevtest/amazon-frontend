@@ -1,7 +1,7 @@
 import { memo, useState } from 'react'
 import { MdExpandMore } from 'react-icons/md'
 
-import { Avatar, Rating, Typography } from '@mui/material'
+import { Avatar, Rating } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -32,9 +32,9 @@ export const DealsOfRequest = memo(({ requestProposals, onClickReview }) => {
         onChange={() => setShowDetails(!showDetails)}
       >
         <AccordionSummary expandIcon={<MdExpandMore size={20} />}>
-          <Typography className={styles.title}>{`${t(TranslationKey['Transactions on the request'])} (${
+          <p className={styles.title}>{`${t(TranslationKey['Transactions on the request'])} (${
             requestProposals.length
-          })`}</Typography>
+          })`}</p>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -50,9 +50,9 @@ export const DealsOfRequest = memo(({ requestProposals, onClickReview }) => {
                       userId={deal?.proposal?.createdBy?._id}
                     />
 
-                    <Typography className={styles.reviews} onClick={() => onClickReview(deal?.proposal?.createdBy)}>
+                    <p className={styles.reviews} onClick={() => onClickReview(deal?.proposal?.createdBy)}>
                       {t(TranslationKey.Reviews)}
-                    </Typography>
+                    </p>
                   </div>
 
                   <div className={styles.userRatingWrapper}>
@@ -62,40 +62,36 @@ export const DealsOfRequest = memo(({ requestProposals, onClickReview }) => {
 
                 <div className={styles.blockInfoStatusWrapper}>
                   <div className={styles.requestItemInfoWrapper}>
-                    <Typography className={styles.blockText}>{t(TranslationKey.Status)}</Typography>
+                    <p className={styles.blockText}>{t(TranslationKey.Status)}</p>
                     <div className={styles.requestStatusWrapper}>
-                      <Typography className={styles.requestStatus}>
+                      <p className={styles.requestStatus}>
                         <span style={{ backgroundColor: RequestProposalStatusColor(deal?.proposal?.status) }}></span>
-                      </Typography>
-                      <Typography className={styles.standartText}>
-                        {RequestProposalStatusTranslate(deal?.proposal?.status)}
-                      </Typography>
+                      </p>
+                      <p className={styles.standartText}>{RequestProposalStatusTranslate(deal?.proposal?.status)}</p>
                     </div>
                   </div>
                 </div>
 
                 <div className={styles.blockInfoWrapper}>
                   <div className={styles.requestItemInfoWrapper}>
-                    <Typography className={styles.blockText}>{t(TranslationKey.Time)}</Typography>
-                    <Typography className={styles.blockText}>
+                    <p className={styles.blockText}>{t(TranslationKey.Time)}</p>
+                    <p className={styles.blockText}>
                       {formatDateDistanceFromNowStrict(deal?.proposal?.timeoutAt, new Date())}
-                    </Typography>
+                    </p>
                   </div>
                 </div>
 
                 <div className={styles.blockInfoWrapper}>
                   <div className={styles.requestItemInfoWrapper}>
-                    <Typography className={styles.blockText}>{t(TranslationKey.Deadline)}</Typography>
-                    <Typography className={styles.blockText}>
-                      {formatNormDateTime(deal?.proposal?.timeoutAt)}
-                    </Typography>
+                    <p className={styles.blockText}>{t(TranslationKey.Deadline)}</p>
+                    <p className={styles.blockText}>{formatNormDateTime(deal?.proposal?.timeoutAt)}</p>
                   </div>
                 </div>
 
                 <div className={styles.blockInfoWrapper}>
                   <div className={styles.requestItemInfoWrapper}>
-                    <Typography className={styles.blockText}>{t(TranslationKey['Total price'])}</Typography>
-                    <Typography className={styles.price}>{toFixedWithDollarSign(deal?.proposal?.price, 2)}</Typography>
+                    <p className={styles.blockText}>{t(TranslationKey['Total price'])}</p>
+                    <p className={styles.price}>{toFixedWithDollarSign(deal?.proposal?.price, 2)}</p>
                   </div>
                 </div>
               </div>

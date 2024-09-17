@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,13 +16,11 @@ export const BusinessInfo = observer(({ data }) => {
 
   return (
     <Box className={styles.businessInfoWrapper}>
-      <Typography className={styles.businessInfoTitle}>{t(TranslationKey['Business Started'])}</Typography>
+      <p className={styles.businessInfoTitle}>{t(TranslationKey['Business Started'])}</p>
 
       <div>
-        <Typography className={styles.businessInfoDate}>{formatDateDayMonthYear(data.businessStartDate)}</Typography>
-        <Typography className={styles.businessInfoDateAgo}>
-          {formatDateDistanceFromNowStrict(data.businessStartDate)}
-        </Typography>
+        <p className={styles.businessInfoDate}>{formatDateDayMonthYear(data.businessStartDate)}</p>
+        <p className={styles.businessInfoDateAgo}>{formatDateDistanceFromNowStrict(data.businessStartDate)}</p>
       </div>
       <div>
         <CustomList title={t(TranslationKey['Assets included in the sale'])} dataList={data?.shopAssets} />

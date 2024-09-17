@@ -1,4 +1,4 @@
-import { Avatar, Grid, Typography } from '@mui/material'
+import { Avatar, Grid } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
@@ -28,7 +28,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
         <div className={styles.leftBlockWrapper}>
           <div className={styles.usersInfoBlockWrapper}>
             <div className={styles.userInfoWrapper}>
-              <Typography className={styles.userInfoName}>{t(TranslationKey.Client)}</Typography>
+              <p className={styles.userInfoName}>{t(TranslationKey.Client)}</p>
               <div className={styles.userInfo}>
                 <Avatar src={getUserAvatarSrc(item?.request?.createdBy?._id)} className={styles.cardImg} />
 
@@ -40,7 +40,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
               </div>
             </div>
             <div className={styles.userInfoWrapper}>
-              <Typography className={styles.userInfoName}>{t(TranslationKey.Performer)}</Typography>
+              <p className={styles.userInfoName}>{t(TranslationKey.Performer)}</p>
               <div className={styles.userInfo}>
                 <Avatar src={getUserAvatarSrc(item?.createdBy?._id)} className={styles.cardImg} />
 
@@ -54,8 +54,8 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
           </div>
           <div>
             <div className={styles.cardTitleBlockHeaderWrapper}>
-              <Typography className={styles.cardTitle}>{item.title}</Typography>
-              <Typography className={styles.cardDescription}>{item.comment}</Typography>
+              <p className={styles.cardTitle}>{item.title}</p>
+              <p className={styles.cardDescription}>{item.comment}</p>
             </div>
           </div>
         </div>
@@ -64,26 +64,26 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
           <div className={styles.subBlockWrapper}>
             <div className={styles.leftSubBlockWrapper}>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography className={styles.text}>{t(TranslationKey['Time to complete'])}</Typography>
+                <p className={styles.text}>{t(TranslationKey['Time to complete'])}</p>
 
-                <Typography className={styles.text}>{minsToTime(item.execution_time)}</Typography>
+                <p className={styles.text}>{minsToTime(item.execution_time)}</p>
               </div>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography className={styles.text}>{t(TranslationKey.Status)}</Typography>
+                <p className={styles.text}>{t(TranslationKey.Status)}</p>
 
                 <Text text={MyRequestStatusTranslate(item.status)} color={colorByStatus(item.status)} />
               </div>
             </div>
             <div className={styles.rightSubBlockWrapper}>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography className={styles.text}>{t(TranslationKey.Deadline)}</Typography>
+                <p className={styles.text}>{t(TranslationKey.Deadline)}</p>
 
-                <Typography className={styles.text}>{formatNormDateTime(item.timeoutAt)}</Typography>
+                <p className={styles.text}>{formatNormDateTime(item.timeoutAt)}</p>
               </div>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography className={styles.text}>{t(TranslationKey['Total price'])}</Typography>
+                <p className={styles.text}>{t(TranslationKey['Total price'])}</p>
 
-                <Typography className={styles.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
+                <p className={styles.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</p>
               </div>
             </div>
           </div>

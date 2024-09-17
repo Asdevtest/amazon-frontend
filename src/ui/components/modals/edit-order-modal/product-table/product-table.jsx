@@ -1,4 +1,4 @@
-import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -36,8 +36,8 @@ export const ProductTable = props => {
               <img className={styles.imgBox} src={getAmazonImageUrl(order.product.images[0])} alt={order.csCode} />
             </TableCell>
             <TableCell>
-              <Typography className={styles.amazonTitle}>{order.product.amazonTitle}</Typography>
-              <Typography sx={{ display: 'flex', gap: '2px' }}>
+              <p className={styles.amazonTitle}>{order.product.amazonTitle}</p>
+              <p style={{ display: 'flex', gap: '2px' }}>
                 ASIN:{' '}
                 <a
                   target="_blank"
@@ -48,7 +48,7 @@ export const ProductTable = props => {
                   <span className={styles.asin}>{shortAsin(order.product.asin)}</span>
                 </a>
                 <CopyValue text={order.product.asin} />
-              </Typography>
+              </p>
             </TableCell>
             <TableCell>
               {order.orderSupplier ? toFixed(order.orderSupplier.price, 2) : t(TranslationKey['Not available'])}
@@ -76,9 +76,7 @@ export const ProductTable = props => {
             <TableCell>{toFixedWithDollarSign(calcProductsPriceWithDelivery(order.product, orderFields), 2)}</TableCell>
             <TableCell>
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.orderSupplier?.link)}>
-                <Typography className={styles.link}>
-                  {order.orderSupplier?.link || `${t(TranslationKey['Not available'])}`}
-                </Typography>
+                <p className={styles.link}>{order.orderSupplier?.link || `${t(TranslationKey['Not available'])}`}</p>
               </Link>
             </TableCell>
           </TableRow>

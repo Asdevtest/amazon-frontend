@@ -1,5 +1,3 @@
-import { Typography } from '@mui/material'
-
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -25,20 +23,20 @@ export const ShortBoxItemCard = ({ item, superCount, boxId, taskType, readOnly }
                 <p title={t(TranslationKey['Number of products in the box'])} className={styles.subTitle}>
                   {t(TranslationKey.Quantity) + ':'}
                 </p>
-                <Typography className={styles.count}>{item.amount}</Typography>
+                <p className={styles.count}>{item.amount}</p>
               </div>
 
               {superCount > 1 && (
                 <div className={styles.countSubWrapper}>
-                  <Typography className={styles.subTitle}>{t(TranslationKey['Super Box']) + ':'}</Typography>
-                  <Typography className={styles.count}>{`x${superCount}`}</Typography>
+                  <p className={styles.subTitle}>{t(TranslationKey['Super Box']) + ':'}</p>
+                  <p className={styles.count}>{`x${superCount}`}</p>
                 </div>
               )}
             </div>
             {((readOnly && taskType === TaskOperationType.RECEIVE) || taskType !== TaskOperationType.RECEIVE) && (
               <div className={styles.countSubWrapper}>
-                <Typography className={styles.subTitle}>{t(TranslationKey['Box number:'])}</Typography>
-                <Typography className={styles.count}>{boxId}</Typography>
+                <p className={styles.subTitle}>{t(TranslationKey['Box number:'])}</p>
+                <p className={styles.count}>{boxId}</p>
               </div>
             )}
           </div>
@@ -46,22 +44,22 @@ export const ShortBoxItemCard = ({ item, superCount, boxId, taskType, readOnly }
           <div className={styles.attributeFooterWrapper}>
             <div className={styles.copyValueWrapper}>
               <div className={styles.asinWrapper}>
-                <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
-                <Typography className={styles.asinTitle}>{item.product?.asin}</Typography>
+                <p className={styles.asin}>{t(TranslationKey.ASIN)}</p>
+                <p className={styles.asinTitle}>{item.product?.asin}</p>
               </div>
               {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
             </div>
 
-            <Typography className={styles.title}>{item.product?.amazonTitle}</Typography>
+            <p className={styles.title}>{item.product?.amazonTitle}</p>
           </div>
         </div>
       </div>
       <div className={styles.attributeFooterMobileWrapper}>
         <div className={styles.asinWrapper}>
-          <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
-          <Typography className={styles.asinTitle}>{item.product?.asin}</Typography>
+          <p className={styles.asin}>{t(TranslationKey.ASIN)}</p>
+          <p className={styles.asinTitle}>{item.product?.asin}</p>
         </div>
-        <Typography className={styles.title}>{item.product?.amazonTitle}</Typography>
+        <p className={styles.title}>{item.product?.amazonTitle}</p>
       </div>
     </div>
   )

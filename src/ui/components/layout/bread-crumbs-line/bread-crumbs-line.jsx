@@ -82,15 +82,15 @@ export const BreadCrumbsLine = observer(() => {
             }
 
             return last ? (
-              <Typography key={to} className={styles.lastCrumb}>
+              <p key={to} className={styles.lastCrumb}>
                 {t(getCrumbNameKey(to)) + `${breadcrumbsAdditionalText ? breadcrumbsAdditionalText : ''}`}
-              </Typography>
+              </p>
             ) : (
-              <Typography key={to} className={styles.crumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
+              <p key={to} className={styles.crumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
                 {getCrumbNameKey(to) === 'Order'
                   ? `${t(TranslationKey.Order)} ${savedLastCrumbAdditionalText ? savedLastCrumbAdditionalText : ''}`
                   : t(getCrumbNameKey(to))}
-              </Typography>
+              </p>
             )
           })}
         </Breadcrumbs>

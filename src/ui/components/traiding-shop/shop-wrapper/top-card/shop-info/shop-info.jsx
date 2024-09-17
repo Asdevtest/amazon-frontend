@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { MdFiberManualRecord } from 'react-icons/md'
 
-import { Link, Typography } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -39,9 +39,9 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
 
         <div className={styles.rightSideWrapper}>
           <div className={styles.rightSideHeader}>
-            <Typography className={styles.shopTitle}>{data.title}</Typography>
+            <p className={styles.shopTitle}>{data.title}</p>
             <div className={styles.statusWrapper}>
-              <Typography className={styles.cardTitle}>{t(TranslationKey['For sale'])}</Typography>
+              <p className={styles.cardTitle}>{t(TranslationKey['For sale'])}</p>
               <MdFiberManualRecord size={16} className={styles.green} />
             </div>
           </div>
@@ -56,9 +56,7 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
                 labelClasses={styles.shortInfoLabel}
                 containerClasses={styles.shortInfoContainer}
                 label={t(TranslationKey['Price period'])}
-                inputComponent={
-                  <Typography className={styles.shortInfoValue}>{`${data.statistics.length} месяцев`}</Typography>
-                }
+                inputComponent={<p className={styles.shortInfoValue}>{`${data.statistics.length} месяцев`}</p>}
               />
             </div>
             <div>
@@ -66,9 +64,7 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
                 labelClasses={styles.shortInfoLabel}
                 containerClasses={styles.shortInfoContainer}
                 label={t(TranslationKey['Monthly multiplier'])}
-                inputComponent={
-                  <Typography className={styles.shortInfoValue}>{`${toFixed(monthlyMultiplier, 2)} х`}</Typography>
-                }
+                inputComponent={<p className={styles.shortInfoValue}>{`${toFixed(monthlyMultiplier, 2)} х`}</p>}
               />
             </div>
 
@@ -77,7 +73,7 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
                 labelClasses={styles.shortInfoLabel}
                 containerClasses={styles.shortInfoContainer}
                 label={t(TranslationKey.Price)}
-                inputComponent={<Typography className={styles.shortInfoValue}>{`${data.price} $`}</Typography>}
+                inputComponent={<p className={styles.shortInfoValue}>{`${data.price} $`}</p>}
               />
             </div>
           </div>
@@ -101,7 +97,7 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
               labelClasses={styles.chartLabel}
               inputComponent={
                 <div className={styles.chart}>
-                  <Typography className={styles.profit}>{toFixed(averageGrossIncome, 2) + ' $'}</Typography>
+                  <p className={styles.profit}>{toFixed(averageGrossIncome, 2) + ' $'}</p>
                   <LinesChart data={data.profitForTheReportingPeriod} />
                 </div>
               }
@@ -113,7 +109,7 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
               labelClasses={styles.chartLabel}
               inputComponent={
                 <div className={styles.chart}>
-                  <Typography className={styles.profit}>{toFixed(averagePureIncome, 2) + ' $'}</Typography>
+                  <p className={styles.profit}>{toFixed(averagePureIncome, 2) + ' $'}</p>
                   <LinesChart profit data={data.profitForTheReportingPeriod} />
                 </div>
               }
@@ -125,7 +121,7 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
               labelClasses={styles.chartLabel}
               inputComponent={
                 <div className={styles.chart}>
-                  <Typography className={styles.profitability}>{toFixed(profitability, 2) + ' %'}</Typography>
+                  <p className={styles.profitability}>{toFixed(profitability, 2) + ' %'}</p>
                   <Link>{t(TranslationKey['View profit'])}</Link>
                 </div>
               }

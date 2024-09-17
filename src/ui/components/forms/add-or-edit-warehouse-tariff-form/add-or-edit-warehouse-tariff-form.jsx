@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -66,9 +64,7 @@ export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSu
 
   return (
     <div className={styles.root}>
-      <Typography variant="h5" className={styles.modalTitle}>
-        {t(TranslationKey['Adding tariff'])}
-      </Typography>
+      <h5 className={styles.modalTitle}>{t(TranslationKey['Adding tariff'])}</h5>
 
       <div className={styles.form}>
         <Field

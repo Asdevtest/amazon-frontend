@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { MdFiberManualRecord } from 'react-icons/md'
 
-import { Paper, Typography } from '@mui/material'
+import { Paper } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -51,19 +51,19 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
     <div className={styles.mainWrapper}>
       <Paper className={styles.cardWrapper}>
         <div className={styles.cardHeaderWrapper}>
-          <Typography>{isRevenue ? t(TranslationKey.Revenue) : t(TranslationKey['Website traffic'])}</Typography>
+          <p>{isRevenue ? t(TranslationKey.Revenue) : t(TranslationKey['Website traffic'])}</p>
           <div className={styles.barStatusesWrapper}>
             <div className={styles.barStatusWrapper}>
               <MdFiberManualRecord size={18} className={styles.icon} />
-              <Typography className={styles.cardTitle}>
+              <p className={styles.cardTitle}>
                 {isRevenue ? t(TranslationKey['gross profit']) : t(TranslationKey['page view'])}
-              </Typography>
+              </p>
             </div>
             <div className={styles.barStatusWrapper}>
               <MdFiberManualRecord size={18} classes={{ root: styles.indicator }} />
-              <Typography className={styles.cardTitle}>
+              <p className={styles.cardTitle}>
                 {isRevenue ? t(TranslationKey['net income']) : t(TranslationKey['unique users'])}
-              </Typography>
+              </p>
             </div>
           </div>
         </div>

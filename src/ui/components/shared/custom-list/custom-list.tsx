@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { FaCircle } from 'react-icons/fa'
 
-import { List, ListItem, ListItemText, Typography } from '@mui/material'
+import { List, ListItem, ListItemText } from '@mui/material'
 
 import { useStyles } from './custom-list.style'
 
@@ -15,7 +15,7 @@ export const CustomList: FC<Props> = memo(({ dataList, title }) => {
 
   return (
     <div>
-      <Typography className={styles.listTitle}>{title}</Typography>
+      <p className={styles.listTitle}>{title}</p>
 
       <List>
         {dataList

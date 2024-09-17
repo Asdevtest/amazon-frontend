@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { Avatar, Link, Tooltip, Typography } from '@mui/material'
+import { Avatar, Link, Tooltip } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import { UserModel } from '@models/user-model'
@@ -97,7 +97,7 @@ export const UserLink: FC<UserLinkProps> = memo(
             </div>
           </Link>
         ) : (
-          <Typography>{'-'}</Typography>
+          <p>{'-'}</p>
         )}
       </>
     )

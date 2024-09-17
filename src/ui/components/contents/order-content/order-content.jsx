@@ -1,7 +1,7 @@
 import { isPast, isValid, parseISO } from 'date-fns'
 import { useEffect, useState } from 'react'
 
-import { Divider, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Divider, useMediaQuery, useTheme } from '@mui/material'
 
 import { OrderStatus, OrderStatusByCode, OrderStatusByKey, OrderStatusText } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -123,8 +123,8 @@ export const OrderContent = ({
 
         <div className={styles.infosWrapper}>
           <div className={styles.orderItemWrapper}>
-            <Typography className={styles.orderTitle}>{t(TranslationKey['Order number'])}</Typography>
-            <Typography className={styles.orderText}>{`№ ${updatedOrder.id}`}</Typography>
+            <p className={styles.orderTitle}>{t(TranslationKey['Order number'])}</p>
+            <p className={styles.orderText}>{`№ ${updatedOrder.id}`}</p>
           </div>
 
           <div className={styles.orderItemWrapper}>
@@ -134,20 +134,18 @@ export const OrderContent = ({
               label={t(TranslationKey['Order amount'])}
               labelClasses={styles.orderTitle}
               containerClasses={styles.field}
-              inputComponent={
-                <Typography className={styles.orderText}>{toFixedWithDollarSign(formFields.totalPrice, 2)}</Typography>
-              }
+              inputComponent={<p className={styles.orderText}>{toFixedWithDollarSign(formFields.totalPrice, 2)}</p>}
             />
           </div>
 
           <div className={styles.orderItemWrapper}>
-            <Typography className={styles.orderTitle}>{'item'}</Typography>
-            <Typography className={styles.orderText}>{updatedOrder.item || '-'}</Typography>
+            <p className={styles.orderTitle}>{'item'}</p>
+            <p className={styles.orderText}>{updatedOrder.item || '-'}</p>
           </div>
 
           <div className={styles.orderItemWrapper}>
-            <Typography className={styles.orderTitle}>{t(TranslationKey.Created)}</Typography>
-            <Typography className={styles.orderText}>{formatShortDateTime(updatedOrder.createdAt)}</Typography>
+            <p className={styles.orderTitle}>{t(TranslationKey.Created)}</p>
+            <p className={styles.orderText}>{formatShortDateTime(updatedOrder.createdAt)}</p>
           </div>
         </div>
       </div>

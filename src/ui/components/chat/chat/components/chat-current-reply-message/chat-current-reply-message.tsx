@@ -1,8 +1,6 @@
 import { FC, memo } from 'react'
 import { MdClose } from 'react-icons/md'
 
-import { Typography } from '@mui/material'
-
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
 import { ReplyIcon } from '@components/shared/svg-icons'
@@ -26,7 +24,7 @@ export const ChatCurrentReplyMessage: FC<ChatCurrentReplyMessageProps> = memo(
         <div className={styles.content}>
           {message.text && (
             <div>
-              <Typography className={styles.message}>{message.text}</Typography>
+              <p className={styles.message}>{message.text}</p>
             </div>
           )}
 

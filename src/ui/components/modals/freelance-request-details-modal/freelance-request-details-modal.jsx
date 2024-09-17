@@ -1,7 +1,5 @@
 import { memo } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
@@ -58,19 +56,19 @@ export const FreelanceRequestDetailsModal = memo(props => {
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <div className={styles.headerDetails}>
-            <Typography>
+            <p>
               {t(TranslationKey.ID)}: {request?.humanFriendlyId}
-            </Typography>
-            <Typography className={cx(styles.textBold, styles.headerTitle)}>{request?.title}</Typography>
+            </p>
+            <p className={cx(styles.textBold, styles.headerTitle)}>{request?.title}</p>
           </div>
           <div className={styles.headerDetails}>
             <div className={styles.flexContainer}>
-              <Typography className={styles.headerText}>{t(TranslationKey['Request type'])}</Typography>
-              <Typography className={cx(styles.headerText, styles.textBold)}>{request?.spec?.title}</Typography>
+              <p className={styles.headerText}>{t(TranslationKey['Request type'])}</p>
+              <p className={cx(styles.headerText, styles.textBold)}>{request?.spec?.title}</p>
             </div>
 
             <div className={styles.flexContainer}>
-              <Typography className={styles.headerText}>{t(TranslationKey['Request creator'])}:</Typography>
+              <p className={styles.headerText}>{t(TranslationKey['Request creator'])}:</p>
               <UserLink
                 blackText
                 withAvatar
@@ -87,7 +85,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
 
         <div className={styles.content}>
           <div className={styles.productInfo}>
-            <Typography className={styles.categoryTitle}>{t(TranslationKey.Product)}</Typography>
+            <p className={styles.categoryTitle}>{t(TranslationKey.Product)}</p>
             <SlideshowGallery files={request?.product?.images} slidesToShow={2} />
 
             <div className={styles.category}>
@@ -98,12 +96,12 @@ export const FreelanceRequestDetailsModal = memo(props => {
                 <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={request?.product.skuByClient} />
               )}
               {request?.product.amazonTitle && (
-                <Typography>{getShortenStringIfLongerThanCount(request?.product.amazonTitle, 40)}</Typography>
+                <p>{getShortenStringIfLongerThanCount(request?.product.amazonTitle, 40)}</p>
               )}
             </div>
 
             <div className={styles.category}>
-              <Typography className={styles.categoryTitle}>{t(TranslationKey.Files)}</Typography>
+              <p className={styles.categoryTitle}>{t(TranslationKey.Files)}</p>
 
               <SlideshowGallery files={requestMedia} slidesToShow={2} />
             </div>
@@ -112,13 +110,13 @@ export const FreelanceRequestDetailsModal = memo(props => {
           <div className={styles.requestInfo}>
             <div className={styles.requestInfoWrapper}>
               <div className={styles.category}>
-                <Typography className={styles.categoryTitle}>{t(TranslationKey['Request terms'])}</Typography>
+                <p className={styles.categoryTitle}>{t(TranslationKey['Request terms'])}</p>
                 <RequestTermsList request={request} />
               </div>
 
               {details?.conditions && (
                 <div className={styles.category}>
-                  <Typography className={styles.categoryTitle}>{t(TranslationKey.Description)}</Typography>
+                  <p className={styles.categoryTitle}>{t(TranslationKey.Description)}</p>
                   <CustomTextEditor readOnly editorClassName={styles.editorWrapper} value={details?.conditions} />
                 </div>
               )}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Container } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -21,7 +21,7 @@ export const SetFourMonthesStockModal = ({ title, onSubmit, onCloseModal, select
 
   return (
     <Container disableGutters className={styles.root}>
-      <Typography className={styles.modalTitle}>{title}</Typography>
+      <p className={styles.modalTitle}>{title}</p>
 
       <Field
         containerClasses={styles.field}

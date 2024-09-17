@@ -1,6 +1,6 @@
 import { memo, useState } from 'react'
 
-import { Divider, Typography } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
@@ -221,7 +221,7 @@ export const EditBoxForm = memo(
     return (
       <div className={styles.root}>
         <div className={styles.titleWrapper}>
-          <Typography className={styles.title}>{t(TranslationKey['Editing the box'])}</Typography>
+          <p className={styles.title}>{t(TranslationKey['Editing the box'])}</p>
           <BoxEdit />
         </div>
 
@@ -239,9 +239,7 @@ export const EditBoxForm = memo(
                       label={`${t(TranslationKey.Box)} №`}
                       inputComponent={
                         <div className={styles.boxTitleWrapper}>
-                          <Typography className={styles.tableTitle}>{`${
-                            formItem && formItem.humanFriendlyId
-                          }`}</Typography>
+                          <p className={styles.tableTitle}>{`${formItem && formItem.humanFriendlyId}`}</p>
                         </div>
                       }
                     />
@@ -271,9 +269,7 @@ export const EditBoxForm = memo(
                     value={allItemsCount}
                   />
                 </div>
-                <Typography className={styles.amountSpan}>
-                  {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
-                </Typography>
+                <p className={styles.amountSpan}>{boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}</p>
 
                 <Divider className={styles.divider} />
 
@@ -387,7 +383,7 @@ export const EditBoxForm = memo(
                           </div>
 
                           <div className={styles.rightProductColumn}>
-                            <Typography className={styles.amazonTitle}>{item.product.amazonTitle}</Typography>
+                            <p className={styles.amazonTitle}>{item.product.amazonTitle}</p>
 
                             {item.product.asin ? (
                               <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item.product.asin} />
@@ -568,9 +564,9 @@ export const EditBoxForm = memo(
                 />
 
                 <div className={styles.boxPhotoWrapper}>
-                  <Typography className={styles.standartLabel}>
+                  <p className={styles.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
-                  </Typography>
+                  </p>
 
                   <SlideshowGallery slidesToShow={2} files={boxFields.images} />
                 </div>

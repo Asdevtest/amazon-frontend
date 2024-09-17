@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from 'react'
 import { MdFiberManualRecord, MdOutlineVisibility } from 'react-icons/md'
 
-import { InputAdornment, MenuItem, Select, Typography } from '@mui/material'
+import { InputAdornment, MenuItem, Select } from '@mui/material'
 
 import {
   OrderStatus,
@@ -429,9 +429,9 @@ export const EditOrderModal = memo(
         <div className={styles.modalHeader}>
           <div>
             <div className={styles.idItemWrapper}>
-              <Typography className={styles.modalText}>
+              <p className={styles.modalText}>
                 {`${t(TranslationKey.Order)} № ${order.id} / `} <span className={styles.modalSpanText}>{'item'}</span>
-              </Typography>
+              </p>
 
               <Input
                 disabled={Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
@@ -462,17 +462,15 @@ export const EditOrderModal = memo(
                 labelClasses={styles.label}
                 inputComponent={
                   <div className={styles.deadlineWrapper}>
-                    <Typography className={cx(styles.deadlineText)}>
-                      {formatDateWithoutTime(orderFields.deadline)}
-                    </Typography>
+                    <p className={cx(styles.deadlineText)}>{formatDateWithoutTime(orderFields.deadline)}</p>
 
-                    <Typography
+                    <p
                       className={cx(styles.deadlineText, {
                         [styles.alertText]: getDistanceBetweenDatesInSeconds(orderFields.deadline) < ONE_DAY_IN_SECONDS,
                       })}
                     >
                       {`(${timeToDeadlineInHoursAndMins({ date: orderFields.deadline, withSeconds: true })})`}
-                    </Typography>
+                    </p>
                   </div>
                 }
               />
@@ -482,22 +480,22 @@ export const EditOrderModal = memo(
           <p className={styles.amazonTitle}>{order.product.amazonTitle}</p>
 
           <div className={styles.priorityWrapper}>
-            <Typography className={styles.priorityTitle}>{`${t(TranslationKey.Priority)}:`}</Typography>
+            <p className={styles.priorityTitle}>{`${t(TranslationKey.Priority)}:`}</p>
             {order.priority === '40' ? (
               <div className={styles.rushOrderWrapper}>
                 <img className={styles.rushOrderImg} src="/assets/icons/fire.svg" />
-                <Typography className={styles.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
+                <p className={styles.rushOrder}>{t(TranslationKey['Rush order'])}</p>
               </div>
             ) : null}
             {order.expressChinaDelivery ? (
               <div className={styles.rushOrderWrapper}>
                 <TruckIcon className={styles.rushOrderImg} />
-                <Typography className={styles.rushOrder}>{t(TranslationKey['Express delivery'])}</Typography>
+                <p className={styles.rushOrder}>{t(TranslationKey['Express delivery'])}</p>
               </div>
             ) : null}
             {order.priority !== '40' && !order.expressChinaDelivery ? (
               <div className={styles.rushOrderWrapper}>
-                <Typography className={styles.rushOrder}>{t(TranslationKey['Medium priority'])}</Typography>
+                <p className={styles.rushOrder}>{t(TranslationKey['Medium priority'])}</p>
               </div>
             ) : null}
           </div>
@@ -706,7 +704,7 @@ export const EditOrderModal = memo(
         <div className={styles.addBoxButtonAndCommentsWrapper}>
           {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) ? (
             <div className={styles.addBoxButtonWrapper}>
-              <Typography className={styles.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
+              <p className={styles.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</p>
 
               <Button tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])} onClick={addBoxHandler}>
                 {t(TranslationKey['Add a box'])}
@@ -762,7 +760,7 @@ export const EditOrderModal = memo(
                   {trackNumber.files[0] ? (
                     <SlideshowGallery hiddenPreviews slidesToShow={1} files={trackNumber.files} />
                   ) : (
-                    <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
+                    <p>{`${t(TranslationKey['no photo track number'])}...`}</p>
                   )}
                 </div>
               </div>

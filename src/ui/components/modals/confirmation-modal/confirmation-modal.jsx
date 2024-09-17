@@ -1,7 +1,5 @@
 import { memo, useEffect, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
@@ -91,26 +89,18 @@ export const ConfirmationModal = memo(props => {
         {!isShowComment && (
           <>
             <div className={styles.titleWrapper}>
-              <Typography variant="h5" className={cx(styles.title, { [styles.warningTitle]: isWarning })}>
-                {title}
-              </Typography>
+              <h5 className={cx(styles.title, { [styles.warningTitle]: isWarning })}>{title}</h5>
             </div>
 
-            <Typography paragraph className={cx(styles.modalMessage, { [styles.warningModalMessage]: isWarning })}>
-              {message}
-            </Typography>
+            <p className={cx(styles.modalMessage, { [styles.warningModalMessage]: isWarning })}>{message}</p>
 
-            <Typography paragraph className={cx(styles.modalSmallMessage, { [styles.warningModalMessage]: isWarning })}>
-              {smallMessage}
-            </Typography>
+            <p className={cx(styles.modalSmallMessage, { [styles.warningModalMessage]: isWarning })}>{smallMessage}</p>
           </>
         )}
 
         {isShowComment && (
           <>
-            <Typography variant="h5" className={styles.commentTitle}>
-              {commentTitleText || title}
-            </Typography>
+            <h5 className={styles.commentTitle}>{commentTitleText || title}</h5>
             <Field
               multiline
               className={styles.heightFieldAuto}

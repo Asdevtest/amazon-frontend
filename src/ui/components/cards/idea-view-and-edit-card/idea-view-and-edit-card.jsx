@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { MdArrowDropDown, MdArrowDropUp, MdDeleteOutline } from 'react-icons/md'
 
-import { IconButton, Link, Typography } from '@mui/material'
+import { IconButton, Link } from '@mui/material'
 
 import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -476,9 +476,7 @@ export const IdeaViewAndEditCard = observer(
           {showFullCard && (
             <>
               <div className={cx(styles.middleBlock, { [styles.fullMiddleBlock]: showFullCard })}>
-                <Typography className={styles.supplierSearchTitle}>
-                  {t(TranslationKey['Supplier search options'])}
-                </Typography>
+                <p className={styles.supplierSearchTitle}>{t(TranslationKey['Supplier search options'])}</p>
 
                 <div className={cx(styles.cardWrapper, { [styles.fullCardWpapper]: showFullCard })}>
                   <div className={styles.nameAndInfoProductWrapper}>
@@ -540,7 +538,7 @@ export const IdeaViewAndEditCard = observer(
                                     href={checkAndMakeAbsoluteUrl(el)}
                                     className={styles.linkTextWrapper}
                                   >
-                                    <Typography className={styles.linkText}>{`${index + 1}. ${el}`}</Typography>
+                                    <p className={styles.linkText}>{`${index + 1}. ${el}`}</p>
                                   </Link>
 
                                   <div className={styles.linksBtnsWrapper}>
@@ -557,7 +555,7 @@ export const IdeaViewAndEditCard = observer(
                                 </div>
                               ))
                             ) : (
-                              <Typography className={styles.noDataText}>{t(TranslationKey['No data'])}</Typography>
+                              <p className={styles.noDataText}>{t(TranslationKey['No data'])}</p>
                             )}
                           </div>
                         </div>
@@ -693,9 +691,9 @@ export const IdeaViewAndEditCard = observer(
           <div className={styles.existedIdeaBtnsWrapper}>
             {!isModalView ? (
               <div className={styles.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
-                <Typography className={styles.tablePanelViewText}>
+                <p className={styles.tablePanelViewText}>
                   {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
-                </Typography>
+                </p>
 
                 {!showFullCard ? (
                   <MdArrowDropDown size={22} className={styles.icon} />

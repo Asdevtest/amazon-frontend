@@ -1,7 +1,6 @@
 import { memo, useState } from 'react'
 
 import { Rating } from '@material-ui/lab'
-import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -46,7 +45,7 @@ export const RequestProposalAcceptOrRejectResultForm = memo(
     return (
       <Modal openModal={openModal} setOpenModal={() => setIsShowConfirmationModal(true)}>
         <div className={styles.root}>
-          <Typography className={styles.modalTitle}>{title}</Typography>
+          <p className={styles.modalTitle}>{title}</p>
           <div className={styles.ratingWrapper}>
             <Field
               label={rateLabel + '*'}

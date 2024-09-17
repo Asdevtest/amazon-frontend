@@ -1,5 +1,3 @@
-import { Typography } from '@mui/material'
-
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -66,15 +64,13 @@ export const RequestToSendBatchesGroupBoxes = ({
       {selectedGroup.price !== 0 && (
         <div className={styles.headerWrapper}>
           <div className={styles.headerSubWrapper}>
-            <Typography className={styles.headerTitle}>{t(TranslationKey.Destination)}</Typography>
+            <p className={styles.headerTitle}>{t(TranslationKey.Destination)}</p>
 
-            <Typography className={cx(styles.headerSpanText, styles.textEllipsis)}>
-              {selectedGroup.destination?.name}
-            </Typography>
+            <p className={cx(styles.headerSpanText, styles.textEllipsis)}>{selectedGroup.destination?.name}</p>
           </div>
 
           <div className={styles.headerSubWrapper}>
-            <Typography className={styles.headerTitle}>{t(TranslationKey['Int warehouse'])}</Typography>
+            <p className={styles.headerTitle}>{t(TranslationKey['Int warehouse'])}</p>
 
             <div className={styles.userLinkWrapper}>
               <UserLink blackText name={selectedGroup.storekeeper?.name} userId={selectedGroup.storekeeper?._id} />
@@ -82,15 +78,15 @@ export const RequestToSendBatchesGroupBoxes = ({
           </div>
 
           <div className={styles.headerSubWrapper}>
-            <Typography className={styles.headerTitle}>{t(TranslationKey.Tariff)}</Typography>
+            <p className={styles.headerTitle}>{t(TranslationKey.Tariff)}</p>
 
-            <Typography className={styles.headerSpanText}>{selectedGroup.logicsTariff?.name}</Typography>
+            <p className={styles.headerSpanText}>{selectedGroup.logicsTariff?.name}</p>
           </div>
 
           <div className={styles.headerSubWrapper}>
-            <Typography className={styles.headerTitle}>{t(TranslationKey.Rate) + ', $'}</Typography>
+            <p className={styles.headerTitle}>{t(TranslationKey.Rate) + ', $'}</p>
 
-            <Typography className={styles.headerSpanText}>{toFixedWithDollarSign(currentTariff, 2)}</Typography>
+            <p className={styles.headerSpanText}>{toFixedWithDollarSign(currentTariff, 2)}</p>
           </div>
         </div>
       )}
@@ -123,20 +119,20 @@ export const RequestToSendBatchesGroupBoxes = ({
               <div className={styles.footerSubWrapper}>
                 <p className={styles.footerTitle}>{t(TranslationKey['Total volume weight'])}</p>
 
-                <Typography className={styles.footerSpanText}>{toFixedWithKg(totalVolumeWeight, 2)}</Typography>
+                <p className={styles.footerSpanText}>{toFixedWithKg(totalVolumeWeight, 2)}</p>
               </div>
 
               <div className={styles.footerSubWrapper}>
                 <p className={styles.footerTitle}>{t(TranslationKey['Total CBM'])}</p>
 
-                <Typography className={styles.footerSpanText}>{toFixed(totalCubicMeters, 6)}</Typography>
+                <p className={styles.footerSpanText}>{toFixed(totalCubicMeters, 6)}</p>
               </div>
             </div>
 
             {tariffIsInvalid ? (
-              <Typography className={styles.footerAlertSpanText}>
+              <p className={styles.footerAlertSpanText}>
                 {t(TranslationKey['The tariff is invalid or has been removed!'])}
-              </Typography>
+              </p>
             ) : null}
           </div>
 
@@ -145,7 +141,7 @@ export const RequestToSendBatchesGroupBoxes = ({
               {t(TranslationKey['Total weight'])}
             </p>
 
-            <Typography className={styles.footerSpanText}>{toFixedWithKg(totalWeight, 2)}</Typography>
+            <p className={styles.footerSpanText}>{toFixedWithKg(totalWeight, 2)}</p>
           </div>
 
           <div className={styles.footerSubWrapper}>
@@ -156,7 +152,7 @@ export const RequestToSendBatchesGroupBoxes = ({
               {t(TranslationKey['Total cost of shipment'])}
             </p>
 
-            <Typography className={styles.footerSpanText}>{toFixedWithDollarSign(totalPrice, 2)}</Typography>
+            <p className={styles.footerSpanText}>{toFixedWithDollarSign(totalPrice, 2)}</p>
           </div>
         </div>
       )}

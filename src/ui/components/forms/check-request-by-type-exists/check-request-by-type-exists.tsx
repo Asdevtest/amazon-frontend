@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Link, Typography } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -38,16 +38,14 @@ export const CheckRequestByTypeExists: FC<CheckRequestByTypeExistsProps> = ({
 
   return (
     <div className={styles.root}>
-      <Typography className={styles.attentionText}>{t(TranslationKey.Attention)}</Typography>
+      <p className={styles.attentionText}>{t(TranslationKey.Attention)}</p>
 
       <div className={styles.requestsInfoWrapper}>
-        <Typography className={styles.text}>{`${t(TranslationKey['With the product'])}: ${t(TranslationKey.ASIN)} ${
+        <p className={styles.text}>{`${t(TranslationKey['With the product'])}: ${t(TranslationKey.ASIN)} ${
           asin || t(TranslationKey.Missing)
-        },`}</Typography>
+        },`}</p>
 
-        <Typography className={styles.text}>{`${t(
-          TranslationKey['there are already requests of the type'],
-        )} ${specTitle}`}</Typography>
+        <p className={styles.text}>{`${t(TranslationKey['there are already requests of the type'])} ${specTitle}`}</p>
 
         <div className={styles.requestsTextWrapper}>
           {requestsData.map((request, requestIndex: number) => (

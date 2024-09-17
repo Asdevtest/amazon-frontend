@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from 'react'
 import { MdFileDownload } from 'react-icons/md'
 
-import { Divider, Typography } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
@@ -183,7 +183,7 @@ export const EditTaskModal = memo(
     return (
       <div className={styles.root}>
         <div className={styles.modalHeader}>
-          <Typography className={styles.modalTitle}>{renderModalTitle(task.status)}</Typography>
+          <p className={styles.modalTitle}>{renderModalTitle(task.status)}</p>
 
           <div className={styles.modalSubHeader}>
             <div className={styles.typeTaskWrapper}>
@@ -196,8 +196,8 @@ export const EditTaskModal = memo(
                 renderTypeTaskBoxes(task.operationType)
               )}
 
-              <Typography className={styles.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
-              <Typography className={styles.modalTitle}>{renderTypeTaskTitle(task?.operationType)}</Typography>
+              <p className={styles.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</p>
+              <p className={styles.modalTitle}>{renderTypeTaskTitle(task?.operationType)}</p>
             </div>
 
             {task.operationType === TaskOperationType.RECEIVE && (
@@ -210,9 +210,7 @@ export const EditTaskModal = memo(
         </div>
 
         <div className={styles.form}>
-          <Typography paragraph className={styles.modalTitle}>
-            {t(TranslationKey['Receipt data'])}
-          </Typography>
+          <p className={styles.modalTitle}>{t(TranslationKey['Receipt data'])}</p>
 
           <div className={styles.commentsAndFilesWrapper}>
             <div className={styles.commentsAndFilesWrapper}>

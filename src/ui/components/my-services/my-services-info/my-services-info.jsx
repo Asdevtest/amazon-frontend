@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { Avatar, Rating, Typography } from '@mui/material'
+import { Avatar, Rating } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -64,10 +64,10 @@ export const MyServicesInfo = ({
 
           <div className={styles.userMoreInfoWrapper}>
             <div className={styles.titleAndTaksTypeWrapper}>
-              <Typography className={styles.announcementText}>{announcementData?.title}</Typography>
+              <p className={styles.announcementText}>{announcementData?.title}</p>
               <div className={styles.descriptionWrapper}>
-                <Typography className={styles.regularText}>{t(TranslationKey['Service type']) + ':'}</Typography>
-                <Typography className={styles.announcementText}>{announcementData?.spec?.title}</Typography>
+                <p className={styles.regularText}>{t(TranslationKey['Service type']) + ':'}</p>
+                <p className={styles.announcementText}>{announcementData?.spec?.title}</p>
               </div>
             </div>
             <div

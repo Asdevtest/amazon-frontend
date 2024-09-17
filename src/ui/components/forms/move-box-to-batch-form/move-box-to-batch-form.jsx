@@ -2,8 +2,6 @@ import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -38,18 +36,16 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
       {filteredBatches.length ? (
         <div className={styles.batchesExistBlock}>
           <div className={styles.titleWrapper}>
-            <Typography variant="h5" className={styles.standartText}>
+            <h5 className={styles.standartText}>
               {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey['Add to batch'])}
-            </Typography>
+            </h5>
 
             <div className={styles.titleSubWrapper}>
-              <Typography variant="h6" className={styles.standartText}>{`${t(TranslationKey.Box)}: ${
-                box.humanFriendlyId
-              }`}</Typography>
+              <h6 className={styles.standartText}>{`${t(TranslationKey.Box)}: ${box.humanFriendlyId}`}</h6>
 
-              <Typography variant="h6" className={styles.standartText}>{`${t(TranslationKey.Batch)}: ${
+              <h6 className={styles.standartText}>{`${t(TranslationKey.Batch)}: ${
                 box.batch?.humanFriendlyId || t(TranslationKey['Not chosen'])
-              }`}</Typography>
+              }`}</h6>
             </div>
           </div>
 
@@ -80,17 +76,13 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
         </div>
       ) : (
         <div className={styles.batchesNotExistBlock}>
-          <Typography variant="h5" className={styles.title}>
-            {t(TranslationKey['Add to batch'])}
-          </Typography>
+          <h5 className={styles.title}>{t(TranslationKey['Add to batch'])}</h5>
 
           <div className={styles.messageWrapper}>
-            <Typography className={styles.standartText}>
-              {t(TranslationKey['No batch with the parameters of the box.'])}
-            </Typography>
-            <Typography className={styles.standartText}>{`${t(TranslationKey.For)} ${
+            <p className={styles.standartText}>{t(TranslationKey['No batch with the parameters of the box.'])}</p>
+            <p className={styles.standartText}>{`${t(TranslationKey.For)} ${
               box.batchId ? t(TranslationKey.move) : t(TranslationKey.sending)
-            } ${t(TranslationKey.Box)} №${box.humanFriendlyId} ${t(TranslationKey['Create new batch'])}.`}</Typography>
+            } ${t(TranslationKey.Box)} №${box.humanFriendlyId} ${t(TranslationKey['Create new batch'])}.`}</p>
           </div>
 
           <div className={styles.btnsSecondWrapper}>

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Checkbox, Paper, Typography } from '@mui/material'
+import { Checkbox, Paper } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -93,7 +93,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
 
               {formFields.opportunities.map((asset, index) => (
                 <div key={index} className={styles.selectedAssetWrapper}>
-                  <Typography className={styles.selectedAsset}>{asset}</Typography>
+                  <p className={styles.selectedAsset}>{asset}</p>
 
                   <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>
                     {'-'}
@@ -131,7 +131,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
 
               {formFields.risks.map((asset, index) => (
                 <div key={index} className={styles.selectedAssetWrapper}>
-                  <Typography className={styles.selectedAsset}>{asset}</Typography>
+                  <p className={styles.selectedAsset}>{asset}</p>
 
                   <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>
                     {'-'}
@@ -169,7 +169,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
 
               {formFields.requiredSkills.map((asset, index) => (
                 <div key={index} className={styles.selectedAssetWrapper}>
-                  <Typography className={styles.selectedAsset}>{asset}</Typography>
+                  <p className={styles.selectedAsset}>{asset}</p>
 
                   <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>
                     {'-'}
@@ -209,7 +209,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
 
               {formFields.sellIncludes.map((asset, index) => (
                 <div key={index} className={styles.selectedAssetWrapper}>
-                  <Typography className={styles.selectedAsset}>{asset}</Typography>
+                  <p className={styles.selectedAsset}>{asset}</p>
 
                   <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>
                     {'-'}
@@ -247,7 +247,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
 
               {formFields.reasonForSale.map((asset, index) => (
                 <div key={index} className={styles.selectedAssetWrapper}>
-                  <Typography className={styles.selectedAsset}>{asset}</Typography>
+                  <p className={styles.selectedAsset}>{asset}</p>
 
                   <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>
                     {'-'}
@@ -285,7 +285,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
 
               {formFields.additionalInfo.map((asset, index) => (
                 <div key={index} className={styles.selectedAssetWrapper}>
-                  <Typography className={styles.selectedAsset}>{asset}</Typography>
+                  <p className={styles.selectedAsset}>{asset}</p>
 
                   <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>
                     {'-'}

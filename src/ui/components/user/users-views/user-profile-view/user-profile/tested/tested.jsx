@@ -1,6 +1,6 @@
 import { FaCheck } from 'react-icons/fa6'
 
-import { Box, Paper, Typography } from '@mui/material'
+import { Box, Paper } from '@mui/material'
 
 import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -16,21 +16,21 @@ export const Tested = ({ user }) => {
     <>
       <Box className={styles.checkedStrategyRow} mb={1}>
         {icon ? icon : <FaCheck className={styles.acUnitIcon} />}
-        <Typography className={styles.text}>{label}</Typography>
+        <p className={styles.text}>{label}</p>
       </Box>
     </>
   )
 
   return (
     <Paper elevation={0} className={styles.paper}>
-      <Typography className={styles.title}>{t(TranslationKey['Passed the strategy test'])}</Typography>
+      <p className={styles.title}>{t(TranslationKey['Passed the strategy test'])}</p>
 
       {user.allowedStrategies.length ? (
         user.allowedStrategies?.map((strategy, i) => (
           <CheckedStrategyRow key={i} label={humanFriendlyStategyStatus(productStrategyStatusesEnum[strategy])} />
         ))
       ) : (
-        <Typography className={styles.miss}>{t(TranslationKey['No passed strategies'])}</Typography>
+        <p className={styles.miss}>{t(TranslationKey['No passed strategies'])}</p>
       )}
     </Paper>
   )

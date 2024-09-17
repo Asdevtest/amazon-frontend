@@ -1,4 +1,4 @@
-import { Avatar, Divider, Paper, Rating, Typography } from '@mui/material'
+import { Avatar, Divider, Paper, Rating } from '@mui/material'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
@@ -34,15 +34,15 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
               <Avatar src={getUserAvatarSrc(request?.request.createdBy._id)} className={styles.userPhoto} />
 
               <div className={styles.titleWrapper}>
-                <Typography className={styles.title}>{request?.request.createdBy.name}</Typography>
+                <p className={styles.title}>{request?.request.createdBy.name}</p>
 
                 <Rating readOnly value={5} size="small" />
               </div>
             </div>
 
-            <Typography className={styles.successDeals}>
+            <p className={styles.successDeals}>
               {t(TranslationKey['The number of total successful transactions:']) + ' 0'}
-            </Typography>
+            </p>
           </div>
 
           <Button disabled={disableProposeDealButton} onClick={onClickSuggestDealBtn}>
@@ -51,48 +51,46 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
         </div>
 
         <div className={styles.requestTitleAndInfo}>
-          <Typography className={styles.requestTitle}>{request?.request.title}</Typography>
+          <p className={styles.requestTitle}>{request?.request.title}</p>
           <div className={styles.requestInfoWrapper}>
             {request?.request?.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] &&
             request?.request?.priceAmazon ? (
               <div className={styles.blockInfoWrapper}>
                 <div className={styles.blockInfoCell}>
-                  <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey['Product price'])}</Typography>
+                  <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Product price'])}</p>
                   <div className={styles.pricesWrapper}>
                     {newProductPrice && (
-                      <Typography className={cx(styles.blockInfoCellText, { [styles.newPrice]: newProductPrice })}>
+                      <p className={cx(styles.blockInfoCellText, { [styles.newPrice]: newProductPrice })}>
                         {'$ ' + toFixed(newProductPrice, 2)}
-                      </Typography>
+                      </p>
                     )}
 
-                    <Typography
+                    <p
                       className={cx(styles.blockInfoCellText, {
                         [styles.oldPrice]: newProductPrice,
                       })}
                     >
                       {'$ ' + toFixed(request?.request?.priceAmazon, 2)}
-                    </Typography>
+                    </p>
                   </div>
                 </div>
 
                 <div className={styles.blockInfoCell}>
-                  <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey.CashBack)}</Typography>
-                  <Typography className={cx(styles.blockInfoCellText)}>
+                  <p className={styles.blockInfoCellTitle}>{t(TranslationKey.CashBack)}</p>
+                  <p className={cx(styles.blockInfoCellText)}>
                     {toFixed(request?.request?.cashBackInPercent, 2) + ' %'}
-                  </Typography>
+                  </p>
                 </div>
               </div>
             ) : null}
             <div className={styles.blockInfoWrapper}>
               <div className={styles.blockInfoCell}>
-                <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</Typography>
-                <Typography className={cx(styles.price, styles.blockInfoCellText)}>
-                  {toFixed(request?.request.price, 2) + '$'}
-                </Typography>
+                <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</p>
+                <p className={cx(styles.price, styles.blockInfoCellText)}>{toFixed(request?.request.price, 2) + '$'}</p>
               </div>
 
               <div className={styles.blockInfoCell}>
-                <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey.Status)}</Typography>
+                <p className={styles.blockInfoCellTitle}>{t(TranslationKey.Status)}</p>
 
                 <Text
                   text={MyRequestStatusTranslate(request?.request.status)}
@@ -103,33 +101,29 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
 
             <div className={cx(styles.blockInfoWrapper)}>
               <div className={styles.blockInfoCell}>
-                <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey.Time)}</Typography>
-                <Typography className={styles.blockInfoCellText}>
+                <p className={styles.blockInfoCellTitle}>{t(TranslationKey.Time)}</p>
+                <p className={styles.blockInfoCellText}>
                   {request && formatDateDistanceFromNowStrict(request?.request.timeoutAt, now)}
-                </Typography>
+                </p>
               </div>
 
               <div className={styles.blockInfoCell}>
-                <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey['Request type'])}</Typography>
-                <Typography className={cx(styles.blockInfoCellText, styles.announcementTitle)}>
+                <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Request type'])}</p>
+                <p className={cx(styles.blockInfoCellText, styles.announcementTitle)}>
                   {request?.request?.spec?.title}
-                </Typography>
+                </p>
               </div>
             </div>
 
             <div className={cx(styles.blockInfoWrapper, styles.blockInfoWrapperLast)}>
               <div className={styles.blockInfoCell}>
-                <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey.Updated)}</Typography>
-                <Typography className={styles.blockInfoCellText}>
-                  {formatNormDateTime(request?.request.updatedAt)}
-                </Typography>
+                <p className={styles.blockInfoCellTitle}>{t(TranslationKey.Updated)}</p>
+                <p className={styles.blockInfoCellText}>{formatNormDateTime(request?.request.updatedAt)}</p>
               </div>
 
               <div className={styles.blockInfoCell}>
-                <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey['Performance time'])}</Typography>
-                <Typography className={cx(styles.blockInfoCellText)}>
-                  {formatNormDateTime(request?.request.timeoutAt)}
-                </Typography>
+                <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Performance time'])}</p>
+                <p className={cx(styles.blockInfoCellText)}>{formatNormDateTime(request?.request.timeoutAt)}</p>
               </div>
             </div>
           </div>
@@ -138,12 +132,10 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
         <Divider orientation="vertical" />
 
         <div className={cx(styles.announcementBlock)}>
-          <Typography className={styles.requestTitle}>{t(TranslationKey.Announcement)}</Typography>
+          <p className={styles.requestTitle}>{t(TranslationKey.Announcement)}</p>
           <div className={cx(styles.announcementTitleWrapper)}>
-            <Typography className={cx(styles.requestTitle, styles.announcementTitle)}>
-              {announcementData?.title}
-            </Typography>
-            <Typography className={cx(styles.announcementDecription)}>{announcementData?.description}</Typography>
+            <p className={cx(styles.requestTitle, styles.announcementTitle)}>{announcementData?.title}</p>
+            <p className={cx(styles.announcementDecription)}>{announcementData?.description}</p>
           </div>
         </div>
       </div>

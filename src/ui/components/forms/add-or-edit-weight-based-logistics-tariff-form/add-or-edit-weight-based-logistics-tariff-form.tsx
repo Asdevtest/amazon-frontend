@@ -2,8 +2,6 @@
 import { observer } from 'mobx-react'
 import { ChangeEvent, FC, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -298,7 +296,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
     return (
       <div className={styles.root}>
-        <Typography className={styles.modalTitle}>{t(TranslationKey['Adding tariff'])}</Typography>
+        <p className={styles.modalTitle}>{t(TranslationKey['Adding tariff'])}</p>
 
         <div className={styles.nameWrapper}>
           <Field
@@ -381,8 +379,8 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
           <div className={styles.rateContainer}>
             <div className={styles.currentRateWrapper}>
-              <Typography className={styles.currentRate}>{t(TranslationKey['Current exchange rate'])}</Typography>
-              <Typography className={styles.currentRateText}>{sourceYuanToDollarRate}</Typography>
+              <p className={styles.currentRate}>{t(TranslationKey['Current exchange rate'])}</p>
+              <p className={styles.currentRateText}>{sourceYuanToDollarRate}</p>
             </div>
 
             <Field
@@ -424,7 +422,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         </div>
 
         <div className={styles.shippingDateWrapper}>
-          <Typography className={styles.modalTitle}>{t(TranslationKey['Shipping dates'])}</Typography>
+          <p className={styles.modalTitle}>{t(TranslationKey['Shipping dates'])}</p>
 
           <div className={styles.dateBlockWrapper}>
             <Field

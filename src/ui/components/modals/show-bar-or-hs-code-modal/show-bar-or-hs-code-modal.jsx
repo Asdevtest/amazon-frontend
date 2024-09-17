@@ -1,4 +1,4 @@
-import { Container, Link, Typography } from '@mui/material'
+import { Container, Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -28,12 +28,12 @@ export const ShowBarOrHscodeModal = ({ barcode, hscode, onCloseModal }) => {
     } else if (hscode) {
       return (
         <div className={styles.modalTitleWrapper}>
-          <Typography className={styles.modalTitle}>{hscode}</Typography>
+          <p className={styles.modalTitle}>{hscode}</p>
           <CopyValue text={hscode} />
         </div>
       )
     } else {
-      return <Typography className={styles.modalNoTitle}>{t(TranslationKey['No data'])}</Typography>
+      return <p className={styles.modalNoTitle}>{t(TranslationKey['No data'])}</p>
     }
   }
 

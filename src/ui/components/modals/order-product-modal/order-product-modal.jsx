@@ -355,7 +355,7 @@ export const OrderProductModal = memo(props => {
 
   return (
     <div className={styles.wrapper}>
-      <Typography className={styles.modalTitle}>{t(TranslationKey['Order products'])}</Typography>
+      <p className={styles.modalTitle}>{t(TranslationKey['Order products'])}</p>
       <TableContainer className={styles.tableWrapper}>
         <Table className={styles.table}>
           <TableHead>
@@ -469,7 +469,7 @@ export const OrderProductModal = memo(props => {
       </TableContainer>
 
       <div className={styles.sumWrapper}>
-        <Typography className={styles.sumText}>{`${t(TranslationKey['Total amount'])}: ${totalOrdersCost}`}</Typography>
+        <p className={styles.sumText}>{`${t(TranslationKey['Total amount'])}: ${totalOrdersCost}`}</p>
       </div>
 
       <div className={styles.buttonsWrapper}>
@@ -481,7 +481,7 @@ export const OrderProductModal = memo(props => {
               root: styles.checkbox,
             }}
           />
-          <Typography className={styles.sumText}>{t(TranslationKey['Re-search supplier'])}</Typography>
+          <p className={styles.sumText}>{t(TranslationKey['Re-search supplier'])}</p>
         </div>
 
         {!isPendingOrdering ? (
@@ -502,7 +502,7 @@ export const OrderProductModal = memo(props => {
                 root: styles.checkbox,
               }}
             />
-            <Typography className={styles.sumText}>{t(TranslationKey['Pending order'])}</Typography>
+            <p className={styles.sumText}>{t(TranslationKey['Pending order'])}</p>
           </div>
         ) : null}
 
