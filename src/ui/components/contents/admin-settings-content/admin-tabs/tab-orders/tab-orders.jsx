@@ -31,6 +31,14 @@ export const TabOrders = memo(props => {
         error={formFields.timeToDeadlinePendingOrder === ''}
         onChange={e => onChangeField(fieldNameObject.timeToDeadlinePendingOrder, e)}
       />
+      <Field
+        label={t(TranslationKey['Minimum order amount, $'])}
+        labelClasses={styles.label}
+        classes={{ root: styles.textField, inputClasses: styles.input }}
+        value={formFields.orderAmountLimit}
+        error={formFields.orderAmountLimit === ''}
+        onChange={e => onChangeField(fieldNameObject.orderAmountLimit, e)}
+      />
       <CustomButton type="primary" size="large" disabled={disabledSubmit} onClick={throttle(onSubmit)}>
         {t(TranslationKey.Save)}
       </CustomButton>
