@@ -18,21 +18,19 @@ export const RedFlagsCell: FC<RedFlagsCellProps> = memo(({ flags }) => {
   const hiddenFlags = flags.slice(5)
   const hiddenFlagsCount = hiddenFlags.length
 
+  const popoverContent = hiddenFlagsCount ? (
+    <div className={styles.hiddenFlagsPopover}>
+      <RedFlags activeFlags={hiddenFlags} />
+    </div>
+  ) : null
+
+  const moreFlags = hiddenFlagsCount ? <span className={styles.moreFlags}>+{hiddenFlagsCount}</span> : null
+
   return (
-    <Popover
-      content={
-        hiddenFlagsCount > 0 && (
-          <div className={styles.hiddenFlagsPopover}>
-            <RedFlags activeFlags={hiddenFlags} />
-          </div>
-        )
-      }
-      trigger="hover"
-      placement="top"
-    >
+    <Popover content={popoverContent} trigger="hover" placement="top">
       <div className={styles.redFlags}>
         <RedFlags activeFlags={visibleFlags} />
-        {hiddenFlagsCount > 0 && <span className={styles.moreFlags}>+{hiddenFlagsCount}</span>}
+        {moreFlags}
       </div>
     </Popover>
   )
