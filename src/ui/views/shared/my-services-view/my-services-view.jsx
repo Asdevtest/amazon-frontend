@@ -5,13 +5,14 @@ import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
-import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { t } from '@utils/translations'
+
+import { CardVariant } from '@typings/enums/card-variant'
 
 import { useStyles } from './my-services-view.style'
 
@@ -22,6 +23,8 @@ export const MyServicesView = observer(({ history }) => {
   const [viewModel] = useState(() => new MyServicesViewModel({ history }))
 
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
+  const positionStyle = isListPosition ? styles.dashboardListWrapper : styles.dashboardCardWrapper
+  const cardVariant = isListPosition ? CardVariant.List : CardVariant.Card
 
   return (
     <>
@@ -55,26 +58,16 @@ export const MyServicesView = observer(({ history }) => {
         </div>
       </div>
 
-      <div className={styles.dashboardCardWrapper}>
-        {viewModel.currentData.map((service, serviceKey) =>
-          isListPosition ? (
-            <ServiceExchangeCardList
-              key={serviceKey}
-              service={service}
-              pathname={viewModel.history?.location?.pathname}
-              onClickThumbnail={viewModel.onClickThumbnail}
-              onClickButton={viewModel.onClickOpenButton}
-            />
-          ) : (
-            <ServiceExchangeCard
-              key={serviceKey}
-              service={service}
-              pathname={viewModel.history?.location?.pathname}
-              onClickThumbnail={viewModel.onClickThumbnail}
-              onClickButton={viewModel.onClickOpenButton}
-            />
-          ),
-        )}
+      <div className={positionStyle}>
+        {viewModel.currentData.map((service, serviceKey) => (
+          <ServiceExchangeCard
+            key={serviceKey}
+            service={service}
+            pathname={history?.location?.pathname}
+            variant={cardVariant}
+            onClickButton={viewModel.onClickOpenButton}
+          />
+        ))}
       </div>
 
       {!viewModel.currentData.length && (

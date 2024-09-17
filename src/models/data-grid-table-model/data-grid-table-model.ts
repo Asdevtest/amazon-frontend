@@ -388,6 +388,26 @@ export class DataGridTableModel extends DefaultModel {
     }
   }
 
+  async onClickSaveRenamedPreset(selectedPreset: ITablePreset, newTitle: string) {
+    try {
+      await UserModel.patchPresetSettings(selectedPreset?._id, { title: newTitle })
+
+      runInAction(() => {
+        this.presetsTableData = this.presetsTableData.map(preset => {
+          if (preset._id === selectedPreset?._id) {
+            preset.title = newTitle
+          }
+
+          return preset
+        })
+      })
+
+      toast.success(t(TranslationKey['Preset updated']))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   onChangeShowPresetsSelect(value: boolean) {
     if (value !== undefined) {
       this.onTriggerOpenModal('showPresetsSelect', value)
