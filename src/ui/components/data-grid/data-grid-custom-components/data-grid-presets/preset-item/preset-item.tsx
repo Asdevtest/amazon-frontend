@@ -1,14 +1,15 @@
 import { Dropdown, MenuProps, Popconfirm } from 'antd'
 import { BaseOptionType } from 'antd/es/select'
-import { FC, memo } from 'react'
+import { ChangeEvent, FC, memo, useCallback, useState } from 'react'
 import { BsPinAngleFill, BsThreeDotsVertical } from 'react-icons/bs'
 import { GrUpdate } from 'react-icons/gr'
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdOutlineDelete, MdOutlineDriveFileRenameOutline } from 'react-icons/md'
 import { RiUnpinLine } from 'react-icons/ri'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomTextarea } from '@components/shared/custom-textarea'
 
 import { t } from '@utils/translations'
 
@@ -19,11 +20,14 @@ interface PresetItemProps {
   handleDeletePreset: () => void
   handleUpdatePreset: () => void
   onClickAddQuickAccess: () => void
+  onClickSaveRenamedPreset: (newTitle: string) => void
 }
 
 export const PresetItem: FC<PresetItemProps> = memo(props => {
   const { classes: styles } = useStyles()
-  const { preset, handleDeletePreset, handleUpdatePreset, onClickAddQuickAccess } = props
+  const { preset, handleDeletePreset, handleUpdatePreset, onClickAddQuickAccess, onClickSaveRenamedPreset } = props
+
+  const [renamePresetName, setPresetName] = useState<string>('')
 
   const presetFavorite = preset?.data?.isFavorite
   const quickAccessTitle = presetFavorite ? 'Remove from quick access' : 'Add to quick access'
@@ -31,12 +35,81 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
 
   const presetId = preset?.data?._id
 
+  const handleChangeTagName = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
+    setPresetName(e.target.value)
+  }, [])
+
+  const onClickSaveRename = useCallback(() => {
+    onClickSaveRenamedPreset(renamePresetName)
+  }, [renamePresetName, onClickSaveRenamedPreset])
+
+  const resetRenamePreset = useCallback(() => {
+    setPresetName('')
+  }, [])
+
   const items: MenuProps['items'] = [
+    {
+      key: 'rename',
+      label: (
+        <Popconfirm
+          title=""
+          icon={null}
+          placement="leftTop"
+          getPopupContainer={() => document.getElementById('presets') as HTMLElement}
+          description={
+            <CustomTextarea
+              allowClear
+              rows={1}
+              data-input="rename-input"
+              placeholder={t(TranslationKey.Rename)}
+              className={styles.input}
+              wrapperClassName={styles.input}
+              value={renamePresetName}
+              onChange={handleChangeTagName}
+              onClick={e => {
+                e?.stopPropagation()
+                const target = e.target as HTMLElement
+                target.focus()
+              }}
+            />
+          }
+          okText={t(TranslationKey.Save)}
+          cancelText={t(TranslationKey.Cancel)}
+          okButtonProps={{ disabled: !renamePresetName?.trim() }}
+          onConfirm={e => {
+            e?.stopPropagation()
+            onClickSaveRename()
+          }}
+          onPopupClick={e => {
+            const target = e.target as HTMLElement
+            if (target.getAttribute('data-input') !== 'rename-input') {
+              e?.stopPropagation()
+            }
+          }}
+          onCancel={e => e?.stopPropagation()}
+          onOpenChange={resetRenamePreset}
+        >
+          <CustomButton
+            className={styles.button}
+            icon={
+              <MdOutlineDriveFileRenameOutline
+                size={20}
+                title={t(TranslationKey.Rename)}
+                className={styles.updateButton}
+              />
+            }
+            onClick={e => e.stopPropagation()}
+          >
+            {t(TranslationKey.Rename)}
+          </CustomButton>
+        </Popconfirm>
+      ),
+    },
     {
       key: 'update',
       label: (
         <Popconfirm
-          placement="leftBottom"
+          placement="left"
           getPopupContainer={() => document.getElementById('presets') as HTMLElement}
           title={t(TranslationKey['Save the state of the table to this preset?'])}
           okText={t(TranslationKey.Yes)}

@@ -116,6 +116,7 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
               handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
               handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
               onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+              onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
             },
           },
         }}
