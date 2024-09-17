@@ -16,6 +16,16 @@ export const useStyles = makeStyles()(() => ({
 
   switcher: {
     display: 'flex',
+    justifyContent: 'space-between',
     gap: 20,
+  },
+
+  switcherRadioButtons: {
+    width: '700px',
+
+    '& > label': {
+      width: '350px',
+      textAlign: 'center',
+    },
   },
 }))

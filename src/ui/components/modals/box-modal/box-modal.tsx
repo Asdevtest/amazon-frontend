@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 import { TabPanel } from '@components/shared/tab-panel'
 
@@ -11,7 +11,7 @@ import { useStyles } from './box-modal.style'
 
 import { EditHSCodeModal } from '../edit-hs-code-modal'
 
-import { BoxTabs, switcherSettings } from './box-modal.constants'
+import { BoxTabs, switcherSettings } from './box-modal.config'
 import { BoxModalModel } from './box-modal.model'
 import { Box, Comments, Footer, Header, Info, Order, Quantities } from './components'
 
@@ -32,25 +32,26 @@ export const BoxModal: FC<BoxModalProps> = observer(props => {
       <Header
         formFields={viewModel.currentData as unknown as IBox}
         disabledPrepId={!(viewModel.isClient || viewModel.isStorekeeper)}
-        onChangeField={viewModel.handleChangeField}
+        onChangeField={viewModel.onChangeField}
       />
 
       <Info
         formFields={viewModel.currentData as unknown as IBox}
         isStorekeeper={viewModel.isStorekeeper}
-        onChangeField={viewModel.handleChangeField}
+        onChangeField={viewModel.onChangeField}
       />
 
       <div className={styles.switcherWrapper}>
         <div className={styles.switcher}>
           <Quantities formFields={viewModel.currentData as unknown as IBox} />
 
-          <CustomSwitcher
-            fullWidth
-            switchMode="medium"
-            condition={viewModel.activeTab}
-            switcherSettings={switcherSettings}
-            changeConditionHandler={viewModel.setActiveTab}
+          <CustomRadioButton
+            size="large"
+            buttonStyle="solid"
+            options={switcherSettings()}
+            defaultValue={viewModel.activeTab}
+            className={styles.switcherRadioButtons}
+            onChange={viewModel.setActiveTab}
           />
         </div>
 
@@ -60,8 +61,8 @@ export const BoxModal: FC<BoxModalProps> = observer(props => {
             isBuyer={viewModel.isBuyer}
             isClient={viewModel.isClient}
             formFields={viewModel.currentData as unknown as IBox}
-            onChangeField={viewModel.handleChangeField}
-            onChangeTrackNumberFile={viewModel.handleChangeTrackNumberFile}
+            onChangeField={viewModel.onChangeField}
+            onChangeTrackNumberFile={viewModel.onChangeTrackNumberFile}
           />
         </TabPanel>
         <TabPanel value={viewModel.activeTab} index={BoxTabs.ORDER_INFO}>
@@ -77,7 +78,7 @@ export const BoxModal: FC<BoxModalProps> = observer(props => {
         isClient={viewModel.isClient}
         isStorekeeper={viewModel.isStorekeeper}
         formFields={viewModel.currentData as unknown as IBox}
-        onChangeField={viewModel.handleChangeField}
+        onChangeField={viewModel.onChangeField}
         onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
       />
 
