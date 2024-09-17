@@ -12,12 +12,12 @@ interface CustomRadioButtonProps extends RadioGroupProps {
 }
 
 export const CustomRadioButton: FC<CustomRadioButtonProps> = memo(props => {
-  const { options, ...rest } = props
+  const { options, ...restProps } = props
 
   const { classes: styles } = useStyles()
 
   return (
-    <Radio.Group {...rest}>
+    <Radio.Group {...restProps}>
       {options.map((option, index) => (
         <Radio.Button key={index} value={option.value}>
           {option.label}

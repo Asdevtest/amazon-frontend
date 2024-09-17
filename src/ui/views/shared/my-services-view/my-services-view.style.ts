@@ -23,12 +23,30 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
 
-  dashboardCardWrapper: {
+  dashboardListWrapper: {
     marginTop: '20px',
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: 20,
+    display: 'grid',
+    gap: '20px',
+    gridTemplateColumns: 'repeat(2, 1fr)',
     maxHeight: '80vh',
     overflow: 'auto',
+    [theme.breakpoints.down(1280)]: {
+      gridTemplateColumns: '1fr',
+    },
+  },
+
+  dashboardCardWrapper: {
+    marginTop: '20px',
+    display: 'grid',
+    gap: '20px',
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    maxHeight: '80vh',
+    overflow: 'auto',
+    [theme.breakpoints.down(1680)]: {
+      gridTemplateColumns: 'repeat(3, 1fr)',
+    },
+    [theme.breakpoints.down(1280)]: {
+      gridTemplateColumns: 'repeat(2, 1fr)',
+    },
   },
 }))

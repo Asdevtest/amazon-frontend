@@ -5,12 +5,13 @@ import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
-import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { t } from '@utils/translations'
+
+import { CardVariant } from '@typings/enums/card-variant'
 
 import { useStyles } from './service-exchange-view.style'
 
@@ -22,7 +23,8 @@ export const ServiceExchangeView = observer(({ history }) => {
   const viewModel = useMemo(() => new ServiceExchangeViewModel({ history }), [])
 
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
-
+  const positionStyle = isListPosition ? styles.dashboardListWrapper : styles.dashboardCardWrapper
+  const cardVariant = isListPosition ? CardVariant.List : CardVariant.Card
   return (
     <>
       <div className={styles.tablePanelWrapper}>
@@ -47,30 +49,20 @@ export const ServiceExchangeView = observer(({ history }) => {
       </div>
 
       <div
-        className={styles.dashboardCardWrapper}
+        className={positionStyle}
         onScroll={e => {
-          const element = e.target
-          const scrollTop = element?.scrollTop
-          const containerHeight = element?.clientHeight
-          const contentHeight = element?.scrollHeight
-
-          if (contentHeight - (scrollTop + containerHeight) < 200) {
-            viewModel.loadMoreDataHadler()
-          }
+          viewModel.onScroll(e)
         }}
       >
-        {viewModel.currentData.map(service =>
-          isListPosition ? (
-            <ServiceExchangeCardList
-              key={service._id}
-              order
-              service={service}
-              onClickButton={viewModel.onClickOrderBtn}
-            />
-          ) : (
-            <ServiceExchangeCard key={service._id} order service={service} onClickButton={viewModel.onClickOrderBtn} />
-          ),
-        )}
+        {viewModel.currentData.map(service => (
+          <ServiceExchangeCard
+            key={service._id}
+            order
+            service={service}
+            variant={cardVariant}
+            onClickButton={viewModel.onClickOrderBtn}
+          />
+        ))}
       </div>
 
       {!viewModel.currentData.length ? (

@@ -27,6 +27,7 @@ interface PresetsMenuProps {
   handleDeleteTableSettingsPreset: (preset: ITablePreset) => void
   onClickAddQuickAccess: (preset: ITablePreset) => void
   handleUpdateTableSettingsPreset: (presetId: string, colomns: IGridColumn[]) => void
+  onClickSaveRenamedPreset: (preset: ITablePreset, newTitle: string) => void
 }
 
 export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
@@ -40,6 +41,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
     handleDeleteTableSettingsPreset,
     handleUpdateTableSettingsPreset,
     onClickAddQuickAccess,
+    onClickSaveRenamedPreset,
   } = props
 
   const apiRef = useGridApiContext()
@@ -75,7 +77,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
   useEffect(() => {
     if (showPresetsSelect) {
       const handleClickOutside = (event: MouseEvent) => {
-        if (selectWrapperRef.current && !selectWrapperRef.current?.contains(event.target as Node)) {
+        if (selectWrapperRef.current && !selectWrapperRef.current?.contains(event?.target as Node)) {
           handleChangeSelectState(false)
         }
       }
@@ -102,6 +104,9 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
             handleDeletePreset={() => handleDeleteTableSettingsPreset(preset?.data as ITablePreset)}
             handleUpdatePreset={() => onClickUpdatePreset(preset?.data?._id)}
             onClickAddQuickAccess={() => onClickAddQuickAccess(preset?.data as ITablePreset)}
+            onClickSaveRenamedPreset={(newTitle: string) =>
+              onClickSaveRenamedPreset(preset?.data as ITablePreset, newTitle)
+            }
           />
         )}
         labelRender={preset => preset?.label}

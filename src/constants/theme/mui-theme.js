@@ -208,16 +208,6 @@ export const lightTheme = createTheme({
       },
     },
 
-    MuiNativeSelect: {
-      styleOverrides: {
-        select: {
-          '& > option': {
-            textAlign: 'center',
-          },
-        },
-      },
-    },
-
     MuiInputBase: {
       styleOverrides: {
         root: {
@@ -244,35 +234,11 @@ export const lightTheme = createTheme({
       },
     },
 
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#fff',
-        },
-      },
-    },
-
     MuiTableCell: {
       styleOverrides: {
         root: {
           color: '#001029',
           padding: '5px',
-        },
-      },
-    },
-
-    MuiButton: {
-      defaultProps: {
-        sx: {
-          '&.Mui-disabled': {
-            backgroundColor: '#B3D1FB',
-            color: '#F9FCFF',
-          },
-        },
-      },
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
         },
       },
     },
@@ -627,6 +593,7 @@ export const darkTheme = createTheme({
         },
 
         cell: {
+          overflow: 'hidden',
           borderBottom: '1px solid rgba(81, 81, 81, 1)',
         },
 
@@ -717,20 +684,6 @@ export const darkTheme = createTheme({
       },
     },
 
-    MuiNativeSelect: {
-      styleOverrides: {
-        select: {
-          '& > option': {
-            backgroundColor: '#2B2B34 !important',
-            textAlign: 'center',
-          },
-        },
-        icon: {
-          color: '#fff',
-        },
-      },
-    },
-
     MuiList: {
       styleOverrides: {
         root: {
@@ -784,36 +737,11 @@ export const darkTheme = createTheme({
       },
     },
 
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#2B2B34',
-          color: '#fff',
-        },
-      },
-    },
-
     MuiTableCell: {
       styleOverrides: {
         root: {
           color: '#fff',
           padding: '5px',
-        },
-      },
-    },
-
-    MuiButton: {
-      defaultProps: {
-        sx: {
-          '&.Mui-disabled': {
-            backgroundColor: '#2E4760',
-            color: '#8291A0',
-          },
-        },
-      },
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
         },
       },
     },
