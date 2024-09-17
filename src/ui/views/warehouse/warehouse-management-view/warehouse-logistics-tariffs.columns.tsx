@@ -37,7 +37,6 @@ export const logisticsTariffsColumns = ({
     renderCell: ({ row }: GridRowModel) => <Text isCell text={row.name} />,
     width: 150,
   },
-
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
@@ -45,7 +44,6 @@ export const logisticsTariffsColumns = ({
     renderCell: ({ row }: GridRowModel) => <Text isCell text={row.description} />,
     width: 200,
   },
-
   {
     field: 'destination',
     headerName: t(TranslationKey.Destination),
@@ -70,7 +68,6 @@ export const logisticsTariffsColumns = ({
     hideable: false,
     disableCustomSort: true,
   },
-
   {
     field: 'inYuansRates',
     headerName: t(TranslationKey.Rate) + ', ¥',
@@ -90,7 +87,6 @@ export const logisticsTariffsColumns = ({
     sortable: false,
     disableCustomSort: true,
   },
-
   {
     field: 'dates',
     headerName: t(TranslationKey.Dates),
@@ -101,7 +97,6 @@ export const logisticsTariffsColumns = ({
     sortable: false,
     disableCustomSort: true,
   },
-
   {
     field: 'deliveryTimeInDay',
     headerName: t(TranslationKey['Time on the road, days']),
@@ -111,7 +106,6 @@ export const logisticsTariffsColumns = ({
     filterable: false,
     sortable: false,
   },
-
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
@@ -126,7 +120,7 @@ export const logisticsTariffsColumns = ({
         secondGhost
         thirdGhost
         firstIcon={<MdOutlineEdit size={16} />}
-        secondContent={isArchive() ? <MdArrowDropUp size={16} /> : <MdArrowDropDown size={16} />}
+        secondIcon={isArchive() ? <MdArrowDropUp size={16} /> : <MdArrowDropDown size={16} />}
         secondDanger={isArchive()}
         secondDescription={
           isArchive()
@@ -134,7 +128,7 @@ export const logisticsTariffsColumns = ({
             : 'Are you sure you want to move the tariff to the archive?'
         }
         showThird={isArchive()}
-        thirdContent={<MdOutlineDelete size={16} />}
+        thirdIcon={<MdOutlineDelete size={16} />}
         thirdDescription="Are you sure you want to delete the tariff?"
         onClickFirst={() => onClickEditTariff(row)}
         onClickSecond={() => onTriggerArchive(row)}
@@ -146,7 +140,6 @@ export const logisticsTariffsColumns = ({
     sortable: false,
     disableCustomSort: true,
   },
-
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
@@ -156,7 +149,6 @@ export const logisticsTariffsColumns = ({
     filterable: false,
     sortable: false,
   },
-
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
