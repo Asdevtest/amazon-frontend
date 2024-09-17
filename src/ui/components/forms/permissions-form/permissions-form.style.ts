@@ -3,10 +3,18 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     height: '700px',
-    width: '860px',
+    width: '880px',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     gap: '20px',
+  },
+
+  content: {
+    padding: '10px',
+    flex: 1,
+    background: theme.palette.background.general,
+    borderRadius: '16px',
   },
 
   footer: {
@@ -15,29 +23,37 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
   },
 
-  cascaderPanel: {
-    height: '520px',
-    background: theme.palette.background.general,
+  cascader: {
+    width: '400px',
+  },
 
-    '.ant-cascader-checkbox-inner': {
-      borderRadius: '4px !important',
-    },
+  cascaderPopup: {
+    width: '860px',
+    height: '515px',
+    boxShadow: 'none',
+    borderRadius: 0,
 
     '.ant-cascader-menus': {
+      paddingTop: '10px',
       width: '100%',
 
       '& > ul:nth-of-type(1)': {
-        width: '250px',
+        width: '200px',
+        paddingLeft: 0,
       },
 
       '& > ul:nth-of-type(2)': {
-        width: '580px',
+        width: '660px',
       },
+    },
+
+    '.ant-cascader-menu': {
+      height: '505px',
     },
   },
 
   skeleton: {
-    height: '520px',
+    height: '560px',
     borderRadius: '16px !important',
 
     '& > span': {
@@ -54,15 +70,6 @@ export const useStyles = makeStyles()(theme => ({
 
   specCascader: {
     width: '280px !important',
-
-    '.ant-cascader-checkbox-inner': {
-      borderRadius: '4px !important',
-    },
-
-    '.ant-cascader-menu-item-content': {
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-    },
 
     '.ant-cascader-menu': {
       width: '280px',

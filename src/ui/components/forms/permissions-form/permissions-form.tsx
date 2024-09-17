@@ -1,11 +1,12 @@
 import { Cascader, Skeleton } from 'antd'
+import { DefaultOptionType } from 'antd/es/cascader'
+import Paragraph from 'antd/es/typography/Paragraph'
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 
 import { t } from '@utils/translations'
@@ -28,6 +29,9 @@ export const PermissionsForm: FC<PermissionsFormPorps> = observer(props => {
   const viewModel = useMemo(() => new PermissionsFormModel(subUser), [])
   const { classes: styles } = useStyles()
 
+  const filter = (inputValue: string, path: DefaultOptionType[]) =>
+    path.some(option => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
+
   return (
     <div className={styles.root}>
       <CustomRadioButton
@@ -39,29 +43,57 @@ export const PermissionsForm: FC<PermissionsFormPorps> = observer(props => {
         onChange={viewModel.onChangePermissionTab}
       />
 
-      <CustomInputSearch allowClear disabled={viewModel.mainLoading} size="large" />
-
-      {viewModel.mainLoading ? (
-        <Skeleton.Button active block className={styles.skeleton} />
-      ) : viewModel.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS ? (
-        <Cascader.Panel
-          multiple
-          options={viewModel.permissionsOptions}
-          className={styles.cascaderPanel}
-          value={viewModel.currentPermissionOptions}
-          onChange={viewModel.onChangePermissionOptions}
-        />
-      ) : viewModel.products.length === 0 ? (
-        <Skeleton.Button active block className={styles.skeleton} />
-      ) : (
-        <Cascader.Panel
-          multiple
-          options={viewModel.shopsOptions}
-          className={styles.cascaderPanel}
-          value={viewModel.currentProductOptions}
-          onChange={viewModel.onChangeProductsOptions}
-        />
-      )}
+      <div className={styles.content}>
+        {viewModel.mainLoading ? (
+          <Skeleton.Button active block className={styles.skeleton} />
+        ) : viewModel.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS ? (
+          <Cascader
+            open
+            multiple
+            allowClear
+            size="large"
+            maxTagCount={0}
+            disabled={viewModel.mainLoading}
+            placeholder="Search by Title"
+            showSearch={{ filter }}
+            options={viewModel.permissionsOptions}
+            rootClassName={styles.cascader}
+            popupClassName={styles.cascaderPopup}
+            optionRender={option => (
+              <Paragraph ellipsis={{ rows: 1 }} style={{ margin: 0 }}>
+                {option.label}
+              </Paragraph>
+            )}
+            value={viewModel.currentPermissionOptions}
+            // @ts-ignore
+            onChange={viewModel.onChangePermissionOptions}
+          />
+        ) : viewModel.products.length === 0 ? (
+          <Skeleton.Button active block className={styles.skeleton} />
+        ) : (
+          <Cascader
+            open
+            multiple
+            allowClear
+            size="large"
+            maxTagCount={0}
+            disabled={viewModel.mainLoading}
+            placeholder="Search by Title"
+            showSearch={{ filter }}
+            options={viewModel.shopsOptions}
+            rootClassName={styles.cascader}
+            popupClassName={styles.cascaderPopup}
+            optionRender={option => (
+              <Paragraph ellipsis={{ rows: 1 }} style={{ margin: 0 }}>
+                {option.label}
+              </Paragraph>
+            )}
+            value={viewModel.currentProductOptions}
+            // @ts-ignore
+            onChange={viewModel.onChangeProductsOptions}
+          />
+        )}
+      </div>
 
       <div className={styles.footer}>
         {viewModel.showSpecsCascader ? (
