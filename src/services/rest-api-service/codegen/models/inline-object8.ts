@@ -21,17 +21,11 @@
  */
 export interface InlineObject8 {
     /**
-     * Таймер на отключение в (МС)
-     * @type {number}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject8
      */
-    countdown?: number;
-    /**
-     * Текст сообщения для эмита юзерам
-     * @type {string}
-     * @memberof InlineObject8
-     */
-    message?: string;
+    boxesIds: Array<string>;
 }
 
 

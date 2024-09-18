@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1BatchesByProductGuidBoxes } from './api-v1-batches-by-product-guid-boxes';
 
 /**
  * 
@@ -23,47 +21,35 @@ import { ApiV1BatchesByProductGuidBoxes } from './api-v1-batches-by-product-guid
  */
 export interface InlineResponse20029 {
     /**
-     * GUID партии.
+     * GUID продукта в базе данных
      * @type {string}
      * @memberof InlineResponse20029
      */
     _id?: string;
     /**
-     * Человекочитаемый id партии.
-     * @type {number}
-     * @memberof InlineResponse20029
-     */
-    humanFriendlyId?: number;
-    /**
-     * Название партии
+     * ASIN продукта
      * @type {string}
      * @memberof InlineResponse20029
      */
-    title?: string;
+    asin?: string;
     /**
-     * Заархивирована ли партия
-     * @type {boolean}
+     * SKU введенным клиентом.
+     * @type {string}
      * @memberof InlineResponse20029
      */
-    archive?: boolean;
+    skuByClient?: string;
     /**
-     * 
-     * @type {Array<ApiV1BatchesByProductGuidBoxes>}
+     * Массив картинок.
+     * @type {Array<string>}
      * @memberof InlineResponse20029
      */
-    boxes?: Array<ApiV1BatchesByProductGuidBoxes>;
+    images?: Array<string>;
     /**
-     * Общее кол-во продуктов
-     * @type {number}
+     * Заголовок на товар с сайта амазон.
+     * @type {string}
      * @memberof InlineResponse20029
      */
-    amountInBatch?: number;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20029
-     */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    amazonTitle?: string;
 }
 
 

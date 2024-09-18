@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-guid-items';
 
 /**
  * 
@@ -22,65 +21,29 @@ import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-gui
  */
 export interface InlineObject29 {
     /**
-     * 
-     * @type {number}
-     * @memberof InlineObject29
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject29
-     */
-    widthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject29
-     */
-    heightCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject29
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject29
-     */
-    volumeWeightKgWarehouse?: number;
-    /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineObject29
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidItems>}
-     * @memberof InlineObject29
-     */
-    items?: Array<ApiV1BoxesStorekeepersGuidItems>;
-    /**
-     * Комментарии к коробке
+     * Название patch_note.
      * @type {string}
      * @memberof InlineObject29
      */
-    storekeeperComment?: string;
+    title: string;
     /**
-     * Гуид вариации
+     * Описание patch_note.
      * @type {string}
      * @memberof InlineObject29
      */
-    variationTariffId?: string;
+    description: string;
     /**
-     * Массив ссылок на фотографии.
-     * @type {Array<string>}
+     * Update version
+     * @type {string}
      * @memberof InlineObject29
      */
-    images?: Array<string>;
+    version: string;
+    /**
+     * Для какой роли
+     * @type {number}
+     * @memberof InlineObject29
+     */
+    role: number;
 }
 
 

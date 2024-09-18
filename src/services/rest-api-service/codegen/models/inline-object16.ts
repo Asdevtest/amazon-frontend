@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
 
 /**
  * 
@@ -21,29 +22,17 @@
  */
 export interface InlineObject16 {
     /**
-     * GUID спека
-     * @type {string}
-     * @memberof InlineObject16
-     */
-    specId?: string;
-    /**
-     * 
+     * Массив коробок.
      * @type {Array<string>}
      * @memberof InlineObject16
      */
-    linksToMediaFiles?: Array<string>;
+    guids: Array<string>;
     /**
      * 
-     * @type {string}
+     * @type {ApiV1BoxesMergeBoxBody}
      * @memberof InlineObject16
      */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject16
-     */
-    description?: string;
+    boxBody: ApiV1BoxesMergeBoxBody;
 }
 
 

@@ -13,9 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20050ListingLaunches } from './inline-response20050-listing-launches';
-import { InlineResponse20050Product } from './inline-response20050-product';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 
 /**
  * 
@@ -24,65 +22,35 @@ import { InlineResponse20050Product } from './inline-response20050-product';
  */
 export interface InlineResponse20050Rows {
     /**
-     * GUID в базе данных
+     * Guid of shop
      * @type {string}
      * @memberof InlineResponse20050Rows
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * Name of shop
+     * @type {string}
      * @memberof InlineResponse20050Rows
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    name?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20050Rows
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {InlineResponse20050Product}
-     * @memberof InlineResponse20050Rows
-     */
-    product?: InlineResponse20050Product;
-    /**
-     * Is Actual report
-     * @type {boolean}
-     * @memberof InlineResponse20050Rows
-     */
-    isActive?: boolean;
-    /**
-     * New product price
+     * Count of shop products
      * @type {number}
      * @memberof InlineResponse20050Rows
      */
-    newProductPrice?: number;
-    /**
-     * Description of product_listing_report
-     * @type {string}
-     * @memberof InlineResponse20050Rows
-     */
-    description?: string;
+    productsCount?: number;
     /**
      * 
-     * @type {Array<InlineResponse20050ListingLaunches>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20050Rows
      */
-    listingLaunches?: Array<InlineResponse20050ListingLaunches>;
+    shopUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
     /**
      * 
-     * @type {string}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20050Rows
      */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20050Rows
-     */
-    updatedAt?: string;
+    productUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
 }
 
 

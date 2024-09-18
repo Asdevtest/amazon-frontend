@@ -21,35 +21,17 @@
  */
 export interface InlineObject39 {
     /**
-     * Название партии
+     * Название красного флага
      * @type {string}
      * @memberof InlineObject39
      */
-    title?: string;
+    title: string;
     /**
-     * Метод подсчта массы партии
-     * @type {number}
-     * @memberof InlineObject39
-     */
-    calculationMethod?: number;
-    /**
-     * Делитель объема партии
-     * @type {number}
-     * @memberof InlineObject39
-     */
-    volumeWeightDivide?: number;
-    /**
-     * Трек номер партии
+     * 
      * @type {string}
      * @memberof InlineObject39
      */
-    trackingNumber?: string;
-    /**
-     * Настоящая стоимость доставки
-     * @type {number}
-     * @memberof InlineObject39
-     */
-    actualShippingCost?: number;
+    iconImage?: string;
 }
 
 

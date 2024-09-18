@@ -22,10 +22,16 @@
 export interface InlineObject41 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof InlineObject41
      */
-    attachedDocuments: Array<string>;
+    title: string;
+    /**
+     * Color
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    color?: string;
 }
 
 

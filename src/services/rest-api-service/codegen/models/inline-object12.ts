@@ -13,25 +13,176 @@
  */
 
 
+import { ApiV1BoxesItems } from './api-v1-boxes-items';
 
 /**
- * 
+ * Коробка
  * @export
  * @interface InlineObject12
  */
 export interface InlineObject12 {
     /**
-     * Название красного флага
+     * Сколько таких же коробок в одной коробке
+     * @type {number}
+     * @memberof InlineObject12
+     */
+    amount?: number;
+    /**
+     * true - если создаем черновик заказа.
+     * @type {boolean}
+     * @memberof InlineObject12
+     */
+    isDraft?: boolean;
+    /**
+     * Storage in boxes
      * @type {string}
      * @memberof InlineObject12
      */
-    title: string;
+    storage?: string;
+    /**
+     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+     * @type {number}
+     * @memberof InlineObject12
+     */
+    lengthCmSupplier?: number;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineObject12
+     */
+    trackNumberText?: string;
     /**
      * 
+     * @type {Array<string>}
+     * @memberof InlineObject12
+     */
+    trackNumberFile?: Array<string>;
+    /**
+     * Идентификатор UPS
      * @type {string}
      * @memberof InlineObject12
      */
-    iconImage?: string;
+    upsTrackNumber?: string;
+    /**
+     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+     * @type {number}
+     * @memberof InlineObject12
+     */
+    widthCmSupplier?: number;
+    /**
+     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+     * @type {number}
+     * @memberof InlineObject12
+     */
+    heightCmSupplier?: number;
+    /**
+     * Общий вес кг коробки который назвал поставщик.
+     * @type {number}
+     * @memberof InlineObject12
+     */
+    weighGrossKgSupplier?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject12
+     */
+    lengthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject12
+     */
+    widthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject12
+     */
+    heightCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineObject12
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+     * @type {boolean}
+     * @memberof InlineObject12
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineObject12
+     */
+    clientComment?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineObject12
+     */
+    referenceId?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineObject12
+     */
+    storekeeperComment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject12
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject12
+     */
+    fbaNumber?: string;
+    /**
+     * Массив коробок.
+     * @type {Array<ApiV1BoxesItems>}
+     * @memberof InlineObject12
+     */
+    items: Array<ApiV1BoxesItems>;
+    /**
+     * Массив ссылок на фотографии.
+     * @type {Array<string>}
+     * @memberof InlineObject12
+     */
+    images?: Array<string>;
+    /**
+     * destination GUID 
+     * @type {string}
+     * @memberof InlineObject12
+     */
+    destinationId?: string;
+    /**
+     * GUID тарифа доставки 
+     * @type {string}
+     * @memberof InlineObject12
+     */
+    logicsTariffId?: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject12
+     */
+    variationTariffId?: string;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineObject12
+     */
+    prepId?: string;
+    /**
+     * GUID сторкипера
+     * @type {string}
+     * @memberof InlineObject12
+     */
+    storekeeperId?: string;
 }
 
 

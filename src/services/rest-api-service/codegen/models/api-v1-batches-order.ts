@@ -195,6 +195,12 @@ export interface ApiV1BatchesOrder {
      */
     deadline?: string;
     /**
+     * Количество товара которое поступило на склад по данному заказу
+     * @type {number}
+     * @memberof ApiV1BatchesOrder
+     */
+    deliveredQuantity?: number;
+    /**
      * 
      * @type {string}
      * @memberof ApiV1BatchesOrder

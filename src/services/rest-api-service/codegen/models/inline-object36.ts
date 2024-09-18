@@ -21,35 +21,11 @@
  */
 export interface InlineObject36 {
     /**
-     * Название партии
-     * @type {string}
-     * @memberof InlineObject36
-     */
-    title?: string;
-    /**
-     * 
+     * массив GUIDов оплаченных товаров
      * @type {Array<string>}
      * @memberof InlineObject36
      */
-    boxesIds: Array<string>;
-    /**
-     * Метод подсчта массы партии
-     * @type {number}
-     * @memberof InlineObject36
-     */
-    calculationMethod?: number;
-    /**
-     * Делитель объема партии
-     * @type {number}
-     * @memberof InlineObject36
-     */
-    volumeWeightDivide?: number;
-    /**
-     * Настоящая стоимость доставки
-     * @type {number}
-     * @memberof InlineObject36
-     */
-    actualShippingCost?: number;
+    guids?: Array<string>;
 }
 
 

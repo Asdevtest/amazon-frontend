@@ -13,12 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20016Batch } from './inline-response20016-batch';
-import { InlineResponse20017Destination } from './inline-response20017-destination';
-import { InlineResponse20017Items } from './inline-response20017-items';
-import { InlineResponse20017LogicsTariff } from './inline-response20017-logics-tariff';
-import { InlineResponse20017VariationTariff } from './inline-response20017-variation-tariff';
+import { UserAdminFullSchema } from './user-admin-full-schema';
 
 /**
  * 
@@ -27,232 +22,23 @@ import { InlineResponse20017VariationTariff } from './inline-response20017-varia
  */
 export interface InlineResponse20017 {
     /**
-     * GUID коробки.
-     * @type {string}
-     * @memberof InlineResponse20017
-     */
-    _id?: string;
-    /**
-     * Номер коробки.
+     * Count of total items
      * @type {number}
      * @memberof InlineResponse20017
      */
-    humanFriendlyId?: number;
+    count?: number;
     /**
-     * Количества в коробке.
-     * @type {number}
+     * Массив пользователей.
+     * @type {Array<UserAdminFullSchema>}
      * @memberof InlineResponse20017
      */
-    amount?: number;
-    /**
-     * Статус коробки
-     * @type {string}
-     * @memberof InlineResponse20017
-     */
-    status?: InlineResponse20017StatusEnum;
-    /**
-     * Final weight
-     * @type {number}
-     * @memberof InlineResponse20017
-     */
-    finalWeight?: number;
-    /**
-     * Storage in boxes
-     * @type {string}
-     * @memberof InlineResponse20017
-     */
-    storage?: string;
-    /**
-     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
-     * @type {boolean}
-     * @memberof InlineResponse20017
-     */
-    isActual?: boolean;
-    /**
-     * Если true - значит коробку черновик.
-     * @type {boolean}
-     * @memberof InlineResponse20017
-     */
-    isDraft?: boolean;
-    /**
-     * Сформирована ли коробка
-     * @type {boolean}
-     * @memberof InlineResponse20017
-     */
-    isFormed?: boolean;
-    /**
-     * Ссылка на наклейку для коробки
-     * @type {string}
-     * @memberof InlineResponse20017
-     */
-    shippingLabel?: string;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineResponse20017
-     */
-    trackNumberText?: string;
+    rows?: Array<UserAdminFullSchema>;
     /**
      * 
-     * @type {Array<string>}
+     * @type {object}
      * @memberof InlineResponse20017
      */
-    trackNumberFile?: Array<string>;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineResponse20017
-     */
-    prepId?: string;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineResponse20017
-     */
-    upsTrackNumber?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineResponse20017
-     */
-    referenceId?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineResponse20017
-     */
-    clientComment?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineResponse20017
-     */
-    storekeeperComment?: string;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20017
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20017
-     */
-    widthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20017
-     */
-    heightCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20017
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineResponse20017
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineResponse20017
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineResponse20017
-     */
-    fbaNumber?: string;
-    /**
-     * Рейт за кг из тарифа
-     * @type {number}
-     * @memberof InlineResponse20017
-     */
-    lastRateTariff?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20017
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20017
-     */
-    updatedAt?: string;
-    /**
-     * 
-     * @type {InlineResponse20017VariationTariff}
-     * @memberof InlineResponse20017
-     */
-    variationTariff?: InlineResponse20017VariationTariff;
-    /**
-     * Массив коробок.
-     * @type {Array<InlineResponse20017Items>}
-     * @memberof InlineResponse20017
-     */
-    items?: Array<InlineResponse20017Items>;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20017
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20017
-     */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20017
-     */
-    client?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {InlineResponse20017Destination}
-     * @memberof InlineResponse20017
-     */
-    destination?: InlineResponse20017Destination;
-    /**
-     * 
-     * @type {InlineResponse20017LogicsTariff}
-     * @memberof InlineResponse20017
-     */
-    logicsTariff?: InlineResponse20017LogicsTariff;
-    /**
-     * 
-     * @type {InlineResponse20016Batch}
-     * @memberof InlineResponse20017
-     */
-    batch?: InlineResponse20016Batch;
+    meta?: object;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20017StatusEnum {
-    New = 'NEW',
-    InStock = 'IN_STOCK',
-    RequestedSendToBatch = 'REQUESTED_SEND_TO_BATCH',
-    NeedConfirmingToDeliveryPriceChange = 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE',
-    InBatch = 'IN_BATCH',
-    NeedToUpdateTheTariff = 'NEED_TO_UPDATE_THE_TARIFF',
-    InBatchOnTheWay = 'IN_BATCH_ON_THE_WAY',
-    FinishPrepCentrUsa = 'FINISH_PREP_CENTR_USA',
-    AcceptedInProcessing = 'ACCEPTED_IN_PROCESSING'
-}
-
 
 

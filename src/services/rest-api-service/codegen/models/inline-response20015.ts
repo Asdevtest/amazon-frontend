@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20014 } from './inline-response20014';
+import { InlineResponse20015Rows } from './inline-response20015-rows';
 
 /**
  * 
@@ -22,17 +22,17 @@ import { InlineResponse20014 } from './inline-response20014';
  */
 export interface InlineResponse20015 {
     /**
-     * Count of rows
+     * 
+     * @type {Array<InlineResponse20015Rows>}
+     * @memberof InlineResponse20015
+     */
+    rows?: Array<InlineResponse20015Rows>;
+    /**
+     * 
      * @type {number}
      * @memberof InlineResponse20015
      */
     count?: number;
-    /**
-     * 
-     * @type {Array<InlineResponse20014>}
-     * @memberof InlineResponse20015
-     */
-    rows?: Array<InlineResponse20014>;
 }
 
 

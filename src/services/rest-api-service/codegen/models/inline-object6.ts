@@ -22,10 +22,10 @@
 export interface InlineObject6 {
     /**
      * 
-     * @type {string}
+     * @type {Array<string>}
      * @memberof InlineObject6
      */
-    title: string;
+    boxesIds: Array<string>;
 }
 
 

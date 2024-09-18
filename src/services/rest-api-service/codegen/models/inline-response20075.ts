@@ -13,6 +13,7 @@
  */
 
 
+import { PermissionGetDtoSchema } from './permission-get-dto-schema';
 
 /**
  * 
@@ -21,17 +22,41 @@
  */
 export interface InlineResponse20075 {
     /**
-     * Table name
+     * Guid of permission group
      * @type {string}
      * @memberof InlineResponse20075
      */
-    table?: string;
+    _id?: string;
     /**
-     * 
-     * @type {Array<string>}
+     * Permission group key
+     * @type {string}
      * @memberof InlineResponse20075
      */
-    fields?: Array<string>;
+    key?: string;
+    /**
+     * Permission group title
+     * @type {string}
+     * @memberof InlineResponse20075
+     */
+    title?: string;
+    /**
+     * Permission group description
+     * @type {string}
+     * @memberof InlineResponse20075
+     */
+    description?: string;
+    /**
+     * Permission role for users
+     * @type {number}
+     * @memberof InlineResponse20075
+     */
+    role?: number;
+    /**
+     * Массив permissions.
+     * @type {Array<PermissionGetDtoSchema>}
+     * @memberof InlineResponse20075
+     */
+    permissions?: Array<PermissionGetDtoSchema>;
 }
 
 

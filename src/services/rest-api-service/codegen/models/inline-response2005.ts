@@ -13,7 +13,8 @@
  */
 
 
-import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-by';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1BatchesByProductGuidBoxes } from './api-v1-batches-by-product-guid-boxes';
 
 /**
  * 
@@ -22,100 +23,47 @@ import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-b
  */
 export interface InlineResponse2005 {
     /**
-     * GUID платежа
+     * GUID партии.
      * @type {string}
      * @memberof InlineResponse2005
      */
     _id?: string;
     /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse2005
-     */
-    createdAt?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse2005
-     */
-    createdBy?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Роль пользователя на момент инициации платежа.
+     * Человекочитаемый id партии.
      * @type {number}
      * @memberof InlineResponse2005
      */
-    role?: number;
+    humanFriendlyId?: number;
+    /**
+     * Название партии
+     * @type {string}
+     * @memberof InlineResponse2005
+     */
+    title?: string;
+    /**
+     * Заархивирована ли партия
+     * @type {boolean}
+     * @memberof InlineResponse2005
+     */
+    archive?: boolean;
     /**
      * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @type {Array<ApiV1BatchesByProductGuidBoxes>}
      * @memberof InlineResponse2005
      */
-    subUser?: ApiV1AdminsPaymentsCreatedBy;
+    boxes?: Array<ApiV1BatchesByProductGuidBoxes>;
     /**
-     * GUID товара или услуги.
-     * @type {string}
-     * @memberof InlineResponse2005
-     */
-    entityId?: string;
-    /**
-     * Тип товара или услуги
-     * @type {string}
-     * @memberof InlineResponse2005
-     */
-    entityType?: InlineResponse2005EntityTypeEnum;
-    /**
-     * Тип платежа
-     * @type {string}
-     * @memberof InlineResponse2005
-     */
-    paymentType?: InlineResponse2005PaymentTypeEnum;
-    /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse2005
-     */
-    recipient?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+     * Общее кол-во продуктов
      * @type {number}
      * @memberof InlineResponse2005
      */
-    sum?: number;
+    amountInBatch?: number;
     /**
-     * комментарий
-     * @type {string}
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse2005
      */
-    comment?: string;
+    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse2005EntityTypeEnum {
-    Product = 'PRODUCT',
-    Order = 'ORDER',
-    Box = 'BOX',
-    Batch = 'BATCH',
-    User = 'USER',
-    RequestCustom = 'REQUEST-CUSTOM',
-    RequestSearchProduct = 'REQUEST-SEARCH_PRODUCT',
-    RequestSearchNiche = 'REQUEST-SEARCH_NICHE',
-    RequestProposalCustom = 'REQUEST-PROPOSAL-CUSTOM',
-    RequestProposalSearchProduct = 'REQUEST-PROPOSAL-SEARCH_PRODUCT',
-    RequestProposalSearchNiche = 'REQUEST-PROPOSAL-SEARCH_NICHE',
-    Other = 'OTHER'
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse2005PaymentTypeEnum {
-    Replenish = 'REPLENISH',
-    Fine = 'FINE',
-    Zero = 'ZERO'
-}
-
 
 

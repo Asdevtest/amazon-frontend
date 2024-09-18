@@ -13,11 +13,11 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
-import { ApiV1AdminsOrdersLogicsTariff } from './api-v1-admins-orders-logics-tariff';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BatchesBatch } from './api-v1-batches-batch';
 import { ApiV1BatchesItems } from './api-v1-batches-items';
+import { ApiV1BatchesOrderDestination } from './api-v1-batches-order-destination';
+import { ApiV1BatchesOrderLogicsTariff } from './api-v1-batches-order-logics-tariff';
 import { ApiV1BatchesVariationTariff } from './api-v1-batches-variation-tariff';
 
 /**
@@ -286,40 +286,40 @@ export interface ApiV1BatchesBoxes {
     items?: Array<ApiV1BatchesItems>;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof ApiV1BatchesBoxes
      */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof ApiV1BatchesBoxes
      */
-    client?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    client?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof ApiV1BatchesBoxes
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof ApiV1BatchesBoxes
      */
-    lastModifiedBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    lastModifiedBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsOrdersDestination}
+     * @type {ApiV1BatchesOrderDestination}
      * @memberof ApiV1BatchesBoxes
      */
-    destination?: ApiV1AdminsOrdersDestination;
+    destination?: ApiV1BatchesOrderDestination;
     /**
      * 
-     * @type {ApiV1AdminsOrdersLogicsTariff}
+     * @type {ApiV1BatchesOrderLogicsTariff}
      * @memberof ApiV1BatchesBoxes
      */
-    logicsTariff?: ApiV1AdminsOrdersLogicsTariff;
+    logicsTariff?: ApiV1BatchesOrderLogicsTariff;
     /**
      * 
      * @type {ApiV1BatchesBatch}

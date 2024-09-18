@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse2004AllowedUrls } from './inline-response2004-allowed-urls';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { InlineResponse20018AllowedUrls } from './inline-response20018-allowed-urls';
 
 /**
  * Отобразить permission
@@ -48,10 +48,10 @@ export interface PermissionGetDtoSchema {
     description: string;
     /**
      * Массив доступных url.
-     * @type {Array<InlineResponse2004AllowedUrls>}
+     * @type {Array<InlineResponse20018AllowedUrls>}
      * @memberof PermissionGetDtoSchema
      */
-    allowedUrls: Array<InlineResponse2004AllowedUrls>;
+    allowedUrls: Array<InlineResponse20018AllowedUrls>;
     /**
      * Роль для которого данный permission
      * @type {number}
@@ -60,10 +60,10 @@ export interface PermissionGetDtoSchema {
     role: number;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof PermissionGetDtoSchema
      */
-    users?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    users?: Array<ApiV1AnnouncementsMyCreatedBy>;
     /**
      * Для фронта, чтобы хранить иерархию.
      * @type {number}

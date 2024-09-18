@@ -13,6 +13,12 @@
  */
 
 
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1BatchesBatch } from './api-v1-batches-batch';
+import { InlineResponse2007Destination } from './inline-response2007-destination';
+import { InlineResponse2007Items } from './inline-response2007-items';
+import { InlineResponse2007LogicsTariff } from './inline-response2007-logics-tariff';
+import { InlineResponse2007VariationTariff } from './inline-response2007-variation-tariff';
 
 /**
  * 
@@ -21,17 +27,232 @@
  */
 export interface InlineResponse2007 {
     /**
-     * 
+     * GUID коробки.
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    _id?: string;
+    /**
+     * Номер коробки.
      * @type {number}
      * @memberof InlineResponse2007
      */
-    tech_pause?: number;
+    humanFriendlyId?: number;
+    /**
+     * Количества в коробке.
+     * @type {number}
+     * @memberof InlineResponse2007
+     */
+    amount?: number;
+    /**
+     * Статус коробки
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    status?: InlineResponse2007StatusEnum;
+    /**
+     * Final weight
+     * @type {number}
+     * @memberof InlineResponse2007
+     */
+    finalWeight?: number;
+    /**
+     * Storage in boxes
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    storage?: string;
+    /**
+     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
+     * @type {boolean}
+     * @memberof InlineResponse2007
+     */
+    isActual?: boolean;
+    /**
+     * Если true - значит коробку черновик.
+     * @type {boolean}
+     * @memberof InlineResponse2007
+     */
+    isDraft?: boolean;
+    /**
+     * Сформирована ли коробка
+     * @type {boolean}
+     * @memberof InlineResponse2007
+     */
+    isFormed?: boolean;
+    /**
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    shippingLabel?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    trackNumberText?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse2007
+     */
+    trackNumberFile?: Array<string>;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    prepId?: string;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    upsTrackNumber?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    referenceId?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    clientComment?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    storekeeperComment?: string;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse2007
+     */
+    lengthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse2007
+     */
+    widthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse2007
+     */
+    heightCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse2007
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+     * @type {boolean}
+     * @memberof InlineResponse2007
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineResponse2007
+     */
+    fbaNumber?: string;
+    /**
+     * Рейт за кг из тарифа
+     * @type {number}
+     * @memberof InlineResponse2007
+     */
+    lastRateTariff?: number;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse2007
+     */
+    images?: Array<string>;
     /**
      * 
      * @type {string}
      * @memberof InlineResponse2007
      */
-    message?: string;
+    updatedAt?: string;
+    /**
+     * 
+     * @type {InlineResponse2007VariationTariff}
+     * @memberof InlineResponse2007
+     */
+    variationTariff?: InlineResponse2007VariationTariff;
+    /**
+     * Массив коробок.
+     * @type {Array<InlineResponse2007Items>}
+     * @memberof InlineResponse2007
+     */
+    items?: Array<InlineResponse2007Items>;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse2007
+     */
+    sub?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse2007
+     */
+    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse2007
+     */
+    client?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {InlineResponse2007Destination}
+     * @memberof InlineResponse2007
+     */
+    destination?: InlineResponse2007Destination;
+    /**
+     * 
+     * @type {InlineResponse2007LogicsTariff}
+     * @memberof InlineResponse2007
+     */
+    logicsTariff?: InlineResponse2007LogicsTariff;
+    /**
+     * 
+     * @type {ApiV1BatchesBatch}
+     * @memberof InlineResponse2007
+     */
+    batch?: ApiV1BatchesBatch;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse2007StatusEnum {
+    New = 'NEW',
+    InStock = 'IN_STOCK',
+    RequestedSendToBatch = 'REQUESTED_SEND_TO_BATCH',
+    NeedConfirmingToDeliveryPriceChange = 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE',
+    InBatch = 'IN_BATCH',
+    NeedToUpdateTheTariff = 'NEED_TO_UPDATE_THE_TARIFF',
+    InBatchOnTheWay = 'IN_BATCH_ON_THE_WAY',
+    FinishPrepCentrUsa = 'FINISH_PREP_CENTR_USA',
+    AcceptedInProcessing = 'ACCEPTED_IN_PROCESSING'
+}
+
 
 

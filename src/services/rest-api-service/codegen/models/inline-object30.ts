@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes';
 
 /**
  * 
@@ -22,11 +21,29 @@ import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './
  */
 export interface InlineObject30 {
     /**
-     * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
+     * Название patch_note.
+     * @type {string}
      * @memberof InlineObject30
      */
-    itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
+    title?: string;
+    /**
+     * Описание patch_note.
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    description?: string;
+    /**
+     * Для какой роли
+     * @type {number}
+     * @memberof InlineObject30
+     */
+    role?: number;
+    /**
+     * Update version
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    version?: string;
 }
 
 

@@ -21,17 +21,53 @@
  */
 export interface InlineObject14 {
     /**
-     * 
+     * Штрихкод продукта
      * @type {string}
      * @memberof InlineObject14
      */
-    title: string;
+    barCode?: string;
     /**
-     * Color
+     *  logicsTariff GUID
      * @type {string}
      * @memberof InlineObject14
      */
-    color?: string;
+    logicsTariffId?: string;
+    /**
+     * GUID сотрудника склада
+     * @type {string}
+     * @memberof InlineObject14
+     */
+    storekeeperId?: string;
+    /**
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineObject14
+     */
+    shippingLabel?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject14
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject14
+     */
+    fbaNumber?: string;
+    /**
+     * Гуид модели destination
+     * @type {string}
+     * @memberof InlineObject14
+     */
+    destinationId?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject14
+     */
+    boxesIds: Array<string>;
 }
 
 

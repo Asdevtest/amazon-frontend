@@ -47,17 +47,12 @@ export class UseProductsPermissions {
     filters: '',
   }
   searchFields?: string[]
-  defaultFilterParams?: Record<string, unknown>
   permissionsData: IPermissionsData[] = []
+  meta?: any
   isCanLoadMore = true
   requestStatus = loadingStatus.SUCCESS
 
-  constructor(
-    callback: ICallback,
-    options?: IOptions,
-    searchFields?: string[],
-    defaultFilterParams?: Record<string, unknown>,
-  ) {
+  constructor(callback: ICallback, options?: IOptions, searchFields?: string[]) {
     makeObservable(this, {
       callback: observable,
       options: observable,
@@ -79,7 +74,6 @@ export class UseProductsPermissions {
     this.callback = callback
     this.searchFields = searchFields
     this.setOptions(options)
-    this.defaultFilterParams = defaultFilterParams
   }
 
   get currentPermissionsData() {
@@ -104,6 +98,7 @@ export class UseProductsPermissions {
 
       runInAction(() => {
         this.permissionsData = result.rows || result
+        this.meta = result.meta
         this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
@@ -152,16 +147,7 @@ export class UseProductsPermissions {
       this.setOptions({
         offset: 0,
         filters: objectToUrlQs(
-          dataGridFiltersConverter(
-            {},
-            searchValue,
-            '',
-            [],
-            this.searchFields || ['skuByClient', 'asin'],
-            {},
-            {},
-            this.defaultFilterParams || {},
-          ),
+          dataGridFiltersConverter({}, searchValue, '', [], this.searchFields || ['skuByClient', 'asin']),
         ),
       })
 

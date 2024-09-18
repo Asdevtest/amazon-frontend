@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20024Rows } from './inline-response20024-rows';
+import { ApiV1BatchesProduct } from './api-v1-batches-product';
 
 /**
  * 
@@ -22,17 +22,17 @@ import { InlineResponse20024Rows } from './inline-response20024-rows';
  */
 export interface InlineResponse20024 {
     /**
-     * 
-     * @type {Array<InlineResponse20024Rows>}
-     * @memberof InlineResponse20024
-     */
-    rows?: Array<InlineResponse20024Rows>;
-    /**
-     * 
+     * Количество товаров
      * @type {number}
      * @memberof InlineResponse20024
      */
     count?: number;
+    /**
+     * Массив товаров
+     * @type {Array<ApiV1BatchesProduct>}
+     * @memberof InlineResponse20024
+     */
+    rows?: Array<ApiV1BatchesProduct>;
 }
 
 

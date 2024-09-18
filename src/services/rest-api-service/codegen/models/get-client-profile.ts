@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { InlineResponse200117Client } from './inline-response200117-client';
+import { ApiV1BatchesProductShop } from './api-v1-batches-product-shop';
+import { InlineResponse200115Client } from './inline-response200115-client';
 
 /**
  * 
@@ -54,16 +54,16 @@ export interface GetClientProfile {
     passwordHash?: string;
     /**
      * 
-     * @type {InlineResponse200117Client}
+     * @type {InlineResponse200115Client}
      * @memberof GetClientProfile
      */
-    client?: InlineResponse200117Client;
+    client?: InlineResponse200115Client;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusShop}
+     * @type {ApiV1BatchesProductShop}
      * @memberof GetClientProfile
      */
-    shop?: ApiV1AdminsGetProductsByStatusShop;
+    shop?: ApiV1BatchesProductShop;
     /**
      * Parser state
      * @type {boolean}
@@ -82,6 +82,30 @@ export interface GetClientProfile {
      * @memberof GetClientProfile
      */
     status?: string;
+    /**
+     * Main google table id
+     * @type {string}
+     * @memberof GetClientProfile
+     */
+    spreadsheetsIdMain?: string;
+    /**
+     * Perfomance google table id
+     * @type {string}
+     * @memberof GetClientProfile
+     */
+    spreadsheetsIdPerformance?: string;
+    /**
+     * Import google table id
+     * @type {string}
+     * @memberof GetClientProfile
+     */
+    spreadsheetsIdImport?: string;
+    /**
+     * OTP Hash
+     * @type {string}
+     * @memberof GetClientProfile
+     */
+    otp?: string;
     /**
      * Дата создания
      * @type {string}

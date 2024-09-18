@@ -21,17 +21,29 @@
  */
 export interface InlineObject42 {
     /**
-     * 
-     * @type {Array<string>}
+     * ГУид продукта
+     * @type {string}
      * @memberof InlineObject42
      */
-    batchIds: Array<string>;
+    productId: string;
     /**
-     * Заархивирована ли партия
-     * @type {boolean}
+     * Гуид баера
+     * @type {string}
      * @memberof InlineObject42
      */
-    archive: boolean;
+    buyerId?: string;
+    /**
+     * Гуид супервизора
+     * @type {string}
+     * @memberof InlineObject42
+     */
+    checkedById?: string;
+    /**
+     * Гуид клиента
+     * @type {string}
+     * @memberof InlineObject42
+     */
+    clientId?: string;
 }
 
 

@@ -13,75 +13,73 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1ShopSellStatistics } from './api-v1-shop-sell-statistics';
 
 /**
- * Схема получение лайт версии продажи магазина
+ * Схема магазина.
  * @export
  * @interface InlineResponse20096
  */
 export interface InlineResponse20096 {
     /**
-     * GUID магазина на продажу.
+     * ID магазина.
      * @type {string}
      * @memberof InlineResponse20096
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20096
-     */
-    owner?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Имя магазина для продажи
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
      * @type {string}
      * @memberof InlineResponse20096
      */
-    title?: string;
+    name?: string;
     /**
-     * Статус магазина для продажи
+     * URL для скачивания ежедневных отчетов SellerBoard.
      * @type {string}
      * @memberof InlineResponse20096
      */
-    status?: string;
+    sellerBoardWarehouseReportUrlDaily?: string;
     /**
-     * Файлы, которые привязаны к магазину
-     * @type {Array<string>}
-     * @memberof InlineResponse20096
-     */
-    files?: Array<string>;
-    /**
-     * Стоимость магазина
-     * @type {number}
-     * @memberof InlineResponse20096
-     */
-    price?: number;
-    /**
-     * Ежемесячный множитель
-     * @type {number}
-     * @memberof InlineResponse20096
-     */
-    monthlyMultiplier?: number;
-    /**
-     * 
-     * @type {ApiV1ShopSellStatistics}
-     * @memberof InlineResponse20096
-     */
-    statistics?: ApiV1ShopSellStatistics;
-    /**
-     * Дата создания бизнеса
+     * URL для скачивания отчетов SellerBoard за последний месяц.
      * @type {string}
      * @memberof InlineResponse20096
      */
-    businessStartDate?: string;
+    sellerBoardWarehouseReportUrlMonthly?: string;
     /**
-     * Детали магазина
+     * uri полный путь до файла, для скачивания отчетов amazon_data
      * @type {string}
      * @memberof InlineResponse20096
      */
-    shopDetails?: string;
+    reportAccountUrl?: string;
+    /**
+     * GUID, владелеца.
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    ownerId?: string;
+    /**
+     * GUID любого, кто последний создал.
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    createdById?: string;
+    /**
+     * GUID любого, кто последний редактировал.
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    lastModifiedById?: string;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20096
+     */
+    updatedAt?: string;
 }
 
 

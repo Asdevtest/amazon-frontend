@@ -13,9 +13,9 @@
  */
 
 
-import { ApiV1IdeasByParentGuidChildProduct } from './api-v1-ideas-by-parent-guid-child-product';
-import { ApiV1IdeasByParentGuidRequestsOnCheck } from './api-v1-ideas-by-parent-guid-requests-on-check';
-import { ApiV1IdeasByParentGuidSuppliers } from './api-v1-ideas-by-parent-guid-suppliers';
+import { ApiV1IdeasNotificationsCreatedBy } from './api-v1-ideas-notifications-created-by';
+import { ApiV1IdeasNotificationsIdea } from './api-v1-ideas-notifications-idea';
+import { ApiV1IdeasNotificationsProduct } from './api-v1-ideas-notifications-product';
 
 /**
  * 
@@ -25,196 +25,28 @@ import { ApiV1IdeasByParentGuidSuppliers } from './api-v1-ideas-by-parent-guid-s
 export interface InlineResponse20062 {
     /**
      * 
-     * @type {string}
+     * @type {ApiV1IdeasNotificationsProduct}
      * @memberof InlineResponse20062
      */
-    _id?: string;
-    /**
-     * Название идеи
-     * @type {string}
-     * @memberof InlineResponse20062
-     */
-    title?: string;
-    /**
-     * Статус идеи
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    status?: number;
-    /**
-     * Медиа идеи
-     * @type {Array<string>}
-     * @memberof InlineResponse20062
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * FBA Fee
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    fbaFee?: number;
-    /**
-     * Ориентационная цена
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    approximatePrice?: number;
-    /**
-     * Назавние продукта
-     * @type {string}
-     * @memberof InlineResponse20062
-     */
-    productName?: string;
-    /**
-     * Является ли продукт идеи вариацией существующего
-     * @type {boolean}
-     * @memberof InlineResponse20062
-     */
-    variation?: boolean;
+    product?: ApiV1IdeasNotificationsProduct;
     /**
      * 
-     * @type {ApiV1IdeasByParentGuidChildProduct}
+     * @type {ApiV1IdeasNotificationsIdea}
      * @memberof InlineResponse20062
      */
-    childProduct?: ApiV1IdeasByParentGuidChildProduct;
+    idea?: ApiV1IdeasNotificationsIdea;
     /**
      * 
-     * @type {Array<ApiV1IdeasByParentGuidSuppliers>}
+     * @type {ApiV1IdeasNotificationsCreatedBy}
      * @memberof InlineResponse20062
      */
-    suppliers?: Array<ApiV1IdeasByParentGuidSuppliers>;
+    createdBy?: ApiV1IdeasNotificationsCreatedBy;
     /**
      * 
-     * @type {Array<ApiV1IdeasByParentGuidRequestsOnCheck>}
-     * @memberof InlineResponse20062
-     */
-    requestsOnCheck?: Array<ApiV1IdeasByParentGuidRequestsOnCheck>;
-    /**
-     * 
-     * @type {Array<ApiV1IdeasByParentGuidRequestsOnCheck>}
-     * @memberof InlineResponse20062
-     */
-    requestsOnFinished?: Array<ApiV1IdeasByParentGuidRequestsOnCheck>;
-    /**
-     * Комментарии к идее
-     * @type {string}
-     * @memberof InlineResponse20062
-     */
-    comments?: string;
-    /**
-     * Комментарий байера
-     * @type {string}
-     * @memberof InlineResponse20062
-     */
-    buyerComment?: string;
-    /**
-     * Кол-во секунд идеи в статусе new(5)
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    intervalStatusNew?: number;
-    /**
-     * Кол-во секунд идеи в статусе OnCheck(10)
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    intervalStatusOnCheck?: number;
-    /**
-     * Кол-во секунд идеи в статусе supplierSearch(13)
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    intervalStatusSupplierSearch?: number;
-    /**
-     * Кол-во секунд идеи в статусе supplierFound(14)
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    intervalStatusSupplierFound?: number;
-    /**
-     * Кол-во секунд идеи в статусе supplierNotFound(15)
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    intervalStatusSupplierNotFound?: number;
-    /**
-     * Кол-во секунд идеи в статусе productCreating(16)
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    intervalStatusProductCreating?: number;
-    /**
-     * Кол-во секунд идеи в статусе addingAsin(18)
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    intervalStatusAddingAsin?: number;
-    /**
-     * Кол-во секунд идеи в статусе rejected(25)
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    intervalStatusRejected?: number;
-    /**
-     * Кол-во секунд идеи во всех статусах
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    intervalsSum?: number;
-    /**
-     * Criteria
-     * @type {string}
-     * @memberof InlineResponse20062
-     */
-    criteria?: string;
-    /**
-     * Ширина
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    width?: number;
-    /**
-     * Высота
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    height?: number;
-    /**
-     * Длина
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    length?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse20062
-     */
-    productLinks?: Array<string>;
-    /**
-     * Price
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    price?: number;
-    /**
-     * Количество
-     * @type {number}
-     * @memberof InlineResponse20062
-     */
-    quantity?: number;
-    /**
-     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20062
      */
     createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse20062
-     */
-    updatedAt?: string;
 }
 
 

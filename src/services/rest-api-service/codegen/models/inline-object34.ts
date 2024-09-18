@@ -21,11 +21,17 @@
  */
 export interface InlineObject34 {
     /**
-     * Сформирована ли коробка
+     * 
+     * @type {string}
+     * @memberof InlineObject34
+     */
+    title?: string;
+    /**
+     * 
      * @type {boolean}
      * @memberof InlineObject34
      */
-    isFormed: boolean;
+    archive?: boolean;
 }
 
 

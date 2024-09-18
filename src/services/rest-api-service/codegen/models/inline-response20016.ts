@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20016Rows } from './inline-response20016-rows';
+import { ApiV1BatchesOrder } from './api-v1-batches-order';
 
 /**
  * 
@@ -22,17 +22,17 @@ import { InlineResponse20016Rows } from './inline-response20016-rows';
  */
 export interface InlineResponse20016 {
     /**
-     * Count of boxes
+     * Количество заказов
      * @type {number}
      * @memberof InlineResponse20016
      */
     count?: number;
     /**
-     * 
-     * @type {Array<InlineResponse20016Rows>}
+     * Массив заказов
+     * @type {Array<ApiV1BatchesOrder>}
      * @memberof InlineResponse20016
      */
-    rows?: Array<InlineResponse20016Rows>;
+    rows?: Array<ApiV1BatchesOrder>;
 }
 
 

@@ -13,70 +13,25 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
-import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
 
 /**
- * 
+ * Успешный ответ.
  * @export
  * @interface InlineResponse20088
  */
 export interface InlineResponse20088 {
     /**
-     * Гуид медиа
+     * Флаг, показывает есть ли такой ASIN в базе или нет
+     * @type {boolean}
+     * @memberof InlineResponse20088
+     */
+    isExist?: boolean;
+    /**
+     * Причина из таблицы с асинами
      * @type {string}
      * @memberof InlineResponse20088
      */
-    _id?: string;
-    /**
-     * Файл для записи в FreelanceSource
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    sourceFile?: string;
-    /**
-     * Комментарий к файлу
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    comments?: string;
-    /**
-     * 
-     * @type {ApiV1RequestProposalsFreelanceSourcesProposal}
-     * @memberof InlineResponse20088
-     */
-    proposal?: ApiV1RequestProposalsFreelanceSourcesProposal;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMySpec}
-     * @memberof InlineResponse20088
-     */
-    spec?: ApiV1AnnouncementsMySpec;
-    /**
-     * гуид продукта
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    productId?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20088
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    createdAt?: string;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    updatedAt?: string;
+    reason?: string;
 }
 
 

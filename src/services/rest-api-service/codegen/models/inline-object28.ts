@@ -13,7 +13,6 @@
  */
 
 
-import { InlineObject19 } from './inline-object19';
 
 /**
  * 
@@ -22,17 +21,29 @@ import { InlineObject19 } from './inline-object19';
  */
 export interface InlineObject28 {
     /**
-     * GUID для которой подтверждаем действие.
+     * DEPOSIT - пополнение депозита(баланса), WITHDRAW - вывод средств с баланса, FINE - штраф.
      * @type {string}
      * @memberof InlineObject28
      */
-    guid?: string;
+    entityType: string;
     /**
-     * Массив дополнительных коробок которые случились при обработки.
-     * @type {Array<InlineObject19>}
+     * GUID пользователя.
+     * @type {string}
      * @memberof InlineObject28
      */
-    additionalBoxes?: Array<InlineObject19>;
+    recipientId: string;
+    /**
+     * Начисленная сумма выплаты. Может быть отрицательной.
+     * @type {number}
+     * @memberof InlineObject28
+     */
+    sum: number;
+    /**
+     * комментарий
+     * @type {string}
+     * @memberof InlineObject28
+     */
+    comment: string;
 }
 
 

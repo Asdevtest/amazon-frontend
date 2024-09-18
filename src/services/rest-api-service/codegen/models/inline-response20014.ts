@@ -13,9 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AnnouncementsMyRequests } from './api-v1-announcements-my-requests';
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { InlineResponse20014Rows } from './inline-response20014-rows';
 
 /**
  * 
@@ -24,65 +22,17 @@ import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
  */
 export interface InlineResponse20014 {
     /**
-     * GUID в базе данных
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20014Rows>}
      * @memberof InlineResponse20014
      */
-    _id?: string;
+    rows?: Array<InlineResponse20014Rows>;
     /**
      * 
-     * @type {ApiV1AnnouncementsMySpec}
+     * @type {number}
      * @memberof InlineResponse20014
      */
-    spec?: ApiV1AnnouncementsMySpec;
-    /**
-     * Archive
-     * @type {boolean}
-     * @memberof InlineResponse20014
-     */
-    archive?: boolean;
-    /**
-     * 
-     * @type {Array<ApiV1AnnouncementsMyRequests>}
-     * @memberof InlineResponse20014
-     */
-    requests?: Array<ApiV1AnnouncementsMyRequests>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse20014
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20014
-     */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20014
-     */
-    description?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20014
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse20014
-     */
-    createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse20014
-     */
-    updatedAt?: string;
+    count?: number;
 }
 
 

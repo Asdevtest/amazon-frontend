@@ -28,17 +28,11 @@ export interface InlineResponse20045 {
      */
     count?: number;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
+     * Массив заказов c пагинацией(заданная страничка).
      * @type {Array<InlineResponse20045Rows>}
      * @memberof InlineResponse20045
      */
     rows?: Array<InlineResponse20045Rows>;
-    /**
-     * 
-     * @type {object}
-     * @memberof InlineResponse20045
-     */
-    meta?: object;
 }
 
 

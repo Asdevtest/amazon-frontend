@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
@@ -22,35 +21,29 @@ import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-pro
  */
 export interface InlineResponse20052Rows {
     /**
-     * Guid of shop
+     * Гуид тега
      * @type {string}
      * @memberof InlineResponse20052Rows
      */
     _id?: string;
     /**
-     * Name of shop
+     * Тег
      * @type {string}
      * @memberof InlineResponse20052Rows
      */
-    name?: string;
+    title?: string;
     /**
-     * Count of shop products
+     * Кол-во продуктов, которые используют этот тег
      * @type {number}
      * @memberof InlineResponse20052Rows
      */
-    productsCount?: number;
+    productCount?: number;
     /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * Color
+     * @type {string}
      * @memberof InlineResponse20052Rows
      */
-    shopUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
-     * @memberof InlineResponse20052Rows
-     */
-    productUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    color?: string;
 }
 
 

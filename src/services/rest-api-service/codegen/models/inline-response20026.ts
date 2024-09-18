@@ -13,8 +13,7 @@
  */
 
 
-import { ApiV1BatchesStorekeeper } from './api-v1-batches-storekeeper';
-import { InlineResponse20016Rows } from './inline-response20016-rows';
+import { ApiV1AdminsFeedbackUser } from './api-v1-admins-feedback-user';
 
 /**
  * 
@@ -23,143 +22,29 @@ import { InlineResponse20016Rows } from './inline-response20016-rows';
  */
 export interface InlineResponse20026 {
     /**
-     * GUID партии.
+     * GUID пользователя в БД.
      * @type {string}
      * @memberof InlineResponse20026
      */
     _id?: string;
     /**
-     * Человекочитаемый id партии.
-     * @type {number}
-     * @memberof InlineResponse20026
-     */
-    humanFriendlyId?: number;
-    /**
-     * Статус партии.
+     * текст отзыва/репорта
      * @type {string}
      * @memberof InlineResponse20026
      */
-    status?: string;
+    text?: string;
     /**
-     * id корабля.
-     * @type {string}
+     * Прикрепленные ссылки на медиа для репорта/отзыва
+     * @type {Array<object>}
      * @memberof InlineResponse20026
      */
-    shipId?: string;
-    /**
-     * Название партии
-     * @type {string}
-     * @memberof InlineResponse20026
-     */
-    title?: string;
-    /**
-     * Стоимость доставки при расчете из коробок
-     * @type {number}
-     * @memberof InlineResponse20026
-     */
-    calculatedShippingCost?: number;
-    /**
-     * Настоящая стоимость доставки
-     * @type {number}
-     * @memberof InlineResponse20026
-     */
-    actualShippingCost?: number;
-    /**
-     * Трек номер партии
-     * @type {string}
-     * @memberof InlineResponse20026
-     */
-    trackingNumber?: string;
-    /**
-     * Массив ссылок на файлов документации к партии.
-     * @type {Array<string>}
-     * @memberof InlineResponse20026
-     */
-    attachedDocuments?: Array<string>;
-    /**
-     * Финальный вес партии, если считать все коробки как одну большую коробу.
-     * @type {number}
-     * @memberof InlineResponse20026
-     */
-    finalWeightAsOneBox?: number;
-    /**
-     * Финальный вес партии, если сложить все веса коробок по отдельности.
-     * @type {number}
-     * @memberof InlineResponse20026
-     */
-    finalWeightSumEachBoxAmount?: number;
-    /**
-     * Заархивирована ли партия
-     * @type {boolean}
-     * @memberof InlineResponse20026
-     */
-    archive?: boolean;
-    /**
-     * Массив id коробок.
-     * @type {Array<InlineResponse20016Rows>}
-     * @memberof InlineResponse20026
-     */
-    boxes?: Array<InlineResponse20016Rows>;
-    /**
-     * Метод подсчта массы партии
-     * @type {number}
-     * @memberof InlineResponse20026
-     */
-    calculationMethod?: number;
-    /**
-     * Делитель объема партии
-     * @type {number}
-     * @memberof InlineResponse20026
-     */
-    volumeWeightDivide?: number;
-    /**
-     * Масса партии
-     * @type {number}
-     * @memberof InlineResponse20026
-     */
-    finalWeight?: number;
-    /**
-     * Количество коробок в партии.
-     * @type {number}
-     * @memberof InlineResponse20026
-     */
-    quantityBoxes?: number;
-    /**
-     * Общая стоимость от поставщика заказа.
-     * @type {number}
-     * @memberof InlineResponse20026
-     */
-    totalPriceFromOrderSupplier?: number;
+    media?: Array<object>;
     /**
      * 
-     * @type {ApiV1BatchesStorekeeper}
+     * @type {ApiV1AdminsFeedbackUser}
      * @memberof InlineResponse20026
      */
-    storekeeper?: ApiV1BatchesStorekeeper;
-    /**
-     * 
-     * @type {ApiV1BatchesStorekeeper}
-     * @memberof InlineResponse20026
-     */
-    createdBy?: ApiV1BatchesStorekeeper;
-    /**
-     * 
-     * @type {ApiV1BatchesStorekeeper}
-     * @memberof InlineResponse20026
-     */
-    lastModifiedBy?: ApiV1BatchesStorekeeper;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20026
-     */
-    arrivalDate?: string;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse20026
-     */
-    createdAt?: string;
+    user?: ApiV1AdminsFeedbackUser;
     /**
      * Дата создания.
      * @type {string}

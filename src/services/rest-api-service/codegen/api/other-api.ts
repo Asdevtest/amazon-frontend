@@ -31,13 +31,13 @@ import { InlineObject90 } from '../models';
 // @ts-ignore
 import { InlineObject91 } from '../models';
 // @ts-ignore
-import { InlineResponse2005 } from '../models';
+import { InlineResponse20019 } from '../models';
+// @ts-ignore
+import { InlineResponse20072 } from '../models';
+// @ts-ignore
+import { InlineResponse20073 } from '../models';
 // @ts-ignore
 import { InlineResponse20074 } from '../models';
-// @ts-ignore
-import { InlineResponse20075 } from '../models';
-// @ts-ignore
-import { InlineResponse20076 } from '../models';
 // @ts-ignore
 import { InlineResponse20110 } from '../models';
 // @ts-ignore
@@ -794,7 +794,7 @@ export const OtherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherCheckAsinsPost(body?: Array<InlineObject3>, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20076>> {
+        async apiV1OtherCheckAsinsPost(body?: Array<InlineObject3>, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20074>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherCheckAsinsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -817,7 +817,7 @@ export const OtherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherFieldsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20075>>> {
+        async apiV1OtherFieldsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20073>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherFieldsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -841,7 +841,7 @@ export const OtherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherPaymentsByProductGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2005>>> {
+        async apiV1OtherPaymentsByProductGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20019>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherPaymentsByProductGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -853,7 +853,7 @@ export const OtherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherPaymentsByUserGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2005>>> {
+        async apiV1OtherPaymentsByUserGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20019>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherPaymentsByUserGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -864,7 +864,7 @@ export const OtherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherPaymentsMyGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2005>>> {
+        async apiV1OtherPaymentsMyGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20019>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherPaymentsMyGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -881,7 +881,7 @@ export const OtherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OtherPaymentsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20074>> {
+        async apiV1OtherPaymentsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20072>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OtherPaymentsPagMyGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -992,7 +992,7 @@ export const OtherApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherCheckAsinsPost(body?: Array<InlineObject3>, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20076> {
+        apiV1OtherCheckAsinsPost(body?: Array<InlineObject3>, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20074> {
             return localVarFp.apiV1OtherCheckAsinsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1013,7 +1013,7 @@ export const OtherApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherFieldsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20075>> {
+        apiV1OtherFieldsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20073>> {
             return localVarFp.apiV1OtherFieldsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1035,7 +1035,7 @@ export const OtherApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherPaymentsByProductGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2005>> {
+        apiV1OtherPaymentsByProductGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20019>> {
             return localVarFp.apiV1OtherPaymentsByProductGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1046,7 +1046,7 @@ export const OtherApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherPaymentsByUserGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2005>> {
+        apiV1OtherPaymentsByUserGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20019>> {
             return localVarFp.apiV1OtherPaymentsByUserGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1056,7 +1056,7 @@ export const OtherApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherPaymentsMyGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2005>> {
+        apiV1OtherPaymentsMyGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20019>> {
             return localVarFp.apiV1OtherPaymentsMyGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1072,7 +1072,7 @@ export const OtherApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OtherPaymentsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20074> {
+        apiV1OtherPaymentsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20072> {
             return localVarFp.apiV1OtherPaymentsPagMyGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

@@ -13,61 +13,75 @@
  */
 
 
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1ShopSellStatistics } from './api-v1-shop-sell-statistics';
 
 /**
- * 
+ * Схема получение лайт версии продажи магазина
  * @export
  * @interface InlineResponse20094
  */
 export interface InlineResponse20094 {
     /**
-     * GUID в базе данных
+     * GUID магазина на продажу.
      * @type {string}
      * @memberof InlineResponse20094
      */
     _id?: string;
     /**
-     * Guid заявки к которой относится данное media.
-     * @type {string}
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20094
      */
-    requestId?: string;
+    owner?: ApiV1AnnouncementsMyCreatedBy;
     /**
-     * Guid предложения к которой относится данное media.
+     * Имя магазина для продажи
      * @type {string}
      * @memberof InlineResponse20094
      */
-    proposalId?: string;
+    title?: string;
     /**
-     * комментарий клиента
+     * Статус магазина для продажи
      * @type {string}
      * @memberof InlineResponse20094
      */
-    commentByClient?: string;
+    status?: string;
     /**
-     * комментарий исполнителя
-     * @type {string}
+     * Файлы, которые привязаны к магазину
+     * @type {Array<string>}
      * @memberof InlineResponse20094
      */
-    commentByPerformer?: string;
+    files?: Array<string>;
     /**
-     * Ссылка на файл
-     * @type {string}
+     * Стоимость магазина
+     * @type {number}
      * @memberof InlineResponse20094
      */
-    fileLink?: string;
+    price?: number;
     /**
-     * Дата создания.
-     * @type {string}
+     * Ежемесячный множитель
+     * @type {number}
      * @memberof InlineResponse20094
      */
-    createdAt?: string;
+    monthlyMultiplier?: number;
     /**
-     * Дата обновления.
+     * 
+     * @type {ApiV1ShopSellStatistics}
+     * @memberof InlineResponse20094
+     */
+    statistics?: ApiV1ShopSellStatistics;
+    /**
+     * Дата создания бизнеса
      * @type {string}
      * @memberof InlineResponse20094
      */
-    updatedAt?: string;
+    businessStartDate?: string;
+    /**
+     * Детали магазина
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    shopDetails?: string;
 }
 
 

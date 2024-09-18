@@ -13,32 +13,26 @@
  */
 
 
-import { UserAdminFullSchema } from './user-admin-full-schema';
+import { InlineResponse2002 } from './inline-response2002';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse2003
  */
 export interface InlineResponse2003 {
     /**
-     * Count of total items
+     * Всего кол-во записей в результате запроса
      * @type {number}
      * @memberof InlineResponse2003
      */
     count?: number;
     /**
-     * Массив пользователей.
-     * @type {Array<UserAdminFullSchema>}
+     * Массив батчей c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse2002>}
      * @memberof InlineResponse2003
      */
-    rows?: Array<UserAdminFullSchema>;
-    /**
-     * 
-     * @type {object}
-     * @memberof InlineResponse2003
-     */
-    meta?: object;
+    rows?: Array<InlineResponse2002>;
 }
 
 

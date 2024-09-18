@@ -13,44 +13,26 @@
  */
 
 
-import { ApiV1AdminsFeedbackUser } from './api-v1-admins-feedback-user';
+import { InlineResponse2009 } from './inline-response2009';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20012
  */
 export interface InlineResponse20012 {
     /**
-     * GUID пользователя в БД.
-     * @type {string}
+     * Всего кол-во записей в результате запроса
+     * @type {number}
      * @memberof InlineResponse20012
      */
-    _id?: string;
+    count?: number;
     /**
-     * текст отзыва/репорта
-     * @type {string}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse2009>}
      * @memberof InlineResponse20012
      */
-    text?: string;
-    /**
-     * Прикрепленные ссылки на медиа для репорта/отзыва
-     * @type {Array<object>}
-     * @memberof InlineResponse20012
-     */
-    media?: Array<object>;
-    /**
-     * 
-     * @type {ApiV1AdminsFeedbackUser}
-     * @memberof InlineResponse20012
-     */
-    user?: ApiV1AdminsFeedbackUser;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse20012
-     */
-    updatedAt?: string;
+    rows?: Array<InlineResponse2009>;
 }
 
 

@@ -21,29 +21,11 @@
  */
 export interface InlineObject15 {
     /**
-     * ГУид продукта
+     * GUID коробки, объединение которой нужно отменить
      * @type {string}
      * @memberof InlineObject15
      */
-    productId: string;
-    /**
-     * Гуид баера
-     * @type {string}
-     * @memberof InlineObject15
-     */
-    buyerId?: string;
-    /**
-     * Гуид супервизора
-     * @type {string}
-     * @memberof InlineObject15
-     */
-    checkedById?: string;
-    /**
-     * Гуид клиента
-     * @type {string}
-     * @memberof InlineObject15
-     */
-    clientId?: string;
+    guid?: string;
 }
 
 

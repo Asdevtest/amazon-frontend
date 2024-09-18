@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesSplitNewBoxesParams } from './api-v1-boxes-split-new-boxes-params';
 
 /**
  * 
@@ -21,11 +22,17 @@
  */
 export interface InlineObject18 {
     /**
-     * 
-     * @type {boolean}
+     * GUID коробки, которую делим
+     * @type {string}
      * @memberof InlineObject18
      */
-    archive: boolean;
+    guid?: string;
+    /**
+     * 
+     * @type {Array<ApiV1BoxesSplitNewBoxesParams>}
+     * @memberof InlineObject18
+     */
+    newBoxesParams?: Array<ApiV1BoxesSplitNewBoxesParams>;
 }
 
 

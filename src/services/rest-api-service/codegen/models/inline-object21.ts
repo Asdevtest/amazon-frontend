@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-guid-items';
 
 /**
  * 
@@ -21,83 +22,65 @@
  */
 export interface InlineObject21 {
     /**
-     * GUID пункта назначения коробки
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject21
      */
-    destinationId?: string;
-    /**
-     * GUID тарифа к сторкипера
-     * @type {string}
-     * @memberof InlineObject21
-     */
-    logicsTariffId?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject21
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject21
-     */
-    fbaNumber?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineObject21
-     */
-    clientComment?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineObject21
-     */
-    referenceId?: string;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineObject21
-     */
-    trackNumberText?: string;
+    lengthCmWarehouse?: number;
     /**
      * 
-     * @type {Array<string>}
+     * @type {number}
      * @memberof InlineObject21
      */
-    trackNumberFile?: Array<string>;
+    widthCmWarehouse?: number;
     /**
-     * Идентификатор UPS
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject21
      */
-    upsTrackNumber?: string;
+    heightCmWarehouse?: number;
     /**
-     * shippingLabel коробки
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject21
      */
-    shippingLabel?: string;
+    weighGrossKgWarehouse?: number;
     /**
-     * shippingLabel проклеен сторкипером
+     * 
+     * @type {number}
+     * @memberof InlineObject21
+     */
+    volumeWeightKgWarehouse?: number;
+    /**
+     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
      * @type {boolean}
      * @memberof InlineObject21
      */
     isShippingLabelAttachedByStorekeeper?: boolean;
     /**
-     * Значение информационного ключа
+     * 
+     * @type {Array<ApiV1BoxesStorekeepersGuidItems>}
+     * @memberof InlineObject21
+     */
+    items?: Array<ApiV1BoxesStorekeepersGuidItems>;
+    /**
+     * Комментарии к коробке
      * @type {string}
      * @memberof InlineObject21
      */
-    prepId?: string;
+    storekeeperComment?: string;
     /**
      * Гуид вариации
      * @type {string}
      * @memberof InlineObject21
      */
     variationTariffId?: string;
+    /**
+     * Массив ссылок на фотографии.
+     * @type {Array<string>}
+     * @memberof InlineObject21
+     */
+    images?: Array<string>;
 }
 
 

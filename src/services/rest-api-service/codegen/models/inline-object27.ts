@@ -21,11 +21,11 @@
  */
 export interface InlineObject27 {
     /**
-     * GUID коробки разделение которой отменяем.
-     * @type {string}
+     * Админ может менять статус с 70 на 100 и обратно
+     * @type {number}
      * @memberof InlineObject27
      */
-    guid?: string;
+    status?: number;
 }
 
 

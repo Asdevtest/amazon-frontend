@@ -31,7 +31,7 @@ import { InlineObject74 } from '../models';
 // @ts-ignore
 import { InlineObject75 } from '../models';
 // @ts-ignore
-import { InlineResponse20061 } from '../models';
+import { InlineResponse20059 } from '../models';
 // @ts-ignore
 import { InlineResponse2019 } from '../models';
 // @ts-ignore
@@ -234,7 +234,7 @@ export const GoLoginApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GologinProfilePost(body?: InlineObject72, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20061>> {
+        async apiV1GologinProfilePost(body?: InlineObject72, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20059>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GologinProfilePost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -293,7 +293,7 @@ export const GoLoginApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GologinProfilePost(body?: InlineObject72, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20061> {
+        apiV1GologinProfilePost(body?: InlineObject72, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20059> {
             return localVarFp.apiV1GologinProfilePost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

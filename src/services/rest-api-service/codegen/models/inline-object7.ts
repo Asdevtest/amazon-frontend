@@ -21,17 +21,35 @@
  */
 export interface InlineObject7 {
     /**
-     * 
+     * Название партии
      * @type {string}
      * @memberof InlineObject7
      */
     title?: string;
     /**
-     * 
-     * @type {boolean}
+     * Метод подсчта массы партии
+     * @type {number}
      * @memberof InlineObject7
      */
-    archive?: boolean;
+    calculationMethod?: number;
+    /**
+     * Делитель объема партии
+     * @type {number}
+     * @memberof InlineObject7
+     */
+    volumeWeightDivide?: number;
+    /**
+     * Трек номер партии
+     * @type {string}
+     * @memberof InlineObject7
+     */
+    trackingNumber?: string;
+    /**
+     * Настоящая стоимость доставки
+     * @type {number}
+     * @memberof InlineObject7
+     */
+    actualShippingCost?: number;
 }
 
 

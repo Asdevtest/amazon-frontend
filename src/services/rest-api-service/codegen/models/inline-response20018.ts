@@ -13,25 +13,161 @@
  */
 
 
+import { InlineResponse20018AllowedSpec } from './inline-response20018-allowed-spec';
+import { InlineResponse20018PermissionGroups } from './inline-response20018-permission-groups';
+import { InlineResponse20018Permissions } from './inline-response20018-permissions';
+import { InlineResponse20018SubUsers } from './inline-response20018-sub-users';
 
 /**
- * 
+ * Пользователь системы
  * @export
  * @interface InlineResponse20018
  */
 export interface InlineResponse20018 {
     /**
-     * Кол-во продукта в айтеме в коробке
-     * @type {number}
+     * GUID пользователя в БД.
+     * @type {string}
      * @memberof InlineResponse20018
      */
-    amount?: number;
+    _id: string;
     /**
-     * Номер заказа
+     * Имя пользователя.
+     * @type {string}
+     * @memberof InlineResponse20018
+     */
+    name: string;
+    /**
+     * email
+     * @type {string}
+     * @memberof InlineResponse20018
+     */
+    email: string;
+    /**
+     * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    roles.moderator = 60    
      * @type {number}
      * @memberof InlineResponse20018
      */
-    id?: number;
+    role: number;
+    /**
+     * Флаг fba.
+     * @type {boolean}
+     * @memberof InlineResponse20018
+     */
+    fba: boolean;
+    /**
+     * Если истина - пользователь активен. Если нет - заблокирован админом.
+     * @type {boolean}
+     * @memberof InlineResponse20018
+     */
+    active: boolean;
+    /**
+     * Поле отвечает за то, берется ли в расчет бокс этого юзера(сторкипера) при подсчете товаров в дороге
+     * @type {boolean}
+     * @memberof InlineResponse20018
+     */
+    isUserPreprocessingCenterUSA?: boolean;
+    /**
+     * Ставка, по который оплачивается сотрудник.
+     * @type {number}
+     * @memberof InlineResponse20018
+     */
+    rate: number;
+    /**
+     * Баланс пользователя.
+     * @type {number}
+     * @memberof InlineResponse20018
+     */
+    balance?: number;
+    /**
+     * Замороженная при оплате ордера сумма..
+     * @type {number}
+     * @memberof InlineResponse20018
+     */
+    balanceFreeze?: number;
+    /**
+     * Сумма на которую может уходить в минус пользователь.
+     * @type {number}
+     * @memberof InlineResponse20018
+     */
+    overdraft?: number;
+    /**
+     * Массив permission-ов.
+     * @type {Array<InlineResponse20018Permissions>}
+     * @memberof InlineResponse20018
+     */
+    permissions?: Array<InlineResponse20018Permissions>;
+    /**
+     * Массив групп permission-ов.
+     * @type {Array<InlineResponse20018PermissionGroups>}
+     * @memberof InlineResponse20018
+     */
+    permissionGroups?: Array<InlineResponse20018PermissionGroups>;
+    /**
+     * GUID мастер пользователя к которму относится данный субпользователь.
+     * @type {string}
+     * @memberof InlineResponse20018
+     */
+    masterUser?: string;
+    /**
+     * Массив доступных стратегий.
+     * @type {Array<number>}
+     * @memberof InlineResponse20018
+     */
+    allowedStrategies?: Array<number>;
+    /**
+     * Массив массив ролей.
+     * @type {Array<number>}
+     * @memberof InlineResponse20018
+     */
+    allowedRoles?: Array<number>;
+    /**
+     * Может ли данный пользователь быть мастер юзером.
+     * @type {boolean}
+     * @memberof InlineResponse20018
+     */
+    canByMasterUser?: boolean;
+    /**
+     * Рейтинг пользователя.
+     * @type {number}
+     * @memberof InlineResponse20018
+     */
+    rating?: number;
+    /**
+     * Массив id сабюзеров.
+     * @type {Array<InlineResponse20018SubUsers>}
+     * @memberof InlineResponse20018
+     */
+    subUsers?: Array<InlineResponse20018SubUsers>;
+    /**
+     * 
+     * @type {InlineResponse20018SubUsers}
+     * @memberof InlineResponse20018
+     */
+    masterUserInfo?: InlineResponse20018SubUsers;
+    /**
+     * Массив доступных специализаций фрилансера.
+     * @type {Array<InlineResponse20018AllowedSpec>}
+     * @memberof InlineResponse20018
+     */
+    allowedSpec?: Array<InlineResponse20018AllowedSpec>;
+    /**
+     * Скрывать поставщиков от пользователя.
+     * @type {boolean}
+     * @memberof InlineResponse20018
+     */
+    hideSuppliers?: boolean;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20018
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20018
+     */
+    updatedAt?: string;
 }
 
 

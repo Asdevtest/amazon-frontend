@@ -22,7 +22,7 @@ import { InlineResponse20052Rows } from './inline-response20052-rows';
  */
 export interface InlineResponse20052 {
     /**
-     * Count of rows
+     * Count of items
      * @type {number}
      * @memberof InlineResponse20052
      */

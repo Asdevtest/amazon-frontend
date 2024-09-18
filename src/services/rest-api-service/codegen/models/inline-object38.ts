@@ -21,11 +21,47 @@
  */
 export interface InlineObject38 {
     /**
-     * 
-     * @type {Array<string>}
+     * Название склада.
+     * @type {string}
      * @memberof InlineObject38
      */
-    boxesIds: Array<string>;
+    name: string;
+    /**
+     * Страна.
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    country?: string;
+    /**
+     * Индекс. 5 цифр.
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    zipCode?: string;
+    /**
+     * Штат.
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    state?: string;
+    /**
+     * Город.
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    city?: string;
+    /**
+     * Адрес склада.
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    address?: string;
+    /**
+     * Цвет шрифта
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    fontColor?: string;
 }
 
 

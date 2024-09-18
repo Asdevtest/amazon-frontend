@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20074Rows } from './inline-response20074-rows';
+import { InlineResponse20074Failed } from './inline-response20074-failed';
 
 /**
  * 
@@ -22,17 +22,11 @@ import { InlineResponse20074Rows } from './inline-response20074-rows';
  */
 export interface InlineResponse20074 {
     /**
-     * Кол-во записей
-     * @type {number}
+     * 
+     * @type {Array<InlineResponse20074Failed>}
      * @memberof InlineResponse20074
      */
-    count?: number;
-    /**
-     * Массив оплат.
-     * @type {Array<InlineResponse20074Rows>}
-     * @memberof InlineResponse20074
-     */
-    rows?: Array<InlineResponse20074Rows>;
+    failed?: Array<InlineResponse20074Failed>;
 }
 
 

@@ -13,12 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1BoxesClientsLightBatch } from './api-v1-boxes-clients-light-batch';
-import { ApiV1BoxesClientsLightDestination } from './api-v1-boxes-clients-light-destination';
-import { ApiV1BoxesClientsLightItems } from './api-v1-boxes-clients-light-items';
-import { ApiV1BoxesClientsLightLogicsTariff } from './api-v1-boxes-clients-light-logics-tariff';
-import { InlineResponse20017VariationTariff } from './inline-response20017-variation-tariff';
+import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-by';
 
 /**
  * 
@@ -27,245 +22,100 @@ import { InlineResponse20017VariationTariff } from './inline-response20017-varia
  */
 export interface InlineResponse20019 {
     /**
-     * GUID коробки.
+     * GUID платежа
      * @type {string}
      * @memberof InlineResponse20019
      */
     _id?: string;
     /**
-     * Номер коробки.
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    humanFriendlyId?: number;
-    /**
-     * ККоличества в коробке.
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    amount?: number;
-    /**
-     * Total Amount
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    totalAmount?: number;
-    /**
-     * Total Price
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    totalPrice?: number;
-    /**
-     * Final weight
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    finalWeight?: number;
-    /**
-     * Статус коробки
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    status?: string;
-    /**
-     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
-     * @type {boolean}
-     * @memberof InlineResponse20019
-     */
-    isActual?: boolean;
-    /**
-     * Если true - значит коробку черновик.
-     * @type {boolean}
-     * @memberof InlineResponse20019
-     */
-    isDraft?: boolean;
-    /**
-     * Сформирована ли коробка
-     * @type {boolean}
-     * @memberof InlineResponse20019
-     */
-    isFormed?: boolean;
-    /**
-     * Ссылка на наклейку для коробки
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    shippingLabel?: string;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    trackNumberText?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse20019
-     */
-    trackNumberFile?: Array<string>;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    prepId?: string;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    upsTrackNumber?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    referenceId?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    clientComment?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    storekeeperComment?: string;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    widthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    heightCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineResponse20019
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    fbaNumber?: string;
-    /**
-     * Итого за доставку.
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    deliveryTotalPrice?: number;
-    /**
-     * Обновление итога за доставку.
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    deliveryTotalPriceChanged?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20019
-     */
-    images?: Array<string>;
-    /**
-     * Nullable ISO Date
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    deadline?: string;
-    /**
-     * 
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20019
      */
     createdAt?: string;
     /**
      * 
+     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @memberof InlineResponse20019
+     */
+    createdBy?: ApiV1AdminsPaymentsCreatedBy;
+    /**
+     * Роль пользователя на момент инициации платежа.
+     * @type {number}
+     * @memberof InlineResponse20019
+     */
+    role?: number;
+    /**
+     * 
+     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @memberof InlineResponse20019
+     */
+    subUser?: ApiV1AdminsPaymentsCreatedBy;
+    /**
+     * GUID товара или услуги.
      * @type {string}
      * @memberof InlineResponse20019
      */
-    updatedAt?: string;
+    entityId?: string;
+    /**
+     * Тип товара или услуги
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    entityType?: InlineResponse20019EntityTypeEnum;
+    /**
+     * Тип платежа
+     * @type {string}
+     * @memberof InlineResponse20019
+     */
+    paymentType?: InlineResponse20019PaymentTypeEnum;
     /**
      * 
-     * @type {InlineResponse20017VariationTariff}
+     * @type {ApiV1AdminsPaymentsCreatedBy}
      * @memberof InlineResponse20019
      */
-    variationTariff?: InlineResponse20017VariationTariff;
+    recipient?: ApiV1AdminsPaymentsCreatedBy;
     /**
-     * Массив коробок.
-     * @type {Array<ApiV1BoxesClientsLightItems>}
+     * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+     * @type {number}
      * @memberof InlineResponse20019
      */
-    items?: Array<ApiV1BoxesClientsLightItems>;
+    sum?: number;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * комментарий
+     * @type {string}
      * @memberof InlineResponse20019
      */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20019
-     */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20019
-     */
-    client?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20019
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1BoxesClientsLightDestination}
-     * @memberof InlineResponse20019
-     */
-    destination?: ApiV1BoxesClientsLightDestination;
-    /**
-     * 
-     * @type {ApiV1BoxesClientsLightLogicsTariff}
-     * @memberof InlineResponse20019
-     */
-    logicsTariff?: ApiV1BoxesClientsLightLogicsTariff;
-    /**
-     * 
-     * @type {ApiV1BoxesClientsLightBatch}
-     * @memberof InlineResponse20019
-     */
-    batch?: ApiV1BoxesClientsLightBatch;
+    comment?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20019EntityTypeEnum {
+    Product = 'PRODUCT',
+    Order = 'ORDER',
+    Box = 'BOX',
+    Batch = 'BATCH',
+    User = 'USER',
+    RequestCustom = 'REQUEST-CUSTOM',
+    RequestSearchProduct = 'REQUEST-SEARCH_PRODUCT',
+    RequestSearchNiche = 'REQUEST-SEARCH_NICHE',
+    RequestProposalCustom = 'REQUEST-PROPOSAL-CUSTOM',
+    RequestProposalSearchProduct = 'REQUEST-PROPOSAL-SEARCH_PRODUCT',
+    RequestProposalSearchNiche = 'REQUEST-PROPOSAL-SEARCH_NICHE',
+    Other = 'OTHER'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20019PaymentTypeEnum {
+    Replenish = 'REPLENISH',
+    Fine = 'FINE',
+    Zero = 'ZERO'
+}
+
 
 

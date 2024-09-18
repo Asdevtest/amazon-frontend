@@ -13,25 +13,34 @@
  */
 
 
+import { ApiV1RequestProposalsCustomByRequestIdGuidDetails } from './api-v1-request-proposals-custom-by-request-id-guid-details';
+import { ApiV1RequestProposalsCustomByRequestIdGuidProposal } from './api-v1-request-proposals-custom-by-request-id-guid-proposal';
+import { ApiV1RequestProposalsCustomByRequestIdGuidRequest } from './api-v1-request-proposals-custom-by-request-id-guid-request';
 
 /**
- * 
+ * Схема универсального предложения
  * @export
  * @interface InlineResponse200119
  */
 export interface InlineResponse200119 {
     /**
-     * Count of rows
-     * @type {number}
+     * 
+     * @type {ApiV1RequestProposalsCustomByRequestIdGuidProposal}
      * @memberof InlineResponse200119
      */
-    count?: number;
+    proposal?: ApiV1RequestProposalsCustomByRequestIdGuidProposal;
     /**
      * 
-     * @type {Array<object>}
+     * @type {ApiV1RequestProposalsCustomByRequestIdGuidDetails}
      * @memberof InlineResponse200119
      */
-    rows?: Array<object>;
+    details?: ApiV1RequestProposalsCustomByRequestIdGuidDetails;
+    /**
+     * 
+     * @type {ApiV1RequestProposalsCustomByRequestIdGuidRequest}
+     * @memberof InlineResponse200119
+     */
+    request?: ApiV1RequestProposalsCustomByRequestIdGuidRequest;
 }
 
 

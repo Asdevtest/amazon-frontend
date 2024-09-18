@@ -13,6 +13,12 @@
  */
 
 
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1BatchesBatch } from './api-v1-batches-batch';
+import { ApiV1BatchesOrderDestination } from './api-v1-batches-order-destination';
+import { ApiV1BatchesOrderLogicsTariff } from './api-v1-batches-order-logics-tariff';
+import { ApiV1BoxesStorekeepersSentToBatchItems } from './api-v1-boxes-storekeepers-sent-to-batch-items';
+import { ApiV1BoxesStorekeepersSentToBatchVariationTariff } from './api-v1-boxes-storekeepers-sent-to-batch-variation-tariff';
 
 /**
  * 
@@ -21,17 +27,214 @@
  */
 export interface InlineResponse20013 {
     /**
-     * Гуид юзера
+     * GUID коробки.
      * @type {string}
      * @memberof InlineResponse20013
      */
     _id?: string;
     /**
-     * Имя юзера
+     * Номер коробки.
+     * @type {number}
+     * @memberof InlineResponse20013
+     */
+    humanFriendlyId?: number;
+    /**
+     * Количества в коробке.
+     * @type {number}
+     * @memberof InlineResponse20013
+     */
+    amount?: number;
+    /**
+     * Статус коробки
      * @type {string}
      * @memberof InlineResponse20013
      */
-    name?: string;
+    status?: InlineResponse20013StatusEnum;
+    /**
+     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
+     * @type {boolean}
+     * @memberof InlineResponse20013
+     */
+    isActual?: boolean;
+    /**
+     * Если true - значит коробку черновик.
+     * @type {boolean}
+     * @memberof InlineResponse20013
+     */
+    isDraft?: boolean;
+    /**
+     * Сформирована ли коробка
+     * @type {boolean}
+     * @memberof InlineResponse20013
+     */
+    isFormed?: boolean;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20013
+     */
+    lengthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20013
+     */
+    widthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20013
+     */
+    heightCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20013
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Итого за доставку.
+     * @type {number}
+     * @memberof InlineResponse20013
+     */
+    deliveryTotalPrice?: number;
+    /**
+     * Обновление итога за доставку.
+     * @type {number}
+     * @memberof InlineResponse20013
+     */
+    deliveryTotalPriceChanged?: number;
+    /**
+     * id склада - склады куда отправляют 
+     * @type {string}
+     * @memberof InlineResponse20013
+     */
+    destinationId?: string;
+    /**
+     * GUID тарифа доставки 
+     * @type {string}
+     * @memberof InlineResponse20013
+     */
+    logicsTariffId?: string;
+    /**
+     * Сторкипер взявший коробку в работу.
+     * @type {string}
+     * @memberof InlineResponse20013
+     */
+    batchId?: string;
+    /**
+     * Сторкипер взявший коробку в работу.
+     * @type {string}
+     * @memberof InlineResponse20013
+     */
+    storekeeperId?: string;
+    /**
+     * Клиент владелец товара в коробке в работу.
+     * @type {string}
+     * @memberof InlineResponse20013
+     */
+    clientId?: string;
+    /**
+     * Клиент создавший заказ и коробку.
+     * @type {string}
+     * @memberof InlineResponse20013
+     */
+    createdById?: string;
+    /**
+     * GUID любого, кто последний редактировал коробку.
+     * @type {string}
+     * @memberof InlineResponse20013
+     */
+    lastModifiedById?: string;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineResponse20013
+     */
+    prepId?: string;
+    /**
+     * 
+     * @type {ApiV1BoxesStorekeepersSentToBatchVariationTariff}
+     * @memberof InlineResponse20013
+     */
+    variationTariff?: ApiV1BoxesStorekeepersSentToBatchVariationTariff;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20013
+     */
+    createdAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20013
+     */
+    updatedAt?: string;
+    /**
+     * Массив коробок.
+     * @type {Array<ApiV1BoxesStorekeepersSentToBatchItems>}
+     * @memberof InlineResponse20013
+     */
+    items?: Array<ApiV1BoxesStorekeepersSentToBatchItems>;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20013
+     */
+    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20013
+     */
+    client?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20013
+     */
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20013
+     */
+    lastModifiedBy?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1BatchesOrderDestination}
+     * @memberof InlineResponse20013
+     */
+    destination?: ApiV1BatchesOrderDestination;
+    /**
+     * 
+     * @type {ApiV1BatchesOrderLogicsTariff}
+     * @memberof InlineResponse20013
+     */
+    logicsTariff?: ApiV1BatchesOrderLogicsTariff;
+    /**
+     * 
+     * @type {ApiV1BatchesBatch}
+     * @memberof InlineResponse20013
+     */
+    batch?: ApiV1BatchesBatch;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20013StatusEnum {
+    New = 'NEW',
+    InStock = 'IN_STOCK',
+    RequestedSendToBatch = 'REQUESTED_SEND_TO_BATCH',
+    NeedConfirmingToDeliveryPriceChange = 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE',
+    InBatch = 'IN_BATCH',
+    NeedToUpdateTheTariff = 'NEED_TO_UPDATE_THE_TARIFF',
+    InBatchOnTheWay = 'IN_BATCH_ON_THE_WAY',
+    FinishPrepCentrUsa = 'FINISH_PREP_CENTR_USA',
+    AcceptedInProcessing = 'ACCEPTED_IN_PROCESSING'
+}
+
 
 

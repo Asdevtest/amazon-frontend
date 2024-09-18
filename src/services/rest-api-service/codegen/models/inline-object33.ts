@@ -25,55 +25,7 @@ export interface InlineObject33 {
      * @type {string}
      * @memberof InlineObject33
      */
-    clientComment?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject33
-     */
-    storekeeperComment?: string;
-    /**
-     * Storage in boxes
-     * @type {string}
-     * @memberof InlineObject33
-     */
-    storage?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineObject33
-     */
-    referenceId?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject33
-     */
-    fbaNumber?: string;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineObject33
-     */
-    upsTrackNumber?: string;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineObject33
-     */
-    trackNumberText?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject33
-     */
-    trackNumberFile?: Array<string>;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineObject33
-     */
-    prepId?: string;
+    title: string;
 }
 
 

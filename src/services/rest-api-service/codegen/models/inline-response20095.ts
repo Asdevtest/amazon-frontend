@@ -13,25 +13,165 @@
  */
 
 
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
 
 /**
- * Успешный ответ.
+ * Схема получение лайт версии продажи магазина
  * @export
  * @interface InlineResponse20095
  */
 export interface InlineResponse20095 {
     /**
-     * Флаг, показывает есть ли такой ASIN в базе или нет
-     * @type {boolean}
-     * @memberof InlineResponse20095
-     */
-    isExist?: boolean;
-    /**
-     * Причина из таблицы с асинами
+     * GUID магазина на продажу.
      * @type {string}
      * @memberof InlineResponse20095
      */
-    reason?: string;
+    _id?: string;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20095
+     */
+    owner?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * GUID покупателя магазина
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    bidderId?: string;
+    /**
+     * GUID модератора магазина
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    moderatorId?: string;
+    /**
+     * GUID чата
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    chatId?: string;
+    /**
+     * Имя магазина для продажи
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    title?: string;
+    /**
+     * Статус магазина для продажи
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    status?: string;
+    /**
+     * Файлы, которые привязаны к магазину
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    files?: Array<string>;
+    /**
+     * Стоимость магазина
+     * @type {number}
+     * @memberof InlineResponse20095
+     */
+    price?: number;
+    /**
+     * Ежемесячная прибыль
+     * @type {number}
+     * @memberof InlineResponse20095
+     */
+    monthlyProfit?: number;
+    /**
+     * Ежемесячная чистая прибыль
+     * @type {number}
+     * @memberof InlineResponse20095
+     */
+    monthlyPureProfit?: number;
+    /**
+     * Ежемесячный множитель
+     * @type {number}
+     * @memberof InlineResponse20095
+     */
+    monthlyMultiplier?: number;
+    /**
+     * Статистика магазина по месяцам
+     * @type {Array<ApiV1ShopSellStatistics1>}
+     * @memberof InlineResponse20095
+     */
+    statistics?: Array<ApiV1ShopSellStatistics1>;
+    /**
+     * Дата создания бизнеса
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    businessStartDate?: string;
+    /**
+     * Детали магазина
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    shopDetails?: string;
+    /**
+     * Ссылка магазина
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    shopLink?: string;
+    /**
+     * Массив активов
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    shopAssets?: Array<string>;
+    /**
+     * Массив возможностей
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    opportunities?: Array<string>;
+    /**
+     * Массив рисков
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    risks?: Array<string>;
+    /**
+     * Массив требуемых навыков
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    requiredSkills?: Array<string>;
+    /**
+     * Поддержка продавца включает
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    sellIncludes?: Array<string>;
+    /**
+     * Причины продажи
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    reasonForSale?: Array<string>;
+    /**
+     * Дополнительная информация
+     * @type {Array<string>}
+     * @memberof InlineResponse20095
+     */
+    additionalInfo?: Array<string>;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    updatedAt?: string;
 }
 
 

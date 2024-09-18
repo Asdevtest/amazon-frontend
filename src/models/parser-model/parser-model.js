@@ -6,6 +6,14 @@ class ParserModelStatic {
     return response.data
   }
 
+  getProfilesForRequest = async body => {
+    const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesForRequestGuidGet({
+      ...body,
+      noCache: true,
+    })
+    return response.data
+  }
+
   createProfile = async body => {
     const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesPost({ body })
     return response.data
