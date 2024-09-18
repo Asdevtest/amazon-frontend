@@ -10,4 +10,8 @@ export const useStyles = makeStyles()(() => ({
   isDraftRow: {
     opacity: 0.5,
   },
+
+  searchInput: {
+    width: '650px',
+  },
 }))

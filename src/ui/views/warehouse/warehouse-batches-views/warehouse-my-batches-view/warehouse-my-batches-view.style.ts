@@ -7,4 +7,8 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'space-between',
     gap: '20px',
   },
+
+  searchInput: {
+    width: '450px',
+  },
 }))

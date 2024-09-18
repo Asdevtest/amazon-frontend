@@ -10,4 +10,8 @@ export const useStyles = makeStyles()(theme => ({
   successRow: {
     boxShadow: 'inset 0 0 35px rgba(0, 255, 0, .5)',
   },
+
+  searchInput: {
+    width: '450px',
+  },
 }))
