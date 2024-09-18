@@ -1350,6 +1350,7 @@
   "Data of product boxes in transfer": "Дані про коробки товарів In transfer",
   "Total final weight": "Загальна остаточна вага",
   "Client notification time before Deadline of the pending order": "Час сповіщення клієнта до дедлайну очікуючого замовлення",
+  "Minimum order amount, $": "Мінімальна сума замовлення, $",
   "Value multiple of": "Значення кратне",
   "Notice": "Повідомлення",
   "The redemption deadline expires": "Термін викупу закінчується",
@@ -2045,5 +2046,6 @@
   "Error deleting parsing profile": "Помилка при видаленні профілю парсингу",
   "Are you sure you want to delete profile?": "Ви впевнені, що хочете видалити профіль?",
   "qty": "кільк.",
-  "Month value": "Місячна вартість"
+  "Month value": "Місячна вартість",
+  "Rename": "Перейменувати"
 }

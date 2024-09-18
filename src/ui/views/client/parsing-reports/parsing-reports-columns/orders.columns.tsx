@@ -36,6 +36,16 @@ export const ordersColumns = () => {
     },
 
     {
+      field: 'date',
+      headerName: t(TranslationKey.Date),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
       field: 'amzOrderId',
       headerName: 'Amz order id',
       renderHeader: () => <MultilineTextHeaderCell text="Amz order id" />,

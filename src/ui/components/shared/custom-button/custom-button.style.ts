@@ -7,6 +7,11 @@ export const useStyles = makeStyles()(() => ({
 
   button: {
     borderRadius: '16px', // delete when completely switching to antd
+
+    span: {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
   },
 
   dropdown: {

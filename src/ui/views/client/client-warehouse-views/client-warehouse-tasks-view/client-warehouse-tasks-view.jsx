@@ -115,6 +115,7 @@ export const ClientWarehouseTasksView = observer(() => {
               handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
               handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
               onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+              onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
             },
           },
 
@@ -133,6 +134,7 @@ export const ClientWarehouseTasksView = observer(() => {
             handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
             handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
             onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+            onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
           },
         }}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

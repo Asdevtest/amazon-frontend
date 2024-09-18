@@ -74,6 +74,7 @@ export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(
           enterButton
           allowClear
           size="large"
+          wrapperClassName={styles.searchInput}
           placeholder="Search by ASIN, Title, Batch ID, Order ID"
           onSearch={viewModel.onSearchSubmit}
         />
@@ -132,6 +133,7 @@ export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(
               handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
               handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
               onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+              onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
             },
           },
         }}

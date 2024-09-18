@@ -16,6 +16,7 @@ export const observerConfig = {
   defaultSortModel: observable,
   defaultColumnsModel: observable,
   showPresetsSelect: observable,
+  defaultColumnVisibilityModel: observable,
 
   filteredData: computed,
   isSomeFilterOn: computed,
@@ -45,4 +46,5 @@ export const observerConfig = {
   onChangeShowPresetsSelect: action.bound,
   onClickAddQuickAccess: action.bound,
   setDefaultPinnedColumns: action.bound,
+  onClickSaveRenamedPreset: action.bound,
 }
