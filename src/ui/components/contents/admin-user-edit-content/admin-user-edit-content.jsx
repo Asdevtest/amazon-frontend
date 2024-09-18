@@ -13,6 +13,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
 import { Button } from '@components/shared/button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -608,7 +609,7 @@ export const AdminUserEditContent = observer(
               </p>
             )}
             <div className={styles.checkboxWrapper}>
-              <Checkbox
+              <CustomCheckbox
                 color="primary"
                 disabled={
                   editUserFormFields?.masterUser || Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]

@@ -14,6 +14,7 @@ export const useStyles = makeStyles()(theme => ({
     marginLeft: '-12px',
     marginTop: '-12px',
     marginBottom: '8px',
+    gap: '5px',
   },
   checkboxLabel: {
     fontWeight: 600,
