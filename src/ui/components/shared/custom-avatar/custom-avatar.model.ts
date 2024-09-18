@@ -1,4 +1,5 @@
 import { UploadFile } from 'antd'
+import { RcFile, UploadFileStatus } from 'antd/es/upload/interface'
 import { makeAutoObservable } from 'mobx'
 import { toast } from 'react-toastify'
 import { v4 as uuid } from 'uuid'
@@ -53,13 +54,21 @@ export class CustomAvatarModel {
     this.setPreviewOpen(true)
   }
 
-  onRemoveImage = () => {
-    this.fileList = []
-    this.previewImage = ''
-    this.loading = false
+  onFileChange = (event: React.ChangeEvent<HTMLInputElement>, onSubmit?: (imageData: UploadFileType) => void) => {
+    const files = event.target.files
+    if (files && files.length > 0) {
+      const fileList = Array.from(files).map(file => ({
+        uid: uuid(),
+        name: file.name,
+        status: 'done' as UploadFileStatus,
+        url: URL.createObjectURL(file),
+        originFileObj: file as RcFile,
+      }))
+      this.onUploadImage(fileList, onSubmit)
+    }
   }
 
-  onChangeImage = async (newFileList: UploadFile[], onSubmit?: (imageData: UploadFileType) => void) => {
+  onUploadImage = async (newFileList: UploadFile[], onSubmit?: (imageData: UploadFileType) => void) => {
     const lastFile = newFileList.slice(-1)[0]
     if (!lastFile) return
 

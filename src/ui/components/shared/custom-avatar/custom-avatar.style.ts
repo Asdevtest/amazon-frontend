@@ -9,6 +9,10 @@ export const useStyles = makeStyles()(() => ({
       width: '100% !important',
       height: '100% !important',
     },
+    '& .ant-upload-list-item-actions': {
+      display: 'flex',
+      justifyContent: 'center',
+    },
   },
 
   buttonWrapper: {
@@ -21,5 +25,12 @@ export const useStyles = makeStyles()(() => ({
   buttonText: {
     fontSize: '16px',
     marginTop: '10px',
+  },
+  changeIcon: {
+    color: 'white',
+    height: '18px',
+    '&:hover': {
+      opacity: 0.7,
+    },
   },
 }))
