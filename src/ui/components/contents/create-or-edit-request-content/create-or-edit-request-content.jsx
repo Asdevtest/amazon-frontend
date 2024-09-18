@@ -640,7 +640,6 @@ export const CreateOrEditRequestContent = memo(props => {
                   placeholder={t(TranslationKey['Task description'])}
                   maxLength={MAX_COMMENT_LEGTH}
                   value={formFields.details.conditions}
-                  editorClassName={styles.editor}
                   editorWrapperClassName={styles.editorWrapper}
                   onChange={onChangeField('details')('conditions')}
                 />
@@ -1110,25 +1109,6 @@ export const CreateOrEditRequestContent = memo(props => {
               </div>
             </div>
           )}
-        </div>
-
-        <div className={styles.buttonsWrapper}>
-          <div className={styles.buttons} />
-          <div className={styles.steps}>
-            <div className={styles.stepPagination}>
-              <div className={styles.stepPaginationStartBar}></div>
-              <div className={styles.stepPaginationBar}>
-                <div className={styles.step} style={{ width: isFirstStep ? '50%' : '100%' }}></div>
-              </div>
-              <div
-                className={styles.stepPaginationEndBar}
-                style={{ backgroundColor: isSecondStep ? '#00B746' : '#c4c4c4' }}
-              ></div>
-            </div>
-            <p className={styles.stepTitle}>
-              {isFirstStep ? `${t(TranslationKey.Step)} 1` : `${t(TranslationKey.Step)} 2`}
-            </p>
-          </div>
 
           <div className={styles.buttons}>
             <Button
@@ -1190,6 +1170,24 @@ export const CreateOrEditRequestContent = memo(props => {
                 ) : null}
               </>
             )}
+          </div>
+        </div>
+
+        <div className={styles.buttonsWrapper}>
+          <div className={styles.steps}>
+            <div className={styles.stepPagination}>
+              <div className={styles.stepPaginationStartBar}></div>
+              <div className={styles.stepPaginationBar}>
+                <div className={styles.step} style={{ width: isFirstStep ? '50%' : '100%' }}></div>
+              </div>
+              <div
+                className={styles.stepPaginationEndBar}
+                style={{ backgroundColor: isSecondStep ? '#00B746' : '#c4c4c4' }}
+              ></div>
+            </div>
+            <p className={styles.stepTitle}>
+              {isFirstStep ? `${t(TranslationKey.Step)} 1` : `${t(TranslationKey.Step)} 2`}
+            </p>
           </div>
         </div>
       </div>
