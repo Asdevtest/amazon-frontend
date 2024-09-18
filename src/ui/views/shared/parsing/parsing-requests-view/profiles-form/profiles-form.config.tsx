@@ -19,6 +19,12 @@ export const requestOptions = {
 
 export const searchFields = ['name', 'email']
 
+export const defaultFilterParams = {
+  status: {
+    $eq: 'VACANT',
+  },
+}
+
 export const getProfilesOptions = (profiles: IPermissionsData[]) =>
   profiles.map(profile => ({
     label: (

@@ -5,4 +5,8 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
+
+  searchInput: {
+    width: '450px',
+  },
 }))

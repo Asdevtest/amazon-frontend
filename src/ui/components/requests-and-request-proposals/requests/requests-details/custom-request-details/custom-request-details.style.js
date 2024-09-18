@@ -32,8 +32,4 @@ export const useStyles = makeStyles()(theme => ({
   editorWrapper: {
     marginTop: 0,
   },
-
-  textEditor: {
-    height: 158,
-  },
 }))

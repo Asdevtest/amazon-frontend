@@ -29,8 +29,8 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
       tableKey: ParsingReportsType.BUSINESS_REPORTS,
       defaultGetCurrentDataOptions,
       defaultSortModel: sortModel,
+      defaultColumnVisibilityModel: { client: false },
     })
-
     makeObservable(this, observerConfig)
 
     this.getTableSettingsPreset()
