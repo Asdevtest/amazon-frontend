@@ -4,6 +4,6 @@ export const useStyles = makeStyles()(() => ({
   wrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
-    gap: 40,
+    gap: 20,
   },
 }))
