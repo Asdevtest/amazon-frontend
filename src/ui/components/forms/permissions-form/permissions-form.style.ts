@@ -2,7 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    height: '700px',
     width: '880px',
     display: 'flex',
     flexDirection: 'column',
@@ -11,8 +10,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   content: {
+    height: '580px',
     padding: '10px',
-    flex: 1,
     background: theme.palette.background.general,
     borderRadius: '16px',
   },

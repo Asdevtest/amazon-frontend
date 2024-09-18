@@ -34,14 +34,16 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
 
   return (
     <div className={styles.root}>
-      <CustomRadioButton
-        disabled={viewModel.mainLoading}
-        size="large"
-        buttonStyle="solid"
-        value={viewModel.permissionTab}
-        options={createPermissionOptions(viewModel.userInfo?.role)}
-        onChange={viewModel.onChangePermissionTab}
-      />
+      {!viewModel.showSpecsCascader ? (
+        <CustomRadioButton
+          disabled={viewModel.mainLoading}
+          size="large"
+          buttonStyle="solid"
+          value={viewModel.permissionTab}
+          options={createPermissionOptions()}
+          onChange={viewModel.onChangePermissionTab}
+        />
+      ) : null}
 
       <div className={styles.content}>
         {viewModel.mainLoading ? (
@@ -50,12 +52,11 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           <Cascader
             open
             multiple
-            allowClear
             size="large"
-            maxTagCount={0}
+            maxTagCount="responsive"
             disabled={viewModel.mainLoading}
             placeholder="Search by Title"
-            showSearch={{ filter }}
+            showSearch={{ filter, matchInputWidth: false }}
             options={viewModel.permissionsOptions}
             rootClassName={styles.cascader}
             popupClassName={styles.cascaderPopup}
@@ -74,9 +75,8 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           <Cascader
             open
             multiple
-            allowClear
             size="large"
-            maxTagCount={0}
+            maxTagCount="responsive"
             disabled={viewModel.mainLoading}
             placeholder="Search by Title"
             showSearch={{ filter }}

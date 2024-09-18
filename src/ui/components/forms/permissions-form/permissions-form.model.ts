@@ -15,6 +15,9 @@ import { IPermission } from '@typings/models/permissions/permission'
 import { IPermissionGroup } from '@typings/models/permissions/permission-group'
 import { IPermissions } from '@typings/models/permissions/permissions'
 import { IProduct } from '@typings/models/products/product'
+import { IProducts } from '@typings/models/products/products'
+import { IShop } from '@typings/models/shops/shop'
+import { IShops } from '@typings/models/shops/shops'
 import { IFullUser } from '@typings/shared/full-user'
 import { ISpec } from '@typings/shared/spec'
 
@@ -29,8 +32,8 @@ export class PermissionsFormModel {
   productsLoading = false
   specs: ISpec[] = []
   selectedSpecs: Specs[] = []
-  shops: any[] = []
-  products: any[] = []
+  shops: IShop[] = []
+  products: IProduct[] = []
   allProductsCount = 0
   selectedProductsCount = 0
   currentPermissionOptions: string[][] = []
@@ -78,7 +81,7 @@ export class PermissionsFormModel {
     const mainOptions = this.shops.map(item => ({
       label: item.name,
       value: item._id,
-      children: item.products.map((el: any) => ({
+      children: item.products?.map((el: any) => ({
         label: el.amazonTitle,
         value: el._id,
         selected: el.selected,
@@ -87,7 +90,7 @@ export class PermissionsFormModel {
     const extraOption =
       this.products.length > 0
         ? {
-            label: `Без группы (${this.selectedProductsCount}/${this.allProductsCount})`, // t(TranslationKey['Without the group']),
+            label: `Без группы`, // (${this.selectedProductsCount}/${this.allProductsCount}),
             value: 'WITHOUT_GROUP',
             children: this.products.map(el => ({
               label: el.amazonTitle,
@@ -115,12 +118,29 @@ export class PermissionsFormModel {
 
     return { permissions, permissionGroups }
   }
+  get editingProducts() {
+    const shopIds: string[] = []
+    const productIds: string[] = []
+
+    this.currentProductOptions.forEach(el => {
+      const [shopId, productId] = el
+
+      if (productId) {
+        productIds.push(productId)
+      } else if (shopId === 'WITHOUT_GROUP') {
+        this.products.forEach(product => productIds.push(product._id))
+      } else {
+        shopIds.push(shopId)
+      }
+    })
+
+    return { shopIds, productIds }
+  }
 
   constructor({ subUser, onCloseModal, onUpdateData }: PermissionsFormProps) {
     this.subUser = subUser
     this.onCloseModal = onCloseModal
     this.onUpdateData = onUpdateData
-
     this.loadData()
     this.initSelectedSpecs()
 
@@ -144,9 +164,7 @@ export class PermissionsFormModel {
   }
 
   initSelectedSpecs() {
-    this.userInfo?.allowedSpec?.forEach(spec => {
-      this.selectedSpecs.push(spec.type)
-    })
+    this.userInfo?.allowedSpec?.forEach(spec => this.selectedSpecs.push(spec.type))
   }
 
   async getProduts() {
@@ -154,8 +172,10 @@ export class PermissionsFormModel {
       return
     }
 
-    const responseProducts: any = await PermissionsModel.getProductsPermissionsForUserByIdV2(this.subUser?._id)
-    const responseShops: any = await PermissionsModel.getPermissionsShopsByGuidV2(this.subUser?._id)
+    const responseProducts = (await PermissionsModel.getProductsPermissionsForUserByIdV2(
+      this.subUser?._id,
+    )) as unknown as IProducts
+    const responseShops = (await PermissionsModel.getPermissionsShopsByGuidV2(this.subUser?._id)) as unknown as IShops
 
     runInAction(() => {
       this.products = responseProducts?.rows
@@ -252,14 +272,14 @@ export class PermissionsFormModel {
       if (!this.showSpecsCascader) {
         await PermissionsModel.setProductsPermissionsForUser({
           userId: this.subUser?._id,
-          productIds: [],
+          productIds: this.editingProducts.productIds,
         })
       }
 
       if (isClient(this.userInfo?.role)) {
         await PermissionsModel.patchPermissionsShops({
           userId: this.subUser?._id,
-          shopIds: [],
+          shopIds: this.editingProducts.shopIds,
         })
       }
 

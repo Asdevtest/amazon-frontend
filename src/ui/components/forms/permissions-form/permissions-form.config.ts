@@ -7,12 +7,10 @@ export enum PermissionsTab {
   ACCESS_TO_PRODUCTS = 'ACCESS_TO_PRODUCTS',
 }
 
-export const createPermissionOptions = (userRole: number) => [
-  { label: t(TranslationKey['Assign permissions']), value: PermissionsTab.ASSIGN_PERMISSIONS, disabled: true },
-
+export const createPermissionOptions = () => [
+  { label: t(TranslationKey['Assign permissions']), value: PermissionsTab.ASSIGN_PERMISSIONS },
   {
     label: t(TranslationKey['Access to products']),
     value: PermissionsTab.ACCESS_TO_PRODUCTS,
-    disabled: true,
   },
 ]
