@@ -1,12 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable, runInAction } from 'mobx'
 
-import {
-  GridColumnVisibilityModel,
-  GridFilterModel,
-  GridPaginationModel,
-  GridSortModel,
-} from '@mui/x-data-grid-premium'
+import { GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid-premium'
 
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { GeneralModel } from '@models/general-model'
@@ -45,6 +40,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     operatorsSettings,
     defaultFilterParams,
     defaultSortModel,
+    defaultColumnVisibilityModel,
   }: DataGridFilterTableModelParams) {
     super({
       getMainDataMethod,
@@ -53,6 +49,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       defaultGetCurrentDataOptions,
       fieldsForSearch,
       defaultSortModel,
+      defaultColumnVisibilityModel,
     })
 
     this.setColumnMenuSettings(filtersFields, additionalPropertiesColumnMenuSettings)
@@ -181,12 +178,6 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       ...this.columnMenuSettings,
       filterRequestStatus: requestStatus,
     }
-  }
-
-  onColumnVisibilityModelChange(model: GridColumnVisibilityModel) {
-    this.columnVisibilityModel = model
-    this.getCurrentData()
-    this.setDataGridState()
   }
 
   onChangeSortingModel(sortModel: GridSortModel) {

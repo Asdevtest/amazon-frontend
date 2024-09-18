@@ -66,6 +66,7 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
     lineHeight: '19px',
     fontWeight: 600,
+    maxWidth: '250px',
   },
 
   countWrapper: {
@@ -127,10 +128,5 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       display: 'block',
     },
-  },
-
-  copyValueWrapper: {
-    display: 'flex',
-    gap: '10px',
   },
 }))

@@ -6,7 +6,7 @@ import { ParserModel } from '@models/parser-model'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
-import { profilesFormConfig, requestOptions, searchFields } from './profiles-form.config'
+import { defaultFilterParams, profilesFormConfig, requestOptions, searchFields } from './profiles-form.config'
 
 export class ProfilesFormModel extends UseProductsPermissions {
   value = ''
@@ -16,7 +16,7 @@ export class ProfilesFormModel extends UseProductsPermissions {
   }
 
   constructor(profileId?: string) {
-    super(ParserModel.getProfiles, requestOptions, searchFields)
+    super(ParserModel.getProfiles, requestOptions, searchFields, defaultFilterParams)
 
     this.value = profileId || ''
     this.permissionsData = []

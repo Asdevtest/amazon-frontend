@@ -1,3 +1,4 @@
+import { RadioChangeEvent } from 'antd'
 import isEqual from 'lodash.isequal'
 import { makeObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
@@ -17,12 +18,10 @@ import { onSubmitPostImages } from '@utils/upload-files'
 import { IBox } from '@typings/models/boxes/box'
 import { IFullUser } from '@typings/shared/full-user'
 
-import { BoxTabs } from './box-modal.constants'
-import { observerConfig } from './observer-config'
+import { BoxTabs, observerConfig } from './box-modal.config'
 
 export class BoxModalModel extends DefaultModel {
   showEditHSCodeModal = false
-
   activeTab: BoxTabs = BoxTabs.BOX_INFO
 
   onUpdateData?: () => void
@@ -30,23 +29,18 @@ export class BoxModalModel extends DefaultModel {
   get userInfo(): IFullUser {
     return UserModel.userInfo as unknown as IFullUser
   }
-
   get isClient(): boolean {
     return !!this.userInfo && checkIsClient(UserRoleCodeMap[this.userInfo?.role])
   }
-
   get isStorekeeper(): boolean {
     return !!this.userInfo && checkIsStorekeeper(UserRoleCodeMap[this.userInfo?.role])
   }
-
   get isBuyer(): boolean {
     return !!this.userInfo && checkIsBuyer(UserRoleCodeMap[this.userInfo?.role])
   }
-
   get isEdit(): boolean {
     return this.isClient || this.isStorekeeper || this.isBuyer
   }
-
   get disableSaveButton(): boolean {
     return isEqual(this.currentData, {})
   }
@@ -60,7 +54,6 @@ export class BoxModalModel extends DefaultModel {
     makeObservable(this, observerConfig)
 
     this.onUpdateData = onUpdateData
-
     this.getCurrentData()
   }
 
@@ -123,11 +116,11 @@ export class BoxModalModel extends DefaultModel {
     }
   }
 
-  setActiveTab(tab: BoxTabs) {
-    this.activeTab = tab
+  setActiveTab(event: RadioChangeEvent) {
+    this.activeTab = event.target.value
   }
 
-  handleChangeField(fieldName: keyof IBox) {
+  onChangeField(fieldName: keyof IBox) {
     return (event: ChangeEvent<HTMLInputElement>) => {
       if (this.currentData) {
         runInAction(() => {
@@ -137,7 +130,7 @@ export class BoxModalModel extends DefaultModel {
     }
   }
 
-  handleChangeTrackNumberFile(files: string[]) {
+  onChangeTrackNumberFile(files: string[]) {
     if (this.currentData) {
       // @ts-ignore
       this.currentData = { ...this.currentData, trackNumberFile: files }

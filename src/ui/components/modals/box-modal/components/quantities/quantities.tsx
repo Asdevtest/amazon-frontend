@@ -17,7 +17,7 @@ export const Quantities: FC<QuantitiesProps> = memo(({ formFields }) => {
 
   return (
     <div className={styles.wrapper}>
-      {formFields?.amount ? (
+      {formFields?.amount > 1 ? (
         <div className={styles.superBoxContainer}>
           <div className={styles.superBoxIconContainer}>
             <img src="/assets/icons/big-box.svg" className={styles.superBoxIcon} alt="super box" />
