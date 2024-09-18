@@ -19,7 +19,6 @@ export const observerConfig = {
 
   getCurrentData: override,
   isSomeFilterOn: override,
-  onColumnVisibilityModelChange: override,
   onChangeSortingModel: override,
   onChangeFilterModel: override,
   onPaginationModelChange: override,

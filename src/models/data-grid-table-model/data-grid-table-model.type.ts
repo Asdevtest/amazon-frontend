@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { GridSortModel } from '@mui/x-data-grid-premium'
+import { GridColumnVisibilityModel, GridSortModel } from '@mui/x-data-grid-premium'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -11,4 +11,5 @@ export interface DataGridTableModelParams {
   defaultGetCurrentDataOptions?: any
   columnsModelConfig?: any
   defaultSortModel?: GridSortModel
+  defaultColumnVisibilityModel?: GridColumnVisibilityModel
 }

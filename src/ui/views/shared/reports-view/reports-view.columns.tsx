@@ -206,7 +206,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       renderCell: ({ row }) => <Text isCell text={row.description} />,
       flex: 1,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
