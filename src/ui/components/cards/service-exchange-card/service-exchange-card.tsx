@@ -1,16 +1,17 @@
-import { Image } from 'antd'
 import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
+import { CustomImage } from '@components/shared/custom-image'
+import { CustomTag } from '@components/shared/custom-tag'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 
 import { useStyles } from './service-exchange-card.style'
@@ -20,12 +21,13 @@ interface ServiceExchangeCardProps {
   choose?: boolean
   order?: boolean
   pathname?: string
+  variant?: 'list' | 'card'
   onClickButton: (service: IAnnoucement) => void
 }
 
 export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
-  const { service, choose, order, pathname, onClickButton } = props
+  const { service, choose, order, pathname, variant = 'list', onClickButton } = props
 
   const detailDescription = service.spec?.type === 0 ? t(TranslationKey.Universal) : service.spec?.title
   const buttonContent = choose
@@ -33,10 +35,9 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
     : order
     ? t(TranslationKey['To order'])
     : t(TranslationKey.Open)
-  const showDetailDescriptionToolip = detailDescription.length > 25
-  const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
 
-  const isSuccess = choose || order
+  const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
+  const isCard = variant === 'card'
 
   const [isOpenModal, setIsOpenModal] = useState(false)
 
@@ -46,68 +47,46 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
 
   return (
     <>
-      <div className={styles.cardWrapper}>
-        <p className={styles.cardTitle}>{service.title}</p>
+      <div className={cx(styles.wrapper, { [styles.cardWrapper]: isCard })} onClick={handleToggleModal}>
+        <div className={cx(styles.serviceWrapper, { [styles.serviceListWrapper]: !isCard })}>
+          <CustomImage
+            width={isCard ? '100%' : 250}
+            height={isCard ? 150 : 135}
+            wrapperClassName={styles.image}
+            imageUrl={getAmazonImageUrl(service.linksToMediaFiles[0])}
+          />
 
-        <p className={styles.cardDescription}>{service.description}</p>
-
-        <button className={styles.detailedDescription} onClick={handleToggleModal}>
-          {t(TranslationKey.Details)}
-        </button>
-
-        <Image
-          width="100%"
-          height={150}
-          src={getAmazonImageUrl(service.linksToMediaFiles[0])}
-          className={styles.image}
-        />
-
-        {isNotMyServices ? (
-          <div className={styles.detailsWrapper}>
-            <div className={styles.detailsSubWrapper}>
-              <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-              <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
-                {detailDescription}
-              </p>
-            </div>
-
-            <div className={styles.detailsSubWrapper}>
-              <p className={styles.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
-              <UserLink
-                blackText
-                withAvatar
-                ratingSize="small"
-                name={service.createdBy.name}
-                userId={service.createdBy._id}
-                rating={service.createdBy.rating}
-                customAvatarStyles={{ width: 30, height: 30 }}
-                customStyles={{ fontSize: 14, lineHeight: '17px' }}
-                customRatingClass={{ fontSize: 13, opacity: 1 }}
-              />
-            </div>
+          <div className={styles.serviceInfo}>
+            <CustomTag title={detailDescription} className={styles.serviceType} />
+            <UserLink
+              blackText
+              withAvatar
+              ratingSize="small"
+              name={service.createdBy.name}
+              userId={service.createdBy._id}
+              rating={service.createdBy.rating}
+              customAvatarStyles={{ width: 30, height: 30 }}
+              customStyles={{ fontSize: 14, lineHeight: '17px' }}
+              customRatingClass={{ fontSize: 13, opacity: 1 }}
+            />
           </div>
-        ) : (
-          <div className={cx(styles.detailsWrapper, styles.detailsWrapperAll)}>
-            <div className={styles.detailsSubWrapperAll}>
-              <p className={styles.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</p>
-              <p className={styles.detailDescription}>{service.requests.length}</p>
-            </div>
-            <div className={styles.detailsSubWrapperAll}>
-              <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-              <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
-                {detailDescription}
-              </p>
-            </div>
-          </div>
-        )}
+        </div>
 
-        <div className={styles.buttonWrapper}>
-          <Button
-            styleType={isSuccess ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
-            onClick={() => onClickButton(service)}
-          >
+        <div className={styles.descriptionWrapper} onClick={handleToggleModal}>
+          <Text className={styles.cardTitle} textRows={2} copyable={false} text={service.title} />
+
+          <Text className={styles.cardDescription} copyable={false} text={service.description} />
+
+          {!isNotMyServices ? (
+            <p className={styles.detailsText}>
+              <span className={styles.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</span>
+              <span className={styles.detailDescription}>{service.requests.length}</span>
+            </p>
+          ) : null}
+
+          <CustomButton type="primary" wrapperClassName={styles.actionButton} onClick={() => onClickButton(service)}>
             {buttonContent}
-          </Button>
+          </CustomButton>
         </div>
       </div>
 

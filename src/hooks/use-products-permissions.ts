@@ -25,6 +25,7 @@ export interface IPermissionsData {
   humanFriendlyId?: string
   name?: string
   allowedSpec?: ISpec[]
+  email?: string
 }
 
 /*
@@ -46,13 +47,17 @@ export class UseProductsPermissions {
     filters: '',
   }
   searchFields?: string[]
-
+  defaultFilterParams?: Record<string, unknown>
   permissionsData: IPermissionsData[] = []
-
   isCanLoadMore = true
   requestStatus = loadingStatus.SUCCESS
 
-  constructor(callback: ICallback, options?: IOptions, searchFields?: string[]) {
+  constructor(
+    callback: ICallback,
+    options?: IOptions,
+    searchFields?: string[],
+    defaultFilterParams?: Record<string, unknown>,
+  ) {
     makeObservable(this, {
       callback: observable,
       options: observable,
@@ -74,6 +79,7 @@ export class UseProductsPermissions {
     this.callback = callback
     this.searchFields = searchFields
     this.setOptions(options)
+    this.defaultFilterParams = defaultFilterParams
   }
 
   get currentPermissionsData() {
@@ -146,7 +152,16 @@ export class UseProductsPermissions {
       this.setOptions({
         offset: 0,
         filters: objectToUrlQs(
-          dataGridFiltersConverter({}, searchValue, '', [], this.searchFields || ['skuByClient', 'asin']),
+          dataGridFiltersConverter(
+            {},
+            searchValue,
+            '',
+            [],
+            this.searchFields || ['skuByClient', 'asin'],
+            {},
+            {},
+            this.defaultFilterParams || {},
+          ),
         ),
       })
 

@@ -1346,6 +1346,7 @@
   "Data of product boxes in transfer": "产品盒子转运数据",
   "Total final weight": "总最终重量",
   "Client notification time before Deadline of the pending order": "待处理订单截止日期前的客户通知时间",
+  "Minimum order amount, $": "最低订单金额，$",
   "Value multiple of": "倍数值",
   "Notice": "通知",
   "The redemption deadline expires": "赎回截止日期到期",
@@ -2049,5 +2050,6 @@
   "Enter chat name": "请输入聊天名称",
   "Chat already exists": "聊天已存在",
   "Month value": "月份值",
-  "Chat info": "聊天信息"
+  "Chat info": "聊天信息",
+  "Rename": "重命名"
 }

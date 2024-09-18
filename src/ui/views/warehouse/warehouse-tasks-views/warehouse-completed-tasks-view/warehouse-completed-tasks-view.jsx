@@ -62,6 +62,7 @@ export const WarehouseCompletedTasksView = observer(({ history }) => {
           enterButton
           allowClear
           size="large"
+          wrapperClassName={styles.searchInput}
           placeholder="Search by ASIN, Order ID, Item, Track number"
           onSearch={viewModel.onSearchSubmit}
         />

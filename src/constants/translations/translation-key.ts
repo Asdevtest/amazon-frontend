@@ -1351,6 +1351,7 @@ export enum TranslationKey {
   'Data of product boxes in transfer' = 'Data of product boxes in transfer',
   'Total final weight' = 'Total final weight',
   'Client notification time before Deadline of the pending order' = 'Client notification time before Deadline of the pending order',
+  'Minimum order amount, $' = 'Minimum order amount, $',
   'Value multiple of' = 'Value multiple of',
   'Notice' = 'Notice',
   'The redemption deadline expires' = 'The redemption deadline expires',
@@ -2057,4 +2058,5 @@ export enum TranslationKey {
   'Chat already exists' = 'Chat already exists',
   'Month value' = 'Month value',
   'Chat info' = 'Chat info',
+  'Rename' = 'Rename',
 }

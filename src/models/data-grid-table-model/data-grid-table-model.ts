@@ -30,6 +30,7 @@ export class DataGridTableModel extends DefaultModel {
   paginationModel: GridPaginationModel = paginationModelInitialValue
   filterModel: GridFilterModel = filterModelInitialValue
   columnVisibilityModel: GridColumnVisibilityModel = {}
+  defaultColumnVisibilityModel?: GridColumnVisibilityModel
 
   selectedRows: string[] = []
   tableKey: string = ''
@@ -63,6 +64,7 @@ export class DataGridTableModel extends DefaultModel {
     defaultGetCurrentDataOptions,
     fieldsForSearch,
     defaultSortModel,
+    defaultColumnVisibilityModel,
   }: DataGridTableModelParams) {
     super({ getMainDataMethod, defaultGetCurrentDataOptions })
 
@@ -76,6 +78,8 @@ export class DataGridTableModel extends DefaultModel {
 
     this.columnsModel = columnsModel
     this.defaultColumnsModel = columnsModel
+
+    this.defaultColumnVisibilityModel = defaultColumnVisibilityModel
 
     if (tableKey) {
       this.tableKey = tableKey
@@ -170,8 +174,6 @@ export class DataGridTableModel extends DefaultModel {
     } else {
       this.handleUnsetAllPresets()
     }
-
-    // this.onChangeShowPresetsSelect(false)
   }
 
   async handleCreateTableSettingsPreset(title: string, colomns: IGridColumn[]) {
@@ -296,7 +298,7 @@ export class DataGridTableModel extends DefaultModel {
         this.columnsModel = savedColumns
         this.sortModel = this.defaultSortModel
         this.paginationModel = paginationModelInitialValue
-        this.columnVisibilityModel = {}
+        this.columnVisibilityModel = this.defaultColumnVisibilityModel || {}
       })
     }
 
@@ -385,6 +387,26 @@ export class DataGridTableModel extends DefaultModel {
           return preset
         })
       })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onClickSaveRenamedPreset(selectedPreset: ITablePreset, newTitle: string) {
+    try {
+      await UserModel.patchPresetSettings(selectedPreset?._id, { title: newTitle })
+
+      runInAction(() => {
+        this.presetsTableData = this.presetsTableData.map(preset => {
+          if (preset._id === selectedPreset?._id) {
+            preset.title = newTitle
+          }
+
+          return preset
+        })
+      })
+
+      toast.success(t(TranslationKey['Preset updated']))
     } catch (error) {
       console.error(error)
     }
