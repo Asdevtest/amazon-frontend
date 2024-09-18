@@ -29,7 +29,13 @@ import {
   getProductColumnMenuValue,
 } from '@config/data-grid-column-menu/product-column'
 
-import { accessToProductColumnMenuConfig, shopColumnMenuConfig, shopFields } from '../columns-menu.config'
+import {
+  accessToProductColumnMenuConfig,
+  createdByColumnMenuConfig,
+  createdByFields,
+  shopColumnMenuConfig,
+  shopFields,
+} from '../columns-menu.config'
 
 export const clientClosedIdeasColumns = rowHandlers => {
   const columns = [
@@ -206,35 +212,13 @@ export const clientClosedIdeasColumns = rowHandlers => {
         />
       ),
 
-      fields: [
-        {
-          label: 'Master user',
-          value: 0,
-        },
-        {
-          label: 'Sub user',
-          value: 1,
-        },
-      ],
-
-      columnMenuConfig: [
-        {
-          field: 'createdBy',
-          table: DataGridFilterTables.IDEAS,
-          columnKey: ColumnMenuKeys.OBJECT,
-        },
-
-        {
-          field: 'sub',
-          table: DataGridFilterTables.IDEAS,
-          columnKey: ColumnMenuKeys.OBJECT,
-        },
-      ],
+      fields: createdByFields,
+      columnMenuConfig: createdByColumnMenuConfig,
+      columnKey: columnnsKeys.shared.MULTIPLE,
 
       width: 130,
       filterable: false,
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {

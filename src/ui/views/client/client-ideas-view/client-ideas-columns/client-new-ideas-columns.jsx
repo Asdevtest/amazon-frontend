@@ -23,7 +23,13 @@ import {
   getProductColumnMenuValue,
 } from '@config/data-grid-column-menu/product-column'
 
-import { accessToProductColumnMenuConfig, shopColumnMenuConfig, shopFields } from '../columns-menu.config'
+import {
+  accessToProductColumnMenuConfig,
+  createdByColumnMenuConfig,
+  createdByFields,
+  shopColumnMenuConfig,
+  shopFields,
+} from '../columns-menu.config'
 
 export const clientNewIdeasColumns = rowHandlers => {
   const columns = [
@@ -166,7 +172,9 @@ export const clientNewIdeasColumns = rowHandlers => {
 
       filterable: false,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+      fields: createdByFields,
+      columnMenuConfig: createdByColumnMenuConfig,
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {

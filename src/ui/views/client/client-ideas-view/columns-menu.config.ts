@@ -38,3 +38,30 @@ export const accessToProductColumnMenuConfig = [
     columnKey: ColumnMenuKeys.OBJECT,
   },
 ]
+
+export const createdByFields = [
+  {
+    label: 'Master user',
+    value: 0,
+  },
+  {
+    label: 'Sub user',
+    value: 1,
+  },
+]
+
+export const createdByColumnMenuConfig = [
+  {
+    field: 'createdBy',
+    table: DataGridFilterTables.IDEAS,
+    columnKey: ColumnMenuKeys.OBJECT,
+    sortOptions: 'asc',
+  },
+
+  {
+    field: 'sub',
+    table: DataGridFilterTables.IDEAS,
+    columnKey: ColumnMenuKeys.OBJECT,
+    sortOptions: 'asc',
+  },
+]

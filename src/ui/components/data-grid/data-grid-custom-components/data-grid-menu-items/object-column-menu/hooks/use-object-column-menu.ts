@@ -7,13 +7,15 @@ import { IFilter } from '@utils/data-grid-filters'
 import { t } from '@utils/translations'
 
 import { HookParams } from '../../column-menu.type'
+import { getItemKey } from '../helpers/get-item-key'
 
-interface ObjectItemColumnMenu {
+export interface ObjectItemColumnMenu {
   _id: string | null
 }
 
 interface useObjectColumnMenuParams<T> extends HookParams<T> {
   hideEmptyObject?: boolean
+  sortOptions?: string
 }
 
 export const useObjectColumnMenu = <T extends ObjectItemColumnMenu>({
@@ -22,6 +24,7 @@ export const useObjectColumnMenu = <T extends ObjectItemColumnMenu>({
   filtersData,
   onClickFilterBtn,
   hideEmptyObject,
+  sortOptions,
 }: useObjectColumnMenuParams<T>) => {
   const [chosenItems, setChosenItems] = useState<T[]>([])
 
@@ -40,23 +43,29 @@ export const useObjectColumnMenu = <T extends ObjectItemColumnMenu>({
   }, [filtersData])
 
   const dataforRender: T[] = useMemo(() => {
-    return filterData?.filter(item => {
+    const filteredData = filterData?.filter(item => {
       if (!nameSearchValue) {
         return true
       }
 
-      let itemProperty
+      const itemProperty = getItemKey(item)
 
-      if ('name' in item) {
-        itemProperty = 'name'
-      } else {
-        itemProperty = 'title'
-      }
-
-      return String(item[itemProperty as keyof T])
-        .toLowerCase()
-        .includes(nameSearchValue.toLowerCase())
+      return String(item[itemProperty]).toLowerCase().includes(nameSearchValue.toLowerCase())
     })
+
+    if (sortOptions) {
+      return filteredData?.sort((a, b) => {
+        const itemProperty = getItemKey(a)
+
+        if (sortOptions === 'asc') {
+          return a[itemProperty] > b[itemProperty] ? 1 : -1
+        } else {
+          return a[itemProperty] < b[itemProperty] ? 1 : -1
+        }
+      })
+    }
+
+    return filteredData
   }, [filterData, nameSearchValue])
 
   const onClickItem = useCallback(

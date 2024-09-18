@@ -69,7 +69,8 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         valueGetter: (row: GridRowModel) => row?.product?.shop?.name,
         width: 120,
         disableCustomSort: true,
-        columnKey: columnnsKeys.shared.OBJECT,
+        sortOptions: 'asc',
+        columnKey: columnnsKeys.shared.OBJECT_VALUE,
         table: DataGridFilterTables.PRODUCTS,
       }
     : null
@@ -160,6 +161,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         {
           field: 'createdBy',
           table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
+          sortOptions: 'asc',
           columnKey: ColumnMenuKeys.OBJECT,
           hideEmptyObject: true,
         },
@@ -167,6 +169,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         {
           field: 'sub',
           table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
+          sortOptions: 'asc',
           columnKey: ColumnMenuKeys.OBJECT,
           hideEmptyObject: true,
         },
