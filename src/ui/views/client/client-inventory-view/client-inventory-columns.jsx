@@ -502,7 +502,7 @@ export const clientInventoryColumns = ({
       width: 400,
       disableCustomSort: true,
       filterable: false,
-      disableColumnMenu: true,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
   ]
 
