@@ -32,6 +32,7 @@ export const useStyles = makeStyles()(theme => ({
     height: '515px',
     boxShadow: 'none',
     borderRadius: 0,
+    background: theme.palette.background.general,
 
     '.ant-cascader-menus': {
       paddingTop: '10px',

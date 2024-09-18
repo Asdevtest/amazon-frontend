@@ -15,8 +15,8 @@ import { IFullUser } from '@typings/shared/full-user'
 
 import { useStyles } from './permissions-form.style'
 
+import { PermissionsTab, createPermissionOptions } from './permissions-form.config'
 import { PermissionsFormModel } from './permissions-form.model'
-import { PermissionsTab, createPermissionOptions } from './permissions-form.type'
 
 interface PermissionsFormPorps {
   onCloseModal: () => void

@@ -18,7 +18,7 @@ import { IProduct } from '@typings/models/products/product'
 import { IFullUser } from '@typings/shared/full-user'
 import { ISpec } from '@typings/shared/spec'
 
-import { PermissionsTab } from './permissions-form.type'
+import { PermissionsTab } from './permissions-form.config'
 
 export class PermissionsFormModel {
   permissionTab = PermissionsTab.ASSIGN_PERMISSIONS
@@ -106,6 +106,28 @@ export class PermissionsFormModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
+  onChangePermissionTab(event: RadioChangeEvent) {
+    this.permissionTab = event.target.value
+  }
+
+  onChangePermissionOptions(value: string[][]) {
+    this.currentPermissionOptions = value
+  }
+
+  onChangeProductsOptions(value: string[][]) {
+    this.currentProductOptions = value
+  }
+
+  onChangeSpecs(value: Specs[][]) {
+    this.selectedSpecs = value
+  }
+
+  initSelectedSpecs() {
+    this.userInfo?.allowedSpec?.forEach(spec => {
+      this.selectedSpecs.push([spec.type])
+    })
+  }
+
   async getProduts() {
     if (isFreelancer(this.userInfo?.role)) {
       return
@@ -134,28 +156,6 @@ export class PermissionsFormModel {
           })
         }
       })
-    })
-  }
-
-  onChangePermissionTab(event: RadioChangeEvent) {
-    this.permissionTab = event.target.value
-  }
-
-  onChangePermissionOptions(value: string[][]) {
-    this.currentPermissionOptions = value
-  }
-
-  onChangeProductsOptions(value: string[][]) {
-    this.currentProductOptions = value
-  }
-
-  onChangeSpecs(value: Specs[][]) {
-    this.selectedSpecs = value
-  }
-
-  initSelectedSpecs() {
-    this.userInfo?.allowedSpec?.forEach(spec => {
-      this.selectedSpecs.push([spec.type])
     })
   }
 
@@ -208,38 +208,6 @@ export class PermissionsFormModel {
     }
   }
 
-  async setPermissionsForUser(id: string, data: any, allowedItems: any, currentSpec: any) {
-    try {
-      await PermissionsModel.setPermissionsForUser(id, data)
-
-      if (!isFreelancer(this.userInfo?.role)) {
-        await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedItems?.selectedProducts })
-      }
-
-      if (isClient(this.userInfo?.role)) {
-        await PermissionsModel.patchPermissionsShops({ userId: id, shopIds: allowedItems?.selectedShops })
-      }
-
-      if (currentSpec) {
-        await UserModel.changeSubUserSpec(id, { allowedSpec: currentSpec })
-      }
-
-      toast.success(t(TranslationKey['User permissions were changed']))
-    } catch (error) {
-      toast.error(t(TranslationKey['User permissions are not changed']))
-
-      console.error(error)
-    }
-  }
-
-  async onSubmitUserPermissionsForm(permissions: any, subUserId: string, allowedItems: any, currentSpec: any) {
-    try {
-      await this.setPermissionsForUser(subUserId, { permissions, permissionGroups: [] }, allowedItems, currentSpec)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   async getSpecs() {
     try {
       const response = (await UserModel.getSpecs(false)) as unknown as ISpec[]
@@ -249,6 +217,32 @@ export class PermissionsFormModel {
       })
     } catch (error) {
       console.error(error)
+    }
+  }
+
+  async onEditSubUser(subUserId: string, data: any, allowedItems: any, currentSpec: any) {
+    // data = { permissions, permissionGroups: [] }
+    try {
+      await PermissionsModel.onEditMySubUser(subUserId, data)
+
+      if (!isFreelancer(this.userInfo?.role)) {
+        await PermissionsModel.setProductsPermissionsForUser({
+          userId: subUserId,
+          productIds: allowedItems?.selectedProducts,
+        })
+      }
+
+      if (isClient(this.userInfo?.role)) {
+        await PermissionsModel.patchPermissionsShops({ userId: subUserId, shopIds: allowedItems?.selectedShops })
+      }
+
+      if (currentSpec) {
+        await UserModel.changeSubUserSpec(subUserId, { allowedSpec: currentSpec })
+      }
+
+      toast.success(t(TranslationKey['User permissions were changed']))
+    } catch (error) {
+      toast.error(t(TranslationKey['User permissions are not changed']))
     }
   }
 }
