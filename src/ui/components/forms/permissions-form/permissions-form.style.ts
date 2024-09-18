@@ -62,24 +62,7 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  specCascaderContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    marginRight: 'auto',
-  },
-
   specCascader: {
-    width: '280px !important',
-
-    '.ant-cascader-menu': {
-      width: '280px',
-    },
-  },
-
-  specLabel: {
-    width: 'fit-content',
-    fontSize: '14px',
-    lineHeight: '19px',
+    marginRight: 'auto',
   },
 }))

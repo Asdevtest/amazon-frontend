@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
+import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
@@ -18,15 +19,14 @@ import { useStyles } from './permissions-form.style'
 import { PermissionsTab, createPermissionOptions } from './permissions-form.config'
 import { PermissionsFormModel } from './permissions-form.model'
 
-interface PermissionsFormPorps {
+export interface PermissionsFormProps {
   onCloseModal: () => void
+  onUpdateData: () => void
   subUser?: IFullUser
 }
 
-export const PermissionsForm: FC<PermissionsFormPorps> = observer(props => {
-  const { onCloseModal, subUser } = props
-
-  const viewModel = useMemo(() => new PermissionsFormModel(subUser), [])
+export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
+  const viewModel = useMemo(() => new PermissionsFormModel(props), [])
   const { classes: styles } = useStyles()
 
   const filter = (inputValue: string, path: DefaultOptionType[]) =>
@@ -97,30 +97,29 @@ export const PermissionsForm: FC<PermissionsFormPorps> = observer(props => {
 
       <div className={styles.footer}>
         {viewModel.showSpecsCascader ? (
-          <div className={styles.specCascaderContainer}>
-            <p className={styles.specLabel}>{t(TranslationKey['Available request types'])}</p>
-
-            {viewModel.mainLoading ? (
-              <Skeleton.Button active block size="large" className={styles.specCascader} />
-            ) : (
-              <Cascader
-                multiple
-                size="large"
-                maxTagCount="responsive"
-                value={viewModel.selectedSpecs}
-                options={viewModel.specsOptions}
-                rootClassName={styles.specCascader}
-                onChange={viewModel.onChangeSpecs}
-              />
-            )}
-          </div>
+          viewModel.mainLoading ? (
+            <Skeleton.Button active block size="large" />
+          ) : (
+            <CustomSelect
+              allowClear
+              isRow
+              label="Available request types"
+              mode="multiple"
+              size="large"
+              maxTagCount="responsive"
+              defaultValue={viewModel.selectedSpecs}
+              options={viewModel.specsOptions}
+              wrapperClassName={styles.specCascader}
+              onChange={viewModel.onChangeSpecs}
+            />
+          )
         ) : null}
 
-        <CustomButton type="primary" size="large" disabled={viewModel.mainLoading}>
+        <CustomButton type="primary" size="large" disabled={viewModel.mainLoading} onClick={viewModel.onEditSubUser}>
           {t(TranslationKey.Save)}
         </CustomButton>
 
-        <CustomButton size="large" onClick={onCloseModal}>
+        <CustomButton size="large" onClick={props.onCloseModal}>
           {t(TranslationKey.Close)}
         </CustomButton>
       </div>

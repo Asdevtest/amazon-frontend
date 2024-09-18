@@ -101,6 +101,7 @@ export const SubUsersView = observer(() => {
         <PermissionsForm
           subUser={viewModel.selectedSubUser}
           onCloseModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
+          onUpdateData={viewModel.getCurrentData}
         />
       </Modal>
     </div>

@@ -18,6 +18,7 @@ import { IProduct } from '@typings/models/products/product'
 import { IFullUser } from '@typings/shared/full-user'
 import { ISpec } from '@typings/shared/spec'
 
+import { PermissionsFormProps } from './permissions-form'
 import { PermissionsTab } from './permissions-form.config'
 
 export class PermissionsFormModel {
@@ -27,7 +28,7 @@ export class PermissionsFormModel {
   mainLoading = false
   productsLoading = false
   specs: ISpec[] = []
-  selectedSpecs: Specs[][] = []
+  selectedSpecs: Specs[] = []
   shops: any[] = []
   products: any[] = []
   allProductsCount = 0
@@ -35,6 +36,8 @@ export class PermissionsFormModel {
   currentPermissionOptions: string[][] = []
   currentProductOptions: string[][] = []
   subUser?: IFullUser
+  onCloseModal?: () => void
+  onUpdateData?: () => void
 
   get userInfo() {
     return UserModel?.userInfo as unknown as IFullUser
@@ -96,9 +99,27 @@ export class PermissionsFormModel {
 
     return [...(extraOption ? [extraOption] : []), ...mainOptions]
   }
+  get editingPermissions() {
+    const permissions: string[] = []
+    const permissionGroups: string[] = []
 
-  constructor(subUser?: IFullUser) {
+    this.currentPermissionOptions.forEach(el => {
+      const [groupId, permissionId] = el
+
+      if (permissionId) {
+        permissions.push(permissionId)
+      } else {
+        permissionGroups.push(groupId)
+      }
+    })
+
+    return { permissions, permissionGroups }
+  }
+
+  constructor({ subUser, onCloseModal, onUpdateData }: PermissionsFormProps) {
     this.subUser = subUser
+    this.onCloseModal = onCloseModal
+    this.onUpdateData = onUpdateData
 
     this.loadData()
     this.initSelectedSpecs()
@@ -118,13 +139,13 @@ export class PermissionsFormModel {
     this.currentProductOptions = value
   }
 
-  onChangeSpecs(value: Specs[][]) {
+  onChangeSpecs(value: Specs[]) {
     this.selectedSpecs = value
   }
 
   initSelectedSpecs() {
     this.userInfo?.allowedSpec?.forEach(spec => {
-      this.selectedSpecs.push([spec.type])
+      this.selectedSpecs.push(spec.type)
     })
   }
 
@@ -170,6 +191,10 @@ export class PermissionsFormModel {
       this.mainLoading = false
 
       this.permissionsOptions.forEach(el => {
+        if (this.subUser?.permissionGroups.includes(el.value)) {
+          this.currentPermissionOptions.push([el.value])
+        }
+
         el.children?.forEach(item => {
           if (this.subUser?.permissions.includes(item.value)) {
             this.currentPermissionOptions.push([el.value, item.value])
@@ -220,27 +245,31 @@ export class PermissionsFormModel {
     }
   }
 
-  async onEditSubUser(subUserId: string, data: any, allowedItems: any, currentSpec: any) {
-    // data = { permissions, permissionGroups: [] }
+  async onEditSubUser() {
     try {
-      await PermissionsModel.onEditMySubUser(subUserId, data)
+      await PermissionsModel.onEditMySubUser(this.subUser?._id, this.editingPermissions)
 
-      if (!isFreelancer(this.userInfo?.role)) {
+      if (!this.showSpecsCascader) {
         await PermissionsModel.setProductsPermissionsForUser({
-          userId: subUserId,
-          productIds: allowedItems?.selectedProducts,
+          userId: this.subUser?._id,
+          productIds: [],
         })
       }
 
       if (isClient(this.userInfo?.role)) {
-        await PermissionsModel.patchPermissionsShops({ userId: subUserId, shopIds: allowedItems?.selectedShops })
+        await PermissionsModel.patchPermissionsShops({
+          userId: this.subUser?._id,
+          shopIds: [],
+        })
       }
 
-      if (currentSpec) {
-        await UserModel.changeSubUserSpec(subUserId, { allowedSpec: currentSpec })
+      if (this.showSpecsCascader) {
+        await UserModel.changeSubUserSpec(this.subUser?._id, { allowedSpec: this.selectedSpecs.flat() })
       }
 
+      this.onCloseModal?.()
       toast.success(t(TranslationKey['User permissions were changed']))
+      this.onUpdateData?.()
     } catch (error) {
       toast.error(t(TranslationKey['User permissions are not changed']))
     }
