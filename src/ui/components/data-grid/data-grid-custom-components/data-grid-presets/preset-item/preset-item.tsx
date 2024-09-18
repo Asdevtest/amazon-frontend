@@ -153,7 +153,6 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
         <CustomButton
           type="text"
           title={t(TranslationKey[quickAccessTitle])}
-          className={styles.button}
           icon={<QuickAccessIcon title={t(TranslationKey[quickAccessTitle])} className={styles.updateButton} />}
           onClick={e => {
             e?.stopPropagation()
