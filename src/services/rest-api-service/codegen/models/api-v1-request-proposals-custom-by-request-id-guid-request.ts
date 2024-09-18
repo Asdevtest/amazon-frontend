@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 
 /**
@@ -48,10 +48,10 @@ export interface ApiV1RequestProposalsCustomByRequestIdGuidRequest {
     product?: object;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof ApiV1RequestProposalsCustomByRequestIdGuidRequest
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
      * @type {ApiV1AnnouncementsMySpec}

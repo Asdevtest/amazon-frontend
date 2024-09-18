@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { InlineResponse20093Rows } from './inline-response20093-rows';
 
 /**
  * 
@@ -22,47 +22,17 @@ import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
  */
 export interface InlineResponse20093 {
     /**
-     * GUID заявки
-     * @type {string}
-     * @memberof InlineResponse20093
-     */
-    _id?: string;
-    /**
-     * Номер заявки
+     * 
      * @type {number}
      * @memberof InlineResponse20093
      */
-    humanFriendlyId?: number;
+    count?: number;
     /**
-     * 
-     * @type {ApiV1AnnouncementsMySpec}
+     * Массив заявок.
+     * @type {Array<InlineResponse20093Rows>}
      * @memberof InlineResponse20093
      */
-    spec?: ApiV1AnnouncementsMySpec;
-    /**
-     * Название заявки
-     * @type {string}
-     * @memberof InlineResponse20093
-     */
-    title?: string;
-    /**
-     * Статус заявки
-     * @type {string}
-     * @memberof InlineResponse20093
-     */
-    status?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20093
-     */
-    onFinishedIdeaId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20093
-     */
-    onCheckedIdeaId?: string;
+    rows?: Array<InlineResponse20093Rows>;
 }
 
 

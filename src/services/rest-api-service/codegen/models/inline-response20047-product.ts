@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { InlineResponse20045InventoryShop } from './inline-response20045-inventory-shop';
 
 /**
@@ -78,16 +78,16 @@ export interface InlineResponse20047Product {
     shop?: InlineResponse20045InventoryShop;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20047Product
      */
-    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20047Product
      */
-    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
 }
 
 

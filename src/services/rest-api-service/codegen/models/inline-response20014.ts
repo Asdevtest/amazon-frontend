@@ -13,9 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AnnouncementsMyRequests } from './api-v1-announcements-my-requests';
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { ApiV1AdminsFeedbackUser } from './api-v1-admins-feedback-user';
 
 /**
  * 
@@ -24,61 +22,31 @@ import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
  */
 export interface InlineResponse20014 {
     /**
-     * GUID в базе данных
+     * GUID пользователя в БД.
      * @type {string}
      * @memberof InlineResponse20014
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AnnouncementsMySpec}
-     * @memberof InlineResponse20014
-     */
-    spec?: ApiV1AnnouncementsMySpec;
-    /**
-     * Archive
-     * @type {boolean}
-     * @memberof InlineResponse20014
-     */
-    archive?: boolean;
-    /**
-     * 
-     * @type {Array<ApiV1AnnouncementsMyRequests>}
-     * @memberof InlineResponse20014
-     */
-    requests?: Array<ApiV1AnnouncementsMyRequests>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse20014
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * 
+     * текст отзыва/репорта
      * @type {string}
      * @memberof InlineResponse20014
      */
-    title?: string;
+    text?: string;
     /**
-     * 
-     * @type {string}
+     * Прикрепленные ссылки на медиа для репорта/отзыва
+     * @type {Array<object>}
      * @memberof InlineResponse20014
      */
-    description?: string;
+    media?: Array<object>;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AdminsFeedbackUser}
      * @memberof InlineResponse20014
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    user?: ApiV1AdminsFeedbackUser;
     /**
      * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse20014
-     */
-    createdAt?: string;
-    /**
-     * Дата обновления.
      * @type {string}
      * @memberof InlineResponse20014
      */

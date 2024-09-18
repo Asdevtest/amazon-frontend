@@ -21,11 +21,35 @@
  */
 export interface InlineObject23 {
     /**
-     * GUID коробки, объединение которой нужно отменить
+     * Название партии
      * @type {string}
      * @memberof InlineObject23
      */
-    guid?: string;
+    title?: string;
+    /**
+     * Метод подсчта массы партии
+     * @type {number}
+     * @memberof InlineObject23
+     */
+    calculationMethod?: number;
+    /**
+     * Делитель объема партии
+     * @type {number}
+     * @memberof InlineObject23
+     */
+    volumeWeightDivide?: number;
+    /**
+     * Трек номер партии
+     * @type {string}
+     * @memberof InlineObject23
+     */
+    trackingNumber?: string;
+    /**
+     * Настоящая стоимость доставки
+     * @type {number}
+     * @memberof InlineObject23
+     */
+    actualShippingCost?: number;
 }
 
 

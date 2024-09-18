@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 
 /**
  * 
@@ -60,16 +60,16 @@ export interface InlineResponse20050Product {
     shop?: ApiV1AdminsGetProductsByStatusShop;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20050Product
      */
-    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20050Product
      */
-    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
 }
 
 

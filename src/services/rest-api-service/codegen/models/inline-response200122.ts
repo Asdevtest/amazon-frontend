@@ -14,7 +14,7 @@
 
 
 import { InlineResponse200122Details } from './inline-response200122-details';
-import { InlineResponse20092Rows } from './inline-response20092-rows';
+import { InlineResponse20093Rows } from './inline-response20093-rows';
 
 /**
  * Схема детали на поиск ниш.
@@ -24,10 +24,10 @@ import { InlineResponse20092Rows } from './inline-response20092-rows';
 export interface InlineResponse200122 {
     /**
      * 
-     * @type {InlineResponse20092Rows}
+     * @type {InlineResponse20093Rows}
      * @memberof InlineResponse200122
      */
-    request?: InlineResponse20092Rows;
+    request?: InlineResponse20093Rows;
     /**
      * 
      * @type {InlineResponse200122Details}

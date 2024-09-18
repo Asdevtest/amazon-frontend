@@ -22,10 +22,16 @@
 export interface InlineResponse20080 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof InlineResponse20080
      */
-    shopIds?: Array<string>;
+    productId?: string;
+    /**
+     * Гуид магазина
+     * @type {string}
+     * @memberof InlineResponse20080
+     */
+    shopId?: string;
 }
 
 

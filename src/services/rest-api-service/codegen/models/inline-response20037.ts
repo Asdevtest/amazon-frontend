@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20016Rows } from './inline-response20016-rows';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * 
@@ -42,16 +42,16 @@ export interface InlineResponse20037 {
     operationType?: InlineResponse20037OperationTypeEnum;
     /**
      * Массив коробок которые были до переформирования коробок.
-     * @type {Array<InlineResponse20016Rows>}
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20037
      */
-    boxesBefore?: Array<InlineResponse20016Rows>;
+    boxesBefore?: Array<ApiV1BatchesBoxes>;
     /**
      * Массив коробок.
-     * @type {Array<InlineResponse20016Rows>}
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20037
      */
-    boxes?: Array<InlineResponse20016Rows>;
+    boxes?: Array<ApiV1BatchesBoxes>;
     /**
      * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      * @type {number}
@@ -96,10 +96,10 @@ export interface InlineResponse20037 {
     storekeeperId?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20037
      */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * Дата создания.
      * @type {string}
