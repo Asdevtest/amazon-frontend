@@ -57,6 +57,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
           title={
             <CustomInput
               allowClear
+              maxLength={32}
               wrapperClassName={styles.input}
               placeholder="Rename"
               value={renamePresetName}
