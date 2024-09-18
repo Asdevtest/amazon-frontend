@@ -54,7 +54,7 @@ export const useObjectColumnMenu = <T extends ObjectItemColumnMenu>({
     })
 
     if (sortOptions) {
-      return filteredData?.sort((a, b) => {
+      filteredData?.sort((a, b) => {
         const itemProperty = getItemKey(a)
 
         if (sortOptions === 'asc') {
