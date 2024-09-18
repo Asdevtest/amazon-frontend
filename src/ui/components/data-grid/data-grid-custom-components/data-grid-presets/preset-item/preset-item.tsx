@@ -1,6 +1,6 @@
 import { Dropdown, MenuProps, Popconfirm } from 'antd'
 import { BaseOptionType } from 'antd/es/select'
-import { ChangeEvent, FC, memo, useCallback, useMemo, useState } from 'react'
+import { ChangeEvent, FC, memo, useCallback, useState } from 'react'
 import { BsPinAngleFill, BsThreeDotsVertical } from 'react-icons/bs'
 import { GrUpdate } from 'react-icons/gr'
 import { MdOutlineDelete, MdOutlineDriveFileRenameOutline } from 'react-icons/md'
@@ -47,110 +47,105 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
     setPresetName(preset?.data?.title)
   }, [preset?.data?.title])
 
-  console.log('object :>> ')
-
-  const items: MenuProps['items'] = useMemo(
-    () => [
-      {
-        key: 'rename',
-        label: (
-          <Popconfirm
-            icon={null}
-            placement="leftTop"
-            title={
-              <CustomInput
-                allowClear
-                wrapperClassName={styles.input}
-                placeholder="Rename"
-                value={renamePresetName}
-                onChange={handleChangeTagName}
+  const items: MenuProps['items'] = [
+    {
+      key: 'rename',
+      label: (
+        <Popconfirm
+          icon={null}
+          placement="leftTop"
+          title={
+            <CustomInput
+              allowClear
+              wrapperClassName={styles.input}
+              placeholder="Rename"
+              value={renamePresetName}
+              onChange={handleChangeTagName}
+            />
+          }
+          getPopupContainer={() => document.getElementById('presets') as HTMLElement}
+          okText={t(TranslationKey.Save)}
+          cancelText={t(TranslationKey.Cancel)}
+          okButtonProps={{ disabled: !renamePresetName?.trim() }}
+          onConfirm={e => {
+            e?.stopPropagation()
+            onClickSaveRename()
+          }}
+          onPopupClick={e => e?.stopPropagation()}
+          onCancel={e => e?.stopPropagation()}
+          onOpenChange={resetRenamePreset}
+        >
+          <CustomButton
+            className={styles.button}
+            icon={
+              <MdOutlineDriveFileRenameOutline
+                size={20}
+                title={t(TranslationKey.Rename)}
+                className={styles.updateButton}
               />
             }
-            getPopupContainer={() => document.getElementById('presets') as HTMLElement}
-            okText={t(TranslationKey.Save)}
-            cancelText={t(TranslationKey.Cancel)}
-            okButtonProps={{ disabled: !renamePresetName?.trim() }}
-            onConfirm={e => {
-              e?.stopPropagation()
-              onClickSaveRename()
-            }}
-            onPopupClick={e => e?.stopPropagation()}
-            onCancel={e => e?.stopPropagation()}
-            onOpenChange={resetRenamePreset}
+            onClick={e => e.stopPropagation()}
           >
-            <CustomButton
-              className={styles.button}
-              icon={
-                <MdOutlineDriveFileRenameOutline
-                  size={20}
-                  title={t(TranslationKey.Rename)}
-                  className={styles.updateButton}
-                />
-              }
-              onClick={e => e.stopPropagation()}
-            >
-              {t(TranslationKey.Rename)}
-            </CustomButton>
-          </Popconfirm>
-        ),
-      },
-      {
-        key: 'update',
-        label: (
-          <Popconfirm
-            placement="left"
-            getPopupContainer={() => document.getElementById('presets') as HTMLElement}
-            title={t(TranslationKey['Save the state of the table to this preset?'])}
-            okText={t(TranslationKey.Yes)}
-            cancelText={t(TranslationKey.No)}
-            onConfirm={e => {
-              e?.stopPropagation()
-              handleUpdatePreset()
-            }}
-            onCancel={e => e?.stopPropagation()}
-            onPopupClick={e => e?.stopPropagation()}
+            {t(TranslationKey.Rename)}
+          </CustomButton>
+        </Popconfirm>
+      ),
+    },
+    {
+      key: 'update',
+      label: (
+        <Popconfirm
+          placement="left"
+          getPopupContainer={() => document.getElementById('presets') as HTMLElement}
+          title={t(TranslationKey['Save the state of the table to this preset?'])}
+          okText={t(TranslationKey.Yes)}
+          cancelText={t(TranslationKey.No)}
+          onConfirm={e => {
+            e?.stopPropagation()
+            handleUpdatePreset()
+          }}
+          onCancel={e => e?.stopPropagation()}
+          onPopupClick={e => e?.stopPropagation()}
+        >
+          <CustomButton
+            className={styles.button}
+            icon={<GrUpdate title={t(TranslationKey.Update)} className={styles.updateButton} />}
+            onClick={e => e.stopPropagation()}
           >
-            <CustomButton
-              className={styles.button}
-              icon={<GrUpdate title={t(TranslationKey.Update)} className={styles.updateButton} />}
-              onClick={e => e.stopPropagation()}
-            >
-              {t(TranslationKey.Update)}
-            </CustomButton>
-          </Popconfirm>
-        ),
-      },
+            {t(TranslationKey.Update)}
+          </CustomButton>
+        </Popconfirm>
+      ),
+    },
 
-      {
-        key: 'delete',
-        label: (
-          <Popconfirm
-            placement="leftBottom"
-            getPopupContainer={() => document.getElementById('presets') as HTMLElement}
-            title={t(TranslationKey['Are you sure delete this preset?'])}
-            okText={t(TranslationKey.Yes)}
-            cancelText={t(TranslationKey.No)}
-            onConfirm={e => {
-              e?.stopPropagation()
-              handleDeletePreset()
-            }}
-            onCancel={e => e?.stopPropagation()}
-            onPopupClick={e => e?.stopPropagation()}
+    {
+      key: 'delete',
+      label: (
+        <Popconfirm
+          placement="leftBottom"
+          getPopupContainer={() => document.getElementById('presets') as HTMLElement}
+          title={t(TranslationKey['Are you sure delete this preset?'])}
+          okText={t(TranslationKey.Yes)}
+          cancelText={t(TranslationKey.No)}
+          onConfirm={e => {
+            e?.stopPropagation()
+            handleDeletePreset()
+          }}
+          onCancel={e => e?.stopPropagation()}
+          onPopupClick={e => e?.stopPropagation()}
+        >
+          <CustomButton
+            danger
+            className={styles.button}
+            icon={<MdOutlineDelete size={20} title={t(TranslationKey.Delete)} className={styles.deleteIcon} />}
+            onClick={e => e.stopPropagation()}
           >
-            <CustomButton
-              danger
-              className={styles.button}
-              icon={<MdOutlineDelete size={20} title={t(TranslationKey.Delete)} className={styles.deleteIcon} />}
-              onClick={e => e.stopPropagation()}
-            >
-              {t(TranslationKey.Delete)}
-            </CustomButton>
-          </Popconfirm>
-        ),
-      },
-    ],
-    [renamePresetName],
-  )
+            {t(TranslationKey.Delete)}
+          </CustomButton>
+        </Popconfirm>
+      ),
+    },
+  ]
 
   return (
     <div className={styles.presetItemWrapper}>
