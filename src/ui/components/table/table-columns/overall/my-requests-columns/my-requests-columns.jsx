@@ -1,3 +1,4 @@
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
@@ -82,7 +83,8 @@ export const myRequestsViewColumns = rowHandlers => {
 
       renderCell: params => <Text isCell text={params.row?.product?.shop?.name} />,
       width: 90,
-      columnKey: columnnsKeys.client.INVENTORY_SHOPS,
+      sortOptions: 'asc',
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       table: DataGridFilterTables.PRODUCTS,
       disableCustomSort: true,
     },
@@ -177,9 +179,33 @@ export const myRequestsViewColumns = rowHandlers => {
       width: 110,
 
       filterable: false,
-
-      columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
       disableCustomSort: true,
+      fields: [
+        {
+          label: 'Master user',
+          value: 0,
+        },
+        {
+          label: 'Sub user',
+          value: 1,
+        },
+      ],
+      columnMenuConfig: [
+        {
+          field: 'createdBy',
+          table: DataGridFilterTables.REQUESTS,
+          columnKey: ColumnMenuKeys.OBJECT,
+          sortOptions: 'asc',
+        },
+
+        {
+          field: 'sub',
+          table: DataGridFilterTables.REQUESTS,
+          columnKey: ColumnMenuKeys.OBJECT,
+          sortOptions: 'asc',
+        },
+      ],
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
