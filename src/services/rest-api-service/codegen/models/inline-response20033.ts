@@ -16,17 +16,17 @@
 import { InlineResponse2003 } from './inline-response2003';
 
 /**
- * 
+ * Заказ.
  * @export
  * @interface InlineResponse20033
  */
 export interface InlineResponse20033 {
     /**
-     * Count of rows
+     * id заказ.
      * @type {number}
      * @memberof InlineResponse20033
      */
-    count?: number;
+    id?: number;
     /**
      * Массив заказов.
      * @type {Array<InlineResponse2003>}
@@ -34,5 +34,6 @@ export interface InlineResponse20033 {
      */
     rows?: Array<InlineResponse2003>;
 }
+
 
 

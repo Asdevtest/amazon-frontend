@@ -21,21 +21,25 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
+import { ApiV1BatchesOrder } from '../models';
+// @ts-ignore
+import { ApiV1BatchesProduct } from '../models';
+// @ts-ignore
 import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
 import { InlineObject10 } from '../models';
 // @ts-ignore
-import { InlineObject11 } from '../models';
+import { InlineObject30 } from '../models';
 // @ts-ignore
-import { InlineObject12 } from '../models';
+import { InlineObject31 } from '../models';
 // @ts-ignore
-import { InlineObject13 } from '../models';
+import { InlineObject32 } from '../models';
 // @ts-ignore
-import { InlineObject14 } from '../models';
+import { InlineObject33 } from '../models';
 // @ts-ignore
-import { InlineObject15 } from '../models';
+import { InlineObject34 } from '../models';
 // @ts-ignore
 import { InlineObject16 } from '../models';
 // @ts-ignore
@@ -43,27 +47,27 @@ import { InlineObject17 } from '../models';
 // @ts-ignore
 import { InlineObject18 } from '../models';
 // @ts-ignore
-import { InlineObject3 } from '../models';
+import { InlineObject36 } from '../models';
 // @ts-ignore
-import { InlineObject4 } from '../models';
+import { InlineObject37 } from '../models';
 // @ts-ignore
-import { InlineObject5 } from '../models';
+import { InlineObject38 } from '../models';
 // @ts-ignore
-import { InlineObject6 } from '../models';
+import { InlineObject39 } from '../models';
 // @ts-ignore
-import { InlineObject7 } from '../models';
+import { InlineObject40 } from '../models';
 // @ts-ignore
-import { InlineObject8 } from '../models';
+import { InlineObject41 } from '../models';
 // @ts-ignore
-import { InlineObject9 } from '../models';
+import { InlineObject42 } from '../models';
 // @ts-ignore
 import { InlineResponse20010 } from '../models';
 // @ts-ignore
-import { InlineResponse20011 } from '../models';
+import { InlineResponse20019 } from '../models';
 // @ts-ignore
-import { InlineResponse20012 } from '../models';
+import { InlineResponse20020 } from '../models';
 // @ts-ignore
-import { InlineResponse20013 } from '../models';
+import { InlineResponse20021 } from '../models';
 // @ts-ignore
 import { InlineResponse20014 } from '../models';
 // @ts-ignore
@@ -71,19 +75,15 @@ import { InlineResponse20015 } from '../models';
 // @ts-ignore
 import { InlineResponse2002 } from '../models';
 // @ts-ignore
-import { InlineResponse2003 } from '../models';
+import { InlineResponse20023 } from '../models';
 // @ts-ignore
-import { InlineResponse2004 } from '../models';
+import { InlineResponse20024 } from '../models';
 // @ts-ignore
-import { InlineResponse2005 } from '../models';
+import { InlineResponse20025 } from '../models';
 // @ts-ignore
-import { InlineResponse2006 } from '../models';
+import { InlineResponse20026 } from '../models';
 // @ts-ignore
-import { InlineResponse2007 } from '../models';
-// @ts-ignore
-import { InlineResponse2008 } from '../models';
-// @ts-ignore
-import { InlineResponse2009 } from '../models';
+import { InlineResponse20027 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore

@@ -21,17 +21,29 @@
  */
 export interface InlineResponse20038 {
     /**
-     * GUID в базе данных
+     * Гуид сообщения
      * @type {string}
      * @memberof InlineResponse20038
      */
     _id?: string;
     /**
-     * Имя пользователя.
+     * Гуид чата
      * @type {string}
      * @memberof InlineResponse20038
      */
-    name?: string;
+    chatId?: string;
+    /**
+     * Смещение для пагинации
+     * @type {number}
+     * @memberof InlineResponse20038
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20038
+     */
+    allMedia?: Array<string>;
 }
 
 

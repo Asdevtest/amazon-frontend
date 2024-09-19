@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
+import { ApiV1BatchesProductShop } from './api-v1-batches-product-shop';
 
 /**
  * 
@@ -29,10 +29,10 @@ export interface ApiV1UsersFreelanceNoticesRequestProduct {
     _id?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusShop}
+     * @type {ApiV1BatchesProductShop}
      * @memberof ApiV1UsersFreelanceNoticesRequestProduct
      */
-    shop?: ApiV1AdminsGetProductsByStatusShop;
+    shop?: ApiV1BatchesProductShop;
 }
 
 

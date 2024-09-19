@@ -18,38 +18,20 @@ import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created
 import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20030
  */
 export interface InlineResponse20030 {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    _id?: string;
-    /**
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    skuByClient?: string;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * Всего кол-во записей в результате запроса
      * @type {number}
      * @memberof InlineResponse20030
      */
-    strategyStatus?: number;
+    count?: number;
     /**
-     * Имеет ли дочерние продукты данный продукт (по parentProductId)
-     * @type {boolean}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20028>}
      * @memberof InlineResponse20030
      */
     hasChildren?: boolean;

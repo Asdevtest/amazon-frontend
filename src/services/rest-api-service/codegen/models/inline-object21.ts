@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-guid-items';
 
 /**
  * 
@@ -22,7 +23,7 @@
 export interface InlineObject21 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {number}
      * @memberof InlineObject21
      */
     boxesIds: Array<string>;

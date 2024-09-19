@@ -21,17 +21,53 @@
  */
 export interface InlineResponse200111 {
     /**
-     * userAgent с которым был получен токен
+     * ID пресета.
      * @type {string}
      * @memberof InlineResponse200111
      */
-    device: string;
+    _id?: string;
+    /**
+     * Эндпоинт пресета
+     * @type {string}
+     * @memberof InlineResponse200111
+     */
+    endpoint?: string;
+    /**
+     * Состояние  preset-settings.
+     * @type {boolean}
+     * @memberof InlineResponse200111
+     */
+    activeSetting?: boolean;
     /**
      * 
+     * @type {object}
+     * @memberof InlineResponse200111
+     */
+    settings?: object;
+    /**
+     * Title of preset
      * @type {string}
      * @memberof InlineResponse200111
      */
-    createdAt: string;
+    title?: string;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineResponse200111
+     */
+    isFavorite?: boolean;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200111
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200111
+     */
+    updatedAt?: string;
 }
 
 

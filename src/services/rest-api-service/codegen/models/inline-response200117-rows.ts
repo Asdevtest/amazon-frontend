@@ -13,8 +13,9 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { InlineResponse200117Client } from './inline-response200117-client';
+import { ApiV1BatchesProductShop } from './api-v1-batches-product-shop';
+import { InlineResponse200115Client } from './inline-response200115-client';
+import { InlineResponse200117Profile } from './inline-response200117-profile';
 
 /**
  * 
@@ -29,55 +30,25 @@ export interface InlineResponse200117Rows {
      */
     _id?: string;
     /**
-     * GoLogin id
-     * @type {string}
+     * 
+     * @type {InlineResponse200117Profile}
      * @memberof InlineResponse200117Rows
      */
-    gologinId?: string;
-    /**
-     * Имя в профиле.
-     * @type {string}
-     * @memberof InlineResponse200117Rows
-     */
-    name?: string;
-    /**
-     * email
-     * @type {string}
-     * @memberof InlineResponse200117Rows
-     */
-    email?: string;
-    /**
-     * Хешированный пароль от профиля
-     * @type {string}
-     * @memberof InlineResponse200117Rows
-     */
-    passwordHash?: string;
+    profile?: InlineResponse200117Profile;
     /**
      * 
-     * @type {InlineResponse200117Client}
+     * @type {InlineResponse200115Client}
      * @memberof InlineResponse200117Rows
      */
-    client?: InlineResponse200117Client;
+    client?: InlineResponse200115Client;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusShop}
+     * @type {ApiV1BatchesProductShop}
      * @memberof InlineResponse200117Rows
      */
-    shop?: ApiV1AdminsGetProductsByStatusShop;
+    shop?: ApiV1BatchesProductShop;
     /**
-     * Parser state
-     * @type {boolean}
-     * @memberof InlineResponse200117Rows
-     */
-    isActive?: boolean;
-    /**
-     * Profile access to sellercentral
-     * @type {boolean}
-     * @memberof InlineResponse200117Rows
-     */
-    access?: boolean;
-    /**
-     * Profile status
+     * Receiving request status
      * @type {string}
      * @memberof InlineResponse200117Rows
      */

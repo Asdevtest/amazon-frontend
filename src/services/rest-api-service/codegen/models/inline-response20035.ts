@@ -20,47 +20,41 @@ import { ApiV1BuyersOrdersMyPayments } from './api-v1-buyers-orders-my-payments'
 import { ApiV1BuyersOrdersMyProduct } from './api-v1-buyers-orders-my-product';
 
 /**
- * Заказ.
+ * 
  * @export
  * @interface InlineResponse20035
  */
 export interface InlineResponse20035 {
     /**
-     * id заказ.
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    id?: number;
-    /**
-     * GUID данной записи в БД.
+     * GUID
      * @type {string}
      * @memberof InlineResponse20035
      */
     _id?: string;
     /**
-     * кол-во
+     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
      * @type {number}
      * @memberof InlineResponse20035
      */
-    amount?: number;
+    taskId?: number;
     /**
-     * Комментарии клиента.
+     * Тип операции
      * @type {string}
      * @memberof InlineResponse20035
      */
-    clientComment?: string;
+    operationType?: InlineResponse20035OperationTypeEnum;
     /**
-     * комментарии байера.
-     * @type {string}
+     * Массив коробок которые были до переформирования коробок.
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20035
      */
-    buyerComment?: string;
+    boxesBefore?: Array<ApiV1BatchesBoxes>;
     /**
-     * 
-     * @type {ApiV1AdminsOrdersDestination}
+     * Массив коробок.
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20035
      */
-    destination?: ApiV1AdminsOrdersDestination;
+    boxes?: Array<ApiV1BatchesBoxes>;
     /**
      * 
      * @type {string}
@@ -176,29 +170,69 @@ export interface InlineResponse20035 {
      */
     status?: number;
     /**
+     * Приоритет задачи
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    priority?: number;
+    /**
+     * Комментарий работника склада.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    storekeeperComment?: string;
+    /**
+     * Комментарий клиента.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    clientComment?: string;
+    /**
+     * Комментарий баера.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    buyerComment?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20035
+     */
+    images?: Array<string>;
+    /**
+     * GUID сотрудника склада, который выполняет задачу.
+     * @type {string}
+     * @memberof InlineResponse20035
+     */
+    storekeeperId?: string;
+    /**
      * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20035
+     */
+    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20035
      */
     createdAt?: string;
     /**
-     * 
+     * Дата обновления.
      * @type {string}
      * @memberof InlineResponse20035
      */
-    updatedAt?: string;
+    updateDate?: string;
 }
 
 /**
     * @export
     * @enum {string}
     */
-export enum InlineResponse20035PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
+export enum InlineResponse20035OperationTypeEnum {
+    Merge = 'merge',
+    Split = 'split',
+    Receive = 'receive'
 }
 
 

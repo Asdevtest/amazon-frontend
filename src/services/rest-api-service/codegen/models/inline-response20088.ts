@@ -18,13 +18,19 @@ import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
 
 /**
- * 
+ * Успешный ответ.
  * @export
  * @interface InlineResponse20088
  */
 export interface InlineResponse20088 {
     /**
-     * Гуид медиа
+     * Флаг, показывает есть ли такой ASIN в базе или нет
+     * @type {boolean}
+     * @memberof InlineResponse20088
+     */
+    isExist?: boolean;
+    /**
+     * Причина из таблицы с асинами
      * @type {string}
      * @memberof InlineResponse20088
      */

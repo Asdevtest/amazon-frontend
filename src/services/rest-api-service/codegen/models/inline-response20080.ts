@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20080Rows } from './inline-response20080-rows';
 
 /**
  * 

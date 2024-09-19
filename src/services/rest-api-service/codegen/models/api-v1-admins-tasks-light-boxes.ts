@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsTasksLightVariationTariff } from './api-v1-admins-tasks-light-variation-tariff';
+import { ApiV1BoxesStorekeepersSentToBatchVariationTariff } from './api-v1-boxes-storekeepers-sent-to-batch-variation-tariff';
 
 /**
  * 
@@ -47,10 +47,10 @@ export interface ApiV1AdminsTasksLightBoxes {
     trackNumberFile?: Array<string>;
     /**
      * 
-     * @type {ApiV1AdminsTasksLightVariationTariff}
+     * @type {ApiV1BoxesStorekeepersSentToBatchVariationTariff}
      * @memberof ApiV1AdminsTasksLightBoxes
      */
-    variationTariff?: ApiV1AdminsTasksLightVariationTariff;
+    variationTariff?: ApiV1BoxesStorekeepersSentToBatchVariationTariff;
     /**
      * Идентификатор UPS
      * @type {string}

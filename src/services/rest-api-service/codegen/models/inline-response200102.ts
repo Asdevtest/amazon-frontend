@@ -16,13 +16,13 @@
 import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse200102
  */
 export interface InlineResponse200102 {
     /**
-     * Всего кол-во записей в результате запроса
+     * Кол-во значений
      * @type {number}
      * @memberof InlineResponse200102
      */

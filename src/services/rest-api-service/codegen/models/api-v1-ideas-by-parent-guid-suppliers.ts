@@ -80,10 +80,10 @@ export interface ApiV1IdeasByParentGuidSuppliers {
     batchDeliveryCostInDollar?: number;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusBoxProperties}
+     * @type {ApiV1BatchesProductBoxProperties}
      * @memberof ApiV1IdeasByParentGuidSuppliers
      */
-    boxProperties?: ApiV1AdminsGetProductsByStatusBoxProperties;
+    boxProperties?: ApiV1BatchesProductBoxProperties;
     /**
      * Min Срок изготовления
      * @type {number}
@@ -104,10 +104,10 @@ export interface ApiV1IdeasByParentGuidSuppliers {
     batchTotalCostInDollar?: number;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusPriceVariations>}
+     * @type {Array<ApiV1BatchesProductPriceVariations>}
      * @memberof ApiV1IdeasByParentGuidSuppliers
      */
-    priceVariations?: Array<ApiV1AdminsGetProductsByStatusPriceVariations>;
+    priceVariations?: Array<ApiV1BatchesProductPriceVariations>;
     /**
      * 
      * @type {Array<ApiV1BuyersOrdersMyPaymentMethod>}

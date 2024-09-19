@@ -38,19 +38,7 @@ export interface InlineResponse200116 {
      * @type {number}
      * @memberof InlineResponse200116
      */
-    role?: number;
-    /**
-     * Комментарий к оценке
-     * @type {string}
-     * @memberof InlineResponse200116
-     */
-    comment?: string;
-    /**
-     * Оценка, целое число от 1 до 5
-     * @type {number}
-     * @memberof InlineResponse200116
-     */
-    rating?: number;
+    count?: number;
     /**
      * 
      * @type {ApiV1AnnouncementsMyCreatedBy}
@@ -58,11 +46,11 @@ export interface InlineResponse200116 {
      */
     sub?: ApiV1AnnouncementsMyCreatedBy;
     /**
-     * Дата создания.
-     * @type {string}
+     * 
+     * @type {InlineResponse200116Meta}
      * @memberof InlineResponse200116
      */
-    createdAt?: string;
+    meta?: InlineResponse200116Meta;
 }
 
 

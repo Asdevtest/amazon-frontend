@@ -22,23 +22,23 @@ import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created
  */
 export interface InlineResponse20052Rows {
     /**
-     * Guid of shop
+     * Гуид тега
      * @type {string}
      * @memberof InlineResponse20052Rows
      */
     _id?: string;
     /**
-     * Name of shop
+     * Тег
      * @type {string}
      * @memberof InlineResponse20052Rows
      */
-    name?: string;
+    title?: string;
     /**
-     * Count of shop products
+     * Кол-во продуктов, которые используют этот тег
      * @type {number}
      * @memberof InlineResponse20052Rows
      */
-    productsCount?: number;
+    productCount?: number;
     /**
      * 
      * @type {Array<ApiV1AnnouncementsMyCreatedBy>}

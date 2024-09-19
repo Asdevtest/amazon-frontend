@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20089Rows } from './inline-response20089-rows';
 
 /**
  * 
@@ -22,17 +21,53 @@ import { InlineResponse20089Rows } from './inline-response20089-rows';
  */
 export interface InlineResponse20089 {
     /**
-     * 
+     * Цена за каждое предложение.
      * @type {number}
      * @memberof InlineResponse20089
      */
-    count?: number;
+    price?: number;
     /**
-     * 
-     * @type {Array<InlineResponse20089Rows>}
+     * Процент с каждого предложения, маржа платформы, в процентах.
+     * @type {number}
      * @memberof InlineResponse20089
      */
-    rows?: Array<InlineResponse20089Rows>;
+    requestPlatformMarginInPercent?: number;
+    /**
+     * Услуги платформы.
+     * @type {number}
+     * @memberof InlineResponse20089
+     */
+    platformMargin?: number;
+    /**
+     * Процент с каждого предложения для супервайзера, в процентах.
+     * @type {number}
+     * @memberof InlineResponse20089
+     */
+    requestSupervisorFeeInPercent?: number;
+    /**
+     * Услуги супервайзера.
+     * @type {number}
+     * @memberof InlineResponse20089
+     */
+    supervisorFee?: number;
+    /**
+     * Сумма.
+     * @type {number}
+     * @memberof InlineResponse20089
+     */
+    unitCost?: number;
+    /**
+     * Количество предложений, не менее.
+     * @type {number}
+     * @memberof InlineResponse20089
+     */
+    maxAmountOfProposals?: number;
+    /**
+     * Итого.
+     * @type {number}
+     * @memberof InlineResponse20089
+     */
+    totalCost?: number;
 }
 
 

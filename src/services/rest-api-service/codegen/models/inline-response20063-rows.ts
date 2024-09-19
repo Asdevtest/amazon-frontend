@@ -21,77 +21,113 @@ import { InlineResponse20063RequestsOnCheck } from './inline-response20063-reque
 import { InlineResponse20063Suppliers } from './inline-response20063-suppliers';
 
 /**
- * 
+ * Схема репорта за 30 дней с Seller-board
  * @export
  * @interface InlineResponse20063Rows
  */
 export interface InlineResponse20063Rows {
     /**
-     * 
+     * ﻿\"ASIN\"
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    _id?: string;
+    asin?: string;
     /**
-     * Название идеи
+     * SKU
+     * @type {string}
+     * @memberof InlineResponse20063Rows
+     */
+    sku?: string;
+    /**
+     * Title
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
     title?: string;
     /**
-     * Статус идеи
+     * ROI, %
      * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    status?: number;
+    roi?: number;
     /**
-     * Является ли продукт идеи вариацией существующего
-     * @type {boolean}
+     * FBA/FBM Stock
+     * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    variation?: boolean;
+    fbaFbmStock?: number;
     /**
-     * Медиа идеи
-     * @type {Array<string>}
+     * Stock value
+     * @type {number}
      * @memberof InlineResponse20063Rows
      */
-    linksToMediaFiles?: Array<string>;
+    stockValue?: number;
     /**
-     * Комментарии к идее
+     * Estimated Sales Velocity
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    estimatedSalesVelocity?: number;
+    /**
+     * Days  of stock  left
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    daysOfStockLeft?: number;
+    /**
+     * Recommended quantity for  reordering
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    recommendedQuantityForReordering?: number;
+    /**
+     * Running  out of stock
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    comments?: string;
+    runningOutOfStock?: string;
     /**
-     * Комментарий байера
+     * Reserved
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    reserved?: number;
+    /**
+     * Sent  to FBA
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    sentToFba?: number;
+    /**
+     * FBA  Prep. Stock
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    fbaPrepStock?: number;
+    /**
+     * Ordered
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    buyerComment?: string;
+    ordered?: string;
     /**
-     * Название продукта
+     * Time to  reorder
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    productName?: string;
+    timeToReorder?: string;
     /**
-     * Ссылки продукта
-     * @type {Array<string>}
-     * @memberof InlineResponse20063Rows
-     */
-    productLinks?: Array<string>;
-    /**
-     * Дополнительные критерии для поиска товара
+     * Comment
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    criteria?: string;
+    comment?: string;
     /**
-     * Причина отказа
+     * Marketplace
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    reasonReject?: string;
+    marketplace?: string;
     /**
      * Количество товаров
      * @type {number}
@@ -199,19 +235,49 @@ export interface InlineResponse20063Rows {
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    dateStatusOnCheck?: string;
+    fnsku?: string;
     /**
-     * Время перевода идеи в статус supplierSearch(13)
+     * Target stock range after new order days
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    targetStockRangeAfterNewOrderDays?: number;
+    /**
+     * FBA buffer days
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    fbaBufferDays?: number;
+    /**
+     * Manuf. time days
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    manufTimeDays?: number;
+    /**
+     * Use a Prep Center
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    dateStatusSupplierSearch?: string;
+    useAPrepCenter?: string;
     /**
-     * Время перевода идеи в статус supplierFound(14)
+     * Shipping to Prep Center days
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    shippingToPrepCenterDays?: number;
+    /**
+     * Shipping to FBA days
+     * @type {number}
+     * @memberof InlineResponse20063Rows
+     */
+    shippingToFbaDays?: number;
+    /**
+     * Гуид записи
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
-    dateStatusSupplierFound?: string;
+    _id?: string;
     /**
      * Время перевода идеи в статус supplierNotFound(15)
      * @type {string}
@@ -297,11 +363,17 @@ export interface InlineResponse20063Rows {
      */
     createdAt?: string;
     /**
-     * Дата создания.
+     * Дата обновления
      * @type {string}
      * @memberof InlineResponse20063Rows
      */
     updatedAt?: string;
+    /**
+     * 
+     * @type {InlineResponse20043InventoryShop}
+     * @memberof InlineResponse20063Rows
+     */
+    shop?: InlineResponse20043InventoryShop;
 }
 
 

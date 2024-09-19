@@ -23,8 +23,8 @@ import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
  */
 export interface InlineResponse20037 {
     /**
-     * GUID
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20037AllImages>}
      * @memberof InlineResponse20037
      */
     _id?: string;
@@ -101,28 +101,11 @@ export interface InlineResponse20037 {
      */
     storekeeper?: ApiV1AnnouncementsMyCreatedBy;
     /**
-     * Дата создания.
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20037AllVideo>}
      * @memberof InlineResponse20037
      */
-    createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse20037
-     */
-    updateDate?: string;
+    allVideo?: Array<InlineResponse20037AllVideo>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20037OperationTypeEnum {
-    Merge = 'merge',
-    Split = 'split',
-    Receive = 'receive'
-}
-
 
 

@@ -64,6 +64,18 @@ export interface InlineResponse20048ListingLaunches {
      */
     requestId?: string;
     /**
+     * Result of launch
+     * @type {string}
+     * @memberof InlineResponse20048ListingLaunches
+     */
+    result?: string;
+    /**
+     * Is expired launch?
+     * @type {boolean}
+     * @memberof InlineResponse20048ListingLaunches
+     */
+    expired?: boolean;
+    /**
      * 
      * @type {InlineResponse20048Request}
      * @memberof InlineResponse20048ListingLaunches
@@ -96,7 +108,8 @@ export enum InlineResponse20048ListingLaunchesTypeEnum {
     OutletDeal = 'OUTLET_DEAL',
     SalesPrice = 'SALES_PRICE',
     AbTest = 'AB_TEST',
-    Custom = 'CUSTOM'
+    Custom = 'CUSTOM',
+    PriceChange = 'PRICE_CHANGE'
 }
 
 

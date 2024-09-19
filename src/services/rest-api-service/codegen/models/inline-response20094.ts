@@ -16,7 +16,7 @@
 import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 
 /**
- * 
+ * Схема получение лайт версии продажи магазина
  * @export
  * @interface InlineResponse20094
  */

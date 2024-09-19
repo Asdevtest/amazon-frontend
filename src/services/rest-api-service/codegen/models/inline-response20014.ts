@@ -26,7 +26,7 @@ export interface InlineResponse20014 {
      * @type {string}
      * @memberof InlineResponse20014
      */
-    _id?: string;
+    rows?: Array<InlineResponse20014Rows>;
     /**
      * текст отзыва/репорта
      * @type {string}

@@ -13,9 +13,13 @@
  */
 
 
+import { InlineResponse20018AllowedSpec } from './inline-response20018-allowed-spec';
+import { InlineResponse20018PermissionGroups } from './inline-response20018-permission-groups';
+import { InlineResponse20018Permissions } from './inline-response20018-permissions';
+import { InlineResponse20018SubUsers } from './inline-response20018-sub-users';
 
 /**
- * 
+ * Пользователь системы
  * @export
  * @interface InlineResponse20018
  */

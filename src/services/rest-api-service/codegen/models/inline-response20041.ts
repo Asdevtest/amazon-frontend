@@ -25,83 +25,17 @@ import { ApiV1ClientsProductsVacTags } from './api-v1-clients-products-vac-tags'
  */
 export interface InlineResponse20041 {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
-     * @memberof InlineResponse20041
-     */
-    _id?: string;
-    /**
-     * Категория
-     * @type {string}
-     * @memberof InlineResponse20041
-     */
-    category?: string;
-    /**
      * 
-     * @type {number}
-     * @memberof InlineResponse20041
-     */
-    bsr?: number;
-    /**
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineResponse20041
-     */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20041
-     */
-    skuByClient?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20041
-     */
-    amazon?: number;
-    /**
-     * Вес
-     * @type {number}
-     * @memberof InlineResponse20041
-     */
-    weight?: number;
-    /**
-     *  Общая сумма с фба.
-     * @type {number}
-     * @memberof InlineResponse20041
-     */
-    fbaamount?: number;
-    /**
-     * Код текущего статуса
-     * @type {number}
-     * @memberof InlineResponse20041
-     */
-    status?: number;
-    /**
-     * Массив картинок.
      * @type {Array<string>}
      * @memberof InlineResponse20041
      */
-    images?: Array<string>;
-    /**
-     * Цена для клиента
-     * @type {number}
-     * @memberof InlineResponse20041
-     */
-    priceForClient?: number;
+    productImages?: Array<string>;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusSuppliers}
+     * @type {Array<string>}
      * @memberof InlineResponse20041
      */
-    currentSupplier?: ApiV1AdminsGetProductsByStatusSuppliers;
-    /**
-     * GUID поставщика в базе данных
-     * @type {string}
-     * @memberof InlineResponse20041
-     */
-    currentSupplierId?: string;
+    latestSeoFiles?: Array<string>;
     /**
      * 
      * @type {ApiV1AnnouncementsMyCreatedBy}

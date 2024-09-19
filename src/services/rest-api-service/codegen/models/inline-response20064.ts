@@ -13,9 +13,7 @@
  */
 
 
-import { ApiV1IdeasNotificationsCreatedBy } from './api-v1-ideas-notifications-created-by';
-import { ApiV1IdeasNotificationsIdea } from './api-v1-ideas-notifications-idea';
-import { ApiV1IdeasNotificationsProduct } from './api-v1-ideas-notifications-product';
+import { InlineResponse20064Rows } from './inline-response20064-rows';
 
 /**
  * 
@@ -24,29 +22,17 @@ import { ApiV1IdeasNotificationsProduct } from './api-v1-ideas-notifications-pro
  */
 export interface InlineResponse20064 {
     /**
-     * 
-     * @type {ApiV1IdeasNotificationsProduct}
+     * Кол-во записей
+     * @type {number}
      * @memberof InlineResponse20064
      */
-    product?: ApiV1IdeasNotificationsProduct;
+    count?: number;
     /**
      * 
-     * @type {ApiV1IdeasNotificationsIdea}
+     * @type {Array<InlineResponse20064Rows>}
      * @memberof InlineResponse20064
      */
-    idea?: ApiV1IdeasNotificationsIdea;
-    /**
-     * 
-     * @type {ApiV1IdeasNotificationsCreatedBy}
-     * @memberof InlineResponse20064
-     */
-    createdBy?: ApiV1IdeasNotificationsCreatedBy;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20064
-     */
-    createdAt?: string;
+    rows?: Array<InlineResponse20064Rows>;
 }
 
 

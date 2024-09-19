@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
+import { ApiV1BatchesOrderLogicsTariffConditionsByRegion } from './api-v1-batches-order-logics-tariff-conditions-by-region';
 
 /**
  * 
@@ -35,10 +35,10 @@ export interface ApiV1BoxesClientsLightLogicsTariff {
     name: string;
     /**
      * 
-     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
+     * @type {ApiV1BatchesOrderLogicsTariffConditionsByRegion}
      * @memberof ApiV1BoxesClientsLightLogicsTariff
      */
-    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
+    conditionsByRegion?: ApiV1BatchesOrderLogicsTariffConditionsByRegion;
 }
 
 

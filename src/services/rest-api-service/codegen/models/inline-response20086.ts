@@ -13,8 +13,9 @@
  */
 
 
-import { ApiV1ProductsKeepaOffers } from './api-v1-products-keepa-offers';
-import { ApiV1ProductsKeepaStats } from './api-v1-products-keepa-stats';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
 
 /**
  * 
@@ -23,137 +24,59 @@ import { ApiV1ProductsKeepaStats } from './api-v1-products-keepa-stats';
  */
 export interface InlineResponse20086 {
     /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20086
-     */
-    isRecommended?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20086
-     */
-    trackingSince?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20086
-     */
-    lastRatingUpdate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20086
-     */
-    rootCategory?: number;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof InlineResponse20086
-     */
-    categories?: Array<number>;
-    /**
-     * 
+     * Гуид медиа
      * @type {string}
      * @memberof InlineResponse20086
      */
-    parentAsin?: string;
+    _id?: string;
     /**
-     * 
+     * Файл для записи в FreelanceSource
      * @type {string}
      * @memberof InlineResponse20086
      */
-    variationCSV?: string;
+    sourceFile?: string;
     /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse20086
-     */
-    frequentlyBoughtTogether?: Array<string>;
-    /**
-     * 
+     * Комментарий к файлу
      * @type {string}
      * @memberof InlineResponse20086
      */
-    manufacturer?: string;
+    comments?: string;
     /**
      * 
+     * @type {ApiV1RequestProposalsFreelanceSourcesProposal}
+     * @memberof InlineResponse20086
+     */
+    proposal?: ApiV1RequestProposalsFreelanceSourcesProposal;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMySpec}
+     * @memberof InlineResponse20086
+     */
+    spec?: ApiV1AnnouncementsMySpec;
+    /**
+     * гуид продукта
      * @type {string}
      * @memberof InlineResponse20086
      */
-    brand?: string;
+    productId?: string;
     /**
      * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20086
+     */
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20086
      */
-    productGroup?: string;
+    createdAt?: string;
     /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20086
-     */
-    publicationDate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20086
-     */
-    releaseDate?: number;
-    /**
-     * 
-     * @type {Array<Array<number>>}
-     * @memberof InlineResponse20086
-     */
-    contributors?: Array<Array<number>>;
-    /**
-     * 
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20086
      */
-    size?: string;
-    /**
-     * 
-     * @type {object}
-     * @memberof InlineResponse20086
-     */
-    salesRanks?: object;
-    /**
-     * 
-     * @type {Array<ApiV1ProductsKeepaOffers>}
-     * @memberof InlineResponse20086
-     */
-    offers?: Array<ApiV1ProductsKeepaOffers>;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof InlineResponse20086
-     */
-    liveOffersOrder?: Array<number>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineResponse20086
-     */
-    buyBoxSellerIdHistory?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20086
-     */
-    availabilityAmazon?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20086
-     */
-    newPriceIsMAP?: boolean;
-    /**
-     * 
-     * @type {ApiV1ProductsKeepaStats}
-     * @memberof InlineResponse20086
-     */
-    stats?: ApiV1ProductsKeepaStats;
+    updatedAt?: string;
 }
 
 

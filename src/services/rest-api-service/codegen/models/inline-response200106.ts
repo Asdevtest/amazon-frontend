@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse200106Rows } from './inline-response200106-rows';
 
 /**
  * 
@@ -21,35 +22,17 @@
  */
 export interface InlineResponse200106 {
     /**
-     * GUID метода оплаты в базе данных
-     * @type {string}
+     * Кол-во записей
+     * @type {number}
      * @memberof InlineResponse200106
      */
-    _id?: string;
+    count?: number;
     /**
      * 
-     * @type {string}
+     * @type {Array<InlineResponse200106Rows>}
      * @memberof InlineResponse200106
      */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse200106
-     */
-    iconImage?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse200106
-     */
-    createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse200106
-     */
-    updatedAt?: string;
+    rows?: Array<InlineResponse200106Rows>;
 }
 
 

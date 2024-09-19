@@ -17,17 +17,17 @@ import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created
 import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
 
 /**
- * Схема получение лайт версии продажи магазина
+ * 
  * @export
  * @interface InlineResponse20097
  */
 export interface InlineResponse20097 {
     /**
-     * GUID магазина на продажу.
-     * @type {string}
+     * Count of rows
+     * @type {number}
      * @memberof InlineResponse20097
      */
-    _id?: string;
+    count?: number;
     /**
      * 
      * @type {ApiV1AnnouncementsMyCreatedBy}

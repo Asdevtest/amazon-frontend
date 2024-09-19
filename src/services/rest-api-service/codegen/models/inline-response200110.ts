@@ -21,29 +21,59 @@
  */
 export interface InlineResponse200110 {
     /**
-     * 
+     * ID пресета.
      * @type {string}
      * @memberof InlineResponse200110
      */
     _id?: string;
     /**
-     * 
+     * Название таблицы
      * @type {string}
      * @memberof InlineResponse200110
      */
-    title?: string;
+    table?: string;
     /**
-     * 
-     * @type {number}
+     * Эндпоинт пресета
+     * @type {string}
      * @memberof InlineResponse200110
      */
-    type?: number;
+    endpoint?: string;
     /**
      * 
+     * @type {Array<string>}
+     * @memberof InlineResponse200110
+     */
+    fields?: Array<string>;
+    /**
+     * Состояние пресета.
      * @type {boolean}
      * @memberof InlineResponse200110
      */
-    archive?: boolean;
+    isActive?: boolean;
+    /**
+     * ID юзера.
+     * @type {string}
+     * @memberof InlineResponse200110
+     */
+    userId?: string;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineResponse200110
+     */
+    isFavorite?: boolean;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200110
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200110
+     */
+    updatedAt?: string;
 }
 
 

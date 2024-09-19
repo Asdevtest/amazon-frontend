@@ -49,10 +49,10 @@ export interface ApiV1BoxesClientsLightProduct {
     images?: Array<string>;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusShop}
+     * @type {ApiV1BatchesProductShop}
      * @memberof ApiV1BoxesClientsLightProduct
      */
-    shop?: ApiV1AdminsGetProductsByStatusShop;
+    shop?: ApiV1BatchesProductShop;
     /**
      * Зашита листинга (bool)
      * @type {boolean}

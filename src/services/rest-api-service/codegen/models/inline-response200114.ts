@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 
 /**
  * 
@@ -21,35 +22,47 @@
  */
 export interface InlineResponse200114 {
     /**
-     * Курс юаня к доллару.
-     * @type {number}
+     * GUID записи
+     * @type {string}
      * @memberof InlineResponse200114
      */
-    yuanToDollarRate?: number;
+    _id?: string;
     /**
-     * Коэффициент расчета объемного веса.
-     * @type {number}
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse200114
      */
-    volumeWeightCoefficient?: number;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
-     * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
+     * Роль юзера, когда он оставлял отзыв
      * @type {number}
      * @memberof InlineResponse200114
      */
-    requestMinAmountPriceOfProposal?: number;
+    role?: number;
     /**
-     * Комиссия за оплату предложения
-     * @type {number}
+     * Комментарий к оценке
+     * @type {string}
      * @memberof InlineResponse200114
      */
-    requestPlatformMarginInPercent?: number;
+    comment?: string;
     /**
-     * Лимит на кол-во в ордере
+     * Оценка, целое число от 1 до 5
      * @type {number}
      * @memberof InlineResponse200114
      */
-    orderAmountLimit?: number;
+    rating?: number;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse200114
+     */
+    sub?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse200114
+     */
+    createdAt?: string;
 }
 
 

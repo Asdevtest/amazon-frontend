@@ -6,17 +6,26 @@ import { ParserModel } from '@models/parser-model'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
-import { defaultFilterParams, profilesFormConfig, requestOptions, searchFields } from './profiles-form.config'
+import { profilesFormConfig, searchFields } from './profiles-form.config'
 
 export class ProfilesFormModel extends UseProductsPermissions {
   value = ''
 
+  get reservedProfile() {
+    return this.meta?.reservedProfile || null
+  }
   get profiles() {
-    return this.permissionsData
+    return this.reservedProfile ? [this.reservedProfile, ...this.permissionsData] : this.permissionsData
   }
 
-  constructor(profileId?: string) {
-    super(ParserModel.getProfiles, requestOptions, searchFields, defaultFilterParams)
+  constructor(profileId?: string, requestId?: string) {
+    const requestOptions = {
+      sortField: 'updatedAt',
+      sortType: 'DESC',
+      guid: requestId,
+    }
+
+    super(ParserModel.getProfilesForRequest, requestOptions, searchFields)
 
     this.value = profileId || ''
     this.permissionsData = []

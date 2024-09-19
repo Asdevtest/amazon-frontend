@@ -32,6 +32,12 @@ export interface ApiV1BatchesProductTags {
      * @memberof ApiV1BatchesProductTags
      */
     title?: string;
+    /**
+     * Color
+     * @type {string}
+     * @memberof ApiV1BatchesProductTags
+     */
+    color?: string;
 }
 
 

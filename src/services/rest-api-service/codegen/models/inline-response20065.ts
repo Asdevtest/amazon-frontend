@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20065Rows } from './inline-response20065-rows';
 
 /**
  * 
@@ -22,17 +21,11 @@ import { InlineResponse20065Rows } from './inline-response20065-rows';
  */
 export interface InlineResponse20065 {
     /**
-     * Count of rows
-     * @type {number}
-     * @memberof InlineResponse20065
-     */
-    count?: number;
-    /**
      * 
-     * @type {Array<InlineResponse20065Rows>}
+     * @type {Array<string>}
      * @memberof InlineResponse20065
      */
-    rows?: Array<InlineResponse20065Rows>;
+    failed?: Array<string>;
 }
 
 

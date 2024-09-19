@@ -15,7 +15,7 @@
 
 
 /**
- * 
+ * Схема парсинга.
  * @export
  * @interface InlineResponse20083
  */

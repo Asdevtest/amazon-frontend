@@ -24,7 +24,7 @@ import { InlineResponse20050Product } from './inline-response20050-product';
  */
 export interface InlineResponse20050Rows {
     /**
-     * GUID в базе данных
+     * Guid of shop
      * @type {string}
      * @memberof InlineResponse20050Rows
      */
@@ -58,31 +58,19 @@ export interface InlineResponse20050Rows {
      * @type {number}
      * @memberof InlineResponse20050Rows
      */
-    newProductPrice?: number;
-    /**
-     * Description of product_listing_report
-     * @type {string}
-     * @memberof InlineResponse20050Rows
-     */
-    description?: string;
+    productsCount?: number;
     /**
      * 
-     * @type {Array<InlineResponse20050ListingLaunches>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20050Rows
      */
-    listingLaunches?: Array<InlineResponse20050ListingLaunches>;
+    shopUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
     /**
      * 
-     * @type {string}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20050Rows
      */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20050Rows
-     */
-    updatedAt?: string;
+    productUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
 }
 
 
