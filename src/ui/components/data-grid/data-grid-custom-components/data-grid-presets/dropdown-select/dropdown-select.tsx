@@ -15,7 +15,7 @@ interface DropdownSelectProps extends PropsWithChildren {
 }
 
 export const DropdownSelect: FC<DropdownSelectProps> = memo(props => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
   const { children, handleCreateTableSettingsPreset } = props
 
   const apiRef = useGridApiContext()
@@ -36,7 +36,7 @@ export const DropdownSelect: FC<DropdownSelectProps> = memo(props => {
     <>
       {children}
 
-      <div className={cx(styles.createPresetWrapper)} onClick={e => e.stopPropagation()}>
+      <div className={styles.createPresetWrapper} onClick={e => e.stopPropagation()}>
         <CustomInput
           value={createPresetTitle}
           placeholder="Add a preset"
