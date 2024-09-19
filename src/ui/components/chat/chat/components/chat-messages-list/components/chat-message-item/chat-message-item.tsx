@@ -103,7 +103,7 @@ export const ChatMessageItem: FC<ChatMessageItemProps> = memo(props => {
       })}
       {...messageItemHover?.[1]}
       onClick={() => {
-        if (selectedMessages?.length) {
+        if (selectedMessages?.length && messageItem?.type === ChatMessageType.USER) {
           onSelectMessage?.(messageItem)
         }
       }}
