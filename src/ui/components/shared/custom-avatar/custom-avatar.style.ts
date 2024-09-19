@@ -10,7 +10,7 @@ export const useStyles = makeStyles()(() => ({
       width: '100% !important',
       height: '100% !important',
       img: {
-        objectFit: 'fill! important ' as 'fill',
+        objectFit: 'fill !important ' as 'fill',
       },
     },
     '& .ant-upload-list-item-actions': {

@@ -29,22 +29,22 @@ export class CustomAvatarModel {
         },
       ]
     }
-    makeAutoObservable(this)
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  setPreviewOpen = (open: boolean) => {
+  setPreviewOpen(open: boolean) {
     this.previewOpen = open
   }
 
-  setLoading = (loading: boolean) => {
+  setLoading(loading: boolean) {
     this.loading = loading
   }
 
-  setFileList = (newFileList: UploadFile[]) => {
+  setFileList(newFileList: UploadFile[]) {
     this.fileList = newFileList
   }
 
-  onPreviewImage = async (file: UploadFile) => {
+  async onPreviewImage(file: UploadFile) {
     if (!file.url && file.originFileObj) {
       const base64 = await convertToBase64(file.originFileObj)
       this.previewImage = base64
@@ -54,7 +54,7 @@ export class CustomAvatarModel {
     this.setPreviewOpen(true)
   }
 
-  onFileChange = (event: React.ChangeEvent<HTMLInputElement>, onSubmit?: (imageData: UploadFileType) => void) => {
+  onFileChange(event: React.ChangeEvent<HTMLInputElement>, onSubmit?: (imageData: UploadFileType) => void) {
     const files = event.target.files
     if (files && files.length > 0) {
       const fileList = Array.from(files).map(file => ({
@@ -68,7 +68,7 @@ export class CustomAvatarModel {
     }
   }
 
-  onUploadImage = async (newFileList: UploadFile[], onSubmit?: (imageData: UploadFileType) => void) => {
+  async onUploadImage(newFileList: UploadFile[], onSubmit?: (imageData: UploadFileType) => void) {
     const lastFile = newFileList.slice(-1)[0]
     if (!lastFile) return
 
