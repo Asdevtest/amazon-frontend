@@ -32,10 +32,11 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
   const { classes: styles } = useStyles()
 
   const viewModel = useMemo(() => new CreateNewChatModalModel({ chatToEdit, closeModal }), [])
+  const isLoading = viewModel.requestStatus === loadingStatus.IS_LOADING
 
   return (
     <div className={styles.root}>
-      <p className={styles.title}>{t(TranslationKey['Create a new dialog'])}</p>
+      <p className={styles.title}>{t(TranslationKey[chatToEdit ? 'Change group chat info' : 'Create a new dialog'])}</p>
 
       <div id="create-new-chat">
         <CustomSelect
@@ -45,10 +46,10 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
           maxTagCount="responsive"
           label="Users"
           placeholder="Choose your speaker"
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           className={styles.userSelect}
           options={viewModel.currentData}
-          value={viewModel.selectedUsersId}
+          loading={isLoading}
+          value={isLoading ? [] : viewModel.selectedUsersId}
           fieldNames={{ label: 'name', value: '_id' }}
           filterOption={(inputValue, option) => option?.name?.toLowerCase().includes(inputValue.toLowerCase())}
           getPopupContainer={() => document.getElementById('create-new-chat') as HTMLElement}

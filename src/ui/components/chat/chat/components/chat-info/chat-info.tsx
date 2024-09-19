@@ -1,4 +1,3 @@
-import { Divider } from 'antd'
 import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -65,11 +64,12 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
         onClickCloseChatInfo={onClickCloseChatInfo}
       />
 
-      <div className={styles.customSwitcher}>
+      <div className={styles.customSwitcherWrapper}>
         <CustomRadioButton
           size="large"
           buttonStyle="solid"
           options={getCustomSwitcherConfig(isGroupChat)}
+          className={styles.customSwitcher}
           value={currentTab}
           onChange={e => {
             resetSettings()

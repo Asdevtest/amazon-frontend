@@ -86,7 +86,7 @@ export const useStyles = makeStyles()(theme => ({
     zIndex: 7,
   },
 
-  customSwitcher: {
+  customSwitcherWrapper: {
     padding: '10px 0',
     display: 'flex',
     justifyContent: 'center',
@@ -94,5 +94,13 @@ export const useStyles = makeStyles()(theme => ({
 
     backgroundColor: theme.palette.background.general,
     boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
+  },
+
+  customSwitcher: {
+    '.ant-radio-button-wrapper span:nth-of-type(2)': {
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+    },
   },
 }))

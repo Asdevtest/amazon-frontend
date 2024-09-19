@@ -3,7 +3,8 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   highlightMessage: {
     background: theme.palette.background.activeChat,
-    borderRadius: '8px',
+
+    borderRadius: '20px',
 
     '&:hover': {
       background: theme.palette.background.activeChat,
