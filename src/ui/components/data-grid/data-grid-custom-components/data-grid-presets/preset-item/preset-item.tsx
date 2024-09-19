@@ -57,6 +57,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
           title={
             <CustomInput
               allowClear
+              maxLength={32}
               wrapperClassName={styles.input}
               placeholder="Rename"
               value={renamePresetName}
@@ -153,7 +154,6 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
         <CustomButton
           type="text"
           title={t(TranslationKey[quickAccessTitle])}
-          className={styles.button}
           icon={<QuickAccessIcon title={t(TranslationKey[quickAccessTitle])} className={styles.updateButton} />}
           onClick={e => {
             e?.stopPropagation()
