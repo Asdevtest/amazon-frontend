@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20079Rows } from './inline-response20079-rows';
 
 /**
  * 
@@ -21,17 +22,17 @@
  */
 export interface InlineResponse20079 {
     /**
-     * 
-     * @type {string}
+     * Count of rows
+     * @type {number}
      * @memberof InlineResponse20079
      */
-    userId?: string;
+    count?: number;
     /**
      * 
-     * @type {string}
+     * @type {Array<InlineResponse20079Rows>}
      * @memberof InlineResponse20079
      */
-    productId?: string;
+    rows?: Array<InlineResponse20079Rows>;
 }
 
 

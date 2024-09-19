@@ -21,17 +21,107 @@
  */
 export interface InlineObject7 {
     /**
-     * 
+     * Имя пользователя.
      * @type {string}
      * @memberof InlineObject7
      */
-    title?: string;
+    name?: string;
     /**
-     * 
+     * email
+     * @type {string}
+     * @memberof InlineObject7
+     */
+    email?: string;
+    /**
+     * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    roles.moderator = 60    
+     * @type {number}
+     * @memberof InlineObject7
+     */
+    role?: number;
+    /**
+     * Флаг fba.
      * @type {boolean}
      * @memberof InlineObject7
      */
-    archive?: boolean;
+    fba?: boolean;
+    /**
+     * Если истина - пользователь активен. Если нет - заблокирован админом.
+     * @type {boolean}
+     * @memberof InlineObject7
+     */
+    active?: boolean;
+    /**
+     * Поле отвечает за то, берется ли в расчет бокс этого юзера(сторкипера) при подсчете товаров в дороге
+     * @type {boolean}
+     * @memberof InlineObject7
+     */
+    isUserPreprocessingCenterUSA?: boolean;
+    /**
+     * Ставка, по который оплачивается сотрудник.
+     * @type {number}
+     * @memberof InlineObject7
+     */
+    rate?: number;
+    /**
+     * Текущий баланс пользователя.
+     * @type {number}
+     * @memberof InlineObject7
+     */
+    balance?: number;
+    /**
+     * Замороженная при оплате ордера сумма.
+     * @type {number}
+     * @memberof InlineObject7
+     */
+    balanceFreeze?: number;
+    /**
+     * Сумма на которую может уходить в минус пользователь.
+     * @type {number}
+     * @memberof InlineObject7
+     */
+    overdraft?: number;
+    /**
+     * Массив permission-ов.
+     * @type {Array<string>}
+     * @memberof InlineObject7
+     */
+    permissions?: Array<string>;
+    /**
+     * Массив групп permission-ов.
+     * @type {Array<string>}
+     * @memberof InlineObject7
+     */
+    permissionGroups?: Array<string>;
+    /**
+     * Массив массив ролей.
+     * @type {Array<number>}
+     * @memberof InlineObject7
+     */
+    allowedRoles?: Array<number>;
+    /**
+     * Массив доступных стратегий.
+     * @type {Array<number>}
+     * @memberof InlineObject7
+     */
+    allowedStrategies?: Array<number>;
+    /**
+     * Может ли данный пользователь быть мастер юзером.
+     * @type {boolean}
+     * @memberof InlineObject7
+     */
+    canByMasterUser?: boolean;
+    /**
+     * Скрывать поставщиков от пользователя.
+     * @type {boolean}
+     * @memberof InlineObject7
+     */
+    hideSuppliers?: boolean;
+    /**
+     * Массив доступных специализаций фрилансера.
+     * @type {Array<number>}
+     * @memberof InlineObject7
+     */
+    allowedSpec?: Array<number>;
 }
 
 

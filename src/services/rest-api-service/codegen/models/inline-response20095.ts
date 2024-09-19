@@ -15,23 +15,59 @@
 
 
 /**
- * Успешный ответ.
+ * 
  * @export
  * @interface InlineResponse20095
  */
 export interface InlineResponse20095 {
     /**
-     * Флаг, показывает есть ли такой ASIN в базе или нет
-     * @type {boolean}
-     * @memberof InlineResponse20095
-     */
-    isExist?: boolean;
-    /**
-     * Причина из таблицы с асинами
+     * GUID в базе данных
      * @type {string}
      * @memberof InlineResponse20095
      */
-    reason?: string;
+    _id?: string;
+    /**
+     * Guid заявки к которой относится данное media.
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    requestId?: string;
+    /**
+     * Guid предложения к которой относится данное media.
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    proposalId?: string;
+    /**
+     * комментарий клиента
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    commentByClient?: string;
+    /**
+     * комментарий исполнителя
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    commentByPerformer?: string;
+    /**
+     * Ссылка на файл
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    fileLink?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    updatedAt?: string;
 }
 
 

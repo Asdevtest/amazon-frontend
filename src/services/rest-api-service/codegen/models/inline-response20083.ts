@@ -21,17 +21,17 @@
  */
 export interface InlineResponse20083 {
     /**
-     * 
+     * Table name
      * @type {string}
      * @memberof InlineResponse20083
      */
-    productId?: string;
+    table?: string;
     /**
-     * Гуид магазина
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineResponse20083
      */
-    shopId?: string;
+    fields?: Array<string>;
 }
 
 

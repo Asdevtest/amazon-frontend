@@ -25,13 +25,13 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject121 } from '../models';
+import { InlineObject113 } from '../models';
 // @ts-ignore
-import { InlineObject122 } from '../models';
+import { InlineObject114 } from '../models';
 // @ts-ignore
-import { InlineResponse200 } from '../models';
+import { InlineResponse2002 } from '../models';
 // @ts-ignore
-import { InlineResponse20095 } from '../models';
+import { InlineResponse20090 } from '../models';
 // @ts-ignore
 import { InlineResponse2017 } from '../models';
 // @ts-ignore
@@ -216,12 +216,12 @@ export const ResearcherApiAxiosParamCreator = function (configuration?: Configur
          * ## Изменить продукт.   ## ASIN нельзя менять после того как создан продукт.   Может редактировать только товары со статусами 0, 5, 10
          * @summary #  Изменить продукт.
          * @param {string} guid GUID продукта БД
-         * @param {InlineObject122} [body] 
+         * @param {InlineObject114} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ResearchersProductsGuidPatch: async (guid: string, body?: InlineObject122, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ResearchersProductsGuidPatch: async (guid: string, body?: InlineObject114, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1ResearchersProductsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/researchers/products/{guid}`
@@ -261,12 +261,12 @@ export const ResearcherApiAxiosParamCreator = function (configuration?: Configur
         /**
          * ## Добавить новый продукт.   
          * @summary # Добавить новый продукт.
-         * @param {InlineObject121} [body] 
+         * @param {InlineObject113} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ResearchersProductsPost: async (body?: InlineObject121, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1ResearchersProductsPost: async (body?: InlineObject113, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/researchers/products`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -319,7 +319,7 @@ export const ResearcherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ResearchersCheckProductsAsinStrategyGet(asin: string, strategy: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20095>> {
+        async apiV1ResearchersCheckProductsAsinStrategyGet(asin: string, strategy: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20090>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -330,7 +330,7 @@ export const ResearcherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ResearchersProductsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200>>> {
+        async apiV1ResearchersProductsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2002>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ResearchersProductsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -354,7 +354,7 @@ export const ResearcherApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ResearchersProductsGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200>> {
+        async apiV1ResearchersProductsGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ResearchersProductsGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -362,24 +362,24 @@ export const ResearcherApiFp = function(configuration?: Configuration) {
          * ## Изменить продукт.   ## ASIN нельзя менять после того как создан продукт.   Может редактировать только товары со статусами 0, 5, 10
          * @summary #  Изменить продукт.
          * @param {string} guid GUID продукта БД
-         * @param {InlineObject122} [body] 
+         * @param {InlineObject114} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ResearchersProductsGuidPatch(guid: string, body?: InlineObject122, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1ResearchersProductsGuidPatch(guid: string, body?: InlineObject114, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ResearchersProductsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Добавить новый продукт.   
          * @summary # Добавить новый продукт.
-         * @param {InlineObject121} [body] 
+         * @param {InlineObject113} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ResearchersProductsPost(body?: InlineObject121, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+        async apiV1ResearchersProductsPost(body?: InlineObject113, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ResearchersProductsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -402,7 +402,7 @@ export const ResearcherApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ResearchersCheckProductsAsinStrategyGet(asin: string, strategy: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20095> {
+        apiV1ResearchersCheckProductsAsinStrategyGet(asin: string, strategy: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20090> {
             return localVarFp.apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -412,7 +412,7 @@ export const ResearcherApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ResearchersProductsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200>> {
+        apiV1ResearchersProductsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2002>> {
             return localVarFp.apiV1ResearchersProductsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -434,30 +434,30 @@ export const ResearcherApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ResearchersProductsGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200> {
+        apiV1ResearchersProductsGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2002> {
             return localVarFp.apiV1ResearchersProductsGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменить продукт.   ## ASIN нельзя менять после того как создан продукт.   Может редактировать только товары со статусами 0, 5, 10
          * @summary #  Изменить продукт.
          * @param {string} guid GUID продукта БД
-         * @param {InlineObject122} [body] 
+         * @param {InlineObject114} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ResearchersProductsGuidPatch(guid: string, body?: InlineObject122, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1ResearchersProductsGuidPatch(guid: string, body?: InlineObject114, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1ResearchersProductsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Добавить новый продукт.   
          * @summary # Добавить новый продукт.
-         * @param {InlineObject121} [body] 
+         * @param {InlineObject113} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ResearchersProductsPost(body?: InlineObject121, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+        apiV1ResearchersProductsPost(body?: InlineObject113, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
             return localVarFp.apiV1ResearchersProductsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -562,10 +562,10 @@ export interface ResearcherApiApiV1ResearchersProductsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject122}
+     * @type {InlineObject114}
      * @memberof ResearcherApiApiV1ResearchersProductsGuidPatch
      */
-    readonly body?: InlineObject122
+    readonly body?: InlineObject114
 
     /**
      * 
@@ -583,10 +583,10 @@ export interface ResearcherApiApiV1ResearchersProductsGuidPatchRequest {
 export interface ResearcherApiApiV1ResearchersProductsPostRequest {
     /**
      * 
-     * @type {InlineObject121}
+     * @type {InlineObject113}
      * @memberof ResearcherApiApiV1ResearchersProductsPost
      */
-    readonly body?: InlineObject121
+    readonly body?: InlineObject113
 
     /**
      * 

@@ -21,47 +21,17 @@
  */
 export interface InlineObject11 {
     /**
-     * Название склада.
-     * @type {string}
+     * Таймер на отключение в (МС)
+     * @type {number}
      * @memberof InlineObject11
      */
-    name: string;
+    countdown?: number;
     /**
-     * Страна.
+     * Текст сообщения для эмита юзерам
      * @type {string}
      * @memberof InlineObject11
      */
-    country?: string;
-    /**
-     * Индекс. 5 цифр.
-     * @type {string}
-     * @memberof InlineObject11
-     */
-    zipCode?: string;
-    /**
-     * Штат.
-     * @type {string}
-     * @memberof InlineObject11
-     */
-    state?: string;
-    /**
-     * Город.
-     * @type {string}
-     * @memberof InlineObject11
-     */
-    city?: string;
-    /**
-     * Адрес склада.
-     * @type {string}
-     * @memberof InlineObject11
-     */
-    address?: string;
-    /**
-     * Цвет шрифта
-     * @type {string}
-     * @memberof InlineObject11
-     */
-    fontColor?: string;
+    message?: string;
 }
 
 
