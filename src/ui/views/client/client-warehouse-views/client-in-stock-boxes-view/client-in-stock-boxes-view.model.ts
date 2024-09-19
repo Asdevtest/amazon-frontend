@@ -1149,17 +1149,19 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       await this.updateBarCodesInInventory(dataToBarCodeChange)
 
-      await this.postTask({
-        // @ts-ignore
-        idsData: [editBoxesResult.guid],
-        idsBeforeData: [id],
-        type: TaskOperationType.EDIT,
-        clientComment: boxData.clientTaskComment,
-        // @ts-ignore
-        priority,
-        // @ts-ignore
-        reason: priorityReason,
-      })
+      if (sourceData.shippingLabel !== null) {
+        await this.postTask({
+          // @ts-ignore
+          idsData: [editBoxesResult.guid],
+          idsBeforeData: [id],
+          type: TaskOperationType.EDIT,
+          clientComment: boxData.clientTaskComment,
+          // @ts-ignore
+          priority,
+          // @ts-ignore
+          reason: priorityReason,
+        })
+      }
 
       runInAction(() => {
         toast.success(
