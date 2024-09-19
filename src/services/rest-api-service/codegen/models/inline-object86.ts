@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1IntegrationsCreateAndLinkSkuProductsPayload } from './api-v1-integrations-create-and-link-sku-products-payload';
 
 /**
  * 
@@ -22,10 +23,10 @@
 export interface InlineObject86 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>}
      * @memberof InlineObject86
      */
-    reportIds: Array<string>;
+    payload?: Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>;
 }
 
 

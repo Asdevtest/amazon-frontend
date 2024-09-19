@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-guid-items';
 
 /**
  * 
@@ -22,65 +21,83 @@ import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-gui
  */
 export interface InlineObject29 {
     /**
-     * 
-     * @type {number}
+     * GUID пункта назначения коробки
+     * @type {string}
      * @memberof InlineObject29
      */
-    lengthCmWarehouse?: number;
+    destinationId?: string;
     /**
-     * 
-     * @type {number}
+     * GUID тарифа к сторкипера
+     * @type {string}
      * @memberof InlineObject29
      */
-    widthCmWarehouse?: number;
+    logicsTariffId?: string;
     /**
-     * 
-     * @type {number}
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
      * @memberof InlineObject29
      */
-    heightCmWarehouse?: number;
+    fbaShipment?: string;
     /**
-     * 
-     * @type {number}
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
      * @memberof InlineObject29
      */
-    weighGrossKgWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject29
-     */
-    volumeWeightKgWarehouse?: number;
-    /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineObject29
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidItems>}
-     * @memberof InlineObject29
-     */
-    items?: Array<ApiV1BoxesStorekeepersGuidItems>;
+    fbaNumber?: string;
     /**
      * Комментарии к коробке
      * @type {string}
      * @memberof InlineObject29
      */
-    storekeeperComment?: string;
+    clientComment?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    referenceId?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    trackNumberText?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject29
+     */
+    trackNumberFile?: Array<string>;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    upsTrackNumber?: string;
+    /**
+     * shippingLabel коробки
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    shippingLabel?: string;
+    /**
+     * shippingLabel проклеен сторкипером
+     * @type {boolean}
+     * @memberof InlineObject29
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    prepId?: string;
     /**
      * Гуид вариации
      * @type {string}
      * @memberof InlineObject29
      */
     variationTariffId?: string;
-    /**
-     * Массив ссылок на фотографии.
-     * @type {Array<string>}
-     * @memberof InlineObject29
-     */
-    images?: Array<string>;
 }
 
 

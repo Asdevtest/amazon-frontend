@@ -12,4 +12,9 @@ export interface IParsingProfile {
   shop: ICreatedBy | null
   updatedAt: string
   _id: string
+  otp: string
+  spreadsheetsIdImport: string
+  spreadsheetsIdMain: string
+  spreadsheetsIdPerformance: string
+  status: string
 }

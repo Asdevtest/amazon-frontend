@@ -46,18 +46,6 @@ export interface InlineResponse20071Rows {
      */
     shopId?: string;
     /**
-     * image
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    image?: string;
-    /**
-     * date_updated
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    dateUpdated?: string;
-    /**
      * asin
      * @type {string}
      * @memberof InlineResponse20071Rows
@@ -70,17 +58,35 @@ export interface InlineResponse20071Rows {
      */
     sku?: string;
     /**
-     * day
+     * period_start
      * @type {string}
      * @memberof InlineResponse20071Rows
      */
-    day?: string;
+    periodStart?: string;
+    /**
+     * period_end
+     * @type {string}
+     * @memberof InlineResponse20071Rows
+     */
+    periodEnd?: string;
+    /**
+     * week
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    week?: number;
     /**
      * acos
      * @type {number}
      * @memberof InlineResponse20071Rows
      */
     acos?: number;
+    /**
+     * image
+     * @type {string}
+     * @memberof InlineResponse20071Rows
+     */
+    image?: string;
     /**
      * ppc_impressions
      * @type {number}
@@ -117,12 +123,6 @@ export interface InlineResponse20071Rows {
      * @memberof InlineResponse20071Rows
      */
     ppcSales?: number;
-    /**
-     * ppc_avg_units_one_order
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    ppcAvgUnitsOneOrder?: number;
     /**
      * order_sales_cost
      * @type {number}
@@ -172,17 +172,23 @@ export interface InlineResponse20071Rows {
      */
     organicAvgUnitPrice?: number;
     /**
-     * organic_avg_units_one_order
+     * impressions
      * @type {number}
      * @memberof InlineResponse20071Rows
      */
-    organicAvgUnitsOneOrder?: number;
+    impressions?: number;
     /**
      * sessions
      * @type {number}
      * @memberof InlineResponse20071Rows
      */
     sessions?: number;
+    /**
+     * ctr
+     * @type {number}
+     * @memberof InlineResponse20071Rows
+     */
+    ctr?: number;
     /**
      * orders
      * @type {number}
@@ -255,6 +261,12 @@ export interface InlineResponse20071Rows {
      * @memberof InlineResponse20071Rows
      */
     conversionOrganic?: number;
+    /**
+     * date_updated
+     * @type {string}
+     * @memberof InlineResponse20071Rows
+     */
+    dateUpdated?: string;
     /**
      * createdAt
      * @type {string}

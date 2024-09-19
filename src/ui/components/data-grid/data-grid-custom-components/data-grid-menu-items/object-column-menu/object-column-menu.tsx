@@ -14,6 +14,7 @@ import { useObjectColumnMenu } from './hooks/use-object-column-menu'
 
 interface IObjectColumnMenuProps extends ColumnMenuProps<any> {
   hideEmptyObject?: boolean
+  sortOptions?: string
 }
 
 export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
@@ -25,6 +26,7 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
     filtersData,
     filterRequestStatus,
     hideEmptyObject,
+    sortOptions,
     onClose,
     onClickFilterBtn,
     onChangeFullFieldMenuItem,
@@ -45,6 +47,7 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
     table,
     filtersData,
     hideEmptyObject,
+    sortOptions,
     onClickFilterBtn,
   })
 

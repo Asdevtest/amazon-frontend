@@ -11,19 +11,7 @@ export const profilesFormConfig = {
   onScroll: action.bound,
 }
 
-export const requestOptions = {
-  sortField: 'updatedAt',
-  sortType: 'DESC',
-  filters: 'status[$eq]="VACANT"',
-}
-
 export const searchFields = ['name', 'email']
-
-export const defaultFilterParams = {
-  status: {
-    $eq: 'VACANT',
-  },
-}
 
 export const getProfilesOptions = (profiles: IPermissionsData[]) =>
   profiles.map(profile => ({
