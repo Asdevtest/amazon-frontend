@@ -34,7 +34,6 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
                 <div>
                   <div className={styles.asinWrapper}>
                     <Typography className={styles.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
-
                     <Text className={styles.asinValue} text={order.product?.asin} />
                   </div>
 
