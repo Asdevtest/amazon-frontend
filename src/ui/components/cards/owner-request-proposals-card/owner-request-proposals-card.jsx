@@ -1,6 +1,6 @@
+import { Avatar } from 'antd'
 import { useState } from 'react'
 
-import { Avatar } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import {

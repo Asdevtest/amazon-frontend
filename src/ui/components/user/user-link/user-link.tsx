@@ -1,6 +1,7 @@
+import { Avatar } from 'antd'
 import { FC, memo } from 'react'
 
-import { Avatar, Link, Tooltip } from '@mui/material'
+import { Link, Tooltip } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import { UserModel } from '@models/user-model'
@@ -67,7 +68,7 @@ export const UserLink: FC<UserLinkProps> = memo(
                 <Avatar
                   src={getUserAvatarSrc(userId)}
                   className={styles.avatarWrapper}
-                  sx={{ width: 28, height: 28, ...(customAvatarStyles && customAvatarStyles) }}
+                  style={{ width: 28, height: 28, ...(customAvatarStyles && customAvatarStyles) }}
                 />
               </Tooltip>
             ) : null}

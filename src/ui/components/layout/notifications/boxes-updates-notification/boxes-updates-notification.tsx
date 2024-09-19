@@ -1,8 +1,9 @@
+import { Avatar } from 'antd'
 import { format } from 'date-fns'
 import { History } from 'history'
 import { FC } from 'react'
 
-import { Avatar, Link } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

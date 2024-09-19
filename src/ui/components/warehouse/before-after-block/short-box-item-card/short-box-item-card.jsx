@@ -43,7 +43,7 @@ export const ShortBoxItemCard = ({ item, superCount, boxId, taskType, readOnly }
 
           <div className={styles.attributeFooterWrapper}>
             <div className={styles.asinWrapper}>
-              <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
+              <p className={styles.asin}>{t(TranslationKey.ASIN)}</p>
               <Text className={styles.asinTitle} text={item.product?.asin} />
             </div>
 
@@ -53,7 +53,7 @@ export const ShortBoxItemCard = ({ item, superCount, boxId, taskType, readOnly }
       </div>
       <div className={styles.attributeFooterMobileWrapper}>
         <div className={styles.asinWrapper}>
-          <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
+          <p className={styles.asin}>{t(TranslationKey.ASIN)}</p>
           <Text className={styles.asinTitle} copyable={false} text={item.product?.asin} />
         </div>
         <p className={styles.title}>{item.product?.amazonTitle}</p>

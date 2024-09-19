@@ -1,8 +1,7 @@
+import { Avatar } from 'antd'
 import { FC, memo } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { MdClose } from 'react-icons/md'
-
-import { Avatar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

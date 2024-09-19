@@ -1,8 +1,7 @@
 import { css, cx } from '@emotion/css'
+import { Avatar } from 'antd'
 import { useState } from 'react'
 import { components } from 'react-select'
-
-import { Avatar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -34,7 +33,7 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
         [styles.isFocusedOption]: isFocused,
       })}
     >
-      <Avatar src={getUserAvatarSrc(props.value)} sx={{ width: 28, height: 28 }} />
+      <Avatar src={getUserAvatarSrc(props.value)} style={{ width: 28, height: 28 }} />
       <components.Option {...props} />
     </div>
   )
@@ -42,7 +41,7 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
   const MultiValueContainer = props => (
     <components.MultiValueContainer {...props}>
       {[
-        <Avatar key={props.key} src={getUserAvatarSrc(props.data._id)} sx={{ width: 20, height: 20 }} />,
+        <Avatar key={props.key} src={getUserAvatarSrc(props.data._id)} style={{ width: 20, height: 20 }} />,
         ...props.children,
       ]}
     </components.MultiValueContainer>

@@ -1,3 +1,4 @@
+import { Avatar } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useContext, useEffect, useRef, useState } from 'react'
 import { IoMdSunny } from 'react-icons/io'
@@ -5,7 +6,7 @@ import { MdArrowDropDown, MdBrightness3, MdNotifications, MdNotificationsOff, Md
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { Avatar, Divider } from '@mui/material'
+import { Divider } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 

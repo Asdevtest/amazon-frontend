@@ -1,8 +1,9 @@
+import { Avatar } from 'antd'
 import isEqual from 'lodash.isequal'
 import { memo, useEffect, useState } from 'react'
 import { FaCircle } from 'react-icons/fa'
 
-import { Avatar, Link, List, ListItem, ListItemText, Rating } from '@mui/material'
+import { Link, List, ListItem, ListItemText, Rating } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

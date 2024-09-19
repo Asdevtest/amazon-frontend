@@ -1,7 +1,8 @@
+import { Avatar } from 'antd'
 import { memo, useState } from 'react'
 import { MdExpandMore } from 'react-icons/md'
 
-import { Avatar, Rating } from '@mui/material'
+import { Rating } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'

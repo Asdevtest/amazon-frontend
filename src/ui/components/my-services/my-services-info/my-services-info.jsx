@@ -1,6 +1,7 @@
+import { Avatar } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 
-import { Avatar, Rating } from '@mui/material'
+import { Rating } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

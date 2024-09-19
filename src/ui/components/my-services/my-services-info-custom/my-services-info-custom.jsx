@@ -1,4 +1,6 @@
-import { Avatar, Divider, Paper, Rating } from '@mui/material'
+import { Avatar } from 'antd'
+
+import { Divider, Paper, Rating } from '@mui/material'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'

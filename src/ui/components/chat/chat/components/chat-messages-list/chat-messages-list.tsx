@@ -1,7 +1,8 @@
+import { Avatar } from 'antd'
 import { FC, Ref, RefObject, memo, useEffect } from 'react'
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 
-import { Avatar, Link } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { ChatModel } from '@models/chat-model'
 import { ChatContract } from '@models/chat-model/contracts'

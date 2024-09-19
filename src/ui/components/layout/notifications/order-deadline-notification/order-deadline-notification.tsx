@@ -1,7 +1,6 @@
+import { Avatar } from 'antd'
 import { format } from 'date-fns'
 import { FC } from 'react'
-
-import { Avatar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

@@ -1,4 +1,6 @@
-import { Avatar, Grid } from '@mui/material'
+import { Avatar } from 'antd'
+
+import { Grid } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'

@@ -1,4 +1,6 @@
-import { Avatar, Grid, Rating } from '@mui/material'
+import { Avatar } from 'antd'
+
+import { Grid, Rating } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
