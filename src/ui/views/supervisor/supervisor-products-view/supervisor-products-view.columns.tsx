@@ -24,13 +24,16 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { IItemWithTitle } from '@hooks/use-select'
+
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 interface SupervisorProductsViewColumnsProps {
   onClickTableRow: (id: string) => void
+  onClickTag: (tag: IItemWithTitle) => void
 }
 
-export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorProductsViewColumnsProps) => {
+export const supervisorProductsViewColumns = ({ onClickTableRow, onClickTag }: SupervisorProductsViewColumnsProps) => {
   const columns: IGridColumn[] = [
     {
       field: 'link',
@@ -164,7 +167,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       headerName: t(TranslationKey.Tags),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
       valueGetter: ({ row }) => row?.tags?.map((el: { title: string }) => `#${el.title}`).join(),
-      renderCell: ({ row }) => <TagsCell tags={row?.tags} />,
+      renderCell: ({ row }) => <TagsCell tags={row?.tags} onClickTag={onClickTag} />,
       width: 180,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.TAGS,
