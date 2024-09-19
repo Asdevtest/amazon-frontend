@@ -87,16 +87,6 @@ export const inventoryShipmentsColumns = () => {
     },
 
     {
-      field: 'amzDateUpdated',
-      headerName: 'Amz date updated',
-      renderHeader: () => <MultilineTextHeaderCell text="Amz date updated" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
-    },
-
-    {
       field: 'amzDateCreated',
       headerName: 'Amz date created',
       renderHeader: () => <MultilineTextHeaderCell text="Amz date created" />,
@@ -168,36 +158,6 @@ export const inventoryShipmentsColumns = () => {
     },
 
     {
-      field: 'destinationDateUpdated',
-      headerName: 'Destination date updated',
-      renderHeader: () => <MultilineTextHeaderCell text="Destination date updated" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
-    },
-
-    {
-      field: 'shipmentDateCreated',
-      headerName: 'Shipment date created',
-      renderHeader: () => <MultilineTextHeaderCell text="Shipment date created" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
-    },
-
-    {
-      field: 'numberOfDestinations',
-      headerName: 'Number of destinations',
-      renderHeader: () => <MultilineTextHeaderCell text="Number of destinations" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
       field: 'trackingNumber',
       headerName: 'Tracking number',
       renderHeader: () => <MultilineTextHeaderCell text="Tracking number" />,
@@ -205,26 +165,6 @@ export const inventoryShipmentsColumns = () => {
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
-    },
-
-    {
-      field: 'scheduledCarrierDeliveryDate',
-      headerName: 'Scheduled carrier delivery date',
-      renderHeader: () => <MultilineTextHeaderCell text="Scheduled carrier delivery date" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
-    },
-
-    {
-      field: 'checkedInData',
-      headerName: 'Checked in data',
-      renderHeader: () => <MultilineTextHeaderCell text="Checked in data" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
     },
   ]
 
