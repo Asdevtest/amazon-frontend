@@ -73,6 +73,7 @@ export class VacantRequestsViewModel extends DataGridFilterTableModel {
 
   onChangeSpec(value: Specs) {
     this.specOption = value
+    this.onChangeFullFieldMenuItem([], 'spec')
 
     this.getCurrentData()
   }
