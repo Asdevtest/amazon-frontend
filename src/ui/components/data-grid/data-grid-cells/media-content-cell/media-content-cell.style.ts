@@ -11,4 +11,10 @@ export const useStyles = makeStyles()(theme => ({
     overflow: 'hidden',
     boxShadow: theme.palette.boxShadow.paper,
   },
+
+  mask: {
+    padding: '0 14px',
+    display: 'flex',
+    gap: '20px',
+  },
 }))
