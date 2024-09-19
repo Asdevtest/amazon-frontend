@@ -23,14 +23,14 @@ import { InlineResponse20082Meta } from './inline-response20082-meta';
  */
 export interface InlineResponse20082 {
     /**
-     * Count of rows
+     * Кол-во записей
      * @type {number}
      * @memberof InlineResponse20082
      */
     count?: number;
     /**
-     * Массив разрешенных продуктов для юзера.
-     * @type {Array<InlineResponse20079Products>}
+     * Массив оплат.
+     * @type {Array<InlineResponse20082Rows>}
      * @memberof InlineResponse20082
      */
     rows?: Array<InlineResponse20079Products>;

@@ -14,7 +14,7 @@
 
 
 import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
-import { InlineResponse20018AllowedUrls } from './inline-response20018-allowed-urls';
+import { InlineResponse2006AllowedUrls } from './inline-response2006-allowed-urls';
 
 /**
  * Отобразить permission
@@ -48,10 +48,10 @@ export interface PermissionGroupGetDtoSchemaPermissions {
     description: string;
     /**
      * Массив доступных url.
-     * @type {Array<InlineResponse20018AllowedUrls>}
+     * @type {Array<InlineResponse2006AllowedUrls>}
      * @memberof PermissionGroupGetDtoSchemaPermissions
      */
-    allowedUrls: Array<InlineResponse20018AllowedUrls>;
+    allowedUrls: Array<InlineResponse2006AllowedUrls>;
     /**
      * Роль для которого данный permission
      * @type {number}

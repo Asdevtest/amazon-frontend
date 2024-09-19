@@ -13,6 +13,8 @@
  */
 
 
+import { InlineResponse20078Products } from './inline-response20078-products';
+import { InlineResponse20081Meta } from './inline-response20081-meta';
 
 /**
  * 
@@ -21,17 +23,23 @@
  */
 export interface InlineResponse20081 {
     /**
-     * 
-     * @type {string}
+     * Count of rows
+     * @type {number}
      * @memberof InlineResponse20081
      */
-    productId?: string;
+    count?: number;
     /**
-     * Гуид магазина
-     * @type {string}
+     * Массив разрешенных продуктов для юзера.
+     * @type {Array<InlineResponse20078Products>}
      * @memberof InlineResponse20081
      */
-    shopId?: string;
+    rows?: Array<InlineResponse20078Products>;
+    /**
+     * 
+     * @type {InlineResponse20081Meta}
+     * @memberof InlineResponse20081
+     */
+    meta?: InlineResponse20081Meta;
 }
 
 

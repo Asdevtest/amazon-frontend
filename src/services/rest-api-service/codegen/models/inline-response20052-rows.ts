@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 
 /**
  * 
@@ -39,11 +40,17 @@ export interface InlineResponse20052Rows {
      */
     productCount?: number;
     /**
-     * Color
-     * @type {string}
+     * 
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20052Rows
      */
-    color?: string;
+    shopUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    /**
+     * 
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @memberof InlineResponse20052Rows
+     */
+    productUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
 }
 
 

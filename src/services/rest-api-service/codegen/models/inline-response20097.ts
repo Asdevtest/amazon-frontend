@@ -13,7 +13,8 @@
  */
 
 
-import { InlineResponse20097Rows } from './inline-response20097-rows';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
 
 /**
  * 
@@ -29,10 +30,148 @@ export interface InlineResponse20097 {
     count?: number;
     /**
      * 
-     * @type {Array<InlineResponse20097Rows>}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20097
      */
-    rows?: Array<InlineResponse20097Rows>;
+    owner?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * GUID покупателя магазина
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    bidderId?: string;
+    /**
+     * GUID модератора магазина
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    moderatorId?: string;
+    /**
+     * GUID чата
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    chatId?: string;
+    /**
+     * Имя магазина для продажи
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    title?: string;
+    /**
+     * Статус магазина для продажи
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    status?: string;
+    /**
+     * Файлы, которые привязаны к магазину
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    files?: Array<string>;
+    /**
+     * Стоимость магазина
+     * @type {number}
+     * @memberof InlineResponse20097
+     */
+    price?: number;
+    /**
+     * Ежемесячная прибыль
+     * @type {number}
+     * @memberof InlineResponse20097
+     */
+    monthlyProfit?: number;
+    /**
+     * Ежемесячная чистая прибыль
+     * @type {number}
+     * @memberof InlineResponse20097
+     */
+    monthlyPureProfit?: number;
+    /**
+     * Ежемесячный множитель
+     * @type {number}
+     * @memberof InlineResponse20097
+     */
+    monthlyMultiplier?: number;
+    /**
+     * Статистика магазина по месяцам
+     * @type {Array<ApiV1ShopSellStatistics1>}
+     * @memberof InlineResponse20097
+     */
+    statistics?: Array<ApiV1ShopSellStatistics1>;
+    /**
+     * Дата создания бизнеса
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    businessStartDate?: string;
+    /**
+     * Детали магазина
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    shopDetails?: string;
+    /**
+     * Ссылка магазина
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    shopLink?: string;
+    /**
+     * Массив активов
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    shopAssets?: Array<string>;
+    /**
+     * Массив возможностей
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    opportunities?: Array<string>;
+    /**
+     * Массив рисков
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    risks?: Array<string>;
+    /**
+     * Массив требуемых навыков
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    requiredSkills?: Array<string>;
+    /**
+     * Поддержка продавца включает
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    sellIncludes?: Array<string>;
+    /**
+     * Причины продажи
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    reasonForSale?: Array<string>;
+    /**
+     * Дополнительная информация
+     * @type {Array<string>}
+     * @memberof InlineResponse20097
+     */
+    additionalInfo?: Array<string>;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20097
+     */
+    updatedAt?: string;
 }
 
 

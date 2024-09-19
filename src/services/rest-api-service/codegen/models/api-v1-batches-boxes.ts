@@ -13,6 +13,8 @@
  */
 
 
+import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
+import { ApiV1AdminsOrdersLogicsTariff } from './api-v1-admins-orders-logics-tariff';
 import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BatchesBatch } from './api-v1-batches-batch';
 import { ApiV1BatchesItems } from './api-v1-batches-items';

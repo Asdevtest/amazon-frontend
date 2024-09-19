@@ -25,6 +25,8 @@ import { ApiV1BatchesBoxes } from '../models';
 // @ts-ignore
 import { ApiV1BatchesOrderLogicsTariff } from '../models';
 // @ts-ignore
+import { ApiV1BatchesBoxes } from '../models';
+// @ts-ignore
 import { ApiV1StorekeepersTariffWarehouses } from '../models';
 // @ts-ignore
 import { BadRequestError } from '../models';
@@ -63,7 +65,9 @@ import { InlineResponse20020 } from '../models';
 // @ts-ignore
 import { InlineResponse20035 } from '../models';
 // @ts-ignore
-import { InlineResponse20099 } from '../models';
+import { InlineResponse20037 } from '../models';
+// @ts-ignore
+import { InlineResponse2008 } from '../models';
 // @ts-ignore
 import { InlineResponse2017 } from '../models';
 // @ts-ignore
@@ -1901,7 +1905,7 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTasksLightMyGet(status?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20020>>> {
+        async apiV1StorekeepersTasksLightMyGet(status?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2008>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTasksLightMyGet(status, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1952,7 +1956,7 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTasksLightVacGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20020>>> {
+        async apiV1StorekeepersTasksLightVacGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2008>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTasksLightVacGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2306,7 +2310,7 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTasksLightMyGet(status?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20020>> {
+        apiV1StorekeepersTasksLightMyGet(status?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2008>> {
             return localVarFp.apiV1StorekeepersTasksLightMyGet(status, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2354,7 +2358,7 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTasksLightVacGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20020>> {
+        apiV1StorekeepersTasksLightVacGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2008>> {
             return localVarFp.apiV1StorekeepersTasksLightVacGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

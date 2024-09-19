@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20048Rows } from './inline-response20048-rows';
+import { InlineResponse2008 } from './inline-response2008';
 
 /**
  * 
@@ -28,11 +28,11 @@ export interface InlineResponse20048 {
      */
     count?: number;
     /**
-     * 
-     * @type {Array<InlineResponse20048Rows>}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse2008>}
      * @memberof InlineResponse20048
      */
-    rows?: Array<InlineResponse20048Rows>;
+    rows?: Array<InlineResponse2008>;
 }
 
 

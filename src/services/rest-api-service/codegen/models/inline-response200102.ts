@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse200102Rows } from './inline-response200102-rows';
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * 
@@ -28,11 +28,11 @@ export interface InlineResponse200102 {
      */
     count?: number;
     /**
-     * Массив данных о складах.
-     * @type {Array<InlineResponse200102Rows>}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse200102
      */
-    rows?: Array<InlineResponse200102Rows>;
+    rows?: Array<ApiV1BatchesBoxes>;
 }
 
 

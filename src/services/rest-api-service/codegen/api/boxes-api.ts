@@ -29,39 +29,7 @@ import { ConflictInTheState } from '../models';
 // @ts-ignore
 import { InlineObject } from '../models';
 // @ts-ignore
-import { InlineObject11 } from '../models';
-// @ts-ignore
-import { InlineObject12 } from '../models';
-// @ts-ignore
-import { InlineObject13 } from '../models';
-// @ts-ignore
-import { InlineObject14 } from '../models';
-// @ts-ignore
-import { InlineObject15 } from '../models';
-// @ts-ignore
-import { InlineObject16 } from '../models';
-// @ts-ignore
-import { InlineObject17 } from '../models';
-// @ts-ignore
-import { InlineObject18 } from '../models';
-// @ts-ignore
-import { InlineObject19 } from '../models';
-// @ts-ignore
-import { InlineObject20 } from '../models';
-// @ts-ignore
-import { InlineObject21 } from '../models';
-// @ts-ignore
-import { InlineObject22 } from '../models';
-// @ts-ignore
-import { InlineObject23 } from '../models';
-// @ts-ignore
-import { InlineObject24 } from '../models';
-// @ts-ignore
-import { InlineObject25 } from '../models';
-// @ts-ignore
-import { InlineObject26 } from '../models';
-// @ts-ignore
-import { InlineResponse20010 } from '../models';
+import { InlineObject27 } from '../models';
 // @ts-ignore
 import { InlineResponse20011 } from '../models';
 // @ts-ignore
@@ -77,9 +45,41 @@ import { InlineResponse2006 } from '../models';
 // @ts-ignore
 import { InlineResponse2007 } from '../models';
 // @ts-ignore
-import { InlineResponse2008 } from '../models';
+import { InlineObject35 } from '../models';
 // @ts-ignore
-import { InlineResponse2009 } from '../models';
+import { InlineObject36 } from '../models';
+// @ts-ignore
+import { InlineObject37 } from '../models';
+// @ts-ignore
+import { InlineObject38 } from '../models';
+// @ts-ignore
+import { InlineObject39 } from '../models';
+// @ts-ignore
+import { InlineObject40 } from '../models';
+// @ts-ignore
+import { InlineObject41 } from '../models';
+// @ts-ignore
+import { InlineObject42 } from '../models';
+// @ts-ignore
+import { InlineResponse20020 } from '../models';
+// @ts-ignore
+import { InlineResponse20021 } from '../models';
+// @ts-ignore
+import { InlineResponse20022 } from '../models';
+// @ts-ignore
+import { InlineResponse20023 } from '../models';
+// @ts-ignore
+import { InlineResponse20024 } from '../models';
+// @ts-ignore
+import { InlineResponse20025 } from '../models';
+// @ts-ignore
+import { InlineResponse20026 } from '../models';
+// @ts-ignore
+import { InlineResponse20027 } from '../models';
+// @ts-ignore
+import { InlineResponse20028 } from '../models';
+// @ts-ignore
+import { InlineResponse20029 } from '../models';
 // @ts-ignore
 import { InlineResponse2012 } from '../models';
 // @ts-ignore
@@ -100,12 +100,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
          * ## Изменить дополнительную информацию коробки.
          * @summary # Изменить дополнительную информацию коробки.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject25} [body] 
+         * @param {InlineObject41} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesAdditionalInfoGuidPatch: async (guid: string, body?: InlineObject25, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesAdditionalInfoGuidPatch: async (guid: string, body?: InlineObject41, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BoxesAdditionalInfoGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/boxes/additional_info/{guid}`
@@ -145,12 +145,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * ## Подтвердить операцию объединения/разъединения коробок.  
          * @summary # Подтвердить операцию объединения/разъединения коробок.
-         * @param {InlineObject20} [body] 
+         * @param {InlineObject36} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesApprovePost: async (body?: InlineObject20, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesApprovePost: async (body?: InlineObject36, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/boxes/approve`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -313,12 +313,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * ## Отменить редактирование коробок.  
          * @summary # Отменить редактирование коробок.
-         * @param {InlineObject15} [body] 
+         * @param {InlineObject31} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesCancelEditPost: async (body?: InlineObject15, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesCancelEditPost: async (body?: InlineObject31, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/boxes/cancel-edit`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -397,12 +397,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * ## Отменить объединение коробок.  
          * @summary # Отменить объединение коробок.
-         * @param {InlineObject17} [body] 
+         * @param {InlineObject33} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesCancelMergePost: async (body?: InlineObject17, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesCancelMergePost: async (body?: InlineObject33, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/boxes/cancel-merge`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -439,12 +439,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * ## Отменить разделение коробок.   ## !!! У каждой коробки которая была создана разделением есть братья.    ## !!! Братья - коробки которые были созданы с этой, при разделении родителя.    ## !!! При отмене текущая коробка и все ee братья будут удалены. Родитель восстановлен.   
          * @summary # Отменить разделение коробок.
-         * @param {InlineObject19} [body] 
+         * @param {InlineObject35} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesCancelSplitPost: async (body?: InlineObject19, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesCancelSplitPost: async (body?: InlineObject35, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/boxes/cancel-split`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -482,12 +482,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
          * ## Изменить полей габаритов, массы коробки.
          * @summary # Изменить полей габаритов, массы коробки.
          * @param {string} guid GUID коробки.
-         * @param {InlineObject23} [body] 
+         * @param {InlineObject39} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesChangeDimensionsGuidPatch: async (guid: string, body?: InlineObject23, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesChangeDimensionsGuidPatch: async (guid: string, body?: InlineObject39, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BoxesChangeDimensionsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/boxes/change-dimensions/{guid}`
@@ -593,12 +593,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
          * ## Отредактировать коробку клиентом  Клиент может отредактировать только свои коробки.  проверка на наличие склада назначения  проверка на наличие тарифа к сторкипера
          * @summary # Отредактировать коробку клиентом
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject13} [body] 
+         * @param {InlineObject29} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesClientsGuidPatch: async (guid: string, body?: InlineObject13, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesClientsGuidPatch: async (guid: string, body?: InlineObject29, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BoxesClientsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/boxes/clients/{guid}`
@@ -856,12 +856,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
          * ## ЭТО МЕТОД ИСОЛЬЗУЕТСЯ ДЛЯ ТАСКОВ  ## Отредактировать коробку. Коробка после редактирования станет черновиком. Ее нужно будет подтвердить  ## ВНИМАНИЕ - фактически будет создана новая коробка а старая пометится как удаленная.   ## ВНИМАНИЕ - передайте весь набор параметров как на создание новой коробки. Не только те которые нужно изменить.  
          * @summary # Отредактировать коробку. Сликом гибкий метод
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject12} [body] 
+         * @param {InlineObject28} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesEditGuidPost: async (guid: string, body?: InlineObject12, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesEditGuidPost: async (guid: string, body?: InlineObject28, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BoxesEditGuidPost', 'guid', guid)
             const localVarPath = `/api/v1/boxes/edit/{guid}`
@@ -1161,12 +1161,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
          * # Изменить поле isFormed
          * @summary # Изменить поле isFormed
          * @param {string} guid GUID коробки.
-         * @param {InlineObject26} [body] 
+         * @param {InlineObject42} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesIsFormedGuidPatch: async (guid: string, body?: InlineObject26, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesIsFormedGuidPatch: async (guid: string, body?: InlineObject42, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BoxesIsFormedGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/boxes/is_formed/{guid}`
@@ -1206,12 +1206,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * ## Изменить несколько коробок сторкипером.   
          * @summary # Изменить несколько коробок сторкипером.
-         * @param {InlineObject14} [body] 
+         * @param {InlineObject30} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesManyPatch: async (body?: InlineObject14, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesManyPatch: async (body?: InlineObject30, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/boxes/many`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1248,12 +1248,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * ## Объединить две и более коробок.  Данный методод только для клиента Проверки: Все коробки должны быть от одного сторкипера, принадлежать одному клиенту, Тариф доставки должен принадлежать данному сторкиперу Провверки:  Все item-ы иметь одинаковый баркод Проверяем чтобы баркоды были проклеены у всех, иначе в новой коробке будет false.
          * @summary # Объединить две и более коробок.
-         * @param {InlineObject16} [body] 
+         * @param {InlineObject32} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesMergePost: async (body?: InlineObject16, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesMergePost: async (body?: InlineObject32, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/boxes/merge`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1383,12 +1383,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * ## Создать коробку и ее строки.  При создании коробка получает статус \"IN_STOCK\" ## Коробка состоит из шапки и строк (как накладная)  ## Коллекция Boxes содержит основные параметры коробки.  ## BoxesItems - коллекция которая содержит строки позиций в коробке.  У коробок есть еще такие параметры:         isActual - если false, то коробка удалена.         isDraft - если true, то коробка является черновиком. Его создал клиента при объеденении / разделении коробки         У клиента и у сотрудника склада их можно отфильтровать и обрабатывать в отдельном окне.         Сотрудник склада обработав позитивно изменение коробок от клиента просто ставит здесь (isDraft) false и коробка становится обычной.         Также у коробки созданной из других коробок заполнено поле parents. Это массив guid родительских коробок.         При отмене объединения коробок в базе по этим guid восстановим коробки isActual = true. А новые будут удалены isActual = false.         Также у коробки созданной при объединении/разделении будет заполнено поле brothers. Это guid других коробок которые были созданы вместе с этой из общих родителей.         Когда для любой из объединённых коробок будет запрошено удаление, восстановим старые коробки и кроме текущей коробки         будут удалены все ее братья.
          * @summary # Создать коробку и ее строки.
-         * @param {InlineObject11} [body] 
+         * @param {InlineObject27} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesPost: async (body?: InlineObject11, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesPost: async (body?: InlineObject27, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/boxes/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1467,12 +1467,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * ## Разделить коробку.   При разделении коробок странная сущность передается. Там массив массивов.Первый массив это          новые коробки - сколько элементов, столько и создаст коробок. Второй массив - это элементы в коробке.          В нем строки новой коробки. Фронт отвечает за то, что суммарное содержание новых коробок,          было ровно содержанию исходной коробки.
          * @summary # Разделить коробку.
-         * @param {InlineObject18} [body] 
+         * @param {InlineObject34} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesSplitPost: async (body?: InlineObject18, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesSplitPost: async (body?: InlineObject34, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/boxes/split`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1510,12 +1510,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
          * ## Изменить коробку сотрудником склада.   Сотрудник склада не может редактировать содержание коробки, но ему доступно для         редактирования параметры коробки.
          * @summary # Изменить коробку сотрудником склада.
          * @param {string} guid 
-         * @param {InlineObject21} [body] 
+         * @param {InlineObject37} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesStorekeepersGuidPatch: async (guid: string, body?: InlineObject21, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesStorekeepersGuidPatch: async (guid: string, body?: InlineObject37, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BoxesStorekeepersGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/boxes/storekeepers/{guid}`
@@ -1556,12 +1556,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
          * ## Изменить чекбоксы баркода.   Сотрудник склада не может редактировать содержание коробки, но ему доступно для         редактирования параметры коробки.
          * @summary # Изменить чекбоксы баркода.
          * @param {string} guid 
-         * @param {InlineObject22} [body] 
+         * @param {InlineObject38} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesStorekeepersGuidSetItemsBarCodePatch: async (guid: string, body?: InlineObject22, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesStorekeepersGuidSetItemsBarCodePatch: async (guid: string, body?: InlineObject38, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BoxesStorekeepersGuidSetItemsBarCodePatch', 'guid', guid)
             const localVarPath = `/api/v1/boxes/storekeepers/{guid}/set_itemsBarCode`
@@ -1639,12 +1639,12 @@ export const BoxesApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * ## делать из нескольких боксов один супербокс
          * @summary # Сделать из нескольких боксов один супербокс
-         * @param {InlineObject24} [body] 
+         * @param {InlineObject40} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesSuperboxRegroupPatch: async (body?: InlineObject24, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1BoxesSuperboxRegroupPatch: async (body?: InlineObject40, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/boxes/superbox/regroup`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1692,24 +1692,24 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * ## Изменить дополнительную информацию коробки.
          * @summary # Изменить дополнительную информацию коробки.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject25} [body] 
+         * @param {InlineObject41} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesAdditionalInfoGuidPatch(guid: string, body?: InlineObject25, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1BoxesAdditionalInfoGuidPatch(guid: string, body?: InlineObject41, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesAdditionalInfoGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Подтвердить операцию объединения/разъединения коробок.  
          * @summary # Подтвердить операцию объединения/разъединения коробок.
-         * @param {InlineObject20} [body] 
+         * @param {InlineObject36} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesApprovePost(body?: InlineObject20, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1BoxesApprovePost(body?: InlineObject36, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesApprovePost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1752,12 +1752,12 @@ export const BoxesApiFp = function(configuration?: Configuration) {
         /**
          * ## Отменить редактирование коробок.  
          * @summary # Отменить редактирование коробок.
-         * @param {InlineObject15} [body] 
+         * @param {InlineObject31} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesCancelEditPost(body?: InlineObject15, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1BoxesCancelEditPost(body?: InlineObject31, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesCancelEditPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1776,24 +1776,24 @@ export const BoxesApiFp = function(configuration?: Configuration) {
         /**
          * ## Отменить объединение коробок.  
          * @summary # Отменить объединение коробок.
-         * @param {InlineObject17} [body] 
+         * @param {InlineObject33} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesCancelMergePost(body?: InlineObject17, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1BoxesCancelMergePost(body?: InlineObject33, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesCancelMergePost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Отменить разделение коробок.   ## !!! У каждой коробки которая была создана разделением есть братья.    ## !!! Братья - коробки которые были созданы с этой, при разделении родителя.    ## !!! При отмене текущая коробка и все ee братья будут удалены. Родитель восстановлен.   
          * @summary # Отменить разделение коробок.
-         * @param {InlineObject19} [body] 
+         * @param {InlineObject35} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesCancelSplitPost(body?: InlineObject19, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1BoxesCancelSplitPost(body?: InlineObject35, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesCancelSplitPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1801,12 +1801,12 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * ## Изменить полей габаритов, массы коробки.
          * @summary # Изменить полей габаритов, массы коробки.
          * @param {string} guid GUID коробки.
-         * @param {InlineObject23} [body] 
+         * @param {InlineObject39} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesChangeDimensionsGuidPatch(guid: string, body?: InlineObject23, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1BoxesChangeDimensionsGuidPatch(guid: string, body?: InlineObject39, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesChangeDimensionsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1830,12 +1830,12 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * ## Отредактировать коробку клиентом  Клиент может отредактировать только свои коробки.  проверка на наличие склада назначения  проверка на наличие тарифа к сторкипера
          * @summary # Отредактировать коробку клиентом
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject13} [body] 
+         * @param {InlineObject29} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesClientsGuidPatch(guid: string, body?: InlineObject13, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2013>> {
+        async apiV1BoxesClientsGuidPatch(guid: string, body?: InlineObject29, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2013>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesClientsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1847,7 +1847,7 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesClientsInTransferGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20010>>> {
+        async apiV1BoxesClientsInTransferGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20024>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesClientsInTransferGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1862,7 +1862,7 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesClientsLightGet(status: 'NEW' | 'IN_STOCK' | 'REQUESTED_SEND_TO_BATCH' | 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE' | 'IN_BATCH' | 'NEED_TO_UPDATE_THE_TARIFF' | 'IN_BATCH_ON_THE_WAY' | 'FINISH_PREP_CENTR_USA' | 'ACCEPTED_IN_PROCESSING', shopId?: string, storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2009>>> {
+        async apiV1BoxesClientsLightGet(status: 'NEW' | 'IN_STOCK' | 'REQUESTED_SEND_TO_BATCH' | 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE' | 'IN_BATCH' | 'NEED_TO_UPDATE_THE_TARIFF' | 'IN_BATCH_ON_THE_WAY' | 'FINISH_PREP_CENTR_USA' | 'ACCEPTED_IN_PROCESSING', shopId?: string, storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20023>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesClientsLightGet(status, shopId, storekeeperId, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1881,7 +1881,7 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesClientsProductInBatchGuidGet(guid: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', onAmazon?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20011>> {
+        async apiV1BoxesClientsProductInBatchGuidGet(guid: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', onAmazon?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20025>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesClientsProductInBatchGuidGet(guid, filters, limit, offset, sortField, sortType, onAmazon, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1892,7 +1892,7 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesClientsSentToBatchGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20013>>> {
+        async apiV1BoxesClientsSentToBatchGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20027>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesClientsSentToBatchGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1900,12 +1900,12 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * ## ЭТО МЕТОД ИСОЛЬЗУЕТСЯ ДЛЯ ТАСКОВ  ## Отредактировать коробку. Коробка после редактирования станет черновиком. Ее нужно будет подтвердить  ## ВНИМАНИЕ - фактически будет создана новая коробка а старая пометится как удаленная.   ## ВНИМАНИЕ - передайте весь набор параметров как на создание новой коробки. Не только те которые нужно изменить.  
          * @summary # Отредактировать коробку. Сликом гибкий метод
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject12} [body] 
+         * @param {InlineObject28} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesEditGuidPost(guid: string, body?: InlineObject12, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2013>> {
+        async apiV1BoxesEditGuidPost(guid: string, body?: InlineObject28, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2013>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesEditGuidPost(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1921,7 +1921,7 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
+        async apiV1BoxesGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20020>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesGet(filters, limit, offset, sortField, sortType, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1936,7 +1936,7 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesGroupedGet(additionalGroupParameter?: string, limit?: number, offset?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20015>> {
+        async apiV1BoxesGroupedGet(additionalGroupParameter?: string, limit?: number, offset?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20029>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesGroupedGet(additionalGroupParameter, limit, offset, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1951,7 +1951,7 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesGroupedGroupsGet(additionalGroupParameter?: string, limit?: number, offset?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20014>> {
+        async apiV1BoxesGroupedGroupsGet(additionalGroupParameter?: string, limit?: number, offset?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20028>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesGroupedGroupsGet(additionalGroupParameter, limit, offset, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1962,7 +1962,7 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesGroupedSimilarGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2008>>> {
+        async apiV1BoxesGroupedSimilarGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20022>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesGroupedSimilarGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1974,7 +1974,7 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2007>> {
+        async apiV1BoxesGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20021>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1982,36 +1982,36 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * # Изменить поле isFormed
          * @summary # Изменить поле isFormed
          * @param {string} guid GUID коробки.
-         * @param {InlineObject26} [body] 
+         * @param {InlineObject42} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesIsFormedGuidPatch(guid: string, body?: InlineObject26, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1BoxesIsFormedGuidPatch(guid: string, body?: InlineObject42, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesIsFormedGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Изменить несколько коробок сторкипером.   
          * @summary # Изменить несколько коробок сторкипером.
-         * @param {InlineObject14} [body] 
+         * @param {InlineObject30} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesManyPatch(body?: InlineObject14, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1BoxesManyPatch(body?: InlineObject30, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesManyPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Объединить две и более коробок.  Данный методод только для клиента Проверки: Все коробки должны быть от одного сторкипера, принадлежать одному клиенту, Тариф доставки должен принадлежать данному сторкиперу Провверки:  Все item-ы иметь одинаковый баркод Проверяем чтобы баркоды были проклеены у всех, иначе в новой коробке будет false.
          * @summary # Объединить две и более коробок.
-         * @param {InlineObject16} [body] 
+         * @param {InlineObject32} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesMergePost(body?: InlineObject16, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2014>> {
+        async apiV1BoxesMergePost(body?: InlineObject32, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2014>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesMergePost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2033,19 +2033,19 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesPagClientsLightGet(filters?: string, destinationId?: string, isFormed?: boolean, shopIds?: string, hasBatch?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', productGuid?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20012>> {
+        async apiV1BoxesPagClientsLightGet(filters?: string, destinationId?: string, isFormed?: boolean, shopIds?: string, hasBatch?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', productGuid?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20026>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesPagClientsLightGet(filters, destinationId, isFormed, shopIds, hasBatch, limit, offset, sortField, sortType, productGuid, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Создать коробку и ее строки.  При создании коробка получает статус \"IN_STOCK\" ## Коробка состоит из шапки и строк (как накладная)  ## Коллекция Boxes содержит основные параметры коробки.  ## BoxesItems - коллекция которая содержит строки позиций в коробке.  У коробок есть еще такие параметры:         isActual - если false, то коробка удалена.         isDraft - если true, то коробка является черновиком. Его создал клиента при объеденении / разделении коробки         У клиента и у сотрудника склада их можно отфильтровать и обрабатывать в отдельном окне.         Сотрудник склада обработав позитивно изменение коробок от клиента просто ставит здесь (isDraft) false и коробка становится обычной.         Также у коробки созданной из других коробок заполнено поле parents. Это массив guid родительских коробок.         При отмене объединения коробок в базе по этим guid восстановим коробки isActual = true. А новые будут удалены isActual = false.         Также у коробки созданной при объединении/разделении будет заполнено поле brothers. Это guid других коробок которые были созданы вместе с этой из общих родителей.         Когда для любой из объединённых коробок будет запрошено удаление, восстановим старые коробки и кроме текущей коробки         будут удалены все ее братья.
          * @summary # Создать коробку и ее строки.
-         * @param {InlineObject11} [body] 
+         * @param {InlineObject27} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesPost(body?: InlineObject11, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2012>> {
+        async apiV1BoxesPost(body?: InlineObject27, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2012>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2064,12 +2064,12 @@ export const BoxesApiFp = function(configuration?: Configuration) {
         /**
          * ## Разделить коробку.   При разделении коробок странная сущность передается. Там массив массивов.Первый массив это          новые коробки - сколько элементов, столько и создаст коробок. Второй массив - это элементы в коробке.          В нем строки новой коробки. Фронт отвечает за то, что суммарное содержание новых коробок,          было ровно содержанию исходной коробки.
          * @summary # Разделить коробку.
-         * @param {InlineObject18} [body] 
+         * @param {InlineObject34} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesSplitPost(body?: InlineObject18, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+        async apiV1BoxesSplitPost(body?: InlineObject34, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesSplitPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2077,12 +2077,12 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * ## Изменить коробку сотрудником склада.   Сотрудник склада не может редактировать содержание коробки, но ему доступно для         редактирования параметры коробки.
          * @summary # Изменить коробку сотрудником склада.
          * @param {string} guid 
-         * @param {InlineObject21} [body] 
+         * @param {InlineObject37} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesStorekeepersGuidPatch(guid: string, body?: InlineObject21, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1BoxesStorekeepersGuidPatch(guid: string, body?: InlineObject37, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesStorekeepersGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2090,12 +2090,12 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * ## Изменить чекбоксы баркода.   Сотрудник склада не может редактировать содержание коробки, но ему доступно для         редактирования параметры коробки.
          * @summary # Изменить чекбоксы баркода.
          * @param {string} guid 
-         * @param {InlineObject22} [body] 
+         * @param {InlineObject38} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesStorekeepersGuidSetItemsBarCodePatch(guid: string, body?: InlineObject22, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1BoxesStorekeepersGuidSetItemsBarCodePatch(guid: string, body?: InlineObject38, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesStorekeepersGuidSetItemsBarCodePatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2106,19 +2106,19 @@ export const BoxesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesStorekeepersSentToBatchGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20013>>> {
+        async apiV1BoxesStorekeepersSentToBatchGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20027>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesStorekeepersSentToBatchGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## делать из нескольких боксов один супербокс
          * @summary # Сделать из нескольких боксов один супербокс
-         * @param {InlineObject24} [body] 
+         * @param {InlineObject40} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BoxesSuperboxRegroupPatch(body?: InlineObject24, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+        async apiV1BoxesSuperboxRegroupPatch(body?: InlineObject40, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BoxesSuperboxRegroupPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2136,23 +2136,23 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * ## Изменить дополнительную информацию коробки.
          * @summary # Изменить дополнительную информацию коробки.
          * @param {string} guid GUID тарифа.
-         * @param {InlineObject25} [body] 
+         * @param {InlineObject41} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesAdditionalInfoGuidPatch(guid: string, body?: InlineObject25, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1BoxesAdditionalInfoGuidPatch(guid: string, body?: InlineObject41, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1BoxesAdditionalInfoGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Подтвердить операцию объединения/разъединения коробок.  
          * @summary # Подтвердить операцию объединения/разъединения коробок.
-         * @param {InlineObject20} [body] 
+         * @param {InlineObject36} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesApprovePost(body?: InlineObject20, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1BoxesApprovePost(body?: InlineObject36, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1BoxesApprovePost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2191,12 +2191,12 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
         /**
          * ## Отменить редактирование коробок.  
          * @summary # Отменить редактирование коробок.
-         * @param {InlineObject15} [body] 
+         * @param {InlineObject31} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesCancelEditPost(body?: InlineObject15, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1BoxesCancelEditPost(body?: InlineObject31, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1BoxesCancelEditPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2213,35 +2213,35 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
         /**
          * ## Отменить объединение коробок.  
          * @summary # Отменить объединение коробок.
-         * @param {InlineObject17} [body] 
+         * @param {InlineObject33} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesCancelMergePost(body?: InlineObject17, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1BoxesCancelMergePost(body?: InlineObject33, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1BoxesCancelMergePost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Отменить разделение коробок.   ## !!! У каждой коробки которая была создана разделением есть братья.    ## !!! Братья - коробки которые были созданы с этой, при разделении родителя.    ## !!! При отмене текущая коробка и все ee братья будут удалены. Родитель восстановлен.   
          * @summary # Отменить разделение коробок.
-         * @param {InlineObject19} [body] 
+         * @param {InlineObject35} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesCancelSplitPost(body?: InlineObject19, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1BoxesCancelSplitPost(body?: InlineObject35, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1BoxesCancelSplitPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменить полей габаритов, массы коробки.
          * @summary # Изменить полей габаритов, массы коробки.
          * @param {string} guid GUID коробки.
-         * @param {InlineObject23} [body] 
+         * @param {InlineObject39} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesChangeDimensionsGuidPatch(guid: string, body?: InlineObject23, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1BoxesChangeDimensionsGuidPatch(guid: string, body?: InlineObject39, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1BoxesChangeDimensionsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2263,12 +2263,12 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * ## Отредактировать коробку клиентом  Клиент может отредактировать только свои коробки.  проверка на наличие склада назначения  проверка на наличие тарифа к сторкипера
          * @summary # Отредактировать коробку клиентом
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject13} [body] 
+         * @param {InlineObject29} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesClientsGuidPatch(guid: string, body?: InlineObject13, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2013> {
+        apiV1BoxesClientsGuidPatch(guid: string, body?: InlineObject29, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2013> {
             return localVarFp.apiV1BoxesClientsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2279,7 +2279,7 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesClientsInTransferGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20010>> {
+        apiV1BoxesClientsInTransferGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20024>> {
             return localVarFp.apiV1BoxesClientsInTransferGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2293,7 +2293,7 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesClientsLightGet(status: 'NEW' | 'IN_STOCK' | 'REQUESTED_SEND_TO_BATCH' | 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE' | 'IN_BATCH' | 'NEED_TO_UPDATE_THE_TARIFF' | 'IN_BATCH_ON_THE_WAY' | 'FINISH_PREP_CENTR_USA' | 'ACCEPTED_IN_PROCESSING', shopId?: string, storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2009>> {
+        apiV1BoxesClientsLightGet(status: 'NEW' | 'IN_STOCK' | 'REQUESTED_SEND_TO_BATCH' | 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE' | 'IN_BATCH' | 'NEED_TO_UPDATE_THE_TARIFF' | 'IN_BATCH_ON_THE_WAY' | 'FINISH_PREP_CENTR_USA' | 'ACCEPTED_IN_PROCESSING', shopId?: string, storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20023>> {
             return localVarFp.apiV1BoxesClientsLightGet(status, shopId, storekeeperId, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2311,7 +2311,7 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesClientsProductInBatchGuidGet(guid: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', onAmazon?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20011> {
+        apiV1BoxesClientsProductInBatchGuidGet(guid: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', onAmazon?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20025> {
             return localVarFp.apiV1BoxesClientsProductInBatchGuidGet(guid, filters, limit, offset, sortField, sortType, onAmazon, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2321,19 +2321,19 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesClientsSentToBatchGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20013>> {
+        apiV1BoxesClientsSentToBatchGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20027>> {
             return localVarFp.apiV1BoxesClientsSentToBatchGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## ЭТО МЕТОД ИСОЛЬЗУЕТСЯ ДЛЯ ТАСКОВ  ## Отредактировать коробку. Коробка после редактирования станет черновиком. Ее нужно будет подтвердить  ## ВНИМАНИЕ - фактически будет создана новая коробка а старая пометится как удаленная.   ## ВНИМАНИЕ - передайте весь набор параметров как на создание новой коробки. Не только те которые нужно изменить.  
          * @summary # Отредактировать коробку. Сликом гибкий метод
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject12} [body] 
+         * @param {InlineObject28} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesEditGuidPost(guid: string, body?: InlineObject12, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2013> {
+        apiV1BoxesEditGuidPost(guid: string, body?: InlineObject28, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2013> {
             return localVarFp.apiV1BoxesEditGuidPost(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2348,7 +2348,7 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2006> {
+        apiV1BoxesGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20020> {
             return localVarFp.apiV1BoxesGet(filters, limit, offset, sortField, sortType, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2362,7 +2362,7 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesGroupedGet(additionalGroupParameter?: string, limit?: number, offset?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20015> {
+        apiV1BoxesGroupedGet(additionalGroupParameter?: string, limit?: number, offset?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20029> {
             return localVarFp.apiV1BoxesGroupedGet(additionalGroupParameter, limit, offset, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2376,7 +2376,7 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesGroupedGroupsGet(additionalGroupParameter?: string, limit?: number, offset?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20014> {
+        apiV1BoxesGroupedGroupsGet(additionalGroupParameter?: string, limit?: number, offset?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20028> {
             return localVarFp.apiV1BoxesGroupedGroupsGet(additionalGroupParameter, limit, offset, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2386,7 +2386,7 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesGroupedSimilarGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2008>> {
+        apiV1BoxesGroupedSimilarGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20022>> {
             return localVarFp.apiV1BoxesGroupedSimilarGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2397,41 +2397,41 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2007> {
+        apiV1BoxesGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20021> {
             return localVarFp.apiV1BoxesGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * # Изменить поле isFormed
          * @summary # Изменить поле isFormed
          * @param {string} guid GUID коробки.
-         * @param {InlineObject26} [body] 
+         * @param {InlineObject42} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesIsFormedGuidPatch(guid: string, body?: InlineObject26, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1BoxesIsFormedGuidPatch(guid: string, body?: InlineObject42, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1BoxesIsFormedGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменить несколько коробок сторкипером.   
          * @summary # Изменить несколько коробок сторкипером.
-         * @param {InlineObject14} [body] 
+         * @param {InlineObject30} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesManyPatch(body?: InlineObject14, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1BoxesManyPatch(body?: InlineObject30, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1BoxesManyPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Объединить две и более коробок.  Данный методод только для клиента Проверки: Все коробки должны быть от одного сторкипера, принадлежать одному клиенту, Тариф доставки должен принадлежать данному сторкиперу Провверки:  Все item-ы иметь одинаковый баркод Проверяем чтобы баркоды были проклеены у всех, иначе в новой коробке будет false.
          * @summary # Объединить две и более коробок.
-         * @param {InlineObject16} [body] 
+         * @param {InlineObject32} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesMergePost(body?: InlineObject16, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2014> {
+        apiV1BoxesMergePost(body?: InlineObject32, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2014> {
             return localVarFp.apiV1BoxesMergePost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2452,18 +2452,18 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesPagClientsLightGet(filters?: string, destinationId?: string, isFormed?: boolean, shopIds?: string, hasBatch?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', productGuid?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20012> {
+        apiV1BoxesPagClientsLightGet(filters?: string, destinationId?: string, isFormed?: boolean, shopIds?: string, hasBatch?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', productGuid?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20026> {
             return localVarFp.apiV1BoxesPagClientsLightGet(filters, destinationId, isFormed, shopIds, hasBatch, limit, offset, sortField, sortType, productGuid, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Создать коробку и ее строки.  При создании коробка получает статус \"IN_STOCK\" ## Коробка состоит из шапки и строк (как накладная)  ## Коллекция Boxes содержит основные параметры коробки.  ## BoxesItems - коллекция которая содержит строки позиций в коробке.  У коробок есть еще такие параметры:         isActual - если false, то коробка удалена.         isDraft - если true, то коробка является черновиком. Его создал клиента при объеденении / разделении коробки         У клиента и у сотрудника склада их можно отфильтровать и обрабатывать в отдельном окне.         Сотрудник склада обработав позитивно изменение коробок от клиента просто ставит здесь (isDraft) false и коробка становится обычной.         Также у коробки созданной из других коробок заполнено поле parents. Это массив guid родительских коробок.         При отмене объединения коробок в базе по этим guid восстановим коробки isActual = true. А новые будут удалены isActual = false.         Также у коробки созданной при объединении/разделении будет заполнено поле brothers. Это guid других коробок которые были созданы вместе с этой из общих родителей.         Когда для любой из объединённых коробок будет запрошено удаление, восстановим старые коробки и кроме текущей коробки         будут удалены все ее братья.
          * @summary # Создать коробку и ее строки.
-         * @param {InlineObject11} [body] 
+         * @param {InlineObject27} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesPost(body?: InlineObject11, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2012> {
+        apiV1BoxesPost(body?: InlineObject27, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2012> {
             return localVarFp.apiV1BoxesPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2480,36 +2480,36 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
         /**
          * ## Разделить коробку.   При разделении коробок странная сущность передается. Там массив массивов.Первый массив это          новые коробки - сколько элементов, столько и создаст коробок. Второй массив - это элементы в коробке.          В нем строки новой коробки. Фронт отвечает за то, что суммарное содержание новых коробок,          было ровно содержанию исходной коробки.
          * @summary # Разделить коробку.
-         * @param {InlineObject18} [body] 
+         * @param {InlineObject34} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesSplitPost(body?: InlineObject18, acceptEncoding?: string, options?: any): AxiosPromise<Array<string>> {
+        apiV1BoxesSplitPost(body?: InlineObject34, acceptEncoding?: string, options?: any): AxiosPromise<Array<string>> {
             return localVarFp.apiV1BoxesSplitPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменить коробку сотрудником склада.   Сотрудник склада не может редактировать содержание коробки, но ему доступно для         редактирования параметры коробки.
          * @summary # Изменить коробку сотрудником склада.
          * @param {string} guid 
-         * @param {InlineObject21} [body] 
+         * @param {InlineObject37} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesStorekeepersGuidPatch(guid: string, body?: InlineObject21, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1BoxesStorekeepersGuidPatch(guid: string, body?: InlineObject37, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1BoxesStorekeepersGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменить чекбоксы баркода.   Сотрудник склада не может редактировать содержание коробки, но ему доступно для         редактирования параметры коробки.
          * @summary # Изменить чекбоксы баркода.
          * @param {string} guid 
-         * @param {InlineObject22} [body] 
+         * @param {InlineObject38} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesStorekeepersGuidSetItemsBarCodePatch(guid: string, body?: InlineObject22, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1BoxesStorekeepersGuidSetItemsBarCodePatch(guid: string, body?: InlineObject38, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1BoxesStorekeepersGuidSetItemsBarCodePatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2519,18 +2519,18 @@ export const BoxesApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesStorekeepersSentToBatchGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20013>> {
+        apiV1BoxesStorekeepersSentToBatchGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20027>> {
             return localVarFp.apiV1BoxesStorekeepersSentToBatchGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## делать из нескольких боксов один супербокс
          * @summary # Сделать из нескольких боксов один супербокс
-         * @param {InlineObject24} [body] 
+         * @param {InlineObject40} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BoxesSuperboxRegroupPatch(body?: InlineObject24, acceptEncoding?: string, options?: any): AxiosPromise<Array<string>> {
+        apiV1BoxesSuperboxRegroupPatch(body?: InlineObject40, acceptEncoding?: string, options?: any): AxiosPromise<Array<string>> {
             return localVarFp.apiV1BoxesSuperboxRegroupPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -2551,10 +2551,10 @@ export interface BoxesApiApiV1BoxesAdditionalInfoGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject25}
+     * @type {InlineObject41}
      * @memberof BoxesApiApiV1BoxesAdditionalInfoGuidPatch
      */
-    readonly body?: InlineObject25
+    readonly body?: InlineObject41
 
     /**
      * 
@@ -2572,10 +2572,10 @@ export interface BoxesApiApiV1BoxesAdditionalInfoGuidPatchRequest {
 export interface BoxesApiApiV1BoxesApprovePostRequest {
     /**
      * 
-     * @type {InlineObject20}
+     * @type {InlineObject36}
      * @memberof BoxesApiApiV1BoxesApprovePost
      */
-    readonly body?: InlineObject20
+    readonly body?: InlineObject36
 
     /**
      * 
@@ -2656,10 +2656,10 @@ export interface BoxesApiApiV1BoxesByProductGuidLightGuidGetRequest {
 export interface BoxesApiApiV1BoxesCancelEditPostRequest {
     /**
      * 
-     * @type {InlineObject15}
+     * @type {InlineObject31}
      * @memberof BoxesApiApiV1BoxesCancelEditPost
      */
-    readonly body?: InlineObject15
+    readonly body?: InlineObject31
 
     /**
      * 
@@ -2698,10 +2698,10 @@ export interface BoxesApiApiV1BoxesCancelEditWithDraftGuidPostRequest {
 export interface BoxesApiApiV1BoxesCancelMergePostRequest {
     /**
      * 
-     * @type {InlineObject17}
+     * @type {InlineObject33}
      * @memberof BoxesApiApiV1BoxesCancelMergePost
      */
-    readonly body?: InlineObject17
+    readonly body?: InlineObject33
 
     /**
      * 
@@ -2719,10 +2719,10 @@ export interface BoxesApiApiV1BoxesCancelMergePostRequest {
 export interface BoxesApiApiV1BoxesCancelSplitPostRequest {
     /**
      * 
-     * @type {InlineObject19}
+     * @type {InlineObject35}
      * @memberof BoxesApiApiV1BoxesCancelSplitPost
      */
-    readonly body?: InlineObject19
+    readonly body?: InlineObject35
 
     /**
      * 
@@ -2747,10 +2747,10 @@ export interface BoxesApiApiV1BoxesChangeDimensionsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject23}
+     * @type {InlineObject39}
      * @memberof BoxesApiApiV1BoxesChangeDimensionsGuidPatch
      */
-    readonly body?: InlineObject23
+    readonly body?: InlineObject39
 
     /**
      * 
@@ -2824,10 +2824,10 @@ export interface BoxesApiApiV1BoxesClientsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject13}
+     * @type {InlineObject29}
      * @memberof BoxesApiApiV1BoxesClientsGuidPatch
      */
-    readonly body?: InlineObject13
+    readonly body?: InlineObject29
 
     /**
      * 
@@ -2999,10 +2999,10 @@ export interface BoxesApiApiV1BoxesEditGuidPostRequest {
 
     /**
      * 
-     * @type {InlineObject12}
+     * @type {InlineObject28}
      * @memberof BoxesApiApiV1BoxesEditGuidPost
      */
-    readonly body?: InlineObject12
+    readonly body?: InlineObject28
 
     /**
      * 
@@ -3195,10 +3195,10 @@ export interface BoxesApiApiV1BoxesIsFormedGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject26}
+     * @type {InlineObject42}
      * @memberof BoxesApiApiV1BoxesIsFormedGuidPatch
      */
-    readonly body?: InlineObject26
+    readonly body?: InlineObject42
 
     /**
      * 
@@ -3216,10 +3216,10 @@ export interface BoxesApiApiV1BoxesIsFormedGuidPatchRequest {
 export interface BoxesApiApiV1BoxesManyPatchRequest {
     /**
      * 
-     * @type {InlineObject14}
+     * @type {InlineObject30}
      * @memberof BoxesApiApiV1BoxesManyPatch
      */
-    readonly body?: InlineObject14
+    readonly body?: InlineObject30
 
     /**
      * 
@@ -3237,10 +3237,10 @@ export interface BoxesApiApiV1BoxesManyPatchRequest {
 export interface BoxesApiApiV1BoxesMergePostRequest {
     /**
      * 
-     * @type {InlineObject16}
+     * @type {InlineObject32}
      * @memberof BoxesApiApiV1BoxesMergePost
      */
-    readonly body?: InlineObject16
+    readonly body?: InlineObject32
 
     /**
      * 
@@ -3349,10 +3349,10 @@ export interface BoxesApiApiV1BoxesPagClientsLightGetRequest {
 export interface BoxesApiApiV1BoxesPostRequest {
     /**
      * 
-     * @type {InlineObject11}
+     * @type {InlineObject27}
      * @memberof BoxesApiApiV1BoxesPost
      */
-    readonly body?: InlineObject11
+    readonly body?: InlineObject27
 
     /**
      * 
@@ -3391,10 +3391,10 @@ export interface BoxesApiApiV1BoxesPrepIdPatchRequest {
 export interface BoxesApiApiV1BoxesSplitPostRequest {
     /**
      * 
-     * @type {InlineObject18}
+     * @type {InlineObject34}
      * @memberof BoxesApiApiV1BoxesSplitPost
      */
-    readonly body?: InlineObject18
+    readonly body?: InlineObject34
 
     /**
      * 
@@ -3419,10 +3419,10 @@ export interface BoxesApiApiV1BoxesStorekeepersGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject21}
+     * @type {InlineObject37}
      * @memberof BoxesApiApiV1BoxesStorekeepersGuidPatch
      */
-    readonly body?: InlineObject21
+    readonly body?: InlineObject37
 
     /**
      * 
@@ -3447,10 +3447,10 @@ export interface BoxesApiApiV1BoxesStorekeepersGuidSetItemsBarCodePatchRequest {
 
     /**
      * 
-     * @type {InlineObject22}
+     * @type {InlineObject38}
      * @memberof BoxesApiApiV1BoxesStorekeepersGuidSetItemsBarCodePatch
      */
-    readonly body?: InlineObject22
+    readonly body?: InlineObject38
 
     /**
      * 
@@ -3482,10 +3482,10 @@ export interface BoxesApiApiV1BoxesStorekeepersSentToBatchGetRequest {
 export interface BoxesApiApiV1BoxesSuperboxRegroupPatchRequest {
     /**
      * 
-     * @type {InlineObject24}
+     * @type {InlineObject40}
      * @memberof BoxesApiApiV1BoxesSuperboxRegroupPatch
      */
-    readonly body?: InlineObject24
+    readonly body?: InlineObject40
 
     /**
      * 

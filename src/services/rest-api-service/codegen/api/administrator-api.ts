@@ -29,11 +29,7 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject27 } from '../models';
-// @ts-ignore
-import { InlineObject28 } from '../models';
-// @ts-ignore
-import { InlineObject29 } from '../models';
+import { InlineObject10 } from '../models';
 // @ts-ignore
 import { InlineObject30 } from '../models';
 // @ts-ignore
@@ -45,7 +41,11 @@ import { InlineObject33 } from '../models';
 // @ts-ignore
 import { InlineObject34 } from '../models';
 // @ts-ignore
-import { InlineObject35 } from '../models';
+import { InlineObject16 } from '../models';
+// @ts-ignore
+import { InlineObject17 } from '../models';
+// @ts-ignore
+import { InlineObject18 } from '../models';
 // @ts-ignore
 import { InlineObject36 } from '../models';
 // @ts-ignore
@@ -61,11 +61,7 @@ import { InlineObject41 } from '../models';
 // @ts-ignore
 import { InlineObject42 } from '../models';
 // @ts-ignore
-import { InlineResponse20016 } from '../models';
-// @ts-ignore
-import { InlineResponse20017 } from '../models';
-// @ts-ignore
-import { InlineResponse20018 } from '../models';
+import { InlineResponse20010 } from '../models';
 // @ts-ignore
 import { InlineResponse20019 } from '../models';
 // @ts-ignore
@@ -73,7 +69,11 @@ import { InlineResponse20020 } from '../models';
 // @ts-ignore
 import { InlineResponse20021 } from '../models';
 // @ts-ignore
-import { InlineResponse20022 } from '../models';
+import { InlineResponse20014 } from '../models';
+// @ts-ignore
+import { InlineResponse20015 } from '../models';
+// @ts-ignore
+import { InlineResponse2002 } from '../models';
 // @ts-ignore
 import { InlineResponse20023 } from '../models';
 // @ts-ignore
@@ -102,12 +102,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
          * ## Редактировать склад назначения.   
          * @summary #  Редактировать склад назначения.
          * @param {string} guid 
-         * @param {InlineObject38} [body] 
+         * @param {InlineObject14} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsDestinationEditGuidPatch: async (guid: string, body?: InlineObject38, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsDestinationEditGuidPatch: async (guid: string, body?: InlineObject14, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1AdminsDestinationEditGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/admins/destination_edit/{guid}`
@@ -189,12 +189,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
         /**
          * ## Создать склад назначения.   
          * @summary #  Создать склад назначения.
-         * @param {InlineObject37} [body] 
+         * @param {InlineObject13} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsDestinationPost: async (body?: InlineObject37, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsDestinationPost: async (body?: InlineObject13, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/admins/destination`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -312,12 +312,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
          * ## Редактирование freelance spec
          * @summary # Редактирование freelance spec
          * @param {string} guid GUID freelance спека в БД.
-         * @param {InlineObject34} [body] 
+         * @param {InlineObject10} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsFreelanceSpecsGuidPatch: async (guid: string, body?: InlineObject34, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsFreelanceSpecsGuidPatch: async (guid: string, body?: InlineObject10, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1AdminsFreelanceSpecsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/admins/freelance/specs/{guid}`
@@ -357,12 +357,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
         /**
          * ## Создание freelance spec
          * @summary # Создание freelance spec
-         * @param {InlineObject33} [body] 
+         * @param {InlineObject9} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsFreelanceSpecsPost: async (body?: InlineObject33, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsFreelanceSpecsPost: async (body?: InlineObject9, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/admins/freelance/specs`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -594,12 +594,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
         /**
          * ## Создать оплату или штраф для пользователя.   
          * @summary # Создать оплату или штраф для пользователя.
-         * @param {InlineObject28} [body] 
+         * @param {InlineObject4} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsMakePaymentPost: async (body?: InlineObject28, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsMakePaymentPost: async (body?: InlineObject4, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/admins/make_payment`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -636,12 +636,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
         /**
          * ## Оплатить товары.   ## Переводит статус на 110 (принадлежит платформе. распространяется бесплатно)    Вся информация о ресерчере удается: createdById меняется на id админа isCreatedByClient меняется true needCheckBySupervisor меняется true  Проверки: Нельзя повторно купить продукт (product.status === 70 && product.paidById !== null) Админ не может купить товар который уже принадлежит платформе (product.status === 110)
          * @summary # Оплатить товары.
-         * @param {InlineObject36} [body] 
+         * @param {InlineObject12} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsMakePaymentsPost: async (body?: InlineObject36, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsMakePaymentsPost: async (body?: InlineObject12, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/admins/make_payments`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -837,12 +837,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
          *    ## Обновление patch_note-ов по гуиду 
          * @summary # Обновить patch_note.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject30} [body] 
+         * @param {InlineObject6} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsPatchNotesGuidPatch: async (guid: string, body?: InlineObject30, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsPatchNotesGuidPatch: async (guid: string, body?: InlineObject6, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1AdminsPatchNotesGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/admins/patch_notes/{guid}`
@@ -882,12 +882,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
         /**
          *   ## Создание patch_note, доступно админу и модератору.   
          * @summary # Создать patch_note.
-         * @param {InlineObject29} [body] 
+         * @param {InlineObject5} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsPatchNotesPost: async (body?: InlineObject29, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsPatchNotesPost: async (body?: InlineObject5, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/admins/patch_notes`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -963,12 +963,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
          * ## Внести изменения в продукт (снять с биржи).   
          * @summary # Внести изменения в продукт (снять с биржи).
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject27} [body] 
+         * @param {InlineObject3} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsPatchProductsGuidPatch: async (guid: string, body?: InlineObject27, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsPatchProductsGuidPatch: async (guid: string, body?: InlineObject3, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1AdminsPatchProductsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/admins/patch_products/{guid}`
@@ -1126,12 +1126,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
         /**
          * ## Привязать/отвязать юзера к товару   
          * @summary #  Привязать/отвязать юзера к товару
-         * @param {InlineObject42} [body] 
+         * @param {InlineObject18} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsProductLinkOrUnlinkUserRolePatch: async (body?: InlineObject42, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsProductLinkOrUnlinkUserRolePatch: async (body?: InlineObject18, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/admins/product/link_or_unlink_user_role`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1402,12 +1402,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
          * ## Изменить красный флаг   
          * @summary #  Изменить красный флаг
          * @param {string} guid GUID красного флага в БД.
-         * @param {InlineObject40} [body] 
+         * @param {InlineObject16} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsRedFlagsGuidPatch: async (guid: string, body?: InlineObject40, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsRedFlagsGuidPatch: async (guid: string, body?: InlineObject16, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1AdminsRedFlagsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/admins/red_flags/{guid}`
@@ -1447,12 +1447,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
         /**
          * ##  Создать новый красный флаг  
          * @summary #  Создать новый красный флаг
-         * @param {InlineObject39} [body] 
+         * @param {InlineObject15} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsRedFlagsPost: async (body?: InlineObject39, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsRedFlagsPost: async (body?: InlineObject15, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/admins/red_flags`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1531,12 +1531,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
         /**
          * ## Установить динамические настройки.   
          * @summary # Установить динамические настройки.
-         * @param {InlineObject32} [body] 
+         * @param {InlineObject8} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsSetSettingPatch: async (body?: InlineObject32, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsSetSettingPatch: async (body?: InlineObject8, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/admins/set_setting`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1658,12 +1658,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
          * ## Редактирование тега   
          * @summary #  Редактирование тега
          * @param {string} guid GUID тега в БД.
-         * @param {InlineObject41} [body] 
+         * @param {InlineObject17} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsTagsGuidPatch: async (guid: string, body?: InlineObject41, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsTagsGuidPatch: async (guid: string, body?: InlineObject17, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1AdminsTagsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/admins/tags/{guid}`
@@ -1834,13 +1834,13 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
         /**
          * ## Включить/выключить сервер   
          * @summary # Включить/выключить сервер
-         * @param {InlineObject35} [body] 
+         * @param {InlineObject11} [body] 
          * @param {'on' | 'off'} [turn] Включатель сервера
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsToggleServerPatch: async (body?: InlineObject35, turn?: 'on' | 'off', acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsToggleServerPatch: async (body?: InlineObject11, turn?: 'on' | 'off', acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/admins/toggle_server`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2050,12 +2050,12 @@ export const AdministratorApiAxiosParamCreator = function (configuration?: Confi
          * ##  Изменить пользователя.  
          * @summary Изменить пользователя.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject31} [body] 
+         * @param {InlineObject7} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsUsersGuidPatch: async (guid: string, body?: InlineObject31, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1AdminsUsersGuidPatch: async (guid: string, body?: InlineObject7, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1AdminsUsersGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/admins/users/{guid}`
@@ -2174,12 +2174,12 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * ## Редактировать склад назначения.   
          * @summary #  Редактировать склад назначения.
          * @param {string} guid 
-         * @param {InlineObject38} [body] 
+         * @param {InlineObject14} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsDestinationEditGuidPatch(guid: string, body?: InlineObject38, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1AdminsDestinationEditGuidPatch(guid: string, body?: InlineObject14, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsDestinationEditGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2198,12 +2198,12 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
         /**
          * ## Создать склад назначения.   
          * @summary #  Создать склад назначения.
-         * @param {InlineObject37} [body] 
+         * @param {InlineObject13} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsDestinationPost(body?: InlineObject37, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SuccessResponseBodyWithGuid>> {
+        async apiV1AdminsDestinationPost(body?: InlineObject13, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SuccessResponseBodyWithGuid>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsDestinationPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2214,7 +2214,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsFeedbackGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20026>>> {
+        async apiV1AdminsFeedbackGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20014>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsFeedbackGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2234,24 +2234,24 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * ## Редактирование freelance spec
          * @summary # Редактирование freelance spec
          * @param {string} guid GUID freelance спека в БД.
-         * @param {InlineObject34} [body] 
+         * @param {InlineObject10} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsFreelanceSpecsGuidPatch(guid: string, body?: InlineObject34, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1AdminsFreelanceSpecsGuidPatch(guid: string, body?: InlineObject10, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsFreelanceSpecsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Создание freelance spec
          * @summary # Создание freelance spec
-         * @param {InlineObject33} [body] 
+         * @param {InlineObject9} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsFreelanceSpecsPost(body?: InlineObject33, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SuccessResponseBodyWithGuid>> {
+        async apiV1AdminsFreelanceSpecsPost(body?: InlineObject9, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SuccessResponseBodyWithGuid>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsFreelanceSpecsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2262,7 +2262,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsGetCheckingProductsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesProduct>>> {
+        async apiV1AdminsGetCheckingProductsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2002>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsGetCheckingProductsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2273,7 +2273,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsGetPaidProductsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesProduct>>> {
+        async apiV1AdminsGetPaidProductsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2002>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsGetPaidProductsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2285,7 +2285,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsGetProductsByStatusGet(status?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesProduct>>> {
+        async apiV1AdminsGetProductsByStatusGet(status?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2002>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsGetProductsByStatusGet(status, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2307,31 +2307,31 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsGetWaitingProductsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesProduct>>> {
+        async apiV1AdminsGetWaitingProductsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2002>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsGetWaitingProductsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Создать оплату или штраф для пользователя.   
          * @summary # Создать оплату или штраф для пользователя.
-         * @param {InlineObject28} [body] 
+         * @param {InlineObject4} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsMakePaymentPost(body?: InlineObject28, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1AdminsMakePaymentPost(body?: InlineObject4, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsMakePaymentPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Оплатить товары.   ## Переводит статус на 110 (принадлежит платформе. распространяется бесплатно)    Вся информация о ресерчере удается: createdById меняется на id админа isCreatedByClient меняется true needCheckBySupervisor меняется true  Проверки: Нельзя повторно купить продукт (product.status === 70 && product.paidById !== null) Админ не может купить товар который уже принадлежит платформе (product.status === 110)
          * @summary # Оплатить товары.
-         * @param {InlineObject36} [body] 
+         * @param {InlineObject12} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsMakePaymentsPost(body?: InlineObject36, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1AdminsMakePaymentsPost(body?: InlineObject12, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsMakePaymentsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2343,7 +2343,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsOrdersGet(status?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesOrder>>> {
+        async apiV1AdminsOrdersGet(status?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2003>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsOrdersGet(status, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2361,7 +2361,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsOrdersPagGet(status?: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20016>> {
+        async apiV1AdminsOrdersPagGet(status?: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsOrdersPagGet(status, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2381,24 +2381,24 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          *    ## Обновление patch_note-ов по гуиду 
          * @summary # Обновить patch_note.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject30} [body] 
+         * @param {InlineObject6} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsPatchNotesGuidPatch(guid: string, body?: InlineObject30, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1AdminsPatchNotesGuidPatch(guid: string, body?: InlineObject6, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsPatchNotesGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          *   ## Создание patch_note, доступно админу и модератору.   
          * @summary # Создать patch_note.
-         * @param {InlineObject29} [body] 
+         * @param {InlineObject5} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsPatchNotesPost(body?: InlineObject29, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SuccessResponseBodyWithGuid>> {
+        async apiV1AdminsPatchNotesPost(body?: InlineObject5, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SuccessResponseBodyWithGuid>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsPatchNotesPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2417,12 +2417,12 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * ## Внести изменения в продукт (снять с биржи).   
          * @summary # Внести изменения в продукт (снять с биржи).
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject27} [body] 
+         * @param {InlineObject3} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsPatchProductsGuidPatch(guid: string, body?: InlineObject27, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1AdminsPatchProductsGuidPatch(guid: string, body?: InlineObject3, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsPatchProductsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2445,7 +2445,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsPaymentsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20019>>> {
+        async apiV1AdminsPaymentsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2007>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsPaymentsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2463,12 +2463,12 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
         /**
          * ## Привязать/отвязать юзера к товару   
          * @summary #  Привязать/отвязать юзера к товару
-         * @param {InlineObject42} [body] 
+         * @param {InlineObject18} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsProductLinkOrUnlinkUserRolePatch(body?: InlineObject42, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1AdminsProductLinkOrUnlinkUserRolePatch(body?: InlineObject18, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsProductLinkOrUnlinkUserRolePatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2486,7 +2486,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsProductsPagGet(status?: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20024>> {
+        async apiV1AdminsProductsPagGet(status?: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20012>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsProductsPagGet(status, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2497,7 +2497,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsProductsVacGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20023>>> {
+        async apiV1AdminsProductsVacGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20011>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsProductsVacGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2540,24 +2540,24 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * ## Изменить красный флаг   
          * @summary #  Изменить красный флаг
          * @param {string} guid GUID красного флага в БД.
-         * @param {InlineObject40} [body] 
+         * @param {InlineObject16} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsRedFlagsGuidPatch(guid: string, body?: InlineObject40, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1AdminsRedFlagsGuidPatch(guid: string, body?: InlineObject16, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsRedFlagsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ##  Создать новый красный флаг  
          * @summary #  Создать новый красный флаг
-         * @param {InlineObject39} [body] 
+         * @param {InlineObject15} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsRedFlagsPost(body?: InlineObject39, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+        async apiV1AdminsRedFlagsPost(body?: InlineObject15, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsRedFlagsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2576,12 +2576,12 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
         /**
          * ## Установить динамические настройки.   
          * @summary # Установить динамические настройки.
-         * @param {InlineObject32} [body] 
+         * @param {InlineObject8} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsSetSettingPatch(body?: InlineObject32, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1AdminsSetSettingPatch(body?: InlineObject8, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsSetSettingPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2593,7 +2593,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20022>> {
+        async apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20010>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2613,12 +2613,12 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * ## Редактирование тега   
          * @summary #  Редактирование тега
          * @param {string} guid GUID тега в БД.
-         * @param {InlineObject41} [body] 
+         * @param {InlineObject17} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsTagsGuidPatch(guid: string, body?: InlineObject41, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1AdminsTagsGuidPatch(guid: string, body?: InlineObject17, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsTagsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2631,7 +2631,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsTasksLightGet(noCache?: boolean, status?: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20020>>> {
+        async apiV1AdminsTasksLightGet(noCache?: boolean, status?: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2008>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsTasksLightGet(noCache, status, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2651,20 +2651,20 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsTasksPagGet(status?: string, operationType?: string, priority?: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20025>> {
+        async apiV1AdminsTasksPagGet(status?: string, operationType?: string, priority?: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20013>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsTasksPagGet(status, operationType, priority, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Включить/выключить сервер   
          * @summary # Включить/выключить сервер
-         * @param {InlineObject35} [body] 
+         * @param {InlineObject11} [body] 
          * @param {'on' | 'off'} [turn] Включатель сервера
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsToggleServerPatch(body?: InlineObject35, turn?: 'on' | 'off', acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20021>> {
+        async apiV1AdminsToggleServerPatch(body?: InlineObject11, turn?: 'on' | 'off', acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsToggleServerPatch(body, turn, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2688,7 +2688,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsUsersByRoleGet(role: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20027>>> {
+        async apiV1AdminsUsersByRoleGet(role: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20015>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsUsersByRoleGet(role, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2711,7 +2711,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsUsersGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20018>> {
+        async apiV1AdminsUsersGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsUsersGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2719,12 +2719,12 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * ##  Изменить пользователя.  
          * @summary Изменить пользователя.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject31} [body] 
+         * @param {InlineObject7} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsUsersGuidPatch(guid: string, body?: InlineObject31, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1AdminsUsersGuidPatch(guid: string, body?: InlineObject7, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsUsersGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2741,7 +2741,7 @@ export const AdministratorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1AdminsUsersPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20017>> {
+        async apiV1AdminsUsersPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1AdminsUsersPagGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2759,12 +2759,12 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * ## Редактировать склад назначения.   
          * @summary #  Редактировать склад назначения.
          * @param {string} guid 
-         * @param {InlineObject38} [body] 
+         * @param {InlineObject14} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsDestinationEditGuidPatch(guid: string, body?: InlineObject38, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1AdminsDestinationEditGuidPatch(guid: string, body?: InlineObject14, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1AdminsDestinationEditGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2781,12 +2781,12 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
         /**
          * ## Создать склад назначения.   
          * @summary #  Создать склад назначения.
-         * @param {InlineObject37} [body] 
+         * @param {InlineObject13} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsDestinationPost(body?: InlineObject37, acceptEncoding?: string, options?: any): AxiosPromise<SuccessResponseBodyWithGuid> {
+        apiV1AdminsDestinationPost(body?: InlineObject13, acceptEncoding?: string, options?: any): AxiosPromise<SuccessResponseBodyWithGuid> {
             return localVarFp.apiV1AdminsDestinationPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2796,7 +2796,7 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsFeedbackGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20026>> {
+        apiV1AdminsFeedbackGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20014>> {
             return localVarFp.apiV1AdminsFeedbackGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2814,23 +2814,23 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * ## Редактирование freelance spec
          * @summary # Редактирование freelance spec
          * @param {string} guid GUID freelance спека в БД.
-         * @param {InlineObject34} [body] 
+         * @param {InlineObject10} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsFreelanceSpecsGuidPatch(guid: string, body?: InlineObject34, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1AdminsFreelanceSpecsGuidPatch(guid: string, body?: InlineObject10, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1AdminsFreelanceSpecsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Создание freelance spec
          * @summary # Создание freelance spec
-         * @param {InlineObject33} [body] 
+         * @param {InlineObject9} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsFreelanceSpecsPost(body?: InlineObject33, acceptEncoding?: string, options?: any): AxiosPromise<SuccessResponseBodyWithGuid> {
+        apiV1AdminsFreelanceSpecsPost(body?: InlineObject9, acceptEncoding?: string, options?: any): AxiosPromise<SuccessResponseBodyWithGuid> {
             return localVarFp.apiV1AdminsFreelanceSpecsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2840,7 +2840,7 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsGetCheckingProductsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesProduct>> {
+        apiV1AdminsGetCheckingProductsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2002>> {
             return localVarFp.apiV1AdminsGetCheckingProductsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2850,7 +2850,7 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsGetPaidProductsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesProduct>> {
+        apiV1AdminsGetPaidProductsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2002>> {
             return localVarFp.apiV1AdminsGetPaidProductsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2861,7 +2861,7 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsGetProductsByStatusGet(status?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesProduct>> {
+        apiV1AdminsGetProductsByStatusGet(status?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2002>> {
             return localVarFp.apiV1AdminsGetProductsByStatusGet(status, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2881,29 +2881,29 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsGetWaitingProductsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesProduct>> {
+        apiV1AdminsGetWaitingProductsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2002>> {
             return localVarFp.apiV1AdminsGetWaitingProductsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Создать оплату или штраф для пользователя.   
          * @summary # Создать оплату или штраф для пользователя.
-         * @param {InlineObject28} [body] 
+         * @param {InlineObject4} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsMakePaymentPost(body?: InlineObject28, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1AdminsMakePaymentPost(body?: InlineObject4, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1AdminsMakePaymentPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Оплатить товары.   ## Переводит статус на 110 (принадлежит платформе. распространяется бесплатно)    Вся информация о ресерчере удается: createdById меняется на id админа isCreatedByClient меняется true needCheckBySupervisor меняется true  Проверки: Нельзя повторно купить продукт (product.status === 70 && product.paidById !== null) Админ не может купить товар который уже принадлежит платформе (product.status === 110)
          * @summary # Оплатить товары.
-         * @param {InlineObject36} [body] 
+         * @param {InlineObject12} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsMakePaymentsPost(body?: InlineObject36, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1AdminsMakePaymentsPost(body?: InlineObject12, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1AdminsMakePaymentsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2914,7 +2914,7 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsOrdersGet(status?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesOrder>> {
+        apiV1AdminsOrdersGet(status?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2003>> {
             return localVarFp.apiV1AdminsOrdersGet(status, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2931,7 +2931,7 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsOrdersPagGet(status?: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20016> {
+        apiV1AdminsOrdersPagGet(status?: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2004> {
             return localVarFp.apiV1AdminsOrdersPagGet(status, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2949,23 +2949,23 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          *    ## Обновление patch_note-ов по гуиду 
          * @summary # Обновить patch_note.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject30} [body] 
+         * @param {InlineObject6} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsPatchNotesGuidPatch(guid: string, body?: InlineObject30, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1AdminsPatchNotesGuidPatch(guid: string, body?: InlineObject6, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1AdminsPatchNotesGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          *   ## Создание patch_note, доступно админу и модератору.   
          * @summary # Создать patch_note.
-         * @param {InlineObject29} [body] 
+         * @param {InlineObject5} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsPatchNotesPost(body?: InlineObject29, acceptEncoding?: string, options?: any): AxiosPromise<SuccessResponseBodyWithGuid> {
+        apiV1AdminsPatchNotesPost(body?: InlineObject5, acceptEncoding?: string, options?: any): AxiosPromise<SuccessResponseBodyWithGuid> {
             return localVarFp.apiV1AdminsPatchNotesPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2982,12 +2982,12 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * ## Внести изменения в продукт (снять с биржи).   
          * @summary # Внести изменения в продукт (снять с биржи).
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject27} [body] 
+         * @param {InlineObject3} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsPatchProductsGuidPatch(guid: string, body?: InlineObject27, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1AdminsPatchProductsGuidPatch(guid: string, body?: InlineObject3, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1AdminsPatchProductsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3008,7 +3008,7 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsPaymentsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20019>> {
+        apiV1AdminsPaymentsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2007>> {
             return localVarFp.apiV1AdminsPaymentsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3024,12 +3024,12 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
         /**
          * ## Привязать/отвязать юзера к товару   
          * @summary #  Привязать/отвязать юзера к товару
-         * @param {InlineObject42} [body] 
+         * @param {InlineObject18} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsProductLinkOrUnlinkUserRolePatch(body?: InlineObject42, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1AdminsProductLinkOrUnlinkUserRolePatch(body?: InlineObject18, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1AdminsProductLinkOrUnlinkUserRolePatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3046,7 +3046,7 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsProductsPagGet(status?: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20024> {
+        apiV1AdminsProductsPagGet(status?: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20012> {
             return localVarFp.apiV1AdminsProductsPagGet(status, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3056,7 +3056,7 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsProductsVacGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20023>> {
+        apiV1AdminsProductsVacGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20011>> {
             return localVarFp.apiV1AdminsProductsVacGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3095,23 +3095,23 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * ## Изменить красный флаг   
          * @summary #  Изменить красный флаг
          * @param {string} guid GUID красного флага в БД.
-         * @param {InlineObject40} [body] 
+         * @param {InlineObject16} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsRedFlagsGuidPatch(guid: string, body?: InlineObject40, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1AdminsRedFlagsGuidPatch(guid: string, body?: InlineObject16, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1AdminsRedFlagsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ##  Создать новый красный флаг  
          * @summary #  Создать новый красный флаг
-         * @param {InlineObject39} [body] 
+         * @param {InlineObject15} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsRedFlagsPost(body?: InlineObject39, acceptEncoding?: string, options?: any): AxiosPromise<{ [key: string]: object; }> {
+        apiV1AdminsRedFlagsPost(body?: InlineObject15, acceptEncoding?: string, options?: any): AxiosPromise<{ [key: string]: object; }> {
             return localVarFp.apiV1AdminsRedFlagsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3128,12 +3128,12 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
         /**
          * ## Установить динамические настройки.   
          * @summary # Установить динамические настройки.
-         * @param {InlineObject32} [body] 
+         * @param {InlineObject8} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsSetSettingPatch(body?: InlineObject32, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1AdminsSetSettingPatch(body?: InlineObject8, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1AdminsSetSettingPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3144,7 +3144,7 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value: number, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20022> {
+        apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value: number, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20010> {
             return localVarFp.apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3162,12 +3162,12 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * ## Редактирование тега   
          * @summary #  Редактирование тега
          * @param {string} guid GUID тега в БД.
-         * @param {InlineObject41} [body] 
+         * @param {InlineObject17} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsTagsGuidPatch(guid: string, body?: InlineObject41, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1AdminsTagsGuidPatch(guid: string, body?: InlineObject17, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1AdminsTagsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3179,7 +3179,7 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsTasksLightGet(noCache?: boolean, status?: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20020>> {
+        apiV1AdminsTasksLightGet(noCache?: boolean, status?: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2008>> {
             return localVarFp.apiV1AdminsTasksLightGet(noCache, status, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3198,19 +3198,19 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsTasksPagGet(status?: string, operationType?: string, priority?: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20025> {
+        apiV1AdminsTasksPagGet(status?: string, operationType?: string, priority?: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20013> {
             return localVarFp.apiV1AdminsTasksPagGet(status, operationType, priority, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Включить/выключить сервер   
          * @summary # Включить/выключить сервер
-         * @param {InlineObject35} [body] 
+         * @param {InlineObject11} [body] 
          * @param {'on' | 'off'} [turn] Включатель сервера
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsToggleServerPatch(body?: InlineObject35, turn?: 'on' | 'off', acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20021> {
+        apiV1AdminsToggleServerPatch(body?: InlineObject11, turn?: 'on' | 'off', acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2009> {
             return localVarFp.apiV1AdminsToggleServerPatch(body, turn, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3232,7 +3232,7 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsUsersByRoleGet(role: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20027>> {
+        apiV1AdminsUsersByRoleGet(role: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20015>> {
             return localVarFp.apiV1AdminsUsersByRoleGet(role, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3253,19 +3253,19 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsUsersGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20018> {
+        apiV1AdminsUsersGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2006> {
             return localVarFp.apiV1AdminsUsersGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ##  Изменить пользователя.  
          * @summary Изменить пользователя.
          * @param {string} guid GUID продукта в БД.
-         * @param {InlineObject31} [body] 
+         * @param {InlineObject7} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsUsersGuidPatch(guid: string, body?: InlineObject31, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1AdminsUsersGuidPatch(guid: string, body?: InlineObject7, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1AdminsUsersGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3281,7 +3281,7 @@ export const AdministratorApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1AdminsUsersPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20017> {
+        apiV1AdminsUsersPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2005> {
             return localVarFp.apiV1AdminsUsersPagGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -3302,10 +3302,10 @@ export interface AdministratorApiApiV1AdminsDestinationEditGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject38}
+     * @type {InlineObject14}
      * @memberof AdministratorApiApiV1AdminsDestinationEditGuidPatch
      */
-    readonly body?: InlineObject38
+    readonly body?: InlineObject14
 
     /**
      * 
@@ -3344,10 +3344,10 @@ export interface AdministratorApiApiV1AdminsDestinationGuidDeleteRequest {
 export interface AdministratorApiApiV1AdminsDestinationPostRequest {
     /**
      * 
-     * @type {InlineObject37}
+     * @type {InlineObject13}
      * @memberof AdministratorApiApiV1AdminsDestinationPost
      */
-    readonly body?: InlineObject37
+    readonly body?: InlineObject13
 
     /**
      * 
@@ -3407,10 +3407,10 @@ export interface AdministratorApiApiV1AdminsFreelanceSpecsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject34}
+     * @type {InlineObject10}
      * @memberof AdministratorApiApiV1AdminsFreelanceSpecsGuidPatch
      */
-    readonly body?: InlineObject34
+    readonly body?: InlineObject10
 
     /**
      * 
@@ -3428,10 +3428,10 @@ export interface AdministratorApiApiV1AdminsFreelanceSpecsGuidPatchRequest {
 export interface AdministratorApiApiV1AdminsFreelanceSpecsPostRequest {
     /**
      * 
-     * @type {InlineObject33}
+     * @type {InlineObject9}
      * @memberof AdministratorApiApiV1AdminsFreelanceSpecsPost
      */
-    readonly body?: InlineObject33
+    readonly body?: InlineObject9
 
     /**
      * 
@@ -3526,10 +3526,10 @@ export interface AdministratorApiApiV1AdminsGetWaitingProductsGetRequest {
 export interface AdministratorApiApiV1AdminsMakePaymentPostRequest {
     /**
      * 
-     * @type {InlineObject28}
+     * @type {InlineObject4}
      * @memberof AdministratorApiApiV1AdminsMakePaymentPost
      */
-    readonly body?: InlineObject28
+    readonly body?: InlineObject4
 
     /**
      * 
@@ -3547,10 +3547,10 @@ export interface AdministratorApiApiV1AdminsMakePaymentPostRequest {
 export interface AdministratorApiApiV1AdminsMakePaymentsPostRequest {
     /**
      * 
-     * @type {InlineObject36}
+     * @type {InlineObject12}
      * @memberof AdministratorApiApiV1AdminsMakePaymentsPost
      */
-    readonly body?: InlineObject36
+    readonly body?: InlineObject12
 
     /**
      * 
@@ -3680,10 +3680,10 @@ export interface AdministratorApiApiV1AdminsPatchNotesGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject30}
+     * @type {InlineObject6}
      * @memberof AdministratorApiApiV1AdminsPatchNotesGuidPatch
      */
-    readonly body?: InlineObject30
+    readonly body?: InlineObject6
 
     /**
      * 
@@ -3701,10 +3701,10 @@ export interface AdministratorApiApiV1AdminsPatchNotesGuidPatchRequest {
 export interface AdministratorApiApiV1AdminsPatchNotesPostRequest {
     /**
      * 
-     * @type {InlineObject29}
+     * @type {InlineObject5}
      * @memberof AdministratorApiApiV1AdminsPatchNotesPost
      */
-    readonly body?: InlineObject29
+    readonly body?: InlineObject5
 
     /**
      * 
@@ -3743,10 +3743,10 @@ export interface AdministratorApiApiV1AdminsPatchProductsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject27}
+     * @type {InlineObject3}
      * @memberof AdministratorApiApiV1AdminsPatchProductsGuidPatch
      */
-    readonly body?: InlineObject27
+    readonly body?: InlineObject3
 
     /**
      * 
@@ -3813,10 +3813,10 @@ export interface AdministratorApiApiV1AdminsPermissionGetRequest {
 export interface AdministratorApiApiV1AdminsProductLinkOrUnlinkUserRolePatchRequest {
     /**
      * 
-     * @type {InlineObject42}
+     * @type {InlineObject18}
      * @memberof AdministratorApiApiV1AdminsProductLinkOrUnlinkUserRolePatch
      */
-    readonly body?: InlineObject42
+    readonly body?: InlineObject18
 
     /**
      * 
@@ -3974,10 +3974,10 @@ export interface AdministratorApiApiV1AdminsRedFlagsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject40}
+     * @type {InlineObject16}
      * @memberof AdministratorApiApiV1AdminsRedFlagsGuidPatch
      */
-    readonly body?: InlineObject40
+    readonly body?: InlineObject16
 
     /**
      * 
@@ -3995,10 +3995,10 @@ export interface AdministratorApiApiV1AdminsRedFlagsGuidPatchRequest {
 export interface AdministratorApiApiV1AdminsRedFlagsPostRequest {
     /**
      * 
-     * @type {InlineObject39}
+     * @type {InlineObject15}
      * @memberof AdministratorApiApiV1AdminsRedFlagsPost
      */
-    readonly body?: InlineObject39
+    readonly body?: InlineObject15
 
     /**
      * 
@@ -4037,10 +4037,10 @@ export interface AdministratorApiApiV1AdminsSetLaunchPreDeadlineValuePatchReques
 export interface AdministratorApiApiV1AdminsSetSettingPatchRequest {
     /**
      * 
-     * @type {InlineObject32}
+     * @type {InlineObject8}
      * @memberof AdministratorApiApiV1AdminsSetSettingPatch
      */
-    readonly body?: InlineObject32
+    readonly body?: InlineObject8
 
     /**
      * 
@@ -4107,10 +4107,10 @@ export interface AdministratorApiApiV1AdminsTagsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject41}
+     * @type {InlineObject17}
      * @memberof AdministratorApiApiV1AdminsTagsGuidPatch
      */
-    readonly body?: InlineObject41
+    readonly body?: InlineObject17
 
     /**
      * 
@@ -4233,10 +4233,10 @@ export interface AdministratorApiApiV1AdminsTasksPagGetRequest {
 export interface AdministratorApiApiV1AdminsToggleServerPatchRequest {
     /**
      * 
-     * @type {InlineObject35}
+     * @type {InlineObject11}
      * @memberof AdministratorApiApiV1AdminsToggleServerPatch
      */
-    readonly body?: InlineObject35
+    readonly body?: InlineObject11
 
     /**
      * Включатель сервера
@@ -4345,10 +4345,10 @@ export interface AdministratorApiApiV1AdminsUsersGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject31}
+     * @type {InlineObject7}
      * @memberof AdministratorApiApiV1AdminsUsersGuidPatch
      */
-    readonly body?: InlineObject31
+    readonly body?: InlineObject7
 
     /**
      * 

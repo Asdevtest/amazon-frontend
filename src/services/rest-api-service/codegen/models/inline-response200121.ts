@@ -13,8 +13,13 @@
  */
 
 
-import { InlineResponse200121Details } from './inline-response200121-details';
-import { InlineResponse20091Rows } from './inline-response20091-rows';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { ApiV1RequestsCustomProduct } from './api-v1-requests-custom-product';
+import { InlineResponse20093Announcement } from './inline-response20093-announcement';
+import { InlineResponse20093CountProposalsByStatuses } from './inline-response20093-count-proposals-by-statuses';
+import { InlineResponse20093DetailsCustom } from './inline-response20093-details-custom';
+import { InlineResponse20093Media } from './inline-response20093-media';
 
 /**
  * Схема детали на поиск ниш.
@@ -33,7 +38,138 @@ export interface InlineResponse200121 {
      * @type {InlineResponse200121Details}
      * @memberof InlineResponse200121
      */
-    details?: InlineResponse200121Details;
+    spec?: ApiV1AnnouncementsMySpec;
+    /**
+     * Привязанный асин
+     * @type {string}
+     * @memberof InlineResponse200121
+     */
+    asin?: string;
+    /**
+     * Цена на амазоне
+     * @type {number}
+     * @memberof InlineResponse200121
+     */
+    priceAmazon?: number;
+    /**
+     * Возврат средств с покупки в процентах
+     * @type {number}
+     * @memberof InlineResponse200121
+     */
+    cashBackInPercent?: number;
+    /**
+     * Гуид анонса
+     * @type {string}
+     * @memberof InlineResponse200121
+     */
+    announcementId?: string;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200121
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200121
+     */
+    updatedAt?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineResponse200121
+     */
+    uploadedToListing?: boolean;
+    /**
+     * 
+     * @type {Array<InlineResponse20093Media>}
+     * @memberof InlineResponse200121
+     */
+    media?: Array<InlineResponse20093Media>;
+    /**
+     * 
+     * @type {InlineResponse20093Announcement}
+     * @memberof InlineResponse200121
+     */
+    announcement?: InlineResponse20093Announcement;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse200121
+     */
+    sub?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {Array<object>}
+     * @memberof InlineResponse200121
+     */
+    proposals?: Array<object>;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse200121
+     */
+    executor?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse200121
+     */
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {InlineResponse20093CountProposalsByStatuses}
+     * @memberof InlineResponse200121
+     */
+    countProposalsByStatuses?: InlineResponse20093CountProposalsByStatuses;
+    /**
+     * Count of unread messages
+     * @type {number}
+     * @memberof InlineResponse200121
+     */
+    freelanceNotices?: number;
+    /**
+     * 
+     * @type {ApiV1RequestsCustomProduct}
+     * @memberof InlineResponse200121
+     */
+    product?: ApiV1RequestsCustomProduct;
+    /**
+     * 
+     * @type {InlineResponse20093DetailsCustom}
+     * @memberof InlineResponse200121
+     */
+    detailsCustom?: InlineResponse20093DetailsCustom;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse200121StatusEnum {
+    Draft = 'DRAFT',
+    Published = 'PUBLISHED',
+    InProcess = 'IN_PROCESS',
+    ForbidNewProposals = 'FORBID_NEW_PROPOSALS',
+    CompleteProposalsAmountAchieved = 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED',
+    CanceledByCreator = 'CANCELED_BY_CREATOR',
+    Expired = 'EXPIRED',
+    ReadyToVerifyByAdmin = 'READY_TO_VERIFY_BY_ADMIN',
+    VerifyingByAdmin = 'VERIFYING_BY_ADMIN',
+    ToCorrectByAdmin = 'TO_CORRECT_BY_ADMIN',
+    CanceledByAdmin = 'CANCELED_BY_ADMIN',
+    ReadyToVerifyBySupervisor = 'READY_TO_VERIFY_BY_SUPERVISOR',
+    VerifyingBySupervisor = 'VERIFYING_BY_SUPERVISOR',
+    ToCorrectBySupervisor = 'TO_CORRECT_BY_SUPERVISOR'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse200121DirectionEnum {
+    In = 'IN',
+    Out = 'OUT'
 }
 
 

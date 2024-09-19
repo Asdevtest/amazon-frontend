@@ -13,6 +13,8 @@
  */
 
 
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1ShopSellStatistics } from './api-v1-shop-sell-statistics';
 
 /**
  * Схема магазина.
@@ -27,7 +29,13 @@ export interface InlineResponse20096 {
      */
     _id?: string;
     /**
-     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20096
+     */
+    owner?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * Имя магазина для продажи
      * @type {string}
      * @memberof InlineResponse20096
      */

@@ -22,16 +22,10 @@
 export interface InlineResponse20077 {
     /**
      * 
-     * @type {string}
+     * @type {Array<string>}
      * @memberof InlineResponse20077
      */
-    userId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20077
-     */
-    productId?: string;
+    shopIds?: Array<string>;
 }
 
 

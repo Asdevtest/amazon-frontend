@@ -26,61 +26,7 @@ export interface InlineObject21 {
      * @type {number}
      * @memberof InlineObject21
      */
-    lengthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject21
-     */
-    widthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject21
-     */
-    heightCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject21
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject21
-     */
-    volumeWeightKgWarehouse?: number;
-    /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineObject21
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidItems>}
-     * @memberof InlineObject21
-     */
-    items?: Array<ApiV1BoxesStorekeepersGuidItems>;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineObject21
-     */
-    storekeeperComment?: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject21
-     */
-    variationTariffId?: string;
-    /**
-     * Массив ссылок на фотографии.
-     * @type {Array<string>}
-     * @memberof InlineObject21
-     */
-    images?: Array<string>;
+    boxesIds: Array<string>;
 }
 
 

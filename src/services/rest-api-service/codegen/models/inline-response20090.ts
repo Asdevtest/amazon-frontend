@@ -15,23 +15,23 @@
 
 
 /**
- * 
+ * Успешный ответ.
  * @export
  * @interface InlineResponse20090
  */
 export interface InlineResponse20090 {
     /**
-     * Гуид заявки
+     * Флаг, показывает есть ли такой ASIN в базе или нет
+     * @type {boolean}
+     * @memberof InlineResponse20090
+     */
+    isExist?: boolean;
+    /**
+     * Причина из таблицы с асинами
      * @type {string}
      * @memberof InlineResponse20090
      */
-    _id?: string;
-    /**
-     * удобный ключ заявки
-     * @type {number}
-     * @memberof InlineResponse20090
-     */
-    humanFriendlyId?: number;
+    reason?: string;
 }
 
 

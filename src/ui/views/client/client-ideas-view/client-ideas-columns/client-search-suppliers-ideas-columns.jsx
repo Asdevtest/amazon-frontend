@@ -37,7 +37,13 @@ import {
   productionTimeColumnMenuValue,
 } from '@config/data-grid-column-menu/production-time'
 
-import { accessToProductColumnMenuConfig, shopColumnMenuConfig, shopFields } from '../columns-menu.config'
+import {
+  accessToProductColumnMenuConfig,
+  createdByColumnMenuConfig,
+  createdByFields,
+  shopColumnMenuConfig,
+  shopFields,
+} from '../columns-menu.config'
 
 export const clientSearchSuppliersIdeasColumns = rowHandlers => {
   const columns = [
@@ -273,7 +279,9 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
 
       filterable: false,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+      fields: createdByFields,
+      columnMenuConfig: createdByColumnMenuConfig,
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {

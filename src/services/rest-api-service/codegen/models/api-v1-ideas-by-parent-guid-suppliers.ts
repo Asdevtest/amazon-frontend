@@ -13,9 +13,9 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusBoxProperties } from './api-v1-admins-get-products-by-status-box-properties';
+import { ApiV1AdminsGetProductsByStatusPriceVariations } from './api-v1-admins-get-products-by-status-price-variations';
 import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
-import { ApiV1BatchesProductBoxProperties } from './api-v1-batches-product-box-properties';
-import { ApiV1BatchesProductPriceVariations } from './api-v1-batches-product-price-variations';
 import { ApiV1BuyersOrdersMyPaymentMethod } from './api-v1-buyers-orders-my-payment-method';
 
 /**

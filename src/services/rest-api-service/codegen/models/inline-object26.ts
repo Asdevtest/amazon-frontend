@@ -21,11 +21,17 @@
  */
 export interface InlineObject26 {
     /**
-     * Сформирована ли коробка
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject26
+     */
+    batchIds: Array<string>;
+    /**
+     * Заархивирована ли партия
      * @type {boolean}
      * @memberof InlineObject26
      */
-    isFormed: boolean;
+    archive: boolean;
 }
 
 

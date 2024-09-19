@@ -14,6 +14,8 @@
 
 
 import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { InlineResponse20050ListingLaunches } from './inline-response20050-listing-launches';
+import { InlineResponse20050Product } from './inline-response20050-product';
 
 /**
  * 
@@ -28,13 +30,31 @@ export interface InlineResponse20050Rows {
      */
     _id?: string;
     /**
-     * Name of shop
-     * @type {string}
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20050Rows
      */
-    name?: string;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
-     * Count of shop products
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20050Rows
+     */
+    sub?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {InlineResponse20050Product}
+     * @memberof InlineResponse20050Rows
+     */
+    product?: InlineResponse20050Product;
+    /**
+     * Is Actual report
+     * @type {boolean}
+     * @memberof InlineResponse20050Rows
+     */
+    isActive?: boolean;
+    /**
+     * New product price
      * @type {number}
      * @memberof InlineResponse20050Rows
      */

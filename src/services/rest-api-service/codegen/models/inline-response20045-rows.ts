@@ -13,12 +13,13 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusBoxAmounts } from './api-v1-admins-get-products-by-status-box-amounts';
+import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
+import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
+import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
 import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
-import { InlineResponse20045Destination } from './inline-response20045-destination';
-import { InlineResponse20045LogicsTariff } from './inline-response20045-logics-tariff';
-import { InlineResponse20045OrderSupplier } from './inline-response20045-order-supplier';
-import { InlineResponse20045Product } from './inline-response20045-product';
-import { InlineResponse2007VariationTariff } from './inline-response2007-variation-tariff';
+import { InlineResponse20045Inventory } from './inline-response20045-inventory';
+import { InlineResponse20045Shop } from './inline-response20045-shop';
 
 /**
  * Заказ.
@@ -93,7 +94,55 @@ export interface InlineResponse20045Rows {
      */
     expressChinaDelivery?: boolean;
     /**
-     * Нуждается ли заказ в повторном поиске поставщика
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20045Rows
+     */
+    client?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * Описание с сайта амазон.
+     * @type {string}
+     * @memberof InlineResponse20045Rows
+     */
+    amazonDescription?: string;
+    /**
+     * Данные из поля детали с сайта амазон.
+     * @type {string}
+     * @memberof InlineResponse20045Rows
+     */
+    amazonDetail?: string;
+    /**
+     * Заголовок на товар с сайта амазон.
+     * @type {string}
+     * @memberof InlineResponse20045Rows
+     */
+    amazonTitle?: string;
+    /**
+     * Материл продукта
+     * @type {string}
+     * @memberof InlineResponse20045Rows
+     */
+    material?: string;
+    /**
+     * Применение продукта
+     * @type {string}
+     * @memberof InlineResponse20045Rows
+     */
+    productUsage?: string;
+    /**
+     * chinese title?
+     * @type {string}
+     * @memberof InlineResponse20045Rows
+     */
+    chinaTitle?: string;
+    /**
+     * Баркод
+     * @type {string}
+     * @memberof InlineResponse20045Rows
+     */
+    barCode?: string;
+    /**
+     * Защита листинга (bool)
      * @type {boolean}
      * @memberof InlineResponse20045Rows
      */
@@ -106,6 +155,18 @@ export interface InlineResponse20045Rows {
     deadline?: string;
     /**
      * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20045Rows
+     */
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20045Rows
+     */
+    checkedBy?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse20045Rows
      */
@@ -130,10 +191,28 @@ export interface InlineResponse20045Rows {
     productId?: string;
     /**
      * 
-     * @type {InlineResponse20045Product}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20045Rows
      */
-    product?: InlineResponse20045Product;
+    buyer?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * Дедлаин на на поиск поставщика байером.
+     * @type {string}
+     * @memberof InlineResponse20045Rows
+     */
+    buyerTimeoutAt?: string;
+    /**
+     * Комментарии к товару от байера.
+     * @type {string}
+     * @memberof InlineResponse20045Rows
+     */
+    buyersComment?: string;
+    /**
+     * ID магазина продукта
+     * @type {string}
+     * @memberof InlineResponse20045Rows
+     */
+    shopId?: string;
     /**
      * 
      * @type {InlineResponse2007VariationTariff}
@@ -157,19 +236,97 @@ export interface InlineResponse20045Rows {
      * @type {InlineResponse20045OrderSupplier}
      * @memberof InlineResponse20045Rows
      */
-    orderSupplier?: InlineResponse20045OrderSupplier;
-}
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20045RowsPriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
+    reservedSum?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045Rows
+     */
+    sentToFbaSum?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045Rows
+     */
+    fbaFbmStockSum?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045Rows
+     */
+    ideasOnCheck?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045Rows
+     */
+    ideasFinished?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045Rows
+     */
+    ideasClosed?: number;
+    /**
+     * 
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @memberof InlineResponse20045Rows
+     */
+    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    /**
+     * 
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @memberof InlineResponse20045Rows
+     */
+    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
+     * @memberof InlineResponse20045Rows
+     */
+    redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
+     * @memberof InlineResponse20045Rows
+     */
+    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
+    /**
+     * 
+     * @type {Array<object>}
+     * @memberof InlineResponse20045Rows
+     */
+    productsInWarehouse?: Array<object>;
+    /**
+     * Кол-во идей продукта в статусе 10
+     * @type {number}
+     * @memberof InlineResponse20045Rows
+     */
+    ideasCounter?: number;
+    /**
+     * “sumStock”=“boxAmounts” + ”inTransfer” + ”productsInWarehouse”(“reserved” + ”fbaFbmStock” + ”sentToFba”) + “amountInOrders“ + “stockUSA“
+     * @type {number}
+     * @memberof InlineResponse20045Rows
+     */
+    sumStock?: number;
+    /**
+     * “purchaseQuantity”=”fourMonthesStock” - “sumStock” - меньше нуля быть не может, если отрицательное значение выставляем 0
+     * @type {number}
+     * @memberof InlineResponse20045Rows
+     */
+    purchaseQuantity?: number;
+    /**
+     * (amount/batchTotalCostInDollar) * sumStock
+     * @type {number}
+     * @memberof InlineResponse20045Rows
+     */
+    stockCost?: number;
+    /**
+     * 
+     * @type {InlineResponse20045Inventory}
+     * @memberof InlineResponse20045Rows
+     */
+    inventory?: InlineResponse20045Inventory;
 }
 
 

@@ -21,11 +21,17 @@
  */
 export interface InlineResponse20022 {
     /**
-     * 
+     * Кол-во продукта в айтеме в коробке
      * @type {number}
      * @memberof InlineResponse20022
      */
-    tech_pause?: number;
+    amount?: number;
+    /**
+     * Номер заказа
+     * @type {number}
+     * @memberof InlineResponse20022
+     */
+    id?: number;
 }
 
 

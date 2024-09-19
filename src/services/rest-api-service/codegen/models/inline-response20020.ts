@@ -13,8 +13,7 @@
  */
 
 
-import { ApiV1AdminsTasksLightBoxes } from './api-v1-admins-tasks-light-boxes';
-import { ApiV1AdminsTasksLightStorekeeper } from './api-v1-admins-tasks-light-storekeeper';
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * 
@@ -23,71 +22,17 @@ import { ApiV1AdminsTasksLightStorekeeper } from './api-v1-admins-tasks-light-st
  */
 export interface InlineResponse20020 {
     /**
-     * GUID элемента
-     * @type {string}
-     * @memberof InlineResponse20020
-     */
-    _id?: string;
-    /**
-     * Дата создания.
+     * Count of boxes
      * @type {number}
      * @memberof InlineResponse20020
      */
-    createdAt?: number;
-    /**
-     * Дата обновления.
-     * @type {number}
-     * @memberof InlineResponse20020
-     */
-    updatedAt?: number;
-    /**
-     * Тип операции
-     * @type {string}
-     * @memberof InlineResponse20020
-     */
-    operationType?: string;
-    /**
-     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
-     * @type {number}
-     * @memberof InlineResponse20020
-     */
-    status?: number;
-    /**
-     * Проклеены ли все баркоды в задаче
-     * @type {boolean}
-     * @memberof InlineResponse20020
-     */
-    isBarCodeAttached?: boolean;
-    /**
-     * Приоритет задачи
-     * @type {number}
-     * @memberof InlineResponse20020
-     */
-    priority?: number;
-    /**
-     * reason of priority
-     * @type {string}
-     * @memberof InlineResponse20020
-     */
-    reason?: string;
+    count?: number;
     /**
      * 
-     * @type {ApiV1AdminsTasksLightStorekeeper}
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20020
      */
-    storekeeper?: ApiV1AdminsTasksLightStorekeeper;
-    /**
-     * Массив коробок которые были до переформирования коробок.
-     * @type {Array<ApiV1AdminsTasksLightBoxes>}
-     * @memberof InlineResponse20020
-     */
-    boxes?: Array<ApiV1AdminsTasksLightBoxes>;
-    /**
-     * Массив коробок которые были до переформирования коробок.
-     * @type {Array<ApiV1AdminsTasksLightBoxes>}
-     * @memberof InlineResponse20020
-     */
-    boxesBefore?: Array<ApiV1AdminsTasksLightBoxes>;
+    rows?: Array<ApiV1BatchesBoxes>;
 }
 
 

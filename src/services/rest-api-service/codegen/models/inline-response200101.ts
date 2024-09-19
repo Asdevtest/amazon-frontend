@@ -13,8 +13,7 @@
  */
 
 
-import { ApiV1BatchesOrderLogicsTariff } from './api-v1-batches-order-logics-tariff';
-import { ApiV1StorekeepersTariffWarehouses } from './api-v1-storekeepers-tariff-warehouses';
+import { InlineResponse2008 } from './inline-response2008';
 
 /**
  * 
@@ -51,7 +50,13 @@ export interface InlineResponse200101 {
      * @type {number}
      * @memberof InlineResponse200101
      */
-    boxesCount?: number;
+    count?: number;
+    /**
+     * 
+     * @type {Array<InlineResponse2008>}
+     * @memberof InlineResponse200101
+     */
+    rows?: Array<InlineResponse2008>;
 }
 
 

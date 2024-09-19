@@ -13,6 +13,7 @@
  */
 
 
+import { InlineObject27 } from './inline-object27';
 
 /**
  * 
@@ -21,11 +22,17 @@
  */
 export interface InlineObject36 {
     /**
-     * массив GUIDов оплаченных товаров
-     * @type {Array<string>}
+     * GUID для которой подтверждаем действие.
+     * @type {string}
      * @memberof InlineObject36
      */
-    guids?: Array<string>;
+    guid?: string;
+    /**
+     * Массив дополнительных коробок которые случились при обработки.
+     * @type {Array<InlineObject27>}
+     * @memberof InlineObject36
+     */
+    additionalBoxes?: Array<InlineObject27>;
 }
 
 

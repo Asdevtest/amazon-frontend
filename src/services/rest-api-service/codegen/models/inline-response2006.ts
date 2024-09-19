@@ -13,26 +13,161 @@
  */
 
 
-import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
+import { InlineResponse2006AllowedSpec } from './inline-response2006-allowed-spec';
+import { InlineResponse2006PermissionGroups } from './inline-response2006-permission-groups';
+import { InlineResponse2006Permissions } from './inline-response2006-permissions';
+import { InlineResponse2006SubUsers } from './inline-response2006-sub-users';
 
 /**
- * 
+ * Пользователь системы
  * @export
  * @interface InlineResponse2006
  */
 export interface InlineResponse2006 {
     /**
-     * Count of boxes
+     * GUID пользователя в БД.
+     * @type {string}
+     * @memberof InlineResponse2006
+     */
+    _id: string;
+    /**
+     * Имя пользователя.
+     * @type {string}
+     * @memberof InlineResponse2006
+     */
+    name: string;
+    /**
+     * email
+     * @type {string}
+     * @memberof InlineResponse2006
+     */
+    email: string;
+    /**
+     * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    roles.moderator = 60    
      * @type {number}
      * @memberof InlineResponse2006
      */
-    count?: number;
+    role: number;
     /**
-     * 
-     * @type {Array<ApiV1BatchesBoxes>}
+     * Флаг fba.
+     * @type {boolean}
      * @memberof InlineResponse2006
      */
-    rows?: Array<ApiV1BatchesBoxes>;
+    fba: boolean;
+    /**
+     * Если истина - пользователь активен. Если нет - заблокирован админом.
+     * @type {boolean}
+     * @memberof InlineResponse2006
+     */
+    active: boolean;
+    /**
+     * Поле отвечает за то, берется ли в расчет бокс этого юзера(сторкипера) при подсчете товаров в дороге
+     * @type {boolean}
+     * @memberof InlineResponse2006
+     */
+    isUserPreprocessingCenterUSA?: boolean;
+    /**
+     * Ставка, по который оплачивается сотрудник.
+     * @type {number}
+     * @memberof InlineResponse2006
+     */
+    rate: number;
+    /**
+     * Баланс пользователя.
+     * @type {number}
+     * @memberof InlineResponse2006
+     */
+    balance?: number;
+    /**
+     * Замороженная при оплате ордера сумма..
+     * @type {number}
+     * @memberof InlineResponse2006
+     */
+    balanceFreeze?: number;
+    /**
+     * Сумма на которую может уходить в минус пользователь.
+     * @type {number}
+     * @memberof InlineResponse2006
+     */
+    overdraft?: number;
+    /**
+     * Массив permission-ов.
+     * @type {Array<InlineResponse2006Permissions>}
+     * @memberof InlineResponse2006
+     */
+    permissions?: Array<InlineResponse2006Permissions>;
+    /**
+     * Массив групп permission-ов.
+     * @type {Array<InlineResponse2006PermissionGroups>}
+     * @memberof InlineResponse2006
+     */
+    permissionGroups?: Array<InlineResponse2006PermissionGroups>;
+    /**
+     * GUID мастер пользователя к которму относится данный субпользователь.
+     * @type {string}
+     * @memberof InlineResponse2006
+     */
+    masterUser?: string;
+    /**
+     * Массив доступных стратегий.
+     * @type {Array<number>}
+     * @memberof InlineResponse2006
+     */
+    allowedStrategies?: Array<number>;
+    /**
+     * Массив массив ролей.
+     * @type {Array<number>}
+     * @memberof InlineResponse2006
+     */
+    allowedRoles?: Array<number>;
+    /**
+     * Может ли данный пользователь быть мастер юзером.
+     * @type {boolean}
+     * @memberof InlineResponse2006
+     */
+    canByMasterUser?: boolean;
+    /**
+     * Рейтинг пользователя.
+     * @type {number}
+     * @memberof InlineResponse2006
+     */
+    rating?: number;
+    /**
+     * Массив id сабюзеров.
+     * @type {Array<InlineResponse2006SubUsers>}
+     * @memberof InlineResponse2006
+     */
+    subUsers?: Array<InlineResponse2006SubUsers>;
+    /**
+     * 
+     * @type {InlineResponse2006SubUsers}
+     * @memberof InlineResponse2006
+     */
+    masterUserInfo?: InlineResponse2006SubUsers;
+    /**
+     * Массив доступных специализаций фрилансера.
+     * @type {Array<InlineResponse2006AllowedSpec>}
+     * @memberof InlineResponse2006
+     */
+    allowedSpec?: Array<InlineResponse2006AllowedSpec>;
+    /**
+     * Скрывать поставщиков от пользователя.
+     * @type {boolean}
+     * @memberof InlineResponse2006
+     */
+    hideSuppliers?: boolean;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse2006
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse2006
+     */
+    updatedAt?: string;
 }
 
 

@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20020 } from './inline-response20020';
+import { InlineResponse20024 } from './inline-response20024';
 
 /**
  * 
@@ -22,17 +22,17 @@ import { InlineResponse20020 } from './inline-response20020';
  */
 export interface InlineResponse20025 {
     /**
-     * Количество задач
+     * Count of rows
      * @type {number}
      * @memberof InlineResponse20025
      */
     count?: number;
     /**
-     * Массив задач
-     * @type {Array<InlineResponse20020>}
+     * 
+     * @type {Array<InlineResponse20024>}
      * @memberof InlineResponse20025
      */
-    rows?: Array<InlineResponse20020>;
+    rows?: Array<InlineResponse20024>;
 }
 
 

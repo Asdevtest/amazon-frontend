@@ -25,13 +25,13 @@ export interface InlineObject40 {
      * @type {string}
      * @memberof InlineObject40
      */
-    title?: string;
+    boxIds: Array<string>;
     /**
      * 
-     * @type {string}
+     * @type {Array<number>}
      * @memberof InlineObject40
      */
-    iconImage?: string;
+    newAmounts: Array<number>;
 }
 
 

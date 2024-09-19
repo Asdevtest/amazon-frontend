@@ -21,29 +21,53 @@
  */
 export interface InlineObject30 {
     /**
-     * Название patch_note.
+     * Штрихкод продукта
      * @type {string}
      * @memberof InlineObject30
      */
-    title?: string;
+    barCode?: string;
     /**
-     * Описание patch_note.
+     *  logicsTariff GUID
      * @type {string}
      * @memberof InlineObject30
      */
-    description?: string;
+    logicsTariffId?: string;
     /**
-     * Для какой роли
-     * @type {number}
-     * @memberof InlineObject30
-     */
-    role?: number;
-    /**
-     * Update version
+     * GUID сотрудника склада
      * @type {string}
      * @memberof InlineObject30
      */
-    version?: string;
+    storekeeperId?: string;
+    /**
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    shippingLabel?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    fbaNumber?: string;
+    /**
+     * Гуид модели destination
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    destinationId?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject30
+     */
+    boxesIds: Array<string>;
 }
 
 

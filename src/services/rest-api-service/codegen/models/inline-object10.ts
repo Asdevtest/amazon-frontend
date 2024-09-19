@@ -22,16 +22,16 @@
 export interface InlineObject10 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof InlineObject10
      */
-    batchIds: Array<string>;
+    title?: string;
     /**
-     * Заархивирована ли партия
+     * 
      * @type {boolean}
      * @memberof InlineObject10
      */
-    archive: boolean;
+    archive?: boolean;
 }
 
 

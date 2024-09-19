@@ -21,53 +21,47 @@
  */
 export interface InlineObject14 {
     /**
-     * Штрихкод продукта
+     * Название склада.
      * @type {string}
      * @memberof InlineObject14
      */
-    barCode?: string;
+    name: string;
     /**
-     *  logicsTariff GUID
+     * Страна.
      * @type {string}
      * @memberof InlineObject14
      */
-    logicsTariffId?: string;
+    country?: string;
     /**
-     * GUID сотрудника склада
+     * Индекс. 5 цифр.
      * @type {string}
      * @memberof InlineObject14
      */
-    storekeeperId?: string;
+    zipCode?: string;
     /**
-     * Ссылка на наклейку для коробки
+     * Штат.
      * @type {string}
      * @memberof InlineObject14
      */
-    shippingLabel?: string;
+    state?: string;
     /**
-     * Это номер конкретной коробки при отправке в амазон.
+     * Город.
      * @type {string}
      * @memberof InlineObject14
      */
-    fbaShipment?: string;
+    city?: string;
     /**
-     * Это номер конкретной коробки при отправке в амазон.
+     * Адрес склада.
      * @type {string}
      * @memberof InlineObject14
      */
-    fbaNumber?: string;
+    address?: string;
     /**
-     * Гуид модели destination
+     * Цвет шрифта
      * @type {string}
      * @memberof InlineObject14
      */
-    destinationId?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject14
-     */
-    boxesIds: Array<string>;
+    fontColor?: string;
 }
 
 

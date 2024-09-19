@@ -21,11 +21,11 @@
  */
 export interface InlineObject33 {
     /**
-     * 
+     * GUID коробки, объединение которой нужно отменить
      * @type {string}
      * @memberof InlineObject33
      */
-    title: string;
+    guid?: string;
 }
 
 

@@ -21,11 +21,17 @@
  */
 export interface InlineObject17 {
     /**
-     * GUID коробки, объединение которой нужно отменить
+     * 
      * @type {string}
      * @memberof InlineObject17
      */
-    guid?: string;
+    title: string;
+    /**
+     * Color
+     * @type {string}
+     * @memberof InlineObject17
+     */
+    color?: string;
 }
 
 

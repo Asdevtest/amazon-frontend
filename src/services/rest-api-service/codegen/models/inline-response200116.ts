@@ -13,8 +13,7 @@
  */
 
 
-import { InlineResponse200116Meta } from './inline-response200116-meta';
-import { InlineResponse200116Rows } from './inline-response200116-rows';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 
 /**
  * 
@@ -23,17 +22,29 @@ import { InlineResponse200116Rows } from './inline-response200116-rows';
  */
 export interface InlineResponse200116 {
     /**
-     * Count of rows
+     * GUID записи
+     * @type {string}
+     * @memberof InlineResponse200116
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse200116
+     */
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * Роль юзера, когда он оставлял отзыв
      * @type {number}
      * @memberof InlineResponse200116
      */
     count?: number;
     /**
      * 
-     * @type {Array<InlineResponse200116Rows>}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse200116
      */
-    rows?: Array<InlineResponse200116Rows>;
+    sub?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
      * @type {InlineResponse200116Meta}

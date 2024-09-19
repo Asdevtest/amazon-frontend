@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20014Rows } from './inline-response20014-rows';
+import { ApiV1AdminsFeedbackUser } from './api-v1-admins-feedback-user';
 
 /**
  * 
@@ -22,17 +22,35 @@ import { InlineResponse20014Rows } from './inline-response20014-rows';
  */
 export interface InlineResponse20014 {
     /**
-     * 
-     * @type {Array<InlineResponse20014Rows>}
+     * GUID пользователя в БД.
+     * @type {string}
      * @memberof InlineResponse20014
      */
     rows?: Array<InlineResponse20014Rows>;
     /**
-     * 
-     * @type {number}
+     * текст отзыва/репорта
+     * @type {string}
      * @memberof InlineResponse20014
      */
-    count?: number;
+    text?: string;
+    /**
+     * Прикрепленные ссылки на медиа для репорта/отзыва
+     * @type {Array<object>}
+     * @memberof InlineResponse20014
+     */
+    media?: Array<object>;
+    /**
+     * 
+     * @type {ApiV1AdminsFeedbackUser}
+     * @memberof InlineResponse20014
+     */
+    user?: ApiV1AdminsFeedbackUser;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20014
+     */
+    updatedAt?: string;
 }
 
 

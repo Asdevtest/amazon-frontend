@@ -13,6 +13,9 @@
  */
 
 
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
 
 /**
  * Успешный ответ.
@@ -31,7 +34,55 @@ export interface InlineResponse20088 {
      * @type {string}
      * @memberof InlineResponse20088
      */
-    reason?: string;
+    _id?: string;
+    /**
+     * Файл для записи в FreelanceSource
+     * @type {string}
+     * @memberof InlineResponse20088
+     */
+    sourceFile?: string;
+    /**
+     * Комментарий к файлу
+     * @type {string}
+     * @memberof InlineResponse20088
+     */
+    comments?: string;
+    /**
+     * 
+     * @type {ApiV1RequestProposalsFreelanceSourcesProposal}
+     * @memberof InlineResponse20088
+     */
+    proposal?: ApiV1RequestProposalsFreelanceSourcesProposal;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMySpec}
+     * @memberof InlineResponse20088
+     */
+    spec?: ApiV1AnnouncementsMySpec;
+    /**
+     * гуид продукта
+     * @type {string}
+     * @memberof InlineResponse20088
+     */
+    productId?: string;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20088
+     */
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20088
+     */
+    createdAt?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20088
+     */
+    updatedAt?: string;
 }
 
 

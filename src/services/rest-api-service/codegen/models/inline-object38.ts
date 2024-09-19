@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes';
 
 /**
  * 
@@ -21,47 +22,11 @@
  */
 export interface InlineObject38 {
     /**
-     * Название склада.
-     * @type {string}
+     * 
+     * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
      * @memberof InlineObject38
      */
-    name: string;
-    /**
-     * Страна.
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    country?: string;
-    /**
-     * Индекс. 5 цифр.
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    zipCode?: string;
-    /**
-     * Штат.
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    state?: string;
-    /**
-     * Город.
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    city?: string;
-    /**
-     * Адрес склада.
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    address?: string;
-    /**
-     * Цвет шрифта
-     * @type {string}
-     * @memberof InlineObject38
-     */
-    fontColor?: string;
+    itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
 }
 
 

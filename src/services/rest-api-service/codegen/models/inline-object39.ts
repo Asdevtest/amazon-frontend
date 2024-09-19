@@ -21,17 +21,35 @@
  */
 export interface InlineObject39 {
     /**
-     * Название красного флага
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject39
      */
-    title: string;
+    lengthCmWarehouse?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof InlineObject39
      */
-    iconImage?: string;
+    widthCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject39
+     */
+    heightCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject39
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Массив ссылок на фотографии.
+     * @type {Array<string>}
+     * @memberof InlineObject39
+     */
+    images?: Array<string>;
 }
 
 

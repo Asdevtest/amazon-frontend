@@ -43,9 +43,7 @@ import { InlineObject49 } from '../models';
 // @ts-ignore
 import { InlineObject50 } from '../models';
 // @ts-ignore
-import { InlineResponse20028 } from '../models';
-// @ts-ignore
-import { InlineResponse20029 } from '../models';
+import { InlineResponse2003 } from '../models';
 // @ts-ignore
 import { InlineResponse20030 } from '../models';
 // @ts-ignore
@@ -1562,7 +1560,7 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1BuyersOrdersVacGet(sortField?: 'deadline', sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesOrder>>> {
+        async apiV1BuyersOrdersVacGet(sortField?: 'deadline', sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2003>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersOrdersVacGet(sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1905,7 +1903,7 @@ export const BuyerApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1BuyersOrdersVacGet(sortField?: 'deadline', sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesOrder>> {
+        apiV1BuyersOrdersVacGet(sortField?: 'deadline', sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2003>> {
             return localVarFp.apiV1BuyersOrdersVacGet(sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

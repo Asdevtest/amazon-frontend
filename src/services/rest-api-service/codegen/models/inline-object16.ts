@@ -22,17 +22,17 @@ import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
  */
 export interface InlineObject16 {
     /**
-     * Массив коробок.
-     * @type {Array<string>}
+     * Название красного флага
+     * @type {string}
      * @memberof InlineObject16
      */
-    guids: Array<string>;
+    title?: string;
     /**
      * 
-     * @type {ApiV1BoxesMergeBoxBody}
+     * @type {string}
      * @memberof InlineObject16
      */
-    boxBody: ApiV1BoxesMergeBoxBody;
+    iconImage?: string;
 }
 
 

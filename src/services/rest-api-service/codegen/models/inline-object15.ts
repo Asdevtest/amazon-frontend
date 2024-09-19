@@ -21,11 +21,17 @@
  */
 export interface InlineObject15 {
     /**
-     * GUID коробки, объединение которой нужно отменить
+     * Название красного флага
      * @type {string}
      * @memberof InlineObject15
      */
-    guid?: string;
+    title: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject15
+     */
+    iconImage?: string;
 }
 
 

@@ -21,83 +21,47 @@
  */
 export interface InlineObject13 {
     /**
-     * GUID пункта назначения коробки
+     * Название склада.
      * @type {string}
      * @memberof InlineObject13
      */
-    destinationId?: string;
+    name: string;
     /**
-     * GUID тарифа к сторкипера
+     * Страна.
      * @type {string}
      * @memberof InlineObject13
      */
-    logicsTariffId?: string;
+    country?: string;
     /**
-     * Это номер конкретной коробки при отправке в амазон.
+     * Индекс. 5 цифр.
      * @type {string}
      * @memberof InlineObject13
      */
-    fbaShipment?: string;
+    zipCode?: string;
     /**
-     * Это номер конкретной коробки при отправке в амазон.
+     * Штат.
      * @type {string}
      * @memberof InlineObject13
      */
-    fbaNumber?: string;
+    state?: string;
     /**
-     * Комментарии к коробке
+     * Город.
      * @type {string}
      * @memberof InlineObject13
      */
-    clientComment?: string;
+    city?: string;
     /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
+     * Адрес склада.
      * @type {string}
      * @memberof InlineObject13
      */
-    referenceId?: string;
+    address?: string;
     /**
-     * Текст трек номера
+     * Цвет шрифта
      * @type {string}
      * @memberof InlineObject13
      */
-    trackNumberText?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject13
-     */
-    trackNumberFile?: Array<string>;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineObject13
-     */
-    upsTrackNumber?: string;
-    /**
-     * shippingLabel коробки
-     * @type {string}
-     * @memberof InlineObject13
-     */
-    shippingLabel?: string;
-    /**
-     * shippingLabel проклеен сторкипером
-     * @type {boolean}
-     * @memberof InlineObject13
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineObject13
-     */
-    prepId?: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject13
-     */
-    variationTariffId?: string;
+    fontColor?: string;
 }
 
 

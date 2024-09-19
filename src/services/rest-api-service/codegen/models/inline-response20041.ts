@@ -13,7 +13,10 @@
  */
 
 
-import { InlineResponse20041SupplierImage } from './inline-response20041-supplier-image';
+import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
+import { ApiV1ClientsProductsVacTags } from './api-v1-clients-products-vac-tags';
 
 /**
  * 
@@ -35,16 +38,124 @@ export interface InlineResponse20041 {
     latestSeoFiles?: Array<string>;
     /**
      * 
-     * @type {Array<string>}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20041
      */
-    currentSupplierImage?: Array<string>;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {Array<InlineResponse20041SupplierImage>}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20041
      */
-    supplierImage?: Array<InlineResponse20041SupplierImage>;
+    checkedBy?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    updatedAt?: string;
+    /**
+     * Дата проверки
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    checkedAt?: string;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20041
+     */
+    buyer?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * Савка супервайзера.
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    supervisorRate?: number;
+    /**
+     * Савка байера.
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    buyerRate?: number;
+    /**
+     * 
+     * @type {Array<ApiV1BoxesClientsLightProductRedFlags>}
+     * @memberof InlineResponse20041
+     */
+    redFlags?: Array<ApiV1BoxesClientsLightProductRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsVacTags>}
+     * @memberof InlineResponse20041
+     */
+    tags?: Array<ApiV1ClientsProductsVacTags>;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    strategyStatus?: number;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    avgReviews?: string;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    fbafee?: number;
+    /**
+     * Штрихкод продукта
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    barCode?: string;
+    /**
+     * Зашита листинга (bool)
+     * @type {boolean}
+     * @memberof InlineResponse20041
+     */
+    transparency?: boolean;
+    /**
+     * Title амазона
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    amazonTitle?: string;
 }
 
 

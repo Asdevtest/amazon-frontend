@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20079Products } from './inline-response20079-products';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 
 /**
  * 
@@ -22,23 +22,41 @@ import { InlineResponse20079Products } from './inline-response20079-products';
  */
 export interface InlineResponse20079Rows {
     /**
-     * ID магазина.
+     * 
      * @type {string}
      * @memberof InlineResponse20079Rows
      */
     _id?: string;
     /**
-     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * ASIN продукта
      * @type {string}
      * @memberof InlineResponse20079Rows
      */
-    name?: string;
+    asin?: string;
     /**
-     * 
-     * @type {Array<InlineResponse20079Products>}
+     * SKU введенным клиентом.
+     * @type {string}
      * @memberof InlineResponse20079Rows
      */
-    products?: Array<InlineResponse20079Products>;
+    skuByClient?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20079Rows
+     */
+    images?: Array<string>;
+    /**
+     * Заголовок на товар с сайта амазон.
+     * @type {string}
+     * @memberof InlineResponse20079Rows
+     */
+    amazonTitle?: string;
+    /**
+     * 
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @memberof InlineResponse20079Rows
+     */
+    users?: Array<ApiV1AnnouncementsMyCreatedBy>;
 }
 
 

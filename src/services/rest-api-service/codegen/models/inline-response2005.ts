@@ -13,8 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
-import { ApiV1BatchesByProductGuidBoxes } from './api-v1-batches-by-product-guid-boxes';
+import { UserAdminFullSchema } from './user-admin-full-schema';
 
 /**
  * 
@@ -23,47 +22,23 @@ import { ApiV1BatchesByProductGuidBoxes } from './api-v1-batches-by-product-guid
  */
 export interface InlineResponse2005 {
     /**
-     * GUID партии.
-     * @type {string}
-     * @memberof InlineResponse2005
-     */
-    _id?: string;
-    /**
-     * Человекочитаемый id партии.
+     * Count of total items
      * @type {number}
      * @memberof InlineResponse2005
      */
-    humanFriendlyId?: number;
+    count?: number;
     /**
-     * Название партии
-     * @type {string}
+     * Массив пользователей.
+     * @type {Array<UserAdminFullSchema>}
      * @memberof InlineResponse2005
      */
-    title?: string;
-    /**
-     * Заархивирована ли партия
-     * @type {boolean}
-     * @memberof InlineResponse2005
-     */
-    archive?: boolean;
+    rows?: Array<UserAdminFullSchema>;
     /**
      * 
-     * @type {Array<ApiV1BatchesByProductGuidBoxes>}
+     * @type {object}
      * @memberof InlineResponse2005
      */
-    boxes?: Array<ApiV1BatchesByProductGuidBoxes>;
-    /**
-     * Общее кол-во продуктов
-     * @type {number}
-     * @memberof InlineResponse2005
-     */
-    amountInBatch?: number;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse2005
-     */
-    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
+    meta?: object;
 }
 
 

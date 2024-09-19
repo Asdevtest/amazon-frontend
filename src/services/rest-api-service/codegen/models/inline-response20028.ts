@@ -13,9 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
-import { ApiV1BatchesProductRedFlags } from './api-v1-batches-product-red-flags';
-import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
+import { InlineResponse20028Rows } from './inline-response20028-rows';
 
 /**
  * 
@@ -24,167 +22,17 @@ import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
  */
 export interface InlineResponse20028 {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
-     * @memberof InlineResponse20028
-     */
-    _id?: string;
-    /**
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineResponse20028
-     */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20028
-     */
-    skuByClient?: string;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    strategyStatus?: number;
-    /**
-     * Имеет ли дочерние продукты данный продукт (по parentProductId)
-     * @type {boolean}
-     * @memberof InlineResponse20028
-     */
-    hasChildren?: boolean;
-    /**
      * 
-     * @type {string}
+     * @type {Array<InlineResponse20028Rows>}
      * @memberof InlineResponse20028
      */
-    checkednotes?: string;
+    rows?: Array<InlineResponse20028Rows>;
     /**
      * 
      * @type {number}
      * @memberof InlineResponse20028
      */
-    bsr?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    amazon?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    fbafee?: number;
-    /**
-     *  Общая сумма с фба.
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    fbaamount?: number;
-    /**
-     * Код текущего статуса
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    status?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20028
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20028
-     */
-    amazonTitle?: string;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    profit?: number;
-    /**
-     * Материл продукта
-     * @type {string}
-     * @memberof InlineResponse20028
-     */
-    material?: string;
-    /**
-     * Применение продукта
-     * @type {string}
-     * @memberof InlineResponse20028
-     */
-    productUsage?: string;
-    /**
-     * chinese title?
-     * @type {string}
-     * @memberof InlineResponse20028
-     */
-    chinaTitle?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    ideasOnCheck?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    ideasFinished?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    ideasClosed?: number;
-    /**
-     * 
-     * @type {Array<ApiV1BuyersProductsVacTags>}
-     * @memberof InlineResponse20028
-     */
-    tags?: Array<ApiV1BuyersProductsVacTags>;
-    /**
-     * 
-     * @type {Array<ApiV1BatchesProductRedFlags>}
-     * @memberof InlineResponse20028
-     */
-    redFlags?: Array<ApiV1BatchesProductRedFlags>;
-    /**
-     * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
-     * @memberof InlineResponse20028
-     */
-    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
-    /**
-     * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
-     * @memberof InlineResponse20028
-     */
-    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20028
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse20028
-     */
-    updatedAt?: string;
+    count?: number;
 }
 
 

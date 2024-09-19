@@ -31,9 +31,11 @@ import { InlineObject138 } from '../models';
 // @ts-ignore
 import { InlineObject139 } from '../models';
 // @ts-ignore
-import { InlineResponse200103 } from '../models';
+import { InlineResponse200105 } from '../models';
 // @ts-ignore
-import { InlineResponse20029 } from '../models';
+import { InlineResponse2002 } from '../models';
+// @ts-ignore
+import { InlineResponse20031 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -423,7 +425,7 @@ export const SupervisorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1SupervisorsProductsVacGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesProduct>>> {
+        async apiV1SupervisorsProductsVacGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2002>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SupervisorsProductsVacGet(isCreatedByClient, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -508,7 +510,7 @@ export const SupervisorApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1SupervisorsProductsVacGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesProduct>> {
+        apiV1SupervisorsProductsVacGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse2002>> {
             return localVarFp.apiV1SupervisorsProductsVacGet(isCreatedByClient, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };

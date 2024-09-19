@@ -17,157 +17,55 @@ import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created
 import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
 
 /**
- * Схема получение лайт версии продажи магазина
+ * 
  * @export
  * @interface InlineResponse20095
  */
 export interface InlineResponse20095 {
     /**
-     * GUID магазина на продажу.
+     * GUID в базе данных
      * @type {string}
      * @memberof InlineResponse20095
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse20095
-     */
-    owner?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * GUID покупателя магазина
+     * Guid заявки к которой относится данное media.
      * @type {string}
      * @memberof InlineResponse20095
      */
-    bidderId?: string;
+    requestId?: string;
     /**
-     * GUID модератора магазина
+     * Guid предложения к которой относится данное media.
      * @type {string}
      * @memberof InlineResponse20095
      */
-    moderatorId?: string;
+    proposalId?: string;
     /**
-     * GUID чата
+     * комментарий клиента
      * @type {string}
      * @memberof InlineResponse20095
      */
-    chatId?: string;
+    commentByClient?: string;
     /**
-     * Имя магазина для продажи
+     * комментарий исполнителя
      * @type {string}
      * @memberof InlineResponse20095
      */
-    title?: string;
+    commentByPerformer?: string;
     /**
-     * Статус магазина для продажи
+     * Ссылка на файл
      * @type {string}
      * @memberof InlineResponse20095
      */
-    status?: string;
+    fileLink?: string;
     /**
-     * Файлы, которые привязаны к магазину
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    files?: Array<string>;
-    /**
-     * Стоимость магазина
-     * @type {number}
-     * @memberof InlineResponse20095
-     */
-    price?: number;
-    /**
-     * Ежемесячная прибыль
-     * @type {number}
-     * @memberof InlineResponse20095
-     */
-    monthlyProfit?: number;
-    /**
-     * Ежемесячная чистая прибыль
-     * @type {number}
-     * @memberof InlineResponse20095
-     */
-    monthlyPureProfit?: number;
-    /**
-     * Ежемесячный множитель
-     * @type {number}
-     * @memberof InlineResponse20095
-     */
-    monthlyMultiplier?: number;
-    /**
-     * Статистика магазина по месяцам
-     * @type {Array<ApiV1ShopSellStatistics1>}
-     * @memberof InlineResponse20095
-     */
-    statistics?: Array<ApiV1ShopSellStatistics1>;
-    /**
-     * Дата создания бизнеса
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    businessStartDate?: string;
-    /**
-     * Детали магазина
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    shopDetails?: string;
-    /**
-     * Ссылка магазина
-     * @type {string}
-     * @memberof InlineResponse20095
-     */
-    shopLink?: string;
-    /**
-     * Массив активов
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    shopAssets?: Array<string>;
-    /**
-     * Массив возможностей
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    opportunities?: Array<string>;
-    /**
-     * Массив рисков
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    risks?: Array<string>;
-    /**
-     * Массив требуемых навыков
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    requiredSkills?: Array<string>;
-    /**
-     * Поддержка продавца включает
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    sellIncludes?: Array<string>;
-    /**
-     * Причины продажи
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    reasonForSale?: Array<string>;
-    /**
-     * Дополнительная информация
-     * @type {Array<string>}
-     * @memberof InlineResponse20095
-     */
-    additionalInfo?: Array<string>;
-    /**
-     * Дата создания
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20095
      */
     createdAt?: string;
     /**
-     * Дата изменения
+     * Дата обновления.
      * @type {string}
      * @memberof InlineResponse20095
      */

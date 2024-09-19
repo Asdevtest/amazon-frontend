@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse2003 } from './inline-response2003';
 
 /**
  * 
@@ -21,41 +22,17 @@
  */
 export interface InlineResponse2004 {
     /**
-     * The unique identifier of the box.
-     * @type {string}
-     * @memberof InlineResponse2004
-     */
-    guid?: string;
-    /**
-     * Объем в м ^ 3
+     * Количество заказов
      * @type {number}
      * @memberof InlineResponse2004
      */
-    cubicMeters?: number;
+    count?: number;
     /**
-     * The delivery cost of the box.
-     * @type {number}
+     * Массив заказов
+     * @type {Array<InlineResponse2003>}
      * @memberof InlineResponse2004
      */
-    deliveryCost?: number;
-    /**
-     * The volume weight of the box in kg.
-     * @type {number}
-     * @memberof InlineResponse2004
-     */
-    volumeWeightKgWarehouse?: number;
-    /**
-     * The weight of the box in kg.
-     * @type {number}
-     * @memberof InlineResponse2004
-     */
-    weightFinalAccountingKgWarehouse?: number;
-    /**
-     * The delivery rate of the box. $/kg
-     * @type {number}
-     * @memberof InlineResponse2004
-     */
-    deliveryRate?: number;
+    rows?: Array<InlineResponse2003>;
 }
 
 

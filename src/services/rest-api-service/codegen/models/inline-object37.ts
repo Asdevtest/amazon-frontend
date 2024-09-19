@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-guid-items';
 
 /**
  * 
@@ -21,47 +22,65 @@
  */
 export interface InlineObject37 {
     /**
-     * Название склада.
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject37
      */
-    name: string;
+    lengthCmWarehouse?: number;
     /**
-     * Страна.
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject37
      */
-    country?: string;
+    widthCmWarehouse?: number;
     /**
-     * Индекс. 5 цифр.
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject37
      */
-    zipCode?: string;
+    heightCmWarehouse?: number;
     /**
-     * Штат.
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject37
      */
-    state?: string;
+    weighGrossKgWarehouse?: number;
     /**
-     * Город.
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject37
      */
-    city?: string;
+    volumeWeightKgWarehouse?: number;
     /**
-     * Адрес склада.
-     * @type {string}
+     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+     * @type {boolean}
      * @memberof InlineObject37
      */
-    address?: string;
+    isShippingLabelAttachedByStorekeeper?: boolean;
     /**
-     * Цвет шрифта
+     * 
+     * @type {Array<ApiV1BoxesStorekeepersGuidItems>}
+     * @memberof InlineObject37
+     */
+    items?: Array<ApiV1BoxesStorekeepersGuidItems>;
+    /**
+     * Комментарии к коробке
      * @type {string}
      * @memberof InlineObject37
      */
-    fontColor?: string;
+    storekeeperComment?: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    variationTariffId?: string;
+    /**
+     * Массив ссылок на фотографии.
+     * @type {Array<string>}
+     * @memberof InlineObject37
+     */
+    images?: Array<string>;
 }
 
 

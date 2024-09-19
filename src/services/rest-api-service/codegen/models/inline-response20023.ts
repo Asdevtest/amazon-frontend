@@ -13,13 +13,12 @@
  */
 
 
-import { ApiV1AdminsProductsVacCheckedby } from './api-v1-admins-products-vac-checkedby';
 import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
-import { ApiV1BatchesProductBoxAmounts } from './api-v1-batches-product-box-amounts';
-import { ApiV1BatchesProductRedFlags } from './api-v1-batches-product-red-flags';
-import { ApiV1BatchesProductShop } from './api-v1-batches-product-shop';
-import { ApiV1BatchesProductSuppliers } from './api-v1-batches-product-suppliers';
-import { ApiV1BatchesProductTags } from './api-v1-batches-product-tags';
+import { ApiV1BoxesClientsLightBatch } from './api-v1-boxes-clients-light-batch';
+import { ApiV1BoxesClientsLightDestination } from './api-v1-boxes-clients-light-destination';
+import { ApiV1BoxesClientsLightItems } from './api-v1-boxes-clients-light-items';
+import { ApiV1BoxesClientsLightLogicsTariff } from './api-v1-boxes-clients-light-logics-tariff';
+import { InlineResponse20021VariationTariff } from './inline-response20021-variation-tariff';
 
 /**
  * 
@@ -34,23 +33,173 @@ export interface InlineResponse20023 {
      */
     _id?: string;
     /**
-     * ASIN продукта
-     * @type {string}
+     * Номер коробки.
+     * @type {number}
      * @memberof InlineResponse20023
      */
-    asin?: string;
+    humanFriendlyId?: number;
     /**
-     * SKU введенным клиентом.
+     * ККоличества в коробке.
+     * @type {number}
+     * @memberof InlineResponse20023
+     */
+    amount?: number;
+    /**
+     * Total Amount
+     * @type {number}
+     * @memberof InlineResponse20023
+     */
+    totalAmount?: number;
+    /**
+     * Total Price
+     * @type {number}
+     * @memberof InlineResponse20023
+     */
+    totalPrice?: number;
+    /**
+     * Final weight
+     * @type {number}
+     * @memberof InlineResponse20023
+     */
+    finalWeight?: number;
+    /**
+     * Статус коробки
      * @type {string}
      * @memberof InlineResponse20023
      */
-    skuByClient?: string;
+    status?: string;
+    /**
+     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
+     * @type {boolean}
+     * @memberof InlineResponse20023
+     */
+    isActual?: boolean;
+    /**
+     * Если true - значит коробку черновик.
+     * @type {boolean}
+     * @memberof InlineResponse20023
+     */
+    isDraft?: boolean;
+    /**
+     * Сформирована ли коробка
+     * @type {boolean}
+     * @memberof InlineResponse20023
+     */
+    isFormed?: boolean;
+    /**
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineResponse20023
+     */
+    shippingLabel?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineResponse20023
+     */
+    trackNumberText?: string;
     /**
      * 
-     * @type {Array<ApiV1BatchesProductSuppliers>}
+     * @type {Array<string>}
      * @memberof InlineResponse20023
      */
-    suppliers?: Array<ApiV1BatchesProductSuppliers>;
+    trackNumberFile?: Array<string>;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineResponse20023
+     */
+    prepId?: string;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineResponse20023
+     */
+    upsTrackNumber?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineResponse20023
+     */
+    referenceId?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineResponse20023
+     */
+    clientComment?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineResponse20023
+     */
+    storekeeperComment?: string;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20023
+     */
+    lengthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20023
+     */
+    widthCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20023
+     */
+    heightCmWarehouse?: number;
+    /**
+     * Что фактически пришло на склад. Кладовщик.
+     * @type {number}
+     * @memberof InlineResponse20023
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+     * @type {boolean}
+     * @memberof InlineResponse20023
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineResponse20023
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineResponse20023
+     */
+    fbaNumber?: string;
+    /**
+     * Итого за доставку.
+     * @type {number}
+     * @memberof InlineResponse20023
+     */
+    deliveryTotalPrice?: number;
+    /**
+     * Обновление итога за доставку.
+     * @type {number}
+     * @memberof InlineResponse20023
+     */
+    deliveryTotalPriceChanged?: number;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20023
+     */
+    images?: Array<string>;
+    /**
+     * Nullable ISO Date
+     * @type {string}
+     * @memberof InlineResponse20023
+     */
+    deadline?: string;
     /**
      * 
      * @type {ApiV1BatchesProductSuppliers}
@@ -298,245 +447,59 @@ export interface InlineResponse20023 {
      */
     updatedAt?: string;
     /**
-     * Дата проверки
-     * @type {string}
+     * 
+     * @type {InlineResponse20021VariationTariff}
      * @memberof InlineResponse20023
      */
-    checkedAt?: string;
+    variationTariff?: InlineResponse20021VariationTariff;
+    /**
+     * Массив коробок.
+     * @type {Array<ApiV1BoxesClientsLightItems>}
+     * @memberof InlineResponse20023
+     */
+    items?: Array<ApiV1BoxesClientsLightItems>;
     /**
      * 
      * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20023
      */
-    buyer?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * Дедлаин на на поиск поставщика байером.
-     * @type {string}
-     * @memberof InlineResponse20023
-     */
-    buyerTimeoutAt?: string;
-    /**
-     * Комментарии к товару от байера.
-     * @type {string}
-     * @memberof InlineResponse20023
-     */
-    buyersComment?: string;
-    /**
-     * ID магазина продукта
-     * @type {string}
-     * @memberof InlineResponse20023
-     */
-    shopId?: string;
+    sub?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {ApiV1BatchesProductShop}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20023
      */
-    shop?: ApiV1BatchesProductShop;
-    /**
-     * Савка ресечера.
-     * @type {number}
-     * @memberof InlineResponse20023
-     */
-    researcherRate?: number;
-    /**
-     * Савка супервайзера.
-     * @type {number}
-     * @memberof InlineResponse20023
-     */
-    supervisorRate?: number;
-    /**
-     * Дата оплаты
-     * @type {string}
-     * @memberof InlineResponse20023
-     */
-    paidAt?: string;
-    /**
-     * Савка байера.
-     * @type {number}
-     * @memberof InlineResponse20023
-     */
-    buyerRate?: number;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineResponse20023
-     */
-    strategyStatus?: number;
-    /**
-     * Признак needCheckBySupervisor
-     * @type {boolean}
-     * @memberof InlineResponse20023
-     */
-    needCheckBySupervisor?: boolean;
-    /**
-     * Сколько такого продукта находится в заказах.
-     * @type {number}
-     * @memberof InlineResponse20023
-     */
-    amountInOrders?: number;
-    /**
-     * Сколько такого продукта находится в заказах в статусах 0, 2, 3.
-     * @type {number}
-     * @memberof InlineResponse20023
-     */
-    amountInPendingOrders?: number;
+    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {Array<ApiV1BatchesProductBoxAmounts>}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20023
      */
-    boxAmounts?: Array<ApiV1BatchesProductBoxAmounts>;
-    /**
-     * Флаг указывает что продукт в архиве.
-     * @type {boolean}
-     * @memberof InlineResponse20023
-     */
-    archive?: boolean;
-    /**
-     * hsCode продукта.
-     * @type {string}
-     * @memberof InlineResponse20023
-     */
-    hsCode?: string;
-    /**
-     * Ниша
-     * @type {string}
-     * @memberof InlineResponse20023
-     */
-    niche?: string;
-    /**
-     * Асины
-     * @type {string}
-     * @memberof InlineResponse20023
-     */
-    asins?: string;
-    /**
-     * Общий доход
-     * @type {string}
-     * @memberof InlineResponse20023
-     */
-    totalRevenue?: string;
-    /**
-     * Коэффициент прибыли
-     * @type {string}
-     * @memberof InlineResponse20023
-     */
-    coefficient?: string;
-    /**
-     * Средний доход
-     * @type {string}
-     * @memberof InlineResponse20023
-     */
-    avgRevenue?: string;
-    /**
-     * Средний BSR
-     * @type {string}
-     * @memberof InlineResponse20023
-     */
-    avgBSR?: string;
-    /**
-     * Средняя цена
-     * @type {string}
-     * @memberof InlineResponse20023
-     */
-    avgPrice?: string;
-    /**
-     * Средний отзывы
-     * @type {string}
-     * @memberof InlineResponse20023
-     */
-    avgReviews?: string;
-    /**
-     * Каков должен быть сток за 4 месяца
-     * @type {number}
-     * @memberof InlineResponse20023
-     */
-    fourMonthesStock?: number;
+    client?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {number}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20023
      */
-    stockUSA?: number;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {number}
+     * @type {ApiV1BoxesClientsLightDestination}
      * @memberof InlineResponse20023
      */
-    reservedSum?: number;
+    destination?: ApiV1BoxesClientsLightDestination;
     /**
      * 
-     * @type {number}
+     * @type {ApiV1BoxesClientsLightLogicsTariff}
      * @memberof InlineResponse20023
      */
-    sentToFbaSum?: number;
+    logicsTariff?: ApiV1BoxesClientsLightLogicsTariff;
     /**
      * 
-     * @type {number}
+     * @type {ApiV1BoxesClientsLightBatch}
      * @memberof InlineResponse20023
      */
-    fbaFbmStockSum?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20023
-     */
-    ideasOnCheck?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20023
-     */
-    ideasFinished?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20023
-     */
-    ideasClosed?: number;
-    /**
-     * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
-     * @memberof InlineResponse20023
-     */
-    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
-    /**
-     * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
-     * @memberof InlineResponse20023
-     */
-    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
-    /**
-     * 
-     * @type {Array<ApiV1BatchesProductRedFlags>}
-     * @memberof InlineResponse20023
-     */
-    redFlags?: Array<ApiV1BatchesProductRedFlags>;
-    /**
-     * 
-     * @type {Array<ApiV1BatchesProductTags>}
-     * @memberof InlineResponse20023
-     */
-    tags?: Array<ApiV1BatchesProductTags>;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof InlineResponse20023
-     */
-    productsInWarehouse?: Array<object>;
-    /**
-     * Кол-во идей продукта в статусе 10
-     * @type {number}
-     * @memberof InlineResponse20023
-     */
-    ideasCounter?: number;
-    /**
-     * 
-     * @type {ApiV1AdminsProductsVacCheckedby}
-     * @memberof InlineResponse20023
-     */
-    checkedby?: ApiV1AdminsProductsVacCheckedby;
+    batch?: ApiV1BoxesClientsLightBatch;
 }
 
 

@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1BatchesOrder } from './api-v1-batches-order';
-import { ApiV1BatchesProduct } from './api-v1-batches-product';
+import { InlineResponse2002 } from './inline-response2002';
+import { InlineResponse2003 } from './inline-response2003';
 
 /**
  * 
@@ -30,10 +30,10 @@ export interface ApiV1BatchesItems {
     _id?: string;
     /**
      * 
-     * @type {ApiV1BatchesProduct}
+     * @type {InlineResponse2002}
      * @memberof ApiV1BatchesItems
      */
-    product?: ApiV1BatchesProduct;
+    product?: InlineResponse2002;
     /**
      * Кол-во продукта
      * @type {number}
@@ -42,10 +42,10 @@ export interface ApiV1BatchesItems {
     amount?: number;
     /**
      * 
-     * @type {ApiV1BatchesOrder}
+     * @type {InlineResponse2003}
      * @memberof ApiV1BatchesItems
      */
-    order?: ApiV1BatchesOrder;
+    order?: InlineResponse2003;
     /**
      * Штрихкод продукта
      * @type {string}

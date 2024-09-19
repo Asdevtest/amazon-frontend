@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsSetSettingTechPause } from './api-v1-admins-set-setting-tech-pause';
+import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
 
 /**
  * Схема динамических настроек.
@@ -22,95 +22,17 @@ import { ApiV1AdminsSetSettingTechPause } from './api-v1-admins-set-setting-tech
  */
 export interface InlineObject32 {
     /**
-     * Курс юаня к доллару.
-     * @type {number}
+     * Массив коробок.
+     * @type {Array<string>}
      * @memberof InlineObject32
      */
-    yuanToDollarRate: number;
-    /**
-     * Цена за поиск поставщика, оплата байеру, в долларах.
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    costOfFindingSupplier: number;
-    /**
-     * Цена за поиск поставщика, оплата ресерчера, в долларах.
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    costOfCheckingProduct?: number;
-    /**
-     * Дедлайна на поиск поставщика., в часах.
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    deadlineForFindingSupplier: number;
-    /**
-     * Минимальная цена за предложение к заявке, в долларах.
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    requestMinAmountPriceOfProposal: number;
-    /**
-     * Процент с каждого предложения, маржа платформы, в процентах.
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    requestPlatformMarginInPercent: number;
-    /**
-     * Процент с каждого предложения для супервайзера, в процентах.
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    requestSupervisorFeeInPercent: number;
-    /**
-     * Время после которого будет автоматом принято предложение клиентом, в часах.
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    requestTimeLimitInHourForCancelingProposalsByClient: number;
-    /**
-     * Время после которого будет автоматом снят супервизор с проверки предложения, в часах.
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    requestTimeLimitInHourForCheckingProposalBySuper: number;
-    /**
-     * Коэффициент расчета объемного веса.
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    volumeWeightCoefficient?: number;
-    /**
-     * Работает ли сервер
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    tech_pause: number;
+    guids: Array<string>;
     /**
      * 
-     * @type {ApiV1AdminsSetSettingTechPause}
+     * @type {ApiV1BoxesMergeBoxBody}
      * @memberof InlineObject32
      */
-    techPause?: ApiV1AdminsSetSettingTechPause;
-    /**
-     * Интервал в часах для уведомлений по поводу дедлайнов ордеров
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    timeToDeadlinePendingOrder: number;
-    /**
-     * Лимит на кол-во в ордере
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    orderAmountLimit?: number;
-    /**
-     * Интервал в секундах для нотификаций product_listing_launches
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    timeBeforeLaunchDeadline?: number;
+    boxBody: ApiV1BoxesMergeBoxBody;
 }
 
 

@@ -22,17 +22,29 @@ import { ApiV1BoxesSplitNewBoxesParams } from './api-v1-boxes-split-new-boxes-pa
  */
 export interface InlineObject18 {
     /**
-     * GUID коробки, которую делим
+     * ГУид продукта
      * @type {string}
      * @memberof InlineObject18
      */
-    guid?: string;
+    productId: string;
     /**
-     * 
-     * @type {Array<ApiV1BoxesSplitNewBoxesParams>}
+     * Гуид баера
+     * @type {string}
      * @memberof InlineObject18
      */
-    newBoxesParams?: Array<ApiV1BoxesSplitNewBoxesParams>;
+    buyerId?: string;
+    /**
+     * Гуид супервизора
+     * @type {string}
+     * @memberof InlineObject18
+     */
+    checkedById?: string;
+    /**
+     * Гуид клиента
+     * @type {string}
+     * @memberof InlineObject18
+     */
+    clientId?: string;
 }
 
 

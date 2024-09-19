@@ -13,26 +13,272 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
+import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
+import { ApiV1AdminsOrdersLogicsTariff } from './api-v1-admins-orders-logics-tariff';
+import { ApiV1AdminsOrdersVariationTariff } from './api-v1-admins-orders-variation-tariff';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { InlineResponse2002 } from './inline-response2002';
 
 /**
- * Результат запроса с пагинацией
+ * Заказ.
  * @export
  * @interface InlineResponse2003
  */
 export interface InlineResponse2003 {
     /**
-     * Всего кол-во записей в результате запроса
+     * id заказ.
      * @type {number}
      * @memberof InlineResponse2003
      */
-    count?: number;
+    id?: number;
     /**
-     * Массив батчей c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse2002>}
+     * GUID данной записи в БД.
+     * @type {string}
      * @memberof InlineResponse2003
      */
-    rows?: Array<InlineResponse2002>;
+    _id?: string;
+    /**
+     * ASIN продукта
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    asin?: string;
+    /**
+     * Комментарии клиента.
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    clientComment?: string;
+    /**
+     * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    trackingNumberChina?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    item?: string;
+    /**
+     * комментарии байера.
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    buyerComment?: string;
+    /**
+     *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      needConfirmingReceiving: 27 - Этот статус промежуточный между 25 и 30     С этого статуса заказ можно переводить в статусы 25,30,35     inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
+     * @type {number}
+     * @memberof InlineResponse2003
+     */
+    status?: number;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse2003
+     */
+    images?: Array<string>;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    priority?: InlineResponse2003PriorityEnum;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * @type {number}
+     * @memberof InlineResponse2003
+     */
+    totalPrice?: number;
+    /**
+     * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
+     * @type {number}
+     * @memberof InlineResponse2003
+     */
+    totalPriceChanged?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    paidAt?: string;
+    /**
+     * Дата оплаты поставщтку
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    paymentDateToSupplier?: string;
+    /**
+     * Сумма частичной оплаты
+     * @type {number}
+     * @memberof InlineResponse2003
+     */
+    partialPaymentAmountRmb?: number;
+    /**
+     * Cумма частичной оплаты
+     * @type {number}
+     * @memberof InlineResponse2003
+     */
+    partiallyPaid?: number;
+    /**
+     * Оплачивается ли заказ частично
+     * @type {boolean}
+     * @memberof InlineResponse2003
+     */
+    partialPayment?: boolean;
+    /**
+     * Курс юань доллар.
+     * @type {number}
+     * @memberof InlineResponse2003
+     */
+    yuanToDollarRate?: number;
+    /**
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineResponse2003
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Защита листинга
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    transparencyFile?: string;
+    /**
+     * GUID продукта
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    productId?: string;
+    /**
+     * GUID тарифа доставки
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    logicsTariffId?: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    variationTariffId?: string;
+    /**
+     * GUID пользователя(байера)
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    buyerId?: string;
+    /**
+     * кол-во
+     * @type {number}
+     * @memberof InlineResponse2003
+     */
+    amount?: number;
+    /**
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * @type {boolean}
+     * @memberof InlineResponse2003
+     */
+    expressChinaDelivery?: boolean;
+    /**
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineResponse2003
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    deadline?: string;
+    /**
+     * Количество товара которое поступило на склад по данному заказу
+     * @type {number}
+     * @memberof InlineResponse2003
+     */
+    deliveredQuantity?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    createdById?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    createdAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2003
+     */
+    updatedAt?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsOrdersVariationTariff}
+     * @memberof InlineResponse2003
+     */
+    variationTariff?: ApiV1AdminsOrdersVariationTariff;
+    /**
+     * 
+     * @type {ApiV1AdminsOrdersDestination}
+     * @memberof InlineResponse2003
+     */
+    destination?: ApiV1AdminsOrdersDestination;
+    /**
+     * 
+     * @type {ApiV1AdminsOrdersLogicsTariff}
+     * @memberof InlineResponse2003
+     */
+    logicsTariff?: ApiV1AdminsOrdersLogicsTariff;
+    /**
+     * 
+     * @type {InlineResponse2002}
+     * @memberof InlineResponse2003
+     */
+    product?: InlineResponse2002;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse2003
+     */
+    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse2003
+     */
+    buyer?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusSuppliers}
+     * @memberof InlineResponse2003
+     */
+    orderSupplier?: ApiV1AdminsGetProductsByStatusSuppliers;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse2003
+     */
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse2003PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

@@ -22,10 +22,10 @@
 export interface InlineObject9 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof InlineObject9
      */
-    attachedDocuments: Array<string>;
+    title: string;
 }
 
 

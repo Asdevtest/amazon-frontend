@@ -21,29 +21,11 @@
  */
 export interface InlineObject42 {
     /**
-     * ГУид продукта
-     * @type {string}
+     * Сформирована ли коробка
+     * @type {boolean}
      * @memberof InlineObject42
      */
-    productId: string;
-    /**
-     * Гуид баера
-     * @type {string}
-     * @memberof InlineObject42
-     */
-    buyerId?: string;
-    /**
-     * Гуид супервизора
-     * @type {string}
-     * @memberof InlineObject42
-     */
-    checkedById?: string;
-    /**
-     * Гуид клиента
-     * @type {string}
-     * @memberof InlineObject42
-     */
-    clientId?: string;
+    isFormed: boolean;
 }
 
 

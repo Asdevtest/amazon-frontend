@@ -21,17 +21,11 @@
  */
 export interface InlineObject35 {
     /**
-     * Таймер на отключение в (МС)
-     * @type {number}
-     * @memberof InlineObject35
-     */
-    countdown?: number;
-    /**
-     * Текст сообщения для эмита юзерам
+     * GUID коробки разделение которой отменяем.
      * @type {string}
      * @memberof InlineObject35
      */
-    message?: string;
+    guid?: string;
 }
 
 

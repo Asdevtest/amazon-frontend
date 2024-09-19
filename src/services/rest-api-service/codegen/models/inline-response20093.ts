@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20093Rows } from './inline-response20093-rows';
 
 /**
  * 
@@ -21,53 +22,17 @@
  */
 export interface InlineResponse20093 {
     /**
-     * GUID в базе данных
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineResponse20093
      */
-    _id?: string;
+    count?: number;
     /**
-     * Guid заявки к которой относится данное media.
-     * @type {string}
+     * Массив заявок.
+     * @type {Array<InlineResponse20093Rows>}
      * @memberof InlineResponse20093
      */
-    requestId?: string;
-    /**
-     * Guid предложения к которой относится данное media.
-     * @type {string}
-     * @memberof InlineResponse20093
-     */
-    proposalId?: string;
-    /**
-     * комментарий клиента
-     * @type {string}
-     * @memberof InlineResponse20093
-     */
-    commentByClient?: string;
-    /**
-     * комментарий исполнителя
-     * @type {string}
-     * @memberof InlineResponse20093
-     */
-    commentByPerformer?: string;
-    /**
-     * Ссылка на файл
-     * @type {string}
-     * @memberof InlineResponse20093
-     */
-    fileLink?: string;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse20093
-     */
-    createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse20093
-     */
-    updatedAt?: string;
+    rows?: Array<InlineResponse20093Rows>;
 }
 
 
