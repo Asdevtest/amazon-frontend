@@ -21,71 +21,35 @@
  */
 export interface InlineResponse20044Orders {
     /**
-     * 
-     * @type {number}
+     * GUID заказа в базе данных
+     * @type {string}
      * @memberof InlineResponse20044Orders
      */
-    inProcess?: number;
+    _id?: string;
     /**
-     * 
-     * @type {number}
+     * Айди заказа
+     * @type {string}
      * @memberof InlineResponse20044Orders
      */
-    free?: number;
+    id?: string;
     /**
-     * 
+     * Статус заказа
      * @type {number}
      * @memberof InlineResponse20044Orders
      */
-    completed?: number;
+    status?: number;
     /**
-     * 
+     * Сумма заказа
      * @type {number}
      * @memberof InlineResponse20044Orders
      */
-    all?: number;
+    amount?: number;
     /**
-     * 
-     * @type {number}
+     * Дедлайн заказа
+     * @type {string}
      * @memberof InlineResponse20044Orders
      */
-    paid?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20044Orders
-     */
-    canceled?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20044Orders
-     */
-    notPaid?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20044Orders
-     */
-    needTrackNumber?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20044Orders
-     */
-    inbound?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20044Orders
-     */
-    confirmationRequired?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20044Orders
-     */
-    closedAndCanceled?: number;
+    deadline?: string;
 }
 
 

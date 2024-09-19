@@ -38,6 +38,10 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
         name: profile?.name || '',
         gologinId: profile?.gologinId || '',
         email: profile?.email || '',
+        spreadsheetsIdPerformance: profile?.spreadsheetsIdPerformance || '',
+        spreadsheetsIdImport: profile?.spreadsheetsIdImport || '',
+        spreadsheetsIdMain: profile?.spreadsheetsIdMain || '',
+        otp: profile?.otp || '',
       })
     }
   }, [])

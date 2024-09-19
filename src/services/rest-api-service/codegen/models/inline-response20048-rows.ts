@@ -13,7 +13,9 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { InlineResponse20048ListingLaunches } from './inline-response20048-listing-launches';
+import { InlineResponse20048Product } from './inline-response20048-product';
 
 /**
  * 
@@ -22,35 +24,65 @@ import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-pro
  */
 export interface InlineResponse20048Rows {
     /**
-     * Guid of shop
+     * GUID в базе данных
      * @type {string}
      * @memberof InlineResponse20048Rows
      */
     _id?: string;
     /**
-     * Name of shop
-     * @type {string}
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20048Rows
      */
-    name?: string;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
-     * Count of shop products
+     * 
+     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @memberof InlineResponse20048Rows
+     */
+    sub?: ApiV1AnnouncementsMyCreatedBy;
+    /**
+     * 
+     * @type {InlineResponse20048Product}
+     * @memberof InlineResponse20048Rows
+     */
+    product?: InlineResponse20048Product;
+    /**
+     * Is Actual report
+     * @type {boolean}
+     * @memberof InlineResponse20048Rows
+     */
+    isActive?: boolean;
+    /**
+     * New product price
      * @type {number}
      * @memberof InlineResponse20048Rows
      */
-    productsCount?: number;
+    newProductPrice?: number;
     /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * Description of product_listing_report
+     * @type {string}
      * @memberof InlineResponse20048Rows
      */
-    shopUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    description?: string;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<InlineResponse20048ListingLaunches>}
      * @memberof InlineResponse20048Rows
      */
-    productUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    listingLaunches?: Array<InlineResponse20048ListingLaunches>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20048Rows
+     */
+    createdAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20048Rows
+     */
+    updatedAt?: string;
 }
 
 

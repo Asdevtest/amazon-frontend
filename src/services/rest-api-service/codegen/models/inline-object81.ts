@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } from './api-v1-integrations-sellerboard-warehouse-products-link-sku-warehouse-stocks';
 
 /**
  * 
@@ -22,17 +21,132 @@ import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } f
  */
 export interface InlineObject81 {
     /**
-     * 
+     * Кол-во продукта по этой позиции.
+     * @type {number}
+     * @memberof InlineObject81
+     */
+    amount?: number;
+    /**
+     * Гуид сапплаера
      * @type {string}
      * @memberof InlineObject81
      */
-    productId: string;
+    orderSupplierId?: string;
     /**
-     * 
-     * @type {Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>}
+     * Склад для изменения
+     * @type {string}
      * @memberof InlineObject81
      */
-    warehouseStocks: Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>;
+    storekeeperId?: string;
+    /**
+     * Пункт назначения
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    destinationId?: string;
+    /**
+     * Тариф для изменения
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    logicsTariffId?: string;
+    /**
+     * Тариф для вариации
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    variationTariffId?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineObject81
+     */
+    images?: Array<string>;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * @type {number}
+     * @memberof InlineObject81
+     */
+    totalPrice?: number;
+    /**
+     * Защита листинга
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    transparencyFile?: string;
+    /**
+     * Комментарий баера
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    buyerComment?: string;
+    /**
+     * Не настоящий ключ, используется только для нужд юзера
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    item?: string;
+    /**
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineObject81
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    deadline?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    priority?: InlineObject81PriorityEnum;
+    /**
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * @type {boolean}
+     * @memberof InlineObject81
+     */
+    expressChinaDelivery?: boolean;
+    /**
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineObject81
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Комментарий клтента в заказе
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    clientComment?: string;
+    /**
+     * Цена в юанях
+     * @type {number}
+     * @memberof InlineObject81
+     */
+    priceInYuan?: number;
+    /**
+     * Цена доставки партии в юанях
+     * @type {number}
+     * @memberof InlineObject81
+     */
+    priceBatchDeliveryInYuan?: number;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject81PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 
