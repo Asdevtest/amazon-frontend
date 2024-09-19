@@ -5,6 +5,7 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: '6px',
   },
 
   usersOnlineWrapper: {
