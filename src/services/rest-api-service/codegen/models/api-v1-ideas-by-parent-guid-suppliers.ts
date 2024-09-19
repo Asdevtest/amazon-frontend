@@ -14,8 +14,8 @@
 
 
 import { ApiV1AdminsGetProductsByStatusBoxProperties } from './api-v1-admins-get-products-by-status-box-properties';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusPriceVariations } from './api-v1-admins-get-products-by-status-price-variations';
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BuyersOrdersMyPaymentMethod } from './api-v1-buyers-orders-my-payment-method';
 
 /**
@@ -80,10 +80,10 @@ export interface ApiV1IdeasByParentGuidSuppliers {
     batchDeliveryCostInDollar?: number;
     /**
      * 
-     * @type {ApiV1BatchesProductBoxProperties}
+     * @type {ApiV1AdminsGetProductsByStatusBoxProperties}
      * @memberof ApiV1IdeasByParentGuidSuppliers
      */
-    boxProperties?: ApiV1BatchesProductBoxProperties;
+    boxProperties?: ApiV1AdminsGetProductsByStatusBoxProperties;
     /**
      * Min Срок изготовления
      * @type {number}
@@ -104,10 +104,10 @@ export interface ApiV1IdeasByParentGuidSuppliers {
     batchTotalCostInDollar?: number;
     /**
      * 
-     * @type {Array<ApiV1BatchesProductPriceVariations>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusPriceVariations>}
      * @memberof ApiV1IdeasByParentGuidSuppliers
      */
-    priceVariations?: Array<ApiV1BatchesProductPriceVariations>;
+    priceVariations?: Array<ApiV1AdminsGetProductsByStatusPriceVariations>;
     /**
      * 
      * @type {Array<ApiV1BuyersOrdersMyPaymentMethod>}
@@ -122,10 +122,10 @@ export interface ApiV1IdeasByParentGuidSuppliers {
     priceInYuan?: number;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof ApiV1IdeasByParentGuidSuppliers
      */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * Дата создания.
      * @type {string}

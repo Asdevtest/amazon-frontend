@@ -13,8 +13,8 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
 import { ApiV1ClientsProductsVacTags } from './api-v1-clients-products-vac-tags';
 
@@ -25,29 +25,95 @@ import { ApiV1ClientsProductsVacTags } from './api-v1-clients-products-vac-tags'
  */
 export interface InlineResponse20041 {
     /**
+     * GUID продукта в базе данных
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    _id?: string;
+    /**
+     * Категория
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    category?: string;
+    /**
      * 
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    bsr?: number;
+    /**
+     * ASIN продукта
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    asin?: string;
+    /**
+     * SKU введенным клиентом.
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    skuByClient?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    amazon?: number;
+    /**
+     * Вес
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    weight?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    fbaamount?: number;
+    /**
+     * Код текущего статуса
+     * @type {number}
+     * @memberof InlineResponse20041
+     */
+    status?: number;
+    /**
+     * Массив картинок.
      * @type {Array<string>}
      * @memberof InlineResponse20041
      */
-    productImages?: Array<string>;
+    images?: Array<string>;
     /**
-     * 
-     * @type {Array<string>}
+     * Цена для клиента
+     * @type {number}
      * @memberof InlineResponse20041
      */
-    latestSeoFiles?: Array<string>;
+    priceForClient?: number;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusSuppliers}
      * @memberof InlineResponse20041
      */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    currentSupplier?: ApiV1AdminsGetProductsByStatusSuppliers;
+    /**
+     * GUID поставщика в базе данных
+     * @type {string}
+     * @memberof InlineResponse20041
+     */
+    currentSupplierId?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20041
      */
-    checkedBy?: ApiV1AnnouncementsMyCreatedBy;
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20041
+     */
+    checkedBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * Дата создания
      * @type {string}
@@ -68,10 +134,10 @@ export interface InlineResponse20041 {
     checkedAt?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20041
      */
-    buyer?: ApiV1AnnouncementsMyCreatedBy;
+    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * Савка супервайзера.
      * @type {number}

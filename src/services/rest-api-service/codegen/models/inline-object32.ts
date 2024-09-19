@@ -16,7 +16,7 @@
 import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
 
 /**
- * Схема динамических настроек.
+ * 
  * @export
  * @interface InlineObject32
  */

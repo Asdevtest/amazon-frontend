@@ -13,26 +13,38 @@
  */
 
 
-import { InlineResponse200107Rows } from './inline-response200107-rows';
+import { ApiV1UsersFreelanceNoticesRequest } from './api-v1-users-freelance-notices-request';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse200107
  */
 export interface InlineResponse200107 {
     /**
-     * Всего кол-во записей в результате запроса
+     * GUID в базе данных
+     * @type {string}
+     * @memberof InlineResponse200107
+     */
+    _id?: string;
+    /**
+     * Кол-во непрочитаных сообщений по заявке
      * @type {number}
      * @memberof InlineResponse200107
      */
-    count?: number;
+    unreadMessages?: number;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse200107Rows>}
+     * Гуид чата
+     * @type {string}
      * @memberof InlineResponse200107
      */
-    rows?: Array<InlineResponse200107Rows>;
+    chatId?: string;
+    /**
+     * 
+     * @type {ApiV1UsersFreelanceNoticesRequest}
+     * @memberof InlineResponse200107
+     */
+    request?: ApiV1UsersFreelanceNoticesRequest;
 }
 
 

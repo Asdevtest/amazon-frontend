@@ -13,6 +13,8 @@
  */
 
 
+import { InlineResponse20050Rows } from './inline-response20050-rows';
+import { InlineResponse20051Meta } from './inline-response20051-meta';
 
 /**
  * 
@@ -21,29 +23,23 @@
  */
 export interface InlineResponse20051 {
     /**
-     * Гуид тега
-     * @type {string}
-     * @memberof InlineResponse20051
-     */
-    _id?: string;
-    /**
-     * Тег
-     * @type {string}
-     * @memberof InlineResponse20051
-     */
-    title?: string;
-    /**
-     * Кол-во продуктов, которые используют этот тег
+     * Count of rows
      * @type {number}
      * @memberof InlineResponse20051
      */
-    productCount?: number;
+    count?: number;
     /**
-     * Tag color
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20050Rows>}
      * @memberof InlineResponse20051
      */
-    color?: string;
+    rows?: Array<InlineResponse20050Rows>;
+    /**
+     * 
+     * @type {InlineResponse20051Meta}
+     * @memberof InlineResponse20051
+     */
+    meta?: InlineResponse20051Meta;
 }
 
 

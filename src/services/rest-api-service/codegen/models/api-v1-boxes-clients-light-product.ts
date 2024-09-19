@@ -13,8 +13,8 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
 
 /**
@@ -49,10 +49,10 @@ export interface ApiV1BoxesClientsLightProduct {
     images?: Array<string>;
     /**
      * 
-     * @type {ApiV1BatchesProductShop}
+     * @type {ApiV1AdminsGetProductsByStatusShop}
      * @memberof ApiV1BoxesClientsLightProduct
      */
-    shop?: ApiV1BatchesProductShop;
+    shop?: ApiV1AdminsGetProductsByStatusShop;
     /**
      * Зашита листинга (bool)
      * @type {boolean}
@@ -97,16 +97,16 @@ export interface ApiV1BoxesClientsLightProduct {
     hsCode?: string;
     /**
      * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof ApiV1BoxesClientsLightProduct
      */
-    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof ApiV1BoxesClientsLightProduct
      */
-    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
      * @type {Array<ApiV1BoxesClientsLightProductRedFlags>}

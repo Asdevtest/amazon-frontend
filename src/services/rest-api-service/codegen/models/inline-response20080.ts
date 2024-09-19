@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20080Rows } from './inline-response20080-rows';
 
 /**
  * 
@@ -23,16 +22,10 @@ import { InlineResponse20080Rows } from './inline-response20080-rows';
 export interface InlineResponse20080 {
     /**
      * 
-     * @type {string}
+     * @type {Array<string>}
      * @memberof InlineResponse20080
      */
-    productId?: string;
-    /**
-     * Гуид магазина
-     * @type {string}
-     * @memberof InlineResponse20080
-     */
-    shopId?: string;
+    shopIds?: Array<string>;
 }
 
 

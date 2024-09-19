@@ -21,7 +21,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { ApiV1BatchesProductSuppliers } from '../models';
+import { ApiV1AdminsGetProductsByStatusSuppliers } from '../models';
 // @ts-ignore
 import { BadRequestError } from '../models';
 // @ts-ignore
@@ -33,7 +33,7 @@ import { InlineObject142 } from '../models';
 // @ts-ignore
 import { InlineObject143 } from '../models';
 // @ts-ignore
-import { InlineResponse200104 } from '../models';
+import { InlineResponse200106 } from '../models';
 // @ts-ignore
 import { InlineResponse20114 } from '../models';
 // @ts-ignore
@@ -399,7 +399,7 @@ export const SupplierApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1SuppliersGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesProductSuppliers>>> {
+        async apiV1SuppliersGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1AdminsGetProductsByStatusSuppliers>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SuppliersGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -423,7 +423,7 @@ export const SupplierApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1SuppliersGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiV1BatchesProductSuppliers>> {
+        async apiV1SuppliersGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiV1AdminsGetProductsByStatusSuppliers>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SuppliersGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -447,7 +447,7 @@ export const SupplierApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1SuppliersPaymentMethodsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200104>>> {
+        async apiV1SuppliersPaymentMethodsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200106>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SuppliersPaymentMethodsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -505,7 +505,7 @@ export const SupplierApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1SuppliersGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesProductSuppliers>> {
+        apiV1SuppliersGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1AdminsGetProductsByStatusSuppliers>> {
             return localVarFp.apiV1SuppliersGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -527,7 +527,7 @@ export const SupplierApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1SuppliersGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<ApiV1BatchesProductSuppliers> {
+        apiV1SuppliersGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<ApiV1AdminsGetProductsByStatusSuppliers> {
             return localVarFp.apiV1SuppliersGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -549,7 +549,7 @@ export const SupplierApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1SuppliersPaymentMethodsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200104>> {
+        apiV1SuppliersPaymentMethodsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200106>> {
             return localVarFp.apiV1SuppliersPaymentMethodsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

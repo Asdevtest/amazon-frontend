@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesSplitNewBoxesParams } from './api-v1-boxes-split-new-boxes-params';
 
 /**
  * 
@@ -22,29 +21,11 @@ import { ApiV1BoxesSplitNewBoxesParams } from './api-v1-boxes-split-new-boxes-pa
  */
 export interface InlineObject18 {
     /**
-     * ГУид продукта
-     * @type {string}
+     * 
+     * @type {boolean}
      * @memberof InlineObject18
      */
-    productId: string;
-    /**
-     * Гуид баера
-     * @type {string}
-     * @memberof InlineObject18
-     */
-    buyerId?: string;
-    /**
-     * Гуид супервизора
-     * @type {string}
-     * @memberof InlineObject18
-     */
-    checkedById?: string;
-    /**
-     * Гуид клиента
-     * @type {string}
-     * @memberof InlineObject18
-     */
-    clientId?: string;
+    archive: boolean;
 }
 
 

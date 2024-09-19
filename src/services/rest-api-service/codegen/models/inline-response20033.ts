@@ -13,27 +13,26 @@
  */
 
 
-import { InlineResponse2003 } from './inline-response2003';
+import { InlineResponse2001 } from './inline-response2001';
 
 /**
- * Заказ.
+ * 
  * @export
  * @interface InlineResponse20033
  */
 export interface InlineResponse20033 {
     /**
-     * id заказ.
+     * Count of rows
      * @type {number}
      * @memberof InlineResponse20033
      */
-    id?: number;
+    count?: number;
     /**
      * Массив заказов.
-     * @type {Array<InlineResponse2003>}
+     * @type {Array<InlineResponse2001>}
      * @memberof InlineResponse20033
      */
-    rows?: Array<InlineResponse2003>;
+    rows?: Array<InlineResponse2001>;
 }
-
 
 

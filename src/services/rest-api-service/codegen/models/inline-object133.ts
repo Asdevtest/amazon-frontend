@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1BatchesOrderLogicsTariffConditionsByRegion } from './api-v1-batches-order-logics-tariff-conditions-by-region';
+import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
 import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-storekeepers-tariff-logistics-destination-variations';
 
 /**
@@ -78,10 +78,10 @@ export interface InlineObject133 {
     archive?: boolean;
     /**
      * 
-     * @type {ApiV1BatchesOrderLogicsTariffConditionsByRegion}
+     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
      * @memberof InlineObject133
      */
-    conditionsByRegion?: ApiV1BatchesOrderLogicsTariffConditionsByRegion;
+    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
     /**
      * 
      * @type {Array<ApiV1StorekeepersTariffLogisticsDestinationVariations>}

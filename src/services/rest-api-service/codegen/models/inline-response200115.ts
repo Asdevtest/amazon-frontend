@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse200115Rows } from './inline-response200115-rows';
 
 /**
  * 
@@ -22,17 +21,53 @@ import { InlineResponse200115Rows } from './inline-response200115-rows';
  */
 export interface InlineResponse200115 {
     /**
-     * Count of rows
+     * GUID пользователя.
+     * @type {string}
+     * @memberof InlineResponse200115
+     */
+    _id?: string;
+    /**
+     * Имя пользователя.
+     * @type {string}
+     * @memberof InlineResponse200115
+     */
+    name?: string;
+    /**
+     * Рейтинг пользователя.
      * @type {number}
      * @memberof InlineResponse200115
      */
-    count?: number;
+    rating?: number;
     /**
-     * 
-     * @type {Array<InlineResponse200115Rows>}
+     * Количество положительных отзыв
+     * @type {number}
      * @memberof InlineResponse200115
      */
-    rows?: Array<InlineResponse200115Rows>;
+    numberOfPositiveFeedbacks?: number;
+    /**
+     * Количество негативных отзыв
+     * @type {number}
+     * @memberof InlineResponse200115
+     */
+    numberOfNegativeFeedbacks?: number;
+    /**
+     * Страна
+     * @type {string}
+     * @memberof InlineResponse200115
+     */
+    country?: string;
+    /**
+     * Пользователь онлайн
+     * @type {boolean}
+     * @memberof InlineResponse200115
+     */
+    isOnline?: boolean;
+    /**
+     * Количество общих сделок
+     * @type {number}
+     * @memberof InlineResponse200115
+     */
+    countsOfDeals?: number;
 }
 
 

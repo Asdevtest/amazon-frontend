@@ -13,26 +13,55 @@
  */
 
 
-import { ApiV1BoxesItems } from './api-v1-boxes-items';
 
 /**
- * Коробка
+ * 
  * @export
  * @interface InlineObject11
  */
 export interface InlineObject11 {
     /**
-     * Таймер на отключение в (МС)
-     * @type {number}
-     * @memberof InlineObject11
-     */
-    countdown?: number;
-    /**
-     * Текст сообщения для эмита юзерам
+     * Название склада.
      * @type {string}
      * @memberof InlineObject11
      */
-    message?: string;
+    name: string;
+    /**
+     * Страна.
+     * @type {string}
+     * @memberof InlineObject11
+     */
+    country?: string;
+    /**
+     * Индекс. 5 цифр.
+     * @type {string}
+     * @memberof InlineObject11
+     */
+    zipCode?: string;
+    /**
+     * Штат.
+     * @type {string}
+     * @memberof InlineObject11
+     */
+    state?: string;
+    /**
+     * Город.
+     * @type {string}
+     * @memberof InlineObject11
+     */
+    city?: string;
+    /**
+     * Адрес склада.
+     * @type {string}
+     * @memberof InlineObject11
+     */
+    address?: string;
+    /**
+     * Цвет шрифта
+     * @type {string}
+     * @memberof InlineObject11
+     */
+    fontColor?: string;
 }
 
 

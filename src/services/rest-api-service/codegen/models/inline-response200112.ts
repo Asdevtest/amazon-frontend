@@ -21,35 +21,59 @@
  */
 export interface InlineResponse200112 {
     /**
-     * Курс юаня к доллару.
-     * @type {number}
+     * ID пресета.
+     * @type {string}
      * @memberof InlineResponse200112
      */
-    yuanToDollarRate?: number;
+    _id?: string;
     /**
-     * Коэффициент расчета объемного веса.
-     * @type {number}
+     * Название таблицы
+     * @type {string}
      * @memberof InlineResponse200112
      */
-    volumeWeightCoefficient?: number;
+    table?: string;
     /**
-     * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
-     * @type {number}
+     * Эндпоинт пресета
+     * @type {string}
      * @memberof InlineResponse200112
      */
-    requestMinAmountPriceOfProposal?: number;
+    endpoint?: string;
     /**
-     * Комиссия за оплату предложения
-     * @type {number}
+     * 
+     * @type {Array<string>}
      * @memberof InlineResponse200112
      */
-    requestPlatformMarginInPercent?: number;
+    fields?: Array<string>;
     /**
-     * Лимит на кол-во в ордере
-     * @type {number}
+     * Состояние пресета.
+     * @type {boolean}
      * @memberof InlineResponse200112
      */
-    orderAmountLimit?: number;
+    isActive?: boolean;
+    /**
+     * ID юзера.
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    userId?: string;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineResponse200112
+     */
+    isFavorite?: boolean;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200112
+     */
+    updatedAt?: string;
 }
 
 

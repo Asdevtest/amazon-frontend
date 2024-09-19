@@ -13,25 +13,43 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20030
  */
 export interface InlineResponse20030 {
     /**
-     * Всего кол-во записей в результате запроса
+     * GUID продукта в базе данных
+     * @type {string}
+     * @memberof InlineResponse20030
+     */
+    _id?: string;
+    /**
+     * ASIN продукта
+     * @type {string}
+     * @memberof InlineResponse20030
+     */
+    asin?: string;
+    /**
+     * SKU введенным клиентом.
+     * @type {string}
+     * @memberof InlineResponse20030
+     */
+    skuByClient?: string;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
      * @type {number}
      * @memberof InlineResponse20030
      */
-    count?: number;
+    strategyStatus?: number;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20028>}
+     * Имеет ли дочерние продукты данный продукт (по parentProductId)
+     * @type {boolean}
      * @memberof InlineResponse20030
      */
     hasChildren?: boolean;
@@ -145,16 +163,16 @@ export interface InlineResponse20030 {
     redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
     /**
      * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20030
      */
-    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20030
      */
-    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * Дата создания
      * @type {string}

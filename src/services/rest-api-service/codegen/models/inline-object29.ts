@@ -93,7 +93,7 @@ export interface InlineObject29 {
      */
     prepId?: string;
     /**
-     * Описание patch_note.
+     * Гуид вариации
      * @type {string}
      * @memberof InlineObject29
      */

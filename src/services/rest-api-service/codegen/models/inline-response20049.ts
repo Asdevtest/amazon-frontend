@@ -13,33 +13,19 @@
  */
 
 
-import { InlineResponse20048Rows } from './inline-response20048-rows';
-import { InlineResponse20049Meta } from './inline-response20049-meta';
 
 /**
- * 
+ * цену для клиента на поиск поставщика
  * @export
  * @interface InlineResponse20049
  */
 export interface InlineResponse20049 {
     /**
-     * Count of rows
+     * 
      * @type {number}
      * @memberof InlineResponse20049
      */
-    count?: number;
-    /**
-     * 
-     * @type {Array<InlineResponse20048Rows>}
-     * @memberof InlineResponse20049
-     */
-    rows?: Array<InlineResponse20048Rows>;
-    /**
-     * 
-     * @type {InlineResponse20049Meta}
-     * @memberof InlineResponse20049
-     */
-    meta?: InlineResponse20049Meta;
+    priceForClient?: number;
 }
 
 

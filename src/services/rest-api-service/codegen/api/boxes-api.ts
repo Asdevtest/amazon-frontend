@@ -31,19 +31,19 @@ import { InlineObject } from '../models';
 // @ts-ignore
 import { InlineObject27 } from '../models';
 // @ts-ignore
-import { InlineResponse20011 } from '../models';
+import { InlineObject28 } from '../models';
 // @ts-ignore
-import { InlineResponse20012 } from '../models';
+import { InlineObject29 } from '../models';
 // @ts-ignore
-import { InlineResponse20013 } from '../models';
+import { InlineObject30 } from '../models';
 // @ts-ignore
-import { InlineResponse20014 } from '../models';
+import { InlineObject31 } from '../models';
 // @ts-ignore
-import { InlineResponse20015 } from '../models';
+import { InlineObject32 } from '../models';
 // @ts-ignore
-import { InlineResponse2006 } from '../models';
+import { InlineObject33 } from '../models';
 // @ts-ignore
-import { InlineResponse2007 } from '../models';
+import { InlineObject34 } from '../models';
 // @ts-ignore
 import { InlineObject35 } from '../models';
 // @ts-ignore

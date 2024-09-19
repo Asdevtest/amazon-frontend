@@ -21,11 +21,9 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { ApiV1BatchesProduct } from '../models';
+import { ApiV1AdminsGetProductsByStatusRedFlags } from '../models';
 // @ts-ignore
-import { ApiV1BatchesProductRedFlags } from '../models';
-// @ts-ignore
-import { ApiV1BatchesProductTags } from '../models';
+import { ApiV1AdminsGetProductsByStatusTags } from '../models';
 // @ts-ignore
 import { BadRequestError } from '../models';
 // @ts-ignore
@@ -45,11 +43,13 @@ import { InlineObject98 } from '../models';
 // @ts-ignore
 import { InlineObject99 } from '../models';
 // @ts-ignore
-import { InlineResponse2002 } from '../models';
+import { InlineResponse200 } from '../models';
 // @ts-ignore
-import { InlineResponse20083 } from '../models';
+import { InlineResponse20041 } from '../models';
 // @ts-ignore
-import { InlineResponse20084 } from '../models';
+import { InlineResponse20085 } from '../models';
+// @ts-ignore
+import { InlineResponse20086 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -868,7 +868,7 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20039>>> {
+        async apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20041>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsByCreatorGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -918,7 +918,7 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
+        async apiV1ProductsGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsGuidGet(guid, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -930,7 +930,7 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsGuidTagsGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesProductTags>>> {
+        async apiV1ProductsGuidTagsGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1AdminsGetProductsByStatusTags>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsGuidTagsGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -953,7 +953,7 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsKeepaPost(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20084>>> {
+        async apiV1ProductsKeepaPost(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20086>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsKeepaPost(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -991,7 +991,7 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsParseSellercentralGet(asin: string, price?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20083>> {
+        async apiV1ProductsParseSellercentralGet(asin: string, price?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20085>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsParseSellercentralGet(asin, price, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1002,7 +1002,7 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsRedFlagsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1BatchesProductRedFlags>>> {
+        async apiV1ProductsRedFlagsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApiV1AdminsGetProductsByStatusRedFlags>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsRedFlagsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1090,7 +1090,7 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20039>> {
+        apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20041>> {
             return localVarFp.apiV1ProductsByCreatorGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1136,7 +1136,7 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2002> {
+        apiV1ProductsGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200> {
             return localVarFp.apiV1ProductsGuidGet(guid, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1147,7 +1147,7 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsGuidTagsGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesProductTags>> {
+        apiV1ProductsGuidTagsGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1AdminsGetProductsByStatusTags>> {
             return localVarFp.apiV1ProductsGuidTagsGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1168,7 +1168,7 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsKeepaPost(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20084>> {
+        apiV1ProductsKeepaPost(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20086>> {
             return localVarFp.apiV1ProductsKeepaPost(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1203,7 +1203,7 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsParseSellercentralGet(asin: string, price?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20083> {
+        apiV1ProductsParseSellercentralGet(asin: string, price?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20085> {
             return localVarFp.apiV1ProductsParseSellercentralGet(asin, price, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1213,7 +1213,7 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsRedFlagsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1BatchesProductRedFlags>> {
+        apiV1ProductsRedFlagsGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<ApiV1AdminsGetProductsByStatusRedFlags>> {
             return localVarFp.apiV1ProductsRedFlagsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

@@ -13,26 +13,25 @@
  */
 
 
-import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse200100
  */
 export interface InlineResponse200100 {
     /**
-     * Всего кол-во записей в результате запроса
-     * @type {number}
+     * Гуид магазина
+     * @type {string}
      * @memberof InlineResponse200100
      */
-    count?: number;
+    _id: string;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<ApiV1BatchesBoxes>}
+     * Название магазина
+     * @type {string}
      * @memberof InlineResponse200100
      */
-    rows?: Array<ApiV1BatchesBoxes>;
+    name: string;
 }
 
 

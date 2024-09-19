@@ -13,26 +13,44 @@
  */
 
 
-import { InlineResponse2002 } from './inline-response2002';
+import { ApiV1AdminsFeedbackUser } from './api-v1-admins-feedback-user';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20012
  */
 export interface InlineResponse20012 {
     /**
-     * Количество товаров
-     * @type {number}
+     * GUID пользователя в БД.
+     * @type {string}
      * @memberof InlineResponse20012
      */
-    count?: number;
+    _id?: string;
     /**
-     * Массив товаров
-     * @type {Array<InlineResponse2002>}
+     * текст отзыва/репорта
+     * @type {string}
      * @memberof InlineResponse20012
      */
-    rows?: Array<InlineResponse2002>;
+    text?: string;
+    /**
+     * Прикрепленные ссылки на медиа для репорта/отзыва
+     * @type {Array<object>}
+     * @memberof InlineResponse20012
+     */
+    media?: Array<object>;
+    /**
+     * 
+     * @type {ApiV1AdminsFeedbackUser}
+     * @memberof InlineResponse20012
+     */
+    user?: ApiV1AdminsFeedbackUser;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20012
+     */
+    updatedAt?: string;
 }
 
 

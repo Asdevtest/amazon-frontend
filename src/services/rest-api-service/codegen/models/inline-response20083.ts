@@ -15,23 +15,23 @@
 
 
 /**
- * Схема парсинга.
+ * 
  * @export
  * @interface InlineResponse20083
  */
 export interface InlineResponse20083 {
     /**
-     * Table name
+     * 
      * @type {string}
      * @memberof InlineResponse20083
      */
-    table?: string;
+    productId?: string;
     /**
-     * 
-     * @type {Array<string>}
+     * Гуид магазина
+     * @type {string}
      * @memberof InlineResponse20083
      */
-    fields?: Array<string>;
+    shopId?: string;
 }
 
 

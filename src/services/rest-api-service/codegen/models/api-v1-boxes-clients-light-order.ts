@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1BatchesProductSuppliers } from './api-v1-batches-product-suppliers';
+import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
 
 /**
  * 
@@ -47,10 +47,10 @@ export interface ApiV1BoxesClientsLightOrder {
     clientComment?: string;
     /**
      * 
-     * @type {ApiV1BatchesProductSuppliers}
+     * @type {ApiV1AdminsGetProductsByStatusSuppliers}
      * @memberof ApiV1BoxesClientsLightOrder
      */
-    orderSupplier?: ApiV1BatchesProductSuppliers;
+    orderSupplier?: ApiV1AdminsGetProductsByStatusSuppliers;
     /**
      * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
      * @type {string}

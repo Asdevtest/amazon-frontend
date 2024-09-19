@@ -13,34 +13,26 @@
  */
 
 
-import { ApiV1RequestProposalsCustomByRequestIdGuidDetails } from './api-v1-request-proposals-custom-by-request-id-guid-details';
-import { ApiV1RequestProposalsCustomByRequestIdGuidProposal } from './api-v1-request-proposals-custom-by-request-id-guid-proposal';
-import { ApiV1RequestProposalsCustomByRequestIdGuidRequest } from './api-v1-request-proposals-custom-by-request-id-guid-request';
+import { InlineResponse200119Rows } from './inline-response200119-rows';
 
 /**
- * Схема универсального предложения
+ * 
  * @export
  * @interface InlineResponse200119
  */
 export interface InlineResponse200119 {
     /**
-     * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidProposal}
+     * Count of rows
+     * @type {number}
      * @memberof InlineResponse200119
      */
-    proposal?: ApiV1RequestProposalsCustomByRequestIdGuidProposal;
+    count?: number;
     /**
      * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidDetails}
+     * @type {Array<InlineResponse200119Rows>}
      * @memberof InlineResponse200119
      */
-    details?: ApiV1RequestProposalsCustomByRequestIdGuidDetails;
-    /**
-     * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidRequest}
-     * @memberof InlineResponse200119
-     */
-    request?: ApiV1RequestProposalsCustomByRequestIdGuidRequest;
+    rows?: Array<InlineResponse200119Rows>;
 }
 
 

@@ -13,56 +13,61 @@
  */
 
 
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 
 /**
- * Схема получение лайт версии продажи магазина
+ * 
  * @export
  * @interface InlineResponse20094
  */
 export interface InlineResponse20094 {
     /**
-     * GUID заявки
+     * GUID в базе данных
      * @type {string}
      * @memberof InlineResponse20094
      */
     _id?: string;
     /**
-     * Номер заявки
-     * @type {number}
-     * @memberof InlineResponse20094
-     */
-    humanFriendlyId?: number;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMySpec}
-     * @memberof InlineResponse20094
-     */
-    spec?: ApiV1AnnouncementsMySpec;
-    /**
-     * Название заявки
+     * Guid заявки к которой относится данное media.
      * @type {string}
      * @memberof InlineResponse20094
      */
-    title?: string;
+    requestId?: string;
     /**
-     * Статус заявки
+     * Guid предложения к которой относится данное media.
      * @type {string}
      * @memberof InlineResponse20094
      */
-    status?: string;
+    proposalId?: string;
     /**
-     * 
+     * комментарий клиента
      * @type {string}
      * @memberof InlineResponse20094
      */
-    onFinishedIdeaId?: string;
+    commentByClient?: string;
     /**
-     * 
+     * комментарий исполнителя
      * @type {string}
      * @memberof InlineResponse20094
      */
-    onCheckedIdeaId?: string;
+    commentByPerformer?: string;
+    /**
+     * Ссылка на файл
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    fileLink?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse20094
+     */
+    updatedAt?: string;
 }
 
 

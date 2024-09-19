@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1BatchesProductShop } from './api-v1-batches-product-shop';
-import { InlineResponse200115Client } from './inline-response200115-client';
+import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
+import { InlineResponse200117Client } from './inline-response200117-client';
 
 /**
  * 
@@ -54,16 +54,16 @@ export interface GetClientProfile {
     passwordHash?: string;
     /**
      * 
-     * @type {InlineResponse200115Client}
+     * @type {InlineResponse200117Client}
      * @memberof GetClientProfile
      */
-    client?: InlineResponse200115Client;
+    client?: InlineResponse200117Client;
     /**
      * 
-     * @type {ApiV1BatchesProductShop}
+     * @type {ApiV1AdminsGetProductsByStatusShop}
      * @memberof GetClientProfile
      */
-    shop?: ApiV1BatchesProductShop;
+    shop?: ApiV1AdminsGetProductsByStatusShop;
     /**
      * Parser state
      * @type {boolean}

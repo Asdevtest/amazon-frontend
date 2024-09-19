@@ -13,9 +13,8 @@
  */
 
 
-import { ApiV1BatchesProductShop } from './api-v1-batches-product-shop';
-import { InlineResponse200115Client } from './inline-response200115-client';
-import { InlineResponse200117Profile } from './inline-response200117-profile';
+import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
+import { InlineResponse200117Client } from './inline-response200117-client';
 
 /**
  * 
@@ -30,25 +29,55 @@ export interface InlineResponse200117Rows {
      */
     _id?: string;
     /**
-     * 
-     * @type {InlineResponse200117Profile}
+     * GoLogin id
+     * @type {string}
      * @memberof InlineResponse200117Rows
      */
-    profile?: InlineResponse200117Profile;
+    gologinId?: string;
     /**
-     * 
-     * @type {InlineResponse200115Client}
+     * Имя в профиле.
+     * @type {string}
      * @memberof InlineResponse200117Rows
      */
-    client?: InlineResponse200115Client;
+    name?: string;
     /**
-     * 
-     * @type {ApiV1BatchesProductShop}
+     * email
+     * @type {string}
      * @memberof InlineResponse200117Rows
      */
-    shop?: ApiV1BatchesProductShop;
+    email?: string;
     /**
-     * Receiving request status
+     * Хешированный пароль от профиля
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    passwordHash?: string;
+    /**
+     * 
+     * @type {InlineResponse200117Client}
+     * @memberof InlineResponse200117Rows
+     */
+    client?: InlineResponse200117Client;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusShop}
+     * @memberof InlineResponse200117Rows
+     */
+    shop?: ApiV1AdminsGetProductsByStatusShop;
+    /**
+     * Parser state
+     * @type {boolean}
+     * @memberof InlineResponse200117Rows
+     */
+    isActive?: boolean;
+    /**
+     * Profile access to sellercentral
+     * @type {boolean}
+     * @memberof InlineResponse200117Rows
+     */
+    access?: boolean;
+    /**
+     * Profile status
      * @type {string}
      * @memberof InlineResponse200117Rows
      */

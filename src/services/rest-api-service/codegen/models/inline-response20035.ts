@@ -13,48 +13,54 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BuyersOrdersMyOrderSupplier } from './api-v1-buyers-orders-my-order-supplier';
 import { ApiV1BuyersOrdersMyPayments } from './api-v1-buyers-orders-my-payments';
 import { ApiV1BuyersOrdersMyProduct } from './api-v1-buyers-orders-my-product';
 
 /**
- * 
+ * Заказ.
  * @export
  * @interface InlineResponse20035
  */
 export interface InlineResponse20035 {
     /**
-     * GUID
+     * id заказ.
+     * @type {number}
+     * @memberof InlineResponse20035
+     */
+    id?: number;
+    /**
+     * GUID данной записи в БД.
      * @type {string}
      * @memberof InlineResponse20035
      */
     _id?: string;
     /**
-     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * кол-во
      * @type {number}
      * @memberof InlineResponse20035
      */
-    taskId?: number;
+    amount?: number;
     /**
-     * Тип операции
+     * Комментарии клиента.
      * @type {string}
      * @memberof InlineResponse20035
      */
-    operationType?: InlineResponse20035OperationTypeEnum;
+    clientComment?: string;
     /**
-     * Массив коробок которые были до переформирования коробок.
-     * @type {Array<ApiV1BatchesBoxes>}
+     * комментарии байера.
+     * @type {string}
      * @memberof InlineResponse20035
      */
-    boxesBefore?: Array<ApiV1BatchesBoxes>;
+    buyerComment?: string;
     /**
-     * Массив коробок.
-     * @type {Array<ApiV1BatchesBoxes>}
+     * 
+     * @type {ApiV1AdminsOrdersDestination}
      * @memberof InlineResponse20035
      */
-    boxes?: Array<ApiV1BatchesBoxes>;
+    destination?: ApiV1AdminsOrdersDestination;
     /**
      * 
      * @type {string}
@@ -153,10 +159,10 @@ export interface InlineResponse20035 {
     createdById?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20035
      */
-    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
+    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
      * @type {ApiV1BuyersOrdersMyProduct}
@@ -170,69 +176,29 @@ export interface InlineResponse20035 {
      */
     status?: number;
     /**
-     * Приоритет задачи
-     * @type {number}
-     * @memberof InlineResponse20035
-     */
-    priority?: number;
-    /**
-     * Комментарий работника склада.
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    storekeeperComment?: string;
-    /**
-     * Комментарий клиента.
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    clientComment?: string;
-    /**
-     * Комментарий баера.
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    buyerComment?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20035
-     */
-    images?: Array<string>;
-    /**
-     * GUID сотрудника склада, который выполняет задачу.
-     * @type {string}
-     * @memberof InlineResponse20035
-     */
-    storekeeperId?: string;
-    /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse20035
-     */
-    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20035
      */
     createdAt?: string;
     /**
-     * Дата обновления.
+     * 
      * @type {string}
      * @memberof InlineResponse20035
      */
-    updateDate?: string;
+    updatedAt?: string;
 }
 
 /**
     * @export
     * @enum {string}
     */
-export enum InlineResponse20035OperationTypeEnum {
-    Merge = 'merge',
-    Split = 'split',
-    Receive = 'receive'
+export enum InlineResponse20035PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
 }
 
 

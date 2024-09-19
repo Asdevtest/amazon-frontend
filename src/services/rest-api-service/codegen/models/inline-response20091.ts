@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20091Rows } from './inline-response20091-rows';
 
 /**
  * 
@@ -22,53 +21,17 @@ import { InlineResponse20091Rows } from './inline-response20091-rows';
  */
 export interface InlineResponse20091 {
     /**
-     * Цена за каждое предложение.
-     * @type {number}
+     * Гуид заявки
+     * @type {string}
      * @memberof InlineResponse20091
      */
-    price?: number;
+    _id?: string;
     /**
-     * Процент с каждого предложения, маржа платформы, в процентах.
+     * удобный ключ заявки
      * @type {number}
      * @memberof InlineResponse20091
      */
-    requestPlatformMarginInPercent?: number;
-    /**
-     * Услуги платформы.
-     * @type {number}
-     * @memberof InlineResponse20091
-     */
-    platformMargin?: number;
-    /**
-     * Процент с каждого предложения для супервайзера, в процентах.
-     * @type {number}
-     * @memberof InlineResponse20091
-     */
-    requestSupervisorFeeInPercent?: number;
-    /**
-     * Услуги супервайзера.
-     * @type {number}
-     * @memberof InlineResponse20091
-     */
-    supervisorFee?: number;
-    /**
-     * Сумма.
-     * @type {number}
-     * @memberof InlineResponse20091
-     */
-    unitCost?: number;
-    /**
-     * Количество предложений, не менее.
-     * @type {number}
-     * @memberof InlineResponse20091
-     */
-    maxAmountOfProposals?: number;
-    /**
-     * Итого.
-     * @type {number}
-     * @memberof InlineResponse20091
-     */
-    totalCost?: number;
+    humanFriendlyId?: number;
 }
 
 

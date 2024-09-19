@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20078Rows } from './inline-response20078-rows';
+import { PermissionGetDtoSchema } from './permission-get-dto-schema';
 
 /**
  * 
@@ -22,17 +22,17 @@ import { InlineResponse20078Rows } from './inline-response20078-rows';
  */
 export interface InlineResponse20078 {
     /**
-     * Count of rows
+     * 
      * @type {number}
      * @memberof InlineResponse20078
      */
     count?: number;
     /**
-     * 
-     * @type {Array<InlineResponse20078Rows>}
+     * Массив permissions.
+     * @type {Array<PermissionGetDtoSchema>}
      * @memberof InlineResponse20078
      */
-    rows?: Array<InlineResponse20078Rows>;
+    rows?: Array<PermissionGetDtoSchema>;
 }
 
 

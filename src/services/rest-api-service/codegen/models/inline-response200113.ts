@@ -21,53 +21,53 @@
  */
 export interface InlineResponse200113 {
     /**
-     * GUID пользователя.
+     * ID пресета.
      * @type {string}
      * @memberof InlineResponse200113
      */
     _id?: string;
     /**
-     * Имя пользователя.
+     * Эндпоинт пресета
      * @type {string}
      * @memberof InlineResponse200113
      */
-    name?: string;
+    endpoint?: string;
     /**
-     * Рейтинг пользователя.
-     * @type {number}
-     * @memberof InlineResponse200113
-     */
-    rating?: number;
-    /**
-     * Количество положительных отзыв
-     * @type {number}
-     * @memberof InlineResponse200113
-     */
-    numberOfPositiveFeedbacks?: number;
-    /**
-     * Количество негативных отзыв
-     * @type {number}
-     * @memberof InlineResponse200113
-     */
-    numberOfNegativeFeedbacks?: number;
-    /**
-     * Страна
-     * @type {string}
-     * @memberof InlineResponse200113
-     */
-    country?: string;
-    /**
-     * Пользователь онлайн
+     * Состояние  preset-settings.
      * @type {boolean}
      * @memberof InlineResponse200113
      */
-    isOnline?: boolean;
+    activeSetting?: boolean;
     /**
-     * Количество общих сделок
-     * @type {number}
+     * 
+     * @type {object}
      * @memberof InlineResponse200113
      */
-    countsOfDeals?: number;
+    settings?: object;
+    /**
+     * Title of preset
+     * @type {string}
+     * @memberof InlineResponse200113
+     */
+    title?: string;
+    /**
+     * Является ли пресет избранным.
+     * @type {boolean}
+     * @memberof InlineResponse200113
+     */
+    isFavorite?: boolean;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200113
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200113
+     */
+    updatedAt?: string;
 }
 
 

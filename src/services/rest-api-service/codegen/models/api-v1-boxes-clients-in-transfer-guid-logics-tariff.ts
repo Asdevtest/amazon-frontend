@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1BatchesOrderLogicsTariffConditionsByRegion } from './api-v1-batches-order-logics-tariff-conditions-by-region';
+import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
 
 /**
  * 
@@ -35,10 +35,10 @@ export interface ApiV1BoxesClientsInTransferGuidLogicsTariff {
     name: string;
     /**
      * 
-     * @type {ApiV1BatchesOrderLogicsTariffConditionsByRegion}
+     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
      * @memberof ApiV1BoxesClientsInTransferGuidLogicsTariff
      */
-    conditionsByRegion?: ApiV1BatchesOrderLogicsTariffConditionsByRegion;
+    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
     /**
      * Дата закрытия приема новых грузов.
      * @type {string}

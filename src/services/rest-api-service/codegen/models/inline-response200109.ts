@@ -13,25 +13,26 @@
  */
 
 
+import { InlineResponse200109Rows } from './inline-response200109-rows';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse200109
  */
 export interface InlineResponse200109 {
     /**
-     * userAgent с которым был получен токен
-     * @type {string}
+     * Всего кол-во записей в результате запроса
+     * @type {number}
      * @memberof InlineResponse200109
      */
-    device: string;
+    count?: number;
     /**
-     * 
-     * @type {string}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse200109Rows>}
      * @memberof InlineResponse200109
      */
-    createdAt: string;
+    rows?: Array<InlineResponse200109Rows>;
 }
 
 

@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
@@ -22,35 +22,35 @@ import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created
  */
 export interface InlineResponse20052Rows {
     /**
-     * Гуид тега
+     * Guid of shop
      * @type {string}
      * @memberof InlineResponse20052Rows
      */
     _id?: string;
     /**
-     * Тег
+     * Name of shop
      * @type {string}
      * @memberof InlineResponse20052Rows
      */
-    title?: string;
+    name?: string;
     /**
-     * Кол-во продуктов, которые используют этот тег
+     * Count of shop products
      * @type {number}
      * @memberof InlineResponse20052Rows
      */
-    productCount?: number;
+    productsCount?: number;
     /**
      * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20052Rows
      */
-    shopUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    shopUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
-     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20052Rows
      */
-    productUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    productUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
 }
 
 

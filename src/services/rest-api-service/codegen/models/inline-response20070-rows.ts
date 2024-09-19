@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20043InventoryShop } from './inline-response20043-inventory-shop';
+import { InlineResponse20045InventoryShop } from './inline-response20045-inventory-shop';
 
 /**
  * Схема репорта amazon_data
@@ -29,28 +29,64 @@ export interface InlineResponse20070Rows {
     _id?: string;
     /**
      * 
-     * @type {string}
+     * @type {InlineResponse20045InventoryShop}
      * @memberof InlineResponse20070Rows
      */
-    productId?: string;
+    shop?: InlineResponse20045InventoryShop;
     /**
-     * 
+     * Гуид shop-a
      * @type {string}
      * @memberof InlineResponse20070Rows
      */
     shopId?: string;
     /**
-     * The asin of product
+     * Дате обновления
      * @type {string}
      * @memberof InlineResponse20070Rows
      */
-    asin?: string;
+    dateDataUpdate?: string;
     /**
-     * The sku of product
+     * Время обновления
+     * @type {string}
+     * @memberof InlineResponse20070Rows
+     */
+    timeDataUpdate?: string;
+    /**
+     * sku
      * @type {string}
      * @memberof InlineResponse20070Rows
      */
     sku?: string;
+    /**
+     * shipment_id
+     * @type {string}
+     * @memberof InlineResponse20070Rows
+     */
+    shipmentId?: string;
+    /**
+     * reference_id
+     * @type {string}
+     * @memberof InlineResponse20070Rows
+     */
+    referenceId?: string;
+    /**
+     * date_created
+     * @type {string}
+     * @memberof InlineResponse20070Rows
+     */
+    dateCreated?: string;
+    /**
+     * date_updated
+     * @type {string}
+     * @memberof InlineResponse20070Rows
+     */
+    dateUpdated?: string;
+    /**
+     * ship_to
+     * @type {string}
+     * @memberof InlineResponse20070Rows
+     */
+    shipTo?: string;
     /**
      * image
      * @type {string}
@@ -58,77 +94,47 @@ export interface InlineResponse20070Rows {
      */
     image?: string;
     /**
-     * Дата обновления
-     * @type {string}
+     * units_expected
+     * @type {number}
      * @memberof InlineResponse20070Rows
      */
-    dateUpdated?: string;
+    unitsExpected?: number;
     /**
-     * Время обновления
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    timeUpdated?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    createdAt?: string;
-    /**
-     * Дата обновления
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    updatedAt?: string;
-    /**
-     * Order Id
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    orderId?: string;
-    /**
-     * Reason
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    reason?: string;
-    /**
-     * Returned Date
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    returnedDate?: string;
-    /**
-     * Reversal Date
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    reversalDate?: string;
-    /**
-     * Received Date
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    receivedDate?: string;
-    /**
-     * Disposition
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    disposition?: string;
-    /**
-     * Status
+     * status
      * @type {string}
      * @memberof InlineResponse20070Rows
      */
     status?: string;
     /**
-     * 
-     * @type {InlineResponse20043InventoryShop}
+     * scheduled_carrier_delivery_data
+     * @type {string}
      * @memberof InlineResponse20070Rows
      */
-    shop?: InlineResponse20043InventoryShop;
+    scheduledCarrierDeliveryDate?: string;
+    /**
+     * delivery_window_start
+     * @type {string}
+     * @memberof InlineResponse20070Rows
+     */
+    deliveryWindowStart?: string;
+    /**
+     * delivery_window_end
+     * @type {string}
+     * @memberof InlineResponse20070Rows
+     */
+    deliveryWindowEnd?: string;
+    /**
+     * created_at
+     * @type {string}
+     * @memberof InlineResponse20070Rows
+     */
+    createdAt?: string;
+    /**
+     * updated_at
+     * @type {string}
+     * @memberof InlineResponse20070Rows
+     */
+    updatedAt?: string;
 }
 
 

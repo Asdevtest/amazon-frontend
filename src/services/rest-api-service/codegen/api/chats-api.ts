@@ -27,11 +27,11 @@ import { ConflictInTheState } from '../models';
 // @ts-ignore
 import { InlineObject51 } from '../models';
 // @ts-ignore
-import { InlineResponse20036 } from '../models';
-// @ts-ignore
-import { InlineResponse20037 } from '../models';
-// @ts-ignore
 import { InlineResponse20038 } from '../models';
+// @ts-ignore
+import { InlineResponse20039 } from '../models';
+// @ts-ignore
+import { InlineResponse20040 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -361,7 +361,7 @@ export const ChatsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ChatsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20037>> {
+        async apiV1ChatsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20039>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ChatsMediaGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -376,7 +376,7 @@ export const ChatsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ChatsMediaPagGuidGet(type: 'allVideo' | 'allImages' | 'allFiles', guid: string, limit?: number, offset?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20038>>> {
+        async apiV1ChatsMediaPagGuidGet(type: 'allVideo' | 'allImages' | 'allFiles', guid: string, limit?: number, offset?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20040>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ChatsMediaPagGuidGet(type, guid, limit, offset, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -387,7 +387,7 @@ export const ChatsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ChatsNamesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20036>>> {
+        async apiV1ChatsNamesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20038>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ChatsNamesGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -442,7 +442,7 @@ export const ChatsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ChatsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20037> {
+        apiV1ChatsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20039> {
             return localVarFp.apiV1ChatsMediaGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -456,7 +456,7 @@ export const ChatsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ChatsMediaPagGuidGet(type: 'allVideo' | 'allImages' | 'allFiles', guid: string, limit?: number, offset?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20038>> {
+        apiV1ChatsMediaPagGuidGet(type: 'allVideo' | 'allImages' | 'allFiles', guid: string, limit?: number, offset?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20040>> {
             return localVarFp.apiV1ChatsMediaPagGuidGet(type, guid, limit, offset, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -466,7 +466,7 @@ export const ChatsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ChatsNamesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20036>> {
+        apiV1ChatsNamesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20038>> {
             return localVarFp.apiV1ChatsNamesGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };

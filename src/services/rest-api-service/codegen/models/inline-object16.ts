@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
 
 /**
  * 
@@ -22,7 +21,19 @@ import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
  */
 export interface InlineObject16 {
     /**
-     * Название красного флага
+     * GUID спека
+     * @type {string}
+     * @memberof InlineObject16
+     */
+    specId?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject16
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * 
      * @type {string}
      * @memberof InlineObject16
      */
@@ -32,7 +43,7 @@ export interface InlineObject16 {
      * @type {string}
      * @memberof InlineObject16
      */
-    iconImage?: string;
+    description?: string;
 }
 
 

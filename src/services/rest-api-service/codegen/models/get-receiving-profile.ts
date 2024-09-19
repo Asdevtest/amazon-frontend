@@ -13,9 +13,9 @@
  */
 
 
-import { ApiV1BatchesProductShop } from './api-v1-batches-product-shop';
-import { InlineResponse200115Client } from './inline-response200115-client';
-import { InlineResponse200117Profile } from './inline-response200117-profile';
+import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
+import { InlineResponse200117Client } from './inline-response200117-client';
+import { InlineResponse200119Profile } from './inline-response200119-profile';
 
 /**
  * 
@@ -31,22 +31,22 @@ export interface GetReceivingProfile {
     _id?: string;
     /**
      * 
-     * @type {InlineResponse200117Profile}
+     * @type {InlineResponse200119Profile}
      * @memberof GetReceivingProfile
      */
-    profile?: InlineResponse200117Profile;
+    profile?: InlineResponse200119Profile;
     /**
      * 
-     * @type {InlineResponse200115Client}
+     * @type {InlineResponse200117Client}
      * @memberof GetReceivingProfile
      */
-    client?: InlineResponse200115Client;
+    client?: InlineResponse200117Client;
     /**
      * 
-     * @type {ApiV1BatchesProductShop}
+     * @type {ApiV1AdminsGetProductsByStatusShop}
      * @memberof GetReceivingProfile
      */
-    shop?: ApiV1BatchesProductShop;
+    shop?: ApiV1AdminsGetProductsByStatusShop;
     /**
      * Receiving request status
      * @type {string}

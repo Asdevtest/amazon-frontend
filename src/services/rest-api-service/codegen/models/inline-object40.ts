@@ -21,8 +21,8 @@
  */
 export interface InlineObject40 {
     /**
-     * Название красного флага
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject40
      */
     boxIds: Array<string>;

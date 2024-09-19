@@ -13,81 +13,75 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1ShopSellStatistics } from './api-v1-shop-sell-statistics';
 
 /**
- * Схема магазина.
+ * Схема получение лайт версии продажи магазина
  * @export
  * @interface InlineResponse20096
  */
 export interface InlineResponse20096 {
     /**
-     * ID магазина.
+     * GUID магазина на продажу.
      * @type {string}
      * @memberof InlineResponse20096
      */
     _id?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20096
      */
-    owner?: ApiV1AnnouncementsMyCreatedBy;
+    owner?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * Имя магазина для продажи
      * @type {string}
      * @memberof InlineResponse20096
      */
-    name?: string;
+    title?: string;
     /**
-     * URL для скачивания ежедневных отчетов SellerBoard.
+     * Статус магазина для продажи
      * @type {string}
      * @memberof InlineResponse20096
      */
-    sellerBoardWarehouseReportUrlDaily?: string;
+    status?: string;
     /**
-     * URL для скачивания отчетов SellerBoard за последний месяц.
+     * Файлы, которые привязаны к магазину
+     * @type {Array<string>}
+     * @memberof InlineResponse20096
+     */
+    files?: Array<string>;
+    /**
+     * Стоимость магазина
+     * @type {number}
+     * @memberof InlineResponse20096
+     */
+    price?: number;
+    /**
+     * Ежемесячный множитель
+     * @type {number}
+     * @memberof InlineResponse20096
+     */
+    monthlyMultiplier?: number;
+    /**
+     * 
+     * @type {ApiV1ShopSellStatistics}
+     * @memberof InlineResponse20096
+     */
+    statistics?: ApiV1ShopSellStatistics;
+    /**
+     * Дата создания бизнеса
      * @type {string}
      * @memberof InlineResponse20096
      */
-    sellerBoardWarehouseReportUrlMonthly?: string;
+    businessStartDate?: string;
     /**
-     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * Детали магазина
      * @type {string}
      * @memberof InlineResponse20096
      */
-    reportAccountUrl?: string;
-    /**
-     * GUID, владелеца.
-     * @type {string}
-     * @memberof InlineResponse20096
-     */
-    ownerId?: string;
-    /**
-     * GUID любого, кто последний создал.
-     * @type {string}
-     * @memberof InlineResponse20096
-     */
-    createdById?: string;
-    /**
-     * GUID любого, кто последний редактировал.
-     * @type {string}
-     * @memberof InlineResponse20096
-     */
-    lastModifiedById?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20096
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse20096
-     */
-    updatedAt?: string;
+    shopDetails?: string;
 }
 
 

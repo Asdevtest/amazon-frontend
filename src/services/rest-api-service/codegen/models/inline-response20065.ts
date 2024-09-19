@@ -21,11 +21,17 @@
  */
 export interface InlineResponse20065 {
     /**
-     * 
-     * @type {Array<string>}
+     * GUID заказа
+     * @type {string}
      * @memberof InlineResponse20065
      */
-    failed?: Array<string>;
+    _id?: string;
+    /**
+     * id заказа
+     * @type {number}
+     * @memberof InlineResponse20065
+     */
+    id?: number;
 }
 
 

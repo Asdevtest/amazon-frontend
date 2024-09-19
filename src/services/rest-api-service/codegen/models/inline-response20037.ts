@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
@@ -23,8 +23,8 @@ import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
  */
 export interface InlineResponse20037 {
     /**
-     * 
-     * @type {Array<InlineResponse20037AllImages>}
+     * GUID
+     * @type {string}
      * @memberof InlineResponse20037
      */
     _id?: string;
@@ -96,16 +96,33 @@ export interface InlineResponse20037 {
     storekeeperId?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20037
      */
-    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
+    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
-     * 
-     * @type {Array<InlineResponse20037AllVideo>}
+     * Дата создания.
+     * @type {string}
      * @memberof InlineResponse20037
      */
-    allVideo?: Array<InlineResponse20037AllVideo>;
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse20037
+     */
+    updateDate?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20037OperationTypeEnum {
+    Merge = 'merge',
+    Split = 'split',
+    Receive = 'receive'
+}
+
 
 
