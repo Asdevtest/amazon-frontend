@@ -1,3 +1,4 @@
+import { Avatar } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
@@ -11,6 +12,7 @@ import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
 import { CustomSelect } from '@components/shared/custom-select'
 
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -27,7 +29,7 @@ export interface CreateNewChatModalProps {
 export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props => {
   const { chatToEdit, closeModal } = props
 
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const viewModel = useMemo(() => new CreateNewChatModalModel({ chatToEdit, closeModal }), [])
 
@@ -38,6 +40,7 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
       <div id="create-new-chat">
         <CustomSelect
           required
+          virtual={false}
           mode="multiple"
           maxTagCount="responsive"
           label="Users"
@@ -49,6 +52,12 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
           fieldNames={{ label: 'name', value: '_id' }}
           filterOption={(inputValue, option) => option?.name?.toLowerCase().includes(inputValue.toLowerCase())}
           getPopupContainer={() => document.getElementById('create-new-chat') as HTMLElement}
+          optionRender={option => (
+            <div className={styles.userOption}>
+              <Avatar src={getUserAvatarSrc(option?.data?._id)} />
+              {option?.data?.name}
+            </div>
+          )}
           onSelect={viewModel.onSelectUser}
           onDeselect={viewModel.onDeselectUser}
         />
