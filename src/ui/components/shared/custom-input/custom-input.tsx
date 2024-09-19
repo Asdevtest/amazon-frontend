@@ -56,6 +56,7 @@ export const CustomInput: FC<CustomInputProps> = memo(props => {
         className={cx(styles.input, className)}
         placeholder={placeholderText}
         maxLength={maxLength}
+        onKeyDown={e => e.stopPropagation()}
       />
     </div>
   )

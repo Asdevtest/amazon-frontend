@@ -100,7 +100,8 @@ export const clientInventoryColumns = ({
       valueGetter: ({ row }) => row?.shop?.name,
       width: 90,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.INVENTORY_SHOPS,
+      sortOptions: 'asc',
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
@@ -505,7 +506,7 @@ export const clientInventoryColumns = ({
       width: 400,
       disableCustomSort: true,
       filterable: false,
-      disableColumnMenu: true,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
   ]
 

@@ -18,15 +18,20 @@ interface RestoreRequestModalProps {
   currentRequestsCount: number
   handleCloseModal: () => void
   handleSubmit: (timeoutAt?: string, maxAmountOfProposals?: string | number) => void
+  currentDate?: string
   minDate?: string
 }
 
 export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
-  const { currentRequestsCount = 1, minDate, handleCloseModal, handleSubmit } = props
+  const { currentRequestsCount = 1, currentDate, minDate, handleCloseModal, handleSubmit } = props
   const { classes: styles, cx } = useStyles()
 
-  const [date, setDate] = useState<string>()
-  const [requestCount, setRequestCount] = useState<string | number>(currentRequestsCount + 1)
+  const [date, setDate] = useState<string>(currentDate || '')
+  const [requestCount, setRequestCount] = useState<string | number>(currentRequestsCount)
+
+  const disableButton =
+    (!date || date === currentDate) &&
+    (currentRequestsCount > Number(requestCount) || currentRequestsCount === Number(requestCount))
 
   return (
     <>
@@ -40,15 +45,15 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
         labelClasses={styles.label}
         label={t(TranslationKey['Enter the number of proposals'])}
         error={
-          Number(requestCount) <= currentRequestsCount && `${t(TranslationKey['At least'])} ${currentRequestsCount}`
+          Number(requestCount) < currentRequestsCount && `${t(TranslationKey['At least'])} ${currentRequestsCount}`
         }
         inputComponent={
           <Input
-            className={cx({ [styles.errorInput]: Number(requestCount) <= currentRequestsCount })}
+            className={cx({ [styles.errorInput]: Number(requestCount) < currentRequestsCount })}
             value={requestCount}
             slotProps={{
               input: {
-                min: currentRequestsCount + 1 || 1,
+                min: currentRequestsCount || 1,
                 step: 1,
               },
             }}
@@ -64,7 +69,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
       <div className={styles.controls}>
         <Button
           styleType={ButtonStyle.SUCCESS}
-          disabled={!date || currentRequestsCount > Number(requestCount)}
+          disabled={disableButton}
           onClick={() => {
             handleSubmit(date, requestCount)
             handleCloseModal()

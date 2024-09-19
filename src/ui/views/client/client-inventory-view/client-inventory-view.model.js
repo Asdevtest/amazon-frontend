@@ -298,6 +298,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     const filtersFields = getFilterFields(columns, additionalFilterFields)
 
+    const operatorsSettings = {
+      shop: '$any',
+    }
+
     super({
       getMainDataMethod: ClientModel.getProductsMyFilteredByShopIdWithPag,
       columnsModel: columns,
@@ -308,6 +312,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       defaultGetCurrentDataOptions,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
+      operatorsSettings,
       defaultSortModel: [{ field: 'sumStock', sort: 'desc' }],
     })
 

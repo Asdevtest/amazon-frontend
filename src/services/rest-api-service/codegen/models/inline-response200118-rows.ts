@@ -13,9 +13,6 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { InlineResponse200117Client } from './inline-response200117-client';
-import { InlineResponse200118Profile } from './inline-response200118-profile';
 
 /**
  * 
@@ -30,41 +27,17 @@ export interface InlineResponse200118Rows {
      */
     _id?: string;
     /**
-     * 
-     * @type {InlineResponse200118Profile}
-     * @memberof InlineResponse200118Rows
-     */
-    profile?: InlineResponse200118Profile;
-    /**
-     * 
-     * @type {InlineResponse200117Client}
-     * @memberof InlineResponse200118Rows
-     */
-    client?: InlineResponse200117Client;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusShop}
-     * @memberof InlineResponse200118Rows
-     */
-    shop?: ApiV1AdminsGetProductsByStatusShop;
-    /**
-     * Receiving request status
+     * Имя в профиле.
      * @type {string}
      * @memberof InlineResponse200118Rows
      */
-    status?: string;
+    name?: string;
     /**
-     * Дата создания
+     * email
      * @type {string}
      * @memberof InlineResponse200118Rows
      */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse200118Rows
-     */
-    updatedAt?: string;
+    email?: string;
 }
 
 

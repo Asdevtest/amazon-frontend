@@ -1,7 +1,7 @@
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { Text } from '@components/shared/text'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
@@ -42,12 +42,9 @@ export const ShortBoxItemCard = ({ item, superCount, boxId, taskType, readOnly }
           </div>
 
           <div className={styles.attributeFooterWrapper}>
-            <div className={styles.copyValueWrapper}>
-              <div className={styles.asinWrapper}>
-                <p className={styles.asin}>{t(TranslationKey.ASIN)}</p>
-                <p className={styles.asinTitle}>{item.product?.asin}</p>
-              </div>
-              {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
+            <div className={styles.asinWrapper}>
+              <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
+              <Text className={styles.asinTitle} text={item.product?.asin} />
             </div>
 
             <p className={styles.title}>{item.product?.amazonTitle}</p>
@@ -56,8 +53,8 @@ export const ShortBoxItemCard = ({ item, superCount, boxId, taskType, readOnly }
       </div>
       <div className={styles.attributeFooterMobileWrapper}>
         <div className={styles.asinWrapper}>
-          <p className={styles.asin}>{t(TranslationKey.ASIN)}</p>
-          <p className={styles.asinTitle}>{item.product?.asin}</p>
+          <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
+          <Text className={styles.asinTitle} copyable={false} text={item.product?.asin} />
         </div>
         <p className={styles.title}>{item.product?.amazonTitle}</p>
       </div>

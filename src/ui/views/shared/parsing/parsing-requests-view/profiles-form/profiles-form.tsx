@@ -25,7 +25,7 @@ export const ProfilesForm: FC<ProfilesFormProps> = observer(props => {
   const { onClose, onSubmit, requestId, profileId } = props
 
   const { classes: styles } = useStyles()
-  const viewModel = useMemo(() => new ProfilesFormModel(profileId), [])
+  const viewModel = useMemo(() => new ProfilesFormModel(profileId, requestId), [])
 
   const handleSubmit = () => {
     if (requestId) {

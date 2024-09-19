@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20028Rows } from './inline-response20028-rows';
 
 /**
  * 
@@ -21,41 +22,17 @@
  */
 export interface InlineResponse20028 {
     /**
-     * The unique identifier of the box.
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20028Rows>}
      * @memberof InlineResponse20028
      */
-    guid?: string;
+    rows?: Array<InlineResponse20028Rows>;
     /**
-     * Объем в м ^ 3
+     * 
      * @type {number}
      * @memberof InlineResponse20028
      */
-    cubicMeters?: number;
-    /**
-     * The delivery cost of the box.
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    deliveryCost?: number;
-    /**
-     * The volume weight of the box in kg.
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    volumeWeightKgWarehouse?: number;
-    /**
-     * The weight of the box in kg.
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    weightFinalAccountingKgWarehouse?: number;
-    /**
-     * The delivery rate of the box. $/kg
-     * @type {number}
-     * @memberof InlineResponse20028
-     */
-    deliveryRate?: number;
+    count?: number;
 }
 
 

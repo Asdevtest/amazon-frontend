@@ -47,9 +47,8 @@ export class UseProductsPermissions {
     filters: '',
   }
   searchFields?: string[]
-
   permissionsData: IPermissionsData[] = []
-
+  meta?: any
   isCanLoadMore = true
   requestStatus = loadingStatus.SUCCESS
 
@@ -99,6 +98,7 @@ export class UseProductsPermissions {
 
       runInAction(() => {
         this.permissionsData = result.rows || result
+        this.meta = result.meta
         this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {

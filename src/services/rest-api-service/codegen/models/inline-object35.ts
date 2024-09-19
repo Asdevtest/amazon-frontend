@@ -21,11 +21,11 @@
  */
 export interface InlineObject35 {
     /**
-     * 
-     * @type {Array<string>}
+     * GUID коробки разделение которой отменяем.
+     * @type {string}
      * @memberof InlineObject35
      */
-    boxesIds: Array<string>;
+    guid?: string;
 }
 
 

@@ -89,7 +89,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
       </div>
 
       <div className={styles.flexRow}>
-        {superbox ? (
+        {superbox && superbox > 1 ? (
           <AntText copyable={false} className={cx(styles.text, styles.superbox)}>
             {`SB x ${superbox}`}
           </AntText>

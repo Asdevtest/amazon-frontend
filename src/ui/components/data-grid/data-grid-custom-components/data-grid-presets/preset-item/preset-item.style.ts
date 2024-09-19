@@ -10,10 +10,7 @@ export const useStyles = makeStyles()(theme => ({
 
   button: {
     width: '100%',
-  },
-
-  input: {
-    width: '200px',
+    justifyContent: 'start',
   },
 
   buttonWrapper: {
@@ -39,5 +36,9 @@ export const useStyles = makeStyles()(theme => ({
 
   presetEmptyFavorite: {
     width: '32px',
+  },
+
+  input: {
+    width: '100%',
   },
 }))

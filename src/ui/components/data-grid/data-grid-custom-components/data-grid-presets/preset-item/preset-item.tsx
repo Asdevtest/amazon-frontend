@@ -9,7 +9,7 @@ import { RiUnpinLine } from 'react-icons/ri'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomTextarea } from '@components/shared/custom-textarea'
+import { CustomInput } from '@components/shared/custom-input'
 
 import { t } from '@utils/translations'
 
@@ -27,7 +27,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { preset, handleDeletePreset, handleUpdatePreset, onClickAddQuickAccess, onClickSaveRenamedPreset } = props
 
-  const [renamePresetName, setPresetName] = useState<string>('')
+  const [renamePresetName, setPresetName] = useState<string>(preset?.data?.title)
 
   const presetFavorite = preset?.data?.isFavorite
   const quickAccessTitle = presetFavorite ? 'Remove from quick access' : 'Add to quick access'
@@ -35,7 +35,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
 
   const presetId = preset?.data?._id
 
-  const handleChangeTagName = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeTagName = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setPresetName(e.target.value)
   }, [])
 
@@ -44,35 +44,27 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
   }, [renamePresetName, onClickSaveRenamedPreset])
 
   const resetRenamePreset = useCallback(() => {
-    setPresetName('')
-  }, [])
+    setPresetName(preset?.data?.title)
+  }, [preset?.data?.title])
 
   const items: MenuProps['items'] = [
     {
       key: 'rename',
       label: (
         <Popconfirm
-          title=""
           icon={null}
           placement="leftTop"
-          getPopupContainer={() => document.getElementById('presets') as HTMLElement}
-          description={
-            <CustomTextarea
+          title={
+            <CustomInput
               allowClear
-              rows={1}
-              data-input="rename-input"
-              placeholder={t(TranslationKey.Rename)}
-              className={styles.input}
+              maxLength={32}
               wrapperClassName={styles.input}
+              placeholder="Rename"
               value={renamePresetName}
               onChange={handleChangeTagName}
-              onClick={e => {
-                e?.stopPropagation()
-                const target = e.target as HTMLElement
-                target.focus()
-              }}
             />
           }
+          getPopupContainer={() => document.getElementById('presets') as HTMLElement}
           okText={t(TranslationKey.Save)}
           cancelText={t(TranslationKey.Cancel)}
           okButtonProps={{ disabled: !renamePresetName?.trim() }}
@@ -80,12 +72,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
             e?.stopPropagation()
             onClickSaveRename()
           }}
-          onPopupClick={e => {
-            const target = e.target as HTMLElement
-            if (target.getAttribute('data-input') !== 'rename-input') {
-              e?.stopPropagation()
-            }
-          }}
+          onPopupClick={e => e?.stopPropagation()}
           onCancel={e => e?.stopPropagation()}
           onOpenChange={resetRenamePreset}
         >
@@ -119,6 +106,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
             handleUpdatePreset()
           }}
           onCancel={e => e?.stopPropagation()}
+          onPopupClick={e => e?.stopPropagation()}
         >
           <CustomButton
             className={styles.button}
@@ -145,6 +133,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
             handleDeletePreset()
           }}
           onCancel={e => e?.stopPropagation()}
+          onPopupClick={e => e?.stopPropagation()}
         >
           <CustomButton
             danger
@@ -165,7 +154,6 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
         <CustomButton
           type="text"
           title={t(TranslationKey[quickAccessTitle])}
-          className={styles.button}
           icon={<QuickAccessIcon title={t(TranslationKey[quickAccessTitle])} className={styles.updateButton} />}
           onClick={e => {
             e?.stopPropagation()

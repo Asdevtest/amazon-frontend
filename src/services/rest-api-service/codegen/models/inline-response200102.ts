@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20016Rows } from './inline-response20016-rows';
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * Результат запроса с пагинацией
@@ -29,10 +29,10 @@ export interface InlineResponse200102 {
     count?: number;
     /**
      * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20016Rows>}
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse200102
      */
-    rows?: Array<InlineResponse20016Rows>;
+    rows?: Array<ApiV1BatchesBoxes>;
 }
 
 

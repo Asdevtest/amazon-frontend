@@ -30,6 +30,12 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '16px',
   },
 
+  noImage: {
+    display: 'flex',
+    alignSelf: 'center',
+    maxWidth: '250px',
+  },
+
   serviceInfo: {
     display: 'flex',
     alignItems: 'center',

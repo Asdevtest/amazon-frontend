@@ -109,6 +109,12 @@ export interface InlineResponse20087Request {
      */
     createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
+     * Count of unread messages
+     * @type {number}
+     * @memberof InlineResponse20087Request
+     */
+    freelanceNotices?: number;
+    /**
      * Дата создания
      * @type {string}
      * @memberof InlineResponse20087Request
