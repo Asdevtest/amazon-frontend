@@ -15,17 +15,17 @@
 
 
 /**
- * Успешный ответ
+ * 
  * @export
  * @interface InlineResponse2017
  */
 export interface InlineResponse2017 {
     /**
-     * guid созданного объекта
+     * Имя файла для доступа к нему.
      * @type {string}
      * @memberof InlineResponse2017
      */
-    guid?: string;
+    fileName?: string;
 }
 
 

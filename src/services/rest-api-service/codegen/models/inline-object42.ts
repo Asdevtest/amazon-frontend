@@ -21,11 +21,114 @@
  */
 export interface InlineObject42 {
     /**
-     * Сформирована ли коробка
+     * GUID storekeeper-a
+     * @type {string}
+     * @memberof InlineObject42
+     */
+    storekeeperId?: string;
+    /**
+     * GUID баера
+     * @type {string}
+     * @memberof InlineObject42
+     */
+    buyerId?: string;
+    /**
+     * Защита листинга
+     * @type {string}
+     * @memberof InlineObject42
+     */
+    transparencyFile?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject42
+     */
+    item?: string;
+    /**
+     * GUID тарифа доставки
+     * @type {string}
+     * @memberof InlineObject42
+     */
+    logicsTariffId?: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject42
+     */
+    variationTariffId?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject42
+     */
+    priority?: InlineObject42PriorityEnum;
+    /**
+     * GUID пункта назначения.
+     * @type {string}
+     * @memberof InlineObject42
+     */
+    destinationId?: string;
+    /**
+     * Кол-во продукта по этой позиции.
+     * @type {number}
+     * @memberof InlineObject42
+     */
+    amount?: number;
+    /**
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineObject42
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Комментарии клиента.
+     * @type {string}
+     * @memberof InlineObject42
+     */
+    clientComment?: string;
+    /**
+     * Массив изображений.
+     * @type {Array<string>}
+     * @memberof InlineObject42
+     */
+    images?: Array<string>;
+    /**
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
      * @type {boolean}
      * @memberof InlineObject42
      */
-    isFormed: boolean;
+    expressChinaDelivery?: boolean;
+    /**
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineObject42
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
+     * @type {string}
+     * @memberof InlineObject42
+     */
+    deadline?: string;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * @type {number}
+     * @memberof InlineObject42
+     */
+    totalPrice?: number;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject42PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20059Rows } from './inline-response20059-rows';
 
 /**
  * 
@@ -21,29 +22,17 @@
  */
 export interface InlineResponse20059 {
     /**
-     * Гуид тега
-     * @type {string}
-     * @memberof InlineResponse20059
-     */
-    _id?: string;
-    /**
-     * Тег
-     * @type {string}
-     * @memberof InlineResponse20059
-     */
-    title?: string;
-    /**
-     * Кол-во продуктов, которые используют этот тег
+     * Кол-во записей
      * @type {number}
      * @memberof InlineResponse20059
      */
-    productCount?: number;
+    count?: number;
     /**
-     * Tag color
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20059Rows>}
      * @memberof InlineResponse20059
      */
-    color?: string;
+    rows?: Array<InlineResponse20059Rows>;
 }
 
 

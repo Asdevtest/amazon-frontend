@@ -13,291 +13,256 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
-import { InlineResponse20061ChildProduct } from './inline-response20061-child-product';
-import { InlineResponse20061Order } from './inline-response20061-order';
-import { InlineResponse20061ParentProduct } from './inline-response20061-parent-product';
-import { InlineResponse20061RequestsOnCheck } from './inline-response20061-requests-on-check';
-import { InlineResponse20061Suppliers } from './inline-response20061-suppliers';
+import { InlineResponse20035InventoryShop } from './inline-response20035-inventory-shop';
 
 /**
- * 
+ * Схема репорта amazon_data
  * @export
  * @interface InlineResponse20061Rows
  */
 export interface InlineResponse20061Rows {
     /**
-     * 
+     * Гуид записи
      * @type {string}
      * @memberof InlineResponse20061Rows
      */
     _id?: string;
     /**
-     * Название идеи
+     * 
      * @type {string}
      * @memberof InlineResponse20061Rows
      */
-    title?: string;
-    /**
-     * Статус идеи
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    status?: number;
-    /**
-     * Является ли продукт идеи вариацией существующего
-     * @type {boolean}
-     * @memberof InlineResponse20061Rows
-     */
-    variation?: boolean;
-    /**
-     * Медиа идеи
-     * @type {Array<string>}
-     * @memberof InlineResponse20061Rows
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * Комментарии к идее
-     * @type {string}
-     * @memberof InlineResponse20061Rows
-     */
-    comments?: string;
-    /**
-     * Комментарий байера
-     * @type {string}
-     * @memberof InlineResponse20061Rows
-     */
-    buyerComment?: string;
-    /**
-     * Название продукта
-     * @type {string}
-     * @memberof InlineResponse20061Rows
-     */
-    productName?: string;
-    /**
-     * Ссылки продукта
-     * @type {Array<string>}
-     * @memberof InlineResponse20061Rows
-     */
-    productLinks?: Array<string>;
-    /**
-     * Дополнительные критерии для поиска товара
-     * @type {string}
-     * @memberof InlineResponse20061Rows
-     */
-    criteria?: string;
-    /**
-     * Причина отказа
-     * @type {string}
-     * @memberof InlineResponse20061Rows
-     */
-    reasonReject?: string;
-    /**
-     * Количество товаров
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    quantity?: number;
-    /**
-     * Желаемая цена
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    price?: number;
-    /**
-     * FBA Fee
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    fbaFee?: number;
-    /**
-     * Ориентационная цена
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    approximatePrice?: number;
-    /**
-     * Ширина, см
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    width?: number;
-    /**
-     * Высота, см
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    height?: number;
-    /**
-     * Длина, см
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    length?: number;
+    productId?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {InlineResponse20035InventoryShop}
      * @memberof InlineResponse20061Rows
      */
-    sub?: ApiV1AnnouncementsMyCreatedBy;
+    shop?: InlineResponse20035InventoryShop;
     /**
-     * Кол-во секунд идеи в статусе new(5)
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    intervalStatusNew?: number;
-    /**
-     * Кол-во секунд идеи в статусе OnCheck(10)
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    intervalStatusOnCheck?: number;
-    /**
-     * Кол-во секунд идеи в статусе supplierSearch(13)
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    intervalStatusSupplierSearch?: number;
-    /**
-     * Кол-во секунд идеи в статусе supplierFound(14)
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    intervalStatusSupplierFound?: number;
-    /**
-     * Кол-во секунд идеи в статусе supplierNotFound(15)
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    intervalStatusSupplierNotFound?: number;
-    /**
-     * Кол-во секунд идеи в статусе productCreating(16)
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    intervalStatusProductCreating?: number;
-    /**
-     * Кол-во секунд идеи в статусе addingAsin(18)
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    intervalStatusAddingAsin?: number;
-    /**
-     * Кол-во секунд идеи в статусе rejected(25)
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    intervalStatusRejected?: number;
-    /**
-     * Кол-во секунд идеи во всех статусах
-     * @type {number}
-     * @memberof InlineResponse20061Rows
-     */
-    intervalsSum?: number;
-    /**
-     * Время перевода идеи в статус onCheck(10)
+     * Гуид shop-a
      * @type {string}
      * @memberof InlineResponse20061Rows
      */
-    dateStatusOnCheck?: string;
+    shopId?: string;
     /**
-     * Время перевода идеи в статус supplierSearch(13)
+     * image
      * @type {string}
      * @memberof InlineResponse20061Rows
      */
-    dateStatusSupplierSearch?: string;
+    image?: string;
     /**
-     * Время перевода идеи в статус supplierFound(14)
+     * date_updated
      * @type {string}
      * @memberof InlineResponse20061Rows
      */
-    dateStatusSupplierFound?: string;
+    dateUpdated?: string;
     /**
-     * Время перевода идеи в статус supplierNotFound(15)
+     * asin
      * @type {string}
      * @memberof InlineResponse20061Rows
      */
-    dateStatusSupplierNotFound?: string;
+    asin?: string;
     /**
-     * Время перевода идеи в статус productCreating(16)
+     * sku
      * @type {string}
      * @memberof InlineResponse20061Rows
      */
-    dateStatusProductCreating?: string;
+    sku?: string;
     /**
-     * Время перевода идеи в статус addingAsin(18)
+     * day
      * @type {string}
      * @memberof InlineResponse20061Rows
      */
-    dateStatusAddingAsin?: string;
+    day?: string;
     /**
-     * Время перевода идеи в статус finished(20)
-     * @type {string}
+     * acos
+     * @type {number}
      * @memberof InlineResponse20061Rows
      */
-    dateStatusFinished?: string;
+    acos?: number;
     /**
-     * Время перевода идеи в статус rejected(25)
-     * @type {string}
+     * ppc_impressions
+     * @type {number}
      * @memberof InlineResponse20061Rows
      */
-    dateStatusRejected?: string;
+    ppcImpressions?: number;
     /**
-     * Время перевода идеи в статус closed(30)
-     * @type {string}
+     * clicks
+     * @type {number}
      * @memberof InlineResponse20061Rows
      */
-    dateStatusClosed?: string;
+    clicks?: number;
     /**
-     * 
-     * @type {Array<InlineResponse20061Suppliers>}
+     * spend
+     * @type {number}
      * @memberof InlineResponse20061Rows
      */
-    suppliers?: Array<InlineResponse20061Suppliers>;
+    spend?: number;
     /**
-     * 
-     * @type {InlineResponse20061ChildProduct}
+     * ppc_orders
+     * @type {number}
      * @memberof InlineResponse20061Rows
      */
-    childProduct?: InlineResponse20061ChildProduct;
+    ppcOrders?: number;
     /**
-     * 
-     * @type {InlineResponse20061Order}
+     * ppc_units
+     * @type {number}
      * @memberof InlineResponse20061Rows
      */
-    order?: InlineResponse20061Order;
+    ppcUnits?: number;
     /**
-     * 
-     * @type {InlineResponse20061ParentProduct}
+     * ppc_sales
+     * @type {number}
      * @memberof InlineResponse20061Rows
      */
-    parentProduct?: InlineResponse20061ParentProduct;
+    ppcSales?: number;
     /**
-     * 
-     * @type {Array<InlineResponse20061RequestsOnCheck>}
+     * ppc_avg_units_one_order
+     * @type {number}
      * @memberof InlineResponse20061Rows
      */
-    requestsOnCheck?: Array<InlineResponse20061RequestsOnCheck>;
+    ppcAvgUnitsOneOrder?: number;
     /**
-     * 
-     * @type {Array<InlineResponse20061RequestsOnCheck>}
+     * order_sales_cost
+     * @type {number}
      * @memberof InlineResponse20061Rows
      */
-    requestsOnFinished?: Array<InlineResponse20061RequestsOnCheck>;
+    orderSalesCost?: number;
     /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * unit_sales_cost
+     * @type {number}
      * @memberof InlineResponse20061Rows
      */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    unitSalesCost?: number;
     /**
-     * Дата создания.
+     * organic_sessions
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    organicSessions?: number;
+    /**
+     * organic_orders
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    organicOrders?: number;
+    /**
+     * organic_units
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    organicUnits?: number;
+    /**
+     * organic_sales
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    organicSales?: number;
+    /**
+     * organic_avg_order_price
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    organicAvgOrderPrice?: number;
+    /**
+     * organic_avg_unit_price
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    organicAvgUnitPrice?: number;
+    /**
+     * organic_avg_units_one_order
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    organicAvgUnitsOneOrder?: number;
+    /**
+     * sessions
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    sessions?: number;
+    /**
+     * orders
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    orders?: number;
+    /**
+     * units
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    units?: number;
+    /**
+     * avg_units_in_per_order
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    avgUnitsInPerOrder?: number;
+    /**
+     * sales
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    sales?: number;
+    /**
+     * avg_price_order
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    avgPriceOrder?: number;
+    /**
+     * avg_unit_price
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    avgUnitPrice?: number;
+    /**
+     * buy_box
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    buyBox?: number;
+    /**
+     * ppc_sale
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    ppcSale?: number;
+    /**
+     * organic_sale
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    organicSale?: number;
+    /**
+     * conversion
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    conversion?: number;
+    /**
+     * conversion_ppc
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    conversionPpc?: number;
+    /**
+     * conversion_organic
+     * @type {number}
+     * @memberof InlineResponse20061Rows
+     */
+    conversionOrganic?: number;
+    /**
+     * createdAt
      * @type {string}
      * @memberof InlineResponse20061Rows
      */
     createdAt?: string;
     /**
-     * Дата создания.
+     * updatedAt
      * @type {string}
      * @memberof InlineResponse20061Rows
      */

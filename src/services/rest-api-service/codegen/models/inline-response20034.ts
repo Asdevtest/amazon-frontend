@@ -13,31 +13,26 @@
  */
 
 
+import { InlineResponse20034Rows } from './inline-response20034-rows';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20034
  */
 export interface InlineResponse20034 {
     /**
-     * total price in yuan for these statuses
+     * Всего кол-во записей в результате запроса
      * @type {number}
      * @memberof InlineResponse20034
      */
-    totalPriceInYuan?: number;
+    count?: number;
     /**
-     * total price in USD for these statuses
-     * @type {number}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20034Rows>}
      * @memberof InlineResponse20034
      */
-    totalPriceInUSD?: number;
-    /**
-     * Total partialPaymentAmountRmb
-     * @type {number}
-     * @memberof InlineResponse20034
-     */
-    partialPaymentAmountRmb?: number;
+    rows?: Array<InlineResponse20034Rows>;
 }
 
 

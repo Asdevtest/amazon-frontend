@@ -13,260 +13,50 @@
  */
 
 
-import { InlineResponse20045InventoryShop } from './inline-response20045-inventory-shop';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
- * Схема репорта amazon_data
+ * 
  * @export
  * @interface InlineResponse20072Rows
  */
 export interface InlineResponse20072Rows {
     /**
-     * Гуид записи
+     * 
      * @type {string}
      * @memberof InlineResponse20072Rows
      */
     _id?: string;
     /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20072Rows
-     */
-    productId?: string;
-    /**
-     * 
-     * @type {InlineResponse20045InventoryShop}
-     * @memberof InlineResponse20072Rows
-     */
-    shop?: InlineResponse20045InventoryShop;
-    /**
-     * Гуид shop-a
-     * @type {string}
-     * @memberof InlineResponse20072Rows
-     */
-    shopId?: string;
-    /**
-     * image
-     * @type {string}
-     * @memberof InlineResponse20072Rows
-     */
-    image?: string;
-    /**
-     * date_updated
-     * @type {string}
-     * @memberof InlineResponse20072Rows
-     */
-    dateUpdated?: string;
-    /**
-     * asin
+     * ASIN продукта
      * @type {string}
      * @memberof InlineResponse20072Rows
      */
     asin?: string;
     /**
-     * sku
+     * SKU введенным клиентом.
      * @type {string}
      * @memberof InlineResponse20072Rows
      */
-    sku?: string;
+    skuByClient?: string;
     /**
-     * day
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20072Rows
+     */
+    images?: Array<string>;
+    /**
+     * Заголовок на товар с сайта амазон.
      * @type {string}
      * @memberof InlineResponse20072Rows
      */
-    day?: string;
+    amazonTitle?: string;
     /**
-     * acos
-     * @type {number}
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
      * @memberof InlineResponse20072Rows
      */
-    acos?: number;
-    /**
-     * ppc_impressions
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    ppcImpressions?: number;
-    /**
-     * clicks
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    clicks?: number;
-    /**
-     * spend
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    spend?: number;
-    /**
-     * ppc_orders
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    ppcOrders?: number;
-    /**
-     * ppc_units
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    ppcUnits?: number;
-    /**
-     * ppc_sales
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    ppcSales?: number;
-    /**
-     * ppc_avg_units_one_order
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    ppcAvgUnitsOneOrder?: number;
-    /**
-     * order_sales_cost
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    orderSalesCost?: number;
-    /**
-     * unit_sales_cost
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    unitSalesCost?: number;
-    /**
-     * organic_sessions
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    organicSessions?: number;
-    /**
-     * organic_orders
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    organicOrders?: number;
-    /**
-     * organic_units
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    organicUnits?: number;
-    /**
-     * organic_sales
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    organicSales?: number;
-    /**
-     * organic_avg_order_price
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    organicAvgOrderPrice?: number;
-    /**
-     * organic_avg_unit_price
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    organicAvgUnitPrice?: number;
-    /**
-     * organic_avg_units_one_order
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    organicAvgUnitsOneOrder?: number;
-    /**
-     * sessions
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    sessions?: number;
-    /**
-     * orders
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    orders?: number;
-    /**
-     * units
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    units?: number;
-    /**
-     * avg_units_in_per_order
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    avgUnitsInPerOrder?: number;
-    /**
-     * sales
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    sales?: number;
-    /**
-     * avg_price_order
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    avgPriceOrder?: number;
-    /**
-     * avg_unit_price
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    avgUnitPrice?: number;
-    /**
-     * buy_box
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    buyBox?: number;
-    /**
-     * ppc_sale
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    ppcSale?: number;
-    /**
-     * organic_sale
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    organicSale?: number;
-    /**
-     * conversion
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    conversion?: number;
-    /**
-     * conversion_ppc
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    conversionPpc?: number;
-    /**
-     * conversion_organic
-     * @type {number}
-     * @memberof InlineResponse20072Rows
-     */
-    conversionOrganic?: number;
-    /**
-     * createdAt
-     * @type {string}
-     * @memberof InlineResponse20072Rows
-     */
-    createdAt?: string;
-    /**
-     * updatedAt
-     * @type {string}
-     * @memberof InlineResponse20072Rows
-     */
-    updatedAt?: string;
+    users?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
 }
 
 

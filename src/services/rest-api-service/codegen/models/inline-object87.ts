@@ -13,6 +13,7 @@
  */
 
 
+import { InlineObject78 } from './inline-object78';
 
 /**
  * 
@@ -21,17 +22,17 @@
  */
 export interface InlineObject87 {
     /**
-     * 
+     * GUID для которой подтверждаем действие.
      * @type {string}
      * @memberof InlineObject87
      */
-    productId: string;
+    guid?: string;
     /**
-     * 
-     * @type {Array<string>}
+     * Массив дополнительных коробок которые случились при обработки.
+     * @type {Array<InlineObject78>}
      * @memberof InlineObject87
      */
-    skus: Array<string>;
+    additionalBoxes?: Array<InlineObject78>;
 }
 
 

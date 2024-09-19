@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20054Finances } from './inline-response20054-finances';
 
 /**
  * 
@@ -23,10 +22,10 @@ import { InlineResponse20054Finances } from './inline-response20054-finances';
 export interface InlineResponse20057 {
     /**
      * 
-     * @type {InlineResponse20054Finances}
+     * @type {Array<string>}
      * @memberof InlineResponse20057
      */
-    finances?: InlineResponse20054Finances;
+    failed?: Array<string>;
 }
 
 

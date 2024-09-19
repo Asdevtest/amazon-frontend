@@ -15,13 +15,13 @@
 
 
 /**
- * 
+ * Успешный ответ
  * @export
  * @interface InlineResponse2014
  */
 export interface InlineResponse2014 {
     /**
-     * GUID созданной коробки
+     * guid созданного объекта
      * @type {string}
      * @memberof InlineResponse2014
      */

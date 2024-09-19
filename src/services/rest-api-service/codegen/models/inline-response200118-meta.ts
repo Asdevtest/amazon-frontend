@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse200118MetaReservedProfile } from './inline-response200118-meta-reserved-profile';
 import { InlineResponse200118Rows } from './inline-response200118-rows';
 
 /**
@@ -23,10 +24,16 @@ import { InlineResponse200118Rows } from './inline-response200118-rows';
 export interface InlineResponse200118Meta {
     /**
      * 
-     * @type {InlineResponse200118Rows}
+     * @type {InlineResponse200118MetaReservedProfile}
      * @memberof InlineResponse200118Meta
      */
-    reservedProfile?: InlineResponse200118Rows;
+    reservedProfile?: InlineResponse200118MetaReservedProfile;
+    /**
+     * 
+     * @type {Array<InlineResponse200118Rows>}
+     * @memberof InlineResponse200118Meta
+     */
+    unlinkedProfiles?: Array<InlineResponse200118Rows>;
 }
 
 

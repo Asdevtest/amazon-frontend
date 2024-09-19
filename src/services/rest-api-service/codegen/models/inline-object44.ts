@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
 
 /**
  * 
@@ -23,10 +22,10 @@ import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buye
 export interface InlineObject44 {
     /**
      * 
-     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
+     * @type {string}
      * @memberof InlineObject44
      */
-    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
+    clientComment?: string;
 }
 
 

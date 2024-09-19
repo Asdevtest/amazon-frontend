@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
  * 
@@ -22,23 +21,17 @@ import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clie
  */
 export interface InlineObject69 {
     /**
-     * New product price
-     * @type {number}
-     * @memberof InlineObject69
-     */
-    newProductPrice?: number;
-    /**
-     * Description of product_listing_report
+     * 
      * @type {string}
      * @memberof InlineObject69
      */
-    description?: string;
+    productId: string;
     /**
      * 
-     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
+     * @type {Array<string>}
      * @memberof InlineObject69
      */
-    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
+    skus: Array<string>;
 }
 
 
