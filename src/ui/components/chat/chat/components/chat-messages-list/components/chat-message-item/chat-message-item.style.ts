@@ -4,6 +4,10 @@ export const useStyles = makeStyles()(theme => ({
   highlightMessage: {
     background: theme.palette.background.activeChat,
     borderRadius: '8px',
+
+    '&:hover': {
+      background: theme.palette.background.activeChat,
+    },
   },
 
   unReadMessage: {

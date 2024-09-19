@@ -31,12 +31,7 @@ export const ChatMessageBasicText: FC<ChatMessageBasicTextProps> = memo(props =>
 
   return (
     <div
-      className={cx(
-        styles.root,
-        { [styles.rootIsIncomming]: isIncomming },
-        { [styles.isFound]: isFound },
-        { [styles.isFoundIncomming]: isFound && isIncomming },
-      )}
+      className={cx(styles.root, { [styles.isFound]: isFound }, { [styles.isFoundIncomming]: isFound && isIncomming })}
     >
       <div className={styles.subWrapper}>
         {forwardedMessage ? (
