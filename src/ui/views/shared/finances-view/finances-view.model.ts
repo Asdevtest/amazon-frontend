@@ -55,6 +55,7 @@ export class FinancesViewModel extends DataGridFilterTableModel {
   onSetPaymentType(event: RadioChangeEvent) {
     const currentValue = event.target.value
     this.paymentType = currentValue
+    this.onChangeFullFieldMenuItem([], 'paymentType')
 
     this.getCurrentData()
   }
@@ -62,6 +63,7 @@ export class FinancesViewModel extends DataGridFilterTableModel {
   onSetEntityType(event: RadioChangeEvent) {
     const currentValue = event.target.value
     this.entityType = currentValue
+    this.onChangeFullFieldMenuItem([], 'entityType')
 
     this.getCurrentData()
   }
