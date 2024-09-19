@@ -22,31 +22,7 @@ import { InlineResponse20045InventoryShop } from './inline-response20045-invento
  */
 export interface InlineResponse20066Rows {
     /**
-     * Гуид записи
-     * @type {string}
-     * @memberof InlineResponse20066Rows
-     */
-    _id?: string;
-    /**
-     * 
-     * @type {InlineResponse20045InventoryShop}
-     * @memberof InlineResponse20066Rows
-     */
-    shop?: InlineResponse20045InventoryShop;
-    /**
-     * ﻿\"Date\"
-     * @type {string}
-     * @memberof InlineResponse20066Rows
-     */
-    date?: string;
-    /**
-     * Marketplace
-     * @type {string}
-     * @memberof InlineResponse20066Rows
-     */
-    marketplace?: string;
-    /**
-     * ASIN
+     * ﻿\"ASIN\"
      * @type {string}
      * @memberof InlineResponse20066Rows
      */
@@ -58,239 +34,143 @@ export interface InlineResponse20066Rows {
      */
     sku?: string;
     /**
-     * Name
+     * Title
      * @type {string}
      * @memberof InlineResponse20066Rows
      */
-    name?: string;
+    title?: string;
     /**
-     * SalesOrganic
+     * ROI, %
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    salesorganic?: number;
+    roi?: number;
     /**
-     * SalesPPC
+     * FBA/FBM Stock
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    salesppc?: number;
+    fbaFbmStock?: number;
     /**
-     * UnitsOrganic
+     * Stock value
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    unitsorganic?: number;
+    stockValue?: number;
     /**
-     * UnitsPPC
+     * Estimated Sales Velocity
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    unitsppc?: number;
+    estimatedSalesVelocity?: number;
     /**
-     * Refunds
+     * Days  of stock  left
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    refunds?: number;
+    daysOfStockLeft?: number;
     /**
-     * PromoValue
+     * Recommended quantity for  reordering
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    promovalue?: number;
+    recommendedQuantityForReordering?: number;
     /**
-     * SponsoredProducts
+     * Running  out of stock
+     * @type {string}
+     * @memberof InlineResponse20066Rows
+     */
+    runningOutOfStock?: string;
+    /**
+     * Reserved
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    sponsoredproducts?: number;
+    reserved?: number;
     /**
-     * SponsoredDisplay
+     * Sent  to FBA
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    sponsoreddisplay?: number;
+    sentToFba?: number;
     /**
-     * SponsoredВrands
+     * FBA  Prep. Stock
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    sponsoredRands?: number;
+    fbaPrepStock?: number;
     /**
-     * SponsoredBrandsVideo
+     * Ordered
+     * @type {string}
+     * @memberof InlineResponse20066Rows
+     */
+    ordered?: string;
+    /**
+     * Time to  reorder
+     * @type {string}
+     * @memberof InlineResponse20066Rows
+     */
+    timeToReorder?: string;
+    /**
+     * Comment
+     * @type {string}
+     * @memberof InlineResponse20066Rows
+     */
+    comment?: string;
+    /**
+     * Marketplace
+     * @type {string}
+     * @memberof InlineResponse20066Rows
+     */
+    marketplace?: string;
+    /**
+     * FNSKU
+     * @type {string}
+     * @memberof InlineResponse20066Rows
+     */
+    fnsku?: string;
+    /**
+     * Target stock range after new order days
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    sponsoredbrandsvideo?: number;
+    targetStockRangeAfterNewOrderDays?: number;
     /**
-     * GiftWrap
+     * FBA buffer days
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    giftwrap?: number;
+    fbaBufferDays?: number;
     /**
-     * Shipping
+     * Manuf. time days
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    shipping?: number;
+    manufTimeDays?: number;
     /**
-     * RefundCost
+     * Use a Prep Center
+     * @type {string}
+     * @memberof InlineResponse20066Rows
+     */
+    useAPrepCenter?: string;
+    /**
+     * Shipping to Prep Center days
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    refundcost?: number;
+    shippingToPrepCenterDays?: number;
     /**
-     * Value of returned items
+     * Shipping to FBA days
      * @type {number}
      * @memberof InlineResponse20066Rows
      */
-    valueOfReturnedItems?: number;
+    shippingToFbaDays?: number;
     /**
-     * ProductCost Unsellable Refunds
-     * @type {number}
+     * Гуид записи
+     * @type {string}
      * @memberof InlineResponse20066Rows
      */
-    productcostUnsellableRefunds?: number;
-    /**
-     * Commission
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    commission?: number;
-    /**
-     * COMPENSATED_CLAWBACK
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    compensatedClawback?: number;
-    /**
-     * FBADisposalFee
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    fbadisposalfee?: number;
-    /**
-     * FBAPerUnitFulfillmentFee
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    fbaperunitfulfillmentfee?: number;
-    /**
-     * FBAStorageFee
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    fbastoragefee?: number;
-    /**
-     * FREE_REPLACEMENT_REFUND_ITEMS
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    freeReplacementRefundItems?: number;
-    /**
-     * Subscription
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    subscription?: number;
-    /**
-     * WAREHOUSE_DAMAGE
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    warehouseDamage?: number;
-    /**
-     * WAREHOUSE_LOST
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    warehouseLost?: number;
-    /**
-     * EstimatedPayout
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    estimatedpayout?: number;
-    /**
-     * ProductCost Sales
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    productcostSales?: number;
-    /**
-     * ProductCost Non-Amazon
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    productcostNonAmazon?: number;
-    /**
-     * ProductCost MultichannelCosts
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    productcostMultichannelcosts?: number;
-    /**
-     * ProductCost MissingFromInbound
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    productcostMissingfrominbound?: number;
-    /**
-     * ProductCost CostOfMissingReturns
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    productcostCostofmissingreturns?: number;
-    /**
-     * VAT
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    vat?: number;
-    /**
-     * GrossProfit
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    grossprofit?: number;
-    /**
-     * NetProfit
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    netprofit?: number;
-    /**
-     * Margin
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    margin?: number;
-    /**
-     * Real ACOS
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    realAcos?: number;
-    /**
-     * Adjustment_FBAPerUnitFulfillmentFee
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    adjustmentFbaperunitfulfillmentfee?: number;
-    /**
-     * AmazonFees
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    amazonfees?: number;
-    /**
-     * Cost of Goods
-     * @type {number}
-     * @memberof InlineResponse20066Rows
-     */
-    costOfGoods?: number;
+    _id?: string;
     /**
      * Дата создания
      * @type {string}
@@ -303,6 +183,12 @@ export interface InlineResponse20066Rows {
      * @memberof InlineResponse20066Rows
      */
     updatedAt?: string;
+    /**
+     * 
+     * @type {InlineResponse20045InventoryShop}
+     * @memberof InlineResponse20066Rows
+     */
+    shop?: InlineResponse20045InventoryShop;
 }
 
 

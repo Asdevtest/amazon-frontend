@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { InlineResponse200116Client } from './inline-response200116-client';
 
 /**
  * 
@@ -29,12 +27,6 @@ export interface InlineResponse200116Rows {
      */
     _id?: string;
     /**
-     * GoLogin id
-     * @type {string}
-     * @memberof InlineResponse200116Rows
-     */
-    gologinId?: string;
-    /**
      * Имя в профиле.
      * @type {string}
      * @memberof InlineResponse200116Rows
@@ -46,54 +38,6 @@ export interface InlineResponse200116Rows {
      * @memberof InlineResponse200116Rows
      */
     email?: string;
-    /**
-     * Хешированный пароль от профиля
-     * @type {string}
-     * @memberof InlineResponse200116Rows
-     */
-    passwordHash?: string;
-    /**
-     * 
-     * @type {InlineResponse200116Client}
-     * @memberof InlineResponse200116Rows
-     */
-    client?: InlineResponse200116Client;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusShop}
-     * @memberof InlineResponse200116Rows
-     */
-    shop?: ApiV1AdminsGetProductsByStatusShop;
-    /**
-     * Parser state
-     * @type {boolean}
-     * @memberof InlineResponse200116Rows
-     */
-    isActive?: boolean;
-    /**
-     * Profile access to sellercentral
-     * @type {boolean}
-     * @memberof InlineResponse200116Rows
-     */
-    access?: boolean;
-    /**
-     * Profile status
-     * @type {string}
-     * @memberof InlineResponse200116Rows
-     */
-    status?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse200116Rows
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse200116Rows
-     */
-    updatedAt?: string;
 }
 
 

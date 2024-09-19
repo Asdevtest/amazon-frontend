@@ -49,6 +49,8 @@ import { InlineResponse200117 } from '../models';
 // @ts-ignore
 import { InlineResponse200118 } from '../models';
 // @ts-ignore
+import { InlineResponse200119 } from '../models';
+// @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
 import { NotFoundError } from '../models';
@@ -63,17 +65,13 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * ## Принудительный запуск парсеров  У админа есть доступ ко всем профилям
          * @summary # Принудительный запуск парсеров (Только для админа)
-         * @param {string} guid 
          * @param {InlineObject161} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsForceStartPatch: async (guid: string, body?: InlineObject161, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'guid' is not null or undefined
-            assertParamExists('apiV1IntegrationsParserAdminsForceStartPatch', 'guid', guid)
-            const localVarPath = `/api/v1/integrations/parser/admins/force_start`
-                .replace(`{${"guid"}}`, encodeURIComponent(String(guid)));
+        apiV1IntegrationsParserAdminsForceStartPatch: async (body?: InlineObject161, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/integrations/parser/admins/force_start`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -146,6 +144,78 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ## Получить все свободные профили для заявки + reserved profile.
+         * @summary # Получить все свободные профили для заявки + reserved profile.
+         * @param {string} guid 
+         * @param {string} [filters]                Возможные поля:                type: (request,order,box,proposal,idea),                data: ($contains -&gt; anyValue)               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsParserAdminsProfilesForRequestGuidGet: async (guid: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'guid' is not null or undefined
+            assertParamExists('apiV1IntegrationsParserAdminsProfilesForRequestGuidGet', 'guid', guid)
+            const localVarPath = `/api/v1/integrations/parser/admins/profiles_for_request/{guid}`
+                .replace(`{${"guid"}}`, encodeURIComponent(String(guid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AccessTokenBearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (filters !== undefined) {
+                localVarQueryParameter['filters'] = filters;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (sortField !== undefined) {
+                localVarQueryParameter['sortField'] = sortField;
+            }
+
+            if (sortType !== undefined) {
+                localVarQueryParameter['sortType'] = sortType;
+            }
+
+            if (noCache !== undefined) {
+                localVarQueryParameter['noCache'] = noCache;
+            }
+
+            if (acceptEncoding !== undefined && acceptEncoding !== null) {
+                localVarHeaderParameter['Accept-Encoding'] = String(acceptEncoding);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -813,14 +883,13 @@ export const ParserApiFp = function(configuration?: Configuration) {
         /**
          * ## Принудительный запуск парсеров  У админа есть доступ ко всем профилям
          * @summary # Принудительный запуск парсеров (Только для админа)
-         * @param {string} guid 
          * @param {InlineObject161} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserAdminsForceStartPatch(guid: string, body?: InlineObject161, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsForceStartPatch(guid, body, acceptEncoding, options);
+        async apiV1IntegrationsParserAdminsForceStartPatch(body?: InlineObject161, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsForceStartPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -834,6 +903,24 @@ export const ParserApiFp = function(configuration?: Configuration) {
          */
         async apiV1IntegrationsParserAdminsProfilesApproveGuidPatch(guid: string, body?: InlineObject165, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsProfilesApproveGuidPatch(guid, body, acceptEncoding, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * ## Получить все свободные профили для заявки + reserved profile.
+         * @summary # Получить все свободные профили для заявки + reserved profile.
+         * @param {string} guid 
+         * @param {string} [filters]                Возможные поля:                type: (request,order,box,proposal,idea),                data: ($contains -&gt; anyValue)               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1IntegrationsParserAdminsProfilesForRequestGuidGet(guid: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200118>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsProfilesForRequestGuidGet(guid, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -915,7 +1002,7 @@ export const ParserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200118>> {
+        async apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200119>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1029,14 +1116,13 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
         /**
          * ## Принудительный запуск парсеров  У админа есть доступ ко всем профилям
          * @summary # Принудительный запуск парсеров (Только для админа)
-         * @param {string} guid 
          * @param {InlineObject161} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsForceStartPatch(guid: string, body?: InlineObject161, acceptEncoding?: string, options?: any): AxiosPromise<string> {
-            return localVarFp.apiV1IntegrationsParserAdminsForceStartPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
+        apiV1IntegrationsParserAdminsForceStartPatch(body?: InlineObject161, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+            return localVarFp.apiV1IntegrationsParserAdminsForceStartPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Подтвердить запрос.
@@ -1049,6 +1135,23 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
          */
         apiV1IntegrationsParserAdminsProfilesApproveGuidPatch(guid: string, body?: InlineObject165, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsParserAdminsProfilesApproveGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Получить все свободные профили для заявки + reserved profile.
+         * @summary # Получить все свободные профили для заявки + reserved profile.
+         * @param {string} guid 
+         * @param {string} [filters]                Возможные поля:                type: (request,order,box,proposal,idea),                data: ($contains -&gt; anyValue)               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {number} [limit] Лимит записей для пагинации
+         * @param {number} [offset] Смещение для пагинации
+         * @param {string} [sortField] Название поля
+         * @param {'ASC' | 'DESC'} [sortType] Тип сортировки
+         * @param {boolean} [noCache] Игнорировать данные в кеше
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsParserAdminsProfilesForRequestGuidGet(guid: string, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200118> {
+            return localVarFp.apiV1IntegrationsParserAdminsProfilesForRequestGuidGet(guid, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Создать аккаунт(профиль).
@@ -1124,7 +1227,7 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200118> {
+        apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200119> {
             return localVarFp.apiV1IntegrationsParserAdminsProfilesReceivingRequestsGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1227,13 +1330,6 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
 export interface ParserApiApiV1IntegrationsParserAdminsForceStartPatchRequest {
     /**
      * 
-     * @type {string}
-     * @memberof ParserApiApiV1IntegrationsParserAdminsForceStartPatch
-     */
-    readonly guid: string
-
-    /**
-     * 
      * @type {InlineObject161}
      * @memberof ParserApiApiV1IntegrationsParserAdminsForceStartPatch
      */
@@ -1271,6 +1367,69 @@ export interface ParserApiApiV1IntegrationsParserAdminsProfilesApproveGuidPatchR
      * 
      * @type {string}
      * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesApproveGuidPatch
+     */
+    readonly acceptEncoding?: string
+}
+
+/**
+ * Request parameters for apiV1IntegrationsParserAdminsProfilesForRequestGuidGet operation in ParserApi.
+ * @export
+ * @interface ParserApiApiV1IntegrationsParserAdminsProfilesForRequestGuidGetRequest
+ */
+export interface ParserApiApiV1IntegrationsParserAdminsProfilesForRequestGuidGetRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesForRequestGuidGet
+     */
+    readonly guid: string
+
+    /**
+     *                Возможные поля:                type: (request,order,box,proposal,idea),                data: ($contains -&gt; anyValue)               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+     * @type {string}
+     * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesForRequestGuidGet
+     */
+    readonly filters?: string
+
+    /**
+     * Лимит записей для пагинации
+     * @type {number}
+     * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesForRequestGuidGet
+     */
+    readonly limit?: number
+
+    /**
+     * Смещение для пагинации
+     * @type {number}
+     * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesForRequestGuidGet
+     */
+    readonly offset?: number
+
+    /**
+     * Название поля
+     * @type {string}
+     * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesForRequestGuidGet
+     */
+    readonly sortField?: string
+
+    /**
+     * Тип сортировки
+     * @type {'ASC' | 'DESC'}
+     * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesForRequestGuidGet
+     */
+    readonly sortType?: 'ASC' | 'DESC'
+
+    /**
+     * Игнорировать данные в кеше
+     * @type {boolean}
+     * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesForRequestGuidGet
+     */
+    readonly noCache?: boolean
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesForRequestGuidGet
      */
     readonly acceptEncoding?: string
 }
@@ -1668,8 +1827,8 @@ export class ParserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ParserApi
      */
-    public apiV1IntegrationsParserAdminsForceStartPatch(requestParameters: ParserApiApiV1IntegrationsParserAdminsForceStartPatchRequest, options?: any) {
-        return ParserApiFp(this.configuration).apiV1IntegrationsParserAdminsForceStartPatch(requestParameters.guid, requestParameters.body, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    public apiV1IntegrationsParserAdminsForceStartPatch(requestParameters: ParserApiApiV1IntegrationsParserAdminsForceStartPatchRequest = {}, options?: any) {
+        return ParserApiFp(this.configuration).apiV1IntegrationsParserAdminsForceStartPatch(requestParameters.body, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1682,6 +1841,18 @@ export class ParserApi extends BaseAPI {
      */
     public apiV1IntegrationsParserAdminsProfilesApproveGuidPatch(requestParameters: ParserApiApiV1IntegrationsParserAdminsProfilesApproveGuidPatchRequest, options?: any) {
         return ParserApiFp(this.configuration).apiV1IntegrationsParserAdminsProfilesApproveGuidPatch(requestParameters.guid, requestParameters.body, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * ## Получить все свободные профили для заявки + reserved profile.
+     * @summary # Получить все свободные профили для заявки + reserved profile.
+     * @param {ParserApiApiV1IntegrationsParserAdminsProfilesForRequestGuidGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ParserApi
+     */
+    public apiV1IntegrationsParserAdminsProfilesForRequestGuidGet(requestParameters: ParserApiApiV1IntegrationsParserAdminsProfilesForRequestGuidGetRequest, options?: any) {
+        return ParserApiFp(this.configuration).apiV1IntegrationsParserAdminsProfilesForRequestGuidGet(requestParameters.guid, requestParameters.filters, requestParameters.limit, requestParameters.offset, requestParameters.sortField, requestParameters.sortType, requestParameters.noCache, requestParameters.acceptEncoding, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

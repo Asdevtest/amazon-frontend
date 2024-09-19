@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsOrdersLogicsTariffConditionsByRegion } from './api-v1-admins-orders-logics-tariff-conditions-by-region';
+import { ApiV1BatchesOrderLogicsTariffConditionsByRegion } from './api-v1-batches-order-logics-tariff-conditions-by-region';
 import { InlineResponse200102DestinationVariations } from './inline-response200102-destination-variations';
 
 /**
@@ -90,10 +90,10 @@ export interface InlineResponse200102Rows {
     archive?: boolean;
     /**
      * 
-     * @type {ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
+     * @type {ApiV1BatchesOrderLogicsTariffConditionsByRegion}
      * @memberof InlineResponse200102Rows
      */
-    conditionsByRegion?: ApiV1AdminsOrdersLogicsTariffConditionsByRegion;
+    conditionsByRegion?: ApiV1BatchesOrderLogicsTariffConditionsByRegion;
     /**
      * Стоимость за единицу с доставкой в Китай
      * @type {number}

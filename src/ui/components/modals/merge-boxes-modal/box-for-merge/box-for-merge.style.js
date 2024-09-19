@@ -108,11 +108,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
   },
 
-  asinTextWrapper: {
-    display: 'flex',
-    gap: 5,
-  },
-
   labelWrapperStyles: {
     gap: 19,
   },

@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { InlineResponse20043InventoryShop } from './inline-response20043-inventory-shop';
 
 /**
@@ -75,6 +76,18 @@ export interface InlineResponse20045Product {
      * @memberof InlineResponse20045Product
      */
     shop?: InlineResponse20043InventoryShop;
+    /**
+     * 
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @memberof InlineResponse20045Product
+     */
+    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    /**
+     * 
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @memberof InlineResponse20045Product
+     */
+    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
 }
 
 

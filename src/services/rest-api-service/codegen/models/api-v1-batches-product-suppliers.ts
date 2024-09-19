@@ -16,6 +16,7 @@
 import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BatchesProductBoxProperties } from './api-v1-batches-product-box-properties';
 import { ApiV1BatchesProductPaymentMethods } from './api-v1-batches-product-payment-methods';
+import { ApiV1BatchesProductPriceVariations } from './api-v1-batches-product-price-variations';
 
 /**
  * Новый поставщик.
@@ -84,6 +85,36 @@ export interface ApiV1BatchesProductSuppliers {
      */
     multiplicity?: boolean;
     /**
+     * Height unit
+     * @type {number}
+     * @memberof ApiV1BatchesProductSuppliers
+     */
+    heightUnit?: number;
+    /**
+     * Width unit
+     * @type {number}
+     * @memberof ApiV1BatchesProductSuppliers
+     */
+    widthUnit?: number;
+    /**
+     * Length unit
+     * @type {number}
+     * @memberof ApiV1BatchesProductSuppliers
+     */
+    lengthUnit?: number;
+    /**
+     * Weigh unit
+     * @type {number}
+     * @memberof ApiV1BatchesProductSuppliers
+     */
+    weighUnit?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ApiV1BatchesProductSuppliers
+     */
+    imageUnit?: Array<string>;
+    /**
      * Цена за еденицу, yuan
      * @type {number}
      * @memberof ApiV1BatchesProductSuppliers
@@ -124,7 +155,13 @@ export interface ApiV1BatchesProductSuppliers {
      * @type {number}
      * @memberof ApiV1BatchesProductSuppliers
      */
-    productionTerm?: number;
+    minProductionTerm?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ApiV1BatchesProductSuppliers
+     */
+    maxProductionTerm?: number;
     /**
      * 
      * @type {ApiV1AnnouncementsMyCreatedBy}
@@ -139,10 +176,10 @@ export interface ApiV1BatchesProductSuppliers {
     paymentMethods?: Array<ApiV1BatchesProductPaymentMethods>;
     /**
      * 
-     * @type {Array<object>}
+     * @type {Array<ApiV1BatchesProductPriceVariations>}
      * @memberof ApiV1BatchesProductSuppliers
      */
-    priceVariations?: Array<object>;
+    priceVariations?: Array<ApiV1BatchesProductPriceVariations>;
     /**
      * Дата создания
      * @type {string}

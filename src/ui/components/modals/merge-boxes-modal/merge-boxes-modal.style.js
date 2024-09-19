@@ -181,10 +181,7 @@ export const useStyles = makeStyles()(theme => ({
     objectFit: 'contain',
     cursor: 'pointer',
   },
-  asinTextWrapper: {
-    display: 'flex',
-    gap: 5,
-  },
+
   blockOfNewBoxWrapper: {
     height: '100%',
     width: 525,
