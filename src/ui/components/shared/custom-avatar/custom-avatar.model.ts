@@ -54,20 +54,6 @@ export class CustomAvatarModel {
     this.setPreviewOpen(true)
   }
 
-  onFileChange(event: React.ChangeEvent<HTMLInputElement>, onSubmit?: (imageData: UploadFileType) => void) {
-    const files = event.target.files
-    if (files && files.length > 0) {
-      const fileList = Array.from(files).map(file => ({
-        uid: uuid(),
-        name: file.name,
-        status: 'done' as UploadFileStatus,
-        url: URL.createObjectURL(file),
-        originFileObj: file as RcFile,
-      }))
-      this.onUploadImage(fileList, onSubmit)
-    }
-  }
-
   async onUploadImage(newFileList: UploadFile[], onSubmit?: (imageData: UploadFileType) => void) {
     const lastFile = newFileList.slice(-1)[0]
     if (!lastFile) return
@@ -96,3 +82,4 @@ export class CustomAvatarModel {
     }
   }
 }
+// ! решить проблему с img crop не сохраняется

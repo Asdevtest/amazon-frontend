@@ -33,6 +33,7 @@
     "@openapitools/openapi-generator-cli": "^2.4.13",
     "@sentry/react": "^8.9.2",
     "antd": "^5.17.4",
+    "antd-img-crop": "^4.23.0",
     "axios": "^0.22.0",
     "bowser": "^2.11.0",
     "class-transformer": "^0.5.1",
