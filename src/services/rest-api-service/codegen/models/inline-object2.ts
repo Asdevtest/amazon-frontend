@@ -15,17 +15,41 @@
 
 
 /**
- * Схема подтверждения возрата коробок на склад
+ * 
  * @export
  * @interface InlineObject2
  */
 export interface InlineObject2 {
     /**
-     * GUID коробки, который планируем изменить
+     * ASIN продукта
      * @type {string}
      * @memberof InlineObject2
      */
-    boxId: string;
+    asin: string;
+    /**
+     * Причина
+     * @type {string}
+     * @memberof InlineObject2
+     */
+    reason?: string;
+    /**
+     * Стратегия
+     * @type {string}
+     * @memberof InlineObject2
+     */
+    strategy: InlineObject2StrategyEnum;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject2StrategyEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40'
+}
+
 
 

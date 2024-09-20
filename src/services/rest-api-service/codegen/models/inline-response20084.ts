@@ -13,8 +13,7 @@
  */
 
 
-import { InlineResponse20081Products } from './inline-response20081-products';
-import { InlineResponse20084Meta } from './inline-response20084-meta';
+import { InlineResponse20084Rows } from './inline-response20084-rows';
 
 /**
  * 
@@ -23,23 +22,17 @@ import { InlineResponse20084Meta } from './inline-response20084-meta';
  */
 export interface InlineResponse20084 {
     /**
-     * Count of rows
+     * 
+     * @type {Array<InlineResponse20084Rows>}
+     * @memberof InlineResponse20084
+     */
+    rows?: Array<InlineResponse20084Rows>;
+    /**
+     * 
      * @type {number}
      * @memberof InlineResponse20084
      */
     count?: number;
-    /**
-     * Массив разрешенных продуктов для юзера.
-     * @type {Array<InlineResponse20081Products>}
-     * @memberof InlineResponse20084
-     */
-    rows?: Array<InlineResponse20081Products>;
-    /**
-     * 
-     * @type {InlineResponse20084Meta}
-     * @memberof InlineResponse20084
-     */
-    meta?: InlineResponse20084Meta;
 }
 
 

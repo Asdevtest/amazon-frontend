@@ -21,17 +21,132 @@
  */
 export interface InlineObject71 {
     /**
-     * Тег
-     * @type {string}
+     * Кол-во продукта по этой позиции.
+     * @type {number}
      * @memberof InlineObject71
      */
-    title: string;
+    amount?: number;
     /**
-     * Color
+     * Гуид сапплаера
      * @type {string}
      * @memberof InlineObject71
      */
-    color?: string;
+    orderSupplierId?: string;
+    /**
+     * Склад для изменения
+     * @type {string}
+     * @memberof InlineObject71
+     */
+    storekeeperId?: string;
+    /**
+     * Пункт назначения
+     * @type {string}
+     * @memberof InlineObject71
+     */
+    destinationId?: string;
+    /**
+     * Тариф для изменения
+     * @type {string}
+     * @memberof InlineObject71
+     */
+    logicsTariffId?: string;
+    /**
+     * Тариф для вариации
+     * @type {string}
+     * @memberof InlineObject71
+     */
+    variationTariffId?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineObject71
+     */
+    images?: Array<string>;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * @type {number}
+     * @memberof InlineObject71
+     */
+    totalPrice?: number;
+    /**
+     * Защита листинга
+     * @type {string}
+     * @memberof InlineObject71
+     */
+    transparencyFile?: string;
+    /**
+     * Комментарий баера
+     * @type {string}
+     * @memberof InlineObject71
+     */
+    buyerComment?: string;
+    /**
+     * Не настоящий ключ, используется только для нужд юзера
+     * @type {string}
+     * @memberof InlineObject71
+     */
+    item?: string;
+    /**
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineObject71
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
+     * @type {string}
+     * @memberof InlineObject71
+     */
+    deadline?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject71
+     */
+    priority?: InlineObject71PriorityEnum;
+    /**
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * @type {boolean}
+     * @memberof InlineObject71
+     */
+    expressChinaDelivery?: boolean;
+    /**
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineObject71
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Комментарий клтента в заказе
+     * @type {string}
+     * @memberof InlineObject71
+     */
+    clientComment?: string;
+    /**
+     * Цена в юанях
+     * @type {number}
+     * @memberof InlineObject71
+     */
+    priceInYuan?: number;
+    /**
+     * Цена доставки партии в юанях
+     * @type {number}
+     * @memberof InlineObject71
+     */
+    priceBatchDeliveryInYuan?: number;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject71PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

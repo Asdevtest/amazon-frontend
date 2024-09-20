@@ -107,6 +107,12 @@ export interface InlineResponse200117Rows {
      */
     otp?: string;
     /**
+     * Comment for profile
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    comment?: string;
+    /**
      * Дата создания
      * @type {string}
      * @memberof InlineResponse200117Rows

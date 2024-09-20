@@ -13,26 +13,41 @@
  */
 
 
-import { InlineResponse20044Rows } from './inline-response20044-rows';
+import { InlineResponse20044Finances } from './inline-response20044-finances';
+import { InlineResponse20044Orders } from './inline-response20044-orders';
+import { InlineResponse20044PendingOrders } from './inline-response20044-pending-orders';
+import { InlineResponse20044Products } from './inline-response20044-products';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20044
  */
 export interface InlineResponse20044 {
     /**
-     * Всего кол-во записей в результате запроса
-     * @type {number}
+     * 
+     * @type {InlineResponse20044Products}
      * @memberof InlineResponse20044
      */
-    count?: number;
+    products?: InlineResponse20044Products;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20044Rows>}
+     * 
+     * @type {InlineResponse20044Orders}
      * @memberof InlineResponse20044
      */
-    rows?: Array<InlineResponse20044Rows>;
+    orders?: InlineResponse20044Orders;
+    /**
+     * 
+     * @type {InlineResponse20044PendingOrders}
+     * @memberof InlineResponse20044
+     */
+    pendingOrders?: InlineResponse20044PendingOrders;
+    /**
+     * 
+     * @type {InlineResponse20044Finances}
+     * @memberof InlineResponse20044
+     */
+    finances?: InlineResponse20044Finances;
 }
 
 

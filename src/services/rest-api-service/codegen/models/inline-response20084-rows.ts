@@ -13,9 +13,8 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
-import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
+import { InlineResponse20078 } from './inline-response20078';
+import { InlineResponse20084Group } from './inline-response20084-group';
 
 /**
  * 
@@ -24,107 +23,17 @@ import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products
  */
 export interface InlineResponse20084Rows {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
+     * 
+     * @type {InlineResponse20084Group}
      * @memberof InlineResponse20084Rows
      */
-    _id?: string;
-    /**
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineResponse20084Rows
-     */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20084Rows
-     */
-    skuByClient?: string;
-    /**
-     * Есть ли товар в заказах
-     * @type {boolean}
-     * @memberof InlineResponse20084Rows
-     */
-    ordered?: boolean;
+    group?: InlineResponse20084Group;
     /**
      * 
-     * @type {number}
+     * @type {Array<InlineResponse20078>}
      * @memberof InlineResponse20084Rows
      */
-    bsr?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20084Rows
-     */
-    amazon?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineResponse20084Rows
-     */
-    fbafee?: number;
-    /**
-     * Код текущего статуса
-     * @type {number}
-     * @memberof InlineResponse20084Rows
-     */
-    status?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20084Rows
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20084Rows
-     */
-    amazonTitle?: string;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineResponse20084Rows
-     */
-    strategyStatus?: number;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
-     * @memberof InlineResponse20084Rows
-     */
-    redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
-     * @memberof InlineResponse20084Rows
-     */
-    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20084Rows
-     */
-    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20084Rows
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20084Rows
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse20084Rows
-     */
-    updatedAt?: string;
+    boxes?: Array<InlineResponse20078>;
 }
 
 

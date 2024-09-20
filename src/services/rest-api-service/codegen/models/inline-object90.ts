@@ -21,35 +21,35 @@
  */
 export interface InlineObject90 {
     /**
-     * ASIN продукта
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject90
      */
-    asin?: string;
+    lengthCmWarehouse?: number;
     /**
-     * Причина
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject90
      */
-    reason?: string;
+    widthCmWarehouse?: number;
     /**
-     * Стратегия
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject90
      */
-    strategy?: InlineObject90StrategyEnum;
+    heightCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject90
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Массив ссылок на фотографии.
+     * @type {Array<string>}
+     * @memberof InlineObject90
+     */
+    images?: Array<string>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject90StrategyEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40'
-}
-
 
 

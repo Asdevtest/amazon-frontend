@@ -15,17 +15,17 @@
 
 
 /**
- * Схема апдейта рекомендаций
+ * 
  * @export
  * @interface InlineObject67
  */
 export interface InlineObject67 {
     /**
-     * Рекомендуемое значение
-     * @type {number}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject67
      */
-    recommendedValue: number;
+    shopIds: Array<string>;
 }
 
 

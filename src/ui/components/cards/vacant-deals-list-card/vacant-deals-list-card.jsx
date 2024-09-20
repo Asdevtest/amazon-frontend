@@ -91,7 +91,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
             {!showDetails && (
               <Button
                 styleType={ButtonStyle.SUCCESS}
-                onClick={() => throttle(onClickGetToWorkModal(item._id, item.requestId))}
+                onClick={throttle(onClickGetToWorkModal(item._id, item.requestId))}
               >
                 {t(TranslationKey['Get to work'])}
               </Button>

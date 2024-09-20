@@ -2060,4 +2060,6 @@ export enum TranslationKey {
   'Month value' = 'Month value',
   'Chat info' = 'Chat info',
   'Rename' = 'Rename',
+  'Unlinked' = 'Unlinked',
+  'Unlink' = 'Unlink',
 }

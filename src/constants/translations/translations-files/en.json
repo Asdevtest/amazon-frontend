@@ -2059,5 +2059,7 @@
   "Chat already exists": "Chat already exists",
   "Month value": "Month value",
   "Chat info": "Chat info",
-  "Rename": "Rename"
+  "Rename": "Rename",
+  "Unlinked": "Unlinked",
+  "Unlink": "Unlink"
 }

@@ -13,150 +13,200 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20058Destination } from './inline-response20058-destination';
-import { InlineResponse20058OrderSupplier } from './inline-response20058-order-supplier';
-import { InlineResponse20058Product } from './inline-response20058-product';
+import { InlineResponse20035InventoryShop } from './inline-response20035-inventory-shop';
 
 /**
- * Заказ.
+ * Схема репорта amazon_data
  * @export
  * @interface InlineResponse20058Rows
  */
 export interface InlineResponse20058Rows {
     /**
-     * id заказ.
-     * @type {number}
-     * @memberof InlineResponse20058Rows
-     */
-    id?: number;
-    /**
-     * GUID данной записи в БД.
+     * Гуид записи
      * @type {string}
      * @memberof InlineResponse20058Rows
      */
     _id?: string;
     /**
-     * Комментарии клиента.
-     * @type {string}
-     * @memberof InlineResponse20058Rows
-     */
-    clientComment?: string;
-    /**
      * 
-     * @type {string}
-     * @memberof InlineResponse20058Rows
-     */
-    item?: string;
-    /**
-     * комментарии байера.
-     * @type {string}
-     * @memberof InlineResponse20058Rows
-     */
-    buyerComment?: string;
-    /**
-     *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      needConfirmingReceiving: 27 - Этот статус промежуточный между 25 и 30     С этого статуса заказ можно переводить в статусы 25,30,35     inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
-     * @type {number}
-     * @memberof InlineResponse20058Rows
-     */
-    status?: number;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineResponse20058Rows
-     */
-    priority?: InlineResponse20058RowsPriorityEnum;
-    /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
-     * @type {number}
-     * @memberof InlineResponse20058Rows
-     */
-    totalPrice?: number;
-    /**
-     * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
-     * @type {number}
-     * @memberof InlineResponse20058Rows
-     */
-    totalPriceChanged?: number;
-    /**
-     * кол-во
-     * @type {number}
-     * @memberof InlineResponse20058Rows
-     */
-    amount?: number;
-    /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
-     * @type {boolean}
-     * @memberof InlineResponse20058Rows
-     */
-    expressChinaDelivery?: boolean;
-    /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
-     * @memberof InlineResponse20058Rows
-     */
-    needsResearch?: boolean;
-    /**
-     * Дедлайн выкупа заказа
-     * @type {string}
-     * @memberof InlineResponse20058Rows
-     */
-    deadline?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20058Rows
-     */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20058Rows
-     */
-    updatedAt?: string;
-    /**
-     * 
-     * @type {InlineResponse20058Destination}
-     * @memberof InlineResponse20058Rows
-     */
-    destination?: InlineResponse20058Destination;
-    /**
-     * GUID продукта
      * @type {string}
      * @memberof InlineResponse20058Rows
      */
     productId?: string;
     /**
      * 
-     * @type {InlineResponse20058Product}
+     * @type {string}
      * @memberof InlineResponse20058Rows
      */
-    product?: InlineResponse20058Product;
+    shopId?: string;
+    /**
+     * The asin of product
+     * @type {string}
+     * @memberof InlineResponse20058Rows
+     */
+    asin?: string;
+    /**
+     * The sku of product
+     * @type {string}
+     * @memberof InlineResponse20058Rows
+     */
+    sku?: string;
+    /**
+     * Price
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    price?: number;
+    /**
+     * fba_fee
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    fbaFee?: number;
+    /**
+     * ref_fee
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    refFee?: number;
+    /**
+     * image
+     * @type {string}
+     * @memberof InlineResponse20058Rows
+     */
+    image?: string;
+    /**
+     * Category ABC
+     * @type {string}
+     * @memberof InlineResponse20058Rows
+     */
+    categoryAbc?: string;
+    /**
+     * available
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    available?: number;
+    /**
+     * inbound
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    inbound?: number;
+    /**
+     * reserved
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    reserved?: number;
+    /**
+     * Дата обновления
+     * @type {string}
+     * @memberof InlineResponse20058Rows
+     */
+    dateUpdated?: string;
+    /**
+     * Время обновления
+     * @type {string}
+     * @memberof InlineResponse20058Rows
+     */
+    timeUpdated?: string;
+    /**
+     * organicCv
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    organicCv?: number;
+    /**
+     * historical_days_of_supply
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    historicalDaysOfSupply?: number;
+    /**
+     * estimated_storage_cost
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    estimatedStorageCost?: number;
+    /**
+     * estimated_aged_inventory_surcharge
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    estimatedAgedInventorySurcharge?: number;
+    /**
+     * age_0_to_90_days
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    age0to90Days?: number;
+    /**
+     * age_91_to_180_days
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    age91to180Days?: number;
+    /**
+     * age_181_to_270_days
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    age181to270Days?: number;
+    /**
+     * age_271_to_365_days
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    age271to365Days?: number;
+    /**
+     * age_365_plus_days
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    age365plusDays?: number;
+    /**
+     * storage_volume
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    storageVolume?: number;
+    /**
+     * low_inventory_level_fee
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    lowInventoryLevelFee?: number;
+    /**
+     * cog
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    cog?: number;
+    /**
+     * unitProfit
+     * @type {number}
+     * @memberof InlineResponse20058Rows
+     */
+    unitProfit?: number;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20058Rows
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления
+     * @type {string}
+     * @memberof InlineResponse20058Rows
+     */
+    updatedAt?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {InlineResponse20035InventoryShop}
      * @memberof InlineResponse20058Rows
      */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {InlineResponse20058OrderSupplier}
-     * @memberof InlineResponse20058Rows
-     */
-    orderSupplier?: InlineResponse20058OrderSupplier;
+    shop?: InlineResponse20035InventoryShop;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20058RowsPriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

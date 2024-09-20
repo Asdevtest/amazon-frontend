@@ -13,10 +13,9 @@
  */
 
 
-import { InlineResponse20054Finances } from './inline-response20054-finances';
-import { InlineResponse20054Orders } from './inline-response20054-orders';
-import { InlineResponse20054PendingOrders } from './inline-response20054-pending-orders';
-import { InlineResponse20054Products } from './inline-response20054-products';
+import { ApiV1IdeasNotificationsCreatedBy } from './api-v1-ideas-notifications-created-by';
+import { ApiV1IdeasNotificationsIdea } from './api-v1-ideas-notifications-idea';
+import { ApiV1IdeasNotificationsProduct } from './api-v1-ideas-notifications-product';
 
 /**
  * 
@@ -26,28 +25,28 @@ import { InlineResponse20054Products } from './inline-response20054-products';
 export interface InlineResponse20054 {
     /**
      * 
-     * @type {InlineResponse20054Products}
+     * @type {ApiV1IdeasNotificationsProduct}
      * @memberof InlineResponse20054
      */
-    products?: InlineResponse20054Products;
+    product?: ApiV1IdeasNotificationsProduct;
     /**
      * 
-     * @type {InlineResponse20054Orders}
+     * @type {ApiV1IdeasNotificationsIdea}
      * @memberof InlineResponse20054
      */
-    orders?: InlineResponse20054Orders;
+    idea?: ApiV1IdeasNotificationsIdea;
     /**
      * 
-     * @type {InlineResponse20054PendingOrders}
+     * @type {ApiV1IdeasNotificationsCreatedBy}
      * @memberof InlineResponse20054
      */
-    pendingOrders?: InlineResponse20054PendingOrders;
+    createdBy?: ApiV1IdeasNotificationsCreatedBy;
     /**
      * 
-     * @type {InlineResponse20054Finances}
+     * @type {string}
      * @memberof InlineResponse20054
      */
-    finances?: InlineResponse20054Finances;
+    createdAt?: string;
 }
 
 

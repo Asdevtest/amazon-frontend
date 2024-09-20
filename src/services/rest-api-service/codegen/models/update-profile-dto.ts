@@ -80,6 +80,12 @@ export interface UpdateProfileDto {
      * @memberof UpdateProfileDto
      */
     clientId?: string;
+    /**
+     * Comment for profile
+     * @type {string}
+     * @memberof UpdateProfileDto
+     */
+    comment?: string;
 }
 
 

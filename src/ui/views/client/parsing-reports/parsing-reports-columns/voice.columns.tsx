@@ -52,6 +52,16 @@ export const voiceColumns = () => {
     },
 
     {
+      field: 'fnsku',
+      headerName: 'FNSKU',
+      renderHeader: () => <MultilineTextHeaderCell text="FNSKU" />,
+
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 90,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
       field: 'condition',
       headerName: 'Condition',
       renderHeader: () => <MultilineTextHeaderCell text="Condition" />,

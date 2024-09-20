@@ -21,101 +21,17 @@
  */
 export interface InlineObject77 {
     /**
-     * Название идеи
+     * GUID юзера
      * @type {string}
      * @memberof InlineObject77
      */
-    title?: string;
+    userId: string;
     /**
-     * Image URL
+     * 
      * @type {Array<string>}
      * @memberof InlineObject77
      */
-    media?: Array<string>;
-    /**
-     * Комментарий к идее
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    comments?: string;
-    /**
-     * Комментарий байера
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    buyerComment?: string;
-    /**
-     * Назавние продукта
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    productName: string;
-    /**
-     * Ссылки на продукт, если есть
-     * @type {Array<string>}
-     * @memberof InlineObject77
-     */
-    productLinks?: Array<string>;
-    /**
-     * Дополнительные критерии для поиска товара
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    criteria?: string;
-    /**
-     * Количество товаров
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    quantity?: number;
-    /**
-     * Желаемая цена
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    price: number;
-    /**
-     * FBA Fee
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    fbaFee?: number;
-    /**
-     * Ориентационная цена
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    approximatePrice?: number;
-    /**
-     * Ширина, см
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    width?: number;
-    /**
-     * Высота, см
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    height?: number;
-    /**
-     * Длина, см
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    length?: number;
-    /**
-     * Product ID
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    productId?: string;
-    /**
-     * Гуид родительского продукта
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    parentProductId?: string;
+    shopIds: Array<string>;
 }
 
 

@@ -13,272 +13,32 @@
  */
 
 
-import { InlineResponse20045InventoryShop } from './inline-response20045-inventory-shop';
+import { InlineResponse20071Products } from './inline-response20071-products';
 
 /**
- * Схема репорта amazon_data
+ * 
  * @export
  * @interface InlineResponse20071Rows
  */
 export interface InlineResponse20071Rows {
     /**
-     * Гуид записи
+     * ID магазина.
      * @type {string}
      * @memberof InlineResponse20071Rows
      */
     _id?: string;
     /**
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * @type {string}
+     * @memberof InlineResponse20071Rows
+     */
+    name?: string;
+    /**
      * 
-     * @type {string}
+     * @type {Array<InlineResponse20071Products>}
      * @memberof InlineResponse20071Rows
      */
-    productId?: string;
-    /**
-     * 
-     * @type {InlineResponse20045InventoryShop}
-     * @memberof InlineResponse20071Rows
-     */
-    shop?: InlineResponse20045InventoryShop;
-    /**
-     * Гуид shop-a
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    shopId?: string;
-    /**
-     * asin
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    asin?: string;
-    /**
-     * sku
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    sku?: string;
-    /**
-     * period_start
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    periodStart?: string;
-    /**
-     * period_end
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    periodEnd?: string;
-    /**
-     * week
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    week?: number;
-    /**
-     * acos
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    acos?: number;
-    /**
-     * image
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    image?: string;
-    /**
-     * ppc_impressions
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    ppcImpressions?: number;
-    /**
-     * clicks
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    clicks?: number;
-    /**
-     * spend
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    spend?: number;
-    /**
-     * ppc_orders
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    ppcOrders?: number;
-    /**
-     * ppc_units
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    ppcUnits?: number;
-    /**
-     * ppc_sales
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    ppcSales?: number;
-    /**
-     * order_sales_cost
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    orderSalesCost?: number;
-    /**
-     * unit_sales_cost
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    unitSalesCost?: number;
-    /**
-     * organic_sessions
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    organicSessions?: number;
-    /**
-     * organic_orders
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    organicOrders?: number;
-    /**
-     * organic_units
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    organicUnits?: number;
-    /**
-     * organic_sales
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    organicSales?: number;
-    /**
-     * organic_avg_order_price
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    organicAvgOrderPrice?: number;
-    /**
-     * organic_avg_unit_price
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    organicAvgUnitPrice?: number;
-    /**
-     * impressions
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    impressions?: number;
-    /**
-     * sessions
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    sessions?: number;
-    /**
-     * ctr
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    ctr?: number;
-    /**
-     * orders
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    orders?: number;
-    /**
-     * units
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    units?: number;
-    /**
-     * avg_units_in_per_order
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    avgUnitsInPerOrder?: number;
-    /**
-     * sales
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    sales?: number;
-    /**
-     * avg_price_order
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    avgPriceOrder?: number;
-    /**
-     * avg_unit_price
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    avgUnitPrice?: number;
-    /**
-     * buy_box
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    buyBox?: number;
-    /**
-     * ppc_sale
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    ppcSale?: number;
-    /**
-     * organic_sale
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    organicSale?: number;
-    /**
-     * conversion
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    conversion?: number;
-    /**
-     * conversion_ppc
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    conversionPpc?: number;
-    /**
-     * conversion_organic
-     * @type {number}
-     * @memberof InlineResponse20071Rows
-     */
-    conversionOrganic?: number;
-    /**
-     * date_updated
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    dateUpdated?: string;
-    /**
-     * createdAt
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    createdAt?: string;
-    /**
-     * updatedAt
-     * @type {string}
-     * @memberof InlineResponse20071Rows
-     */
-    updatedAt?: string;
+    products?: Array<InlineResponse20071Products>;
 }
 
 

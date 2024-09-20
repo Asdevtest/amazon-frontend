@@ -13,8 +13,6 @@
  */
 
 
-import { InlineResponse20050Rows } from './inline-response20050-rows';
-import { InlineResponse20051Meta } from './inline-response20051-meta';
 
 /**
  * 
@@ -23,23 +21,11 @@ import { InlineResponse20051Meta } from './inline-response20051-meta';
  */
 export interface InlineResponse20051 {
     /**
-     * Count of rows
-     * @type {number}
+     * id созданного профайла
+     * @type {string}
      * @memberof InlineResponse20051
      */
-    count?: number;
-    /**
-     * 
-     * @type {Array<InlineResponse20050Rows>}
-     * @memberof InlineResponse20051
-     */
-    rows?: Array<InlineResponse20050Rows>;
-    /**
-     * 
-     * @type {InlineResponse20051Meta}
-     * @memberof InlineResponse20051
-     */
-    meta?: InlineResponse20051Meta;
+    profileId?: string;
 }
 
 

@@ -59,10 +59,15 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
   }
 
   const title = (isEditMode ? 'Edit' : 'Add') + ' parsing profile'
+  const isUnlinked = isEditMode && !profile?.client && !!profile?.shop?._id
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.title}>{t(TranslationKey[title as TranslationKey])}</p>
+      <div className={styles.flexRow}>
+        <p className={styles.title}>{t(TranslationKey[title as TranslationKey])}</p>
+
+        {isUnlinked ? <p className={styles.unlinked}>{t(TranslationKey.Unlinked)}</p> : null}
+      </div>
 
       <Form name="parsing profile" autoComplete="off" form={form} onFinish={handleSendForm}>
         <div className={styles.container}>

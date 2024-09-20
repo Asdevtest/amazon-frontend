@@ -13,6 +13,7 @@
  */
 
 
+import { PermissionGetDtoSchema } from './permission-get-dto-schema';
 
 /**
  * 
@@ -22,10 +23,16 @@
 export interface InlineResponse20068 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {number}
      * @memberof InlineResponse20068
      */
-    failed?: Array<string>;
+    count?: number;
+    /**
+     * Массив permissions.
+     * @type {Array<PermissionGetDtoSchema>}
+     * @memberof InlineResponse20068
+     */
+    rows?: Array<PermissionGetDtoSchema>;
 }
 
 

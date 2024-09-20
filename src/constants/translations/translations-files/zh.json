@@ -2052,5 +2052,7 @@
   "Chat already exists": "聊天已存在",
   "Month value": "月份值",
   "Chat info": "聊天信息",
-  "Rename": "重命名"
+  "Rename": "重命名",
+  "Unlinked": "未关联",
+  "Unlink": "解绑"
 }
