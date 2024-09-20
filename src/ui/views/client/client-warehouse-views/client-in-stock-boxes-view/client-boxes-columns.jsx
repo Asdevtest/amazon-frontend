@@ -277,6 +277,8 @@ export const clientBoxesViewColumns = (
           <ActionButtonsCell
             showFirst
             showSecond
+            firstGhost={!params.row.shippingLabel}
+            secondGhost={!params.row.fbaShipment}
             firstDropdown={!!params.row.shippingLabel}
             secondDropdown={!!params.row.fbaShipment}
             firstContent={t(TranslationKey['Shipping label'])}
@@ -295,8 +297,7 @@ export const clientBoxesViewColumns = (
           params.row.shippingLabel ? getAmazonImageUrl(params.row.shippingLabel, true) : '-'
         } / FBA Shipment: ${params.row.fbaShipment || ''}`,
 
-      width: 170,
-      headerAlign: 'center',
+      width: 180,
       disableCustomSort: true,
     },
 
@@ -356,11 +357,9 @@ export const clientBoxesViewColumns = (
       field: 'createdAt',
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
       renderCell: params => <NormDateCell value={params.value} />,
       valueFormatter: params => formatNormDateTime(params.value),
-      width: 120,
-      // type: 'date',
+      width: 115,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -370,8 +369,7 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       valueFormatter: params => formatNormDateTime(params.value),
       renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-      // type: 'date',
+      width: 115,
       columnKey: columnnsKeys.shared.DATE,
     },
   ]

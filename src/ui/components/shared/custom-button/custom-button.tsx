@@ -33,6 +33,7 @@ export const CustomButton: FC<CustomButtonProps> = memo(props => {
           onClick={handleClick}
         >
           {children}
+          {icon}
         </Dropdown.Button>
       ) : (
         <Button

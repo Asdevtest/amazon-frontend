@@ -20,6 +20,7 @@ export const getButtonActionsConfig = (props: ActionButtonsCellProps) => [
     onClick: throttle(props.onClickFirst),
     onClickEdit: props.onClickEditFirst ? throttle(props.onClickEditFirst) : undefined,
     onClickRemove: props.onClickRemoveFirst ? throttle(props.onClickRemoveFirst) : undefined,
+    onClickPrint: props.onClickPrintFirst ? throttle(props.onClickPrintFirst) : undefined,
   },
   {
     dropdown: props.secondDropdown,
@@ -38,6 +39,7 @@ export const getButtonActionsConfig = (props: ActionButtonsCellProps) => [
     onClick: throttle(props.onClickSecond),
     onClickEdit: props.onClickEditSecond ? throttle(props.onClickEditSecond) : undefined,
     onClickRemove: props.onClickRemoveSecond ? throttle(props.onClickRemoveSecond) : undefined,
+    onClickPrint: props.onClickPrintSecond ? throttle(props.onClickPrintSecond) : undefined,
   },
   {
     dropdown: props.thirdDropdown,
@@ -56,5 +58,6 @@ export const getButtonActionsConfig = (props: ActionButtonsCellProps) => [
     onClick: throttle(props.onClickThird),
     onClickEdit: props.onClickEditThird ? throttle(props.onClickEditThird) : undefined,
     onClickRemove: props.onClickRemoveThird ? throttle(props.onClickRemoveThird) : undefined,
+    onClickPrint: props.onClickPrintThird ? throttle(props.onClickPrintThird) : undefined,
   },
 ]
