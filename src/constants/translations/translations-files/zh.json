@@ -2056,5 +2056,7 @@
   "Unlinked": "未关联",
   "Unlink": "解绑",
   "This profile was used": "该配置文件已被使用",
-  "This profile has already been used! Do you want to continue?": "该配置文件已被使用!您确定要继续吗?"
+  "This profile has already been used! Do you want to continue?": "该配置文件已被使用!您确定要继续吗?",
+  "By proposal": "通过提案",
+  "By announcement": "通过公告"
 }

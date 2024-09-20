@@ -1,4 +1,6 @@
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
 import {
@@ -198,7 +200,32 @@ export const freelancerVacantRequestColumns = handlers => [
       />
     ),
 
-    columnKey: columnnsKeys.shared.OBJECT_VALUE,
+    fields: [
+      {
+        label: 'By proposal',
+        value: 0,
+      },
+      {
+        label: 'By announcement',
+        value: 1,
+      },
+    ],
+
+    columnMenuConfig: [
+      {
+        field: 'proposalSub',
+        table: DataGridFilterTables.REQUESTS,
+        columnKey: ColumnMenuKeys.OBJECT,
+      },
+      {
+        field: 'announcementCreatedBy',
+        table: DataGridFilterTables.REQUESTS,
+        columnKey: ColumnMenuKeys.OBJECT,
+      },
+    ],
+
+    columnKey: columnnsKeys.shared.MULTIPLE,
+    disableCustomSort: true,
   },
 
   {
