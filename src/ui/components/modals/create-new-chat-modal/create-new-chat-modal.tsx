@@ -33,6 +33,10 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
 
   const viewModel = useMemo(() => new CreateNewChatModalModel({ chatToEdit, closeModal }), [])
   const isLoading = viewModel.requestStatus === loadingStatus.IS_LOADING
+  const isDisabled =
+    viewModel.disableCreateButton ||
+    (viewModel.isChatNameNotChanged && viewModel.isChatImageNotChanged && viewModel.isChatUsersNotChanged) ||
+    (!viewModel.chatName?.trim() && viewModel.selectedUsersId?.length > 1)
 
   return (
     <div className={styles.root}>
@@ -45,6 +49,7 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
           mode="multiple"
           maxTagCount="responsive"
           label="Users"
+          maxLength={32}
           placeholder="Choose your speaker"
           className={styles.userSelect}
           options={viewModel.currentData}
@@ -88,10 +93,7 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
         size="large"
         type="primary"
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        disabled={
-          viewModel.disableCreateButton ||
-          (viewModel.isChatNameNotChanged && viewModel.isChatImageNotChanged && viewModel.isChatUsersNotChanged)
-        }
+        disabled={isDisabled}
         wrapperClassName={styles.createButton}
         onClick={chatToEdit ? viewModel.onSubmitPatchInfoGroupChat : viewModel.onClickCreateChat}
       >

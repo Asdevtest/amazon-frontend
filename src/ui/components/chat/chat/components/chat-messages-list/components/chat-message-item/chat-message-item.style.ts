@@ -40,7 +40,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: '5px 0px',
 
     '&:hover': {
-      background: 'rgba(0,0,0, .1)',
+      backgroundColor: 'rgba(0,0,0, .1)',
       borderRadius: '20px',
     },
   },
