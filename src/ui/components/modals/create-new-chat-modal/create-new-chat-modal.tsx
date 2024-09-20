@@ -44,7 +44,7 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
 
       <div id="create-new-chat">
         <CustomSelect
-          required
+          required={!chatToEdit}
           virtual={false}
           mode="multiple"
           maxTagCount="responsive"
