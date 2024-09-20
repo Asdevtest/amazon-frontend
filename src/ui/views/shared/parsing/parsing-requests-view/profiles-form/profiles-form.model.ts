@@ -4,18 +4,27 @@ import { UIEvent } from 'react'
 
 import { ParserModel } from '@models/parser-model'
 
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
+import { IPermissionsData, UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { profilesFormConfig, searchFields } from './profiles-form.config'
 
 export class ProfilesFormModel extends UseProductsPermissions {
   value = ''
+  reservedProfile: IPermissionsData[] = []
+  unlinkedProfiles: IPermissionsData[] = []
 
-  get reservedProfile() {
-    return this.meta?.reservedProfile || null
-  }
   get profiles() {
-    return this.reservedProfile ? [this.reservedProfile, ...this.permissionsData] : this.permissionsData
+    const combinedProfiles = [...this.reservedProfile, ...this.unlinkedProfiles, ...this.permissionsData]
+
+    // additional filtering, as the backend does't filter data from metadata
+    const filteredProfiles = combinedProfiles.filter(profile => {
+      const hasEmail = profile?.email?.toLowerCase().includes(this.searchValue.toLowerCase())
+      const hasName = profile?.name?.toLowerCase().includes(this.searchValue.toLowerCase())
+
+      return hasEmail || hasName
+    })
+
+    return filteredProfiles
   }
 
   constructor(profileId?: string, requestId?: string) {
@@ -31,6 +40,8 @@ export class ProfilesFormModel extends UseProductsPermissions {
     this.permissionsData = []
     this.isCanLoadMore = true
     this.getPermissionsData()
+    this.reservedProfile = [this.meta?.reservedProfile].filter(Boolean)
+    this.unlinkedProfiles = this.meta?.unlinkedProfiles || []
 
     makeObservable(this, profilesFormConfig)
   }

@@ -9,6 +9,8 @@ import { IPermissionsData } from '@hooks/use-products-permissions'
 
 export const profilesFormConfig = {
   value: observable,
+  reservedProfile: observable,
+  unlinkedProfiles: observable,
   profiles: computed,
   onChange: action.bound,
   onScroll: action.bound,
