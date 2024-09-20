@@ -234,6 +234,14 @@ export const lightTheme = createTheme({
       },
     },
 
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#fff',
+        },
+      },
+    },
+
     MuiTableCell: {
       styleOverrides: {
         root: {
@@ -742,6 +750,16 @@ export const darkTheme = createTheme({
         root: {
           color: '#fff',
           padding: '5px',
+        },
+      },
+    },
+
+    MuiPaper: {
+      // remove after switch to antd
+      styleOverrides: {
+        root: {
+          backgroundColor: '#2B2B34',
+          color: '#fff',
         },
       },
     },
