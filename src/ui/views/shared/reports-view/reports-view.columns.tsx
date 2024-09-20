@@ -89,7 +89,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           firstIcon={<MdOutlineEdit size={16} />}
           secondDisabled={row.listingLaunches.length > 0}
           secondIcon={<MdOutlineDelete size={16} />}
-          secondDescription="Are you sure you want to remove the report?"
+          secondConfirmText="Are you sure you want to remove the report?"
           onClickFirst={() => onToggleReportModalEditMode(row._id)}
           onClickSecond={() => onClickRemoveReport(row._id)}
         />

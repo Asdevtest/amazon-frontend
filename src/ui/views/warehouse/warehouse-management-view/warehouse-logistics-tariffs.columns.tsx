@@ -122,14 +122,14 @@ export const logisticsTariffsColumns = ({
         firstIcon={<MdOutlineEdit size={16} />}
         secondIcon={isArchive() ? <MdArrowDropUp size={16} /> : <MdArrowDropDown size={16} />}
         secondDanger={isArchive()}
-        secondDescription={
+        secondConfirmText={
           isArchive()
             ? 'Are you sure you want to restore the tariff?'
             : 'Are you sure you want to move the tariff to the archive?'
         }
         showThird={isArchive()}
         thirdIcon={<MdOutlineDelete size={16} />}
-        thirdDescription="Are you sure you want to delete the tariff?"
+        thirdConfirmText="Are you sure you want to delete the tariff?"
         onClickFirst={() => onClickEditTariff(row)}
         onClickSecond={() => onTriggerArchive(row)}
         onClickThird={() => onRemoveLogisticTariff(row._id)}

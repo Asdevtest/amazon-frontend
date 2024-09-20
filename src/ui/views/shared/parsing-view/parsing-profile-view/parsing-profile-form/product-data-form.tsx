@@ -1,4 +1,4 @@
-import { Form, Popconfirm } from 'antd'
+import { Form } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useEffect, useMemo } from 'react'
 
@@ -137,16 +137,16 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
         </div>
 
         <div className={styles.buttons}>
-          <Popconfirm
-            title={t(TranslationKey['Are you sure you want to delete profile?'])}
-            okText={t(TranslationKey.Yes)}
-            cancelText={t(TranslationKey.No)}
-            onConfirm={() => handleSendForm(form.getFieldsValue(), true)}
+          <CustomButton
+            danger
+            type="primary"
+            size="large"
+            disabled={!!viewModel.profile?.shop}
+            confirmText="Are you sure you want to delete profile?"
+            onClick={() => handleSendForm(form.getFieldsValue(), true)}
           >
-            <CustomButton danger type="primary" size="large" disabled={!!viewModel.profile?.shop}>
-              {t(TranslationKey.Delete)}
-            </CustomButton>
-          </Popconfirm>
+            {t(TranslationKey.Delete)}
+          </CustomButton>
 
           <Form.Item shouldUpdate className={styles.field}>
             <CustomButton loading={viewModel.loading} size="large" type="primary" htmlType="submit">
