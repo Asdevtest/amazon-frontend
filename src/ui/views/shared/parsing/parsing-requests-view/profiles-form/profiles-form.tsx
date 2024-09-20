@@ -19,10 +19,11 @@ interface ProfilesFormProps {
   onSubmit: (requestId: string, profileId: string) => void
   requestId?: string
   profileId?: string
+  shopId?: string
 }
 
 export const ProfilesForm: FC<ProfilesFormProps> = observer(props => {
-  const { onClose, onSubmit, requestId, profileId } = props
+  const { onClose, onSubmit, requestId, profileId, shopId } = props
 
   const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new ProfilesFormModel(profileId, requestId), [])

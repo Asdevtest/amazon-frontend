@@ -2061,5 +2061,7 @@
   "Month value": "Значение месяца",
   "Rename": "Переименовать",
   "Unlinked": "Не связан",
-  "Unlink": "Отвязать"
+  "Unlink": "Отвязать",
+  "This profile was used": "Данный профиль использовался",
+  "This profile has already been used! Do you want to continue?": "Данный профиль уже использовался! Вы хотите продолжить?"
 }

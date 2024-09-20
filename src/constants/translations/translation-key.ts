@@ -2062,4 +2062,6 @@ export enum TranslationKey {
   'Rename' = 'Rename',
   'Unlinked' = 'Unlinked',
   'Unlink' = 'Unlink',
+  'This profile was used' = 'This profile was used',
+  'This profile has already been used! Do you want to continue?' = 'This profile has already been used! Do you want to continue?',
 }

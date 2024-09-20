@@ -2054,5 +2054,7 @@
   "Month value": "月份值",
   "Rename": "重命名",
   "Unlinked": "未关联",
-  "Unlink": "解绑"
+  "Unlink": "解绑",
+  "This profile was used": "该配置文件已被使用",
+  "This profile has already been used! Do you want to continue?": "该配置文件已被使用!您确定要继续吗?"
 }
