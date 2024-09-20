@@ -332,6 +332,7 @@ export enum TranslationKey {
   'Dashboard by goods/days' = 'Dashboard by goods/days',
   'Add shop' = 'Add shop',
   'Edit shop' = 'Edit shop',
+  'Edit file' = 'Edit file',
   'Store name' = 'Store name',
   'Move to inventory' = 'Move to inventory',
   'Inventory integration' = 'Inventory integration',
