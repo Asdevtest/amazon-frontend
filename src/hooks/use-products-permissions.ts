@@ -51,15 +51,18 @@ export class UseProductsPermissions {
   meta?: any
   isCanLoadMore = true
   requestStatus = loadingStatus.SUCCESS
+  searchValue = ''
 
   constructor(callback: ICallback, options?: IOptions, searchFields?: string[]) {
     makeObservable(this, {
       callback: observable,
       options: observable,
+      searchFields: observable,
       permissionsData: observable,
+      meta: observable,
       isCanLoadMore: observable,
       requestStatus: observable,
-      searchFields: observable,
+      searchValue: observable,
 
       currentPermissionsData: computed,
       currentRequestStatus: computed,
@@ -134,6 +137,8 @@ export class UseProductsPermissions {
   }
 
   async onClickSubmitSearch(searchValue: string) {
+    this.searchValue = searchValue
+
     if (!this.callback || this.requestStatus !== loadingStatus.SUCCESS) {
       return
     }
@@ -163,12 +168,12 @@ export class UseProductsPermissions {
 
   resetOptions() {
     this.isCanLoadMore = true
-
     this.options = {
       ...this.options,
       offset: 0,
       limit: 15,
     }
+    this.searchValue = ''
   }
 
   setOptions(options?: IOptions) {
