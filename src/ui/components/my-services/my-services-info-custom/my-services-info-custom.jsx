@@ -1,4 +1,4 @@
-import { Avatar, Divider, Paper, Rating, Typography } from '@mui/material'
+import { Avatar, Divider, Rating, Typography } from '@mui/material'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
@@ -26,7 +26,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
   const disableProposeDealButton = request?.request?.status === RequestStatus.EXPIRED
 
   return (
-    <Paper className={styles.root}>
+    <div className={styles.root}>
       <div className={styles.mainBlockWrapper}>
         <div className={styles.buttonAndTitleWrapper}>
           <div className={styles.titleAndCounterkWrapper}>
@@ -147,6 +147,6 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
           </div>
         </div>
       </div>
-    </Paper>
+    </div>
   )
 }

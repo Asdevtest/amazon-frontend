@@ -1,7 +1,7 @@
 import { memo, useState } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import { Checkbox, Divider, Paper, Tooltip, Typography } from '@mui/material'
+import { Checkbox, Divider, Tooltip, Typography } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -133,7 +133,7 @@ const Box = memo(props => {
       </div>
 
       {(!showFullCard && isEdit) || (!showFullCard && taskType === TaskOperationType.MERGE) ? (
-        <Paper
+        <div
           className={cx(styles.boxWrapper, {
             [styles.boxWrapperWithShadow]: SettingsModel.uiTheme === UiTheme.light,
           })}
@@ -150,9 +150,9 @@ const Box = memo(props => {
               />
             </div>
           ))}
-        </Paper>
+        </div>
       ) : (
-        <Paper
+        <div
           className={cx(styles.boxWrapper, {
             [styles.boxWrapperWithShadow]: SettingsModel.uiTheme === UiTheme.light,
           })}
@@ -260,7 +260,7 @@ const Box = memo(props => {
               </div>
             </div>
           </div>
-        </Paper>
+        </div>
       )}
 
       {isNewBox && (

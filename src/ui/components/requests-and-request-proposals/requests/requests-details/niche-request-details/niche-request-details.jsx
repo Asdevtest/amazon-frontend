@@ -1,4 +1,4 @@
-import { Paper, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { toFixedWithDollarSign } from '@utils/text'
 
@@ -8,7 +8,7 @@ export const NicheSearchRequestDetails = ({ request }) => {
   const { classes: styles, cx } = useStyles()
 
   return (
-    <Paper>
+    <div>
       <div className={styles.root}>
         <Typography variant="h3">{'nicheTitle'}</Typography>
 
@@ -161,6 +161,6 @@ export const NicheSearchRequestDetails = ({ request }) => {
           </div>
         </div>
       </div>
-    </Paper>
+    </div>
   )
 }

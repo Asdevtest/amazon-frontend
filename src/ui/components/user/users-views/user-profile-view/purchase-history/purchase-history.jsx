@@ -1,4 +1,4 @@
-import { Paper, Tab, Tabs, Typography } from '@mui/material'
+import { Tab, Tabs, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +13,7 @@ export const PurchaseHistory = ({ user, tabHistory, setTabHistory }) => {
       <Typography variant="h6" className={styles.mainTitle}>
         {t(TranslationKey['The history of your purchases from']) + ((user && user.username) || '')}
       </Typography>
-      <Paper>
+      <div>
         <Tabs
           value={tabHistory}
           aria-label="label tabs"
@@ -53,7 +53,7 @@ export const PurchaseHistory = ({ user, tabHistory, setTabHistory }) => {
             </Typography>
           </div>
         </div>
-      </Paper>
+      </div>
     </>
   )
 }
