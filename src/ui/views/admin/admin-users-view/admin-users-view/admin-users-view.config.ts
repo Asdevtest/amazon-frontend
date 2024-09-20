@@ -20,6 +20,7 @@ const filterableRoles = [
   UserRole.STOREKEEPER,
   UserRole.BUYER,
   UserRole.FREELANCER,
+  UserRole.SUPERVISOR,
 ]
 
 const getSwitcherConfig = (userRoles: string[]) => {
