@@ -15,7 +15,6 @@ import { Field } from '@components/shared/field/field'
 import { UploadIcon } from '@components/shared/svg-icons'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { useStyles } from './tab-payment-methods.style'
@@ -114,7 +113,7 @@ export const TabPaymentMethods = observer(() => {
             type="primary"
             size="large"
             disabled={!isDisableButton}
-            onClick={throttle(viewModel.onSubmitPaymentMethod)}
+            onClick={viewModel.onSubmitPaymentMethod}
           >
             {t(TranslationKey.Save)}
           </CustomButton>

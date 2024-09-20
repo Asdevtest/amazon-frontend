@@ -10,7 +10,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -80,7 +79,7 @@ export const TabFreelance = observer(props => {
             onChange={e => onChangeField(fieldNameObject.requestTimeLimitInHourForCheckingProposalBySuper, e)}
           />
 
-          <CustomButton type="primary" size="large" disabled={disabledSubmit} onClick={throttle(onSubmit)}>
+          <CustomButton type="primary" size="large" disabled={disabledSubmit} onClick={onSubmit}>
             {t(TranslationKey.Save)}
           </CustomButton>
         </div>

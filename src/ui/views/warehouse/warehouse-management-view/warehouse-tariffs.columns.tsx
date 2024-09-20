@@ -52,7 +52,7 @@ export const warehouseTariffsColumns = ({ onClickEditTariff, onRemoveWarehouseTa
         secondGhost
         firstIcon={<MdOutlineEdit size={16} />}
         secondIcon={<MdOutlineDelete size={16} />}
-        secondDescription="Are you sure you want to delete the tariff?"
+        secondConfirmText="Are you sure you want to delete the tariff?"
         onClickFirst={() => onClickEditTariff(row)}
         onClickSecond={() => onRemoveWarehouseTariff(row._id)}
       />
