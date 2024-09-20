@@ -48,6 +48,8 @@ export class ProfilesFormModel extends UseProductsPermissions {
   }
 
   onChange = (e: RadioChangeEvent) => {
+    console.log(e.target)
+
     this.value = e.target.value
   }
 

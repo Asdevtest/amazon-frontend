@@ -36,7 +36,7 @@ export const ProfilesForm: FC<ProfilesFormProps> = observer(props => {
     }
   }
 
-  const isAlreadyProfile = shopId === viewModel.value
+  const isAlreadyProfile = shopId === viewModel.profiles.find(profile => profile._id === viewModel.value)?.shopId // fix
 
   return (
     <div className={styles.root}>

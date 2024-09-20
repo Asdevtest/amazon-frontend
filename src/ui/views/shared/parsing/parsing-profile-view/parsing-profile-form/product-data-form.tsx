@@ -75,6 +75,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
             shop={viewModel.profile?.shop}
             client={viewModel.profile?.client}
             isActive={viewModel.profile?.isActive}
+            access={viewModel.profile?.access}
             onResetParsingData={viewModel.onResetParsingData}
             onToggleParsingData={viewModel.onToggleParsingData}
           />
