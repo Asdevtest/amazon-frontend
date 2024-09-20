@@ -1145,11 +1145,32 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         updateBoxWhiteList,
       )
 
-      const editBoxesResult = await this.editBox(id, requestBox)
+      if (sourceData.shippingLabel === null) {
+        await BoxesModel.editBoxAtClient(id, {
+          destinationId: boxData.destinationId,
+          logicsTariffId: boxData.logicsTariffId,
+          fbaShipment: boxData.fbaShipment,
+          fbaNumber: boxData.fbaNumber,
+          clientComment: boxData.clientComment,
+          referenceId: boxData.referenceId,
+          trackNumberText: boxData.trackNumberText,
+          trackNumberFile: boxData.trackNumberFile,
+          upsTrackNumber: boxData.upsTrackNumber,
+          shippingLabel: boxData.shippingLabel
+            ? boxData.shippingLabel
+            : boxData.tmpShippingLabel?.[0]
+            ? boxData.tmpShippingLabel?.[0]
+            : boxData.shippingLabel === null
+            ? null
+            : '',
+          isShippingLabelAttachedByStorekeeper:
+            sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
+          prepId: boxData.prepId,
+          variationTariffId: boxData.variationTariffId,
+        })
+      } else {
+        const editBoxesResult = await this.editBox(id, requestBox)
 
-      await this.updateBarCodesInInventory(dataToBarCodeChange)
-
-      if (sourceData.shippingLabel !== null) {
         await this.postTask({
           // @ts-ignore
           idsData: [editBoxesResult.guid],
@@ -1162,6 +1183,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           reason: priorityReason,
         })
       }
+
+      await this.updateBarCodesInInventory(dataToBarCodeChange)
 
       runInAction(() => {
         toast.success(
