@@ -2062,4 +2062,6 @@ export enum TranslationKey {
   'Rename' = 'Rename',
   'Unlinked' = 'Unlinked',
   'Unlink' = 'Unlink',
+  'By proposal' = 'By proposal',
+  'By announcement' = 'By announcement',
 }

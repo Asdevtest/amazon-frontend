@@ -2054,5 +2054,7 @@
   "Month value": "月份值",
   "Rename": "重命名",
   "Unlinked": "未关联",
-  "Unlink": "解绑"
+  "Unlink": "解绑",
+  "By proposal": "通过提案",
+  "By announcement": "通过公告"
 }
