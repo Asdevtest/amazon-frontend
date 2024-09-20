@@ -20,10 +20,11 @@ interface ParsingDataBlockProps {
   shop?: ICreatedBy | null
   client?: ICreatedBy | null
   isActive?: boolean
+  access?: boolean
 }
 
 export const ParsingDataBlock: FC<ParsingDataBlockProps> = memo(props => {
-  const { onResetParsingData, onToggleParsingData, shop, client, isActive } = props
+  const { onResetParsingData, onToggleParsingData, shop, client, isActive, access } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -53,7 +54,7 @@ export const ParsingDataBlock: FC<ParsingDataBlockProps> = memo(props => {
         <CustomButton size="small" onClick={onResetParsingData}>
           {t(TranslationKey.Unlink)}
         </CustomButton>
-        <CustomButton danger={isActive} size="small" type="primary" onClick={onToggleParsingData}>
+        <CustomButton disabled={!access} danger={isActive} size="small" type="primary" onClick={onToggleParsingData}>
           {t(TranslationKey[isActive ? 'Stop' : 'Start'])}
         </CustomButton>
       </div>
