@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } from './api-v1-integrations-sellerboard-warehouse-products-link-sku-warehouse-stocks';
+import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
 
 /**
  * 
@@ -22,17 +22,17 @@ import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } f
  */
 export interface InlineObject83 {
     /**
-     * 
-     * @type {string}
+     * Массив коробок.
+     * @type {Array<string>}
      * @memberof InlineObject83
      */
-    productId: string;
+    guids: Array<string>;
     /**
      * 
-     * @type {Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>}
+     * @type {ApiV1BoxesMergeBoxBody}
      * @memberof InlineObject83
      */
-    warehouseStocks: Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>;
+    boxBody: ApiV1BoxesMergeBoxBody;
 }
 
 

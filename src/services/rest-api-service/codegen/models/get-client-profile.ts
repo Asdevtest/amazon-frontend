@@ -107,6 +107,12 @@ export interface GetClientProfile {
      */
     otp?: string;
     /**
+     * Comment for profile
+     * @type {string}
+     * @memberof GetClientProfile
+     */
+    comment?: string;
+    /**
      * Дата создания
      * @type {string}
      * @memberof GetClientProfile

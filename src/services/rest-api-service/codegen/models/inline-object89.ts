@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes';
 
 /**
  * 
@@ -21,11 +22,11 @@
  */
 export interface InlineObject89 {
     /**
-     * uri полный путь до файла, для скачивания
-     * @type {string}
+     * 
+     * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
      * @memberof InlineObject89
      */
-    fileUrl: string;
+    itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
 }
 
 

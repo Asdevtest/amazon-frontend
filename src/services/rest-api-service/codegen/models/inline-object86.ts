@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1IntegrationsCreateAndLinkSkuProductsPayload } from './api-v1-integrations-create-and-link-sku-products-payload';
 
 /**
  * 
@@ -22,11 +21,11 @@ import { ApiV1IntegrationsCreateAndLinkSkuProductsPayload } from './api-v1-integ
  */
 export interface InlineObject86 {
     /**
-     * 
-     * @type {Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>}
+     * GUID коробки разделение которой отменяем.
+     * @type {string}
      * @memberof InlineObject86
      */
-    payload?: Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>;
+    guid?: string;
 }
 
 

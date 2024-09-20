@@ -2052,5 +2052,7 @@
   "Error deleting parsing profile": "删除解析配置文件时出错",
   "Are you sure you want to delete profile?": "您确定要删除个人资料吗?",
   "Month value": "月份值",
-  "Rename": "重命名"
+  "Rename": "重命名",
+  "Unlinked": "未关联",
+  "Unlink": "解绑"
 }

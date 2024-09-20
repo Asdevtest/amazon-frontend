@@ -21,11 +21,17 @@
  */
 export interface InlineObject55 {
     /**
-     * массив GUIDов оплаченных товаров
-     * @type {Array<string>}
+     * Тег
+     * @type {string}
      * @memberof InlineObject55
      */
-    guids?: Array<string>;
+    title: string;
+    /**
+     * Color
+     * @type {string}
+     * @memberof InlineObject55
+     */
+    color?: string;
 }
 
 

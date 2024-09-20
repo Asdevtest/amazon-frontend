@@ -68,6 +68,12 @@ export interface InlineObject160 {
      * @memberof InlineObject160
      */
     otp: string;
+    /**
+     * Comment for profile
+     * @type {string}
+     * @memberof InlineObject160
+     */
+    comment?: string;
 }
 
 

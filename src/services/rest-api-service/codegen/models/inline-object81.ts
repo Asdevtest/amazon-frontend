@@ -21,132 +21,53 @@
  */
 export interface InlineObject81 {
     /**
-     * Кол-во продукта по этой позиции.
-     * @type {number}
-     * @memberof InlineObject81
-     */
-    amount?: number;
-    /**
-     * Гуид сапплаера
+     * Штрихкод продукта
      * @type {string}
      * @memberof InlineObject81
      */
-    orderSupplierId?: string;
+    barCode?: string;
     /**
-     * Склад для изменения
-     * @type {string}
-     * @memberof InlineObject81
-     */
-    storekeeperId?: string;
-    /**
-     * Пункт назначения
-     * @type {string}
-     * @memberof InlineObject81
-     */
-    destinationId?: string;
-    /**
-     * Тариф для изменения
+     *  logicsTariff GUID
      * @type {string}
      * @memberof InlineObject81
      */
     logicsTariffId?: string;
     /**
-     * Тариф для вариации
+     * GUID сотрудника склада
      * @type {string}
      * @memberof InlineObject81
      */
-    variationTariffId?: string;
+    storekeeperId?: string;
     /**
-     * Массив картинок.
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    shippingLabel?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    fbaNumber?: string;
+    /**
+     * Гуид модели destination
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    destinationId?: string;
+    /**
+     * 
      * @type {Array<string>}
      * @memberof InlineObject81
      */
-    images?: Array<string>;
-    /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
-     * @type {number}
-     * @memberof InlineObject81
-     */
-    totalPrice?: number;
-    /**
-     * Защита листинга
-     * @type {string}
-     * @memberof InlineObject81
-     */
-    transparencyFile?: string;
-    /**
-     * Комментарий баера
-     * @type {string}
-     * @memberof InlineObject81
-     */
-    buyerComment?: string;
-    /**
-     * Не настоящий ключ, используется только для нужд юзера
-     * @type {string}
-     * @memberof InlineObject81
-     */
-    item?: string;
-    /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
-     * @memberof InlineObject81
-     */
-    needsResearch?: boolean;
-    /**
-     * Дедлайн выкупа заказа
-     * @type {string}
-     * @memberof InlineObject81
-     */
-    deadline?: string;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineObject81
-     */
-    priority?: InlineObject81PriorityEnum;
-    /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
-     * @type {boolean}
-     * @memberof InlineObject81
-     */
-    expressChinaDelivery?: boolean;
-    /**
-     * Стоимость доставки до склада.
-     * @type {number}
-     * @memberof InlineObject81
-     */
-    deliveryCostToTheWarehouse?: number;
-    /**
-     * Комментарий клтента в заказе
-     * @type {string}
-     * @memberof InlineObject81
-     */
-    clientComment?: string;
-    /**
-     * Цена в юанях
-     * @type {number}
-     * @memberof InlineObject81
-     */
-    priceInYuan?: number;
-    /**
-     * Цена доставки партии в юанях
-     * @type {number}
-     * @memberof InlineObject81
-     */
-    priceBatchDeliveryInYuan?: number;
+    boxesIds: Array<string>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject81PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

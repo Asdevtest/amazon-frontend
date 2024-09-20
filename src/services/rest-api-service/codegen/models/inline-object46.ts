@@ -15,17 +15,17 @@
 
 
 /**
- * Схема комментарии байера.
+ * 
  * @export
  * @interface InlineObject46
  */
 export interface InlineObject46 {
     /**
-     * Комментарии байера.
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject46
      */
-    buyerComment: string;
+    productIds: Array<string>;
 }
 
 

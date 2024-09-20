@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -35,5 +35,21 @@ export const useStyles = makeStyles()(() => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     gap: '20px',
+  },
+
+  flexRow: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: '20px',
+  },
+
+  unlinked: {
+    padding: '2px 5px',
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.text.gray,
+    border: `1px solid ${theme.palette.text.gray}`,
+    borderRadius: '6px',
   },
 }))

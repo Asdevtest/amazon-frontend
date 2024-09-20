@@ -2059,5 +2059,7 @@
   "Error deleting parsing profile": "Ошибка при удалении профиля парсинга",
   "Are you sure you want to delete profile?": "Вы уверены, что хотите удалить профиль?",
   "Month value": "Значение месяца",
-  "Rename": "Переименовать"
+  "Rename": "Переименовать",
+  "Unlinked": "Не связан",
+  "Unlink": "Отвязать"
 }

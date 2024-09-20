@@ -2060,4 +2060,6 @@ export enum TranslationKey {
   'Are you sure you want to delete profile?' = 'Are you sure you want to delete profile?',
   'Month value' = 'Month value',
   'Rename' = 'Rename',
+  'Unlinked' = 'Unlinked',
+  'Unlink' = 'Unlink',
 }

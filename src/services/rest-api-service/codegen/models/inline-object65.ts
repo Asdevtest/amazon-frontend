@@ -13,31 +13,26 @@
  */
 
 
+import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } from './api-v1-integrations-sellerboard-warehouse-products-link-sku-warehouse-stocks';
 
 /**
- * Схема подтверждения возрата коробок на склад
+ * 
  * @export
  * @interface InlineObject65
  */
 export interface InlineObject65 {
     /**
-     * GUID коробки, который планируем изменить
+     * 
      * @type {string}
      * @memberof InlineObject65
      */
-    boxId: string;
+    productId: string;
     /**
-     * GUID тарифа, на которую планируем изменить
-     * @type {string}
+     * 
+     * @type {Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>}
      * @memberof InlineObject65
      */
-    logicsTariffId: string;
-    /**
-     * GUID дестинейшена.
-     * @type {string}
-     * @memberof InlineObject65
-     */
-    destinationId?: string;
+    warehouseStocks: Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>;
 }
 
 

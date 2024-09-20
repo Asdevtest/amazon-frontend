@@ -13,7 +13,8 @@
  */
 
 
-import { InlineObject27 } from './inline-object27';
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
+import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
 
 /**
  * 
@@ -22,17 +23,263 @@ import { InlineObject27 } from './inline-object27';
  */
 export interface InlineObject36 {
     /**
-     * GUID для которой подтверждаем действие.
+     * ASIN продукта
      * @type {string}
      * @memberof InlineObject36
      */
-    guid?: string;
+    asin?: string;
     /**
-     * Массив дополнительных коробок которые случились при обработки.
-     * @type {Array<InlineObject27>}
+     * SKU введенным клиентом.
+     * @type {string}
      * @memberof InlineObject36
      */
-    additionalBoxes?: Array<InlineObject27>;
+    skuByClient?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject36
+     */
+    latestSeoFiles?: Array<string>;
+    /**
+     * Категория
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    category?: string;
+    /**
+     * Ссылка на этот продукт на амазоне.
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    lamazon?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    bsr?: number;
+    /**
+     * Признак fba
+     * @type {boolean}
+     * @memberof InlineObject36
+     */
+    fba?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    amazon?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    height?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    width?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    length?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    weight?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    fbafee?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    fbaamount?: number;
+    /**
+     * Комментарии к товару.
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    icomment?: string;
+    /**
+     * Комментарии к товару, от клиента.
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    clientComment?: string;
+    /**
+     * Массив изображений.
+     * @type {Array<string>}
+     * @memberof InlineObject36
+     */
+    images?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    amazonDescription?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    amazonDetail?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    amazonTitle?: string;
+    /**
+     * Материл продукта
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    material?: string;
+    /**
+     * Применение продукта
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    productUsage?: string;
+    /**
+     * chinese title?
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    chinaTitle?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    minpurchase?: number;
+    /**
+     * Прибыль
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    margin?: number;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    strategyStatus?: number;
+    /**
+     * Признак needCheckBySupervisor
+     * @type {boolean}
+     * @memberof InlineObject36
+     */
+    needCheckBySupervisor?: boolean;
+    /**
+     * Флаг указывает что продукт в архиве.
+     * @type {boolean}
+     * @memberof InlineObject36
+     */
+    archive?: boolean;
+    /**
+     * hsCode продукта.
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    hsCode?: string;
+    /**
+     * Ниша
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    niche?: string;
+    /**
+     * Асины
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    asins?: string;
+    /**
+     * Общий доход
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    totalRevenue?: string;
+    /**
+     * Коэффициент прибыли
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    coefficient?: string;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    avgReviews?: string;
+    /**
+     * Поле для калькуляции дозакупок
+     * @type {number}
+     * @memberof InlineObject36
+     */
+    fourMonthesStock?: number;
+    /**
+     * ID магазинa продукта
+     * @type {string}
+     * @memberof InlineObject36
+     */
+    shopId?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsGuidRedFlags>}
+     * @memberof InlineObject36
+     */
+    redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @memberof InlineObject36
+     */
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
 }
 
 

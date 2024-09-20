@@ -45,7 +45,7 @@ import { InlineObject99 } from '../models';
 // @ts-ignore
 import { InlineResponse200 } from '../models';
 // @ts-ignore
-import { InlineResponse20041 } from '../models';
+import { InlineResponse20031 } from '../models';
 // @ts-ignore
 import { InlineResponse20085 } from '../models';
 // @ts-ignore
@@ -868,7 +868,7 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20041>>> {
+        async apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20031>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsByCreatorGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1090,7 +1090,7 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20041>> {
+        apiV1ProductsByCreatorGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20031>> {
             return localVarFp.apiV1ProductsByCreatorGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
