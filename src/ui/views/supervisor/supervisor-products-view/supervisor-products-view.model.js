@@ -86,6 +86,7 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
 
   onClickStatusFilterButton(value) {
     this.switcherFilterStatuses = value
+    this.onChangeFullFieldMenuItem([], 'status')
 
     this.getCurrentData()
   }
