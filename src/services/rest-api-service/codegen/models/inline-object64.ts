@@ -21,11 +21,17 @@
  */
 export interface InlineObject64 {
     /**
-     * Причина отклонения
+     * 
      * @type {string}
      * @memberof InlineObject64
      */
-    reasonReject: string;
+    clientComment: string;
+    /**
+     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @type {number}
+     * @memberof InlineObject64
+     */
+    priceForClient: number;
 }
 
 

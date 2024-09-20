@@ -13,7 +13,6 @@
  */
 
 
-import { InlineObject78 } from './inline-object78';
 
 /**
  * 
@@ -22,17 +21,132 @@ import { InlineObject78 } from './inline-object78';
  */
 export interface InlineObject87 {
     /**
-     * GUID для которой подтверждаем действие.
+     * Кол-во продукта по этой позиции.
+     * @type {number}
+     * @memberof InlineObject87
+     */
+    amount?: number;
+    /**
+     * Гуид сапплаера
      * @type {string}
      * @memberof InlineObject87
      */
-    guid?: string;
+    orderSupplierId?: string;
     /**
-     * Массив дополнительных коробок которые случились при обработки.
-     * @type {Array<InlineObject78>}
+     * Склад для изменения
+     * @type {string}
      * @memberof InlineObject87
      */
-    additionalBoxes?: Array<InlineObject78>;
+    storekeeperId?: string;
+    /**
+     * Пункт назначения
+     * @type {string}
+     * @memberof InlineObject87
+     */
+    destinationId?: string;
+    /**
+     * Тариф для изменения
+     * @type {string}
+     * @memberof InlineObject87
+     */
+    logicsTariffId?: string;
+    /**
+     * Тариф для вариации
+     * @type {string}
+     * @memberof InlineObject87
+     */
+    variationTariffId?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineObject87
+     */
+    images?: Array<string>;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * @type {number}
+     * @memberof InlineObject87
+     */
+    totalPrice?: number;
+    /**
+     * Защита листинга
+     * @type {string}
+     * @memberof InlineObject87
+     */
+    transparencyFile?: string;
+    /**
+     * Комментарий баера
+     * @type {string}
+     * @memberof InlineObject87
+     */
+    buyerComment?: string;
+    /**
+     * Не настоящий ключ, используется только для нужд юзера
+     * @type {string}
+     * @memberof InlineObject87
+     */
+    item?: string;
+    /**
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineObject87
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
+     * @type {string}
+     * @memberof InlineObject87
+     */
+    deadline?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject87
+     */
+    priority?: InlineObject87PriorityEnum;
+    /**
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * @type {boolean}
+     * @memberof InlineObject87
+     */
+    expressChinaDelivery?: boolean;
+    /**
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineObject87
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Комментарий клтента в заказе
+     * @type {string}
+     * @memberof InlineObject87
+     */
+    clientComment?: string;
+    /**
+     * Цена в юанях
+     * @type {number}
+     * @memberof InlineObject87
+     */
+    priceInYuan?: number;
+    /**
+     * Цена доставки партии в юанях
+     * @type {number}
+     * @memberof InlineObject87
+     */
+    priceBatchDeliveryInYuan?: number;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject87PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

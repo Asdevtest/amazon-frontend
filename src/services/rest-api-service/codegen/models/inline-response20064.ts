@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20064Rows } from './inline-response20064-rows';
 
 /**
  * 
@@ -22,17 +21,11 @@ import { InlineResponse20064Rows } from './inline-response20064-rows';
  */
 export interface InlineResponse20064 {
     /**
-     * Кол-во записей
-     * @type {number}
+     * id созданного профайла
+     * @type {string}
      * @memberof InlineResponse20064
      */
-    count?: number;
-    /**
-     * Массив оплат.
-     * @type {Array<InlineResponse20064Rows>}
-     * @memberof InlineResponse20064
-     */
-    rows?: Array<InlineResponse20064Rows>;
+    profileId?: string;
 }
 
 

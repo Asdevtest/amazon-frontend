@@ -13,7 +13,9 @@
  */
 
 
-import { InlineResponse20060Rows } from './inline-response20060-rows';
+import { InlineResponse20056Finances } from './inline-response20056-finances';
+import { InlineResponse20060Checking } from './inline-response20060-checking';
+import { InlineResponse20060Products } from './inline-response20060-products';
 
 /**
  * 
@@ -22,17 +24,23 @@ import { InlineResponse20060Rows } from './inline-response20060-rows';
  */
 export interface InlineResponse20060 {
     /**
-     * Кол-во записей
-     * @type {number}
+     * 
+     * @type {InlineResponse20060Products}
      * @memberof InlineResponse20060
      */
-    count?: number;
+    products?: InlineResponse20060Products;
     /**
      * 
-     * @type {Array<InlineResponse20060Rows>}
+     * @type {InlineResponse20060Checking}
      * @memberof InlineResponse20060
      */
-    rows?: Array<InlineResponse20060Rows>;
+    checking?: InlineResponse20060Checking;
+    /**
+     * 
+     * @type {InlineResponse20056Finances}
+     * @memberof InlineResponse20060
+     */
+    finances?: InlineResponse20056Finances;
 }
 
 

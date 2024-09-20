@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
  * 
@@ -21,17 +22,23 @@
  */
 export interface InlineObject77 {
     /**
-     * GUID юзера
+     * Название профиля
      * @type {string}
      * @memberof InlineObject77
      */
-    userId: string;
+    name: string;
     /**
-     * 
-     * @type {Array<string>}
+     * Название ОС
+     * @type {string}
      * @memberof InlineObject77
      */
-    shopIds: Array<string>;
+    os?: string;
+    /**
+     * 
+     * @type {ApiV1GologinProfileNavigator}
+     * @memberof InlineObject77
+     */
+    navigator?: ApiV1GologinProfileNavigator;
 }
 
 

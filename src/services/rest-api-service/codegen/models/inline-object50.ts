@@ -15,29 +15,17 @@
 
 
 /**
- * Схема создания/апдейта рекомендаций
+ * 
  * @export
  * @interface InlineObject50
  */
 export interface InlineObject50 {
     /**
-     * GUID продукта.
-     * @type {string}
-     * @memberof InlineObject50
-     */
-    productId: string;
-    /**
-     * GUID сторкипера.
-     * @type {string}
-     * @memberof InlineObject50
-     */
-    storekeeperId: string;
-    /**
-     * Рекомендуемое значение
+     * Сумма воврата
      * @type {number}
      * @memberof InlineObject50
      */
-    recommendedValue: number;
+    refundPrice?: number;
 }
 
 

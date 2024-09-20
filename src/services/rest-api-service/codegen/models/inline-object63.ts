@@ -21,11 +21,11 @@
  */
 export interface InlineObject63 {
     /**
-     * GUID поставщика, который нужно удалить в БД.
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject63
      */
-    suppliersId?: string;
+    productIds: Array<string>;
 }
 
 

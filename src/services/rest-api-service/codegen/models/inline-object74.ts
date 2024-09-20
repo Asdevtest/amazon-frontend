@@ -21,35 +21,11 @@
  */
 export interface InlineObject74 {
     /**
-     * ASIN продукта
-     * @type {string}
+     * GUIDы поставщиков, которые нужно добавить в БД.
+     * @type {Array<string>}
      * @memberof InlineObject74
      */
-    asin?: string;
-    /**
-     * Причина
-     * @type {string}
-     * @memberof InlineObject74
-     */
-    reason?: string;
-    /**
-     * Стратегия
-     * @type {string}
-     * @memberof InlineObject74
-     */
-    strategy?: InlineObject74StrategyEnum;
+    suppliersIds?: Array<string>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject74StrategyEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40'
-}
-
 
 

@@ -21,11 +21,101 @@
  */
 export interface InlineObject73 {
     /**
-     * uri полный путь до файла, для скачивания
+     * Название идеи
      * @type {string}
      * @memberof InlineObject73
      */
-    fileUrl: string;
+    title?: string;
+    /**
+     * Image URL
+     * @type {Array<string>}
+     * @memberof InlineObject73
+     */
+    media?: Array<string>;
+    /**
+     * Комментарий к идее
+     * @type {string}
+     * @memberof InlineObject73
+     */
+    comments?: string;
+    /**
+     * Комментарий байера
+     * @type {string}
+     * @memberof InlineObject73
+     */
+    buyerComment?: string;
+    /**
+     * Назавние продукта
+     * @type {string}
+     * @memberof InlineObject73
+     */
+    productName: string;
+    /**
+     * Ссылки на продукт, если есть
+     * @type {Array<string>}
+     * @memberof InlineObject73
+     */
+    productLinks?: Array<string>;
+    /**
+     * Дополнительные критерии для поиска товара
+     * @type {string}
+     * @memberof InlineObject73
+     */
+    criteria?: string;
+    /**
+     * Количество товаров
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    quantity?: number;
+    /**
+     * Желаемая цена
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    price: number;
+    /**
+     * FBA Fee
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    fbaFee?: number;
+    /**
+     * Ориентационная цена
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    approximatePrice?: number;
+    /**
+     * Ширина, см
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    width?: number;
+    /**
+     * Высота, см
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    height?: number;
+    /**
+     * Длина, см
+     * @type {number}
+     * @memberof InlineObject73
+     */
+    length?: number;
+    /**
+     * Product ID
+     * @type {string}
+     * @memberof InlineObject73
+     */
+    productId?: string;
+    /**
+     * Гуид родительского продукта
+     * @type {string}
+     * @memberof InlineObject73
+     */
+    parentProductId?: string;
 }
 
 
