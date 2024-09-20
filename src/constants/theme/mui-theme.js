@@ -755,6 +755,7 @@ export const darkTheme = createTheme({
     },
 
     MuiPaper: {
+      // remove after switch to antd
       styleOverrides: {
         root: {
           backgroundColor: '#2B2B34',

@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { Paper, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { getFreelancerDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -35,7 +35,7 @@ export const FreelancerDashboardViewRaw = props => {
   return (
     <>
       <div>
-        <Paper className={styles.userInfoWrapper}>
+        <div className={styles.userInfoWrapper}>
           <div className={styles.userInfoLeftWrapper}>
             <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
@@ -55,7 +55,7 @@ export const FreelancerDashboardViewRaw = props => {
               />
             </div>
           )}
-        </Paper>
+        </div>
         {getFreelancerDashboardCardConfig().map(item => (
           <DashboardOneLineCardsList
             key={item.key}

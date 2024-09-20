@@ -1,4 +1,4 @@
-import { Divider, InputBase, Paper, Typography } from '@mui/material'
+import { Divider, InputBase, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -23,7 +23,7 @@ export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
   )
 
   return (
-    <Paper className={styles.root}>
+    <div className={styles.root}>
       <div className={styles.imgWrapper}>
         <img alt="item image" className={styles.img} src={getAmazonImageUrl(item.images[0], true)} />
       </div>
@@ -69,6 +69,6 @@ export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
           </Button>
         </div>
       </div>
-    </Paper>
+    </div>
   )
 }
