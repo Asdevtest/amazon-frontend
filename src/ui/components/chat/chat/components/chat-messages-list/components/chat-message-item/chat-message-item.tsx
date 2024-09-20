@@ -10,8 +10,6 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
 import { PaginationDirection } from '@typings/enums/pagination-direction'
 
-import { useHover } from '@hooks/use-hover'
-
 import { useStyles } from './chat-message-item.style'
 
 import { ChatMessageByType } from '../chat-message-by-type'
@@ -62,8 +60,6 @@ export const ChatMessageItem: FC<ChatMessageItemProps> = memo(props => {
     onClickForwardMessages,
   } = props
 
-  const messageItemHover = useHover()
-
   const index = indexFromTable - firstItemIndex
 
   const isHighlighted = messageToScroll === index
@@ -101,7 +97,6 @@ export const ChatMessageItem: FC<ChatMessageItemProps> = memo(props => {
       className={cx({
         [styles.unReadMessage]: unReadMessage && userId !== messageItem.user?._id,
       })}
-      {...messageItemHover?.[1]}
       onClick={() => {
         if (selectedMessages?.length && messageItem?.type === ChatMessageType.USER) {
           onSelectMessage?.(messageItem)
@@ -116,7 +111,7 @@ export const ChatMessageItem: FC<ChatMessageItemProps> = memo(props => {
       ) : null}
 
       <ChatMessageControlsOverlay
-        showDropdown={!isDisabledControls && messageItemHover?.[0]}
+        showDropdown={!isDisabledControls}
         isSelectedMessage={isSelectedMessage}
         onSelectMessage={() => onSelectMessage?.(messageItem)}
         onClickReply={() => onClickReply(messageItem)}
