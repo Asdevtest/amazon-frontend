@@ -7,7 +7,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: 10,
     maxWidth: 490,
-    backgroundColor: theme.palette.background.chatMyMessage,
+    backgroundColor: theme.palette.background.chatIncomeMessage,
     borderRadius: 15,
 
     [theme.breakpoints.down(1280)]: {
@@ -21,10 +21,6 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       gap: 5,
     },
-  },
-
-  rootIsIncomming: {
-    backgroundColor: `${theme.palette.background.chatIncomeMessage} !important`,
   },
 
   isFound: {
@@ -70,7 +66,7 @@ export const useStyles = makeStyles()(theme => ({
 
   messageText: {
     width: '100%',
-    fontSize: 18,
+    fontSize: 16,
     lineHeight: '25px',
     wordWrap: 'break-word',
     whiteSpace: 'pre-wrap',
@@ -119,5 +115,23 @@ export const useStyles = makeStyles()(theme => ({
 
   noReadIcon: {
     color: theme.palette.text.second,
+  },
+
+  forwardedMessage: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    gap: 5,
+    alignItems: 'center',
+  },
+
+  forwardedMessageTitle: {
+    fontSize: 12,
+    color: theme.palette.text.second,
+  },
+
+  forwardedMessageName: {
+    fontSize: 14,
+    color: theme.palette.primary.main,
+    fontWeight: 600,
   },
 }))

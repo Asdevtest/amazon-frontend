@@ -92,6 +92,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
                 mesSearchValue={viewModel.mesSearchValue}
                 curFoundedMessage={viewModel.curFoundedMessage}
                 chatSelectedId={viewModel.chatSelectedId}
+                currentOpponent={viewModel.request?.request?.createdBy}
                 chatMessageHandlers={{
                   onClickOpenRequest: viewModel.onClickOpenRequest,
                 }}

@@ -2046,8 +2046,18 @@
   "In use": "Используется",
   "Parsing profile successfully deleted": "Профиль парсинга успешно удалён",
   "Error deleting parsing profile": "Ошибка при удалении профиля парсинга",
+  "Forward": "Переслать",
+  "Deselect": "Отменить выделение",
+  "Forward to": "Переслать к",
+  "forwarded messages": "{{count}} пересланные сообщения",
+  "Forwarded from": "Переслан от",
+  "Copy text": "Скопировать текст",
   "Are you sure you want to delete profile?": "Вы уверены, что хотите удалить профиль?",
   "qty": "кол-во",
+  "Chat name": "Название чата",
+  "Enter chat name": "Введите название чата",
+  "Chat already exists": "Чат уже существует",
   "Month value": "Значение месяца",
+  "Chat info": "Информация о чате",
   "Rename": "Переименовать"
 }
