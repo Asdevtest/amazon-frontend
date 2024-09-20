@@ -13,6 +13,7 @@
  */
 
 
+import { PermissionGetDtoSchema } from './permission-get-dto-schema';
 
 /**
  * 
@@ -21,17 +22,41 @@
  */
 export interface InlineResponse20077 {
     /**
-     * Кол-во продукта в айтеме в коробке
-     * @type {number}
+     * Guid of permission group
+     * @type {string}
      * @memberof InlineResponse20077
      */
-    amount?: number;
+    _id?: string;
     /**
-     * Номер заказа
+     * Permission group key
+     * @type {string}
+     * @memberof InlineResponse20077
+     */
+    key?: string;
+    /**
+     * Permission group title
+     * @type {string}
+     * @memberof InlineResponse20077
+     */
+    title?: string;
+    /**
+     * Permission group description
+     * @type {string}
+     * @memberof InlineResponse20077
+     */
+    description?: string;
+    /**
+     * Permission role for users
      * @type {number}
      * @memberof InlineResponse20077
      */
-    id?: number;
+    role?: number;
+    /**
+     * Массив permissions.
+     * @type {Array<PermissionGetDtoSchema>}
+     * @memberof InlineResponse20077
+     */
+    permissions?: Array<PermissionGetDtoSchema>;
 }
 
 

@@ -21,17 +21,17 @@
  */
 export interface InlineResponse20073 {
     /**
-     * 
+     * GUID заказа
      * @type {string}
      * @memberof InlineResponse20073
      */
-    productId?: string;
+    _id?: string;
     /**
-     * Гуид магазина
-     * @type {string}
+     * id заказа
+     * @type {number}
      * @memberof InlineResponse20073
      */
-    shopId?: string;
+    id?: number;
 }
 
 

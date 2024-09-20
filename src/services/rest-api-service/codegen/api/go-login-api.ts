@@ -23,17 +23,17 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 // @ts-ignore
 import { BadRequestError } from '../models';
 // @ts-ignore
-import { InlineObject56 } from '../models';
+import { InlineObject77 } from '../models';
 // @ts-ignore
-import { InlineObject57 } from '../models';
+import { InlineObject78 } from '../models';
 // @ts-ignore
-import { InlineObject58 } from '../models';
+import { InlineObject79 } from '../models';
 // @ts-ignore
-import { InlineObject59 } from '../models';
+import { InlineObject80 } from '../models';
 // @ts-ignore
-import { InlineResponse20051 } from '../models';
+import { InlineResponse20064 } from '../models';
 // @ts-ignore
-import { InlineResponse2016 } from '../models';
+import { InlineResponse2019 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -47,12 +47,12 @@ export const GoLoginApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * ## Создать новый профайл пользователя.  
          * @summary # Создать новый профайл пользователя.
-         * @param {InlineObject56} [body] 
+         * @param {InlineObject77} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GologinProfilePost: async (body?: InlineObject56, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1GologinProfilePost: async (body?: InlineObject77, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/gologin/profile`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -90,12 +90,12 @@ export const GoLoginApiAxiosParamCreator = function (configuration?: Configurati
          * ## Изменить профайл пользователя.  
          * @summary # Изменить профайл пользователя.
          * @param {string} profileId id профайла который нужно изменить.
-         * @param {InlineObject57} [body] 
+         * @param {InlineObject78} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GologinProfileProfileIdPatch: async (profileId: string, body?: InlineObject57, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1GologinProfileProfileIdPatch: async (profileId: string, body?: InlineObject78, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'profileId' is not null or undefined
             assertParamExists('apiV1GologinProfileProfileIdPatch', 'profileId', profileId)
             const localVarPath = `/api/v1/gologin/profile/{profileId}`
@@ -135,12 +135,12 @@ export const GoLoginApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * ## Запустить профайл пользователя.  
          * @summary # Запустить пользователя.
-         * @param {InlineObject58} [body] 
+         * @param {InlineObject79} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GologinProfileStartPost: async (body?: InlineObject58, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1GologinProfileStartPost: async (body?: InlineObject79, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/gologin/profile/start`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -177,12 +177,12 @@ export const GoLoginApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * ## Остановить профайл пользователя.  
          * @summary # Остановить профайл пользователя.
-         * @param {InlineObject59} [body] 
+         * @param {InlineObject80} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GologinProfileStopPost: async (body?: InlineObject59, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1GologinProfileStopPost: async (body?: InlineObject80, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/gologin/profile/stop`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -229,12 +229,12 @@ export const GoLoginApiFp = function(configuration?: Configuration) {
         /**
          * ## Создать новый профайл пользователя.  
          * @summary # Создать новый профайл пользователя.
-         * @param {InlineObject56} [body] 
+         * @param {InlineObject77} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GologinProfilePost(body?: InlineObject56, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20051>> {
+        async apiV1GologinProfilePost(body?: InlineObject77, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20064>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GologinProfilePost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -242,36 +242,36 @@ export const GoLoginApiFp = function(configuration?: Configuration) {
          * ## Изменить профайл пользователя.  
          * @summary # Изменить профайл пользователя.
          * @param {string} profileId id профайла который нужно изменить.
-         * @param {InlineObject57} [body] 
+         * @param {InlineObject78} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GologinProfileProfileIdPatch(profileId: string, body?: InlineObject57, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1GologinProfileProfileIdPatch(profileId: string, body?: InlineObject78, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GologinProfileProfileIdPatch(profileId, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Запустить профайл пользователя.  
          * @summary # Запустить пользователя.
-         * @param {InlineObject58} [body] 
+         * @param {InlineObject79} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GologinProfileStartPost(body?: InlineObject58, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2016>> {
+        async apiV1GologinProfileStartPost(body?: InlineObject79, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2019>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GologinProfileStartPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Остановить профайл пользователя.  
          * @summary # Остановить профайл пользователя.
-         * @param {InlineObject59} [body] 
+         * @param {InlineObject80} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GologinProfileStopPost(body?: InlineObject59, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async apiV1GologinProfileStopPost(body?: InlineObject80, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GologinProfileStopPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -288,46 +288,46 @@ export const GoLoginApiFactory = function (configuration?: Configuration, basePa
         /**
          * ## Создать новый профайл пользователя.  
          * @summary # Создать новый профайл пользователя.
-         * @param {InlineObject56} [body] 
+         * @param {InlineObject77} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GologinProfilePost(body?: InlineObject56, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20051> {
+        apiV1GologinProfilePost(body?: InlineObject77, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20064> {
             return localVarFp.apiV1GologinProfilePost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменить профайл пользователя.  
          * @summary # Изменить профайл пользователя.
          * @param {string} profileId id профайла который нужно изменить.
-         * @param {InlineObject57} [body] 
+         * @param {InlineObject78} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GologinProfileProfileIdPatch(profileId: string, body?: InlineObject57, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1GologinProfileProfileIdPatch(profileId: string, body?: InlineObject78, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1GologinProfileProfileIdPatch(profileId, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Запустить профайл пользователя.  
          * @summary # Запустить пользователя.
-         * @param {InlineObject58} [body] 
+         * @param {InlineObject79} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GologinProfileStartPost(body?: InlineObject58, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2016> {
+        apiV1GologinProfileStartPost(body?: InlineObject79, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2019> {
             return localVarFp.apiV1GologinProfileStartPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Остановить профайл пользователя.  
          * @summary # Остановить профайл пользователя.
-         * @param {InlineObject59} [body] 
+         * @param {InlineObject80} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GologinProfileStopPost(body?: InlineObject59, acceptEncoding?: string, options?: any): AxiosPromise<object> {
+        apiV1GologinProfileStopPost(body?: InlineObject80, acceptEncoding?: string, options?: any): AxiosPromise<object> {
             return localVarFp.apiV1GologinProfileStopPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -341,10 +341,10 @@ export const GoLoginApiFactory = function (configuration?: Configuration, basePa
 export interface GoLoginApiApiV1GologinProfilePostRequest {
     /**
      * 
-     * @type {InlineObject56}
+     * @type {InlineObject77}
      * @memberof GoLoginApiApiV1GologinProfilePost
      */
-    readonly body?: InlineObject56
+    readonly body?: InlineObject77
 
     /**
      * 
@@ -369,10 +369,10 @@ export interface GoLoginApiApiV1GologinProfileProfileIdPatchRequest {
 
     /**
      * 
-     * @type {InlineObject57}
+     * @type {InlineObject78}
      * @memberof GoLoginApiApiV1GologinProfileProfileIdPatch
      */
-    readonly body?: InlineObject57
+    readonly body?: InlineObject78
 
     /**
      * 
@@ -390,10 +390,10 @@ export interface GoLoginApiApiV1GologinProfileProfileIdPatchRequest {
 export interface GoLoginApiApiV1GologinProfileStartPostRequest {
     /**
      * 
-     * @type {InlineObject58}
+     * @type {InlineObject79}
      * @memberof GoLoginApiApiV1GologinProfileStartPost
      */
-    readonly body?: InlineObject58
+    readonly body?: InlineObject79
 
     /**
      * 
@@ -411,10 +411,10 @@ export interface GoLoginApiApiV1GologinProfileStartPostRequest {
 export interface GoLoginApiApiV1GologinProfileStopPostRequest {
     /**
      * 
-     * @type {InlineObject59}
+     * @type {InlineObject80}
      * @memberof GoLoginApiApiV1GologinProfileStopPost
      */
-    readonly body?: InlineObject59
+    readonly body?: InlineObject80
 
     /**
      * 

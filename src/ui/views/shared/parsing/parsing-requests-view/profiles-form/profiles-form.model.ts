@@ -4,15 +4,18 @@ import { UIEvent } from 'react'
 
 import { ParserModel } from '@models/parser-model'
 
-import { IPermissionsData, UseProductsPermissions } from '@hooks/use-products-permissions'
+import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { profilesFormConfig, searchFields } from './profiles-form.config'
 
 export class ProfilesFormModel extends UseProductsPermissions {
   value = ''
-  reservedProfile: IPermissionsData[] = []
-  unlinkedProfiles: IPermissionsData[] = []
-
+  get reservedProfile() {
+    return [this.meta?.reservedProfile].filter(Boolean)
+  }
+  get unlinkedProfiles() {
+    return this.meta?.unlinkedProfiles || []
+  }
   get profiles() {
     const combinedProfiles = [...this.reservedProfile, ...this.unlinkedProfiles, ...this.permissionsData]
 
@@ -40,8 +43,6 @@ export class ProfilesFormModel extends UseProductsPermissions {
     this.permissionsData = []
     this.isCanLoadMore = true
     this.getPermissionsData()
-    this.reservedProfile = [this.meta?.reservedProfile].filter(Boolean)
-    this.unlinkedProfiles = this.meta?.unlinkedProfiles || []
 
     makeObservable(this, profilesFormConfig)
   }

@@ -77,7 +77,7 @@ export const parsingRequestsViewColumns = ({ onOpenProfileModal, onRejectProfile
       renderCell: ({ row }: GridRowModel) => (
         <ParsingRequestCell
           status={row.status}
-          onApproveProfile={() => onOpenProfileModal(row._id, row.profile?._id)}
+          onApproveProfile={() => onOpenProfileModal(row._id, row.profile?._id, row.shop?._id)}
           onRejectProfile={() => onRejectProfile(row._id)}
         />
       ),

@@ -15,17 +15,17 @@
 
 
 /**
- * Успешный ответ.
+ * 
  * @export
  * @interface InlineResponse2018
  */
 export interface InlineResponse2018 {
     /**
-     * 
+     * Гуид тега
      * @type {string}
      * @memberof InlineResponse2018
      */
-    guid?: string;
+    _id?: string;
 }
 
 

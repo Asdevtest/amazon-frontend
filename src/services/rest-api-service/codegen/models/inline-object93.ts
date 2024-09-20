@@ -21,11 +21,17 @@
  */
 export interface InlineObject93 {
     /**
-     * Сформирована ли коробка
-     * @type {boolean}
+     * GUID юзера
+     * @type {string}
      * @memberof InlineObject93
      */
-    isFormed: boolean;
+    userId: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject93
+     */
+    shopIds: Array<string>;
 }
 
 

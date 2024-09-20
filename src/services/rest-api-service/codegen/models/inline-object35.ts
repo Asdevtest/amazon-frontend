@@ -21,17 +21,11 @@
  */
 export interface InlineObject35 {
     /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject35
-     */
-    userIds: Array<string>;
-    /**
-     * Название группового чата
+     * GUID коробки разделение которой отменяем.
      * @type {string}
      * @memberof InlineObject35
      */
-    title: string;
+    guid?: string;
 }
 
 

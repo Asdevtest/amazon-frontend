@@ -13,12 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
-import { ApiV1AdminsOrdersLogicsTariff } from './api-v1-admins-orders-logics-tariff';
-import { ApiV1AdminsTasksLightVariationTariff } from './api-v1-admins-tasks-light-variation-tariff';
-import { ApiV1BatchesBatch } from './api-v1-batches-batch';
-import { ApiV1BoxesStorekeepersSentToBatchItems } from './api-v1-boxes-storekeepers-sent-to-batch-items';
+import { InlineResponse20082Rows } from './inline-response20082-rows';
 
 /**
  * 
@@ -27,214 +22,17 @@ import { ApiV1BoxesStorekeepersSentToBatchItems } from './api-v1-boxes-storekeep
  */
 export interface InlineResponse20082 {
     /**
-     * GUID коробки.
-     * @type {string}
-     * @memberof InlineResponse20082
-     */
-    _id?: string;
-    /**
-     * Номер коробки.
+     * Count of rows
      * @type {number}
      * @memberof InlineResponse20082
      */
-    humanFriendlyId?: number;
-    /**
-     * Количества в коробке.
-     * @type {number}
-     * @memberof InlineResponse20082
-     */
-    amount?: number;
-    /**
-     * Статус коробки
-     * @type {string}
-     * @memberof InlineResponse20082
-     */
-    status?: InlineResponse20082StatusEnum;
-    /**
-     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
-     * @type {boolean}
-     * @memberof InlineResponse20082
-     */
-    isActual?: boolean;
-    /**
-     * Если true - значит коробку черновик.
-     * @type {boolean}
-     * @memberof InlineResponse20082
-     */
-    isDraft?: boolean;
-    /**
-     * Сформирована ли коробка
-     * @type {boolean}
-     * @memberof InlineResponse20082
-     */
-    isFormed?: boolean;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20082
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20082
-     */
-    widthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20082
-     */
-    heightCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20082
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Итого за доставку.
-     * @type {number}
-     * @memberof InlineResponse20082
-     */
-    deliveryTotalPrice?: number;
-    /**
-     * Обновление итога за доставку.
-     * @type {number}
-     * @memberof InlineResponse20082
-     */
-    deliveryTotalPriceChanged?: number;
-    /**
-     * id склада - склады куда отправляют 
-     * @type {string}
-     * @memberof InlineResponse20082
-     */
-    destinationId?: string;
-    /**
-     * GUID тарифа доставки 
-     * @type {string}
-     * @memberof InlineResponse20082
-     */
-    logicsTariffId?: string;
-    /**
-     * Сторкипер взявший коробку в работу.
-     * @type {string}
-     * @memberof InlineResponse20082
-     */
-    batchId?: string;
-    /**
-     * Сторкипер взявший коробку в работу.
-     * @type {string}
-     * @memberof InlineResponse20082
-     */
-    storekeeperId?: string;
-    /**
-     * Клиент владелец товара в коробке в работу.
-     * @type {string}
-     * @memberof InlineResponse20082
-     */
-    clientId?: string;
-    /**
-     * Клиент создавший заказ и коробку.
-     * @type {string}
-     * @memberof InlineResponse20082
-     */
-    createdById?: string;
-    /**
-     * GUID любого, кто последний редактировал коробку.
-     * @type {string}
-     * @memberof InlineResponse20082
-     */
-    lastModifiedById?: string;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineResponse20082
-     */
-    prepId?: string;
+    count?: number;
     /**
      * 
-     * @type {ApiV1AdminsTasksLightVariationTariff}
+     * @type {Array<InlineResponse20082Rows>}
      * @memberof InlineResponse20082
      */
-    variationTariff?: ApiV1AdminsTasksLightVariationTariff;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20082
-     */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20082
-     */
-    updatedAt?: string;
-    /**
-     * Массив коробок.
-     * @type {Array<ApiV1BoxesStorekeepersSentToBatchItems>}
-     * @memberof InlineResponse20082
-     */
-    items?: Array<ApiV1BoxesStorekeepersSentToBatchItems>;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20082
-     */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20082
-     */
-    client?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20082
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20082
-     */
-    lastModifiedBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsOrdersDestination}
-     * @memberof InlineResponse20082
-     */
-    destination?: ApiV1AdminsOrdersDestination;
-    /**
-     * 
-     * @type {ApiV1AdminsOrdersLogicsTariff}
-     * @memberof InlineResponse20082
-     */
-    logicsTariff?: ApiV1AdminsOrdersLogicsTariff;
-    /**
-     * 
-     * @type {ApiV1BatchesBatch}
-     * @memberof InlineResponse20082
-     */
-    batch?: ApiV1BatchesBatch;
+    rows?: Array<InlineResponse20082Rows>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20082StatusEnum {
-    New = 'NEW',
-    InStock = 'IN_STOCK',
-    RequestedSendToBatch = 'REQUESTED_SEND_TO_BATCH',
-    NeedConfirmingToDeliveryPriceChange = 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE',
-    InBatch = 'IN_BATCH',
-    NeedToUpdateTheTariff = 'NEED_TO_UPDATE_THE_TARIFF',
-    InBatchOnTheWay = 'IN_BATCH_ON_THE_WAY',
-    FinishPrepCentrUsa = 'FINISH_PREP_CENTR_USA',
-    AcceptedInProcessing = 'ACCEPTED_IN_PROCESSING'
-}
-
 
 

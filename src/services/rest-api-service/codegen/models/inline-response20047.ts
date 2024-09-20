@@ -13,20 +13,26 @@
  */
 
 
-import { InlineResponse20044Finances } from './inline-response20044-finances';
+import { InlineResponse20047Rows } from './inline-response20047-rows';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20047
  */
 export interface InlineResponse20047 {
     /**
-     * 
-     * @type {InlineResponse20044Finances}
+     * Всего кол-во записей в результате запроса
+     * @type {number}
      * @memberof InlineResponse20047
      */
-    finances?: InlineResponse20044Finances;
+    count?: number;
+    /**
+     * Массив заказов c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20047Rows>}
+     * @memberof InlineResponse20047
+     */
+    rows?: Array<InlineResponse20047Rows>;
 }
 
 

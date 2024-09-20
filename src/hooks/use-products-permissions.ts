@@ -26,6 +26,7 @@ export interface IPermissionsData {
   name?: string
   allowedSpec?: ISpec[]
   email?: string
+  status?: string
 }
 
 /*

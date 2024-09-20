@@ -13,7 +13,8 @@
  */
 
 
-import { InlineResponse20058Rows } from './inline-response20058-rows';
+import { InlineResponse20056Finances } from './inline-response20056-finances';
+import { InlineResponse20058Products } from './inline-response20058-products';
 
 /**
  * 
@@ -22,17 +23,17 @@ import { InlineResponse20058Rows } from './inline-response20058-rows';
  */
 export interface InlineResponse20058 {
     /**
-     * Кол-во записей
-     * @type {number}
+     * 
+     * @type {InlineResponse20058Products}
      * @memberof InlineResponse20058
      */
-    count?: number;
+    products?: InlineResponse20058Products;
     /**
      * 
-     * @type {Array<InlineResponse20058Rows>}
+     * @type {InlineResponse20056Finances}
      * @memberof InlineResponse20058
      */
-    rows?: Array<InlineResponse20058Rows>;
+    finances?: InlineResponse20056Finances;
 }
 
 

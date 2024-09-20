@@ -15,35 +15,17 @@
 
 
 /**
- * 
+ * цену для клиента на поиск поставщика
  * @export
  * @interface InlineResponse20049
  */
 export interface InlineResponse20049 {
     /**
-     * Гуид тега
-     * @type {string}
-     * @memberof InlineResponse20049
-     */
-    _id?: string;
-    /**
-     * Тег
-     * @type {string}
-     * @memberof InlineResponse20049
-     */
-    title?: string;
-    /**
-     * Кол-во продуктов, которые используют этот тег
+     * 
      * @type {number}
      * @memberof InlineResponse20049
      */
-    productCount?: number;
-    /**
-     * Tag color
-     * @type {string}
-     * @memberof InlineResponse20049
-     */
-    color?: string;
+    priceForClient?: number;
 }
 
 

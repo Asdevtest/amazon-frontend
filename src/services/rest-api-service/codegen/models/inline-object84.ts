@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1IntegrationsCreateAndLinkSkuProductsPayload } from './api-v1-integrations-create-and-link-sku-products-payload';
 
 /**
  * 
@@ -21,11 +22,11 @@
  */
 export interface InlineObject84 {
     /**
-     * GUID коробки, объединение которой нужно отменить
-     * @type {string}
+     * 
+     * @type {Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>}
      * @memberof InlineObject84
      */
-    guid?: string;
+    payload?: Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>;
 }
 
 

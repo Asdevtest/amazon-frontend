@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-guid-items';
 
 /**
  * 
@@ -22,65 +21,17 @@ import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-gui
  */
 export interface InlineObject88 {
     /**
-     * 
-     * @type {number}
-     * @memberof InlineObject88
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject88
-     */
-    widthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject88
-     */
-    heightCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject88
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject88
-     */
-    volumeWeightKgWarehouse?: number;
-    /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineObject88
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidItems>}
-     * @memberof InlineObject88
-     */
-    items?: Array<ApiV1BoxesStorekeepersGuidItems>;
-    /**
-     * Комментарии к коробке
+     * Комментарий клиента
      * @type {string}
      * @memberof InlineObject88
      */
-    storekeeperComment?: string;
+    clientComment?: string;
     /**
-     * Гуид вариации
+     * Комментарий баера
      * @type {string}
      * @memberof InlineObject88
      */
-    variationTariffId?: string;
-    /**
-     * Массив ссылок на фотографии.
-     * @type {Array<string>}
-     * @memberof InlineObject88
-     */
-    images?: Array<string>;
+    buyerComment?: string;
 }
 
 

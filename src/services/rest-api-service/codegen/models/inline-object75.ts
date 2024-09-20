@@ -21,17 +21,11 @@
  */
 export interface InlineObject75 {
     /**
-     * текст отзыва/репорта
+     * GUID поставщика, который нужно удалить в БД.
      * @type {string}
      * @memberof InlineObject75
      */
-    text: string;
-    /**
-     * Прикрепленные ссылки на медиа для репорта/отзыва
-     * @type {Array<string>}
-     * @memberof InlineObject75
-     */
-    media?: Array<string>;
+    suppliersId?: string;
 }
 
 

@@ -4,6 +4,7 @@ export const parsingRequestsViewConfig = {
   showProfilesModal: observable,
   requestId: observable,
   profileId: observable,
+  shopId: observable,
   onApproveProfile: action.bound,
   onRejectProfile: action.bound,
   onToggleProfileModal: action.bound,
@@ -13,6 +14,6 @@ export const parsingRequestsViewConfig = {
 export const fieldsForSearch = ['profileName', 'profileEmail']
 
 export interface ColumnsProps {
-  onOpenProfileModal: (requestId: string, profileId: string) => void
+  onOpenProfileModal: (requestId: string, profileId: string, shopId: string) => void
   onRejectProfile: (id: string) => void
 }

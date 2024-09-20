@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20059Rows } from './inline-response20059-rows';
+import { InlineResponse20056Finances } from './inline-response20056-finances';
 
 /**
  * 
@@ -22,17 +22,11 @@ import { InlineResponse20059Rows } from './inline-response20059-rows';
  */
 export interface InlineResponse20059 {
     /**
-     * Кол-во записей
-     * @type {number}
-     * @memberof InlineResponse20059
-     */
-    count?: number;
-    /**
      * 
-     * @type {Array<InlineResponse20059Rows>}
+     * @type {InlineResponse20056Finances}
      * @memberof InlineResponse20059
      */
-    rows?: Array<InlineResponse20059Rows>;
+    finances?: InlineResponse20056Finances;
 }
 
 

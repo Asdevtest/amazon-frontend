@@ -15,17 +15,23 @@
 
 
 /**
- * Схема подтверждения итоговой цены, deliveryTotalPriceChanged
+ * 
  * @export
  * @interface InlineObject
  */
 export interface InlineObject {
     /**
-     * GUID коробки, который планируем изменить
+     * Гуид коробки
      * @type {string}
      * @memberof InlineObject
      */
-    boxId: string;
+    boxId?: string;
+    /**
+     * Значение prepId
+     * @type {string}
+     * @memberof InlineObject
+     */
+    prepId?: string;
 }
 
 

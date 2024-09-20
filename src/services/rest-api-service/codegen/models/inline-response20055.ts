@@ -13,7 +13,12 @@
  */
 
 
-import { InlineResponse20055Rows } from './inline-response20055-rows';
+import { InlineResponse20055Batch } from './inline-response20055-batch';
+import { InlineResponse20055Boxes } from './inline-response20055-boxes';
+import { InlineResponse20055Orders } from './inline-response20055-orders';
+import { InlineResponse20055Products } from './inline-response20055-products';
+import { InlineResponse20055Requests } from './inline-response20055-requests';
+import { InlineResponse20055Shops } from './inline-response20055-shops';
 
 /**
  * 
@@ -22,17 +27,41 @@ import { InlineResponse20055Rows } from './inline-response20055-rows';
  */
 export interface InlineResponse20055 {
     /**
-     * Count of rows
-     * @type {number}
+     * 
+     * @type {InlineResponse20055Orders}
      * @memberof InlineResponse20055
      */
-    count?: number;
+    orders?: InlineResponse20055Orders;
     /**
      * 
-     * @type {Array<InlineResponse20055Rows>}
+     * @type {InlineResponse20055Shops}
      * @memberof InlineResponse20055
      */
-    rows?: Array<InlineResponse20055Rows>;
+    shops?: InlineResponse20055Shops;
+    /**
+     * 
+     * @type {InlineResponse20055Requests}
+     * @memberof InlineResponse20055
+     */
+    requests?: InlineResponse20055Requests;
+    /**
+     * 
+     * @type {InlineResponse20055Products}
+     * @memberof InlineResponse20055
+     */
+    products?: InlineResponse20055Products;
+    /**
+     * 
+     * @type {InlineResponse20055Batch}
+     * @memberof InlineResponse20055
+     */
+    batch?: InlineResponse20055Batch;
+    /**
+     * 
+     * @type {InlineResponse20055Boxes}
+     * @memberof InlineResponse20055
+     */
+    boxes?: InlineResponse20055Boxes;
 }
 
 

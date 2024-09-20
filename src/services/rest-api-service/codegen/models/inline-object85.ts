@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesSplitNewBoxesParams } from './api-v1-boxes-split-new-boxes-params';
 
 /**
  * 
@@ -22,17 +21,17 @@ import { ApiV1BoxesSplitNewBoxesParams } from './api-v1-boxes-split-new-boxes-pa
  */
 export interface InlineObject85 {
     /**
-     * GUID коробки, которую делим
+     * 
      * @type {string}
      * @memberof InlineObject85
      */
-    guid?: string;
+    productId: string;
     /**
      * 
-     * @type {Array<ApiV1BoxesSplitNewBoxesParams>}
+     * @type {Array<string>}
      * @memberof InlineObject85
      */
-    newBoxesParams?: Array<ApiV1BoxesSplitNewBoxesParams>;
+    skus: Array<string>;
 }
 
 

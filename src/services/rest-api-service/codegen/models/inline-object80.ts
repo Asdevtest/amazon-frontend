@@ -21,83 +21,11 @@
  */
 export interface InlineObject80 {
     /**
-     * GUID пункта назначения коробки
+     * id профайла
      * @type {string}
      * @memberof InlineObject80
      */
-    destinationId?: string;
-    /**
-     * GUID тарифа к сторкипера
-     * @type {string}
-     * @memberof InlineObject80
-     */
-    logicsTariffId?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject80
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject80
-     */
-    fbaNumber?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineObject80
-     */
-    clientComment?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineObject80
-     */
-    referenceId?: string;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineObject80
-     */
-    trackNumberText?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject80
-     */
-    trackNumberFile?: Array<string>;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineObject80
-     */
-    upsTrackNumber?: string;
-    /**
-     * shippingLabel коробки
-     * @type {string}
-     * @memberof InlineObject80
-     */
-    shippingLabel?: string;
-    /**
-     * shippingLabel проклеен сторкипером
-     * @type {boolean}
-     * @memberof InlineObject80
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineObject80
-     */
-    prepId?: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject80
-     */
-    variationTariffId?: string;
+    profileId: string;
 }
 
 

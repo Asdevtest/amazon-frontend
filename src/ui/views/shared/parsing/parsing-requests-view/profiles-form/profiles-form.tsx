@@ -1,3 +1,4 @@
+import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
@@ -19,10 +20,11 @@ interface ProfilesFormProps {
   onSubmit: (requestId: string, profileId: string) => void
   requestId?: string
   profileId?: string
+  shopId?: string
 }
 
 export const ProfilesForm: FC<ProfilesFormProps> = observer(props => {
-  const { onClose, onSubmit, requestId, profileId } = props
+  const { onClose, onSubmit, requestId, profileId, shopId } = props
 
   const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new ProfilesFormModel(profileId, requestId), [])
@@ -33,6 +35,8 @@ export const ProfilesForm: FC<ProfilesFormProps> = observer(props => {
       onClose()
     }
   }
+
+  const isAlreadyProfile = shopId === viewModel.value
 
   return (
     <div className={styles.root}>
@@ -52,9 +56,23 @@ export const ProfilesForm: FC<ProfilesFormProps> = observer(props => {
       />
       <div className={styles.buttons}>
         <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
-        <CustomButton disabled={!requestId && !viewModel.value} type="primary" onClick={handleSubmit}>
-          {t(TranslationKey.Approve)}
-        </CustomButton>
+
+        {isAlreadyProfile ? (
+          <Popconfirm
+            title={t(TranslationKey['This profile has already been used! Do you want to continue?'])}
+            okText={t(TranslationKey.Yes)}
+            cancelText={t(TranslationKey.No)}
+            onConfirm={handleSubmit}
+          >
+            <CustomButton disabled={!requestId && !viewModel.value} type="primary">
+              {t(TranslationKey.Approve)}
+            </CustomButton>
+          </Popconfirm>
+        ) : (
+          <CustomButton disabled={!requestId && !viewModel.value} type="primary" onClick={handleSubmit}>
+            {t(TranslationKey.Approve)}
+          </CustomButton>
+        )}
       </div>
     </div>
   )

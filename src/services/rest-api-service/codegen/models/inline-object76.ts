@@ -21,17 +21,11 @@
  */
 export interface InlineObject76 {
     /**
-     * 
+     * Причина отклонения
      * @type {string}
      * @memberof InlineObject76
      */
-    userId?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject76
-     */
-    productIds?: Array<string>;
+    reasonReject: string;
 }
 
 

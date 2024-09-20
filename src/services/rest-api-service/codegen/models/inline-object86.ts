@@ -21,11 +21,11 @@
  */
 export interface InlineObject86 {
     /**
-     * GUID коробки разделение которой отменяем.
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject86
      */
-    guid?: string;
+    reportIds: Array<string>;
 }
 
 
