@@ -57,6 +57,7 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
     })
     const rowHandlers = {
       onClickTableRow: id => this.onClickTableRow(id),
+      onClickTag: tag => this.setActiveProductsTagFromTable(tag),
     }
     const columns = supervisorProductsViewColumns(rowHandlers)
     const filtersFields = getFilterFields(columns, additionalFields)
@@ -106,7 +107,24 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
     this.onTriggerOpenModal('showProductModal')
   }
 
-  onToggleModal(modal) {
-    this[modal] = !this[modal]
+  setActiveProductsTag(tags) {
+    this.columnMenuSettings?.onChangeFullFieldMenuItem(tags, 'tags')
+    this.columnMenuSettings?.onClickAccept()
+  }
+
+  setActiveProductsTagFromTable(tag) {
+    const index = this.columnMenuSettings?.tags?.currentFilterData?.findIndex(
+      currentTag => currentTag?._id === tag?._id,
+    )
+
+    const newTags = [...this.columnMenuSettings.tags.currentFilterData]
+
+    if (index > -1) {
+      newTags.splice(index, 1)
+    } else {
+      newTags.push(tag)
+    }
+
+    this.setActiveProductsTag(newTags)
   }
 }
