@@ -129,6 +129,7 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
 
   onChangeSpec(value: Specs) {
     this.specOption = value
+    this.onChangeFullFieldMenuItem([], 'spec')
 
     this.getCurrentData()
   }
@@ -214,6 +215,7 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
   onClickChangeCatigory(event: CheckboxChangeEvent) {
     const currentValue = event?.target?.value
     this.switcherCondition = currentValue
+    this.onChangeFullFieldMenuItem([], 'status')
 
     this.getCurrentData()
   }

@@ -36,7 +36,14 @@ export const useStyles = makeStyles()(() => ({
       width: '100%',
     },
     '.ant-btn': {
+      display: 'flex',
+      gap: '5px',
       borderRadius: '16px', // delete when completely switching to antd
+
+      span: {
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      },
     },
   },
 

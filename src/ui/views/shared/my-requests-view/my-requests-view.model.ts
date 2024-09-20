@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -157,6 +159,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
       this.statusGroup = currentValue
     }
 
+    this.onChangeFullFieldMenuItem([], 'status')
     this.getCurrentData()
   }
 

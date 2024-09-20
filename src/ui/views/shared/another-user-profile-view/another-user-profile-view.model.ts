@@ -56,6 +56,8 @@ export class AnotherProfileViewModel extends DataGridTableModel {
       defaultGetCurrentDataOptions,
     })
 
+    this.initHistory()
+
     this.userId = history.location.search.slice(1)
     this.getUserById()
     this.getCurrentData()
@@ -69,13 +71,13 @@ export class AnotherProfileViewModel extends DataGridTableModel {
       if (!this.simpleChats.some(el => el.users.map(e => e._id).includes(anotherUserId))) {
         await ChatsModel.createSimpleChatByUserId(anotherUserId)
       }
-
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/messages`, {
-        anotherUserId,
-      })
     } catch (e) {
       console.error(e)
     }
+
+    this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/messages`, {
+      anotherUserId,
+    })
   }
 
   async getReviews() {

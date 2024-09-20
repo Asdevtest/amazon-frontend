@@ -16,6 +16,10 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '16px',
   },
 
+  fixWidth: {
+    width: '90%',
+  },
+
   flexRow: {
     display: 'flex',
     alignItems: 'center',
@@ -23,6 +27,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   flexColumn: {
+    width: '100%',
     minWidth: '80px',
     display: 'flex',
     flexDirection: 'column',
@@ -42,7 +47,7 @@ export const useStyles = makeStyles()(theme => ({
 
   warning: {
     position: 'absolute',
-    bottom: '5px',
+    bottom: 0,
     right: 0,
   },
 
