@@ -21,17 +21,11 @@
  */
 export interface InlineObject82 {
     /**
-     * Комментарий клиента
+     * GUID коробки, объединение которой нужно отменить
      * @type {string}
      * @memberof InlineObject82
      */
-    clientComment?: string;
-    /**
-     * Комментарий баера
-     * @type {string}
-     * @memberof InlineObject82
-     */
-    buyerComment?: string;
+    guid?: string;
 }
 
 

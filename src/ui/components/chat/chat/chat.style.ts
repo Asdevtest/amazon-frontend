@@ -23,15 +23,6 @@ export const useStyles = makeStyles()(theme => ({
     top: 20,
     right: 30,
     zIndex: 7,
-    width: 40,
-    height: 40,
-    border: '1px solid #E0E0E0',
-    backgroundColor: theme.palette.background.general,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '50%',
-    cursor: 'pointer',
 
     [theme.breakpoints.down(768)]: {
       top: 20,
@@ -211,11 +202,6 @@ export const useStyles = makeStyles()(theme => ({
 
   arrowIcon: {
     color: theme.palette.primary.main,
-  },
-
-  hideArrow: {
-    width: '15px !important',
-    height: '15px !important',
   },
 
   collapseText: {

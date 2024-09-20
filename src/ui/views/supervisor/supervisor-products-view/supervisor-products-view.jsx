@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
@@ -88,6 +89,14 @@ export const SupervisorProductsView = observer(() => {
               sortModel: viewModel.sortModel,
               columnsModel: viewModel.columnsModel,
               onSortModelChange: viewModel.onChangeSortingModel,
+            },
+
+            tagSearchSettings: {
+              tagList: viewModel.columnMenuSettings?.tags?.filterData,
+              activeTags: viewModel.columnMenuSettings?.tags?.currentFilterData,
+              isLoading: viewModel.columnMenuSettings?.filterRequestStatus === loadingStatus.IS_LOADING,
+              getTags: () => viewModel.columnMenuSettings?.onClickFilterBtn('tags', DataGridFilterTables.PRODUCTS),
+              setActiveProductsTag: viewModel.setActiveProductsTag,
             },
 
             tablePresets: {

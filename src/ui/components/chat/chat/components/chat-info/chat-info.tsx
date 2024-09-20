@@ -7,7 +7,7 @@ import { ChatContract } from '@models/chat-model/contracts'
 import { CurrentOpponent } from '@components/chat/multiple-chats'
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { CircleSpinner } from '@components/shared/circle-spinner'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -27,9 +27,9 @@ interface ChatInfoProps {
   userId: string
   currentOpponent?: CurrentOpponent
   isGroupChat?: boolean
-  onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
+  onClickCloseChatInfo: () => void
 }
 
 export const ChatInfo: FC<ChatInfoProps> = memo(props => {
@@ -42,7 +42,7 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
     onClickEditGroupChatInfo,
     onRemoveUsersFromGroupChat,
     userId,
-    onClickAddUsersToGroupChat,
+    onClickCloseChatInfo,
   } = props
 
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
@@ -61,18 +61,22 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
         isGroupChat={isGroupChat}
         userId={userId}
         onClickEditGroupChatInfo={onClickEditGroupChatInfo}
+        onClickCloseChatInfo={onClickCloseChatInfo}
       />
 
-      <CustomSwitcher
-        fullWidth
-        switchMode={'medium'}
-        condition={currentTab}
-        switcherSettings={getCustomSwitcherConfig(isGroupChat)}
-        changeConditionHandler={value => {
-          resetSettings()
-          setCurrentTab(value)
-        }}
-      />
+      <div className={styles.customSwitcherWrapper}>
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          options={getCustomSwitcherConfig(isGroupChat)}
+          className={styles.customSwitcher}
+          value={currentTab}
+          onChange={e => {
+            resetSettings()
+            setCurrentTab(e?.target?.value)
+          }}
+        />
+      </div>
 
       <div className={styles.tabPanel} onScroll={loadMoreMediaFilesHandler}>
         {isFilesLoading && (
@@ -91,7 +95,6 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
             userId={userId}
             onClickEditGroupChatInfo={onClickEditGroupChatInfo}
             onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
-            onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
           />
         ) : currentTab === TabValue.FILES ? (
           <ChatMessageFiles files={files || []} />

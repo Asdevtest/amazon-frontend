@@ -40,7 +40,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   alternativeBackground: {
-    background: theme.palette.background.second,
+    background: theme.palette.background.general,
   },
 
   content: {
@@ -53,6 +53,10 @@ export const useStyles = makeStyles()(theme => ({
       maxWidth: '100%',
       maxHeight: '100%',
     },
+  },
+
+  unsetHidden: {
+    overflow: 'unset',
   },
 
   closeIcon: {

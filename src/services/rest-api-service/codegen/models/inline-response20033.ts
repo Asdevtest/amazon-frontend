@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse2001 } from './inline-response2001';
+import { InlineResponse20033SupplierImage } from './inline-response20033-supplier-image';
 
 /**
  * 
@@ -22,17 +22,29 @@ import { InlineResponse2001 } from './inline-response2001';
  */
 export interface InlineResponse20033 {
     /**
-     * Count of rows
-     * @type {number}
+     * 
+     * @type {Array<string>}
      * @memberof InlineResponse20033
      */
-    count?: number;
+    productImages?: Array<string>;
     /**
-     * Массив заказов.
-     * @type {Array<InlineResponse2001>}
+     * 
+     * @type {Array<string>}
      * @memberof InlineResponse20033
      */
-    rows?: Array<InlineResponse2001>;
+    latestSeoFiles?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20033
+     */
+    currentSupplierImage?: Array<string>;
+    /**
+     * 
+     * @type {Array<InlineResponse20033SupplierImage>}
+     * @memberof InlineResponse20033
+     */
+    supplierImage?: Array<InlineResponse20033SupplierImage>;
 }
 
 

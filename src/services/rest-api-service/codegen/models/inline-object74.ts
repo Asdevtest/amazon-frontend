@@ -21,11 +21,35 @@
  */
 export interface InlineObject74 {
     /**
-     * id профайла
+     * ASIN продукта
      * @type {string}
      * @memberof InlineObject74
      */
-    profileId: string;
+    asin?: string;
+    /**
+     * Причина
+     * @type {string}
+     * @memberof InlineObject74
+     */
+    reason?: string;
+    /**
+     * Стратегия
+     * @type {string}
+     * @memberof InlineObject74
+     */
+    strategy?: InlineObject74StrategyEnum;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject74StrategyEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40'
+}
+
 
 

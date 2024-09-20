@@ -21,4 +21,5 @@ export interface ColumnsProps {
   onForceStart: (ids?: string[]) => void
   onForceStop: (ids?: string[]) => void
   onParsingProfileRegistred: (id: string) => void
+  onEditProfileComment: (id: string, comment?: string) => void
 }

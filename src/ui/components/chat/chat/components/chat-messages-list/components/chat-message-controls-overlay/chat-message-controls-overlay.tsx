@@ -1,66 +1,107 @@
-import { useRef, useState } from 'react'
-import { MdDeleteOutline } from 'react-icons/md'
-
-import { Popover, Tooltip } from '@mui/material'
+import { Dropdown } from 'antd'
+import { FC, PropsWithChildren, memo, useMemo } from 'react'
+import { AiOutlineCloseCircle } from 'react-icons/ai'
+import { FaRegCheckCircle } from 'react-icons/fa'
+import { MdOutlineContentCopy, MdReply } from 'react-icons/md'
+import { RiShareForwardFill } from 'react-icons/ri'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CheckInCircleIcon, ReplyIcon } from '@components/shared/svg-icons'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
 import { useStyles } from './chat-message-controls-overlay.style'
 
-interface ChatMessageControlsOverlayProps {
-  onClickReply: () => void
+interface ChatMessageControlsOverlayProps extends PropsWithChildren {
+  showDropdown: boolean
+  isSelectedMessage?: boolean
+  onSelectMessage?: () => void
+  onClickReply?: () => void
+  onClickForwardMessages?: () => void
+  onClickCopyMessageText?: () => void
 }
 
-export const ChatMessageControlsOverlay = (props: ChatMessageControlsOverlayProps) => {
-  const { classes: styles, cx } = useStyles()
-  const controlsWrapperRef = useRef<HTMLDivElement>(null)
-  const [isShowAdditionalControls, setIsShowAdditionalControls] = useState(false)
+export const ChatMessageControlsOverlay: FC<ChatMessageControlsOverlayProps> = memo(props => {
+  const {
+    children,
+    showDropdown,
+    isSelectedMessage,
+    onClickReply,
+    onSelectMessage,
+    onClickForwardMessages,
+    onClickCopyMessageText,
+  } = props
+
+  if (!showDropdown) {
+    return <>{children}</>
+  }
+
+  const { classes: styles } = useStyles()
+
+  const items = useMemo(
+    () => [
+      {
+        key: 'select',
+        label: (
+          <CustomButton
+            className={styles.button}
+            icon={isSelectedMessage ? <AiOutlineCloseCircle /> : <FaRegCheckCircle />}
+            onClick={e => {
+              e?.stopPropagation()
+              onSelectMessage?.()
+            }}
+          >
+            {isSelectedMessage ? t(TranslationKey.Deselect) : t(TranslationKey.Select)}
+          </CustomButton>
+        ),
+      },
+      {
+        key: 'reply',
+        label: (
+          <CustomButton
+            className={styles.button}
+            icon={<MdReply />}
+            onClick={e => {
+              e?.stopPropagation()
+              onClickReply?.()
+            }}
+          >
+            {t(TranslationKey.Reply)}
+          </CustomButton>
+        ),
+      },
+      {
+        key: 'forward',
+        label: (
+          <CustomButton
+            className={styles.button}
+            icon={<RiShareForwardFill />}
+            onClick={e => {
+              e?.stopPropagation()
+              onSelectMessage?.()
+              onClickForwardMessages?.()
+            }}
+          >
+            {t(TranslationKey.Forward)}
+          </CustomButton>
+        ),
+      },
+      {
+        key: 'copy',
+        label: (
+          <CustomButton className={styles.button} icon={<MdOutlineContentCopy />} onClick={onClickCopyMessageText}>
+            {t(TranslationKey['Copy text'])}
+          </CustomButton>
+        ),
+      },
+    ],
+    [isSelectedMessage],
+  )
 
   return (
-    <div className={cx(styles.controlsOverlay, 'controlsOverlay', { [styles.showOverlay]: isShowAdditionalControls })}>
-      <div ref={controlsWrapperRef} className={styles.controls}>
-        <Tooltip
-          disableInteractive
-          title={t(TranslationKey.Reply)}
-          placement="left"
-          classes={{ tooltip: styles.tooltip }}
-        >
-          <button onClick={props.onClickReply}>
-            <ReplyIcon />
-          </button>
-        </Tooltip>
-      </div>
-
-      <Popover
-        open={isShowAdditionalControls}
-        anchorEl={controlsWrapperRef.current}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        classes={{ paper: styles.additionalControlsWrapper }}
-        onClose={() => setIsShowAdditionalControls(false)}
-      >
-        <div className={styles.additionalControls}>
-          <button className={styles.additionalControlsBtn}>
-            <ReplyIcon className={styles.replyIconReversed} /> Resend
-          </button>
-          <button className={styles.additionalControlsBtn}>
-            <CheckInCircleIcon /> {t(TranslationKey.Select)}
-          </button>
-          <button className={cx(styles.additionalControlsBtn, styles.removeButton)}>
-            <MdDeleteOutline size={24} /> {t(TranslationKey.Delete)}
-          </button>
-        </div>
-      </Popover>
-    </div>
+    <Dropdown menu={{ items }} trigger={['contextMenu']}>
+      {children}
+    </Dropdown>
   )
-}
+})

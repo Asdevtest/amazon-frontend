@@ -21,17 +21,17 @@
  */
 export interface InlineObject91 {
     /**
-     * текст отзыва/репорта
-     * @type {string}
-     * @memberof InlineObject91
-     */
-    text: string;
-    /**
-     * Прикрепленные ссылки на медиа для репорта/отзыва
+     * 
      * @type {Array<string>}
      * @memberof InlineObject91
      */
-    media?: Array<string>;
+    boxIds: Array<string>;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof InlineObject91
+     */
+    newAmounts: Array<number>;
 }
 
 

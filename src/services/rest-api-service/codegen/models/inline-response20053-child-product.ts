@@ -13,6 +13,8 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
 import { InlineResponse20053Suppliers } from './inline-response20053-suppliers';
 
 /**
@@ -58,6 +60,12 @@ export interface InlineResponse20053ChildProduct {
      */
     shopId?: string;
     /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusShop}
+     * @memberof InlineResponse20053ChildProduct
+     */
+    shop?: ApiV1AdminsGetProductsByStatusShop;
+    /**
      * GUID пользователя(байера)
      * @type {string}
      * @memberof InlineResponse20053ChildProduct
@@ -69,6 +77,18 @@ export interface InlineResponse20053ChildProduct {
      * @memberof InlineResponse20053ChildProduct
      */
     barCode?: string;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse20053ChildProduct
+     */
+    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse20053ChildProduct
+     */
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
      * @type {Array<InlineResponse20053Suppliers>}

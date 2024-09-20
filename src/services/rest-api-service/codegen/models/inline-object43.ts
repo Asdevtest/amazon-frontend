@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
 
 /**
  * 
@@ -22,59 +21,88 @@ import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags'
  */
 export interface InlineObject43 {
     /**
+     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @type {number}
+     * @memberof InlineObject43
+     */
+    taskId: number;
+    /**
      * 
-     * @type {number}
+     * @type {Array<string>}
      * @memberof InlineObject43
      */
-    amazon?: number;
+    boxesBefore?: Array<string>;
     /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject43
      */
-    reffee?: number;
+    boxes: Array<string>;
     /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineObject43
-     */
-    fbafee?: number;
-    /**
-     * ФБА кол-во
-     * @type {number}
-     * @memberof InlineObject43
-     */
-    fbaamount?: number;
-    /**
-     * Код статуса
-     * @type {number}
-     * @memberof InlineObject43
-     */
-    status?: number;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineObject43
-     */
-    profit?: number;
-    /**
-     * Маржа
-     * @type {number}
-     * @memberof InlineObject43
-     */
-    margin?: number;
-    /**
-     * Примечания байера.
+     * Тип операции
      * @type {string}
      * @memberof InlineObject43
      */
-    buyersComment?: string;
+    operationType: InlineObject43OperationTypeEnum;
     /**
-     * 
-     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * Комментарий клиента.
+     * @type {string}
      * @memberof InlineObject43
      */
-    tags?: Array<ApiV1BuyersProductsGuidTags>;
+    clientComment?: string;
+    /**
+     * Комментарий баера.
+     * @type {string}
+     * @memberof InlineObject43
+     */
+    buyerComment?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineObject43
+     */
+    images?: Array<string>;
+    /**
+     * Комментарий работника склада.
+     * @type {string}
+     * @memberof InlineObject43
+     */
+    storekeeperComment?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject43
+     */
+    priority?: InlineObject43PriorityEnum;
+    /**
+     * Причина приоритета
+     * @type {string}
+     * @memberof InlineObject43
+     */
+    reason?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject43OperationTypeEnum {
+    Merge = 'merge',
+    Split = 'split',
+    Receive = 'receive',
+    Edit = 'edit'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject43PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

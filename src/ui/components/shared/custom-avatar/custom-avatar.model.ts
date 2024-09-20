@@ -1,4 +1,5 @@
 import { UploadFile } from 'antd'
+import { RcFile, UploadFileStatus } from 'antd/es/upload/interface'
 import { makeAutoObservable } from 'mobx'
 import { toast } from 'react-toastify'
 import { v4 as uuid } from 'uuid'
@@ -28,22 +29,22 @@ export class CustomAvatarModel {
         },
       ]
     }
-    makeAutoObservable(this)
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  setPreviewOpen = (open: boolean) => {
+  setPreviewOpen(open: boolean) {
     this.previewOpen = open
   }
 
-  setLoading = (loading: boolean) => {
+  setLoading(loading: boolean) {
     this.loading = loading
   }
 
-  setFileList = (newFileList: UploadFile[]) => {
+  setFileList(newFileList: UploadFile[]) {
     this.fileList = newFileList
   }
 
-  onPreviewImage = async (file: UploadFile) => {
+  async onPreviewImage(file: UploadFile) {
     if (!file.url && file.originFileObj) {
       const base64 = await convertToBase64(file.originFileObj)
       this.previewImage = base64
@@ -53,13 +54,21 @@ export class CustomAvatarModel {
     this.setPreviewOpen(true)
   }
 
-  onRemoveImage = () => {
-    this.fileList = []
-    this.previewImage = ''
-    this.loading = false
+  onFileChange(event: React.ChangeEvent<HTMLInputElement>, onSubmit?: (imageData: UploadFileType) => void) {
+    const files = event.target.files
+    if (files && files.length > 0) {
+      const fileList = Array.from(files).map(file => ({
+        uid: uuid(),
+        name: file.name,
+        status: 'done' as UploadFileStatus,
+        url: URL.createObjectURL(file),
+        originFileObj: file as RcFile,
+      }))
+      this.onUploadImage(fileList, onSubmit)
+    }
   }
 
-  onChangeImage = async (newFileList: UploadFile[], onSubmit?: (imageData: UploadFileType) => void) => {
+  async onUploadImage(newFileList: UploadFile[], onSubmit?: (imageData: UploadFileType) => void) {
     const lastFile = newFileList.slice(-1)[0]
     if (!lastFile) return
 

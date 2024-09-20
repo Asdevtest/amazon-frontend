@@ -1,7 +1,7 @@
 import { Popconfirm } from 'antd'
 import { ItemType } from 'antd/es/menu/interface'
 import { FC, memo } from 'react'
-import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
+import { MdLocalPrintshop, MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 import { v4 as uuid } from 'uuid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -40,6 +40,7 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
           onClick,
           onClickEdit,
           onClickRemove,
+          onClickPrint,
         } = button
 
         if (!showButton) {
@@ -54,6 +55,13 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
                 onClick: onClickEdit,
               }
             : null,
+          onClickPrint
+            ? {
+                key: uuid(),
+                label: <MdLocalPrintshop size={16} color={theme.palette.primary.main} />,
+                onClick: onClickPrint,
+              }
+            : null,
           onClickRemove
             ? {
                 key: uuid(),
@@ -63,7 +71,7 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
             : null,
         ]
         const buttonProps = {
-          dropdown: dropdown && (!!onClickEdit || !!onClickRemove),
+          dropdown: dropdown && (!!onClickEdit || !!onClickRemove || !!onClickPrint),
           block: !!content && block,
           danger,
           ghost,

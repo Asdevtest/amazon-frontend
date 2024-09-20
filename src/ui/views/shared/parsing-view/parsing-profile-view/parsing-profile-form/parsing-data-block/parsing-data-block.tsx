@@ -43,7 +43,7 @@ export const ParsingDataBlock: FC<ParsingDataBlockProps> = memo(props => {
       <div className={styles.info}>
         <div className={styles.shop}>
           <AiTwotoneShop size="24" />
-          <Text copyable={false} text={shop?.name || ''} />
+          <Text textRows={1} copyable={false} text={shop?.name || ''} className={styles.shopName} />
         </div>
 
         <UserMiniCell userName={client?.name} userId={client?._id} />
@@ -51,7 +51,7 @@ export const ParsingDataBlock: FC<ParsingDataBlockProps> = memo(props => {
 
       <div className={styles.buttons}>
         <CustomButton size="small" onClick={onResetParsingData}>
-          {t(TranslationKey.Reset)}
+          {t(TranslationKey.Unlink)}
         </CustomButton>
         <CustomButton danger={isActive} size="small" type="primary" onClick={onToggleParsingData}>
           {t(TranslationKey[isActive ? 'Stop' : 'Start'])}

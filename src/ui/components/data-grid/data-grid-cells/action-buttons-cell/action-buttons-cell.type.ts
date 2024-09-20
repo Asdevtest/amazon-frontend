@@ -67,4 +67,8 @@ export interface ActionButtonsCellProps {
   onClickRemoveFirst?: () => void
   onClickRemoveSecond?: () => void
   onClickRemoveThird?: () => void
+
+  onClickPrintFirst?: () => void
+  onClickPrintSecond?: () => void
+  onClickPrintThird?: () => void
 }

@@ -21,11 +21,17 @@
  */
 export interface InlineResponse2016 {
     /**
-     * guid созданного объекта
+     * Тестовый статус запуска
      * @type {string}
      * @memberof InlineResponse2016
      */
-    guid?: string;
+    status?: string;
+    /**
+     * Строка подключения к WS соединению
+     * @type {string}
+     * @memberof InlineResponse2016
+     */
+    wsUrl?: string;
 }
 
 

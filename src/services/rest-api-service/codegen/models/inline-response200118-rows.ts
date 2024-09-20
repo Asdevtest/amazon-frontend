@@ -38,6 +38,12 @@ export interface InlineResponse200118Rows {
      * @memberof InlineResponse200118Rows
      */
     email?: string;
+    /**
+     * ShopId
+     * @type {string}
+     * @memberof InlineResponse200118Rows
+     */
+    shopId?: string;
 }
 
 

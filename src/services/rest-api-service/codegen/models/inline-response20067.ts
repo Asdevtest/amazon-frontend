@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20067Rows } from './inline-response20067-rows';
+import { PermissionGetDtoSchema } from './permission-get-dto-schema';
 
 /**
  * 
@@ -22,17 +22,41 @@ import { InlineResponse20067Rows } from './inline-response20067-rows';
  */
 export interface InlineResponse20067 {
     /**
-     * Кол-во записей
+     * Guid of permission group
+     * @type {string}
+     * @memberof InlineResponse20067
+     */
+    _id?: string;
+    /**
+     * Permission group key
+     * @type {string}
+     * @memberof InlineResponse20067
+     */
+    key?: string;
+    /**
+     * Permission group title
+     * @type {string}
+     * @memberof InlineResponse20067
+     */
+    title?: string;
+    /**
+     * Permission group description
+     * @type {string}
+     * @memberof InlineResponse20067
+     */
+    description?: string;
+    /**
+     * Permission role for users
      * @type {number}
      * @memberof InlineResponse20067
      */
-    count?: number;
+    role?: number;
     /**
-     * 
-     * @type {Array<InlineResponse20067Rows>}
+     * Массив permissions.
+     * @type {Array<PermissionGetDtoSchema>}
      * @memberof InlineResponse20067
      */
-    rows?: Array<InlineResponse20067Rows>;
+    permissions?: Array<PermissionGetDtoSchema>;
 }
 
 

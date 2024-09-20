@@ -33,7 +33,7 @@ import { InlineResponse20096 } from '../models';
 // @ts-ignore
 import { InlineResponse20097 } from '../models';
 // @ts-ignore
-import { InlineResponse2017 } from '../models';
+import { InlineResponse2014 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 /**
@@ -264,7 +264,7 @@ export const ShopSellApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ShopSellPost(body?: InlineObject123, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+        async apiV1ShopSellPost(body?: InlineObject123, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2014>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ShopSellPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -319,7 +319,7 @@ export const ShopSellApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ShopSellPost(body?: InlineObject123, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+        apiV1ShopSellPost(body?: InlineObject123, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2014> {
             return localVarFp.apiV1ShopSellPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };

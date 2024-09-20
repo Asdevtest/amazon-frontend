@@ -19,9 +19,11 @@ export class MessagesViewModel {
   requestStatus = loadingStatus.SUCCESS
 
   showConfirmModal = false
-  showAddNewChatByEmailModal = false
+
+  showCreateNewChatModal = false
+
   showAddUsersToGroupChatModal = false
-  showEditGroupChatInfoModal = false
+  showForwardMessagesModal = false
 
   nameSearchValue = ''
   mesSearchValue = ''
@@ -35,6 +37,8 @@ export class MessagesViewModel {
   curFoundedMessageIndex = undefined
 
   showProgress = false
+
+  selectedMessages = []
 
   get chatSelectedId() {
     return ChatModel.chatSelectedId
@@ -134,39 +138,8 @@ export class MessagesViewModel {
     }
   }
 
-  async onClickAddNewChatByEmail() {
-    try {
-      const res = await ChatsModel.getUsersNames()
-
-      runInAction(() => {
-        this.usersData = res.filter(el => el._id !== this.user._id)
-      })
-
-      this.onTriggerOpenModal('showAddNewChatByEmailModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickAddUsersToGroupChat() {
-    try {
-      const res = await ChatsModel.getUsersNames()
-
-      const currentUsersIdsInCurrentChat =
-        this.simpleChats.find(el => el._id === this.chatSelectedId)?.users.map(el => el._id) || []
-
-      runInAction(() => {
-        this.usersData = res.filter(el => !currentUsersIdsInCurrentChat.includes(el._id) && el._id !== this.user._id)
-      })
-
-      this.onTriggerOpenModal('showAddUsersToGroupChatModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  onClickEditGroupChatInfo() {
-    this.onTriggerOpenModal('showEditGroupChatInfoModal')
+  onClickCreateChatModal() {
+    this.onTriggerOpenModal('showCreateNewChatModal', true)
   }
 
   async onSubmitAddUsersToGroupChat(users) {
@@ -187,59 +160,6 @@ export class MessagesViewModel {
     }
   }
 
-  async onSubmitPatchInfoGroupChat(state, sourceState) {
-    try {
-      this.onTriggerOpenModal('showEditGroupChatInfoModal')
-
-      const imageIsNeedChange = state.preview !== sourceState.preview && state.preview
-
-      if (imageIsNeedChange) {
-        const file = dataURLtoFile(state.preview, this.user._id)
-
-        await onSubmitPostImages.call(this, { images: [{ file }], type: 'readyImages' })
-      }
-
-      await ChatModel.patchInfoGroupChat({
-        chatId: this.chatSelectedId,
-        title: state.title,
-        image: imageIsNeedChange ? this.readyImages[0] : state.preview,
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onSubmitAddNewChat(formFields) {
-    try {
-      if (formFields.chosenUsers.length === 1) {
-        const existedChatsUsers = this.simpleChats.reduce(
-          (acc, cur) => acc.concat(cur.users.length === 2 ? cur.users.map(user => user._id) : []),
-          [],
-        )
-
-        if (existedChatsUsers.includes(formFields.chosenUsers[0]?._id)) {
-          toast.warning(t(TranslationKey['Such dialogue already exists']))
-        } else {
-          await ChatsModel.createSimpleChatByUserId(formFields.chosenUsers[0]?._id)
-        }
-      } else {
-        if (formFields.images.length) {
-          await onSubmitPostImages.call(this, { images: formFields.images, type: 'readyImages' })
-        }
-
-        await ChatsModel.createSimpleGroupChat({
-          userIds: formFields.chosenUsers.map(el => el._id),
-          title: formFields.title,
-          image: this.readyImages[0] || '',
-        })
-      }
-
-      this.onTriggerOpenModal('showAddNewChatByEmailModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   onTypingMessage(chatId) {
     ChatModel.typingMessage({ chatId })
   }
@@ -248,12 +168,18 @@ export class MessagesViewModel {
     SettingsModel.setMutedChat(chatId)
   }
 
-  onClickChat(chat) {
-    ChatModel.resetChat(this.chatSelectedId)
-
+  onClickChat(chat, isNotChangeChat = false) {
     if (this.messagesFound?.length) {
       this.onChangeMesSearchValue('', this.chatSelectedId)
     }
+
+    this.selectedMessages = []
+
+    if (isNotChangeChat) {
+      return
+    }
+
+    ChatModel.resetChat(this.chatSelectedId)
 
     if (this.chatSelectedId === chat._id) {
       ChatModel.onChangeChatSelectedId(undefined)
@@ -293,7 +219,7 @@ export class MessagesViewModel {
     this.setRequestStatus(loadingStatus.SUCCESS)
   }
 
-  async onSubmitMessage(message, files, chatId, replyMessageId) {
+  async onSubmitMessage(message, files, chatId, replyMessageId, messagesToForward) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
@@ -309,6 +235,23 @@ export class MessagesViewModel {
         ...(replyMessageId && { replyMessageId }),
       })
 
+      if (messagesToForward?.length) {
+        for (const message of messagesToForward) {
+          await ChatModel.sendMessage({
+            chatId,
+            crmItemId: null,
+            text: '',
+            user: {
+              name: UserModel.userInfo.name,
+              _id: UserModel.userInfo._id,
+            },
+            forwardedMessageId: message._id,
+          })
+        }
+      }
+
+      this.onClickClearForwardMessages({ _id: chatId })
+
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error('onSubmitMessage error ', error)
@@ -323,11 +266,38 @@ export class MessagesViewModel {
     ChatModel.onChangeChatSelectedId(undefined)
   }
 
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+  onTriggerOpenModal(modal, value) {
+    this[modal] = value === undefined ? !this[modal] : value
   }
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  onSelectMessage(message) {
+    if (this.selectedMessages.some(el => el?._id === message._id)) {
+      this.selectedMessages = this.selectedMessages.filter(el => el?._id !== message?._id)
+    } else {
+      this.selectedMessages = [...this.selectedMessages, message]
+    }
+  }
+
+  onClearSelectedMessages() {
+    this.selectedMessages = []
+  }
+
+  onClickForwardMessages() {
+    this.onTriggerOpenModal('showForwardMessagesModal')
+  }
+
+  onClickForwardToChat(chat) {
+    ChatModel.onClickForwardMessages(chat?._id, this.selectedMessages)
+    this.onClickChat(chat, this.chatSelectedId === chat._id)
+
+    this.showForwardMessagesModal = false
+  }
+
+  onClickClearForwardMessages(chat) {
+    ChatModel.clearMessagesToForward(chat?._id)
   }
 }

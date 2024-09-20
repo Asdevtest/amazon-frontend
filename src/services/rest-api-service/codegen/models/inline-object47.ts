@@ -15,17 +15,17 @@
 
 
 /**
- * Схема изменения итоговой цены, totalPriceChanged
+ * 
  * @export
  * @interface InlineObject47
  */
 export interface InlineObject47 {
     /**
-     * новое значение изменения итоговой цены.
-     * @type {number}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject47
      */
-    totalPriceChanged: number;
+    productIds: Array<string>;
 }
 
 

@@ -13,277 +13,164 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusBoxAmounts } from './api-v1-admins-get-products-by-status-box-amounts';
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
-import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
-import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
+import { InlineResponse20035InventoryShop } from './inline-response20035-inventory-shop';
 
 /**
- * 
+ * Схема репорта за 30 дней с Seller-board
  * @export
  * @interface InlineResponse20055Rows
  */
 export interface InlineResponse20055Rows {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    _id?: string;
-    /**
-     * ASIN продукта
+     * ﻿\"ASIN\"
      * @type {string}
      * @memberof InlineResponse20055Rows
      */
     asin?: string;
     /**
-     * SKU введенным клиентом.
+     * SKU
      * @type {string}
      * @memberof InlineResponse20055Rows
      */
-    skuByClient?: string;
+    sku?: string;
     /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusSuppliers>}
-     * @memberof InlineResponse20055Rows
-     */
-    suppliers?: Array<ApiV1AdminsGetProductsByStatusSuppliers>;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusSuppliers}
-     * @memberof InlineResponse20055Rows
-     */
-    currentSupplier?: ApiV1AdminsGetProductsByStatusSuppliers;
-    /**
-     * GUID поставщика в базе данных
+     * Title
      * @type {string}
      * @memberof InlineResponse20055Rows
      */
-    currentSupplierId?: string;
+    title?: string;
     /**
-     * Гуид родительского продукта
+     * ROI, %
+     * @type {number}
+     * @memberof InlineResponse20055Rows
+     */
+    roi?: number;
+    /**
+     * FBA/FBM Stock
+     * @type {number}
+     * @memberof InlineResponse20055Rows
+     */
+    fbaFbmStock?: number;
+    /**
+     * Stock value
+     * @type {number}
+     * @memberof InlineResponse20055Rows
+     */
+    stockValue?: number;
+    /**
+     * Estimated Sales Velocity
+     * @type {number}
+     * @memberof InlineResponse20055Rows
+     */
+    estimatedSalesVelocity?: number;
+    /**
+     * Days  of stock  left
+     * @type {number}
+     * @memberof InlineResponse20055Rows
+     */
+    daysOfStockLeft?: number;
+    /**
+     * Recommended quantity for  reordering
+     * @type {number}
+     * @memberof InlineResponse20055Rows
+     */
+    recommendedQuantityForReordering?: number;
+    /**
+     * Running  out of stock
      * @type {string}
      * @memberof InlineResponse20055Rows
      */
-    parentProductId?: string;
+    runningOutOfStock?: string;
     /**
-     * Имеет ли дочерние продукты данный продукт (по parentProductId)
-     * @type {boolean}
+     * Reserved
+     * @type {number}
      * @memberof InlineResponse20055Rows
      */
-    hasChildren?: boolean;
+    reserved?: number;
     /**
-     * Категория
+     * Sent  to FBA
+     * @type {number}
+     * @memberof InlineResponse20055Rows
+     */
+    sentToFba?: number;
+    /**
+     * FBA  Prep. Stock
+     * @type {number}
+     * @memberof InlineResponse20055Rows
+     */
+    fbaPrepStock?: number;
+    /**
+     * Ordered
      * @type {string}
      * @memberof InlineResponse20055Rows
      */
-    category?: string;
+    ordered?: string;
     /**
-     * Ссылка на этот продукт на амазоне.
+     * Time to  reorder
      * @type {string}
      * @memberof InlineResponse20055Rows
      */
-    lamazon?: string;
+    timeToReorder?: string;
     /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    bsr?: number;
-    /**
-     * Признак fba
-     * @type {boolean}
-     * @memberof InlineResponse20055Rows
-     */
-    fba?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    amazon?: number;
-    /**
-     * Высота
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    height?: number;
-    /**
-     * Ширина
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    width?: number;
-    /**
-     * Длинна
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    length?: number;
-    /**
-     * Вес
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    weight?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    fbafee?: number;
-    /**
-     *  Общая сумма с фба.
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    fbaamount?: number;
-    /**
-     * Код текущего статуса
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    status?: number;
-    /**
-     * Комментарии к товару.
+     * Comment
      * @type {string}
      * @memberof InlineResponse20055Rows
      */
-    icomment?: string;
+    comment?: string;
     /**
-     * Комментарии к товару, от клиента.
+     * Marketplace
      * @type {string}
      * @memberof InlineResponse20055Rows
      */
-    clientComment?: string;
+    marketplace?: string;
     /**
-     * Массив картинок.
-     * @type {Array<string>}
+     * FNSKU
+     * @type {string}
      * @memberof InlineResponse20055Rows
      */
-    images?: Array<string>;
+    fnsku?: string;
     /**
-     * Последние seo-файлы
-     * @type {Array<string>}
-     * @memberof InlineResponse20055Rows
-     */
-    latestSeoFiles?: Array<string>;
-    /**
-     * Цена для клиента
+     * Target stock range after new order days
      * @type {number}
      * @memberof InlineResponse20055Rows
      */
-    priceForClient?: number;
+    targetStockRangeAfterNewOrderDays?: number;
     /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    checkednotes?: string;
-    /**
-     * Признак isCreatedByClient
-     * @type {boolean}
-     * @memberof InlineResponse20055Rows
-     */
-    isCreatedByClient?: boolean;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20055Rows
-     */
-    client?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Описание с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    amazonDescription?: string;
-    /**
-     * Данные из поля детали с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    amazonDetail?: string;
-    /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    amazonTitle?: string;
-    /**
-     * Материл продукта
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    material?: string;
-    /**
-     * Применение продукта
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    productUsage?: string;
-    /**
-     * chinese title?
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    chinaTitle?: string;
-    /**
-     * Баркод
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    barCode?: string;
-    /**
-     * Защита листинга (bool)
-     * @type {boolean}
-     * @memberof InlineResponse20055Rows
-     */
-    transparency?: boolean;
-    /**
-     * Минимальный заказ
+     * FBA buffer days
      * @type {number}
      * @memberof InlineResponse20055Rows
      */
-    minpurchase?: number;
+    fbaBufferDays?: number;
     /**
-     * Прибыль
+     * Manuf. time days
      * @type {number}
      * @memberof InlineResponse20055Rows
      */
-    profit?: number;
+    manufTimeDays?: number;
     /**
-     * Маржа
+     * Use a Prep Center
+     * @type {string}
+     * @memberof InlineResponse20055Rows
+     */
+    useAPrepCenter?: string;
+    /**
+     * Shipping to Prep Center days
      * @type {number}
      * @memberof InlineResponse20055Rows
      */
-    margin?: number;
+    shippingToPrepCenterDays?: number;
     /**
-     * Кол-во товаров, которые находятся в пути
+     * Shipping to FBA days
      * @type {number}
      * @memberof InlineResponse20055Rows
      */
-    inTransfer?: number;
+    shippingToFbaDays?: number;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * Гуид записи
+     * @type {string}
      * @memberof InlineResponse20055Rows
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20055Rows
-     */
-    checkedBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    _id?: string;
     /**
      * Дата создания
      * @type {string}
@@ -291,257 +178,17 @@ export interface InlineResponse20055Rows {
      */
     createdAt?: string;
     /**
-     * Дата изменения
+     * Дата обновления
      * @type {string}
      * @memberof InlineResponse20055Rows
      */
     updatedAt?: string;
     /**
-     * Дата проверки
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    checkedAt?: string;
-    /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {InlineResponse20035InventoryShop}
      * @memberof InlineResponse20055Rows
      */
-    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Дедлаин на на поиск поставщика байером.
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    buyerTimeoutAt?: string;
-    /**
-     * Комментарии к товару от байера.
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    buyersComment?: string;
-    /**
-     * ID магазина продукта
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    shopId?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusShop}
-     * @memberof InlineResponse20055Rows
-     */
-    shop?: ApiV1AdminsGetProductsByStatusShop;
-    /**
-     * Савка ресечера.
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    researcherRate?: number;
-    /**
-     * Савка супервайзера.
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    supervisorRate?: number;
-    /**
-     * Дата оплаты
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    paidAt?: string;
-    /**
-     * Савка байера.
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    buyerRate?: number;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    strategyStatus?: number;
-    /**
-     * Признак needCheckBySupervisor
-     * @type {boolean}
-     * @memberof InlineResponse20055Rows
-     */
-    needCheckBySupervisor?: boolean;
-    /**
-     * Сколько такого продукта находится в заказах.
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    amountInOrders?: number;
-    /**
-     * Сколько такого продукта находится в заказах в статусах 0, 2, 3.
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    amountInPendingOrders?: number;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusBoxAmounts>}
-     * @memberof InlineResponse20055Rows
-     */
-    boxAmounts?: Array<ApiV1AdminsGetProductsByStatusBoxAmounts>;
-    /**
-     * Флаг указывает что продукт в архиве.
-     * @type {boolean}
-     * @memberof InlineResponse20055Rows
-     */
-    archive?: boolean;
-    /**
-     * hsCode продукта.
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    hsCode?: string;
-    /**
-     * Ниша
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    niche?: string;
-    /**
-     * Асины
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    asins?: string;
-    /**
-     * Общий доход
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    totalRevenue?: string;
-    /**
-     * Коэффициент прибыли
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    coefficient?: string;
-    /**
-     * Средний доход
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    avgRevenue?: string;
-    /**
-     * Средний BSR
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    avgBSR?: string;
-    /**
-     * Средняя цена
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    avgPrice?: string;
-    /**
-     * Средний отзывы
-     * @type {string}
-     * @memberof InlineResponse20055Rows
-     */
-    avgReviews?: string;
-    /**
-     * Каков должен быть сток за 4 месяца
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    fourMonthesStock?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    stockUSA?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    reservedSum?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    sentToFbaSum?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    fbaFbmStockSum?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    ideasOnCheck?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    ideasFinished?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    ideasClosed?: number;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
-     * @memberof InlineResponse20055Rows
-     */
-    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
-     * @memberof InlineResponse20055Rows
-     */
-    redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
-     * @memberof InlineResponse20055Rows
-     */
-    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof InlineResponse20055Rows
-     */
-    productsInWarehouse?: Array<object>;
-    /**
-     * Кол-во идей продукта в статусе 10
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    ideasCounter?: number;
-    /**
-     * “sumStock”=“boxAmounts” + ”inTransfer” + ”productsInWarehouse”(“reserved” + ”fbaFbmStock” + ”sentToFba”) + “amountInOrders“ + “stockUSA“
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    sumStock?: number;
-    /**
-     * “purchaseQuantity”=”fourMonthesStock” - “sumStock” - меньше нуля быть не может, если отрицательное значение выставляем 0
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    purchaseQuantity?: number;
-    /**
-     * (amount/batchTotalCostInDollar) * sumStock
-     * @type {number}
-     * @memberof InlineResponse20055Rows
-     */
-    stockCost?: number;
+    shop?: InlineResponse20035InventoryShop;
 }
 
 

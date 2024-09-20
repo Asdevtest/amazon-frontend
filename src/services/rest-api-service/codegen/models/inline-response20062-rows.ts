@@ -13,164 +13,62 @@
  */
 
 
-import { InlineResponse20042InventoryShop } from './inline-response20042-inventory-shop';
+import { InlineResponse20035InventoryShop } from './inline-response20035-inventory-shop';
 
 /**
- * Схема репорта за 30 дней с Seller-board
+ * Схема репорта amazon_data
  * @export
  * @interface InlineResponse20062Rows
  */
 export interface InlineResponse20062Rows {
-    /**
-     * ﻿\"ASIN\"
-     * @type {string}
-     * @memberof InlineResponse20062Rows
-     */
-    asin?: string;
-    /**
-     * SKU
-     * @type {string}
-     * @memberof InlineResponse20062Rows
-     */
-    sku?: string;
-    /**
-     * Title
-     * @type {string}
-     * @memberof InlineResponse20062Rows
-     */
-    title?: string;
-    /**
-     * ROI, %
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    roi?: number;
-    /**
-     * FBA/FBM Stock
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    fbaFbmStock?: number;
-    /**
-     * Stock value
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    stockValue?: number;
-    /**
-     * Estimated Sales Velocity
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    estimatedSalesVelocity?: number;
-    /**
-     * Days  of stock  left
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    daysOfStockLeft?: number;
-    /**
-     * Recommended quantity for  reordering
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    recommendedQuantityForReordering?: number;
-    /**
-     * Running  out of stock
-     * @type {string}
-     * @memberof InlineResponse20062Rows
-     */
-    runningOutOfStock?: string;
-    /**
-     * Reserved
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    reserved?: number;
-    /**
-     * Sent  to FBA
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    sentToFba?: number;
-    /**
-     * FBA  Prep. Stock
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    fbaPrepStock?: number;
-    /**
-     * Ordered
-     * @type {string}
-     * @memberof InlineResponse20062Rows
-     */
-    ordered?: string;
-    /**
-     * Time to  reorder
-     * @type {string}
-     * @memberof InlineResponse20062Rows
-     */
-    timeToReorder?: string;
-    /**
-     * Comment
-     * @type {string}
-     * @memberof InlineResponse20062Rows
-     */
-    comment?: string;
-    /**
-     * Marketplace
-     * @type {string}
-     * @memberof InlineResponse20062Rows
-     */
-    marketplace?: string;
-    /**
-     * FNSKU
-     * @type {string}
-     * @memberof InlineResponse20062Rows
-     */
-    fnsku?: string;
-    /**
-     * Target stock range after new order days
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    targetStockRangeAfterNewOrderDays?: number;
-    /**
-     * FBA buffer days
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    fbaBufferDays?: number;
-    /**
-     * Manuf. time days
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    manufTimeDays?: number;
-    /**
-     * Use a Prep Center
-     * @type {string}
-     * @memberof InlineResponse20062Rows
-     */
-    useAPrepCenter?: string;
-    /**
-     * Shipping to Prep Center days
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    shippingToPrepCenterDays?: number;
-    /**
-     * Shipping to FBA days
-     * @type {number}
-     * @memberof InlineResponse20062Rows
-     */
-    shippingToFbaDays?: number;
     /**
      * Гуид записи
      * @type {string}
      * @memberof InlineResponse20062Rows
      */
     _id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20062Rows
+     */
+    productId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20062Rows
+     */
+    shopId?: string;
+    /**
+     * The asin of product
+     * @type {string}
+     * @memberof InlineResponse20062Rows
+     */
+    asin?: string;
+    /**
+     * The sku of product
+     * @type {string}
+     * @memberof InlineResponse20062Rows
+     */
+    sku?: string;
+    /**
+     * image
+     * @type {string}
+     * @memberof InlineResponse20062Rows
+     */
+    image?: string;
+    /**
+     * Дата обновления
+     * @type {string}
+     * @memberof InlineResponse20062Rows
+     */
+    dateUpdated?: string;
+    /**
+     * Время обновления
+     * @type {string}
+     * @memberof InlineResponse20062Rows
+     */
+    timeUpdated?: string;
     /**
      * Дата создания
      * @type {string}
@@ -184,11 +82,53 @@ export interface InlineResponse20062Rows {
      */
     updatedAt?: string;
     /**
-     * 
-     * @type {InlineResponse20042InventoryShop}
+     * Order Id
+     * @type {string}
      * @memberof InlineResponse20062Rows
      */
-    shop?: InlineResponse20042InventoryShop;
+    orderId?: string;
+    /**
+     * Reason
+     * @type {string}
+     * @memberof InlineResponse20062Rows
+     */
+    reason?: string;
+    /**
+     * Returned Date
+     * @type {string}
+     * @memberof InlineResponse20062Rows
+     */
+    returnedDate?: string;
+    /**
+     * Reversal Date
+     * @type {string}
+     * @memberof InlineResponse20062Rows
+     */
+    reversalDate?: string;
+    /**
+     * Received Date
+     * @type {string}
+     * @memberof InlineResponse20062Rows
+     */
+    receivedDate?: string;
+    /**
+     * Disposition
+     * @type {string}
+     * @memberof InlineResponse20062Rows
+     */
+    disposition?: string;
+    /**
+     * Status
+     * @type {string}
+     * @memberof InlineResponse20062Rows
+     */
+    status?: string;
+    /**
+     * 
+     * @type {InlineResponse20035InventoryShop}
+     * @memberof InlineResponse20062Rows
+     */
+    shop?: InlineResponse20035InventoryShop;
 }
 
 

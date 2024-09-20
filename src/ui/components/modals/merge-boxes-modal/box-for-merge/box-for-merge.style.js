@@ -51,6 +51,7 @@ export const useStyles = makeStyles()(theme => ({
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
+    maxWidth: '250px',
     color: theme.palette.text.general,
   },
   orderInput: {

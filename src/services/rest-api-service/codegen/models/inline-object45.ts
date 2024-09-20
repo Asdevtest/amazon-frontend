@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
 
 /**
  * 
@@ -22,11 +22,269 @@ import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buye
  */
 export interface InlineObject45 {
     /**
-     * 
-     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
+     * ASIN продукта
+     * @type {string}
      * @memberof InlineObject45
      */
-    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
+    asin: string;
+    /**
+     * SKU введенным клиентом.
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    skuByClient?: string;
+    /**
+     * GUID поставщика, если передать строку \"clear\" то поставщику будет сброшен (у байера и ресечера).
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    currentSupplierId?: string;
+    /**
+     * Гуид родительского продукта
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    parentProductId?: string;
+    /**
+     * Категория
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    category?: string;
+    /**
+     * Ссылка на этот продукт на амазоне.
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    lamazon?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    bsr?: number;
+    /**
+     * Признак fba
+     * @type {boolean}
+     * @memberof InlineObject45
+     */
+    fba?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    amazon?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    height?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    width?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    length?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    weight?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    fbafee?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    fbaamount?: number;
+    /**
+     * Комментарии к товару.
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    icomment?: string;
+    /**
+     * Комментарии к товару, от клиента.
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    clientComment?: string;
+    /**
+     * Массив изображений.
+     * @type {Array<string>}
+     * @memberof InlineObject45
+     */
+    images: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    amazonDescription?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    amazonDetail?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    amazonTitle?: string;
+    /**
+     * Материл продукта
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    material?: string;
+    /**
+     * Применение продукта
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    productUsage?: string;
+    /**
+     * chinese title?
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    chinaTitle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    barCode?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    minpurchase?: number;
+    /**
+     * Прибыль
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    margin?: number;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    strategyStatus?: number;
+    /**
+     * Признак needCheckBySupervisor
+     * @type {boolean}
+     * @memberof InlineObject45
+     */
+    needCheckBySupervisor?: boolean;
+    /**
+     * hsCode продукта.
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    hsCode?: string;
+    /**
+     * Гуид баера, Байер создал идею для продукта. Клиенту понравилась идея, он создал на основе ее карточку.
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    buyerId?: string;
+    /**
+     * Ниша
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    niche?: string;
+    /**
+     * Асины
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    asins?: string;
+    /**
+     * Общий доход
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    totalRevenue?: string;
+    /**
+     * Коэффициент прибыли
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    coefficient?: string;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineObject45
+     */
+    avgReviews?: string;
+    /**
+     * Поле для калькуляции дозакупок
+     * @type {number}
+     * @memberof InlineObject45
+     */
+    fourMonthesStock?: number;
+    /**
+     * GUIDы поставщиков продукта
+     * @type {Array<string>}
+     * @memberof InlineObject45
+     */
+    suppliersIds?: Array<string>;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @memberof InlineObject45
+     */
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
 }
 
 
