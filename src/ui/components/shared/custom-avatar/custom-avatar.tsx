@@ -78,7 +78,7 @@ export const CustomAvatar: FC<CustomAvatarProps> = observer(props => {
           ), // change avatar image,
         }}
         onPreview={viewModel.onPreviewImage}
-        // onChange={({ fileList }) => viewModel.onUploadImage(fileList, onSubmit)} // uncomment if needed
+        onChange={({ fileList }) => viewModel.onUploadImage(fileList, onSubmit)} // uncomment if needed
         {...restProps}
       >
         {uploadButton}
