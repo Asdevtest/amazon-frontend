@@ -19,7 +19,7 @@ export const supervisorReadyToCheckColumns = ({ onPickUp }) => {
           firstButtonTooltipText={t(TranslationKey['Assign a product card to a supervisor'])}
           firstButtonElement={t(TranslationKey['Get to work'])}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={throttle(onPickUp(row._id))}
+          onClickFirstButton={() => throttle(onPickUp(row._id))}
         />
       ),
       width: 200,
