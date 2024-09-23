@@ -13,7 +13,10 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1BoxesItems } from './api-v1-boxes-items';
+=======
+>>>>>>> dev
 
 /**
  * Коробка
@@ -22,6 +25,7 @@ import { ApiV1BoxesItems } from './api-v1-boxes-items';
  */
 export interface InlineObject24 {
     /**
+<<<<<<< HEAD
      * Сколько таких же коробок в одной коробке
      * @type {number}
      * @memberof InlineObject24
@@ -58,10 +62,13 @@ export interface InlineObject24 {
      */
     trackNumberText?: string;
     /**
+=======
+>>>>>>> dev
      * 
      * @type {Array<string>}
      * @memberof InlineObject24
      */
+<<<<<<< HEAD
     trackNumberFile?: Array<string>;
     /**
      * Идентификатор UPS
@@ -183,6 +190,9 @@ export interface InlineObject24 {
      * @memberof InlineObject24
      */
     prepId?: string;
+=======
+    boxesIds: Array<string>;
+>>>>>>> dev
 }
 
 

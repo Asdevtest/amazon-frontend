@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { Paper } from '@mui/material'
-
 import { getAdminDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -35,7 +33,7 @@ export const AdminDashboardViewRaw = props => {
   return (
     <>
       <div>
-        <Paper className={styles.userInfoWrapper}>
+        <div className={styles.userInfoWrapper}>
           <div className={styles.userInfoLeftWrapper}>
             <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
@@ -43,7 +41,7 @@ export const AdminDashboardViewRaw = props => {
           </div>
 
           <DashboardButtons user={viewModel.userInfo} routes={buyerButtonsRoutes} />
-        </Paper>
+        </div>
 
         {getAdminDashboardCardConfig().map(item => (
           <DashboardOneLineCardsList

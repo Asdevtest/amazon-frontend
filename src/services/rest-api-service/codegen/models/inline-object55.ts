@@ -21,6 +21,7 @@
  */
 export interface InlineObject55 {
     /**
+<<<<<<< HEAD
      * GUID продукта.
      * @type {string}
      * @memberof InlineObject55
@@ -38,6 +39,19 @@ export interface InlineObject55 {
      * @memberof InlineObject55
      */
     recommendedValue: number;
+=======
+     * Тег
+     * @type {string}
+     * @memberof InlineObject55
+     */
+    title: string;
+    /**
+     * Color
+     * @type {string}
+     * @memberof InlineObject55
+     */
+    color?: string;
+>>>>>>> dev
 }
 
 

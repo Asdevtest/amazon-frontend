@@ -13,16 +13,21 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1BatchesByProductGuidBoxes } from './api-v1-batches-by-product-guid-boxes';
+=======
+import { InlineResponse20016 } from './inline-response20016';
+>>>>>>> dev
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20017
  */
 export interface InlineResponse20017 {
     /**
+<<<<<<< HEAD
      * GUID партии.
      * @type {string}
      * @memberof InlineResponse20017
@@ -30,11 +35,15 @@ export interface InlineResponse20017 {
     _id?: string;
     /**
      * Человекочитаемый id партии.
+=======
+     * Всего кол-во записей в результате запроса
+>>>>>>> dev
      * @type {number}
      * @memberof InlineResponse20017
      */
-    humanFriendlyId?: number;
+    count?: number;
     /**
+<<<<<<< HEAD
      * Название партии
      * @type {string}
      * @memberof InlineResponse20017
@@ -64,6 +73,13 @@ export interface InlineResponse20017 {
      * @memberof InlineResponse20017
      */
     storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+=======
+     * Массив батчей c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20016>}
+     * @memberof InlineResponse20017
+     */
+    rows?: Array<InlineResponse20016>;
+>>>>>>> dev
 }
 
 

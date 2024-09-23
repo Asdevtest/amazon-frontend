@@ -13,9 +13,14 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
 import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
+=======
+import { ApiV1BatchesOrderLogicsTariffConditionsByRegion } from './api-v1-batches-order-logics-tariff-conditions-by-region';
+import { InlineResponse200102DestinationVariations } from './inline-response200102-destination-variations';
+>>>>>>> dev
 
 /**
  * 
@@ -49,6 +54,15 @@ export interface InlineResponse200102Rows {
     ordered?: boolean;
     /**
      * 
+<<<<<<< HEAD
+=======
+     * @type {ApiV1BatchesOrderLogicsTariffConditionsByRegion}
+     * @memberof InlineResponse200102Rows
+     */
+    conditionsByRegion?: ApiV1BatchesOrderLogicsTariffConditionsByRegion;
+    /**
+     * Стоимость за единицу с доставкой в Китай
+>>>>>>> dev
      * @type {number}
      * @memberof InlineResponse200102Rows
      */

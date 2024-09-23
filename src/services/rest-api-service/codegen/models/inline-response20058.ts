@@ -13,7 +13,11 @@
  */
 
 
+<<<<<<< HEAD
 import { InlineResponse20057 } from './inline-response20057';
+=======
+import { InlineResponse20058Rows } from './inline-response20058-rows';
+>>>>>>> dev
 
 /**
  * Результат запроса с пагинацией
@@ -22,17 +26,29 @@ import { InlineResponse20057 } from './inline-response20057';
  */
 export interface InlineResponse20058 {
     /**
+<<<<<<< HEAD
      * Всего кол-во записей в результате запроса
+=======
+     * Кол-во записей
+>>>>>>> dev
      * @type {number}
      * @memberof InlineResponse20058
      */
     count?: number;
     /**
+<<<<<<< HEAD
      * Массив коробок c пагинацией(заданная страничка).
      * @type {Array<InlineResponse20057>}
      * @memberof InlineResponse20058
      */
     rows?: Array<InlineResponse20057>;
+=======
+     * 
+     * @type {Array<InlineResponse20058Rows>}
+     * @memberof InlineResponse20058
+     */
+    rows?: Array<InlineResponse20058Rows>;
+>>>>>>> dev
 }
 
 

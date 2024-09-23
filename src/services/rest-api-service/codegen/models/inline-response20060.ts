@@ -24,8 +24,13 @@ import { InlineResponse20040RequestSpec } from './inline-response20040-request-s
  */
 export interface InlineResponse20060 {
     /**
+<<<<<<< HEAD
      * GUID в базе данных
      * @type {string}
+=======
+     * Кол-во записей
+     * @type {number}
+>>>>>>> dev
      * @memberof InlineResponse20060
      */
     _id?: string;

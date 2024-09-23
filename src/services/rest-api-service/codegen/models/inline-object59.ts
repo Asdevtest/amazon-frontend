@@ -21,11 +21,19 @@
  */
 export interface InlineObject59 {
     /**
+<<<<<<< HEAD
      * shippingLabel
      * @type {string}
      * @memberof InlineObject59
      */
     shippingLabel: string;
+=======
+     * id профайла
+     * @type {string}
+     * @memberof InlineObject59
+     */
+    profileId: string;
+>>>>>>> dev
 }
 
 

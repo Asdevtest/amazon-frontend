@@ -13,6 +13,10 @@
  */
 
 
+<<<<<<< HEAD
+=======
+import { ApiV1IntegrationsCreateAndLinkSkuProductsPayload } from './api-v1-integrations-create-and-link-sku-products-payload';
+>>>>>>> dev
 
 /**
  * Схема комментарии байера.
@@ -21,11 +25,19 @@
  */
 export interface InlineObject68 {
     /**
+<<<<<<< HEAD
      * Комментарии байера.
      * @type {string}
      * @memberof InlineObject68
      */
     buyerComment: string;
+=======
+     * 
+     * @type {Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>}
+     * @memberof InlineObject68
+     */
+    payload?: Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>;
+>>>>>>> dev
 }
 
 

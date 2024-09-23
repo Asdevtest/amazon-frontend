@@ -13,6 +13,8 @@
  */
 
 
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1BatchesProductShop } from './api-v1-batches-product-shop';
 
 /**
  * 
@@ -50,6 +52,24 @@ export interface InlineResponse20048Product {
      * @memberof InlineResponse20048Product
      */
     amazonTitle?: string;
+    /**
+     * 
+     * @type {ApiV1BatchesProductShop}
+     * @memberof InlineResponse20048Product
+     */
+    shop?: ApiV1BatchesProductShop;
+    /**
+     * 
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @memberof InlineResponse20048Product
+     */
+    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    /**
+     * 
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @memberof InlineResponse20048Product
+     */
+    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
 }
 
 

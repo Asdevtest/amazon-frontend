@@ -22,6 +22,7 @@ import { ApiV1BoxesItems } from './api-v1-boxes-items';
  */
 export interface InlineObject25 {
     /**
+<<<<<<< HEAD
      * Сколько таких же коробок в одной коробке
      * @type {number}
      * @memberof InlineObject25
@@ -183,6 +184,13 @@ export interface InlineObject25 {
      * @memberof InlineObject25
      */
     storekeeperId?: string;
+=======
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject25
+     */
+    attachedDocuments: Array<string>;
+>>>>>>> dev
 }
 
 

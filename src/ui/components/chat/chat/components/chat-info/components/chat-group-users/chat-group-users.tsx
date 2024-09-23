@@ -18,23 +18,16 @@ import { useStyles } from './chat-group-users.style'
 interface ChatGroupUsersProps {
   chat: ChatContract
   userId: string
-  onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
 }
 
 export const ChatGroupUsers: FC<ChatGroupUsersProps> = memo(props => {
-  const { chat, userId, onRemoveUsersFromGroupChat, onClickAddUsersToGroupChat } = props
+  const { chat, userId, onRemoveUsersFromGroupChat } = props
   const { classes: styles } = useStyles()
 
   return (
     <div className={styles.groupSettingsWrapper}>
-      {userId === chat.info?.createdBy ? (
-        <CustomButton type="primary" size="large" icon={<FiPlus />} onClick={onClickAddUsersToGroupChat}>
-          {t(TranslationKey['Add member'])}
-        </CustomButton>
-      ) : null}
-
       <div className={styles.membersWrapper}>
         {chat.users
           .slice()

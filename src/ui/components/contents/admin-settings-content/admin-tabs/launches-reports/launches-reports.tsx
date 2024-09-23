@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { useStyles } from './launches-reports.style'
@@ -36,7 +35,7 @@ export const LaunchesReports: FC<LaunchesReportsProps> = observer(({ timeBeforeL
         onChange={viewModel.onChangeDeadline}
       />
 
-      <CustomButton type="primary" loading={viewModel.isLoading} onClick={throttle(viewModel.onSaveDeadline)}>
+      <CustomButton type="primary" loading={viewModel.isLoading} onClick={viewModel.onSaveDeadline}>
         {t(TranslationKey.Save)}
       </CustomButton>
     </div>

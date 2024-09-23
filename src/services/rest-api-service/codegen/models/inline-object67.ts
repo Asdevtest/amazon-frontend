@@ -23,10 +23,17 @@ import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buye
 export interface InlineObject67 {
     /**
      * 
+<<<<<<< HEAD
      * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
      * @memberof InlineObject67
      */
     orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
+=======
+     * @type {Array<string>}
+     * @memberof InlineObject67
+     */
+    shopIds: Array<string>;
+>>>>>>> dev
 }
 
 

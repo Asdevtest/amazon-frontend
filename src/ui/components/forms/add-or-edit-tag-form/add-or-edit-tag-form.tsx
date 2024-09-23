@@ -10,7 +10,6 @@ import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
 import { CustomTag } from '@components/shared/custom-tag'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ITag } from '@typings/shared/tag'
@@ -97,7 +96,7 @@ export const AddOrEditTagForm: FC<AddOrEditTagFormProps> = observer(props => {
       ) : null}
 
       <div className={styles.btnsWrapper}>
-        <CustomButton type="primary" size="large" disabled={disabledButton} onClick={throttle(handleClick)}>
+        <CustomButton type="primary" size="large" disabled={disabledButton} onClick={handleClick}>
           {t(TranslationKey.Save)}
         </CustomButton>
 

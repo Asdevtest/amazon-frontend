@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-guid-items';
 
 /**
  * 
@@ -21,17 +22,65 @@
  */
 export interface InlineObject88 {
     /**
-     * Комментарий клиента
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject88
      */
-    clientComment?: string;
+    lengthCmWarehouse?: number;
     /**
-     * Комментарий баера
+     * 
+     * @type {number}
+     * @memberof InlineObject88
+     */
+    widthCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject88
+     */
+    heightCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject88
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject88
+     */
+    volumeWeightKgWarehouse?: number;
+    /**
+     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+     * @type {boolean}
+     * @memberof InlineObject88
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * 
+     * @type {Array<ApiV1BoxesStorekeepersGuidItems>}
+     * @memberof InlineObject88
+     */
+    items?: Array<ApiV1BoxesStorekeepersGuidItems>;
+    /**
+     * Комментарии к коробке
      * @type {string}
      * @memberof InlineObject88
      */
-    buyerComment?: string;
+    storekeeperComment?: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject88
+     */
+    variationTariffId?: string;
+    /**
+     * Массив ссылок на фотографии.
+     * @type {Array<string>}
+     * @memberof InlineObject88
+     */
+    images?: Array<string>;
 }
 
 

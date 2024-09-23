@@ -2,7 +2,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 export const supervisorReadyToCheckColumns = ({ onPickUp }) => {
@@ -15,7 +14,7 @@ export const supervisorReadyToCheckColumns = ({ onPickUp }) => {
         <ActionButtonsCell
           showFirst
           firstContent={t(TranslationKey['Get to work'])}
-          onClickFirst={() => throttle(onPickUp(row._id))}
+          onClickFirst={() => onPickUp(row._id)}
         />
       ),
       width: 150,

@@ -13,9 +13,9 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusBoxProperties } from './api-v1-admins-get-products-by-status-box-properties';
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsGetProductsByStatusPriceVariations } from './api-v1-admins-get-products-by-status-price-variations';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1BatchesProductBoxProperties } from './api-v1-batches-product-box-properties';
+import { ApiV1BatchesProductPriceVariations } from './api-v1-batches-product-price-variations';
 import { ApiV1BuyersOrdersMyPaymentMethod } from './api-v1-buyers-orders-my-payment-method';
 
 /**
@@ -110,16 +110,16 @@ export interface InlineResponse20061Suppliers {
     batchTotalCostInDollar?: number;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusBoxProperties}
+     * @type {ApiV1BatchesProductBoxProperties}
      * @memberof InlineResponse20061Suppliers
      */
-    boxProperties?: ApiV1AdminsGetProductsByStatusBoxProperties;
+    boxProperties?: ApiV1BatchesProductBoxProperties;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusPriceVariations>}
+     * @type {Array<ApiV1BatchesProductPriceVariations>}
      * @memberof InlineResponse20061Suppliers
      */
-    priceVariations?: Array<ApiV1AdminsGetProductsByStatusPriceVariations>;
+    priceVariations?: Array<ApiV1BatchesProductPriceVariations>;
     /**
      * Цена в юанях
      * @type {number}
@@ -134,10 +134,10 @@ export interface InlineResponse20061Suppliers {
     paymentMethods?: Array<ApiV1BuyersOrdersMyPaymentMethod>;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20061Suppliers
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * Дата создания.
      * @type {string}

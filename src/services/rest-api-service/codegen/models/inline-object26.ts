@@ -21,6 +21,7 @@
  */
 export interface InlineObject26 {
     /**
+<<<<<<< HEAD
      * GUID пункта назначения коробки
      * @type {string}
      * @memberof InlineObject26
@@ -98,6 +99,19 @@ export interface InlineObject26 {
      * @memberof InlineObject26
      */
     variationTariffId?: string;
+=======
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject26
+     */
+    batchIds: Array<string>;
+    /**
+     * Заархивирована ли партия
+     * @type {boolean}
+     * @memberof InlineObject26
+     */
+    archive: boolean;
+>>>>>>> dev
 }
 
 

@@ -21,6 +21,7 @@
  */
 export interface InlineObject47 {
     /**
+<<<<<<< HEAD
      * GUID storekeeper-a
      * @type {string}
      * @memberof InlineObject47
@@ -128,6 +129,13 @@ export enum InlineObject47PriorityEnum {
     _30 = '30',
     _40 = '40',
     _50 = '50'
+=======
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject47
+     */
+    productIds: Array<string>;
+>>>>>>> dev
 }
 
 

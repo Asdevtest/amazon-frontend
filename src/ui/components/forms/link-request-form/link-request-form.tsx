@@ -49,7 +49,7 @@ export const LinkRequestForm: FC<LinkRequestFormProps> = observer(props => {
             shape="circle"
             icon={<RestartIcon />}
             loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-            onClick={() => viewModel.getCurrentData()}
+            onClick={viewModel.getCurrentData}
           />
         </div>
       </div>

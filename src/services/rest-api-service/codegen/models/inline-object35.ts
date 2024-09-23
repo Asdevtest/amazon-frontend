@@ -26,7 +26,17 @@ export interface InlineObject35 {
      * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
      * @memberof InlineObject35
      */
+<<<<<<< HEAD
     itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
+=======
+    userIds: Array<string>;
+    /**
+     * Название группового чата
+     * @type {string}
+     * @memberof InlineObject35
+     */
+    title: string;
+>>>>>>> dev
 }
 
 

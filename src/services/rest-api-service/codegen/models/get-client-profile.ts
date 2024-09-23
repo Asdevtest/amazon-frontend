@@ -83,6 +83,36 @@ export interface GetClientProfile {
      */
     status?: string;
     /**
+     * Main google table id
+     * @type {string}
+     * @memberof GetClientProfile
+     */
+    spreadsheetsIdMain?: string;
+    /**
+     * Perfomance google table id
+     * @type {string}
+     * @memberof GetClientProfile
+     */
+    spreadsheetsIdPerformance?: string;
+    /**
+     * Import google table id
+     * @type {string}
+     * @memberof GetClientProfile
+     */
+    spreadsheetsIdImport?: string;
+    /**
+     * OTP Hash
+     * @type {string}
+     * @memberof GetClientProfile
+     */
+    otp?: string;
+    /**
+     * Comment for profile
+     * @type {string}
+     * @memberof GetClientProfile
+     */
+    comment?: string;
+    /**
      * Дата создания
      * @type {string}
      * @memberof GetClientProfile

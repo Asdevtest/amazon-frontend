@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
 
 /**
  * 
@@ -21,11 +22,17 @@
  */
 export interface InlineObject83 {
     /**
-     * 
+     * Массив коробок.
      * @type {Array<string>}
      * @memberof InlineObject83
      */
-    shopIds: Array<string>;
+    guids: Array<string>;
+    /**
+     * 
+     * @type {ApiV1BoxesMergeBoxBody}
+     * @memberof InlineObject83
+     */
+    boxBody: ApiV1BoxesMergeBoxBody;
 }
 
 

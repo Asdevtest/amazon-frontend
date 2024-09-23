@@ -21,6 +21,7 @@
  */
 export interface InlineObject73 {
     /**
+<<<<<<< HEAD
      * GUID спека
      * @type {string}
      * @memberof InlineObject73
@@ -44,6 +45,13 @@ export interface InlineObject73 {
      * @memberof InlineObject73
      */
     description?: string;
+=======
+     * uri полный путь до файла, для скачивания
+     * @type {string}
+     * @memberof InlineObject73
+     */
+    fileUrl: string;
+>>>>>>> dev
 }
 
 

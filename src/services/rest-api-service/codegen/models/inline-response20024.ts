@@ -13,7 +13,10 @@
  */
 
 
+<<<<<<< HEAD
 import { InlineResponse20021 } from './inline-response20021';
+=======
+>>>>>>> dev
 
 /**
  * Результат запроса с пагинацией
@@ -22,6 +25,7 @@ import { InlineResponse20021 } from './inline-response20021';
  */
 export interface InlineResponse20024 {
     /**
+<<<<<<< HEAD
      * Всего кол-во записей в результате запроса
      * @type {number}
      * @memberof InlineResponse20024
@@ -33,6 +37,25 @@ export interface InlineResponse20024 {
      * @memberof InlineResponse20024
      */
     rows?: Array<InlineResponse20021>;
+=======
+     * total price in yuan for these statuses
+     * @type {number}
+     * @memberof InlineResponse20024
+     */
+    totalPriceInYuan?: number;
+    /**
+     * total price in USD for these statuses
+     * @type {number}
+     * @memberof InlineResponse20024
+     */
+    totalPriceInUSD?: number;
+    /**
+     * Total partialPaymentAmountRmb
+     * @type {number}
+     * @memberof InlineResponse20024
+     */
+    partialPaymentAmountRmb?: number;
+>>>>>>> dev
 }
 
 

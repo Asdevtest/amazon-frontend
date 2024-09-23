@@ -21,6 +21,7 @@
  */
 export interface InlineObject48 {
     /**
+<<<<<<< HEAD
      * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
      * @type {number}
      * @memberof InlineObject48
@@ -33,6 +34,8 @@ export interface InlineObject48 {
      */
     boxesBefore?: Array<string>;
     /**
+=======
+>>>>>>> dev
      * 
      * @type {Array<string>}
      * @memberof InlineObject48
@@ -43,6 +46,7 @@ export interface InlineObject48 {
      * @type {string}
      * @memberof InlineObject48
      */
+<<<<<<< HEAD
     operationType: InlineObject48OperationTypeEnum;
     /**
      * Комментарий клиента.
@@ -102,6 +106,15 @@ export enum InlineObject48PriorityEnum {
     _30 = '30',
     _40 = '40',
     _50 = '50'
+=======
+    clientComment: string;
+    /**
+     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @type {number}
+     * @memberof InlineObject48
+     */
+    priceForClient: number;
+>>>>>>> dev
 }
 
 

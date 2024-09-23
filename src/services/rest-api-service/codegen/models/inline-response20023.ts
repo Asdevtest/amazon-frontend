@@ -13,7 +13,11 @@
  */
 
 
+<<<<<<< HEAD
 import { InlineResponse20022 } from './inline-response20022';
+=======
+import { InlineResponse2001 } from './inline-response2001';
+>>>>>>> dev
 
 /**
  * 
@@ -28,11 +32,19 @@ export interface InlineResponse20023 {
      */
     count?: number;
     /**
+<<<<<<< HEAD
      * 
      * @type {Array<InlineResponse20022>}
      * @memberof InlineResponse20023
      */
     rows?: Array<InlineResponse20022>;
+=======
+     * Массив заказов.
+     * @type {Array<InlineResponse2001>}
+     * @memberof InlineResponse20023
+     */
+    rows?: Array<InlineResponse2001>;
+>>>>>>> dev
 }
 
 

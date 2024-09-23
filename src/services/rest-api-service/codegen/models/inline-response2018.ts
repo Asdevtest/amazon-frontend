@@ -15,12 +15,13 @@
 
 
 /**
- * 
+ * Успешный ответ.
  * @export
  * @interface InlineResponse2018
  */
 export interface InlineResponse2018 {
     /**
+<<<<<<< HEAD
      * Тестовый статус запуска
      * @type {string}
      * @memberof InlineResponse2018
@@ -32,6 +33,13 @@ export interface InlineResponse2018 {
      * @memberof InlineResponse2018
      */
     wsUrl?: string;
+=======
+     * 
+     * @type {string}
+     * @memberof InlineResponse2018
+     */
+    guid?: string;
+>>>>>>> dev
 }
 
 

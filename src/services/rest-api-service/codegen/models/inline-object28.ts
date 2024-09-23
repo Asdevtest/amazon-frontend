@@ -13,6 +13,10 @@
  */
 
 
+<<<<<<< HEAD
+=======
+import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
+>>>>>>> dev
 
 /**
  * 
@@ -21,11 +25,19 @@
  */
 export interface InlineObject28 {
     /**
+<<<<<<< HEAD
      * GUID коробки, объединение которой нужно отменить
      * @type {string}
      * @memberof InlineObject28
      */
     guid?: string;
+=======
+     * 
+     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
+     * @memberof InlineObject28
+     */
+    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
+>>>>>>> dev
 }
 
 

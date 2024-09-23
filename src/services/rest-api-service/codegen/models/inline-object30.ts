@@ -15,17 +15,25 @@
 
 
 /**
- * 
+ * Схема комментарии байера.
  * @export
  * @interface InlineObject30
  */
 export interface InlineObject30 {
     /**
+<<<<<<< HEAD
      * GUID коробки, объединение которой нужно отменить
      * @type {string}
      * @memberof InlineObject30
      */
     guid?: string;
+=======
+     * Комментарии байера.
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    buyerComment: string;
+>>>>>>> dev
 }
 
 

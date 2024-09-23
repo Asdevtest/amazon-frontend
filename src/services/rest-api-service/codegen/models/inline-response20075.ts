@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * 
@@ -21,17 +22,17 @@
  */
 export interface InlineResponse20075 {
     /**
-     * Table name
-     * @type {string}
+     * Count of boxes
+     * @type {number}
      * @memberof InlineResponse20075
      */
-    table?: string;
+    count?: number;
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20075
      */
-    fields?: Array<string>;
+    rows?: Array<ApiV1BatchesBoxes>;
 }
 
 

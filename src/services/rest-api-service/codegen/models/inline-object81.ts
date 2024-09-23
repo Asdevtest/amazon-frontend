@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } from './api-v1-integrations-sellerboard-warehouse-products-link-sku-warehouse-stocks';
 
 /**
  * 
@@ -22,17 +21,53 @@ import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } f
  */
 export interface InlineObject81 {
     /**
-     * 
+     * Штрихкод продукта
      * @type {string}
      * @memberof InlineObject81
      */
-    productId: string;
+    barCode?: string;
     /**
-     * 
-     * @type {Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>}
+     *  logicsTariff GUID
+     * @type {string}
      * @memberof InlineObject81
      */
-    warehouseStocks: Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>;
+    logicsTariffId?: string;
+    /**
+     * GUID сотрудника склада
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    storekeeperId?: string;
+    /**
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    shippingLabel?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    fbaNumber?: string;
+    /**
+     * Гуид модели destination
+     * @type {string}
+     * @memberof InlineObject81
+     */
+    destinationId?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject81
+     */
+    boxesIds: Array<string>;
 }
 
 

@@ -67,7 +67,8 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         valueGetter: (row: GridRowModel) => row?.product?.shop?.name,
         width: 120,
         disableCustomSort: true,
-        columnKey: columnnsKeys.shared.OBJECT,
+        sortOptions: 'asc',
+        columnKey: columnnsKeys.shared.OBJECT_VALUE,
         table: DataGridFilterTables.PRODUCTS,
       }
     : null
@@ -88,7 +89,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           firstIcon={<MdOutlineEdit size={16} />}
           secondDisabled={row.listingLaunches.length > 0}
           secondIcon={<MdOutlineDelete size={16} />}
-          secondDescription="Are you sure you want to remove the report?"
+          secondConfirmText="Are you sure you want to remove the report?"
           onClickFirst={() => onToggleReportModalEditMode(row._id)}
           onClickSecond={() => onClickRemoveReport(row._id)}
         />
@@ -157,6 +158,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         {
           field: 'createdBy',
           table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
+          sortOptions: 'asc',
           columnKey: ColumnMenuKeys.OBJECT,
           hideEmptyObject: true,
         },
@@ -164,6 +166,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         {
           field: 'sub',
           table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
+          sortOptions: 'asc',
           columnKey: ColumnMenuKeys.OBJECT,
           hideEmptyObject: true,
         },

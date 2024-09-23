@@ -13,12 +13,15 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1BoxesClientsLightBatch } from './api-v1-boxes-clients-light-batch';
 import { ApiV1BoxesClientsLightDestination } from './api-v1-boxes-clients-light-destination';
 import { ApiV1BoxesClientsLightItems } from './api-v1-boxes-clients-light-items';
 import { ApiV1BoxesClientsLightLogicsTariff } from './api-v1-boxes-clients-light-logics-tariff';
 import { InlineResponse20019VariationTariff } from './inline-response20019-variation-tariff';
+=======
+>>>>>>> dev
 
 /**
  * 
@@ -27,6 +30,7 @@ import { InlineResponse20019VariationTariff } from './inline-response20019-varia
  */
 export interface InlineResponse20021 {
     /**
+<<<<<<< HEAD
      * GUID коробки.
      * @type {string}
      * @memberof InlineResponse20021
@@ -188,6 +192,25 @@ export interface InlineResponse20021 {
      * @memberof InlineResponse20021
      */
     deliveryTotalPriceChanged?: number;
+=======
+     * GUID продукта в базе данных
+     * @type {string}
+     * @memberof InlineResponse20021
+     */
+    _id?: string;
+    /**
+     * ASIN продукта
+     * @type {string}
+     * @memberof InlineResponse20021
+     */
+    asin?: string;
+    /**
+     * SKU введенным клиентом.
+     * @type {string}
+     * @memberof InlineResponse20021
+     */
+    skuByClient?: string;
+>>>>>>> dev
     /**
      * Массив картинок.
      * @type {Array<string>}
@@ -195,6 +218,7 @@ export interface InlineResponse20021 {
      */
     images?: Array<string>;
     /**
+<<<<<<< HEAD
      * Nullable ISO Date
      * @type {string}
      * @memberof InlineResponse20021
@@ -266,6 +290,13 @@ export interface InlineResponse20021 {
      * @memberof InlineResponse20021
      */
     batch?: ApiV1BoxesClientsLightBatch;
+=======
+     * Заголовок на товар с сайта амазон.
+     * @type {string}
+     * @memberof InlineResponse20021
+     */
+    amazonTitle?: string;
+>>>>>>> dev
 }
 
 

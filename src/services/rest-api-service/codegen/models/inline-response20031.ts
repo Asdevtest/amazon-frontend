@@ -15,7 +15,11 @@
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
+<<<<<<< HEAD
 import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
+=======
+import { ApiV1ClientsProductsVacRedFlags } from './api-v1-clients-products-vac-red-flags';
+>>>>>>> dev
 import { ApiV1ClientsProductsVacTags } from './api-v1-clients-products-vac-tags';
 
 /**
@@ -152,10 +156,17 @@ export interface InlineResponse20031 {
     buyerRate?: number;
     /**
      * 
+<<<<<<< HEAD
      * @type {Array<ApiV1BoxesClientsLightProductRedFlags>}
      * @memberof InlineResponse20031
      */
     redFlags?: Array<ApiV1BoxesClientsLightProductRedFlags>;
+=======
+     * @type {Array<ApiV1ClientsProductsVacRedFlags>}
+     * @memberof InlineResponse20031
+     */
+    redFlags?: Array<ApiV1ClientsProductsVacRedFlags>;
+>>>>>>> dev
     /**
      * 
      * @type {Array<ApiV1ClientsProductsVacTags>}

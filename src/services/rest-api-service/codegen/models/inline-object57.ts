@@ -13,7 +13,11 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
+=======
+import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
+>>>>>>> dev
 
 /**
  * 
@@ -22,6 +26,7 @@ import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clie
  */
 export interface InlineObject57 {
     /**
+<<<<<<< HEAD
      * Гуид продукта
      * @type {string}
      * @memberof InlineObject57
@@ -45,6 +50,25 @@ export interface InlineObject57 {
      * @memberof InlineObject57
      */
     listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
+=======
+     * Название профиля
+     * @type {string}
+     * @memberof InlineObject57
+     */
+    name?: string;
+    /**
+     * Название ОС
+     * @type {string}
+     * @memberof InlineObject57
+     */
+    os?: string;
+    /**
+     * 
+     * @type {ApiV1GologinProfileNavigator}
+     * @memberof InlineObject57
+     */
+    navigator?: ApiV1GologinProfileNavigator;
+>>>>>>> dev
 }
 
 

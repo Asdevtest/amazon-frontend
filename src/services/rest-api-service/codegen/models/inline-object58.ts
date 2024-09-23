@@ -22,6 +22,7 @@ import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clie
  */
 export interface InlineObject58 {
     /**
+<<<<<<< HEAD
      * New product price
      * @type {number}
      * @memberof InlineObject58
@@ -39,6 +40,13 @@ export interface InlineObject58 {
      * @memberof InlineObject58
      */
     listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
+=======
+     * id профайла
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    profileId: string;
+>>>>>>> dev
 }
 
 

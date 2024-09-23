@@ -21,11 +21,11 @@
  */
 export interface InlineObject82 {
     /**
-     * 
-     * @type {Array<string>}
+     * GUID коробки, объединение которой нужно отменить
+     * @type {string}
      * @memberof InlineObject82
      */
-    shopIds: Array<string>;
+    guid?: string;
 }
 
 

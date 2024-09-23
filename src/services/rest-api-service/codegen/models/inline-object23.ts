@@ -21,6 +21,7 @@
  */
 export interface InlineObject23 {
     /**
+<<<<<<< HEAD
      * 
      * @type {Array<string>}
      * @memberof InlineObject23
@@ -32,6 +33,37 @@ export interface InlineObject23 {
      * @memberof InlineObject23
      */
     archive: boolean;
+=======
+     * Название партии
+     * @type {string}
+     * @memberof InlineObject23
+     */
+    title?: string;
+    /**
+     * Метод подсчта массы партии
+     * @type {number}
+     * @memberof InlineObject23
+     */
+    calculationMethod?: number;
+    /**
+     * Делитель объема партии
+     * @type {number}
+     * @memberof InlineObject23
+     */
+    volumeWeightDivide?: number;
+    /**
+     * Трек номер партии
+     * @type {string}
+     * @memberof InlineObject23
+     */
+    trackingNumber?: string;
+    /**
+     * Настоящая стоимость доставки
+     * @type {number}
+     * @memberof InlineObject23
+     */
+    actualShippingCost?: number;
+>>>>>>> dev
 }
 
 

@@ -40,6 +40,12 @@ export interface ApiV1BatchesOrderLogicsTariffDestinationVariations {
      */
     maxWeight?: number;
     /**
+     * Min Box Weight
+     * @type {number}
+     * @memberof ApiV1BatchesOrderLogicsTariffDestinationVariations
+     */
+    minBoxWeight?: number;
+    /**
      * Цена в юанях
      * @type {number}
      * @memberof ApiV1BatchesOrderLogicsTariffDestinationVariations

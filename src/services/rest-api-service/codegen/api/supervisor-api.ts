@@ -33,7 +33,11 @@ import { InlineResponse200 } from '../models';
 // @ts-ignore
 import { InlineResponse200105 } from '../models';
 // @ts-ignore
+<<<<<<< HEAD
 import { InlineResponse20053 } from '../models';
+=======
+import { InlineResponse20021 } from '../models';
+>>>>>>> dev
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -380,7 +384,11 @@ export const SupervisorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1SupervisorsProductsLightGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20053>>> {
+=======
+        async apiV1SupervisorsProductsLightGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20021>>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SupervisorsProductsLightGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -468,7 +476,11 @@ export const SupervisorApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1SupervisorsProductsLightGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20053>> {
+=======
+        apiV1SupervisorsProductsLightGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20021>> {
+>>>>>>> dev
             return localVarFp.apiV1SupervisorsProductsLightGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

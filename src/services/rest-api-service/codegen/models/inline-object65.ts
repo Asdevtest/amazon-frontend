@@ -13,7 +13,11 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tags';
+=======
+import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } from './api-v1-integrations-sellerboard-warehouse-products-link-sku-warehouse-stocks';
+>>>>>>> dev
 
 /**
  * 
@@ -23,6 +27,7 @@ import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tag
 export interface InlineObject65 {
     /**
      * 
+<<<<<<< HEAD
      * @type {number}
      * @memberof InlineObject65
      */
@@ -75,6 +80,18 @@ export interface InlineObject65 {
      * @memberof InlineObject65
      */
     tags?: Array<ApiV1ClientsProductsGuidTags>;
+=======
+     * @type {string}
+     * @memberof InlineObject65
+     */
+    productId: string;
+    /**
+     * 
+     * @type {Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>}
+     * @memberof InlineObject65
+     */
+    warehouseStocks: Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>;
+>>>>>>> dev
 }
 
 

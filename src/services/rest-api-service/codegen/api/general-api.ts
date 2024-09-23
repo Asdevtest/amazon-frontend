@@ -25,13 +25,21 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
+<<<<<<< HEAD
 import { InlineObject60 } from '../models';
+=======
+import { InlineObject55 } from '../models';
+>>>>>>> dev
 // @ts-ignore
 import { InlineResponse20049 } from '../models';
 // @ts-ignore
 import { InlineResponse20050 } from '../models';
 // @ts-ignore
+<<<<<<< HEAD
 import { InlineResponse2017 } from '../models';
+=======
+import { InlineResponse2015 } from '../models';
+>>>>>>> dev
 // @ts-ignore
 import { InternalServerError } from '../models';
 /**
@@ -213,12 +221,20 @@ export const GeneralApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * # Создать тег
          * @summary Создать тег
+<<<<<<< HEAD
          * @param {InlineObject60} [body] 
+=======
+         * @param {InlineObject55} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1GeneralTagsPost: async (body?: InlineObject60, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1GeneralTagsPost: async (body?: InlineObject55, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             const localVarPath = `/api/v1/general/tags`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -308,12 +324,20 @@ export const GeneralApiFp = function(configuration?: Configuration) {
         /**
          * # Создать тег
          * @summary Создать тег
+<<<<<<< HEAD
          * @param {InlineObject60} [body] 
+=======
+         * @param {InlineObject55} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1GeneralTagsPost(body?: InlineObject60, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+=======
+        async apiV1GeneralTagsPost(body?: InlineObject55, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2015>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GeneralTagsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -370,12 +394,20 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
         /**
          * # Создать тег
          * @summary Создать тег
+<<<<<<< HEAD
          * @param {InlineObject60} [body] 
+=======
+         * @param {InlineObject55} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1GeneralTagsPost(body?: InlineObject60, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+=======
+        apiV1GeneralTagsPost(body?: InlineObject55, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2015> {
+>>>>>>> dev
             return localVarFp.apiV1GeneralTagsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -501,10 +533,17 @@ export interface GeneralApiApiV1GeneralTagsPagGetRequest {
 export interface GeneralApiApiV1GeneralTagsPostRequest {
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject60}
      * @memberof GeneralApiApiV1GeneralTagsPost
      */
     readonly body?: InlineObject60
+=======
+     * @type {InlineObject55}
+     * @memberof GeneralApiApiV1GeneralTagsPost
+     */
+    readonly body?: InlineObject55
+>>>>>>> dev
 
     /**
      * 

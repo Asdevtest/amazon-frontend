@@ -57,6 +57,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
           title={
             <CustomInput
               allowClear
+              maxLength={32}
               wrapperClassName={styles.input}
               placeholder="Rename"
               value={renamePresetName}
@@ -84,7 +85,6 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
                 className={styles.updateButton}
               />
             }
-            onClick={e => e.stopPropagation()}
           >
             {t(TranslationKey.Rename)}
           </CustomButton>
@@ -110,7 +110,6 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
           <CustomButton
             className={styles.button}
             icon={<GrUpdate title={t(TranslationKey.Update)} className={styles.updateButton} />}
-            onClick={e => e.stopPropagation()}
           >
             {t(TranslationKey.Update)}
           </CustomButton>
@@ -138,7 +137,6 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
             danger
             className={styles.button}
             icon={<MdOutlineDelete size={20} title={t(TranslationKey.Delete)} className={styles.deleteIcon} />}
-            onClick={e => e.stopPropagation()}
           >
             {t(TranslationKey.Delete)}
           </CustomButton>
@@ -153,12 +151,8 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
         <CustomButton
           type="text"
           title={t(TranslationKey[quickAccessTitle])}
-          className={styles.button}
           icon={<QuickAccessIcon title={t(TranslationKey[quickAccessTitle])} className={styles.updateButton} />}
-          onClick={e => {
-            e?.stopPropagation()
-            onClickAddQuickAccess()
-          }}
+          onClick={onClickAddQuickAccess}
         />
       ) : (
         <div className={styles.presetEmptyFavorite} />
@@ -175,7 +169,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
           arrow={{ pointAtCenter: true }}
           getPopupContainer={() => document.getElementById('presets') as HTMLElement}
         >
-          <CustomButton icon={<BsThreeDotsVertical />} onClick={e => e.stopPropagation()} />
+          <CustomButton icon={<BsThreeDotsVertical />} />
         </Dropdown>
       ) : null}
     </div>

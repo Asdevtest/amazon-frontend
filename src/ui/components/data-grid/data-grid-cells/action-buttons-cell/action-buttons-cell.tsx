@@ -1,14 +1,9 @@
-import { Popconfirm } from 'antd'
 import { ItemType } from 'antd/es/menu/interface'
 import { FC, memo } from 'react'
-import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
+import { MdLocalPrintshop, MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 import { v4 as uuid } from 'uuid'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { CustomButton } from '@components/shared/custom-button'
-
-import { t } from '@utils/translations'
 
 import { useStyles } from './action-buttons-cell.style'
 
@@ -21,7 +16,7 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
   const { classes: styles, cx, theme } = useStyles()
 
   return (
-    <div className={cx(styles.wrapper, { [styles.wrapperRow]: row }, wrapperClassName)}>
+    <div className={cx(styles.wrapper, { [styles.wrapperRow]: row, [styles.block]: block }, wrapperClassName)}>
       {getButtonActionsConfig(props).map((button, index) => {
         const {
           dropdown,
@@ -36,10 +31,11 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
           type = 'primary',
           content,
           disabled,
-          description,
+          confirmText,
           onClick,
           onClickEdit,
           onClickRemove,
+          onClickPrint,
         } = button
 
         if (!showButton) {
@@ -54,6 +50,13 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
                 onClick: onClickEdit,
               }
             : null,
+          onClickPrint
+            ? {
+                key: uuid(),
+                label: <MdLocalPrintshop size={16} color={theme.palette.primary.main} />,
+                onClick: onClickPrint,
+              }
+            : null,
           onClickRemove
             ? {
                 key: uuid(),
@@ -63,7 +66,7 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
             : null,
         ]
         const buttonProps = {
-          dropdown: dropdown && (!!onClickEdit || !!onClickRemove),
+          dropdown: dropdown && (!!onClickEdit || !!onClickRemove || !!onClickPrint),
           block: !!content && block,
           danger,
           ghost,
@@ -76,23 +79,8 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
           disabled,
           className,
           menuItems,
+          confirmText,
           onClick,
-        }
-
-        if (description) {
-          return (
-            <Popconfirm
-              key={index}
-              title={t(TranslationKey[description as TranslationKey])}
-              okText={t(TranslationKey.Yes)}
-              cancelText={t(TranslationKey.No)}
-              onConfirm={onClick}
-            >
-              <CustomButton {...buttonProps} onClick={undefined}>
-                {content}
-              </CustomButton>
-            </Popconfirm>
-          )
         }
 
         return (

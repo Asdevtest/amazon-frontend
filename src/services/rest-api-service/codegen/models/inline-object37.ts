@@ -21,10 +21,11 @@
  */
 export interface InlineObject37 {
     /**
-     * 
+     * Массив ссылок для seo-файлов
      * @type {Array<string>}
      * @memberof InlineObject37
      */
+<<<<<<< HEAD
     boxIds: Array<string>;
     /**
      * 
@@ -32,6 +33,9 @@ export interface InlineObject37 {
      * @memberof InlineObject37
      */
     newAmounts: Array<number>;
+=======
+    latestSeoFiles?: Array<string>;
+>>>>>>> dev
 }
 
 

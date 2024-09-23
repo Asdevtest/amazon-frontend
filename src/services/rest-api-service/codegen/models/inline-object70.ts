@@ -21,6 +21,7 @@
  */
 export interface InlineObject70 {
     /**
+<<<<<<< HEAD
      * комментарии байера.
      * @type {string}
      * @memberof InlineObject70
@@ -122,6 +123,13 @@ export interface InlineObject70 {
      * @memberof InlineObject70
      */
     amount?: number;
+=======
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject70
+     */
+    reportIds: Array<string>;
+>>>>>>> dev
 }
 
 

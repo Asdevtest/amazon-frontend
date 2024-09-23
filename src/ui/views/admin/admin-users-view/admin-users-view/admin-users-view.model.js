@@ -64,6 +64,7 @@ export class AdminUsersViewModel extends DataGridFilterTableModel {
   onClickChangeRole(event) {
     const currentValue = event.target.value
     this.switcherCondition = currentValue
+    this.onChangeFullFieldMenuItem([], 'role')
 
     this.getCurrentData()
   }

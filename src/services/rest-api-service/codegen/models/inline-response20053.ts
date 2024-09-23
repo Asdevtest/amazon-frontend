@@ -13,6 +13,10 @@
  */
 
 
+<<<<<<< HEAD
+=======
+import { InlineResponse20053Rows } from './inline-response20053-rows';
+>>>>>>> dev
 
 /**
  * 
@@ -21,6 +25,7 @@
  */
 export interface InlineResponse20053 {
     /**
+<<<<<<< HEAD
      * GUID продукта в базе данных
      * @type {string}
      * @memberof InlineResponse20053
@@ -50,6 +55,19 @@ export interface InlineResponse20053 {
      * @memberof InlineResponse20053
      */
     amazonTitle?: string;
+=======
+     * Общее кол-во идей
+     * @type {number}
+     * @memberof InlineResponse20053
+     */
+    count?: number;
+    /**
+     * Список идей
+     * @type {Array<InlineResponse20053Rows>}
+     * @memberof InlineResponse20053
+     */
+    rows?: Array<InlineResponse20053Rows>;
+>>>>>>> dev
 }
 
 

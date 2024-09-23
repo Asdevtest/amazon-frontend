@@ -15,17 +15,21 @@
 
 
 /**
- * 
+ * Схема апдейта рекомендаций
  * @export
  * @interface InlineObject51
  */
 export interface InlineObject51 {
     /**
-     * 
-     * @type {Array<string>}
+     * Рекомендуемое значение
+     * @type {number}
      * @memberof InlineObject51
      */
+<<<<<<< HEAD
     productIds: Array<string>;
+=======
+    recommendedValue: number;
+>>>>>>> dev
 }
 
 

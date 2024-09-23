@@ -15,12 +15,17 @@
 
 
 /**
+<<<<<<< HEAD
  * Схема подтверждения возрата коробок на склад
+=======
+ * Схема редактирования в первый раз shippingLabel коробки
+>>>>>>> dev
  * @export
  * @interface InlineObject54
  */
 export interface InlineObject54 {
     /**
+<<<<<<< HEAD
      * GUID коробки, который планируем изменить
      * @type {string}
      * @memberof InlineObject54
@@ -38,6 +43,13 @@ export interface InlineObject54 {
      * @memberof InlineObject54
      */
     destinationId?: string;
+=======
+     * shippingLabel
+     * @type {string}
+     * @memberof InlineObject54
+     */
+    shippingLabel: string;
+>>>>>>> dev
 }
 
 

@@ -13,9 +13,15 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
 import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
+=======
+import { ApiV1IdeasByParentGuidChildProduct } from './api-v1-ideas-by-parent-guid-child-product';
+import { ApiV1IdeasByParentGuidRequestsOnCheck } from './api-v1-ideas-by-parent-guid-requests-on-check';
+import { ApiV1IdeasByParentGuidSuppliers } from './api-v1-ideas-by-parent-guid-suppliers';
+>>>>>>> dev
 
 /**
  * 
@@ -24,12 +30,17 @@ import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
  */
 export interface InlineResponse20052 {
     /**
+<<<<<<< HEAD
      * GUID продукта в базе данных
+=======
+     * 
+>>>>>>> dev
      * @type {string}
      * @memberof InlineResponse20052
      */
     _id?: string;
     /**
+<<<<<<< HEAD
      * ASIN продукта
      * @type {string}
      * @memberof InlineResponse20052
@@ -175,12 +186,193 @@ export interface InlineResponse20052 {
     subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * Дата создания
+=======
+     * Название идеи
+     * @type {string}
+     * @memberof InlineResponse20052
+     */
+    title?: string;
+    /**
+     * Статус идеи
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    status?: number;
+    /**
+     * Медиа идеи
+     * @type {Array<string>}
+     * @memberof InlineResponse20052
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * FBA Fee
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    fbaFee?: number;
+    /**
+     * Ориентационная цена
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    approximatePrice?: number;
+    /**
+     * Назавние продукта
+     * @type {string}
+     * @memberof InlineResponse20052
+     */
+    productName?: string;
+    /**
+     * Является ли продукт идеи вариацией существующего
+     * @type {boolean}
+     * @memberof InlineResponse20052
+     */
+    variation?: boolean;
+    /**
+     * 
+     * @type {ApiV1IdeasByParentGuidChildProduct}
+     * @memberof InlineResponse20052
+     */
+    childProduct?: ApiV1IdeasByParentGuidChildProduct;
+    /**
+     * 
+     * @type {Array<ApiV1IdeasByParentGuidSuppliers>}
+     * @memberof InlineResponse20052
+     */
+    suppliers?: Array<ApiV1IdeasByParentGuidSuppliers>;
+    /**
+     * 
+     * @type {Array<ApiV1IdeasByParentGuidRequestsOnCheck>}
+     * @memberof InlineResponse20052
+     */
+    requestsOnCheck?: Array<ApiV1IdeasByParentGuidRequestsOnCheck>;
+    /**
+     * 
+     * @type {Array<ApiV1IdeasByParentGuidRequestsOnCheck>}
+     * @memberof InlineResponse20052
+     */
+    requestsOnFinished?: Array<ApiV1IdeasByParentGuidRequestsOnCheck>;
+    /**
+     * Комментарии к идее
+     * @type {string}
+     * @memberof InlineResponse20052
+     */
+    comments?: string;
+    /**
+     * Комментарий байера
+     * @type {string}
+     * @memberof InlineResponse20052
+     */
+    buyerComment?: string;
+    /**
+     * Кол-во секунд идеи в статусе new(5)
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    intervalStatusNew?: number;
+    /**
+     * Кол-во секунд идеи в статусе OnCheck(10)
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    intervalStatusOnCheck?: number;
+    /**
+     * Кол-во секунд идеи в статусе supplierSearch(13)
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    intervalStatusSupplierSearch?: number;
+    /**
+     * Кол-во секунд идеи в статусе supplierFound(14)
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    intervalStatusSupplierFound?: number;
+    /**
+     * Кол-во секунд идеи в статусе supplierNotFound(15)
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    intervalStatusSupplierNotFound?: number;
+    /**
+     * Кол-во секунд идеи в статусе productCreating(16)
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    intervalStatusProductCreating?: number;
+    /**
+     * Кол-во секунд идеи в статусе addingAsin(18)
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    intervalStatusAddingAsin?: number;
+    /**
+     * Кол-во секунд идеи в статусе rejected(25)
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    intervalStatusRejected?: number;
+    /**
+     * Кол-во секунд идеи во всех статусах
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    intervalsSum?: number;
+    /**
+     * Criteria
+     * @type {string}
+     * @memberof InlineResponse20052
+     */
+    criteria?: string;
+    /**
+     * Ширина
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    width?: number;
+    /**
+     * Высота
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    height?: number;
+    /**
+     * Длина
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    length?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20052
+     */
+    productLinks?: Array<string>;
+    /**
+     * Price
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    price?: number;
+    /**
+     * Количество
+     * @type {number}
+     * @memberof InlineResponse20052
+     */
+    quantity?: number;
+    /**
+     * Дата создания.
+>>>>>>> dev
      * @type {string}
      * @memberof InlineResponse20052
      */
     createdAt?: string;
     /**
+<<<<<<< HEAD
      * Дата изменения
+=======
+     * Дата обновления.
+>>>>>>> dev
      * @type {string}
      * @memberof InlineResponse20052
      */

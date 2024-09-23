@@ -22,6 +22,7 @@ import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-gui
  */
 export interface InlineObject34 {
     /**
+<<<<<<< HEAD
      * 
      * @type {number}
      * @memberof InlineObject34
@@ -81,6 +82,13 @@ export interface InlineObject34 {
      * @memberof InlineObject34
      */
     images?: Array<string>;
+=======
+     * Сумма воврата
+     * @type {number}
+     * @memberof InlineObject34
+     */
+    refundPrice?: number;
+>>>>>>> dev
 }
 
 

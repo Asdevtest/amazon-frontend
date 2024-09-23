@@ -295,6 +295,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     const currentValue = event.target.value
     this.selectedRows = []
     this.currentStorekeeperId = currentValue
+    this.onChangeFullFieldMenuItem([], 'storekeeper')
     this.getCurrentData()
   }
 
@@ -608,6 +609,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     this.curDestinationId = value
 
     this.requestStatus = loadingStatus.IS_LOADING
+    this.onChangeFullFieldMenuItem([], 'destination')
+
     this.getCurrentData().then(() => {
       this.requestStatus = loadingStatus.SUCCESS
     })
@@ -1135,17 +1138,19 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       await this.updateBarCodesInInventory(dataToBarCodeChange)
 
-      await this.postTask({
-        // @ts-ignore
-        idsData: [editBoxesResult.guid],
-        idsBeforeData: [id],
-        type: TaskOperationType.EDIT,
-        clientComment: boxData.clientTaskComment,
-        // @ts-ignore
-        priority,
-        // @ts-ignore
-        reason: priorityReason,
-      })
+      if (sourceData.shippingLabel !== null) {
+        await this.postTask({
+          // @ts-ignore
+          idsData: [editBoxesResult.guid],
+          idsBeforeData: [id],
+          type: TaskOperationType.EDIT,
+          clientComment: boxData.clientTaskComment,
+          // @ts-ignore
+          priority,
+          // @ts-ignore
+          reason: priorityReason,
+        })
+      }
 
       runInAction(() => {
         toast.success(

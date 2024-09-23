@@ -1,12 +1,9 @@
-import { ChangeEvent, FC, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { FaPlus } from 'react-icons/fa'
+import { FC, memo, useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { useGridApiContext } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomButton } from '@components/shared/custom-button'
-import { CustomInput } from '@components/shared/custom-input'
 import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
@@ -16,6 +13,7 @@ import { IGridColumn } from '@typings/shared/grid-column'
 
 import { useStyles } from './data-grid-presets.style'
 
+import { DropdownSelect } from './dropdown-select'
 import { PresetItem } from './preset-item'
 
 interface PresetsMenuProps {
@@ -31,7 +29,7 @@ interface PresetsMenuProps {
 }
 
 export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
   const {
     showPresetsSelect,
     presetsTableData,
@@ -47,8 +45,6 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
   const apiRef = useGridApiContext()
   const selectWrapperRef = useRef<HTMLDivElement | null>(null)
 
-  const [createPresetTitle, setCreatePresetTitle] = useState<string>('')
-
   const convertedPresets = useMemo(() => {
     const defaultPreset = [{ title: t(TranslationKey['Without preset']), _id: null }] as unknown as ITablePreset[]
 
@@ -56,16 +52,6 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
       .concat(presetsTableData)
       ?.map(preset => ({ ...preset, label: preset?.title, value: preset?._id }))
   }, [showPresetsSelect, presetsTableData])
-
-  const onClickCreatePreset = useCallback(() => {
-    handleCreateTableSettingsPreset(createPresetTitle, apiRef.current?.getAllColumns())
-    setCreatePresetTitle('')
-  }, [createPresetTitle, apiRef])
-
-  const onPresetTitleChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => setCreatePresetTitle(event.target.value),
-    [],
-  )
 
   const onClickUpdatePreset = useCallback(
     (presetId: string) => {
@@ -93,11 +79,15 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
   return (
     <div ref={selectWrapperRef} id="presets" onClick={() => handleChangeSelectState(!showPresetsSelect)}>
       <CustomSelect
+        showSearch
         className={styles.presetsSelect}
         getPopupContainer={() => document.getElementById('presets') as HTMLElement}
         open={showPresetsSelect}
         options={convertedPresets}
         value={convertedPresets?.find(preset => preset?.activeSetting) || convertedPresets[0]}
+        filterOption={(inputValue, option) =>
+          (option?.label as string)?.toLowerCase?.()?.includes(inputValue?.toLowerCase())
+        }
         optionRender={preset => (
           <PresetItem
             preset={preset}
@@ -111,21 +101,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
         )}
         labelRender={preset => preset?.label}
         dropdownRender={menu => (
-          <>
-            {menu}
-
-            <div className={cx(styles.createPresetWrapper)} onClick={e => e.stopPropagation()}>
-              <CustomInput
-                value={createPresetTitle}
-                placeholder="Add a preset"
-                maxLength={32}
-                onChange={onPresetTitleChange}
-                onKeyDown={e => e.stopPropagation()}
-              />
-
-              <CustomButton disabled={!createPresetTitle.trim()} icon={<FaPlus />} onClick={onClickCreatePreset} />
-            </div>
-          </>
+          <DropdownSelect handleCreateTableSettingsPreset={handleCreateTableSettingsPreset}>{menu}</DropdownSelect>
         )}
         onChange={handleSetPresetActive}
       />

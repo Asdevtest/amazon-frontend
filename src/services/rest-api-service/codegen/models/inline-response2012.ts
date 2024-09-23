@@ -21,7 +21,7 @@
  */
 export interface InlineResponse2012 {
     /**
-     * GUID созданной коробки
+     * guid созданного объекта
      * @type {string}
      * @memberof InlineResponse2012
      */

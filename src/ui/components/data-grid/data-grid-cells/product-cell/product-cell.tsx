@@ -38,7 +38,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
   )
 
   const notAsinAndSku = !asin && !sku
-  const isErrorText = errorMessage || errorDescription
+  const isErrorText = !!errorMessage || !!errorDescription
 
   return (
     <div className={styles.root}>
@@ -65,7 +65,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
                   target="_blank"
                   copyable={hoverAsin[0] && !!asin}
                   href={`https://www.amazon.com/dp/${asin}`}
-                  className={styles.text}
+                  className={cx(styles.text, styles.fixWidth)}
                   onClick={e => e.stopPropagation()}
                 >
                   {asin}
@@ -78,7 +78,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
                   ellipsis
                   copyable={hoverSku[0] && !!sku}
                   type="secondary"
-                  className={styles.text}
+                  className={cx(styles.text, styles.fixWidth)}
                 >
                   {sku}
                 </AntText>

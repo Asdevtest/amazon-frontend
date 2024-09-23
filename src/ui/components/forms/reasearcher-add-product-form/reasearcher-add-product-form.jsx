@@ -14,7 +14,6 @@ import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
 
@@ -118,7 +117,7 @@ export const ResearcherAddProductFormRaw = observer(
               type="primary"
               size="large"
               disabled={errorMsg || formFields.strategyStatus < 10}
-              onClick={throttle(onClickCheckAndAddProductBtn)} //* needs work
+              onClick={onClickCheckAndAddProductBtn}
             >
               {t(TranslationKey['Add a product card'])}
             </CustomButton>

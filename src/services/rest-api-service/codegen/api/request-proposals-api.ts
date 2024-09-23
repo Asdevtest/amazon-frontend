@@ -53,7 +53,7 @@ import { InlineObject112 } from '../models';
 // @ts-ignore
 import { InlineObject167 } from '../models';
 // @ts-ignore
-import { InlineResponse200120 } from '../models';
+import { InlineResponse200121 } from '../models';
 // @ts-ignore
 import { InlineResponse20087 } from '../models';
 // @ts-ignore
@@ -1195,7 +1195,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200120>>> {
+        async apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200121>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsCustomByRequestIdGuidGet(guid, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1510,7 +1510,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200120>> {
+        apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200121>> {
             return localVarFp.apiV1RequestProposalsCustomByRequestIdGuidGet(guid, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

@@ -80,6 +80,12 @@ export interface InlineObject162 {
      * @memberof InlineObject162
      */
     clientId?: string;
+    /**
+     * Comment for profile
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    comment?: string;
 }
 
 

@@ -13,6 +13,10 @@
  */
 
 
+<<<<<<< HEAD
+=======
+import { InlineResponse20056Rows } from './inline-response20056-rows';
+>>>>>>> dev
 
 /**
  * 
@@ -21,6 +25,7 @@
  */
 export interface InlineResponse20056 {
     /**
+<<<<<<< HEAD
      * total price in yuan for these statuses
      * @type {number}
      * @memberof InlineResponse20056
@@ -38,6 +43,19 @@ export interface InlineResponse20056 {
      * @memberof InlineResponse20056
      */
     partialPaymentAmountRmb?: number;
+=======
+     * Кол-во записей
+     * @type {number}
+     * @memberof InlineResponse20056
+     */
+    count?: number;
+    /**
+     * 
+     * @type {Array<InlineResponse20056Rows>}
+     * @memberof InlineResponse20056
+     */
+    rows?: Array<InlineResponse20056Rows>;
+>>>>>>> dev
 }
 
 

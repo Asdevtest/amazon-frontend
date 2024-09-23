@@ -13,11 +13,14 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
 import { ApiV1BuyersOrdersMyOrderSupplier } from './api-v1-buyers-orders-my-order-supplier';
 import { ApiV1BuyersOrdersMyPayments } from './api-v1-buyers-orders-my-payments';
 import { ApiV1BuyersOrdersMyProduct } from './api-v1-buyers-orders-my-product';
+=======
+>>>>>>> dev
 
 /**
  * Заказ.
@@ -26,6 +29,7 @@ import { ApiV1BuyersOrdersMyProduct } from './api-v1-buyers-orders-my-product';
  */
 export interface InlineResponse20057 {
     /**
+<<<<<<< HEAD
      * id заказ.
      * @type {number}
      * @memberof InlineResponse20057
@@ -199,6 +203,13 @@ export enum InlineResponse20057PriorityEnum {
     _30 = '30',
     _40 = '40',
     _50 = '50'
+=======
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20057
+     */
+    failed?: Array<string>;
+>>>>>>> dev
 }
 
 

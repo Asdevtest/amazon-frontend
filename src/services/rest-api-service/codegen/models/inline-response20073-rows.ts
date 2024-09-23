@@ -13,116 +13,122 @@
  */
 
 
-import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-by';
-import { InlineResponse20073EntityProduct } from './inline-response20073-entity-product';
+import { InlineResponse20045InventoryShop } from './inline-response20045-inventory-shop';
 
 /**
- * 
+ * Схема репорта amazon_data
  * @export
  * @interface InlineResponse20073Rows
  */
 export interface InlineResponse20073Rows {
     /**
-     * GUID платежа
+     * Гуид записи
      * @type {string}
      * @memberof InlineResponse20073Rows
      */
     _id?: string;
     /**
-     * Дата создания.
+     * 
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    productId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    shopId?: string;
+    /**
+     * The asin of product
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    asin?: string;
+    /**
+     * The sku of product
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    sku?: string;
+    /**
+     * image
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    image?: string;
+    /**
+     * Дата обновления
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    dateUpdated?: string;
+    /**
+     * Время обновления
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    timeUpdated?: string;
+    /**
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse20073Rows
      */
     createdAt?: string;
     /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20073Rows
-     */
-    createdBy?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Роль пользователя на момент инициации платежа.
-     * @type {number}
-     * @memberof InlineResponse20073Rows
-     */
-    role?: number;
-    /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20073Rows
-     */
-    subUser?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * GUID товара или услуги.
+     * Дата обновления
      * @type {string}
      * @memberof InlineResponse20073Rows
      */
-    entityId?: string;
+    updatedAt?: string;
     /**
-     * Тип товара или услуги
+     * Order Id
      * @type {string}
      * @memberof InlineResponse20073Rows
      */
-    entityType?: InlineResponse20073RowsEntityTypeEnum;
+    orderId?: string;
     /**
-     * Тип платежа
+     * Reason
      * @type {string}
      * @memberof InlineResponse20073Rows
      */
-    paymentType?: InlineResponse20073RowsPaymentTypeEnum;
+    reason?: string;
+    /**
+     * Returned Date
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    returnedDate?: string;
+    /**
+     * Reversal Date
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    reversalDate?: string;
+    /**
+     * Received Date
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    receivedDate?: string;
+    /**
+     * Disposition
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    disposition?: string;
+    /**
+     * Status
+     * @type {string}
+     * @memberof InlineResponse20073Rows
+     */
+    status?: string;
     /**
      * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @type {InlineResponse20045InventoryShop}
      * @memberof InlineResponse20073Rows
      */
-    recipient?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
-     * @type {number}
-     * @memberof InlineResponse20073Rows
-     */
-    sum?: number;
-    /**
-     * комментарий
-     * @type {string}
-     * @memberof InlineResponse20073Rows
-     */
-    comment?: string;
-    /**
-     * 
-     * @type {Array<InlineResponse20073EntityProduct>}
-     * @memberof InlineResponse20073Rows
-     */
-    entityProduct?: Array<InlineResponse20073EntityProduct>;
+    shop?: InlineResponse20045InventoryShop;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20073RowsEntityTypeEnum {
-    Product = 'PRODUCT',
-    Order = 'ORDER',
-    Box = 'BOX',
-    Batch = 'BATCH',
-    User = 'USER',
-    RequestCustom = 'REQUEST-CUSTOM',
-    RequestSearchProduct = 'REQUEST-SEARCH_PRODUCT',
-    RequestSearchNiche = 'REQUEST-SEARCH_NICHE',
-    RequestProposalCustom = 'REQUEST-PROPOSAL-CUSTOM',
-    RequestProposalSearchProduct = 'REQUEST-PROPOSAL-SEARCH_PRODUCT',
-    RequestProposalSearchNiche = 'REQUEST-PROPOSAL-SEARCH_NICHE',
-    Other = 'OTHER'
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20073RowsPaymentTypeEnum {
-    Replenish = 'REPLENISH',
-    Fine = 'FINE',
-    Zero = 'ZERO'
-}
-
 
 

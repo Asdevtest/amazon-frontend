@@ -13,8 +13,12 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
+=======
+import { InlineResponse20059Rows } from './inline-response20059-rows';
+>>>>>>> dev
 
 /**
  * 
@@ -23,6 +27,7 @@ import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
  */
 export interface InlineResponse20059 {
     /**
+<<<<<<< HEAD
      * GUID
      * @type {string}
      * @memberof InlineResponse20059
@@ -122,6 +127,19 @@ export enum InlineResponse20059OperationTypeEnum {
     Merge = 'merge',
     Split = 'split',
     Receive = 'receive'
+=======
+     * Кол-во записей
+     * @type {number}
+     * @memberof InlineResponse20059
+     */
+    count?: number;
+    /**
+     * 
+     * @type {Array<InlineResponse20059Rows>}
+     * @memberof InlineResponse20059
+     */
+    rows?: Array<InlineResponse20059Rows>;
+>>>>>>> dev
 }
 
 

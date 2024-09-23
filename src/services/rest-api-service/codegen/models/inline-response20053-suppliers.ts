@@ -13,8 +13,10 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusBoxProperties } from './api-v1-admins-get-products-by-status-box-properties';
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1IdeasByParentGuidPriceVariations } from './api-v1-ideas-by-parent-guid-price-variations';
+import { ApiV1AdminsGetProductsByStatusPriceVariations } from './api-v1-admins-get-products-by-status-price-variations';
+import { ApiV1BuyersOrdersMyPaymentMethod } from './api-v1-buyers-orders-my-payment-method';
 
 /**
  * 
@@ -89,11 +91,17 @@ export interface InlineResponse20053Suppliers {
      */
     batchDeliveryCostInDollar?: number;
     /**
-     * Срок изготовления
+     * Min Срок изготовления
      * @type {number}
      * @memberof InlineResponse20053Suppliers
      */
-    productionTerm?: number;
+    minProductionTerm?: number;
+    /**
+     * Max Срок изготовления
+     * @type {number}
+     * @memberof InlineResponse20053Suppliers
+     */
+    maxProductionTerm?: number;
     /**
      * Цена партии, dollar
      * @type {number}
@@ -102,10 +110,28 @@ export interface InlineResponse20053Suppliers {
     batchTotalCostInDollar?: number;
     /**
      * 
-     * @type {Array<ApiV1IdeasByParentGuidPriceVariations>}
+     * @type {ApiV1AdminsGetProductsByStatusBoxProperties}
      * @memberof InlineResponse20053Suppliers
      */
-    priceVariations?: Array<ApiV1IdeasByParentGuidPriceVariations>;
+    boxProperties?: ApiV1AdminsGetProductsByStatusBoxProperties;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusPriceVariations>}
+     * @memberof InlineResponse20053Suppliers
+     */
+    priceVariations?: Array<ApiV1AdminsGetProductsByStatusPriceVariations>;
+    /**
+     * Цена в юанях
+     * @type {number}
+     * @memberof InlineResponse20053Suppliers
+     */
+    priceInYuan?: number;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersOrdersMyPaymentMethod>}
+     * @memberof InlineResponse20053Suppliers
+     */
+    paymentMethods?: Array<ApiV1BuyersOrdersMyPaymentMethod>;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}

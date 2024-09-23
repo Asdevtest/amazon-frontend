@@ -13,7 +13,11 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
+=======
+import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
+>>>>>>> dev
 
 /**
  * 
@@ -22,6 +26,7 @@ import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
  */
 export interface InlineObject29 {
     /**
+<<<<<<< HEAD
      * Массив коробок.
      * @type {Array<string>}
      * @memberof InlineObject29
@@ -33,6 +38,13 @@ export interface InlineObject29 {
      * @memberof InlineObject29
      */
     boxBody: ApiV1BoxesMergeBoxBody;
+=======
+     * 
+     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
+     * @memberof InlineObject29
+     */
+    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
+>>>>>>> dev
 }
 
 

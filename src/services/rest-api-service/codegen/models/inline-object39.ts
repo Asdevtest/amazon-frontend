@@ -21,11 +21,19 @@
  */
 export interface InlineObject39 {
     /**
+<<<<<<< HEAD
      * Сформирована ли коробка
      * @type {boolean}
      * @memberof InlineObject39
      */
     isFormed: boolean;
+=======
+     * массив GUIDов оплаченных товаров
+     * @type {Array<string>}
+     * @memberof InlineObject39
+     */
+    guids?: Array<string>;
+>>>>>>> dev
 }
 
 

@@ -14,11 +14,15 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+<<<<<<< HEAD
 import { ApiV1BatchesBatch } from './api-v1-batches-batch';
 import { InlineResponse20019Destination } from './inline-response20019-destination';
 import { InlineResponse20019Items } from './inline-response20019-items';
 import { InlineResponse20019LogicsTariff } from './inline-response20019-logics-tariff';
 import { InlineResponse20019VariationTariff } from './inline-response20019-variation-tariff';
+=======
+import { ApiV1BatchesByProductGuidBoxes } from './api-v1-batches-by-product-guid-boxes';
+>>>>>>> dev
 
 /**
  * 
@@ -27,18 +31,19 @@ import { InlineResponse20019VariationTariff } from './inline-response20019-varia
  */
 export interface InlineResponse20019 {
     /**
-     * GUID коробки.
+     * GUID партии.
      * @type {string}
      * @memberof InlineResponse20019
      */
     _id?: string;
     /**
-     * Номер коробки.
+     * Человекочитаемый id партии.
      * @type {number}
      * @memberof InlineResponse20019
      */
     humanFriendlyId?: number;
     /**
+<<<<<<< HEAD
      * Количества в коробке.
      * @type {number}
      * @memberof InlineResponse20019
@@ -62,77 +67,31 @@ export interface InlineResponse20019 {
      * @memberof InlineResponse20019
      */
     storage?: string;
-    /**
-     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
-     * @type {boolean}
-     * @memberof InlineResponse20019
-     */
-    isActual?: boolean;
-    /**
-     * Если true - значит коробку черновик.
-     * @type {boolean}
-     * @memberof InlineResponse20019
-     */
-    isDraft?: boolean;
-    /**
-     * Сформирована ли коробка
-     * @type {boolean}
-     * @memberof InlineResponse20019
-     */
-    isFormed?: boolean;
-    /**
-     * Ссылка на наклейку для коробки
+=======
+     * Название партии
      * @type {string}
      * @memberof InlineResponse20019
      */
-    shippingLabel?: string;
+    title?: string;
+>>>>>>> dev
     /**
-     * Текст трек номера
-     * @type {string}
+     * Заархивирована ли партия
+     * @type {boolean}
      * @memberof InlineResponse20019
      */
-    trackNumberText?: string;
+    archive?: boolean;
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<ApiV1BatchesByProductGuidBoxes>}
      * @memberof InlineResponse20019
      */
-    trackNumberFile?: Array<string>;
+    boxes?: Array<ApiV1BatchesByProductGuidBoxes>;
     /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    prepId?: string;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    upsTrackNumber?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    referenceId?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    clientComment?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    storekeeperComment?: string;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
+     * Общее кол-во продуктов
      * @type {number}
      * @memberof InlineResponse20019
      */
+<<<<<<< HEAD
     lengthCmWarehouse?: number;
     /**
      * Что фактически пришло на склад. Кладовщик.
@@ -206,12 +165,16 @@ export interface InlineResponse20019 {
      * @memberof InlineResponse20019
      */
     sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+=======
+    amountInBatch?: number;
+>>>>>>> dev
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20019
      */
     storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
+<<<<<<< HEAD
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
@@ -252,6 +215,8 @@ export enum InlineResponse20019StatusEnum {
     InBatchOnTheWay = 'IN_BATCH_ON_THE_WAY',
     FinishPrepCentrUsa = 'FINISH_PREP_CENTR_USA',
     AcceptedInProcessing = 'ACCEPTED_IN_PROCESSING'
+=======
+>>>>>>> dev
 }
 
 

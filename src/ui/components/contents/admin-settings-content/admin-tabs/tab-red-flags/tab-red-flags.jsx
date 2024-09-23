@@ -13,7 +13,6 @@ import { Field } from '@components/shared/field/field'
 import { UploadIcon } from '@components/shared/svg-icons'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { useStyles } from './tab-red-flags.style'
@@ -107,12 +106,7 @@ export const TabRedFlags = observer(() => {
             ))}
         </div>
 
-        <CustomButton
-          type="primary"
-          size="large"
-          disabled={!isDisableButton}
-          onClick={throttle(viewModel.onSubmitRedFlag)}
-        >
+        <CustomButton type="primary" size="large" disabled={!isDisableButton} onClick={viewModel.onSubmitRedFlag}>
           {t(TranslationKey.Save)}
         </CustomButton>
       </div>

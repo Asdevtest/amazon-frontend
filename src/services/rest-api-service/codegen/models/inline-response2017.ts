@@ -21,11 +21,19 @@
  */
 export interface InlineResponse2017 {
     /**
+<<<<<<< HEAD
      * Гуид тега
      * @type {string}
      * @memberof InlineResponse2017
      */
     _id?: string;
+=======
+     * Имя файла для доступа к нему.
+     * @type {string}
+     * @memberof InlineResponse2017
+     */
+    fileName?: string;
+>>>>>>> dev
 }
 
 

@@ -38,7 +38,7 @@ export const supervisorSettingsViewColumns = props => {
           secondGhost
           firstIcon={<MdOutlineEdit size={16} />}
           secondIcon={<MdOutlineDelete size={16} />}
-          secondDescription="Are you sure you want to delete ASIN?"
+          secondConfirmText="Are you sure you want to delete ASIN?"
           onClickFirst={() => props.onEditAsin(row)}
           onClickSecond={() => props.onRemoveAsin(row._id)}
         />

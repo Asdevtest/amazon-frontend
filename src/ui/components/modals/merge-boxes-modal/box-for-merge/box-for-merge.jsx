@@ -9,6 +9,7 @@ import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { Text } from '@components/shared/text'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount } from '@utils/text'
@@ -32,11 +33,7 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
                 <div>
                   <div className={styles.asinWrapper}>
                     <Typography className={styles.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
-
-                    <div className={styles.asinTextWrapper}>
-                      <Typography className={styles.asinValue}>{order.product.asin}</Typography>
-                      {order.product.asin && <CopyValue text={order.product.asin} />}
-                    </div>
+                    <Text className={styles.asinValue} text={order.product?.asin} />
                   </div>
 
                   <div className={styles.asinWrapper}>

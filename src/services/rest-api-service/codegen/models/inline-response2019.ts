@@ -21,7 +21,11 @@
  */
 export interface InlineResponse2019 {
     /**
+<<<<<<< HEAD
      * Гуид созданного анонса
+=======
+     * GUID созданной коробки
+>>>>>>> dev
      * @type {string}
      * @memberof InlineResponse2019
      */

@@ -13,7 +13,10 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
+=======
+>>>>>>> dev
 
 /**
  * 
@@ -22,6 +25,7 @@ import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator
  */
 export interface InlineObject61 {
     /**
+<<<<<<< HEAD
      * Название профиля
      * @type {string}
      * @memberof InlineObject61
@@ -39,6 +43,103 @@ export interface InlineObject61 {
      * @memberof InlineObject61
      */
     navigator?: ApiV1GologinProfileNavigator;
+=======
+     * Название идеи
+     * @type {string}
+     * @memberof InlineObject61
+     */
+    title?: string;
+    /**
+     * Image URL
+     * @type {Array<string>}
+     * @memberof InlineObject61
+     */
+    media?: Array<string>;
+    /**
+     * Комментарий к идее
+     * @type {string}
+     * @memberof InlineObject61
+     */
+    comments?: string;
+    /**
+     * Комментарий байера
+     * @type {string}
+     * @memberof InlineObject61
+     */
+    buyerComment?: string;
+    /**
+     * Назавние продукта
+     * @type {string}
+     * @memberof InlineObject61
+     */
+    productName: string;
+    /**
+     * Ссылки на продукт, если есть
+     * @type {Array<string>}
+     * @memberof InlineObject61
+     */
+    productLinks?: Array<string>;
+    /**
+     * Дополнительные критерии для поиска товара
+     * @type {string}
+     * @memberof InlineObject61
+     */
+    criteria?: string;
+    /**
+     * Количество товаров
+     * @type {number}
+     * @memberof InlineObject61
+     */
+    quantity?: number;
+    /**
+     * Желаемая цена
+     * @type {number}
+     * @memberof InlineObject61
+     */
+    price: number;
+    /**
+     * FBA Fee
+     * @type {number}
+     * @memberof InlineObject61
+     */
+    fbaFee?: number;
+    /**
+     * Ориентационная цена
+     * @type {number}
+     * @memberof InlineObject61
+     */
+    approximatePrice?: number;
+    /**
+     * Ширина, см
+     * @type {number}
+     * @memberof InlineObject61
+     */
+    width?: number;
+    /**
+     * Высота, см
+     * @type {number}
+     * @memberof InlineObject61
+     */
+    height?: number;
+    /**
+     * Длина, см
+     * @type {number}
+     * @memberof InlineObject61
+     */
+    length?: number;
+    /**
+     * Product ID
+     * @type {string}
+     * @memberof InlineObject61
+     */
+    productId?: string;
+    /**
+     * Гуид родительского продукта
+     * @type {string}
+     * @memberof InlineObject61
+     */
+    parentProductId?: string;
+>>>>>>> dev
 }
 
 

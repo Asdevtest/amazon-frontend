@@ -23,6 +23,7 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 // @ts-ignore
 import { BadRequestError } from '../models';
 // @ts-ignore
+<<<<<<< HEAD
 import { InlineObject16 } from '../models';
 // @ts-ignore
 import { InlineObject17 } from '../models';
@@ -48,6 +49,33 @@ import { InlineResponse20016 } from '../models';
 import { InlineResponse20017 } from '../models';
 // @ts-ignore
 import { InlineResponse201 } from '../models';
+=======
+import { InlineObject19 } from '../models';
+// @ts-ignore
+import { InlineObject20 } from '../models';
+// @ts-ignore
+import { InlineObject21 } from '../models';
+// @ts-ignore
+import { InlineObject22 } from '../models';
+// @ts-ignore
+import { InlineObject23 } from '../models';
+// @ts-ignore
+import { InlineObject24 } from '../models';
+// @ts-ignore
+import { InlineObject25 } from '../models';
+// @ts-ignore
+import { InlineObject26 } from '../models';
+// @ts-ignore
+import { InlineResponse20016 } from '../models';
+// @ts-ignore
+import { InlineResponse20017 } from '../models';
+// @ts-ignore
+import { InlineResponse20018 } from '../models';
+// @ts-ignore
+import { InlineResponse20019 } from '../models';
+// @ts-ignore
+import { InlineResponse2011 } from '../models';
+>>>>>>> dev
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -61,12 +89,20 @@ export const BatchesApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * ## Изменить у массива партий поле archive
          * @summary # Изменить у массива партий поле archive
+<<<<<<< HEAD
          * @param {InlineObject23} [body] 
+=======
+         * @param {InlineObject26} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesArchivePatch: async (body?: InlineObject23, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BatchesArchivePatch: async (body?: InlineObject26, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             const localVarPath = `/api/v1/batches/archive`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -155,12 +191,20 @@ export const BatchesApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * ## Рассчитать стоимость доставки коробов.   
          * @summary # Рассчитать стоимость доставки коробов.
+<<<<<<< HEAD
          * @param {InlineObject21} [body] 
+=======
+         * @param {InlineObject24} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesCalculateBoxDeliveryCostsInBatchPost: async (body?: InlineObject21, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BatchesCalculateBoxDeliveryCostsInBatchPost: async (body?: InlineObject24, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             const localVarPath = `/api/v1/batches/calculate_box_delivery_costs_in_batch`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -251,12 +295,20 @@ export const BatchesApiAxiosParamCreator = function (configuration?: Configurati
          * ## Добавить коробки в партию.   В коробки вписывается id партии и статус меняется на IN_BATCH         Проверки:         Доступно только для сторкипера         Только партии со статусом IS_BEING_COLLECTED         Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH,  IN_BATCH         В партии все коробки должны быть от данного сторкипера         В партии у всех коробок должен быть одинаковый адрес склада прибытия.         Актуальный тариф доставки всех коробок.         В партии все коробки должны быть с одинаковым тариф доставки         Наличие шипинг лейбла у всех коробок.
          * @summary # Добавить коробки в партию.
          * @param {string} guid GUID партии.
+<<<<<<< HEAD
          * @param {InlineObject18} [body] 
+=======
+         * @param {InlineObject21} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesGuidAddBoxesPatch: async (guid: string, body?: InlineObject18, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BatchesGuidAddBoxesPatch: async (guid: string, body?: InlineObject21, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BatchesGuidAddBoxesPatch', 'guid', guid)
             const localVarPath = `/api/v1/batches/{guid}/add_boxes`
@@ -339,12 +391,20 @@ export const BatchesApiAxiosParamCreator = function (configuration?: Configurati
          * ## Редактировать прикрепленные документы партии.   ## Проверки:         Доступно только для сторкипера
          * @summary # Редактировать прикрепленные документы партии.
          * @param {string} guid GUID партии.
+<<<<<<< HEAD
          * @param {InlineObject22} [body] 
+=======
+         * @param {InlineObject25} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesGuidEditAttachedDocumentsPatch: async (guid: string, body?: InlineObject22, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BatchesGuidEditAttachedDocumentsPatch: async (guid: string, body?: InlineObject25, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BatchesGuidEditAttachedDocumentsPatch', 'guid', guid)
             const localVarPath = `/api/v1/batches/{guid}/edit_attachedDocuments`
@@ -427,12 +487,20 @@ export const BatchesApiAxiosParamCreator = function (configuration?: Configurati
          * ## Изменение партии   
          * @summary # Изменение партии
          * @param {string} guid GUID продукта.
+<<<<<<< HEAD
          * @param {InlineObject20} [body] 
+=======
+         * @param {InlineObject23} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesGuidPatch: async (guid: string, body?: InlineObject20, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BatchesGuidPatch: async (guid: string, body?: InlineObject23, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BatchesGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/batches/{guid}`
@@ -473,12 +541,20 @@ export const BatchesApiAxiosParamCreator = function (configuration?: Configurati
          * ## Удалить коробки из партии.   В коробках поле batchId становиться null, и статус возвращается на REQUESTED_SEND_TO_BATCH         Проверки:         Доступно только для сторкипера или клиента владелец коробки.         Только коробки которые есть в партии
          * @summary # Удалить коробки из партии.
          * @param {string} guid GUID партии.
+<<<<<<< HEAD
          * @param {InlineObject19} [body] 
+=======
+         * @param {InlineObject22} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesGuidRemoveBoxesPatch: async (guid: string, body?: InlineObject19, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BatchesGuidRemoveBoxesPatch: async (guid: string, body?: InlineObject22, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BatchesGuidRemoveBoxesPatch', 'guid', guid)
             const localVarPath = `/api/v1/batches/{guid}/remove_boxes`
@@ -518,12 +594,20 @@ export const BatchesApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * ## Создать партию.   При выполнении этого запроса создается партия со статусом IS_BEING_COLLECTED - набирается         В коробки вписывается id партии и статус меняется на IN_BATCH         Проверки:         Доступно только для сторкипера         Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH, IN_BATCH         В партии все коробки должны быть от одного сторкипера         В партии у всех коробок должен быть одинаковый адрес склада прибытия.         В партии все коробки должны быть с одинаковым тарифом доставки         Коробку нельзя повторно добавить в партию         Наличие шипинг лейбла у всех коробок.         Актуальный тариф доставки всех коробок.
          * @summary # Создать партию.
+<<<<<<< HEAD
          * @param {InlineObject17} [body] 
+=======
+         * @param {InlineObject20} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesPost: async (body?: InlineObject17, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BatchesPost: async (body?: InlineObject20, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             const localVarPath = `/api/v1/batches/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -617,12 +701,20 @@ export const BatchesApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * ## Запросить отправку набора коробок в партию.  при выполнении этого запроса у всех этих коробок поле статус меняется на  REQUESTED_SEND_TO_BATCH.         У клиента замораживаются средства.         Стоимость доставки записывается в поле deliveryTotalPrice         Проверки:         Доступно только для клиента         Коробку нельзя повторно отправлять для набора в партию, статус должен быть IN_STOCK         Наличие шипинг лейбла у всех коробок.         Актуальный тариф доставки всех коробок.
          * @summary # Запросить отправку набора коробок в партию.
+<<<<<<< HEAD
          * @param {InlineObject16} [body] 
+=======
+         * @param {InlineObject19} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesRequestSendBoxesToBatchPost: async (body?: InlineObject16, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BatchesRequestSendBoxesToBatchPost: async (body?: InlineObject19, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             const localVarPath = `/api/v1/batches/request_send_boxes_to_batch`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -752,12 +844,20 @@ export const BatchesApiFp = function(configuration?: Configuration) {
         /**
          * ## Изменить у массива партий поле archive
          * @summary # Изменить у массива партий поле archive
+<<<<<<< HEAD
          * @param {InlineObject23} [body] 
+=======
+         * @param {InlineObject26} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BatchesArchivePatch(body?: InlineObject23, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1BatchesArchivePatch(body?: InlineObject26, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BatchesArchivePatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -771,19 +871,31 @@ export const BatchesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BatchesByProductGuidGet(guid: string, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20017>>> {
+=======
+        async apiV1BatchesByProductGuidGet(guid: string, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20019>>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BatchesByProductGuidGet(guid, archive, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Рассчитать стоимость доставки коробов.   
          * @summary # Рассчитать стоимость доставки коробов.
+<<<<<<< HEAD
          * @param {InlineObject21} [body] 
+=======
+         * @param {InlineObject24} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(body?: InlineObject21, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20016>>> {
+=======
+        async apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(body?: InlineObject24, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20018>>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -797,7 +909,11 @@ export const BatchesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BatchesGet(status?: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20014>>> {
+=======
+        async apiV1BatchesGet(status?: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20016>>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BatchesGet(status, storekeeperId, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -805,12 +921,20 @@ export const BatchesApiFp = function(configuration?: Configuration) {
          * ## Добавить коробки в партию.   В коробки вписывается id партии и статус меняется на IN_BATCH         Проверки:         Доступно только для сторкипера         Только партии со статусом IS_BEING_COLLECTED         Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH,  IN_BATCH         В партии все коробки должны быть от данного сторкипера         В партии у всех коробок должен быть одинаковый адрес склада прибытия.         Актуальный тариф доставки всех коробок.         В партии все коробки должны быть с одинаковым тариф доставки         Наличие шипинг лейбла у всех коробок.
          * @summary # Добавить коробки в партию.
          * @param {string} guid GUID партии.
+<<<<<<< HEAD
          * @param {InlineObject18} [body] 
+=======
+         * @param {InlineObject21} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BatchesGuidAddBoxesPatch(guid: string, body?: InlineObject18, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1BatchesGuidAddBoxesPatch(guid: string, body?: InlineObject21, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BatchesGuidAddBoxesPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -830,12 +954,20 @@ export const BatchesApiFp = function(configuration?: Configuration) {
          * ## Редактировать прикрепленные документы партии.   ## Проверки:         Доступно только для сторкипера
          * @summary # Редактировать прикрепленные документы партии.
          * @param {string} guid GUID партии.
+<<<<<<< HEAD
          * @param {InlineObject22} [body] 
+=======
+         * @param {InlineObject25} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BatchesGuidEditAttachedDocumentsPatch(guid: string, body?: InlineObject22, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+=======
+        async apiV1BatchesGuidEditAttachedDocumentsPatch(guid: string, body?: InlineObject25, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2011>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BatchesGuidEditAttachedDocumentsPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -847,7 +979,11 @@ export const BatchesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BatchesGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20014>> {
+=======
+        async apiV1BatchesGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20016>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BatchesGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -855,12 +991,20 @@ export const BatchesApiFp = function(configuration?: Configuration) {
          * ## Изменение партии   
          * @summary # Изменение партии
          * @param {string} guid GUID продукта.
+<<<<<<< HEAD
          * @param {InlineObject20} [body] 
+=======
+         * @param {InlineObject23} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BatchesGuidPatch(guid: string, body?: InlineObject20, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1BatchesGuidPatch(guid: string, body?: InlineObject23, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BatchesGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -868,24 +1012,40 @@ export const BatchesApiFp = function(configuration?: Configuration) {
          * ## Удалить коробки из партии.   В коробках поле batchId становиться null, и статус возвращается на REQUESTED_SEND_TO_BATCH         Проверки:         Доступно только для сторкипера или клиента владелец коробки.         Только коробки которые есть в партии
          * @summary # Удалить коробки из партии.
          * @param {string} guid GUID партии.
+<<<<<<< HEAD
          * @param {InlineObject19} [body] 
+=======
+         * @param {InlineObject22} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BatchesGuidRemoveBoxesPatch(guid: string, body?: InlineObject19, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1BatchesGuidRemoveBoxesPatch(guid: string, body?: InlineObject22, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BatchesGuidRemoveBoxesPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Создать партию.   При выполнении этого запроса создается партия со статусом IS_BEING_COLLECTED - набирается         В коробки вписывается id партии и статус меняется на IN_BATCH         Проверки:         Доступно только для сторкипера         Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH, IN_BATCH         В партии все коробки должны быть от одного сторкипера         В партии у всех коробок должен быть одинаковый адрес склада прибытия.         В партии все коробки должны быть с одинаковым тарифом доставки         Коробку нельзя повторно добавить в партию         Наличие шипинг лейбла у всех коробок.         Актуальный тариф доставки всех коробок.
          * @summary # Создать партию.
+<<<<<<< HEAD
          * @param {InlineObject17} [body] 
+=======
+         * @param {InlineObject20} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BatchesPost(body?: InlineObject17, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+=======
+        async apiV1BatchesPost(body?: InlineObject20, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2011>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BatchesPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -907,12 +1067,20 @@ export const BatchesApiFp = function(configuration?: Configuration) {
         /**
          * ## Запросить отправку набора коробок в партию.  при выполнении этого запроса у всех этих коробок поле статус меняется на  REQUESTED_SEND_TO_BATCH.         У клиента замораживаются средства.         Стоимость доставки записывается в поле deliveryTotalPrice         Проверки:         Доступно только для клиента         Коробку нельзя повторно отправлять для набора в партию, статус должен быть IN_STOCK         Наличие шипинг лейбла у всех коробок.         Актуальный тариф доставки всех коробок.
          * @summary # Запросить отправку набора коробок в партию.
+<<<<<<< HEAD
          * @param {InlineObject16} [body] 
+=======
+         * @param {InlineObject19} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BatchesRequestSendBoxesToBatchPost(body?: InlineObject16, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1BatchesRequestSendBoxesToBatchPost(body?: InlineObject19, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BatchesRequestSendBoxesToBatchPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -932,7 +1100,11 @@ export const BatchesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BatchesWithFiltersGet(status?: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', archive?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20015>> {
+=======
+        async apiV1BatchesWithFiltersGet(status?: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', archive?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20017>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BatchesWithFiltersGet(status, archive, filters, limit, offset, sortField, sortType, storekeeperId, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -949,12 +1121,20 @@ export const BatchesApiFactory = function (configuration?: Configuration, basePa
         /**
          * ## Изменить у массива партий поле archive
          * @summary # Изменить у массива партий поле archive
+<<<<<<< HEAD
          * @param {InlineObject23} [body] 
+=======
+         * @param {InlineObject26} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesArchivePatch(body?: InlineObject23, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1BatchesArchivePatch(body?: InlineObject26, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1BatchesArchivePatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -967,18 +1147,30 @@ export const BatchesApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesByProductGuidGet(guid: string, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20017>> {
+=======
+        apiV1BatchesByProductGuidGet(guid: string, archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20019>> {
+>>>>>>> dev
             return localVarFp.apiV1BatchesByProductGuidGet(guid, archive, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Рассчитать стоимость доставки коробов.   
          * @summary # Рассчитать стоимость доставки коробов.
+<<<<<<< HEAD
          * @param {InlineObject21} [body] 
+=======
+         * @param {InlineObject24} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(body?: InlineObject21, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20016>> {
+=======
+        apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(body?: InlineObject24, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20018>> {
+>>>>>>> dev
             return localVarFp.apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -991,19 +1183,31 @@ export const BatchesApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesGet(status?: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20014>> {
+=======
+        apiV1BatchesGet(status?: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20016>> {
+>>>>>>> dev
             return localVarFp.apiV1BatchesGet(status, storekeeperId, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Добавить коробки в партию.   В коробки вписывается id партии и статус меняется на IN_BATCH         Проверки:         Доступно только для сторкипера         Только партии со статусом IS_BEING_COLLECTED         Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH,  IN_BATCH         В партии все коробки должны быть от данного сторкипера         В партии у всех коробок должен быть одинаковый адрес склада прибытия.         Актуальный тариф доставки всех коробок.         В партии все коробки должны быть с одинаковым тариф доставки         Наличие шипинг лейбла у всех коробок.
          * @summary # Добавить коробки в партию.
          * @param {string} guid GUID партии.
+<<<<<<< HEAD
          * @param {InlineObject18} [body] 
+=======
+         * @param {InlineObject21} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesGuidAddBoxesPatch(guid: string, body?: InlineObject18, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1BatchesGuidAddBoxesPatch(guid: string, body?: InlineObject21, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1BatchesGuidAddBoxesPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1021,12 +1225,20 @@ export const BatchesApiFactory = function (configuration?: Configuration, basePa
          * ## Редактировать прикрепленные документы партии.   ## Проверки:         Доступно только для сторкипера
          * @summary # Редактировать прикрепленные документы партии.
          * @param {string} guid GUID партии.
+<<<<<<< HEAD
          * @param {InlineObject22} [body] 
+=======
+         * @param {InlineObject25} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesGuidEditAttachedDocumentsPatch(guid: string, body?: InlineObject22, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse201> {
+=======
+        apiV1BatchesGuidEditAttachedDocumentsPatch(guid: string, body?: InlineObject25, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2011> {
+>>>>>>> dev
             return localVarFp.apiV1BatchesGuidEditAttachedDocumentsPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1037,42 +1249,70 @@ export const BatchesApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20014> {
+=======
+        apiV1BatchesGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20016> {
+>>>>>>> dev
             return localVarFp.apiV1BatchesGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменение партии   
          * @summary # Изменение партии
          * @param {string} guid GUID продукта.
+<<<<<<< HEAD
          * @param {InlineObject20} [body] 
+=======
+         * @param {InlineObject23} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesGuidPatch(guid: string, body?: InlineObject20, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1BatchesGuidPatch(guid: string, body?: InlineObject23, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1BatchesGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Удалить коробки из партии.   В коробках поле batchId становиться null, и статус возвращается на REQUESTED_SEND_TO_BATCH         Проверки:         Доступно только для сторкипера или клиента владелец коробки.         Только коробки которые есть в партии
          * @summary # Удалить коробки из партии.
          * @param {string} guid GUID партии.
+<<<<<<< HEAD
          * @param {InlineObject19} [body] 
+=======
+         * @param {InlineObject22} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesGuidRemoveBoxesPatch(guid: string, body?: InlineObject19, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1BatchesGuidRemoveBoxesPatch(guid: string, body?: InlineObject22, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1BatchesGuidRemoveBoxesPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Создать партию.   При выполнении этого запроса создается партия со статусом IS_BEING_COLLECTED - набирается         В коробки вписывается id партии и статус меняется на IN_BATCH         Проверки:         Доступно только для сторкипера         Только коробки которые запросили отправить в партию, REQUESTED_SEND_TO_BATCH, IN_BATCH         В партии все коробки должны быть от одного сторкипера         В партии у всех коробок должен быть одинаковый адрес склада прибытия.         В партии все коробки должны быть с одинаковым тарифом доставки         Коробку нельзя повторно добавить в партию         Наличие шипинг лейбла у всех коробок.         Актуальный тариф доставки всех коробок.
          * @summary # Создать партию.
+<<<<<<< HEAD
          * @param {InlineObject17} [body] 
+=======
+         * @param {InlineObject20} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesPost(body?: InlineObject17, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse201> {
+=======
+        apiV1BatchesPost(body?: InlineObject20, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2011> {
+>>>>>>> dev
             return localVarFp.apiV1BatchesPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1092,12 +1332,20 @@ export const BatchesApiFactory = function (configuration?: Configuration, basePa
         /**
          * ## Запросить отправку набора коробок в партию.  при выполнении этого запроса у всех этих коробок поле статус меняется на  REQUESTED_SEND_TO_BATCH.         У клиента замораживаются средства.         Стоимость доставки записывается в поле deliveryTotalPrice         Проверки:         Доступно только для клиента         Коробку нельзя повторно отправлять для набора в партию, статус должен быть IN_STOCK         Наличие шипинг лейбла у всех коробок.         Актуальный тариф доставки всех коробок.
          * @summary # Запросить отправку набора коробок в партию.
+<<<<<<< HEAD
          * @param {InlineObject16} [body] 
+=======
+         * @param {InlineObject19} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesRequestSendBoxesToBatchPost(body?: InlineObject16, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1BatchesRequestSendBoxesToBatchPost(body?: InlineObject19, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1BatchesRequestSendBoxesToBatchPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1116,7 +1364,11 @@ export const BatchesApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BatchesWithFiltersGet(status?: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', archive?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20015> {
+=======
+        apiV1BatchesWithFiltersGet(status?: 'IS_BEING_COLLECTED' | 'HAS_DISPATCHED', archive?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', storekeeperId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20017> {
+>>>>>>> dev
             return localVarFp.apiV1BatchesWithFiltersGet(status, archive, filters, limit, offset, sortField, sortType, storekeeperId, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -1130,10 +1382,17 @@ export const BatchesApiFactory = function (configuration?: Configuration, basePa
 export interface BatchesApiApiV1BatchesArchivePatchRequest {
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject23}
      * @memberof BatchesApiApiV1BatchesArchivePatch
      */
     readonly body?: InlineObject23
+=======
+     * @type {InlineObject26}
+     * @memberof BatchesApiApiV1BatchesArchivePatch
+     */
+    readonly body?: InlineObject26
+>>>>>>> dev
 
     /**
      * 
@@ -1186,10 +1445,17 @@ export interface BatchesApiApiV1BatchesByProductGuidGetRequest {
 export interface BatchesApiApiV1BatchesCalculateBoxDeliveryCostsInBatchPostRequest {
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject21}
      * @memberof BatchesApiApiV1BatchesCalculateBoxDeliveryCostsInBatchPost
      */
     readonly body?: InlineObject21
+=======
+     * @type {InlineObject24}
+     * @memberof BatchesApiApiV1BatchesCalculateBoxDeliveryCostsInBatchPost
+     */
+    readonly body?: InlineObject24
+>>>>>>> dev
 
     /**
      * 
@@ -1249,10 +1515,17 @@ export interface BatchesApiApiV1BatchesGuidAddBoxesPatchRequest {
 
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject18}
      * @memberof BatchesApiApiV1BatchesGuidAddBoxesPatch
      */
     readonly body?: InlineObject18
+=======
+     * @type {InlineObject21}
+     * @memberof BatchesApiApiV1BatchesGuidAddBoxesPatch
+     */
+    readonly body?: InlineObject21
+>>>>>>> dev
 
     /**
      * 
@@ -1298,10 +1571,17 @@ export interface BatchesApiApiV1BatchesGuidEditAttachedDocumentsPatchRequest {
 
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject22}
      * @memberof BatchesApiApiV1BatchesGuidEditAttachedDocumentsPatch
      */
     readonly body?: InlineObject22
+=======
+     * @type {InlineObject25}
+     * @memberof BatchesApiApiV1BatchesGuidEditAttachedDocumentsPatch
+     */
+    readonly body?: InlineObject25
+>>>>>>> dev
 
     /**
      * 
@@ -1347,10 +1627,17 @@ export interface BatchesApiApiV1BatchesGuidPatchRequest {
 
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject20}
      * @memberof BatchesApiApiV1BatchesGuidPatch
      */
     readonly body?: InlineObject20
+=======
+     * @type {InlineObject23}
+     * @memberof BatchesApiApiV1BatchesGuidPatch
+     */
+    readonly body?: InlineObject23
+>>>>>>> dev
 
     /**
      * 
@@ -1375,10 +1662,17 @@ export interface BatchesApiApiV1BatchesGuidRemoveBoxesPatchRequest {
 
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject19}
      * @memberof BatchesApiApiV1BatchesGuidRemoveBoxesPatch
      */
     readonly body?: InlineObject19
+=======
+     * @type {InlineObject22}
+     * @memberof BatchesApiApiV1BatchesGuidRemoveBoxesPatch
+     */
+    readonly body?: InlineObject22
+>>>>>>> dev
 
     /**
      * 
@@ -1396,10 +1690,17 @@ export interface BatchesApiApiV1BatchesGuidRemoveBoxesPatchRequest {
 export interface BatchesApiApiV1BatchesPostRequest {
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject17}
      * @memberof BatchesApiApiV1BatchesPost
      */
     readonly body?: InlineObject17
+=======
+     * @type {InlineObject20}
+     * @memberof BatchesApiApiV1BatchesPost
+     */
+    readonly body?: InlineObject20
+>>>>>>> dev
 
     /**
      * 
@@ -1459,10 +1760,17 @@ export interface BatchesApiApiV1BatchesReportBatchIdGetRequest {
 export interface BatchesApiApiV1BatchesRequestSendBoxesToBatchPostRequest {
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject16}
      * @memberof BatchesApiApiV1BatchesRequestSendBoxesToBatchPost
      */
     readonly body?: InlineObject16
+=======
+     * @type {InlineObject19}
+     * @memberof BatchesApiApiV1BatchesRequestSendBoxesToBatchPost
+     */
+    readonly body?: InlineObject19
+>>>>>>> dev
 
     /**
      * 

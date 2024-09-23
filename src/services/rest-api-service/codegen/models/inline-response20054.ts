@@ -13,7 +13,13 @@
  */
 
 
+<<<<<<< HEAD
 import { InlineResponse20052 } from './inline-response20052';
+=======
+import { ApiV1IdeasNotificationsCreatedBy } from './api-v1-ideas-notifications-created-by';
+import { ApiV1IdeasNotificationsIdea } from './api-v1-ideas-notifications-idea';
+import { ApiV1IdeasNotificationsProduct } from './api-v1-ideas-notifications-product';
+>>>>>>> dev
 
 /**
  * Результат запроса с пагинацией
@@ -22,6 +28,7 @@ import { InlineResponse20052 } from './inline-response20052';
  */
 export interface InlineResponse20054 {
     /**
+<<<<<<< HEAD
      * Всего кол-во записей в результате запроса
      * @type {number}
      * @memberof InlineResponse20054
@@ -33,6 +40,31 @@ export interface InlineResponse20054 {
      * @memberof InlineResponse20054
      */
     rows?: Array<InlineResponse20052>;
+=======
+     * 
+     * @type {ApiV1IdeasNotificationsProduct}
+     * @memberof InlineResponse20054
+     */
+    product?: ApiV1IdeasNotificationsProduct;
+    /**
+     * 
+     * @type {ApiV1IdeasNotificationsIdea}
+     * @memberof InlineResponse20054
+     */
+    idea?: ApiV1IdeasNotificationsIdea;
+    /**
+     * 
+     * @type {ApiV1IdeasNotificationsCreatedBy}
+     * @memberof InlineResponse20054
+     */
+    createdBy?: ApiV1IdeasNotificationsCreatedBy;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20054
+     */
+    createdAt?: string;
+>>>>>>> dev
 }
 
 

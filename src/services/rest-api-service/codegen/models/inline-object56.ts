@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
  * Схема апдейта рекомендаций
@@ -21,11 +22,31 @@
  */
 export interface InlineObject56 {
     /**
+<<<<<<< HEAD
      * Рекомендуемое значение
      * @type {number}
      * @memberof InlineObject56
      */
     recommendedValue: number;
+=======
+     * Название профиля
+     * @type {string}
+     * @memberof InlineObject56
+     */
+    name: string;
+    /**
+     * Название ОС
+     * @type {string}
+     * @memberof InlineObject56
+     */
+    os?: string;
+    /**
+     * 
+     * @type {ApiV1GologinProfileNavigator}
+     * @memberof InlineObject56
+     */
+    navigator?: ApiV1GologinProfileNavigator;
+>>>>>>> dev
 }
 
 

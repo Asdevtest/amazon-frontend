@@ -83,6 +83,36 @@ export interface InlineResponse200117Rows {
      */
     status?: string;
     /**
+     * Main google table id
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    spreadsheetsIdMain?: string;
+    /**
+     * Perfomance google table id
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    spreadsheetsIdPerformance?: string;
+    /**
+     * Import google table id
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    spreadsheetsIdImport?: string;
+    /**
+     * OTP Hash
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    otp?: string;
+    /**
+     * Comment for profile
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    comment?: string;
+    /**
      * Дата создания
      * @type {string}
      * @memberof InlineResponse200117Rows

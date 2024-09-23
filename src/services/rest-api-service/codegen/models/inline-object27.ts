@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
 
 /**
  * 
@@ -21,6 +22,7 @@
  */
 export interface InlineObject27 {
     /**
+<<<<<<< HEAD
      * Штрихкод продукта
      * @type {string}
      * @memberof InlineObject27
@@ -68,6 +70,61 @@ export interface InlineObject27 {
      * @memberof InlineObject27
      */
     boxesIds: Array<string>;
+=======
+     * 
+     * @type {number}
+     * @memberof InlineObject27
+     */
+    amazon?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject27
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject27
+     */
+    fbafee?: number;
+    /**
+     * ФБА кол-во
+     * @type {number}
+     * @memberof InlineObject27
+     */
+    fbaamount?: number;
+    /**
+     * Код статуса
+     * @type {number}
+     * @memberof InlineObject27
+     */
+    status?: number;
+    /**
+     * Прибыль
+     * @type {number}
+     * @memberof InlineObject27
+     */
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject27
+     */
+    margin?: number;
+    /**
+     * Примечания байера.
+     * @type {string}
+     * @memberof InlineObject27
+     */
+    buyersComment?: string;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @memberof InlineObject27
+     */
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
+>>>>>>> dev
 }
 
 

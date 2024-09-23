@@ -30,6 +30,12 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '16px',
   },
 
+  noImage: {
+    display: 'flex',
+    alignSelf: 'center',
+    maxWidth: '250px',
+  },
+
   serviceInfo: {
     display: 'flex',
     alignItems: 'center',
@@ -64,11 +70,6 @@ export const useStyles = makeStyles()(theme => ({
   cardDescription: {
     fontSize: '14px',
     lineHeight: '19px',
-  },
-
-  actionButton: {
-    alignSelf: 'flex-end',
-    justifySelf: 'flex-end',
   },
 
   detailsText: {

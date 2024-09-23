@@ -293,9 +293,9 @@ export const RequestToSendBatchBox = memo(
                   href={getAmazonImageUrl(box.shippingLabel, true)}
                   className={styles.downloadLink}
                 >
-                  {t(TranslationKey.download)}
+                  {t(TranslationKey.View)}
                 </a>
-                <CopyValue text={box.shippingLabel} />
+                <CopyValue text={getAmazonImageUrl(box.shippingLabel)} />
               </div>
             ) : (
               <Typography className={styles.alertSpan}>{t(TranslationKey.Missing)}</Typography>

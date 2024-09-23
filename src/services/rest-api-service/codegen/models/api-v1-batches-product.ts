@@ -16,6 +16,7 @@
 import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BatchesProductBoxAmounts } from './api-v1-batches-product-box-amounts';
 import { ApiV1BatchesProductRedFlags } from './api-v1-batches-product-red-flags';
+import { ApiV1BatchesProductShop } from './api-v1-batches-product-shop';
 import { ApiV1BatchesProductSuppliers } from './api-v1-batches-product-suppliers';
 import { ApiV1BatchesProductTags } from './api-v1-batches-product-tags';
 
@@ -326,6 +327,12 @@ export interface ApiV1BatchesProduct {
      */
     shopId?: string;
     /**
+     * 
+     * @type {ApiV1BatchesProductShop}
+     * @memberof ApiV1BatchesProduct
+     */
+    shop?: ApiV1BatchesProductShop;
+    /**
      * Савка ресечера.
      * @type {number}
      * @memberof ApiV1BatchesProduct
@@ -495,6 +502,12 @@ export interface ApiV1BatchesProduct {
     subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
     /**
      * 
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
+     * @memberof ApiV1BatchesProduct
+     */
+    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
+    /**
+     * 
      * @type {Array<ApiV1BatchesProductRedFlags>}
      * @memberof ApiV1BatchesProduct
      */
@@ -505,6 +518,18 @@ export interface ApiV1BatchesProduct {
      * @memberof ApiV1BatchesProduct
      */
     tags?: Array<ApiV1BatchesProductTags>;
+    /**
+     * 
+     * @type {Array<object>}
+     * @memberof ApiV1BatchesProduct
+     */
+    productsInWarehouse?: Array<object>;
+    /**
+     * Кол-во идей продукта в статусе 10
+     * @type {number}
+     * @memberof ApiV1BatchesProduct
+     */
+    ideasCounter?: number;
 }
 
 

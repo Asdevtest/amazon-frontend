@@ -13,7 +13,11 @@
  */
 
 
+<<<<<<< HEAD
 import { InlineResponse20060 } from './inline-response20060';
+=======
+import { InlineResponse20061Rows } from './inline-response20061-rows';
+>>>>>>> dev
 
 /**
  * 
@@ -22,17 +26,28 @@ import { InlineResponse20060 } from './inline-response20060';
  */
 export interface InlineResponse20061 {
     /**
+<<<<<<< HEAD
      * Count of rows
+=======
+     * Кол-во записей
+>>>>>>> dev
      * @type {number}
      * @memberof InlineResponse20061
      */
     count?: number;
     /**
      * 
+<<<<<<< HEAD
      * @type {Array<InlineResponse20060>}
      * @memberof InlineResponse20061
      */
     rows?: Array<InlineResponse20060>;
+=======
+     * @type {Array<InlineResponse20061Rows>}
+     * @memberof InlineResponse20061
+     */
+    rows?: Array<InlineResponse20061Rows>;
+>>>>>>> dev
 }
 
 

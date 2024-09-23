@@ -16,12 +16,13 @@
 import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tags';
 
 /**
- * 
+ * Схема создания/апдейта рекомендаций
  * @export
  * @interface InlineObject50
  */
 export interface InlineObject50 {
     /**
+<<<<<<< HEAD
      * ASIN продукта
      * @type {string}
      * @memberof InlineObject50
@@ -285,6 +286,25 @@ export interface InlineObject50 {
      * @memberof InlineObject50
      */
     tags?: Array<ApiV1ClientsProductsGuidTags>;
+=======
+     * GUID продукта.
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    productId: string;
+    /**
+     * GUID сторкипера.
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    storekeeperId: string;
+    /**
+     * Рекомендуемое значение
+     * @type {number}
+     * @memberof InlineObject50
+     */
+    recommendedValue: number;
+>>>>>>> dev
 }
 
 

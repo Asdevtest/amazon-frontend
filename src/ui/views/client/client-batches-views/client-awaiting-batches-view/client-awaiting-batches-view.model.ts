@@ -123,6 +123,7 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
     this.onSelectionModel([])
 
     this.currentStorekeeperId = currentValue
+    this.onChangeFullFieldMenuItem([], 'storekeeper')
 
     this.getCurrentData()
   }

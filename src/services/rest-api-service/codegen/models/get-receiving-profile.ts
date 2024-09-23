@@ -15,7 +15,7 @@
 
 import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
 import { InlineResponse200117Client } from './inline-response200117-client';
-import { InlineResponse200118Profile } from './inline-response200118-profile';
+import { InlineResponse200119Profile } from './inline-response200119-profile';
 
 /**
  * 
@@ -31,10 +31,10 @@ export interface GetReceivingProfile {
     _id?: string;
     /**
      * 
-     * @type {InlineResponse200118Profile}
+     * @type {InlineResponse200119Profile}
      * @memberof GetReceivingProfile
      */
-    profile?: InlineResponse200118Profile;
+    profile?: InlineResponse200119Profile;
     /**
      * 
      * @type {InlineResponse200117Client}

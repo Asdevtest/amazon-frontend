@@ -21,11 +21,25 @@
  */
 export interface InlineObject72 {
     /**
+<<<<<<< HEAD
      * Сумма воврата
      * @type {number}
      * @memberof InlineObject72
      */
     refundPrice?: number;
+=======
+     * Комментарий клиента
+     * @type {string}
+     * @memberof InlineObject72
+     */
+    clientComment?: string;
+    /**
+     * Комментарий баера
+     * @type {string}
+     * @memberof InlineObject72
+     */
+    buyerComment?: string;
+>>>>>>> dev
 }
 
 

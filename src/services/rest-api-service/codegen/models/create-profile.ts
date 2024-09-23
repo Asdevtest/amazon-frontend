@@ -68,6 +68,12 @@ export interface CreateProfile {
      * @memberof CreateProfile
      */
     otp: string;
+    /**
+     * Comment for profile
+     * @type {string}
+     * @memberof CreateProfile
+     */
+    comment?: string;
 }
 
 

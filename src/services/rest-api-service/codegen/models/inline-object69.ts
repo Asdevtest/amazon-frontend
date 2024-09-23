@@ -21,11 +21,25 @@
  */
 export interface InlineObject69 {
     /**
+<<<<<<< HEAD
      * новое значение изменения итоговой цены.
      * @type {number}
      * @memberof InlineObject69
      */
     totalPriceChanged: number;
+=======
+     * 
+     * @type {string}
+     * @memberof InlineObject69
+     */
+    productId: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject69
+     */
+    skus: Array<string>;
+>>>>>>> dev
 }
 
 

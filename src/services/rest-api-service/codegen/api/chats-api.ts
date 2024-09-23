@@ -25,7 +25,11 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
+<<<<<<< HEAD
 import { InlineObject40 } from '../models';
+=======
+import { InlineObject35 } from '../models';
+>>>>>>> dev
 // @ts-ignore
 import { InlineResponse20028 } from '../models';
 // @ts-ignore
@@ -45,12 +49,20 @@ export const ChatsApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * Метод создает групповой чат не привязаный к другим инстансам   
          * @summary Создать групповой чат
+<<<<<<< HEAD
          * @param {InlineObject40} [body] 
+=======
+         * @param {InlineObject35} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1ChatsGroupPost: async (body?: InlineObject40, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1ChatsGroupPost: async (body?: InlineObject35, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             const localVarPath = `/api/v1/chats/group`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -320,12 +332,20 @@ export const ChatsApiFp = function(configuration?: Configuration) {
         /**
          * Метод создает групповой чат не привязаный к другим инстансам   
          * @summary Создать групповой чат
+<<<<<<< HEAD
          * @param {InlineObject40} [body] 
+=======
+         * @param {InlineObject35} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1ChatsGroupPost(body?: InlineObject40, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1ChatsGroupPost(body?: InlineObject35, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ChatsGroupPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -404,12 +424,20 @@ export const ChatsApiFactory = function (configuration?: Configuration, basePath
         /**
          * Метод создает групповой чат не привязаный к другим инстансам   
          * @summary Создать групповой чат
+<<<<<<< HEAD
          * @param {InlineObject40} [body] 
+=======
+         * @param {InlineObject35} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1ChatsGroupPost(body?: InlineObject40, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1ChatsGroupPost(body?: InlineObject35, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1ChatsGroupPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -480,10 +508,17 @@ export const ChatsApiFactory = function (configuration?: Configuration, basePath
 export interface ChatsApiApiV1ChatsGroupPostRequest {
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject40}
      * @memberof ChatsApiApiV1ChatsGroupPost
      */
     readonly body?: InlineObject40
+=======
+     * @type {InlineObject35}
+     * @memberof ChatsApiApiV1ChatsGroupPost
+     */
+    readonly body?: InlineObject35
+>>>>>>> dev
 
     /**
      * 

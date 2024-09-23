@@ -21,11 +21,19 @@
  */
 export interface InlineObject44 {
     /**
+<<<<<<< HEAD
      * массив GUIDов оплаченных товаров
      * @type {Array<string>}
      * @memberof InlineObject44
      */
     guids?: Array<string>;
+=======
+     * 
+     * @type {string}
+     * @memberof InlineObject44
+     */
+    clientComment?: string;
+>>>>>>> dev
 }
 
 

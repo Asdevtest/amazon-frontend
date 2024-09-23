@@ -21,11 +21,19 @@
  */
 export interface InlineObject64 {
     /**
+<<<<<<< HEAD
      * id профайла
      * @type {string}
      * @memberof InlineObject64
      */
     profileId: string;
+=======
+     * Причина отклонения
+     * @type {string}
+     * @memberof InlineObject64
+     */
+    reasonReject: string;
+>>>>>>> dev
 }
 
 

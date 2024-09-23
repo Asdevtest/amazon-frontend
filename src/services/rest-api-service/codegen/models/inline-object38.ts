@@ -21,6 +21,7 @@
  */
 export interface InlineObject38 {
     /**
+<<<<<<< HEAD
      * 
      * @type {string}
      * @memberof InlineObject38
@@ -74,6 +75,13 @@ export interface InlineObject38 {
      * @memberof InlineObject38
      */
     prepId?: string;
+=======
+     * Зашита листинга (bool)
+     * @type {boolean}
+     * @memberof InlineObject38
+     */
+    transparency?: boolean;
+>>>>>>> dev
 }
 
 

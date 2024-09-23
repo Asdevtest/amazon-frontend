@@ -21,11 +21,96 @@
  */
 export interface InlineObject43 {
     /**
+<<<<<<< HEAD
      * Зашита листинга (bool)
      * @type {boolean}
      * @memberof InlineObject43
      */
     transparency?: boolean;
+=======
+     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @type {number}
+     * @memberof InlineObject43
+     */
+    taskId: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject43
+     */
+    boxesBefore?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject43
+     */
+    boxes: Array<string>;
+    /**
+     * Тип операции
+     * @type {string}
+     * @memberof InlineObject43
+     */
+    operationType: InlineObject43OperationTypeEnum;
+    /**
+     * Комментарий клиента.
+     * @type {string}
+     * @memberof InlineObject43
+     */
+    clientComment?: string;
+    /**
+     * Комментарий баера.
+     * @type {string}
+     * @memberof InlineObject43
+     */
+    buyerComment?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineObject43
+     */
+    images?: Array<string>;
+    /**
+     * Комментарий работника склада.
+     * @type {string}
+     * @memberof InlineObject43
+     */
+    storekeeperComment?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject43
+     */
+    priority?: InlineObject43PriorityEnum;
+    /**
+     * Причина приоритета
+     * @type {string}
+     * @memberof InlineObject43
+     */
+    reason?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject43OperationTypeEnum {
+    Merge = 'merge',
+    Split = 'split',
+    Receive = 'receive',
+    Edit = 'edit'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject43PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+>>>>>>> dev
+}
+
 
 

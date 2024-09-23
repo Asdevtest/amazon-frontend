@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
  * 
@@ -21,6 +22,7 @@
  */
 export interface InlineObject53 {
     /**
+<<<<<<< HEAD
      * 
      * @type {string}
      * @memberof InlineObject53
@@ -32,6 +34,25 @@ export interface InlineObject53 {
      * @memberof InlineObject53
      */
     priceForClient: number;
+=======
+     * New product price
+     * @type {number}
+     * @memberof InlineObject53
+     */
+    newProductPrice?: number;
+    /**
+     * Description of product_listing_report
+     * @type {string}
+     * @memberof InlineObject53
+     */
+    description?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
+     * @memberof InlineObject53
+     */
+    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
+>>>>>>> dev
 }
 
 

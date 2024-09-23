@@ -25,6 +25,7 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
+<<<<<<< HEAD
 import { InlineObject65 } from '../models';
 // @ts-ignore
 import { InlineObject66 } from '../models';
@@ -60,6 +61,43 @@ import { InlineResponse20058 } from '../models';
 import { InlineResponse20059 } from '../models';
 // @ts-ignore
 import { InlineResponse2014 } from '../models';
+=======
+import { InlineObject27 } from '../models';
+// @ts-ignore
+import { InlineObject28 } from '../models';
+// @ts-ignore
+import { InlineObject29 } from '../models';
+// @ts-ignore
+import { InlineObject30 } from '../models';
+// @ts-ignore
+import { InlineObject31 } from '../models';
+// @ts-ignore
+import { InlineObject32 } from '../models';
+// @ts-ignore
+import { InlineObject33 } from '../models';
+// @ts-ignore
+import { InlineObject34 } from '../models';
+// @ts-ignore
+import { InlineResponse2001 } from '../models';
+// @ts-ignore
+import { InlineResponse20020 } from '../models';
+// @ts-ignore
+import { InlineResponse20021 } from '../models';
+// @ts-ignore
+import { InlineResponse20022 } from '../models';
+// @ts-ignore
+import { InlineResponse20023 } from '../models';
+// @ts-ignore
+import { InlineResponse20024 } from '../models';
+// @ts-ignore
+import { InlineResponse20025 } from '../models';
+// @ts-ignore
+import { InlineResponse20026 } from '../models';
+// @ts-ignore
+import { InlineResponse20027 } from '../models';
+// @ts-ignore
+import { InlineResponse2012 } from '../models';
+>>>>>>> dev
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -162,12 +200,20 @@ export const BuyerApiAxiosParamCreator = function (configuration?: Configuration
          * ## Редактировать заказ.   Данный метод позволяет редактировать все поля кроме status и totalPriceChanged Проверки:  Пока нет проверок
          * @summary # Редактировать заказ.
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject70} [body] 
+=======
+         * @param {InlineObject32} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersGuidEditPatch: async (guid: string, body?: InlineObject70, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BuyersOrdersGuidEditPatch: async (guid: string, body?: InlineObject32, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BuyersOrdersGuidEditPatch', 'guid', guid)
             const localVarPath = `/api/v1/buyers/orders/{guid}/edit`
@@ -292,12 +338,20 @@ export const BuyerApiAxiosParamCreator = function (configuration?: Configuration
          * ## Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.   При вызове данного метода ставиться статус cancelByBuyer: 35 Средства обратно возвращаются на баланс клиента.  (если оплатили посташику то от баланса админа клиенту, если не было оплаты поставщику, то разморозка средств клиента)  Проверки:  Требуется комментарий байера. Нельзя вернуть заказ если заказ закрыт клиентом
          * @summary # Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.
          * @param {string} guid GUID заказа.
+<<<<<<< HEAD
          * @param {InlineObject68} [body] 
+=======
+         * @param {InlineObject30} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersGuidReturnOrderPatch: async (guid: string, body?: InlineObject68, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BuyersOrdersGuidReturnOrderPatch: async (guid: string, body?: InlineObject30, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BuyersOrdersGuidReturnOrderPatch', 'guid', guid)
             const localVarPath = `/api/v1/buyers/orders/{guid}/return_order`
@@ -338,12 +392,20 @@ export const BuyerApiAxiosParamCreator = function (configuration?: Configuration
          * ## Задать изменение итоговой цены, totalPriceChanged.   При повышении цены ставиться статус 19 needConfirmingToPriceChange, далее нужно ожидать подтверждения от клиента.  Если вернуть цену на старое значение, то статус возвращается к 15 atProcess. При понижении цены автоматом происходит возврат разницы клиенту, статус ставится 15 atProcess.  Проверки:  Нельзя менять цену после оплаты поставщику. paidAt !== null
          * @summary # Задать изменение итоговой цены, totalPriceChanged.
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject69} [body] 
+=======
+         * @param {InlineObject31} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersGuidSetTotalPriceChangedPatch: async (guid: string, body?: InlineObject69, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BuyersOrdersGuidSetTotalPriceChangedPatch: async (guid: string, body?: InlineObject31, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BuyersOrdersGuidSetTotalPriceChangedPatch', 'guid', guid)
             const localVarPath = `/api/v1/buyers/orders/{guid}/set_totalPriceChanged`
@@ -629,12 +691,20 @@ export const BuyerApiAxiosParamCreator = function (configuration?: Configuration
          * Изменить реквезиты ордера
          * @summary # Изменить реквезиты ордера
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject67} [body] 
+=======
+         * @param {InlineObject29} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersPaymentGuidPatch: async (guid: string, body?: InlineObject67, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BuyersOrdersPaymentGuidPatch: async (guid: string, body?: InlineObject29, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BuyersOrdersPaymentGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/buyers/orders/payment/{guid}`
@@ -717,12 +787,20 @@ export const BuyerApiAxiosParamCreator = function (configuration?: Configuration
          * Переместить заказ в статус readyForPayment
          * @summary # Переместить заказ в статус readyForPayment
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject66} [body] 
+=======
+         * @param {InlineObject28} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersReadyForPaymentGuidPatch: async (guid: string, body?: InlineObject66, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BuyersOrdersReadyForPaymentGuidPatch: async (guid: string, body?: InlineObject28, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BuyersOrdersReadyForPaymentGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/buyers/orders/ready_for_payment/{guid}`
@@ -763,12 +841,20 @@ export const BuyerApiAxiosParamCreator = function (configuration?: Configuration
          * ## Редактировать номер заказа на inStock (30)
          * @summary # Редактировать номер заказа на inStock (30).
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject72} [body] 
+=======
+         * @param {InlineObject34} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersSetInStockGuidPatch: async (guid: string, body?: InlineObject72, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BuyersOrdersSetInStockGuidPatch: async (guid: string, body?: InlineObject34, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BuyersOrdersSetInStockGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/buyers/orders/set_in_stock/{guid}`
@@ -930,12 +1016,20 @@ export const BuyerApiAxiosParamCreator = function (configuration?: Configuration
          * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 35, 40, 50, 60, 235, 240, 250, 260.   
          * @summary # Внести изменения в продукт.
          * @param {string} guid GUID продукта, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject65} [body] 
+=======
+         * @param {InlineObject27} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersProductsGuidPatch: async (guid: string, body?: InlineObject65, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BuyersProductsGuidPatch: async (guid: string, body?: InlineObject27, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1BuyersProductsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/buyers/products/{guid}`
@@ -1298,12 +1392,20 @@ export const BuyerApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * ## Создать задачу.   Проверки: Все коробки должны быть от одного сторкипера. Все коробки должны быть от одного клиента.
          * @summary # Создать задачу.
+<<<<<<< HEAD
          * @param {InlineObject71} [body] 
+=======
+         * @param {InlineObject33} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersTasksPost: async (body?: InlineObject71, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+=======
+        apiV1BuyersTasksPost: async (body?: InlineObject33, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+>>>>>>> dev
             const localVarPath = `/api/v1/buyers/tasks`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1376,12 +1478,20 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * ## Редактировать заказ.   Данный метод позволяет редактировать все поля кроме status и totalPriceChanged Проверки:  Пока нет проверок
          * @summary # Редактировать заказ.
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject70} [body] 
+=======
+         * @param {InlineObject32} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersOrdersGuidEditPatch(guid: string, body?: InlineObject70, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1BuyersOrdersGuidEditPatch(guid: string, body?: InlineObject32, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersOrdersGuidEditPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1413,12 +1523,20 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * ## Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.   При вызове данного метода ставиться статус cancelByBuyer: 35 Средства обратно возвращаются на баланс клиента.  (если оплатили посташику то от баланса админа клиенту, если не было оплаты поставщику, то разморозка средств клиента)  Проверки:  Требуется комментарий байера. Нельзя вернуть заказ если заказ закрыт клиентом
          * @summary # Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.
          * @param {string} guid GUID заказа.
+<<<<<<< HEAD
          * @param {InlineObject68} [body] 
+=======
+         * @param {InlineObject30} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersOrdersGuidReturnOrderPatch(guid: string, body?: InlineObject68, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1BuyersOrdersGuidReturnOrderPatch(guid: string, body?: InlineObject30, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersOrdersGuidReturnOrderPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1426,12 +1544,20 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * ## Задать изменение итоговой цены, totalPriceChanged.   При повышении цены ставиться статус 19 needConfirmingToPriceChange, далее нужно ожидать подтверждения от клиента.  Если вернуть цену на старое значение, то статус возвращается к 15 atProcess. При понижении цены автоматом происходит возврат разницы клиенту, статус ставится 15 atProcess.  Проверки:  Нельзя менять цену после оплаты поставщику. paidAt !== null
          * @summary # Задать изменение итоговой цены, totalPriceChanged.
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject69} [body] 
+=======
+         * @param {InlineObject31} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid: string, body?: InlineObject69, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid: string, body?: InlineObject31, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1454,7 +1580,11 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersOrdersMyGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20057>>> {
+=======
+        async apiV1BuyersOrdersMyGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20025>>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersOrdersMyGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1472,7 +1602,11 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersOrdersPagMyGet(filters?: string, status?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20058>> {
+=======
+        async apiV1BuyersOrdersPagMyGet(filters?: string, status?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20026>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersOrdersPagMyGet(filters, status, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1497,7 +1631,11 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersOrdersPaymentAmountGet(status: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20056>> {
+=======
+        async apiV1BuyersOrdersPaymentAmountGet(status: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20024>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersOrdersPaymentAmountGet(status, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1505,12 +1643,20 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * Изменить реквезиты ордера
          * @summary # Изменить реквезиты ордера
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject67} [body] 
+=======
+         * @param {InlineObject29} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersOrdersPaymentGuidPatch(guid: string, body?: InlineObject67, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1BuyersOrdersPaymentGuidPatch(guid: string, body?: InlineObject29, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersOrdersPaymentGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1530,12 +1676,20 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * Переместить заказ в статус readyForPayment
          * @summary # Переместить заказ в статус readyForPayment
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject66} [body] 
+=======
+         * @param {InlineObject28} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersOrdersReadyForPaymentGuidPatch(guid: string, body?: InlineObject66, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1BuyersOrdersReadyForPaymentGuidPatch(guid: string, body?: InlineObject28, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersOrdersReadyForPaymentGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1543,12 +1697,20 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * ## Редактировать номер заказа на inStock (30)
          * @summary # Редактировать номер заказа на inStock (30).
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject72} [body] 
+=======
+         * @param {InlineObject34} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersOrdersSetInStockGuidPatch(guid: string, body?: InlineObject72, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1BuyersOrdersSetInStockGuidPatch(guid: string, body?: InlineObject34, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersOrdersSetInStockGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1579,7 +1741,11 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersOrdersVacPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20055>> {
+=======
+        async apiV1BuyersOrdersVacPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20023>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersOrdersVacPagGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1587,12 +1753,20 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 35, 40, 50, 60, 235, 240, 250, 260.   
          * @summary # Внести изменения в продукт.
          * @param {string} guid GUID продукта, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject65} [body] 
+=======
+         * @param {InlineObject27} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersProductsGuidPatch(guid: string, body?: InlineObject65, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+=======
+        async apiV1BuyersProductsGuidPatch(guid: string, body?: InlineObject27, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersProductsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1605,7 +1779,11 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersProductsLightGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20053>>> {
+=======
+        async apiV1BuyersProductsLightGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20021>>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersProductsLightGet(isCreatedByClient, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1616,7 +1794,11 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersProductsMyGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20052>>> {
+=======
+        async apiV1BuyersProductsMyGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20020>>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersProductsMyGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1633,7 +1815,11 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersProductsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20054>> {
+=======
+        async apiV1BuyersProductsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20022>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersProductsPagMyGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1657,7 +1843,11 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersProductsVacGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20052>>> {
+=======
+        async apiV1BuyersProductsVacGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20020>>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersProductsVacGet(isCreatedByClient, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1680,19 +1870,31 @@ export const BuyerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersTasksGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20059>>> {
+=======
+        async apiV1BuyersTasksGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20027>>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersTasksGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Создать задачу.   Проверки: Все коробки должны быть от одного сторкипера. Все коробки должны быть от одного клиента.
          * @summary # Создать задачу.
+<<<<<<< HEAD
          * @param {InlineObject71} [body] 
+=======
+         * @param {InlineObject33} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         async apiV1BuyersTasksPost(body?: InlineObject71, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2014>> {
+=======
+        async apiV1BuyersTasksPost(body?: InlineObject33, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2012>> {
+>>>>>>> dev
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1BuyersTasksPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1733,12 +1935,20 @@ export const BuyerApiFactory = function (configuration?: Configuration, basePath
          * ## Редактировать заказ.   Данный метод позволяет редактировать все поля кроме status и totalPriceChanged Проверки:  Пока нет проверок
          * @summary # Редактировать заказ.
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject70} [body] 
+=======
+         * @param {InlineObject32} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersGuidEditPatch(guid: string, body?: InlineObject70, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1BuyersOrdersGuidEditPatch(guid: string, body?: InlineObject32, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersOrdersGuidEditPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1767,24 +1977,40 @@ export const BuyerApiFactory = function (configuration?: Configuration, basePath
          * ## Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.   При вызове данного метода ставиться статус cancelByBuyer: 35 Средства обратно возвращаются на баланс клиента.  (если оплатили посташику то от баланса админа клиенту, если не было оплаты поставщику, то разморозка средств клиента)  Проверки:  Требуется комментарий байера. Нельзя вернуть заказ если заказ закрыт клиентом
          * @summary # Выставить статус пришёл не кондиционный - \"возврат заказа\", returnOrder: 35.
          * @param {string} guid GUID заказа.
+<<<<<<< HEAD
          * @param {InlineObject68} [body] 
+=======
+         * @param {InlineObject30} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersGuidReturnOrderPatch(guid: string, body?: InlineObject68, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1BuyersOrdersGuidReturnOrderPatch(guid: string, body?: InlineObject30, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersOrdersGuidReturnOrderPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Задать изменение итоговой цены, totalPriceChanged.   При повышении цены ставиться статус 19 needConfirmingToPriceChange, далее нужно ожидать подтверждения от клиента.  Если вернуть цену на старое значение, то статус возвращается к 15 atProcess. При понижении цены автоматом происходит возврат разницы клиенту, статус ставится 15 atProcess.  Проверки:  Нельзя менять цену после оплаты поставщику. paidAt !== null
          * @summary # Задать изменение итоговой цены, totalPriceChanged.
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject69} [body] 
+=======
+         * @param {InlineObject31} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid: string, body?: InlineObject69, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid: string, body?: InlineObject31, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1805,7 +2031,11 @@ export const BuyerApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersMyGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20057>> {
+=======
+        apiV1BuyersOrdersMyGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20025>> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersOrdersMyGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1822,7 +2052,11 @@ export const BuyerApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersPagMyGet(filters?: string, status?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20058> {
+=======
+        apiV1BuyersOrdersPagMyGet(filters?: string, status?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20026> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersOrdersPagMyGet(filters, status, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1845,19 +2079,31 @@ export const BuyerApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersPaymentAmountGet(status: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20056> {
+=======
+        apiV1BuyersOrdersPaymentAmountGet(status: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20024> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersOrdersPaymentAmountGet(status, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * Изменить реквезиты ордера
          * @summary # Изменить реквезиты ордера
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject67} [body] 
+=======
+         * @param {InlineObject29} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersPaymentGuidPatch(guid: string, body?: InlineObject67, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1BuyersOrdersPaymentGuidPatch(guid: string, body?: InlineObject29, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersOrdersPaymentGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1875,24 +2121,40 @@ export const BuyerApiFactory = function (configuration?: Configuration, basePath
          * Переместить заказ в статус readyForPayment
          * @summary # Переместить заказ в статус readyForPayment
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject66} [body] 
+=======
+         * @param {InlineObject28} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersReadyForPaymentGuidPatch(guid: string, body?: InlineObject66, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1BuyersOrdersReadyForPaymentGuidPatch(guid: string, body?: InlineObject28, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersOrdersReadyForPaymentGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Редактировать номер заказа на inStock (30)
          * @summary # Редактировать номер заказа на inStock (30).
          * @param {string} guid GUID заказа, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject72} [body] 
+=======
+         * @param {InlineObject34} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersSetInStockGuidPatch(guid: string, body?: InlineObject72, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1BuyersOrdersSetInStockGuidPatch(guid: string, body?: InlineObject34, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersOrdersSetInStockGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1921,19 +2183,31 @@ export const BuyerApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersOrdersVacPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20055> {
+=======
+        apiV1BuyersOrdersVacPagGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20023> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersOrdersVacPagGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Внести изменения в продукт.  ## Байер может редактировать только товары со статусом: 35, 40, 50, 60, 235, 240, 250, 260.   
          * @summary # Внести изменения в продукт.
          * @param {string} guid GUID продукта, который планируем изменить
+<<<<<<< HEAD
          * @param {InlineObject65} [body] 
+=======
+         * @param {InlineObject27} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersProductsGuidPatch(guid: string, body?: InlineObject65, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+=======
+        apiV1BuyersProductsGuidPatch(guid: string, body?: InlineObject27, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersProductsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1945,7 +2219,11 @@ export const BuyerApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersProductsLightGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20053>> {
+=======
+        apiV1BuyersProductsLightGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20021>> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersProductsLightGet(isCreatedByClient, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1955,7 +2233,11 @@ export const BuyerApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersProductsMyGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20052>> {
+=======
+        apiV1BuyersProductsMyGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20020>> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersProductsMyGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1971,7 +2253,11 @@ export const BuyerApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersProductsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20054> {
+=======
+        apiV1BuyersProductsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20022> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersProductsPagMyGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1993,7 +2279,11 @@ export const BuyerApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersProductsVacGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20052>> {
+=======
+        apiV1BuyersProductsVacGet(isCreatedByClient?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20020>> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersProductsVacGet(isCreatedByClient, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2014,18 +2304,30 @@ export const BuyerApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersTasksGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20059>> {
+=======
+        apiV1BuyersTasksGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20027>> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersTasksGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Создать задачу.   Проверки: Все коробки должны быть от одного сторкипера. Все коробки должны быть от одного клиента.
          * @summary # Создать задачу.
+<<<<<<< HEAD
          * @param {InlineObject71} [body] 
+=======
+         * @param {InlineObject33} [body] 
+>>>>>>> dev
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+<<<<<<< HEAD
         apiV1BuyersTasksPost(body?: InlineObject71, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2014> {
+=======
+        apiV1BuyersTasksPost(body?: InlineObject33, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2012> {
+>>>>>>> dev
             return localVarFp.apiV1BuyersTasksPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -2095,10 +2397,17 @@ export interface BuyerApiApiV1BuyersOrdersGuidEditPatchRequest {
 
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject70}
      * @memberof BuyerApiApiV1BuyersOrdersGuidEditPatch
      */
     readonly body?: InlineObject70
+=======
+     * @type {InlineObject32}
+     * @memberof BuyerApiApiV1BuyersOrdersGuidEditPatch
+     */
+    readonly body?: InlineObject32
+>>>>>>> dev
 
     /**
      * 
@@ -2165,10 +2474,17 @@ export interface BuyerApiApiV1BuyersOrdersGuidReturnOrderPatchRequest {
 
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject68}
      * @memberof BuyerApiApiV1BuyersOrdersGuidReturnOrderPatch
      */
     readonly body?: InlineObject68
+=======
+     * @type {InlineObject30}
+     * @memberof BuyerApiApiV1BuyersOrdersGuidReturnOrderPatch
+     */
+    readonly body?: InlineObject30
+>>>>>>> dev
 
     /**
      * 
@@ -2193,10 +2509,17 @@ export interface BuyerApiApiV1BuyersOrdersGuidSetTotalPriceChangedPatchRequest {
 
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject69}
      * @memberof BuyerApiApiV1BuyersOrdersGuidSetTotalPriceChangedPatch
      */
     readonly body?: InlineObject69
+=======
+     * @type {InlineObject31}
+     * @memberof BuyerApiApiV1BuyersOrdersGuidSetTotalPriceChangedPatch
+     */
+    readonly body?: InlineObject31
+>>>>>>> dev
 
     /**
      * 
@@ -2368,10 +2691,17 @@ export interface BuyerApiApiV1BuyersOrdersPaymentGuidPatchRequest {
 
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject67}
      * @memberof BuyerApiApiV1BuyersOrdersPaymentGuidPatch
      */
     readonly body?: InlineObject67
+=======
+     * @type {InlineObject29}
+     * @memberof BuyerApiApiV1BuyersOrdersPaymentGuidPatch
+     */
+    readonly body?: InlineObject29
+>>>>>>> dev
 
     /**
      * 
@@ -2417,10 +2747,17 @@ export interface BuyerApiApiV1BuyersOrdersReadyForPaymentGuidPatchRequest {
 
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject66}
      * @memberof BuyerApiApiV1BuyersOrdersReadyForPaymentGuidPatch
      */
     readonly body?: InlineObject66
+=======
+     * @type {InlineObject28}
+     * @memberof BuyerApiApiV1BuyersOrdersReadyForPaymentGuidPatch
+     */
+    readonly body?: InlineObject28
+>>>>>>> dev
 
     /**
      * 
@@ -2445,10 +2782,17 @@ export interface BuyerApiApiV1BuyersOrdersSetInStockGuidPatchRequest {
 
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject72}
      * @memberof BuyerApiApiV1BuyersOrdersSetInStockGuidPatch
      */
     readonly body?: InlineObject72
+=======
+     * @type {InlineObject34}
+     * @memberof BuyerApiApiV1BuyersOrdersSetInStockGuidPatch
+     */
+    readonly body?: InlineObject34
+>>>>>>> dev
 
     /**
      * 
@@ -2564,10 +2908,17 @@ export interface BuyerApiApiV1BuyersProductsGuidPatchRequest {
 
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject65}
      * @memberof BuyerApiApiV1BuyersProductsGuidPatch
      */
     readonly body?: InlineObject65
+=======
+     * @type {InlineObject27}
+     * @memberof BuyerApiApiV1BuyersProductsGuidPatch
+     */
+    readonly body?: InlineObject27
+>>>>>>> dev
 
     /**
      * 
@@ -2767,10 +3118,17 @@ export interface BuyerApiApiV1BuyersTasksGetRequest {
 export interface BuyerApiApiV1BuyersTasksPostRequest {
     /**
      * 
+<<<<<<< HEAD
      * @type {InlineObject71}
      * @memberof BuyerApiApiV1BuyersTasksPost
      */
     readonly body?: InlineObject71
+=======
+     * @type {InlineObject33}
+     * @memberof BuyerApiApiV1BuyersTasksPost
+     */
+    readonly body?: InlineObject33
+>>>>>>> dev
 
     /**
      * 

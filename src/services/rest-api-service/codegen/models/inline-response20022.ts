@@ -13,12 +13,16 @@
  */
 
 
+<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1BoxesClientsInTransferGuidBatch } from './api-v1-boxes-clients-in-transfer-guid-batch';
 import { ApiV1BoxesClientsInTransferGuidLogicsTariff } from './api-v1-boxes-clients-in-transfer-guid-logics-tariff';
 import { ApiV1BoxesClientsLightDestination } from './api-v1-boxes-clients-light-destination';
 import { ApiV1BoxesClientsLightItems } from './api-v1-boxes-clients-light-items';
 import { InlineResponse20019VariationTariff } from './inline-response20019-variation-tariff';
+=======
+import { InlineResponse20020 } from './inline-response20020';
+>>>>>>> dev
 
 /**
  * 
@@ -39,6 +43,7 @@ export interface InlineResponse20022 {
      */
     humanFriendlyId?: number;
     /**
+<<<<<<< HEAD
      * ККоличества в коробке.
      * @type {number}
      * @memberof InlineResponse20022
@@ -266,6 +271,13 @@ export interface InlineResponse20022 {
      * @memberof InlineResponse20022
      */
     batch?: ApiV1BoxesClientsInTransferGuidBatch;
+=======
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20020>}
+     * @memberof InlineResponse20022
+     */
+    rows?: Array<InlineResponse20020>;
+>>>>>>> dev
 }
 
 
