@@ -13,26 +13,73 @@
  */
 
 
-import { InlineResponse20098Rows } from './inline-response20098-rows';
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineResponse20098
  */
 export interface InlineResponse20098 {
     /**
-     * Count of rows
-     * @type {number}
+     * ID магазина.
+     * @type {string}
      * @memberof InlineResponse20098
      */
-    count?: number;
+    _id?: string;
     /**
-     * 
-     * @type {Array<InlineResponse20098Rows>}
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * @type {string}
      * @memberof InlineResponse20098
      */
-    rows?: Array<InlineResponse20098Rows>;
+    name?: string;
+    /**
+     * URL для скачивания ежедневных отчетов SellerBoard.
+     * @type {string}
+     * @memberof InlineResponse20098
+     */
+    sellerBoardWarehouseReportUrlDaily?: string;
+    /**
+     * URL для скачивания отчетов SellerBoard за последний месяц.
+     * @type {string}
+     * @memberof InlineResponse20098
+     */
+    sellerBoardWarehouseReportUrlMonthly?: string;
+    /**
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
+     * @memberof InlineResponse20098
+     */
+    reportAccountUrl?: string;
+    /**
+     * GUID, владелеца.
+     * @type {string}
+     * @memberof InlineResponse20098
+     */
+    ownerId?: string;
+    /**
+     * GUID любого, кто последний создал.
+     * @type {string}
+     * @memberof InlineResponse20098
+     */
+    createdById?: string;
+    /**
+     * GUID любого, кто последний редактировал.
+     * @type {string}
+     * @memberof InlineResponse20098
+     */
+    lastModifiedById?: string;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20098
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20098
+     */
+    updatedAt?: string;
 }
 
 

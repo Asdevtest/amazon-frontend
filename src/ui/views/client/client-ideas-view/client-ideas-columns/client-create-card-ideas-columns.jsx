@@ -1,3 +1,4 @@
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -23,7 +24,13 @@ import {
   getProductColumnMenuValue,
 } from '@config/data-grid-column-menu/product-column'
 
-import { accessToProductColumnMenuConfig, shopColumnMenuConfig, shopFields } from '../columns-menu.config'
+import {
+  accessToProductColumnMenuConfig,
+  createdByColumnMenuConfig,
+  createdByFields,
+  shopColumnMenuConfig,
+  shopFields,
+} from '../columns-menu.config'
 
 export const clientCreateCardIdeasColumns = rowHandlers => {
   const columns = [
@@ -144,9 +151,12 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       ),
       width: 130,
 
+      fields: createdByFields,
+      columnMenuConfig: createdByColumnMenuConfig,
+      columnKey: columnnsKeys.shared.MULTIPLE,
+
       filterable: false,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
     },
 
     {

@@ -1353,7 +1353,7 @@ export const privateRoutesConfigs = [
     component: ClientInventoryView,
     exact: true,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.inventory.SHOW_INVENTORY_CLIENT,
+    permissionKey: permissionsKeys.client.inventory.SHOW_PRODUCTS_INVENTORY_CLIENT,
     crumbNameKey: TranslationKey.Inventory,
 
     navigationInfo: {
@@ -1958,7 +1958,7 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/supervisor/ready-to-check/product',
+    routePath: '/supervisor/ready-to-check-by-researcher/product',
     component: SupervisorProductView,
     exact: false,
     permission: [UserRole.SUPERVISOR],
@@ -3159,7 +3159,7 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.CLIENT],
     crumbNameKey: TranslationKey.Ideas,
-
+    permissionKey: permissionsKeys.client.ideas.SHOW_IDEAS_CLIENT,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
       activeSubCategory: '',

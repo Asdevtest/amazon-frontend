@@ -12,7 +12,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './order-many-items-cell.style'
 
-import { ProductCell } from '../product-asin-cell/product-asin-cell'
+import { ProductCell } from '../product-cell/product-cell'
 
 interface OrderManyItemsCellProps {
   box: any

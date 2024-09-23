@@ -51,6 +51,7 @@ export const useStyles = makeStyles()(theme => ({
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
+    maxWidth: '250px',
     color: theme.palette.text.general,
   },
   orderInput: {
@@ -106,11 +107,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '20px',
-  },
-
-  asinTextWrapper: {
-    display: 'flex',
-    gap: 5,
   },
 
   labelWrapperStyles: {

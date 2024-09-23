@@ -46,7 +46,6 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
               <CustomTextEditor
                 readOnly
                 value={request?.details?.conditions}
-                editorClassName={styles.textEditor}
                 editorWrapperClassName={styles.editorWrapper}
               />
             ) : null}

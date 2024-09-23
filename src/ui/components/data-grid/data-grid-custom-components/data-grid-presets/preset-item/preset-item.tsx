@@ -1,14 +1,15 @@
 import { Dropdown, MenuProps, Popconfirm } from 'antd'
 import { BaseOptionType } from 'antd/es/select'
-import { FC, memo } from 'react'
+import { ChangeEvent, FC, memo, useCallback, useState } from 'react'
 import { BsPinAngleFill, BsThreeDotsVertical } from 'react-icons/bs'
 import { GrUpdate } from 'react-icons/gr'
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdOutlineDelete, MdOutlineDriveFileRenameOutline } from 'react-icons/md'
 import { RiUnpinLine } from 'react-icons/ri'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomInput } from '@components/shared/custom-input'
 
 import { t } from '@utils/translations'
 
@@ -19,11 +20,14 @@ interface PresetItemProps {
   handleDeletePreset: () => void
   handleUpdatePreset: () => void
   onClickAddQuickAccess: () => void
+  onClickSaveRenamedPreset: (newTitle: string) => void
 }
 
 export const PresetItem: FC<PresetItemProps> = memo(props => {
   const { classes: styles } = useStyles()
-  const { preset, handleDeletePreset, handleUpdatePreset, onClickAddQuickAccess } = props
+  const { preset, handleDeletePreset, handleUpdatePreset, onClickAddQuickAccess, onClickSaveRenamedPreset } = props
+
+  const [renamePresetName, setPresetName] = useState<string>(preset?.data?.title)
 
   const presetFavorite = preset?.data?.isFavorite
   const quickAccessTitle = presetFavorite ? 'Remove from quick access' : 'Add to quick access'
@@ -31,12 +35,68 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
 
   const presetId = preset?.data?._id
 
+  const handleChangeTagName = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setPresetName(e.target.value)
+  }, [])
+
+  const onClickSaveRename = useCallback(() => {
+    onClickSaveRenamedPreset(renamePresetName)
+  }, [renamePresetName, onClickSaveRenamedPreset])
+
+  const resetRenamePreset = useCallback(() => {
+    setPresetName(preset?.data?.title)
+  }, [preset?.data?.title])
+
   const items: MenuProps['items'] = [
+    {
+      key: 'rename',
+      label: (
+        <Popconfirm
+          icon={null}
+          placement="leftTop"
+          title={
+            <CustomInput
+              allowClear
+              maxLength={32}
+              wrapperClassName={styles.input}
+              placeholder="Rename"
+              value={renamePresetName}
+              onChange={handleChangeTagName}
+            />
+          }
+          getPopupContainer={() => document.getElementById('presets') as HTMLElement}
+          okText={t(TranslationKey.Save)}
+          cancelText={t(TranslationKey.Cancel)}
+          okButtonProps={{ disabled: !renamePresetName?.trim() }}
+          onConfirm={e => {
+            e?.stopPropagation()
+            onClickSaveRename()
+          }}
+          onPopupClick={e => e?.stopPropagation()}
+          onCancel={e => e?.stopPropagation()}
+          onOpenChange={resetRenamePreset}
+        >
+          <CustomButton
+            className={styles.button}
+            icon={
+              <MdOutlineDriveFileRenameOutline
+                size={20}
+                title={t(TranslationKey.Rename)}
+                className={styles.updateButton}
+              />
+            }
+            onClick={e => e.stopPropagation()}
+          >
+            {t(TranslationKey.Rename)}
+          </CustomButton>
+        </Popconfirm>
+      ),
+    },
     {
       key: 'update',
       label: (
         <Popconfirm
-          placement="leftBottom"
+          placement="left"
           getPopupContainer={() => document.getElementById('presets') as HTMLElement}
           title={t(TranslationKey['Save the state of the table to this preset?'])}
           okText={t(TranslationKey.Yes)}
@@ -46,6 +106,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
             handleUpdatePreset()
           }}
           onCancel={e => e?.stopPropagation()}
+          onPopupClick={e => e?.stopPropagation()}
         >
           <CustomButton
             className={styles.button}
@@ -72,6 +133,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
             handleDeletePreset()
           }}
           onCancel={e => e?.stopPropagation()}
+          onPopupClick={e => e?.stopPropagation()}
         >
           <CustomButton
             danger
@@ -92,7 +154,6 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
         <CustomButton
           type="text"
           title={t(TranslationKey[quickAccessTitle])}
-          className={styles.button}
           icon={<QuickAccessIcon title={t(TranslationKey[quickAccessTitle])} className={styles.updateButton} />}
           onClick={e => {
             e?.stopPropagation()

@@ -36,6 +36,7 @@ export const SupervisorProductsView = observer(() => {
       <div className={styles.header}>
         <CustomSelect
           size="large"
+          virtual={false}
           optionRender={option => (
             <div className={styles.optionRender}>
               <div className={styles.optionRenderLabel}>{option.label}</div>
@@ -98,6 +99,7 @@ export const SupervisorProductsView = observer(() => {
               handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
               handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
               onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+              onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
             },
           },
         }}

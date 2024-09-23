@@ -100,7 +100,8 @@ export const clientInventoryColumns = ({
       valueGetter: ({ row }) => row?.shop?.name,
       width: 90,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.INVENTORY_SHOPS,
+      sortOptions: 'asc',
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
@@ -276,7 +277,7 @@ export const clientInventoryColumns = ({
       field: 'amazon',
       headerName: t(TranslationKey['Amazon price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-      renderCell: params => <Text isCell value={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 80,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -285,7 +286,7 @@ export const clientInventoryColumns = ({
       field: 'profit',
       headerName: t(TranslationKey.Profit),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
-      renderCell: params => <Text isCell value={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 90,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -294,7 +295,7 @@ export const clientInventoryColumns = ({
       field: 'fbafee',
       headerName: t(TranslationKey.FBA),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FBA)} />,
-      renderCell: params => <Text isCell value={toFixed(params.value, 2)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 70,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -502,7 +503,7 @@ export const clientInventoryColumns = ({
       width: 400,
       disableCustomSort: true,
       filterable: false,
-      disableColumnMenu: true,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
   ]
 

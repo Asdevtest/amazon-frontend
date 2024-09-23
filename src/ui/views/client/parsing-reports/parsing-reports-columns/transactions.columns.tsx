@@ -34,6 +34,16 @@ export const transactionsColumns = () => {
     },
 
     {
+      field: 'date',
+      headerName: 'Date',
+      renderHeader: () => <MultilineTextHeaderCell text="Date" />,
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
       field: 'status',
       headerName: 'Status',
       renderHeader: () => <MultilineTextHeaderCell text="Status" />,

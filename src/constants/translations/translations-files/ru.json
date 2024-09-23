@@ -1879,6 +1879,7 @@
   "Data not removed": "Данные не удалены",
   "Quantity in box": "Количество в коробке",
   "Fine": "Списание",
+  "Penalty": "Штраф",
   "Replenish": "Пополнение",
   "Zero": "Ноль",
   "Shutdown": "Отключение",
@@ -2056,5 +2057,13 @@
   "In use": "Используется",
   "Parsing profile successfully deleted": "Профиль парсинга успешно удалён",
   "Error deleting parsing profile": "Ошибка при удалении профиля парсинга",
-  "Are you sure you want to delete profile?": "Вы уверены, что хотите удалить профиль?"
+  "Are you sure you want to delete profile?": "Вы уверены, что хотите удалить профиль?",
+  "Month value": "Значение месяца",
+  "Rename": "Переименовать",
+  "Unlinked": "Не связан",
+  "Unlink": "Отвязать",
+  "This profile was used": "Данный профиль использовался",
+  "This profile has already been used! Do you want to continue?": "Данный профиль уже использовался! Вы хотите продолжить?",
+  "By proposal": "По предложению",
+  "By announcement": "По объявлению"
 }

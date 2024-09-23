@@ -1872,6 +1872,7 @@
   "Data not removed": "数据未删除",
   "Quantity in box": "箱内数量",
   "Fine": "罚款",
+  "Penalty": "处罚",
   "Replenish": "补充",
   "Zero": "零",
   "Shutdown": "关闭",
@@ -2049,5 +2050,13 @@
   "In use": "正在使用",
   "Parsing profile successfully deleted": "解析配置文件已成功删除",
   "Error deleting parsing profile": "删除解析配置文件时出错",
-  "Are you sure you want to delete profile?": "您确定要删除个人资料吗?"
+  "Are you sure you want to delete profile?": "您确定要删除个人资料吗?",
+  "Month value": "月份值",
+  "Rename": "重命名",
+  "Unlinked": "未关联",
+  "Unlink": "解绑",
+  "This profile was used": "该配置文件已被使用",
+  "This profile has already been used! Do you want to continue?": "该配置文件已被使用!您确定要继续吗?",
+  "By proposal": "通过提案",
+  "By announcement": "通过公告"
 }

@@ -10,6 +10,8 @@ export const getProfileStatusColor = (status: ProfileStatus) => {
       return theme.palette.fileIcons.doc
     case ProfileStatus.IN_USE:
       return theme.palette.fileIcons.xls
+    case ProfileStatus.UNLINKED:
+      return theme.palette.fileIcons.file
     default:
       return theme.palette.fileIcons.txt
   }

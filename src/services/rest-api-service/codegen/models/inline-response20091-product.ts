@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20045Shop } from './inline-response20045-shop';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { InlineResponse20043Shop } from './inline-response20043-shop';
 
 /**
  * 
@@ -48,10 +48,10 @@ export interface InlineResponse20091Product {
     images?: Array<string>;
     /**
      * 
-     * @type {InlineResponse20045Shop}
+     * @type {InlineResponse20043Shop}
      * @memberof InlineResponse20091Product
      */
-    shop?: InlineResponse20045Shop;
+    shop?: InlineResponse20043Shop;
     /**
      * Заголовок на товар с сайта амазон.
      * @type {string}
@@ -60,10 +60,10 @@ export interface InlineResponse20091Product {
     amazonTitle?: string;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20091Product
      */
-    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
     /**
      * ID магазина продукта
      * @type {string}

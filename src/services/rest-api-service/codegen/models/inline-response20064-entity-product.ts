@@ -44,6 +44,12 @@ export interface InlineResponse20064EntityProduct {
      * @memberof InlineResponse20064EntityProduct
      */
     images?: Array<string>;
+    /**
+     * Описание amazon title
+     * @type {string}
+     * @memberof InlineResponse20064EntityProduct
+     */
+    amazonTitle?: string;
 }
 
 

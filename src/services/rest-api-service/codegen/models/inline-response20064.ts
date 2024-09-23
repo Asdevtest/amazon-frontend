@@ -13,9 +13,6 @@
  */
 
 
-import { ApiV1IdeasNotificationsCreatedBy } from './api-v1-ideas-notifications-created-by';
-import { ApiV1IdeasNotificationsIdea } from './api-v1-ideas-notifications-idea';
-import { ApiV1IdeasNotificationsProduct } from './api-v1-ideas-notifications-product';
 
 /**
  * 
@@ -24,29 +21,11 @@ import { ApiV1IdeasNotificationsProduct } from './api-v1-ideas-notifications-pro
  */
 export interface InlineResponse20064 {
     /**
-     * 
-     * @type {ApiV1IdeasNotificationsProduct}
-     * @memberof InlineResponse20064
-     */
-    product?: ApiV1IdeasNotificationsProduct;
-    /**
-     * 
-     * @type {ApiV1IdeasNotificationsIdea}
-     * @memberof InlineResponse20064
-     */
-    idea?: ApiV1IdeasNotificationsIdea;
-    /**
-     * 
-     * @type {ApiV1IdeasNotificationsCreatedBy}
-     * @memberof InlineResponse20064
-     */
-    createdBy?: ApiV1IdeasNotificationsCreatedBy;
-    /**
-     * 
+     * id созданного профайла
      * @type {string}
      * @memberof InlineResponse20064
      */
-    createdAt?: string;
+    profileId?: string;
 }
 
 

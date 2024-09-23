@@ -1,10 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  startIcon: {
-    marginRight: 5,
-  },
-
   badge: {
     marginLeft: 5,
     width: 'fit-content',

@@ -50,6 +50,10 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
+  shopName: {
+    width: '120px',
+  },
+
   text: {
     width: '80%',
     fontSize: '12px',

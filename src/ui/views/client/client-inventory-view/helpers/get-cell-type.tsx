@@ -29,7 +29,7 @@ export const getCellType = (column: string, table: string) => {
       },
       minWidth: 150,
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     }
   } else if (textCells.includes(column)) {
     return {
@@ -42,7 +42,7 @@ export const getCellType = (column: string, table: string) => {
       },
       minWidth: 150,
 
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     }
   } else if (dateCells.includes(column)) {
     return {

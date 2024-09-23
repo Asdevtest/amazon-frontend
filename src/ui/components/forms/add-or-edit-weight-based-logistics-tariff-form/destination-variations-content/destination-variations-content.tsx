@@ -175,7 +175,7 @@ export const DestinationVariationsContent: FC<DestinationVariationsContentProps>
                       {t(TranslationKey['Apply to all'])}
                     </p>
 
-                    <Button onClick={() => throttle(() => onApplyMinBoxWeightToAll(variantIndex))}>
+                    <Button onClick={throttle(() => onApplyMinBoxWeightToAll(variantIndex))}>
                       {t(TranslationKey.Apply)}
                     </Button>
                   </div>

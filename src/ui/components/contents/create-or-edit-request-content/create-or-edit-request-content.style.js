@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
+    position: 'relative',
     padding: 20,
     height: '100%',
     overflow: 'auto',
@@ -33,7 +34,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   subTitle: {
-    width: '100%',
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.second,
@@ -99,6 +99,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
+    gap: '5px',
   },
 
   defaultMarginTop: {
@@ -106,7 +107,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fireIcon: {
-    marginLeft: -10,
     width: '19px !important',
     height: '19px !important',
   },
@@ -162,17 +162,19 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   buttonsWrapper: {
+    marginTop: 20,
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     gap: 20,
   },
 
   buttons: {
-    width: '100%',
+    position: 'fixed',
+    bottom: 160,
+    right: 40,
     display: 'flex',
     justifyContent: 'flex-end',
-    gap: 30,
-    marginRight: 10,
+    gap: 20,
   },
 
   arrowIcon: {
@@ -303,13 +305,8 @@ export const useStyles = makeStyles()(theme => ({
     marginTop: 10,
   },
 
-  editor: {
-    minHeight: 160,
-    maxHeight: 160,
-  },
-
   editorClassName: {
-    height: 255,
+    height: 245,
   },
 
   customItemsWrapper: {

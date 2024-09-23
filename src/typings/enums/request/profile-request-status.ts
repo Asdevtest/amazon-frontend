@@ -12,4 +12,5 @@ export enum ProfileStatus {
   REGISTERED = 'REGISTERED',
   READY_TO_CHECKING = 'READY_TO_CHECKING',
   IN_USE = 'IN_USE',
+  UNLINKED = 'UNLINKED',
 }

@@ -39,6 +39,18 @@ export interface ApiV1BatchesProductBoxAmounts {
      * @memberof ApiV1BatchesProductBoxAmounts
      */
     amountInBoxes?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ApiV1BatchesProductBoxAmounts
+     */
+    recommendedValue?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ApiV1BatchesProductBoxAmounts
+     */
+    toRefill?: number;
 }
 
 

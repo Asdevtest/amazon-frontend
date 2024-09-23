@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { InlineResponse20081Products } from './inline-response20081-products';
 
 /**
  * 
@@ -22,41 +22,23 @@ import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-pro
  */
 export interface InlineResponse20081Rows {
     /**
-     * 
+     * ID магазина.
      * @type {string}
      * @memberof InlineResponse20081Rows
      */
     _id?: string;
     /**
-     * ASIN продукта
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
      * @type {string}
      * @memberof InlineResponse20081Rows
      */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20081Rows
-     */
-    skuByClient?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20081Rows
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20081Rows
-     */
-    amazonTitle?: string;
+    name?: string;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<InlineResponse20081Products>}
      * @memberof InlineResponse20081Rows
      */
-    users?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    products?: Array<InlineResponse20081Products>;
 }
 
 

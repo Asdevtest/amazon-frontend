@@ -1,5 +1,5 @@
-import { Input } from 'antd'
 import type { SearchProps } from 'antd/es/input/Search'
+import Search from 'antd/es/input/Search'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -9,8 +9,6 @@ import { t } from '@utils/translations'
 import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-props-extension-component-antd'
 
 import { useStyles } from './custom-input-search.style'
-
-const { Search } = Input
 
 interface CustomInputSearchProps extends SearchProps, IDefaultPropsExtensionAntdComponent {
   placeholder?: string

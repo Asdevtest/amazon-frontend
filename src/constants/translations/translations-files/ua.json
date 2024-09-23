@@ -1878,6 +1878,7 @@
   "Data not removed": "Дані не видалені",
   "Quantity in box": "Кількість у коробці",
   "Fine": "Списання",
+  "Penalty": "Штраф",
   "Replenish": "Поповнення",
   "Zero": "Нуль",
   "Shutdown": "Вимкнення",
@@ -2055,5 +2056,13 @@
   "In use": "Використовується",
   "Parsing profile successfully deleted": "Профіль парсингу успішно видалено",
   "Error deleting parsing profile": "Помилка при видаленні профілю парсингу",
-  "Are you sure you want to delete profile?": "Ви впевнені, що хочете видалити профіль?"
+  "Are you sure you want to delete profile?": "Ви впевнені, що хочете видалити профіль?",
+  "Month value": "Місячна вартість",
+  "Rename": "Перейменувати",
+  "Unlinked": "Не пов'язано",
+  "Unlink": "Відв'язати",
+  "This profile was used": "Даний профіль використовувався",
+  "This profile has already been used! Do you want to continue?": "Даний профіль вже використовувався! Бажаєте продовжити?",
+  "By proposal": "За пропозиції",
+  "By announcement": "За оголошенням"
 }

@@ -14,10 +14,15 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 >>>>>>> pre-release
 import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
+=======
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1BatchesProductShop } from './api-v1-batches-product-shop';
+>>>>>>> pre-release
 
 /**
  * 
@@ -63,10 +68,10 @@ export interface InlineResponse20061ParentProduct {
     shopId?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusShop}
+     * @type {ApiV1BatchesProductShop}
      * @memberof InlineResponse20061ParentProduct
      */
-    shop?: ApiV1AdminsGetProductsByStatusShop;
+    shop?: ApiV1BatchesProductShop;
     /**
      * GUID пользователя(байера)
      * @type {string}
@@ -83,16 +88,20 @@ export interface InlineResponse20061ParentProduct {
 =======
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20061ParentProduct
      */
-    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    subUsers?: Array<ApiV1AnnouncementsMyCreatedBy>;
     /**
      * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @type {Array<ApiV1AnnouncementsMyCreatedBy>}
      * @memberof InlineResponse20061ParentProduct
      */
+<<<<<<< HEAD
     subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+>>>>>>> pre-release
+=======
+    subUsersByShop?: Array<ApiV1AnnouncementsMyCreatedBy>;
 >>>>>>> pre-release
 }
 

@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
+import { ApiV1BatchesProductShop } from './api-v1-batches-product-shop';
 import { InlineResponse200115Client } from './inline-response200115-client';
 
 /**
@@ -60,10 +60,10 @@ export interface InlineResponse200115Rows {
     client?: InlineResponse200115Client;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusShop}
+     * @type {ApiV1BatchesProductShop}
      * @memberof InlineResponse200115Rows
      */
-    shop?: ApiV1AdminsGetProductsByStatusShop;
+    shop?: ApiV1BatchesProductShop;
     /**
      * Parser state
      * @type {boolean}
@@ -82,6 +82,30 @@ export interface InlineResponse200115Rows {
      * @memberof InlineResponse200115Rows
      */
     status?: string;
+    /**
+     * Main google table id
+     * @type {string}
+     * @memberof InlineResponse200115Rows
+     */
+    spreadsheetsIdMain?: string;
+    /**
+     * Perfomance google table id
+     * @type {string}
+     * @memberof InlineResponse200115Rows
+     */
+    spreadsheetsIdPerformance?: string;
+    /**
+     * Import google table id
+     * @type {string}
+     * @memberof InlineResponse200115Rows
+     */
+    spreadsheetsIdImport?: string;
+    /**
+     * OTP Hash
+     * @type {string}
+     * @memberof InlineResponse200115Rows
+     */
+    otp?: string;
     /**
      * Дата создания
      * @type {string}

@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
  * 
@@ -21,101 +22,23 @@
  */
 export interface InlineObject77 {
     /**
-     * Название идеи
+     * Название профиля
      * @type {string}
      * @memberof InlineObject77
      */
-    title?: string;
+    name: string;
     /**
-     * Image URL
-     * @type {Array<string>}
-     * @memberof InlineObject77
-     */
-    media?: Array<string>;
-    /**
-     * Комментарий к идее
+     * Название ОС
      * @type {string}
      * @memberof InlineObject77
      */
-    comments?: string;
+    os?: string;
     /**
-     * Комментарий байера
-     * @type {string}
+     * 
+     * @type {ApiV1GologinProfileNavigator}
      * @memberof InlineObject77
      */
-    buyerComment?: string;
-    /**
-     * Назавние продукта
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    productName: string;
-    /**
-     * Ссылки на продукт, если есть
-     * @type {Array<string>}
-     * @memberof InlineObject77
-     */
-    productLinks?: Array<string>;
-    /**
-     * Дополнительные критерии для поиска товара
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    criteria?: string;
-    /**
-     * Количество товаров
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    quantity?: number;
-    /**
-     * Желаемая цена
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    price: number;
-    /**
-     * FBA Fee
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    fbaFee?: number;
-    /**
-     * Ориентационная цена
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    approximatePrice?: number;
-    /**
-     * Ширина, см
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    width?: number;
-    /**
-     * Высота, см
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    height?: number;
-    /**
-     * Длина, см
-     * @type {number}
-     * @memberof InlineObject77
-     */
-    length?: number;
-    /**
-     * Product ID
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    productId?: string;
-    /**
-     * Гуид родительского продукта
-     * @type {string}
-     * @memberof InlineObject77
-     */
-    parentProductId?: string;
+    navigator?: ApiV1GologinProfileNavigator;
 }
 
 

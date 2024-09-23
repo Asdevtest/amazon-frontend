@@ -25,6 +25,8 @@ export interface IPermissionsData {
   humanFriendlyId?: string
   name?: string
   allowedSpec?: ISpec[]
+  email?: string
+  status?: string
 }
 
 /*
@@ -46,20 +48,22 @@ export class UseProductsPermissions {
     filters: '',
   }
   searchFields?: string[]
-
   permissionsData: IPermissionsData[] = []
-
+  meta?: any
   isCanLoadMore = true
   requestStatus = loadingStatus.SUCCESS
+  searchValue = ''
 
   constructor(callback: ICallback, options?: IOptions, searchFields?: string[]) {
     makeObservable(this, {
       callback: observable,
       options: observable,
+      searchFields: observable,
       permissionsData: observable,
+      meta: observable,
       isCanLoadMore: observable,
       requestStatus: observable,
-      searchFields: observable,
+      searchValue: observable,
 
       currentPermissionsData: computed,
       currentRequestStatus: computed,
@@ -98,6 +102,7 @@ export class UseProductsPermissions {
 
       runInAction(() => {
         this.permissionsData = result.rows || result
+        this.meta = result.meta
         this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
@@ -133,6 +138,8 @@ export class UseProductsPermissions {
   }
 
   async onClickSubmitSearch(searchValue: string) {
+    this.searchValue = searchValue
+
     if (!this.callback || this.requestStatus !== loadingStatus.SUCCESS) {
       return
     }
@@ -162,12 +169,12 @@ export class UseProductsPermissions {
 
   resetOptions() {
     this.isCanLoadMore = true
-
     this.options = {
       ...this.options,
       offset: 0,
       limit: 15,
     }
+    this.searchValue = ''
   }
 
   setOptions(options?: IOptions) {

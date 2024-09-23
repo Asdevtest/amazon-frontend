@@ -21,9 +21,14 @@ export const ParsingReports = observer(() => {
   return (
     <div className="viewWrapper">
       <CustomSelect
+        showSearch
         size="large"
         options={getSelectConfig()}
         value={viewModel.table}
+        listHeight={384}
+        filterOption={(inputValue, option) =>
+          (option?.label as string)?.toLowerCase?.()?.includes?.(inputValue.toLowerCase())
+        }
         onChange={viewModel.onChangeActiveTable}
       />
 
@@ -72,6 +77,7 @@ export const ParsingReports = observer(() => {
               handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
               handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
               onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+              onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
             },
           },
         }}

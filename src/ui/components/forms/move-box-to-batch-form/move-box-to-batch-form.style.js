@@ -43,6 +43,7 @@ export const useStyles = makeStyles()(theme => ({
   btnsSubWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: '20px',
   },
 
   titleWrapper: {

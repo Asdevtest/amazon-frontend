@@ -21,11 +21,11 @@
  */
 export interface InlineObject80 {
     /**
-     * Причина отклонения
+     * id профайла
      * @type {string}
      * @memberof InlineObject80
      */
-    reasonReject: string;
+    profileId: string;
 }
 
 

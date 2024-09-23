@@ -14,24 +14,30 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { InlineResponse20044InventoryShop } from './inline-response20044-inventory-shop';
 =======
 import { InlineResponse20049InventoryShop } from './inline-response20049-inventory-shop';
 >>>>>>> pre-release
+=======
+import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-by';
+import { InlineResponse20064EntityProduct } from './inline-response20064-entity-product';
+>>>>>>> pre-release
 
 /**
- * Схема репорта за 30 дней с Seller-board
+ * 
  * @export
  * @interface InlineResponse20064Rows
  */
 export interface InlineResponse20064Rows {
     /**
-     * Гуид записи
+     * GUID платежа
      * @type {string}
      * @memberof InlineResponse20064Rows
      */
     _id?: string;
     /**
+<<<<<<< HEAD
      * 
 <<<<<<< HEAD
      * @type {InlineResponse20044InventoryShop}
@@ -304,16 +310,102 @@ export interface InlineResponse20064Rows {
     costOfGoods?: number;
     /**
      * Дата создания
+=======
+     * Дата создания.
+>>>>>>> pre-release
      * @type {string}
      * @memberof InlineResponse20064Rows
      */
     createdAt?: string;
     /**
-     * Дата обновления
+     * 
+     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @memberof InlineResponse20064Rows
+     */
+    createdBy?: ApiV1AdminsPaymentsCreatedBy;
+    /**
+     * Роль пользователя на момент инициации платежа.
+     * @type {number}
+     * @memberof InlineResponse20064Rows
+     */
+    role?: number;
+    /**
+     * 
+     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @memberof InlineResponse20064Rows
+     */
+    subUser?: ApiV1AdminsPaymentsCreatedBy;
+    /**
+     * GUID товара или услуги.
      * @type {string}
      * @memberof InlineResponse20064Rows
      */
-    updatedAt?: string;
+    entityId?: string;
+    /**
+     * Тип товара или услуги
+     * @type {string}
+     * @memberof InlineResponse20064Rows
+     */
+    entityType?: InlineResponse20064RowsEntityTypeEnum;
+    /**
+     * Тип платежа
+     * @type {string}
+     * @memberof InlineResponse20064Rows
+     */
+    paymentType?: InlineResponse20064RowsPaymentTypeEnum;
+    /**
+     * 
+     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @memberof InlineResponse20064Rows
+     */
+    recipient?: ApiV1AdminsPaymentsCreatedBy;
+    /**
+     * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+     * @type {number}
+     * @memberof InlineResponse20064Rows
+     */
+    sum?: number;
+    /**
+     * комментарий
+     * @type {string}
+     * @memberof InlineResponse20064Rows
+     */
+    comment?: string;
+    /**
+     * 
+     * @type {Array<InlineResponse20064EntityProduct>}
+     * @memberof InlineResponse20064Rows
+     */
+    entityProduct?: Array<InlineResponse20064EntityProduct>;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20064RowsEntityTypeEnum {
+    Product = 'PRODUCT',
+    Order = 'ORDER',
+    Box = 'BOX',
+    Batch = 'BATCH',
+    User = 'USER',
+    RequestCustom = 'REQUEST-CUSTOM',
+    RequestSearchProduct = 'REQUEST-SEARCH_PRODUCT',
+    RequestSearchNiche = 'REQUEST-SEARCH_NICHE',
+    RequestProposalCustom = 'REQUEST-PROPOSAL-CUSTOM',
+    RequestProposalSearchProduct = 'REQUEST-PROPOSAL-SEARCH_PRODUCT',
+    RequestProposalSearchNiche = 'REQUEST-PROPOSAL-SEARCH_NICHE',
+    Other = 'OTHER'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20064RowsPaymentTypeEnum {
+    Replenish = 'REPLENISH',
+    Fine = 'FINE',
+    Zero = 'ZERO'
+}
+
 
 

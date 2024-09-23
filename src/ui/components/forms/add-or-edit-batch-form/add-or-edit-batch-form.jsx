@@ -318,8 +318,9 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
         getBatchWeightCalculationMethodForBox,
         batchFields.calculationMethod,
       ),
-      ...sourceChosenBoxesBase,
+      // ...sourceChosenBoxesBase,
     ].filter(el => newRowIds.includes(el.id))
+
     setChosenBoxes(() => filterBySearchValueChosenBoxes([...chosenBoxesBase, ...newSelectedItems]))
     setChosenBoxesBase(() => [...chosenBoxesBase, ...newSelectedItems])
 

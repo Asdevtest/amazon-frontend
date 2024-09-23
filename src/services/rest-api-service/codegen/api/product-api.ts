@@ -47,9 +47,9 @@ import { InlineResponse200 } from '../models';
 // @ts-ignore
 import { InlineResponse20041 } from '../models';
 // @ts-ignore
-import { InlineResponse20084 } from '../models';
-// @ts-ignore
 import { InlineResponse20085 } from '../models';
+// @ts-ignore
+import { InlineResponse20086 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -953,7 +953,7 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsKeepaPost(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20085>>> {
+        async apiV1ProductsKeepaPost(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20086>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsKeepaPost(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -991,7 +991,7 @@ export const ProductApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ProductsParseSellercentralGet(asin: string, price?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20084>> {
+        async apiV1ProductsParseSellercentralGet(asin: string, price?: number, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20085>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ProductsParseSellercentralGet(asin, price, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1168,7 +1168,7 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsKeepaPost(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20085>> {
+        apiV1ProductsKeepaPost(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20086>> {
             return localVarFp.apiV1ProductsKeepaPost(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1203,7 +1203,7 @@ export const ProductApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ProductsParseSellercentralGet(asin: string, price?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20084> {
+        apiV1ProductsParseSellercentralGet(asin: string, price?: number, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20085> {
             return localVarFp.apiV1ProductsParseSellercentralGet(asin, price, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

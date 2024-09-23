@@ -23,6 +23,7 @@ import { Text } from '@components/shared/text'
 import { calcFinalWeightForBox } from '@utils/calculation'
 import { findTariffInStorekeepersData } from '@utils/checks'
 import { formatNormDateTime } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixed, toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -59,7 +60,8 @@ export const clientBoxesViewColumns = (
 
       width: 100,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
+      sortOptions: 'asc',
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       table: DataGridFilterTables.PRODUCTS,
     },
 
@@ -326,9 +328,10 @@ export const clientBoxesViewColumns = (
         ) : null
       },
       valueGetter: params =>
-        `Shipping Label:${params.row.shippingLabel ? trimBarcode(params.row.shippingLabel) : '-'}\n FBA Shipment:${
-          params.row.fbaShipment || ''
-        }`,
+        `Shipping Label: ${
+          params.row.shippingLabel ? getAmazonImageUrl(params.row.shippingLabel, true) : '-'
+        } / FBA Shipment: ${params.row.fbaShipment || ''}`,
+
       width: 150,
       headerAlign: 'center',
       disableCustomSort: true,

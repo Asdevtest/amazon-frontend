@@ -5,7 +5,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { useHover } from '@hooks/use-hover'
 
-import { useStyles } from './product-asin-cell.style'
+import { useStyles } from './product-cell.style'
 
 import { Text } from '../../../shared/text/text'
 
@@ -37,11 +37,12 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
 
       <div className={styles.flexRow}>
         <Image
-          preview={false}
+          preview={{ maskClassName: styles.mask }} // fix prewiew mask
           width={32}
           height={32}
-          src={getAmazonImageUrl(image, false)}
+          src={getAmazonImageUrl(image, true)}
           wrapperClassName={styles.image}
+          onClick={e => e.stopPropagation()}
         />
 
         <div className={styles.flexColumn}>

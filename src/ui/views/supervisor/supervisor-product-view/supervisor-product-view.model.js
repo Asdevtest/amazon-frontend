@@ -74,9 +74,9 @@ export class SupervisorProductViewModel {
       this.setOpenModal = setOpenModal
     }
 
-    this.loadData()
-
     makeAutoObservable(this, undefined, { autoBind: true })
+
+    this.loadData()
 
     reaction(
       () => this.productId,

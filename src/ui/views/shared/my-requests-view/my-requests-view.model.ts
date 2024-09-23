@@ -22,7 +22,6 @@ import { UserModel } from '@models/user-model'
 
 import { myRequestsViewColumns } from '@components/table/table-columns/overall/my-requests-columns'
 
-import { getLocalToUTCDate } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -427,11 +426,12 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   async onRecoverRequest(timeoutAt: string, maxAmountOfProposals: number) {
     this.setRequestStatus(loadingStatus.IS_LOADING)
 
-    await RequestModel.updateDeadline(
-      this.currentRequestDetails.request?._id,
-      getLocalToUTCDate(timeoutAt),
-      maxAmountOfProposals,
-    )
+    const newDate = new Date(timeoutAt)
+    newDate.setUTCHours(0)
+    newDate.setUTCSeconds(0)
+    const arrivalDate = newDate.toISOString()
+
+    await RequestModel.updateDeadline(this.currentRequestDetails.request?._id, arrivalDate, maxAmountOfProposals)
     await this.loadData()
     this.onTriggerOpenModal('showRequestDetailModal')
 

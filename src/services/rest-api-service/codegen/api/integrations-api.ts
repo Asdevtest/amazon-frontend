@@ -37,7 +37,7 @@ import { InlineObject85 } from '../models';
 // @ts-ignore
 import { InlineObject86 } from '../models';
 // @ts-ignore
-import { InlineResponse200118 } from '../models';
+import { InlineResponse200120 } from '../models';
 // @ts-ignore
 import { InlineResponse20065 } from '../models';
 // @ts-ignore
@@ -1366,7 +1366,7 @@ export const IntegrationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsReportsGet(table: 'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFORMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS' | 'PROFILE' | 'RECEIVING_REQUESTS', filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200118>> {
+        async apiV1IntegrationsReportsGet(table: 'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFORMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS' | 'PROFILE' | 'RECEIVING_REQUESTS', filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200120>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsReportsGet(table, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1657,7 +1657,7 @@ export const IntegrationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsReportsGet(table: 'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFORMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS' | 'PROFILE' | 'RECEIVING_REQUESTS', filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200118> {
+        apiV1IntegrationsReportsGet(table: 'BUSINESS_REPORTS' | 'ORDERS' | 'TOTAL_BALANCE' | 'FEEDBACK' | 'TRANSACTIONS' | 'INVENTORY' | 'CAMPAIGNS' | 'PERFORMANCE_NOTIFICATIONS' | 'FBA_INVENTORY' | 'ACCOUNT_HEALTH' | 'RETURNS' | 'INVENTORY_PLANNING' | 'BRANDS_REVIEW' | 'INVENTORY_SHIPMENTS' | 'VOICE' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'PPC_SALES_WEEKS' | 'PPC_ORGANIC' | 'ALL' | 'CHECK_PERMISSIONS' | 'PROFILE' | 'RECEIVING_REQUESTS', filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200120> {
             return localVarFp.apiV1IntegrationsReportsGet(table, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

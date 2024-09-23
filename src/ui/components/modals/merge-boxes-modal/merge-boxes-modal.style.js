@@ -125,6 +125,7 @@ export const useStyles = makeStyles()(theme => ({
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
+    maxWidth: '250px',
     color: theme.palette.text.general,
   },
   orderInput: {
@@ -181,10 +182,7 @@ export const useStyles = makeStyles()(theme => ({
     objectFit: 'contain',
     cursor: 'pointer',
   },
-  asinTextWrapper: {
-    display: 'flex',
-    gap: 5,
-  },
+
   blockOfNewBoxWrapper: {
     height: '100%',
     width: 525,

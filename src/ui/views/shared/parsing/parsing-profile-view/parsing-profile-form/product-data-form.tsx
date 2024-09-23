@@ -38,6 +38,10 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
         name: profile?.name || '',
         gologinId: profile?.gologinId || '',
         email: profile?.email || '',
+        spreadsheetsIdPerformance: profile?.spreadsheetsIdPerformance || '',
+        spreadsheetsIdImport: profile?.spreadsheetsIdImport || '',
+        spreadsheetsIdMain: profile?.spreadsheetsIdMain || '',
+        otp: profile?.otp || '',
       })
     }
   }, [])
@@ -55,10 +59,15 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
   }
 
   const title = (isEditMode ? 'Edit' : 'Add') + ' parsing profile'
+  const isUnlinked = isEditMode && !profile?.client && !!profile?.shop?._id
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.title}>{t(TranslationKey[title as TranslationKey])}</p>
+      <div className={styles.flexRow}>
+        <p className={styles.title}>{t(TranslationKey[title as TranslationKey])}</p>
+
+        {isUnlinked ? <p className={styles.unlinked}>{t(TranslationKey.Unlinked)}</p> : null}
+      </div>
 
       <Form name="parsing profile" autoComplete="off" form={form} onFinish={handleSendForm}>
         <div className={styles.container}>
@@ -66,6 +75,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
             shop={viewModel.profile?.shop}
             client={viewModel.profile?.client}
             isActive={viewModel.profile?.isActive}
+            access={viewModel.profile?.access}
             onResetParsingData={viewModel.onResetParsingData}
             onToggleParsingData={viewModel.onToggleParsingData}
           />
@@ -116,44 +126,14 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
               wrapperClassName={styles.input}
             />
           </Form.Item>
-          <Form.Item<FieldType>
-            name="spreadsheetsIdPerformance"
-            className={styles.field}
-            rules={[{ required: !isEditMode, message: '' }]}
-          >
-            <CustomInput
-              allowClear
-              required={!isEditMode}
-              size="large"
-              label="Performance ID"
-              wrapperClassName={styles.input}
-            />
+          <Form.Item<FieldType> name="spreadsheetsIdPerformance" className={styles.field}>
+            <CustomInput allowClear size="large" label="Performance ID" wrapperClassName={styles.input} />
           </Form.Item>
-          <Form.Item<FieldType>
-            name="spreadsheetsIdImport"
-            className={styles.field}
-            rules={[{ required: !isEditMode, message: '' }]}
-          >
-            <CustomInput
-              allowClear
-              required={!isEditMode}
-              size="large"
-              label="Import ID"
-              wrapperClassName={styles.input}
-            />
+          <Form.Item<FieldType> name="spreadsheetsIdImport" className={styles.field}>
+            <CustomInput allowClear size="large" label="Import ID" wrapperClassName={styles.input} />
           </Form.Item>
-          <Form.Item<FieldType>
-            name="spreadsheetsIdMain"
-            className={styles.field}
-            rules={[{ required: !isEditMode, message: '' }]}
-          >
-            <CustomInput
-              allowClear
-              required={!isEditMode}
-              size="large"
-              label="SpeadsheetMain ID"
-              wrapperClassName={styles.input}
-            />
+          <Form.Item<FieldType> name="spreadsheetsIdMain" className={styles.field}>
+            <CustomInput allowClear size="large" label="SpeadsheetMain ID" wrapperClassName={styles.input} />
           </Form.Item>
         </div>
 

@@ -14,8 +14,7 @@
 
 
 import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { InlineResponse200116Client } from './inline-response200116-client';
-import { InlineResponse200117Profile } from './inline-response200117-profile';
+import { InlineResponse200117Client } from './inline-response200117-client';
 
 /**
  * 
@@ -30,17 +29,35 @@ export interface InlineResponse200117Rows {
      */
     _id?: string;
     /**
-     * 
-     * @type {InlineResponse200117Profile}
+     * GoLogin id
+     * @type {string}
      * @memberof InlineResponse200117Rows
      */
-    profile?: InlineResponse200117Profile;
+    gologinId?: string;
+    /**
+     * Имя в профиле.
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    name?: string;
+    /**
+     * email
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    email?: string;
+    /**
+     * Хешированный пароль от профиля
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    passwordHash?: string;
     /**
      * 
-     * @type {InlineResponse200116Client}
+     * @type {InlineResponse200117Client}
      * @memberof InlineResponse200117Rows
      */
-    client?: InlineResponse200116Client;
+    client?: InlineResponse200117Client;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusShop}
@@ -48,11 +65,53 @@ export interface InlineResponse200117Rows {
      */
     shop?: ApiV1AdminsGetProductsByStatusShop;
     /**
-     * Receiving request status
+     * Parser state
+     * @type {boolean}
+     * @memberof InlineResponse200117Rows
+     */
+    isActive?: boolean;
+    /**
+     * Profile access to sellercentral
+     * @type {boolean}
+     * @memberof InlineResponse200117Rows
+     */
+    access?: boolean;
+    /**
+     * Profile status
      * @type {string}
      * @memberof InlineResponse200117Rows
      */
     status?: string;
+    /**
+     * Main google table id
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    spreadsheetsIdMain?: string;
+    /**
+     * Perfomance google table id
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    spreadsheetsIdPerformance?: string;
+    /**
+     * Import google table id
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    spreadsheetsIdImport?: string;
+    /**
+     * OTP Hash
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    otp?: string;
+    /**
+     * Comment for profile
+     * @type {string}
+     * @memberof InlineResponse200117Rows
+     */
+    comment?: string;
     /**
      * Дата создания
      * @type {string}

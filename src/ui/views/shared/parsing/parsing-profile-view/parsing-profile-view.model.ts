@@ -22,10 +22,16 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
       onForceStart: ids => this.onForceStart(ids),
       onForceStop: ids => this.onForceStop(ids),
       onParsingProfileRegistred: id => this.onParsingProfileRegistred(id),
+      onEditProfileComment: (id, comment) => this.onEditProfileComment(id, comment),
     }
     const columnsModel = parsingProfileViewColumns(columnsProps)
     const filtersFields = getFilterFields(columnsModel)
     const mainMethodURL = 'integrations/parser/admins/profiles?'
+
+    const operatorsSettings = {
+      client: '$any',
+      shop: '$any',
+    }
 
     super({
       getMainDataMethod: ParserModel.getProfiles,
@@ -34,6 +40,7 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
       mainMethodURL,
       fieldsForSearch,
       tableKey: DataGridTablesKeys.PARSING_PROFILES,
+      operatorsSettings,
       defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
     makeObservable(this, parsingProfileViewConfig)
@@ -76,6 +83,15 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
   async onParsingProfileRegistred(id: string) {
     try {
       await ParserModel.onParsingProfileRegistred(id)
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onEditProfileComment(id: string, comment?: string) {
+    try {
+      await ParserModel.editProfile(id, { comment })
       this.getCurrentData()
     } catch (error) {
       console.error(error)
