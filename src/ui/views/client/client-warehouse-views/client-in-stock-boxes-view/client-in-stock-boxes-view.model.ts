@@ -1150,38 +1150,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       const isTransparencyFileChanged =
         sourceData.items[0].transparencyFile !== boxData.items[0].transparencyFile ||
         boxData.items[0].tmpTransparencyFile.length !== 0
-      const isclientTaskCommentChanged = boxData.clientTaskComment !== boxData.clientTaskComment
+      const isclientCommentChanged = sourceData.clientComment !== boxData.clientComment
 
-      if (
-        sourceData.shippingLabel === null &&
-        (!isclientTaskCommentChanged || !isBarcodeChanged || !isTransparencyFileChanged)
-      ) {
-        await BoxesModel.editBoxAtClient(id, {
-          destinationId: boxData.destinationId,
-          logicsTariffId: boxData.logicsTariffId,
-          fbaShipment: boxData.fbaShipment,
-          fbaNumber: boxData.fbaNumber,
-          clientComment: boxData.clientComment,
-          referenceId: boxData.referenceId,
-          // clientTaskComment: boxData.clientTaskComment,
-          trackNumberText: boxData.trackNumberText,
-          trackNumberFile: boxData.trackNumberFile,
-          upsTrackNumber: boxData.upsTrackNumber,
-          shippingLabel: boxData.shippingLabel
-            ? boxData.shippingLabel
-            : boxData.tmpShippingLabel?.[0]
-            ? boxData.tmpShippingLabel?.[0]
-            : boxData.shippingLabel === null
-            ? null
-            : '',
-          isShippingLabelAttachedByStorekeeper:
-            sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
-          prepId: boxData.prepId,
-          variationTariffId: boxData.variationTariffId,
-        })
-      } else {
+      const editBoxAndPostTask = async (id: string, requestBox: any) => {
         const editBoxesResult = await this.editBox(id, requestBox)
-
         await this.postTask({
           // @ts-ignore
           idsData: [editBoxesResult.guid],
@@ -1199,6 +1171,35 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
             TranslationKey['to change the Box'],
           )} № ${sourceData.humanFriendlyId}`,
         )
+      }
+
+      if (isclientCommentChanged || isBarcodeChanged || isTransparencyFileChanged) {
+        editBoxAndPostTask(id, requestBox)
+      } else if (sourceData.shippingLabel === null) {
+        await BoxesModel.editBoxAtClient(id, {
+          destinationId: boxData.destinationId,
+          logicsTariffId: boxData.logicsTariffId,
+          fbaShipment: boxData.fbaShipment,
+          fbaNumber: boxData.fbaNumber,
+          clientComment: boxData.clientComment,
+          referenceId: boxData.referenceId,
+          trackNumberText: boxData.trackNumberText,
+          trackNumberFile: boxData.trackNumberFile,
+          upsTrackNumber: boxData.upsTrackNumber,
+          shippingLabel: boxData.shippingLabel
+            ? boxData.shippingLabel
+            : boxData.tmpShippingLabel?.[0]
+            ? boxData.tmpShippingLabel?.[0]
+            : boxData.shippingLabel === null
+            ? null
+            : '',
+          isShippingLabelAttachedByStorekeeper:
+            sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
+          prepId: boxData.prepId,
+          variationTariffId: boxData.variationTariffId,
+        })
+      } else {
+        editBoxAndPostTask(id, requestBox)
       }
 
       await this.updateBarCodesInInventory(dataToBarCodeChange)

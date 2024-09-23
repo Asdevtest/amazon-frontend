@@ -617,6 +617,7 @@ export const EditBoxForm = memo(
               maxRows={3}
               inputProps={{ maxLength: 1000 }}
               labelClasses={styles.commentLabel}
+              value={boxFields.clientTaskComment}
               tooltipAttentionContent={t(TranslationKey['A task will be created for the prep center'])}
               label={t(TranslationKey['Write a comment on the task'])}
               placeholder={t(TranslationKey['Client comment on the task'])}
