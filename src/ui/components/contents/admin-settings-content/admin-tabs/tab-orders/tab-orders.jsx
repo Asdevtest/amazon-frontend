@@ -5,7 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { useStyles } from '../../admin-settings.style'
@@ -39,7 +38,7 @@ export const TabOrders = memo(props => {
         error={formFields.orderAmountLimit === ''}
         onChange={e => onChangeField(fieldNameObject.orderAmountLimit, e)}
       />
-      <CustomButton type="primary" size="large" disabled={disabledSubmit} onClick={throttle(onSubmit)}>
+      <CustomButton type="primary" size="large" disabled={disabledSubmit} onClick={onSubmit}>
         {t(TranslationKey.Save)}
       </CustomButton>
     </div>

@@ -37,6 +37,12 @@ export class CreateNewChatModalModel extends DefaultModel {
   }
 
   get disableCreateButton() {
+    if (this.chatToEdit && this.chatName) {
+      return false
+    } else {
+      return true
+    }
+
     if (this.selectedUsersId?.length < 1) {
       return true
     } else if (this.selectedUsersId?.length > 1 && !this.chatName) {

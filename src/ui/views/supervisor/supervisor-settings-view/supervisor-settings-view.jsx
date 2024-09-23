@@ -1,4 +1,3 @@
-import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
@@ -46,16 +45,16 @@ export const SupervisorSettingsView = observer(() => {
         />
 
         <div className={styles.flexContainer}>
-          <Popconfirm
-            title={t(TranslationKey['Are you sure you want to delete the selected ASINs?'])}
-            okText={t(TranslationKey.Yes)}
-            cancelText={t(TranslationKey.No)}
-            onConfirm={viewModel.onRemoveAsins}
+          <CustomButton
+            danger
+            size="large"
+            type="primary"
+            disabled={!viewModel.selectedRows.length}
+            confirmText="Are you sure you want to delete the selected ASINs?"
+            onClick={viewModel.onRemoveAsins}
           >
-            <CustomButton danger size="large" type="primary" disabled={!viewModel.selectedRows.length}>
-              {t(TranslationKey['Delete selected ASINs'])}
-            </CustomButton>
-          </Popconfirm>
+            {t(TranslationKey['Delete selected ASINs'])}
+          </CustomButton>
 
           <CustomButton
             size="large"

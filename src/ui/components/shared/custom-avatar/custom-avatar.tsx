@@ -68,7 +68,9 @@ export const CustomAvatar: FC<CustomAvatarProps> = observer(props => {
           maxCount={maxCount}
           disabled={!isEditable}
           previewFile={async file => URL.createObjectURL(file)}
-          beforeUpload={() => false}
+          beforeUpload={(file, fileList) => {
+            viewModel.onSaveImage(fileList)
+          }}
           showUploadList={{
             showPreviewIcon: true,
             showRemoveIcon: isEditable,
@@ -81,8 +83,8 @@ export const CustomAvatar: FC<CustomAvatarProps> = observer(props => {
               />
             ), // change avatar image,
           }}
+          customRequest={() => viewModel.onUploadImage(onSubmit)}
           onPreview={viewModel.onPreviewImage}
-          onChange={({ fileList }) => viewModel.onUploadImage(fileList, onSubmit)}
           {...restProps}
         >
           {uploadButton}

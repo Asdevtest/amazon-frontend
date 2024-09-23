@@ -19,7 +19,6 @@ import { checkIsHasHttp } from '@utils/checks'
 import { formatDate } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign } from '@utils/text'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { OrderPriority } from '@typings/enums/order/order-priority'
@@ -82,7 +81,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
         <ActionButtonsCell
           showFirst
           firstContent={t(TranslationKey['Get to work'])}
-          onClickFirst={throttle(() => handlers.onClickTableRowBtn(params.row as IOrder))}
+          onClickFirst={() => handlers.onClickTableRowBtn(params.row as IOrder)}
         />
       ),
 

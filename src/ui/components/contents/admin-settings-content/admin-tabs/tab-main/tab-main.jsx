@@ -12,7 +12,6 @@ import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { useStyles } from './tab-main.style'
@@ -120,7 +119,7 @@ export const TabMain = memo(props => {
             type="primary"
             size="large"
             disabled={disabledSubmitFields}
-            onClick={throttle(onSubmit(updatedProxy))}
+            onClick={() => onSubmit(updatedProxy)}
           >
             {t(TranslationKey.Save)}
           </CustomButton>

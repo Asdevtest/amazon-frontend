@@ -110,7 +110,7 @@ export const sourceFilesColumns = rowHandlers => [
         firstDanger
         firstGhost
         firstIcon={<MdOutlineDelete />}
-        firstDescription="Do you want to delete the source file?"
+        firstConfirmText="Do you want to delete the source file?"
         onClickFirst={() => rowHandlers.onClickRemoveBtn(params.row._id)}
       />
     ),

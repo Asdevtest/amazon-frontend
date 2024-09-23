@@ -1,5 +1,5 @@
 import { UploadFile } from 'antd'
-import { RcFile, UploadFileStatus } from 'antd/es/upload/interface'
+import { RcFile } from 'antd/es/upload/interface'
 import { makeAutoObservable } from 'mobx'
 import { toast } from 'react-toastify'
 import { v4 as uuid } from 'uuid'
@@ -54,32 +54,32 @@ export class CustomAvatarModel {
     this.setPreviewOpen(true)
   }
 
-  async onUploadImage(newFileList: UploadFile[], onSubmit?: (imageData: UploadFileType) => void) {
-    const lastFile = newFileList.slice(-1)[0]
-    if (!lastFile) return
+  onSaveImage(newFileList: File[]) {
+    const file = newFileList[0]
+    const isFileTypeOk = avatarValidTypes.includes(file.type)
 
-    if (lastFile.status === 'error') {
-      this.setLoading(false)
+    if (!isFileTypeOk) {
+      toast.warning(t(TranslationKey['Inappropriate format!']))
       return
     }
 
-    if (lastFile.originFileObj) {
-      const file = lastFile.originFileObj as File
-      const isFileTypeOk = avatarValidTypes.includes(file.type)
+    this.setFileList([
+      { uid: uuid(), name: file.name, status: 'done', url: URL.createObjectURL(file), originFileObj: file as RcFile },
+    ])
+    this.setLoading(true)
+    return false // prevent upload default actions
+  }
 
-      if (!isFileTypeOk) {
-        toast.warning(t(TranslationKey['Inappropriate format!']))
-        return
-      }
+  async onUploadImage(onSubmit?: (imageData: UploadFileType) => void) {
+    if (this.fileList.length === 0 || !this.loading) return
 
-      this.setFileList(newFileList.slice(-1))
-      this.setLoading(true)
+    const file = this.fileList[0]
 
-      const base64String = await convertToBase64(file)
-      onSubmit?.(base64String)
+    const actualFile = file.originFileObj as File
 
-      this.setLoading(false)
-    }
+    const base64String = await convertToBase64(actualFile)
+
+    onSubmit?.(base64String)
+    this.setLoading(false)
   }
 }
-// ! решить проблему с img crop не сохраняется

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 
-import { Grid, Paper, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 
 import {
   ProductStatus,
@@ -49,7 +49,7 @@ export const BottomCard = observer(
       <>
         <Grid container spacing={2}>
           <Grid item sm={12} md={7} xs={12}>
-            <Paper className={styles.cardPadding}>
+            <div className={styles.cardPadding}>
               <Typography className={styles.title}>{t(TranslationKey['Product information']).toUpperCase()}</Typography>
 
               <div className={styles.infoWrapper}>
@@ -254,10 +254,10 @@ export const BottomCard = observer(
                 value={t(productStatusTranslateKey(ProductStatusByCode[product.status]))}
                 // onChange={onChangeField?.('status')}
               />
-            </Paper>
+            </div>
           </Grid>
           <Grid item sm={12} md={5} xs={12}>
-            <Paper className={styles.cardPadding}>
+            <div className={styles.cardPadding}>
               <Typography className={styles.title}>{t(TranslationKey['Product description']).toUpperCase()}</Typography>
               <Field
                 // key={'amazonTitle'}
@@ -288,7 +288,7 @@ export const BottomCard = observer(
                 value={product.amazonDetail || ''}
                 onChange={onChangeField?.('amazonDetail')}
               />
-            </Paper>
+            </div>
           </Grid>
         </Grid>
       </>

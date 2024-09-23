@@ -78,7 +78,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
           secondGhost
           firstIcon={<MdOutlineEdit size={16} />}
           secondIcon={<MdOutlineDelete size={16} />}
-          secondDescription="Are you sure you want to unbind the sub-user?"
+          secondConfirmText="Are you sure you want to unbind the sub-user?"
           onClickFirst={() => onClickEdit(row)}
           onClickSecond={() => onClickRemove(row._id)}
         />
