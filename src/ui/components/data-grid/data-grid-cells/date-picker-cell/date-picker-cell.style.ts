@@ -29,19 +29,11 @@ export const useStyles = makeStyles()(theme => ({
 
   changeInputIcon: {
     color: theme.palette.primary.main,
-    transition: '.3s ease',
     cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   clearIcon: {
-    transition: '.3s ease',
     cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
     color: theme.palette.text.second,
   },
 }))

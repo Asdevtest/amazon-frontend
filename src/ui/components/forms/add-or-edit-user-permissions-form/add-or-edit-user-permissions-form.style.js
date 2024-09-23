@@ -49,13 +49,9 @@ export const useStyles = makeStyles()(theme => ({
   permissionWrapper: {
     display: 'flex',
     alignItems: 'center',
-    transition: '0.3s ease',
     cursor: 'pointer',
     marginBottom: 15,
     borderBottom: '1px solid rgba(0,0,0, .2)',
-    '&:hover': {
-      transform: 'translate(0%, -3%)',
-    },
   },
 
   leftSideWrapper: {
@@ -99,13 +95,9 @@ export const useStyles = makeStyles()(theme => ({
     border: '1px solid rgba(0,0,0, .3)',
     borderRadius: '10px',
     marginBottom: '4px',
-    transition: '0.3s ease',
     cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
-
     color: theme.palette.text.general,
+
     [theme.breakpoints.down(768)]: {
       border: 'none',
       margin: 0,

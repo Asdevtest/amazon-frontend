@@ -41,7 +41,6 @@ export const useStyles = makeStyles()(theme => ({
     transition: '.3s ease',
 
     '&:hover': {
-      transform: 'scale(1.01)',
       opacity: '0.8',
     },
   },

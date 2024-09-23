@@ -157,10 +157,6 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '4px',
     color: '#fff',
     cursor: 'pointer',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   disabledActionButton: {
