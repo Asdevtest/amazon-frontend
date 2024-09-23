@@ -36,7 +36,7 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
   const isDisabled =
     viewModel.disableCreateButton ||
     (viewModel.isChatNameNotChanged && viewModel.isChatImageNotChanged && viewModel.isChatUsersNotChanged) ||
-    (!viewModel.chatName?.trim() && viewModel.selectedUsersId?.length > 1)
+    (!viewModel.chatName?.trim() && (viewModel.selectedUsersId?.length > 1 || !!viewModel.chatToEdit))
 
   return (
     <div className={styles.root}>
