@@ -58,7 +58,13 @@ export const CustomAvatar: FC<CustomAvatarProps> = observer(props => {
 
   return (
     <>
-      <ImgCrop rotationSlider>
+      <ImgCrop
+        rotationSlider
+        cropShape="round"
+        modalTitle={t(TranslationKey['Edit image'])}
+        modalOk={t(TranslationKey.Ok)}
+        modalCancel={t(TranslationKey.Cancel)}
+      >
         <Upload
           ref={uploadRef}
           className={styles.upload}
