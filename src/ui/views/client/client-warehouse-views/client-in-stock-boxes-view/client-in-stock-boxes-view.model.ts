@@ -1145,7 +1145,17 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         updateBoxWhiteList,
       )
 
-      if (sourceData.shippingLabel === null) {
+      const isBarcodeChanged =
+        sourceData.items[0].barCode !== boxData.items[0].barCode || boxData.items[0].tmpBarCode.length !== 0
+      const isTransparencyFileChanged =
+        sourceData.items[0].transparencyFile !== boxData.items[0].transparencyFile ||
+        boxData.items[0].tmpTransparencyFile.length !== 0
+      const isclientTaskCommentChanged = boxData.clientTaskComment !== boxData.clientTaskComment
+
+      if (
+        sourceData.shippingLabel === null &&
+        (!isclientTaskCommentChanged || !isBarcodeChanged || !isTransparencyFileChanged)
+      ) {
         await BoxesModel.editBoxAtClient(id, {
           destinationId: boxData.destinationId,
           logicsTariffId: boxData.logicsTariffId,
@@ -1153,6 +1163,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           fbaNumber: boxData.fbaNumber,
           clientComment: boxData.clientComment,
           referenceId: boxData.referenceId,
+          // clientTaskComment: boxData.clientTaskComment,
           trackNumberText: boxData.trackNumberText,
           trackNumberFile: boxData.trackNumberFile,
           upsTrackNumber: boxData.upsTrackNumber,
