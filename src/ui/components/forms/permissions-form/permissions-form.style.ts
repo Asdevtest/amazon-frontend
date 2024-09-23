@@ -24,6 +24,18 @@ export const useStyles = makeStyles()(theme => ({
 
   cascader: {
     width: '400px',
+
+    '.ant-select-clear': {
+      display: 'none',
+    },
+
+    '.ant-select-selection-overflow': {
+      paddingLeft: '10px',
+
+      '.ant-select-selection-item': {
+        display: 'none !important',
+      },
+    },
   },
 
   cascaderPopup: {

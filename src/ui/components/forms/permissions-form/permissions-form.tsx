@@ -32,6 +32,8 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
   const filter = (inputValue: string, path: DefaultOptionType[]) =>
     path.some(option => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
 
+  console.log('viewModel.searchFocus', viewModel.searchFocus)
+
   return (
     <div className={styles.root}>
       {!viewModel.showSpecsCascader ? (
@@ -52,6 +54,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           <Cascader
             open
             multiple
+            removeIcon=" "
             size="large"
             maxTagCount="responsive"
             disabled={viewModel.mainLoading}
@@ -68,6 +71,8 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
             value={viewModel.currentPermissionOptions}
             // @ts-ignore
             onChange={viewModel.onChangePermissionOptions}
+            onFocus={viewModel.onChangeSearchFocus}
+            onBlur={viewModel.onChangeSearchFocus}
           />
         ) : viewModel.products.length === 0 ? (
           <Skeleton.Button active block className={styles.skeleton} />

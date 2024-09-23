@@ -38,6 +38,7 @@ export class PermissionsFormModel {
   selectedProductsCount = 0
   currentPermissionOptions: string[][] = []
   currentProductOptions: string[][] = []
+  searchFocus = false
   subUser?: IFullUser
   onCloseModal?: () => void
   onUpdateData?: () => void
@@ -46,14 +47,18 @@ export class PermissionsFormModel {
     return UserModel?.userInfo as unknown as IFullUser
   }
   get permissionsOptions() {
-    const mainOptions = this.groupPermissions.map(item => ({
-      label: item.title,
-      value: item._id,
-      children: item.permissions.map(el => ({
-        label: el.title,
-        value: el._id,
-      })),
-    }))
+    const mainOptions = this.groupPermissions
+      .toSorted((a, b) => a.hierarchy - b.hierarchy)
+      .map(item => ({
+        label: item.title,
+        value: item._id,
+        children: item.permissions
+          .toSorted((a, b) => a.hierarchy - b.hierarchy)
+          .map(el => ({
+            label: el.title,
+            value: el._id,
+          })),
+      }))
     const extraOption =
       this.withoutGroupPermissions.length > 0
         ? {
@@ -165,6 +170,10 @@ export class PermissionsFormModel {
 
   initSelectedSpecs() {
     this.userInfo?.allowedSpec?.forEach(spec => this.selectedSpecs.push(spec.type))
+  }
+
+  onChangeSearchFocus() {
+    this.searchFocus = !this.searchFocus
   }
 
   async getProduts() {
