@@ -21,11 +21,11 @@
  */
 export interface InlineObject79 {
     /**
-     * id профайла
+     * GUID поставщика, который нужно удалить в БД.
      * @type {string}
      * @memberof InlineObject79
      */
-    profileId: string;
+    suppliersId?: string;
 }
 
 
