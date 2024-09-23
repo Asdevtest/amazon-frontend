@@ -35,8 +35,8 @@ export const totalBalanceColumns = () => {
 
     {
       field: 'amountUs',
-      headerName: 'Amount usd',
-      renderHeader: () => <MultilineTextHeaderCell text="Amount Usd" />,
+      headerName: 'Amount Us',
+      renderHeader: () => <MultilineTextHeaderCell text="Amount Us" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
@@ -45,8 +45,8 @@ export const totalBalanceColumns = () => {
 
     {
       field: 'amountCa',
-      headerName: 'Amount cad',
-      renderHeader: () => <MultilineTextHeaderCell text="Amount cad" />,
+      headerName: 'Amount Ca',
+      renderHeader: () => <MultilineTextHeaderCell text="Amount Ca" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
@@ -55,8 +55,8 @@ export const totalBalanceColumns = () => {
 
     {
       field: 'amountMx',
-      headerName: 'Amount mxn',
-      renderHeader: () => <MultilineTextHeaderCell text="Amount mxn" />,
+      headerName: 'Amount Mx',
+      renderHeader: () => <MultilineTextHeaderCell text="Amount Mx" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
