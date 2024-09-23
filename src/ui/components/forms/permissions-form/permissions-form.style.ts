@@ -10,10 +10,19 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   content: {
+    position: 'relative',
     height: '580px',
     padding: '10px',
     background: theme.palette.background.general,
     borderRadius: '16px',
+  },
+
+  searchPlaseholder: {
+    position: 'absolute',
+    top: 19,
+    left: 23,
+    color: theme.palette.text.second,
+    opacity: 0.5,
   },
 
   footer: {

@@ -1,4 +1,5 @@
 import { RadioChangeEvent } from 'antd'
+import { DefaultOptionType } from 'antd/es/cascader'
 import { makeAutoObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -86,10 +87,12 @@ export class PermissionsFormModel {
     const mainOptions = this.shops.map(item => ({
       label: item.name,
       value: item._id,
-      children: item.products?.map((el: any) => ({
+      children: item.products?.map(el => ({
         label: el.amazonTitle,
         value: el._id,
         selected: el.selected,
+        asin: el.asin,
+        sku: el.skuByClient,
       })),
     }))
     const extraOption =
@@ -101,6 +104,8 @@ export class PermissionsFormModel {
               label: el.amazonTitle,
               value: el._id,
               selected: el.selected,
+              asin: el.asin,
+              sku: el.skuByClient,
             })),
           }
         : null
@@ -141,6 +146,9 @@ export class PermissionsFormModel {
 
     return { shopIds, productIds }
   }
+  get showCustomSearchPlaseholder() {
+    return !this.searchFocus && !this.mainLoading
+  }
 
   constructor({ subUser, onCloseModal, onUpdateData }: PermissionsFormProps) {
     this.subUser = subUser
@@ -172,8 +180,8 @@ export class PermissionsFormModel {
     this.userInfo?.allowedSpec?.forEach(spec => this.selectedSpecs.push(spec.type))
   }
 
-  onChangeSearchFocus() {
-    this.searchFocus = !this.searchFocus
+  onChangeSearchFocus(value: boolean) {
+    this.searchFocus = value
   }
 
   async getProduts() {
@@ -199,7 +207,7 @@ export class PermissionsFormModel {
         if (el.children?.length === 0) {
           this.currentProductOptions.push([el.value])
         } else {
-          el.children?.forEach((item: any) => {
+          el.children?.forEach(item => {
             if (item.selected) {
               this.currentProductOptions.push([el.value, item.value])
             }
@@ -303,4 +311,7 @@ export class PermissionsFormModel {
       toast.error(t(TranslationKey['User permissions are not changed']))
     }
   }
+
+  filter = (inputValue: string, path: DefaultOptionType[]) =>
+    path.some(option => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
 }

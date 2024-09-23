@@ -1,5 +1,4 @@
 import { Cascader, Skeleton } from 'antd'
-import { DefaultOptionType } from 'antd/es/cascader'
 import Paragraph from 'antd/es/typography/Paragraph'
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
@@ -29,10 +28,8 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
   const viewModel = useMemo(() => new PermissionsFormModel(props), [])
   const { classes: styles } = useStyles()
 
-  const filter = (inputValue: string, path: DefaultOptionType[]) =>
-    path.some(option => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
-
-  console.log('viewModel.searchFocus', viewModel.searchFocus)
+  const customSearchPlaseholder =
+    viewModel.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS ? 'Search by Title' : 'Search by Title, ASIN, SKU'
 
   return (
     <div className={styles.root}>
@@ -54,12 +51,10 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           <Cascader
             open
             multiple
-            removeIcon=" "
             size="large"
             maxTagCount="responsive"
             disabled={viewModel.mainLoading}
-            placeholder="Search by Title"
-            showSearch={{ filter, matchInputWidth: false }}
+            showSearch={{ filter: viewModel.filter }}
             options={viewModel.permissionsOptions}
             rootClassName={styles.cascader}
             popupClassName={styles.cascaderPopup}
@@ -71,8 +66,8 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
             value={viewModel.currentPermissionOptions}
             // @ts-ignore
             onChange={viewModel.onChangePermissionOptions}
-            onFocus={viewModel.onChangeSearchFocus}
-            onBlur={viewModel.onChangeSearchFocus}
+            onFocus={() => viewModel.onChangeSearchFocus(true)}
+            onBlur={() => viewModel.onChangeSearchFocus(false)}
           />
         ) : viewModel.products.length === 0 ? (
           <Skeleton.Button active block className={styles.skeleton} />
@@ -83,8 +78,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
             size="large"
             maxTagCount="responsive"
             disabled={viewModel.mainLoading}
-            placeholder="Search by Title"
-            showSearch={{ filter }}
+            showSearch={{ filter: viewModel.filter }}
             options={viewModel.shopsOptions}
             rootClassName={styles.cascader}
             popupClassName={styles.cascaderPopup}
@@ -96,8 +90,14 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
             value={viewModel.currentProductOptions}
             // @ts-ignore
             onChange={viewModel.onChangeProductsOptions}
+            onFocus={() => viewModel.onChangeSearchFocus(true)}
+            onBlur={() => viewModel.onChangeSearchFocus(false)}
           />
         )}
+
+        {viewModel.showCustomSearchPlaseholder ? (
+          <p className={styles.searchPlaseholder}>{t(TranslationKey[customSearchPlaseholder])}</p>
+        ) : null}
       </div>
 
       <div className={styles.footer}>
