@@ -60,13 +60,14 @@ export const ProfilesForm: FC<ProfilesFormProps> = observer(props => {
             title={t(TranslationKey['This profile has already been used! Do you want to continue?'])}
             okText={t(TranslationKey.Yes)}
             cancelText={t(TranslationKey.No)}
+            onConfirm={handleSubmit}
           >
             <CustomButton disabled={!requestId && !viewModel.value} type="primary">
               {t(TranslationKey.Approve)}
             </CustomButton>
           </Popconfirm>
         ) : (
-          <CustomButton disabled={!requestId && !viewModel.value} type="primary">
+          <CustomButton disabled={!requestId && !viewModel.value} type="primary" onClick={handleSubmit}>
             {t(TranslationKey.Approve)}
           </CustomButton>
         )}
