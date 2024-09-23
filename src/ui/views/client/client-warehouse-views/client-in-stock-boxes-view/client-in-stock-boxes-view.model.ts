@@ -1183,13 +1183,11 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           reason: priorityReason,
         })
 
-        runInAction(() => {
-          toast.success(
-            `${t(TranslationKey['Formed a task for storekeeper'])} ${sourceData.storekeeper?.name} ${t(
-              TranslationKey['to change the Box'],
-            )} № ${sourceData.humanFriendlyId}`,
-          )
-        })
+        toast.success(
+          `${t(TranslationKey['Formed a task for storekeeper'])} ${sourceData.storekeeper?.name} ${t(
+            TranslationKey['to change the Box'],
+          )} № ${sourceData.humanFriendlyId}`,
+        )
       }
 
       await this.updateBarCodesInInventory(dataToBarCodeChange)
