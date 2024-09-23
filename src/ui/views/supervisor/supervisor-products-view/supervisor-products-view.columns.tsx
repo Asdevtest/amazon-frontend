@@ -14,7 +14,7 @@ import {
   ProductCell,
   RedFlagsCell,
   TagsCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -106,9 +106,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'createdBy',
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <UserMiniCell userName={row?.createdBy?.name} userId={row?.createdBy?._id} />
-      ),
+      renderCell: ({ row }: GridRowModel) => <UserCell name={row?.createdBy?.name} id={row?.createdBy?._id} />,
       valueGetter: ({ row }: GridRowModel) => row?.createdBy?.name,
       width: 180,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -118,7 +116,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'buyer',
       headerName: t(TranslationKey.Buyer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
-      renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row?.buyer?.name} userId={row?.buyer?._id} />,
+      renderCell: ({ row }: GridRowModel) => <UserCell name={row?.buyer?.name} id={row?.buyer?._id} />,
       valueGetter: ({ row }: GridRowModel) => row?.buyer?.name,
 
       width: 180,

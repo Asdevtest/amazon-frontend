@@ -15,7 +15,7 @@ import {
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserMiniCell,
+  UserCell,
   VacantRequestPriceCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -107,7 +107,7 @@ export const freelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 145,
-    renderCell: params => <UserMiniCell userName={params.row.createdBy.name} userId={params.row.createdBy._id} />,
+    renderCell: params => <UserCell name={params.row.createdBy.name} id={params.row.createdBy._id} />,
 
     columnKey: columnnsKeys.shared.OBJECT,
   },
@@ -194,9 +194,9 @@ export const freelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
     width: 145,
     renderCell: ({ row }) => (
-      <UserMiniCell
-        userName={row.proposals?.[0]?.sub?.name || row.announcement?.createdBy?.name}
-        userId={row.proposals?.[0]?.sub?._id || row.announcement?.createdBy?._id}
+      <UserCell
+        name={row.proposals?.[0]?.sub?.name || row.announcement?.createdBy?.name}
+        id={row.proposals?.[0]?.sub?._id || row.announcement?.createdBy?._id}
       />
     ),
 

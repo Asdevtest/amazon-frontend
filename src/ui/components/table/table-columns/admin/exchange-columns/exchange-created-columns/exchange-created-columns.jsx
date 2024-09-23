@@ -5,7 +5,7 @@ import {
   NormDateCell,
   ProductCell,
   Text,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -75,9 +75,7 @@ export const exchangeСreatedColumns = () => [
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
-    ),
+    renderCell: params => <UserCell name={params.value} id={params.row.originalData.createdBy?._id} />,
     width: 200,
   },
 

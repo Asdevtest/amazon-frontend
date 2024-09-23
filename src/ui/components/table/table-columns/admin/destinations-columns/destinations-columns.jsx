@@ -2,7 +2,7 @@ import { MdOutlineDelete } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ActionButtonsCell, MultilineTextHeaderCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { ActionButtonsCell, MultilineTextHeaderCell, UserCell } from '@components/data-grid/data-grid-cells'
 import { EditIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
@@ -18,10 +18,7 @@ export const destinationsColumns = handlers => [
 
     width: 150,
     renderCell: params => (
-      <UserLinkCell
-        name={params?.row?.originalData?.storekeeper?.name}
-        userId={params?.row?.originalData?.storekeeper?._id}
-      />
+      <UserCell name={params?.row?.originalData?.storekeeper?.name} id={params?.row?.originalData?.storekeeper?._id} />
     ),
   },
 

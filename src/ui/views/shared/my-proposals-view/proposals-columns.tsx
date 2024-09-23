@@ -25,7 +25,7 @@ import {
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -175,7 +175,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
       width: 180,
       renderCell: (params: GridCellParams) => (
-        <UserMiniCell userName={params?.row?.request?.createdBy?.name} userId={params?.row?.request?.createdBy?._id} />
+        <UserCell name={params?.row?.request?.createdBy?.name} id={params?.row?.request?.createdBy?._id} />
       ),
       columnKey: columnnsKeys.shared.OBJECT,
     },

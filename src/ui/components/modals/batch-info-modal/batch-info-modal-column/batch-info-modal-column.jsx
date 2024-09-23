@@ -14,7 +14,7 @@ import {
   OrdersIdsItemsCell,
   PricePerUnitCell,
   StringListCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -95,7 +95,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-    renderCell: params => <UserMiniCell userName={params.row?.client?.name} userId={params.row?.client?._id} />,
+    renderCell: params => <UserCell name={params.row?.client?.name} id={params.row?.client?._id} />,
     valueGetter: ({ row }) => row?.client?.name || t(TranslationKey.Missing),
     width: 180,
   },

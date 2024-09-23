@@ -18,7 +18,7 @@ import {
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -170,10 +170,9 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
       renderCell: params => (
-        <UserLinkCell
-          blackText
-          name={params.row.sub ? params.row.sub?.name : params.row.createdBy?.name}
-          userId={params.row.sub ? params.row.sub?._id : params.row.createdBy?._id}
+        <UserCell
+          name={params.row.sub?.name || params.row.createdBy?.name}
+          id={params.row.sub?._id || params.row.createdBy?._id}
         />
       ),
       width: 110,
@@ -228,11 +227,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service representative'])} />,
 
       renderCell: params => (
-        <UserLinkCell
-          blackText
-          name={params.row.announcement?.createdBy.name}
-          userId={params.row.announcement?.createdBy._id}
-        />
+        <UserCell name={params.row.announcement?.createdBy.name} id={params.row.announcement?.createdBy._id} />
       ),
       width: 160,
 

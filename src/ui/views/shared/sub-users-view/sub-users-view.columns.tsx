@@ -27,9 +27,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       field: 'name',
       headerName: t(TranslationKey.User),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <UserCell userId={row?._id} name={row?.name} email={row?.email} rating={row?.rating} />
-      ),
+      renderCell: ({ row }) => <UserCell id={row?._id} name={row?.name} />,
       width: 300,
     },
 
@@ -46,7 +44,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       field: 'note',
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <Text
           isCell
           editMode
@@ -64,7 +62,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
+      renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       width: 115,
     },
 

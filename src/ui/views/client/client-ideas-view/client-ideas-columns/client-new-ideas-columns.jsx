@@ -10,7 +10,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -162,11 +162,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
       renderCell: ({ row }) => (
-        <UserLinkCell
-          blackText
-          name={row.sub?.name || row.createdBy?.name}
-          userId={row.sub?._id || row?.createdBy?._id}
-        />
+        <UserCell name={row.sub?.name || row.createdBy?.name} id={row.sub?._id || row?.createdBy?._id} />
       ),
       width: 130,
 

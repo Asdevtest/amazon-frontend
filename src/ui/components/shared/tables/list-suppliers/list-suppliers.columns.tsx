@@ -9,7 +9,7 @@ import {
   PaymentMethodsCell,
   PriceVariationsCell,
   SupplierWithIconsCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
 import { Text } from '@components/shared/text'
@@ -146,7 +146,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'createdBy',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
-    renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.createdBy.name} userId={row.createdBy._id} />,
+    renderCell: ({ row }: GridRowModel) => <UserCell name={row.createdBy.name} id={row.createdBy._id} />,
     filterable: false,
     sortable: false,
     width: 175,

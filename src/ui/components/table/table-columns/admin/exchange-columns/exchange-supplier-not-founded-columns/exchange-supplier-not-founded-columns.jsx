@@ -5,7 +5,7 @@ import {
   NormDateCell,
   ProductCell,
   Text,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -75,9 +75,7 @@ export const exchangeSupplierNotFoundedColumns = () => [
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
-    ),
+    renderCell: params => <UserCell name={params.value} id={params.row.originalData.createdBy?._id} />,
     width: 200,
   },
   {
@@ -85,9 +83,7 @@ export const exchangeSupplierNotFoundedColumns = () => [
     headerName: t(TranslationKey.Supervisor),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.checkedBy?._id} />
-    ),
+    renderCell: params => <UserCell name={params.value} id={params.row.originalData.checkedBy?._id} />,
     width: 200,
   },
 
@@ -96,7 +92,7 @@ export const exchangeSupplierNotFoundedColumns = () => [
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
+    renderCell: params => <UserCell name={params.value} id={params.row.originalData.buyer?._id} />,
     width: 200,
   },
 
