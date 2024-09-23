@@ -21,61 +21,11 @@
  */
 export interface InlineObject74 {
     /**
-<<<<<<< HEAD
-     * GUID спека
+     * id профайла
      * @type {string}
      * @memberof InlineObject74
      */
-    specId?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject74
-     */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject74
-     */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject74
-     */
-    description?: string;
-=======
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineObject74
-     */
-    asin?: string;
-    /**
-     * Причина
-     * @type {string}
-     * @memberof InlineObject74
-     */
-    reason?: string;
-    /**
-     * Стратегия
-     * @type {string}
-     * @memberof InlineObject74
-     */
-    strategy?: InlineObject74StrategyEnum;
+    profileId: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject74StrategyEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40'
->>>>>>> dev
-}
-
 
 

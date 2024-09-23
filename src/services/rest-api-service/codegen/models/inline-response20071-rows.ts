@@ -13,37 +13,32 @@
  */
 
 
-<<<<<<< HEAD
-import { InlineResponse20035InventoryShop } from './inline-response20035-inventory-shop';
-=======
-import { InlineResponse20071Products } from './inline-response20071-products';
->>>>>>> dev
+import { InlineResponse20045InventoryShop } from './inline-response20045-inventory-shop';
 
 /**
- * 
+ * Схема репорта amazon_data
  * @export
  * @interface InlineResponse20071Rows
  */
 export interface InlineResponse20071Rows {
     /**
-     * ID магазина.
+     * Гуид записи
      * @type {string}
      * @memberof InlineResponse20071Rows
      */
     _id?: string;
     /**
-     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * 
      * @type {string}
      * @memberof InlineResponse20071Rows
      */
-    name?: string;
+    productId?: string;
     /**
      * 
-<<<<<<< HEAD
-     * @type {InlineResponse20035InventoryShop}
+     * @type {InlineResponse20045InventoryShop}
      * @memberof InlineResponse20071Rows
      */
-    shop?: InlineResponse20035InventoryShop;
+    shop?: InlineResponse20045InventoryShop;
     /**
      * Гуид shop-a
      * @type {string}
@@ -272,12 +267,6 @@ export interface InlineResponse20071Rows {
      * @memberof InlineResponse20071Rows
      */
     updatedAt?: string;
-=======
-     * @type {Array<InlineResponse20071Products>}
-     * @memberof InlineResponse20071Rows
-     */
-    products?: Array<InlineResponse20071Products>;
->>>>>>> dev
 }
 
 

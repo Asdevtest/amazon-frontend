@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes';
 
 /**
  * 
@@ -22,21 +21,11 @@ import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './
  */
 export interface InlineObject35 {
     /**
-     * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
-     * @memberof InlineObject35
-     */
-<<<<<<< HEAD
-    itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
-=======
-    userIds: Array<string>;
-    /**
-     * Название группового чата
+     * GUID коробки разделение которой отменяем.
      * @type {string}
      * @memberof InlineObject35
      */
-    title: string;
->>>>>>> dev
+    guid?: string;
 }
 
 

@@ -15,41 +15,17 @@
 
 
 /**
-<<<<<<< HEAD
- * Схема подтверждения возрата коробок на склад
-=======
- * Схема редактирования в первый раз shippingLabel коробки
->>>>>>> dev
+ * 
  * @export
  * @interface InlineObject54
  */
 export interface InlineObject54 {
     /**
-<<<<<<< HEAD
-     * GUID коробки, который планируем изменить
-     * @type {string}
+     * Зашита листинга (bool)
+     * @type {boolean}
      * @memberof InlineObject54
      */
-    boxId: string;
-    /**
-     * GUID тарифа, на которую планируем изменить
-     * @type {string}
-     * @memberof InlineObject54
-     */
-    logicsTariffId: string;
-    /**
-     * GUID дестинейшена.
-     * @type {string}
-     * @memberof InlineObject54
-     */
-    destinationId?: string;
-=======
-     * shippingLabel
-     * @type {string}
-     * @memberof InlineObject54
-     */
-    shippingLabel: string;
->>>>>>> dev
+    transparency?: boolean;
 }
 
 

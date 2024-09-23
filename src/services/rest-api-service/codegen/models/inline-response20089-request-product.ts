@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20035Shop } from './inline-response20035-shop';
+import { InlineResponse20045Shop } from './inline-response20045-shop';
 
 /**
  * 
@@ -53,10 +53,10 @@ export interface InlineResponse20089RequestProduct {
     images?: Array<string>;
     /**
      * 
-     * @type {InlineResponse20035Shop}
+     * @type {InlineResponse20045Shop}
      * @memberof InlineResponse20089RequestProduct
      */
-    shop?: InlineResponse20035Shop;
+    shop?: InlineResponse20045Shop;
 }
 
 

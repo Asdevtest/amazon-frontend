@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
  * 
@@ -21,25 +22,23 @@
  */
 export interface InlineObject72 {
     /**
-<<<<<<< HEAD
-     * Сумма воврата
-     * @type {number}
-     * @memberof InlineObject72
-     */
-    refundPrice?: number;
-=======
-     * Комментарий клиента
+     * Название профиля
      * @type {string}
      * @memberof InlineObject72
      */
-    clientComment?: string;
+    name: string;
     /**
-     * Комментарий баера
+     * Название ОС
      * @type {string}
      * @memberof InlineObject72
      */
-    buyerComment?: string;
->>>>>>> dev
+    os?: string;
+    /**
+     * 
+     * @type {ApiV1GologinProfileNavigator}
+     * @memberof InlineObject72
+     */
+    navigator?: ApiV1GologinProfileNavigator;
 }
 
 

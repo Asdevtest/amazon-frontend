@@ -15,43 +15,17 @@
 
 
 /**
- * Схема создания/апдейта рекомендаций
+ * 
  * @export
  * @interface InlineObject55
  */
 export interface InlineObject55 {
     /**
-<<<<<<< HEAD
-     * GUID продукта.
-     * @type {string}
+     * массив GUIDов оплаченных товаров
+     * @type {Array<string>}
      * @memberof InlineObject55
      */
-    productId: string;
-    /**
-     * GUID сторкипера.
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    storekeeperId: string;
-    /**
-     * Рекомендуемое значение
-     * @type {number}
-     * @memberof InlineObject55
-     */
-    recommendedValue: number;
-=======
-     * Тег
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    title: string;
-    /**
-     * Color
-     * @type {string}
-     * @memberof InlineObject55
-     */
-    color?: string;
->>>>>>> dev
+    guids?: Array<string>;
 }
 
 

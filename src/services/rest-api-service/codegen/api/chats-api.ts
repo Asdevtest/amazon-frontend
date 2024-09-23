@@ -25,17 +25,13 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-<<<<<<< HEAD
-import { InlineObject40 } from '../models';
-=======
-import { InlineObject35 } from '../models';
->>>>>>> dev
+import { InlineObject51 } from '../models';
 // @ts-ignore
-import { InlineResponse20028 } from '../models';
+import { InlineResponse20038 } from '../models';
 // @ts-ignore
-import { InlineResponse20029 } from '../models';
+import { InlineResponse20039 } from '../models';
 // @ts-ignore
-import { InlineResponse20030 } from '../models';
+import { InlineResponse20040 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -49,20 +45,12 @@ export const ChatsApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * Метод создает групповой чат не привязаный к другим инстансам   
          * @summary Создать групповой чат
-<<<<<<< HEAD
-         * @param {InlineObject40} [body] 
-=======
-         * @param {InlineObject35} [body] 
->>>>>>> dev
+         * @param {InlineObject51} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-<<<<<<< HEAD
-        apiV1ChatsGroupPost: async (body?: InlineObject40, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
-=======
-        apiV1ChatsGroupPost: async (body?: InlineObject35, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
->>>>>>> dev
+        apiV1ChatsGroupPost: async (body?: InlineObject51, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/chats/group`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -332,20 +320,12 @@ export const ChatsApiFp = function(configuration?: Configuration) {
         /**
          * Метод создает групповой чат не привязаный к другим инстансам   
          * @summary Создать групповой чат
-<<<<<<< HEAD
-         * @param {InlineObject40} [body] 
-=======
-         * @param {InlineObject35} [body] 
->>>>>>> dev
+         * @param {InlineObject51} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-<<<<<<< HEAD
-        async apiV1ChatsGroupPost(body?: InlineObject40, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-=======
-        async apiV1ChatsGroupPost(body?: InlineObject35, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
->>>>>>> dev
+        async apiV1ChatsGroupPost(body?: InlineObject51, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ChatsGroupPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -381,7 +361,7 @@ export const ChatsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ChatsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20029>> {
+        async apiV1ChatsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20039>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ChatsMediaGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -396,7 +376,7 @@ export const ChatsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ChatsMediaPagGuidGet(type: 'allVideo' | 'allImages' | 'allFiles', guid: string, limit?: number, offset?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20030>>> {
+        async apiV1ChatsMediaPagGuidGet(type: 'allVideo' | 'allImages' | 'allFiles', guid: string, limit?: number, offset?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20040>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ChatsMediaPagGuidGet(type, guid, limit, offset, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -407,7 +387,7 @@ export const ChatsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1ChatsNamesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20028>>> {
+        async apiV1ChatsNamesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20038>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1ChatsNamesGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -424,20 +404,12 @@ export const ChatsApiFactory = function (configuration?: Configuration, basePath
         /**
          * Метод создает групповой чат не привязаный к другим инстансам   
          * @summary Создать групповой чат
-<<<<<<< HEAD
-         * @param {InlineObject40} [body] 
-=======
-         * @param {InlineObject35} [body] 
->>>>>>> dev
+         * @param {InlineObject51} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-<<<<<<< HEAD
-        apiV1ChatsGroupPost(body?: InlineObject40, acceptEncoding?: string, options?: any): AxiosPromise<string> {
-=======
-        apiV1ChatsGroupPost(body?: InlineObject35, acceptEncoding?: string, options?: any): AxiosPromise<string> {
->>>>>>> dev
+        apiV1ChatsGroupPost(body?: InlineObject51, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1ChatsGroupPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -470,7 +442,7 @@ export const ChatsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ChatsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20029> {
+        apiV1ChatsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20039> {
             return localVarFp.apiV1ChatsMediaGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -484,7 +456,7 @@ export const ChatsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ChatsMediaPagGuidGet(type: 'allVideo' | 'allImages' | 'allFiles', guid: string, limit?: number, offset?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20030>> {
+        apiV1ChatsMediaPagGuidGet(type: 'allVideo' | 'allImages' | 'allFiles', guid: string, limit?: number, offset?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20040>> {
             return localVarFp.apiV1ChatsMediaPagGuidGet(type, guid, limit, offset, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -494,7 +466,7 @@ export const ChatsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1ChatsNamesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20028>> {
+        apiV1ChatsNamesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20038>> {
             return localVarFp.apiV1ChatsNamesGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -508,17 +480,10 @@ export const ChatsApiFactory = function (configuration?: Configuration, basePath
 export interface ChatsApiApiV1ChatsGroupPostRequest {
     /**
      * 
-<<<<<<< HEAD
-     * @type {InlineObject40}
+     * @type {InlineObject51}
      * @memberof ChatsApiApiV1ChatsGroupPost
      */
-    readonly body?: InlineObject40
-=======
-     * @type {InlineObject35}
-     * @memberof ChatsApiApiV1ChatsGroupPost
-     */
-    readonly body?: InlineObject35
->>>>>>> dev
+    readonly body?: InlineObject51
 
     /**
      * 

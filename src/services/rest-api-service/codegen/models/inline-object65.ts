@@ -13,85 +13,31 @@
  */
 
 
-<<<<<<< HEAD
-import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tags';
-=======
-import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } from './api-v1-integrations-sellerboard-warehouse-products-link-sku-warehouse-stocks';
->>>>>>> dev
 
 /**
- * 
+ * Схема подтверждения возрата коробок на склад
  * @export
  * @interface InlineObject65
  */
 export interface InlineObject65 {
     /**
-     * 
-<<<<<<< HEAD
-     * @type {number}
-     * @memberof InlineObject65
-     */
-    amazon?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineObject65
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineObject65
-     */
-    fbafee?: number;
-    /**
-     * ФБА кол-во
-     * @type {number}
-     * @memberof InlineObject65
-     */
-    fbaamount?: number;
-    /**
-     * Код статуса
-     * @type {number}
-     * @memberof InlineObject65
-     */
-    status?: number;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineObject65
-     */
-    profit?: number;
-    /**
-     * Маржа
-     * @type {number}
-     * @memberof InlineObject65
-     */
-    margin?: number;
-    /**
-     * Примечания байера.
+     * GUID коробки, который планируем изменить
      * @type {string}
      * @memberof InlineObject65
      */
-    buyersComment?: string;
+    boxId: string;
     /**
-     * 
-     * @type {Array<ApiV1ClientsProductsGuidTags>}
-     * @memberof InlineObject65
-     */
-    tags?: Array<ApiV1ClientsProductsGuidTags>;
-=======
+     * GUID тарифа, на которую планируем изменить
      * @type {string}
      * @memberof InlineObject65
      */
-    productId: string;
+    logicsTariffId: string;
     /**
-     * 
-     * @type {Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>}
+     * GUID дестинейшена.
+     * @type {string}
      * @memberof InlineObject65
      */
-    warehouseStocks: Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>;
->>>>>>> dev
+    destinationId?: string;
 }
 
 

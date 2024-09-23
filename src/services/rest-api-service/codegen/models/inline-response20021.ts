@@ -13,15 +13,12 @@
  */
 
 
-<<<<<<< HEAD
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1BoxesClientsLightBatch } from './api-v1-boxes-clients-light-batch';
-import { ApiV1BoxesClientsLightDestination } from './api-v1-boxes-clients-light-destination';
-import { ApiV1BoxesClientsLightItems } from './api-v1-boxes-clients-light-items';
-import { ApiV1BoxesClientsLightLogicsTariff } from './api-v1-boxes-clients-light-logics-tariff';
-import { InlineResponse20019VariationTariff } from './inline-response20019-variation-tariff';
-=======
->>>>>>> dev
+import { ApiV1BatchesBatch } from './api-v1-batches-batch';
+import { InlineResponse20021Destination } from './inline-response20021-destination';
+import { InlineResponse20021Items } from './inline-response20021-items';
+import { InlineResponse20021LogicsTariff } from './inline-response20021-logics-tariff';
+import { InlineResponse20021VariationTariff } from './inline-response20021-variation-tariff';
 
 /**
  * 
@@ -30,7 +27,6 @@ import { InlineResponse20019VariationTariff } from './inline-response20019-varia
  */
 export interface InlineResponse20021 {
     /**
-<<<<<<< HEAD
      * GUID коробки.
      * @type {string}
      * @memberof InlineResponse20021
@@ -43,23 +39,17 @@ export interface InlineResponse20021 {
      */
     humanFriendlyId?: number;
     /**
-     * ККоличества в коробке.
+     * Количества в коробке.
      * @type {number}
      * @memberof InlineResponse20021
      */
     amount?: number;
     /**
-     * Total Amount
-     * @type {number}
+     * Статус коробки
+     * @type {string}
      * @memberof InlineResponse20021
      */
-    totalAmount?: number;
-    /**
-     * Total Price
-     * @type {number}
-     * @memberof InlineResponse20021
-     */
-    totalPrice?: number;
+    status?: InlineResponse20021StatusEnum;
     /**
      * Final weight
      * @type {number}
@@ -67,11 +57,11 @@ export interface InlineResponse20021 {
      */
     finalWeight?: number;
     /**
-     * Статус коробки
+     * Storage in boxes
      * @type {string}
      * @memberof InlineResponse20021
      */
-    status?: string;
+    storage?: string;
     /**
      * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
      * @type {boolean}
@@ -181,55 +171,17 @@ export interface InlineResponse20021 {
      */
     fbaNumber?: string;
     /**
-     * Итого за доставку.
+     * Рейт за кг из тарифа
      * @type {number}
      * @memberof InlineResponse20021
      */
-    deliveryTotalPrice?: number;
-    /**
-     * Обновление итога за доставку.
-     * @type {number}
-     * @memberof InlineResponse20021
-     */
-    deliveryTotalPriceChanged?: number;
-=======
-     * GUID продукта в базе данных
-     * @type {string}
-     * @memberof InlineResponse20021
-     */
-    _id?: string;
-    /**
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineResponse20021
-     */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20021
-     */
-    skuByClient?: string;
->>>>>>> dev
+    lastRateTariff?: number;
     /**
      * Массив картинок.
      * @type {Array<string>}
      * @memberof InlineResponse20021
      */
     images?: Array<string>;
-    /**
-<<<<<<< HEAD
-     * Nullable ISO Date
-     * @type {string}
-     * @memberof InlineResponse20021
-     */
-    deadline?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20021
-     */
-    createdAt?: string;
     /**
      * 
      * @type {string}
@@ -238,16 +190,16 @@ export interface InlineResponse20021 {
     updatedAt?: string;
     /**
      * 
-     * @type {InlineResponse20019VariationTariff}
+     * @type {InlineResponse20021VariationTariff}
      * @memberof InlineResponse20021
      */
-    variationTariff?: InlineResponse20019VariationTariff;
+    variationTariff?: InlineResponse20021VariationTariff;
     /**
      * Массив коробок.
-     * @type {Array<ApiV1BoxesClientsLightItems>}
+     * @type {Array<InlineResponse20021Items>}
      * @memberof InlineResponse20021
      */
-    items?: Array<ApiV1BoxesClientsLightItems>;
+    items?: Array<InlineResponse20021Items>;
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
@@ -268,35 +220,39 @@ export interface InlineResponse20021 {
     client?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {InlineResponse20021Destination}
      * @memberof InlineResponse20021
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    destination?: InlineResponse20021Destination;
     /**
      * 
-     * @type {ApiV1BoxesClientsLightDestination}
+     * @type {InlineResponse20021LogicsTariff}
      * @memberof InlineResponse20021
      */
-    destination?: ApiV1BoxesClientsLightDestination;
+    logicsTariff?: InlineResponse20021LogicsTariff;
     /**
      * 
-     * @type {ApiV1BoxesClientsLightLogicsTariff}
+     * @type {ApiV1BatchesBatch}
      * @memberof InlineResponse20021
      */
-    logicsTariff?: ApiV1BoxesClientsLightLogicsTariff;
-    /**
-     * 
-     * @type {ApiV1BoxesClientsLightBatch}
-     * @memberof InlineResponse20021
-     */
-    batch?: ApiV1BoxesClientsLightBatch;
-=======
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20021
-     */
-    amazonTitle?: string;
->>>>>>> dev
+    batch?: ApiV1BatchesBatch;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse20021StatusEnum {
+    New = 'NEW',
+    InStock = 'IN_STOCK',
+    RequestedSendToBatch = 'REQUESTED_SEND_TO_BATCH',
+    NeedConfirmingToDeliveryPriceChange = 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE',
+    InBatch = 'IN_BATCH',
+    NeedToUpdateTheTariff = 'NEED_TO_UPDATE_THE_TARIFF',
+    InBatchOnTheWay = 'IN_BATCH_ON_THE_WAY',
+    FinishPrepCentrUsa = 'FINISH_PREP_CENTR_USA',
+    AcceptedInProcessing = 'ACCEPTED_IN_PROCESSING'
+}
+
 
 

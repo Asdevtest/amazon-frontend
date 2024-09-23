@@ -21,45 +21,53 @@
  */
 export interface InlineObject48 {
     /**
-<<<<<<< HEAD
-     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @type {number}
-     * @memberof InlineObject48
-     */
-    taskId: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject48
-     */
-    boxesBefore?: Array<string>;
-    /**
-=======
->>>>>>> dev
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject48
-     */
-    boxes: Array<string>;
-    /**
-     * Тип операции
-     * @type {string}
-     * @memberof InlineObject48
-     */
-<<<<<<< HEAD
-    operationType: InlineObject48OperationTypeEnum;
-    /**
-     * Комментарий клиента.
-     * @type {string}
-     * @memberof InlineObject48
-     */
-    clientComment?: string;
-    /**
-     * Комментарий баера.
+     * комментарии байера.
      * @type {string}
      * @memberof InlineObject48
      */
     buyerComment?: string;
+    /**
+     * GUID storekeeper-a
+     * @type {string}
+     * @memberof InlineObject48
+     */
+    storekeeperId?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject48
+     */
+    paymentDetails?: Array<string>;
+    /**
+     * Цена в юанях
+     * @type {number}
+     * @memberof InlineObject48
+     */
+    priceInYuan?: number;
+    /**
+     * Цена доставки партии в юанях
+     * @type {number}
+     * @memberof InlineObject48
+     */
+    priceBatchDeliveryInYuan?: number;
+    /**
+     * GUID тарифа доставки.
+     * @type {string}
+     * @memberof InlineObject48
+     */
+    logicsTariffId?: string;
+    /**
+     * GUID пункта назначения.
+     * @type {string}
+     * @memberof InlineObject48
+     */
+    destinationId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject48
+     */
+    item?: string;
     /**
      * Массив картинок.
      * @type {Array<string>}
@@ -67,55 +75,53 @@ export interface InlineObject48 {
      */
     images?: Array<string>;
     /**
-     * Комментарий работника склада.
-     * @type {string}
-     * @memberof InlineObject48
-     */
-    storekeeperComment?: string;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineObject48
-     */
-    priority?: InlineObject48PriorityEnum;
-    /**
-     * Причина приоритета
-     * @type {string}
-     * @memberof InlineObject48
-     */
-    reason?: string;
-}
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject48OperationTypeEnum {
-    Merge = 'merge',
-    Split = 'split',
-    Receive = 'receive',
-    Edit = 'edit'
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject48PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-=======
-    clientComment: string;
-    /**
-     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * Курс юань доллар.
      * @type {number}
      * @memberof InlineObject48
      */
-    priceForClient: number;
->>>>>>> dev
+    yuanToDollarRate?: number;
+    /**
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineObject48
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
+     * @type {string}
+     * @memberof InlineObject48
+     */
+    trackingNumberChina?: string;
+    /**
+     * GUID поставщика, для данного заказа.
+     * @type {string}
+     * @memberof InlineObject48
+     */
+    orderSupplierId?: string;
+    /**
+     * Cумма частичной оплаты
+     * @type {number}
+     * @memberof InlineObject48
+     */
+    partialPaymentAmountRmb?: number;
+    /**
+     * Cумма частичной оплаты
+     * @type {number}
+     * @memberof InlineObject48
+     */
+    partiallyPaid?: number;
+    /**
+     * Оплачивается ли заказ частично
+     * @type {boolean}
+     * @memberof InlineObject48
+     */
+    partialPayment?: boolean;
+    /**
+     * Кол-во в заказе
+     * @type {number}
+     * @memberof InlineObject48
+     */
+    amount?: number;
 }
-
 
 

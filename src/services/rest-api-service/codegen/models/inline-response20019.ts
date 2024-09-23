@@ -14,15 +14,7 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-<<<<<<< HEAD
-import { ApiV1BatchesBatch } from './api-v1-batches-batch';
-import { InlineResponse20019Destination } from './inline-response20019-destination';
-import { InlineResponse20019Items } from './inline-response20019-items';
-import { InlineResponse20019LogicsTariff } from './inline-response20019-logics-tariff';
-import { InlineResponse20019VariationTariff } from './inline-response20019-variation-tariff';
-=======
 import { ApiV1BatchesByProductGuidBoxes } from './api-v1-batches-by-product-guid-boxes';
->>>>>>> dev
 
 /**
  * 
@@ -43,37 +35,11 @@ export interface InlineResponse20019 {
      */
     humanFriendlyId?: number;
     /**
-<<<<<<< HEAD
-     * Количества в коробке.
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    amount?: number;
-    /**
-     * Статус коробки
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    status?: InlineResponse20019StatusEnum;
-    /**
-     * Final weight
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    finalWeight?: number;
-    /**
-     * Storage in boxes
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    storage?: string;
-=======
      * Название партии
      * @type {string}
      * @memberof InlineResponse20019
      */
     title?: string;
->>>>>>> dev
     /**
      * Заархивирована ли партия
      * @type {boolean}
@@ -91,133 +57,13 @@ export interface InlineResponse20019 {
      * @type {number}
      * @memberof InlineResponse20019
      */
-<<<<<<< HEAD
-    lengthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    widthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    heightCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineResponse20019
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    fbaNumber?: string;
-    /**
-     * Рейт за кг из тарифа
-     * @type {number}
-     * @memberof InlineResponse20019
-     */
-    lastRateTariff?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20019
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20019
-     */
-    updatedAt?: string;
-    /**
-     * 
-     * @type {InlineResponse20019VariationTariff}
-     * @memberof InlineResponse20019
-     */
-    variationTariff?: InlineResponse20019VariationTariff;
-    /**
-     * Массив коробок.
-     * @type {Array<InlineResponse20019Items>}
-     * @memberof InlineResponse20019
-     */
-    items?: Array<InlineResponse20019Items>;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20019
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-=======
     amountInBatch?: number;
->>>>>>> dev
     /**
      * 
      * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20019
      */
     storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
-<<<<<<< HEAD
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20019
-     */
-    client?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {InlineResponse20019Destination}
-     * @memberof InlineResponse20019
-     */
-    destination?: InlineResponse20019Destination;
-    /**
-     * 
-     * @type {InlineResponse20019LogicsTariff}
-     * @memberof InlineResponse20019
-     */
-    logicsTariff?: InlineResponse20019LogicsTariff;
-    /**
-     * 
-     * @type {ApiV1BatchesBatch}
-     * @memberof InlineResponse20019
-     */
-    batch?: ApiV1BatchesBatch;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20019StatusEnum {
-    New = 'NEW',
-    InStock = 'IN_STOCK',
-    RequestedSendToBatch = 'REQUESTED_SEND_TO_BATCH',
-    NeedConfirmingToDeliveryPriceChange = 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE',
-    InBatch = 'IN_BATCH',
-    NeedToUpdateTheTariff = 'NEED_TO_UPDATE_THE_TARIFF',
-    InBatchOnTheWay = 'IN_BATCH_ON_THE_WAY',
-    FinishPrepCentrUsa = 'FINISH_PREP_CENTR_USA',
-    AcceptedInProcessing = 'ACCEPTED_IN_PROCESSING'
-=======
->>>>>>> dev
-}
-
 
 

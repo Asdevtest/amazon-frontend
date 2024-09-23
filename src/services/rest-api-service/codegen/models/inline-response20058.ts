@@ -13,42 +13,34 @@
  */
 
 
-<<<<<<< HEAD
-import { InlineResponse20057 } from './inline-response20057';
-=======
-import { InlineResponse20058Rows } from './inline-response20058-rows';
->>>>>>> dev
+import { InlineResponse20054Finances } from './inline-response20054-finances';
+import { InlineResponse20058Checking } from './inline-response20058-checking';
+import { InlineResponse20058Products } from './inline-response20058-products';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20058
  */
 export interface InlineResponse20058 {
     /**
-<<<<<<< HEAD
-     * Всего кол-во записей в результате запроса
-=======
-     * Кол-во записей
->>>>>>> dev
-     * @type {number}
-     * @memberof InlineResponse20058
-     */
-    count?: number;
-    /**
-<<<<<<< HEAD
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20057>}
-     * @memberof InlineResponse20058
-     */
-    rows?: Array<InlineResponse20057>;
-=======
      * 
-     * @type {Array<InlineResponse20058Rows>}
+     * @type {InlineResponse20058Products}
      * @memberof InlineResponse20058
      */
-    rows?: Array<InlineResponse20058Rows>;
->>>>>>> dev
+    products?: InlineResponse20058Products;
+    /**
+     * 
+     * @type {InlineResponse20058Checking}
+     * @memberof InlineResponse20058
+     */
+    checking?: InlineResponse20058Checking;
+    /**
+     * 
+     * @type {InlineResponse20054Finances}
+     * @memberof InlineResponse20058
+     */
+    finances?: InlineResponse20054Finances;
 }
 
 

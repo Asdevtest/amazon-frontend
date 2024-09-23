@@ -25,11 +25,11 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject71 } from '../models';
+import { InlineObject87 } from '../models';
 // @ts-ignore
-import { InlineObject72 } from '../models';
+import { InlineObject88 } from '../models';
 // @ts-ignore
-import { InlineResponse20063 } from '../models';
+import { InlineResponse20073 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -86,12 +86,12 @@ export const OrderApiAxiosParamCreator = function (configuration?: Configuration
          * Изменение ордера в статусе pending(2).
          * @summary # Изменение ордера в статусе pending(2).
          * @param {string} guid GUID заказа, который планируем изменить
-         * @param {InlineObject72} [body] 
+         * @param {InlineObject88} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OrdersCommentGuidPatch: async (guid: string, body?: InlineObject72, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1OrdersCommentGuidPatch: async (guid: string, body?: InlineObject88, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1OrdersCommentGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/orders/comment/{guid}`
@@ -132,12 +132,12 @@ export const OrderApiAxiosParamCreator = function (configuration?: Configuration
          * Изменение ордера в статусе pending(2).
          * @summary # Изменение ордера в статусе pending(2).
          * @param {string} guid GUID заказа, который планируем изменить
-         * @param {InlineObject71} [body] 
+         * @param {InlineObject87} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OrdersPendingGuidPatch: async (guid: string, body?: InlineObject71, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1OrdersPendingGuidPatch: async (guid: string, body?: InlineObject87, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1OrdersPendingGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/orders/pending/{guid}`
@@ -234,7 +234,7 @@ export const OrderApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OrdersCheckPendingOrderByProductGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20063>>> {
+        async apiV1OrdersCheckPendingOrderByProductGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20073>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OrdersCheckPendingOrderByProductGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -242,12 +242,12 @@ export const OrderApiFp = function(configuration?: Configuration) {
          * Изменение ордера в статусе pending(2).
          * @summary # Изменение ордера в статусе pending(2).
          * @param {string} guid GUID заказа, который планируем изменить
-         * @param {InlineObject72} [body] 
+         * @param {InlineObject88} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OrdersCommentGuidPatch(guid: string, body?: InlineObject72, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1OrdersCommentGuidPatch(guid: string, body?: InlineObject88, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OrdersCommentGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -255,12 +255,12 @@ export const OrderApiFp = function(configuration?: Configuration) {
          * Изменение ордера в статусе pending(2).
          * @summary # Изменение ордера в статусе pending(2).
          * @param {string} guid GUID заказа, который планируем изменить
-         * @param {InlineObject71} [body] 
+         * @param {InlineObject87} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1OrdersPendingGuidPatch(guid: string, body?: InlineObject71, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1OrdersPendingGuidPatch(guid: string, body?: InlineObject87, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1OrdersPendingGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -294,31 +294,31 @@ export const OrderApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OrdersCheckPendingOrderByProductGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20063>> {
+        apiV1OrdersCheckPendingOrderByProductGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20073>> {
             return localVarFp.apiV1OrdersCheckPendingOrderByProductGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * Изменение ордера в статусе pending(2).
          * @summary # Изменение ордера в статусе pending(2).
          * @param {string} guid GUID заказа, который планируем изменить
-         * @param {InlineObject72} [body] 
+         * @param {InlineObject88} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OrdersCommentGuidPatch(guid: string, body?: InlineObject72, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1OrdersCommentGuidPatch(guid: string, body?: InlineObject88, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1OrdersCommentGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * Изменение ордера в статусе pending(2).
          * @summary # Изменение ордера в статусе pending(2).
          * @param {string} guid GUID заказа, который планируем изменить
-         * @param {InlineObject71} [body] 
+         * @param {InlineObject87} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1OrdersPendingGuidPatch(guid: string, body?: InlineObject71, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1OrdersPendingGuidPatch(guid: string, body?: InlineObject87, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1OrdersPendingGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -371,10 +371,10 @@ export interface OrderApiApiV1OrdersCommentGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject72}
+     * @type {InlineObject88}
      * @memberof OrderApiApiV1OrdersCommentGuidPatch
      */
-    readonly body?: InlineObject72
+    readonly body?: InlineObject88
 
     /**
      * 
@@ -399,10 +399,10 @@ export interface OrderApiApiV1OrdersPendingGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject71}
+     * @type {InlineObject87}
      * @memberof OrderApiApiV1OrdersPendingGuidPatch
      */
-    readonly body?: InlineObject71
+    readonly body?: InlineObject87
 
     /**
      * 

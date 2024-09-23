@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
  * 
@@ -21,37 +22,23 @@
  */
 export interface InlineObject73 {
     /**
-<<<<<<< HEAD
-     * GUID спека
+     * Название профиля
      * @type {string}
      * @memberof InlineObject73
      */
-    specId?: string;
+    name?: string;
+    /**
+     * Название ОС
+     * @type {string}
+     * @memberof InlineObject73
+     */
+    os?: string;
     /**
      * 
-     * @type {Array<string>}
+     * @type {ApiV1GologinProfileNavigator}
      * @memberof InlineObject73
      */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject73
-     */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject73
-     */
-    description?: string;
-=======
-     * uri полный путь до файла, для скачивания
-     * @type {string}
-     * @memberof InlineObject73
-     */
-    fileUrl: string;
->>>>>>> dev
+    navigator?: ApiV1GologinProfileNavigator;
 }
 
 

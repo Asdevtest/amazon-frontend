@@ -15,128 +15,17 @@
 
 
 /**
- * 
+ * Схема изменения итоговой цены, totalPriceChanged
  * @export
  * @interface InlineObject47
  */
 export interface InlineObject47 {
     /**
-<<<<<<< HEAD
-     * GUID storekeeper-a
-     * @type {string}
-     * @memberof InlineObject47
-     */
-    storekeeperId?: string;
-    /**
-     * GUID баера
-     * @type {string}
-     * @memberof InlineObject47
-     */
-    buyerId?: string;
-    /**
-     * Защита листинга
-     * @type {string}
-     * @memberof InlineObject47
-     */
-    transparencyFile?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject47
-     */
-    item?: string;
-    /**
-     * GUID тарифа доставки
-     * @type {string}
-     * @memberof InlineObject47
-     */
-    logicsTariffId?: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject47
-     */
-    variationTariffId?: string;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineObject47
-     */
-    priority?: InlineObject47PriorityEnum;
-    /**
-     * GUID пункта назначения.
-     * @type {string}
-     * @memberof InlineObject47
-     */
-    destinationId?: string;
-    /**
-     * Кол-во продукта по этой позиции.
+     * новое значение изменения итоговой цены.
      * @type {number}
      * @memberof InlineObject47
      */
-    amount?: number;
-    /**
-     * Стоимость доставки до склада.
-     * @type {number}
-     * @memberof InlineObject47
-     */
-    deliveryCostToTheWarehouse?: number;
-    /**
-     * Комментарии клиента.
-     * @type {string}
-     * @memberof InlineObject47
-     */
-    clientComment?: string;
-    /**
-     * Массив изображений.
-     * @type {Array<string>}
-     * @memberof InlineObject47
-     */
-    images?: Array<string>;
-    /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
-     * @type {boolean}
-     * @memberof InlineObject47
-     */
-    expressChinaDelivery?: boolean;
-    /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
-     * @memberof InlineObject47
-     */
-    needsResearch?: boolean;
-    /**
-     * Дедлайн выкупа заказа
-     * @type {string}
-     * @memberof InlineObject47
-     */
-    deadline?: string;
-    /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
-     * @type {number}
-     * @memberof InlineObject47
-     */
-    totalPrice?: number;
+    totalPriceChanged: number;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject47PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-=======
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject47
-     */
-    productIds: Array<string>;
->>>>>>> dev
-}
-
 
 

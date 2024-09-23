@@ -13,40 +13,128 @@
  */
 
 
-import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
- * Схема апдейта рекомендаций
+ * 
  * @export
  * @interface InlineObject56
  */
 export interface InlineObject56 {
     /**
-<<<<<<< HEAD
-     * Рекомендуемое значение
+     * GUID storekeeper-a
+     * @type {string}
+     * @memberof InlineObject56
+     */
+    storekeeperId: string;
+    /**
+     * GUID баера
+     * @type {string}
+     * @memberof InlineObject56
+     */
+    buyerId?: string;
+    /**
+     * Защита листинга
+     * @type {string}
+     * @memberof InlineObject56
+     */
+    transparencyFile?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject56
+     */
+    item?: string;
+    /**
+     * GUID тарифа доставки
+     * @type {string}
+     * @memberof InlineObject56
+     */
+    logicsTariffId: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject56
+     */
+    variationTariffId?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject56
+     */
+    priority?: InlineObject56PriorityEnum;
+    /**
+     * GUID пункта назначения.
+     * @type {string}
+     * @memberof InlineObject56
+     */
+    destinationId?: string;
+    /**
+     * Кол-во продукта по этой позиции.
      * @type {number}
      * @memberof InlineObject56
      */
-    recommendedValue: number;
-=======
-     * Название профиля
+    amount: number;
+    /**
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineObject56
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Комментарии клиента.
      * @type {string}
      * @memberof InlineObject56
      */
-    name: string;
+    clientComment?: string;
     /**
-     * Название ОС
+     * GUID заказанного продукта
      * @type {string}
      * @memberof InlineObject56
      */
-    os?: string;
+    productId: string;
     /**
-     * 
-     * @type {ApiV1GologinProfileNavigator}
+     * Массив изображений.
+     * @type {Array<string>}
      * @memberof InlineObject56
      */
-    navigator?: ApiV1GologinProfileNavigator;
->>>>>>> dev
+    images?: Array<string>;
+    /**
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * @type {boolean}
+     * @memberof InlineObject56
+     */
+    expressChinaDelivery?: boolean;
+    /**
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineObject56
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
+     * @type {string}
+     * @memberof InlineObject56
+     */
+    deadline?: string;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * @type {number}
+     * @memberof InlineObject56
+     */
+    totalPrice?: number;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject56PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

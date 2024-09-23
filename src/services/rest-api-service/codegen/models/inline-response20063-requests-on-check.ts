@@ -14,7 +14,7 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20040RequestSpec } from './inline-response20040-request-spec';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 import { InlineResponse20063Proposals } from './inline-response20063-proposals';
 
 /**
@@ -49,10 +49,10 @@ export interface InlineResponse20063RequestsOnCheck {
     status?: string;
     /**
      * 
-     * @type {InlineResponse20040RequestSpec}
+     * @type {ApiV1AnnouncementsMySpec}
      * @memberof InlineResponse20063RequestsOnCheck
      */
-    spec?: InlineResponse20040RequestSpec;
+    spec?: ApiV1AnnouncementsMySpec;
     /**
      * 
      * @type {Array<InlineResponse20063Proposals>}

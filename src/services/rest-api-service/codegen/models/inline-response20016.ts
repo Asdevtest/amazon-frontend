@@ -13,11 +13,8 @@
  */
 
 
-<<<<<<< HEAD
-=======
 import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 import { ApiV1BatchesStorekeeper } from './api-v1-batches-storekeeper';
->>>>>>> dev
 
 /**
  * 
@@ -26,43 +23,6 @@ import { ApiV1BatchesStorekeeper } from './api-v1-batches-storekeeper';
  */
 export interface InlineResponse20016 {
     /**
-<<<<<<< HEAD
-     * The unique identifier of the box.
-     * @type {string}
-     * @memberof InlineResponse20016
-     */
-    guid?: string;
-    /**
-     * Объем в м ^ 3
-     * @type {number}
-     * @memberof InlineResponse20016
-     */
-    cubicMeters?: number;
-    /**
-     * The delivery cost of the box.
-     * @type {number}
-     * @memberof InlineResponse20016
-     */
-    deliveryCost?: number;
-    /**
-     * The volume weight of the box in kg.
-     * @type {number}
-     * @memberof InlineResponse20016
-     */
-    volumeWeightKgWarehouse?: number;
-    /**
-     * The weight of the box in kg.
-     * @type {number}
-     * @memberof InlineResponse20016
-     */
-    weightFinalAccountingKgWarehouse?: number;
-    /**
-     * The delivery rate of the box. $/kg
-     * @type {number}
-     * @memberof InlineResponse20016
-     */
-    deliveryRate?: number;
-=======
      * GUID партии.
      * @type {string}
      * @memberof InlineResponse20016
@@ -206,7 +166,6 @@ export interface InlineResponse20016 {
      * @memberof InlineResponse20016
      */
     updatedAt?: string;
->>>>>>> dev
 }
 
 

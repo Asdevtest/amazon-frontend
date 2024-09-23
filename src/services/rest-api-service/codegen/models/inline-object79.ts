@@ -13,176 +13,19 @@
  */
 
 
-import { ApiV1BoxesItems } from './api-v1-boxes-items';
 
 /**
- * Коробка
+ * 
  * @export
  * @interface InlineObject79
  */
 export interface InlineObject79 {
     /**
-     * Сколько таких же коробок в одной коробке
-     * @type {number}
-     * @memberof InlineObject79
-     */
-    amount?: number;
-    /**
-     * true - если создаем черновик заказа.
-     * @type {boolean}
-     * @memberof InlineObject79
-     */
-    isDraft?: boolean;
-    /**
-     * Storage in boxes
+     * GUID поставщика, который нужно удалить в БД.
      * @type {string}
      * @memberof InlineObject79
      */
-    storage?: string;
-    /**
-     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
-     * @type {number}
-     * @memberof InlineObject79
-     */
-    lengthCmSupplier?: number;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineObject79
-     */
-    trackNumberText?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject79
-     */
-    trackNumberFile?: Array<string>;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineObject79
-     */
-    upsTrackNumber?: string;
-    /**
-     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
-     * @type {number}
-     * @memberof InlineObject79
-     */
-    widthCmSupplier?: number;
-    /**
-     * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
-     * @type {number}
-     * @memberof InlineObject79
-     */
-    heightCmSupplier?: number;
-    /**
-     * Общий вес кг коробки который назвал поставщик.
-     * @type {number}
-     * @memberof InlineObject79
-     */
-    weighGrossKgSupplier?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineObject79
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineObject79
-     */
-    widthCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineObject79
-     */
-    heightCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineObject79
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineObject79
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineObject79
-     */
-    clientComment?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineObject79
-     */
-    referenceId?: string;
-    /**
-     * Комментарии к коробке
-     * @type {string}
-     * @memberof InlineObject79
-     */
-    storekeeperComment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject79
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject79
-     */
-    fbaNumber?: string;
-    /**
-     * Массив коробок.
-     * @type {Array<ApiV1BoxesItems>}
-     * @memberof InlineObject79
-     */
-    items: Array<ApiV1BoxesItems>;
-    /**
-     * Массив ссылок на фотографии.
-     * @type {Array<string>}
-     * @memberof InlineObject79
-     */
-    images?: Array<string>;
-    /**
-     * destination GUID 
-     * @type {string}
-     * @memberof InlineObject79
-     */
-    destinationId?: string;
-    /**
-     * GUID тарифа доставки 
-     * @type {string}
-     * @memberof InlineObject79
-     */
-    logicsTariffId?: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject79
-     */
-    variationTariffId?: string;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineObject79
-     */
-    prepId?: string;
-    /**
-     * GUID сторкипера
-     * @type {string}
-     * @memberof InlineObject79
-     */
-    storekeeperId?: string;
+    suppliersId?: string;
 }
 
 

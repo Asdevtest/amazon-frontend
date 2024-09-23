@@ -67,11 +67,7 @@ import { InlineResponse20112 } from '../models';
 // @ts-ignore
 import { InlineResponse20113 } from '../models';
 // @ts-ignore
-<<<<<<< HEAD
-import { InlineResponse2016 } from '../models';
-=======
-import { InlineResponse2014 } from '../models';
->>>>>>> dev
+import { InlineResponse2017 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -1250,11 +1246,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-<<<<<<< HEAD
-        async apiV1RequestsCustomPost(body?: InlineObject168, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2016>> {
-=======
-        async apiV1RequestsCustomPost(body?: InlineObject168, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2014>> {
->>>>>>> dev
+        async apiV1RequestsCustomPost(body?: InlineObject168, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsCustomPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1553,11 +1545,7 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-<<<<<<< HEAD
-        apiV1RequestsCustomPost(body?: InlineObject168, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2016> {
-=======
-        apiV1RequestsCustomPost(body?: InlineObject168, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2014> {
->>>>>>> dev
+        apiV1RequestsCustomPost(body?: InlineObject168, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
             return localVarFp.apiV1RequestsCustomPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

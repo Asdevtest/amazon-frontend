@@ -15,25 +15,59 @@
 
 
 /**
- * Схема комментарии байера.
+ * 
  * @export
  * @interface InlineObject30
  */
 export interface InlineObject30 {
     /**
-<<<<<<< HEAD
-     * GUID коробки, объединение которой нужно отменить
+     * Штрихкод продукта
      * @type {string}
      * @memberof InlineObject30
      */
-    guid?: string;
-=======
-     * Комментарии байера.
+    barCode?: string;
+    /**
+     *  logicsTariff GUID
      * @type {string}
      * @memberof InlineObject30
      */
-    buyerComment: string;
->>>>>>> dev
+    logicsTariffId?: string;
+    /**
+     * GUID сотрудника склада
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    storekeeperId?: string;
+    /**
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    shippingLabel?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    fbaNumber?: string;
+    /**
+     * Гуид модели destination
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    destinationId?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject30
+     */
+    boxesIds: Array<string>;
 }
 
 

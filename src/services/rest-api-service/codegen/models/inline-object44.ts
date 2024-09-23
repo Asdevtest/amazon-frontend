@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
 
 /**
  * 
@@ -21,19 +22,11 @@
  */
 export interface InlineObject44 {
     /**
-<<<<<<< HEAD
-     * массив GUIDов оплаченных товаров
-     * @type {Array<string>}
-     * @memberof InlineObject44
-     */
-    guids?: Array<string>;
-=======
      * 
-     * @type {string}
+     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
      * @memberof InlineObject44
      */
-    clientComment?: string;
->>>>>>> dev
+    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
 }
 
 

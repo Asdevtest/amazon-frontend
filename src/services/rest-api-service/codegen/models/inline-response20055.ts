@@ -13,11 +13,9 @@
  */
 
 
-<<<<<<< HEAD
-import { InlineResponse2001 } from './inline-response2001';
-=======
-import { InlineResponse20055Rows } from './inline-response20055-rows';
->>>>>>> dev
+import { InlineResponse20055Batches } from './inline-response20055-batches';
+import { InlineResponse20055Boxes } from './inline-response20055-boxes';
+import { InlineResponse20055Tasks } from './inline-response20055-tasks';
 
 /**
  * 
@@ -26,25 +24,23 @@ import { InlineResponse20055Rows } from './inline-response20055-rows';
  */
 export interface InlineResponse20055 {
     /**
-     * Count of rows
-     * @type {number}
-     * @memberof InlineResponse20055
-     */
-    count?: number;
-    /**
-<<<<<<< HEAD
-     * Массив заказов.
-     * @type {Array<InlineResponse2001>}
-     * @memberof InlineResponse20055
-     */
-    rows?: Array<InlineResponse2001>;
-=======
      * 
-     * @type {Array<InlineResponse20055Rows>}
+     * @type {InlineResponse20055Tasks}
      * @memberof InlineResponse20055
      */
-    rows?: Array<InlineResponse20055Rows>;
->>>>>>> dev
+    tasks?: InlineResponse20055Tasks;
+    /**
+     * 
+     * @type {InlineResponse20055Boxes}
+     * @memberof InlineResponse20055
+     */
+    boxes?: InlineResponse20055Boxes;
+    /**
+     * 
+     * @type {InlineResponse20055Batches}
+     * @memberof InlineResponse20055
+     */
+    batches?: InlineResponse20055Batches;
 }
 
 

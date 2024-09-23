@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * 
@@ -22,19 +21,6 @@ import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
  */
 export interface InlineResponse20018 {
     /**
-<<<<<<< HEAD
-     * Count of boxes
-     * @type {number}
-     * @memberof InlineResponse20018
-     */
-    count?: number;
-    /**
-     * 
-     * @type {Array<ApiV1BatchesBoxes>}
-     * @memberof InlineResponse20018
-     */
-    rows?: Array<ApiV1BatchesBoxes>;
-=======
      * The unique identifier of the box.
      * @type {string}
      * @memberof InlineResponse20018
@@ -70,7 +56,6 @@ export interface InlineResponse20018 {
      * @memberof InlineResponse20018
      */
     deliveryRate?: number;
->>>>>>> dev
 }
 
 

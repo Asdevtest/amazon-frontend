@@ -13,61 +13,122 @@
  */
 
 
-<<<<<<< HEAD
-import { InlineResponse20035InventoryShop } from './inline-response20035-inventory-shop';
-=======
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
->>>>>>> dev
+import { InlineResponse20045InventoryShop } from './inline-response20045-inventory-shop';
 
 /**
- * 
+ * Схема репорта amazon_data
  * @export
  * @interface InlineResponse20072Rows
  */
 export interface InlineResponse20072Rows {
     /**
-     * 
+     * Гуид записи
      * @type {string}
      * @memberof InlineResponse20072Rows
      */
     _id?: string;
     /**
-     * ASIN продукта
+     * 
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    productId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    shopId?: string;
+    /**
+     * The asin of product
      * @type {string}
      * @memberof InlineResponse20072Rows
      */
     asin?: string;
     /**
-     * SKU введенным клиентом.
+     * The sku of product
      * @type {string}
      * @memberof InlineResponse20072Rows
      */
-    skuByClient?: string;
+    sku?: string;
     /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20072Rows
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
+     * image
      * @type {string}
      * @memberof InlineResponse20072Rows
      */
-    amazonTitle?: string;
+    image?: string;
+    /**
+     * Дата обновления
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    dateUpdated?: string;
+    /**
+     * Время обновления
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    timeUpdated?: string;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    updatedAt?: string;
+    /**
+     * Order Id
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    orderId?: string;
+    /**
+     * Reason
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    reason?: string;
+    /**
+     * Returned Date
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    returnedDate?: string;
+    /**
+     * Reversal Date
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    reversalDate?: string;
+    /**
+     * Received Date
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    receivedDate?: string;
+    /**
+     * Disposition
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    disposition?: string;
+    /**
+     * Status
+     * @type {string}
+     * @memberof InlineResponse20072Rows
+     */
+    status?: string;
     /**
      * 
-<<<<<<< HEAD
-     * @type {InlineResponse20035InventoryShop}
+     * @type {InlineResponse20045InventoryShop}
      * @memberof InlineResponse20072Rows
      */
-    shop?: InlineResponse20035InventoryShop;
-=======
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
-     * @memberof InlineResponse20072Rows
-     */
-    users?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
->>>>>>> dev
+    shop?: InlineResponse20045InventoryShop;
 }
 
 

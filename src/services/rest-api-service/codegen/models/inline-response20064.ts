@@ -13,7 +13,9 @@
  */
 
 
-import { InlineResponse20064Rows } from './inline-response20064-rows';
+import { ApiV1IdeasNotificationsCreatedBy } from './api-v1-ideas-notifications-created-by';
+import { ApiV1IdeasNotificationsIdea } from './api-v1-ideas-notifications-idea';
+import { ApiV1IdeasNotificationsProduct } from './api-v1-ideas-notifications-product';
 
 /**
  * 
@@ -22,17 +24,29 @@ import { InlineResponse20064Rows } from './inline-response20064-rows';
  */
 export interface InlineResponse20064 {
     /**
-     * Кол-во записей
-     * @type {number}
+     * 
+     * @type {ApiV1IdeasNotificationsProduct}
      * @memberof InlineResponse20064
      */
-    count?: number;
+    product?: ApiV1IdeasNotificationsProduct;
     /**
-     * Массив оплат.
-     * @type {Array<InlineResponse20064Rows>}
+     * 
+     * @type {ApiV1IdeasNotificationsIdea}
      * @memberof InlineResponse20064
      */
-    rows?: Array<InlineResponse20064Rows>;
+    idea?: ApiV1IdeasNotificationsIdea;
+    /**
+     * 
+     * @type {ApiV1IdeasNotificationsCreatedBy}
+     * @memberof InlineResponse20064
+     */
+    createdBy?: ApiV1IdeasNotificationsCreatedBy;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20064
+     */
+    createdAt?: string;
 }
 
 

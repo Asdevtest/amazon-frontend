@@ -13,11 +13,6 @@
  */
 
 
-<<<<<<< HEAD
-import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
-=======
-import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
->>>>>>> dev
 
 /**
  * 
@@ -26,25 +21,83 @@ import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buye
  */
 export interface InlineObject29 {
     /**
-<<<<<<< HEAD
-     * Массив коробок.
+     * GUID пункта назначения коробки
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    destinationId?: string;
+    /**
+     * GUID тарифа к сторкипера
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    logicsTariffId?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    fbaNumber?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    clientComment?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    referenceId?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    trackNumberText?: string;
+    /**
+     * 
      * @type {Array<string>}
      * @memberof InlineObject29
      */
-    guids: Array<string>;
+    trackNumberFile?: Array<string>;
     /**
-     * 
-     * @type {ApiV1BoxesMergeBoxBody}
+     * Идентификатор UPS
+     * @type {string}
      * @memberof InlineObject29
      */
-    boxBody: ApiV1BoxesMergeBoxBody;
-=======
-     * 
-     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
+    upsTrackNumber?: string;
+    /**
+     * shippingLabel коробки
+     * @type {string}
      * @memberof InlineObject29
      */
-    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
->>>>>>> dev
+    shippingLabel?: string;
+    /**
+     * shippingLabel проклеен сторкипером
+     * @type {boolean}
+     * @memberof InlineObject29
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    prepId?: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject29
+     */
+    variationTariffId?: string;
 }
 
 

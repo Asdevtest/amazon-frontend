@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-guid-items';
+import { ApiV1BoxesSplitNewBoxesParams } from './api-v1-boxes-split-new-boxes-params';
 
 /**
  * 
@@ -22,73 +22,17 @@ import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-gui
  */
 export interface InlineObject34 {
     /**
-<<<<<<< HEAD
-     * 
-     * @type {number}
-     * @memberof InlineObject34
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject34
-     */
-    widthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject34
-     */
-    heightCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject34
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject34
-     */
-    volumeWeightKgWarehouse?: number;
-    /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineObject34
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidItems>}
-     * @memberof InlineObject34
-     */
-    items?: Array<ApiV1BoxesStorekeepersGuidItems>;
-    /**
-     * Комментарии к коробке
+     * GUID коробки, которую делим
      * @type {string}
      * @memberof InlineObject34
      */
-    storekeeperComment?: string;
+    guid?: string;
     /**
-     * Гуид вариации
-     * @type {string}
+     * 
+     * @type {Array<ApiV1BoxesSplitNewBoxesParams>}
      * @memberof InlineObject34
      */
-    variationTariffId?: string;
-    /**
-     * Массив ссылок на фотографии.
-     * @type {Array<string>}
-     * @memberof InlineObject34
-     */
-    images?: Array<string>;
-=======
-     * Сумма воврата
-     * @type {number}
-     * @memberof InlineObject34
-     */
-    refundPrice?: number;
->>>>>>> dev
+    newBoxesParams?: Array<ApiV1BoxesSplitNewBoxesParams>;
 }
 
 

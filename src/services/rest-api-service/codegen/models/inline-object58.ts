@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
  * 
@@ -22,31 +21,114 @@ import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clie
  */
 export interface InlineObject58 {
     /**
-<<<<<<< HEAD
-     * New product price
+     * GUID storekeeper-a
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    storekeeperId?: string;
+    /**
+     * GUID баера
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    buyerId?: string;
+    /**
+     * Защита листинга
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    transparencyFile?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    item?: string;
+    /**
+     * GUID тарифа доставки
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    logicsTariffId?: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    variationTariffId?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    priority?: InlineObject58PriorityEnum;
+    /**
+     * GUID пункта назначения.
+     * @type {string}
+     * @memberof InlineObject58
+     */
+    destinationId?: string;
+    /**
+     * Кол-во продукта по этой позиции.
      * @type {number}
      * @memberof InlineObject58
      */
-    newProductPrice?: number;
+    amount?: number;
     /**
-     * Description of product_listing_report
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Комментарии клиента.
      * @type {string}
      * @memberof InlineObject58
      */
-    description?: string;
+    clientComment?: string;
     /**
-     * 
-     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
+     * Массив изображений.
+     * @type {Array<string>}
      * @memberof InlineObject58
      */
-    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
-=======
-     * id профайла
+    images?: Array<string>;
+    /**
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * @type {boolean}
+     * @memberof InlineObject58
+     */
+    expressChinaDelivery?: boolean;
+    /**
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineObject58
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
      * @type {string}
      * @memberof InlineObject58
      */
-    profileId: string;
->>>>>>> dev
+    deadline?: string;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * @type {number}
+     * @memberof InlineObject58
+     */
+    totalPrice?: number;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject58PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

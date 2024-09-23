@@ -26,31 +26,6 @@ export interface InlineObject20 {
      * @memberof InlineObject20
      */
     title?: string;
-<<<<<<< HEAD
-    /**
-     * Метод подсчта массы партии
-     * @type {number}
-     * @memberof InlineObject20
-     */
-    calculationMethod?: number;
-    /**
-     * Делитель объема партии
-     * @type {number}
-     * @memberof InlineObject20
-     */
-    volumeWeightDivide?: number;
-    /**
-     * Трек номер партии
-     * @type {string}
-     * @memberof InlineObject20
-     */
-    trackingNumber?: string;
-    /**
-     * Настоящая стоимость доставки
-     * @type {number}
-     * @memberof InlineObject20
-     */
-=======
     /**
      * 
      * @type {Array<string>}
@@ -74,7 +49,6 @@ export interface InlineObject20 {
      * @type {number}
      * @memberof InlineObject20
      */
->>>>>>> dev
     actualShippingCost?: number;
 }
 

@@ -15,7 +15,7 @@
 
 
 /**
- * Схема подтверждения возрата коробок на склад
+ * Схема подтверждения итоговой цены, deliveryTotalPriceChanged
  * @export
  * @interface InlineObject1
  */

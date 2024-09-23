@@ -14,7 +14,7 @@
 
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse20040RequestSpec } from './inline-response20040-request-spec';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 import { InlineResponse20092Announcement } from './inline-response20092-announcement';
 import { InlineResponse20092CountProposalsByStatuses } from './inline-response20092-count-proposals-by-statuses';
 import { InlineResponse20092DetailsCustom } from './inline-response20092-details-custom';
@@ -144,10 +144,10 @@ export interface InlineResponse20092Rows {
     lastModifiedById?: string;
     /**
      * 
-     * @type {InlineResponse20040RequestSpec}
+     * @type {ApiV1AnnouncementsMySpec}
      * @memberof InlineResponse20092Rows
      */
-    spec?: InlineResponse20040RequestSpec;
+    spec?: ApiV1AnnouncementsMySpec;
     /**
      * Гуид продукта
      * @type {string}

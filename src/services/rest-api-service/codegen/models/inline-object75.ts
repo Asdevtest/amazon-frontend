@@ -21,25 +21,11 @@
  */
 export interface InlineObject75 {
     /**
-<<<<<<< HEAD
-     * 
-     * @type {boolean}
-     * @memberof InlineObject75
-     */
-    archive: boolean;
-=======
-     * текст отзыва/репорта
+     * id профайла
      * @type {string}
      * @memberof InlineObject75
      */
-    text: string;
-    /**
-     * Прикрепленные ссылки на медиа для репорта/отзыва
-     * @type {Array<string>}
-     * @memberof InlineObject75
-     */
-    media?: Array<string>;
->>>>>>> dev
+    profileId: string;
 }
 
 

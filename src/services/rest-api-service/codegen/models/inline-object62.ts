@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
  * 
@@ -22,31 +21,11 @@ import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator
  */
 export interface InlineObject62 {
     /**
-<<<<<<< HEAD
-     * Название профиля
-     * @type {string}
-     * @memberof InlineObject62
-     */
-    name?: string;
-    /**
-     * Название ОС
-     * @type {string}
-     * @memberof InlineObject62
-     */
-    os?: string;
-    /**
      * 
-     * @type {ApiV1GologinProfileNavigator}
-     * @memberof InlineObject62
-     */
-    navigator?: ApiV1GologinProfileNavigator;
-=======
-     * GUIDы поставщиков, которые нужно добавить в БД.
      * @type {Array<string>}
      * @memberof InlineObject62
      */
-    suppliersIds?: Array<string>;
->>>>>>> dev
+    productIds: Array<string>;
 }
 
 

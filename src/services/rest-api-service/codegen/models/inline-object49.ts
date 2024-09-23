@@ -15,37 +15,94 @@
 
 
 /**
- * Схема подтверждения возрата коробок на склад
+ * 
  * @export
  * @interface InlineObject49
  */
 export interface InlineObject49 {
     /**
-<<<<<<< HEAD
+     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @type {number}
+     * @memberof InlineObject49
+     */
+    taskId: number;
+    /**
      * 
+     * @type {Array<string>}
+     * @memberof InlineObject49
+     */
+    boxesBefore?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject49
+     */
+    boxes: Array<string>;
+    /**
+     * Тип операции
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    operationType: InlineObject49OperationTypeEnum;
+    /**
+     * Комментарий клиента.
      * @type {string}
      * @memberof InlineObject49
      */
     clientComment?: string;
-=======
-     * GUID коробки, который планируем изменить
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    boxId: string;
     /**
-     * GUID тарифа, на которую планируем изменить
+     * Комментарий баера.
      * @type {string}
      * @memberof InlineObject49
      */
-    logicsTariffId: string;
+    buyerComment?: string;
     /**
-     * GUID дестинейшена.
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineObject49
+     */
+    images?: Array<string>;
+    /**
+     * Комментарий работника склада.
      * @type {string}
      * @memberof InlineObject49
      */
-    destinationId?: string;
->>>>>>> dev
+    storekeeperComment?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    priority?: InlineObject49PriorityEnum;
+    /**
+     * Причина приоритета
+     * @type {string}
+     * @memberof InlineObject49
+     */
+    reason?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject49OperationTypeEnum {
+    Merge = 'merge',
+    Split = 'split',
+    Receive = 'receive',
+    Edit = 'edit'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject49PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

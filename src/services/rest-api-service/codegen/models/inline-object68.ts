@@ -13,31 +13,38 @@
  */
 
 
-<<<<<<< HEAD
-=======
-import { ApiV1IntegrationsCreateAndLinkSkuProductsPayload } from './api-v1-integrations-create-and-link-sku-products-payload';
->>>>>>> dev
+import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
- * Схема комментарии байера.
+ * 
  * @export
  * @interface InlineObject68
  */
 export interface InlineObject68 {
     /**
-<<<<<<< HEAD
-     * Комментарии байера.
+     * Гуид продукта
      * @type {string}
      * @memberof InlineObject68
      */
-    buyerComment: string;
-=======
-     * 
-     * @type {Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>}
+    productId: string;
+    /**
+     * New product price
+     * @type {number}
      * @memberof InlineObject68
      */
-    payload?: Array<ApiV1IntegrationsCreateAndLinkSkuProductsPayload>;
->>>>>>> dev
+    newProductPrice?: number;
+    /**
+     * Description of product_listing_report
+     * @type {string}
+     * @memberof InlineObject68
+     */
+    description?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
+     * @memberof InlineObject68
+     */
+    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
 }
 
 

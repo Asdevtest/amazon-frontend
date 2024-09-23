@@ -13,34 +13,19 @@
  */
 
 
-import { ApiV1BoxesSplitNewBoxesParams } from './api-v1-boxes-split-new-boxes-params';
 
 /**
- * Схема изменения итоговой цены, totalPriceChanged
+ * 
  * @export
  * @interface InlineObject31
  */
 export interface InlineObject31 {
     /**
-<<<<<<< HEAD
-     * GUID коробки, которую делим
+     * GUID коробки, объединение которой нужно отменить
      * @type {string}
      * @memberof InlineObject31
      */
     guid?: string;
-    /**
-     * 
-     * @type {Array<ApiV1BoxesSplitNewBoxesParams>}
-     * @memberof InlineObject31
-     */
-    newBoxesParams?: Array<ApiV1BoxesSplitNewBoxesParams>;
-=======
-     * новое значение изменения итоговой цены.
-     * @type {number}
-     * @memberof InlineObject31
-     */
-    totalPriceChanged: number;
->>>>>>> dev
 }
 
 

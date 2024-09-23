@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
-import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tags';
 
 /**
  * 
@@ -23,378 +21,59 @@ import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tag
  */
 export interface InlineObject41 {
     /**
-<<<<<<< HEAD
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    skuByClient?: string;
-=======
-     * GUID storekeeper-a
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    storekeeperId: string;
-    /**
-     * GUID баера
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    buyerId?: string;
-    /**
-     * Защита листинга
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    transparencyFile?: string;
->>>>>>> dev
-    /**
      * 
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    item?: string;
-    /**
-     * GUID тарифа доставки
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    logicsTariffId: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    variationTariffId?: string;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    priority?: InlineObject41PriorityEnum;
-    /**
-     * GUID пункта назначения.
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    destinationId?: string;
-    /**
-     * Кол-во продукта по этой позиции.
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    amount: number;
-    /**
-     * Стоимость доставки до склада.
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    deliveryCostToTheWarehouse?: number;
-    /**
-     * Комментарии клиента.
      * @type {string}
      * @memberof InlineObject41
      */
     clientComment?: string;
     /**
-     * GUID заказанного продукта
+     * 
      * @type {string}
      * @memberof InlineObject41
      */
-    productId: string;
+    storekeeperComment?: string;
     /**
-     * Массив изображений.
+     * Storage in boxes
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    storage?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    referenceId?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    fbaNumber?: string;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    upsTrackNumber?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    trackNumberText?: string;
+    /**
+     * 
      * @type {Array<string>}
      * @memberof InlineObject41
      */
-<<<<<<< HEAD
-    latestSeoFiles?: Array<string>;
+    trackNumberFile?: Array<string>;
     /**
-     * Категория
+     * Значение информационного ключа
      * @type {string}
      * @memberof InlineObject41
      */
-    category?: string;
-    /**
-     * Ссылка на этот продукт на амазоне.
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    lamazon?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    bsr?: number;
-    /**
-     * Признак fba
-     * @type {boolean}
-     * @memberof InlineObject41
-     */
-    fba?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    amazon?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    height?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    width?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    length?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    weight?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    fbafee?: number;
-    /**
-     *  Общая сумма с фба.
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    fbaamount?: number;
-    /**
-     * Комментарии к товару.
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    icomment?: string;
-    /**
-     * Комментарии к товару, от клиента.
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    clientComment?: string;
-    /**
-     * Массив изображений.
-     * @type {Array<string>}
-     * @memberof InlineObject41
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    amazonDescription?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    amazonDetail?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    amazonTitle?: string;
-    /**
-     * Материл продукта
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    material?: string;
-    /**
-     * Применение продукта
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    productUsage?: string;
-    /**
-     * chinese title?
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    chinaTitle?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    minpurchase?: number;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    profit?: number;
-    /**
-     * Маржа
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    margin?: number;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    strategyStatus?: number;
-    /**
-     * Признак needCheckBySupervisor
-     * @type {boolean}
-     * @memberof InlineObject41
-     */
-    needCheckBySupervisor?: boolean;
-    /**
-     * Флаг указывает что продукт в архиве.
-     * @type {boolean}
-     * @memberof InlineObject41
-     */
-    archive?: boolean;
-    /**
-     * hsCode продукта.
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    hsCode?: string;
-    /**
-     * Ниша
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    niche?: string;
-    /**
-     * Асины
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    asins?: string;
-    /**
-     * Общий доход
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    totalRevenue?: string;
-    /**
-     * Коэффициент прибыли
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    coefficient?: string;
-    /**
-     * Средний доход
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    avgRevenue?: string;
-    /**
-     * Средний BSR
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    avgBSR?: string;
-    /**
-     * Средняя цена
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    avgPrice?: string;
-    /**
-     * Средний отзывы
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    avgReviews?: string;
-    /**
-     * Поле для калькуляции дозакупок
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    fourMonthesStock?: number;
-    /**
-     * ID магазинa продукта
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    shopId?: string;
-    /**
-     * 
-     * @type {Array<ApiV1ClientsProductsGuidRedFlags>}
-     * @memberof InlineObject41
-     */
-    redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
-    /**
-     * 
-     * @type {Array<ApiV1ClientsProductsGuidTags>}
-     * @memberof InlineObject41
-     */
-    tags?: Array<ApiV1ClientsProductsGuidTags>;
-=======
-    images?: Array<string>;
-    /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
-     * @type {boolean}
-     * @memberof InlineObject41
-     */
-    expressChinaDelivery?: boolean;
-    /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
-     * @memberof InlineObject41
-     */
-    needsResearch?: boolean;
-    /**
-     * Дедлайн выкупа заказа
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    deadline?: string;
-    /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    totalPrice?: number;
+    prepId?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject41PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
->>>>>>> dev
-}
-
 
 

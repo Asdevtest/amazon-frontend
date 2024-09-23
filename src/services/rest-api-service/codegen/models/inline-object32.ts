@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
 
 /**
  * 
@@ -21,115 +22,17 @@
  */
 export interface InlineObject32 {
     /**
-<<<<<<< HEAD
-     * GUID коробки разделение которой отменяем.
-     * @type {string}
-     * @memberof InlineObject32
-     */
-    guid?: string;
-=======
-     * комментарии байера.
-     * @type {string}
-     * @memberof InlineObject32
-     */
-    buyerComment?: string;
-    /**
-     * GUID storekeeper-a
-     * @type {string}
-     * @memberof InlineObject32
-     */
-    storekeeperId?: string;
-    /**
-     * 
+     * Массив коробок.
      * @type {Array<string>}
      * @memberof InlineObject32
      */
-    paymentDetails?: Array<string>;
-    /**
-     * Цена в юанях
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    priceInYuan?: number;
-    /**
-     * Цена доставки партии в юанях
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    priceBatchDeliveryInYuan?: number;
-    /**
-     * GUID тарифа доставки.
-     * @type {string}
-     * @memberof InlineObject32
-     */
-    logicsTariffId?: string;
-    /**
-     * GUID пункта назначения.
-     * @type {string}
-     * @memberof InlineObject32
-     */
-    destinationId?: string;
+    guids: Array<string>;
     /**
      * 
-     * @type {string}
+     * @type {ApiV1BoxesMergeBoxBody}
      * @memberof InlineObject32
      */
-    item?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject32
-     */
-    images?: Array<string>;
-    /**
-     * Курс юань доллар.
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    yuanToDollarRate?: number;
-    /**
-     * Стоимость доставки до склада.
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    deliveryCostToTheWarehouse?: number;
-    /**
-     * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
-     * @type {string}
-     * @memberof InlineObject32
-     */
-    trackingNumberChina?: string;
-    /**
-     * GUID поставщика, для данного заказа.
-     * @type {string}
-     * @memberof InlineObject32
-     */
-    orderSupplierId?: string;
-    /**
-     * Cумма частичной оплаты
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    partialPaymentAmountRmb?: number;
-    /**
-     * Cумма частичной оплаты
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    partiallyPaid?: number;
-    /**
-     * Оплачивается ли заказ частично
-     * @type {boolean}
-     * @memberof InlineObject32
-     */
-    partialPayment?: boolean;
-    /**
-     * Кол-во в заказе
-     * @type {number}
-     * @memberof InlineObject32
-     */
-    amount?: number;
->>>>>>> dev
+    boxBody: ApiV1BoxesMergeBoxBody;
 }
 
 

@@ -21,19 +21,35 @@
  */
 export interface InlineObject39 {
     /**
-<<<<<<< HEAD
-     * Сформирована ли коробка
-     * @type {boolean}
+     * 
+     * @type {number}
      * @memberof InlineObject39
      */
-    isFormed: boolean;
-=======
-     * массив GUIDов оплаченных товаров
+    lengthCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject39
+     */
+    widthCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject39
+     */
+    heightCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject39
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Массив ссылок на фотографии.
      * @type {Array<string>}
      * @memberof InlineObject39
      */
-    guids?: Array<string>;
->>>>>>> dev
+    images?: Array<string>;
 }
 
 

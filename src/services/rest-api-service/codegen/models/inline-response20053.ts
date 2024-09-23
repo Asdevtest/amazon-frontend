@@ -13,10 +13,12 @@
  */
 
 
-<<<<<<< HEAD
-=======
-import { InlineResponse20053Rows } from './inline-response20053-rows';
->>>>>>> dev
+import { InlineResponse20053Batch } from './inline-response20053-batch';
+import { InlineResponse20053Boxes } from './inline-response20053-boxes';
+import { InlineResponse20053Orders } from './inline-response20053-orders';
+import { InlineResponse20053Products } from './inline-response20053-products';
+import { InlineResponse20053Requests } from './inline-response20053-requests';
+import { InlineResponse20053Shops } from './inline-response20053-shops';
 
 /**
  * 
@@ -25,49 +27,41 @@ import { InlineResponse20053Rows } from './inline-response20053-rows';
  */
 export interface InlineResponse20053 {
     /**
-<<<<<<< HEAD
-     * GUID продукта в базе данных
-     * @type {string}
+     * 
+     * @type {InlineResponse20053Orders}
      * @memberof InlineResponse20053
      */
-    _id?: string;
+    orders?: InlineResponse20053Orders;
     /**
-     * ASIN продукта
-     * @type {string}
+     * 
+     * @type {InlineResponse20053Shops}
      * @memberof InlineResponse20053
      */
-    asin?: string;
+    shops?: InlineResponse20053Shops;
     /**
-     * SKU введенным клиентом.
-     * @type {string}
+     * 
+     * @type {InlineResponse20053Requests}
      * @memberof InlineResponse20053
      */
-    skuByClient?: string;
+    requests?: InlineResponse20053Requests;
     /**
-     * Массив картинок.
-     * @type {Array<string>}
+     * 
+     * @type {InlineResponse20053Products}
      * @memberof InlineResponse20053
      */
-    images?: Array<string>;
+    products?: InlineResponse20053Products;
     /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
+     * 
+     * @type {InlineResponse20053Batch}
      * @memberof InlineResponse20053
      */
-    amazonTitle?: string;
-=======
-     * Общее кол-во идей
-     * @type {number}
-     * @memberof InlineResponse20053
-     */
-    count?: number;
+    batch?: InlineResponse20053Batch;
     /**
-     * Список идей
-     * @type {Array<InlineResponse20053Rows>}
+     * 
+     * @type {InlineResponse20053Boxes}
      * @memberof InlineResponse20053
      */
-    rows?: Array<InlineResponse20053Rows>;
->>>>>>> dev
+    boxes?: InlineResponse20053Boxes;
 }
 
 

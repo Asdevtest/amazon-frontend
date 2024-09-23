@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20040RequestSpec } from './inline-response20040-request-spec';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 
 /**
  * 
@@ -35,10 +35,10 @@ export interface InlineResponse20093 {
     humanFriendlyId?: number;
     /**
      * 
-     * @type {InlineResponse20040RequestSpec}
+     * @type {ApiV1AnnouncementsMySpec}
      * @memberof InlineResponse20093
      */
-    spec?: InlineResponse20040RequestSpec;
+    spec?: ApiV1AnnouncementsMySpec;
     /**
      * Название заявки
      * @type {string}

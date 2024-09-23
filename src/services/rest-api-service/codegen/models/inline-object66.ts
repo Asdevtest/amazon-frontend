@@ -13,27 +13,31 @@
  */
 
 
-import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
 
 /**
- * 
+ * Схема создания/апдейта рекомендаций
  * @export
  * @interface InlineObject66
  */
 export interface InlineObject66 {
     /**
-     * 
-<<<<<<< HEAD
-     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
+     * GUID продукта.
+     * @type {string}
      * @memberof InlineObject66
      */
-    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
-=======
-     * @type {Array<string>}
+    productId: string;
+    /**
+     * GUID сторкипера.
+     * @type {string}
      * @memberof InlineObject66
      */
-    shopIds: Array<string>;
->>>>>>> dev
+    storekeeperId: string;
+    /**
+     * Рекомендуемое значение
+     * @type {number}
+     * @memberof InlineObject66
+     */
+    recommendedValue: number;
 }
 
 

@@ -15,21 +15,23 @@
 
 
 /**
- * Схема апдейта рекомендаций
+ * 
  * @export
  * @interface InlineObject51
  */
 export interface InlineObject51 {
     /**
-     * Рекомендуемое значение
-     * @type {number}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject51
      */
-<<<<<<< HEAD
-    productIds: Array<string>;
-=======
-    recommendedValue: number;
->>>>>>> dev
+    userIds: Array<string>;
+    /**
+     * Название группового чата
+     * @type {string}
+     * @memberof InlineObject51
+     */
+    title: string;
 }
 
 

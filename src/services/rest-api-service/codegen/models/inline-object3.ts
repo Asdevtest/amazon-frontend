@@ -21,17 +21,35 @@
  */
 export interface InlineObject3 {
     /**
-     * Гуид коробки
+     * ASIN продукта
      * @type {string}
      * @memberof InlineObject3
      */
-    boxId?: string;
+    asin: string;
     /**
-     * Значение prepId
+     * Причина
      * @type {string}
      * @memberof InlineObject3
      */
-    prepId?: string;
+    reason?: string;
+    /**
+     * Стратегия
+     * @type {string}
+     * @memberof InlineObject3
+     */
+    strategy: InlineObject3StrategyEnum;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject3StrategyEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40'
+}
+
 
 

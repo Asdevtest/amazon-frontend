@@ -21,19 +21,6 @@
  */
 export interface InlineObject23 {
     /**
-<<<<<<< HEAD
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject23
-     */
-    batchIds: Array<string>;
-    /**
-     * Заархивирована ли партия
-     * @type {boolean}
-     * @memberof InlineObject23
-     */
-    archive: boolean;
-=======
      * Название партии
      * @type {string}
      * @memberof InlineObject23
@@ -63,7 +50,6 @@ export interface InlineObject23 {
      * @memberof InlineObject23
      */
     actualShippingCost?: number;
->>>>>>> dev
 }
 
 

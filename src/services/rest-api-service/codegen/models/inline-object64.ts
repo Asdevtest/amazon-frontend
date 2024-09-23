@@ -21,19 +21,17 @@
  */
 export interface InlineObject64 {
     /**
-<<<<<<< HEAD
-     * id профайла
+     * 
      * @type {string}
      * @memberof InlineObject64
      */
-    profileId: string;
-=======
-     * Причина отклонения
-     * @type {string}
+    clientComment: string;
+    /**
+     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @type {number}
      * @memberof InlineObject64
      */
-    reasonReject: string;
->>>>>>> dev
+    priceForClient: number;
 }
 
 

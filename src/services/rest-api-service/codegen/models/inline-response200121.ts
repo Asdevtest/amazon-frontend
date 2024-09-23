@@ -13,19 +13,9 @@
  */
 
 
-<<<<<<< HEAD
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1RequestsCustomProduct } from './api-v1-requests-custom-product';
-import { InlineResponse20040RequestSpec } from './inline-response20040-request-spec';
-import { InlineResponse20092Announcement } from './inline-response20092-announcement';
-import { InlineResponse20092CountProposalsByStatuses } from './inline-response20092-count-proposals-by-statuses';
-import { InlineResponse20092DetailsCustom } from './inline-response20092-details-custom';
-import { InlineResponse20092Media } from './inline-response20092-media';
-=======
 import { ApiV1RequestProposalsCustomByRequestIdGuidDetails } from './api-v1-request-proposals-custom-by-request-id-guid-details';
 import { ApiV1RequestProposalsCustomByRequestIdGuidProposal } from './api-v1-request-proposals-custom-by-request-id-guid-proposal';
 import { ApiV1RequestProposalsCustomByRequestIdGuidRequest } from './api-v1-request-proposals-custom-by-request-id-guid-request';
->>>>>>> dev
 
 /**
  * Схема универсального предложения
@@ -41,53 +31,10 @@ export interface InlineResponse200121 {
     proposal?: ApiV1RequestProposalsCustomByRequestIdGuidProposal;
     /**
      * 
-<<<<<<< HEAD
-     * @type {InlineResponse20040RequestSpec}
-     * @memberof InlineResponse200121
-     */
-    spec?: InlineResponse20040RequestSpec;
-    /**
-     * Привязанный асин
-     * @type {string}
-     * @memberof InlineResponse200121
-     */
-    asin?: string;
-    /**
-     * Цена на амазоне
-     * @type {number}
-     * @memberof InlineResponse200121
-     */
-    priceAmazon?: number;
-    /**
-     * Возврат средств с покупки в процентах
-     * @type {number}
-     * @memberof InlineResponse200121
-     */
-    cashBackInPercent?: number;
-    /**
-     * Гуид анонса
-     * @type {string}
-     * @memberof InlineResponse200121
-     */
-    announcementId?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse200121
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse200121
-     */
-    updatedAt?: string;
-=======
      * @type {ApiV1RequestProposalsCustomByRequestIdGuidDetails}
      * @memberof InlineResponse200121
      */
     details?: ApiV1RequestProposalsCustomByRequestIdGuidDetails;
->>>>>>> dev
     /**
      * 
      * @type {ApiV1RequestProposalsCustomByRequestIdGuidRequest}
