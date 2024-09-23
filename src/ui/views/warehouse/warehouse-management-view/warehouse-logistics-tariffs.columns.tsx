@@ -121,7 +121,7 @@ export const logisticsTariffsColumns = ({
         thirdGhost
         firstIcon={<MdOutlineEdit size={16} />}
         secondIcon={isArchive() ? <MdArrowDropUp size={16} /> : <MdArrowDropDown size={16} />}
-        secondDanger={isArchive()}
+        secondDanger={!isArchive()}
         secondConfirmText={
           isArchive()
             ? 'Are you sure you want to restore the tariff?'
