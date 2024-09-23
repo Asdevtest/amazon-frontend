@@ -13,8 +13,10 @@ import { IPermissionsData } from '@hooks/use-products-permissions'
 
 export const profilesFormConfig = {
   value: observable,
+  shopId: observable,
   reservedProfile: computed,
   unlinkedProfiles: computed,
+  isAlreadyProfile: computed,
   profiles: computed,
   onChange: action.bound,
   onScroll: action.bound,
