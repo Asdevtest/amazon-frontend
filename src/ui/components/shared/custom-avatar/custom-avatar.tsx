@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Image, Upload, UploadProps } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import { UploadRef } from 'antd/es/upload/Upload'

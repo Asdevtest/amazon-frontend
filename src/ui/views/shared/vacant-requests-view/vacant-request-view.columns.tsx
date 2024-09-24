@@ -14,7 +14,7 @@ import {
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserMiniCell,
+  UserCell,
   VacantRequestPriceCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -101,7 +101,8 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       field: 'createdBy',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: ({ row }) => <UserMiniCell userName={row.createdBy?.name} userId={row.createdBy?._id} />,
+      renderCell: ({ row }) => <UserCell name={row.createdBy?.name} id={row.createdBy?._id} />,
+
       width: 145,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
@@ -178,9 +179,9 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
       width: 145,
       renderCell: ({ row }) => (
-        <UserMiniCell
-          userName={row.proposals?.[0]?.sub?.name || row.announcement?.createdBy?.name}
-          userId={row.proposals?.[0]?.sub?._id || row.announcement?.createdBy?._id}
+        <UserCell
+          name={row.proposals?.[0]?.sub?.name || row.announcement?.createdBy?.name}
+          id={row.proposals?.[0]?.sub?._id || row.announcement?.createdBy?._id}
         />
       ),
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

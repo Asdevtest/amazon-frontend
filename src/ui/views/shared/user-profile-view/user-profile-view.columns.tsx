@@ -4,7 +4,7 @@ import {
   MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -83,7 +83,7 @@ export const userProfileColumns = () => {
       field: 'researcherName',
       headerName: t(TranslationKey.Researcher),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Researcher)} />,
-      renderCell: ({ row }) => <UserLinkCell blackText name={row.createdBy?.name} userId={row.createdBy?._id} />,
+      renderCell: ({ row }) => <UserCell name={row.createdBy?.name} id={row.createdBy?._id} />,
       width: 200,
     },
 
@@ -91,7 +91,8 @@ export const userProfileColumns = () => {
       field: 'buyerName',
       headerName: t(TranslationKey.Buyer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
-      renderCell: ({ row }) => <UserLinkCell blackText name={row.buyer?.name} userId={row.buyer?._id} />,
+      renderCell: ({ row }) => <UserCell name={row.buyer?.name} id={row.buyer?._id} />,
+
       width: 200,
     },
 
@@ -99,7 +100,7 @@ export const userProfileColumns = () => {
       field: 'supervisorName',
       headerName: t(TranslationKey.Supervisor),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
-      renderCell: ({ row }) => <UserLinkCell blackText name={row.checkedBy?.name} userId={row.checkedBy?._id} />,
+      renderCell: ({ row }) => <UserCell name={row.checkedBy?.name} id={row.checkedBy?._id} />,
       width: 200,
     },
   ]
