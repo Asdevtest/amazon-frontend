@@ -45,7 +45,11 @@ export const SupervisorProductsView = observer(() => {
             </div>
           )}
           options={createStatusOptions()}
-          labelRender={label => <>{`${label.label} (${label.key})`}</>}
+          labelRender={label => {
+            const text = Number.isInteger(label.key) ? `${label.label} (${label.key})` : label.label
+
+            return text
+          }}
           value={viewModel.switcherFilterStatuses}
           className={styles.select}
           onChange={viewModel.onClickStatusFilterButton}
