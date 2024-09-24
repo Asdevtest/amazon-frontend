@@ -10,6 +10,8 @@ import { profilesFormConfig, searchFields } from './profiles-form.config'
 
 export class ProfilesFormModel extends UseProductsPermissions {
   value = ''
+  shopId?: string
+
   get reservedProfile() {
     return [this.meta?.reservedProfile].filter(Boolean)
   }
@@ -29,8 +31,13 @@ export class ProfilesFormModel extends UseProductsPermissions {
 
     return filteredProfiles
   }
+  get isAlreadyProfile() {
+    const currentShopId = this.profiles.find(({ _id }) => _id === this.value)?.shopId
 
-  constructor(profileId?: string, requestId?: string) {
+    return !!currentShopId && currentShopId !== this.shopId
+  }
+
+  constructor(profileId?: string, requestId?: string, shopId?: string) {
     const requestOptions = {
       sortField: 'updatedAt',
       sortType: 'DESC',
@@ -39,6 +46,7 @@ export class ProfilesFormModel extends UseProductsPermissions {
 
     super(ParserModel.getProfilesForRequest, requestOptions, searchFields)
 
+    this.shopId = shopId
     this.value = profileId || ''
     this.permissionsData = []
     this.isCanLoadMore = true

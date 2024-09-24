@@ -27,7 +27,7 @@ export const ProfilesForm: FC<ProfilesFormProps> = observer(props => {
   const { onClose, onSubmit, requestId, profileId, shopId } = props
 
   const { classes: styles } = useStyles()
-  const viewModel = useMemo(() => new ProfilesFormModel(profileId, requestId), [])
+  const viewModel = useMemo(() => new ProfilesFormModel(profileId, requestId, shopId), [])
 
   const handleSubmit = () => {
     if (requestId) {
@@ -35,8 +35,6 @@ export const ProfilesForm: FC<ProfilesFormProps> = observer(props => {
       onClose()
     }
   }
-
-  const isAlreadyProfile = shopId !== viewModel.profiles.find(profile => profile._id === viewModel.value)?.shopId
 
   return (
     <div className={styles.root}>
@@ -57,7 +55,7 @@ export const ProfilesForm: FC<ProfilesFormProps> = observer(props => {
       <div className={styles.buttons}>
         <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
 
-        {isAlreadyProfile ? (
+        {viewModel.isAlreadyProfile ? (
           <Popconfirm
             title={t(TranslationKey['This profile has already been used! Do you want to continue?'])}
             okText={t(TranslationKey.Yes)}
