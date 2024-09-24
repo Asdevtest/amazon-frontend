@@ -53,8 +53,14 @@ export class UseProductsPermissions {
   isCanLoadMore = true
   requestStatus = loadingStatus.SUCCESS
   searchValue = ''
+  getAdditionalProperties?: () => Record<string, unknown>
 
-  constructor(callback: ICallback, options?: IOptions, searchFields?: string[]) {
+  constructor(
+    callback: ICallback,
+    options?: IOptions,
+    searchFields?: string[],
+    getAdditionalProperties?: () => Record<string, unknown>,
+  ) {
     makeObservable(this, {
       callback: observable,
       options: observable,
@@ -64,6 +70,7 @@ export class UseProductsPermissions {
       isCanLoadMore: observable,
       requestStatus: observable,
       searchValue: observable,
+      getAdditionalProperties: observable,
 
       currentPermissionsData: computed,
       currentRequestStatus: computed,
@@ -77,6 +84,7 @@ export class UseProductsPermissions {
 
     this.callback = callback
     this.searchFields = searchFields
+    this.getAdditionalProperties = getAdditionalProperties
     this.setOptions(options)
   }
 
@@ -96,7 +104,19 @@ export class UseProductsPermissions {
         this.requestStatus = loadingStatus.IS_LOADING
       })
 
-      this.setOptions(options)
+      this.setOptions({
+        ...options,
+        filters: objectToUrlQs(
+          dataGridFiltersConverter(
+            {},
+            this.searchValue,
+            '',
+            [],
+            this.searchFields || ['skuByClient', 'asin'],
+            this.getAdditionalProperties?.(),
+          ),
+        ),
+      })
 
       const result = await this.callback(this.options)
 

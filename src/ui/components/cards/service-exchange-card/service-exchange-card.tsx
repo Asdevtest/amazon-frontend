@@ -50,13 +50,8 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
   return (
     <>
       <div className={cx(styles.wrapper, { [styles.cardWrapper]: isCard })} onClick={handleToggleModal}>
-        <div className={cx(styles.serviceWrapper, { [styles.serviceListWrapper]: !isCard })}>
-          <CustomImage
-            width="100%"
-            height={180}
-            wrapperClassName={cx(styles.image, { [styles.noImage]: isNoImage })}
-            imageUrl={cardImageUrl}
-          />
+        <div className={styles.serviceWrapper}>
+          <CustomImage width={240} height={160} wrapperClassName={styles.image} imageUrl={cardImageUrl} />
 
           <div className={styles.serviceInfo}>
             <CustomTag title={detailDescription} className={styles.serviceType} />
@@ -75,9 +70,9 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
         </div>
 
         <div className={styles.descriptionWrapper} onClick={handleToggleModal}>
-          <Text className={styles.cardTitle} textRows={2} copyable={false} text={service.title} />
+          <Text bold textRows={2} copyable={false} text={service.title} />
 
-          <Text className={styles.cardDescription} copyable={false} text={service.description} />
+          <Text copyable={false} textRows={3} text={service.description} />
 
           {!isNotMyServices ? (
             <p className={styles.detailsText}>
@@ -86,9 +81,11 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
             </p>
           ) : null}
 
-          <CustomButton type="primary" wrapperClassName={styles.actionButton} onClick={() => onClickButton(service)}>
-            {buttonContent}
-          </CustomButton>
+          <div className={styles.actionButton}>
+            <CustomButton type="primary" onClick={() => onClickButton(service)}>
+              {buttonContent}
+            </CustomButton>
+          </div>
         </div>
       </div>
 
