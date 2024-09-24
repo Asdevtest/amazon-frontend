@@ -22,7 +22,7 @@ import { InlineResponse20072Rows } from './inline-response20072-rows';
  */
 export interface InlineResponse20072 {
     /**
-     * Count of rows
+     * Кол-во записей
      * @type {number}
      * @memberof InlineResponse20072
      */

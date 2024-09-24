@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20053Rows } from './inline-response20053-rows';
 
 /**
  * 
@@ -22,17 +21,29 @@ import { InlineResponse20053Rows } from './inline-response20053-rows';
  */
 export interface InlineResponse20053 {
     /**
-     * Общее кол-во идей
+     * Гуид тега
+     * @type {string}
+     * @memberof InlineResponse20053
+     */
+    _id?: string;
+    /**
+     * Тег
+     * @type {string}
+     * @memberof InlineResponse20053
+     */
+    title?: string;
+    /**
+     * Кол-во продуктов, которые используют этот тег
      * @type {number}
      * @memberof InlineResponse20053
      */
-    count?: number;
+    productCount?: number;
     /**
-     * Список идей
-     * @type {Array<InlineResponse20053Rows>}
+     * Tag color
+     * @type {string}
      * @memberof InlineResponse20053
      */
-    rows?: Array<InlineResponse20053Rows>;
+    color?: string;
 }
 
 

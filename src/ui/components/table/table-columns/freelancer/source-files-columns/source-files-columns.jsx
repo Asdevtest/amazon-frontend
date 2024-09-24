@@ -6,7 +6,7 @@ import {
   ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Text } from '@components/shared/text'
@@ -48,7 +48,7 @@ export const sourceFilesColumns = rowHandlers => [
     renderCell: params => {
       const user = params.row.sub ? params.row.sub : params.row.performer
 
-      return <UserMiniCell userName={user?.name} userId={user?._id} />
+      return <UserCell name={user?.name} id={user?._id} />
     },
   },
 
@@ -57,7 +57,7 @@ export const sourceFilesColumns = rowHandlers => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 180,
-    renderCell: params => <UserMiniCell userName={params.row.client?.name} userId={params.row.client?._id} />,
+    renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
   },
 
   {

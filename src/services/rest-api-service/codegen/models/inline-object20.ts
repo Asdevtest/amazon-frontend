@@ -27,12 +27,6 @@ export interface InlineObject20 {
      */
     title?: string;
     /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject20
-     */
-    boxesIds: Array<string>;
-    /**
      * Метод подсчта массы партии
      * @type {number}
      * @memberof InlineObject20
@@ -44,6 +38,12 @@ export interface InlineObject20 {
      * @memberof InlineObject20
      */
     volumeWeightDivide?: number;
+    /**
+     * Трек номер партии
+     * @type {string}
+     * @memberof InlineObject20
+     */
+    trackingNumber?: string;
     /**
      * Настоящая стоимость доставки
      * @type {number}

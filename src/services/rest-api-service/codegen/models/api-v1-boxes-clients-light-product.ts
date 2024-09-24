@@ -15,7 +15,7 @@
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusShop } from './api-v1-admins-get-products-by-status-shop';
-import { ApiV1ClientsProductsVacRedFlags } from './api-v1-clients-products-vac-red-flags';
+import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
 
 /**
  * 
@@ -109,10 +109,10 @@ export interface ApiV1BoxesClientsLightProduct {
     subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
-     * @type {Array<ApiV1ClientsProductsVacRedFlags>}
+     * @type {Array<ApiV1BoxesClientsLightProductRedFlags>}
      * @memberof ApiV1BoxesClientsLightProduct
      */
-    redFlags?: Array<ApiV1ClientsProductsVacRedFlags>;
+    redFlags?: Array<ApiV1BoxesClientsLightProductRedFlags>;
 }
 
 

@@ -2060,5 +2060,9 @@
   "Chat info": "Інформація про чат",
   "Rename": "Перейменувати",
   "Unlinked": "Не пов'язано",
-  "Unlink": "Відв'язати"
+  "Unlink": "Відв'язати",
+  "This profile was used": "Даний профіль використовувався",
+  "This profile has already been used! Do you want to continue?": "Даний профіль вже використовувався! Бажаєте продовжити?",
+  "By proposal": "За пропозиції",
+  "By announcement": "За оголошенням"
 }

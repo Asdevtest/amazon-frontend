@@ -13,26 +13,26 @@
  */
 
 
-import { InlineResponse20078 } from './inline-response20078';
+import { InlineResponse20081Rows } from './inline-response20081-rows';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20081
  */
 export interface InlineResponse20081 {
     /**
-     * Всего кол-во записей в результате запроса
+     * Count of rows
      * @type {number}
      * @memberof InlineResponse20081
      */
     count?: number;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20078>}
+     * 
+     * @type {Array<InlineResponse20081Rows>}
      * @memberof InlineResponse20081
      */
-    rows?: Array<InlineResponse20078>;
+    rows?: Array<InlineResponse20081Rows>;
 }
 
 

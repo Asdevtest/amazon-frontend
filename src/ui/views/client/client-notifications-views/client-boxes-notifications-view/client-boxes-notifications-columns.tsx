@@ -7,7 +7,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductsCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -106,9 +106,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
-      renderCell: params => (
-        <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
-      ),
+      renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
       width: 140,
       disableCustomSort: true,
       hideEmptyObject: true,

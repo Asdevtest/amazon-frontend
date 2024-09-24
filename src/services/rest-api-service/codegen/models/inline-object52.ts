@@ -13,7 +13,8 @@
  */
 
 
-import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
+import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
 
 /**
  * 
@@ -22,29 +23,263 @@ import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clie
  */
 export interface InlineObject52 {
     /**
-     * Гуид продукта
+     * ASIN продукта
      * @type {string}
      * @memberof InlineObject52
      */
-    productId: string;
+    asin?: string;
     /**
-     * New product price
+     * SKU введенным клиентом.
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    skuByClient?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject52
+     */
+    latestSeoFiles?: Array<string>;
+    /**
+     * Категория
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    category?: string;
+    /**
+     * Ссылка на этот продукт на амазоне.
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    lamazon?: string;
+    /**
+     * 
      * @type {number}
      * @memberof InlineObject52
      */
-    newProductPrice?: number;
+    bsr?: number;
     /**
-     * Description of product_listing_report
+     * Признак fba
+     * @type {boolean}
+     * @memberof InlineObject52
+     */
+    fba?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject52
+     */
+    amazon?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject52
+     */
+    height?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject52
+     */
+    width?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject52
+     */
+    length?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject52
+     */
+    weight?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject52
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject52
+     */
+    fbafee?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineObject52
+     */
+    fbaamount?: number;
+    /**
+     * Комментарии к товару.
      * @type {string}
      * @memberof InlineObject52
      */
-    description?: string;
+    icomment?: string;
     /**
-     * 
-     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
+     * Комментарии к товару, от клиента.
+     * @type {string}
      * @memberof InlineObject52
      */
-    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
+    clientComment?: string;
+    /**
+     * Массив изображений.
+     * @type {Array<string>}
+     * @memberof InlineObject52
+     */
+    images?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    amazonDescription?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    amazonDetail?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    amazonTitle?: string;
+    /**
+     * Материл продукта
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    material?: string;
+    /**
+     * Применение продукта
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    productUsage?: string;
+    /**
+     * chinese title?
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    chinaTitle?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject52
+     */
+    minpurchase?: number;
+    /**
+     * Прибыль
+     * @type {number}
+     * @memberof InlineObject52
+     */
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject52
+     */
+    margin?: number;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineObject52
+     */
+    strategyStatus?: number;
+    /**
+     * Признак needCheckBySupervisor
+     * @type {boolean}
+     * @memberof InlineObject52
+     */
+    needCheckBySupervisor?: boolean;
+    /**
+     * Флаг указывает что продукт в архиве.
+     * @type {boolean}
+     * @memberof InlineObject52
+     */
+    archive?: boolean;
+    /**
+     * hsCode продукта.
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    hsCode?: string;
+    /**
+     * Ниша
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    niche?: string;
+    /**
+     * Асины
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    asins?: string;
+    /**
+     * Общий доход
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    totalRevenue?: string;
+    /**
+     * Коэффициент прибыли
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    coefficient?: string;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    avgReviews?: string;
+    /**
+     * Поле для калькуляции дозакупок
+     * @type {number}
+     * @memberof InlineObject52
+     */
+    fourMonthesStock?: number;
+    /**
+     * ID магазинa продукта
+     * @type {string}
+     * @memberof InlineObject52
+     */
+    shopId?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsGuidRedFlags>}
+     * @memberof InlineObject52
+     */
+    redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @memberof InlineObject52
+     */
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
 }
 
 

@@ -21,17 +21,95 @@
  */
 export interface InlineObject72 {
     /**
-     * Комментарий клиента
-     * @type {string}
-     * @memberof InlineObject72
-     */
-    clientComment?: string;
-    /**
-     * Комментарий баера
+     * Комментарий байера
      * @type {string}
      * @memberof InlineObject72
      */
     buyerComment?: string;
+    /**
+     * Гуид дочернего компонента
+     * @type {string}
+     * @memberof InlineObject72
+     */
+    childProductId?: string;
+    /**
+     * Название идеи
+     * @type {string}
+     * @memberof InlineObject72
+     */
+    title?: string;
+    /**
+     * Images URLs
+     * @type {Array<string>}
+     * @memberof InlineObject72
+     */
+    media?: Array<string>;
+    /**
+     * Комментарий к идее
+     * @type {string}
+     * @memberof InlineObject72
+     */
+    comments?: string;
+    /**
+     * Назавние продукта
+     * @type {string}
+     * @memberof InlineObject72
+     */
+    productName?: string;
+    /**
+     * Ссылки на продукт, если есть
+     * @type {Array<string>}
+     * @memberof InlineObject72
+     */
+    productLinks?: Array<string>;
+    /**
+     * Дополнительные критерии для поиска товара
+     * @type {string}
+     * @memberof InlineObject72
+     */
+    criteria?: string;
+    /**
+     * Количество товаров
+     * @type {number}
+     * @memberof InlineObject72
+     */
+    quantity?: number;
+    /**
+     * Желаемая цена
+     * @type {number}
+     * @memberof InlineObject72
+     */
+    price?: number;
+    /**
+     * FBA Fee
+     * @type {number}
+     * @memberof InlineObject72
+     */
+    fbaFee?: number;
+    /**
+     * Ориентационная цена
+     * @type {number}
+     * @memberof InlineObject72
+     */
+    approximatePrice?: number;
+    /**
+     * Ширина, см
+     * @type {number}
+     * @memberof InlineObject72
+     */
+    width?: number;
+    /**
+     * Высота, см
+     * @type {number}
+     * @memberof InlineObject72
+     */
+    height?: number;
+    /**
+     * Длина, см
+     * @type {number}
+     * @memberof InlineObject72
+     */
+    length?: number;
 }
 
 

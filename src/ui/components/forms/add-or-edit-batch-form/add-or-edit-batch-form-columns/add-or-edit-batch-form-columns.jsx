@@ -5,7 +5,7 @@ import {
   NormDateCell,
   OrdersIdsItemsCell,
   ProductsCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -62,10 +62,9 @@ export const addOrEditBatchFormColumns = isClient => [
       <MultilineTextHeaderCell text={isClient ? t(TranslationKey.Storekeeper) : t(TranslationKey.Client)} />
     ),
     renderCell: params => (
-      <UserLinkCell
-        blackText
+      <UserCell
         name={isClient ? params.row.originalData?.storekeeper?.name : params.row.originalData?.client?.name}
-        userId={isClient ? params.row.originalData?.storekeeper?._id : params.row.originalData?.client?._id}
+        id={isClient ? params.row.originalData?.storekeeper?._id : params.row.originalData?.client?._id}
       />
     ),
     width: 130,

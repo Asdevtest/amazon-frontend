@@ -9,7 +9,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   SwitchCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -38,8 +38,8 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'client',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: ({ row }) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
-      valueGetter: ({ row }) => row.client?.name || '',
+      renderCell: ({ row }: GridRowModel) => <UserCell name={row.client?.name} id={row.client?._id} />,
+      valueGetter: ({ row }: GridRowModel) => row.client?.name || '',
       width: 160,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },

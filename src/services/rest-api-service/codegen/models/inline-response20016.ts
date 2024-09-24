@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
-import { ApiV1BatchesStorekeeper } from './api-v1-batches-storekeeper';
 
 /**
  * 
@@ -23,149 +21,41 @@ import { ApiV1BatchesStorekeeper } from './api-v1-batches-storekeeper';
  */
 export interface InlineResponse20016 {
     /**
-     * GUID партии.
+     * The unique identifier of the box.
      * @type {string}
      * @memberof InlineResponse20016
      */
-    _id?: string;
+    guid?: string;
     /**
-     * Человекочитаемый id партии.
+     * Объем в м ^ 3
      * @type {number}
      * @memberof InlineResponse20016
      */
-    humanFriendlyId?: number;
+    cubicMeters?: number;
     /**
-     * Статус партии.
-     * @type {string}
-     * @memberof InlineResponse20016
-     */
-    status?: string;
-    /**
-     * id корабля.
-     * @type {string}
-     * @memberof InlineResponse20016
-     */
-    shipId?: string;
-    /**
-     * Название партии
-     * @type {string}
-     * @memberof InlineResponse20016
-     */
-    title?: string;
-    /**
-     * Стоимость доставки при расчете из коробок
+     * The delivery cost of the box.
      * @type {number}
      * @memberof InlineResponse20016
      */
-    calculatedShippingCost?: number;
+    deliveryCost?: number;
     /**
-     * Настоящая стоимость доставки
+     * The volume weight of the box in kg.
      * @type {number}
      * @memberof InlineResponse20016
      */
-    actualShippingCost?: number;
+    volumeWeightKgWarehouse?: number;
     /**
-     * Трек номер партии
-     * @type {string}
-     * @memberof InlineResponse20016
-     */
-    trackingNumber?: string;
-    /**
-     * Массив ссылок на файлов документации к партии.
-     * @type {Array<string>}
-     * @memberof InlineResponse20016
-     */
-    attachedDocuments?: Array<string>;
-    /**
-     * Финальный вес партии, если считать все коробки как одну большую коробу.
+     * The weight of the box in kg.
      * @type {number}
      * @memberof InlineResponse20016
      */
-    finalWeightAsOneBox?: number;
+    weightFinalAccountingKgWarehouse?: number;
     /**
-     * Финальный вес партии, если сложить все веса коробок по отдельности.
+     * The delivery rate of the box. $/kg
      * @type {number}
      * @memberof InlineResponse20016
      */
-    finalWeightSumEachBoxAmount?: number;
-    /**
-     * Заархивирована ли партия
-     * @type {boolean}
-     * @memberof InlineResponse20016
-     */
-    archive?: boolean;
-    /**
-     * Массив id коробок.
-     * @type {Array<ApiV1BatchesBoxes>}
-     * @memberof InlineResponse20016
-     */
-    boxes?: Array<ApiV1BatchesBoxes>;
-    /**
-     * Метод подсчта массы партии
-     * @type {number}
-     * @memberof InlineResponse20016
-     */
-    calculationMethod?: number;
-    /**
-     * Делитель объема партии
-     * @type {number}
-     * @memberof InlineResponse20016
-     */
-    volumeWeightDivide?: number;
-    /**
-     * Масса партии
-     * @type {number}
-     * @memberof InlineResponse20016
-     */
-    finalWeight?: number;
-    /**
-     * Количество коробок в партии.
-     * @type {number}
-     * @memberof InlineResponse20016
-     */
-    quantityBoxes?: number;
-    /**
-     * Общая стоимость от поставщика заказа.
-     * @type {number}
-     * @memberof InlineResponse20016
-     */
-    totalPriceFromOrderSupplier?: number;
-    /**
-     * 
-     * @type {ApiV1BatchesStorekeeper}
-     * @memberof InlineResponse20016
-     */
-    storekeeper?: ApiV1BatchesStorekeeper;
-    /**
-     * 
-     * @type {ApiV1BatchesStorekeeper}
-     * @memberof InlineResponse20016
-     */
-    createdBy?: ApiV1BatchesStorekeeper;
-    /**
-     * 
-     * @type {ApiV1BatchesStorekeeper}
-     * @memberof InlineResponse20016
-     */
-    lastModifiedBy?: ApiV1BatchesStorekeeper;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20016
-     */
-    arrivalDate?: string;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse20016
-     */
-    createdAt?: string;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse20016
-     */
-    updatedAt?: string;
+    deliveryRate?: number;
 }
 
 

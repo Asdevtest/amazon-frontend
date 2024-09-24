@@ -29,6 +29,12 @@ export interface InlineResponse20070Rows {
     _id?: string;
     /**
      * 
+     * @type {string}
+     * @memberof InlineResponse20070Rows
+     */
+    productId?: string;
+    /**
+     * 
      * @type {InlineResponse20045InventoryShop}
      * @memberof InlineResponse20070Rows
      */
@@ -40,17 +46,11 @@ export interface InlineResponse20070Rows {
      */
     shopId?: string;
     /**
-     * Дате обновления
+     * asin
      * @type {string}
      * @memberof InlineResponse20070Rows
      */
-    dateDataUpdate?: string;
-    /**
-     * Время обновления
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    timeDataUpdate?: string;
+    asin?: string;
     /**
      * sku
      * @type {string}
@@ -58,35 +58,29 @@ export interface InlineResponse20070Rows {
      */
     sku?: string;
     /**
-     * shipment_id
+     * period_start
      * @type {string}
      * @memberof InlineResponse20070Rows
      */
-    shipmentId?: string;
+    periodStart?: string;
     /**
-     * reference_id
+     * period_end
      * @type {string}
      * @memberof InlineResponse20070Rows
      */
-    referenceId?: string;
+    periodEnd?: string;
     /**
-     * date_created
-     * @type {string}
+     * week
+     * @type {number}
      * @memberof InlineResponse20070Rows
      */
-    dateCreated?: string;
+    week?: number;
     /**
-     * date_updated
-     * @type {string}
+     * acos
+     * @type {number}
      * @memberof InlineResponse20070Rows
      */
-    dateUpdated?: string;
-    /**
-     * ship_to
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    shipTo?: string;
+    acos?: number;
     /**
      * image
      * @type {string}
@@ -94,43 +88,193 @@ export interface InlineResponse20070Rows {
      */
     image?: string;
     /**
-     * units_expected
+     * ppc_impressions
      * @type {number}
      * @memberof InlineResponse20070Rows
      */
-    unitsExpected?: number;
+    ppcImpressions?: number;
     /**
-     * status
+     * clicks
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    clicks?: number;
+    /**
+     * spend
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    spend?: number;
+    /**
+     * ppc_orders
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    ppcOrders?: number;
+    /**
+     * ppc_units
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    ppcUnits?: number;
+    /**
+     * ppc_sales
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    ppcSales?: number;
+    /**
+     * order_sales_cost
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    orderSalesCost?: number;
+    /**
+     * unit_sales_cost
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    unitSalesCost?: number;
+    /**
+     * organic_sessions
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    organicSessions?: number;
+    /**
+     * organic_orders
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    organicOrders?: number;
+    /**
+     * organic_units
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    organicUnits?: number;
+    /**
+     * organic_sales
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    organicSales?: number;
+    /**
+     * organic_avg_order_price
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    organicAvgOrderPrice?: number;
+    /**
+     * organic_avg_unit_price
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    organicAvgUnitPrice?: number;
+    /**
+     * impressions
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    impressions?: number;
+    /**
+     * sessions
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    sessions?: number;
+    /**
+     * ctr
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    ctr?: number;
+    /**
+     * orders
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    orders?: number;
+    /**
+     * units
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    units?: number;
+    /**
+     * avg_units_in_per_order
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    avgUnitsInPerOrder?: number;
+    /**
+     * sales
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    sales?: number;
+    /**
+     * avg_price_order
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    avgPriceOrder?: number;
+    /**
+     * avg_unit_price
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    avgUnitPrice?: number;
+    /**
+     * buy_box
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    buyBox?: number;
+    /**
+     * ppc_sale
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    ppcSale?: number;
+    /**
+     * organic_sale
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    organicSale?: number;
+    /**
+     * conversion
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    conversion?: number;
+    /**
+     * conversion_ppc
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    conversionPpc?: number;
+    /**
+     * conversion_organic
+     * @type {number}
+     * @memberof InlineResponse20070Rows
+     */
+    conversionOrganic?: number;
+    /**
+     * date_updated
      * @type {string}
      * @memberof InlineResponse20070Rows
      */
-    status?: string;
+    dateUpdated?: string;
     /**
-     * scheduled_carrier_delivery_data
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    scheduledCarrierDeliveryDate?: string;
-    /**
-     * delivery_window_start
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    deliveryWindowStart?: string;
-    /**
-     * delivery_window_end
-     * @type {string}
-     * @memberof InlineResponse20070Rows
-     */
-    deliveryWindowEnd?: string;
-    /**
-     * created_at
+     * createdAt
      * @type {string}
      * @memberof InlineResponse20070Rows
      */
     createdAt?: string;
     /**
-     * updated_at
+     * updatedAt
      * @type {string}
      * @memberof InlineResponse20070Rows
      */

@@ -38,6 +38,12 @@ export interface InlineResponse200118MetaReservedProfile {
      * @memberof InlineResponse200118MetaReservedProfile
      */
     email?: string;
+    /**
+     * Status
+     * @type {string}
+     * @memberof InlineResponse200118MetaReservedProfile
+     */
+    status?: string;
 }
 
 

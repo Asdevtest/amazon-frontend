@@ -3,7 +3,7 @@ import { ChangeEvent } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { UserMiniCell } from '@components/data-grid/data-grid-cells'
+import { UserCell } from '@components/data-grid/data-grid-cells'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { DatePicker } from '@components/shared/date-picker'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
@@ -161,14 +161,7 @@ export const useAdditionalInfo = ({
     },
     {
       title: t(TranslationKey.Buyer),
-      element: (
-        <UserMiniCell
-          userName={formFields?.buyer?.name}
-          userId={formFields?.buyer?._id}
-          wrapperClassName={styles.userMiniCellWrapper}
-          avatarClassName={styles.userMiniCellAvatar}
-        />
-      ),
+      element: <UserCell name={formFields?.buyer?.name} id={formFields?.buyer?._id} />,
     },
   ]
 

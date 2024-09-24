@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
  * 
@@ -22,23 +21,11 @@ import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clie
  */
 export interface InlineObject53 {
     /**
-     * New product price
-     * @type {number}
+     * Массив ссылок для seo-файлов
+     * @type {Array<string>}
      * @memberof InlineObject53
      */
-    newProductPrice?: number;
-    /**
-     * Description of product_listing_report
-     * @type {string}
-     * @memberof InlineObject53
-     */
-    description?: string;
-    /**
-     * 
-     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
-     * @memberof InlineObject53
-     */
-    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
+    latestSeoFiles?: Array<string>;
 }
 
 

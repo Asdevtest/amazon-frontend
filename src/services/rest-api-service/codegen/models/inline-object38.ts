@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes';
 
 /**
  * 
@@ -21,11 +22,11 @@
  */
 export interface InlineObject38 {
     /**
-     * Зашита листинга (bool)
-     * @type {boolean}
+     * 
+     * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
      * @memberof InlineObject38
      */
-    transparency?: boolean;
+    itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
 }
 
 

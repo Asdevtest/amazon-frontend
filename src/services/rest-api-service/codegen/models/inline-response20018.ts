@@ -13,6 +13,9 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyRequests } from './api-v1-announcements-my-requests';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 
 /**
  * 
@@ -21,41 +24,65 @@
  */
 export interface InlineResponse20018 {
     /**
-     * The unique identifier of the box.
+     * GUID в базе данных
      * @type {string}
      * @memberof InlineResponse20018
      */
-    guid?: string;
+    _id?: string;
     /**
-     * Объем в м ^ 3
-     * @type {number}
+     * 
+     * @type {ApiV1AnnouncementsMySpec}
      * @memberof InlineResponse20018
      */
-    cubicMeters?: number;
+    spec?: ApiV1AnnouncementsMySpec;
     /**
-     * The delivery cost of the box.
-     * @type {number}
+     * Archive
+     * @type {boolean}
      * @memberof InlineResponse20018
      */
-    deliveryCost?: number;
+    archive?: boolean;
     /**
-     * The volume weight of the box in kg.
-     * @type {number}
+     * 
+     * @type {Array<ApiV1AnnouncementsMyRequests>}
      * @memberof InlineResponse20018
      */
-    volumeWeightKgWarehouse?: number;
+    requests?: Array<ApiV1AnnouncementsMyRequests>;
     /**
-     * The weight of the box in kg.
-     * @type {number}
+     * 
+     * @type {Array<string>}
      * @memberof InlineResponse20018
      */
-    weightFinalAccountingKgWarehouse?: number;
+    linksToMediaFiles?: Array<string>;
     /**
-     * The delivery rate of the box. $/kg
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineResponse20018
      */
-    deliveryRate?: number;
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20018
+     */
+    description?: string;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20018
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20018
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse20018
+     */
+    updatedAt?: string;
 }
 
 

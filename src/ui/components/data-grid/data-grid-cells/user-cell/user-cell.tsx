@@ -1,6 +1,5 @@
-import { Avatar, Rate } from 'antd'
+import { Avatar } from 'antd'
 import Link from 'antd/es/typography/Link'
-import Text from 'antd/es/typography/Text'
 import { FC, memo } from 'react'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -8,28 +7,27 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { useStyles } from './user-cell.style'
 
 interface UserCellProps {
-  userId: string
-  name: string
-  email: string
-  rating: number
+  id?: string
+  name?: string
 }
 
 export const UserCell: FC<UserCellProps> = memo(props => {
-  const { userId, name, email, rating } = props
+  const { id, name } = props
 
   const { classes: styles } = useStyles()
 
   return (
-    <div className={styles.wrapper}>
-      <Avatar size={64} src={getUserAvatarSrc(userId)} />
-
-      <div className={styles.flexColumn}>
-        <Link href={`${window.location.origin}/another-user?${userId}`} target="_blank" className={styles.text}>
+    <div className={styles.root}>
+      {id ? (
+        <div>
+          <Avatar size={36} src={getUserAvatarSrc(id)} />
+        </div>
+      ) : null}
+      {name ? (
+        <Link href={`${window.location.origin}/another-user?${id}`} target="_blank" className={styles.text}>
           {name}
         </Link>
-        <Text className={styles.text}>{email}</Text>
-        <Rate disabled defaultValue={rating} className={styles.text} />
-      </div>
+      ) : null}
     </div>
   )
 })

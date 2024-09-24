@@ -2,12 +2,7 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextHeaderCell,
-  NormDateCell,
-  ProductsCell,
-  UserMiniCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductsCell, UserCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
@@ -52,9 +47,9 @@ export const adminWarehouseBoxesColumns = () => {
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
       renderCell: params => (
-        <UserMiniCell
-          userName={params.row.items?.[0]?.product?.client?.name}
-          userId={params.row.items?.[0]?.product?.client?._id}
+        <UserCell
+          name={params.row.items?.[0]?.product?.client?.name}
+          id={params.row.items?.[0]?.product?.client?._id}
         />
       ),
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -67,9 +62,7 @@ export const adminWarehouseBoxesColumns = () => {
       field: 'storekeeper',
       headerName: t(TranslationKey.Storekeeper),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
-      renderCell: params => (
-        <UserMiniCell userName={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
-      ),
+      renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
       width: 180,
       hideEmptyObject: true,
       disableCustomSort: true,

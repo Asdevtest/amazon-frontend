@@ -15,17 +15,17 @@
 
 
 /**
- * Схема редактирования в первый раз shippingLabel коробки
+ * 
  * @export
  * @interface InlineObject54
  */
 export interface InlineObject54 {
     /**
-     * shippingLabel
-     * @type {string}
+     * Зашита листинга (bool)
+     * @type {boolean}
      * @memberof InlineObject54
      */
-    shippingLabel: string;
+    transparency?: boolean;
 }
 
 

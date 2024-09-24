@@ -24,9 +24,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   container: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
     minHeight: '22px',
     height: '100%',
-    alignContent: 'center',
   },
 
   icon: {

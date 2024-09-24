@@ -91,6 +91,14 @@ export const useStyles = makeStyles()(theme => ({
     gap: 20,
   },
 
+  dateField: {
+    justifyContent: 'flex-end',
+  },
+
+  dateBlock: {
+    width: 'calc(50% - 10px)',
+  },
+
   deadlineErrorText: {
     color: theme.palette.text.red,
   },

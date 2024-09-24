@@ -4,7 +4,7 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, UserMiniCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, UserCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
@@ -20,7 +20,7 @@ export const parsingRequestsViewColumns = ({ onOpenProfileModal, onRejectProfile
       field: 'client',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: ({ row }) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
+      renderCell: ({ row }: GridRowModel) => <UserCell name={row.client?.name} id={row.client?._id} />,
       valueGetter: ({ row }: GridRowModel) => row.client?.name || '',
       width: 160,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -77,7 +77,7 @@ export const parsingRequestsViewColumns = ({ onOpenProfileModal, onRejectProfile
       renderCell: ({ row }) => (
         <ParsingRequestCell
           status={row.status}
-          onApproveProfile={() => onOpenProfileModal(row._id, row.profile?._id)}
+          onApproveProfile={() => onOpenProfileModal(row._id, row.profile?._id, row.shop?._id)}
           onRejectProfile={() => onRejectProfile(row._id)}
         />
       ),

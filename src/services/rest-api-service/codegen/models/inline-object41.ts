@@ -21,120 +21,59 @@
  */
 export interface InlineObject41 {
     /**
-     * GUID storekeeper-a
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    storekeeperId: string;
-    /**
-     * GUID баера
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    buyerId?: string;
-    /**
-     * Защита листинга
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    transparencyFile?: string;
-    /**
      * 
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    item?: string;
-    /**
-     * GUID тарифа доставки
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    logicsTariffId: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    variationTariffId?: string;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    priority?: InlineObject41PriorityEnum;
-    /**
-     * GUID пункта назначения.
-     * @type {string}
-     * @memberof InlineObject41
-     */
-    destinationId?: string;
-    /**
-     * Кол-во продукта по этой позиции.
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    amount: number;
-    /**
-     * Стоимость доставки до склада.
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    deliveryCostToTheWarehouse?: number;
-    /**
-     * Комментарии клиента.
      * @type {string}
      * @memberof InlineObject41
      */
     clientComment?: string;
     /**
-     * GUID заказанного продукта
+     * 
      * @type {string}
      * @memberof InlineObject41
      */
-    productId: string;
+    storekeeperComment?: string;
     /**
-     * Массив изображений.
+     * Storage in boxes
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    storage?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    referenceId?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    fbaNumber?: string;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    upsTrackNumber?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineObject41
+     */
+    trackNumberText?: string;
+    /**
+     * 
      * @type {Array<string>}
      * @memberof InlineObject41
      */
-    images?: Array<string>;
+    trackNumberFile?: Array<string>;
     /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
-     * @type {boolean}
-     * @memberof InlineObject41
-     */
-    expressChinaDelivery?: boolean;
-    /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
-     * @memberof InlineObject41
-     */
-    needsResearch?: boolean;
-    /**
-     * Дедлайн выкупа заказа
+     * Значение информационного ключа
      * @type {string}
      * @memberof InlineObject41
      */
-    deadline?: string;
-    /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
-     * @type {number}
-     * @memberof InlineObject41
-     */
-    totalPrice?: number;
+    prepId?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject41PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

@@ -9,7 +9,7 @@ import {
   ManyUserLinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  UserLinkCell,
+  UserCell,
   WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -83,9 +83,7 @@ export const clientBatchesViewColumns = rowHandlers => {
       field: 'storekeeper',
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
-      renderCell: params => (
-        <UserLinkCell blackText name={params.row?.storekeeper?.name} userId={params.row?.storekeeper?._id} />
-      ),
+      renderCell: params => <UserCell name={params.row?.storekeeper?.name} id={params.row?.storekeeper?._id} />,
       width: 150,
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

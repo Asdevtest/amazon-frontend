@@ -21,11 +21,11 @@
  */
 export interface InlineResponse20110 {
     /**
-     * GUID созданной коробки
+     * Имя файла для доступа к нему.
      * @type {string}
      * @memberof InlineResponse20110
      */
-    guid?: string;
+    fileName?: string;
 }
 
 
