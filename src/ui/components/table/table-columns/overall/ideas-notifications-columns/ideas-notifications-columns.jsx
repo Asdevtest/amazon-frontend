@@ -6,7 +6,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -69,9 +69,7 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey['Updated by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Updated by'])} />,
 
-    renderCell: params => (
-      <UserLinkCell blackText name={params?.value} userId={params?.row?.originalData?.createdBy._id} />
-    ),
+    renderCell: params => <UserCell name={params?.value} id={params?.row?.originalData?.createdBy._id} />,
     width: 160,
   },
 

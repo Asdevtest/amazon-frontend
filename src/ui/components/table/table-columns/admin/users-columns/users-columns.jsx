@@ -9,7 +9,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductVariationsCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -34,7 +34,7 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey.Online),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Online)} />,
 
-      renderCell: params => <UserMiniCell userId={params?.id} isOnline={params?.row?.isOnline} />,
+      renderCell: params => <UserCell id={params?.id} />,
       width: 90,
       filterable: false,
     },

@@ -6,7 +6,7 @@ import {
   ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -31,7 +31,7 @@ export const FreelancerFreelanceColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 228,
     renderCell: params => (
-      <UserMiniCell userName={params.row.originalData.createdBy.name} userId={params.row.originalData.createdBy._id} />
+      <UserCell name={params.row.originalData.createdBy.name} id={params.row.originalData.createdBy._id} />
     ),
   },
   {

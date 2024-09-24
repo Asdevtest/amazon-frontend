@@ -1,6 +1,6 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, Text, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, Text, UserCell } from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -41,7 +41,7 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Initiator)} />,
 
     width: 170,
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
+    renderCell: params => <UserCell name={params.value} id={params.row.originalData.createdBy?._id} />,
   },
 
   {
@@ -50,7 +50,7 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Recipient)} />,
 
     width: 170,
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.recipient?._id} />,
+    renderCell: params => <UserCell name={params.value} id={params.row.originalData.recipient?._id} />,
   },
 
   {

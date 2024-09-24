@@ -6,7 +6,7 @@ import {
   OrderCell,
   OrderManyItemsCell,
   Text,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
@@ -81,9 +81,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey['Int warehouse']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
-    ),
+    renderCell: params => <UserCell name={params.value} id={params.row.originalData.storekeeper?._id} />,
     width: 160,
   },
 

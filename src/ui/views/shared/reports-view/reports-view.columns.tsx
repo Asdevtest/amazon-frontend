@@ -13,7 +13,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Launches } from '@components/shared/launches'
 import { getLaunchName } from '@components/shared/launches/helpers/get-launch-name'
@@ -142,7 +142,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
       renderCell: ({ row }: GridRowModel) => (
-        <UserMiniCell userName={row.sub?.name || row.createdBy?.name} userId={row.sub?._id || row.createdBy?._id} />
+        <UserCell name={row.sub?.name || row.createdBy?.name} id={row.sub?._id || row.createdBy?._id} />
       ),
       valueGetter: (row: GridRowModel) => row?.sub?.name || row?.createdBy?.name,
 

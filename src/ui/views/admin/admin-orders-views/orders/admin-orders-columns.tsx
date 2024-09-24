@@ -10,7 +10,7 @@ import {
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -120,9 +120,7 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-      renderCell: params => (
-        <UserLinkCell blackText name={params.row.product.client?.name} userId={params.row.product.client?._id} />
-      ),
+      renderCell: params => <UserCell name={params.row.product.client?.name} id={params.row.product.client?._id} />,
       width: 200,
       disableCustomSort: true,
       table: DataGridFilterTables.PRODUCTS,
@@ -134,7 +132,7 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey.Storekeeper),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
-      renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
+      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} />,
       width: 200,
       disableCustomSort: true,
 
@@ -147,7 +145,7 @@ export const adminOrdersViewColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
       width: 200,
-      renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
+      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} />,
       disableCustomSort: true,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

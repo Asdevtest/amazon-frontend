@@ -6,7 +6,7 @@ import {
   NormDateCell,
   RedFlagsCell,
   TagsCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
 import { Text } from '@components/shared/text'
@@ -92,9 +92,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Researcher),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Researcher)} />,
 
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
-    ),
+    renderCell: params => <UserCell name={params.value} id={params.row.originalData.createdBy?._id} />,
     width: 160,
   },
 
@@ -103,7 +101,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
+    renderCell: params => <UserCell name={params.value} id={params.row.originalData.buyer?._id} />,
     width: 150,
   },
 
@@ -112,9 +110,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Supervisor),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.checkedBy?._id} />
-    ),
+    renderCell: params => <UserCell name={params.value} id={params.row.originalData.checkedBy?._id} />,
     width: 150,
   },
 

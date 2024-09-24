@@ -11,7 +11,7 @@ import {
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -209,9 +209,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'storekeeper',
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
-      renderCell: params => (
-        <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
-      ),
+      renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
       valueGetter: params => params.row.storekeeper?.name,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -222,9 +220,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'client',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: params => (
-        <UserLinkCell blackText name={params.row.product.client?.name} userId={params.row.product.client?._id} />
-      ),
+      renderCell: params => <UserCell name={params.row.product.client?.name} id={params.row.product.client?._id} />,
 
       valueGetter: params => params.row.product?.client?.name,
 

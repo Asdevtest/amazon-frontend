@@ -7,7 +7,7 @@ import {
   TaskDescriptionCell,
   TaskStatusCell,
   TaskTypeCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
@@ -49,7 +49,7 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
 
       width: 180,
       align: 'center',
-      renderCell: params => <UserLinkCell blackText name={params.value.name} userId={params.value?._id} />,
+      renderCell: params => <UserCell name={params.value.name} id={params.value?._id} />,
     },
 
     {

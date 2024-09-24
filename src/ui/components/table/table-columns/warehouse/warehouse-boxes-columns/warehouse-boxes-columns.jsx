@@ -11,7 +11,7 @@ import {
   OrderManyItemsCell,
   OrdersIdsItemsCell,
   RedFlagsCell,
-  UserLinkCell,
+  UserCell,
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid/data-grid-cells'
 import { Dimensions } from '@components/shared/dimensions'
@@ -162,7 +162,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.client?._id} />,
+    renderCell: params => <UserCell name={params.value} id={params.row.originalData.client?._id} />,
     width: 150,
     sortable: false,
   },

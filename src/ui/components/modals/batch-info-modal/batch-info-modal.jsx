@@ -10,7 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
-import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { ChangeInputCell, UserCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -110,12 +110,7 @@ export const BatchInfoModal = observer(
               labelClasses={styles.fieldLabel}
               inputComponent={
                 <div className={styles.userLinkWrapper}>
-                  <UserLinkCell
-                    blackText
-                    name={currentBatch?.storekeeper?.name}
-                    userId={currentBatch?.storekeeper?._id}
-                    customStyles={{ fontWeight: 400, fontSize: 14, lineHeight: '19px' }}
-                  />
+                  <UserCell name={currentBatch?.storekeeper?.name} id={currentBatch?.storekeeper?._id} />
                 </div>
               }
             />
