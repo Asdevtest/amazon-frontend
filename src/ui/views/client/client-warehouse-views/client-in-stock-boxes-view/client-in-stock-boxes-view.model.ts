@@ -1145,7 +1145,37 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         updateBoxWhiteList,
       )
 
-      if (sourceData.shippingLabel === null) {
+      const isBarcodeChanged =
+        sourceData.items[0].barCode !== boxData.items[0].barCode || boxData.items[0].tmpBarCode.length !== 0
+      const isTransparencyFileChanged =
+        sourceData.items[0].transparencyFile !== boxData.items[0].transparencyFile ||
+        boxData.items[0].tmpTransparencyFile.length !== 0
+      const isclientCommentChanged = sourceData.clientComment !== boxData.clientComment
+
+      const editBoxAndPostTask = async (id: string, requestBox: any) => {
+        const editBoxesResult = await this.editBox(id, requestBox)
+        await this.postTask({
+          // @ts-ignore
+          idsData: [editBoxesResult.guid],
+          idsBeforeData: [id],
+          type: TaskOperationType.EDIT,
+          clientComment: boxData.clientTaskComment,
+          // @ts-ignore
+          priority,
+          // @ts-ignore
+          reason: priorityReason,
+        })
+
+        toast.success(
+          `${t(TranslationKey['Formed a task for storekeeper'])} ${sourceData.storekeeper?.name} ${t(
+            TranslationKey['to change the Box'],
+          )} № ${sourceData.humanFriendlyId}`,
+        )
+      }
+
+      if (isclientCommentChanged || isBarcodeChanged || isTransparencyFileChanged) {
+        editBoxAndPostTask(id, requestBox)
+      } else if (sourceData.shippingLabel === null) {
         await BoxesModel.editBoxAtClient(id, {
           destinationId: boxData.destinationId,
           logicsTariffId: boxData.logicsTariffId,
@@ -1169,32 +1199,12 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           variationTariffId: boxData.variationTariffId,
         })
       } else {
-        const editBoxesResult = await this.editBox(id, requestBox)
-
-        await this.postTask({
-          // @ts-ignore
-          idsData: [editBoxesResult.guid],
-          idsBeforeData: [id],
-          type: TaskOperationType.EDIT,
-          clientComment: boxData.clientTaskComment,
-          // @ts-ignore
-          priority,
-          // @ts-ignore
-          reason: priorityReason,
-        })
+        editBoxAndPostTask(id, requestBox)
       }
 
       await this.updateBarCodesInInventory(dataToBarCodeChange)
 
-      runInAction(() => {
-        toast.success(
-          `${t(TranslationKey['Formed a task for storekeeper'])} ${sourceData.storekeeper?.name} ${t(
-            TranslationKey['to change the Box'],
-          )} № ${sourceData.humanFriendlyId}`,
-        )
-
-        isMultipleEdit && (this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId))
-      })
+      isMultipleEdit && (this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId))
 
       !isMultipleEdit && this.loadData()
       !isMultipleEdit && this.onTriggerOpenModal('showEditBoxModal')
