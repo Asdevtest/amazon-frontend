@@ -1429,6 +1429,7 @@ export enum TranslationKey {
   'Columns' = 'Columns',
   'Request type' = 'Request type',
   'Cost' = 'Cost',
+  'Executor' = 'Executor',
   'Empty' = 'Empty',
   'Selected boxes' = 'Selected boxes',
   'Choose a section in My orders' = 'Choose a section in My orders',
