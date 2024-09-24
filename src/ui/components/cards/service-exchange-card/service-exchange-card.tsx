@@ -86,9 +86,11 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
             </p>
           ) : null}
 
-          <CustomButton type="primary" onClick={() => onClickButton(service)}>
-            {buttonContent}
-          </CustomButton>
+          <div className={styles.buttonWrapper}>
+            <CustomButton type="primary" onClick={() => onClickButton(service)}>
+              {buttonContent}
+            </CustomButton>
+          </div>
         </div>
       </div>
 
