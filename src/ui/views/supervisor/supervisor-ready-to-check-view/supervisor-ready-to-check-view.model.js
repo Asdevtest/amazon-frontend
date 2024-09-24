@@ -19,7 +19,9 @@ export class SupervisorReadyToCheckViewModel extends DataGridTableModel {
     const columnsProps = {
       onPickUp: id => this.onPickUp(id),
     }
+
     const columnsModel = supervisorReadyToCheckColumns(columnsProps)
+
     super({
       getMainDataMethod: () => SupervisorModel.getProductsVacant(isCreatedByClient),
       columnsModel,
