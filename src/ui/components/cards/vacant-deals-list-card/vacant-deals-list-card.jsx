@@ -12,7 +12,6 @@ import { UserLink } from '@components/user/user-link'
 import { formatNormDateTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -89,10 +88,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
           </div>
           <div className={!showDetails ? styles.buttonsWrapper : styles.buttonWrapper}>
             {!showDetails && (
-              <Button
-                styleType={ButtonStyle.SUCCESS}
-                onClick={throttle(onClickGetToWorkModal(item._id, item.requestId))}
-              >
+              <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickGetToWorkModal(item._id, item.requestId)}>
                 {t(TranslationKey['Get to work'])}
               </Button>
             )}

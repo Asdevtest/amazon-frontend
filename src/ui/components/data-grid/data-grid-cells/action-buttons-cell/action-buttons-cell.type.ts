@@ -52,9 +52,9 @@ export interface ActionButtonsCellProps {
   secondDisabled?: boolean
   thirdDisabled?: boolean
 
-  firstDescription?: string
-  secondDescription?: string
-  thirdDescription?: string
+  firstConfirmText?: string
+  secondConfirmText?: string
+  thirdConfirmText?: string
 
   onClickFirst?: () => void
   onClickSecond?: () => void

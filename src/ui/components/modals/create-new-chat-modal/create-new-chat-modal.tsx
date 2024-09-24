@@ -94,7 +94,6 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
         type="primary"
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
         disabled={isDisabled}
-        wrapperClassName={styles.createButton}
         onClick={chatToEdit ? viewModel.onSubmitPatchInfoGroupChat : viewModel.onClickCreateChat}
       >
         {t(TranslationKey[chatToEdit ? 'Save' : 'Create'])}

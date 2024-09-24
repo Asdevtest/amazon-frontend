@@ -47,10 +47,7 @@ export const ChatMessageControlsOverlay: FC<ChatMessageControlsOverlayProps> = m
           <CustomButton
             className={styles.button}
             icon={isSelectedMessage ? <AiOutlineCloseCircle /> : <FaRegCheckCircle />}
-            onClick={e => {
-              e?.stopPropagation()
-              onSelectMessage?.()
-            }}
+            onClick={onSelectMessage}
           >
             {isSelectedMessage ? t(TranslationKey.Deselect) : t(TranslationKey.Select)}
           </CustomButton>
@@ -59,14 +56,7 @@ export const ChatMessageControlsOverlay: FC<ChatMessageControlsOverlayProps> = m
       {
         key: 'reply',
         label: (
-          <CustomButton
-            className={styles.button}
-            icon={<MdReply />}
-            onClick={e => {
-              e?.stopPropagation()
-              onClickReply?.()
-            }}
-          >
+          <CustomButton className={styles.button} icon={<MdReply />} onClick={onClickReply}>
             {t(TranslationKey.Reply)}
           </CustomButton>
         ),
@@ -77,8 +67,7 @@ export const ChatMessageControlsOverlay: FC<ChatMessageControlsOverlayProps> = m
           <CustomButton
             className={styles.button}
             icon={<RiShareForwardFill />}
-            onClick={e => {
-              e?.stopPropagation()
+            onClick={() => {
               onSelectMessage?.()
               onClickForwardMessages?.()
             }}

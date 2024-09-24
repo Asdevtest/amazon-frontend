@@ -72,11 +72,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
   },
 
-  actionButton: {
-    alignSelf: 'flex-end',
-    justifySelf: 'flex-end',
-  },
-
   detailsText: {
     display: 'flex',
     alignItems: 'center',

@@ -323,7 +323,6 @@ export enum TranslationKey {
   'Sending boxes' = 'Sending boxes',
   'Total cost of shipment' = 'Total cost of shipment',
   'glued' = 'glued',
-  'download' = 'download',
   'Download' = 'Download',
   'Actual weight' = 'Actual weight',
   'Box delivery cost' = 'Box delivery cost',

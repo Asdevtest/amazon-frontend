@@ -60,7 +60,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
           secondDanger
           firstContent={t(TranslationKey.Confirm)}
           secondContent={t(TranslationKey.Reject)}
-          secondDescription="The box will be returned to warehouse"
+          secondConfirmText="The box will be returned to warehouse"
           onClickFirst={() => handlers.onTriggerOpenConfirmModal(row as IBox)}
           onClickSecond={() => handlers.onTriggerOpenRejectModal(row as IBox)}
         />
