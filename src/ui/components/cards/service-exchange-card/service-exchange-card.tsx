@@ -39,6 +39,7 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
   const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
   const isCard = variant === 'card'
   const isNoImage = !service?.linksToMediaFiles?.[0]
+  const cardImageUrl = isNoImage ? '/assets/img/defaultImage.png' : getAmazonImageUrl(service.linksToMediaFiles[0])
 
   const [isOpenModal, setIsOpenModal] = useState(false)
 
@@ -52,9 +53,9 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
         <div className={cx(styles.serviceWrapper, { [styles.serviceListWrapper]: !isCard })}>
           <CustomImage
             width="100%"
-            height={isCard ? 150 : 135}
+            height={180}
             wrapperClassName={cx(styles.image, { [styles.noImage]: isNoImage })}
-            imageUrl={getAmazonImageUrl(service.linksToMediaFiles[0])}
+            imageUrl={cardImageUrl}
           />
 
           <div className={styles.serviceInfo}>
