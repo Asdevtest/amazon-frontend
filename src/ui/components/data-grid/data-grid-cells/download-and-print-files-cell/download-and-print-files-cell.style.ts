@@ -26,6 +26,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   text: {
+    width: '140px',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
