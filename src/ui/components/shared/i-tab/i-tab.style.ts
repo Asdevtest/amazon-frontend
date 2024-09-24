@@ -37,12 +37,6 @@ export const useStyles = makeStyles()(theme => ({
     width: 17,
     height: 17,
     color: 'red',
-    transition: '.3s ease-in-out',
-
-    '&:hover': {
-      cursor: 'default',
-      transform: 'scale(1.1)',
-    },
   },
 
   tooltipInfo: {

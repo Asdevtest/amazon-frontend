@@ -27,15 +27,9 @@ export const useStyles = makeStyles()(theme => ({
     height: '97px',
     borderRadius: '50%',
     backgroundColor: theme.palette.background.second,
-
     cursor: 'pointer',
-
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
-
     position: 'relative',
+
     [theme.breakpoints.down(768)]: {
       width: '62px',
       height: '62px',

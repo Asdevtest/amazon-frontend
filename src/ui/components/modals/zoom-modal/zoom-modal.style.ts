@@ -28,7 +28,6 @@ export const useStyles = makeStyles()(theme => ({
 
             '&:hover': {
               opacity: 1,
-              transform: 'scale(1.05)',
             },
           },
         },

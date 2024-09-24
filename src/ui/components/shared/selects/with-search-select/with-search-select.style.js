@@ -60,7 +60,6 @@ export const useStyles = makeStyles()(theme => ({
     cursor: 'pointer',
     transition: '0.3s ease',
     '&:hover': {
-      transform: 'scale(1.01)',
       backgroundColor: theme.palette.background.searchSelectHover,
     },
   },
@@ -127,10 +126,6 @@ export const useStyles = makeStyles()(theme => ({
   setFavouriteBtn: {
     color: theme.palette.background.disabled,
     borderRadius: 30,
-    transition: '.3s ease',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
   setFavouriteBtnIsSelected: {
     color: '#ff9800',

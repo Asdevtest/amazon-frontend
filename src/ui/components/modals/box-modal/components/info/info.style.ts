@@ -45,7 +45,6 @@ export const useStyles = makeStyles()(theme => ({
     width: 200,
     height: 30,
     borderRadius: 7,
-    transition: '0.3s ease',
   },
 
   input: {

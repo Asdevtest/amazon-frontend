@@ -64,12 +64,7 @@ export const useStyles = makeStyles()(theme => ({
     top: -25,
     right: -25,
     color: 'rgba(255,255,255, .9)',
-    transition: '0.3s ease',
     cursor: 'pointer',
-
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
 
     [theme.breakpoints.down(768)]: {
       zIndex: 7,
