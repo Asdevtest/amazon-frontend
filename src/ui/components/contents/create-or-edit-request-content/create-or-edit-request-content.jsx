@@ -646,14 +646,14 @@ export const CreateOrEditRequestContent = memo(props => {
               </div>
 
               <div className={styles.stepContent}>
-                <div className={styles.fields}>
+                <div className={cx(styles.fields, styles.dateField)}>
                   <Field
                     tooltipInfoContent={t(TranslationKey['Indicate the date by which proposals may be received'])}
                     label={`${t(TranslationKey['When do you want results?'])}*`}
                     labelClasses={styles.label}
-                    containerClasses={styles.fieldContainer}
+                    containerClasses={cx(styles.fieldContainer, styles.dateBlock)}
                     inputComponent={
-                      <div>
+                      <div className={styles.datePickerContainer}>
                         <DatePicker
                           disablePast
                           minDate={minDate}
@@ -669,7 +669,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       </div>
                     }
                   />
-                  <Field
+                  {/* <Field
                     tooltipInfoContent={t(TranslationKey['Indicate the time until which offers may be received'])}
                     label={`${t(TranslationKey['What time do you want the result?'])}*`}
                     labelClasses={styles.label}
@@ -688,7 +688,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         )}
                       </div>
                     }
-                  />
+                  /> */}
                 </div>
 
                 <div className={styles.fields}>
