@@ -3,6 +3,7 @@ import { makeObservable } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
+import { DataGridTagsFilter } from '@models/data-grid-tags-filter'
 import { SupervisorModel } from '@models/supervisor-model'
 import { UserModel } from '@models/user-model'
 
@@ -11,7 +12,7 @@ import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-f
 import { supervisorProductsViewColumns } from './supervisor-products-view.columns'
 import { additionalFields, supervisorProductsConfig } from './supervisor-products-view.config'
 
-export class SupervisorProductsViewModel extends DataGridFilterTableModel {
+export class SupervisorProductsViewModel extends DataGridTagsFilter {
   switcherFilterStatuses = null
   showProductModal = false
 
@@ -105,26 +106,5 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
     }
 
     this.onTriggerOpenModal('showProductModal')
-  }
-
-  setActiveProductsTag(tags) {
-    this.columnMenuSettings?.onChangeFullFieldMenuItem(tags, 'tags')
-    this.columnMenuSettings?.onClickAccept()
-  }
-
-  setActiveProductsTagFromTable(tag) {
-    const index = this.columnMenuSettings?.tags?.currentFilterData?.findIndex(
-      currentTag => currentTag?._id === tag?._id,
-    )
-
-    const newTags = [...this.columnMenuSettings.tags.currentFilterData]
-
-    if (index > -1) {
-      newTags.splice(index, 1)
-    } else {
-      newTags.push(tag)
-    }
-
-    this.setActiveProductsTag(newTags)
   }
 }

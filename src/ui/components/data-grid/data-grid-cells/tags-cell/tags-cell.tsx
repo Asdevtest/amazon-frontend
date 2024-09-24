@@ -7,13 +7,11 @@ import { EditIcon } from '@components/shared/svg-icons'
 
 import { ITag } from '@typings/shared/tag'
 
-import { IItemWithTitle } from '@hooks/use-select'
-
 import { useStyles } from './tags-cell.style'
 
 interface TagsCellProps {
   tags: ITag[]
-  onClickTag?: (tag: IItemWithTitle) => void
+  onClickTag?: (tag: ITag) => void
   onClickEdit?: () => void
 }
 
