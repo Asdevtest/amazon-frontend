@@ -32,7 +32,7 @@ export const AdminSettings = observer(() => {
   const [viewModel] = useState(() => new AdminSettingsModel())
 
   return (
-    <div className="viewWrapper">
+    <>
       <Tabs
         value={viewModel.tabIndex}
         variant="scrollable"
@@ -128,6 +128,6 @@ export const AdminSettings = observer(() => {
           onClickCancelBtn={viewModel.confirmModalSettings.onClickFailed}
         />
       ) : null}
-    </div>
+    </>
   )
 })
