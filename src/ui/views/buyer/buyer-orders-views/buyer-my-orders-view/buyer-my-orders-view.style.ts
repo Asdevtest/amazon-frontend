@@ -10,4 +10,8 @@ export const useStyles = makeStyles()(() => ({
   attentionRow: {
     boxShadow: 'inset 0 0 30px rgba(247, 179, 7, .3)',
   },
+
+  searchInput: {
+    width: '450px',
+  },
 }))

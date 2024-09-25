@@ -17,16 +17,20 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IOrder } from '@typings/models/orders/order'
 
+import { useStyles } from './buyer-pending-orders-view.style'
+
 import { BuyerMyOrdersViewModel } from './buyer-pending-orders-view.model'
 
 export const BuyerPendingOrdersView = observer(() => {
   const [viewModel] = useState(() => new BuyerMyOrdersViewModel())
+  const { classes: styles } = useStyles()
 
   return (
     <div className="viewWrapper">
       <CustomInputSearch
         enterButton
         allowClear
+        wrapperClassName={styles.searchInput}
         size="large"
         placeholder="Search by SKU, ASIN, Title, Order, item"
         onSearch={viewModel.onSearchSubmit}
