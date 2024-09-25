@@ -21,7 +21,7 @@
  */
 export interface InlineResponse2011 {
     /**
-     * Гуид созданного анонса
+     * 
      * @type {string}
      * @memberof InlineResponse2011
      */
