@@ -25,7 +25,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       field: 'name',
       headerName: t(TranslationKey.User),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-      renderCell: ({ row }) => <UserCell userId={row?._id} name={row?.name} email={row?.email} rating={row?.rating} />,
+      renderCell: ({ row }) => <UserCell id={row?._id} name={row?.name} />,
       width: 300,
     },
 

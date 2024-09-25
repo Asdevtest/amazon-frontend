@@ -10,6 +10,7 @@ import { creatSupplier, createOrderRequestWhiteList } from '@constants/white-lis
 
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
+import { DataGridTagsFilter } from '@models/data-grid-tags-filter'
 import { IdeaModel } from '@models/ideas-model'
 import { OrderModel } from '@models/order-model'
 import { OtherModel } from '@models/other-model'
@@ -41,7 +42,7 @@ import {
 } from './client-inventory-view.constants'
 import { observerConfig } from './model-observer.config'
 
-export class ClientInventoryViewModel extends DataGridFilterTableModel {
+export class ClientInventoryViewModel extends DataGridTagsFilter {
   product = undefined
   ordersDataStateToSubmit = undefined
 
@@ -515,27 +516,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     } catch (error) {
       console.error(error)
     }
-  }
-
-  setActiveProductsTag(tags) {
-    this.columnMenuSettings?.onChangeFullFieldMenuItem(tags, TAGS)
-    this.columnMenuSettings?.onClickAccept()
-  }
-
-  setActiveProductsTagFromTable(tag) {
-    const index = this.columnMenuSettings?.tags?.currentFilterData?.findIndex(
-      currentTag => currentTag?._id === tag?._id,
-    )
-
-    const newTags = [...this.columnMenuSettings.tags.currentFilterData]
-
-    if (index > -1) {
-      newTags.splice(index, 1)
-    } else {
-      newTags.push(tag)
-    }
-
-    this.setActiveProductsTag(newTags)
   }
 
   async onClickVariationRadioButton() {

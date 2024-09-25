@@ -20,7 +20,7 @@ import {
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -147,9 +147,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey['Int warehouse']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
-    ),
+    renderCell: params => <UserCell name={params.value} id={params.row.originalData.storekeeper?._id} />,
     width: 130,
     sortable: false,
   },

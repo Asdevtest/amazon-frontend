@@ -10,8 +10,6 @@ export const supervisorProductsConfig = {
   onClickStatusFilterButton: action.bound,
   onClickTableRow: action.bound,
   onClickProductModal: action.bound,
-  setActiveProductsTag: action.bound,
-  setActiveProductsTagFromTable: action.bound,
 }
 
 export const additionalFields = ['asin', 'amazonTitle', 'skuByClient']

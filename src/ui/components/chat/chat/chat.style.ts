@@ -128,12 +128,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '38px !important',
     height: '38px !important',
     color: theme.palette.text.second,
-    transition: '0.3s ease',
     cursor: 'pointer',
-
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
 
     [theme.breakpoints.down(1024)]: {
       width: '24px !important',
@@ -210,11 +205,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   pencilEditIcon: {
-    transition: '.3s ease',
     cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   messageToReplyWrapper: {
@@ -238,12 +229,7 @@ export const useStyles = makeStyles()(theme => ({
     top: 20,
     marginLeft: 'auto',
     marginRight: 10,
-
     cursor: 'pointer',
-    transition: '.3s ease',
-    '&: hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   hideElement: {

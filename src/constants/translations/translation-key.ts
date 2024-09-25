@@ -332,6 +332,7 @@ export enum TranslationKey {
   'Add shop' = 'Add shop',
   'Edit shop' = 'Edit shop',
   'Edit file' = 'Edit file',
+  'Edit image' = 'Edit image',
   'Store name' = 'Store name',
   'Move to inventory' = 'Move to inventory',
   'Inventory integration' = 'Inventory integration',
@@ -2062,4 +2063,8 @@ export enum TranslationKey {
   'Unlinked' = 'Unlinked',
   'Unlink' = 'Unlink',
   'Search by Title, ASIN, SKU' = 'Search by Title, ASIN, SKU',
+  'This profile was used' = 'This profile was used',
+  'This profile has already been used! Do you want to continue?' = 'This profile has already been used! Do you want to continue?',
+  'By proposal' = 'By proposal',
+  'By announcement' = 'By announcement',
 }

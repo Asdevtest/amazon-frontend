@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RadioChangeEvent } from 'antd'
 import { makeObservable, reaction, runInAction } from 'mobx'
@@ -1134,11 +1136,16 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         },
         updateBoxWhiteList,
       )
-      const editBoxesResult = await this.editBox(id, requestBox)
 
-      await this.updateBarCodesInInventory(dataToBarCodeChange)
+      const isBarcodeChanged =
+        sourceData.items[0].barCode !== boxData.items[0].barCode || boxData.items[0].tmpBarCode.length !== 0
+      const isTransparencyFileChanged =
+        !!boxData.items[0].tmpTransparencyFile &&
+        (sourceData.items[0].transparencyFile !== boxData.items[0].transparencyFile ||
+          boxData.items[0].tmpTransparencyFile.length !== 0)
 
-      if (sourceData.shippingLabel !== null) {
+      const editBoxAndPostTask = async (id: string, requestBox: any) => {
+        const editBoxesResult = await this.editBox(id, requestBox)
         await this.postTask({
           // @ts-ignore
           idsData: [editBoxesResult.guid],
@@ -1150,17 +1157,46 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           // @ts-ignore
           reason: priorityReason,
         })
-      }
 
-      runInAction(() => {
         toast.success(
           `${t(TranslationKey['Formed a task for storekeeper'])} ${sourceData.storekeeper?.name} ${t(
             TranslationKey['to change the Box'],
           )} № ${sourceData.humanFriendlyId}`,
         )
+      }
 
-        isMultipleEdit && (this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId))
-      })
+      if (boxData.clientTaskComment || isBarcodeChanged || isTransparencyFileChanged) {
+        editBoxAndPostTask(id, requestBox)
+      } else if (sourceData.shippingLabel !== null) {
+        editBoxAndPostTask(id, requestBox)
+      } else {
+        await BoxesModel.editBoxAtClient(id, {
+          destinationId: boxData.destinationId,
+          logicsTariffId: boxData.logicsTariffId,
+          fbaShipment: boxData.fbaShipment,
+          fbaNumber: boxData.fbaNumber,
+          clientComment: boxData.clientComment,
+          referenceId: boxData.referenceId,
+          trackNumberText: boxData.trackNumberText,
+          trackNumberFile: boxData.trackNumberFile,
+          upsTrackNumber: boxData.upsTrackNumber,
+          shippingLabel: boxData.shippingLabel
+            ? boxData.shippingLabel
+            : boxData.tmpShippingLabel?.[0]
+            ? boxData.tmpShippingLabel?.[0]
+            : boxData.shippingLabel === null
+            ? null
+            : '',
+          isShippingLabelAttachedByStorekeeper:
+            sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
+          prepId: boxData.prepId,
+          variationTariffId: boxData.variationTariffId,
+        })
+      }
+
+      await this.updateBarCodesInInventory(dataToBarCodeChange)
+
+      isMultipleEdit && (this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId))
 
       !isMultipleEdit && this.loadData()
       !isMultipleEdit && this.onTriggerOpenModal('showEditBoxModal')

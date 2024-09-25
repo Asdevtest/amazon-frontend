@@ -10,15 +10,34 @@ import { profilesFormConfig, searchFields } from './profiles-form.config'
 
 export class ProfilesFormModel extends UseProductsPermissions {
   value = ''
+  shopId?: string
 
   get reservedProfile() {
-    return this.meta?.reservedProfile || null
+    return [this.meta?.reservedProfile].filter(Boolean)
+  }
+  get unlinkedProfiles() {
+    return this.meta?.unlinkedProfiles || []
   }
   get profiles() {
-    return this.reservedProfile ? [this.reservedProfile, ...this.permissionsData] : this.permissionsData
+    const combinedProfiles = [...this.reservedProfile, ...this.unlinkedProfiles, ...this.permissionsData]
+
+    // additional filtering, as the backend does't filter data from metadata
+    const filteredProfiles = combinedProfiles.filter(profile => {
+      const hasEmail = profile?.email?.toLowerCase().includes(this.searchValue.toLowerCase())
+      const hasName = profile?.name?.toLowerCase().includes(this.searchValue.toLowerCase())
+
+      return hasEmail || hasName
+    })
+
+    return filteredProfiles
+  }
+  get isAlreadyProfile() {
+    const currentShopId = this.profiles.find(({ _id }) => _id === this.value)?.shopId
+
+    return !!currentShopId && currentShopId !== this.shopId
   }
 
-  constructor(profileId?: string, requestId?: string) {
+  constructor(profileId?: string, requestId?: string, shopId?: string) {
     const requestOptions = {
       sortField: 'updatedAt',
       sortType: 'DESC',
@@ -27,6 +46,7 @@ export class ProfilesFormModel extends UseProductsPermissions {
 
     super(ParserModel.getProfilesForRequest, requestOptions, searchFields)
 
+    this.shopId = shopId
     this.value = profileId || ''
     this.permissionsData = []
     this.isCanLoadMore = true

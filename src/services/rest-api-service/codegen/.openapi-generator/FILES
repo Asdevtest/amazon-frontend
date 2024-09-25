@@ -95,7 +95,6 @@ models/api-v1-buyers-products-guid-tags.ts
 models/api-v1-buyers-products-vac-tags.ts
 models/api-v1-clients-products-guid-red-flags.ts
 models/api-v1-clients-products-listing-reports-listing-launches.ts
-models/api-v1-clients-products-vac-tags.ts
 models/api-v1-gologin-profile-navigator.ts
 models/api-v1-ideas-by-parent-guid-child-product.ts
 models/api-v1-ideas-by-parent-guid-proposals.ts

@@ -68,11 +68,6 @@ export const useStyles = makeStyles()(theme => ({
   hintsIcon: {
     width: '18px !important',
     height: '18px !important',
-    transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   hintsIconActive: {
@@ -138,7 +133,6 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:hover': {
       color: theme.palette.primary.main,
-      transform: 'scale(1.01)',
     },
   },
 
@@ -212,11 +206,6 @@ export const useStyles = makeStyles()(theme => ({
   themeIcon: {
     color: theme.palette.primary.main,
     cursor: 'pointer',
-    transition: '0.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   userInfoWrapper: {

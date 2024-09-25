@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -22,7 +23,7 @@ export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
         type="primary"
         title={t(TranslationKey['Assign several product cards to a Supervisor'])}
         disabled={viewModel.selectedRows.length === 0}
-        onClick={viewModel.onPickUpSomeItems}
+        onClick={() => throttle(viewModel.onPickUpSomeItems)}
       >
         {t(TranslationKey['Take on the work of the selected'])}
       </CustomButton>

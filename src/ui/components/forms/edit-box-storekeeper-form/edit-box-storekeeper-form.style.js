@@ -28,11 +28,6 @@ export const useStyles = makeStyles()(theme => ({
     height: 130,
     objectFit: 'contain',
     cursor: 'pointer',
-    transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
 
   buttonsWrapper: {

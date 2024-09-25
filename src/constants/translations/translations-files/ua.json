@@ -335,6 +335,7 @@
   "Add shop": "Додати магазин",
   "Edit shop": "Редагувати магазин",
   "Edit file": "Редагувати файл",
+  "Edit image": "Редагувати зображення",
   "Store name": "Назва магазину",
   "Move to inventory": "Перемістити в інвентар",
   "Inventory integration": "Інтеграція з інвентарем",
@@ -2060,5 +2061,9 @@
   "Rename": "Перейменувати",
   "Unlinked": "Не пов'язано",
   "Unlink": "Відв'язати",
-  "Search by Title, ASIN, SKU": "Search by Title, ASIN, SKU"
+  "Search by Title, ASIN, SKU": "Search by Title, ASIN, SKU",
+  "This profile was used": "Даний профіль використовувався",
+  "This profile has already been used! Do you want to continue?": "Даний профіль вже використовувався! Бажаєте продовжити?",
+  "By proposal": "За пропозиції",
+  "By announcement": "За оголошенням"
 }

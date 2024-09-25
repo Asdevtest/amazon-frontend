@@ -55,10 +55,6 @@ export const useStyles = makeStyles()(theme => ({
     objectFit: 'contain',
     margin: '0 10px',
     cursor: 'pointer',
-    transition: '.3s ease',
-    '&:hover': {
-      transform: 'scale(1.05)',
-    },
 
     [theme.breakpoints.down(768)]: {
       margin: '0 5px',

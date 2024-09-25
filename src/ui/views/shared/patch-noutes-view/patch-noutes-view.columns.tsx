@@ -8,7 +8,7 @@ import {
   ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -68,7 +68,7 @@ export const moderatorUpdatedColumns = ({
     field: 'createdBy',
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
-    renderCell: ({ row }: GridRowModel) => <UserLinkCell blackText name={row.author?.name} userId={row.author?._id} />,
+    renderCell: ({ row }: GridRowModel) => <UserCell name={row.author?.name} id={row.author?._id} />,
     filterable: false,
     sortable: false,
     width: 160,

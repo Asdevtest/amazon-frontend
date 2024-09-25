@@ -44,6 +44,12 @@ export interface InlineResponse200118MetaReservedProfile {
      * @memberof InlineResponse200118MetaReservedProfile
      */
     status?: string;
+    /**
+     * ShopId
+     * @type {string}
+     * @memberof InlineResponse200118MetaReservedProfile
+     */
+    shopId?: string;
 }
 
 

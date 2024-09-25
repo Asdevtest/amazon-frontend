@@ -14,10 +14,11 @@ export class ParsingRequestsViewModel extends DataGridFilterTableModel {
   showProfilesModal = false
   requestId?: string
   profileId?: string
+  shopId?: string
 
   constructor() {
     const columnsProps: ColumnsProps = {
-      onOpenProfileModal: (requestId, profileId) => this.onOpenProfileModal(requestId, profileId),
+      onOpenProfileModal: (requestId, profileId, shopId) => this.onOpenProfileModal(requestId, profileId, shopId),
       onRejectProfile: id => this.onRejectProfile(id),
     }
     const columnsModel = parsingRequestsViewColumns(columnsProps)
@@ -38,9 +39,10 @@ export class ParsingRequestsViewModel extends DataGridFilterTableModel {
     this.getTableSettingsPreset()
   }
 
-  onOpenProfileModal = (requestId: string, profileId: string) => {
+  onOpenProfileModal = (requestId: string, profileId: string, shopId: string) => {
     this.requestId = requestId
     this.profileId = profileId
+    this.shopId = shopId
     this.onToggleProfileModal()
   }
 

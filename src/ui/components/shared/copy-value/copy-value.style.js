@@ -5,9 +5,10 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.primary.main,
     transition: '0.3s ease',
     cursor: 'pointer',
+    opacity: 1,
 
     '&:hover': {
-      transform: 'scale(1.1)',
+      opacity: 0.8,
     },
   },
 
@@ -24,9 +25,5 @@ export const useStyles = makeStyles()(theme => ({
   disabledIcon: {
     userSelect: 'none',
     cursor: 'auto',
-
-    '&:hover': {
-      transform: 'none',
-    },
   },
 }))
