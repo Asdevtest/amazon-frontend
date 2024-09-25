@@ -13,272 +13,37 @@
  */
 
 
-import { InlineResponse20035InventoryShop } from './inline-response20035-inventory-shop';
 
 /**
- * Схема репорта amazon_data
+ * 
  * @export
  * @interface InlineResponse20060Rows
  */
 export interface InlineResponse20060Rows {
     /**
-     * Гуид записи
+     * Гуид тега
      * @type {string}
      * @memberof InlineResponse20060Rows
      */
     _id?: string;
     /**
-     * 
+     * Тег
      * @type {string}
      * @memberof InlineResponse20060Rows
      */
-    productId?: string;
+    title?: string;
     /**
-     * 
-     * @type {InlineResponse20035InventoryShop}
+     * Кол-во продуктов, которые используют этот тег
+     * @type {number}
      * @memberof InlineResponse20060Rows
      */
-    shop?: InlineResponse20035InventoryShop;
+    productCount?: number;
     /**
-     * Гуид shop-a
+     * Color
      * @type {string}
      * @memberof InlineResponse20060Rows
      */
-    shopId?: string;
-    /**
-     * asin
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    asin?: string;
-    /**
-     * sku
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    sku?: string;
-    /**
-     * period_start
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    periodStart?: string;
-    /**
-     * period_end
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    periodEnd?: string;
-    /**
-     * week
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    week?: number;
-    /**
-     * acos
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    acos?: number;
-    /**
-     * image
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    image?: string;
-    /**
-     * ppc_impressions
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    ppcImpressions?: number;
-    /**
-     * clicks
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    clicks?: number;
-    /**
-     * spend
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    spend?: number;
-    /**
-     * ppc_orders
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    ppcOrders?: number;
-    /**
-     * ppc_units
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    ppcUnits?: number;
-    /**
-     * ppc_sales
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    ppcSales?: number;
-    /**
-     * order_sales_cost
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    orderSalesCost?: number;
-    /**
-     * unit_sales_cost
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    unitSalesCost?: number;
-    /**
-     * organic_sessions
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    organicSessions?: number;
-    /**
-     * organic_orders
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    organicOrders?: number;
-    /**
-     * organic_units
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    organicUnits?: number;
-    /**
-     * organic_sales
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    organicSales?: number;
-    /**
-     * organic_avg_order_price
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    organicAvgOrderPrice?: number;
-    /**
-     * organic_avg_unit_price
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    organicAvgUnitPrice?: number;
-    /**
-     * impressions
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    impressions?: number;
-    /**
-     * sessions
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    sessions?: number;
-    /**
-     * ctr
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    ctr?: number;
-    /**
-     * orders
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    orders?: number;
-    /**
-     * units
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    units?: number;
-    /**
-     * avg_units_in_per_order
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    avgUnitsInPerOrder?: number;
-    /**
-     * sales
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    sales?: number;
-    /**
-     * avg_price_order
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    avgPriceOrder?: number;
-    /**
-     * avg_unit_price
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    avgUnitPrice?: number;
-    /**
-     * buy_box
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    buyBox?: number;
-    /**
-     * ppc_sale
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    ppcSale?: number;
-    /**
-     * organic_sale
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    organicSale?: number;
-    /**
-     * conversion
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    conversion?: number;
-    /**
-     * conversion_ppc
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    conversionPpc?: number;
-    /**
-     * conversion_organic
-     * @type {number}
-     * @memberof InlineResponse20060Rows
-     */
-    conversionOrganic?: number;
-    /**
-     * date_updated
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    dateUpdated?: string;
-    /**
-     * createdAt
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    createdAt?: string;
-    /**
-     * updatedAt
-     * @type {string}
-     * @memberof InlineResponse20060Rows
-     */
-    updatedAt?: string;
+    color?: string;
 }
 
 

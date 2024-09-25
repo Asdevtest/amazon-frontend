@@ -16,19 +16,19 @@
 import { InlineResponse20014 } from './inline-response20014';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20015
  */
 export interface InlineResponse20015 {
     /**
-     * Всего кол-во записей в результате запроса
+     * Count of rows
      * @type {number}
      * @memberof InlineResponse20015
      */
     count?: number;
     /**
-     * Массив батчей c пагинацией(заданная страничка).
+     * 
      * @type {Array<InlineResponse20014>}
      * @memberof InlineResponse20015
      */

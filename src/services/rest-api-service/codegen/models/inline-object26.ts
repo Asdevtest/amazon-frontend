@@ -22,6 +22,12 @@
 export interface InlineObject26 {
     /**
      * 
+     * @type {Array<string>}
+     * @memberof InlineObject26
+     */
+    batchIds: Array<string>;
+    /**
+     * Заархивирована ли партия
      * @type {boolean}
      * @memberof InlineObject26
      */
