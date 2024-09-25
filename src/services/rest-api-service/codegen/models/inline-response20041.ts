@@ -15,8 +15,8 @@
 
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
+import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
 import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
-import { ApiV1ClientsProductsVacTags } from './api-v1-clients-products-vac-tags';
 
 /**
  * 
@@ -158,10 +158,10 @@ export interface InlineResponse20041 {
     redFlags?: Array<ApiV1BoxesClientsLightProductRedFlags>;
     /**
      * 
-     * @type {Array<ApiV1ClientsProductsVacTags>}
+     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
      * @memberof InlineResponse20041
      */
-    tags?: Array<ApiV1ClientsProductsVacTags>;
+    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
     /**
      * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
      * @type {number}
