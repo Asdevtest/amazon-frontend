@@ -47,6 +47,7 @@ export class WebsocketChatService {
       reconnectionDelayMax: 10000,
       transports: ['polling', 'websocket'],
     })
+
     this.socket = this.manager.socket(`/${websocketChatNamespace}`, {
       auth: {
         token,
