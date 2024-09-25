@@ -13,6 +13,12 @@
  */
 
 
+import { InlineResponse20053Batch } from './inline-response20053-batch';
+import { InlineResponse20053Boxes } from './inline-response20053-boxes';
+import { InlineResponse20053Orders } from './inline-response20053-orders';
+import { InlineResponse20053Products } from './inline-response20053-products';
+import { InlineResponse20053Requests } from './inline-response20053-requests';
+import { InlineResponse20053Shops } from './inline-response20053-shops';
 
 /**
  * 
@@ -21,29 +27,41 @@
  */
 export interface InlineResponse20053 {
     /**
-     * Гуид тега
-     * @type {string}
+     * 
+     * @type {InlineResponse20053Orders}
      * @memberof InlineResponse20053
      */
-    _id?: string;
+    orders?: InlineResponse20053Orders;
     /**
-     * Тег
-     * @type {string}
+     * 
+     * @type {InlineResponse20053Shops}
      * @memberof InlineResponse20053
      */
-    title?: string;
+    shops?: InlineResponse20053Shops;
     /**
-     * Кол-во продуктов, которые используют этот тег
-     * @type {number}
+     * 
+     * @type {InlineResponse20053Requests}
      * @memberof InlineResponse20053
      */
-    productCount?: number;
+    requests?: InlineResponse20053Requests;
     /**
-     * Tag color
-     * @type {string}
+     * 
+     * @type {InlineResponse20053Products}
      * @memberof InlineResponse20053
      */
-    color?: string;
+    products?: InlineResponse20053Products;
+    /**
+     * 
+     * @type {InlineResponse20053Batch}
+     * @memberof InlineResponse20053
+     */
+    batch?: InlineResponse20053Batch;
+    /**
+     * 
+     * @type {InlineResponse20053Boxes}
+     * @memberof InlineResponse20053
+     */
+    boxes?: InlineResponse20053Boxes;
 }
 
 
