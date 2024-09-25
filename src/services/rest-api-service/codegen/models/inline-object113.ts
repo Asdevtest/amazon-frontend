@@ -21,11 +21,11 @@
  */
 export interface InlineObject113 {
     /**
-     * Для подтверждения нужно вернуть totalCost из калькулятора.
-     * @type {number}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject113
      */
-    totalCost: number;
+    tags: Array<string>;
 }
 
 

@@ -21,27 +21,11 @@
  */
 export interface InlineObject109 {
     /**
-     * 
-     * @type {string}
+     * GUIDы поставщиков, которые нужно добавить в БД.
+     * @type {Array<string>}
      * @memberof InlineObject109
      */
-    action: InlineObject109ActionEnum;
-    /**
-     * Причина смены статуса.
-     * @type {string}
-     * @memberof InlineObject109
-     */
-    reason?: string;
+    suppliersIds?: Array<string>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject109ActionEnum {
-    Link = 'LINK',
-    Unlink = 'UNLINK'
-}
-
 
 

@@ -21,11 +21,35 @@
  */
 export interface InlineObject117 {
     /**
-     * Причины закрытия приема предложений.
+     * Время на выполнение, в минутах.
+     * @type {number}
+     * @memberof InlineObject117
+     */
+    execution_time?: number;
+    /**
+     * Цена предложения.
+     * @type {number}
+     * @memberof InlineObject117
+     */
+    price?: number;
+    /**
+     * Комментарий к предложению.
      * @type {string}
      * @memberof InlineObject117
      */
-    reason?: string;
+    comment?: string;
+    /**
+     * Ссылки на медиафайлы.
+     * @type {Array<string>}
+     * @memberof InlineObject117
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * Название предложения
+     * @type {string}
+     * @memberof InlineObject117
+     */
+    title?: string;
 }
 
 

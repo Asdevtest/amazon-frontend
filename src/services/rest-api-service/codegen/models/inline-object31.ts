@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesManyV2Boxes } from './api-v1-boxes-many-v2-boxes';
 
 /**
  * 
@@ -21,11 +22,89 @@
  */
 export interface InlineObject31 {
     /**
-     * GUID коробки, объединение которой нужно отменить
+     * Штрихкод продукта
      * @type {string}
      * @memberof InlineObject31
      */
-    guid?: string;
+    barCode?: string;
+    /**
+     *  logicsTariff GUID
+     * @type {string}
+     * @memberof InlineObject31
+     */
+    logicsTariffId?: string;
+    /**
+     * Ссылка на наклейку для коробки
+     * @type {string}
+     * @memberof InlineObject31
+     */
+    shippingLabel?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject31
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject31
+     */
+    fbaNumber?: string;
+    /**
+     * Гуид модели destination
+     * @type {string}
+     * @memberof InlineObject31
+     */
+    destinationId?: string;
+    /**
+     * Защита листинга
+     * @type {string}
+     * @memberof InlineObject31
+     */
+    transparencyFile?: string;
+    /**
+     * Гуид вариации тарифа
+     * @type {string}
+     * @memberof InlineObject31
+     */
+    variationTariffId?: string;
+    /**
+     * Наклейка прикреплена кладовщиком
+     * @type {boolean}
+     * @memberof InlineObject31
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Защита листинга прикреплена кладовщиком
+     * @type {boolean}
+     * @memberof InlineObject31
+     */
+    isTransparencyFileAttachedByTheStorekeeper?: boolean;
+    /**
+     * Защита листинга уже прикреплена поставщиком
+     * @type {boolean}
+     * @memberof InlineObject31
+     */
+    isTransparencyFileAlreadyAttachedByTheSupplier?: boolean;
+    /**
+     * Штрихкод уже прикреплен поставщиком
+     * @type {boolean}
+     * @memberof InlineObject31
+     */
+    isBarCodeAlreadyAttachedByTheSupplier?: boolean;
+    /**
+     * Штрихкод прикреплен кладовщиком
+     * @type {boolean}
+     * @memberof InlineObject31
+     */
+    isBarCodeAttachedByTheStorekeeper?: boolean;
+    /**
+     * 
+     * @type {Array<ApiV1BoxesManyV2Boxes>}
+     * @memberof InlineObject31
+     */
+    boxes: Array<ApiV1BoxesManyV2Boxes>;
 }
 
 

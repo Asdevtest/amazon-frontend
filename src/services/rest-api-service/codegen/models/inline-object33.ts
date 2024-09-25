@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1BoxesMergeBoxBody } from './api-v1-boxes-merge-box-body';
 
 /**
  * 
@@ -21,11 +22,17 @@
  */
 export interface InlineObject33 {
     /**
-     * GUID коробки, объединение которой нужно отменить
-     * @type {string}
+     * Массив коробок.
+     * @type {Array<string>}
      * @memberof InlineObject33
      */
-    guid?: string;
+    guids: Array<string>;
+    /**
+     * 
+     * @type {ApiV1BoxesMergeBoxBody}
+     * @memberof InlineObject33
+     */
+    boxBody: ApiV1BoxesMergeBoxBody;
 }
 
 

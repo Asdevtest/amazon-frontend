@@ -21,23 +21,35 @@
  */
 export interface InlineObject98 {
     /**
-     * Удалять ли пермишны(только, если parentProductId - null
-     * @type {boolean}
+     * Время на выполнение, в минутах.
+     * @type {number}
      * @memberof InlineObject98
      */
-    deletePermissions?: boolean;
+    execution_time?: number;
     /**
-     * Ключ родительского продукта
+     * Цена предложения.
+     * @type {number}
+     * @memberof InlineObject98
+     */
+    price?: number;
+    /**
+     * Комментарий к предложению.
      * @type {string}
      * @memberof InlineObject98
      */
-    parentProductId: string;
+    comment?: string;
     /**
-     * 
+     * Ссылки на медиафайлы.
      * @type {Array<string>}
      * @memberof InlineObject98
      */
-    childProductIds: Array<string>;
+    linksToMediaFiles?: Array<string>;
+    /**
+     * Название предложения
+     * @type {string}
+     * @memberof InlineObject98
+     */
+    title?: string;
 }
 
 

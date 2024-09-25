@@ -21,35 +21,11 @@
  */
 export interface InlineObject110 {
     /**
-     * Файл для записи в FreelanceSource
+     * GUID магазина, которую нужно добавить к продукту
      * @type {string}
      * @memberof InlineObject110
      */
-    sourceFile: string;
-    /**
-     * Комментарий к файлу
-     * @type {string}
-     * @memberof InlineObject110
-     */
-    comment?: string;
-    /**
-     * GUID специализации фрилансера
-     * @type {string}
-     * @memberof InlineObject110
-     */
-    specId: string;
-    /**
-     * гуид продукта
-     * @type {string}
-     * @memberof InlineObject110
-     */
-    productId: string;
-    /**
-     * Гуид пропоузала
-     * @type {string}
-     * @memberof InlineObject110
-     */
-    proposalId?: string;
+    shopId?: string;
 }
 
 

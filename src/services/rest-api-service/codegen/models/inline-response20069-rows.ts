@@ -29,64 +29,46 @@ export interface InlineResponse20069Rows {
     _id?: string;
     /**
      * 
-     * @type {InlineResponse20045InventoryShop}
+     * @type {string}
      * @memberof InlineResponse20069Rows
      */
-    shop?: InlineResponse20045InventoryShop;
+    productId?: string;
     /**
-     * Гуид shop-a
+     * 
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
     shopId?: string;
     /**
-     * Дате обновления
+     * The asin of product
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
-    dateDataUpdate?: string;
+    asin?: string;
     /**
-     * Время обновления
-     * @type {string}
-     * @memberof InlineResponse20069Rows
-     */
-    timeDataUpdate?: string;
-    /**
-     * sku
+     * The sku of product
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
     sku?: string;
     /**
-     * shipment_id
-     * @type {string}
+     * Price
+     * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    shipmentId?: string;
+    price?: number;
     /**
-     * reference_id
-     * @type {string}
+     * fba_fee
+     * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    referenceId?: string;
+    fbaFee?: number;
     /**
-     * date_created
-     * @type {string}
+     * ref_fee
+     * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    dateCreated?: string;
-    /**
-     * date_updated
-     * @type {string}
-     * @memberof InlineResponse20069Rows
-     */
-    dateUpdated?: string;
-    /**
-     * ship_to
-     * @type {string}
-     * @memberof InlineResponse20069Rows
-     */
-    shipTo?: string;
+    refFee?: number;
     /**
      * image
      * @type {string}
@@ -94,47 +76,137 @@ export interface InlineResponse20069Rows {
      */
     image?: string;
     /**
-     * units_expected
+     * Category ABC
+     * @type {string}
+     * @memberof InlineResponse20069Rows
+     */
+    categoryAbc?: string;
+    /**
+     * available
      * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    unitsExpected?: number;
+    available?: number;
     /**
-     * status
+     * inbound
+     * @type {number}
+     * @memberof InlineResponse20069Rows
+     */
+    inbound?: number;
+    /**
+     * reserved
+     * @type {number}
+     * @memberof InlineResponse20069Rows
+     */
+    reserved?: number;
+    /**
+     * Дата обновления
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
-    status?: string;
+    dateUpdated?: string;
     /**
-     * scheduled_carrier_delivery_data
+     * Время обновления
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
-    scheduledCarrierDeliveryDate?: string;
+    timeUpdated?: string;
     /**
-     * delivery_window_start
-     * @type {string}
+     * organicCv
+     * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    deliveryWindowStart?: string;
+    organicCv?: number;
     /**
-     * delivery_window_end
-     * @type {string}
+     * historical_days_of_supply
+     * @type {number}
      * @memberof InlineResponse20069Rows
      */
-    deliveryWindowEnd?: string;
+    historicalDaysOfSupply?: number;
     /**
-     * created_at
+     * estimated_storage_cost
+     * @type {number}
+     * @memberof InlineResponse20069Rows
+     */
+    estimatedStorageCost?: number;
+    /**
+     * estimated_aged_inventory_surcharge
+     * @type {number}
+     * @memberof InlineResponse20069Rows
+     */
+    estimatedAgedInventorySurcharge?: number;
+    /**
+     * age_0_to_90_days
+     * @type {number}
+     * @memberof InlineResponse20069Rows
+     */
+    age0to90Days?: number;
+    /**
+     * age_91_to_180_days
+     * @type {number}
+     * @memberof InlineResponse20069Rows
+     */
+    age91to180Days?: number;
+    /**
+     * age_181_to_270_days
+     * @type {number}
+     * @memberof InlineResponse20069Rows
+     */
+    age181to270Days?: number;
+    /**
+     * age_271_to_365_days
+     * @type {number}
+     * @memberof InlineResponse20069Rows
+     */
+    age271to365Days?: number;
+    /**
+     * age_365_plus_days
+     * @type {number}
+     * @memberof InlineResponse20069Rows
+     */
+    age365plusDays?: number;
+    /**
+     * storage_volume
+     * @type {number}
+     * @memberof InlineResponse20069Rows
+     */
+    storageVolume?: number;
+    /**
+     * low_inventory_level_fee
+     * @type {number}
+     * @memberof InlineResponse20069Rows
+     */
+    lowInventoryLevelFee?: number;
+    /**
+     * cog
+     * @type {number}
+     * @memberof InlineResponse20069Rows
+     */
+    cog?: number;
+    /**
+     * unitProfit
+     * @type {number}
+     * @memberof InlineResponse20069Rows
+     */
+    unitProfit?: number;
+    /**
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
     createdAt?: string;
     /**
-     * updated_at
+     * Дата обновления
      * @type {string}
      * @memberof InlineResponse20069Rows
      */
     updatedAt?: string;
+    /**
+     * 
+     * @type {InlineResponse20045InventoryShop}
+     * @memberof InlineResponse20069Rows
+     */
+    shop?: InlineResponse20045InventoryShop;
 }
 
 

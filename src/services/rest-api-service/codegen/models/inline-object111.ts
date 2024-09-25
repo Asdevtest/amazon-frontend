@@ -21,11 +21,11 @@
  */
 export interface InlineObject111 {
     /**
-     * GUID в сущности в БД (users)
-     * @type {string}
+     * GUIDы магазинов, которые нужно удалить.
+     * @type {Array<string>}
      * @memberof InlineObject111
      */
-    subId?: string;
+    suppliersIds?: Array<string>;
 }
 
 

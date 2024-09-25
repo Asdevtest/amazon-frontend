@@ -13,15 +13,10 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1AdminsGetProductsByStatusSuppliers } from './api-v1-admins-get-products-by-status-suppliers';
-<<<<<<< HEAD
-import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
-import { ApiV1ClientsProductsVacTags } from './api-v1-clients-products-vac-tags';
-=======
 import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1BoxesClientsLightProductRedFlags } from './api-v1-boxes-clients-light-product-red-flags';
->>>>>>> dev
 
 /**
  * 
@@ -109,16 +104,16 @@ export interface InlineResponse20041 {
     currentSupplierId?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20041
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    createdBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20041
      */
-    checkedBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    checkedBy?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * Дата создания
      * @type {string}
@@ -139,10 +134,10 @@ export interface InlineResponse20041 {
     checkedAt?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof InlineResponse20041
      */
-    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    buyer?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * Савка супервайзера.
      * @type {number}
@@ -163,17 +158,10 @@ export interface InlineResponse20041 {
     redFlags?: Array<ApiV1BoxesClientsLightProductRedFlags>;
     /**
      * 
-<<<<<<< HEAD
-     * @type {Array<ApiV1ClientsProductsVacTags>}
-     * @memberof InlineResponse20041
-     */
-    tags?: Array<ApiV1ClientsProductsVacTags>;
-=======
      * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
      * @memberof InlineResponse20041
      */
     tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
->>>>>>> dev
     /**
      * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
      * @type {number}

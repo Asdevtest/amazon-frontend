@@ -21,59 +21,11 @@
  */
 export interface InlineObject160 {
     /**
-     * Profile id of GoLogin
-     * @type {string}
+     * Состояние парсера
+     * @type {boolean}
      * @memberof InlineObject160
      */
-    gologinId: string;
-    /**
-     * Name
-     * @type {string}
-     * @memberof InlineObject160
-     */
-    name?: string;
-    /**
-     * Main google table id
-     * @type {string}
-     * @memberof InlineObject160
-     */
-    spreadsheetsIdMain?: string;
-    /**
-     * Perfomance google table id
-     * @type {string}
-     * @memberof InlineObject160
-     */
-    spreadsheetsIdPerformance?: string;
-    /**
-     * Import google table id
-     * @type {string}
-     * @memberof InlineObject160
-     */
-    spreadsheetsIdImport?: string;
-    /**
-     * Email
-     * @type {string}
-     * @memberof InlineObject160
-     */
-    email: string;
-    /**
-     * Password
-     * @type {string}
-     * @memberof InlineObject160
-     */
-    password: string;
-    /**
-     * OTP
-     * @type {string}
-     * @memberof InlineObject160
-     */
-    otp: string;
-    /**
-     * Comment for profile
-     * @type {string}
-     * @memberof InlineObject160
-     */
-    comment?: string;
+    isActive?: boolean;
 }
 
 

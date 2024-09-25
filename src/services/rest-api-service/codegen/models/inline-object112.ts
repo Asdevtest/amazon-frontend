@@ -21,17 +21,23 @@
  */
 export interface InlineObject112 {
     /**
-     * Файл для записи в FreelanceSource
-     * @type {string}
+     * Удалять ли пермишны(только, если parentProductId - null
+     * @type {boolean}
      * @memberof InlineObject112
      */
-    sourceFile?: string;
+    deletePermissions?: boolean;
     /**
-     * Комментарий к файлу
+     * Ключ родительского продукта
      * @type {string}
      * @memberof InlineObject112
      */
-    comments?: string;
+    parentProductId: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject112
+     */
+    childProductIds: Array<string>;
 }
 
 

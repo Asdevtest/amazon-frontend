@@ -15,23 +15,17 @@
 
 
 /**
- * 
+ * Схема редактирования в первый раз shippingLabel коробки
  * @export
  * @interface InlineObject71
  */
 export interface InlineObject71 {
     /**
-     * Тег
+     * shippingLabel
      * @type {string}
      * @memberof InlineObject71
      */
-    title: string;
-    /**
-     * Color
-     * @type {string}
-     * @memberof InlineObject71
-     */
-    color?: string;
+    shippingLabel: string;
 }
 
 

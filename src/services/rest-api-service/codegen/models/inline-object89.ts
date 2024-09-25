@@ -21,11 +21,11 @@
  */
 export interface InlineObject89 {
     /**
-     * uri полный путь до файла, для скачивания
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject89
      */
-    fileUrl: string;
+    reportIds: Array<string>;
 }
 
 

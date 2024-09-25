@@ -21,23 +21,11 @@
  */
 export interface InlineObject106 {
     /**
-     * Поставить оценку юзеру
-     * @type {number}
-     * @memberof InlineObject106
-     */
-    rating?: number;
-    /**
-     * Комментарий причин изменения статуса.
+     * GUID в сущности в БД (users)
      * @type {string}
      * @memberof InlineObject106
      */
-    reason?: string;
-    /**
-     * Массив ссылок на медиафайлы.
-     * @type {Array<string>}
-     * @memberof InlineObject106
-     */
-    linksToMediaFiles?: Array<string>;
+    subId?: string;
 }
 
 

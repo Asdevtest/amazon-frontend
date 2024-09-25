@@ -21,17 +21,17 @@
  */
 export interface InlineObject88 {
     /**
-     * Комментарий клиента
+     * 
      * @type {string}
      * @memberof InlineObject88
      */
-    clientComment?: string;
+    productId: string;
     /**
-     * Комментарий баера
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject88
      */
-    buyerComment?: string;
+    skus: Array<string>;
 }
 
 

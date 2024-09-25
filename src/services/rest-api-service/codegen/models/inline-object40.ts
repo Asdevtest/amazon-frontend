@@ -22,16 +22,34 @@
 export interface InlineObject40 {
     /**
      * 
+     * @type {number}
+     * @memberof InlineObject40
+     */
+    lengthCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject40
+     */
+    widthCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject40
+     */
+    heightCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject40
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Массив ссылок на фотографии.
      * @type {Array<string>}
      * @memberof InlineObject40
      */
-    boxIds: Array<string>;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof InlineObject40
-     */
-    newAmounts: Array<number>;
+    images?: Array<string>;
 }
 
 

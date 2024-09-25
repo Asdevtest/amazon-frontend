@@ -13,19 +13,20 @@
  */
 
 
+import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
 
 /**
- * Схема комментарии байера.
+ * 
  * @export
  * @interface InlineObject46
  */
 export interface InlineObject46 {
     /**
-     * Комментарии байера.
-     * @type {string}
+     * 
+     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
      * @memberof InlineObject46
      */
-    buyerComment: string;
+    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
 }
 
 

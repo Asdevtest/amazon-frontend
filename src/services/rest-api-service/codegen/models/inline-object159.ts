@@ -21,11 +21,11 @@
  */
 export interface InlineObject159 {
     /**
-     * Состояние парсера
-     * @type {boolean}
+     * Profile email
+     * @type {string}
      * @memberof InlineObject159
      */
-    isActive?: boolean;
+    email: string;
 }
 
 

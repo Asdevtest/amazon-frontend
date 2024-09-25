@@ -21,11 +21,17 @@
  */
 export interface InlineObject83 {
     /**
-     * 
-     * @type {Array<string>}
+     * Комментарий клиента
+     * @type {string}
      * @memberof InlineObject83
      */
-    shopIds: Array<string>;
+    clientComment?: string;
+    /**
+     * Комментарий баера
+     * @type {string}
+     * @memberof InlineObject83
+     */
+    buyerComment?: string;
 }
 
 

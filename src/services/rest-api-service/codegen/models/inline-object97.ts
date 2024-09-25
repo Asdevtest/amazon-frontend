@@ -21,11 +21,23 @@
  */
 export interface InlineObject97 {
     /**
-     * GUIDы магазинов, которые нужно удалить.
+     * Поставить оценку юзеру
+     * @type {number}
+     * @memberof InlineObject97
+     */
+    rating?: number;
+    /**
+     * Комментарий причин изменения статуса.
+     * @type {string}
+     * @memberof InlineObject97
+     */
+    reason?: string;
+    /**
+     * Массив ссылок на медиафайлы.
      * @type {Array<string>}
      * @memberof InlineObject97
      */
-    suppliersIds?: Array<string>;
+    linksToMediaFiles?: Array<string>;
 }
 
 

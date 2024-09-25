@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
 import { ApiV1RequestProposalsFreelanceSourcesProposalRequest } from './api-v1-request-proposals-freelance-sources-proposal-request';
 
 /**
@@ -30,16 +30,16 @@ export interface ApiV1RequestProposalsFreelanceSourcesProposal {
     _id?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof ApiV1RequestProposalsFreelanceSourcesProposal
      */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    sub?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMyCreatedBy}
      * @memberof ApiV1RequestProposalsFreelanceSourcesProposal
      */
-    client?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    client?: ApiV1AnnouncementsMyCreatedBy;
     /**
      * 
      * @type {ApiV1RequestProposalsFreelanceSourcesProposalRequest}

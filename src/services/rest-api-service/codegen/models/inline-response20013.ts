@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse2008 } from './inline-response2008';
 
 /**
  * 
@@ -21,17 +22,17 @@
  */
 export interface InlineResponse20013 {
     /**
-     * Гуид юзера
-     * @type {string}
+     * Количество задач
+     * @type {number}
      * @memberof InlineResponse20013
      */
-    _id?: string;
+    count?: number;
     /**
-     * Имя юзера
-     * @type {string}
+     * Массив задач
+     * @type {Array<InlineResponse2008>}
      * @memberof InlineResponse20013
      */
-    name?: string;
+    rows?: Array<InlineResponse2008>;
 }
 
 

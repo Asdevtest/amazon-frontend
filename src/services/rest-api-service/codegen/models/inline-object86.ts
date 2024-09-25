@@ -25,7 +25,7 @@ export interface InlineObject86 {
      * @type {Array<string>}
      * @memberof InlineObject86
      */
-    reportIds: Array<string>;
+    shopIds: Array<string>;
 }
 
 

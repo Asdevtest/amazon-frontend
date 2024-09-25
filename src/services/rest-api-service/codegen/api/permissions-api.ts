@@ -25,9 +25,9 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject92 } from '../models';
-// @ts-ignore
 import { InlineObject93 } from '../models';
+// @ts-ignore
+import { InlineObject94 } from '../models';
 // @ts-ignore
 import { InlineResponse20077 } from '../models';
 // @ts-ignore
@@ -668,12 +668,12 @@ export const PermissionsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * ## Переписать разрешения для продукта для саба.
          * @summary Переписать разрешения для продукта для саба.
-         * @param {InlineObject92} [body] 
+         * @param {InlineObject93} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsProductsPatch: async (body?: InlineObject92, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1PermissionsProductsPatch: async (body?: InlineObject93, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/permissions/products`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -855,12 +855,12 @@ export const PermissionsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * ## Переписать разрешения для магазина для юзера.
          * @summary Переписать разрешения для магазина для юзера.
-         * @param {InlineObject93} [body] 
+         * @param {InlineObject94} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsShopsPatch: async (body?: InlineObject93, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1PermissionsShopsPatch: async (body?: InlineObject94, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/permissions/shops`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1129,12 +1129,12 @@ export const PermissionsApiFp = function(configuration?: Configuration) {
         /**
          * ## Переписать разрешения для продукта для саба.
          * @summary Переписать разрешения для продукта для саба.
-         * @param {InlineObject92} [body] 
+         * @param {InlineObject93} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1PermissionsProductsPatch(body?: InlineObject92, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1PermissionsProductsPatch(body?: InlineObject93, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsProductsPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1181,12 +1181,12 @@ export const PermissionsApiFp = function(configuration?: Configuration) {
         /**
          * ## Переписать разрешения для магазина для юзера.
          * @summary Переписать разрешения для магазина для юзера.
-         * @param {InlineObject93} [body] 
+         * @param {InlineObject94} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1PermissionsShopsPatch(body?: InlineObject93, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1PermissionsShopsPatch(body?: InlineObject94, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1PermissionsShopsPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1370,12 +1370,12 @@ export const PermissionsApiFactory = function (configuration?: Configuration, ba
         /**
          * ## Переписать разрешения для продукта для саба.
          * @summary Переписать разрешения для продукта для саба.
-         * @param {InlineObject92} [body] 
+         * @param {InlineObject93} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsProductsPatch(body?: InlineObject92, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1PermissionsProductsPatch(body?: InlineObject93, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1PermissionsProductsPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1418,12 +1418,12 @@ export const PermissionsApiFactory = function (configuration?: Configuration, ba
         /**
          * ## Переписать разрешения для магазина для юзера.
          * @summary Переписать разрешения для магазина для юзера.
-         * @param {InlineObject93} [body] 
+         * @param {InlineObject94} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1PermissionsShopsPatch(body?: InlineObject93, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1PermissionsShopsPatch(body?: InlineObject94, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1PermissionsShopsPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1787,10 +1787,10 @@ export interface PermissionsApiApiV1PermissionsProductsPagGetRequest {
 export interface PermissionsApiApiV1PermissionsProductsPatchRequest {
     /**
      * 
-     * @type {InlineObject92}
+     * @type {InlineObject93}
      * @memberof PermissionsApiApiV1PermissionsProductsPatch
      */
-    readonly body?: InlineObject92
+    readonly body?: InlineObject93
 
     /**
      * 
@@ -1899,10 +1899,10 @@ export interface PermissionsApiApiV1PermissionsShopsGuidGetRequest {
 export interface PermissionsApiApiV1PermissionsShopsPatchRequest {
     /**
      * 
-     * @type {InlineObject93}
+     * @type {InlineObject94}
      * @memberof PermissionsApiApiV1PermissionsShopsPatch
      */
-    readonly body?: InlineObject93
+    readonly body?: InlineObject94
 
     /**
      * 

@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './api-v1-boxes-storekeepers-guid-set-items-bar-code-items-bar-code-changes';
+import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-guid-items';
 
 /**
  * 
@@ -23,10 +23,64 @@ import { ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges } from './
 export interface InlineObject38 {
     /**
      * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>}
+     * @type {number}
      * @memberof InlineObject38
      */
-    itemsBarCodeChanges: Array<ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>;
+    lengthCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject38
+     */
+    widthCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject38
+     */
+    heightCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject38
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject38
+     */
+    volumeWeightKgWarehouse?: number;
+    /**
+     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+     * @type {boolean}
+     * @memberof InlineObject38
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * 
+     * @type {Array<ApiV1BoxesStorekeepersGuidItems>}
+     * @memberof InlineObject38
+     */
+    items?: Array<ApiV1BoxesStorekeepersGuidItems>;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    storekeeperComment?: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject38
+     */
+    variationTariffId?: string;
+    /**
+     * Массив ссылок на фотографии.
+     * @type {Array<string>}
+     * @memberof InlineObject38
+     */
+    images?: Array<string>;
 }
 
 

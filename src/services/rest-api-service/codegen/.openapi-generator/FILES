@@ -36,7 +36,6 @@ models/admin-user-patch-dto-schema.ts
 models/api-v1-admins-feedback-user.ts
 models/api-v1-admins-get-products-by-status-box-amounts.ts
 models/api-v1-admins-get-products-by-status-box-properties.ts
-models/api-v1-admins-get-products-by-status-created-by.ts
 models/api-v1-admins-get-products-by-status-payment-methods.ts
 models/api-v1-admins-get-products-by-status-price-variations.ts
 models/api-v1-admins-get-products-by-status-red-flags.ts
@@ -58,6 +57,7 @@ models/api-v1-admins-set-setting-tech-pause.ts
 models/api-v1-admins-tasks-light-boxes.ts
 models/api-v1-admins-tasks-light-storekeeper.ts
 models/api-v1-admins-tasks-light-variation-tariff.ts
+models/api-v1-announcements-my-created-by.ts
 models/api-v1-announcements-my-requests.ts
 models/api-v1-announcements-my-spec.ts
 models/api-v1-batches-batch.ts
@@ -78,6 +78,8 @@ models/api-v1-boxes-clients-light-order.ts
 models/api-v1-boxes-clients-light-product-red-flags.ts
 models/api-v1-boxes-clients-light-product.ts
 models/api-v1-boxes-items.ts
+models/api-v1-boxes-many-v2-boxes.ts
+models/api-v1-boxes-many-v2-items.ts
 models/api-v1-boxes-merge-box-body.ts
 models/api-v1-boxes-split-box-body.ts
 models/api-v1-boxes-split-box-items.ts
@@ -229,6 +231,7 @@ models/inline-object168.ts
 models/inline-object169.ts
 models/inline-object17.ts
 models/inline-object170.ts
+models/inline-object171.ts
 models/inline-object18.ts
 models/inline-object19.ts
 models/inline-object2.ts
@@ -405,11 +408,6 @@ models/inline-response20039-all-files.ts
 models/inline-response20039-all-images.ts
 models/inline-response20039-all-video.ts
 models/inline-response20039.ts
-models/inline-response2004-allowed-spec.ts
-models/inline-response2004-allowed-urls.ts
-models/inline-response2004-permission-groups.ts
-models/inline-response2004-permissions.ts
-models/inline-response2004-sub-users.ts
 models/inline-response2004.ts
 models/inline-response20040.ts
 models/inline-response20041.ts
@@ -472,6 +470,11 @@ models/inline-response20058-checking.ts
 models/inline-response20058-products.ts
 models/inline-response20058.ts
 models/inline-response20059.ts
+models/inline-response2006-allowed-spec.ts
+models/inline-response2006-allowed-urls.ts
+models/inline-response2006-permission-groups.ts
+models/inline-response2006-permissions.ts
+models/inline-response2006-sub-users.ts
 models/inline-response2006.ts
 models/inline-response20060-rows.ts
 models/inline-response20060.ts
@@ -486,12 +489,11 @@ models/inline-response20063-rows.ts
 models/inline-response20063-suppliers.ts
 models/inline-response20063.ts
 models/inline-response20064.ts
-models/inline-response20065-rows.ts
 models/inline-response20065.ts
 models/inline-response20066-rows.ts
 models/inline-response20066.ts
+models/inline-response20067-rows.ts
 models/inline-response20067.ts
-models/inline-response20068-rows.ts
 models/inline-response20068.ts
 models/inline-response20069-rows.ts
 models/inline-response20069.ts
@@ -502,6 +504,7 @@ models/inline-response20071-rows.ts
 models/inline-response20071.ts
 models/inline-response20072-rows.ts
 models/inline-response20072.ts
+models/inline-response20073-rows.ts
 models/inline-response20073.ts
 models/inline-response20074-entity-product.ts
 models/inline-response20074-rows.ts
@@ -524,12 +527,12 @@ models/inline-response20084-meta.ts
 models/inline-response20084.ts
 models/inline-response20085.ts
 models/inline-response20086.ts
+models/inline-response20087-request-announcement.ts
+models/inline-response20087-request-product.ts
+models/inline-response20087-request.ts
+models/inline-response20087-rows.ts
 models/inline-response20087.ts
 models/inline-response20088.ts
-models/inline-response20089-request-announcement.ts
-models/inline-response20089-request-product.ts
-models/inline-response20089-request.ts
-models/inline-response20089-rows.ts
 models/inline-response20089.ts
 models/inline-response2009.ts
 models/inline-response20090.ts

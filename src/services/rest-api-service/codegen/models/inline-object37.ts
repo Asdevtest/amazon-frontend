@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-guid-items';
+import { InlineObject27 } from './inline-object27';
 
 /**
  * 
@@ -22,65 +22,17 @@ import { ApiV1BoxesStorekeepersGuidItems } from './api-v1-boxes-storekeepers-gui
  */
 export interface InlineObject37 {
     /**
-     * 
-     * @type {number}
-     * @memberof InlineObject37
-     */
-    lengthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject37
-     */
-    widthCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject37
-     */
-    heightCmWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject37
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject37
-     */
-    volumeWeightKgWarehouse?: number;
-    /**
-     * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
-     * @type {boolean}
-     * @memberof InlineObject37
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * 
-     * @type {Array<ApiV1BoxesStorekeepersGuidItems>}
-     * @memberof InlineObject37
-     */
-    items?: Array<ApiV1BoxesStorekeepersGuidItems>;
-    /**
-     * Комментарии к коробке
+     * GUID для которой подтверждаем действие.
      * @type {string}
      * @memberof InlineObject37
      */
-    storekeeperComment?: string;
+    guid?: string;
     /**
-     * Гуид вариации
-     * @type {string}
+     * Массив дополнительных коробок которые случились при обработки.
+     * @type {Array<InlineObject27>}
      * @memberof InlineObject37
      */
-    variationTariffId?: string;
-    /**
-     * Массив ссылок на фотографии.
-     * @type {Array<string>}
-     * @memberof InlineObject37
-     */
-    images?: Array<string>;
+    additionalBoxes?: Array<InlineObject27>;
 }
 
 

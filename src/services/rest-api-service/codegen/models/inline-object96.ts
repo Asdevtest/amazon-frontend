@@ -21,11 +21,11 @@
  */
 export interface InlineObject96 {
     /**
-     * GUID магазина, которую нужно добавить к продукту
-     * @type {string}
+     * 
+     * @type {boolean}
      * @memberof InlineObject96
      */
-    shopId?: string;
+    approvedByMaster: boolean;
 }
 
 
