@@ -13,169 +13,70 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
 
 /**
- * Схема парсинга.
+ * 
  * @export
  * @interface InlineResponse20088
  */
 export interface InlineResponse20088 {
     /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    amazonFee?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    width?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    height?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    length?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    weight?: number;
-    /**
-     * 
+     * Гуид медиа
      * @type {string}
      * @memberof InlineResponse20088
      */
-    weightUnitString?: string;
+    _id?: string;
     /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20088
-     */
-    isWhiteGloveRequired?: boolean;
-    /**
-     * 
+     * Файл для записи в FreelanceSource
      * @type {string}
      * @memberof InlineResponse20088
      */
-    subCategory?: string;
+    sourceFile?: string;
     /**
-     * 
+     * Комментарий к файлу
      * @type {string}
      * @memberof InlineResponse20088
      */
-    fnsku?: string;
+    comments?: string;
     /**
      * 
+     * @type {ApiV1RequestProposalsFreelanceSourcesProposal}
+     * @memberof InlineResponse20088
+     */
+    proposal?: ApiV1RequestProposalsFreelanceSourcesProposal;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMySpec}
+     * @memberof InlineResponse20088
+     */
+    spec?: ApiV1AnnouncementsMySpec;
+    /**
+     * гуид продукта
      * @type {string}
      * @memberof InlineResponse20088
      */
-    dimensionUnit?: string;
+    productId?: string;
     /**
      * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20088
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20088
      */
-    link?: string;
+    createdAt?: string;
     /**
-     * 
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20088
      */
-    binding?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    dimensionUnitString?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    price?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    imageUrl?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20088
-     */
-    isAfn?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    gl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    TRexId?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20088
-     */
-    isAsinLimits?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    originalUrl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    productGroup?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    thumbStringUrl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    asin?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    encryptedMarketplaceId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20088
-     */
-    weightUnit?: string;
+    updatedAt?: string;
 }
 
 

@@ -21,11 +21,35 @@
  */
 export interface InlineObject111 {
     /**
-     * GUIDы магазинов, которые нужно удалить.
-     * @type {Array<string>}
+     * Файл для записи в FreelanceSource
+     * @type {string}
      * @memberof InlineObject111
      */
-    suppliersIds?: Array<string>;
+    sourceFile: string;
+    /**
+     * Комментарий к файлу
+     * @type {string}
+     * @memberof InlineObject111
+     */
+    comment?: string;
+    /**
+     * GUID специализации фрилансера
+     * @type {string}
+     * @memberof InlineObject111
+     */
+    specId: string;
+    /**
+     * гуид продукта
+     * @type {string}
+     * @memberof InlineObject111
+     */
+    productId: string;
+    /**
+     * Гуид пропоузала
+     * @type {string}
+     * @memberof InlineObject111
+     */
+    proposalId?: string;
 }
 
 

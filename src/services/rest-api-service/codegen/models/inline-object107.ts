@@ -21,17 +21,23 @@
  */
 export interface InlineObject107 {
     /**
-     * Файл для записи в FreelanceSource
-     * @type {string}
+     * Поставить оценку юзеру
+     * @type {number}
      * @memberof InlineObject107
      */
-    sourceFile?: string;
+    rating?: number;
     /**
-     * Комментарий к файлу
+     * Комментарий причин изменения статуса.
      * @type {string}
      * @memberof InlineObject107
      */
-    comments?: string;
+    reason?: string;
+    /**
+     * Массив ссылок на медиафайлы.
+     * @type {Array<string>}
+     * @memberof InlineObject107
+     */
+    linksToMediaFiles?: Array<string>;
 }
 
 

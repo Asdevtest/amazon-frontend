@@ -13,9 +13,8 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
-import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
-import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-proposals-freelance-sources-proposal';
+import { ApiV1ProductsKeepaOffers } from './api-v1-products-keepa-offers';
+import { ApiV1ProductsKeepaStats } from './api-v1-products-keepa-stats';
 
 /**
  * 
@@ -24,59 +23,137 @@ import { ApiV1RequestProposalsFreelanceSourcesProposal } from './api-v1-request-
  */
 export interface InlineResponse20086 {
     /**
-     * Гуид медиа
-     * @type {string}
+     * 
+     * @type {boolean}
      * @memberof InlineResponse20086
      */
-    _id?: string;
-    /**
-     * Файл для записи в FreelanceSource
-     * @type {string}
-     * @memberof InlineResponse20086
-     */
-    sourceFile?: string;
-    /**
-     * Комментарий к файлу
-     * @type {string}
-     * @memberof InlineResponse20086
-     */
-    comments?: string;
+    isRecommended?: boolean;
     /**
      * 
-     * @type {ApiV1RequestProposalsFreelanceSourcesProposal}
+     * @type {number}
      * @memberof InlineResponse20086
      */
-    proposal?: ApiV1RequestProposalsFreelanceSourcesProposal;
+    trackingSince?: number;
     /**
      * 
-     * @type {ApiV1AnnouncementsMySpec}
+     * @type {number}
      * @memberof InlineResponse20086
      */
-    spec?: ApiV1AnnouncementsMySpec;
-    /**
-     * гуид продукта
-     * @type {string}
-     * @memberof InlineResponse20086
-     */
-    productId?: string;
+    lastRatingUpdate?: number;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {number}
      * @memberof InlineResponse20086
      */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
+    rootCategory?: number;
     /**
-     * Дата создания.
+     * 
+     * @type {Array<number>}
+     * @memberof InlineResponse20086
+     */
+    categories?: Array<number>;
+    /**
+     * 
      * @type {string}
      * @memberof InlineResponse20086
      */
-    createdAt?: string;
+    parentAsin?: string;
     /**
-     * Дата создания.
+     * 
      * @type {string}
      * @memberof InlineResponse20086
      */
-    updatedAt?: string;
+    variationCSV?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20086
+     */
+    frequentlyBoughtTogether?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    manufacturer?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    brand?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    productGroup?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20086
+     */
+    publicationDate?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20086
+     */
+    releaseDate?: number;
+    /**
+     * 
+     * @type {Array<Array<number>>}
+     * @memberof InlineResponse20086
+     */
+    contributors?: Array<Array<number>>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20086
+     */
+    size?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof InlineResponse20086
+     */
+    salesRanks?: object;
+    /**
+     * 
+     * @type {Array<ApiV1ProductsKeepaOffers>}
+     * @memberof InlineResponse20086
+     */
+    offers?: Array<ApiV1ProductsKeepaOffers>;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof InlineResponse20086
+     */
+    liveOffersOrder?: Array<number>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20086
+     */
+    buyBoxSellerIdHistory?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20086
+     */
+    availabilityAmazon?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineResponse20086
+     */
+    newPriceIsMAP?: boolean;
+    /**
+     * 
+     * @type {ApiV1ProductsKeepaStats}
+     * @memberof InlineResponse20086
+     */
+    stats?: ApiV1ProductsKeepaStats;
 }
 
 

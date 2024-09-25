@@ -21,11 +21,23 @@
  */
 export interface InlineObject108 {
     /**
-     * GUIDы поставщиков, которые нужно добавить в БД.
-     * @type {Array<string>}
+     * Поставить оценку юзеру
+     * @type {number}
      * @memberof InlineObject108
      */
-    suppliersIds?: Array<string>;
+    rating?: number;
+    /**
+     * Отзыв о работе
+     * @type {string}
+     * @memberof InlineObject108
+     */
+    review?: string;
+    /**
+     * Файл для записи в FreelanceSource по этому пропоузалу
+     * @type {string}
+     * @memberof InlineObject108
+     */
+    sourceFile?: string;
 }
 
 

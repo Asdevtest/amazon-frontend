@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1RequestProposalsGuidResultToCorrectMedia } from './api-v1-request-proposals-guid-result-to-correct-media';
 
 /**
  * 
@@ -21,11 +22,35 @@
  */
 export interface InlineObject106 {
     /**
-     * GUID в сущности в БД (users)
+     * Поставить оценку юзеру
+     * @type {number}
+     * @memberof InlineObject106
+     */
+    rating?: number;
+    /**
+     * Комментарий причин изменения статуса.
      * @type {string}
      * @memberof InlineObject106
      */
-    subId?: string;
+    reason?: string;
+    /**
+     * Массив ссылок на медиафайлы.
+     * @type {Array<string>}
+     * @memberof InlineObject106
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject106
+     */
+    timeLimitInMinutes?: number;
+    /**
+     * 
+     * @type {Array<ApiV1RequestProposalsGuidResultToCorrectMedia>}
+     * @memberof InlineObject106
+     */
+    media?: Array<ApiV1RequestProposalsGuidResultToCorrectMedia>;
 }
 
 

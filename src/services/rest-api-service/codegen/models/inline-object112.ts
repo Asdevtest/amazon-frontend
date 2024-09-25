@@ -21,23 +21,11 @@
  */
 export interface InlineObject112 {
     /**
-     * Удалять ли пермишны(только, если parentProductId - null
-     * @type {boolean}
-     * @memberof InlineObject112
-     */
-    deletePermissions?: boolean;
-    /**
-     * Ключ родительского продукта
+     * GUID в сущности в БД (users)
      * @type {string}
      * @memberof InlineObject112
      */
-    parentProductId: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject112
-     */
-    childProductIds: Array<string>;
+    subId?: string;
 }
 
 

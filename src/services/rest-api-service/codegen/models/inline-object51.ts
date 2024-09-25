@@ -21,11 +21,11 @@
  */
 export interface InlineObject51 {
     /**
-     * Сумма воврата
-     * @type {number}
+     * Сформирована ли коробка
+     * @type {boolean}
      * @memberof InlineObject51
      */
-    refundPrice?: number;
+    isFormed: boolean;
 }
 
 

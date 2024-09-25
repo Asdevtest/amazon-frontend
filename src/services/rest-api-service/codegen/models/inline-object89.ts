@@ -21,11 +21,17 @@
  */
 export interface InlineObject89 {
     /**
-     * 
-     * @type {Array<string>}
+     * Комментарий клиента
+     * @type {string}
      * @memberof InlineObject89
      */
-    reportIds: Array<string>;
+    clientComment?: string;
+    /**
+     * Комментарий баера
+     * @type {string}
+     * @memberof InlineObject89
+     */
+    buyerComment?: string;
 }
 
 

@@ -21,27 +21,35 @@
  */
 export interface InlineObject104 {
     /**
-     * 
-     * @type {string}
+     * Время на выполнение, в минутах.
+     * @type {number}
      * @memberof InlineObject104
      */
-    action: InlineObject104ActionEnum;
+    execution_time?: number;
     /**
-     * Причина смены статуса.
+     * Цена предложения.
+     * @type {number}
+     * @memberof InlineObject104
+     */
+    price?: number;
+    /**
+     * Комментарий к предложению.
      * @type {string}
      * @memberof InlineObject104
      */
-    reason?: string;
+    comment?: string;
+    /**
+     * Ссылки на медиафайлы.
+     * @type {Array<string>}
+     * @memberof InlineObject104
+     */
+    linksToMediaFiles?: Array<string>;
+    /**
+     * Название предложения
+     * @type {string}
+     * @memberof InlineObject104
+     */
+    title?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject104ActionEnum {
-    Link = 'LINK',
-    Unlink = 'UNLINK'
-}
-
 
 

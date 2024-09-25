@@ -21,47 +21,17 @@
  */
 export interface InlineObject13 {
     /**
-     * Название склада.
+     * Название красного флага
      * @type {string}
      * @memberof InlineObject13
      */
-    name: string;
+    title?: string;
     /**
-     * Страна.
+     * 
      * @type {string}
      * @memberof InlineObject13
      */
-    country?: string;
-    /**
-     * Индекс. 5 цифр.
-     * @type {string}
-     * @memberof InlineObject13
-     */
-    zipCode?: string;
-    /**
-     * Штат.
-     * @type {string}
-     * @memberof InlineObject13
-     */
-    state?: string;
-    /**
-     * Город.
-     * @type {string}
-     * @memberof InlineObject13
-     */
-    city?: string;
-    /**
-     * Адрес склада.
-     * @type {string}
-     * @memberof InlineObject13
-     */
-    address?: string;
-    /**
-     * Цвет шрифта
-     * @type {string}
-     * @memberof InlineObject13
-     */
-    fontColor?: string;
+    iconImage?: string;
 }
 
 

@@ -21,11 +21,27 @@
  */
 export interface InlineObject110 {
     /**
-     * GUID магазина, которую нужно добавить к продукту
+     * 
      * @type {string}
      * @memberof InlineObject110
      */
-    shopId?: string;
+    action: InlineObject110ActionEnum;
+    /**
+     * Причина смены статуса.
+     * @type {string}
+     * @memberof InlineObject110
+     */
+    reason?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject110ActionEnum {
+    Link = 'LINK',
+    Unlink = 'UNLINK'
+}
+
 
 

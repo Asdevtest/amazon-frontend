@@ -22,10 +22,16 @@
 export interface InlineObject86 {
     /**
      * 
+     * @type {string}
+     * @memberof InlineObject86
+     */
+    productId: string;
+    /**
+     * 
      * @type {Array<string>}
      * @memberof InlineObject86
      */
-    shopIds: Array<string>;
+    skus: Array<string>;
 }
 
 

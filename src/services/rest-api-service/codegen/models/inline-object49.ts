@@ -21,107 +21,17 @@
  */
 export interface InlineObject49 {
     /**
-     * комментарии байера.
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    buyerComment?: string;
-    /**
-     * GUID storekeeper-a
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    storekeeperId?: string;
-    /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject49
      */
-    paymentDetails?: Array<string>;
-    /**
-     * Цена в юанях
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    priceInYuan?: number;
-    /**
-     * Цена доставки партии в юанях
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    priceBatchDeliveryInYuan?: number;
-    /**
-     * GUID тарифа доставки.
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    logicsTariffId?: string;
-    /**
-     * GUID пункта назначения.
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    destinationId?: string;
+    boxIds: Array<string>;
     /**
      * 
-     * @type {string}
+     * @type {Array<number>}
      * @memberof InlineObject49
      */
-    item?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject49
-     */
-    images?: Array<string>;
-    /**
-     * Курс юань доллар.
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    yuanToDollarRate?: number;
-    /**
-     * Стоимость доставки до склада.
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    deliveryCostToTheWarehouse?: number;
-    /**
-     * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    trackingNumberChina?: string;
-    /**
-     * GUID поставщика, для данного заказа.
-     * @type {string}
-     * @memberof InlineObject49
-     */
-    orderSupplierId?: string;
-    /**
-     * Cумма частичной оплаты
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    partialPaymentAmountRmb?: number;
-    /**
-     * Cумма частичной оплаты
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    partiallyPaid?: number;
-    /**
-     * Оплачивается ли заказ частично
-     * @type {boolean}
-     * @memberof InlineObject49
-     */
-    partialPayment?: boolean;
-    /**
-     * Кол-во в заказе
-     * @type {number}
-     * @memberof InlineObject49
-     */
-    amount?: number;
+    newAmounts: Array<number>;
 }
 
 

@@ -13,7 +13,7 @@
  */
 
 
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
 
 /**
@@ -30,10 +30,10 @@ export interface InlineResponse20097 {
     _id?: string;
     /**
      * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20097
      */
-    owner?: ApiV1AnnouncementsMyCreatedBy;
+    owner?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
      * GUID покупателя магазина
      * @type {string}

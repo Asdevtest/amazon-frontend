@@ -13,7 +13,6 @@
  */
 
 
-import { InlineObject27 } from './inline-object27';
 
 /**
  * 
@@ -22,17 +21,83 @@ import { InlineObject27 } from './inline-object27';
  */
 export interface InlineObject37 {
     /**
-     * GUID для которой подтверждаем действие.
+     * GUID пункта назначения коробки
      * @type {string}
      * @memberof InlineObject37
      */
-    guid?: string;
+    destinationId?: string;
     /**
-     * Массив дополнительных коробок которые случились при обработки.
-     * @type {Array<InlineObject27>}
+     * GUID тарифа к сторкипера
+     * @type {string}
      * @memberof InlineObject37
      */
-    additionalBoxes?: Array<InlineObject27>;
+    logicsTariffId?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    fbaShipment?: string;
+    /**
+     * Это номер конкретной коробки при отправке в амазон.
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    fbaNumber?: string;
+    /**
+     * Комментарии к коробке
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    clientComment?: string;
+    /**
+     * Дополнительное поле shippingLabel для доставки грузовиками
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    referenceId?: string;
+    /**
+     * Текст трек номера
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    trackNumberText?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject37
+     */
+    trackNumberFile?: Array<string>;
+    /**
+     * Идентификатор UPS
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    upsTrackNumber?: string;
+    /**
+     * shippingLabel коробки
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    shippingLabel?: string;
+    /**
+     * shippingLabel проклеен сторкипером
+     * @type {boolean}
+     * @memberof InlineObject37
+     */
+    isShippingLabelAttachedByStorekeeper?: boolean;
+    /**
+     * Значение информационного ключа
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    prepId?: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject37
+     */
+    variationTariffId?: string;
 }
 
 

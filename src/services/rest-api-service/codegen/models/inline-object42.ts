@@ -21,59 +21,11 @@
  */
 export interface InlineObject42 {
     /**
-     * 
+     * GUID коробки, объединение которой нужно отменить
      * @type {string}
      * @memberof InlineObject42
      */
-    clientComment?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject42
-     */
-    storekeeperComment?: string;
-    /**
-     * Storage in boxes
-     * @type {string}
-     * @memberof InlineObject42
-     */
-    storage?: string;
-    /**
-     * Дополнительное поле shippingLabel для доставки грузовиками
-     * @type {string}
-     * @memberof InlineObject42
-     */
-    referenceId?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject42
-     */
-    fbaNumber?: string;
-    /**
-     * Идентификатор UPS
-     * @type {string}
-     * @memberof InlineObject42
-     */
-    upsTrackNumber?: string;
-    /**
-     * Текст трек номера
-     * @type {string}
-     * @memberof InlineObject42
-     */
-    trackNumberText?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject42
-     */
-    trackNumberFile?: Array<string>;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineObject42
-     */
-    prepId?: string;
+    guid?: string;
 }
 
 

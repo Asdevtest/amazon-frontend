@@ -21,23 +21,11 @@
  */
 export interface InlineObject97 {
     /**
-     * Поставить оценку юзеру
-     * @type {number}
-     * @memberof InlineObject97
-     */
-    rating?: number;
-    /**
-     * Комментарий причин изменения статуса.
+     * GUID магазина, которую нужно добавить к продукту
      * @type {string}
      * @memberof InlineObject97
      */
-    reason?: string;
-    /**
-     * Массив ссылок на медиафайлы.
-     * @type {Array<string>}
-     * @memberof InlineObject97
-     */
-    linksToMediaFiles?: Array<string>;
+    shopId?: string;
 }
 
 

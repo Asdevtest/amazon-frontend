@@ -13,12 +13,8 @@
  */
 
 
-import { ApiV1AdminsOrdersDestination } from './api-v1-admins-orders-destination';
-import { ApiV1AdminsOrdersLogicsTariff } from './api-v1-admins-orders-logics-tariff';
-import { ApiV1AdminsTasksLightVariationTariff } from './api-v1-admins-tasks-light-variation-tariff';
-import { ApiV1AnnouncementsMyCreatedBy } from './api-v1-announcements-my-created-by';
-import { ApiV1BatchesBatch } from './api-v1-batches-batch';
-import { ApiV1BoxesStorekeepersSentToBatchItems } from './api-v1-boxes-storekeepers-sent-to-batch-items';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * 
@@ -27,213 +23,105 @@ import { ApiV1BoxesStorekeepersSentToBatchItems } from './api-v1-boxes-storekeep
  */
 export interface InlineResponse20027 {
     /**
-     * GUID коробки.
+     * GUID
      * @type {string}
      * @memberof InlineResponse20027
      */
     _id?: string;
     /**
-     * Номер коробки.
+     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
      * @type {number}
      * @memberof InlineResponse20027
      */
-    humanFriendlyId?: number;
+    taskId?: number;
     /**
-     * Количества в коробке.
-     * @type {number}
-     * @memberof InlineResponse20027
-     */
-    amount?: number;
-    /**
-     * Статус коробки
+     * Тип операции
      * @type {string}
      * @memberof InlineResponse20027
      */
-    status?: InlineResponse20027StatusEnum;
+    operationType?: InlineResponse20027OperationTypeEnum;
     /**
-     * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
-     * @type {boolean}
+     * Массив коробок которые были до переформирования коробок.
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20027
      */
-    isActual?: boolean;
+    boxesBefore?: Array<ApiV1BatchesBoxes>;
     /**
-     * Если true - значит коробку черновик.
-     * @type {boolean}
+     * Массив коробок.
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20027
      */
-    isDraft?: boolean;
+    boxes?: Array<ApiV1BatchesBoxes>;
     /**
-     * Сформирована ли коробка
-     * @type {boolean}
-     * @memberof InlineResponse20027
-     */
-    isFormed?: boolean;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
+     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
      * @type {number}
      * @memberof InlineResponse20027
      */
-    lengthCmWarehouse?: number;
+    status?: number;
     /**
-     * Что фактически пришло на склад. Кладовщик.
+     * Приоритет задачи
      * @type {number}
      * @memberof InlineResponse20027
      */
-    widthCmWarehouse?: number;
+    priority?: number;
     /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20027
-     */
-    heightCmWarehouse?: number;
-    /**
-     * Что фактически пришло на склад. Кладовщик.
-     * @type {number}
-     * @memberof InlineResponse20027
-     */
-    weighGrossKgWarehouse?: number;
-    /**
-     * Итого за доставку.
-     * @type {number}
-     * @memberof InlineResponse20027
-     */
-    deliveryTotalPrice?: number;
-    /**
-     * Обновление итога за доставку.
-     * @type {number}
-     * @memberof InlineResponse20027
-     */
-    deliveryTotalPriceChanged?: number;
-    /**
-     * id склада - склады куда отправляют 
+     * Комментарий работника склада.
      * @type {string}
      * @memberof InlineResponse20027
      */
-    destinationId?: string;
+    storekeeperComment?: string;
     /**
-     * GUID тарифа доставки 
+     * Комментарий клиента.
      * @type {string}
      * @memberof InlineResponse20027
      */
-    logicsTariffId?: string;
+    clientComment?: string;
     /**
-     * Сторкипер взявший коробку в работу.
+     * Комментарий баера.
      * @type {string}
      * @memberof InlineResponse20027
      */
-    batchId?: string;
+    buyerComment?: string;
     /**
-     * Сторкипер взявший коробку в работу.
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20027
+     */
+    images?: Array<string>;
+    /**
+     * GUID сотрудника склада, который выполняет задачу.
      * @type {string}
      * @memberof InlineResponse20027
      */
     storekeeperId?: string;
     /**
-     * Клиент владелец товара в коробке в работу.
-     * @type {string}
-     * @memberof InlineResponse20027
-     */
-    clientId?: string;
-    /**
-     * Клиент создавший заказ и коробку.
-     * @type {string}
-     * @memberof InlineResponse20027
-     */
-    createdById?: string;
-    /**
-     * GUID любого, кто последний редактировал коробку.
-     * @type {string}
-     * @memberof InlineResponse20027
-     */
-    lastModifiedById?: string;
-    /**
-     * Значение информационного ключа
-     * @type {string}
-     * @memberof InlineResponse20027
-     */
-    prepId?: string;
-    /**
      * 
-     * @type {ApiV1AdminsTasksLightVariationTariff}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse20027
      */
-    variationTariff?: ApiV1AdminsTasksLightVariationTariff;
+    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
     /**
-     * 
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20027
      */
     createdAt?: string;
     /**
-     * 
+     * Дата обновления.
      * @type {string}
      * @memberof InlineResponse20027
      */
-    updatedAt?: string;
-    /**
-     * Массив коробок.
-     * @type {Array<ApiV1BoxesStorekeepersSentToBatchItems>}
-     * @memberof InlineResponse20027
-     */
-    items?: Array<ApiV1BoxesStorekeepersSentToBatchItems>;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse20027
-     */
-    storekeeper?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse20027
-     */
-    client?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse20027
-     */
-    createdBy?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AnnouncementsMyCreatedBy}
-     * @memberof InlineResponse20027
-     */
-    lastModifiedBy?: ApiV1AnnouncementsMyCreatedBy;
-    /**
-     * 
-     * @type {ApiV1AdminsOrdersDestination}
-     * @memberof InlineResponse20027
-     */
-    destination?: ApiV1AdminsOrdersDestination;
-    /**
-     * 
-     * @type {ApiV1AdminsOrdersLogicsTariff}
-     * @memberof InlineResponse20027
-     */
-    logicsTariff?: ApiV1AdminsOrdersLogicsTariff;
-    /**
-     * 
-     * @type {ApiV1BatchesBatch}
-     * @memberof InlineResponse20027
-     */
-    batch?: ApiV1BatchesBatch;
+    updateDate?: string;
 }
 
 /**
     * @export
     * @enum {string}
     */
-export enum InlineResponse20027StatusEnum {
-    New = 'NEW',
-    InStock = 'IN_STOCK',
-    RequestedSendToBatch = 'REQUESTED_SEND_TO_BATCH',
-    NeedConfirmingToDeliveryPriceChange = 'NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE',
-    InBatch = 'IN_BATCH',
-    NeedToUpdateTheTariff = 'NEED_TO_UPDATE_THE_TARIFF',
-    InBatchOnTheWay = 'IN_BATCH_ON_THE_WAY',
-    FinishPrepCentrUsa = 'FINISH_PREP_CENTR_USA',
-    AcceptedInProcessing = 'ACCEPTED_IN_PROCESSING'
+export enum InlineResponse20027OperationTypeEnum {
+    Merge = 'merge',
+    Split = 'split',
+    Receive = 'receive'
 }
 
 

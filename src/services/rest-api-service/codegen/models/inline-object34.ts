@@ -21,11 +21,11 @@
  */
 export interface InlineObject34 {
     /**
-     * GUID коробки, объединение которой нужно отменить
-     * @type {string}
+     * Сумма воврата
+     * @type {number}
      * @memberof InlineObject34
      */
-    guid?: string;
+    refundPrice?: number;
 }
 
 
