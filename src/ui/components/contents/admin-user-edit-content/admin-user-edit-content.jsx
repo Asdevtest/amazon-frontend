@@ -42,6 +42,7 @@ export const AdminUserEditContent = observer(
     groupPermissions,
     singlePermissions,
     changeFields,
+    onUpdateData,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -671,14 +672,9 @@ export const AdminUserEditContent = observer(
 
         <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
           <PermissionsForm
-            isWithoutProductPermissions
-            shops={[]}
-            specs={specs}
-            permissionsToSelect={permissionsToSelect}
-            permissionGroupsToSelect={permissionGroupsToSelect}
-            sourceData={formFields}
+            subUser={editUserFormFields}
             onCloseModal={() => setShowPermissionModal(!showPermissionModal)}
-            onSubmit={onSubmitUserPermissionsForm}
+            onUpdateData={onUpdateData}
           />
         </Modal>
       </div>

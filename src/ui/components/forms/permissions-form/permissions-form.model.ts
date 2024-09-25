@@ -35,8 +35,8 @@ export class PermissionsFormModel {
   selectedSpecs: Specs[] = []
   shops: IShop[] = []
   products: IProduct[] = []
-  allProductsCount = 0
-  selectedProductsCount = 0
+  // allProductsCount = 0
+  // selectedProductsCount = 0
   currentPermissionOptions: string[][] = []
   currentProductOptions: string[][] = []
   searchFocus = false
@@ -63,7 +63,7 @@ export class PermissionsFormModel {
     const extraOption =
       this.withoutGroupPermissions.length > 0
         ? {
-            label: 'Без группы', // t(TranslationKey['Without the group']),
+            label: 'Без группы',
             value: 'WITHOUT_GROUP',
             children: this.withoutGroupPermissions.map(el => ({
               label: el.title,
@@ -80,10 +80,10 @@ export class PermissionsFormModel {
       value: spec.type,
     }))
   }
-  get showSpecsCascader() {
+  get isFreelancer() {
     return isFreelancer(this.userInfo?.role)
   }
-  get shopsOptions() {
+  get productsOptions() {
     const mainOptions = this.shops.map(item => ({
       label: item.name,
       value: item._id,
@@ -98,7 +98,7 @@ export class PermissionsFormModel {
     const extraOption =
       this.products.length > 0
         ? {
-            label: `Без группы`, // (${this.selectedProductsCount}/${this.allProductsCount}),
+            label: `Без группы`,
             value: 'WITHOUT_GROUP',
             children: this.products.map(el => ({
               label: el.amazonTitle,
@@ -146,14 +146,31 @@ export class PermissionsFormModel {
 
     return { shopIds, productIds }
   }
-  get showCustomSearchPlaseholder() {
-    return !this.searchFocus && !this.mainLoading
+  get customSearchPlaseholder() {
+    return this.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS ? 'Search by Title' : 'Search by Title, ASIN, SKU'
+  }
+  get mainOptions() {
+    return this.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS ? this.permissionsOptions : this.productsOptions
+  }
+  get mainChangeMethod() {
+    return this.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS
+      ? this.onChangePermissionOptions
+      : this.onChangeProductsOptions
+  }
+  get currentMainOptions() {
+    return this.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS
+      ? this.currentPermissionOptions
+      : this.currentProductOptions
+  }
+  get showSkeleton() {
+    return this.mainLoading || (this.productsLoading && this.permissionTab === PermissionsTab.ACCESS_TO_PRODUCTS)
   }
 
   constructor({ subUser, onCloseModal, onUpdateData }: PermissionsFormProps) {
     this.subUser = subUser
     this.onCloseModal = onCloseModal
     this.onUpdateData = onUpdateData
+
     this.loadData()
     this.initSelectedSpecs()
 
@@ -189,6 +206,8 @@ export class PermissionsFormModel {
       return
     }
 
+    runInAction(() => (this.productsLoading = true))
+
     const responseProducts = (await PermissionsModel.getProductsPermissionsForUserByIdV2(
       this.subUser?._id,
     )) as unknown as IProducts
@@ -196,14 +215,13 @@ export class PermissionsFormModel {
 
     runInAction(() => {
       this.products = responseProducts?.rows
-      this.allProductsCount = responseProducts?.count
+      /* this.allProductsCount = responseProducts?.count
       this.selectedProductsCount = responseProducts.rows?.reduce(
         (acc: number, el: IProduct) => acc + Number(el.selected),
         0,
-      )
+      ) */
       this.shops = responseShops.rows
-
-      this.shopsOptions.forEach(el => {
+      this.productsOptions.forEach(el => {
         if (el.children?.length === 0) {
           this.currentProductOptions.push([el.value])
         } else {
@@ -214,6 +232,7 @@ export class PermissionsFormModel {
           })
         }
       })
+      this.productsLoading = false
     })
   }
 
@@ -222,7 +241,10 @@ export class PermissionsFormModel {
 
     await this.getGroupPermissions()
     await this.getWithoutGroupPermissions()
-    await this.getSpecs()
+
+    if (this.isFreelancer) {
+      await this.getSpecs()
+    }
 
     runInAction(() => {
       this.mainLoading = false
@@ -286,7 +308,7 @@ export class PermissionsFormModel {
     try {
       await PermissionsModel.onEditMySubUser(this.subUser?._id, this.editingPermissions)
 
-      if (!this.showSpecsCascader) {
+      if (!this.isFreelancer) {
         await PermissionsModel.setProductsPermissionsForUser({
           userId: this.subUser?._id,
           productIds: this.editingProducts.productIds,
@@ -300,7 +322,7 @@ export class PermissionsFormModel {
         })
       }
 
-      if (this.showSpecsCascader) {
+      if (this.isFreelancer) {
         await UserModel.changeSubUserSpec(this.subUser?._id, { allowedSpec: this.selectedSpecs.flat() })
       }
 
@@ -312,6 +334,16 @@ export class PermissionsFormModel {
     }
   }
 
-  filter = (inputValue: string, path: DefaultOptionType[]) =>
-    path.some(option => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
+  searchfilter(inputValue: string, path: DefaultOptionType[]) {
+    if (this.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS) {
+      return path.some(option => (option.label as string).toLowerCase().includes(inputValue.toLowerCase()))
+    } else {
+      return path.some(
+        option =>
+          (option.asin as string)?.toLowerCase().includes(inputValue.toLowerCase()) ||
+          (option.label as string)?.toLowerCase().includes(inputValue.toLowerCase()) ||
+          (option.skuByClient as string)?.toLowerCase().includes(inputValue.toLowerCase()),
+      )
+    }
+  }
 }
