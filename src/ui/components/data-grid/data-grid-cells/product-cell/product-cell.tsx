@@ -33,8 +33,8 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
   const hoverAsin = useHover()
   const hoverSku = useHover()
 
-  const renderTextCell = (text: string, rows: number) => (
-    <Text copyable={false} textRows={rows} text={text} className={styles.text} />
+  const renderTextCell = (text: string, rows: number, fixWidth?: boolean) => (
+    <Text copyable={false} textRows={rows} text={text} className={cx(styles.text, { [styles.fixWidth]: fixWidth })} />
   )
 
   const notAsinAndSku = !asin && !sku
@@ -55,7 +55,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
 
         <div className={styles.flexColumn}>
           {notAsinAndSku && title ? (
-            renderTextCell(title, 2)
+            renderTextCell(title, 2, true)
           ) : (
             <>
               {asin ? (

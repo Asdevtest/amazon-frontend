@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fixWidth: {
-    width: '90%',
+    width: '85%',
   },
 
   flexRow: {
@@ -47,7 +47,7 @@ export const useStyles = makeStyles()(theme => ({
 
   warning: {
     position: 'absolute',
-    bottom: 0,
+    bottom: '5px',
     right: 0,
   },
 
