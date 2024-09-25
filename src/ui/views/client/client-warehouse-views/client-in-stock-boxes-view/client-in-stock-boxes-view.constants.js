@@ -32,6 +32,7 @@ export const updateBoxWhiteList = [
   'prepId',
   'variationTariffId',
   'transparencyFile',
+  'clientComment',
 ]
 
 export const filtersFields = [

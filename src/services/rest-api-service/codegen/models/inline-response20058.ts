@@ -13,7 +13,8 @@
  */
 
 
-import { InlineResponse20056Finances } from './inline-response20056-finances';
+import { InlineResponse20054Finances } from './inline-response20054-finances';
+import { InlineResponse20058Checking } from './inline-response20058-checking';
 import { InlineResponse20058Products } from './inline-response20058-products';
 
 /**
@@ -30,10 +31,16 @@ export interface InlineResponse20058 {
     products?: InlineResponse20058Products;
     /**
      * 
-     * @type {InlineResponse20056Finances}
+     * @type {InlineResponse20058Checking}
      * @memberof InlineResponse20058
      */
-    finances?: InlineResponse20056Finances;
+    checking?: InlineResponse20058Checking;
+    /**
+     * 
+     * @type {InlineResponse20054Finances}
+     * @memberof InlineResponse20058
+     */
+    finances?: InlineResponse20054Finances;
 }
 
 

@@ -1140,9 +1140,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       const isBarcodeChanged =
         sourceData.items[0].barCode !== boxData.items[0].barCode || boxData.items[0].tmpBarCode.length !== 0
       const isTransparencyFileChanged =
-        sourceData.items[0].transparencyFile !== boxData.items[0].transparencyFile ||
-        boxData.items[0].tmpTransparencyFile.length !== 0
-      const isclientCommentChanged = sourceData.clientComment !== boxData.clientComment
+        !!boxData.items[0].tmpTransparencyFile &&
+        (sourceData.items[0].transparencyFile !== boxData.items[0].transparencyFile ||
+          boxData.items[0].tmpTransparencyFile.length !== 0)
 
       const editBoxAndPostTask = async (id: string, requestBox: any) => {
         const editBoxesResult = await this.editBox(id, requestBox)
@@ -1165,9 +1165,11 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         )
       }
 
-      if (isclientCommentChanged || isBarcodeChanged || isTransparencyFileChanged) {
+      if (boxData.clientTaskComment || isBarcodeChanged || isTransparencyFileChanged) {
         editBoxAndPostTask(id, requestBox)
-      } else if (sourceData.shippingLabel === null) {
+      } else if (sourceData.shippingLabel !== null) {
+        editBoxAndPostTask(id, requestBox)
+      } else {
         await BoxesModel.editBoxAtClient(id, {
           destinationId: boxData.destinationId,
           logicsTariffId: boxData.logicsTariffId,
@@ -1190,8 +1192,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           prepId: boxData.prepId,
           variationTariffId: boxData.variationTariffId,
         })
-      } else {
-        editBoxAndPostTask(id, requestBox)
       }
 
       await this.updateBarCodesInInventory(dataToBarCodeChange)
