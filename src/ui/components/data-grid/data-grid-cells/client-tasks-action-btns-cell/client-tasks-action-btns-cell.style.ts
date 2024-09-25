@@ -4,6 +4,6 @@ export const useStyles = makeStyles()(() => ({
   clientTasksActionBtnsWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: 3,
   },
 }))
