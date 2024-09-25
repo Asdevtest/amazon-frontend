@@ -127,6 +127,13 @@ export const navbarConfig = {
       title: () => t(TranslationKey.Ideas),
       subtitles: [
         {
+          subtitle: () => t(TranslationKey.All),
+          subRoute: '/client/ideas/all',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT),
+        },
+        {
           subtitle: () => t(TranslationKey['New ideas']),
           subRoute: '/client/ideas/new',
           checkHideSubBlock: user =>
@@ -162,13 +169,6 @@ export const navbarConfig = {
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_ADD_ASIN_IDEAS_CLIENT),
         },
         {
-          subtitle: () => t(TranslationKey['Realized ideas']),
-          subRoute: '/client/ideas/realized',
-          checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
-            user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT),
-        },
-        {
           subtitle: () => t(TranslationKey['Rejected and closed']),
           subRoute: '/client/ideas/closed',
           checkHideSubBlock: user =>
@@ -176,11 +176,11 @@ export const navbarConfig = {
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_CLOSED_IDEAS_CLIENT),
         },
         {
-          subtitle: () => t(TranslationKey.All),
-          subRoute: '/client/ideas/all',
+          subtitle: () => t(TranslationKey['Realized ideas']),
+          subRoute: '/client/ideas/realized',
           checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
-            user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT),
+            user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_IDEAS,
