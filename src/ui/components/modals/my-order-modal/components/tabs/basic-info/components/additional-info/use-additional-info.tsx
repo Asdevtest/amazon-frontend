@@ -155,7 +155,7 @@ export const useAdditionalInfo = ({
       ),
     },
     {
-      title: t(TranslationKey['Transparency Codes']),
+      title: 'Transparency Codes',
       text: undefined,
       element: <LabelWithCopy labelValue={formFields?.transparencyFile} lableLinkTitle={t(TranslationKey.View)} />,
     },

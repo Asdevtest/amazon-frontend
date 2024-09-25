@@ -29,7 +29,7 @@ export const Fields: FC<FieldsProps> = memo(props => {
       <LabelWithCopy
         direction="column"
         labelWrapperStyles={styles.field}
-        labelTitle={t(TranslationKey['Shipping label'])}
+        labelTitle="Shipping label"
         labelValue={formFields?.shippingLabel}
         lableLinkTitle={t(TranslationKey.View)}
       />
