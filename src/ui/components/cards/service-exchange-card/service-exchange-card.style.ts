@@ -90,4 +90,9 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     fontWeight: 600,
   },
+
+  buttonWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
 }))
