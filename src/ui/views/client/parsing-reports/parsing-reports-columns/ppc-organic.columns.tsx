@@ -44,7 +44,7 @@ export const ppcOrganicColumns = () => {
       fields: getProductColumnMenuItems({ withoutTitle: true }),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({
         isSimpleSku: true,
-        table: ParsingReportsType.FYP_SEARCH_SUPPRESSED,
+        // table: ParsingReportsType.FYP_SEARCH_SUPPRESSED,
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       width: 170,
