@@ -69,10 +69,8 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
 
   {
     field: 'shippingLabel',
-    headerName: `Shipping label / Barcode / ${t(TranslationKey['Transparency Codes'])}`,
-    renderHeader: () => (
-      <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency Codes'])}`} />
-    ),
+    headerName: `Shipping label / Barcode / Transparency Codes`,
+    renderHeader: () => <MultilineTextHeaderCell text={`Shipping label / Barcode / Transparency Codes`} />,
     renderCell: ({ row }) => (
       <ActionButtonsCell
         showFirst
@@ -84,9 +82,9 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
         firstDropdown={!!row.originalData.shippingLabel}
         secondDropdown={!!row.originalData.items[0].barCode}
         thirdDropdown={!!row.originalData.items[0].transparencyFile}
-        firstContent={t(TranslationKey['Shipping label'])}
+        firstContent="Shipping label"
         secondContent={t(TranslationKey.BarCode)}
-        thirdContent={t(TranslationKey['Transparency Codes'])}
+        thirdContent="Transparency Codes"
         onClickFirst={() => openMedia(row.originalData.shippingLabel)}
         onClickSecond={() => openMedia(row.originalData.items[0].barCode)}
         onClickThird={() => openMedia(row.originalData.items[0].transparencyFile)}

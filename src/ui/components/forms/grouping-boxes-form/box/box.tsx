@@ -124,7 +124,7 @@ export const Box: FC<BoxProps> = memo(props => {
 
               <LabelWithCopy
                 labelTitleColor="gray"
-                labelTitle={t(TranslationKey['Transparency Codes'])}
+                labelTitle="Transparency Codes"
                 labelValue={order.transparencyFile}
                 lableLinkTitle={t(TranslationKey.View)}
               />
@@ -214,7 +214,7 @@ export const Box: FC<BoxProps> = memo(props => {
               <LabelWithCopy
                 direction="column"
                 labelTitleColor="gray"
-                labelTitle={t(TranslationKey['Shipping label'])}
+                labelTitle="Shipping label"
                 labelValue={box.shippingLabel}
                 lableLinkTitle={t(TranslationKey.View)}
               />

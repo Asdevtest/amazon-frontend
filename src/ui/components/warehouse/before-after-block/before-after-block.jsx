@@ -211,7 +211,7 @@ const Box = memo(props => {
             >
               <LabelWithCopy
                 labelTitleFontWeight={'bold'}
-                labelTitle={t(TranslationKey['Shipping label'])}
+                labelTitle="Shipping label"
                 labelValue={box.shippingLabel}
                 lableLinkTitle={t(TranslationKey.View)}
               />

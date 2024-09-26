@@ -332,7 +332,7 @@ export const EditBoxForm = memo(
                               <Field
                                 containerClasses={styles.field}
                                 labelClasses={styles.standartLabel}
-                                label={t(TranslationKey['Transparency Codes'])}
+                                label="Transparency Codes"
                                 inputComponent={
                                   <ChangeChipCell
                                     isChipOutTable
@@ -497,7 +497,7 @@ export const EditBoxForm = memo(
                       tooltipAttentionContent={t(
                         TranslationKey['When re-sticking will create a task for the prep center'],
                       )}
-                      label={t(TranslationKey['Shipping label'])}
+                      label="Shipping label"
                       inputComponent={
                         <ChangeChipCell
                           isChipOutTable
@@ -679,7 +679,7 @@ export const EditBoxForm = memo(
         <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
           <SetFilesModal
             modalTitle={t(TranslationKey.Transparency)}
-            LabelTitle={t(TranslationKey['Transparency Codes'])}
+            LabelTitle="Transparency Codes"
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
             onClickSave={value => onClickSaveTransparencyFile(value, filesConditions.index)}

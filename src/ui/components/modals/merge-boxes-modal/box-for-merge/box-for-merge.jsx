@@ -5,7 +5,6 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -105,7 +104,7 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
               direction="column"
               labelTitleColor="gray"
               lableLinkTitleSize="medium"
-              labelTitle={t(TranslationKey['Shipping label'])}
+              labelTitle="Shipping label"
               labelValue={box.shippingLabel}
               lableLinkTitle={t(TranslationKey.View)}
               labelWrapperStyles={styles.labelWrapperStyles}
