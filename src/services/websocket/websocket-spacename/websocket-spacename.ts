@@ -1,44 +1,83 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { makeObservable } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 import { Manager, Socket } from 'socket.io-client'
 
 import { UserModel } from '@models/user-model'
 
 import { observerConfig } from './observer.config'
-import { WebsocketNamespace } from './websocket-spacename.types'
-
-interface WebsocketSpacenameParams<T> {
-  namespace: WebsocketNamespace
-  handlers: T
-}
+import { ChatHandlerName, WebsocketChatServiceHandlers } from './types/default-service-handlers.type'
+import { WebsocketEmit } from './types/emits.type'
+import { WebsocketNamespace, WebsocketSpacenameParams } from './types/websocket-spacename.type'
 
 export class WebsocketSpacename<T> {
-  private socket = {} as Socket
+  public socket = {} as Socket
   private manager: Manager
+  private namespace: WebsocketNamespace
 
-  constructor(manager: Manager) {
-    this.manager = manager
+  private handlersToRegister: T
+  private defaultHandlersToRegister: WebsocketChatServiceHandlers
+
+  constructor({ manager, namespace, handlers }: WebsocketSpacenameParams<T>) {
     makeObservable(this, observerConfig)
+
+    this.manager = manager
+    this.namespace = namespace
+    this.handlersToRegister = handlers
+
+    this.defaultHandlersToRegister = {
+      [ChatHandlerName.onConnect]: () => this.onConnect(),
+      [ChatHandlerName.onDisconnect]: () => this.onDisconnect(),
+      [ChatHandlerName.onConnectionError]: (error: Error) => this.onError(error),
+    }
   }
 
-  public init({ namespace, handlers }: WebsocketSpacenameParams<T>) {
-    this.socket = this.manager.socket(namespace, {
+  public async init() {
+    const socket = await this.manager.socket(this.namespace, {
       auth: { token: UserModel.accessToken },
     })
 
-    this.registerHandlers(handlers)
+    runInAction(() => {
+      this.socket = socket
+    })
+
+    this.registerHandlers(this.handlersToRegister)
+    this.registerHandlers(this.defaultHandlersToRegister)
   }
 
-  private registerHandlers(handlers: T) {
+  private registerHandlers(handlers: T | WebsocketChatServiceHandlers) {
     if (!handlers) {
       return
     }
 
-    Object.keys(handlers).forEach(handlerName => {
-      const handlerCallback = handlers[handlerName as keyof T]
+    const handlerKeys = Object.keys(handlers)
+
+    for (const handlerKey of handlerKeys) {
+      const handlerCallback = handlers[handlerKey as keyof (T | WebsocketChatServiceHandlers)]
       if (handlerCallback) {
-        this.socket.on(handlerName, handlerCallback as (args: any[]) => void)
+        this.socket.on(handlerKey, handlerCallback as (args: any[]) => void)
       }
+    }
+  }
+
+  public ping(message: string = 'Connected') {
+    this.socket.emit(WebsocketEmit.PING, {
+      message,
     })
+  }
+
+  public disconnect() {
+    this.socket.disconnect()
+  }
+
+  private onConnect() {
+    console.warn('Socket connected')
+  }
+
+  private onDisconnect() {
+    console.warn('Socket disconnected')
+  }
+
+  private onError(error: Error) {
+    console.warn('Socket error', error)
   }
 }
