@@ -116,7 +116,7 @@ export const RequestToSendBatchBox = memo(
                             !box.items?.[0]?.transparencyFile && box.items?.[0]?.product?.transparency,
                         })}
                       >
-                        {t(TranslationKey['Transparency Codes'])}
+                        Transparency Codes
                       </Typography>
 
                       <LabelWithCopy
@@ -197,7 +197,7 @@ export const RequestToSendBatchBox = memo(
                               !box.items?.[0]?.transparencyFile && box.items?.[0]?.product?.transparency,
                           })}
                         >
-                          {t(TranslationKey['Transparency Codes'])}
+                          Transparency Codes
                         </Typography>
 
                         <LabelWithCopy
@@ -281,7 +281,7 @@ export const RequestToSendBatchBox = memo(
         <td>
           <div className={styles.shippingLabelWrapper}>
             <Typography className={cx(styles.spanText, { [styles.alertSpan]: !box.shippingLabel })}>
-              {t(TranslationKey['Shipping label'])}
+              Shipping label
             </Typography>
 
             {box.shippingLabel ? (

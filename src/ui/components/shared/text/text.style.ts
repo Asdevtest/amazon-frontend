@@ -12,6 +12,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cell: {
+    height: '100%',
     padding: '5px 0 5px 5px',
   },
 

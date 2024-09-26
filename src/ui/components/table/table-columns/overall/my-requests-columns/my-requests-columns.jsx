@@ -238,6 +238,15 @@ export const myRequestsViewColumns = rowHandlers => {
     },
 
     {
+      field: 'announcement',
+      headerName: t(TranslationKey['Service name']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service name'])} />,
+      renderCell: params => <Text isCell text={params.row.announcement?.title} />,
+      width: 200,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+    },
+
+    {
       field: 'spec',
       headerName: t(TranslationKey['Request type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,

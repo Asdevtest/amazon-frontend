@@ -3,7 +3,12 @@ import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-s
 import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ActionButtonsCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
+import {
+  ActionButtonsCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
+  UserCell,
+} from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -100,6 +105,15 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 115,
     columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'executor',
+    headerName: t(TranslationKey.Executor),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Executor)} />,
+    renderCell: params => <UserCell name={params.row.executor?.name} id={params.row.executor?._id} />,
+    width: 160,
+    columnKey: columnnsKeys.shared.OBJECT_VALUE,
   },
 
   {
