@@ -162,10 +162,7 @@ export const WarehouseManagementView = observer(() => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showAddOrEditDestinationModal')}
           onCreateSubmit={viewModel.onChangeDestination}
           onEditSubmit={viewModel.onChangeDestination}
-          onClickAddBtn={() => {
-            viewModel.tariffToEdit = undefined
-            viewModel.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
-          }}
+          onClickAddBtn={viewModel.onClickAddLogisticTariff}
         />
       </Modal>
 
