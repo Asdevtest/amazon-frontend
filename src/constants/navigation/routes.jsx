@@ -344,6 +344,8 @@ const MessagesView = lazy(() =>
   import('@views/shared/messages-view').then(module => ({ default: module.MessagesView })),
 )
 
+const ChatView = lazy(() => import('@views/shared/chat-view').then(module => ({ default: module.ChatView })))
+
 const MyProposalsView = lazy(() =>
   import('@views/shared/my-proposals-view').then(module => {
     const Component = module.MyProposalsView
@@ -2314,7 +2316,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/warehouse/messages',
-    component: MessagesView,
+    component: ChatView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
     permissionKey: permissionsKeys.storekeeper.SHOW_CHAT_STOREKEEPER,
