@@ -1,4 +1,4 @@
-import { Chat } from './types/chat'
+import { Chat } from './types/chat.type'
 import { ChatMessage } from './types/message.type'
 
 export enum ChatListenEvents {
