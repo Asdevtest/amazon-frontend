@@ -38,8 +38,8 @@ export const resetTokens = async (originalRequest?: AxiosRequestConfig) => {
       SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
       UserModel.setAccessToken(accessToken)
 
-      ChatModel.disconnect()
-      ChatModel.init(accessToken)
+      // ChatModel.disconnect()
+      // ChatModel.init(accessToken)
 
       if (originalRequest) {
         return api.request(originalRequest)
