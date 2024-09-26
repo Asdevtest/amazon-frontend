@@ -9,6 +9,19 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
   },
 
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '20px',
+  },
+
+  title: {
+    fontSize: 18,
+    lineHeight: '25px',
+    fontWeight: 600,
+  },
+
   content: {
     position: 'relative',
     height: '580px',
@@ -85,18 +98,5 @@ export const useStyles = makeStyles()(theme => ({
 
   specCascader: {
     marginRight: 'auto',
-  },
-
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '20px',
-  },
-
-  title: {
-    fontSize: 18,
-    lineHeight: '25px',
-    fontWeight: 600,
   },
 }))
