@@ -148,6 +148,7 @@ export const EditBoxForm = memo(
       newFormFields.tmpShippingLabel = value
 
       setBoxFields(newFormFields)
+      setShowSetShippingLabelModal(!showSetShippingLabelModal)
     }
 
     const onClickShippingLabel = () => {

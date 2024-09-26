@@ -236,14 +236,17 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes) {
+  async onClickSubmitEditMultipleBoxes(sharedFields, newBoxes, selectedBoxes) {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-      this.onTriggerOpenModal('showEditMultipleBoxesModal')
+      // this.setRequestStatus(loadingStatus.IS_LOADING)
+      // this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
       const uploadedShippingLabeles = []
       const uploadedBarcodes = []
-
+      console.log('sharedFields', sharedFields)
+      console.log('newBoxes', newBoxes)
+      console.log('selectedBoxes', selectedBoxes)
+      const updatedBoxes = []
       for (let i = 0; i < newBoxes.length; i++) {
         const newBox = { ...newBoxes[i] }
         const sourceBox = selectedBoxes[i]
@@ -345,10 +348,10 @@ export class WarehouseMyWarehouseViewModel {
         }
 
         newBox.items = currentBox
-
-        await this.onClickSubmitEditBox({ id: sourceBox._id, boxData: newBox, isMultipleEdit: true })
+        updatedBoxes.push(newBox)
+        // await this.onClickSubmitEditBox({ id: sourceBox._id, boxData: newBox, isMultipleEdit: true })
       }
-
+      console.log('updatedBoxes', updatedBoxes)
       toast.success(t(TranslationKey['Editing completed']))
 
       this.loadData()
