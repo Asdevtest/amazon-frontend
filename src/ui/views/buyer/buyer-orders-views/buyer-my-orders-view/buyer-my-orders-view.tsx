@@ -45,6 +45,7 @@ export const BuyerMyOrdersView = observer(({ history }: any) => {
         <CustomInputSearch
           enterButton
           allowClear
+          wrapperClassName={styles.searchInput}
           size="large"
           placeholder="Search by SKU, ASIN, Title, Order, item"
           onSearch={viewModel.onSearchSubmit}
