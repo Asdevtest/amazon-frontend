@@ -615,9 +615,9 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'quantityToBeChargedAis181210Days',
-      headerName: 'Quantity to be charged ais 181210 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 181210 days" />,
+      field: 'quantityToBeChargedAis181To210Days',
+      headerName: 'Quantity to be charged ais 181 to 210 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 181 to 210 days" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -625,9 +625,9 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'estimatedAis181210Days',
-      headerName: 'Estimated ais 181210 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 181210 days" />,
+      field: 'estimatedAis181To210Days',
+      headerName: 'Estimated ais 181 to 210 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 181 to 210 days" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -635,9 +635,9 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'quantityToBeChargedAis211240Days',
-      headerName: 'Quantity to be charged ais 211240 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 211240 days" />,
+      field: 'quantityToBeChargedAis211To240Days',
+      headerName: 'Quantity to be charged ais 211 to 240 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 211 to 240 days" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -645,9 +645,9 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'estimatedAis211240Days',
-      headerName: 'Estimated ais 211240 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 211240 days" />,
+      field: 'estimatedAis211To240Days',
+      headerName: 'Estimated ais 211 to 240 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 211 to 240 days" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -655,9 +655,9 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'quantityToBeChargedAis241270Days',
-      headerName: 'Quantity to be charged ais 241270 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 241270 days" />,
+      field: 'quantityToBeChargedAis241To270Days',
+      headerName: 'Quantity to be charged ais 241 to 270 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 241 to 270 days" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -665,9 +665,9 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'estimatedAis241270Days',
-      headerName: 'Estimated ais 241270 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 241270 days" />,
+      field: 'estimatedAis241To270Days',
+      headerName: 'Estimated ais 241 to 270 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 241 to 270 days" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -675,9 +675,9 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'quantityToBeChargedAis271300Days',
-      headerName: 'Quantity to be charged ais 271300 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 271300 days" />,
+      field: 'quantityToBeChargedAis271To300Days',
+      headerName: 'Quantity to be charged ais 271 to 300 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 271 to 300 days" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -685,9 +685,9 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'estimatedAis271300Days',
-      headerName: 'Estimated ais 271300 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 271300 days" />,
+      field: 'estimatedAis271To300Days',
+      headerName: 'Estimated ais 271 to 300 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 271 to 300 days" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -695,9 +695,9 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'quantityToBeChargedAis301330Days',
-      headerName: 'Quantity to be charged ais 301330 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 301330 days" />,
+      field: 'quantityToBeChargedAis301To330Days',
+      headerName: 'Quantity to be charged ais 301 to 330 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 301 to 330 days" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -705,9 +705,9 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'estimatedAis301330Days',
-      headerName: 'Estimated ais 301330 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 301330 days" />,
+      field: 'estimatedAis301To330Days',
+      headerName: 'Estimated ais 301 to 330 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 301 to 330 days" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -715,9 +715,9 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'quantityToBeChargedAis331365Days',
-      headerName: 'Quantity to be charged ais 331365 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 331365 days" />,
+      field: 'quantityToBeChargedAis331To365Days',
+      headerName: 'Quantity to be charged ais 331 to 365 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Quantity to be charged ais 331 to 365 days" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -725,9 +725,9 @@ export const fbaInventoryColumns = () => {
     },
 
     {
-      field: 'estimatedAis331365Days',
-      headerName: 'Estimated ais 331365 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 331365 days" />,
+      field: 'estimatedAis331To365Days',
+      headerName: 'Estimated ais 331 to 365 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Estimated ais 331 to 365 days" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,

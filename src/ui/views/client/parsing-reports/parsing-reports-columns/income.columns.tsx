@@ -89,7 +89,7 @@ export const incomeColumns = () => {
 
   for (const column of columns) {
     if (!column.table) {
-      column.table = ParsingReportsType.INCOME
+      // column.table = ParsingReportsType.INCOME
     }
 
     column.sortable = false

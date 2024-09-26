@@ -23,7 +23,6 @@ export const BuyerTypeTaskSelect: FC<BuyerTypeTaskSelectProps> = props => {
   return (
     <CustomRadioButton
       size="large"
-      buttonStyle="solid"
       options={[
         { label: t(TranslationKey['All tasks']), value: null },
 

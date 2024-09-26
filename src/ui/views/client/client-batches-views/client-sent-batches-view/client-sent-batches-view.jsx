@@ -33,7 +33,6 @@ export const ClientSentBatchesView = observer(({ history }) => {
 
           <CustomRadioButton
             size="large"
-            buttonStyle="solid"
             options={[
               { label: t(TranslationKey['All warehouses']), value: '' },
               ...viewModel.storekeepersData

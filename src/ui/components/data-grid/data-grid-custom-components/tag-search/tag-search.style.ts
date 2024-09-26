@@ -30,8 +30,6 @@ export const useStyles = makeStyles()(theme => ({
 
   searchInput: {
     width: '100%',
-    height: '30px',
-    border: `1px solid ${theme.palette.input.customBorder}`,
   },
 
   mainButton: {

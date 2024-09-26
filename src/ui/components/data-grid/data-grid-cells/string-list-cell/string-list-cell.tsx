@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
@@ -77,12 +77,11 @@ export const StringListCell: FC<StringListCellProps> = memo(props => {
           onClose={handleClose}
         >
           <div className={styles.stringListMenuWrapper}>
-            <SearchInput
-              inputClasses={styles.searchInput}
+            <CustomInputSearch
+              allowClear
+              wrapperClassName={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
+              onChange={e => setNameSearchValue(e.target.value)}
             />
             <>
               {itemsForRender?.map((item, i) => (

@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import { ReportsView } from '@views/shared/reports-view'
@@ -107,50 +107,44 @@ export const ProductWrapper = memo(
 
     return (
       <div className={styles.mainWrapper}>
-        <CustomSwitcher
-          fullWidth
-          switchMode="medium"
-          condition={tabIndex}
-          className={styles.customSwitcher}
-          switcherSettings={[
+        <CustomRadioButton
+          size="large"
+          options={[
             {
-              label: () => t(TranslationKey['Basic information']),
+              label: t(TranslationKey['Basic information']),
               value: tabsValues.MAIN_INFO,
             },
-
             isClientOrAdmin && {
-              label: () => t(TranslationKey.Orders),
+              label: t(TranslationKey.Orders),
               value: tabsValues.ORDERS,
             },
-
             checkIsClient(curUserRole) && {
-              label: () => t(TranslationKey.Reports),
+              label: t(TranslationKey.Reports),
               value: tabsValues.REPORTS,
             },
-
             isClientOrAdmin && {
-              label: () => t(TranslationKey.Integrations),
+              label: t(TranslationKey.Integrations),
               value: tabsValues.INTEGRATIONS,
             },
             isClientOrAdmin && {
-              label: () => t(TranslationKey.Freelance),
+              label: t(TranslationKey.Freelance),
               value: tabsValues.FREELANCE,
             },
-
             !checkIsResearcher(curUserRole) && {
               icon: product?.ideasOnCheck > 0,
-              label: () => t(TranslationKey['Suppliers and Ideas']),
+              label: t(TranslationKey['Suppliers and Ideas']),
               value: tabsValues.SUPPLIERS_AND_IDEAS,
             },
-
             checkIsAdmin(curUserRole) && {
-              label: () => t(TranslationKey.Management),
+              label: t(TranslationKey.Management),
               value: tabsValues.MANAGEMENT,
             },
           ].filter(item => item)}
-          changeConditionHandler={value => {
-            setTabIndex(value)
-            setCurrentTab && setCurrentTab(value)
+          className={styles.customSwitcher}
+          value={tabIndex}
+          onChange={e => {
+            setTabIndex(e?.target?.value)
+            setCurrentTab && setCurrentTab(e?.target?.value)
           }}
         />
 

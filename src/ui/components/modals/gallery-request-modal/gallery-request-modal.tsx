@@ -3,7 +3,7 @@ import { FC, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 import { TabPanel } from '@components/shared/tab-panel'
 
@@ -31,7 +31,7 @@ interface GalleryRequestModalProps {
 }
 
 /**
- * The component copies Header, CustomSwitcher with its settings from GalleryModal, but adds its own functionality, tabs and footer.
+ * The component copies Header, CustoRadioButton with its settings from GalleryModal, but adds its own functionality, tabs and footer.
  */
 export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
   const { data, openModal, mediaFiles, onChangeMediaFiles, onOpenModal, maxNumber } = props
@@ -72,12 +72,11 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
           </CustomCheckbox>
         </div>
 
-        <CustomSwitcher
-          fullWidth
-          switchMode="medium"
-          condition={tabValue}
-          switcherSettings={customSwitcherSettings}
-          changeConditionHandler={setTabValue}
+        <CustomRadioButton
+          size="large"
+          options={customSwitcherSettings}
+          value={tabValue}
+          onChange={e => setTabValue(e.target.value)}
         />
 
         <TabPanel value={tabValue} index={SwitcherConditions.MEDIA_FILES}>
