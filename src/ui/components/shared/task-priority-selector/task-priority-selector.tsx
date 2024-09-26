@@ -19,7 +19,6 @@ export const TaskPrioritySelector: FC<TaskPrioritySelectorProps> = props => {
   return (
     <CustomRadioButton
       size="large"
-      buttonStyle="solid"
       options={[
         { label: t(TranslationKey['All priorities']), value: null },
         ...Object.keys(mapTaskPriorityStatusEnum).map(type => ({

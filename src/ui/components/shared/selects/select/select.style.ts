@@ -105,9 +105,6 @@ export const useStyles = makeStyles()(theme => ({
 
   searchInput: {
     width: '100%',
-    height: 30,
-    fontSize: 14,
-    lineHeight: '19px',
   },
 
   menuItems: {

@@ -9,7 +9,7 @@ import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
@@ -44,8 +44,9 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, on
       <div className={styles.flexContainer}>
         <p className={styles.title}>{t(TranslationKey[title])}</p>
 
-        <SearchInput
-          inputClasses={styles.searchInput}
+        <CustomInputSearch
+          allowClear
+          wrapperClassName={styles.searchInput}
           value={viewModel.currentSearchValue}
           placeholder={t(TranslationKey['Batch number and FBA'])}
           onSubmit={viewModel.onSearchSubmit}

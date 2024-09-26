@@ -10,7 +10,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
 import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { NoSelectedChat } from '@components/shared/svg-icons'
 
 import { isNotUndefined } from '@utils/checks'
@@ -153,8 +153,8 @@ export const MultipleChats = observer(
             {isChatSelectedAndFound && (
               <div className={styles.header}>
                 <div className={styles.searchMessageContainer}>
-                  <SearchInput
-                    inputClasses={styles.searchInput}
+                  <CustomInputSearch
+                    allowClear
                     placeholder={t(TranslationKey['Message Search'])}
                     value={mesSearchValue}
                     onChange={onChangeMesSearchValue}

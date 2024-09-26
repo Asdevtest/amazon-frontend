@@ -3,7 +3,7 @@ import { FC, memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -69,7 +69,8 @@ export const NewBoxes: FC<NewBoxesProps> = memo(props => {
 
         <p className={styles.searchCount}>{`${visibleBoxes.length} / ${newBoxes.length}`}</p>
 
-        <SearchInput
+        <CustomInputSearch
+          allowClear
           value={nameSearchValue}
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
           onChange={e => setNameSearchValue(e.target.value)}

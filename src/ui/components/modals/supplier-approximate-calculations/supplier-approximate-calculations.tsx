@@ -8,9 +8,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
@@ -122,21 +122,19 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
         <div className={styles.headerWrapper}>
           <p className={styles.title}>{getTitleModal(tariffModalType)}</p>
 
-          <SearchInput
-            inputClasses={styles.searchInput}
-            placeholder={`${t(TranslationKey['Search by'])}: ${t(TranslationKey.Tariff)}, ${t(
-              TranslationKey.Destination,
-            )}`}
-            startText={viewModel.currentSearchValue}
+          <CustomInputSearch
+            allowClear
+            placeholder="Search by Tariff, Destination"
+            value={viewModel.currentSearchValue}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
 
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel?.currentStorekeeperId}
-          switcherSettings={viewModel?.storekeepers}
-          changeConditionHandler={viewModel?.setCurrentStorekeeper}
+        <CustomRadioButton
+          size="large"
+          options={viewModel?.storekeepers}
+          value={viewModel?.currentStorekeeperId}
+          onChange={e => viewModel?.setCurrentStorekeeper(e.target.value)}
         />
 
         {viewModel?.boxItems?.length ? (

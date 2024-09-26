@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TradingShopCard } from '@components/cards/trading-shop-card'
 import { Button } from '@components/shared/button'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -77,9 +77,9 @@ export const ClientSellShopsAds = observer(() => {
         </Button>
       </div>
 
-      <SearchInput
-        placeholder={t(TranslationKey.search)}
-        inputClasses={styles.searchInput}
+      <CustomInputSearch
+        allowClear
+        placeholder={t(TranslationKey.Search)}
         value={nameSearchValue}
         onChange={onChangeNameSearchValue}
       />

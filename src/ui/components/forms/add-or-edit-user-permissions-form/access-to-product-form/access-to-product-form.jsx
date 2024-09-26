@@ -16,7 +16,7 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -227,14 +227,14 @@ export const AccessToProductForm = memo(props => {
               <Typography className={styles.standartText}>
                 {t(TranslationKey['Search by product description and ASIN, SKU:'])}
               </Typography>
-              <div>
-                <SearchInput
-                  inputClasses={styles.searchInput}
-                  value={searchInputValue}
-                  placeholder={t(TranslationKey.search)}
-                  onChange={e => setSearchInputValue(e.target.value)}
-                />
-              </div>
+
+              <CustomInputSearch
+                allowClear
+                wrapperClassName={styles.searchInput}
+                value={searchInputValue}
+                placeholder={t(TranslationKey.Search)}
+                onChange={e => setSearchInputValue(e.target.value)}
+              />
             </div>
 
             {selectedShop === shop?._id ? (

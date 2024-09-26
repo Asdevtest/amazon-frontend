@@ -30,7 +30,6 @@ export const FinancesView = observer(() => {
       <div className={styles.header}>
         <CustomRadioButton
           size="large"
-          buttonStyle="solid"
           options={getPaymentTypeConfig()}
           defaultValue={viewModel.paymentType}
           onChange={viewModel.onSetPaymentType}
@@ -46,7 +45,6 @@ export const FinancesView = observer(() => {
 
         <CustomRadioButton
           size="large"
-          buttonStyle="solid"
           options={getEntityTypeConfig(checkIsAdmin(UserRoleCodeMap[viewModel?.userRole]))}
           defaultValue={viewModel.entityType}
           onChange={viewModel.onSetEntityType}
