@@ -26,7 +26,7 @@ export interface InlineObject73 {
      * @type {string}
      * @memberof InlineObject73
      */
-    name?: string;
+    name: string;
     /**
      * Название ОС
      * @type {string}

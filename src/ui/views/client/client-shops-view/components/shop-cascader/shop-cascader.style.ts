@@ -11,10 +11,6 @@ export const useStyles = makeStyles()(theme => ({
       width: '280px',
       paddingBottom: 8,
     },
-
-    '.ant-cascader-checkbox-inner': {
-      borderRadius: '4px !important',
-    },
   },
 
   cascaderPanel: {
@@ -32,11 +28,6 @@ export const useStyles = makeStyles()(theme => ({
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'column',
-    },
-
-    '.ant-cascader-menu-item-content': {
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
     },
 
     '.ant-cascader-menus': {

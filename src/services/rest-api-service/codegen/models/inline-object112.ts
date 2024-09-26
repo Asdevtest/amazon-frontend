@@ -21,17 +21,11 @@
  */
 export interface InlineObject112 {
     /**
-     * Файл для записи в FreelanceSource
+     * GUID в сущности в БД (users)
      * @type {string}
      * @memberof InlineObject112
      */
-    sourceFile?: string;
-    /**
-     * Комментарий к файлу
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    comments?: string;
+    subId?: string;
 }
 
 

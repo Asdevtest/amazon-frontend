@@ -23,11 +23,17 @@ import { ApiV1StorekeepersTariffLogisticsDestinationVariations } from './api-v1-
  */
 export interface InlineObject134 {
     /**
+     * Тип тарифа
+     * @type {number}
+     * @memberof InlineObject134
+     */
+    tariffType?: number;
+    /**
      * Название тарифа
      * @type {string}
      * @memberof InlineObject134
      */
-    name?: string;
+    name: string;
     /**
      * Описание тарифа
      * @type {string}

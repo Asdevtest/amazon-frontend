@@ -21,17 +21,17 @@
  */
 export interface InlineObject152 {
     /**
-     * Старый ароль
+     * Гуид саба
      * @type {string}
      * @memberof InlineObject152
      */
-    oldPassword: string;
+    userId: string;
     /**
-     * Новый пароль
+     * Заметка о сабе написаная мастером
      * @type {string}
      * @memberof InlineObject152
      */
-    newPassword: string;
+    comment: string;
 }
 
 

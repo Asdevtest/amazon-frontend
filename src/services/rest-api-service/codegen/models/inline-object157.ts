@@ -21,11 +21,17 @@
  */
 export interface InlineObject157 {
     /**
-     * Shop guid
+     * Оценка, целое число от 1 до 5
+     * @type {number}
+     * @memberof InlineObject157
+     */
+    rating: number;
+    /**
+     * Комментарий к оценке
      * @type {string}
      * @memberof InlineObject157
      */
-    shopId: string;
+    comment?: string;
 }
 
 

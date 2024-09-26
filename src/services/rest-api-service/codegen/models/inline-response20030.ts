@@ -13,9 +13,6 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
-import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
 
 /**
  * 
@@ -24,167 +21,17 @@ import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
  */
 export interface InlineResponse20030 {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    _id?: string;
-    /**
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    skuByClient?: string;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * Кол-во продукта в айтеме в коробке
      * @type {number}
      * @memberof InlineResponse20030
      */
-    strategyStatus?: number;
+    amount?: number;
     /**
-     * Имеет ли дочерние продукты данный продукт (по parentProductId)
-     * @type {boolean}
-     * @memberof InlineResponse20030
-     */
-    hasChildren?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    checkednotes?: string;
-    /**
-     * 
+     * Номер заказа
      * @type {number}
      * @memberof InlineResponse20030
      */
-    bsr?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20030
-     */
-    amazon?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineResponse20030
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineResponse20030
-     */
-    fbafee?: number;
-    /**
-     *  Общая сумма с фба.
-     * @type {number}
-     * @memberof InlineResponse20030
-     */
-    fbaamount?: number;
-    /**
-     * Код текущего статуса
-     * @type {number}
-     * @memberof InlineResponse20030
-     */
-    status?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20030
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    amazonTitle?: string;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineResponse20030
-     */
-    profit?: number;
-    /**
-     * Материл продукта
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    material?: string;
-    /**
-     * Применение продукта
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    productUsage?: string;
-    /**
-     * chinese title?
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    chinaTitle?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20030
-     */
-    ideasOnCheck?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20030
-     */
-    ideasFinished?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20030
-     */
-    ideasClosed?: number;
-    /**
-     * 
-     * @type {Array<ApiV1BuyersProductsVacTags>}
-     * @memberof InlineResponse20030
-     */
-    tags?: Array<ApiV1BuyersProductsVacTags>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
-     * @memberof InlineResponse20030
-     */
-    redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
-     * @memberof InlineResponse20030
-     */
-    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
-     * @memberof InlineResponse20030
-     */
-    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse20030
-     */
-    updatedAt?: string;
+    id?: number;
 }
 
 

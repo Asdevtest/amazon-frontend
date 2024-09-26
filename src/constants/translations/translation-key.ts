@@ -2060,8 +2060,10 @@ export enum TranslationKey {
   'Rename' = 'Rename',
   'Unlinked' = 'Unlinked',
   'Unlink' = 'Unlink',
+  'Search by Title, ASIN, SKU' = 'Search by Title, ASIN, SKU',
   'This profile was used' = 'This profile was used',
   'This profile has already been used! Do you want to continue?' = 'This profile has already been used! Do you want to continue?',
   'By proposal' = 'By proposal',
   'By announcement' = 'By announcement',
+  'Select user' = 'Select user',
 }

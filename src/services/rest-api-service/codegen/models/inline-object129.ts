@@ -21,17 +21,29 @@
  */
 export interface InlineObject129 {
     /**
-     * Выставить приоритет задачи
+     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
      * @type {number}
      * @memberof InlineObject129
      */
-    priority: number;
+    status?: number;
     /**
-     * Reason of high priority
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineObject129
+     */
+    images?: Array<string>;
+    /**
+     * Комментарий работника склада.
      * @type {string}
      * @memberof InlineObject129
      */
-    reason?: string;
+    storekeeperComment?: string;
+    /**
+     * Приоритет задачи
+     * @type {number}
+     * @memberof InlineObject129
+     */
+    priority?: number;
 }
 
 

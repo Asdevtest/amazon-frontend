@@ -21,11 +21,6 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  isWrongPermissionsSelectError: {
-    color: 'red',
-    marginBottom: '15px',
-  },
-
   userRoleSelect: {
     color: theme.palette.text.general,
 

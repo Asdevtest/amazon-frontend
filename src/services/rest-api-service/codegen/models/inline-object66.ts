@@ -15,29 +15,29 @@
 
 
 /**
- * Схема создания/апдейта рекомендаций
+ * Схема подтверждения возрата коробок на склад
  * @export
  * @interface InlineObject66
  */
 export interface InlineObject66 {
     /**
-     * GUID продукта.
+     * GUID коробки, который планируем изменить
      * @type {string}
      * @memberof InlineObject66
      */
-    productId: string;
+    boxId: string;
     /**
-     * GUID сторкипера.
+     * GUID тарифа, на которую планируем изменить
      * @type {string}
      * @memberof InlineObject66
      */
-    storekeeperId: string;
+    logicsTariffId: string;
     /**
-     * Рекомендуемое значение
-     * @type {number}
+     * GUID дестинейшена.
+     * @type {string}
      * @memberof InlineObject66
      */
-    recommendedValue: number;
+    destinationId?: string;
 }
 
 

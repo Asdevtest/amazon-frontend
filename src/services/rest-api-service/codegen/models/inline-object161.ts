@@ -21,49 +21,59 @@
  */
 export interface InlineObject161 {
     /**
-     * Profile email
+     * Profile id of GoLogin
+     * @type {string}
+     * @memberof InlineObject161
+     */
+    gologinId: string;
+    /**
+     * Name
+     * @type {string}
+     * @memberof InlineObject161
+     */
+    name?: string;
+    /**
+     * Main google table id
+     * @type {string}
+     * @memberof InlineObject161
+     */
+    spreadsheetsIdMain?: string;
+    /**
+     * Perfomance google table id
+     * @type {string}
+     * @memberof InlineObject161
+     */
+    spreadsheetsIdPerformance?: string;
+    /**
+     * Import google table id
+     * @type {string}
+     * @memberof InlineObject161
+     */
+    spreadsheetsIdImport?: string;
+    /**
+     * Email
      * @type {string}
      * @memberof InlineObject161
      */
     email: string;
     /**
-     * 
+     * Password
      * @type {string}
      * @memberof InlineObject161
      */
-    table?: InlineObject161TableEnum;
+    password: string;
+    /**
+     * OTP
+     * @type {string}
+     * @memberof InlineObject161
+     */
+    otp: string;
+    /**
+     * Comment for profile
+     * @type {string}
+     * @memberof InlineObject161
+     */
+    comment?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject161TableEnum {
-    BusinessReports = 'BUSINESS_REPORTS',
-    Orders = 'ORDERS',
-    TotalBalance = 'TOTAL_BALANCE',
-    Feedback = 'FEEDBACK',
-    Transactions = 'TRANSACTIONS',
-    Inventory = 'INVENTORY',
-    Campaigns = 'CAMPAIGNS',
-    PerformanceNotifications = 'PERFORMANCE_NOTIFICATIONS',
-    FbaInventory = 'FBA_INVENTORY',
-    AccountHealth = 'ACCOUNT_HEALTH',
-    Returns = 'RETURNS',
-    InventoryPlanning = 'INVENTORY_PLANNING',
-    BrandsReview = 'BRANDS_REVIEW',
-    InventoryShipments = 'INVENTORY_SHIPMENTS',
-    Voice = 'VOICE',
-    FypOutOfStock = 'FYP_OUT_OF_STOCK',
-    FypSearchSuppressed = 'FYP_SEARCH_SUPPRESSED',
-    Income = 'INCOME',
-    PpcSalesWeeks = 'PPC_SALES_WEEKS',
-    PpcOrganic = 'PPC_ORGANIC',
-    All = 'ALL',
-    CheckPermissions = 'CHECK_PERMISSIONS',
-    Profile = 'PROFILE',
-    ReceivingRequests = 'RECEIVING_REQUESTS'
-}
-
 
 
