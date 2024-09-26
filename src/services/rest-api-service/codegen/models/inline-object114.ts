@@ -21,17 +21,11 @@
  */
 export interface InlineObject114 {
     /**
-     * 
-     * @type {Array<string>}
+     * Для подтверждения нужно вернуть totalCost из калькулятора.
+     * @type {number}
      * @memberof InlineObject114
      */
-    requestIds: Array<string>;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineObject114
-     */
-    uploadedToListing: boolean;
+    totalCost: number;
 }
 
 

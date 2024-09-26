@@ -27,17 +27,17 @@ export interface InlineObject107 {
      */
     rating?: number;
     /**
-     * Отзыв о работе
+     * Комментарий причин изменения статуса.
      * @type {string}
      * @memberof InlineObject107
      */
-    review?: string;
+    reason?: string;
     /**
-     * Файл для записи в FreelanceSource по этому пропоузалу
-     * @type {string}
+     * Массив ссылок на медиафайлы.
+     * @type {Array<string>}
      * @memberof InlineObject107
      */
-    sourceFile?: string;
+    linksToMediaFiles?: Array<string>;
 }
 
 

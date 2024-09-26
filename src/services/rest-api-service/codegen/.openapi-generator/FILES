@@ -78,6 +78,8 @@ models/api-v1-boxes-clients-light-order.ts
 models/api-v1-boxes-clients-light-product-red-flags.ts
 models/api-v1-boxes-clients-light-product.ts
 models/api-v1-boxes-items.ts
+models/api-v1-boxes-many-v2-boxes.ts
+models/api-v1-boxes-many-v2-items.ts
 models/api-v1-boxes-merge-box-body.ts
 models/api-v1-boxes-split-box-body.ts
 models/api-v1-boxes-split-box-items.ts
@@ -229,6 +231,7 @@ models/inline-object168.ts
 models/inline-object169.ts
 models/inline-object17.ts
 models/inline-object170.ts
+models/inline-object171.ts
 models/inline-object18.ts
 models/inline-object19.ts
 models/inline-object2.ts

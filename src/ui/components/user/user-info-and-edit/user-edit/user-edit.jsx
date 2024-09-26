@@ -39,6 +39,7 @@ export const UserEdit = observer(({ user }) => {
     userData,
     specs,
     onClickBottomBtn,
+    getUserData,
   } = model.current
 
   return (
@@ -53,6 +54,7 @@ export const UserEdit = observer(({ user }) => {
           buttonLabel={t(TranslationKey.Save)}
           onSubmit={submitEditUserForm}
           onClickCancelBtn={onClickCancelBtn}
+          onUpdateData={getUserData}
         />
       ) : null}
 

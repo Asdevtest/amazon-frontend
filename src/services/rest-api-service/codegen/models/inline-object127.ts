@@ -13,20 +13,37 @@
  */
 
 
-import { InlineObject27 } from './inline-object27';
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineObject127
  */
 export interface InlineObject127 {
     /**
-     * Массив дополнительных коробок которые случились при обработки.
-     * @type {Array<InlineObject27>}
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * @type {string}
      * @memberof InlineObject127
      */
-    additionalBoxes?: Array<InlineObject27>;
+    name?: string;
+    /**
+     * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+     * @type {string}
+     * @memberof InlineObject127
+     */
+    sellerBoardWarehouseReportUrlDaily?: string;
+    /**
+     * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+     * @type {string}
+     * @memberof InlineObject127
+     */
+    sellerBoardWarehouseReportUrlMonthly?: string;
+    /**
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
+     * @memberof InlineObject127
+     */
+    reportAccountUrl?: string;
 }
 
 

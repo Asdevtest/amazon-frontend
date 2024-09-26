@@ -21,11 +21,11 @@
  */
 export interface InlineObject145 {
     /**
-     * Дата создания сессии (рефреш токена)
+     * 
      * @type {string}
      * @memberof InlineObject145
      */
-    sessionCreatedAt?: string;
+    refreshToken: string;
 }
 
 

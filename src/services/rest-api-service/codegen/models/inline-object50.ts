@@ -21,11 +21,88 @@
  */
 export interface InlineObject50 {
     /**
-     * Сумма воврата
+     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
      * @type {number}
      * @memberof InlineObject50
      */
-    refundPrice?: number;
+    taskId: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject50
+     */
+    boxesBefore?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject50
+     */
+    boxes: Array<string>;
+    /**
+     * Тип операции
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    operationType: InlineObject50OperationTypeEnum;
+    /**
+     * Комментарий клиента.
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    clientComment?: string;
+    /**
+     * Комментарий баера.
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    buyerComment?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineObject50
+     */
+    images?: Array<string>;
+    /**
+     * Комментарий работника склада.
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    storekeeperComment?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    priority?: InlineObject50PriorityEnum;
+    /**
+     * Причина приоритета
+     * @type {string}
+     * @memberof InlineObject50
+     */
+    reason?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject50OperationTypeEnum {
+    Merge = 'merge',
+    Split = 'split',
+    Receive = 'receive',
+    Edit = 'edit'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject50PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

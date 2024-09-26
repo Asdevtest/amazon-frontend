@@ -21,35 +21,11 @@
  */
 export interface InlineObject90 {
     /**
-     * ASIN продукта
+     * uri полный путь до файла, для скачивания
      * @type {string}
      * @memberof InlineObject90
      */
-    asin?: string;
-    /**
-     * Причина
-     * @type {string}
-     * @memberof InlineObject90
-     */
-    reason?: string;
-    /**
-     * Стратегия
-     * @type {string}
-     * @memberof InlineObject90
-     */
-    strategy?: InlineObject90StrategyEnum;
+    fileUrl: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject90StrategyEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40'
-}
-
 
 

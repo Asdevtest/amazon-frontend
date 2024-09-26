@@ -15,17 +15,17 @@
 
 
 /**
- * Схема изменения итоговой цены, totalPriceChanged
+ * Схема комментарии байера.
  * @export
  * @interface InlineObject47
  */
 export interface InlineObject47 {
     /**
-     * новое значение изменения итоговой цены.
-     * @type {number}
+     * Комментарии байера.
+     * @type {string}
      * @memberof InlineObject47
      */
-    totalPriceChanged: number;
+    buyerComment: string;
 }
 
 
