@@ -13,6 +13,7 @@
  */
 
 
+import { InlineObject35 } from './inline-object35';
 
 /**
  * 
@@ -21,29 +22,11 @@
  */
 export interface InlineObject128 {
     /**
-     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
-     * @type {number}
+     * Массив дополнительных коробок которые случились при обработки.
+     * @type {Array<InlineObject35>}
      * @memberof InlineObject128
      */
-    status?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject128
-     */
-    images?: Array<string>;
-    /**
-     * Комментарий работника склада.
-     * @type {string}
-     * @memberof InlineObject128
-     */
-    storekeeperComment?: string;
-    /**
-     * Приоритет задачи
-     * @type {number}
-     * @memberof InlineObject128
-     */
-    priority?: number;
+    additionalBoxes?: Array<InlineObject35>;
 }
 
 

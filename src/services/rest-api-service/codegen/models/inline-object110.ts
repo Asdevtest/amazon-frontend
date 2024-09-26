@@ -21,35 +21,27 @@
  */
 export interface InlineObject110 {
     /**
-     * Файл для записи в FreelanceSource
+     * 
      * @type {string}
      * @memberof InlineObject110
      */
-    sourceFile: string;
+    action: InlineObject110ActionEnum;
     /**
-     * Комментарий к файлу
+     * Причина смены статуса.
      * @type {string}
      * @memberof InlineObject110
      */
-    comment?: string;
-    /**
-     * GUID специализации фрилансера
-     * @type {string}
-     * @memberof InlineObject110
-     */
-    specId: string;
-    /**
-     * гуид продукта
-     * @type {string}
-     * @memberof InlineObject110
-     */
-    productId: string;
-    /**
-     * Гуид пропоузала
-     * @type {string}
-     * @memberof InlineObject110
-     */
-    proposalId?: string;
+    reason?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject110ActionEnum {
+    Link = 'LINK',
+    Unlink = 'UNLINK'
+}
+
 
 

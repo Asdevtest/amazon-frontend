@@ -21,11 +21,17 @@
  */
 export interface InlineObject130 {
     /**
-     * Статус
+     * Выставить приоритет задачи
      * @type {number}
      * @memberof InlineObject130
      */
-    status?: number;
+    priority: number;
+    /**
+     * Reason of high priority
+     * @type {string}
+     * @memberof InlineObject130
+     */
+    reason?: string;
 }
 
 

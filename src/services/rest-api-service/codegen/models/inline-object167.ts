@@ -13,8 +13,6 @@
  */
 
 
-import { ApiV1RequestProposalsCustomGuidResultEditMedia } from './api-v1-request-proposals-custom-guid-result-edit-media';
-import { ApiV1RequestProposalsCustomGuidResultEditSourceFiles } from './api-v1-request-proposals-custom-guid-result-edit-source-files';
 
 /**
  * 
@@ -23,41 +21,49 @@ import { ApiV1RequestProposalsCustomGuidResultEditSourceFiles } from './api-v1-r
  */
 export interface InlineObject167 {
     /**
-     * Результат работы исполнителя.
-     * @type {string}
+     * 
+     * @type {Array<string>}
      * @memberof InlineObject167
      */
-    result?: string;
+    shopIds?: Array<string>;
     /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject167
      */
-    linksToMediaFiles?: Array<string>;
-    /**
-     * 
-     * @type {Array<ApiV1RequestProposalsCustomGuidResultEditMedia>}
-     * @memberof InlineObject167
-     */
-    media?: Array<ApiV1RequestProposalsCustomGuidResultEditMedia>;
-    /**
-     * ключ с Амазона
-     * @type {string}
-     * @memberof InlineObject167
-     */
-    amazonOrderId?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject167
-     */
-    publicationLinks?: Array<string>;
-    /**
-     * 
-     * @type {Array<ApiV1RequestProposalsCustomGuidResultEditSourceFiles>}
-     * @memberof InlineObject167
-     */
-    sourceFiles?: Array<ApiV1RequestProposalsCustomGuidResultEditSourceFiles>;
+    tables?: Array<InlineObject167TablesEnum>;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject167TablesEnum {
+    BusinessReports = 'BUSINESS_REPORTS',
+    Orders = 'ORDERS',
+    TotalBalance = 'TOTAL_BALANCE',
+    Feedback = 'FEEDBACK',
+    Transactions = 'TRANSACTIONS',
+    Inventory = 'INVENTORY',
+    Campaigns = 'CAMPAIGNS',
+    PerformanceNotifications = 'PERFORMANCE_NOTIFICATIONS',
+    FbaInventory = 'FBA_INVENTORY',
+    AccountHealth = 'ACCOUNT_HEALTH',
+    Returns = 'RETURNS',
+    InventoryPlanning = 'INVENTORY_PLANNING',
+    BrandsReview = 'BRANDS_REVIEW',
+    InventoryShipments = 'INVENTORY_SHIPMENTS',
+    Voice = 'VOICE',
+    FypOutOfStock = 'FYP_OUT_OF_STOCK',
+    FypSearchSuppressed = 'FYP_SEARCH_SUPPRESSED',
+    Income = 'INCOME',
+    PpcSalesWeeks = 'PPC_SALES_WEEKS',
+    PpcOrganic = 'PPC_ORGANIC',
+    All = 'ALL',
+    CheckPermissions = 'CHECK_PERMISSIONS',
+    Profile = 'PROFILE',
+    ReceivingRequests = 'RECEIVING_REQUESTS'
+}
+
 
 

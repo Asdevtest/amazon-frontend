@@ -21,17 +21,35 @@
  */
 export interface InlineObject91 {
     /**
-     * текст отзыва/репорта
+     * ASIN продукта
      * @type {string}
      * @memberof InlineObject91
      */
-    text: string;
+    asin?: string;
     /**
-     * Прикрепленные ссылки на медиа для репорта/отзыва
-     * @type {Array<string>}
+     * Причина
+     * @type {string}
      * @memberof InlineObject91
      */
-    media?: Array<string>;
+    reason?: string;
+    /**
+     * Стратегия
+     * @type {string}
+     * @memberof InlineObject91
+     */
+    strategy?: InlineObject91StrategyEnum;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject91StrategyEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40'
+}
+
 
 

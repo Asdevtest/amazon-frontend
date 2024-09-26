@@ -25,7 +25,13 @@ export interface InlineObject144 {
      * @type {string}
      * @memberof InlineObject144
      */
-    refreshToken: string;
+    iconImage?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject144
+     */
+    title?: string;
 }
 
 

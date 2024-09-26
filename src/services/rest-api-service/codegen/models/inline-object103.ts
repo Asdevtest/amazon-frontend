@@ -21,35 +21,23 @@
  */
 export interface InlineObject103 {
     /**
-     * Время на выполнение, в минутах.
+     * Поставить оценку юзеру
      * @type {number}
      * @memberof InlineObject103
      */
-    execution_time?: number;
+    rating?: number;
     /**
-     * Цена предложения.
-     * @type {number}
-     * @memberof InlineObject103
-     */
-    price?: number;
-    /**
-     * Комментарий к предложению.
+     * Комментарий причин изменения статуса.
      * @type {string}
      * @memberof InlineObject103
      */
-    comment?: string;
+    reason?: string;
     /**
-     * Ссылки на медиафайлы.
+     * Массив ссылок на медиафайлы.
      * @type {Array<string>}
      * @memberof InlineObject103
      */
     linksToMediaFiles?: Array<string>;
-    /**
-     * Название предложения
-     * @type {string}
-     * @memberof InlineObject103
-     */
-    title?: string;
 }
 
 

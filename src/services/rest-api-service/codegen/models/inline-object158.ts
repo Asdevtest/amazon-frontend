@@ -21,11 +21,11 @@
  */
 export interface InlineObject158 {
     /**
-     * Profile email
+     * Shop guid
      * @type {string}
      * @memberof InlineObject158
      */
-    email: string;
+    shopId: string;
 }
 
 

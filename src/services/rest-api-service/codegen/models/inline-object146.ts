@@ -21,35 +21,11 @@
  */
 export interface InlineObject146 {
     /**
-     * Эндпоинт для которого надо установить пресеты
+     * Дата создания сессии (рефреш токена)
      * @type {string}
      * @memberof InlineObject146
      */
-    endpoint: string;
-    /**
-     * Название таблицы
-     * @type {string}
-     * @memberof InlineObject146
-     */
-    table: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject146
-     */
-    fields: Array<string>;
-    /**
-     * Является ли пресет активным.
-     * @type {boolean}
-     * @memberof InlineObject146
-     */
-    isActive?: boolean;
-    /**
-     * Является ли пресет избранным.
-     * @type {boolean}
-     * @memberof InlineObject146
-     */
-    isFavorite?: boolean;
+    sessionCreatedAt?: string;
 }
 
 

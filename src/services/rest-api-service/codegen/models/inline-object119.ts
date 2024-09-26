@@ -21,18 +21,6 @@
  */
 export interface InlineObject119 {
     /**
-     * Guid заявки
-     * @type {string}
-     * @memberof InlineObject119
-     */
-    requestId?: string;
-    /**
-     * Guid предложения
-     * @type {string}
-     * @memberof InlineObject119
-     */
-    proposalId?: string;
-    /**
      * комментарий клиента
      * @type {string}
      * @memberof InlineObject119
@@ -49,7 +37,19 @@ export interface InlineObject119 {
      * @type {string}
      * @memberof InlineObject119
      */
-    fileLink: string;
+    fileLink?: string;
+    /**
+     * Файл для записи в FreelanceSource
+     * @type {string}
+     * @memberof InlineObject119
+     */
+    proposalId?: string;
+    /**
+     * Комментарий к файлу
+     * @type {string}
+     * @memberof InlineObject119
+     */
+    requestId?: string;
 }
 
 

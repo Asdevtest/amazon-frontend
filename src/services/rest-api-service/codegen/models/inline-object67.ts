@@ -15,11 +15,23 @@
 
 
 /**
- * Схема апдейта рекомендаций
+ * Схема создания/апдейта рекомендаций
  * @export
  * @interface InlineObject67
  */
 export interface InlineObject67 {
+    /**
+     * GUID продукта.
+     * @type {string}
+     * @memberof InlineObject67
+     */
+    productId: string;
+    /**
+     * GUID сторкипера.
+     * @type {string}
+     * @memberof InlineObject67
+     */
+    storekeeperId: string;
     /**
      * Рекомендуемое значение
      * @type {number}
