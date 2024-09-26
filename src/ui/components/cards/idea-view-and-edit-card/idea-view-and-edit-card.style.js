@@ -5,11 +5,11 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    minHeight: 603,
-    padding: 20,
+    minHeight: 560,
+    padding: '10px',
     background: theme.palette.background.general,
     borderRadius: 20,
-    gap: '30px',
+    gap: '10px',
   },
 
   cardWrapper: {
@@ -474,7 +474,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalContentWrapper: {
-    maxHeight: '560px',
+    maxHeight: '520px',
     overflowY: 'auto',
   },
 
