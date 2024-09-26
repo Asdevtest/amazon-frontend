@@ -50,6 +50,7 @@ export const myRequestsDataConverter = (data, shopsData) =>
     status: item.status,
     title: item.title,
     price: item.price,
+    executor: item?.executor,
     asin: item.asin,
     humanFriendlyId: item.humanFriendlyId,
     updatedAt: item.updatedAt,
