@@ -27,23 +27,23 @@ export interface InlineObject147 {
      */
     endpoint: string;
     /**
-     * Название таблицы
-     * @type {string}
-     * @memberof InlineObject147
-     */
-    table: string;
-    /**
      * 
-     * @type {Array<string>}
+     * @type {object}
      * @memberof InlineObject147
      */
-    fields: Array<string>;
+    settings: object;
     /**
-     * Является ли пресет активным.
+     * Является ли активным.
      * @type {boolean}
      * @memberof InlineObject147
      */
-    isActive?: boolean;
+    activeSetting: boolean;
+    /**
+     * Title of preset
+     * @type {string}
+     * @memberof InlineObject147
+     */
+    title: string;
     /**
      * Является ли пресет избранным.
      * @type {boolean}

@@ -1,3 +1,6 @@
+import { IPermission } from '../models/permissions/permission'
+import { IPermissionGroup } from '../models/permissions/permission-group'
+
 import { IMasterUser } from './master-user'
 import { ISpec } from './spec'
 
@@ -13,8 +16,8 @@ export interface IFullUser {
   balance: number
   balanceFreeze: number
   overdraft: number
-  permissions: string[]
-  permissionGroups: string[]
+  permissions: Array<IPermission>
+  permissionGroups: Array<IPermissionGroup>
   masterUser: IMasterUser
   allowedStrategies: Array<number>
   allowedRoles: Array<number>

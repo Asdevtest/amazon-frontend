@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BoxesManyV2Boxes } from './api-v1-boxes-many-v2-boxes';
 
 /**
  * 
@@ -22,89 +21,35 @@ import { ApiV1BoxesManyV2Boxes } from './api-v1-boxes-many-v2-boxes';
  */
 export interface InlineObject39 {
     /**
-     * Штрихкод продукта
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineObject39
      */
-    barCode?: string;
-    /**
-     *  logicsTariff GUID
-     * @type {string}
-     * @memberof InlineObject39
-     */
-    logicsTariffId?: string;
-    /**
-     * Ссылка на наклейку для коробки
-     * @type {string}
-     * @memberof InlineObject39
-     */
-    shippingLabel?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject39
-     */
-    fbaShipment?: string;
-    /**
-     * Это номер конкретной коробки при отправке в амазон.
-     * @type {string}
-     * @memberof InlineObject39
-     */
-    fbaNumber?: string;
-    /**
-     * Гуид модели destination
-     * @type {string}
-     * @memberof InlineObject39
-     */
-    destinationId?: string;
-    /**
-     * Защита листинга
-     * @type {string}
-     * @memberof InlineObject39
-     */
-    transparencyFile?: string;
-    /**
-     * Гуид вариации тарифа
-     * @type {string}
-     * @memberof InlineObject39
-     */
-    variationTariffId?: string;
-    /**
-     * Наклейка прикреплена кладовщиком
-     * @type {boolean}
-     * @memberof InlineObject39
-     */
-    isShippingLabelAttachedByStorekeeper?: boolean;
-    /**
-     * Защита листинга прикреплена кладовщиком
-     * @type {boolean}
-     * @memberof InlineObject39
-     */
-    isTransparencyFileAttachedByTheStorekeeper?: boolean;
-    /**
-     * Защита листинга уже прикреплена поставщиком
-     * @type {boolean}
-     * @memberof InlineObject39
-     */
-    isTransparencyFileAlreadyAttachedByTheSupplier?: boolean;
-    /**
-     * Штрихкод уже прикреплен поставщиком
-     * @type {boolean}
-     * @memberof InlineObject39
-     */
-    isBarCodeAlreadyAttachedByTheSupplier?: boolean;
-    /**
-     * Штрихкод прикреплен кладовщиком
-     * @type {boolean}
-     * @memberof InlineObject39
-     */
-    isBarCodeAttachedByTheStorekeeper?: boolean;
+    lengthCmWarehouse?: number;
     /**
      * 
-     * @type {Array<ApiV1BoxesManyV2Boxes>}
+     * @type {number}
      * @memberof InlineObject39
      */
-    boxes: Array<ApiV1BoxesManyV2Boxes>;
+    widthCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject39
+     */
+    heightCmWarehouse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject39
+     */
+    weighGrossKgWarehouse?: number;
+    /**
+     * Массив ссылок на фотографии.
+     * @type {Array<string>}
+     * @memberof InlineObject39
+     */
+    images?: Array<string>;
 }
 
 

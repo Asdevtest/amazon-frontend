@@ -21,11 +21,35 @@
  */
 export interface InlineObject118 {
     /**
-     * Причины закрытия приема предложений.
+     * комментарий клиента
      * @type {string}
      * @memberof InlineObject118
      */
-    reason?: string;
+    commentByClient?: string;
+    /**
+     * комментарий исполнителя
+     * @type {string}
+     * @memberof InlineObject118
+     */
+    commentByPerformer?: string;
+    /**
+     * Ссылка на файл
+     * @type {string}
+     * @memberof InlineObject118
+     */
+    fileLink?: string;
+    /**
+     * Файл для записи в FreelanceSource
+     * @type {string}
+     * @memberof InlineObject118
+     */
+    proposalId?: string;
+    /**
+     * Комментарий к файлу
+     * @type {string}
+     * @memberof InlineObject118
+     */
+    requestId?: string;
 }
 
 

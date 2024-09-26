@@ -21,11 +21,23 @@
  */
 export interface InlineObject98 {
     /**
-     * GUIDы магазинов, которые нужно удалить.
+     * Удалять ли пермишны(только, если parentProductId - null
+     * @type {boolean}
+     * @memberof InlineObject98
+     */
+    deletePermissions?: boolean;
+    /**
+     * Ключ родительского продукта
+     * @type {string}
+     * @memberof InlineObject98
+     */
+    parentProductId: string;
+    /**
+     * 
      * @type {Array<string>}
      * @memberof InlineObject98
      */
-    suppliersIds?: Array<string>;
+    childProductIds: Array<string>;
 }
 
 

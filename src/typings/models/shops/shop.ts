@@ -1,7 +1,5 @@
 import { ICreatedBy } from '@typings/shared/created-by'
 
-import { IProduct } from '../products/product'
-
 export interface IShop {
   _id: string
   name: string
@@ -13,7 +11,6 @@ export interface IShop {
   lastModifiedById: string
   createdAt: string
   updatedAt: string
-  products?: IProduct[]
 }
 
 export interface IShopExport {

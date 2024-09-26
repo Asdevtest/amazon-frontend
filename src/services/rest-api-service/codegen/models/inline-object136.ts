@@ -37,7 +37,7 @@ export interface InlineObject136 {
      * @type {number}
      * @memberof InlineObject136
      */
-    price: number;
+    price?: number;
 }
 
 

@@ -21,11 +21,11 @@
  */
 export interface InlineObject97 {
     /**
-     * GUID магазина, которую нужно добавить к продукту
-     * @type {string}
+     * GUIDы магазинов, которые нужно удалить.
+     * @type {Array<string>}
      * @memberof InlineObject97
      */
-    shopId?: string;
+    suppliersIds?: Array<string>;
 }
 
 

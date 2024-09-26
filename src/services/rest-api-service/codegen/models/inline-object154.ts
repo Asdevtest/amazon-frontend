@@ -21,11 +21,17 @@
  */
 export interface InlineObject154 {
     /**
-     * Почта от аккаунта, пароль которого Вы забыли
+     * Токен, который юзер получает через почту
      * @type {string}
      * @memberof InlineObject154
      */
-    email: string;
+    hash: string;
+    /**
+     * Новый пароль
+     * @type {string}
+     * @memberof InlineObject154
+     */
+    password?: string;
 }
 
 

@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } from './api-v1-integrations-sellerboard-warehouse-products-link-sku-warehouse-stocks';
 
 /**
  * 
@@ -23,16 +22,10 @@ import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } f
 export interface InlineObject82 {
     /**
      * 
-     * @type {string}
+     * @type {Array<string>}
      * @memberof InlineObject82
      */
-    productId: string;
-    /**
-     * 
-     * @type {Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>}
-     * @memberof InlineObject82
-     */
-    warehouseStocks: Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>;
+    shopIds: Array<string>;
 }
 
 

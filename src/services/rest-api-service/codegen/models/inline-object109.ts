@@ -21,23 +21,27 @@
  */
 export interface InlineObject109 {
     /**
-     * Поставить оценку юзеру
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineObject109
      */
-    rating?: number;
+    action: InlineObject109ActionEnum;
     /**
-     * Комментарий причин изменения статуса.
+     * Причина смены статуса.
      * @type {string}
      * @memberof InlineObject109
      */
     reason?: string;
-    /**
-     * Массив ссылок на медиафайлы.
-     * @type {Array<string>}
-     * @memberof InlineObject109
-     */
-    linksToMediaFiles?: Array<string>;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject109ActionEnum {
+    Link = 'LINK',
+    Unlink = 'UNLINK'
+}
+
 
 
