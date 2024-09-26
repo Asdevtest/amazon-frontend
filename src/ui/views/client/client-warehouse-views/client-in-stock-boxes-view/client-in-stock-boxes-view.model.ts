@@ -1152,7 +1152,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         (sourceData.items[0].transparencyFile !== boxData.items[0].transparencyFile ||
           boxData.items[0].tmpTransparencyFile.length !== 0)
       const isShippingLabelChanged =
-        sourceData.shippingLabel && boxData.shippingLabel && boxData.tmpShippingLabel.length > 0
+        sourceData.shippingLabel !== null &&
+        (sourceData.shippingLabel !== boxData.shippingLabel || boxData.shippingLabel === '')
 
       const editBoxAndPostTask = async (id: string, requestBox: any) => {
         const editBoxesResult = await this.editBox(id, requestBox)
