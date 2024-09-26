@@ -34,6 +34,7 @@ export const warehouseTariffsConfig = {
   onEditLogisticTariff: action.bound,
   onRemoveLogisticTariff: action.bound,
   onClickAddWarehouseTariff: action.bound,
+  onClickAddLogisticTariff: action.bound,
 }
 
 export const createSwitcherConfig = () => [
