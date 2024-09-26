@@ -15,6 +15,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './supervisor-products-view.style'
 
+import { createSelectLabel } from './supervisor-products-view.config'
 import { filterStatusConfig, warningStatuses } from './supervisor-products-view.constants'
 import { SupervisorProductsViewModel } from './supervisor-products-view.model'
 
@@ -45,7 +46,7 @@ export const SupervisorProductsView = observer(() => {
             </div>
           )}
           options={createStatusOptions()}
-          labelRender={label => <>{`${label.label} (${label.key})`}</>}
+          labelRender={label => createSelectLabel(label)}
           value={viewModel.switcherFilterStatuses}
           className={styles.select}
           onChange={viewModel.onClickStatusFilterButton}
@@ -90,7 +91,6 @@ export const SupervisorProductsView = observer(() => {
               columnsModel: viewModel.columnsModel,
               onSortModelChange: viewModel.onChangeSortingModel,
             },
-
             tagSearchSettings: {
               tagList: viewModel.columnMenuSettings?.tags?.filterData,
               activeTags: viewModel.columnMenuSettings?.tags?.currentFilterData,
@@ -98,7 +98,6 @@ export const SupervisorProductsView = observer(() => {
               getTags: () => viewModel.columnMenuSettings?.onClickFilterBtn('tags', DataGridFilterTables.PRODUCTS),
               setActiveProductsTag: viewModel.setActiveProductsTag,
             },
-
             tablePresets: {
               showPresetsSelect: viewModel.showPresetsSelect,
               presetsTableData: viewModel.presetsTableData,
