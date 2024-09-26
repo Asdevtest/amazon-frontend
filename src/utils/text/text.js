@@ -339,6 +339,7 @@ export const getTableByColumn = (column, hint) => {
       'title',
       'spec',
       'price',
+      'executor',
       'timeoutAt',
       // 'createdBy',
       'subUsers',
