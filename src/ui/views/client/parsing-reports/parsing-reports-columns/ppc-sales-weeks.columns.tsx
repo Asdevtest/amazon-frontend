@@ -24,7 +24,7 @@ export const ppcSalesWeeksColumns = () => {
       fields: getProductColumnMenuItems({ withoutTitle: true }),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({
         isSimpleSku: true,
-        table: ParsingReportsType.FYP_SEARCH_SUPPRESSED,
+        // table: ParsingReportsType.FYP_SEARCH_SUPPRESSED,
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       width: 170,
@@ -426,7 +426,7 @@ export const ppcSalesWeeksColumns = () => {
 
   for (const column of columns) {
     if (!column.table) {
-      column.table = ParsingReportsType.PPC_SALES_WEEKS
+      // column.table = ParsingReportsType.PPC_SALES_WEEKS
     }
 
     column.sortable = false
