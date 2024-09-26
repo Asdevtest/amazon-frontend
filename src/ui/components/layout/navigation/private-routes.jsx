@@ -7,11 +7,13 @@ import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
 
 import { ChatModel } from '@models/chat-model'
+import { ChatModelAs } from '@models/chat-model-new'
 import { UserModel } from '@models/user-model'
 
 import { resetAccessTokenByTime } from '@services/axios/reset-api'
 
 import { Layout } from '@components/layout'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { isHaveMasterUser } from '@utils/checks'
 
@@ -41,12 +43,16 @@ export const PrivateRoutes = observer(() => {
 
   useEffect(() => {
     if (UserModel.isAuthenticated()) {
-      ChatModel.init()
-      ChatModel.getUnreadMessagesCount()
-      resetAccessTimer.current = resetAccessTokenByTime()
+      // ChatModel.init()
+      // ChatModel.getUnreadMessagesCount()
+
+      ChatModelAs.initModel()
+
+      // resetAccessTimer.current = resetAccessTokenByTime()
     }
 
     return () => {
+      ChatModelAs.destroyModel()
       clearTimeout(resetAccessTimer.current)
     }
   }, [])
@@ -86,5 +92,10 @@ export const PrivateRoutes = observer(() => {
     return <Redirect to={'/auth'} />
   }
 
-  return <Layout>{generateAllowedRoutes()}</Layout>
+  return (
+    <Layout>
+      {/* <CustomButton onClick={() => ChatModelAs?.ping()}>{'pign'}</CustomButton> */}
+      {generateAllowedRoutes()}
+    </Layout>
+  )
 })

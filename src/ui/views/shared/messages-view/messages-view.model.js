@@ -5,6 +5,7 @@ import { chatsType } from '@constants/keys/chats'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
+import { ChatModelAs } from '@models/chat-model-new'
 import { ChatsModel } from '@models/chats-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
@@ -72,6 +73,8 @@ export class MessagesViewModel {
     this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })
+
+    // ChatModelAs.getChats()
 
     reaction(
       () => this.simpleChats,

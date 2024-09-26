@@ -7,6 +7,7 @@ import { ONE_MINUTE_IN_MILLISECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
+import { ChatModelAs } from '@models/chat-model-new'
 
 import { Chat } from '@components/chat/chat'
 import { ChatSoundNotification } from '@components/chat/chat-sound-notification'

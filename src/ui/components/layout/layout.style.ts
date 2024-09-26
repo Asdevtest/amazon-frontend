@@ -32,6 +32,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   content: {
+    display: 'flex',
     flex: 1,
     padding: 10,
     overflow: 'auto',
