@@ -3162,8 +3162,23 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.ideas.SHOW_IDEAS_CLIENT,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
-      activeSubCategory: '',
+      activeSubCategory: 0,
       title: () => t(TranslationKey.Ideas),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/all',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT,
+    crumbNameKey: t(TranslationKey.All),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 0,
+      title: () => t(TranslationKey.All),
     },
   },
 
@@ -3177,7 +3192,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
-      activeSubCategory: 0,
+      activeSubCategory: 1,
       title: () => t(TranslationKey['New ideas']),
     },
   },
@@ -3192,7 +3207,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
-      activeSubCategory: 1,
+      activeSubCategory: 2,
       title: () => t(TranslationKey['On checking']),
     },
   },
@@ -3207,7 +3222,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
-      activeSubCategory: 2,
+      activeSubCategory: 3,
       title: () => t(TranslationKey['Search for suppliers']),
     },
   },
@@ -3222,7 +3237,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
-      activeSubCategory: 3,
+      activeSubCategory: 4,
       title: () => t(TranslationKey['Creating a product card']),
     },
   },
@@ -3237,23 +3252,8 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
-      activeSubCategory: 4,
-      title: () => t(TranslationKey['Adding ASIN']),
-    },
-  },
-
-  {
-    routePath: '/client/ideas/realized',
-    component: ClientIdeasView,
-    exact: true,
-    permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT,
-    crumbNameKey: t(TranslationKey['Realized ideas']),
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
       activeSubCategory: 5,
-      title: () => t(TranslationKey['Realized ideas']),
+      title: () => t(TranslationKey['Adding ASIN']),
     },
   },
 
@@ -3273,17 +3273,17 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/ideas/all',
+    routePath: '/client/ideas/realized',
     component: ClientIdeasView,
     exact: true,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT,
-    crumbNameKey: t(TranslationKey.All),
+    permissionKey: permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT,
+    crumbNameKey: t(TranslationKey['Realized ideas']),
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
       activeSubCategory: 7,
-      title: () => t(TranslationKey.All),
+      title: () => t(TranslationKey['Realized ideas']),
     },
   },
 ]
