@@ -1,10 +1,10 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { MasterUserItem } from '@components/shared/master-user-item'
-import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
@@ -122,10 +122,10 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
           />
         </div>
 
-        <SearchInput
-          inputClasses={styles.searchInput}
+        <CustomInputSearch
+          allowClear
           placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setNameSearchValue(e.target.value)}
+          onChange={e => setNameSearchValue(e.target.value)}
         />
 
         <Button

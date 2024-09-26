@@ -39,7 +39,6 @@ export const HeaderTable = ({ viewModel }) => {
 
           <CustomRadioButton
             size="large"
-            buttonStyle="solid"
             options={switcherSettings}
             defaultValue={viewModel.currentStorekeeperId}
             onChange={viewModel.onClickStorekeeperBtn}

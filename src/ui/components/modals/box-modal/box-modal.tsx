@@ -47,7 +47,6 @@ export const BoxModal: FC<BoxModalProps> = observer(props => {
 
           <CustomRadioButton
             size="large"
-            buttonStyle="solid"
             options={switcherSettings()}
             defaultValue={viewModel.activeTab}
             className={styles.switcherRadioButtons}

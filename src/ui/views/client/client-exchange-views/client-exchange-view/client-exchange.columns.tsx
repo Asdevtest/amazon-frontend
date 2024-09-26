@@ -109,6 +109,7 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
 
       renderCell: params => <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} />,
       width: 160,
+      disableCustomSort: true,
     },
 
     {
@@ -118,6 +119,7 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
 
       renderCell: params => <UserCell name={params.row.buyer?.name} id={params.row.buyer?._id} />,
       width: 150,
+      disableCustomSort: true,
     },
 
     {
@@ -127,6 +129,7 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
 
       renderCell: params => <UserCell name={params.row.checkedBy?.name} id={params.row.checkedBy?._id} />,
       width: 150,
+      disableCustomSort: true,
     },
 
     {
@@ -152,6 +155,7 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
       width: 130,
       renderCell: params => <RedFlagsCell flags={params.value} />,
       sortable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -161,6 +165,7 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
 
       width: 160,
       renderCell: params => <TagsCell tags={params.value} />,
+      disableCustomSort: true,
     },
 
     {

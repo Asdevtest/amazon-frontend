@@ -44,13 +44,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 20,
   },
 
-  searchInput: {
-    fontSize: 14,
-    lineHeight: '19px',
-    width: 305,
-    height: 30,
-  },
-
   searchResult: {
     width: 140,
     color: theme.palette.text.second,

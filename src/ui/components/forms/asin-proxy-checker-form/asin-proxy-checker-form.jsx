@@ -10,8 +10,8 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Field } from '@components/shared/field/field'
-import { SearchInput } from '@components/shared/search-input'
 import { EyeIcon } from '@components/shared/svg-icons'
 
 import { checkIsAdmin } from '@utils/checks'
@@ -156,8 +156,9 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
       <div className={styles.tableWrapper}>
         <div className={styles.tableSearchWrapper}>
           <Typography className={styles.tableSearchTitle}>{t(TranslationKey['To be added to the list'])}</Typography>
-          <SearchInput
-            inputClasses={styles.searchInput}
+          <CustomInputSearch
+            allowClear
+            wrapperClassName={styles.searchInput}
             value={nameSearchValue}
             placeholder={
               checkIsAdmin(userRole)
