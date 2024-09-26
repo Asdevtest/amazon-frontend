@@ -19,8 +19,8 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox, roundSafely } from '@utils/calculation'
 import { checkIsPositiveNum } from '@utils/checks'
@@ -281,14 +281,7 @@ export const CreateBoxForm = observer(
 
           <div className={styles.divider} />
 
-          <CustomSwitcher
-            condition={sizeSetting}
-            switcherSettings={[
-              { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-              { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-            ]}
-            changeConditionHandler={handleChange}
-          />
+          <SizeSwitcher condition={sizeSetting} onChangeCondition={handleChange} />
 
           {formFieldsArr ? (
             <div className={styles.blockOfNewBoxWrapper}>

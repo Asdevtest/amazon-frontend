@@ -45,7 +45,6 @@ export const WarehouseManagementView = observer(() => {
       <div className={styles.flexRow}>
         <CustomRadioButton
           size="large"
-          buttonStyle="solid"
           options={createSwitcherConfig()}
           defaultValue={viewModel.tabIndex}
           onChange={viewModel.onChangeTabIndex}

@@ -61,7 +61,6 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
         {!isCurrentUserFreelancer ? (
           <CustomRadioButton
             size="large"
-            buttonStyle="solid"
             options={currentSwitcherSettings}
             defaultValue={viewModel.curNotificationType}
             onChange={viewModel.onClickToChangeNotificationType}

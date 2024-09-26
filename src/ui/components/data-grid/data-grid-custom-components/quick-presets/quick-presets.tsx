@@ -18,7 +18,6 @@ export const QuickPresets: FC<QuickPresetsProps> = memo(({ presetsTableData, han
       {presetsAddedToQuickAccess?.length ? (
         <CustomRadioButton
           size="small"
-          buttonStyle="solid"
           options={presetsAddedToQuickAccess?.map(preset => ({ label: preset?.title, value: preset?._id }))}
           value={selectedPreset?._id}
           onChange={data => handleSetPresetActive(data?.target?.value)}

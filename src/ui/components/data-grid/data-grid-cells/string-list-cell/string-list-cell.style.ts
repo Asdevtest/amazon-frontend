@@ -16,10 +16,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    border: '1px solid #E0E0E0',
     width: '100%',
-    height: 30,
-    marginBottom: 10,
   },
 
   multilineTextHeaderWrapper: {

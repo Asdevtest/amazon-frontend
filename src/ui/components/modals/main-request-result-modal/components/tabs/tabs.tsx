@@ -1,6 +1,6 @@
 import { FC, memo, useState } from 'react'
 
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import { ISpec } from '@typings/shared/spec'
@@ -31,12 +31,11 @@ export const Tabs: FC<TabsProps> = memo(props => {
 
   return (
     <div className={styles.tabs}>
-      <CustomSwitcher
-        fullWidth
-        switchMode="medium"
-        condition={switcherCondition}
-        switcherSettings={customSwitcherSettings}
-        changeConditionHandler={setSwitcherCondition}
+      <CustomRadioButton
+        size="large"
+        options={customSwitcherSettings}
+        value={switcherCondition}
+        onChange={e => setSwitcherCondition(e.target.value)}
       />
 
       <TabPanel value={switcherCondition} index={MainRequestResultModalSwitcherConditions.FILES}>

@@ -67,7 +67,6 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
       <div className={styles.customSwitcherWrapper}>
         <CustomRadioButton
           size="large"
-          buttonStyle="solid"
           options={getCustomSwitcherConfig(isGroupChat)}
           className={styles.customSwitcher}
           value={currentTab}

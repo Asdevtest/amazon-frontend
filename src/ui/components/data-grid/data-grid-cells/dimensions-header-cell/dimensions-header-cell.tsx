@@ -43,7 +43,6 @@ export const DimensionsHeaderCell: FC<DimensionsHeaderCellProps> = memo(props =>
 
       <CustomRadioButton
         size="small"
-        buttonStyle="solid"
         options={options}
         defaultValue={transmittedSizeSetting}
         onChange={onChangeUnitsOption}

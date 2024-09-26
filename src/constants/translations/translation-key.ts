@@ -288,7 +288,6 @@ export enum TranslationKey {
   'Reset' = 'Reset',
   'Recommended' = 'Recommended',
   'or search by' = 'or search by',
-  'search' = 'search',
   'Selected products from stock' = 'Selected products from stock',
   'Bind' = 'Bind',
   'Send request for supplier search' = 'Send request for supplier search',
