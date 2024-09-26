@@ -1,7 +1,13 @@
 import { IFullUser } from '@typings/shared/full-user'
 
-import { ChatMessageType } from './chat-message-type'
-import { ChatMessageData } from './data-chat-message'
+import { ChatMessageType } from './chat-message.type'
+import { ChatMessageData } from './data-chat-message.type'
+
+export interface ResponseChats<T> {
+  rows: T
+  offset: number
+  count: number
+}
 
 export interface ForwardedMessage {
   _id: string
