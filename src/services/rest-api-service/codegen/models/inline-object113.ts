@@ -21,17 +21,11 @@
  */
 export interface InlineObject113 {
     /**
-     * Файл для записи в FreelanceSource
-     * @type {string}
+     * Для подтверждения нужно вернуть totalCost из калькулятора.
+     * @type {number}
      * @memberof InlineObject113
      */
-    sourceFile?: string;
-    /**
-     * Комментарий к файлу
-     * @type {string}
-     * @memberof InlineObject113
-     */
-    comments?: string;
+    totalCost: number;
 }
 
 

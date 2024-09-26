@@ -25,19 +25,19 @@ export interface InlineObject126 {
      * @type {string}
      * @memberof InlineObject126
      */
-    name: string;
+    name?: string;
     /**
      * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
      * @type {string}
      * @memberof InlineObject126
      */
-    sellerBoardWarehouseReportUrlDaily: string;
+    sellerBoardWarehouseReportUrlDaily?: string;
     /**
      * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
      * @type {string}
      * @memberof InlineObject126
      */
-    sellerBoardWarehouseReportUrlMonthly: string;
+    sellerBoardWarehouseReportUrlMonthly?: string;
     /**
      * uri полный путь до файла, для скачивания отчетов amazon_data
      * @type {string}

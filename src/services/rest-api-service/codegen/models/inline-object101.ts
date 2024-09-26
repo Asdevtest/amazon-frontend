@@ -21,23 +21,11 @@
  */
 export interface InlineObject101 {
     /**
-     * Поставить оценку юзеру
-     * @type {number}
+     * 
+     * @type {boolean}
      * @memberof InlineObject101
      */
-    rating?: number;
-    /**
-     * Комментарий причин изменения статуса.
-     * @type {string}
-     * @memberof InlineObject101
-     */
-    reason?: string;
-    /**
-     * Массив ссылок на медиафайлы.
-     * @type {Array<string>}
-     * @memberof InlineObject101
-     */
-    linksToMediaFiles?: Array<string>;
+    approvedByMaster: boolean;
 }
 
 

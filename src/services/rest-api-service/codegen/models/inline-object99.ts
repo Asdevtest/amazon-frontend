@@ -21,23 +21,11 @@
  */
 export interface InlineObject99 {
     /**
-     * Удалять ли пермишны(только, если parentProductId - null
-     * @type {boolean}
-     * @memberof InlineObject99
-     */
-    deletePermissions?: boolean;
-    /**
-     * Ключ родительского продукта
-     * @type {string}
-     * @memberof InlineObject99
-     */
-    parentProductId: string;
-    /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject99
      */
-    childProductIds: Array<string>;
+    tags: Array<string>;
 }
 
 

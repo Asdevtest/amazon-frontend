@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks } from './api-v1-integrations-sellerboard-warehouse-products-link-sku-warehouse-stocks';
 
 /**
  * 
@@ -21,11 +22,17 @@
  */
 export interface InlineObject81 {
     /**
-     * Причина отклонения
+     * 
      * @type {string}
      * @memberof InlineObject81
      */
-    reasonReject: string;
+    productId: string;
+    /**
+     * 
+     * @type {Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>}
+     * @memberof InlineObject81
+     */
+    warehouseStocks: Array<ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>;
 }
 
 

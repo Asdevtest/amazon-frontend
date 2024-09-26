@@ -21,17 +21,17 @@
  */
 export interface InlineObject93 {
     /**
-     * 
+     * GUID юзера
      * @type {string}
      * @memberof InlineObject93
      */
-    userId?: string;
+    userId: string;
     /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject93
      */
-    productIds?: Array<string>;
+    shopIds: Array<string>;
 }
 
 

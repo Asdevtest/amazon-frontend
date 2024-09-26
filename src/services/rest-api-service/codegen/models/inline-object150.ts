@@ -21,35 +21,11 @@
  */
 export interface InlineObject150 {
     /**
-     * Эндпоинт для которого надо установить пресеты
-     * @type {string}
+     * Массив доступных специализаций фрилансера.
+     * @type {Array<number>}
      * @memberof InlineObject150
      */
-    endpoint?: string;
-    /**
-     * 
-     * @type {object}
-     * @memberof InlineObject150
-     */
-    settings?: object;
-    /**
-     * Является ли пресет активным.
-     * @type {boolean}
-     * @memberof InlineObject150
-     */
-    activeSetting?: boolean;
-    /**
-     * Title of preset
-     * @type {string}
-     * @memberof InlineObject150
-     */
-    title?: string;
-    /**
-     * Является ли пресет избранным.
-     * @type {boolean}
-     * @memberof InlineObject150
-     */
-    isFavorite?: boolean;
+    allowedSpec: Array<number>;
 }
 
 

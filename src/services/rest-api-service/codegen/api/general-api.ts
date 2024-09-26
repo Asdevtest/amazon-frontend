@@ -25,7 +25,7 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject72 } from '../models';
+import { InlineObject71 } from '../models';
 // @ts-ignore
 import { InlineResponse20059 } from '../models';
 // @ts-ignore
@@ -213,12 +213,12 @@ export const GeneralApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * # Создать тег
          * @summary Создать тег
-         * @param {InlineObject72} [body] 
+         * @param {InlineObject71} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralTagsPost: async (body?: InlineObject72, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1GeneralTagsPost: async (body?: InlineObject71, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/general/tags`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -308,12 +308,12 @@ export const GeneralApiFp = function(configuration?: Configuration) {
         /**
          * # Создать тег
          * @summary Создать тег
-         * @param {InlineObject72} [body] 
+         * @param {InlineObject71} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GeneralTagsPost(body?: InlineObject72, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2018>> {
+        async apiV1GeneralTagsPost(body?: InlineObject71, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2018>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GeneralTagsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -370,12 +370,12 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
         /**
          * # Создать тег
          * @summary Создать тег
-         * @param {InlineObject72} [body] 
+         * @param {InlineObject71} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralTagsPost(body?: InlineObject72, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2018> {
+        apiV1GeneralTagsPost(body?: InlineObject71, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2018> {
             return localVarFp.apiV1GeneralTagsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -501,10 +501,10 @@ export interface GeneralApiApiV1GeneralTagsPagGetRequest {
 export interface GeneralApiApiV1GeneralTagsPostRequest {
     /**
      * 
-     * @type {InlineObject72}
+     * @type {InlineObject71}
      * @memberof GeneralApiApiV1GeneralTagsPost
      */
-    readonly body?: InlineObject72
+    readonly body?: InlineObject71
 
     /**
      * 

@@ -25,6 +25,8 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
+import { InlineObject157 } from '../models';
+// @ts-ignore
 import { InlineObject158 } from '../models';
 // @ts-ignore
 import { InlineObject159 } from '../models';
@@ -42,8 +44,6 @@ import { InlineObject164 } from '../models';
 import { InlineObject165 } from '../models';
 // @ts-ignore
 import { InlineObject166 } from '../models';
-// @ts-ignore
-import { InlineObject167 } from '../models';
 // @ts-ignore
 import { InlineResponse200117 } from '../models';
 // @ts-ignore
@@ -65,12 +65,12 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * ## Принудительный запуск парсеров  У админа есть доступ ко всем профилям
          * @summary # Принудительный запуск парсеров (Только для админа)
-         * @param {InlineObject162} [body] 
+         * @param {InlineObject161} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsForceStartPatch: async (body?: InlineObject162, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsParserAdminsForceStartPatch: async (body?: InlineObject161, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/integrations/parser/admins/force_start`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -108,12 +108,12 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
          * ## Подтвердить запрос.
          * @summary # Подтвердить запрос клиента на получение профиля.
          * @param {string} guid 
-         * @param {InlineObject166} [body] 
+         * @param {InlineObject165} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsProfilesApproveGuidPatch: async (guid: string, body?: InlineObject166, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsParserAdminsProfilesApproveGuidPatch: async (guid: string, body?: InlineObject165, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1IntegrationsParserAdminsProfilesApproveGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/integrations/parser/admins/profiles/approve/{guid}`
@@ -336,12 +336,12 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
          * ## Изменить профиль.
          * @summary # Изменить профиль. (Для Админа)
          * @param {string} guid 
-         * @param {InlineObject163} [body] 
+         * @param {InlineObject162} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsProfilesGuidPatch: async (guid: string, body?: InlineObject163, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsParserAdminsProfilesGuidPatch: async (guid: string, body?: InlineObject162, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1IntegrationsParserAdminsProfilesGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/integrations/parser/admins/profiles/{guid}`
@@ -423,12 +423,12 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * ## Создать аккаунт(профиль).
          * @summary # Создать аккаунт(профиль).
-         * @param {InlineObject161} [body] 
+         * @param {InlineObject160} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsProfilesPost: async (body?: InlineObject161, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsParserAdminsProfilesPost: async (body?: InlineObject160, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/integrations/parser/admins/profiles`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -575,12 +575,12 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * ## Изменить профиль.
          * @summary # Запустить парсеры (Для Админа)  Принимает массив гуиодов профиля  Если не переданы то запустит все
-         * @param {InlineObject165} [body] 
+         * @param {InlineObject164} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsProfilesStartPatch: async (body?: InlineObject165, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsParserAdminsProfilesStartPatch: async (body?: InlineObject164, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/integrations/parser/admins/profiles/start`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -617,12 +617,12 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * ## Изменить профиль.
          * @summary # Остановить парсеры (Для Админа)  Принимает массив гуиодов профиля  Если не переданы то остановится все
-         * @param {InlineObject164} [body] 
+         * @param {InlineObject163} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsProfilesStopPatch: async (body?: InlineObject164, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsParserAdminsProfilesStopPatch: async (body?: InlineObject163, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/integrations/parser/admins/profiles/stop`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -659,12 +659,12 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * ## Привязать к товару SKU. Проверки:  Только для клиента  Только магазины клиента
          * @summary # Привязать к товару SKU. (Все таблицы или выброчно)
-         * @param {InlineObject167} [body] 
+         * @param {InlineObject166} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserClientsProductsLinkSkuPatch: async (body?: InlineObject167, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsParserClientsProductsLinkSkuPatch: async (body?: InlineObject166, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/integrations/parser/clients/products_link_sku`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -701,12 +701,12 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * ## Сигнал на проверку почты к доступам sellercentral
          * @summary # Сигнал на проверку.
-         * @param {InlineObject159} [body] 
+         * @param {InlineObject158} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserClientsProfilesCheckPatch: async (body?: InlineObject159, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsParserClientsProfilesCheckPatch: async (body?: InlineObject158, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/integrations/parser/clients/profiles/check`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -786,12 +786,12 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
          * ## Изменить профиль.
          * @summary # Изменить профиль. (Для клиента)
          * @param {string} guid 
-         * @param {InlineObject160} [body] 
+         * @param {InlineObject159} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserClientsProfilesGuidPatch: async (guid: string, body?: InlineObject160, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsParserClientsProfilesGuidPatch: async (guid: string, body?: InlineObject159, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1IntegrationsParserClientsProfilesGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/integrations/parser/clients/profiles/{guid}`
@@ -831,12 +831,12 @@ export const ParserApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * ## Запрос на получение GoLogin профиля.
          * @summary # Запрос на получение GoLogin профиля.
-         * @param {InlineObject158} [body] 
+         * @param {InlineObject157} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserClientsProfilesReceivingPost: async (body?: InlineObject158, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IntegrationsParserClientsProfilesReceivingPost: async (body?: InlineObject157, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/integrations/parser/clients/profiles/receiving`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -883,12 +883,12 @@ export const ParserApiFp = function(configuration?: Configuration) {
         /**
          * ## Принудительный запуск парсеров  У админа есть доступ ко всем профилям
          * @summary # Принудительный запуск парсеров (Только для админа)
-         * @param {InlineObject162} [body] 
+         * @param {InlineObject161} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserAdminsForceStartPatch(body?: InlineObject162, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsParserAdminsForceStartPatch(body?: InlineObject161, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsForceStartPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -896,12 +896,12 @@ export const ParserApiFp = function(configuration?: Configuration) {
          * ## Подтвердить запрос.
          * @summary # Подтвердить запрос клиента на получение профиля.
          * @param {string} guid 
-         * @param {InlineObject166} [body] 
+         * @param {InlineObject165} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserAdminsProfilesApproveGuidPatch(guid: string, body?: InlineObject166, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsParserAdminsProfilesApproveGuidPatch(guid: string, body?: InlineObject165, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsProfilesApproveGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -956,12 +956,12 @@ export const ParserApiFp = function(configuration?: Configuration) {
          * ## Изменить профиль.
          * @summary # Изменить профиль. (Для Админа)
          * @param {string} guid 
-         * @param {InlineObject163} [body] 
+         * @param {InlineObject162} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserAdminsProfilesGuidPatch(guid: string, body?: InlineObject163, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsParserAdminsProfilesGuidPatch(guid: string, body?: InlineObject162, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsProfilesGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -980,12 +980,12 @@ export const ParserApiFp = function(configuration?: Configuration) {
         /**
          * ## Создать аккаунт(профиль).
          * @summary # Создать аккаунт(профиль).
-         * @param {InlineObject161} [body] 
+         * @param {InlineObject160} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserAdminsProfilesPost(body?: InlineObject161, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ParamsGuid>> {
+        async apiV1IntegrationsParserAdminsProfilesPost(body?: InlineObject160, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ParamsGuid>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsProfilesPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1021,48 +1021,48 @@ export const ParserApiFp = function(configuration?: Configuration) {
         /**
          * ## Изменить профиль.
          * @summary # Запустить парсеры (Для Админа)  Принимает массив гуиодов профиля  Если не переданы то запустит все
-         * @param {InlineObject165} [body] 
+         * @param {InlineObject164} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserAdminsProfilesStartPatch(body?: InlineObject165, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsParserAdminsProfilesStartPatch(body?: InlineObject164, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsProfilesStartPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Изменить профиль.
          * @summary # Остановить парсеры (Для Админа)  Принимает массив гуиодов профиля  Если не переданы то остановится все
-         * @param {InlineObject164} [body] 
+         * @param {InlineObject163} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserAdminsProfilesStopPatch(body?: InlineObject164, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsParserAdminsProfilesStopPatch(body?: InlineObject163, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserAdminsProfilesStopPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Привязать к товару SKU. Проверки:  Только для клиента  Только магазины клиента
          * @summary # Привязать к товару SKU. (Все таблицы или выброчно)
-         * @param {InlineObject167} [body] 
+         * @param {InlineObject166} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserClientsProductsLinkSkuPatch(body?: InlineObject167, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsParserClientsProductsLinkSkuPatch(body?: InlineObject166, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserClientsProductsLinkSkuPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Сигнал на проверку почты к доступам sellercentral
          * @summary # Сигнал на проверку.
-         * @param {InlineObject159} [body] 
+         * @param {InlineObject158} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserClientsProfilesCheckPatch(body?: InlineObject159, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsParserClientsProfilesCheckPatch(body?: InlineObject158, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserClientsProfilesCheckPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1082,24 +1082,24 @@ export const ParserApiFp = function(configuration?: Configuration) {
          * ## Изменить профиль.
          * @summary # Изменить профиль. (Для клиента)
          * @param {string} guid 
-         * @param {InlineObject160} [body] 
+         * @param {InlineObject159} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserClientsProfilesGuidPatch(guid: string, body?: InlineObject160, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IntegrationsParserClientsProfilesGuidPatch(guid: string, body?: InlineObject159, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserClientsProfilesGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Запрос на получение GoLogin профиля.
          * @summary # Запрос на получение GoLogin профиля.
-         * @param {InlineObject158} [body] 
+         * @param {InlineObject157} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IntegrationsParserClientsProfilesReceivingPost(body?: InlineObject158, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ParamsGuid>> {
+        async apiV1IntegrationsParserClientsProfilesReceivingPost(body?: InlineObject157, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ParamsGuid>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IntegrationsParserClientsProfilesReceivingPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1116,24 +1116,24 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
         /**
          * ## Принудительный запуск парсеров  У админа есть доступ ко всем профилям
          * @summary # Принудительный запуск парсеров (Только для админа)
-         * @param {InlineObject162} [body] 
+         * @param {InlineObject161} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsForceStartPatch(body?: InlineObject162, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IntegrationsParserAdminsForceStartPatch(body?: InlineObject161, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsParserAdminsForceStartPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Подтвердить запрос.
          * @summary # Подтвердить запрос клиента на получение профиля.
          * @param {string} guid 
-         * @param {InlineObject166} [body] 
+         * @param {InlineObject165} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsProfilesApproveGuidPatch(guid: string, body?: InlineObject166, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IntegrationsParserAdminsProfilesApproveGuidPatch(guid: string, body?: InlineObject165, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsParserAdminsProfilesApproveGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1184,12 +1184,12 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
          * ## Изменить профиль.
          * @summary # Изменить профиль. (Для Админа)
          * @param {string} guid 
-         * @param {InlineObject163} [body] 
+         * @param {InlineObject162} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsProfilesGuidPatch(guid: string, body?: InlineObject163, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IntegrationsParserAdminsProfilesGuidPatch(guid: string, body?: InlineObject162, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsParserAdminsProfilesGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1206,12 +1206,12 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
         /**
          * ## Создать аккаунт(профиль).
          * @summary # Создать аккаунт(профиль).
-         * @param {InlineObject161} [body] 
+         * @param {InlineObject160} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsProfilesPost(body?: InlineObject161, acceptEncoding?: string, options?: any): AxiosPromise<ParamsGuid> {
+        apiV1IntegrationsParserAdminsProfilesPost(body?: InlineObject160, acceptEncoding?: string, options?: any): AxiosPromise<ParamsGuid> {
             return localVarFp.apiV1IntegrationsParserAdminsProfilesPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1244,45 +1244,45 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
         /**
          * ## Изменить профиль.
          * @summary # Запустить парсеры (Для Админа)  Принимает массив гуиодов профиля  Если не переданы то запустит все
-         * @param {InlineObject165} [body] 
-         * @param {string} [acceptEncoding] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiV1IntegrationsParserAdminsProfilesStartPatch(body?: InlineObject165, acceptEncoding?: string, options?: any): AxiosPromise<string> {
-            return localVarFp.apiV1IntegrationsParserAdminsProfilesStartPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * ## Изменить профиль.
-         * @summary # Остановить парсеры (Для Админа)  Принимает массив гуиодов профиля  Если не переданы то остановится все
          * @param {InlineObject164} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserAdminsProfilesStopPatch(body?: InlineObject164, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IntegrationsParserAdminsProfilesStartPatch(body?: InlineObject164, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+            return localVarFp.apiV1IntegrationsParserAdminsProfilesStartPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * ## Изменить профиль.
+         * @summary # Остановить парсеры (Для Админа)  Принимает массив гуиодов профиля  Если не переданы то остановится все
+         * @param {InlineObject163} [body] 
+         * @param {string} [acceptEncoding] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1IntegrationsParserAdminsProfilesStopPatch(body?: InlineObject163, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsParserAdminsProfilesStopPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Привязать к товару SKU. Проверки:  Только для клиента  Только магазины клиента
          * @summary # Привязать к товару SKU. (Все таблицы или выброчно)
-         * @param {InlineObject167} [body] 
+         * @param {InlineObject166} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserClientsProductsLinkSkuPatch(body?: InlineObject167, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IntegrationsParserClientsProductsLinkSkuPatch(body?: InlineObject166, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsParserClientsProductsLinkSkuPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Сигнал на проверку почты к доступам sellercentral
          * @summary # Сигнал на проверку.
-         * @param {InlineObject159} [body] 
+         * @param {InlineObject158} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserClientsProfilesCheckPatch(body?: InlineObject159, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IntegrationsParserClientsProfilesCheckPatch(body?: InlineObject158, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsParserClientsProfilesCheckPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1300,23 +1300,23 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
          * ## Изменить профиль.
          * @summary # Изменить профиль. (Для клиента)
          * @param {string} guid 
-         * @param {InlineObject160} [body] 
+         * @param {InlineObject159} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserClientsProfilesGuidPatch(guid: string, body?: InlineObject160, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IntegrationsParserClientsProfilesGuidPatch(guid: string, body?: InlineObject159, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IntegrationsParserClientsProfilesGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Запрос на получение GoLogin профиля.
          * @summary # Запрос на получение GoLogin профиля.
-         * @param {InlineObject158} [body] 
+         * @param {InlineObject157} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IntegrationsParserClientsProfilesReceivingPost(body?: InlineObject158, acceptEncoding?: string, options?: any): AxiosPromise<ParamsGuid> {
+        apiV1IntegrationsParserClientsProfilesReceivingPost(body?: InlineObject157, acceptEncoding?: string, options?: any): AxiosPromise<ParamsGuid> {
             return localVarFp.apiV1IntegrationsParserClientsProfilesReceivingPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -1330,10 +1330,10 @@ export const ParserApiFactory = function (configuration?: Configuration, basePat
 export interface ParserApiApiV1IntegrationsParserAdminsForceStartPatchRequest {
     /**
      * 
-     * @type {InlineObject162}
+     * @type {InlineObject161}
      * @memberof ParserApiApiV1IntegrationsParserAdminsForceStartPatch
      */
-    readonly body?: InlineObject162
+    readonly body?: InlineObject161
 
     /**
      * 
@@ -1358,10 +1358,10 @@ export interface ParserApiApiV1IntegrationsParserAdminsProfilesApproveGuidPatchR
 
     /**
      * 
-     * @type {InlineObject166}
+     * @type {InlineObject165}
      * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesApproveGuidPatch
      */
-    readonly body?: InlineObject166
+    readonly body?: InlineObject165
 
     /**
      * 
@@ -1526,10 +1526,10 @@ export interface ParserApiApiV1IntegrationsParserAdminsProfilesGuidPatchRequest 
 
     /**
      * 
-     * @type {InlineObject163}
+     * @type {InlineObject162}
      * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesGuidPatch
      */
-    readonly body?: InlineObject163
+    readonly body?: InlineObject162
 
     /**
      * 
@@ -1568,10 +1568,10 @@ export interface ParserApiApiV1IntegrationsParserAdminsProfilesGuidRegisteredPat
 export interface ParserApiApiV1IntegrationsParserAdminsProfilesPostRequest {
     /**
      * 
-     * @type {InlineObject161}
+     * @type {InlineObject160}
      * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesPost
      */
-    readonly body?: InlineObject161
+    readonly body?: InlineObject160
 
     /**
      * 
@@ -1666,10 +1666,10 @@ export interface ParserApiApiV1IntegrationsParserAdminsProfilesRejectGuidPatchRe
 export interface ParserApiApiV1IntegrationsParserAdminsProfilesStartPatchRequest {
     /**
      * 
-     * @type {InlineObject165}
+     * @type {InlineObject164}
      * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesStartPatch
      */
-    readonly body?: InlineObject165
+    readonly body?: InlineObject164
 
     /**
      * 
@@ -1687,10 +1687,10 @@ export interface ParserApiApiV1IntegrationsParserAdminsProfilesStartPatchRequest
 export interface ParserApiApiV1IntegrationsParserAdminsProfilesStopPatchRequest {
     /**
      * 
-     * @type {InlineObject164}
+     * @type {InlineObject163}
      * @memberof ParserApiApiV1IntegrationsParserAdminsProfilesStopPatch
      */
-    readonly body?: InlineObject164
+    readonly body?: InlineObject163
 
     /**
      * 
@@ -1708,10 +1708,10 @@ export interface ParserApiApiV1IntegrationsParserAdminsProfilesStopPatchRequest 
 export interface ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatchRequest {
     /**
      * 
-     * @type {InlineObject167}
+     * @type {InlineObject166}
      * @memberof ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatch
      */
-    readonly body?: InlineObject167
+    readonly body?: InlineObject166
 
     /**
      * 
@@ -1729,10 +1729,10 @@ export interface ParserApiApiV1IntegrationsParserClientsProductsLinkSkuPatchRequ
 export interface ParserApiApiV1IntegrationsParserClientsProfilesCheckPatchRequest {
     /**
      * 
-     * @type {InlineObject159}
+     * @type {InlineObject158}
      * @memberof ParserApiApiV1IntegrationsParserClientsProfilesCheckPatch
      */
-    readonly body?: InlineObject159
+    readonly body?: InlineObject158
 
     /**
      * 
@@ -1778,10 +1778,10 @@ export interface ParserApiApiV1IntegrationsParserClientsProfilesGuidPatchRequest
 
     /**
      * 
-     * @type {InlineObject160}
+     * @type {InlineObject159}
      * @memberof ParserApiApiV1IntegrationsParserClientsProfilesGuidPatch
      */
-    readonly body?: InlineObject160
+    readonly body?: InlineObject159
 
     /**
      * 
@@ -1799,10 +1799,10 @@ export interface ParserApiApiV1IntegrationsParserClientsProfilesGuidPatchRequest
 export interface ParserApiApiV1IntegrationsParserClientsProfilesReceivingPostRequest {
     /**
      * 
-     * @type {InlineObject158}
+     * @type {InlineObject157}
      * @memberof ParserApiApiV1IntegrationsParserClientsProfilesReceivingPost
      */
-    readonly body?: InlineObject158
+    readonly body?: InlineObject157
 
     /**
      * 

@@ -21,11 +21,11 @@
  */
 export interface InlineObject55 {
     /**
-     * Зашита листинга (bool)
-     * @type {boolean}
+     * массив GUIDов оплаченных товаров
+     * @type {Array<string>}
      * @memberof InlineObject55
      */
-    transparency?: boolean;
+    guids?: Array<string>;
 }
 
 

@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1RequestProposalsGuidResultToCorrectMedia } from './api-v1-request-proposals-guid-result-to-correct-media';
 
 /**
  * 
@@ -39,18 +38,6 @@ export interface InlineObject106 {
      * @memberof InlineObject106
      */
     linksToMediaFiles?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject106
-     */
-    timeLimitInMinutes?: number;
-    /**
-     * 
-     * @type {Array<ApiV1RequestProposalsGuidResultToCorrectMedia>}
-     * @memberof InlineObject106
-     */
-    media?: Array<ApiV1RequestProposalsGuidResultToCorrectMedia>;
 }
 
 

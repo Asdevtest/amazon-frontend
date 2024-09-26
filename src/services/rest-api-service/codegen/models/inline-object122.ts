@@ -14,6 +14,7 @@
 
 
 import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
+import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
 
 /**
  * 
@@ -22,29 +23,17 @@ import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags'
  */
 export interface InlineObject122 {
     /**
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineObject122
-     */
-    asin: string;
-    /**
-     * Ссылка на этот продукт на амазоне.
-     * @type {string}
-     * @memberof InlineObject122
-     */
-    lamazon: string;
-    /**
-     * GUID поставщика
-     * @type {string}
-     * @memberof InlineObject122
-     */
-    currentSupplierId?: string;
-    /**
      * Категория
      * @type {string}
      * @memberof InlineObject122
      */
     category?: string;
+    /**
+     * Ссылка на этот продукт на амазоне.
+     * @type {string}
+     * @memberof InlineObject122
+     */
+    lamazon?: string;
     /**
      * 
      * @type {number}
@@ -58,29 +47,59 @@ export interface InlineObject122 {
      */
     fba?: boolean;
     /**
-     *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
-     * @type {number}
-     * @memberof InlineObject122
-     */
-    status?: number;
-    /**
      * 
      * @type {number}
      * @memberof InlineObject122
      */
     amazon?: number;
     /**
-     * Массив поставщиков.
-     * @type {Array<string>}
+     * 
+     * @type {number}
      * @memberof InlineObject122
      */
-    suppliersIds?: Array<string>;
+    height?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject122
+     */
+    width?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject122
+     */
+    length?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject122
+     */
+    weight?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject122
+     */
+    reffee?: number;
     /**
      * ФБА комиссия
      * @type {number}
      * @memberof InlineObject122
      */
     fbafee?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineObject122
+     */
+    fbaamount?: number;
+    /**
+     *  Статус товара. У ресечера: 0 - новый товар. 5- готов к проверке супером. 10 - новый товар с поставщиком
+     * @type {number}
+     * @memberof InlineObject122
+     */
+    status?: number;
     /**
      * Комментарии к товару.
      * @type {string}
@@ -94,11 +113,65 @@ export interface InlineObject122 {
      */
     images?: Array<string>;
     /**
-     * комиссия которую берет амазон за любой заказ - 15%
+     * 
+     * @type {string}
+     * @memberof InlineObject122
+     */
+    amazonDescription?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject122
+     */
+    amazonDetail?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject122
+     */
+    amazonTitle?: string;
+    /**
+     * Материл продукта
+     * @type {string}
+     * @memberof InlineObject122
+     */
+    material?: string;
+    /**
+     * Применение продукта
+     * @type {string}
+     * @memberof InlineObject122
+     */
+    productUsage?: string;
+    /**
+     * chinese title?
+     * @type {string}
+     * @memberof InlineObject122
+     */
+    chinaTitle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject122
+     */
+    barCode?: string;
+    /**
+     * 
      * @type {number}
      * @memberof InlineObject122
      */
-    reffee?: number;
+    minpurchase?: number;
+    /**
+     * Прибыль
+     * @type {number}
+     * @memberof InlineObject122
+     */
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject122
+     */
+    margin?: number;
     /**
      * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
      * @type {number}
@@ -154,17 +227,11 @@ export interface InlineObject122 {
      */
     avgReviews?: string;
     /**
-     * Дополнительная инфа для дозакупок
-     * @type {number}
+     * 
+     * @type {Array<ApiV1ClientsProductsGuidRedFlags>}
      * @memberof InlineObject122
      */
-    fourMonthesStock?: number;
-    /**
-     * ID магазинa продукта
-     * @type {string}
-     * @memberof InlineObject122
-     */
-    shopId?: string;
+    redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
     /**
      * 
      * @type {Array<ApiV1BuyersProductsGuidTags>}

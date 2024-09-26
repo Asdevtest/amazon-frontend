@@ -21,49 +21,71 @@
  */
 export interface InlineObject162 {
     /**
-     * Profile email
+     * Name
      * @type {string}
      * @memberof InlineObject162
      */
-    email: string;
+    name?: string;
     /**
-     * 
+     * Main google table id
      * @type {string}
      * @memberof InlineObject162
      */
-    table?: InlineObject162TableEnum;
+    spreadsheetsIdMain?: string;
+    /**
+     * Perfomance google table id
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    spreadsheetsIdPerformance?: string;
+    /**
+     * Import google table id
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    spreadsheetsIdImport?: string;
+    /**
+     * OTP
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    otp?: string;
+    /**
+     * Состояние парсера
+     * @type {boolean}
+     * @memberof InlineObject162
+     */
+    isActive?: boolean;
+    /**
+     * Profile access to sellercentral
+     * @type {boolean}
+     * @memberof InlineObject162
+     */
+    access?: boolean;
+    /**
+     * Guid of shop
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    shopId?: string;
+    /**
+     * Status
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    status?: string;
+    /**
+     * Guid of client
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    clientId?: string;
+    /**
+     * Comment for profile
+     * @type {string}
+     * @memberof InlineObject162
+     */
+    comment?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject162TableEnum {
-    BusinessReports = 'BUSINESS_REPORTS',
-    Orders = 'ORDERS',
-    TotalBalance = 'TOTAL_BALANCE',
-    Feedback = 'FEEDBACK',
-    Transactions = 'TRANSACTIONS',
-    Inventory = 'INVENTORY',
-    Campaigns = 'CAMPAIGNS',
-    PerformanceNotifications = 'PERFORMANCE_NOTIFICATIONS',
-    FbaInventory = 'FBA_INVENTORY',
-    AccountHealth = 'ACCOUNT_HEALTH',
-    Returns = 'RETURNS',
-    InventoryPlanning = 'INVENTORY_PLANNING',
-    BrandsReview = 'BRANDS_REVIEW',
-    InventoryShipments = 'INVENTORY_SHIPMENTS',
-    Voice = 'VOICE',
-    FypOutOfStock = 'FYP_OUT_OF_STOCK',
-    FypSearchSuppressed = 'FYP_SEARCH_SUPPRESSED',
-    Income = 'INCOME',
-    PpcSalesWeeks = 'PPC_SALES_WEEKS',
-    PpcOrganic = 'PPC_ORGANIC',
-    All = 'ALL',
-    CheckPermissions = 'CHECK_PERMISSIONS',
-    Profile = 'PROFILE',
-    ReceivingRequests = 'RECEIVING_REQUESTS'
-}
-
 
 

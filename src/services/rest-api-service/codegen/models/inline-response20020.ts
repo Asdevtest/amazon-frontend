@@ -13,9 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
-import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
  * 
@@ -24,167 +22,17 @@ import { ApiV1BuyersProductsVacTags } from './api-v1-buyers-products-vac-tags';
  */
 export interface InlineResponse20020 {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
-     * @memberof InlineResponse20020
-     */
-    _id?: string;
-    /**
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineResponse20020
-     */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20020
-     */
-    skuByClient?: string;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * Count of boxes
      * @type {number}
      * @memberof InlineResponse20020
      */
-    strategyStatus?: number;
-    /**
-     * Имеет ли дочерние продукты данный продукт (по parentProductId)
-     * @type {boolean}
-     * @memberof InlineResponse20020
-     */
-    hasChildren?: boolean;
+    count?: number;
     /**
      * 
-     * @type {string}
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20020
      */
-    checkednotes?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20020
-     */
-    bsr?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20020
-     */
-    amazon?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineResponse20020
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineResponse20020
-     */
-    fbafee?: number;
-    /**
-     *  Общая сумма с фба.
-     * @type {number}
-     * @memberof InlineResponse20020
-     */
-    fbaamount?: number;
-    /**
-     * Код текущего статуса
-     * @type {number}
-     * @memberof InlineResponse20020
-     */
-    status?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20020
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20020
-     */
-    amazonTitle?: string;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineResponse20020
-     */
-    profit?: number;
-    /**
-     * Материл продукта
-     * @type {string}
-     * @memberof InlineResponse20020
-     */
-    material?: string;
-    /**
-     * Применение продукта
-     * @type {string}
-     * @memberof InlineResponse20020
-     */
-    productUsage?: string;
-    /**
-     * chinese title?
-     * @type {string}
-     * @memberof InlineResponse20020
-     */
-    chinaTitle?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20020
-     */
-    ideasOnCheck?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20020
-     */
-    ideasFinished?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20020
-     */
-    ideasClosed?: number;
-    /**
-     * 
-     * @type {Array<ApiV1BuyersProductsVacTags>}
-     * @memberof InlineResponse20020
-     */
-    tags?: Array<ApiV1BuyersProductsVacTags>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
-     * @memberof InlineResponse20020
-     */
-    redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
-     * @memberof InlineResponse20020
-     */
-    subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
-     * @memberof InlineResponse20020
-     */
-    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20020
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse20020
-     */
-    updatedAt?: string;
+    rows?: Array<ApiV1BatchesBoxes>;
 }
 
 

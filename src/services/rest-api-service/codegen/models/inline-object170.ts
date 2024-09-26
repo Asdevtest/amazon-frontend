@@ -13,27 +13,19 @@
  */
 
 
-import { ApiV1RequestProposalsRequestDetailsCustom } from './api-v1-request-proposals-request-details-custom';
-import { ApiV1RequestsCustomGuidRequest } from './api-v1-requests-custom-guid-request';
 
 /**
- * Схема универсальной заявки.
+ * 
  * @export
  * @interface InlineObject170
  */
 export interface InlineObject170 {
     /**
-     * 
-     * @type {ApiV1RequestsCustomGuidRequest}
+     * Comment for request details.
+     * @type {string}
      * @memberof InlineObject170
      */
-    request?: ApiV1RequestsCustomGuidRequest;
-    /**
-     * 
-     * @type {ApiV1RequestProposalsRequestDetailsCustom}
-     * @memberof InlineObject170
-     */
-    details?: ApiV1RequestProposalsRequestDetailsCustom;
+    comment?: string;
 }
 
 

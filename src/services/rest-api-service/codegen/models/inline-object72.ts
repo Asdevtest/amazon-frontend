@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1GologinProfileNavigator } from './api-v1-gologin-profile-navigator';
 
 /**
  * 
@@ -21,17 +22,23 @@
  */
 export interface InlineObject72 {
     /**
-     * Тег
+     * Название профиля
      * @type {string}
      * @memberof InlineObject72
      */
-    title: string;
+    name: string;
     /**
-     * Color
+     * Название ОС
      * @type {string}
      * @memberof InlineObject72
      */
-    color?: string;
+    os?: string;
+    /**
+     * 
+     * @type {ApiV1GologinProfileNavigator}
+     * @memberof InlineObject72
+     */
+    navigator?: ApiV1GologinProfileNavigator;
 }
 
 

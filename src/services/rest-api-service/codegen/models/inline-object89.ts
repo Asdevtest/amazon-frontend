@@ -21,17 +21,11 @@
  */
 export interface InlineObject89 {
     /**
-     * Комментарий клиента
+     * uri полный путь до файла, для скачивания
      * @type {string}
      * @memberof InlineObject89
      */
-    clientComment?: string;
-    /**
-     * Комментарий баера
-     * @type {string}
-     * @memberof InlineObject89
-     */
-    buyerComment?: string;
+    fileUrl: string;
 }
 
 
