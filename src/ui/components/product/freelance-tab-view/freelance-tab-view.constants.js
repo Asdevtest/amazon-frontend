@@ -5,6 +5,7 @@ export const filtersFields = [
   'title',
   'spec',
   'price',
+  'executor',
   'timeoutAt',
   'asin',
   'skuByClient',
