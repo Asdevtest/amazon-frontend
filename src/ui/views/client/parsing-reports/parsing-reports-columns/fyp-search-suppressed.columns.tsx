@@ -76,7 +76,7 @@ export const fypSearchSuppressedColumns = () => {
       fields: getProductColumnMenuItems({ withoutTitle: true }),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({
         isSimpleSku: true,
-        table: ParsingReportsType.FYP_SEARCH_SUPPRESSED,
+        // table: ParsingReportsType.FYP_SEARCH_SUPPRESSED,
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       width: 170,
@@ -85,7 +85,7 @@ export const fypSearchSuppressedColumns = () => {
 
   for (const column of columns) {
     if (!column.table) {
-      column.table = ParsingReportsType.FYP_SEARCH_SUPPRESSED
+      // column.table = ParsingReportsType.FYP_SEARCH_SUPPRESSED
     }
 
     column.sortable = false
