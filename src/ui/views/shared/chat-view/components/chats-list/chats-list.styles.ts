@@ -1,18 +1,59 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  chatViewWrapper: {
-    flex: 1,
+  сhatsListWrapper: {
     display: 'flex',
-  },
-
-  chat: {
+    flexDirection: 'column',
     height: '100%',
-    width: '200px',
-    backgroundColor: 'red',
+    width: '312px',
+    backgroundColor: theme.palette.background.general,
+    boxShadow: theme.palette.boxShadow.casualBoxShadow,
+
+    gap: '10px',
+
+    borderRadius: '20px 0 0 20px',
+
+    padding: '10px',
+    paddingRight: '3px',
 
     '@container (min-width: 1200px)': {
-      backgroundColor: 'blue',
+      // backgroundColor: 'blue',
+    },
+  },
+
+  chatControls: {
+    display: 'flex',
+    gap: '5px',
+    alignItems: 'center',
+    paddingRight: '7px',
+  },
+
+  searchInput: {
+    flex: '1',
+    width: 'unset',
+  },
+
+  chatsList: {
+    flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5px',
+    overflowY: 'scroll',
+    paddingRight: '5px',
+    boxShadow: theme.palette.boxShadow.box,
+    borderRadius: '20px 0 0 20px',
+
+    '::-webkit-scrollbar': {
+      display: 'none',
+      background: 'transparent',
+      width: '4px',
+    },
+
+    '&:hover': {
+      paddingRight: '1px',
+      '::-webkit-scrollbar': {
+        display: 'block',
+      },
     },
   },
 }))
