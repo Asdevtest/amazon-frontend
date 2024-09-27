@@ -1,4 +1,5 @@
 import { CheckboxOptionType, Radio, RadioGroupProps } from 'antd'
+import { RadioGroupButtonStyle } from 'antd/es/radio'
 import { FC, memo } from 'react'
 
 import { useStyles } from './custom-radio-button.style'
@@ -9,15 +10,16 @@ export interface ICustomRadioButtonOption extends CheckboxOptionType {
 
 interface CustomRadioButtonProps extends RadioGroupProps {
   options: ICustomRadioButtonOption[]
+  buttonStyle?: RadioGroupButtonStyle
 }
 
 export const CustomRadioButton: FC<CustomRadioButtonProps> = memo(props => {
-  const { options, ...restProps } = props
+  const { options, buttonStyle = 'solid', ...restProps } = props
 
   const { classes: styles } = useStyles()
 
   return (
-    <Radio.Group {...restProps}>
+    <Radio.Group buttonStyle={buttonStyle} {...restProps}>
       {options.map((option, index) => (
         <Radio.Button key={index} value={option.value}>
           {option.label}

@@ -5,7 +5,7 @@ import { CircularProgress } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -44,9 +44,9 @@ export const TagSearch: FC<TagSearchProps> = memo(props => {
 
   return (
     <div ref={selectRef} className={styles.root}>
-      <SearchInput
-        hideButton
-        inputClasses={styles.searchInput}
+      <CustomInputSearch
+        allowClear
+        wrapperClassName={styles.searchInput}
         placeholder={`#${t(TranslationKey['Search by tags'])}`}
         value={searchValue}
         onChange={e => setSearchValue(e.target.value)}

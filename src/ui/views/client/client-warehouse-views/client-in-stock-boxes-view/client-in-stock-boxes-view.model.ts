@@ -1143,6 +1143,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         !!boxData.items[0].tmpTransparencyFile &&
         (sourceData.items[0].transparencyFile !== boxData.items[0].transparencyFile ||
           boxData.items[0].tmpTransparencyFile.length !== 0)
+      const isShippingLabelChanged =
+        sourceData.shippingLabel !== null &&
+        (sourceData.shippingLabel !== boxData.shippingLabel || boxData.shippingLabel === '')
 
       const editBoxAndPostTask = async (id: string, requestBox: any) => {
         const editBoxesResult = await this.editBox(id, requestBox)
@@ -1167,7 +1170,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       if (boxData.clientTaskComment || isBarcodeChanged || isTransparencyFileChanged) {
         editBoxAndPostTask(id, requestBox)
-      } else if (sourceData.shippingLabel !== null) {
+      } else if (isShippingLabelChanged) {
         editBoxAndPostTask(id, requestBox)
       } else {
         await BoxesModel.editBoxAtClient(id, {

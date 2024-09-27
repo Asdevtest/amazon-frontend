@@ -36,13 +36,5 @@ export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
     },
   ].filter(option => typeof option === 'object')
 
-  return (
-    <CustomRadioButton
-      size="large"
-      buttonStyle="solid"
-      options={options}
-      defaultValue={viewMode}
-      onChange={onChangeViewMode}
-    />
-  )
+  return <CustomRadioButton size="large" options={options} defaultValue={viewMode} onChange={onChangeViewMode} />
 })

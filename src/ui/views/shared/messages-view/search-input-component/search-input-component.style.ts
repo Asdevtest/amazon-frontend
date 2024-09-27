@@ -13,17 +13,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
     width: 305,
-    height: 40,
 
     [theme.breakpoints.down(1024)]: {
       width: 220,
-      flex: '1 1 auto',
-
-      '& > input': {
-        padding: 9,
-      },
     },
 
     [theme.breakpoints.down(768)]: {

@@ -198,13 +198,13 @@ export const OrderProductModal = memo(props => {
         })
       : selectedProductsData.map(product => ({
           amount: 1,
-          clientComment: isPendingOrdering ? product.clientComment : '',
+          clientComment: isPendingOrdering ? product?.clientComment : '',
           barCode: product?.barCode || '',
-          productId: product._id,
+          productId: product?._id,
           images: [],
           deadline: null,
 
-          transparency: product.transparency,
+          transparency: product?.transparency,
           tmpBarCode: [],
           tmpTransparencyFile: [],
 
@@ -224,7 +224,7 @@ export const OrderProductModal = memo(props => {
           logicsTariffId: null,
           expressChinaDelivery: false,
           priority: '30',
-          buyerId: product.buyer?._id || null,
+          buyerId: product?.buyer?._id || null,
         })),
   )
 

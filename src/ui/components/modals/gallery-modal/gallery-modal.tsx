@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import { UploadFileType } from '@typings/shared/upload-file'
@@ -21,12 +21,11 @@ export const GalleryModal: FC<GalleryModalProps> = memo(({ files }) => {
     <>
       <Header />
 
-      <CustomSwitcher
-        fullWidth
-        switchMode="medium"
-        condition={tabValue}
-        switcherSettings={customSwitcherSettings}
-        changeConditionHandler={setTabValue}
+      <CustomRadioButton
+        size="large"
+        options={customSwitcherSettings}
+        value={tabValue}
+        onChange={e => setTabValue(e.target.value)}
       />
 
       <TabPanel value={tabValue} index={SwitcherConditions.MEDIA_FILES}>

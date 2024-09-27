@@ -3,7 +3,7 @@ import { ChangeEvent, FC, memo } from 'react'
 import { getDimensionsSizesType, getWeightSizesType } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
@@ -66,10 +66,11 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
         <div className={styles.sizesSubWrapper}>
           <p className={styles.standartText}>{title}</p>
 
-          <CustomSwitcher
-            condition={sizeMode}
-            switcherSettings={switcherSettings}
-            changeConditionHandler={onChangeSizeMode}
+          <CustomRadioButton
+            size="small"
+            options={switcherSettings}
+            value={sizeMode}
+            onChange={e => onChangeSizeMode(e.target.value)}
           />
         </div>
 

@@ -14,9 +14,9 @@ import { ChangeInputCell, UserCell } from '@components/data-grid/data-grid-cells
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { DownloadIcon } from '@components/shared/svg-icons'
 
@@ -306,14 +306,13 @@ export const BatchInfoModal = observer(
                 TranslationKey['Box ID'],
               )}, FBA Shipment, Prep Id`}
             >
-              <div>
-                <SearchInput
-                  inputClasses={styles.searchInput}
-                  value={nameSearchValue}
-                  placeholder={t(TranslationKey.Search)}
-                  onChange={e => setNameSearchValue(e.target.value)}
-                />
-              </div>
+              <CustomInputSearch
+                allowClear
+                wrapperClassName={styles.searchInput}
+                value={nameSearchValue}
+                placeholder={t(TranslationKey.Search)}
+                onChange={e => setNameSearchValue(e.target.value)}
+              />
             </Tooltip>
           </div>
 

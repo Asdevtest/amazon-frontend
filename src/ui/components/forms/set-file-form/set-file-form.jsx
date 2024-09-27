@@ -17,6 +17,8 @@ export const SetFileForm = props => {
   const { classes: styles } = useStyles()
   const [files, setFiles] = useState([])
 
+  const isButtonDisabled = files.length === 0
+
   useEffect(() => {
     if (data) {
       setFiles(isString(data) ? [data] : data)
@@ -30,7 +32,7 @@ export const SetFileForm = props => {
       <UploadFilesInput images={files} setImages={setFiles} maxNumber={maxNumber} />
 
       <div className={styles.buttons}>
-        <CustomButton size="large" type="primary" onClick={() => onSubmit(files)}>
+        <CustomButton size="large" type="primary" disabled={isButtonDisabled} onClick={() => onSubmit(files)}>
           {t(TranslationKey.Save)}
         </CustomButton>
         <CustomButton size="large" onClick={onClose}>

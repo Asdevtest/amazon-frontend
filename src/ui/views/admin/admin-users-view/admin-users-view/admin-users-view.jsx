@@ -29,7 +29,6 @@ export const AdminUsersView = observer(() => {
 
         <CustomRadioButton
           size="large"
-          buttonStyle="solid"
           options={getSwitcherConfig()}
           defaultValue={viewModel.switcherCondition}
           onChange={viewModel.onClickChangeRole}

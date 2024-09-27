@@ -45,7 +45,6 @@ export const WarehouseManagementView = observer(() => {
       <div className={styles.flexRow}>
         <CustomRadioButton
           size="large"
-          buttonStyle="solid"
           options={createSwitcherConfig()}
           defaultValue={viewModel.tabIndex}
           onChange={viewModel.onChangeTabIndex}
@@ -162,7 +161,7 @@ export const WarehouseManagementView = observer(() => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showAddOrEditDestinationModal')}
           onCreateSubmit={viewModel.onChangeDestination}
           onEditSubmit={viewModel.onChangeDestination}
-          onClickAddBtn={() => viewModel.onTriggerOpenModal('showAddOrEditLogisticTariffModal')}
+          onClickAddBtn={viewModel.onClickAddLogisticTariff}
         />
       </Modal>
 

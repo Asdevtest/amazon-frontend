@@ -12,7 +12,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { TradingShopCard } from '@components/cards/trading-shop-card'
 import { Button } from '@components/shared/button'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
@@ -79,9 +79,9 @@ export const ClientBuyShopsAds = observer(() => {
           <div className={styles.tablePanelWrapper}>
             <div></div>
 
-            <SearchInput
-              placeholder={t(TranslationKey.search)}
-              inputClasses={styles.searchInput}
+            <CustomInputSearch
+              allowClear
+              placeholder={t(TranslationKey.Search)}
               value={nameSearchValue}
               onChange={onChangeNameSearchValue}
             />

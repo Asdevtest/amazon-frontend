@@ -31,10 +31,6 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  searchInput: {
-    width: 400,
-  },
-
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
