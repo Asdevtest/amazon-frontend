@@ -4,7 +4,7 @@ import { FC, useContext } from 'react'
 
 import { Avatar } from '@mui/material'
 
-import { chatsType } from '@constants/keys/chats'
+import { ChatsType } from '@constants/keys/chats'
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -42,7 +42,7 @@ interface Props {
 export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typingUsers, isMutedChat, typeOfChat }) => {
   const { classes: styles, cx } = useStyles()
 
-  const isFavoritesChat = chat?.type === chatsType.SAVED
+  const isFavoritesChat = chat?.type === ChatsType.SAVED
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
@@ -57,7 +57,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
   const currentUserRole = UserRoleCodeMap[(UserModel?.userInfo as unknown as IFullUser)?.role]
 
-  const isGroupChat = chat.type === chatsType.GROUP
+  const isGroupChat = chat.type === ChatsType.GROUP
 
   const isCurrentUser = lastMessage?.user?._id === userId
 
