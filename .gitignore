@@ -25,10 +25,10 @@ yarn-error.log*
 # Custom
 .env
 .idea
+
 /schema.json
 /src/services/rest-api-service/codegen/
 
 .vscode
 
-schema.json
 .vercel
