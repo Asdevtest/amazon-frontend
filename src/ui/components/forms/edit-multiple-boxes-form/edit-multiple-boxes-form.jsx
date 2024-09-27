@@ -332,7 +332,7 @@ export const EditMultipleBoxesForm = observer(
     }
 
     const onClickSubmit = () => {
-      onSubmit(sharedFields, newBoxes, selectedBoxes)
+      onSubmit(newBoxes, selectedBoxes, sharedFields)
     }
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(

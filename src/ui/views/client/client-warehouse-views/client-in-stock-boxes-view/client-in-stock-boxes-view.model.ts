@@ -44,7 +44,13 @@ import { ILogicTariff } from '@typings/shared/logic-tariff'
 import { IUploadFile } from '@typings/shared/upload-file'
 
 import { clientBoxesViewColumns } from './client-boxes-columns'
-import { fieldsForSearch, filtersFields, updateBoxWhiteList } from './client-in-stock-boxes-view.constants'
+import {
+  fieldsForSearch,
+  filtersFields,
+  sharedFieldsWhiteList,
+  updateBoxWhiteList,
+  updateManyBoxesWhiteList,
+} from './client-in-stock-boxes-view.constants'
 import { observerConfig } from './observer-config'
 
 export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
@@ -833,55 +839,77 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSubmitEditMultipleBoxes(newBoxes: any, selectedRows: IBox[]) {
+  async onClickSubmitEditMultipleBoxes(newBoxes: any, selectedRows: IBox[], sharedFields: any) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
-      const uploadedShippingLabeles: { strKey: string; link: string }[] = []
-
+      const uploadedShippingLabels: { strKey: string; link: string }[] = []
       const uploadedBarcodes: { strKey: string; link: string }[] = []
+      const uploadedTransparencyFiles: { strKey: string; link: string }[] = []
+      const updatedBoxes: any[] = []
 
       runInAction(() => {
         this.boxesIdsToTask = []
       })
 
+      const uploadImageIfNotUploaded = async (image: any, cache: any[]) => {
+        const imageKey = JSON.stringify(image)
+        const cachedImage = cache.find(el => el.strKey === imageKey)
+
+        if (cachedImage) {
+          return cachedImage.link
+        } else {
+          // @ts-ignore
+          await onSubmitPostImages.call(this, {
+            images: [image],
+            type: 'uploadedFiles',
+            withoutShowProgress: true,
+          })
+
+          const link = this.uploadedFiles[0] || image
+          cache.push({ strKey: imageKey, link })
+          return link
+        }
+      }
+
+      // Upload sharedFields files
+      const uploadSharedFieldFile = async (fieldName: string, uploadedFieldName: string) => {
+        const fieldValue = sharedFields[fieldName]
+
+        if (Array.isArray(fieldValue) && fieldValue.length) {
+          // @ts-ignore
+          await onSubmitPostImages.call(this, {
+            images: fieldValue,
+            type: 'uploadedFiles',
+            withoutShowProgress: true,
+          })
+          sharedFields[uploadedFieldName] = this.uploadedFiles[0]
+        }
+      }
+
+      await uploadSharedFieldFile('tmpShippingLabel', 'shippingLabel')
+      await uploadSharedFieldFile('tmpBarCode', 'barCode')
+      await uploadSharedFieldFile('tmpTransparencyFile', 'transparencyFile')
+
       for (let i = 0; i < newBoxes.length; i++) {
         const newBox = { ...newBoxes[i] }
         const sourceBox = selectedRows[i]
-        const isMultipleEdit = true
 
+        // Upload shipping label if needed
         if (newBox.tmpShippingLabel?.length) {
-          const findUploadedShippingLabel = uploadedShippingLabeles.find(
-            el => el.strKey === JSON.stringify(newBox.tmpShippingLabel[0]),
-          )
-
-          if (!findUploadedShippingLabel) {
-            // @ts-ignore
-            await onSubmitPostImages.call(this, {
-              images: newBox.tmpShippingLabel,
-              type: 'uploadedFiles',
-              withoutShowProgress: true,
-            })
-
-            uploadedShippingLabeles.push({
-              strKey: JSON.stringify(newBox.tmpShippingLabel[0]),
-              link: this.uploadedFiles[0],
-            })
-          }
-
-          newBox.shippingLabel = findUploadedShippingLabel
-            ? findUploadedShippingLabel.link
-            : this.uploadedFiles?.[0] || newBox.tmpShippingLabel?.[0]
+          newBox.shippingLabel = await uploadImageIfNotUploaded(newBox.tmpShippingLabel[0], uploadedShippingLabels)
+        } else if (sharedFields.shippingLabel) {
+          newBox.shippingLabel = sharedFields.shippingLabel
         }
 
         const dataToBarCodeChange = newBox.items
           .map((el: any) =>
-            el.tmpBarCode?.length
+            el.tmpBarCode?.length || sharedFields.barCode
               ? {
                   changeBarCodInInventory: el.changeBarCodInInventory,
-                  productId: el.product._id,
-                  tmpBarCode: el.tmpBarCode,
+                  productId: el.product._id || el.productId,
+                  tmpBarCode: el.tmpBarCode || [sharedFields.barCode],
                   newData: [],
                 }
               : null,
@@ -889,47 +917,62 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           .filter((el: any) => el !== null)
 
         if (dataToBarCodeChange?.length) {
-          for (let j = 0; j < dataToBarCodeChange.length; j++) {
+          for (const barcodeChange of dataToBarCodeChange) {
             const findUploadedBarcode = uploadedBarcodes.find(
-              el => el.strKey === JSON.stringify(dataToBarCodeChange[j].tmpBarCode[0]),
+              el => el.strKey === JSON.stringify(barcodeChange.tmpBarCode[0]),
             )
 
             if (!findUploadedBarcode) {
               // @ts-ignore
               await onSubmitPostImages.call(this, {
-                images: dataToBarCodeChange[j].tmpBarCode,
+                images: barcodeChange.tmpBarCode,
                 type: 'uploadedFiles',
                 withoutShowProgress: true,
               })
 
               uploadedBarcodes.push({
-                strKey: JSON.stringify(dataToBarCodeChange[j].tmpBarCode[0]),
-                link: this.uploadedFiles[0] || dataToBarCodeChange[j].tmpBarCode[0],
+                strKey: JSON.stringify(barcodeChange.tmpBarCode[0]),
+                link: this.uploadedFiles[0] || barcodeChange.tmpBarCode[0],
               })
             }
 
-            dataToBarCodeChange[j].newData = findUploadedBarcode
+            barcodeChange.newData = findUploadedBarcode
               ? [findUploadedBarcode.link]
-              : [this.uploadedFiles[0] || dataToBarCodeChange[j].tmpBarCode[0]]
+              : [this.uploadedFiles[0] || barcodeChange.tmpBarCode[0]]
           }
         }
 
-        newBox.items = newBox.items.map((el: any) => {
+        const currentBoxItems = []
+
+        for (const el of newBox.items) {
           const prodInDataToUpdateBarCode = dataToBarCodeChange.find(
-            (item: any) => item.productId === el?.product?._id || el?.productId,
+            (item: any) => item.productId === (el?.product?._id || el?.productId),
           )
 
-          return {
+          let transparencyFileLink = el.transparencyFile || ''
+
+          // Upload transparency file if needed
+          if (el.tmpTransparencyFile?.length) {
+            transparencyFileLink = await uploadImageIfNotUploaded(el.tmpTransparencyFile[0], uploadedTransparencyFiles)
+          } else if (sharedFields.transparencyFile) {
+            transparencyFileLink = sharedFields.transparencyFile
+          }
+
+          const validItem = {
             ...getObjectFilteredByKeyArrayBlackList(el, [
+              '_id',
               'order',
               'product',
-              /* 'tmpBarCode',*/ 'changeBarCodInInventory',
+              'tmpBarCode',
+              'changeBarCodInInventory',
+              'tmpTransparencyFile',
+              'amount',
             ]),
-            amount: el.amount,
+            shippingLabel: newBox.shippingLabel,
             orderId: el?.order?._id || el?.orderId,
             productId: el?.product?._id || el?.productId,
-
-            barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
+            barCode: prodInDataToUpdateBarCode?.newData?.[0] || el.barCode || sharedFields.barCode,
+            transparencyFile: transparencyFileLink,
             isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
               ? false
               : el.isBarCodeAlreadyAttachedByTheSupplier,
@@ -937,10 +980,22 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
               ? false
               : el.isBarCodeAttachedByTheStorekeeper,
           }
-        })
 
-        await this.onEditBoxSubmit(sourceBox._id, newBox, sourceBox, isMultipleEdit)
+          currentBoxItems.push(validItem)
+        }
+
+        newBox.items = currentBoxItems
+
+        // Prepare the updated box for sending
+        updatedBoxes.push(getObjectFilteredByKeyArrayWhiteList(newBox, updateManyBoxesWhiteList))
       }
+
+      const boxesToSend = {
+        ...getObjectFilteredByKeyArrayWhiteList(sharedFields, sharedFieldsWhiteList),
+        boxes: updatedBoxes,
+      }
+
+      await BoxesModel.editManyBoxes(boxesToSend)
 
       toast.success(
         this.boxesIdsToTask.length

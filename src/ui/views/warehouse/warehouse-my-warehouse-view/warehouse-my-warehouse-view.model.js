@@ -28,7 +28,12 @@ import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { filtersFields, updateBoxWhiteList } from './warehouse-my-warehouse-view.constants'
+import {
+  filtersFields,
+  sharedFieldsWhiteList,
+  updateBoxWhiteList,
+  updateManyBoxesWhiteList,
+} from './warehouse-my-warehouse-view.constants'
 
 export class WarehouseMyWarehouseViewModel {
   requestStatus = undefined
@@ -236,126 +241,121 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSubmitEditMultipleBoxes(sharedFields, newBoxes, selectedBoxes) {
+  async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes, sharedFields) {
     try {
-      // this.setRequestStatus(loadingStatus.IS_LOADING)
-      // this.onTriggerOpenModal('showEditMultipleBoxesModal')
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+      this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
-      const uploadedShippingLabeles = []
+      const uploadedShippingLabels = []
       const uploadedBarcodes = []
-      console.log('sharedFields', sharedFields)
-      console.log('newBoxes', newBoxes)
-      console.log('selectedBoxes', selectedBoxes)
       const updatedBoxes = []
-      for (let i = 0; i < newBoxes.length; i++) {
-        const newBox = { ...newBoxes[i] }
+
+      const uploadImageIfNotUploaded = async (image, cache) => {
+        const imageKey = JSON.stringify(image)
+        const cachedImage = cache.find(el => el.strKey === imageKey)
+
+        if (cachedImage) {
+          return cachedImage.link
+        } else {
+          await onSubmitPostImages.call(this, {
+            images: [image],
+            type: 'uploadedFiles',
+            withoutShowProgress: true,
+          })
+
+          const link = this.uploadedFiles[0] || image
+          cache.push({ strKey: imageKey, link })
+          return link
+        }
+      }
+
+      for (const [i, newBox] of newBoxes.entries()) {
+        const newBoxCopy = { ...newBox }
         const sourceBox = selectedBoxes[i]
 
-        if (newBox.tmpShippingLabel?.length) {
-          const findUploadedShippingLabel = uploadedShippingLabeles.find(
-            el => el.strKey === JSON.stringify(newBox.tmpShippingLabel[0]),
+        // Upload shipping label if needed
+        if (newBoxCopy.tmpShippingLabel?.length) {
+          newBoxCopy.shippingLabel = await uploadImageIfNotUploaded(
+            newBoxCopy.tmpShippingLabel[0],
+            uploadedShippingLabels,
           )
-
-          if (!findUploadedShippingLabel) {
-            await onSubmitPostImages.call(this, {
-              images: newBox.tmpShippingLabel,
-              type: 'uploadedFiles',
-              withoutShowProgress: true,
-            })
-
-            uploadedShippingLabeles.push({
-              strKey: JSON.stringify(newBox.tmpShippingLabel[0]),
-              link: this.uploadedFiles[0],
-            })
-          }
-
-          newBox.shippingLabel = findUploadedShippingLabel
-            ? findUploadedShippingLabel.link
-            : this.uploadedFiles?.[0] || newBox.tmpShippingLabel?.[0]
         }
 
-        const dataToBarCodeChange = newBox.items
-          .map(el =>
-            el.tmpBarCode?.length
-              ? {
-                  changeBarCodInInventory: el.changeBarCodInInventory,
-                  productId: el.product._id,
-                  tmpBarCode: el.tmpBarCode,
-                  newData: [],
-                }
-              : null,
-          )
-          .filter(el => el !== null)
+        const dataToBarCodeChange = newBoxCopy.items
+          .filter(el => el.tmpBarCode?.length)
+          .map(el => ({
+            changeBarCodInInventory: el.changeBarCodInInventory,
+            productId: el.product._id,
+            tmpBarCode: el.tmpBarCode,
+            newData: [],
+          }))
 
-        if (dataToBarCodeChange?.length) {
-          for (let j = 0; j < dataToBarCodeChange.length; j++) {
-            const findUploadedBarcode = uploadedBarcodes.find(
-              el => el.strKey === JSON.stringify(dataToBarCodeChange[j].tmpBarCode[0]),
-            )
-
-            if (!findUploadedBarcode) {
-              await onSubmitPostImages.call(this, {
-                images: dataToBarCodeChange[j].tmpBarCode,
-                type: 'uploadedFiles',
-                withoutShowProgress: true,
-              })
-
-              uploadedBarcodes.push({
-                strKey: JSON.stringify(dataToBarCodeChange[j].tmpBarCode[0]),
-                link: this.uploadedFiles[0] || dataToBarCodeChange[j].tmpBarCode[0],
-              })
-            }
-
-            dataToBarCodeChange[j].newData = findUploadedBarcode
-              ? [findUploadedBarcode.link]
-              : [this.uploadedFiles[0] || dataToBarCodeChange[j].tmpBarCode[0]]
-          }
+        for (const barcodeChange of dataToBarCodeChange) {
+          barcodeChange.newData = [await uploadImageIfNotUploaded(barcodeChange.tmpBarCode[0], uploadedBarcodes)]
         }
 
-        const currentBox = []
+        const currentBoxItems = []
 
-        for await (const el of newBox.items) {
+        for (const el of newBoxCopy.items) {
           const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
-          let transparencyFile
+          let transparencyFileLink = el.transparencyFile || ''
 
           if (el.tmpTransparencyFile?.length) {
-            transparencyFile = await onSubmitPostImages.call(this, {
-              images: el?.tmpTransparencyFile,
+            await onSubmitPostImages.call(this, {
+              images: el.tmpTransparencyFile,
               type: 'uploadedFiles',
               withoutShowProgress: true,
             })
+            transparencyFileLink = this.uploadedFiles[0]
           }
 
           const validItem = {
             ...getObjectFilteredByKeyArrayBlackList(el, [
+              '_id',
               'order',
               'product',
               'tmpBarCode',
               'changeBarCodInInventory',
               'tmpTransparencyFile',
+              'amount',
             ]),
-            amount: el.amount,
+            shippingLabel: newBoxCopy.shippingLabel,
             orderId: el.order._id,
             productId: el.product._id,
-            _id: el._id,
-            barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
-            transparencyFile: transparencyFile?.[0] || el.transparencyFile || '',
+            barCode: prodInDataToUpdateBarCode?.newData[0] || el.barCode,
+            transparencyFile: transparencyFileLink,
             isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
             isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
           }
 
-          currentBox.push(validItem)
+          currentBoxItems.push(validItem)
         }
 
-        newBox.items = currentBox
-        updatedBoxes.push(newBox)
-
-        // replace with this method
-        // editManyBoxes = async body =>
-
-        // await this.onClickSubmitEditBox({ id: sourceBox._id, boxData: newBox, isMultipleEdit: true })
+        newBoxCopy.items = currentBoxItems
+        updatedBoxes.push(getObjectFilteredByKeyArrayWhiteList(newBoxCopy, updateManyBoxesWhiteList))
       }
-      console.log('updatedBoxes', updatedBoxes)
+
+      // Upload sharedFields files
+      const uploadSharedFieldFile = async (fieldName, uploadedFieldName) => {
+        if (sharedFields[fieldName]?.length) {
+          await onSubmitPostImages.call(this, {
+            images: sharedFields[fieldName],
+            type: 'uploadedFiles',
+            withoutShowProgress: true,
+          })
+          sharedFields[uploadedFieldName] = this.uploadedFiles[0]
+        }
+      }
+
+      await uploadSharedFieldFile('tmpShippingLabel', 'shippingLabel')
+      await uploadSharedFieldFile('tmpBarCode', 'barCode')
+      await uploadSharedFieldFile('tmpTransparencyFile', 'transparencyFile')
+
+      const boxesToSend = {
+        ...getObjectFilteredByKeyArrayWhiteList(sharedFields, sharedFieldsWhiteList),
+        boxes: updatedBoxes,
+      }
+      await BoxesModel.editManyBoxes(boxesToSend)
 
       toast.success(t(TranslationKey['Editing completed']))
 

@@ -34,6 +34,22 @@ export const updateManyBoxesWhiteList = [
   'items',
 ]
 
+export const sharedFieldsWhiteList = [
+  'barCode',
+  'logicsTariffId',
+  'shippingLabel',
+  'fbaShipment',
+  'fbaNumber',
+  'destinationId',
+  'transparencyFile',
+  'variationTariffId',
+  'isShippingLabelAttachedByStorekeeper',
+  'isTransparencyFileAttachedByTheStorekeeper',
+  'isTransparencyFileAlreadyAttachedByTheSupplier',
+  'isBarCodeAlreadyAttachedByTheSupplier',
+  'isBarCodeAttachedByTheStorekeeper',
+]
+
 export const filtersFields = [
   'humanFriendlyId',
   'orderIdsItems',
