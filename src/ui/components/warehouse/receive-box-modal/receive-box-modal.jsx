@@ -197,7 +197,11 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
     box =>
       box.heightCmWarehouse > maxLengthInputInSizeBox ||
       box.lengthCmWarehouse > maxLengthInputInSizeBox ||
-      box.widthCmWarehouse > maxLengthInputInSizeBox,
+      box.widthCmWarehouse > maxLengthInputInSizeBox ||
+      !box.heightCmWarehouse ||
+      !box.lengthCmWarehouse ||
+      !box.widthCmWarehouse ||
+      !box.weighGrossKgWarehouse,
   )
 
   const disableSubmit =
