@@ -22,6 +22,18 @@ export const updateBoxWhiteList = [
   'storage',
 ]
 
+export const updateManyBoxesWhiteList = [
+  '_id',
+  'logicsTariffId',
+  'shippingLabel',
+  'fbaShipment',
+  'fbaNumber',
+  'destinationId',
+  'variationTariffId',
+  'isShippingLabelAttachedByStorekeeper',
+  'items',
+]
+
 export const filtersFields = [
   'humanFriendlyId',
   'orderIdsItems',

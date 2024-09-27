@@ -349,9 +349,14 @@ export class WarehouseMyWarehouseViewModel {
 
         newBox.items = currentBox
         updatedBoxes.push(newBox)
+
+        // replace with this method
+        // editManyBoxes = async body =>
+
         // await this.onClickSubmitEditBox({ id: sourceBox._id, boxData: newBox, isMultipleEdit: true })
       }
       console.log('updatedBoxes', updatedBoxes)
+
       toast.success(t(TranslationKey['Editing completed']))
 
       this.loadData()
