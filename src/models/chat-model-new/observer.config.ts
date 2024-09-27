@@ -1,7 +1,7 @@
-import { action, observable } from 'mobx'
+import { action, computed } from 'mobx'
 
 export const observerConfig = {
-  chatsManager: observable,
+  chats: computed,
 
   initModel: action.bound,
   destroyModel: action.bound,

@@ -1,9 +1,10 @@
 import { action, observable } from 'mobx'
 
 export const observerConfig = {
-  chats: observable,
+  chatsManager: observable,
 
-  setChats: action.bound,
-  getChat: action.bound,
-  addMessagesToChat: action.bound,
+  setAllChats: action.bound,
+  getChatById: action.bound,
+  getAllChats: action.bound,
+  addMessagesToChatById: action.bound,
 }

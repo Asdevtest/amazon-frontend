@@ -4,7 +4,7 @@ import { RiShareForwardFill } from 'react-icons/ri'
 
 import { Link } from '@mui/material'
 
-import { chatsType } from '@constants/keys/chats'
+import { ChatsType } from '@constants/keys/chats'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -111,7 +111,7 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
               {unreadMessages > 0 && <span className={styles.badge}>{unreadMessages}</span>}
             </div>
 
-            {currentChat?.type === chatsType.DEFAULT ? (
+            {currentChat?.type === ChatsType.DEFAULT ? (
               <>
                 <div className={styles.rersonalWrapper}>
                   <Link
@@ -135,7 +135,7 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
 
                 <ChatSoundNotification isMuteChat={isMuteCurrentChat} onToggleMuteChat={onToggleMuteCurrentChat} />
               </>
-            ) : currentChat?.type === chatsType.SAVED ? (
+            ) : currentChat?.type === ChatsType.SAVED ? (
               <ChatSoundNotification isMuteChat={isMuteCurrentChat} onToggleMuteChat={onToggleMuteCurrentChat} />
             ) : (
               <>

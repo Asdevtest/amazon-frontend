@@ -1,5 +1,5 @@
-export const chatsType = {
-  DEFAULT: 'DEFAULT',
-  GROUP: 'GROUP',
-  SAVED: 'SAVED',
+export enum ChatsType {
+  DEFAULT = 'DEFAULT',
+  GROUP = 'GROUP',
+  SAVED = 'SAVED',
 }

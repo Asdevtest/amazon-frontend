@@ -1,3 +1,5 @@
+import { ChatsType } from '@constants/keys/chats'
+
 import { IFullUser } from '@typings/shared/full-user'
 
 import { ChatMessage } from './message.type'
@@ -18,5 +20,8 @@ export interface Chat {
   }
   users: IFullUser[]
   messages: ChatMessage[]
+  lastMessage: ChatMessage
+  type: ChatsType
+  info: { image: string; title: string; createdBy?: string } | null
   pagination: { limit: number; offset: number }
 }

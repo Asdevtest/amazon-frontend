@@ -3,7 +3,7 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
 import { toast } from 'react-toastify'
 
-import { chatsType } from '@constants/keys/chats'
+import { ChatsType } from '@constants/keys/chats'
 import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
 import { noticeSound } from '@constants/sounds.js'
@@ -714,7 +714,7 @@ class ChatModelStatic {
     if (
       !chatTypeAndIndex ||
       chatTypeAndIndex.chatType === 'chats' ||
-      this[chatTypeAndIndex.chatType][chatTypeAndIndex.index].type !== chatsType.DEFAULT
+      this[chatTypeAndIndex.chatType][chatTypeAndIndex.index].type !== ChatsType.DEFAULT
     ) {
       return
     }
@@ -788,7 +788,7 @@ class ChatModelStatic {
 
       runInAction(() => {
         this.simpleChats = this.simpleChats.map(chat => {
-          if (chat.type === chatsType.DEFAULT) {
+          if (chat.type === ChatsType.DEFAULT) {
             chat.users = chat.users.map(user => {
               const findUserOnline = usersOnline.find(userOnline => userOnline?._id === user?._id)
 

@@ -8,10 +8,8 @@ export const ChatView = memo(() => {
   const { classes: styles, cx } = useStyles()
 
   return (
-    <div className="viewWrapper">
-      <div className={styles.chatViewWrapper}>
-        <ChatsList />
-      </div>
+    <div className={cx('viewWrapper', styles.chatViewWrapper)}>
+      <ChatsList />
     </div>
   )
 })

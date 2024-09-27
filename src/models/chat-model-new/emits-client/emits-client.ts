@@ -13,12 +13,8 @@ import { ChatMessage, ResponseChats } from '../types/message.type'
 import { observerConfig } from './observer.config'
 
 export class EmitsClient<T> extends WebsocketSpacename<T> {
-  constructor({ manager, namespace, handlers }: WebsocketSpacenameParams<T>) {
-    super({
-      manager,
-      namespace,
-      handlers,
-    })
+  constructor(params: WebsocketSpacenameParams<T>) {
+    super(params)
 
     makeObservable(this, observerConfig)
   }

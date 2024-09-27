@@ -3,9 +3,9 @@ import { ChatMessage } from './types/message.type'
 
 export enum ChatListenEvents {
   APP_PONG = 'App:pong',
-
   CONNECT = 'connect',
   CONNECT_ERRROR = 'connect_error',
+  DISCONNECT = 'disconnect',
 
   CHAT_APP_NEW_MESSAGE = 'Chat:app:new-message',
   CHAT_APP_NEW_CHAT = 'Chat:app:new-chat',
@@ -14,6 +14,10 @@ export enum ChatListenEvents {
 }
 
 export enum ChatHandlerName {
+  onConnect = ChatListenEvents.CONNECT,
+  onConnectionError = ChatListenEvents.CONNECT_ERRROR,
+  onDisconnect = ChatListenEvents.DISCONNECT,
+
   onNewMessage = ChatListenEvents.CHAT_APP_NEW_MESSAGE,
   onNewChat = ChatListenEvents.CHAT_APP_NEW_CHAT,
   onReadMessage = ChatListenEvents.CHAT_APP_MESSAGE_READ,
@@ -21,6 +25,10 @@ export enum ChatHandlerName {
 }
 
 export interface ChatListenEventsHandlers {
+  [ChatHandlerName.onConnect]: () => void
+  [ChatHandlerName.onConnectionError]: (error: Error) => void
+  [ChatHandlerName.onDisconnect]: () => void
+
   [ChatHandlerName.onNewMessage]: (message: ChatMessage) => void
   [ChatHandlerName.onNewChat]: (chat: Chat) => void
   [ChatHandlerName.onReadMessage]: (message: ChatMessage) => void

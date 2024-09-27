@@ -2,7 +2,7 @@ import { Avatar } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
-import { chatsType } from '@constants/keys/chats'
+import { ChatsType } from '@constants/keys/chats'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
@@ -69,7 +69,7 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
         />
       </div>
 
-      {viewModel.selectedUsersId?.length > 1 || viewModel.chatToEdit?.type === chatsType.GROUP ? (
+      {viewModel.selectedUsersId?.length > 1 || viewModel.chatToEdit?.type === ChatsType.GROUP ? (
         <>
           <CustomInput
             required

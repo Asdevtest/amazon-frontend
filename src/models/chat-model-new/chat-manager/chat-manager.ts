@@ -1,28 +1,37 @@
-import { makeObservable } from 'mobx'
+import { ObservableMap, makeObservable } from 'mobx'
 
+import { WebsocketSpacenameParams } from '@services/websocket/websocket-spacename/types/websocket-spacename.type'
+
+import { EmitsClient } from '../emits-client'
 import { Chat } from '../types/chat.type'
 import { ChatMessage } from '../types/message.type'
 
 import { observerConfig } from './observer.config'
 
-export class ChatsManager {
-  chats: Map<string, Chat>
+export class ChatsManager<T> extends EmitsClient<T> {
+  chatsManager: ObservableMap<string, Chat> | null = null
 
-  constructor() {
-    this.chats = new Map()
+  constructor(params: WebsocketSpacenameParams<T>) {
+    super(params)
 
     makeObservable(this, observerConfig)
   }
 
-  setChats(chats: Chat[]) {
-    this.chats = new Map(chats.map(chat => [chat._id, chat]))
+  setAllChats(chats: Chat[]) {
+    chats.forEach(chat => {
+      this.chatsManager?.set(chat._id, chat)
+    })
   }
 
-  getChat(chatId: string) {
-    return this.chats.get(chatId)
+  getChatById(chatId: string) {
+    return this.chatsManager?.get(chatId)
   }
 
-  addMessagesToChat(chatId: string, messages: ChatMessage[]) {
-    this.chats.get(chatId)?.messages.push(...messages)
+  addMessagesToChatById(chatId: string, messages: ChatMessage[]) {
+    this.chatsManager?.get(chatId)?.messages.push(...messages)
+  }
+
+  getAllChats() {
+    return Array.from(this.chatsManager?.values?.() || [])
   }
 }

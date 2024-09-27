@@ -1,1 +1,1 @@
-export { ChatModelAs } from './chat-model'
+export { ChatModel } from './chat-model'

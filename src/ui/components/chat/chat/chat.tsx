@@ -12,7 +12,7 @@ import { VirtuosoHandle } from 'react-virtuoso'
 import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
-import { chatsType } from '@constants/keys/chats'
+import { ChatsType } from '@constants/keys/chats'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -150,7 +150,7 @@ export const Chat: FC<ChatProps> = memo(
 
     const [messageToFind, setMessageToFind] = useState<number | undefined>(undefined)
 
-    const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
+    const isGroupChat = chat.type === ChatsType.GROUP && !isFreelanceOwner
     const userContainedInChat = chat.users.some(el => el._id === userId)
 
     // FIXME: Костыль

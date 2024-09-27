@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { IoClose } from 'react-icons/io5'
 
-import { chatsType } from '@constants/keys/chats'
+import { ChatsType } from '@constants/keys/chats'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
@@ -31,7 +31,7 @@ export const ChatInfoHeader: FC<Props> = memo(props => {
   const { chat, currentOpponent, isGroupChat, userId, onClickEditGroupChatInfo, onClickCloseChatInfo } = props
   const { classes: styles } = useStyles()
 
-  const isSavedChat = chat.type === chatsType.SAVED
+  const isSavedChat = chat.type === ChatsType.SAVED
 
   const chatAvatar =
     !isGroupChat && currentOpponent

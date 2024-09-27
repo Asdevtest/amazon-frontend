@@ -1,7 +1,7 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
-import { chatsType } from '@constants/keys/chats'
+import { ChatsType } from '@constants/keys/chats'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -99,7 +99,7 @@ export class MessagesViewModel {
       ChatModel.onChangeChatSelectedId(
         this.history.location.state?.chatId ||
           this.simpleChats
-            .filter(el => el.type === chatsType.DEFAULT)
+            .filter(el => el.type === ChatsType.DEFAULT)
             .find(el => el.users.map(e => e._id).includes(this.history.location.state.anotherUserId))?._id,
       )
 

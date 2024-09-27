@@ -1,18 +1,19 @@
-import { makeObservable } from 'mobx'
+import { ObservableMap, makeObservable, runInAction } from 'mobx'
 
 import { WebsocketNamespace } from '@services/websocket/websocket-spacename/types/websocket-spacename.type'
 import WebsocketsManager from '@services/websocket/websockets-manager/websockets-manager'
 
 import { ChatsManager } from './chat-manager'
-import { ChatListenEventsHandlers } from './chat.type'
-import { EmitsClient } from './emits-client'
+import { ChatHandlerName, ChatListenEventsHandlers } from './chat.type'
 import { observerConfig } from './observer.config'
 import { Chat } from './types/chat.type'
 
-class ChatModelStatic extends EmitsClient<ChatListenEventsHandlers> {
+export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
   selectedChatId: string = ''
 
-  chatsManager: ChatsManager | null = null
+  get chats() {
+    return Array.from(this.chatsManager?.values?.() || [])
+  }
 
   constructor() {
     super({
@@ -20,15 +21,18 @@ class ChatModelStatic extends EmitsClient<ChatListenEventsHandlers> {
       namespace: WebsocketNamespace.USERS,
 
       // @ts-ignore
-      handlers: {},
+      handlers: {
+        [ChatHandlerName.onConnect]: () => this.getChats(),
+      },
     })
     makeObservable(this, observerConfig)
   }
 
   async initModel() {
     await this.init()
-    this.getChats()
-    this.chatsManager = new ChatsManager()
+    runInAction(() => {
+      this.chatsManager = new ObservableMap()
+    })
   }
 
   destroyModel() {
@@ -49,11 +53,11 @@ class ChatModelStatic extends EmitsClient<ChatListenEventsHandlers> {
   async getChats() {
     try {
       const result = await this.emitGetChats()
-      this.chatsManager?.setChats(result)
+      this.setAllChats(result)
     } catch (error) {
       console.error(error)
     }
   }
 }
 
-export const ChatModelAs = new ChatModelStatic()
+export const chatModel = new ChatModel()

@@ -8,6 +8,7 @@ import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigatio
 
 import { ChatModel } from '@models/chat-model'
 import { ChatModelAs } from '@models/chat-model-new'
+import { chatModel } from '@models/chat-model-new/chat-model'
 import { UserModel } from '@models/user-model'
 
 import { resetAccessTokenByTime } from '@services/axios/reset-api'
@@ -46,13 +47,13 @@ export const PrivateRoutes = observer(() => {
       // ChatModel.init()
       // ChatModel.getUnreadMessagesCount()
 
-      ChatModelAs.initModel()
+      chatModel.initModel()
 
       // resetAccessTimer.current = resetAccessTokenByTime()
     }
 
     return () => {
-      ChatModelAs.destroyModel()
+      chatModel.destroyModel()
       clearTimeout(resetAccessTimer.current)
     }
   }, [])
