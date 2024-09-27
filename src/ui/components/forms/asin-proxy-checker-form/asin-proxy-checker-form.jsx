@@ -82,10 +82,11 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
   }, [asins])
 
   useEffect(() => {
-    const filteredData = asinsAndReasonsData.filter(
-      item =>
-        item.asin.toString().toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-        item.reason.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
+    const filteredData = asinsAndReasonsData.filter(item =>
+      checkIsAdmin(userRole)
+        ? String(item).toLowerCase().startsWith(nameSearchValue.toLowerCase())
+        : item.asin.toString().toLowerCase().startsWith(nameSearchValue.toLowerCase()) ||
+          item.reason.toString().toLowerCase().startsWith(nameSearchValue.toLowerCase()),
     )
     setUpdatedAsinsAndReasonsData(filteredData)
   }, [nameSearchValue])
