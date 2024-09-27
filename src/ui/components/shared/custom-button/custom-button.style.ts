@@ -53,4 +53,16 @@ export const useStyles = makeStyles()(() => ({
       alignItems: 'center',
     },
   },
+
+  left: {
+    justifyContent: 'flex-start',
+  },
+
+  right: {
+    justifyContent: 'flex-end',
+  },
+
+  center: {
+    justifyContent: 'center',
+  },
 }))

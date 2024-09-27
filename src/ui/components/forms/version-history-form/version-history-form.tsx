@@ -4,6 +4,7 @@ import { appVersion } from '@constants/app-version'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { ArrowBackIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -77,9 +78,15 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
       )}
 
       <div className={styles.buttons}>
-        <Button styleType={ButtonStyle.DANGER} onClick={onClickResetVersion}>
+        <CustomButton
+          danger
+          confirmText={t(TranslationKey['Temporary session data will be reset'])}
+          type="primary"
+          size="large"
+          onClick={onClickResetVersion}
+        >
           {t(TranslationKey['Reset session data'])}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

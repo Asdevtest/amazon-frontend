@@ -3,9 +3,7 @@ import { action, computed, observable } from 'mobx'
 export const navbarObserverConfig = {
   patchNote: observable,
   showFeedbackModal: observable,
-  showConfirmModal: observable,
   showVersionHistoryModal: observable,
-  confirmModalSettings: observable,
 
   patchNotes: computed,
   userInfo: computed,
@@ -13,10 +11,9 @@ export const navbarObserverConfig = {
   unreadMessages: computed,
 
   sendFeedbackAboutPlatform: action.bound,
-  submitResetLocalStorageAndCach: action.bound,
+  onClickResetVersion: action.bound,
   getPatchNote: action.bound,
   onResetPatchNote: action.bound,
   onClickVersion: action.bound,
-  onClickResetVersion: action.bound,
   onTriggerOpenModal: action.bound,
 }

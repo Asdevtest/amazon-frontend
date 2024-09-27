@@ -13,34 +13,22 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
-import { navbarObserverConfig } from './navbar.config'
+import { navbarObserverConfig } from './sider.config'
 
-export class NavbarModel extends UseProductsPermissions {
+export class SiderModel extends UseProductsPermissions {
   patchNote = undefined
-
   showFeedbackModal = false
-  showConfirmModal = false
   showVersionHistoryModal = false
-
-  confirmModalSettings = {
-    isWarning: false,
-    confirmTitle: '',
-    confirmMessage: '',
-    onClickConfirm: () => {},
-  }
 
   get userInfo() {
     return UserModel.userInfo
   }
-
   get simpleChats() {
     return ChatModel.simpleChats
   }
-
   get unreadMessages() {
     return ChatModel.unreadMessages
   }
-
   get patchNotes() {
     return this.currentPermissionsData
   }
@@ -78,7 +66,7 @@ export class NavbarModel extends UseProductsPermissions {
     }
   }
 
-  async submitResetLocalStorageAndCach() {
+  async onClickResetVersion() {
     await UserModel.signOut()
     SettingsModel.resetLocalStorageAndCach()
   }
@@ -102,18 +90,6 @@ export class NavbarModel extends UseProductsPermissions {
   async onClickVersion() {
     await this.getPermissionsData()
 
-    this.onTriggerOpenModal('showVersionHistoryModal')
-  }
-
-  onClickResetVersion() {
-    this.confirmModalSettings = {
-      isWarning: false,
-      confirmTitle: t(TranslationKey.Attention) + '!',
-      confirmMessage: t(TranslationKey['Temporary session data will be reset']),
-      onClickConfirm: () => this.submitResetLocalStorageAndCach(),
-    }
-
-    this.onTriggerOpenModal('showConfirmModal')
     this.onTriggerOpenModal('showVersionHistoryModal')
   }
 

@@ -9,15 +9,29 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './custom-button.style'
 
+type TextAlign = 'left' | 'right' | 'center'
+
 interface CustomButtonProps extends ButtonProps {
   isCell?: boolean
   dropdown?: boolean
   confirmText?: string
   menuItems?: ItemType[]
+  textAlign?: TextAlign
 }
 
 export const CustomButton: FC<CustomButtonProps> = memo(props => {
-  const { isCell, icon, className, dropdown, children, menuItems, confirmText, onClick, ...restProps } = props
+  const {
+    isCell,
+    icon,
+    className,
+    dropdown,
+    children,
+    menuItems,
+    confirmText,
+    textAlign = 'center',
+    onClick,
+    ...restProps
+  } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -50,7 +64,11 @@ export const CustomButton: FC<CustomButtonProps> = memo(props => {
         cancelText={t(TranslationKey.No)}
         onConfirm={handleClick}
       >
-        <Button {...restProps} icon={icon} className={cx(styles.button, { [styles.iconButton]: !!icon }, className)}>
+        <Button
+          {...restProps}
+          icon={icon}
+          className={cx(styles.button, styles[textAlign], { [styles.iconButton]: !!icon }, className)}
+        >
           {children}
         </Button>
       </Popconfirm>
@@ -61,7 +79,7 @@ export const CustomButton: FC<CustomButtonProps> = memo(props => {
     <Button
       {...restProps}
       icon={icon}
-      className={cx(styles.button, { [styles.iconButton]: !!icon }, className)}
+      className={cx(styles.button, styles[textAlign], { [styles.iconButton]: !!icon }, className)}
       onClick={handleClick}
     >
       {children}

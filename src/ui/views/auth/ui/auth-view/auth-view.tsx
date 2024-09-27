@@ -1,4 +1,3 @@
-import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 import { IoMoonSharp, IoSunnySharp } from 'react-icons/io5'
@@ -59,18 +58,14 @@ export const AuthView: FC<AuthViewProps> = observer(({ history, auth }) => {
         </div>
 
         <div className={styles.versionContainer}>
-          <Popconfirm
-            placement="topRight"
-            title={t(TranslationKey.Attention)}
-            description={t(TranslationKey['Temporary session data will be reset'])}
-            okText={t(TranslationKey.Yes)}
-            cancelText={t(TranslationKey.No)}
-            onConfirm={viewModel.onClickVersion}
+          <CustomButton
+            disabled={!auth}
+            type="link"
+            confirmText={t(TranslationKey['Temporary session data will be reset'])}
+            onClick={viewModel.onClickVersion}
           >
-            <CustomButton disabled={!auth} type="link">
-              {appVersion}
-            </CustomButton>
-          </Popconfirm>
+            {appVersion}
+          </CustomButton>
         </div>
       </div>
     </div>
