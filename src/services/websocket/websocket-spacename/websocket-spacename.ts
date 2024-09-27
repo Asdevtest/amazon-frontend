@@ -5,7 +5,6 @@ import { Manager, Socket } from 'socket.io-client'
 import { UserModel } from '@models/user-model'
 
 import { observerConfig } from './observer.config'
-import { ChatHandlerName, WebsocketChatServiceHandlers } from './types/default-service-handlers.type'
 import { WebsocketEmit } from './types/emits.type'
 import { WebsocketNamespace, WebsocketSpacenameParams } from './types/websocket-spacename.type'
 
@@ -15,7 +14,6 @@ export class WebsocketSpacename<T> {
   private namespace: WebsocketNamespace
 
   private handlersToRegister: T
-  private defaultHandlersToRegister: WebsocketChatServiceHandlers
 
   constructor({ manager, namespace, handlers }: WebsocketSpacenameParams<T>) {
     makeObservable(this, observerConfig)
@@ -23,12 +21,6 @@ export class WebsocketSpacename<T> {
     this.manager = manager
     this.namespace = namespace
     this.handlersToRegister = handlers
-
-    this.defaultHandlersToRegister = {
-      [ChatHandlerName.onConnect]: () => this.onConnect(),
-      [ChatHandlerName.onDisconnect]: () => this.onDisconnect(),
-      [ChatHandlerName.onConnectionError]: (error: Error) => this.onError(error),
-    }
   }
 
   public async init() {
@@ -41,10 +33,9 @@ export class WebsocketSpacename<T> {
     })
 
     this.registerHandlers(this.handlersToRegister)
-    this.registerHandlers(this.defaultHandlersToRegister)
   }
 
-  private registerHandlers(handlers: T | WebsocketChatServiceHandlers) {
+  private registerHandlers(handlers: T) {
     if (!handlers) {
       return
     }
@@ -52,7 +43,7 @@ export class WebsocketSpacename<T> {
     const handlerKeys = Object.keys(handlers)
 
     for (const handlerKey of handlerKeys) {
-      const handlerCallback = handlers[handlerKey as keyof (T | WebsocketChatServiceHandlers)]
+      const handlerCallback = handlers[handlerKey as keyof T]
       if (handlerCallback) {
         this.socket.on(handlerKey, handlerCallback as (args: any[]) => void)
       }
@@ -67,17 +58,5 @@ export class WebsocketSpacename<T> {
 
   public disconnect() {
     this.socket.disconnect()
-  }
-
-  private onConnect() {
-    console.warn('Socket connected')
-  }
-
-  private onDisconnect() {
-    console.warn('Socket disconnected')
-  }
-
-  private onError(error: Error) {
-    console.warn('Socket error', error)
   }
 }

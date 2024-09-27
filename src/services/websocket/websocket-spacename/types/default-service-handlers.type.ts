@@ -8,7 +8,6 @@ export enum ChatHandlerName {
 }
 
 export interface WebsocketChatServiceHandlers {
-  [ChatHandlerName.onConnect]: () => void
   [ChatHandlerName.onConnectionError]: (error: Error) => void
   [ChatHandlerName.onDisconnect]: () => void
 }
