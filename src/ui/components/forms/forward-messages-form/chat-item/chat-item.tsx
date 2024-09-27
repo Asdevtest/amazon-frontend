@@ -1,7 +1,7 @@
 import { Avatar } from 'antd'
 import { FC, memo, useMemo } from 'react'
 
-import { chatsType } from '@constants/keys/chats'
+import { ChatsType } from '@constants/keys/chats'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
@@ -30,8 +30,8 @@ export const ChatItem: FC<ChatItemProps> = memo(props => {
   const { classes: styles } = useStyles()
 
   const isFavoritesChat = useMemo(() => chat?.type === 'SAVED', [])
-  const isGroupChat = useMemo(() => chat.type === chatsType.GROUP, [])
-  const isDefaultChat = useMemo(() => chat.type === chatsType.DEFAULT, [])
+  const isGroupChat = useMemo(() => chat.type === ChatsType.GROUP, [])
+  const isDefaultChat = useMemo(() => chat.type === ChatsType.DEFAULT, [])
   const chatTitle = useMemo(() => getChatTitle(chat, user), [])
   const chatUsers = useMemo(() => chat.users, [])
   const oponentUser = useMemo(() => chatUsers.find(chatUser => chatUser._id !== user._id), [])
