@@ -47,7 +47,9 @@ export const TabMain = memo(props => {
   }
 
   useEffect(() => {
-    isEqualServerProxy(updatedProxy)
+    if (updatedProxy.length > 0) {
+      isEqualServerProxy(updatedProxy)
+    }
   }, [updatedProxy])
 
   const disabledSubmitProxy = isEqual(serverProxy, updatedProxy)
