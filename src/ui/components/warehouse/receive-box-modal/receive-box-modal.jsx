@@ -193,21 +193,17 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
 
   const isSomeBoxHasntImage = newBoxes.some(box => !box?.images?.length)
 
-  const isSomeBoxesHasCorrectSizes = newBoxes.some(
+  const isSomeBoxesInvalid = newBoxes.some(
     box =>
-      box.heightCmWarehouse > maxLengthInputInSizeBox ||
-      box.lengthCmWarehouse > maxLengthInputInSizeBox ||
-      box.widthCmWarehouse > maxLengthInputInSizeBox ||
-      !box.heightCmWarehouse ||
-      !box.lengthCmWarehouse ||
-      !box.widthCmWarehouse ||
-      !box.weighGrossKgWarehouse,
+      ['heightCmWarehouse', 'lengthCmWarehouse', 'widthCmWarehouse'].some(
+        dim => box[dim] > maxLengthInputInSizeBox || !box[dim] || box[dim] <= 0,
+      ) ||
+      !box.weighGrossKgWarehouse ||
+      box.weighGrossKgWarehouse <= 0,
   )
 
   const disableSubmit =
-    newBoxes.some(box => box.amount === '') ||
-    (isSomeBoxHasntImage && !receiveNotFromBuyer) ||
-    isSomeBoxesHasCorrectSizes
+    newBoxes.some(box => box.amount === '') || (isSomeBoxHasntImage && !receiveNotFromBuyer) || isSomeBoxesInvalid
 
   return (
     <div className={styles.root}>
