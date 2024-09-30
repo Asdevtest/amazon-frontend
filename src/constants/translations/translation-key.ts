@@ -1687,6 +1687,7 @@ export enum TranslationKey {
   'Select announcement' = 'Select announcement',
   'Change announcement' = 'Change announcement',
   'The proxy servers are saved.' = 'The proxy servers are saved.',
+  'The proxy servers are not saved.' = 'The proxy servers are not saved.',
   'Add parent' = 'Add parent',
   'Add variations' = 'Add variations',
   'Select products' = 'Select products',

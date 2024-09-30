@@ -31,8 +31,6 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
 
       width: 70,
       renderCell: params => <MediaContentCell image={params.row.images[0]} />,
-      filterable: false,
-      sortable: false,
     },
 
     {
@@ -154,7 +152,7 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
 
       width: 130,
       renderCell: params => <RedFlagsCell flags={params.value} />,
-      sortable: false,
+
       disableCustomSort: true,
     },
 
@@ -178,6 +176,11 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
       // type: 'date',
     },
   ]
+
+  for (const column of columns) {
+    column.filterable = false
+    column.sortable = false
+  }
 
   return columns
 }
