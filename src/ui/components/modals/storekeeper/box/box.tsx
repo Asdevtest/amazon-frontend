@@ -222,7 +222,7 @@ export const Box: FC<BoxProps> = memo(props => {
                     !destinations.find(el => el._id === box.destinationId)?.storekeeper &&
                     isNewBox,
                 })}
-                label={t(TranslationKey['FBA Shipment'])}
+                label="FBA Shipment"
                 value={box.fbaShipment}
                 onChange={(e: any) => onChangeField(e, 'fbaShipment', box._id)}
               />

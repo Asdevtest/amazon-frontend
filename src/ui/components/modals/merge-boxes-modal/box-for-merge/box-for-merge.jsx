@@ -96,7 +96,7 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
               containerClasses={styles.field}
               labelClasses={styles.label}
               className={styles.fieldInput}
-              label={t(TranslationKey['FBA Shipment'])}
+              label="FBA Shipment"
               value={box.fbaShipment}
             />
 
