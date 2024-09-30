@@ -1,5 +1,5 @@
 import { Avatar } from 'antd'
-import { FC, memo, useCallback, useMemo } from 'react'
+import { FC, memo, useMemo } from 'react'
 
 import { ChatsType } from '@constants/keys/chats'
 
@@ -37,12 +37,8 @@ export const ChatItem: FC<ChatItemProps> = memo(({ chat, onClickChat }) => {
   const chatTitle = useMemo(() => getChatTitle(chat), [])
   const lastMessageDate = useMemo(() => formatDateWithoutTimeLocal(chat.lastMessage?.updatedAt), [chat.lastMessage])
 
-  const onClick = useCallback(() => {
-    onClickChat(chat)
-  }, [])
-
   return (
-    <CustomButton type="text" className={styles.chatItem} onClick={onClick}>
+    <CustomButton type="text" className={styles.chatItem} onClick={() => onClickChat(chat)}>
       {isFavoritesChat ? (
         <FavoritesIcon className={cx(styles.favoritesIcon, styles.avatar)} />
       ) : (
