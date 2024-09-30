@@ -2067,4 +2067,6 @@ export enum TranslationKey {
   'By proposal' = 'By proposal',
   'By announcement' = 'By announcement',
   'Select user' = 'Select user',
+  'Select a chat room to start messaging' = 'Select a chat room to start messaging',
+  'Looks like no one has chatted here yet. Send a message to get started!' = 'Looks like no one has chatted here yet. Send a message to get started!',
 }

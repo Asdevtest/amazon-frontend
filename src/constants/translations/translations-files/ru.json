@@ -2066,5 +2066,7 @@
   "This profile has already been used! Do you want to continue?": "Данный профиль уже использовался! Вы хотите продолжить?",
   "By proposal": "По предложению",
   "By announcement": "По объявлению",
-  "Select user": "Выбрать пользователя"
+  "Select user": "Выбрать пользователя",
+  "Select a chat room to start messaging": "Выберите чат для начала общения",
+  "Looks like no one has chatted here yet. Send a message to get started!": "Похоже никто ещё не общался здесь. Отправьте сообщение, чтобы начать!"
 }

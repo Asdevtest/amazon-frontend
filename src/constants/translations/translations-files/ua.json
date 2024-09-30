@@ -2065,5 +2065,7 @@
   "This profile has already been used! Do you want to continue?": "Даний профіль вже використовувався! Бажаєте продовжити?",
   "By proposal": "За пропозиції",
   "By announcement": "За оголошенням",
-  "Select user": "Вибрати користувача"
+  "Select user": "Вибрати користувача",
+  "Select a chat room to start messaging": "Виберіть чат для початку спілкування",
+  "Looks like no one has chatted here yet. Send a message to get started!": "Посилання не знайдено. Напишіть повідомлення, щоб почати!"
 }
