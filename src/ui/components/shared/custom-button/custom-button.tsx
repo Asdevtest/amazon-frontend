@@ -14,10 +14,22 @@ interface CustomButtonProps extends ButtonProps {
   dropdown?: boolean
   confirmText?: string
   menuItems?: ItemType[]
+  wrapperClassName?: string
 }
 
 export const CustomButton: FC<CustomButtonProps> = memo(props => {
-  const { isCell, icon, className, dropdown, children, menuItems, confirmText, onClick, ...restProps } = props
+  const {
+    isCell,
+    icon,
+    className,
+    dropdown,
+    children,
+    menuItems,
+    confirmText,
+    wrapperClassName,
+    onClick,
+    ...restProps
+  } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -58,13 +70,15 @@ export const CustomButton: FC<CustomButtonProps> = memo(props => {
   }
 
   return (
-    <Button
-      {...restProps}
-      icon={icon}
-      className={cx(styles.button, { [styles.iconButton]: !!icon }, className)}
-      onClick={handleClick}
-    >
-      {children}
-    </Button>
+    <div className={cx(styles.root, wrapperClassName)}>
+      <Button
+        {...restProps}
+        icon={icon}
+        className={cx(styles.button, { [styles.iconButton]: !!icon }, className)}
+        onClick={handleClick}
+      >
+        {children}
+      </Button>
+    </div>
   )
 })
