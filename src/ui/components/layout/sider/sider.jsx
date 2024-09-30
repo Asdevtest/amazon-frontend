@@ -53,7 +53,7 @@ export const Sider = observer(props => {
   return (
     <>
       <AntSider width={280} className={styles.sider}>
-        <Flex align="center" justify="center" style={{ height: 60 }}>
+        <Flex component="div" align="center" justify="center" style={{ minHeight: 50 }}>
           <ShortLogoIcon />
         </Flex>
 
@@ -89,6 +89,7 @@ export const Sider = observer(props => {
               type="link"
               textAlign="left"
               icon={<VscFeedback size={24} />}
+              className={styles.feedback}
               onClick={() => viewModel.onTriggerOpenModal('showFeedbackModal')}
             >
               {t(TranslationKey.Feedback)}

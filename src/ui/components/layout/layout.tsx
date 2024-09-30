@@ -40,23 +40,17 @@ export const Layout: FC<PropsWithChildren> = memo(({ children }) => {
     })
   }, [location.pathname])
 
-  const [isOpenModal, setIsOpenModal] = useState(false)
-
-  const handleToggleModal = () => {
-    setIsOpenModal(!isOpenModal)
-  }
-
   return (
     <AntLayout className={styles.root}>
       <Sider activeCategory={currentPageInfo?.activeCategory} activeSubCategory={currentPageInfo?.activeSubCategory} />
 
       <AntLayout>
-        <Header title={currentPageInfo.title} onToggleModal={handleToggleModal} />
+        <Header title={currentPageInfo.title} />
 
-        <Content>
+        <Content className={styles.content}>
           <BreadCrumbsLine />
 
-          <div className={styles.content}>{children}</div>
+          {children}
         </Content>
       </AntLayout>
     </AntLayout>

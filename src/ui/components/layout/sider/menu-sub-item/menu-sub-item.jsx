@@ -142,7 +142,12 @@ export const MenuSubItem = props => {
           title={renderTooltipTitle(subCategory?.subtitle(), userInfo.role)}
           className={styles.menuItem}
         >
-          <Badge size="small" count={notificationBySubRoute} overflowCount={99999} color={theme.palette.primary.main}>
+          <Badge
+            count={notificationBySubRoute}
+            overflowCount={99999}
+            offset={[20, 7]}
+            color={theme.palette.primary.main}
+          >
             <span className={styles.text}>{subCategory?.subtitle()}</span>
           </Badge>
 

@@ -7,7 +7,9 @@ export const useStyles = makeStyles()(() => ({
 
   content: {
     flex: 1,
-    padding: 10,
-    overflow: 'auto',
+    padding: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
   },
 }))

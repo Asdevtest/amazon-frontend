@@ -19,4 +19,8 @@ export const useStyles = makeStyles()(theme => ({
   version: {
     paddingLeft: 16,
   },
+
+  feedback: {
+    fontSize: '14px',
+  },
 }))

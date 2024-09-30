@@ -12,7 +12,7 @@ import { t } from '@utils/translations'
 
 import { UploadFileType } from '@typings/shared/upload-file'
 
-export class CustomAvatarModel {
+export class CustomUploadAvatarModel {
   previewOpen = false
   previewImage: string = ''
   loading = false

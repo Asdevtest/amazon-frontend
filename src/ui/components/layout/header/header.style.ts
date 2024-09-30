@@ -2,37 +2,18 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   header: {
-    gridArea: 'header',
+    padding: '0 20px',
+    height: '50px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: theme.palette.background.general,
+    gap: '20px',
+    lineHeight: 'inherit',
+    background: theme.palette.background.general,
   },
 
   menuIconWrapper: {
     display: 'none',
-
-    [theme.breakpoints.down(1024)]: {
-      display: 'flex',
-      padding: '14px 15px',
-    },
-  },
-
-  menuIcon: {
-    width: '24px !important',
-    height: '24px !important',
-    color: theme.palette.primary.main,
-  },
-
-  toolbar: {
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: 30,
-
-    [theme.breakpoints.down(1024)]: {
-      paddingLeft: 0,
-    },
   },
 
   titleWrapper: {
@@ -40,10 +21,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
-
-    [theme.breakpoints.down(1024)]: {
-      justifyContent: 'space-between',
-    },
   },
 
   title: {
@@ -51,11 +28,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     fontWeight: 600,
     color: theme.palette.text.second,
-
-    [theme.breakpoints.down(1024)]: {
-      width: 90,
-      fontSize: 12,
-    },
   },
 
   tooltipWrapper: {
@@ -78,50 +50,23 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 16,
     lineHeight: '19px',
     color: theme.palette.primary.main,
-
-    [theme.breakpoints.down(1024)]: {
-      display: 'none',
-    },
   },
 
   hintsTextNoActive: {
     fontSize: 16,
     lineHeight: '19px',
     color: '#c4c4c4',
-
-    [theme.breakpoints.down(1024)]: {
-      display: 'none',
-    },
   },
 
   userRoleTitle: {
     color: theme.palette.text.second,
     margin: '0 15px',
-
-    [theme.breakpoints.down(1600)]: {
-      display: 'none',
-    },
-  },
-
-  allowedRolesMainWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    marginRight: 20,
-
-    [theme.breakpoints.down(1600)]: {
-      display: 'none',
-    },
   },
 
   allowedRolesWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 10,
-
-    [theme.breakpoints.down(1600)]: {
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-    },
   },
 
   allowedRolesItem: {
@@ -140,12 +85,6 @@ export const useStyles = makeStyles()(theme => ({
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
     borderBottom: `5px solid ${theme.palette.primary.main}`,
     color: theme.palette.primary.main,
-
-    [theme.breakpoints.down(1600)]: {
-      background: 'none',
-      borderBottom: 0,
-      paddingLeft: 5,
-    },
   },
 
   userRole: {
@@ -154,24 +93,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: '6px 16px',
     fontWeight: 500,
     borderRadius: '4px',
-
-    [theme.breakpoints.down(1600)]: {
-      color: theme.palette.text.general,
-      fontSize: '14px',
-      lineHeight: '19px',
-      padding: '0 0 0 7px',
-      fontWeight: 600,
-      borderRadius: 0,
-    },
-  },
-
-  hideOnModile: {
-    display: 'block',
-    color: theme.palette.primary.main,
-
-    [theme.breakpoints.down(1024)]: {
-      display: 'none !important',
-    },
   },
 
   selectorsWrapper: {
@@ -179,28 +100,16 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     gap: 20,
     padding: '0 20px',
-
-    [theme.breakpoints.down(768)]: {
-      gap: 15,
-      padding: '0 15px',
-    },
   },
 
   notificationIcon: {
     cursor: 'pointer',
     color: theme.palette.text.general,
-
-    [theme.breakpoints.down(768)]: {
-      display: 'none !important',
-    },
   },
 
   languageSelector: {
     width: '18px',
     height: '18px',
-    [theme.breakpoints.down(768)]: {
-      display: 'none',
-    },
   },
 
   themeIcon: {
@@ -214,21 +123,12 @@ export const useStyles = makeStyles()(theme => ({
     cursor: 'pointer',
     transition: '0.3s ease',
     padding: '0 20px',
-
-    [theme.breakpoints.down(1600)]: {
-      padding: '0 15px 0 0',
-    },
   },
 
   avatar: {
     width: 40,
     height: 40,
     borderRadius: '50%',
-
-    [theme.breakpoints.down(1600)]: {
-      width: 32,
-      height: 32,
-    },
   },
 
   userName: {
@@ -242,10 +142,6 @@ export const useStyles = makeStyles()(theme => ({
   userNameAndBalanceWrapper: {
     marginRight: 10,
     textAlign: 'right',
-
-    [theme.breakpoints.down(1600)]: {
-      display: 'none',
-    },
   },
 
   balance: {
@@ -258,10 +154,6 @@ export const useStyles = makeStyles()(theme => ({
   menu: {
     margin: '15px 0 0 55px',
     cursor: 'pointer',
-
-    [theme.breakpoints.down(1600)]: {
-      margin: '15px 0 0 10px',
-    },
   },
 
   menuItem: {
@@ -278,10 +170,6 @@ export const useStyles = makeStyles()(theme => ({
     '&:hover': {
       background: theme.palette.background.second,
     },
-
-    [theme.breakpoints.down(1600)]: {
-      fontSize: 16,
-    },
   },
 
   list: {
@@ -294,73 +182,27 @@ export const useStyles = makeStyles()(theme => ({
 
   menuClientInfoWrapper: {
     display: 'none',
-
-    [theme.breakpoints.down(1600)]: {
-      display: 'flex',
-      justifyContent: 'center',
-      padding: '10px 20px',
-      gap: 10,
-    },
   },
 
   menuClientInfo: {
     display: 'none',
-
-    [theme.breakpoints.down(1600)]: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
   },
 
   menuClientInfoText: {
     display: 'none',
-
-    [theme.breakpoints.down(1600)]: {
-      display: 'block',
-      fontSize: '14px',
-      lineHeight: '19px',
-      textAlign: 'end',
-    },
   },
 
   mobileAllowedRolesWrapper: {
     display: 'none',
-
-    [theme.breakpoints.down(1600)]: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-      padding: '10px 20px',
-    },
   },
 
   mobileUserRoleTitle: {
     display: 'none',
-
-    [theme.breakpoints.down(1600)]: {
-      display: 'block',
-      fontSize: '14px',
-      lineHeight: '19px',
-      marginBottom: '10px',
-      textTransform: 'capitalize',
-    },
   },
 
-  indicator: {
-    [theme.breakpoints.down(1600)]: {
-      display: 'block',
-      width: 2,
-      height: 19,
-      background: theme.palette.primary.main,
-    },
-  },
+  indicator: {},
 
-  userRoleWrapper: {
-    [theme.breakpoints.down(1600)]: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-  },
+  userRoleWrapper: {},
 
   toastContainer: {
     background: `${theme.palette.background.general} !important`,

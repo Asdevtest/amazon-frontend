@@ -7,10 +7,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
 
-import { CustomAvatar } from '@components/shared/custom-avatar'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
 import { CustomSelect } from '@components/shared/custom-select'
+import { CustomUploadAvatar } from '@components/shared/custom-upload-avatar'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -80,7 +80,7 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
             onChange={event => viewModel.onChangeChatName(event.target.value)}
           />
           <div className={styles.avatarContainer}>
-            <CustomAvatar
+            <CustomUploadAvatar
               isEditable
               initialUrl={viewModel.chatImage as string}
               onSubmit={viewModel.onChangeChatImage}

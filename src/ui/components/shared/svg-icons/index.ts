@@ -52,7 +52,6 @@ export { InventoryIcon } from '@components/shared/svg-icons/inventory-icon/inven
 export { IsReadIcon } from '@components/shared/svg-icons/is-read-icon/is-read-icon'
 export { LaptopIcon } from '@components/shared/svg-icons/laptop-icon/laptop-icon'
 export { LogoIcon } from '@components/shared/svg-icons/logo-icon/logo-icon'
-export { MenuIcon } from '@components/shared/svg-icons/menu-icon/menu-icon'
 export { MessageIcon } from '@components/shared/svg-icons/message-icon/message-icon'
 export { MinusIcon } from '@components/shared/svg-icons/minus-icon/minus-icon'
 export { MobileIcon } from '@components/shared/svg-icons/mobile-icon/mobile-icon'
