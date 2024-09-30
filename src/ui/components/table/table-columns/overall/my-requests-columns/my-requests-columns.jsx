@@ -212,13 +212,48 @@ export const myRequestsViewColumns = rowHandlers => {
       headerName: t(TranslationKey['Access to product']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
 
-      renderCell: params => <ManyUserLinkCell usersData={params.row.product?.subUsers} />,
+      renderCell: params => {
+        const subUsers = params.row?.product?.subUsers || []
+        const subUsersByShop = params.row?.product?.subUsersByShop || []
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+
+      valueGetter: ({ row }) => {
+        const subUsers = row?.product?.subUsers || []
+        const subUsersByShop = row?.product?.subUsersByShop || []
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+
       width: 187,
-
       filterable: false,
-
-      columnKey: columnnsKeys.shared.OBJECT,
       disableCustomSort: true,
+
+      fields: [
+        {
+          label: 'Sub user',
+          value: 0,
+        },
+        {
+          label: 'Sub user by shop',
+          value: 1,
+        },
+      ],
+      columnMenuConfig: [
+        {
+          field: 'subUsers',
+          table: DataGridFilterTables.REQUESTS,
+          columnKey: ColumnMenuKeys.OBJECT,
+          sortOptions: 'asc',
+        },
+
+        {
+          field: 'subUsersByShop',
+          table: DataGridFilterTables.REQUESTS,
+          columnKey: ColumnMenuKeys.OBJECT,
+          sortOptions: 'asc',
+        },
+      ],
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
