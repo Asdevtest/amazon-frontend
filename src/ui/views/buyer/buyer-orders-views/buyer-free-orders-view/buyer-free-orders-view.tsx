@@ -18,7 +18,7 @@ export const BuyerFreeOrdersView = observer(() => {
   const viewModel = useMemo(() => new BuyerFreeOrdersViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomButton
         type="primary"
         size="large"
@@ -99,6 +99,6 @@ export const BuyerFreeOrdersView = observer(() => {
           onClickBottomBtn={viewModel.onClickContinueWorkButton}
         />
       ) : null}
-    </div>
+    </>
   )
 })

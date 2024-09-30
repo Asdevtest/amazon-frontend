@@ -1,1 +1,1 @@
-export { LanguageSelect } from './ui'
+export { LanguageSelect } from './language-select'

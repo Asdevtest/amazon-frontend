@@ -56,7 +56,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
     : [{ label: t(TranslationKey.All), value: undefined }]
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.actionPanelWrapper}>
         {!isCurrentUserFreelancer ? (
           <CustomRadioButton
@@ -168,6 +168,6 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
           currentIdeaId={viewModel.currentIdeaId}
         />
       ) : null}
-    </div>
+    </>
   )
 })

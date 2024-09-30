@@ -49,7 +49,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
     styles.isDraftRow
 
   return (
-    <div className={styles.container}>
+    <>
       <ViewHeader
         isHaveRequestSendToBatch={viewModel.isHaveRequestSendToBatch}
         isChoosenOnlySendToBatchBoxes={viewModel.isChoosenOnlySendToBatchBoxes}
@@ -400,6 +400,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       >
         <ProductDataForm product={viewModel.selectedWarehouseOrderProduct} onAmazon={viewModel.onAmazon} />
       </Modal>
-    </div>
+    </>
   )
 })

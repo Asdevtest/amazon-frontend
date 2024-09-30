@@ -7,6 +7,10 @@ export const useStyles = makeStyles()(theme => ({
     '.ant-btn-icon, .ant-badge': {
       overflow: 'visible',
     },
+
+    '.ant-badge-count': {
+      padding: '0 4px',
+    },
   },
 
   text: {

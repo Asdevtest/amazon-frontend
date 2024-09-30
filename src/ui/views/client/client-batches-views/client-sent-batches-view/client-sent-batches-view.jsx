@@ -24,7 +24,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
   const viewModel = useMemo(() => new ClientSentBatchesViewModel({ history }), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.btnsWrapper}>
         <div className={styles.btnsWrapper}>
           <CustomButton size="large" onClick={viewModel.onTriggerArchive}>
@@ -147,6 +147,6 @@ export const ClientSentBatchesView = observer(({ history }) => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </div>
+    </>
   )
 })

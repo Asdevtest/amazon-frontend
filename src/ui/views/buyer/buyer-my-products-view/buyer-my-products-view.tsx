@@ -37,7 +37,7 @@ export const BuyerMyProductsView = observer(() => {
     })
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomInputSearch
         enterButton
         allowClear
@@ -123,6 +123,6 @@ export const BuyerMyProductsView = observer(() => {
           onClickOpenNewTab={viewModel.onClickShowProduct}
         />
       )}
-    </div>
+    </>
   )
 })

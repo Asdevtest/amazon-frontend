@@ -1,3 +1,6 @@
+export { HintsSelect } from './hints-select'
+export { LanguageSelect } from './language-select'
 export { NotificationSelect } from './notification-select'
-export { ProfileDropdown } from './profile-dropdown'
+export { ProfileMenu } from './profile-menu'
 export { RoleSelect } from './role-select'
+export { ThemeSelect } from './theme-select'

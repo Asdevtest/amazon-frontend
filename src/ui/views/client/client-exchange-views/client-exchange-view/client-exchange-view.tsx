@@ -21,7 +21,7 @@ export const ClientExchangeView = observer(() => {
   const viewModel = useMemo(() => new ClientExchangeViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomDataGrid
         sortingMode="client"
         paginationMode="client"
@@ -125,6 +125,6 @@ export const ClientExchangeView = observer(() => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </div>
+    </>
   )
 })

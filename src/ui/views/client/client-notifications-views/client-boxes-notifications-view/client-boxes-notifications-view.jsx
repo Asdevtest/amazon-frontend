@@ -23,7 +23,7 @@ export const ClientBoxesNotificationsView = observer(() => {
   const viewModel = useMemo(() => new ClientBoxesNotificationsViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.buttonsContainer}>
         <CustomButton
           type="primary"
@@ -129,6 +129,6 @@ export const ClientBoxesNotificationsView = observer(() => {
       >
         <BoxModal boxId={viewModel.curBox} onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')} />
       </Modal>
-    </div>
+    </>
   )
 })

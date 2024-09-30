@@ -40,7 +40,7 @@ export const BuyerMyOrdersView = observer(({ history }: any) => {
     styles.attentionRow
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.headerWrapper}>
         <CustomInputSearch
           enterButton
@@ -178,6 +178,6 @@ export const BuyerMyOrdersView = observer(({ history }: any) => {
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
         />
       </Modal>
-    </div>
+    </>
   )
 })

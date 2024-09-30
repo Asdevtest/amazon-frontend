@@ -20,7 +20,7 @@ export const ClientAwaitingBatchesView = observer(() => {
   const viewModel = useMemo(() => new ClientAwaitingBatchesViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <HeaderTable viewModel={viewModel} />
 
       <CustomDataGrid
@@ -122,6 +122,6 @@ export const ClientAwaitingBatchesView = observer(() => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </div>
+    </>
   )
 })

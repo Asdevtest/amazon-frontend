@@ -22,7 +22,7 @@ export const AdminSentBatchesView = observer(props => {
   }, [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomInputSearch
         enterButton
         allowClear
@@ -85,6 +85,6 @@ export const AdminSentBatchesView = observer(props => {
           batch={viewModel.curBatch}
         />
       ) : null}
-    </div>
+    </>
   )
 })

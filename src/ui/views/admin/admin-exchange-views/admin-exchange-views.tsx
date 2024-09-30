@@ -21,7 +21,7 @@ export const AdminExchangeViews = observer(() => {
   const viewModel = useMemo(() => new AdminExchangeViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomSelect
         size="large"
         options={getSwitcherConfig()}
@@ -95,6 +95,6 @@ export const AdminExchangeViews = observer(() => {
           onClickOpenNewTab={viewModel.onClickShowProduct}
         />
       )}
-    </div>
+    </>
   )
 })

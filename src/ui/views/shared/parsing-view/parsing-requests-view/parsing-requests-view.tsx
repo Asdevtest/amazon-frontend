@@ -22,7 +22,7 @@ export const ParsingRequestsView: FC = observer(() => {
 
   return (
     <>
-      <div className="viewWrapper">
+      <div>
         <CustomInputSearch
           enterButton
           allowClear

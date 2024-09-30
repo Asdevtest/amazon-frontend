@@ -26,7 +26,7 @@ export const SupervisorSettingsView = observer(() => {
   const viewModel = useMemo(() => new SupervisorSettingsViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.flexContainer}>
         <CustomRadioButton
           size="large"
@@ -144,6 +144,6 @@ export const SupervisorSettingsView = observer(() => {
           onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showFailedAsinsModal')}
         />
       </Modal>
-    </div>
+    </>
   )
 })

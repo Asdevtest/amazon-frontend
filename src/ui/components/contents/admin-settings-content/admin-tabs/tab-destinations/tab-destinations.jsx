@@ -22,7 +22,7 @@ export const TabDestinations = observer(() => {
   const viewModel = useMemo(() => new AdminSettingsDestinationsModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomButton type="primary" size="large" onClick={viewModel.onClickAddBtn}>
         {t(TranslationKey['Add a destination'])}
       </CustomButton>
@@ -78,6 +78,6 @@ export const TabDestinations = observer(() => {
           onClickCancelBtn={viewModel.onClickToggleConfirmModal}
         />
       ) : null}
-    </div>
+    </>
   )
 })

@@ -35,7 +35,6 @@ class SettingsModelStatic {
   uiTheme = UiTheme.light
   isHydrated = false
   breadcrumbsForProfile = null
-  showHints = true
 
   isMuteChats = false
   mutedChats = []
@@ -178,10 +177,6 @@ class SettingsModelStatic {
     setInterval(() => {
       this.checkAppVersion()
     }, 300000)
-  }
-
-  onTriggerShowHints() {
-    this.showHints = !this.showHints
   }
 
   setDataGridState(state, tableKey) {

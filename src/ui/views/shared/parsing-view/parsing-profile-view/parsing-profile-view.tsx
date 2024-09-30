@@ -25,7 +25,7 @@ export const ParsingProdileView = observer(() => {
   const viewModel = useMemo(() => new ParsingProdileViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.flexRow}>
         <CustomButton
           disabled={!viewModel.selectedRows.length}
@@ -114,6 +114,6 @@ export const ParsingProdileView = observer(() => {
           onUpdateData={viewModel.getCurrentData}
         />
       </Modal>
-    </div>
+    </>
   )
 })

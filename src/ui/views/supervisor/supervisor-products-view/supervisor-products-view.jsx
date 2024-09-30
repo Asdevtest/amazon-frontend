@@ -34,7 +34,7 @@ export const SupervisorProductsView = observer(() => {
   const getRowClassName = params => warningStatuses.includes(params.row.statusForAttention) && styles.attentionRow
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.header}>
         <CustomSelect
           size="large"
@@ -133,6 +133,6 @@ export const SupervisorProductsView = observer(() => {
           onClickOpenNewTab={id => viewModel.onClickTableRow(id)}
         />
       )}
-    </div>
+    </>
   )
 })

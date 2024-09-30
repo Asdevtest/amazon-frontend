@@ -24,7 +24,7 @@ export const AdminOrdersViews = observer(() => {
   const viewModel = useMemo(() => new AdminOrdersAllViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.header}>
         <CustomSelect
           size="large"
@@ -96,6 +96,6 @@ export const AdminOrdersViews = observer(() => {
         onFilterModelChange={viewModel.onChangeFilterModel}
         onPinnedColumnsChange={viewModel.handlePinColumn}
       />
-    </div>
+    </>
   )
 })

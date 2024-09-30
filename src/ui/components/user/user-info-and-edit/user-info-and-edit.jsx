@@ -29,7 +29,7 @@ export const UserInfoAndEdit = observer(({ user }) => {
   }, [SettingsModel.languageTag, user])
 
   return (
-    <div className="viewWrapper">
+    <>
       {SettingsModel.languageTag && (
         <Tabs
           variant={'fullWidth'}
@@ -51,6 +51,6 @@ export const UserInfoAndEdit = observer(({ user }) => {
       <TabPanel value={tabIndex} index={1}>
         <UserBalance userId={updatedUser._id} />
       </TabPanel>
-    </div>
+    </>
   )
 })

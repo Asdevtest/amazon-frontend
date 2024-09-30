@@ -7,71 +7,58 @@ import { ChatModel } from '@models/chat-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
+import { IMessage } from '@typings/models/chats/message'
+import { IShutdownNotice } from '@typings/models/chats/shutdown-notice'
+import { IFullUser } from '@typings/shared/full-user'
+import { HistoryType } from '@typings/types/history'
+
 export class HeaderModel {
-  history = undefined
-  requestStatus = undefined
-  error = undefined
+  history?: HistoryType
 
-  get masterUser() {
-    return UserModel.userInfo?.masterUser
+  get userInfo() {
+    return UserModel.userInfo as unknown as IFullUser
   }
-
-  get showHints() {
-    return SettingsModel.showHints
-  }
-
   get snackNotifications() {
-    return SettingsModel.snackNotifications
+    return SettingsModel.snackNotifications as any
   }
-
   get simpleChats() {
     return ChatModel.simpleChats
   }
-
   get simpleMessageCrmItemId() {
-    return SettingsModel.snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]?.crmItemId || null
+    return (SettingsModel.snackNotifications[snackNoticeKey.SIMPLE_MESSAGE] as any)?.crmItemId
   }
-
   get toggleServerSettings() {
-    return ChatModel.toggleServerSettings
+    return ChatModel.toggleServerSettings as IShutdownNotice
   }
 
-  constructor({ history }) {
+  constructor(history: HistoryType) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  checkMessageIsRead(message) {
+  checkMessageIsRead(message: IMessage) {
     const findChat = this.simpleChats.find(el => el._id === message.chatId)
     const findMessage = findChat?.messages.find(el => el._id === message._id)
 
     return findMessage ? findMessage.isRead : false
   }
 
-  onTriggerShowHints() {
-    SettingsModel.onTriggerShowHints()
-  }
-
-  changeUiTheme(theme) {
-    SettingsModel.setUiTheme(theme)
-  }
-
-  onClickMessage(noticeItem) {
+  onClickMessage(noticeItem: any) {
     if (!noticeItem.chatId) {
       return
     }
 
     if (!noticeItem.crmItemId) {
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.role]}/messages`, {
+      this.history?.push(`/${UserRoleCodeMapForRoutes[this.userInfo?.role]}/messages`, {
         chatId: noticeItem.chatId,
       })
     } else {
-      switch (this.role) {
+      switch (this.userInfo?.role) {
         case mapUserRoleEnumToKey[UserRole.CLIENT]:
-          return this.history.push(`/client/freelance/my-requests/custom-request?request-id=${noticeItem.crmItemId}`)
+          return this.history?.push(`/client/freelance/my-requests/custom-request?request-id=${noticeItem.crmItemId}`)
 
         case mapUserRoleEnumToKey[UserRole.FREELANCER]:
-          return this.history.push(
+          return this.history?.push(
             `/freelancer/freelance/my-proposals/custom-search-request?request-id=${noticeItem.crmItemId}`,
           )
 
@@ -81,7 +68,7 @@ export class HeaderModel {
     }
   }
 
-  clearSnackNoticeByKey(key) {
+  clearSnackNoticeByKey(key: string) {
     SettingsModel.setSnackNotifications({ key, notice: null })
   }
 }

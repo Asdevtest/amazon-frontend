@@ -11,6 +11,10 @@ export const useStyles = makeStyles()(theme => ({
     '.ant-badge-status': {
       marginRight: 'auto',
     },
+
+    '.ant-badge-count': {
+      padding: '0 4px',
+    },
   },
 
   text: {

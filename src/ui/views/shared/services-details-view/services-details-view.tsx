@@ -21,7 +21,7 @@ export const ServiceDetailsView = observer(({ history }: { history: HistoryType 
   const viewModel = useMemo(() => new ServiceDetailsViewModel(history), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <MyServicesInfo
         announcementData={viewModel.currentData}
         onClickReview={viewModel.onClickReview}
@@ -72,6 +72,6 @@ export const ServiceDetailsView = observer(({ history }: { history: HistoryType 
           onClickCloseButton={() => viewModel.onTriggerOpenModal('showReviewModal')}
         />
       </Modal>
-    </div>
+    </>
   )
 })

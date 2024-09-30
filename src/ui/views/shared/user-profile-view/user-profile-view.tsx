@@ -27,7 +27,7 @@ export const UserProfileView = observer(() => {
   const viewModel = useMemo(() => new ProfileViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <UserProfile
         // @ts-ignore
         user={viewModel.userInfo}
@@ -130,6 +130,6 @@ export const UserProfileView = observer(() => {
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
       ) : null}
-    </div>
+    </>
   )
 })

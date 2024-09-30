@@ -5,12 +5,12 @@ import { CustomSelect } from '@components/shared/custom-select'
 
 import { useStyles } from './role-select.style'
 
-import { RoleSelectModel } from './role-select.model'
+import { RoleModel } from './role.model'
 
 export const RoleSelect: FC = memo(() => {
   const { classes: styles } = useStyles()
   const history = useHistory()
-  const [viewModel] = useState(() => new RoleSelectModel(history))
+  const [viewModel] = useState(() => new RoleModel(history))
 
   return (
     <CustomSelect

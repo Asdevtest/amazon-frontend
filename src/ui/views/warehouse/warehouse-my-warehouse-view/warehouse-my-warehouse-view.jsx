@@ -42,7 +42,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
   const disableSelectionCells = ['prepId']
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.headerWrapper}>
         <ActionButtons
           selectedBoxes={viewModel.selectedBoxes}
@@ -269,6 +269,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
         />
       </Modal>
-    </div>
+    </>
   )
 })

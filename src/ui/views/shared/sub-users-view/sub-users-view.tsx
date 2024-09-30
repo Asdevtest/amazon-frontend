@@ -21,7 +21,7 @@ export const SubUsersView = observer(() => {
   const viewModel = useMemo(() => new SubUsersViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <Header
         onChangeUnserverSearchValue={viewModel.onChangeUnserverSearchValue}
         onToggleAddSubUserModal={viewModel.onToggleAddSubUserModal}
@@ -104,6 +104,6 @@ export const SubUsersView = observer(() => {
           onUpdateData={viewModel.getCurrentData}
         />
       </Modal>
-    </div>
+    </>
   )
 })

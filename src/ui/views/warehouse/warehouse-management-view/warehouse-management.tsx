@@ -41,7 +41,7 @@ export const WarehouseManagementView = observer(() => {
   )
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.flexRow}>
         <CustomRadioButton
           size="large"
@@ -182,6 +182,6 @@ export const WarehouseManagementView = observer(() => {
           onClickClose={() => viewModel.onTriggerOpenModal('showAddOrEditLogisticTariffModal')}
         />
       </Modal>
-    </div>
+    </>
   )
 })

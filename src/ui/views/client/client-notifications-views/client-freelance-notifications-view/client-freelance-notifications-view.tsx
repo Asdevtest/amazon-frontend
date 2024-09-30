@@ -16,7 +16,7 @@ export const ClientFreelanceNotificationsView = observer(() => {
   const viewModel = useMemo(() => new ClientFreelanceNotificationsViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomDataGrid
         sortingMode="client"
         paginationMode="client"
@@ -70,6 +70,6 @@ export const ClientFreelanceNotificationsView = observer(() => {
         onPinnedColumnsChange={viewModel.handlePinColumn}
         onFilterModelChange={viewModel.onChangeFilterModel}
       />
-    </div>
+    </>
   )
 })

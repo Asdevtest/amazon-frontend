@@ -20,7 +20,7 @@ export const AdminFeedbackView = observer(() => {
   const viewModel = useMemo(() => new AdminFeedbackViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomInputSearch
         enterButton
         allowClear
@@ -94,6 +94,6 @@ export const AdminFeedbackView = observer(() => {
           onSubmit={viewModel.onClickWrite}
         />
       </Modal>
-    </div>
+    </>
   )
 })

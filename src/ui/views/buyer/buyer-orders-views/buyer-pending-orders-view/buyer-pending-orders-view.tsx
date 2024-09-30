@@ -26,7 +26,7 @@ export const BuyerPendingOrdersView = observer(() => {
   const { classes: styles } = useStyles()
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomInputSearch
         enterButton
         allowClear
@@ -129,6 +129,6 @@ export const BuyerPendingOrdersView = observer(() => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </div>
+    </>
   )
 })

@@ -8,7 +8,7 @@ import { HistoryType } from '@typings/types/history'
 
 import { roleMapper } from './role-mapper'
 
-export class RoleSelectModel {
+export class RoleModel {
   history?: HistoryType
 
   get userInfo() {

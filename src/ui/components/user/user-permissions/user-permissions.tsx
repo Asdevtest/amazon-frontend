@@ -30,7 +30,7 @@ export const UserPermissions = observer(() => {
   const viewModel = useMemo(() => new UserPermissionsModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.buttons}>
         <CustomRadioButton
           size="large"
@@ -149,6 +149,6 @@ export const UserPermissions = observer(() => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </div>
+    </>
   )
 })

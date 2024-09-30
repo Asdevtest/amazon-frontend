@@ -1,5 +1,6 @@
 import { Dropdown, MenuProps } from 'antd'
-import { FC, memo, useMemo } from 'react'
+import { observer } from 'mobx-react'
+import { FC, useMemo } from 'react'
 import { CgProfile } from 'react-icons/cg'
 import { GoChevronDown } from 'react-icons/go'
 import { IoExitOutline } from 'react-icons/io5'
@@ -17,14 +18,14 @@ import { t } from '@utils/translations'
 import { Roles } from '@typings/enums/roles'
 import { isResearcher } from '@typings/guards/roles'
 
-import { useStyles } from './profile-dropdown.style'
+import { useStyles } from './profile-menu.style'
 
-import { ProfileDropdownModel } from './profile-dropdown.model'
+import { ProfileMenuModel } from './profile-menu.model'
 
-export const ProfileDropdown: FC = memo(() => {
+export const ProfileMenu: FC = observer(() => {
   const { classes: styles } = useStyles()
   const history = useHistory()
-  const viewModel = useMemo(() => new ProfileDropdownModel(), [])
+  const viewModel = useMemo(() => new ProfileMenuModel(), [])
 
   const items: MenuProps['items'] = [
     {

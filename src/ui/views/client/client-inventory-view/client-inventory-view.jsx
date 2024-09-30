@@ -55,7 +55,7 @@ export const ClientInventoryView = observer(({ history }) => {
   const apiRef = useGridApiRef()
 
   return (
-    <div className="viewWrapper">
+    <>
       <Header
         isArchive={viewModel.isArchive}
         selectedRows={viewModel.selectedRows}
@@ -399,6 +399,6 @@ export const ClientInventoryView = observer(({ history }) => {
           handleUpdateRow={tags => apiRef.current.updateRows([{ _id: viewModel.selectedRowId, tags }])}
         />
       ) : null}
-    </div>
+    </>
   )
 })

@@ -18,7 +18,7 @@ export const SourceFilesView = observer(() => {
   const viewModel = useMemo(() => new SourceFilesViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.searchContainer}>
         <CustomInputSearch
           enterButton
@@ -59,6 +59,6 @@ export const SourceFilesView = observer(() => {
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
       />
-    </div>
+    </>
   )
 })

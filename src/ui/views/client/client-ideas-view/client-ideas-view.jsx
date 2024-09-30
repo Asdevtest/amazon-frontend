@@ -48,7 +48,7 @@ export const ClientIdeasView = observer(({ history }) => {
   }
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.controls}>
         <CustomInputSearch
           enterButton
@@ -293,6 +293,6 @@ export const ClientIdeasView = observer(({ history }) => {
           onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
         />
       </Modal>
-    </div>
+    </>
   )
 })

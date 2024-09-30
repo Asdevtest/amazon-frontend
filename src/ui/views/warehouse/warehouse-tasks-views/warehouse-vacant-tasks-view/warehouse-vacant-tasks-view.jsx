@@ -42,7 +42,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
       TaskOperationType.RECEIVE
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.headerWrapper}>
         <TaskPrioritySelector
           currentPriority={viewModel.curTaskPriority}
@@ -173,6 +173,6 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </div>
+    </>
   )
 })

@@ -42,7 +42,7 @@ export const VacantRequestsView = observer(({ history }) => {
   const isListPosition = viewModel.viewMode === tableViewMode.LIST
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.tablePanelWrapper}>
         <FreelanceTypeTaskSelect
           specs={viewModel.userInfo?.allowedSpec}
@@ -162,6 +162,6 @@ export const VacantRequestsView = observer(({ history }) => {
           onClickOpenNewTab={viewModel.onClickOpenInNewTab}
         />
       ) : null}
-    </div>
+    </>
   )
 })

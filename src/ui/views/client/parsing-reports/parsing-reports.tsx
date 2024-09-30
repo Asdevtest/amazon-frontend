@@ -19,7 +19,7 @@ export const ParsingReports = observer(() => {
   const viewModel = useMemo(() => new ParsingReportsModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomSelect
         showSearch
         size="large"
@@ -88,6 +88,6 @@ export const ParsingReports = observer(() => {
         onFilterModelChange={viewModel.onChangeFilterModel}
         // onRowDoubleClick={params => viewModel.getDataForIdeaModal(params.row)}
       />
-    </div>
+    </>
   )
 })

@@ -31,7 +31,9 @@ export const Layout: FC<PropsWithChildren> = memo(({ children }) => {
       el => el.routePath === location.pathname,
     )
 
-    if (!currentPath?.navigationInfo) return
+    if (!currentPath?.navigationInfo) {
+      return
+    }
 
     setCurrentPageInfo({
       activeCategory: currentPath?.navigationInfo.activeCategory,

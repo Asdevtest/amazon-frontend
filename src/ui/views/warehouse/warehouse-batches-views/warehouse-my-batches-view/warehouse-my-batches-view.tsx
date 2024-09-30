@@ -40,7 +40,7 @@ export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(
     !viewModel.selectedRows.length || viewModel.isInvalidTariffBoxSelected || viewModel.isNeedConfirmPriceBoxSelected
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.flexRow}>
         {isSentBatches ? (
           <CustomButton size="large" onClick={viewModel.onTriggerArchive}>
@@ -189,6 +189,6 @@ export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(
           onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
         />
       ) : null}
-    </div>
+    </>
   )
 })

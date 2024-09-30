@@ -10,7 +10,6 @@ import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
 
-import { UiTheme } from '@typings/enums/ui-theme'
 import { IFullUser } from '@typings/shared/full-user'
 import { HistoryType } from '@typings/types/history'
 
@@ -81,11 +80,6 @@ export class AuthViewModel {
     const path = this.auth ? '/registration' : '/auth'
 
     this.history?.push(path)
-  }
-
-  onChangeTheme = () => {
-    const currentTheme = SettingsModel.uiTheme === UiTheme.light ? UiTheme.dark : UiTheme.light
-    SettingsModel.setUiTheme(currentTheme)
   }
 
   onClickVersion = () => {

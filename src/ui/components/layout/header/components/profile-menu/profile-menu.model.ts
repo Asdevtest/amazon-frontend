@@ -5,7 +5,7 @@ import { UserModel } from '@models/user-model'
 
 import { IFullUser } from '@typings/shared/full-user'
 
-export class ProfileDropdownModel {
+export class ProfileMenuModel {
   get userInfo() {
     return UserModel.userInfo as unknown as IFullUser
   }

@@ -26,7 +26,7 @@ export const ClientShopsView = observer(() => {
   const viewModel = useMemo(() => new ShopsViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.flexRow}>
         <CustomButton type="primary" size="large" onClick={viewModel.onAddShop}>
           {t(TranslationKey['Add shop'])}
@@ -115,6 +115,6 @@ export const ClientShopsView = observer(() => {
           onUpdateData={viewModel.getCurrentData}
         />
       </Modal>
-    </div>
+    </>
   )
 })

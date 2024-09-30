@@ -22,18 +22,9 @@ const baseThemeSettings = {
 }
 
 export const globalStyles = theme => ({
-  '.viewWrapper': {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    height: '100%',
-    gap: '10px',
-    position: 'relative',
-  },
-
   '.tableWrapper': {
-    flex: 1,
     padding: '3px',
+    flex: 1,
     overflow: 'auto',
     width: '100%',
   },

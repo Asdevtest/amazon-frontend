@@ -28,7 +28,7 @@ export const ClientWarehouseTasksView = observer(() => {
   const viewModel = useMemo(() => new ClientWarehouseTasksViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.headerWrapper}>
         <CustomInputSearch
           enterButton
@@ -204,6 +204,6 @@ export const ClientWarehouseTasksView = observer(() => {
       ) : null}
 
       {viewModel.showProgress && <CircularProgressWithLabel />}
-    </div>
+    </>
   )
 })

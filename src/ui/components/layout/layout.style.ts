@@ -1,15 +1,16 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
-    minHeight: '100vh',
+    height: '100vh',
   },
 
   content: {
-    flex: 1,
     padding: '10px',
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
+    position: 'relative',
+    background: theme.palette.background.second,
   },
 }))

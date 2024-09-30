@@ -23,7 +23,7 @@ export const ClientBoxesTariffsNotificationsView = observer(() => {
   const viewModel = useMemo(() => new ClientBoxesTariffsNotificationsViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomDataGrid
         rowCount={viewModel.rowCount}
         sortModel={viewModel.sortModel}
@@ -113,6 +113,6 @@ export const ClientBoxesTariffsNotificationsView = observer(() => {
       >
         <BoxModal boxId={viewModel.curBoxId} onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')} />
       </Modal>
-    </div>
+    </>
   )
 })

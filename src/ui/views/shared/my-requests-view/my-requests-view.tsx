@@ -63,7 +63,7 @@ export const MyRequestsView = observer(() => {
     )
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.header}>
         <CustomRadioButton
           size="large"
@@ -258,6 +258,6 @@ export const MyRequestsView = observer(() => {
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
       ) : null}
-    </div>
+    </>
   )
 })

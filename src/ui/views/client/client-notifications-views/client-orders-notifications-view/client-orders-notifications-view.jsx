@@ -16,7 +16,7 @@ export const ClientOrdersNotificationsView = observer(() => {
   const viewModel = useMemo(() => new ClientOrdersNotificationsViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomDataGrid
         sortModel={viewModel.sortModel}
         filterModel={viewModel.filterModel}
@@ -83,6 +83,6 @@ export const ClientOrdersNotificationsView = observer(() => {
           onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
         />
       ) : null}
-    </div>
+    </>
   )
 })

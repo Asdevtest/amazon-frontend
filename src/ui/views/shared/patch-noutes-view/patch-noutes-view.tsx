@@ -30,7 +30,7 @@ export const PatchNoutesView = observer(() => {
     : t(TranslationKey['Add a patch note'])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomButton type="primary" size="large" onClick={viewModel.onOpenPatchNoteForm}>
         {t(TranslationKey['Add a patch note'])}
       </CustomButton>
@@ -89,6 +89,6 @@ export const PatchNoutesView = observer(() => {
           onClickCancelBtn={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
         />
       ) : null}
-    </div>
+    </>
   )
 })

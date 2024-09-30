@@ -26,7 +26,7 @@ export const FinancesView = observer(() => {
   const viewModel = useMemo(() => new FinancesViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.header}>
         <CustomRadioButton
           size="large"
@@ -108,6 +108,6 @@ export const FinancesView = observer(() => {
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onPinnedColumnsChange={viewModel.handlePinColumn}
       />
-    </div>
+    </>
   )
 })

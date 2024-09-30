@@ -25,7 +25,7 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
   const viewModel = useMemo(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY, history), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <ControllButtons
         currentSearchValue={viewModel.currentSearchValue}
         currentTabKey={viewModel.tabValue}
@@ -138,6 +138,6 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
           onClickCancelBtn={viewModel.confirmModalSettings?.onCancel}
         />
       ) : null}
-    </div>
+    </>
   )
 })

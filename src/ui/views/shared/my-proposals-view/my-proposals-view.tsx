@@ -45,7 +45,7 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
   }
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.tablePanelWrapper}>
         <CustomRadioButton
           size="large"
@@ -201,6 +201,6 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
           onClickOpenNewTab={viewModel.onClickOpenBtn}
         />
       ) : null}
-    </div>
+    </>
   )
 })

@@ -27,7 +27,7 @@ export const MyServicesView = observer(({ history }: { history: HistoryType }) =
   const cardVariant = viewModel.viewMode === tableViewMode.LIST ? CardVariant.List : CardVariant.Card
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.flexRow}>
         <div className={styles.flexRow}>
           <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
@@ -74,6 +74,6 @@ export const MyServicesView = observer(({ history }: { history: HistoryType }) =
       ) : (
         <Empty className={styles.empty} />
       )}
-    </div>
+    </>
   )
 })

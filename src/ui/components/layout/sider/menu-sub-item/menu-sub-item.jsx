@@ -145,7 +145,7 @@ export const MenuSubItem = props => {
           <Badge
             count={notificationBySubRoute}
             overflowCount={99999}
-            offset={[20, 7]}
+            offset={[25, 7]}
             color={theme.palette.primary.main}
           >
             <span className={styles.text}>{subCategory?.subtitle()}</span>

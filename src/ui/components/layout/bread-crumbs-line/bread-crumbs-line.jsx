@@ -66,35 +66,30 @@ export const BreadCrumbsLine = observer(() => {
     pathnames.push('profile')
   }
 
-  return (
-    <div className={styles.breadCrumbsWrapper}>
-      {pathnames.length > 2 || location.pathname === '/profile' ? (
-        <Breadcrumbs aria-label="breadcrumb" separator={<MdNavigateNext className={styles.seporatorIcon} />}>
-          {pathnames.map((value, index) => {
-            const last = index === pathnames.length - 1
-            const isPreLast = index === pathnames.length - 2
+  return pathnames.length > 2 || location.pathname === '/profile' ? (
+    <Breadcrumbs aria-label="breadcrumb" separator={<MdNavigateNext className={styles.seporatorIcon} />}>
+      {pathnames.map((value, index) => {
+        const last = index === pathnames.length - 1
+        const isPreLast = index === pathnames.length - 2
 
-            const to =
-              location.pathname === '/profile' && last ? '/profile' : `/${pathnames.slice(0, index + 1).join('/')}`
+        const to = location.pathname === '/profile' && last ? '/profile' : `/${pathnames.slice(0, index + 1).join('/')}`
 
-            if (exclusionWords.includes(to)) {
-              return null
-            }
+        if (exclusionWords.includes(to)) {
+          return null
+        }
 
-            return last ? (
-              <Typography key={to} className={styles.lastCrumb}>
-                {t(getCrumbNameKey(to)) + `${breadcrumbsAdditionalText ? breadcrumbsAdditionalText : ''}`}
-              </Typography>
-            ) : (
-              <Typography key={to} className={styles.crumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
-                {getCrumbNameKey(to) === 'Order'
-                  ? `${t(TranslationKey.Order)} ${savedLastCrumbAdditionalText ? savedLastCrumbAdditionalText : ''}`
-                  : t(getCrumbNameKey(to))}
-              </Typography>
-            )
-          })}
-        </Breadcrumbs>
-      ) : null}
-    </div>
-  )
+        return last ? (
+          <Typography key={to} className={styles.lastCrumb}>
+            {t(getCrumbNameKey(to)) + `${breadcrumbsAdditionalText ? breadcrumbsAdditionalText : ''}`}
+          </Typography>
+        ) : (
+          <Typography key={to} className={styles.crumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
+            {getCrumbNameKey(to) === 'Order'
+              ? `${t(TranslationKey.Order)} ${savedLastCrumbAdditionalText ? savedLastCrumbAdditionalText : ''}`
+              : t(getCrumbNameKey(to))}
+          </Typography>
+        )
+      })}
+    </Breadcrumbs>
+  ) : null
 })

@@ -24,7 +24,7 @@ export const AdminDestinationsView = observer(props => {
   }, [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
         {t(TranslationKey['Add a destination'])}
       </Button>
@@ -76,6 +76,6 @@ export const AdminDestinationsView = observer(props => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </div>
+    </>
   )
 })

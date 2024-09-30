@@ -20,7 +20,7 @@ export const AdminInventoryView = observer(() => {
   const viewModel = useMemo(() => new AdminInventoryViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomInputSearch
         enterButton
         allowClear
@@ -93,6 +93,6 @@ export const AdminInventoryView = observer(() => {
           onClickOpenNewTab={viewModel.onClickShowProduct}
         />
       )}
-    </div>
+    </>
   )
 })

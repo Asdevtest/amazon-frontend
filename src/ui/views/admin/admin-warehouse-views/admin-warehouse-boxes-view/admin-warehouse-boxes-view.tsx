@@ -21,7 +21,7 @@ export const AdminWarehouseBoxesView = observer(() => {
   const viewModel = useMemo(() => new AdminWarehouseBoxesViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomInputSearch
         enterButton
         allowClear
@@ -92,6 +92,6 @@ export const AdminWarehouseBoxesView = observer(() => {
       >
         <BoxModal boxId={viewModel.curBox} onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')} />
       </Modal>
-    </div>
+    </>
   )
 })

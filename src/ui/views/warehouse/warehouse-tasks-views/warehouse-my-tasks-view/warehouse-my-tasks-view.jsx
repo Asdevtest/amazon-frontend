@@ -36,7 +36,7 @@ export const WarehouseMyTasksView = observer(({ history }) => {
     params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && styles.successRow
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.headerWrapper}>
         <TaskPrioritySelector
           currentPriority={viewModel.curTaskPriority}
@@ -152,6 +152,6 @@ export const WarehouseMyTasksView = observer(({ history }) => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-    </div>
+    </>
   )
 })

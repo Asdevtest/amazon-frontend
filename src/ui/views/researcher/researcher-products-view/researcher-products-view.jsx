@@ -16,7 +16,7 @@ export const ResearcherProductsView = observer(() => {
   const viewModel = useMemo(() => new ResearcherProductsViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <ResearcherAddProductForm
         user={viewModel.userInfo}
         formFields={viewModel.formFields}
@@ -72,6 +72,6 @@ export const ResearcherProductsView = observer(() => {
         onFilterModelChange={viewModel.onChangeFilterModel}
         onPinnedColumnsChange={viewModel.handlePinColumn}
       />
-    </div>
+    </>
   )
 })

@@ -21,7 +21,7 @@ export const AdminUsersView = observer(() => {
   const viewModel = useMemo(() => new AdminUsersViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.headerWrapper}>
         <p className={styles.usersOnlineWrapper}>
           {t(TranslationKey['Users online'])}: {viewModel.meta?.onlineUsers}
@@ -96,6 +96,6 @@ export const AdminUsersView = observer(() => {
         onFilterModelChange={viewModel.onChangeFilterModel}
         onPinnedColumnsChange={viewModel.handlePinColumn}
       />
-    </div>
+    </>
   )
 })

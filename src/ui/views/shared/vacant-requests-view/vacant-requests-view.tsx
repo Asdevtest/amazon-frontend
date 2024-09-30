@@ -33,7 +33,7 @@ export const VacantRequestsView = observer(() => {
   }
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.header}>
         <FreelanceTypeTaskSelect
           specs={viewModel.userInfo?.allowedSpec}
@@ -116,6 +116,6 @@ export const VacantRequestsView = observer(() => {
           onClickOpenNewTab={viewModel.onClickOpenInNewTab}
         />
       ) : null}
-    </div>
+    </>
   )
 })

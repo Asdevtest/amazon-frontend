@@ -1,7 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  isDraftRow: {
-    opacity: '.7',
+  label: {
+    textTransform: 'capitalize',
+  },
+
+  flag: {
+    width: '24px',
+    height: '24px',
   },
 }))

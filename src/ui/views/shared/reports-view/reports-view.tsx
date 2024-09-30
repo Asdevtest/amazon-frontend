@@ -28,7 +28,7 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
     editExcelReport(excelParams, viewModel?.columnsModel, viewModel?.currentData)
 
   return (
-    <div className="viewWrapper">
+    <>
       {!subView ? <Info product={viewModel.product} activeLaunches={viewModel.activeLaunches} /> : null}
 
       <Header
@@ -105,6 +105,6 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
           onUpdateTableData={viewModel.getCurrentData}
         />
       </Modal>
-    </div>
+    </>
   )
 })

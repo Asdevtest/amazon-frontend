@@ -21,7 +21,7 @@ export const AdminAwaitingBatchesView = observer(props => {
   }, [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomInputSearch
         enterButton
         allowClear
@@ -69,6 +69,6 @@ export const AdminAwaitingBatchesView = observer(props => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
         />
       ) : null}
-    </div>
+    </>
   )
 })

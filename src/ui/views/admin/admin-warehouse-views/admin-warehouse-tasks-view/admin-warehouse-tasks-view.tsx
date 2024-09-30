@@ -18,7 +18,7 @@ export const AdminWarehouseTasksView = observer(() => {
   const viewModel = useMemo(() => new AdminWarehouseTasksViewModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomDataGrid
         rowCount={viewModel.rowCount}
         sortModel={viewModel.sortModel}
@@ -87,6 +87,6 @@ export const AdminWarehouseTasksView = observer(() => {
           onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
         />
       </Modal>
-    </div>
+    </>
   )
 })

@@ -30,7 +30,7 @@ export const WarehouseCanceledTasksView = observer(({ history }) => {
   }, [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.headerWrapper}>
         <TaskPrioritySelector
           currentPriority={viewModel.curTaskPriority}
@@ -112,6 +112,6 @@ export const WarehouseCanceledTasksView = observer(({ history }) => {
           onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
         />
       </Modal>
-    </div>
+    </>
   )
 })

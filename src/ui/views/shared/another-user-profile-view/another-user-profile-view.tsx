@@ -24,7 +24,7 @@ export const AnotherUserProfileView = observer(({ history }: { history: HistoryT
   const viewModel = useMemo(() => new AnotherProfileViewModel(history), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       {viewModel.user ? (
         <UserProfile
           // @ts-ignore
@@ -108,6 +108,6 @@ export const AnotherUserProfileView = observer(({ history }: { history: HistoryT
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
       ) : null}
-    </div>
+    </>
   )
 })

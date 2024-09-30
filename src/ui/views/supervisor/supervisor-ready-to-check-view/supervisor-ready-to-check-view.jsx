@@ -17,7 +17,7 @@ export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
   const viewModel = useMemo(() => new SupervisorReadyToCheckViewModel(isCreatedByClient), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomButton
         size="large"
         type="primary"
@@ -85,6 +85,6 @@ export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
       />
-    </div>
+    </>
   )
 })

@@ -27,7 +27,7 @@ export const TabTags = observer(() => {
   const viewModel = useMemo(() => new AdminSettingsTagsModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <div className={styles.buttons}>
         <CustomButton
           danger
@@ -123,6 +123,6 @@ export const TabTags = observer(() => {
           onClickCancelBtn={viewModel.onClickToggleConfirmModal}
         />
       ) : null}
-    </div>
+    </>
   )
 })

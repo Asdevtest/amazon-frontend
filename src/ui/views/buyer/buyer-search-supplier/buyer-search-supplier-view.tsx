@@ -17,7 +17,7 @@ export const BuyerSearchSupplierBySupervisorView = observer(() => {
   const viewModel = useMemo(() => new BuyerSearchSupplierBySupervisorModel(), [])
 
   return (
-    <div className="viewWrapper">
+    <>
       <CustomButton
         size="large"
         type="primary"
@@ -86,6 +86,6 @@ export const BuyerSearchSupplierBySupervisorView = observer(() => {
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onPinnedColumnsChange={viewModel.handlePinColumn}
       />
-    </div>
+    </>
   )
 })
