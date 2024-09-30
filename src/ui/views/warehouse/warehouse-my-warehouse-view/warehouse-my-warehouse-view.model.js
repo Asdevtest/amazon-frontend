@@ -241,7 +241,37 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes, sharedFields) {
+  async uploadImageIfNotUploaded(image, cache) {
+    const imageKey = JSON.stringify(image)
+    const cachedImage = cache.find(el => el.strKey === imageKey)
+
+    if (cachedImage) {
+      return cachedImage.link
+    } else {
+      await onSubmitPostImages.call(this, {
+        images: [image],
+        type: 'uploadedFiles',
+        withoutShowProgress: true,
+      })
+
+      const link = this.uploadedFiles[0] || image
+      cache.push({ strKey: imageKey, link })
+      return link
+    }
+  }
+
+  async uploadSharedFieldFile(sharedFields, fieldName, uploadedFieldName) {
+    if (sharedFields[fieldName]?.length) {
+      await onSubmitPostImages.call(this, {
+        images: sharedFields[fieldName],
+        type: 'uploadedFiles',
+        withoutShowProgress: true,
+      })
+      sharedFields[uploadedFieldName] = this.uploadedFiles[0]
+    }
+  }
+
+  async onClickSubmitEditMultipleBoxes(newBoxes, sharedFields) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
@@ -250,32 +280,12 @@ export class WarehouseMyWarehouseViewModel {
       const uploadedBarcodes = []
       const updatedBoxes = []
 
-      const uploadImageIfNotUploaded = async (image, cache) => {
-        const imageKey = JSON.stringify(image)
-        const cachedImage = cache.find(el => el.strKey === imageKey)
-
-        if (cachedImage) {
-          return cachedImage.link
-        } else {
-          await onSubmitPostImages.call(this, {
-            images: [image],
-            type: 'uploadedFiles',
-            withoutShowProgress: true,
-          })
-
-          const link = this.uploadedFiles[0] || image
-          cache.push({ strKey: imageKey, link })
-          return link
-        }
-      }
-
       for (const [i, newBox] of newBoxes.entries()) {
         const newBoxCopy = { ...newBox }
-        const sourceBox = selectedBoxes[i]
 
         // Upload shipping label if needed
         if (newBoxCopy.tmpShippingLabel?.length) {
-          newBoxCopy.shippingLabel = await uploadImageIfNotUploaded(
+          newBoxCopy.shippingLabel = await this.uploadImageIfNotUploaded(
             newBoxCopy.tmpShippingLabel[0],
             uploadedShippingLabels,
           )
@@ -291,7 +301,7 @@ export class WarehouseMyWarehouseViewModel {
           }))
 
         for (const barcodeChange of dataToBarCodeChange) {
-          barcodeChange.newData = [await uploadImageIfNotUploaded(barcodeChange.tmpBarCode[0], uploadedBarcodes)]
+          barcodeChange.newData = [await this.uploadImageIfNotUploaded(barcodeChange.tmpBarCode[0], uploadedBarcodes)]
         }
 
         const currentBoxItems = []
@@ -336,20 +346,9 @@ export class WarehouseMyWarehouseViewModel {
       }
 
       // Upload sharedFields files
-      const uploadSharedFieldFile = async (fieldName, uploadedFieldName) => {
-        if (sharedFields[fieldName]?.length) {
-          await onSubmitPostImages.call(this, {
-            images: sharedFields[fieldName],
-            type: 'uploadedFiles',
-            withoutShowProgress: true,
-          })
-          sharedFields[uploadedFieldName] = this.uploadedFiles[0]
-        }
-      }
-
-      await uploadSharedFieldFile('tmpShippingLabel', 'shippingLabel')
-      await uploadSharedFieldFile('tmpBarCode', 'barCode')
-      await uploadSharedFieldFile('tmpTransparencyFile', 'transparencyFile')
+      await this.uploadSharedFieldFile(sharedFields, 'tmpShippingLabel', 'shippingLabel')
+      await this.uploadSharedFieldFile(sharedFields, 'tmpBarCode', 'barCode')
+      await this.uploadSharedFieldFile(sharedFields, 'tmpTransparencyFile', 'transparencyFile')
 
       const boxesToSend = {
         ...getObjectFilteredByKeyArrayWhiteList(sharedFields, sharedFieldsWhiteList),
@@ -367,13 +366,13 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSubmitEditBox({ id, boxData, imagesOfBox, isMultipleEdit }) {
+  async onClickSubmitEditBox({ id, boxData, imagesOfBox }) {
     runInAction(() => {
       this.selectedBoxes = []
       this.uploadedTrackNumber = []
     })
 
-    if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
+    if (boxData.tmpShippingLabel?.length) {
       await onSubmitPostImages.call(this, {
         images: boxData.tmpShippingLabel,
         type: 'uploadedFiles',
@@ -383,7 +382,7 @@ export class WarehouseMyWarehouseViewModel {
       boxData.shippingLabel = this.uploadedFiles[0]
     }
 
-    if (!isMultipleEdit && boxData.tmpTrackNumberFile?.length) {
+    if (boxData.tmpTrackNumberFile?.length) {
       await onSubmitPostImages.call(this, {
         images: boxData.tmpTrackNumberFile,
         type: 'uploadedTrackNumber',
@@ -412,7 +411,7 @@ export class WarehouseMyWarehouseViewModel {
       )
       .filter(el => el !== null)
 
-    if (!isMultipleEdit && dataToBarCodeChange?.length) {
+    if (dataToBarCodeChange?.length) {
       dataToBarCodeChange = await onSubmitPostFilesInData({
         dataWithFiles: dataToBarCodeChange,
         nameOfField: 'tmpBarCode',
@@ -456,7 +455,7 @@ export class WarehouseMyWarehouseViewModel {
         return newItems
       }
 
-      const requestBoxItems = isMultipleEdit ? boxData.items : await getNewItems()
+      const requestBoxItems = await getNewItems()
 
       const requestBox = getObjectFilteredByKeyArrayWhiteList(
         {
@@ -474,11 +473,9 @@ export class WarehouseMyWarehouseViewModel {
 
       await StorekeeperModel.editBox(id, requestBox)
 
-      if (!isMultipleEdit) {
-        this.onTriggerOpenModal('showFullEditBoxModal')
-        toast.success(t(TranslationKey['Data saved successfully']))
-        this.loadData()
-      }
+      this.onTriggerOpenModal('showFullEditBoxModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
+      this.loadData()
     } catch (error) {
       console.error(error)
 
@@ -490,11 +487,9 @@ export class WarehouseMyWarehouseViewModel {
         return
       }
 
-      if (!isMultipleEdit) {
-        this.loadData()
+      this.loadData()
 
-        this.onTriggerOpenModal('showFullEditBoxModal')
-      }
+      this.onTriggerOpenModal('showFullEditBoxModal')
 
       toast.warning(t(TranslationKey['The box is unchanged']))
     }

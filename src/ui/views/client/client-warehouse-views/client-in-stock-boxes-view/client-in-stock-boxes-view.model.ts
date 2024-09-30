@@ -541,7 +541,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
               TranslationKey['to change the Box'],
             )} № ${boxData?.humanFriendlyId}`,
-      onSubmit: () => this.onEditBoxSubmit(id, boxData, sourceData, false, priority, priorityReason),
+      onSubmit: () => this.onEditBoxSubmit(id, boxData, sourceData, priority, priorityReason),
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
   }
@@ -839,7 +839,41 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSubmitEditMultipleBoxes(newBoxes: any, selectedRows: IBox[], sharedFields: any) {
+  async uploadImageIfNotUploaded(image: any, cache: any[]) {
+    const imageKey = JSON.stringify(image)
+    const cachedImage = cache.find(el => el.strKey === imageKey)
+
+    if (cachedImage) {
+      return cachedImage.link
+    } else {
+      // @ts-ignore
+      await onSubmitPostImages.call(this, {
+        images: [image],
+        type: 'uploadedFiles',
+        withoutShowProgress: true,
+      })
+
+      const link = this.uploadedFiles[0] || image
+      cache.push({ strKey: imageKey, link })
+      return link
+    }
+  }
+
+  async uploadSharedFieldFile(sharedFields: any, fieldName: string, uploadedFieldName: string) {
+    const fieldValue = sharedFields[fieldName]
+
+    if (Array.isArray(fieldValue) && fieldValue.length) {
+      // @ts-ignore
+      await onSubmitPostImages.call(this, {
+        images: fieldValue,
+        type: 'uploadedFiles',
+        withoutShowProgress: true,
+      })
+      sharedFields[uploadedFieldName] = this.uploadedFiles[0]
+    }
+  }
+
+  async onClickSubmitEditMultipleBoxes(newBoxes: any, sharedFields: any) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
@@ -853,52 +887,17 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         this.boxesIdsToTask = []
       })
 
-      const uploadImageIfNotUploaded = async (image: any, cache: any[]) => {
-        const imageKey = JSON.stringify(image)
-        const cachedImage = cache.find(el => el.strKey === imageKey)
-
-        if (cachedImage) {
-          return cachedImage.link
-        } else {
-          // @ts-ignore
-          await onSubmitPostImages.call(this, {
-            images: [image],
-            type: 'uploadedFiles',
-            withoutShowProgress: true,
-          })
-
-          const link = this.uploadedFiles[0] || image
-          cache.push({ strKey: imageKey, link })
-          return link
-        }
-      }
-
       // Upload sharedFields files
-      const uploadSharedFieldFile = async (fieldName: string, uploadedFieldName: string) => {
-        const fieldValue = sharedFields[fieldName]
-
-        if (Array.isArray(fieldValue) && fieldValue.length) {
-          // @ts-ignore
-          await onSubmitPostImages.call(this, {
-            images: fieldValue,
-            type: 'uploadedFiles',
-            withoutShowProgress: true,
-          })
-          sharedFields[uploadedFieldName] = this.uploadedFiles[0]
-        }
-      }
-
-      await uploadSharedFieldFile('tmpShippingLabel', 'shippingLabel')
-      await uploadSharedFieldFile('tmpBarCode', 'barCode')
-      await uploadSharedFieldFile('tmpTransparencyFile', 'transparencyFile')
+      await this.uploadSharedFieldFile(sharedFields, 'tmpShippingLabel', 'shippingLabel')
+      await this.uploadSharedFieldFile(sharedFields, 'tmpBarCode', 'barCode')
+      await this.uploadSharedFieldFile(sharedFields, 'tmpTransparencyFile', 'transparencyFile')
 
       for (let i = 0; i < newBoxes.length; i++) {
         const newBox = { ...newBoxes[i] }
-        const sourceBox = selectedRows[i]
 
         // Upload shipping label if needed
         if (newBox.tmpShippingLabel?.length) {
-          newBox.shippingLabel = await uploadImageIfNotUploaded(newBox.tmpShippingLabel[0], uploadedShippingLabels)
+          newBox.shippingLabel = await this.uploadImageIfNotUploaded(newBox.tmpShippingLabel[0], uploadedShippingLabels)
         } else if (sharedFields.shippingLabel) {
           newBox.shippingLabel = sharedFields.shippingLabel
         }
@@ -916,6 +915,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           )
           .filter((el: any) => el !== null)
 
+        // Upload bar code if needed
         if (dataToBarCodeChange?.length) {
           for (const barcodeChange of dataToBarCodeChange) {
             const findUploadedBarcode = uploadedBarcodes.find(
@@ -951,9 +951,11 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
           let transparencyFileLink = el.transparencyFile || ''
 
-          // Upload transparency file if needed
           if (el.tmpTransparencyFile?.length) {
-            transparencyFileLink = await uploadImageIfNotUploaded(el.tmpTransparencyFile[0], uploadedTransparencyFiles)
+            transparencyFileLink = await this.uploadImageIfNotUploaded(
+              el.tmpTransparencyFile[0],
+              uploadedTransparencyFiles,
+            )
           } else if (sharedFields.transparencyFile) {
             transparencyFileLink = sharedFields.transparencyFile
           }
@@ -986,7 +988,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
         newBox.items = currentBoxItems
 
-        // Prepare the updated box for sending
         updatedBoxes.push(getObjectFilteredByKeyArrayWhiteList(newBox, updateManyBoxesWhiteList))
       }
 
@@ -1082,17 +1083,17 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     id: string,
     boxData: any,
     sourceData: any,
-    isMultipleEdit: boolean,
+
     priority?: number,
     priorityReason?: string,
   ) {
     try {
-      !isMultipleEdit && this.setRequestStatus(loadingStatus.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
         this.selectedRows = []
       })
 
-      if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
+      if (boxData.tmpShippingLabel?.length) {
         // @ts-ignore
         await onSubmitPostImages.call(this, {
           images: boxData.tmpShippingLabel,
@@ -1116,7 +1117,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         )
         .filter((el: any) => el !== null)
 
-      if (!isMultipleEdit && dataToBarCodeChange?.length) {
+      if (dataToBarCodeChange?.length) {
         dataToBarCodeChange = await onSubmitPostFilesInData({
           dataWithFiles: dataToBarCodeChange,
           nameOfField: 'tmpBarCode',
@@ -1254,22 +1255,20 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       await this.updateBarCodesInInventory(dataToBarCodeChange)
 
-      isMultipleEdit && (this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId))
+      this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId)
 
-      !isMultipleEdit && this.loadData()
-      !isMultipleEdit && this.onTriggerOpenModal('showEditBoxModal')
-      !isMultipleEdit && this.onTriggerOpenModal('showConfirmModal')
+      this.loadData()
+      this.onTriggerOpenModal('showEditBoxModal')
+      this.onTriggerOpenModal('showConfirmModal')
 
-      !isMultipleEdit && this.setRequestStatus(loadingStatus.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      !isMultipleEdit && this.setRequestStatus(loadingStatus.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
 
-      if (!isMultipleEdit) {
-        this.loadData()
+      this.loadData()
 
-        this.onTriggerOpenModal('showEditBoxModal')
-      }
+      this.onTriggerOpenModal('showEditBoxModal')
 
       toast.warning(t(TranslationKey['The box is unchanged']))
     } finally {
