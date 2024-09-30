@@ -18,9 +18,7 @@ export class ChatsManager<T> extends EmitsClient<T> {
   }
 
   setAllChats(chats: Chat[]) {
-    chats.forEach(chat => {
-      this.chatsManager?.set(chat._id, chat)
-    })
+    chats.forEach(this.addChatToManager)
   }
 
   getChatById(chatId: string) {
@@ -28,10 +26,25 @@ export class ChatsManager<T> extends EmitsClient<T> {
   }
 
   addMessagesToChatById(chatId: string, messages: ChatMessage[]) {
-    this.chatsManager?.get(chatId)?.messages.push(...messages)
+    const chat = this.chatsManager?.get(chatId)
+
+    if (chat) {
+      chat.messages.push(...messages)
+
+      this.chatsManager?.set(chatId, chat)
+    }
   }
 
-  getAllChats() {
-    return Array.from(this.chatsManager?.values?.() || [])
+  addChatToManager(chat: Chat) {
+    chat.messages = []
+    chat.pagination = {
+      limit: 20,
+      offset: 0,
+      offsetBottom: 0,
+      isAllNextMessagesLoaded: false,
+      isAllPreviousMessagesLoaded: true,
+    }
+
+    this.chatsManager?.set(chat._id, chat)
   }
 }

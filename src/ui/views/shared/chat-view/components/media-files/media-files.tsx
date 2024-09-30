@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, memo, useRef, useState } from 'react'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { VideoPreloader } from '@components/shared/video-preloader'
@@ -6,16 +6,17 @@ import { VideoPreloader } from '@components/shared/video-preloader'
 import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { useStyles } from './images-tile.style'
+import { useStyles } from './media-files.style'
 
-interface ImagesTileProps {
-  images: string[]
+interface MediaFilesProps {
+  mediaFiles: string[]
 }
 
-export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
+export const MediaFiles: FC<MediaFilesProps> = memo(({ mediaFiles }) => {
   const { classes: styles, cx } = useStyles()
-  const [selectedImage, setSelectedImage] = useState(0)
-  const [isShowImagePreview, setIsShowImagePreview] = useState(false)
+
+  const [isShowImagePreview, setIsShowImagePreview] = useState<boolean>(false)
+  const [selectedImage, setSelectedImage] = useState<number>(0)
 
   const handlePreview = (index: number) => {
     setSelectedImage(index)
@@ -25,9 +26,12 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
   return (
     <>
       <div
-        className={cx(styles.root, styles[`imageTile${images.length > 6 ? 6 : images.length}` as keyof typeof styles])}
+        className={cx(
+          styles.root,
+          styles[`imageTile${mediaFiles.length > 6 ? 6 : mediaFiles.length}` as keyof typeof styles],
+        )}
       >
-        {images.slice(0, 6).map((el, index) => (
+        {mediaFiles.slice(0, 6).map((el, index) => (
           <div key={index} className={styles.imageWrapper} onClick={() => handlePreview(index)}>
             {checkIsVideoLink(el) ? (
               <VideoPreloader wrapperClassName={styles.image} videoSource={getAmazonImageUrl(el)} />
@@ -43,9 +47,9 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
           </div>
         ))}
 
-        {images.length > 6 && (
+        {mediaFiles.length > 6 && (
           <button className={styles.overlay} onClick={() => handlePreview(5)}>
-            <p>+{images.length - 6}</p>
+            <p>+{mediaFiles.length - 6}</p>
           </button>
         )}
       </div>
@@ -53,12 +57,12 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
       {isShowImagePreview ? (
         <SlideshowGalleryModal
           openModal={isShowImagePreview}
-          files={images}
-          currentFileIndex={selectedImage}
+          files={mediaFiles}
+          currentFileIndex={selectedImage as unknown as number}
           onOpenModal={() => setIsShowImagePreview(!isShowImagePreview)}
           onCurrentFileIndex={setSelectedImage}
         />
       ) : null}
     </>
   )
-}
+})

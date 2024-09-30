@@ -7,12 +7,21 @@ import { ChatsManager } from './chat-manager'
 import { ChatHandlerName, ChatListenEventsHandlers } from './chat.type'
 import { observerConfig } from './observer.config'
 import { Chat } from './types/chat.type'
+import { ChatMessage } from './types/message.type'
 
 export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
   selectedChatId: string = ''
 
   get chats() {
     return Array.from(this.chatsManager?.values?.() || [])
+  }
+
+  get currentChatMessages() {
+    if (!this.selectedChatId) {
+      return []
+    }
+
+    return this.chatsManager?.get(this.selectedChatId)?.messages
   }
 
   constructor() {
@@ -37,23 +46,35 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
 
   destroyModel() {
     this.disconnect()
-    if (this.chatsManager) {
-      this.chatsManager = null
-    }
+    this.chatsManager = null
   }
 
   onClickChat(chat: Chat) {
-    if (this.selectedChatId === chat._id) {
-      this.selectedChatId = ''
-    } else {
-      this.selectedChatId = chat._id
-    }
+    runInAction(() => {
+      if (this.selectedChatId === chat._id) {
+        this.selectedChatId = ''
+      } else {
+        this.selectedChatId = chat._id
+      }
+    })
+
+    this.getChatMessages()
   }
 
   async getChats() {
     try {
       const result = await this.emitGetChats()
       this.setAllChats(result)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getChatMessages() {
+    try {
+      const result = await this.emitGetChatMessages(this.selectedChatId)
+
+      this.addMessagesToChatById(this.selectedChatId, result?.rows)
     } catch (error) {
       console.error(error)
     }

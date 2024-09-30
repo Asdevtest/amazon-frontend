@@ -5,6 +5,6 @@ export const observerConfig = {
 
   setAllChats: action.bound,
   getChatById: action.bound,
-  getAllChats: action.bound,
   addMessagesToChatById: action.bound,
+  addChatToManager: action.bound,
 }
