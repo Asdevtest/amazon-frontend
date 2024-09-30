@@ -14,7 +14,7 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '20px 0 0 20px',
 
     padding: '10px',
-    paddingRight: '3px',
+    paddingRight: '5px',
 
     '@container (min-width: 1200px)': {
       // backgroundColor: 'blue',
@@ -25,7 +25,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: '5px',
     alignItems: 'center',
-    paddingRight: '7px',
   },
 
   searchInput: {
