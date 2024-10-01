@@ -341,7 +341,7 @@ export const MergeBoxesModal = ({
                 })}
                 labelClasses={styles.label}
                 inputProps={{ maxLength: 255 }}
-                label={t(TranslationKey['FBA Shipment'])}
+                label="FBA Shipment"
                 value={boxBody.fbaShipment}
                 onChange={e => setBoxBody({ ...boxBody, fbaShipment: e.target.value })}
               />

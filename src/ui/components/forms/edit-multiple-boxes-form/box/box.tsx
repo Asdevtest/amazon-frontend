@@ -413,7 +413,7 @@ export const Box: FC<BoxProps> = memo(props => {
                     !box.fbaShipment &&
                     !curDestination?.storekeeper,
                 })}
-                label={t(TranslationKey['FBA Shipment'])}
+                label="FBA Shipment"
                 value={box.fbaShipment}
                 // @ts-ignore
                 onChange={e => onChangeField(e, 'fbaShipment', box._id)}

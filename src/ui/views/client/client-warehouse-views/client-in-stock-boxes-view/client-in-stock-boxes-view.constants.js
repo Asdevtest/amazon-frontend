@@ -35,6 +35,34 @@ export const updateBoxWhiteList = [
   'clientComment',
 ]
 
+export const updateManyBoxesWhiteList = [
+  '_id',
+  'logicsTariffId',
+  'shippingLabel',
+  'fbaShipment',
+  'fbaNumber',
+  'destinationId',
+  'variationTariffId',
+  'isShippingLabelAttachedByStorekeeper',
+  'items',
+]
+
+export const sharedFieldsWhiteList = [
+  'barCode',
+  'logicsTariffId',
+  'shippingLabel',
+  'fbaShipment',
+  'fbaNumber',
+  'destinationId',
+  'transparencyFile',
+  'variationTariffId',
+  'isShippingLabelAttachedByStorekeeper',
+  'isTransparencyFileAttachedByTheStorekeeper',
+  'isTransparencyFileAlreadyAttachedByTheSupplier',
+  'isBarCodeAlreadyAttachedByTheSupplier',
+  'isBarCodeAttachedByTheStorekeeper',
+]
+
 export const filtersFields = [
   'shopId',
   'humanFriendlyId',
