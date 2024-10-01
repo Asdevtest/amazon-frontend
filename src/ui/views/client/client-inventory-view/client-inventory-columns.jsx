@@ -397,7 +397,6 @@ export const clientInventoryColumns = ({
       ),
 
       width: 150,
-      disableColumnMenu: true,
       filterable: false,
       disableCustomSort: true,
     },
@@ -492,7 +491,6 @@ export const clientInventoryColumns = ({
       renderCell: params => <CommentOfSbCell productsInWarehouse={params.row?.productsInWarehouse} />,
       valueGetter: ({ row }) => row?.productsInWarehouse?.map(el => el?.comment || '').join(', '),
       width: 400,
-      disableColumnMenu: true,
       filterable: false,
       disableCustomSort: true,
     },
