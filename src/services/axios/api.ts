@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { runInAction } from 'mobx'
 
 import { BACKEND_API_URL } from '@constants/keys/env'
 
@@ -18,8 +19,10 @@ api.interceptors.request.use(config => {
     const userModel = JSON.parse(storage)
     const accessToken = userModel?.accessToken
 
-    UserModel.accessToken = userModel?.accessToken
-    UserModel.refreshToken = userModel?.refreshToken
+    runInAction(() => {
+      UserModel.accessToken = userModel?.accessToken
+      UserModel.refreshToken = userModel?.refreshToken
+    })
 
     config.headers.Authorization = `Bearer ${accessToken}`
   }
