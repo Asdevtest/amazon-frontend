@@ -18,16 +18,17 @@ export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
 
   return (
     <div className="viewWrapper">
-      <CustomButton
-        size="large"
-        type="primary"
-        title={t(TranslationKey['Assign several product cards to a Supervisor'])}
-        disabled={viewModel.selectedRows.length === 0}
-        onClick={throttle(viewModel.onPickUpSomeItems)}
-      >
-        {t(TranslationKey['Take on the work of the selected'])}
-      </CustomButton>
-
+      <div>
+        <CustomButton
+          size="large"
+          type="primary"
+          title={t(TranslationKey['Assign several product cards to a Supervisor'])}
+          disabled={viewModel.selectedRows.length === 0}
+          onClick={throttle(viewModel.onPickUpSomeItems)}
+        >
+          {t(TranslationKey['Take on the work of the selected'])}
+        </CustomButton>
+      </div>
       <CustomDataGrid
         checkboxSelection
         disableRowSelectionOnClick
