@@ -6,6 +6,7 @@ import { BACKEND_API_URL } from '@constants/keys/env'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
+import { UserModel } from '@models/user-model'
 
 import api from '@services/axios/api'
 
@@ -34,6 +35,7 @@ export const resetTokens = async (originalRequest?: AxiosRequestConfig) => {
       const accessToken = response?.data?.accessToken
 
       localStorage.setItem('UserModel', JSON.stringify({ ...userModel, accessToken }))
+      UserModel.setAccessToken(accessToken)
 
       ChatModel.disconnect()
       ChatModel.init(accessToken)
