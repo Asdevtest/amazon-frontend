@@ -2,6 +2,8 @@ import axios from 'axios'
 
 import { BACKEND_API_URL } from '@constants/keys/env'
 
+import { UserModel } from '@models/user-model'
+
 import { resetTokens } from './reset-api'
 
 const api = axios.create({
@@ -15,6 +17,9 @@ api.interceptors.request.use(config => {
   if (storage) {
     const userModel = JSON.parse(storage)
     const accessToken = userModel?.accessToken
+
+    UserModel.accessToken = userModel?.accessToken
+    UserModel.refreshToken = userModel?.refreshToken
 
     config.headers.Authorization = `Bearer ${accessToken}`
   }
