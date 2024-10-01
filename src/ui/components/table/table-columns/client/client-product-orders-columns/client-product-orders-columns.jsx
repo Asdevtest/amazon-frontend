@@ -164,7 +164,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
 
   {
     field: 'productionTerm',
-    headerName: t(TranslationKey['Production time']),
+    headerName: t(TranslationKey['Production time, days']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
     renderCell: params => {

@@ -247,7 +247,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
 
     {
       field: 'minProductionTerm',
-      headerName: t(TranslationKey['Production time']),
+      headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
         const supplier = params.row.orderSupplier
