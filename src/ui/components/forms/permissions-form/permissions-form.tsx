@@ -51,7 +51,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           <p className={styles.title}>{t(TranslationKey['Assign permissions'])}</p>
         ) : (
           <CustomRadioButton
-            disabled={viewModel.showSkeleton}
+            disabled={viewModel.mainLoading}
             size="large"
             buttonStyle="solid"
             value={viewModel.permissionTab}
@@ -81,9 +81,9 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
               value={viewModel.currentMainOptions}
               onFocus={() => viewModel.onChangeSearchFocus(true)}
               onBlur={() => viewModel.onChangeSearchFocus(false)}
+              onInputKeyDown={viewModel.onInputKeyDown}
               // @ts-ignore
               onChange={viewModel.mainChangeMethod}
-              onInputKeyDown={viewModel.onInputKeyDown}
             />
             {!viewModel.searchFocus ? (
               <p className={styles.searchPlaseholder}>{t(TranslationKey[viewModel.customSearchPlaseholder])}</p>
