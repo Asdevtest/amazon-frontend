@@ -32,7 +32,7 @@ class SupplierModelStatic {
   }
 
   addSuppliersPaymentMethod = async data => {
-    const response = await restApiService.supplierApi.apiV1SuppliersPaymentMethodsPostWithHttpInfo({ body: data })
+    const response = await restApiService.supplierApi.apiV1SuppliersPaymentMethodsPost({ body: data })
     return response.data
   }
 
