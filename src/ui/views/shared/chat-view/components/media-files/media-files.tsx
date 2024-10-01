@@ -13,6 +13,10 @@ interface MediaFilesProps {
 }
 
 export const MediaFiles: FC<MediaFilesProps> = memo(({ mediaFiles }) => {
+  if (mediaFiles.length === 0) {
+    return null
+  }
+
   const { classes: styles, cx } = useStyles()
 
   const [isShowImagePreview, setIsShowImagePreview] = useState<boolean>(false)
@@ -28,24 +32,25 @@ export const MediaFiles: FC<MediaFilesProps> = memo(({ mediaFiles }) => {
       <div
         className={cx(
           styles.root,
-          styles[`imageTile${mediaFiles.length > 6 ? 6 : mediaFiles.length}` as keyof typeof styles],
+          styles[`wrapperSize${mediaFiles.length >= 6 ? 6 : mediaFiles.length}` as keyof typeof styles],
         )}
       >
-        {mediaFiles.slice(0, 6).map((el, index) => (
-          <div key={index} className={styles.imageWrapper} onClick={() => handlePreview(index)}>
-            {checkIsVideoLink(el) ? (
-              <VideoPreloader wrapperClassName={styles.image} videoSource={getAmazonImageUrl(el)} />
-            ) : (
+        {mediaFiles.slice(0, 6).map((el, index) => {
+          if (checkIsVideoLink(el)) {
+            return <VideoPreloader key={index} wrapperClassName={styles.image} videoSource={getAmazonImageUrl(el)} />
+          } else {
+            return (
               <img
+                key={index}
                 className={styles.image}
                 src={getAmazonImageUrl(el, true)}
                 alt={index.toString()}
                 loading="lazy"
                 onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
               />
-            )}
-          </div>
-        ))}
+            )
+          }
+        })}
 
         {mediaFiles.length > 6 && (
           <button className={styles.overlay} onClick={() => handlePreview(5)}>
@@ -58,7 +63,7 @@ export const MediaFiles: FC<MediaFilesProps> = memo(({ mediaFiles }) => {
         <SlideshowGalleryModal
           openModal={isShowImagePreview}
           files={mediaFiles}
-          currentFileIndex={selectedImage as unknown as number}
+          currentFileIndex={selectedImage}
           onOpenModal={() => setIsShowImagePreview(!isShowImagePreview)}
           onCurrentFileIndex={setSelectedImage}
         />

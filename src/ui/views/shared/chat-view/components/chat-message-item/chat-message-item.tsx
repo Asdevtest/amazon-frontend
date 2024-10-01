@@ -7,6 +7,8 @@ import { formatDateTimeHourAndMinutesLocal } from '@utils/date-time'
 
 import { useStyles } from './chat-message-item.style'
 
+import { MediaFiles } from '../media-files'
+
 interface ChatMessageItemProps {
   currentUserId: string
   message: ChatMessage
@@ -23,6 +25,8 @@ export const ChatMessageItem: FC<ChatMessageItemProps> = memo(({ message, curren
 
   return (
     <div className={cx(styles.messageWrapper, { [styles.yourMessage]: isYourMessage })}>
+      <MediaFiles mediaFiles={mediaFiles} />
+
       <div>{message?.text}</div>
 
       <div className={styles.messageInfo}>
