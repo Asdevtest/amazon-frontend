@@ -1,3 +1,5 @@
+import { CiCircleCheck } from 'react-icons/ci'
+
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
@@ -272,6 +274,8 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={'FBA Shipment / Shipping Label'} />,
       renderCell: params => {
         const disabled = params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK
+        const firstIcon = params.row.shippingLabel ? <CiCircleCheck size={16} /> : null
+        const secondIcon = params.row.fbaShipment ? <CiCircleCheck size={16} /> : null
 
         return (
           <ActionButtonsCell
@@ -281,9 +285,11 @@ export const clientBoxesViewColumns = (
             secondGhost={!params.row.fbaShipment}
             firstDropdown={!!params.row.shippingLabel}
             secondDropdown={!!params.row.fbaShipment}
+            firstIcon={firstIcon}
             firstContent="Shipping label"
             firstDisabled={disabled}
-            secondContent={t(TranslationKey['FBA Shipment'])}
+            secondIcon={secondIcon}
+            secondContent="FBA Shipment"
             secondDisabled={disabled}
             onClickFirst={() => handlers.onClickShippingLabel(params.row)}
             onClickSecond={() => handlers.onClickFbaShipment(params.row)}
@@ -296,7 +302,6 @@ export const clientBoxesViewColumns = (
         `Shipping Label: ${
           params.row.shippingLabel ? getAmazonImageUrl(params.row.shippingLabel, true) : '-'
         } / FBA Shipment: ${params.row.fbaShipment || ''}`,
-
       width: 180,
       disableCustomSort: true,
     },

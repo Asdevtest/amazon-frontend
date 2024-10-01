@@ -206,7 +206,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 containerClasses={styles.field}
                 labelClasses={styles.label}
                 className={styles.fieldInput}
-                label={t(TranslationKey['FBA Shipment'])}
+                label="FBA Shipment"
                 value={box.fbaShipment}
                 inputComponent={<p className={styles.standartText}>{box.fbaShipment || t(TranslationKey.Missing)}</p>}
               />

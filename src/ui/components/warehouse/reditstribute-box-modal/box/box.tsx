@@ -200,12 +200,10 @@ export const Box: FC<BoxProps> = memo(props => {
 
               <Field
                 disabled={!isNewBox}
-                // @ts-ignore
                 inputProps={{ maxLength: 255 }}
                 tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                 containerClasses={styles.field}
                 labelClasses={styles.label}
-                // @ts-ignore
                 inputClasses={cx(styles.fieldInput, {
                   [styles.inputAccent]:
                     (box.shippingLabel || box.tmpShippingLabel?.length) &&
@@ -213,9 +211,8 @@ export const Box: FC<BoxProps> = memo(props => {
                     !destinations.find(el => el._id === box.destinationId)?.storekeeper &&
                     isNewBox,
                 })}
-                label={t(TranslationKey['FBA Shipment'])}
+                label="FBA Shipment"
                 value={box.fbaShipment}
-                // @ts-ignore
                 onChange={e => onChangeField(e, 'fbaShipment', box._id)}
               />
 

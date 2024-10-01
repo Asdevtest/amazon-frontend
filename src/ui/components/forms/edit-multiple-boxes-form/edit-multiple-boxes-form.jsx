@@ -436,7 +436,7 @@ export const EditMultipleBoxesForm = observer(
                   containerClasses={styles.field}
                   labelClasses={styles.label}
                   className={styles.fieldInput}
-                  label={t(TranslationKey['FBA Shipment'])}
+                  label="FBA Shipment"
                   value={sharedFields.fbaShipment}
                   onChange={e => onChangeSharedFields(e, 'fbaShipment')}
                 />

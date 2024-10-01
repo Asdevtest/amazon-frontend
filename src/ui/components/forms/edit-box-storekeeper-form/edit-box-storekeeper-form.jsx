@@ -652,7 +652,7 @@ export const EditBoxStorekeeperForm = memo(
                       inputClasses={styles.fbaShipmentInput}
                       inputProps={{ maxLength: 255 }}
                       tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
-                      label={t(TranslationKey['FBA Shipment'])}
+                      label="FBA Shipment"
                       value={boxFields.fbaShipment}
                       onChange={setFormField('fbaShipment')}
                     />

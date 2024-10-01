@@ -109,7 +109,6 @@ export enum TranslationKey {
   'Batch' = 'Batch',
   'Destination' = 'Destination',
   'HS code' = 'HS code',
-  'FBA Shipment' = 'FBA Shipment',
   'Move box' = 'Move box',
   'Add to batch' = 'Add to batch',
   'Create new batch' = 'Create new batch',
