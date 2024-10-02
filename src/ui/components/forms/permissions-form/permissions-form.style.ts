@@ -19,8 +19,8 @@ export const useStyles = makeStyles()(theme => ({
 
   searchPlaseholder: {
     position: 'absolute',
-    top: 19,
-    left: 23,
+    top: 20,
+    left: 22,
     color: theme.palette.text.second,
     opacity: 0.3,
     pointerEvents: 'none',
@@ -40,10 +40,17 @@ export const useStyles = makeStyles()(theme => ({
     },
 
     '.ant-select-selection-overflow': {
-      paddingLeft: '10px',
-
       '.ant-select-selection-item': {
         display: 'none !important',
+      },
+    },
+
+    '.ant-select-selection-search': {
+      width: '360px !important',
+      height: '40px',
+
+      '.ant-select-selection-search-input': {
+        padding: '10px !important',
       },
     },
   },
@@ -98,5 +105,9 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '25px',
     fontWeight: 600,
+  },
+
+  productOption: {
+    padding: 0,
   },
 }))

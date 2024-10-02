@@ -1,5 +1,5 @@
 import { Cascader, Skeleton } from 'antd'
-import Paragraph from 'antd/es/typography/Paragraph'
+import { DefaultOptionType } from 'antd/es/cascader'
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
@@ -18,6 +18,7 @@ import { useStyles } from './permissions-form.style'
 
 import { createPermissionOptions } from './permissions-form.config'
 import { PermissionsFormModel } from './permissions-form.model'
+import { ProductOption } from './product-option'
 
 export interface PermissionsFormProps {
   onCloseModal: () => void
@@ -28,6 +29,20 @@ export interface PermissionsFormProps {
 export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
   const viewModel = useMemo(() => new PermissionsFormModel(props), [])
   const { classes: styles } = useStyles()
+
+  const optionRender = (option: DefaultOptionType) => {
+    return viewModel.isAssignPermissions ? (
+      option.label
+    ) : (
+      <ProductOption
+        title={option.label as string}
+        asin={option.asin}
+        sku={option.sku}
+        image={option.image}
+        subOption={option.subOption}
+      />
+    )
+  }
 
   return (
     <div className={styles.root}>
@@ -62,14 +77,11 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
               options={viewModel.mainOptions}
               rootClassName={styles.cascader}
               popupClassName={styles.cascaderPopup}
-              optionRender={option => (
-                <Paragraph ellipsis={{ rows: 1 }} style={{ margin: 0 }}>
-                  {option.label}
-                </Paragraph>
-              )}
+              optionRender={optionRender}
               value={viewModel.currentMainOptions}
               onFocus={() => viewModel.onChangeSearchFocus(true)}
               onBlur={() => viewModel.onChangeSearchFocus(false)}
+              onInputKeyDown={viewModel.onInputKeyDown}
               // @ts-ignore
               onChange={viewModel.mainChangeMethod}
             />
