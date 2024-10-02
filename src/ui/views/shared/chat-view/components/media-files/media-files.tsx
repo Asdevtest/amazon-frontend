@@ -1,6 +1,7 @@
-import { FC, memo, useRef, useState } from 'react'
+import { FC, memo, useCallback, useState } from 'react'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
+import { CustomButton } from '@components/shared/custom-button'
 import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { checkIsVideoLink } from '@utils/checks'
@@ -22,10 +23,10 @@ export const MediaFiles: FC<MediaFilesProps> = memo(({ mediaFiles }) => {
   const [isShowImagePreview, setIsShowImagePreview] = useState<boolean>(false)
   const [selectedImage, setSelectedImage] = useState<number>(0)
 
-  const handlePreview = (index: number) => {
+  const onClickOpenPreview = useCallback((index: number) => {
     setSelectedImage(index)
     setIsShowImagePreview(true)
-  }
+  }, [])
 
   return (
     <>
@@ -37,26 +38,32 @@ export const MediaFiles: FC<MediaFilesProps> = memo(({ mediaFiles }) => {
       >
         {mediaFiles.slice(0, 6).map((el, index) => {
           if (checkIsVideoLink(el)) {
-            return <VideoPreloader key={index} wrapperClassName={styles.image} videoSource={getAmazonImageUrl(el)} />
+            return (
+              <VideoPreloader
+                key={index}
+                videoSource={getAmazonImageUrl(el)}
+                onClick={() => onClickOpenPreview(index)}
+              />
+            )
           } else {
             return (
               <img
                 key={index}
-                className={styles.image}
                 src={getAmazonImageUrl(el, true)}
                 alt={index.toString()}
                 loading="lazy"
                 onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
+                onClick={() => onClickOpenPreview(index)}
               />
             )
           }
         })}
 
-        {mediaFiles.length > 6 && (
-          <button className={styles.overlay} onClick={() => handlePreview(5)}>
-            <p>+{mediaFiles.length - 6}</p>
-          </button>
-        )}
+        {mediaFiles.length > 6 ? (
+          <CustomButton className={styles.overlay} onClick={() => onClickOpenPreview(5)}>
+            <p>{`+${mediaFiles.length - 6}`}</p>
+          </CustomButton>
+        ) : null}
       </div>
 
       {isShowImagePreview ? (
