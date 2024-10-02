@@ -30,16 +30,19 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
   const viewModel = useMemo(() => new PermissionsFormModel(props), [])
   const { classes: styles } = useStyles()
 
+  console.log('viewModel.editingPermissions', viewModel.editingPermissions)
+
   const optionRender = (option: DefaultOptionType) => {
     return viewModel.isAssignPermissions ? (
       option.label
     ) : (
       <ProductOption
-        title={option.label as string}
+        label={option.label as string}
         asin={option.asin}
         sku={option.sku}
         image={option.image}
         subOption={option.subOption}
+        onFocus={() => viewModel.onChangeSearchFocus(true)}
       />
     )
   }
@@ -66,6 +69,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           mode={viewModel.subUser ? undefined : 'multiple'}
           maxTagCount="responsive"
           defaultUser={viewModel.subUser}
+          onChange={viewModel.onChangeUsersData}
         />
       </div>
 
@@ -119,7 +123,12 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           )
         ) : null}
 
-        <CustomButton type="primary" size="large" disabled={viewModel.mainLoading} onClick={viewModel.onEditSubUser}>
+        <CustomButton
+          type="primary"
+          size="large"
+          disabled={viewModel.mainLoading || !viewModel.userIds.length}
+          onClick={viewModel.onEditSubUser}
+        >
           {t(TranslationKey.Save)}
         </CustomButton>
         <CustomButton size="large" onClick={props.onCloseModal}>

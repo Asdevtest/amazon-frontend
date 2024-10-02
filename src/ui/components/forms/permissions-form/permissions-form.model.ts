@@ -36,6 +36,7 @@ export class PermissionsFormModel {
   selectedSpecs: Specs[] = []
   shops: IShop[] = []
   products: IProduct[] = []
+  selectedUserIds: string[] = []
   // allProductsCount = 0
   // selectedProductsCount = 0
   currentPermissionOptions: string[][] = []
@@ -54,11 +55,13 @@ export class PermissionsFormModel {
       .map(item => ({
         label: item.title,
         value: item._id,
+        title: item.description,
         children: item.permissions
           .toSorted((a, b) => a.hierarchy - b.hierarchy)
           .map(el => ({
             label: el.title,
             value: el._id,
+            title: el.description,
           })),
       }))
     const extraOption =
@@ -69,11 +72,16 @@ export class PermissionsFormModel {
             children: this.withoutGroupPermissions.map(el => ({
               label: el.title,
               value: el._id,
+              title: el.description,
             })),
           }
         : null
 
-    return [...mainOptions, ...(extraOption ? [extraOption] : [])]
+    return [
+      { label: 'Выбрать все', value: 'select-all-permissions', children: undefined },
+      ...mainOptions,
+      ...(extraOption ? [extraOption] : []),
+    ]
   }
   get specsOptions() {
     return this.specs.map(spec => ({
@@ -128,7 +136,7 @@ export class PermissionsFormModel {
 
       if (permissionId) {
         permissions.push(permissionId)
-      } else {
+      } else if (groupId !== 'select-all-permissions') {
         permissionGroups.push(groupId)
       }
     })
@@ -171,6 +179,9 @@ export class PermissionsFormModel {
   get showSkeleton() {
     return this.mainLoading || (this.productsLoading && this.permissionTab === PermissionsTab.ACCESS_TO_PRODUCTS)
   }
+  get userIds() {
+    return this.subUser?._id ? [this.subUser?._id, ...this.selectedUserIds] : this.selectedUserIds
+  }
 
   constructor({ subUser, onCloseModal, onUpdateData }: PermissionsFormProps) {
     this.subUser = subUser
@@ -188,7 +199,24 @@ export class PermissionsFormModel {
   }
 
   onChangePermissionOptions(value: string[][]) {
-    this.currentPermissionOptions = value
+    const hasAllOption = value.some(item => item.includes('select-all-permissions'))
+    const allOptionSelected = this.currentPermissionOptions.some(item => item.includes('select-all-permissions'))
+    const allOptions = this.permissionsOptions.map(permission => [permission.value])
+    const permissionsOptions = allOptions.filter(item => !item.includes('select-all-permissions'))
+    const arraysMatch =
+      value.length === permissionsOptions.length && value.every(v => permissionsOptions.flat().includes(v[0]))
+
+    if (hasAllOption && !allOptionSelected) {
+      this.currentPermissionOptions = allOptions
+    } else if (!hasAllOption && allOptionSelected) {
+      this.currentPermissionOptions = []
+    } else if (arraysMatch) {
+      this.currentPermissionOptions = allOptions
+    } else if (allOptionSelected) {
+      this.currentPermissionOptions = value.filter(item => !item.includes('select-all-permissions'))
+    } else {
+      this.currentPermissionOptions = value
+    }
   }
 
   onChangeProductsOptions(value: string[][]) {
@@ -214,6 +242,10 @@ export class PermissionsFormModel {
       e.stopPropagation()
       return
     }
+  }
+
+  onChangeUsersData(data: string[]) {
+    this.selectedUserIds = data
   }
 
   async getProduts() {
@@ -320,18 +352,18 @@ export class PermissionsFormModel {
 
   async onEditSubUser() {
     try {
-      await UserModel.onEditMySubUser({ userIds: [this.subUser?._id], ...this.editingPermissions })
+      await UserModel.onEditMySubUser({ userIds: this.userIds, ...this.editingPermissions })
 
       if (!this.isFreelancer) {
         await PermissionsModel.setProductsPermissionsForUser({
-          userIds: [this.subUser?._id],
+          userIds: this.userIds,
           productIds: this.editingProducts.productIds,
         })
       }
 
       if (isClient(this.userInfo?.role)) {
         await PermissionsModel.patchPermissionsShops({
-          userIds: [this.subUser?._id],
+          userIds: this.userIds,
           shopIds: this.editingProducts.shopIds,
         })
       }
@@ -340,11 +372,12 @@ export class PermissionsFormModel {
         await UserModel.changeSubUserSpec(this.subUser?._id, { allowedSpec: this.selectedSpecs.flat() })
       }
 
-      this.onCloseModal?.()
       toast.success(t(TranslationKey['User permissions were changed']))
       this.onUpdateData?.()
     } catch (error) {
       toast.error(t(TranslationKey['User permissions are not changed']))
+    } finally {
+      this.onCloseModal?.()
     }
   }
 
@@ -356,7 +389,7 @@ export class PermissionsFormModel {
         option =>
           (option.asin as string)?.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
           (option.label as string)?.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
-          (option.skuByClient as string)?.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
+          (option.sku as string)?.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
       )
     }
   }
