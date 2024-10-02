@@ -76,7 +76,7 @@ export const Fields: FC<FieldsProps> = memo(props => {
         inputClasses={styles.inputClasses}
         containerClasses={styles.field}
         labelClasses={cx(styles.text, styles.label)}
-        label={t(TranslationKey['FBA Shipment'])}
+        label="FBA Shipment"
         value={formFields?.fbaShipment || ''}
       />
     </div>

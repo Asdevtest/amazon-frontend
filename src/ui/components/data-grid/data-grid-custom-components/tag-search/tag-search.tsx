@@ -47,7 +47,7 @@ export const TagSearch: FC<TagSearchProps> = memo(props => {
       <CustomInputSearch
         allowClear
         wrapperClassName={styles.searchInput}
-        placeholder={`#${t(TranslationKey['Search by tags'])}`}
+        placeholder="Search by tags"
         value={searchValue}
         onChange={e => setSearchValue(e.target.value)}
         onFocus={handleGetTags}

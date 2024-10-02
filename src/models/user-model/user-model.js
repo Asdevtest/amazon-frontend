@@ -47,6 +47,7 @@ class UserModelStatic {
     SettingsModel.setAuthorizationData('', '')
     ChatModel.disconnect()
     SettingsModel.setBreadcrumbsForProfile(null)
+    this.setAccessToken('')
   }
 
   async signIn(body) {
@@ -62,6 +63,7 @@ class UserModelStatic {
     })
 
     SettingsModel.setAuthorizationData(accessToken, refreshToken)
+    this.setAccessToken(accessToken)
   }
 
   setAccessToken(accessToken) {

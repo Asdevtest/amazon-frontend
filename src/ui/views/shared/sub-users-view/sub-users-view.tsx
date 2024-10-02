@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -7,25 +8,45 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { LinkSubUserForm } from '@components/forms/link-sub-user-form'
 import { PermissionsForm } from '@components/forms/permissions-form'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { Header } from './header/header'
+import { useStyles } from './sub-users-view.style'
+
 import { SubUsersViewModel } from './sub-users-view.model'
 
 export const SubUsersView = observer(() => {
+  const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new SubUsersViewModel(), [])
 
   return (
     <>
-      <Header
-        onChangeUnserverSearchValue={viewModel.onChangeUnserverSearchValue}
-        onToggleAddSubUserModal={viewModel.onToggleAddSubUserModal}
-      />
+      <div className={styles.header}>
+        <CustomButton
+          disabled
+          size="large"
+          type="primary"
+          onClick={() => viewModel.onTriggerOpenModal('showPermissionModal')}
+        >
+          {t(TranslationKey['Assign permissions'])}
+        </CustomButton>
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search by name, email"
+          onSearch={viewModel.onChangeUnserverSearchValue}
+        />
+        <CustomButton type="primary" size="large" icon={<FiPlus />} onClick={viewModel.onToggleAddSubUserModal}>
+          {t(TranslationKey['Add a user'])}
+        </CustomButton>
+      </div>
 
       <CustomDataGrid
         disableEnforceFocus
