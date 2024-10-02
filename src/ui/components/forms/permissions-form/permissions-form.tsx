@@ -30,8 +30,6 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
   const viewModel = useMemo(() => new PermissionsFormModel(props), [])
   const { classes: styles } = useStyles()
 
-  console.log('viewModel.editingPermissions', viewModel.editingPermissions)
-
   const optionRender = (option: DefaultOptionType) => {
     return viewModel.isAssignPermissions ? (
       option.label
