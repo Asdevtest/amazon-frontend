@@ -6,4 +6,9 @@ export const useStyles = makeStyles()(() => ({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+
+  tableWrapper: {
+    height: '77vh',
+    width: '100%',
+  },
 }))
