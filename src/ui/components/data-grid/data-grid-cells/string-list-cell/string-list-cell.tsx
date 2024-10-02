@@ -80,7 +80,7 @@ export const StringListCell: FC<StringListCellProps> = memo(props => {
             <CustomInputSearch
               allowClear
               wrapperClassName={styles.searchInput}
-              placeholder={t(TranslationKey.Search)}
+              placeholder="Search"
               onChange={e => setNameSearchValue(e.target.value)}
             />
             <>
