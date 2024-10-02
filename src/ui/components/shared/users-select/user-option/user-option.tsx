@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { IChangeData } from '../users-selec.config'
+import { IChangeData } from '../users-select.config'
 
 interface UserOptionProps {
   user: BaseOptionType

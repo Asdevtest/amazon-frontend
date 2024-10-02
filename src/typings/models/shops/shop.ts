@@ -14,6 +14,7 @@ export interface IShop {
   createdAt: string
   updatedAt: string
   products?: IProduct[]
+  selected?: boolean
 }
 
 export interface IShopExport {

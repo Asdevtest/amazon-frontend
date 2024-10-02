@@ -7,7 +7,7 @@ import { CustomSelectProps } from '@components/shared/custom-select/custom-selec
 import { IFullUser } from '@typings/shared/full-user'
 
 import { UserOption } from './user-option'
-import { IChangeData } from './users-selec.config'
+import { IChangeData } from './users-select.config'
 import { UsersSelectModel } from './users-select.model'
 
 interface UsersSelectProps extends Omit<CustomSelectProps, 'options'> {
