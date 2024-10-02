@@ -19,8 +19,6 @@ export class CustomAvatarModel {
   fileList: UploadFile[] = []
 
   constructor(initialUrl?: string) {
-    console.log('Initial URL:', initialUrl)
-    console.log('FileList before update:', this.fileList)
     if (initialUrl) {
       this.fileList = [
         {
@@ -30,7 +28,6 @@ export class CustomAvatarModel {
           url: initialUrl,
         },
       ]
-      console.log('FileList after update:', this.fileList)
     }
     makeAutoObservable(this, undefined, { autoBind: true })
   }
