@@ -30,6 +30,7 @@ export const TabDestinations = observer(() => {
       <CustomDataGrid
         sortModel={viewModel.sortModel}
         sortingMode="client"
+        className={styles.tableWrapper}
         paginationMode="client"
         filterModel={viewModel.filterModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
