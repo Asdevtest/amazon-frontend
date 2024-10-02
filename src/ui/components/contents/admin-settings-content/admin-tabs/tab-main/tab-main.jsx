@@ -121,7 +121,7 @@ export const TabMain = memo(props => {
             type="primary"
             size="large"
             disabled={disabledSubmitFields}
-            onClick={throttle(onSubmit(updatedProxy))}
+            onClick={throttle(() => onSubmit(updatedProxy))}
           >
             {t(TranslationKey.Save)}
           </CustomButton>
