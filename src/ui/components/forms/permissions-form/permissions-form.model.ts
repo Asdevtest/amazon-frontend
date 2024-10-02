@@ -204,7 +204,7 @@ export class PermissionsFormModel {
     const allOptions = this.permissionsOptions.map(permission => [permission.value])
     const permissionsOptions = allOptions.filter(item => !item.includes('select-all-permissions'))
     const arraysMatch =
-      value.length === permissionsOptions.length && value.every(v => permissionsOptions.flat().includes(v[0]))
+      value.length === permissionsOptions.length && value.every(ids => permissionsOptions.flat().includes(ids[0]))
 
     if (hasAllOption && !allOptionSelected) {
       this.currentPermissionOptions = allOptions
