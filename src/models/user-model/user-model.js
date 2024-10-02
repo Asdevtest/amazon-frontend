@@ -304,6 +304,11 @@ class UserModelStatic {
     const response = await restApiService.userApi.apiV1UsersPresetsSettingsMyGet({ filters })
     return response.data
   }
+
+  onEditMySubUser = async body => {
+    const response = await restApiService.userApi.apiV1UsersEditMySubUsersPatch({ body })
+    return response.data
+  }
 }
 
 export const UserModel = new UserModelStatic()
