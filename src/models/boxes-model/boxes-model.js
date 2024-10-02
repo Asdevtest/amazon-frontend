@@ -49,6 +49,12 @@ class BoxesModelStatic {
     return response.data
   }
 
+  editManyBoxes = async body => {
+    const response = await restApiService.boxesApi.apiV1BoxesManyV2Patch({
+      body,
+    })
+  }
+
   editBoxAtClient = async (guid, body) => {
     const response = await restApiService.boxesApi.apiV1BoxesClientsGuidPatch({
       guid,

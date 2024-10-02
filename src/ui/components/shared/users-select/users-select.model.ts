@@ -7,7 +7,7 @@ import { IFullUser } from '@typings/shared/full-user'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
-import { getDefaultUserOption, getUserOptions, requestSelectConfig } from './users-selec.config'
+import { getDefaultUserOption, getUserOptions, requestSelectConfig } from './users-select.config'
 
 export class UsersSelectModel extends UseProductsPermissions {
   defaultUser?: IFullUser

@@ -406,7 +406,7 @@ export const MyRequestsStatusMenuItem = memo(
         <CustomInputSearch
           allowClear
           wrapperClassName={styles.searchInput}
-          placeholder={t(TranslationKey.Search)}
+          placeholder="Search"
           onChange={e => setNameSearchValue(e.target.value)}
         />
         <div className={styles.shopsWrapper}>
@@ -498,7 +498,7 @@ export const FreelanceRequestType = memo(
         <CustomInputSearch
           allowClear
           wrapperClassName={styles.searchInput}
-          placeholder={t(TranslationKey.Search)}
+          placeholder="Search"
           onChange={e => setNameSearchValue(e.target.value)}
         />
         <div className={styles.shopsWrapper}>
@@ -620,7 +620,7 @@ export const CreatedByMenuItem = memo(
           <CustomInputSearch
             allowClear
             wrapperClassName={styles.searchInput}
-            placeholder={t(TranslationKey.Search)}
+            placeholder="Search"
             onChange={e => setNameSearchValue(e.target.value)}
           />
           <div className={styles.shopsWrapper}>
@@ -780,7 +780,7 @@ export const ObJectFieldMenuItem = memo(
           <CustomInputSearch
             allowClear
             wrapperClassName={styles.searchInput}
-            placeholder={t(TranslationKey.Search)}
+            placeholder="Search"
             onChange={e => setNameSearchValue(e.target.value)}
           />
           <div className={styles.shopsWrapper}>
@@ -930,7 +930,7 @@ export const IdeaShopsFieldMenuItem = memo(
           <CustomInputSearch
             allowClear
             wrapperClassName={styles.searchInput}
-            placeholder={t(TranslationKey.Search)}
+            placeholder="Search"
             onChange={e => setNameSearchValue(e.target.value)}
           />
           <div className={styles.shopsWrapper}>
@@ -1167,7 +1167,7 @@ export const NormalFieldMenuItem = memo(
           <CustomInputSearch
             allowClear
             wrapperClassName={styles.searchInput}
-            placeholder={t(TranslationKey.Search)}
+            placeholder="Search"
             onChange={e => setNameSearchValue(e.target.value)}
           />
 
@@ -1481,7 +1481,7 @@ export const OrderOrItemMenuItem = memo(
           <CustomInputSearch
             allowClear
             wrapperClassName={styles.searchInput}
-            placeholder={t(TranslationKey.Search)}
+            placeholder="Search"
             onChange={e => setNameSearchValue(e.target.value)}
           />
           <div className={styles.shopsWrapper}>
@@ -1649,7 +1649,7 @@ export const DestinationMenuItem = memo(
         <CustomInputSearch
           allowClear
           wrapperClassName={styles.searchInput}
-          placeholder={t(TranslationKey.Search)}
+          placeholder="Search"
           onChange={e => setNameSearchValue(e.target.value)}
         />
         <div className={styles.shopsWrapper}>
@@ -1802,7 +1802,7 @@ export const FromToDateMenuItem = memo(
           <CustomInputSearch
             allowClear
             wrapperClassName={styles.searchInput}
-            placeholder={t(TranslationKey.Search)}
+            placeholder="Search"
             onChange={e => setNameSearchValue(e.target.value)}
           />
           <div className={styles.shopsWrapper}>
@@ -2092,7 +2092,7 @@ export const NumberFieldMenuItem = memo(
           <CustomInputSearch
             allowClear
             wrapperClassName={styles.searchInput}
-            placeholder={t(TranslationKey.Search)}
+            placeholder="Search"
             onChange={e => setNameSearchValue(e.target.value)}
           />
           <div className={styles.shopsWrapper}>
@@ -2229,7 +2229,7 @@ export const InStockMenuItem = memo(
           <CustomInputSearch
             allowClear
             wrapperClassName={styles.searchInput}
-            placeholder={t(TranslationKey.Search)}
+            placeholder="Search"
             onChange={e => setNameSearchValue(e.target.value)}
           />
 

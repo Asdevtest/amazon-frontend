@@ -1,6 +1,7 @@
 import { RadioChangeEvent } from 'antd'
 import { DefaultOptionType } from 'antd/es/cascader'
 import { makeAutoObservable, runInAction } from 'mobx'
+import { KeyboardEvent } from 'react'
 import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -87,12 +88,15 @@ export class PermissionsFormModel {
     const mainOptions = this.shops.map(item => ({
       label: item.name,
       value: item._id,
+      selected: item.selected,
       children: item.products?.map(el => ({
         label: el.amazonTitle,
         value: el._id,
         selected: el.selected,
         asin: el.asin,
         sku: el.skuByClient,
+        image: el.images?.[0],
+        subOption: true,
       })),
     }))
     const extraOption =
@@ -100,12 +104,15 @@ export class PermissionsFormModel {
         ? {
             label: `Без группы`,
             value: 'WITHOUT_GROUP',
+            selected: false,
             children: this.products.map(el => ({
               label: el.amazonTitle,
               value: el._id,
               selected: el.selected,
               asin: el.asin,
               sku: el.skuByClient,
+              image: el.images?.[0],
+              subOption: true,
             })),
           }
         : null
@@ -146,21 +153,20 @@ export class PermissionsFormModel {
 
     return { shopIds, productIds }
   }
+  get isAssignPermissions() {
+    return this.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS
+  }
   get customSearchPlaseholder() {
-    return this.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS ? 'Search by Title' : 'Search by Title, ASIN, SKU'
+    return this.isAssignPermissions ? 'Search by Title' : 'Search by Title, ASIN, SKU'
   }
   get mainOptions() {
-    return this.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS ? this.permissionsOptions : this.productsOptions
+    return this.isAssignPermissions ? this.permissionsOptions : this.productsOptions
   }
   get mainChangeMethod() {
-    return this.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS
-      ? this.onChangePermissionOptions
-      : this.onChangeProductsOptions
+    return this.isAssignPermissions ? this.onChangePermissionOptions : this.onChangeProductsOptions
   }
   get currentMainOptions() {
-    return this.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS
-      ? this.currentPermissionOptions
-      : this.currentProductOptions
+    return this.isAssignPermissions ? this.currentPermissionOptions : this.currentProductOptions
   }
   get showSkeleton() {
     return this.mainLoading || (this.productsLoading && this.permissionTab === PermissionsTab.ACCESS_TO_PRODUCTS)
@@ -201,6 +207,15 @@ export class PermissionsFormModel {
     this.searchFocus = value
   }
 
+  onInputKeyDown(e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const inputValue = (e.target as HTMLInputElement).value
+
+    if ((e.key === 'Backspace' || e.key === 'Delete') && inputValue === '') {
+      e.stopPropagation()
+      return
+    }
+  }
+
   async getProduts() {
     if (isFreelancer(this.userInfo?.role)) {
       return
@@ -222,7 +237,7 @@ export class PermissionsFormModel {
       ) */
       this.shops = responseShops.rows
       this.productsOptions.forEach(el => {
-        if (el.children?.length === 0) {
+        if (el.selected) {
           this.currentProductOptions.push([el.value])
         } else {
           el.children?.forEach(item => {
@@ -248,7 +263,6 @@ export class PermissionsFormModel {
 
     runInAction(() => {
       this.mainLoading = false
-
       this.permissionsOptions.forEach(el => {
         if (this.subUser?.permissionGroups.includes(el.value)) {
           this.currentPermissionOptions.push([el.value])
@@ -335,14 +349,14 @@ export class PermissionsFormModel {
   }
 
   searchfilter(inputValue: string, path: DefaultOptionType[]) {
-    if (this.permissionTab === PermissionsTab.ASSIGN_PERMISSIONS) {
-      return path.some(option => (option.label as string).toLowerCase().includes(inputValue.toLowerCase()))
+    if (this.isAssignPermissions) {
+      return path.some(option => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
     } else {
       return path.some(
         option =>
-          (option.asin as string)?.toLowerCase().includes(inputValue.toLowerCase()) ||
-          (option.label as string)?.toLowerCase().includes(inputValue.toLowerCase()) ||
-          (option.skuByClient as string)?.toLowerCase().includes(inputValue.toLowerCase()),
+          (option.asin as string)?.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
+          (option.label as string)?.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
+          (option.skuByClient as string)?.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
       )
     }
   }
