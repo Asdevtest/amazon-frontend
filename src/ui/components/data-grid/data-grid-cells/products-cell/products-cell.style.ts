@@ -24,6 +24,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: 5,
     border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: 16,
+    flexShrink: 0,
   },
 
   item: {
