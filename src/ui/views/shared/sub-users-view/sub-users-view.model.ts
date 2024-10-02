@@ -56,9 +56,14 @@ export class SubUsersViewModel extends DataGridTableModel {
     }
   }
 
-  async onClickEditBtn(row: IFullUser) {
+  onClickEditBtn(row: IFullUser) {
     this.selectedSubUser = row
 
+    this.onTriggerOpenModal('showPermissionModal')
+  }
+
+  onClosePermissionModal() {
+    this.selectedSubUser = undefined
     this.onTriggerOpenModal('showPermissionModal')
   }
 
