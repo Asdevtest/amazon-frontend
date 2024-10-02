@@ -96,7 +96,6 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       ),
       disableExport: true,
       disableCustomSort: true,
-      disableColumnMenu: true,
       filterable: false,
       width: 95,
     },
