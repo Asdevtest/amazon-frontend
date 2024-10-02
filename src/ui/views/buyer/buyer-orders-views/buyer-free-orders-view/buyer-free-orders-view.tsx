@@ -19,15 +19,16 @@ export const BuyerFreeOrdersView = observer(() => {
 
   return (
     <div className="viewWrapper">
-      <CustomButton
-        type="primary"
-        size="large"
-        disabled={viewModel.selectedRows.length === 0}
-        onClick={viewModel.onPickupSomeItems}
-      >
-        {t(TranslationKey['Take on the work of the selected'])}
-      </CustomButton>
-
+      <div>
+        <CustomButton
+          type="primary"
+          size="large"
+          disabled={viewModel.selectedRows.length === 0}
+          onClick={viewModel.onPickupSomeItems}
+        >
+          {t(TranslationKey['Take on the work of the selected'])}
+        </CustomButton>
+      </div>
       <CustomDataGrid
         checkboxSelection
         disableRowSelectionOnClick
