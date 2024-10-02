@@ -110,7 +110,11 @@ export const SubUsersView = observer(() => {
         />
       </Modal>
 
-      <Modal openModal={viewModel.showPermissionModal} setOpenModal={viewModel.onClosePermissionModal}>
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showPermissionModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
+      >
         <PermissionsForm
           subUser={viewModel.selectedSubUser}
           onCloseModal={viewModel.onClosePermissionModal}

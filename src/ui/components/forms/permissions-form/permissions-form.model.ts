@@ -320,18 +320,18 @@ export class PermissionsFormModel {
 
   async onEditSubUser() {
     try {
-      await PermissionsModel.onEditMySubUser(this.subUser?._id, this.editingPermissions)
+      await UserModel.onEditMySubUser({ userIds: [this.subUser?._id], ...this.editingPermissions })
 
       if (!this.isFreelancer) {
         await PermissionsModel.setProductsPermissionsForUser({
-          userId: this.subUser?._id,
+          userIds: [this.subUser?._id],
           productIds: this.editingProducts.productIds,
         })
       }
 
       if (isClient(this.userInfo?.role)) {
         await PermissionsModel.patchPermissionsShops({
-          userId: this.subUser?._id,
+          userIds: [this.subUser?._id],
           shopIds: this.editingProducts.shopIds,
         })
       }
