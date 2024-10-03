@@ -165,7 +165,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   disabledNumInput: {
-    width: 80,
+    width: '120px',
     height: 40,
     marginLeft: 55,
   },
