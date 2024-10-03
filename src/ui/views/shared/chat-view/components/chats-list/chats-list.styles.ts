@@ -6,7 +6,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     height: '100%',
     width: '312px',
-    backgroundColor: theme.palette.background.general,
 
     gap: '10px',
 

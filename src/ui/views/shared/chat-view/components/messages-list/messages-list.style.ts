@@ -1,12 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   messagesListWrapper: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
     gap: '5px',
-    padding: '10px 0',
+    padding: '10px 5px',
     paddingRight: '9px',
 
     overflowY: 'auto',

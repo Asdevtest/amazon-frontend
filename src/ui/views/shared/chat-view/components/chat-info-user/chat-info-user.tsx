@@ -10,23 +10,21 @@ import { getChatOponent } from '@utils/chat/get-chat-oponent'
 import { checkOnline } from '@utils/checks/check-online/check-online'
 import { getDistanceBetweenDatesSeconds } from '@utils/checks/get-distance-between-dates-seconds/get-distance-between-dates-seconds'
 import { formatDateTimeHourAndMinutesLocal, formatDateWithoutTimeLocal } from '@utils/date-time'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { IFullUser } from '@typings/shared/full-user'
 
-import { useStyles } from './chat-info-header-user.style'
+import { useStyles } from './chat-info-user.style'
 
 interface ChatInfoHeaderUserProps {
   currentChat: Chat
 }
 
-export const ChatInfoHeaderUser: FC<ChatInfoHeaderUserProps> = memo(({ currentChat }) => {
+export const ChatInfoUser: FC<ChatInfoHeaderUserProps> = memo(({ currentChat }) => {
   const { classes: styles, cx } = useStyles()
 
-  const isFavoritesChat = useMemo(() => currentChat.type === ChatsType.SAVED, [])
-  const isGroupChat = useMemo(() => currentChat.type === ChatsType.GROUP, [])
+  const isFavoritesChat = useMemo(() => currentChat.type === ChatsType.SAVED, [currentChat])
+  const isGroupChat = useMemo(() => currentChat.type === ChatsType.GROUP, [currentChat])
 
   const currentOpponent = getChatOponent(currentChat?.users as unknown as IFullUser[])
 
@@ -51,9 +49,15 @@ export const ChatInfoHeaderUser: FC<ChatInfoHeaderUserProps> = memo(({ currentCh
 
   return (
     <div className={styles.chatInfoHeaderWrapper}>
-      <p className={styles.title}>{chatTitle}</p>
+      <p className={cx(styles.text, styles.title)} title={chatTitle}>
+        {chatTitle}
+      </p>
 
-      {isFavoritesChat ? null : <p className={styles.subTitle}>{chatSubTitle}</p>}
+      {isFavoritesChat ? null : (
+        <p className={cx(styles.text, styles.subTitle)} title={chatSubTitle}>
+          {chatSubTitle}
+        </p>
+      )}
     </div>
   )
 })

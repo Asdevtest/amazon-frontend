@@ -146,6 +146,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
       <NoReadIcon className={styles.noReadIcon} />
     )
 
+  // @ts-ignore
   const isOnlineUser = checkOnline(chat.type, oponentUser)
 
   return (

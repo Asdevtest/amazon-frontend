@@ -29,7 +29,6 @@ export { DownloadArchiveIcon } from '@components/shared/svg-icons/download-archi
 export { DownloadIcon } from '@components/shared/svg-icons/download-icon/download-icon'
 export { DownloadRoundIcon } from '@components/shared/svg-icons/download-round-icon/download-round-icon'
 export { EditIcon } from '@components/shared/svg-icons/edit-icon/edit-icon'
-export { EmojiIcon } from '@components/shared/svg-icons/emoji-icon/emoji-icon'
 export { EmptyFileIcon } from '@components/shared/svg-icons/empty-file-icon/emtpy-file-icon'
 export { EqualIcon } from '@components/shared/svg-icons/equal-icon/equal-icon'
 export { EtaIcon } from '@components/shared/svg-icons/eta-icon/eta-icon'

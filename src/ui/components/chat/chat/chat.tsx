@@ -1,8 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import data from '@emoji-mart/data'
-import Picker from '@emoji-mart/react'
 import { ChangeEvent, FC, KeyboardEvent, ReactElement, memo, useCallback, useEffect, useRef, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 import { MdKeyboardArrowDown } from 'react-icons/md'
@@ -23,7 +19,7 @@ import { SettingsModel } from '@models/settings-model'
 import { Button } from '@components/shared/button'
 import { CircleSpinner } from '@components/shared/circle-spinner'
 import { CustomButton } from '@components/shared/custom-button'
-import { EmojiIcon, FileIcon, SendIcon } from '@components/shared/svg-icons'
+import { FileIcon, SendIcon } from '@components/shared/svg-icons'
 
 import { checkIsExternalVideoLink } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -373,13 +369,13 @@ export const Chat: FC<ChatProps> = memo(
                 }}
               >
                 <div className={styles.emojisWrapper}>
-                  <Picker
+                  {/* <Picker
                     data={data}
                     perLine={isTabletResolution ? 7 : 9}
                     theme={SettingsModel.uiTheme}
                     locale={getLanguageTag(SettingsModel.languageTag)}
                     onEmojiSelect={(e: OnEmojiSelectEvent) => changeMessageAndState(message + e.native)}
-                  />
+                  /> */}
                 </div>
               </ClickAwayListener>
             )}
@@ -401,13 +397,13 @@ export const Chat: FC<ChatProps> = memo(
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end" className={styles.icons}>
-                    <EmojiIcon
+                    {/* <EmojiIcon
                       id="emoji-icon"
                       className={cx(styles.inputIcon, {
                         [styles.inputIconActive]: isShowEmojis,
                       })}
                       onClick={() => setIsShowEmojis(!isShowEmojis)}
-                    />
+                    /> */}
                     <div className={styles.filesIconWrapper}>
                       <FileIcon
                         className={cx(styles.inputIcon, {

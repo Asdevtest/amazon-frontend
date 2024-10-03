@@ -78,7 +78,9 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
     onChangeCurFoundedMessage(index)
   }
 
+  // @ts-ignore
   const isOnlineUser = checkOnline(currentChat?.type, currentOpponent)
+  // @ts-ignore
   const dateGap = getDistanceBetweenDatesSeconds(new Date(), new Date(currentOpponent?.lastSeen))
 
   const lastSeenMessage =

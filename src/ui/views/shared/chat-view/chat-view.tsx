@@ -1,12 +1,16 @@
-import { memo } from 'react'
+import { observer } from 'mobx-react'
+
+import { chatModel } from '@models/chat-model-new/chat-model'
 
 import { useStyles } from './chat-view.style'
 
-import { ChatInfoHeader } from './components/chat-info-header'
+import { ChatHeader } from './components/chat-header'
+import { ChatInfo } from './components/chat-info'
 import { ChatsList } from './components/chats-list'
 import { MessagesList } from './components/messages-list'
+import { SendMessageBlock } from './components/send-message-block'
 
-export const ChatView = memo(() => {
+export const ChatView = observer(() => {
   const { classes: styles, cx } = useStyles()
 
   return (
@@ -14,10 +18,14 @@ export const ChatView = memo(() => {
       <ChatsList />
 
       <div className={cx('viewWrapper', styles.messagesWrapper)}>
-        <ChatInfoHeader />
+        {chatModel.currentChat ? <ChatHeader /> : null}
 
         <MessagesList />
+
+        {chatModel.currentChat ? <SendMessageBlock /> : null}
       </div>
+
+      {chatModel.currentChat ? <ChatInfo /> : null}
     </div>
   )
 })

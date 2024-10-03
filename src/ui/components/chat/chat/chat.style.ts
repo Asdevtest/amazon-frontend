@@ -182,10 +182,6 @@ export const useStyles = makeStyles()(theme => ({
       right: 20,
       bottom: 80,
       transform: 'none',
-
-      'em-emoji-picker': {
-        // width: 280,
-      },
     },
   },
 
