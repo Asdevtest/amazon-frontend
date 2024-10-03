@@ -21,7 +21,11 @@ export const EmojiPickerBlock: FC<EmojiPickerBlockProps> = memo(({ onClickEmoji 
 
   return (
     <div ref={emojiPickerRef} className={styles.emojiPickerWrapper}>
-      <CustomButton type="text" icon={<GrEmoji size={20} />} onClick={() => onClickEmojiMenu(!isShowEmojis)} />
+      <CustomButton
+        type={isShowEmojis ? 'primary' : 'text'}
+        icon={<GrEmoji size={20} />}
+        onClick={() => onClickEmojiMenu(!isShowEmojis)}
+      />
 
       {isShowEmojis ? (
         <EmojiPicker
