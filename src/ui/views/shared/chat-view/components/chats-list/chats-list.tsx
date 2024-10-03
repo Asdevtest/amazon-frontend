@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { TbLayoutSidebarLeftCollapse } from 'react-icons/tb'
+import { TbLayoutSidebarRightCollapse } from 'react-icons/tb'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
@@ -17,7 +17,7 @@ export const ChatsList = memo(() => {
       <div className={styles.chatControls}>
         <CustomInputSearch placeholder="Search" wrapperClassName={styles.searchInput} />
 
-        <CustomButton type="text" icon={<TbLayoutSidebarLeftCollapse size={20} />} />
+        <CustomButton type="text" icon={<TbLayoutSidebarRightCollapse className={styles.collapseIcon} size={20} />} />
       </div>
 
       <ChatItemList />

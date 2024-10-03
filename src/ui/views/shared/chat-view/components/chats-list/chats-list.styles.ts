@@ -7,11 +7,8 @@ export const useStyles = makeStyles()(theme => ({
     height: '100%',
     width: '312px',
     backgroundColor: theme.palette.background.general,
-    boxShadow: theme.palette.boxShadow.casualBoxShadow,
 
     gap: '10px',
-
-    borderRadius: '20px 0 0 20px',
 
     padding: '10px',
     paddingRight: '5px',
@@ -19,6 +16,10 @@ export const useStyles = makeStyles()(theme => ({
     '@container (min-width: 1200px)': {
       // backgroundColor: 'blue',
     },
+  },
+
+  collapseIcon: {
+    color: theme.palette.primary.main,
   },
 
   chatControls: {
