@@ -4,14 +4,11 @@ import { MdOutlineMoreHoriz } from 'react-icons/md'
 
 import { Menu } from '@mui/material'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { getShortenStringIfLongerThanCount } from '@utils/text'
-import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 

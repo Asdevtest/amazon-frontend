@@ -24,7 +24,7 @@ import { IFullUser } from '@typings/shared/full-user'
 import { ISpec } from '@typings/shared/spec'
 
 import { PermissionsFormProps } from './permissions-form'
-import { PermissionsTab } from './permissions-form.config'
+import { PermissionsTab, SELECT_ALL_PERMISSION, SELECT_ALL_PRODUCTS, WITHOUT_GROUP } from './permissions-form.config'
 
 export class PermissionsFormModel {
   permissionTab = PermissionsTab.ASSIGN_PERMISSIONS
@@ -68,7 +68,7 @@ export class PermissionsFormModel {
       this.withoutGroupPermissions.length > 0
         ? {
             label: 'Без группы',
-            value: 'WITHOUT_GROUP',
+            value: WITHOUT_GROUP,
             children: this.withoutGroupPermissions.map(el => ({
               label: el.title,
               value: el._id,
@@ -78,7 +78,7 @@ export class PermissionsFormModel {
         : null
 
     return [
-      { label: 'Выбрать все', value: 'select-all-permissions', children: undefined },
+      { label: 'Выбрать все', value: SELECT_ALL_PERMISSION, children: undefined },
       ...mainOptions,
       ...(extraOption ? [extraOption] : []),
     ]
@@ -111,7 +111,7 @@ export class PermissionsFormModel {
       this.products.length > 0
         ? {
             label: `Без группы`,
-            value: 'WITHOUT_GROUP',
+            value: WITHOUT_GROUP,
             selected: false,
             children: this.products.map(el => ({
               label: el.amazonTitle,
@@ -125,7 +125,11 @@ export class PermissionsFormModel {
           }
         : null
 
-    return [...(extraOption ? [extraOption] : []), ...mainOptions]
+    return [
+      { label: 'Выбрать все', value: SELECT_ALL_PRODUCTS, children: undefined, selected: false },
+      ...(extraOption ? [extraOption] : []),
+      ...mainOptions,
+    ]
   }
   get editingPermissions() {
     const permissions: string[] = []
@@ -136,7 +140,7 @@ export class PermissionsFormModel {
 
       if (permissionId) {
         permissions.push(permissionId)
-      } else if (groupId !== 'select-all-permissions') {
+      } else if (groupId !== SELECT_ALL_PERMISSION) {
         permissionGroups.push(groupId)
       }
     })
@@ -152,7 +156,7 @@ export class PermissionsFormModel {
 
       if (productId) {
         productIds.push(productId)
-      } else if (shopId === 'WITHOUT_GROUP') {
+      } else if ([WITHOUT_GROUP, SELECT_ALL_PRODUCTS].includes(shopId)) {
         this.products.forEach(product => productIds.push(product._id))
       } else {
         shopIds.push(shopId)
@@ -199,10 +203,10 @@ export class PermissionsFormModel {
   }
 
   onChangePermissionOptions(value: string[][]) {
-    const hasAllOption = value.some(item => item.includes('select-all-permissions'))
-    const allOptionSelected = this.currentPermissionOptions.some(item => item.includes('select-all-permissions'))
+    const hasAllOption = value.some(item => item.includes(SELECT_ALL_PERMISSION))
+    const allOptionSelected = this.currentPermissionOptions.some(item => item.includes(SELECT_ALL_PERMISSION))
     const allOptions = this.permissionsOptions.map(permission => [permission.value])
-    const permissionsOptions = allOptions.filter(item => !item.includes('select-all-permissions'))
+    const permissionsOptions = allOptions.filter(item => !item.includes(SELECT_ALL_PERMISSION))
     const arraysMatch =
       value.length === permissionsOptions.length && value.every(ids => permissionsOptions.flat().includes(ids[0]))
 
@@ -213,14 +217,31 @@ export class PermissionsFormModel {
     } else if (arraysMatch) {
       this.currentPermissionOptions = allOptions
     } else if (allOptionSelected) {
-      this.currentPermissionOptions = value.filter(item => !item.includes('select-all-permissions'))
+      this.currentPermissionOptions = value.filter(item => !item.includes(SELECT_ALL_PERMISSION))
     } else {
       this.currentPermissionOptions = value
     }
   }
 
   onChangeProductsOptions(value: string[][]) {
-    this.currentProductOptions = value
+    const hasAllOption = value.some(item => item.includes(SELECT_ALL_PRODUCTS))
+    const allOptionSelected = this.currentProductOptions.some(item => item.includes(SELECT_ALL_PRODUCTS))
+    const allOptions = this.productsOptions.map(permission => [permission.value])
+    const productsOptions = allOptions.filter(item => !item.includes(SELECT_ALL_PRODUCTS))
+    const arraysMatch =
+      value.length === productsOptions.length && value.every(ids => productsOptions.flat().includes(ids[0]))
+
+    if (hasAllOption && !allOptionSelected) {
+      this.currentProductOptions = allOptions
+    } else if (!hasAllOption && allOptionSelected) {
+      this.currentProductOptions = []
+    } else if (arraysMatch) {
+      this.currentProductOptions = allOptions
+    } else if (allOptionSelected) {
+      this.currentProductOptions = value.filter(item => !item.includes(SELECT_ALL_PRODUCTS))
+    } else {
+      this.currentProductOptions = value
+    }
   }
 
   onChangeSpecs(value: Specs[]) {
@@ -233,6 +254,14 @@ export class PermissionsFormModel {
 
   onChangeSearchFocus(value: boolean) {
     this.searchFocus = value
+  }
+
+  onSeacrh(value: string) {
+    if (value.length) {
+      this.onChangeSearchFocus(true)
+    } else {
+      this.onChangeSearchFocus(false)
+    }
   }
 
   onInputKeyDown(e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -248,41 +277,6 @@ export class PermissionsFormModel {
     this.selectedUserIds = data
   }
 
-  async getProduts() {
-    if (isFreelancer(this.userInfo?.role)) {
-      return
-    }
-
-    runInAction(() => (this.productsLoading = true))
-
-    const responseProducts = (await PermissionsModel.getProductsPermissionsForUserByIdV2(
-      this.subUser?._id,
-    )) as unknown as IProducts
-    const responseShops = (await PermissionsModel.getPermissionsShopsByGuidV2(this.subUser?._id)) as unknown as IShops
-
-    runInAction(() => {
-      this.products = responseProducts?.rows
-      /* this.allProductsCount = responseProducts?.count
-      this.selectedProductsCount = responseProducts.rows?.reduce(
-        (acc: number, el: IProduct) => acc + Number(el.selected),
-        0,
-      ) */
-      this.shops = responseShops.rows
-      this.productsOptions.forEach(el => {
-        if (el.selected) {
-          this.currentProductOptions.push([el.value])
-        } else {
-          el.children?.forEach(item => {
-            if (item.selected) {
-              this.currentProductOptions.push([el.value, item.value])
-            }
-          })
-        }
-      })
-      this.productsLoading = false
-    })
-  }
-
   async loadData() {
     runInAction(() => (this.mainLoading = true))
 
@@ -294,18 +288,26 @@ export class PermissionsFormModel {
     }
 
     runInAction(() => {
+      const { permissionGroups, permissions } = this.subUser || {}
       this.mainLoading = false
-      this.permissionsOptions.forEach(el => {
-        if (this.subUser?.permissionGroups.includes(el.value)) {
-          this.currentPermissionOptions.push([el.value])
+
+      this.permissionsOptions.forEach(option => {
+        if (permissionGroups?.includes(option.value)) {
+          this.currentPermissionOptions.push([option.value])
         }
 
-        el.children?.forEach(item => {
-          if (this.subUser?.permissions.includes(item.value)) {
-            this.currentPermissionOptions.push([el.value, item.value])
+        option.children?.forEach(childOption => {
+          if (permissions?.includes(childOption.value)) {
+            this.currentPermissionOptions.push([option.value, childOption.value])
           }
         })
       })
+
+      const allPermissionsExist = this.groupPermissions.every(option => permissionGroups?.includes(option._id))
+
+      if (allPermissionsExist) {
+        this.currentPermissionOptions.push([SELECT_ALL_PERMISSION])
+      }
     })
 
     this.getProduts()
@@ -379,6 +381,49 @@ export class PermissionsFormModel {
     } finally {
       this.onCloseModal?.()
     }
+  }
+
+  async getProduts() {
+    if (isFreelancer(this.userInfo?.role)) {
+      return
+    }
+
+    runInAction(() => (this.productsLoading = true))
+
+    const responseProducts = (await PermissionsModel.getProductsPermissionsForUserByIdV2(
+      this.subUser?._id,
+    )) as unknown as IProducts
+    const responseShops = (await PermissionsModel.getPermissionsShopsByGuidV2(this.subUser?._id)) as unknown as IShops
+
+    runInAction(() => {
+      this.products = responseProducts?.rows
+      /* this.allProductsCount = responseProducts?.count
+      this.selectedProductsCount = responseProducts.rows?.reduce(
+        (acc: number, el: IProduct) => acc + Number(el.selected),
+        0,
+      ) */
+      this.shops = responseShops.rows
+      this.productsOptions.forEach(el => {
+        if (el.selected) {
+          this.currentProductOptions.push([el.value])
+        } else {
+          el.children?.forEach(item => {
+            if (item.selected) {
+              this.currentProductOptions.push([el.value, item.value])
+            }
+          })
+        }
+      })
+
+      const allProductsExist = !this.products.some(option => !option.selected)
+      const allShopsExist = !this.shops.some(option => !option.selected)
+
+      if (allProductsExist && allShopsExist) {
+        this.currentProductOptions.push([SELECT_ALL_PRODUCTS])
+      }
+
+      this.productsLoading = false
+    })
   }
 
   searchfilter(inputValue: string, path: DefaultOptionType[]) {
