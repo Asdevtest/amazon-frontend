@@ -16,6 +16,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { ClsIcon, EtaIcon, EtdIcon } from '@components/shared/svg-icons'
 
 import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -523,7 +524,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         />
 
         <div className={styles.btnsWrapper}>
-          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
+          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
             {t(TranslationKey.Save)}
           </Button>
           <Button styleType={ButtonStyle.CASUAL} onClick={onClickClose}>

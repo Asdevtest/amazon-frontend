@@ -22,6 +22,7 @@ import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -254,7 +255,7 @@ export const MyRequestsView = observer(() => {
           reviewLabel={t(TranslationKey["Review of the performer's work"])}
           confirmButtonText={t(TranslationKey.Confirm)}
           cancelBtnText={t(TranslationKey.Reject)}
-          onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
+          onSubmit={throttle(viewModel.acceptProposalResultSetting.onSubmit)}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
       ) : null}
