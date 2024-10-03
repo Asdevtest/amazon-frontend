@@ -78,9 +78,6 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
             <Cascader
               open
               multiple
-              allowClear
-              autoClearSearchValue
-              autoFocus
               size="large"
               maxTagCount="responsive"
               disabled={viewModel.mainLoading}

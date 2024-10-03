@@ -257,7 +257,7 @@ export class PermissionsFormModel {
   }
 
   onSeacrh(value: string) {
-    if (value.length > 0) {
+    if (value.length) {
       this.onChangeSearchFocus(true)
     } else {
       this.onChangeSearchFocus(false)
