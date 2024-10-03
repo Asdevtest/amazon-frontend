@@ -8,8 +8,9 @@ export const useStyles = makeStyles()(theme => ({
     maxWidth: '400px',
 
     padding: '5px',
+    gap: '2px',
 
-    backgroundColor: theme.palette.background.second,
+    backgroundColor: theme.palette.background.chatIncomeMessage,
     boxShadow: theme.palette.button.defaultBoxShadow,
 
     borderRadius: '10px 10px 10px 0px',
