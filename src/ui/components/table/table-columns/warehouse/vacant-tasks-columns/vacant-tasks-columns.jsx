@@ -114,7 +114,7 @@ export const warehouseVacantTasksViewColumns = handlers => {
       field: 'orderId',
       headerName: t(TranslationKey['Order number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
-      renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
+      renderCell: params => <StringListCell maxItemsDisplay={3} maxLettersInItem={10} sourceString={params.value} />,
       align: 'center',
       type: 'number',
       width: window.innerWidth < 1282 ? 75 : 130,

@@ -1,9 +1,5 @@
 import { action, computed, observable } from 'mobx'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
-import { t } from '@utils/translations'
-
 import { IFullUser } from '@typings/shared/full-user'
 
 import { IPermissionsData } from '@hooks/use-products-permissions'
@@ -25,9 +21,9 @@ export const getUserOptions = (users: IPermissionsData[], defaultPerformer?: IFu
     value: user?._id,
     label: user?.name,
   }))
-  const defaultUserOption = { value: null, label: t(TranslationKey['Select performer']) }
+  // const defaultUserOption = { value: null, label: t(TranslationKey['Select user']) }
 
-  return [defaultUserOption, ...generatedUsetOptions]
+  return generatedUsetOptions /* [defaultUserOption, ...generatedUsetOptions] */
 }
 
 export const getDefaultUserOption = (defaultPerformer?: IFullUser) => {

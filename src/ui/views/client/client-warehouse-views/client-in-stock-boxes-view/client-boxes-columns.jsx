@@ -123,7 +123,7 @@ export const clientBoxesViewColumns = (
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
-      width: 200,
+      width: 210,
     },
 
     {

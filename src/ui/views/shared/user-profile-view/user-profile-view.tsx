@@ -14,6 +14,7 @@ import { Modal } from '@components/shared/modal'
 import { ContentModal } from '@components/user/users-views/user-profile-view/content-modal'
 import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -126,7 +127,7 @@ export const UserProfileView = observer(() => {
           reviewLabel={t(TranslationKey["Review of the performer's work"])}
           confirmButtonText={t(TranslationKey.Confirm)}
           cancelBtnText={t(TranslationKey.Reject)}
-          onSubmit={viewModel.onAcceptReview}
+          onSubmit={throttle(viewModel.onAcceptReview)}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
       ) : null}

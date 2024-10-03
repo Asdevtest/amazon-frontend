@@ -13,6 +13,7 @@ export const observerConfig = {
   unlinkSubUser: action.bound,
   onSubmitlinkSubUser: action.bound,
   onToggleAddSubUserModal: action.bound,
+  onClosePermissionModal: action.bound,
 }
 
 export interface IColumnProps {
