@@ -28,6 +28,7 @@ export const globalStyles = theme => ({
     width: '100%',
     height: '100%',
     gap: '10px',
+    position: 'relative',
   },
 
   '.tableWrapper': {
@@ -230,6 +231,14 @@ export const lightTheme = createTheme({
       styleOverrides: {
         colorPrimary: {
           color: '#007bff !important',
+        },
+      },
+    },
+
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#fff',
         },
       },
     },
@@ -742,6 +751,16 @@ export const darkTheme = createTheme({
         root: {
           color: '#fff',
           padding: '5px',
+        },
+      },
+    },
+
+    MuiPaper: {
+      // remove after switch to antd
+      styleOverrides: {
+        root: {
+          backgroundColor: '#2B2B34',
+          color: '#fff',
         },
       },
     },

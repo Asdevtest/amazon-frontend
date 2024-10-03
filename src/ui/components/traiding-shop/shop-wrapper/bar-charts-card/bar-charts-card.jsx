@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { MdFiberManualRecord } from 'react-icons/md'
 
-import { Paper } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -49,7 +47,7 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
 
   return (
     <div className={styles.mainWrapper}>
-      <Paper className={styles.cardWrapper}>
+      <div className={styles.cardWrapper}>
         <div className={styles.cardHeaderWrapper}>
           <p>{isRevenue ? t(TranslationKey.Revenue) : t(TranslationKey['Website traffic'])}</p>
           <div className={styles.barStatusesWrapper}>
@@ -86,7 +84,7 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
             {t(TranslationKey['All time'])}
           </Button>
         </div>
-      </Paper>
+      </div>
     </div>
   )
 })

@@ -148,6 +148,7 @@ export const EditBoxForm = memo(
       newFormFields.tmpShippingLabel = value
 
       setBoxFields(newFormFields)
+      setShowSetShippingLabelModal(!showSetShippingLabelModal)
     }
 
     const onClickShippingLabel = () => {
@@ -328,7 +329,7 @@ export const EditBoxForm = memo(
                               <Field
                                 containerClasses={styles.field}
                                 labelClasses={styles.standartLabel}
-                                label={t(TranslationKey['Transparency Codes'])}
+                                label="Transparency Codes"
                                 inputComponent={
                                   <ChangeChipCell
                                     isChipOutTable
@@ -481,7 +482,7 @@ export const EditBoxForm = memo(
                       })}
                       inputProps={{ maxLength: 255 }}
                       tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
-                      label={t(TranslationKey['FBA Shipment'])}
+                      label="FBA Shipment"
                       value={boxFields.fbaShipment}
                       onChange={setFormField('fbaShipment')}
                     />
@@ -493,7 +494,7 @@ export const EditBoxForm = memo(
                       tooltipAttentionContent={t(
                         TranslationKey['When re-sticking will create a task for the prep center'],
                       )}
-                      label={t(TranslationKey['Shipping label'])}
+                      label="Shipping label"
                       inputComponent={
                         <ChangeChipCell
                           isChipOutTable
@@ -614,6 +615,7 @@ export const EditBoxForm = memo(
               maxRows={3}
               inputProps={{ maxLength: 1000 }}
               labelClasses={styles.commentLabel}
+              value={boxFields.clientTaskComment}
               tooltipAttentionContent={t(TranslationKey['A task will be created for the prep center'])}
               label={t(TranslationKey['Write a comment on the task'])}
               placeholder={t(TranslationKey['Client comment on the task'])}
@@ -674,7 +676,7 @@ export const EditBoxForm = memo(
         <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
           <SetFilesModal
             modalTitle={t(TranslationKey.Transparency)}
-            LabelTitle={t(TranslationKey['Transparency Codes'])}
+            LabelTitle="Transparency Codes"
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
             onClickSave={value => onClickSaveTransparencyFile(value, filesConditions.index)}

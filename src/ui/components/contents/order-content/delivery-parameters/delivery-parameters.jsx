@@ -4,7 +4,7 @@ import { Checkbox } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { UserCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { Button } from '@components/shared/button'
@@ -181,7 +181,7 @@ export const DeliveryParameters = ({
           labelClasses={styles.fieldLabel}
           inputComponent={
             <div className={styles.intWarehouseWrapper}>
-              <UserLinkCell blackText name={order.buyer?.name} userId={order.buyer?._id} />
+              <UserCell name={order.buyer?.name} id={order.buyer?._id} />
             </div>
           }
         />

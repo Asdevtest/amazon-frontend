@@ -1,1 +1,1 @@
-export * from './chat-message-controls-overlay'
+export { ChatMessageControlsOverlay } from './chat-message-controls-overlay'

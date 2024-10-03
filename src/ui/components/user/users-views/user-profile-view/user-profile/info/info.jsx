@@ -1,4 +1,4 @@
-import { Box, Divider, Paper } from '@mui/material'
+import { Box, Divider } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,8 +18,8 @@ export const Info = ({ headerInfoData }) => {
   )
 
   return (
-    <Paper elevation={0} className={styles.paper}>
-      <p className={styles.title}>{t(TranslationKey.Info)}</p>
+    <div elevation={0} className={styles.paper}>
+      <parent className={styles.title}>{t(TranslationKey.Info)}</parent>
 
       <Divider orientation={'horizontal'} className={styles.divider} />
 
@@ -51,6 +51,6 @@ export const Info = ({ headerInfoData }) => {
 
       <Divider orientation={'horizontal'} className={cx(styles.divider, styles.mobileDivider)} />
       <InfoRow label={t(TranslationKey['Account created'])} value={headerInfoData.accountCreateAt} />
-    </Paper>
+    </div>
   )
 }

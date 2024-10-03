@@ -9,7 +9,6 @@ import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { PriorityForm } from '@components/forms/priority-form/priority-form'
 import { BoxMerge } from '@components/shared/boxes/box-merge'
 import { Button } from '@components/shared/button'
-import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -338,12 +337,12 @@ export const MergeBoxesModal = ({
                 })}
                 labelClasses={styles.label}
                 inputProps={{ maxLength: 255 }}
-                label={t(TranslationKey['FBA Shipment'])}
+                label="FBA Shipment"
                 value={boxBody.fbaShipment}
                 onChange={e => setBoxBody({ ...boxBody, fbaShipment: e.target.value })}
               />
               <Field
-                label={t(TranslationKey['Shipping label']) + ':'}
+                label="Shipping label:"
                 tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                 labelClasses={styles.label}
                 inputComponent={

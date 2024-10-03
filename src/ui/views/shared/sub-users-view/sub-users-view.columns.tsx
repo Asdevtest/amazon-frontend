@@ -25,7 +25,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       field: 'name',
       headerName: t(TranslationKey.User),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-      renderCell: ({ row }) => <UserCell userId={row?._id} name={row?.name} email={row?.email} rating={row?.rating} />,
+      renderCell: ({ row }) => <UserCell id={row?._id} name={row?.name} />,
       width: 300,
     },
 
@@ -78,7 +78,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
           secondGhost
           firstIcon={<MdOutlineEdit size={16} />}
           secondIcon={<MdOutlineDelete size={16} />}
-          secondDescription="Are you sure you want to unbind the sub-user?"
+          secondConfirmText="Are you sure you want to unbind the sub-user?"
           onClickFirst={() => onClickEdit(row)}
           onClickSecond={() => onClickRemove(row._id)}
         />

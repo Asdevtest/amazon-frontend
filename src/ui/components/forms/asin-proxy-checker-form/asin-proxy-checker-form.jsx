@@ -8,8 +8,8 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Field } from '@components/shared/field/field'
-import { SearchInput } from '@components/shared/search-input'
 import { EyeIcon } from '@components/shared/svg-icons'
 
 import { checkIsAdmin } from '@utils/checks'
@@ -80,10 +80,11 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
   }, [asins])
 
   useEffect(() => {
-    const filteredData = asinsAndReasonsData.filter(
-      item =>
-        item.asin.toString().toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-        item.reason.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
+    const filteredData = asinsAndReasonsData.filter(item =>
+      checkIsAdmin(userRole)
+        ? String(item).toLowerCase().startsWith(nameSearchValue.toLowerCase())
+        : item.asin.toString().toLowerCase().startsWith(nameSearchValue.toLowerCase()) ||
+          item.reason.toString().toLowerCase().startsWith(nameSearchValue.toLowerCase()),
     )
     setUpdatedAsinsAndReasonsData(filteredData)
   }, [nameSearchValue])
@@ -150,8 +151,9 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
       <div className={styles.tableWrapper}>
         <div className={styles.tableSearchWrapper}>
           <p className={styles.tableSearchTitle}>{t(TranslationKey['To be added to the list'])}</p>
-          <SearchInput
-            inputClasses={styles.searchInput}
+          <CustomInputSearch
+            allowClear
+            wrapperClassName={styles.searchInput}
             value={nameSearchValue}
             placeholder={
               checkIsAdmin(userRole)

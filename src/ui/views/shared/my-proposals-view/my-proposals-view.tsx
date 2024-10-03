@@ -49,7 +49,6 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
       <div className={styles.tablePanelWrapper}>
         <CustomRadioButton
           size="large"
-          buttonStyle="solid"
           options={customSwitcherSettings()}
           defaultValue={viewModel.switcherCondition}
           onChange={viewModel.onClickChangeCatigory}

@@ -3,7 +3,7 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { getEntityTypeTranslations, getPaymentTypeTranslations } from '@constants/finances/get-type-translations'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, ProductCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell, UserCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
@@ -96,7 +96,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
 
       width: 170,
 
-      renderCell: params => <UserLinkCell name={params.row?.createdBy?.name} userId={params.row?.createdBy?._id} />,
+      renderCell: params => <UserCell name={params.row?.createdBy?.name} id={params.row?.createdBy?._id} />,
       valueGetter: params => params.value.name,
       hideEmptyObject: true,
 
@@ -110,7 +110,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
 
       width: 170,
 
-      renderCell: params => <UserLinkCell name={params.row?.recipient?.name} userId={params.row?.recipient?._id} />,
+      renderCell: params => <UserCell name={params.row?.recipient?.name} id={params.row?.recipient?._id} />,
       valueGetter: params => params.value.name,
       hideEmptyObject: true,
 

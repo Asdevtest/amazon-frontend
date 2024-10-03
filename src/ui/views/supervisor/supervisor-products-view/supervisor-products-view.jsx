@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
@@ -14,6 +15,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './supervisor-products-view.style'
 
+import { createSelectLabel } from './supervisor-products-view.config'
 import { filterStatusConfig, warningStatuses } from './supervisor-products-view.constants'
 import { SupervisorProductsViewModel } from './supervisor-products-view.model'
 
@@ -44,7 +46,7 @@ export const SupervisorProductsView = observer(() => {
             </div>
           )}
           options={createStatusOptions()}
-          labelRender={label => <>{`${label.label} (${label.key})`}</>}
+          labelRender={label => createSelectLabel(label)}
           value={viewModel.switcherFilterStatuses}
           className={styles.select}
           onChange={viewModel.onClickStatusFilterButton}
@@ -89,7 +91,13 @@ export const SupervisorProductsView = observer(() => {
               columnsModel: viewModel.columnsModel,
               onSortModelChange: viewModel.onChangeSortingModel,
             },
-
+            tagSearchSettings: {
+              tagList: viewModel.columnMenuSettings?.tags?.filterData,
+              activeTags: viewModel.columnMenuSettings?.tags?.currentFilterData,
+              isLoading: viewModel.columnMenuSettings?.filterRequestStatus === loadingStatus.IS_LOADING,
+              getTags: () => viewModel.columnMenuSettings?.onClickFilterBtn('tags', DataGridFilterTables.PRODUCTS),
+              setActiveProductsTag: viewModel.setActiveProductsTag,
+            },
             tablePresets: {
               showPresetsSelect: viewModel.showPresetsSelect,
               presetsTableData: viewModel.presetsTableData,

@@ -1,4 +1,4 @@
-import { Paper, Tab, Tabs } from '@mui/material'
+import { Tab, Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +13,7 @@ export const PurchaseHistory = ({ user, tabHistory, setTabHistory }) => {
       <h6 className={styles.mainTitle}>
         {t(TranslationKey['The history of your purchases from']) + ((user && user.username) || '')}
       </h6>
-      <Paper>
+      <div>
         <Tabs
           value={tabHistory}
           aria-label="label tabs"
@@ -51,7 +51,7 @@ export const PurchaseHistory = ({ user, tabHistory, setTabHistory }) => {
             <p className={cx(styles.text, styles.typoNoHistory)}>{t(TranslationKey['No transaction history found'])}</p>
           </div>
         </div>
-      </Paper>
+      </div>
     </>
   )
 }

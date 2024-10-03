@@ -15,7 +15,7 @@ export const supervisorReadyToCheckColumns = ({ onPickUp }) => {
         <ActionButtonsCell
           showFirst
           firstContent={t(TranslationKey['Get to work'])}
-          onClickFirst={() => throttle(onPickUp(row._id))}
+          onClickFirstButton={() => throttle(onPickUp(row._id))}
         />
       ),
       width: 150,

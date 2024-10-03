@@ -47,11 +47,10 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    marginBottom: 5,
   },
 
   titleText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 600,
     lineHeight: '25px',
     color: theme.palette.text.general,

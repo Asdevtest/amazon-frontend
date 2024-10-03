@@ -1,7 +1,7 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, ProductCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell, UserCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
@@ -49,6 +49,16 @@ export const voiceColumns = () => {
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
       width: 170,
+    },
+
+    {
+      field: 'fnsku',
+      headerName: 'FNSKU',
+      renderHeader: () => <MultilineTextHeaderCell text="FNSKU" />,
+
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 90,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -154,7 +164,7 @@ export const voiceColumns = () => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserLinkCell blackText name={params.row.client?.name} userId={params.row.client?._id} />,
+      renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
       width: 110,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

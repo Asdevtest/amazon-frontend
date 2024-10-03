@@ -1,7 +1,7 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, UserCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
@@ -35,8 +35,8 @@ export const totalBalanceColumns = () => {
 
     {
       field: 'amountUs',
-      headerName: 'Amount usd',
-      renderHeader: () => <MultilineTextHeaderCell text="Amount Usd" />,
+      headerName: 'Amount Us',
+      renderHeader: () => <MultilineTextHeaderCell text="Amount Us" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
@@ -45,8 +45,8 @@ export const totalBalanceColumns = () => {
 
     {
       field: 'amountCa',
-      headerName: 'Amount cad',
-      renderHeader: () => <MultilineTextHeaderCell text="Amount cad" />,
+      headerName: 'Amount Ca',
+      renderHeader: () => <MultilineTextHeaderCell text="Amount Ca" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
@@ -55,8 +55,8 @@ export const totalBalanceColumns = () => {
 
     {
       field: 'amountMx',
-      headerName: 'Amount mxn',
-      renderHeader: () => <MultilineTextHeaderCell text="Amount mxn" />,
+      headerName: 'Amount Mx',
+      renderHeader: () => <MultilineTextHeaderCell text="Amount Mx" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value, 2)} />,
       width: 115,
@@ -79,7 +79,7 @@ export const totalBalanceColumns = () => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserLinkCell blackText name={params.row.client?.name} userId={params.row.client?._id} />,
+      renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
       width: 110,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

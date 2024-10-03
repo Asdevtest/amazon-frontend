@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useMemo } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
-import { Paper } from '@mui/material'
-
 import { getClientDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -40,7 +38,7 @@ export const ClientDashboardView = observer(({ history }) => {
   return (
     <>
       <div>
-        <Paper className={styles.userInfoWrapper}>
+        <div className={styles.userInfoWrapper}>
           <div className={styles.userInfoLeftWrapper}>
             <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
             <div className={styles.balanceWrapper}>
@@ -78,7 +76,7 @@ export const ClientDashboardView = observer(({ history }) => {
               />
             </div>
           )}
-        </Paper>
+        </div>
         <DashboardWidgetsCard
           config={getClientDashboardCardConfig()}
           valuesData={viewModel.dashboardData}

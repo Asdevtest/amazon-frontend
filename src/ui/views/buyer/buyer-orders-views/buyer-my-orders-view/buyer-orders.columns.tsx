@@ -22,8 +22,7 @@ import {
   PaymentMethodsCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserLinkCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -220,9 +219,7 @@ export const buyerOrdersColumns = ({
       field: 'storekeeper',
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
-      renderCell: params => (
-        <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
-      ),
+      renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
       width: 120,
       sortable: false,
 
@@ -232,7 +229,7 @@ export const buyerOrdersColumns = ({
 
     {
       field: 'minProductionTerm',
-      headerName: t(TranslationKey['Production time']),
+      headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
       renderCell: params => {
@@ -304,9 +301,7 @@ export const buyerOrdersColumns = ({
       field: 'client',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: params => (
-        <UserMiniCell userName={params.row.product.client?.name} userId={params.row.product.client?._id} />
-      ),
+      renderCell: params => <UserCell name={params.row.product.client?.name} id={params.row.product.client?._id} />,
 
       width: 180,
       sortable: false,

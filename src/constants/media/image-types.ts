@@ -27,4 +27,4 @@ export const imageValidTypes: string[] = [
   'placeimg.com',
 ]
 
-export const avatarValidTypes: string[] = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/avif']
+export const avatarValidTypes: string[] = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']

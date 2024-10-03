@@ -12,7 +12,7 @@ import {
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -141,9 +141,7 @@ export const pendingOrdersColumns = () => {
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
-      renderCell: params => (
-        <UserMiniCell userName={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
-      ),
+      renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
 
       width: 120,
       disableCustomSort: true,
@@ -153,7 +151,7 @@ export const pendingOrdersColumns = () => {
 
     {
       field: 'minProductionTerm',
-      headerName: t(TranslationKey['Production time']),
+      headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
       renderCell: params => {
@@ -210,9 +208,7 @@ export const pendingOrdersColumns = () => {
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-      renderCell: params => (
-        <UserMiniCell userName={params.row.product.client?.name} userId={params.row.product.client?._id} />
-      ),
+      renderCell: params => <UserCell name={params.row.product.client?.name} id={params.row.product.client?._id} />,
       width: 130,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

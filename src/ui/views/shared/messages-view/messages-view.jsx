@@ -1,6 +1,6 @@
 import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
-import { useEffect, useMemo } from 'react'
+import { KeyboardEvent, useEffect, useMemo, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ONE_MINUTE_IN_MILLISECONDS } from '@constants/time'
@@ -11,9 +11,8 @@ import { ChatModel } from '@models/chat-model'
 import { Chat } from '@components/chat/chat'
 import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
 import { ChatsList } from '@components/chat/chats-list'
-import { AddNewChatByEmailForm } from '@components/forms/add-new-chat-by-email-form'
-import { AddUsersToGroupChatForm } from '@components/forms/add-users-to-group-chat-form'
-import { EditGroupChatInfoForm } from '@components/forms/edit-group-chat-info-form'
+import { ForwardMessagesForm } from '@components/forms/forward-messages-form'
+import { CreateNewChatModal } from '@components/modals/create-new-chat-modal'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
@@ -80,6 +79,17 @@ export const MessagesView = observer(({ history }) => {
 
   const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && currentChat
   const isMuteCurrentChat = viewModel.mutedChats.includes(viewModel.chatSelectedId)
+
+  useEffect(() => {
+    const escListener = event => {
+      if (event.key === 'Escape') {
+        viewModel.onClickBackButton()
+      }
+    }
+
+    document.addEventListener('keydown', escListener)
+    return () => document.removeEventListener('keydown', escListener)
+  })
 
   return (
     <div className={styles.wrapper}>
@@ -161,7 +171,7 @@ export const MessagesView = observer(({ history }) => {
               type="primary"
               size="large"
               disabled={checkIsResearcher(UserRoleCodeMap[viewModel.user.role])}
-              onClick={viewModel.onClickAddNewChatByEmail}
+              onClick={viewModel.onClickCreateChatModal}
             >
               {isMobileResolution ? <NewDialogIcon /> : t(TranslationKey['New Dialog'])}
             </CustomButton>
@@ -190,6 +200,9 @@ export const MessagesView = observer(({ history }) => {
                 foundMessages={viewModel.messagesFound}
                 isMuteCurrentChat={isMuteCurrentChat}
                 curFoundedMessageIndex={viewModel.curFoundedMessageIndex}
+                selectedMessages={viewModel.selectedMessages}
+                onClickForwardMessages={viewModel.onClickForwardMessages}
+                onClearSelectedMessages={viewModel.onClearSelectedMessages}
                 onToggleMuteCurrentChat={viewModel.onToggleMuteCurrentChat}
                 onClickBackButton={viewModel.onClickBackButton}
                 onChangeMesSearchValue={viewModel.onChangeMesSearchValue}
@@ -197,14 +210,17 @@ export const MessagesView = observer(({ history }) => {
                 {...props}
               />
             )}
+            selectedMessages={viewModel.selectedMessages}
+            onSelectMessage={viewModel.onSelectMessage}
             onChangeRequestStatus={viewModel.setRequestStatus}
-            onSubmitMessage={(message, files, replyMessageId) =>
-              viewModel.onSubmitMessage(message, files, viewModel.chatSelectedId, replyMessageId)
+            onClickForwardMessages={viewModel.onClickForwardMessages}
+            onClickClearForwardMessages={viewModel.onClickClearForwardMessages}
+            onSubmitMessage={(message, files, replyMessageId, messagesToForward) =>
+              viewModel.onSubmitMessage(message, files, viewModel.chatSelectedId, replyMessageId, messagesToForward)
             }
             onTypingMessage={viewModel.onTypingMessage}
-            onClickAddUsersToGroupChat={viewModel.onClickAddUsersToGroupChat}
             onRemoveUsersFromGroupChat={viewModel.onRemoveUsersFromGroupChat}
-            onClickEditGroupChatInfo={viewModel.onClickEditGroupChatInfo}
+            onClickEditGroupChatInfo={viewModel.onClickCreateChatModal}
           />
         ) : !isMobileResolution ? (
           <div className={styles.noSelectedChatWrapper}>
@@ -220,17 +236,17 @@ export const MessagesView = observer(({ history }) => {
       {viewModel.showProgress && <CircularProgressWithLabel title={'...'} />}
 
       <Modal
-        openModal={viewModel.showAddNewChatByEmailModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddNewChatByEmailModal')}
+        unsetHidden
+        openModal={viewModel.showCreateNewChatModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showCreateNewChatModal', false)}
       >
-        <AddNewChatByEmailForm
-          closeModal={() => viewModel.onTriggerOpenModal('showAddNewChatByEmailModal')}
-          usersData={viewModel.usersData}
-          onSubmit={viewModel.onSubmitAddNewChat}
+        <CreateNewChatModal
+          chatToEdit={viewModel.simpleChats.find(el => el._id === viewModel.chatSelectedId)}
+          closeModal={() => viewModel.onTriggerOpenModal('showCreateNewChatModal', false)}
         />
       </Modal>
 
-      <Modal
+      {/* <Modal
         openModal={viewModel.showAddUsersToGroupChatModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddUsersToGroupChatModal')}
       >
@@ -239,16 +255,17 @@ export const MessagesView = observer(({ history }) => {
           usersData={viewModel.usersData}
           onSubmit={viewModel.onSubmitAddUsersToGroupChat}
         />
-      </Modal>
+      </Modal> */}
 
       <Modal
-        openModal={viewModel.showEditGroupChatInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
+        openModal={viewModel.showForwardMessagesModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showForwardMessagesModal')}
       >
-        <EditGroupChatInfoForm
-          chat={viewModel.simpleChats.find(el => el._id === viewModel.chatSelectedId)}
-          onSubmit={viewModel.onSubmitPatchInfoGroupChat}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
+        <ForwardMessagesForm
+          user={viewModel.user}
+          chats={filteredChats}
+          onClickChat={viewModel.onClickForwardToChat}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showForwardMessagesModal')}
         />
       </Modal>
     </div>

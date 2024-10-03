@@ -22,11 +22,7 @@ export const ChatCurrentReplyMessage: FC<ChatCurrentReplyMessageProps> = memo(
     return (
       <div className={styles.body}>
         <div className={styles.content}>
-          {message.text && (
-            <div>
-              <p className={styles.message}>{message.text}</p>
-            </div>
-          )}
+          {message.text ? <p className={styles.message}>{message.text}</p> : null}
 
           {(!!message.files?.length || !!message.images?.length || !!message.video?.length) && (
             <div className={styles.fileList}>

@@ -1,4 +1,4 @@
-import { Form, Popconfirm } from 'antd'
+import { Form } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useEffect, useMemo } from 'react'
 
@@ -59,10 +59,15 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
   }
 
   const title = (isEditMode ? 'Edit' : 'Add') + ' parsing profile'
+  const isUnlinked = isEditMode && !profile?.client && !!profile?.shop?._id
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.title}>{t(TranslationKey[title as TranslationKey])}</p>
+      <div className={styles.flexRow}>
+        <p className={styles.title}>{t(TranslationKey[title as TranslationKey])}</p>
+
+        {isUnlinked ? <p className={styles.unlinked}>{t(TranslationKey.Unlinked)}</p> : null}
+      </div>
 
       <Form name="parsing profile" autoComplete="off" form={form} onFinish={handleSendForm}>
         <div className={styles.container}>
@@ -70,6 +75,7 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
             shop={viewModel.profile?.shop}
             client={viewModel.profile?.client}
             isActive={viewModel.profile?.isActive}
+            access={viewModel.profile?.access}
             onResetParsingData={viewModel.onResetParsingData}
             onToggleParsingData={viewModel.onToggleParsingData}
           />
@@ -132,16 +138,16 @@ export const ParsingProfileForm: FC<ParsingProfileFormProps> = observer(props =>
         </div>
 
         <div className={styles.buttons}>
-          <Popconfirm
-            title={t(TranslationKey['Are you sure you want to delete profile?'])}
-            okText={t(TranslationKey.Yes)}
-            cancelText={t(TranslationKey.No)}
-            onConfirm={() => handleSendForm(form.getFieldsValue(), true)}
+          <CustomButton
+            danger
+            type="primary"
+            size="large"
+            disabled={!!viewModel.profile?.shop}
+            confirmText="Are you sure you want to delete profile?"
+            onClick={() => handleSendForm(form.getFieldsValue(), true)}
           >
-            <CustomButton danger type="primary" size="large" disabled={!!viewModel.profile?.shop}>
-              {t(TranslationKey.Delete)}
-            </CustomButton>
-          </Popconfirm>
+            {t(TranslationKey.Delete)}
+          </CustomButton>
 
           <Form.Item shouldUpdate className={styles.field}>
             <CustomButton loading={viewModel.loading} size="large" type="primary" htmlType="submit">

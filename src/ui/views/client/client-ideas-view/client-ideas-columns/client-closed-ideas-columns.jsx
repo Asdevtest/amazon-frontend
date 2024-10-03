@@ -1,4 +1,3 @@
-import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import {
@@ -20,7 +19,7 @@ import {
   NormDateCell,
   ProductCell,
   TimeFromSecondsCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -211,11 +210,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
       renderCell: ({ row }) => (
-        <UserLinkCell
-          blackText
-          name={row.sub?.name || row.createdBy?.name}
-          userId={row.sub?._id || row?.createdBy?._id}
-        />
+        <UserCell name={row.sub?.name || row.createdBy?.name} id={row.sub?._id || row?.createdBy?._id} />
       ),
 
       fields: createdByFields,

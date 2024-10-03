@@ -63,11 +63,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   clearIcon: {
-    transition: '.3s ease',
     cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
     color: theme.palette.text.second,
   },
 }))

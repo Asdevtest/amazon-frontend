@@ -9,7 +9,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   SwitchCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -23,23 +23,23 @@ import { getProfileStatusColor } from './helpers/get-profile-status-color'
 import { ColumnsProps } from './parsing-profile-view.config'
 
 export const parsingProfileViewColumns = (props: ColumnsProps) => {
-  const { onEditProfileModal, onForceStart, onForceStop, onParsingProfileRegistred } = props
+  const { onEditProfileModal, onForceStart, onForceStop, onParsingProfileRegistred, onEditProfileComment } = props
 
   const columns: IGridColumn[] = [
     {
       field: 'name',
       headerName: t(TranslationKey.Name),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
-      renderCell: ({ row }) => <Text isCell text={row.name} />,
-      width: 220,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.name} />,
+      width: 160,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
       field: 'client',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: ({ row }) => <UserMiniCell userName={row.client?.name} userId={row.client?._id} />,
-      valueGetter: ({ row }) => row.client?.name || '',
+      renderCell: ({ row }: GridRowModel) => <UserCell name={row.client?.name} id={row.client?._id} />,
+      valueGetter: ({ row }: GridRowModel) => row.client?.name || '',
       width: 160,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
@@ -47,17 +47,17 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: ({ row }) => <Text isCell text={row.shop?.name} />,
-      valueGetter: ({ row }) => row.shop?.name || '',
-      width: 220,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.shop?.name} />,
+      valueGetter: ({ row }: GridRowModel) => row.shop?.name || '',
+      width: 160,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
     {
       field: 'email',
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
-      renderCell: ({ row }) => <Text isCell text={row.email} />,
-      width: 270,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.email} />,
+      width: 200,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
@@ -97,9 +97,19 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
 
         return <Text isCell center copyable={false} text={text} />
       },
-      width: 80,
+      width: 70,
       disableCustomSort: true,
       filterable: false,
+    },
+    {
+      field: 'comment',
+      headerName: t(TranslationKey.Comment),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+      renderCell: ({ row }: GridRowModel) => (
+        <Text isCell editMode text={row.comment} onClickSubmit={value => onEditProfileComment(row?._id, value)} />
+      ),
+      width: 200,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
       field: 'updatedAt',
@@ -113,8 +123,8 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'createdAt',
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-      renderCell: ({ row }) => <NormDateCell value={row.createdAt} />,
-      width: 115,
+      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
+      width: 110,
       columnKey: columnnsKeys.shared.DATE,
     },
     {

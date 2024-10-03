@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 
 import { Pagination } from '@material-ui/lab'
-import { Table as MuiTable, Paper, TableBody, TableContainer, TableHead, Toolbar } from '@mui/material'
+import { Table as MuiTable, TableBody, TableContainer, TableHead, Toolbar } from '@mui/material'
 
 import { useStyles } from './table.style'
 
@@ -29,7 +29,7 @@ export const Table = observer(
     const dataWithPages = data.slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage)
 
     return (
-      <Paper className={wrapperClassName}>
+      <div className={wrapperClassName}>
         {!rowsOnly && <TableToolbar handlerRowsPerPage={handlerRowsPerPage} rowsPerPage={rowsPerPage} />}
         <TableContainer>
           <MuiTable className={styles.table}>
@@ -68,7 +68,7 @@ export const Table = observer(
             />
           </Toolbar>
         )}
-      </Paper>
+      </div>
     )
   },
 )

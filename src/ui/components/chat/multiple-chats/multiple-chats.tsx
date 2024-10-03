@@ -10,7 +10,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
 import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { NoSelectedChat } from '@components/shared/svg-icons'
 
 import { isNotUndefined } from '@utils/checks'
@@ -65,7 +65,6 @@ interface MultipleChatsProps {
   onClickChat: (chat: ChatContract) => void
   onTypingMessage: (chatId: string) => void
   onClickBackButton: () => void
-  onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
   onToggleMuteCurrentChat: () => void
@@ -95,7 +94,6 @@ export const MultipleChats = observer(
         renderAdditionalButtons,
         onTypingMessage,
         currentOpponent,
-        onClickAddUsersToGroupChat,
         onRemoveUsersFromGroupChat,
         onClickEditGroupChatInfo,
         onToggleMuteCurrentChat,
@@ -155,8 +153,8 @@ export const MultipleChats = observer(
             {isChatSelectedAndFound && (
               <div className={styles.header}>
                 <div className={styles.searchMessageContainer}>
-                  <SearchInput
-                    inputClasses={styles.searchInput}
+                  <CustomInputSearch
+                    allowClear
                     placeholder={t(TranslationKey['Message Search'])}
                     value={mesSearchValue}
                     onChange={onChangeMesSearchValue}
@@ -198,7 +196,6 @@ export const MultipleChats = observer(
                   onSubmitMessage(message, files, chatSelectedId as string, replyMessageId)
                 }
                 onTypingMessage={onTypingMessage}
-                onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
                 onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
                 onClickEditGroupChatInfo={onClickEditGroupChatInfo}
               />

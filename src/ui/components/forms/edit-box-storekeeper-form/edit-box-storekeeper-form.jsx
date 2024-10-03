@@ -201,6 +201,7 @@ export const EditBoxStorekeeperForm = memo(
       newFormFields.tmpShippingLabel = value
 
       setBoxFields(newFormFields)
+      setShowSetShippingLabelModal(!showSetShippingLabelModal)
     }
 
     const onClickShippingLabel = () => {
@@ -405,7 +406,7 @@ export const EditBoxStorekeeperForm = memo(
                           <Field
                             containerClasses={styles.field}
                             labelClasses={styles.standartLabel}
-                            label={t(TranslationKey['Transparency Codes'])}
+                            label="Transparency Codes"
                             inputComponent={
                               <ChangeChipCell
                                 disabled
@@ -619,7 +620,7 @@ export const EditBoxStorekeeperForm = memo(
                       labelClasses={styles.standartLabel}
                       containerClasses={styles.shippingField}
                       tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
-                      label={t(TranslationKey['Shipping label'])}
+                      label="Shipping label"
                       inputComponent={
                         <ChangeChipCell
                           isChipOutTable
@@ -647,7 +648,7 @@ export const EditBoxStorekeeperForm = memo(
                       inputClasses={styles.fbaShipmentInput}
                       inputProps={{ maxLength: 255 }}
                       tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
-                      label={t(TranslationKey['FBA Shipment'])}
+                      label="FBA Shipment"
                       value={boxFields.fbaShipment}
                       onChange={setFormField('fbaShipment')}
                     />
@@ -860,7 +861,7 @@ export const EditBoxStorekeeperForm = memo(
         <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
           <SetFilesModal
             modalTitle={t(TranslationKey.Transparency)}
-            LabelTitle={t(TranslationKey['Transparency Codes'])}
+            LabelTitle="Transparency Codes"
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
             onClickSave={value => {

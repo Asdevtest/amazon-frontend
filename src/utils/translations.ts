@@ -33,7 +33,7 @@ const fallback: {
 
 export const setI18nConfig = (): void => {
   if (!SettingsModel.languageTag) {
-    const findBestAvailableLanguageResult = { languageTag: navigator.language } || fallback
+    const findBestAvailableLanguageResult = { languageTag: navigator.language }
 
     SettingsModel.setLanguageTag(findBestAvailableLanguageResult.languageTag)
   }

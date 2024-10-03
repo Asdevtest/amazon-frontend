@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { formatShortDateTime } from '@utils/date-time'
@@ -33,7 +33,7 @@ export interface ProductAndBatchModalProps {
   batches: IBatch[]
   currentBatch?: IBatch
   getCurrentBatch: (id: string) => void
-  onChangeSwitcher: () => void
+  onChangeSwitcher: (value: string) => void
   onClickMyOrderModal: (id: string) => void
   onOpenProductDataModal: (onAmazon: boolean) => void
   patchActualShippingCostBatch: (id: string, value: number) => void
@@ -123,12 +123,10 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
           ))}
         </div>
 
-        <CustomSwitcher
-          fullWidth
-          switcherSettings={switcherSettings}
-          condition={currentSwitch}
-          switchMode="medium"
-          changeConditionHandler={onChangeSwitcher}
+        <CustomRadioButton
+          options={switcherSettings}
+          value={currentSwitch}
+          onChange={e => onChangeSwitcher(e.target.value)}
         />
 
         <div className={styles.tableWrapper}>

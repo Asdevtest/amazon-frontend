@@ -12,7 +12,7 @@ import {
 } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { UserCell } from '@components/data-grid/data-grid-cells'
 import { EditProductTags } from '@components/modals/edit-product-tags-modal'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
@@ -440,13 +440,7 @@ export const FieldsAndSuppliers = memo(props => {
                 <div className={styles.subUsersBody}>
                   {product?.subUsers.concat(product?.subUsersByShop)?.map((subUser, index) => (
                     <div key={index} className={styles.subUserBodyWrapper}>
-                      <UserLinkCell
-                        withAvatar
-                        name={subUser?.name}
-                        userId={subUser?._id}
-                        customStyles={{ fontWeight: 600, marginLeft: 5 }}
-                        maxNameWidth={100}
-                      />
+                      <UserCell name={subUser?.name} id={subUser?._id} />
                     </div>
                   ))}
                 </div>
@@ -539,7 +533,7 @@ export const FieldsAndSuppliers = memo(props => {
               checked={product?.transparency}
               onChange={e => onChangeField?.('transparency')(e.target.checked)}
             >
-              {t(TranslationKey['Transparency Codes'])}
+              Transparency Codes
             </Checkbox>
           )}
         </div>

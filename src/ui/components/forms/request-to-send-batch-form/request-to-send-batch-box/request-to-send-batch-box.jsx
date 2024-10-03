@@ -112,7 +112,7 @@ export const RequestToSendBatchBox = memo(
                             !box.items?.[0]?.transparencyFile && box.items?.[0]?.product?.transparency,
                         })}
                       >
-                        {t(TranslationKey['Transparency Codes'])}
+                        Transparency Codes
                       </p>
 
                       <LabelWithCopy
@@ -269,7 +269,7 @@ export const RequestToSendBatchBox = memo(
         <td>
           <div className={styles.shippingLabelWrapper}>
             <p className={cx(styles.spanText, { [styles.alertSpan]: !box.shippingLabel })}>
-              {t(TranslationKey['Shipping label'])}
+              Shipping label
             </p>
 
             {box.shippingLabel ? (
@@ -281,9 +281,9 @@ export const RequestToSendBatchBox = memo(
                   href={getAmazonImageUrl(box.shippingLabel, true)}
                   className={styles.downloadLink}
                 >
-                  {t(TranslationKey.download)}
+                  {t(TranslationKey.View)}
                 </a>
-                <CopyValue text={box.shippingLabel} />
+                <CopyValue text={getAmazonImageUrl(box.shippingLabel)} />
               </div>
             ) : (
               <p className={styles.alertSpan}>{t(TranslationKey.Missing)}</p>

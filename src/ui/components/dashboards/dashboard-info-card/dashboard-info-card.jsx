@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react'
 
-import { Paper } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -18,7 +16,7 @@ export const DashboardInfoCard = observer(
 
     return (
       SettingsModel.languageTag && (
-        <Paper className={styles.root}>
+        <div className={styles.root}>
           <div className={styles.circle} style={{ borderColor: color }}>
             <p className={styles.circleTitle}>{value || 0}</p>
           </div>
@@ -37,7 +35,7 @@ export const DashboardInfoCard = observer(
               </Button>
             </div>
           ) : null}
-        </Paper>
+        </div>
       )
     )
   },

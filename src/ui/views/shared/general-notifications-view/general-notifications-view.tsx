@@ -15,7 +15,6 @@ import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 
 import { checkIsBuyer, checkIsClient, checkIsFreelancer } from '@utils/checks'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -62,7 +61,6 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
         {!isCurrentUserFreelancer ? (
           <CustomRadioButton
             size="large"
-            buttonStyle="solid"
             options={currentSwitcherSettings}
             defaultValue={viewModel.curNotificationType}
             onChange={viewModel.onClickToChangeNotificationType}
@@ -89,7 +87,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
               type="primary"
               size="large"
               disabled={!viewModel.selectedRows.length}
-              onClick={throttle(() => viewModel.onClickReadButton())}
+              onClick={viewModel.onClickReadButton}
             >
               {t(TranslationKey.Read)}
             </CustomButton>

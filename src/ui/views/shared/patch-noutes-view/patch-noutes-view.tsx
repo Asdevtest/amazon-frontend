@@ -31,10 +31,11 @@ export const PatchNoutesView = observer(() => {
 
   return (
     <div className="viewWrapper">
-      <CustomButton type="primary" size="large" onClick={viewModel.onOpenPatchNoteForm}>
-        {t(TranslationKey['Add a patch note'])}
-      </CustomButton>
-
+      <div>
+        <CustomButton type="primary" size="large" onClick={viewModel.onOpenPatchNoteForm}>
+          {t(TranslationKey['Add a patch note'])}
+        </CustomButton>
+      </div>
       <CustomDataGrid
         disableColumnMenu
         disableRowSelectionOnClick

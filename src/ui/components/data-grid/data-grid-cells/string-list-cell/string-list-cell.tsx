@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
@@ -61,7 +61,7 @@ export const StringListCell: FC<StringListCellProps> = memo(props => {
           ?.map((item, i) => <Text key={i} text={item} />)}
 
       {items?.length > maxItemsDisplay && (
-        <Button styleType={ButtonStyle.TRANSPARENT} onClick={handleClick}>
+        <Button styleType={ButtonStyle.TRANSPARENT} className={styles.moreButton} onClick={handleClick}>
           <MdOutlineMoreHoriz size={24} className={styles.icon} />
         </Button>
       )}
@@ -77,12 +77,11 @@ export const StringListCell: FC<StringListCellProps> = memo(props => {
           onClose={handleClose}
         >
           <div className={styles.stringListMenuWrapper}>
-            <SearchInput
-              inputClasses={styles.searchInput}
-              placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
+            <CustomInputSearch
+              allowClear
+              wrapperClassName={styles.searchInput}
+              placeholder="Search"
+              onChange={e => setNameSearchValue(e.target.value)}
             />
             <>
               {itemsForRender?.map((item, i) => (

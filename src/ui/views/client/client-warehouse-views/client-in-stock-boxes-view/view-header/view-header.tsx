@@ -67,7 +67,6 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
         <div className={styles.topHeaderBtnsWrapper}>
           <CustomRadioButton
             size="large"
-            buttonStyle="solid"
             options={[
               { label: t(TranslationKey['All warehouses']) || '', value: '' },
               ...storekeepersData

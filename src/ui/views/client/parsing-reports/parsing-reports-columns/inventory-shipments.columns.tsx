@@ -1,7 +1,7 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, UserCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
@@ -29,7 +29,7 @@ export const inventoryShipmentsColumns = () => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserLinkCell blackText name={params.row.client?.name} userId={params.row.client?._id} />,
+      renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
       width: 110,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -84,16 +84,6 @@ export const inventoryShipmentsColumns = () => {
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
-    },
-
-    {
-      field: 'amzDateUpdated',
-      headerName: 'Amz date updated',
-      renderHeader: () => <MultilineTextHeaderCell text="Amz date updated" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
     },
 
     {
@@ -168,36 +158,6 @@ export const inventoryShipmentsColumns = () => {
     },
 
     {
-      field: 'destinationDateUpdated',
-      headerName: 'Destination date updated',
-      renderHeader: () => <MultilineTextHeaderCell text="Destination date updated" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
-    },
-
-    {
-      field: 'shipmentDateCreated',
-      headerName: 'Shipment date created',
-      renderHeader: () => <MultilineTextHeaderCell text="Shipment date created" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
-    },
-
-    {
-      field: 'numberOfDestinations',
-      headerName: 'Number of destinations',
-      renderHeader: () => <MultilineTextHeaderCell text="Number of destinations" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
       field: 'trackingNumber',
       headerName: 'Tracking number',
       renderHeader: () => <MultilineTextHeaderCell text="Tracking number" />,
@@ -205,26 +165,6 @@ export const inventoryShipmentsColumns = () => {
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.STRING_VALUE,
-    },
-
-    {
-      field: 'scheduledCarrierDeliveryDate',
-      headerName: 'Scheduled carrier delivery date',
-      renderHeader: () => <MultilineTextHeaderCell text="Scheduled carrier delivery date" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
-    },
-
-    {
-      field: 'checkedInData',
-      headerName: 'Checked in data',
-      renderHeader: () => <MultilineTextHeaderCell text="Checked in data" />,
-      renderCell: params => <NormDateCell value={params.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
     },
   ]
 

@@ -1,3 +1,4 @@
+import { Empty } from 'antd'
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
@@ -23,14 +24,12 @@ export const MyServicesView = observer(({ history }: { history: HistoryType }) =
   const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new MyServicesViewModel(history), [])
 
-  const isListPosition = viewModel.viewMode === tableViewMode.LIST
-  const positionStyle = isListPosition ? styles.dashboardListWrapper : styles.dashboardCardWrapper
-  const cardVariant = isListPosition ? CardVariant.List : CardVariant.Card
+  const cardVariant = viewModel.viewMode === tableViewMode.LIST ? CardVariant.List : CardVariant.Card
 
   return (
-    <>
-      <div className={styles.flexContainer}>
-        <div className={styles.flexContainer}>
+    <div className="viewWrapper">
+      <div className={styles.flexRow}>
+        <div className={styles.flexRow}>
           <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
           <FreelanceTypeTaskSelect
@@ -48,8 +47,8 @@ export const MyServicesView = observer(({ history }: { history: HistoryType }) =
           onSearch={viewModel.onSearchSubmit}
         />
 
-        <div className={styles.flexContainer}>
-          <CustomButton size="large" onClick={viewModel.onToggleArchive}>
+        <div className={styles.flexRow}>
+          <CustomButton size="large" onClick={() => viewModel.onToggleArchive()}>
             {t(TranslationKey[viewModel.archive ? 'To the actual' : 'Open archive'])}
           </CustomButton>
 
@@ -59,24 +58,22 @@ export const MyServicesView = observer(({ history }: { history: HistoryType }) =
         </div>
       </div>
 
-      <div className={positionStyle}>
-        {viewModel.currentData.map((service, serviceKey) => (
-          <ServiceExchangeCard
-            key={serviceKey}
-            service={service}
-            pathname={history?.location?.pathname}
-            variant={cardVariant}
-            onClickButton={viewModel.onClickOpenButton}
-          />
-        ))}
-      </div>
-
-      {!viewModel.currentData.length && (
-        <div className={styles.emptyTableWrapper}>
-          <img src="/assets/icons/empty-table.svg" />
-          <p className={styles.emptyTableText}>{t(TranslationKey.Missing)}</p>
+      {viewModel.currentData.length ? (
+        <div className={styles.content}>
+          {viewModel.currentData.map(service => (
+            <ServiceExchangeCard
+              key={service._id}
+              order
+              // @ts-ignore
+              service={service}
+              variant={cardVariant}
+              onClickButton={viewModel.onClickCreateService}
+            />
+          ))}
         </div>
+      ) : (
+        <Empty className={styles.empty} />
       )}
-    </>
+    </div>
   )
 })

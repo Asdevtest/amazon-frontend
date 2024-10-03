@@ -18,6 +18,8 @@ export const filtersFields = [
   'createdBy',
   'sub',
   'subUsers',
+  'subUsersByShop',
+  'announcement',
   'priority',
   'createdAt',
   'announcementCreatedBy',

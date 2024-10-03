@@ -6,6 +6,6 @@ export const useStyles = makeStyles()(() => ({
     padding: '5px 0',
     display: 'flex',
     flexDirection: 'column',
-    gap: 5,
+    gap: 3,
   },
 }))

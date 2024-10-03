@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { TabPanel } from '@components/shared/tab-panel'
 import { BoxesToOrder } from '@components/shared/tables/boxes-to-order'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
@@ -26,7 +26,7 @@ interface TabsProps {
   destinationsFavourites: string[]
   setDestinationsFavouritesItem: () => void
   setFormFields: SetFormFieldsType
-  onClickChangeCondition: () => void
+  onClickChangeCondition: (value: string) => void
   isClient?: boolean
   isPendingOrdering?: boolean
   isNotMultiple?: boolean
@@ -57,12 +57,11 @@ export const Tabs: FC<TabsProps> = memo(props => {
 
   return (
     <div className={styles.tabs}>
-      <CustomSwitcher
-        fullWidth
-        switchMode="medium"
-        condition={switcherCondition}
-        switcherSettings={customSwitcherSettings}
-        changeConditionHandler={onClickChangeCondition}
+      <CustomRadioButton
+        size="large"
+        options={customSwitcherSettings}
+        value={switcherCondition}
+        onChange={e => onClickChangeCondition(e.target.value)}
       />
 
       <TabPanel value={switcherCondition} index={MyOrderModalSwitcherConditions.BASIC_INFORMATION}>

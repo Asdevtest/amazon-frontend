@@ -47,6 +47,7 @@ class UserModelStatic {
     SettingsModel.setAuthorizationData('', '')
     ChatModel.disconnect()
     SettingsModel.setBreadcrumbsForProfile(null)
+    this.setAccessToken('')
   }
 
   async signIn(body) {
@@ -62,6 +63,7 @@ class UserModelStatic {
     })
 
     SettingsModel.setAuthorizationData(accessToken, refreshToken)
+    this.setAccessToken(accessToken)
   }
 
   setAccessToken(accessToken) {
@@ -300,6 +302,11 @@ class UserModelStatic {
 
   async getTableSettingsPreset(filters) {
     const response = await restApiService.userApi.apiV1UsersPresetsSettingsMyGet({ filters })
+    return response.data
+  }
+
+  onEditMySubUser = async body => {
+    const response = await restApiService.userApi.apiV1UsersEditMySubUsersPatch({ body })
     return response.data
   }
 }

@@ -4,7 +4,7 @@ import { AiOutlineUser, AiTwotoneShop } from 'react-icons/ai'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { UserMiniCell } from '@components/data-grid/data-grid-cells'
+import { UserCell } from '@components/data-grid/data-grid-cells'
 import { CustomButton } from '@components/shared/custom-button'
 import { Text } from '@components/shared/text'
 
@@ -20,10 +20,11 @@ interface ParsingDataBlockProps {
   shop?: ICreatedBy | null
   client?: ICreatedBy | null
   isActive?: boolean
+  access?: boolean
 }
 
 export const ParsingDataBlock: FC<ParsingDataBlockProps> = memo(props => {
-  const { onResetParsingData, onToggleParsingData, shop, client, isActive } = props
+  const { onResetParsingData, onToggleParsingData, shop, client, isActive, access } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -43,17 +44,17 @@ export const ParsingDataBlock: FC<ParsingDataBlockProps> = memo(props => {
       <div className={styles.info}>
         <div className={styles.shop}>
           <AiTwotoneShop size="24" />
-          <Text copyable={false} text={shop?.name || ''} />
+          <Text textRows={1} copyable={false} text={shop?.name || ''} className={styles.shopName} />
         </div>
 
-        <UserMiniCell userName={client?.name} userId={client?._id} />
+        <UserCell name={client?.name} id={client?._id} />
       </div>
 
       <div className={styles.buttons}>
         <CustomButton size="small" onClick={onResetParsingData}>
-          {t(TranslationKey.Reset)}
+          {t(TranslationKey.Unlink)}
         </CustomButton>
-        <CustomButton danger={isActive} size="small" type="primary" onClick={onToggleParsingData}>
+        <CustomButton disabled={!access} danger={isActive} size="small" type="primary" onClick={onToggleParsingData}>
           {t(TranslationKey[isActive ? 'Stop' : 'Start'])}
         </CustomButton>
       </div>

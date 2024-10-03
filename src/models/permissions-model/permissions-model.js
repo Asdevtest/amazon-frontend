@@ -41,11 +41,6 @@ class PermissionsModelStatic {
     return response.data
   }
 
-  setPermissionsForUser = async (guid, body) => {
-    const response = await restApiService.userApi.apiV1UsersEditMySubUsersGuidPatch({ body, guid })
-    return response.data
-  }
-
   setProductsPermissionsForUser = async body => {
     const response = await restApiService.permissionsApi.apiV1PermissionsProductsPatch({ body })
     return response.data
@@ -56,13 +51,28 @@ class PermissionsModelStatic {
     return response.data
   }
 
+  getProductsPermissionsForUserByIdV2 = async subId => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsProductsV2Get({ subId })
+    return response.data
+  }
+
   getPermissionsShopsByGuid = async guid => {
     const response = await restApiService.permissionsApi.apiV1PermissionsShopsGuidGet({ guid })
     return response.data
   }
 
+  getPermissionsShopsByGuidV2 = async subId => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsShopsV2Get({ subId })
+    return response.data
+  }
+
   patchPermissionsShops = async body => {
     const response = await restApiService.permissionsApi.apiV1PermissionsShopsPatch({ body })
+    return response.data
+  }
+
+  getPermissionsPag = async body => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsPagGet({ ...body, noCache: true })
     return response.data
   }
 }

@@ -7,7 +7,6 @@ import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -20,15 +19,16 @@ export const BuyerFreeOrdersView = observer(() => {
 
   return (
     <div className="viewWrapper">
-      <CustomButton
-        type="primary"
-        size="large"
-        disabled={viewModel.selectedRows.length === 0}
-        onClick={throttle(viewModel.onPickupSomeItems)}
-      >
-        {t(TranslationKey['Take on the work of the selected'])}
-      </CustomButton>
-
+      <div>
+        <CustomButton
+          type="primary"
+          size="large"
+          disabled={viewModel.selectedRows.length === 0}
+          onClick={viewModel.onPickupSomeItems}
+        >
+          {t(TranslationKey['Take on the work of the selected'])}
+        </CustomButton>
+      </div>
       <CustomDataGrid
         checkboxSelection
         disableRowSelectionOnClick

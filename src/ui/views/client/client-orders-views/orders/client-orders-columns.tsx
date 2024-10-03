@@ -20,7 +20,7 @@ import {
   OpenInNewTabCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -219,9 +219,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'storekeeper',
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
-      renderCell: params => (
-        <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
-      ),
+      renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
       width: 160,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -249,7 +247,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
 
     {
       field: 'minProductionTerm',
-      headerName: t(TranslationKey['Production time']),
+      headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
         const supplier = params.row.orderSupplier

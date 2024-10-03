@@ -222,7 +222,7 @@ export const Box: FC<BoxProps> = memo(props => {
                     !destinations.find(el => el._id === box.destinationId)?.storekeeper &&
                     isNewBox,
                 })}
-                label={t(TranslationKey['FBA Shipment'])}
+                label="FBA Shipment"
                 value={box.fbaShipment}
                 onChange={(e: any) => onChangeField(e, 'fbaShipment', box._id)}
               />
@@ -232,7 +232,7 @@ export const Box: FC<BoxProps> = memo(props => {
                   direction="column"
                   labelTitleColor="gray"
                   lableLinkTitleSize="medium"
-                  labelTitle={t(TranslationKey['Shipping label'])}
+                  labelTitle="Shipping label"
                   labelValue={box.shippingLabel}
                   lableLinkTitle={t(TranslationKey.View)}
                   labelWrapperStyles={styles.labelWrapperStyles}
@@ -242,7 +242,7 @@ export const Box: FC<BoxProps> = memo(props => {
               {isNewBox ? (
                 <div>
                   <Field
-                    label={t(TranslationKey['Shipping label']) + ':'}
+                    label="Shipping label:"
                     tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                     labelClasses={styles.label}
                     inputComponent={

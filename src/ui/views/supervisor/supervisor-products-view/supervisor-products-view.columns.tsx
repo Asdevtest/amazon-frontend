@@ -14,7 +14,7 @@ import {
   ProductCell,
   RedFlagsCell,
   TagsCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -24,13 +24,16 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { IItemWithTitle } from '@hooks/use-select'
+
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
 interface SupervisorProductsViewColumnsProps {
   onClickTableRow: (id: string) => void
+  onClickTag: (tag: IItemWithTitle) => void
 }
 
-export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorProductsViewColumnsProps) => {
+export const supervisorProductsViewColumns = ({ onClickTableRow, onClickTag }: SupervisorProductsViewColumnsProps) => {
   const columns: IGridColumn[] = [
     {
       field: 'link',
@@ -106,8 +109,8 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'createdBy',
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
-      renderCell: ({ row }) => <UserMiniCell userName={row?.createdBy?.name} userId={row?.createdBy?._id} />,
-      valueGetter: ({ row }) => row?.createdBy?.name,
+      renderCell: ({ row }: GridRowModel) => <UserCell name={row?.createdBy?.name} id={row?.createdBy?._id} />,
+      valueGetter: ({ row }: GridRowModel) => row?.createdBy?.name,
       width: 180,
       columnKey: columnnsKeys.shared.OBJECT,
     },
@@ -116,8 +119,8 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       field: 'buyer',
       headerName: t(TranslationKey.Buyer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
-      renderCell: ({ row }) => <UserMiniCell userName={row?.buyer?.name} userId={row?.buyer?._id} />,
-      valueGetter: ({ row }) => row?.buyer?.name,
+      renderCell: ({ row }: GridRowModel) => <UserCell name={row?.buyer?.name} id={row?.buyer?._id} />,
+      valueGetter: ({ row }: GridRowModel) => row?.buyer?.name,
 
       width: 180,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -164,7 +167,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       headerName: t(TranslationKey.Tags),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
       valueGetter: ({ row }) => row?.tags?.map((el: { title: string }) => `#${el.title}`).join(),
-      renderCell: ({ row }) => <TagsCell tags={row?.tags} />,
+      renderCell: ({ row }) => <TagsCell tags={row?.tags} onClickTag={onClickTag} />,
       width: 180,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.TAGS,

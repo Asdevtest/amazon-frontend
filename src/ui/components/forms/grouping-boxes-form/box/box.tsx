@@ -124,7 +124,7 @@ export const Box: FC<BoxProps> = memo(props => {
 
               <LabelWithCopy
                 labelTitleColor="gray"
-                labelTitle={t(TranslationKey['Transparency Codes'])}
+                labelTitle="Transparency Codes"
                 labelValue={order.transparencyFile}
                 lableLinkTitle={t(TranslationKey.View)}
               />
@@ -206,7 +206,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 containerClasses={styles.field}
                 labelClasses={styles.label}
                 className={styles.fieldInput}
-                label={t(TranslationKey['FBA Shipment'])}
+                label="FBA Shipment"
                 value={box.fbaShipment}
                 inputComponent={<p className={styles.standartText}>{box.fbaShipment || t(TranslationKey.Missing)}</p>}
               />
@@ -214,7 +214,7 @@ export const Box: FC<BoxProps> = memo(props => {
               <LabelWithCopy
                 direction="column"
                 labelTitleColor="gray"
-                labelTitle={t(TranslationKey['Shipping label'])}
+                labelTitle="Shipping label"
                 labelValue={box.shippingLabel}
                 lableLinkTitle={t(TranslationKey.View)}
               />

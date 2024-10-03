@@ -33,12 +33,12 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
   const hoverAsin = useHover()
   const hoverSku = useHover()
 
-  const renderTextCell = (text: string, rows: number) => (
-    <Text copyable={false} textRows={rows} text={text} className={styles.text} />
+  const renderTextCell = (text: string, rows: number, fixWidth?: boolean) => (
+    <Text copyable={false} textRows={rows} text={text} className={cx(styles.text, { [styles.fixWidth]: fixWidth })} />
   )
 
   const notAsinAndSku = !asin && !sku
-  const isErrorText = errorMessage || errorDescription
+  const isErrorText = !!errorMessage || !!errorDescription
 
   return (
     <div className={styles.root}>
@@ -55,7 +55,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
 
         <div className={styles.flexColumn}>
           {notAsinAndSku && title ? (
-            renderTextCell(title, 2)
+            renderTextCell(title, 2, true)
           ) : (
             <>
               {asin ? (
@@ -65,7 +65,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
                   target="_blank"
                   copyable={hoverAsin[0] && !!asin}
                   href={`https://www.amazon.com/dp/${asin}`}
-                  className={styles.text}
+                  className={cx(styles.text, styles.fixWidth)}
                   onClick={e => e.stopPropagation()}
                 >
                   {asin}
@@ -78,7 +78,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
                   ellipsis
                   copyable={hoverSku[0] && !!sku}
                   type="secondary"
-                  className={styles.text}
+                  className={cx(styles.text, styles.fixWidth)}
                 >
                   {sku}
                 </AntText>

@@ -18,9 +18,9 @@ import { UserModel } from '@models/user-model'
 import { BoxModal } from '@components/modals/box-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -442,8 +442,8 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
         <div className={styles.searchWrapper}>
           <p>{t(TranslationKey['Choose boxes from the list:'])}</p>
 
-          <SearchInput
-            inputClasses={styles.searchInput}
+          <CustomInputSearch
+            allowClear
             value={nameSearchValueBoxesToAddData}
             placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
             onChange={e => setNameSearchValueBoxesToAddData(e.target.value)}
@@ -551,8 +551,8 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
         <div className={styles.searchWrapper}>
           <p>{t(TranslationKey['Boxes in batch']) + ':'}</p>
 
-          <SearchInput
-            inputClasses={styles.searchInput}
+          <CustomInputSearch
+            allowClear
             value={nameSearchValueChosenBoxes}
             placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
             onChange={e => setNameSearchValueChosenBoxes(e.target.value)}

@@ -23,14 +23,16 @@ export const TabDestinations = observer(() => {
 
   return (
     <div className="viewWrapper">
-      <CustomButton type="primary" size="large" onClick={viewModel.onClickAddBtn}>
-        {t(TranslationKey['Add a destination'])}
-      </CustomButton>
-
+      <div>
+        <CustomButton type="primary" size="large" onClick={viewModel.onClickAddBtn}>
+          {t(TranslationKey['Add a destination'])}
+        </CustomButton>
+      </div>
       <CustomDataGrid
         sortModel={viewModel.sortModel}
         sortingMode="client"
         paginationMode="client"
+        className={styles.tableWrapper}
         filterModel={viewModel.filterModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         paginationModel={viewModel.paginationModel}

@@ -198,13 +198,13 @@ export const OrderProductModal = memo(props => {
         })
       : selectedProductsData.map(product => ({
           amount: 1,
-          clientComment: isPendingOrdering ? product.clientComment : '',
+          clientComment: isPendingOrdering ? product?.clientComment : '',
           barCode: product?.barCode || '',
-          productId: product._id,
+          productId: product?._id,
           images: [],
           deadline: null,
 
-          transparency: product.transparency,
+          transparency: product?.transparency,
           tmpBarCode: [],
           tmpTransparencyFile: [],
 
@@ -224,7 +224,7 @@ export const OrderProductModal = memo(props => {
           logicsTariffId: null,
           expressChinaDelivery: false,
           priority: '30',
-          buyerId: product.buyer?._id || null,
+          buyerId: product?.buyer?._id || null,
         })),
   )
 
@@ -391,9 +391,7 @@ export const OrderProductModal = memo(props => {
                 <p className={styles.totalCellBtn}>{t(TranslationKey['Price variations'])}</p>
               </TableCell>
               <TableCell className={styles.barCodeCell}>
-                <p className={styles.barCodeCellBtn}>
-                  {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency Codes'])}`}
-                </p>
+                <p className={styles.barCodeCellBtn}>{`${t(TranslationKey.BarCode)} / Transparency Codes`}</p>
               </TableCell>
               <TableCell className={styles.tariffCell}>
                 <p
@@ -547,7 +545,7 @@ export const OrderProductModal = memo(props => {
       <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
         <SetFilesModal
           modalTitle={t(TranslationKey.Transparency)}
-          LabelTitle={t(TranslationKey['Transparency Codes'])}
+          LabelTitle="Transparency Codes"
           currentFiles={filesConditions.currentFiles}
           tmpFiles={filesConditions.tmpFiles}
           onClickSave={value => {

@@ -12,11 +12,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -391,14 +392,14 @@ export const IdeaViewAndEditCard = observer(
 
                     <div className={styles.requestsControlButtonsWrapper}>
                       <div className={styles.switcherWrapper}>
-                        <CustomSwitcher
-                          switchMode={'medium'}
-                          condition={showRequestType}
-                          switcherSettings={[
-                            { label: () => t(TranslationKey['On check']), value: RequestSwitherType.REQUESTS_ON_CHECK },
-                            { label: () => t(TranslationKey.Realized), value: RequestSwitherType.REQUESTS_ON_FINISHED },
+                        <CustomRadioButton
+                          size="large"
+                          options={[
+                            { label: t(TranslationKey['On check']), value: RequestSwitherType.REQUESTS_ON_CHECK },
+                            { label: t(TranslationKey.Realized), value: RequestSwitherType.REQUESTS_ON_FINISHED },
                           ]}
-                          changeConditionHandler={setShowRequestType}
+                          value={showRequestType}
+                          onChange={e => setShowRequestType(e.target.value)}
                         />
                       </div>
 
@@ -591,15 +592,7 @@ export const IdeaViewAndEditCard = observer(
                       <div className={styles.sizesWrapper}>
                         <div className={styles.sizesSubWrapper}>
                           <p className={styles.spanLabel}>{t(TranslationKey.Dimensions)}</p>
-
-                          <CustomSwitcher
-                            condition={sizeSetting}
-                            switcherSettings={[
-                              { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                              { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                            ]}
-                            changeConditionHandler={handleChange}
-                          />
+                          <SizeSwitcher condition={sizeSetting} onChangeCondition={handleChange} />
                         </div>
 
                         <div className={styles.sizesBottomWrapper}>

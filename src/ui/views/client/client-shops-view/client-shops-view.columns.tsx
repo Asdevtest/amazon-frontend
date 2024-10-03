@@ -110,7 +110,7 @@ export const shopsColumns = (props: IColumnProps) => {
           secondGhost
           firstIcon={<MdOutlineEdit size={16} />}
           secondIcon={<MdOutlineDelete size={16} />}
-          secondDescription="Are you sure you want to delete the store?"
+          secondConfirmText="Are you sure you want to delete the store?"
           onClickFirst={() => onEditShop(row)}
           onClickSecond={() => onRemoveShop(row._id)}
         />

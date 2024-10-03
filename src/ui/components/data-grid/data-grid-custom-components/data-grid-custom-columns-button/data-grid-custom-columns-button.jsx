@@ -6,7 +6,7 @@ import { Checkbox, Menu } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -80,8 +80,9 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
           <div className={styles.mainWrapper}>
             <p className={styles.titleText}>{t(TranslationKey.Columns)}</p>
             <div className={styles.searchInputWrapper}>
-              <SearchInput
-                inputClasses={styles.searchInput}
+              <CustomInputSearch
+                allowClear
+                wrapperClassName={styles.searchInput}
                 placeholder={t(TranslationKey.Search)}
                 onChange={e => setNameSearchValue(e.target.value)}
                 onKeyDown={e => e.stopPropagation()}

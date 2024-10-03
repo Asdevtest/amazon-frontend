@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { FC, MouseEvent, useMemo } from 'react'
 
@@ -90,6 +91,7 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
           <div className={styles.buttonsWrapper}>
             <CustomButton
               type="primary"
+              disabled={isEqual(viewModel.selectedTags, viewModel.selectedTagsBase)}
               onClick={async () => {
                 await viewModel.handleBindTagsToProduct(handleUpdateRow)
                 setOpenModal(false)

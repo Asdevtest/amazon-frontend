@@ -1,4 +1,4 @@
-import { Paper, Tab, Table, TableBody, TableContainer, TableHead, Tabs } from '@mui/material'
+import { Tab, Table, TableBody, TableContainer, TableHead, Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -35,7 +35,7 @@ export const ActiveOrders = ({ tabExchange, setTabExchange, productList, handler
   return (
     <>
       <h6 className={styles.mainTitle}>{t(TranslationKey['Active offers on the commodity exchange'])}</h6>
-      <Paper>
+      <div>
         <Tabs
           value={tabExchange}
           aria-label="label tabs"
@@ -56,7 +56,7 @@ export const ActiveOrders = ({ tabExchange, setTabExchange, productList, handler
         <div className={styles.tabContent} role="tabpanel" hidden={tabExchange !== 0}>
           <div className={styles.offersWrapper}>{renderProductList}</div>
         </div>
-      </Paper>
+      </div>
     </>
   )
 }

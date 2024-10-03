@@ -160,7 +160,6 @@ export const clientInventoryColumns = ({
       renderCell: params => (
         <OrderIdAndAmountCountCell
           orderId={params.value}
-          amount={params.row?.amountInPendingOrders}
           onClickOrderId={e => {
             e.stopPropagation()
             otherHandlers.onClickOrderCell(params.row?._id)
@@ -169,6 +168,15 @@ export const clientInventoryColumns = ({
       ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
+    },
+
+    {
+      field: 'amountInPendingOrders',
+      headerName: t(TranslationKey['Pending order']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pending order'])} />,
+      renderCell: params => <OrderIdAndAmountCountCell amount={params.row?.amountInPendingOrders} />,
+      width: 85,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
@@ -304,7 +312,7 @@ export const clientInventoryColumns = ({
 
     {
       field: 'currentSupplierMaxProductionTerm',
-      headerName: t(TranslationKey['Production time']),
+      headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
         const currentSupplier = params.row.currentSupplier
@@ -397,7 +405,6 @@ export const clientInventoryColumns = ({
       ),
 
       width: 150,
-      disableColumnMenu: true,
       filterable: false,
       disableCustomSort: true,
     },
@@ -492,7 +499,6 @@ export const clientInventoryColumns = ({
       renderCell: params => <CommentOfSbCell productsInWarehouse={params.row?.productsInWarehouse} />,
       valueGetter: ({ row }) => row?.productsInWarehouse?.map(el => el?.comment || '').join(', '),
       width: 400,
-      disableColumnMenu: true,
       filterable: false,
       disableCustomSort: true,
     },

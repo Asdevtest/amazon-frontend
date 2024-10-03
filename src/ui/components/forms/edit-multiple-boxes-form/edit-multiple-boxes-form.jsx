@@ -332,7 +332,7 @@ export const EditMultipleBoxesForm = observer(
     }
 
     const onClickSubmit = () => {
-      onSubmit(newBoxes, selectedBoxes)
+      onSubmit(newBoxes, sharedFields)
     }
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
@@ -436,7 +436,7 @@ export const EditMultipleBoxesForm = observer(
                   containerClasses={styles.field}
                   labelClasses={styles.label}
                   className={styles.fieldInput}
-                  label={t(TranslationKey['FBA Shipment'])}
+                  label="FBA Shipment"
                   value={sharedFields.fbaShipment}
                   onChange={e => onChangeSharedFields(e, 'fbaShipment')}
                 />
@@ -448,7 +448,7 @@ export const EditMultipleBoxesForm = observer(
 
               <div>
                 <Field
-                  label={t(TranslationKey['Shipping label']) + ':'}
+                  label="Shipping label:"
                   tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                   labelClasses={styles.label}
                   inputComponent={
@@ -488,7 +488,7 @@ export const EditMultipleBoxesForm = observer(
               <div>
                 <Field
                   labelClasses={styles.label}
-                  label={t(TranslationKey['Transparency Codes'])}
+                  label="Transparency Codes"
                   inputComponent={
                     <ChangeChipCell
                       isChipOutTable
@@ -674,7 +674,7 @@ export const EditMultipleBoxesForm = observer(
         <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
           <SetFilesModal
             modalTitle={t(TranslationKey.Transparency)}
-            LabelTitle={t(TranslationKey['Transparency Codes'])}
+            LabelTitle="Transparency Codes"
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
             onClickSave={value => {

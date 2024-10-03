@@ -18,7 +18,7 @@ import { FavoritesIcon } from '@components/shared/svg-icons/favorites-icon/favor
 
 import { checkIsClient } from '@utils/checks'
 import { checkOnline } from '@utils/checks/check-online/check-online'
-import { formatDateWithoutTime } from '@utils/date-time'
+import { formatDateWithoutTimeLocal } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -171,7 +171,7 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
           </p>
 
           {lastMessage?.updatedAt ? (
-            <p className={styles.messageDate}>{formatDateWithoutTime(lastMessage.updatedAt)}</p>
+            <p className={styles.messageDate}>{formatDateWithoutTimeLocal(lastMessage.updatedAt)}</p>
           ) : null}
         </div>
 

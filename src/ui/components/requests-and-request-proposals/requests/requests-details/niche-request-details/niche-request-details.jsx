@@ -1,5 +1,3 @@
-import { Paper } from '@mui/material'
-
 import { toFixedWithDollarSign } from '@utils/text'
 
 import { useStyles } from './niche-request-details.style'
@@ -8,7 +6,7 @@ export const NicheSearchRequestDetails = ({ request }) => {
   const { classes: styles, cx } = useStyles()
 
   return (
-    <Paper>
+    <div>
       <div className={styles.root}>
         <h3>{'nicheTitle'}</h3>
 
@@ -161,6 +159,6 @@ export const NicheSearchRequestDetails = ({ request }) => {
           </div>
         </div>
       </div>
-    </Paper>
+    </div>
   )
 }

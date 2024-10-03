@@ -91,6 +91,7 @@ export const ParsingRequestsView: FC = observer(() => {
         <ProfilesForm
           requestId={viewModel.requestId}
           profileId={viewModel.profileId}
+          shopId={viewModel.shopId}
           onClose={viewModel.onToggleProfileModal}
           onSubmit={viewModel.onApproveProfile}
         />

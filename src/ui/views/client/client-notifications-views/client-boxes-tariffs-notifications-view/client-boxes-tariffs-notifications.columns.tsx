@@ -7,7 +7,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductsCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -60,7 +60,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
           secondDanger
           firstContent={t(TranslationKey.Confirm)}
           secondContent={t(TranslationKey.Reject)}
-          secondDescription="The box will be returned to warehouse"
+          secondConfirmText="The box will be returned to warehouse"
           onClickFirst={() => handlers.onTriggerOpenConfirmModal(row as IBox)}
           onClickSecond={() => handlers.onTriggerOpenRejectModal(row as IBox)}
         />
@@ -108,7 +108,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
-      renderCell: ({ row }) => <UserLinkCell blackText name={row.storekeeper?.name} userId={row.storekeeper?._id} />,
+      renderCell: ({ row }) => <UserCell name={row.storekeeper?.name} id={row.storekeeper?._id} />,
       width: 160,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

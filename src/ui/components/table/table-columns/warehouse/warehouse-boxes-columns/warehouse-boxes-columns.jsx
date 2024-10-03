@@ -2,22 +2,23 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   ChangeInputCell,
   DimensionsCell,
   DimensionsHeaderCell,
-  DownloadAndPrintFilesCell,
   MultilineTextHeaderCell,
   OrdersIdsItemsCell,
   ProductsCell,
   RedFlagsCell,
-  UserLinkCell,
+  UserCell,
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { calcFinalWeightForBox } from '@utils/calculation'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
+import { openMedia } from '@utils/open-media'
+import { printMedia } from '@utils/print-media'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -68,37 +69,28 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
 
   {
     field: 'shippingLabel',
-    headerName: `Shipping label / Barcode / ${t(TranslationKey['Transparency Codes'])}`,
-    renderHeader: () => (
-      <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency Codes'])}`} />
-    ),
-
-    renderCell: params => (
-      <DownloadAndPrintFilesCell
-        files={[
-          {
-            title: 'Shipping label',
-            fileUrl: params.row.originalData.shippingLabel,
-            fileName: getFileNameFromUrl(params.row.originalData.shippingLabel).name,
-            fileType: getFileNameFromUrl(params.row.originalData.shippingLabel).type,
-          },
-          {
-            title: 'Barcode',
-            fileUrl: params.row.originalData.items[0].barCode ?? params.row.originalData.items[0].product.barCode,
-            fileName: getFileNameFromUrl(
-              params.row.originalData.items[0].barCode ?? params.row.originalData.items[0].product.barCode,
-            ).name,
-            fileType: getFileNameFromUrl(
-              params.row.originalData.items[0].barCode ?? params.row.originalData.items[0].product.barCode,
-            ).type,
-          },
-          {
-            title: t(TranslationKey['Transparency Codes']),
-            fileUrl: params.row.originalData.items[0].transparencyFile,
-            fileName: getFileNameFromUrl(params.row.originalData.items[0].transparencyFile).name,
-            fileType: getFileNameFromUrl(params.row.originalData.items[0].transparencyFile).type,
-          },
-        ]}
+    headerName: `Shipping label / Barcode / Transparency Codes`,
+    renderHeader: () => <MultilineTextHeaderCell text={`Shipping label / Barcode / Transparency Codes`} />,
+    renderCell: ({ row }) => (
+      <ActionButtonsCell
+        showFirst
+        showSecond
+        showThird
+        firstGhost={!row.originalData.shippingLabel}
+        secondGhost={!row.originalData.items[0].barCode}
+        thirdGhost={!row.originalData.items[0].transparencyFile}
+        firstDropdown={!!row.originalData.shippingLabel}
+        secondDropdown={!!row.originalData.items[0].barCode}
+        thirdDropdown={!!row.originalData.items[0].transparencyFile}
+        firstContent="Shipping label"
+        secondContent={t(TranslationKey.BarCode)}
+        thirdContent="Transparency Codes"
+        onClickFirst={() => openMedia(row.originalData.shippingLabel)}
+        onClickSecond={() => openMedia(row.originalData.items[0].barCode)}
+        onClickThird={() => openMedia(row.originalData.items[0].transparencyFile)}
+        onClickPrintFirst={() => printMedia(row.originalData.shippingLabel)}
+        onClickPrintSecond={() => printMedia(row.originalData.items[0].barCode)}
+        onClickPrintThird={() => printMedia(row.originalData.items[0].transparencyFile)}
       />
     ),
     valueGetter: ({ row }) => {
@@ -110,7 +102,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     },
     filterable: false,
     sortable: false,
-    width: 180,
+    width: 190,
   },
 
   {
@@ -147,7 +139,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.client?._id} />,
+    renderCell: params => <UserCell name={params.value} id={params.row.originalData.client?._id} />,
     width: 150,
     sortable: false,
   },

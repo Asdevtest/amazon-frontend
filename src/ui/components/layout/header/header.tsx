@@ -17,7 +17,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { SimpleMessagesNotification } from '@components/layout/notifications/simple-messages-notification'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { CustomTimer } from '@components/shared/custom-timer'
 import { DialogModal } from '@components/shared/dialog-modal'
 import { LanguageSelector } from '@components/shared/language-selector'
@@ -136,7 +136,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
   }, [])
 
   const roleMapper = (roleCode: number) => ({
-    label: () => (UserRoleCodeMap as { [key: number]: string })[roleCode],
+    label: (UserRoleCodeMap as { [key: number]: string })[roleCode],
     value: roleCode,
   })
   const roles =
@@ -182,11 +182,11 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
         <p className={styles.userRoleTitle}>{t(TranslationKey['Your role:'])}</p>
 
         <div className={styles.allowedRolesMainWrapper}>
-          <CustomSwitcher
-            switchMode="header"
-            condition={role}
-            switcherSettings={roles}
-            changeConditionHandler={throttle(onChangeUserInfo)}
+          <CustomRadioButton
+            size="large"
+            options={roles}
+            value={role}
+            onChange={throttle(e => onChangeUserInfo(e.target.value))}
           />
         </div>
 

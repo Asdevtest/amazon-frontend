@@ -8,8 +8,8 @@ import { Checkbox, ClickAwayListener, Popover, Tooltip } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { MasterUserItem } from '@components/shared/master-user-item'
-import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
@@ -176,10 +176,11 @@ export const WithSearchSelect = memo(
                 style={widthPopover && { width: widthPopover || width }}
               >
                 {!withoutSearch && (
-                  <SearchInput
-                    inputClasses={cx(styles.searchInput, customSearchInput)}
+                  <CustomInputSearch
+                    allowClear
+                    wrapperClassName={cx(styles.searchInput, customSearchInput)}
+                    placeholder={placeholder ? placeholder : 'Search'}
                     value={nameSearchValue}
-                    placeholder={placeholder ? placeholder : t(TranslationKey.Search)}
                     onSubmit={onClickSubmitSearch ? onClickSubmitSearch : undefined}
                     onChange={onClickSubmitSearch ? undefined : e => setNameSearchValue(e.target.value)}
                   />

@@ -11,7 +11,7 @@ import {
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -19,7 +19,6 @@ import { checkIsHasHttp } from '@utils/checks'
 import { formatDate } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign } from '@utils/text'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { OrderPriority } from '@typings/enums/order/order-priority'
@@ -82,7 +81,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
         <ActionButtonsCell
           showFirst
           firstContent={t(TranslationKey['Get to work'])}
-          onClickFirst={throttle(() => handlers.onClickTableRowBtn(params.row as IOrder))}
+          onClickFirst={() => handlers.onClickTableRowBtn(params.row as IOrder)}
         />
       ),
 
@@ -157,7 +156,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
 
     {
       field: 'minProductionTerm',
-      headerName: t(TranslationKey['Production time']),
+      headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
         const currentSupplier = params.row?.orderSupplier
@@ -205,9 +204,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'storekeeper',
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
-      renderCell: params => (
-        <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
-      ),
+      renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
       valueGetter: params => params.row.storekeeper?.name,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -218,9 +215,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'client',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: params => (
-        <UserLinkCell blackText name={params.row.product.client?.name} userId={params.row.product.client?._id} />
-      ),
+      renderCell: params => <UserCell name={params.row.product.client?.name} id={params.row.product.client?._id} />,
 
       valueGetter: params => params.row.product?.client?.name,
 

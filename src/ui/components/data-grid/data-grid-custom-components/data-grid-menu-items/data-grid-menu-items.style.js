@@ -28,14 +28,8 @@ export const styles = theme => ({
     gap: 20,
   },
 
-  searchInputWrapper: {
-    width: 255,
-    height: 32,
-  },
   searchInput: {
-    border: '1px solid #E0E0E0',
-    width: '100%',
-    height: '100%',
+    width: 255,
   },
 
   shopsBody: {
@@ -194,11 +188,6 @@ export const styles = theme => ({
     width: 350,
     padding: 20,
     gap: 20,
-  },
-
-  universalFilterSearchInputWrapper: {
-    width: '100%',
-    height: 30,
   },
 
   universalFilterBody: {

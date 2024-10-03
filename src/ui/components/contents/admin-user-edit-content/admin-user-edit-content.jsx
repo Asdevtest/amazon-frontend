@@ -11,7 +11,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
+import { PermissionsForm } from '@components/forms/permissions-form'
 import { Button } from '@components/shared/button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
@@ -43,6 +43,7 @@ export const AdminUserEditContent = observer(
     groupPermissions,
     singlePermissions,
     changeFields,
+    onUpdateData,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -670,16 +671,15 @@ export const AdminUserEditContent = observer(
           </Button>
         </div>
 
-        <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
-          <AddOrEditUserPermissionsForm
-            isWithoutProductPermissions
-            shops={[]}
-            specs={specs}
-            permissionsToSelect={permissionsToSelect}
-            permissionGroupsToSelect={permissionGroupsToSelect}
-            sourceData={formFields}
+        <Modal
+          missClickModalOn
+          openModal={showPermissionModal}
+          setOpenModal={() => setShowPermissionModal(!showPermissionModal)}
+        >
+          <PermissionsForm
+            subUser={editUserFormFields}
             onCloseModal={() => setShowPermissionModal(!showPermissionModal)}
-            onSubmit={onSubmitUserPermissionsForm}
+            onUpdateData={onUpdateData}
           />
         </Modal>
       </div>

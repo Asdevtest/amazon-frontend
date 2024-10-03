@@ -18,7 +18,7 @@ import {
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -170,10 +170,9 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
       renderCell: params => (
-        <UserLinkCell
-          blackText
-          name={params.row.sub ? params.row.sub?.name : params.row.createdBy?.name}
-          userId={params.row.sub ? params.row.sub?._id : params.row.createdBy?._id}
+        <UserCell
+          name={params.row.sub?.name || params.row.createdBy?.name}
+          id={params.row.sub?._id || params.row.createdBy?._id}
         />
       ),
       width: 110,
@@ -213,13 +212,48 @@ export const myRequestsViewColumns = rowHandlers => {
       headerName: t(TranslationKey['Access to product']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
 
-      renderCell: params => <ManyUserLinkCell usersData={params.row.product?.subUsers} />,
+      renderCell: params => {
+        const subUsers = params.row?.product?.subUsers || []
+        const subUsersByShop = params.row?.product?.subUsersByShop || []
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+
+      valueGetter: ({ row }) => {
+        const subUsers = row?.product?.subUsers || []
+        const subUsersByShop = row?.product?.subUsersByShop || []
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+
       width: 187,
-
       filterable: false,
-
-      columnKey: columnnsKeys.shared.OBJECT,
       disableCustomSort: true,
+
+      fields: [
+        {
+          label: 'Sub user',
+          value: 0,
+        },
+        {
+          label: 'Sub user by shop',
+          value: 1,
+        },
+      ],
+      columnMenuConfig: [
+        {
+          field: 'subUsers',
+          table: DataGridFilterTables.REQUESTS,
+          columnKey: ColumnMenuKeys.OBJECT,
+          sortOptions: 'asc',
+        },
+
+        {
+          field: 'subUsersByShop',
+          table: DataGridFilterTables.REQUESTS,
+          columnKey: ColumnMenuKeys.OBJECT,
+          sortOptions: 'asc',
+        },
+      ],
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
@@ -228,11 +262,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service representative'])} />,
 
       renderCell: params => (
-        <UserLinkCell
-          blackText
-          name={params.row.announcement?.createdBy.name}
-          userId={params.row.announcement?.createdBy._id}
-        />
+        <UserCell name={params.row.announcement?.createdBy.name} id={params.row.announcement?.createdBy._id} />
       ),
       width: 160,
 
@@ -240,6 +270,15 @@ export const myRequestsViewColumns = rowHandlers => {
 
       columnKey: columnnsKeys.shared.OBJECT,
       disableCustomSort: true,
+    },
+
+    {
+      field: 'announcement',
+      headerName: t(TranslationKey['Service name']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service name'])} />,
+      renderCell: params => <Text isCell text={params.row.announcement?.title} />,
+      width: 200,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {

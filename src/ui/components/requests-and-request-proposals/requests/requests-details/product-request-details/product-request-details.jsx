@@ -1,5 +1,3 @@
-import { Paper } from '@mui/material'
-
 import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -10,7 +8,7 @@ export const ProductSearchRequestDetails = ({ request }) => {
   const { classes: styles, cx } = useStyles()
 
   return (
-    <Paper>
+    <div>
       <div className={styles.root}>
         <h3>{'productTitle'}</h3>
 
@@ -199,6 +197,6 @@ export const ProductSearchRequestDetails = ({ request }) => {
           </div>
         </div>
       </div>
-    </Paper>
+    </div>
   )
 }

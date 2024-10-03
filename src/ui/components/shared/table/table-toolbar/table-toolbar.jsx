@@ -18,7 +18,7 @@ export const TableToolbar = ({ rowsPerPage, handlerRowsPerPage }) => {
     <Toolbar className={styles.root}>
       <Input
         className={styles.search}
-        placeholder={t(TranslationKey.search) + '...'}
+        placeholder={t(TranslationKey.Search)}
         startAdornment={
           <InputAdornment className={styles.searchAdornment} position="start">
             <IconButton className={styles.iconButton}>
