@@ -41,4 +41,8 @@ export const useStyles = makeStyles()(theme => ({
   icon: {
     color: theme.palette.text.main,
   },
+
+  moreButton: {
+    maxHeight: '24px',
+  },
 }))
