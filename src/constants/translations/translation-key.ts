@@ -1380,7 +1380,7 @@ export enum TranslationKey {
   'Proxy' = 'Proxy',
   'Such dialogue already exists' = 'Such dialogue already exists',
   'Name of group chat' = 'Name of group chat',
-  'Members' = 'Members',
+  'members' = 'members',
   'Add member' = 'Add member',
   'Owner' = 'Owner',
   'Update supplier data' = 'Update supplier data',

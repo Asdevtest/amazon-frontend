@@ -1375,7 +1375,7 @@
   "Proxy": "代理",
   "Such dialogue already exists": "此对话框已存在",
   "Name of group chat": "群聊名称",
-  "Members": "成员",
+  "members": "{{amount}} 成员",
   "Add member": "添加成员",
   "Owner": "所有者",
   "Update supplier data": "更新供应商数据",

@@ -1379,7 +1379,7 @@
   "Proxy": "Проксі",
   "Such dialogue already exists": "Такий діалог вже існує",
   "Name of group chat": "Назва групового чату",
-  "Members": "Учасники",
+  "members": "{{amount}} членів",
   "Add member": "Додати учасника",
   "Owner": "Власник",
   "Update supplier data": "Оновити дані постачальника",
