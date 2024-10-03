@@ -13,15 +13,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
   },
 
-  avatar: {
-    height: '48px !important',
-    minWidth: '48px !important',
-  },
-
-  favoritesIcon: {
-    color: theme.palette.primary.main,
-  },
-
   titleWrapper: {
     flex: '0 1 auto',
     display: 'flex',

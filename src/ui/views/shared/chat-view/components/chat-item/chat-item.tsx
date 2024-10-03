@@ -8,12 +8,15 @@ import { Chat } from '@models/chat-model-new/types/chat.type'
 import { CustomButton } from '@components/shared/custom-button'
 import { FavoritesIcon } from '@components/shared/svg-icons/favorites-icon/favorites-icon'
 
+import { getChatOponent } from '@utils/chat/get-chat-oponent'
 import { getChatTitle } from '@utils/chat/get-chat-title'
 import { formatDateWithoutTimeLocal } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
 import { useStyles } from './chat-item.style'
+
+import { ChatAvatar } from '../chat-avatar'
 
 interface ChatItemProps {
   chat: Chat
@@ -30,7 +33,8 @@ export const ChatItem: FC<ChatItemProps> = memo(({ chat, onClickChat }) => {
     if (isGroupChat) {
       return getAmazonImageUrl(chat.info?.image)
     } else {
-      return getUserAvatarSrc(chat.users[0]._id)
+      const user = getChatOponent(chat.users)
+      return getUserAvatarSrc(user?._id)
     }
   }, [])
 
@@ -39,11 +43,7 @@ export const ChatItem: FC<ChatItemProps> = memo(({ chat, onClickChat }) => {
 
   return (
     <CustomButton type="text" className={styles.chatItem} onClick={() => onClickChat(chat)}>
-      {isFavoritesChat ? (
-        <FavoritesIcon className={cx(styles.favoritesIcon, styles.avatar)} />
-      ) : (
-        <Avatar shape="circle" src={avatarSrc} className={styles.avatar} />
-      )}
+      <ChatAvatar avatarSrc={avatarSrc} isFavoritesChat={isFavoritesChat} />
 
       <div className={styles.chatItemInfo}>
         <div className={styles.titleWrapper}>
