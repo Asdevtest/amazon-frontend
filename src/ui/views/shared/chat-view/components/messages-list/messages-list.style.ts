@@ -6,11 +6,23 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '5px',
-    padding: '10px',
+    padding: '10px 0',
+    paddingRight: '9px',
 
-    boxShadow: theme.palette.boxShadow.casualBoxShadow,
-    backgroundColor: theme.palette.background.general,
-    borderRadius: '0 20px 20px 0',
+    overflowY: 'auto',
+
+    '::-webkit-scrollbar': {
+      display: 'none',
+      background: 'transparent',
+      width: '4px',
+    },
+
+    '&:hover': {
+      paddingRight: '5px',
+      '::-webkit-scrollbar': {
+        display: 'block',
+      },
+    },
   },
 
   noSelectedChat: {

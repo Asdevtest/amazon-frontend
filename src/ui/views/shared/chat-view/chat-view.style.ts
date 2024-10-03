@@ -5,5 +5,15 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'row',
     gap: 'unset',
     containerType: 'inline-size',
+    boxShadow: theme.palette.boxShadow.casualBoxShadow,
+    borderRadius: '20px',
+    overflow: 'hidden',
+  },
+
+  messagesWrapper: {
+    gap: 'unset',
+    backgroundColor: theme.palette.background.general,
+    borderLeft: `1px solid ${theme.palette.background.second}`,
+    overflow: 'hidden',
   },
 }))

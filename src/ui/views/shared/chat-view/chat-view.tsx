@@ -2,6 +2,7 @@ import { memo } from 'react'
 
 import { useStyles } from './chat-view.style'
 
+import { ChatInfoHeader } from './components/chat-info-header'
 import { ChatsList } from './components/chats-list'
 import { MessagesList } from './components/messages-list'
 
@@ -12,7 +13,11 @@ export const ChatView = memo(() => {
     <div className={cx('viewWrapper', styles.chatViewWrapper)}>
       <ChatsList />
 
-      <MessagesList />
+      <div className={cx('viewWrapper', styles.messagesWrapper)}>
+        <ChatInfoHeader />
+
+        <MessagesList />
+      </div>
     </div>
   )
 })

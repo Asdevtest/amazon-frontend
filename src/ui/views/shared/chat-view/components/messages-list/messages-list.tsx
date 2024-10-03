@@ -12,7 +12,7 @@ import { IFullUser } from '@typings/shared/full-user'
 
 import { useStyles } from './messages-list.style'
 
-import { ChatMessageItem } from '../chat-message-item/chat-message-item'
+import { ChatMessageItem } from '../chat-message-item'
 import { EmptyChatMessages } from '../empty-chat-messages/empty-chat-messages'
 
 export const MessagesList = observer(() => {
