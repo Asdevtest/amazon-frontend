@@ -9,6 +9,10 @@ interface ChatMessageFilesProps {
 }
 
 export const ChatMessageFiles: FC<ChatMessageFilesProps> = memo(({ files }) => {
+  if (!files.length) {
+    return null
+  }
+
   const { classes: styles } = useStyles()
 
   return (

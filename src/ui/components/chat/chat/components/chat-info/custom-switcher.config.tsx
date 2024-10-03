@@ -41,7 +41,7 @@ export const getCustomSwitcherConfig = (isGroupChat?: boolean) => {
   if (isGroupChat) {
     config.unshift({
       label: (
-        <Tooltip title={t(TranslationKey.Members)}>
+        <Tooltip title={t(TranslationKey.members)}>
           <TbUsersGroup size="18" />
         </Tooltip>
       ),

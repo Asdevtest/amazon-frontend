@@ -21,10 +21,6 @@ export class ChatsManager<T> extends EmitsClient<T> {
     chats.forEach(this.addChatToManager)
   }
 
-  getChatById(chatId: string) {
-    return this.chatsManager?.get(chatId)
-  }
-
   addMessagesToChatById(chatId: string, messages: ChatMessage[]) {
     const chat = this.chatsManager?.get(chatId)
 

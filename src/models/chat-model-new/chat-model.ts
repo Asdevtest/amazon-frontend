@@ -16,11 +16,17 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
     return Array.from(this.chatsManager?.values?.() || [])
   }
 
+  get currentChat() {
+    if (!this.selectedChatId) {
+      return null
+    }
+    return this.chatsManager?.get(this.selectedChatId)
+  }
+
   get currentChatMessages() {
     if (!this.selectedChatId) {
       return []
     }
-
     return this.chatsManager?.get(this.selectedChatId)?.messages
   }
 

@@ -51,7 +51,7 @@ export const ChatItem: FC<ChatItemProps> = memo(props => {
       <div className={styles.chatItemInfo}>
         <p className={styles.chatItemTitle}>{chatTitle}</p>
         {chatUsers?.length && !isDefaultChat && !isFavoritesChat ? (
-          <p>{`${chatUsers?.length} ${t(TranslationKey.Members)}`}</p>
+          <p>{`${chatUsers?.length} ${t(TranslationKey.members)}`}</p>
         ) : null}
       </div>
     </CustomButton>

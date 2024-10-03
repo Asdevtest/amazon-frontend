@@ -1,10 +1,10 @@
 import { ChatsType } from '@constants/keys/chats'
 
-import { ChatUserContract } from '@models/chat-model/contracts'
+import { IFullUser } from '@typings/shared/full-user'
 
 import { getDistanceBetweenDatesSeconds } from '../get-distance-between-dates-seconds/get-distance-between-dates-seconds'
 
-export const checkOnline = (type: string, oponentUser: ChatUserContract) => {
+export const checkOnline = (type: string, oponentUser: IFullUser) => {
   const isFavoritesChat = type === ChatsType.SAVED
   const isGroupChat = type === ChatsType.GROUP
 

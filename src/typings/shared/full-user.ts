@@ -5,6 +5,7 @@ export interface IFullUser {
   _id: string
   name: string
   email: string
+  lastSeen: string
   role: number
   fba: boolean
   active: boolean

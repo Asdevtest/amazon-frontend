@@ -4,6 +4,7 @@ export const observerConfig = {
   selectedChatId: observable,
 
   chats: computed,
+  currentChat: computed,
   currentChatMessages: computed,
 
   initModel: action.bound,
