@@ -1,4 +1,3 @@
-import { Avatar } from 'antd'
 import { FC, memo, useMemo } from 'react'
 
 import { ChatsType } from '@constants/keys/chats'
@@ -6,14 +5,10 @@ import { ChatsType } from '@constants/keys/chats'
 import { Chat } from '@models/chat-model-new/types/chat.type'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { FavoritesIcon } from '@components/shared/svg-icons/favorites-icon/favorites-icon'
 
 import { getChatAvatarSrc } from '@utils/chat/get-chat-avatar-src'
-import { getChatOponent } from '@utils/chat/get-chat-oponent'
 import { getChatTitle } from '@utils/chat/get-chat-title'
 import { formatDateWithoutTimeLocal } from '@utils/date-time'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
 import { useStyles } from './chat-item.style'
 
@@ -22,9 +17,10 @@ import { ChatAvatar } from '../chat-avatar'
 interface ChatItemProps {
   chat: Chat
   onClickChat: (chat: Chat) => void
+  isActiveChat: boolean
 }
 
-export const ChatItem: FC<ChatItemProps> = memo(({ chat, onClickChat }) => {
+export const ChatItem: FC<ChatItemProps> = memo(({ chat, isActiveChat, onClickChat }) => {
   const { classes: styles, cx } = useStyles()
 
   const isFavoritesChat = useMemo(() => chat.type === ChatsType.SAVED, [])
@@ -36,7 +32,11 @@ export const ChatItem: FC<ChatItemProps> = memo(({ chat, onClickChat }) => {
   const lastMessageDate = useMemo(() => formatDateWithoutTimeLocal(chat.lastMessage?.updatedAt), [chat.lastMessage])
 
   return (
-    <CustomButton type="text" className={styles.chatItem} onClick={() => onClickChat(chat)}>
+    <CustomButton
+      type="text"
+      className={cx(styles.chatItem, { [styles.activeChatItem]: isActiveChat })}
+      onClick={() => onClickChat(chat)}
+    >
       <ChatAvatar avatarSrc={avatarSrc} isFavoritesChat={isFavoritesChat} />
 
       <div className={styles.chatItemInfo}>

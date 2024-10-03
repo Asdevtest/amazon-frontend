@@ -21,7 +21,14 @@ export const ChatItemList = observer(() => {
   return (
     <div className={cx(styles.chatsList, { [styles.emptyChatList]: !isChatsExist })}>
       {isChatsExist ? (
-        chatModel.chats?.map(chat => <ChatItem key={chat._id} chat={chat} onClickChat={onClickChat} />)
+        chatModel.chats?.map(chat => (
+          <ChatItem
+            key={chat._id}
+            isActiveChat={chat._id === chatModel.selectedChatId}
+            chat={chat}
+            onClickChat={onClickChat}
+          />
+        ))
       ) : (
         <Empty />
       )}

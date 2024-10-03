@@ -13,6 +13,10 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
   },
 
+  activeChatItem: {
+    backgroundColor: theme.palette.background.activeChat,
+  },
+
   titleWrapper: {
     flex: '0 1 auto',
     display: 'flex',
