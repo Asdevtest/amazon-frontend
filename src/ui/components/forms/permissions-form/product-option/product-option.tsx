@@ -15,11 +15,10 @@ interface ProductOptionProps {
   label?: string
   sku?: string
   subOption?: boolean
-  onFocus: () => void
 }
 
 export const ProductOption: FC<ProductOptionProps> = memo(props => {
-  const { image, label, asin, sku, subOption, onFocus } = props
+  const { image, label, asin, sku, subOption } = props
 
   const { classes: styles } = useStyles()
   const hoverAsin = useHover()
@@ -47,7 +46,7 @@ export const ProductOption: FC<ProductOptionProps> = memo(props => {
               {...hoverAsin[1]}
               ellipsis
               target="_blank"
-              copyable={hoverAsin[0] && !!asin && { onCopy: onFocus }}
+              copyable={hoverAsin[0] && !!asin}
               href={`https://www.amazon.com/dp/${asin}`}
               className={styles.text}
               onClick={e => e.stopPropagation()}
@@ -56,13 +55,7 @@ export const ProductOption: FC<ProductOptionProps> = memo(props => {
             </Link>
           ) : null}
           {sku && subOption ? (
-            <AntText
-              {...hoverSku[1]}
-              ellipsis
-              copyable={hoverSku[0] && !!sku && { onCopy: onFocus }}
-              type="secondary"
-              className={styles.text}
-            >
+            <AntText {...hoverSku[1]} ellipsis copyable={hoverSku[0] && !!sku} type="secondary" className={styles.text}>
               {sku}
             </AntText>
           ) : null}

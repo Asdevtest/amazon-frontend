@@ -14,3 +14,7 @@ export const createPermissionOptions = () => [
     value: PermissionsTab.ACCESS_TO_PRODUCTS,
   },
 ]
+
+export const SELECT_ALL_PERMISSION = 'select-all-permissions'
+export const SELECT_ALL_PRODUCTS = 'select-all-products'
+export const WITHOUT_GROUP = 'without-group'
