@@ -1,6 +1,8 @@
 import { makeObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { navbarConfig } from '@constants/navigation/navbar'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -31,6 +33,9 @@ export class SiderModel extends UseProductsPermissions {
   }
   get patchNotes() {
     return this.currentPermissionsData
+  }
+  get menuItems() {
+    return navbarConfig[UserRoleCodeMap[this.userInfo.role]] || []
   }
 
   constructor() {

@@ -122,16 +122,14 @@ export const MenuSubItem = props => {
   }
 
   const renderSubCategory = (subIndex, subCategory) => {
-    const badge = getNotificationCountBySubRoute(subCategory.subRoute)
-    const subCategoryTitle = subCategory?.subtitle()
-    const isTooltipVisible = subCategoryTitle !== category?.title()
+    const badge = getNotificationCountBySubRoute(subCategory.route)
     const isSelected = subIndex === activeSubCategory
-    const notificationBySubRoute = renderNotificationBySubRoute(subCategory.subRoute)
-      ? renderNotificationBySubRoute(subCategory.subRoute)
+    const notificationBySubRoute = renderNotificationBySubRoute(subCategory.route)
+      ? renderNotificationBySubRoute(subCategory.route)
       : null
 
     return (
-      <Link key={subIndex} to={subCategory.subRoute}>
+      <Link key={subIndex} to={subCategory.route}>
         <CustomButton
           block
           textAlign="left"
@@ -139,7 +137,7 @@ export const MenuSubItem = props => {
           variant={isSelected ? 'filled' : 'text'}
           size="large"
           icon={<div style={{ width: '24px' }} />}
-          title={renderTooltipTitle(subCategory?.subtitle(), userInfo.role)}
+          title={renderTooltipTitle(subCategory?.label, userInfo.role)}
           className={styles.menuItem}
         >
           <Badge
@@ -148,18 +146,18 @@ export const MenuSubItem = props => {
             offset={[25, 7]}
             color={theme.palette.primary.main}
           >
-            <span className={styles.text}>{subCategory?.subtitle()}</span>
+            <span className={styles.text}>{subCategory?.label}</span>
           </Badge>
 
-          <Badge count={getBigBadge(subCategory.subRoute)} />
+          <Badge count={getBigBadge(subCategory.route)} />
         </CustomButton>
       </Link>
     )
   }
 
-  return category.subtitles?.map((subCategory, subIndex) =>
-    subCategory.checkHideSubBlock
-      ? subCategory.checkHideSubBlock(userInfo)
+  return category.children?.map((subCategory, subIndex) =>
+    subCategory.checkHideBlock
+      ? subCategory.checkHideBlock(userInfo)
         ? renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory)
         : null
       : renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory),

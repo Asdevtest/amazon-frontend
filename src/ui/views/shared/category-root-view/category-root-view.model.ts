@@ -31,7 +31,7 @@ export class CategoryRootViewModel {
       el => el.route === this.history?.location.pathname,
     )
 
-    this.subRoutes = category?.subtitles || []
+    this.subRoutes = category?.children || []
   }
 
   onClickCategory(url: string) {

@@ -1,11 +1,11 @@
-import { Flex, Layout } from 'antd'
+import { Badge, Flex, Layout, Menu } from 'antd'
 import { observer } from 'mobx-react'
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
+import { BsFire } from 'react-icons/bs'
 import { VscFeedback } from 'react-icons/vsc'
+import { useHistory } from 'react-router-dom'
 
 import { appVersion } from '@constants/app-version'
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { navbarConfig } from '@constants/navigation/navbar'
 import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,15 +15,13 @@ import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 import { ShortLogoIcon } from '@components/shared/svg-icons'
 
+import { renderTooltipTitle } from '@utils/renders'
 import { t } from '@utils/translations'
 
 import { isAdmin, isModerator } from '@typings/guards/roles'
 
 import { useStyles } from './sider.style'
 
-import { getCategoryBadge } from './helper/get-category-badge'
-import { MenuItem } from './menu-item'
-import { MenuSubItem } from './menu-sub-item'
 import { SiderModel } from './sider.model'
 
 export const alwaysShowSubCategoryKeys = [
@@ -33,22 +31,105 @@ export const alwaysShowSubCategoryKeys = [
 
 const { Sider: AntSider } = Layout
 
-export const Sider = observer(props => {
-  const { activeCategory, activeSubCategory } = props
-
+export const Sider = observer(({ activeCategory, activeSubCategory }) => {
   const { classes: styles, theme, cx } = useStyles()
+  const history = useHistory()
   const viewModel = useMemo(() => new SiderModel(), [])
 
-  const [filteredCategories, setFilteredCategories] = useState([])
-  const [filteredBottomCategories, setFilteredBottomCategories] = useState([])
+  const getBadge = route => {
+    if (route.includes('/messages')) {
+      return viewModel.unreadMessages
+    }
 
-  const getFilteredCategories = () => navbarConfig[UserRoleCodeMap[viewModel.userInfo.role]]
-  const getBadge = category =>
-    category.route?.includes('/messages') ? viewModel.unreadMessages : getCategoryBadge(category, viewModel.userInfo)
+    switch (route) {
+      case '/buyer/pending-orders':
+        return viewModel.userInfo.pendingOrders
+      case '/client/my-orders/orders':
+        return viewModel.userInfo.allOrders
+      case '/client/freelance/service-exchange':
+        return viewModel.userInfo.freelanceNotices?.length
+      case '/client/my-orders/pending-orders':
+        return viewModel.userInfo?.purchaseOrderRequired?.length
+      case '/supervisor/ready-to-check-by-researcher':
+        return viewModel.userInfo?.vacFromResearcher
+      case '/supervisor/ready-to-check-by-client':
+        return viewModel.userInfo?.vacFromClient
+      case '/client/freelance/my-requests':
+      case '/freelancer/freelance/my-proposals':
+        return viewModel.userInfo?.freelanceNotices.length
+      case '/warehouse/tasks/vacant-tasks':
+        return viewModel.userInfo?.tasksNewHigh
+      case '/warehouse/tasks/my-tasks':
+        return viewModel.userInfo?.tasksAtProcessHigh
+      case '/warehouse/tasks':
+        return viewModel.userInfo?.tasksAtProcessAll + viewModel.userInfo?.tasksNewAll
+      case '/client/notifications':
+        return (
+          viewModel.userInfo?.needConfirmPriceChange?.boxes +
+          viewModel.userInfo?.needConfirmPriceChange?.orders +
+          viewModel.userInfo?.needUpdateTariff?.boxes +
+          viewModel.userInfo?.freelanceNotices?.length +
+          viewModel.userInfo?.notificationCounter
+        )
+      case '/freelancer/notifications':
+        return viewModel.userInfo?.freelanceNotices?.length + viewModel.userInfo?.notificationCounter
+      case '/buyer/notifications':
+        return viewModel.userInfo.userInfo?.notificationCounter
+      case '/buyer/free-orders':
+        return viewModel.userInfo?.freeOrders
+      case '/buyer/search-supplier':
+        return viewModel.userInfo?.searchFromClient + viewModel.userInfo?.searchFromSupervisor
+      case '/client/ideas':
+        return (
+          viewModel.userInfo?.ideas?.addingAsin +
+          viewModel.userInfo?.ideas?.new +
+          viewModel.userInfo?.ideas?.onCheck +
+          viewModel.userInfo?.ideas?.productCreating +
+          viewModel.userInfo?.ideas?.supplierSearch
+        )
+      default:
+        return null
+    }
+  }
 
-  useEffect(() => {
-    setFilteredCategories(getFilteredCategories())
-  }, [])
+  const getItem = item =>
+    item?.checkHideBlock?.(viewModel.userInfo) && {
+      key: item.key,
+      icon: (
+        <Badge
+          size="small"
+          count={getBadge(item.route)}
+          overflowCount={99999}
+          offset={[10, 0]}
+          color={theme.palette.primary.main}
+        >
+          {item.icon}
+        </Badge>
+      ),
+      label: t(TranslationKey[item.label]),
+      route: item.route,
+      title: renderTooltipTitle(item.label, viewModel.userInfo.role),
+      extra: (
+        <>
+          {getBadge(item.route) >= 1 ? <BsFire size={20} color="red" /> : null}
+          <Badge count={getBadge(item.route)} overflowCount={999} />
+        </>
+      ),
+      children: item.children?.map(
+        subItem =>
+          subItem?.checkHideBlock?.(viewModel.userInfo) && {
+            key: subItem.key,
+            icon: <Badge count={getBadge(subItem.route)} overflowCount={999} color={theme.palette.primary.main} />,
+            label: t(TranslationKey[subItem.label]),
+            route: subItem.route,
+            title: renderTooltipTitle(subItem.label, viewModel.userInfo.role),
+            extra: <Badge count={getBadge(subItem.route)} overflowCount={999} />,
+            onClick: () => history.push(subItem.route),
+          },
+      ),
+    }
+
+  const options = viewModel.menuItems.map((menuItem, index) => getItem(menuItem))
 
   return (
     <>
@@ -58,27 +139,7 @@ export const Sider = observer(props => {
         </Flex>
 
         <Flex vertical>
-          {filteredCategories.map((category, index) =>
-            category?.checkHideBlock?.(viewModel.userInfo) ? (
-              <Fragment key={index}>
-                <MenuItem
-                  isSelected={category.key === activeCategory}
-                  userInfo={viewModel.userInfo}
-                  category={category}
-                  badge={getBadge(category)}
-                />
-
-                {(category.key === activeCategory || alwaysShowSubCategoryKeys.includes(category.key)) && (
-                  <MenuSubItem
-                    activeCategory={activeCategory}
-                    activeSubCategory={activeSubCategory}
-                    category={category}
-                    userInfo={viewModel.userInfo}
-                  />
-                )}
-              </Fragment>
-            ) : null,
-          )}
+          <Menu triggerSubMenuAction="hover" defaultSelectedKeys={[activeCategory]} mode="vertical" items={options} />
         </Flex>
 
         <Flex vertical>

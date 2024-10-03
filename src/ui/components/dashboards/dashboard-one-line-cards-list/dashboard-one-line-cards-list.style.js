@@ -15,7 +15,7 @@ export const useStyles = makeStyles()(theme => ({
     height: 140,
     cursor: 'pointer',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     flexDirection: 'column',
     transition: '0.3s ease',
 

@@ -4,7 +4,6 @@ import { CircularProgress } from '@mui/material'
 
 import { useStyles } from '@components/dashboards/dashboard-one-line-cards-list/dashboard-one-line-cards-list.style'
 import { ComponentSlider } from '@components/shared/component-slider'
-import { InventoryIcon } from '@components/shared/svg-icons'
 
 export const DashboardOneLineCardsList = memo(props => {
   const { config, valuesData, onClickViewMore } = props
@@ -27,7 +26,6 @@ export const DashboardOneLineCardsList = memo(props => {
             })}
             onClick={() => onClickViewMore(item.route, item.dataGridFilter)}
           >
-            <InventoryIcon classes={{ root: styles.icon }} />
             <div className={styles.cardSubWrapper}>
               <p className={styles.cardSubTitle}>{item.title}</p>
 

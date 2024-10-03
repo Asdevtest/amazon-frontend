@@ -27,8 +27,8 @@ export const CategoryRootView = observer(({ history }: { history: HistoryType })
 
       <div className={styles.btnsWrapper}>
         {viewModel.subRoutes?.map((el, index) => (
-          <Button key={index} variant={ButtonVariant.OUTLINED} onClick={() => viewModel.onClickCategory(el.subRoute)}>
-            {el.subtitle()}
+          <Button key={index} variant={ButtonVariant.OUTLINED} onClick={() => viewModel.onClickCategory(el.route)}>
+            {el.label}
           </Button>
         ))}
       </div>

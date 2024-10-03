@@ -34,13 +34,13 @@ export const MenuItem = memo(props => {
     }
   }
   const getSubRoutes = () => {
-    return category.subtitles
+    return category.children
       ?.map(subCategory =>
-        subCategory.checkHideSubBlock
-          ? subCategory.checkHideSubBlock(userInfo)
-            ? subCategory.subRoute
+        subCategory.checkHideBlock
+          ? subCategory.checkHideBlock(userInfo)
+            ? subCategory.route
             : null
-          : subCategory.subRoute,
+          : subCategory.route,
       )
       .filter(el => el !== null)
   }
@@ -60,13 +60,13 @@ export const MenuItem = memo(props => {
         size="large"
         icon={
           <Badge size="small" count={badge} overflowCount={99999} offset={[5, 0]} color={theme.palette.primary.main}>
-            <category.icon />
+            {category.icon}
           </Badge>
         }
-        title={renderTooltipTitle(category.title(), userInfo.role)}
+        title={renderTooltipTitle(category.label, userInfo.role)}
         className={styles.menuItem}
       >
-        <span className={styles.text}>{category.title()}</span>
+        <span className={styles.text}>{category.label}</span>
 
         {highPriorityValue >= 1 ? <BsFire size={20} color="red" /> : null}
 
