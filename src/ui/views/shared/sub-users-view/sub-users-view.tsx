@@ -28,12 +28,7 @@ export const SubUsersView = observer(() => {
   return (
     <div className="viewWrapper">
       <div className={styles.header}>
-        <CustomButton
-          disabled
-          size="large"
-          type="primary"
-          onClick={() => viewModel.onTriggerOpenModal('showPermissionModal')}
-        >
+        <CustomButton size="large" type="primary" onClick={() => viewModel.onTriggerOpenModal('showPermissionModal')}>
           {t(TranslationKey['Assign permissions'])}
         </CustomButton>
         <CustomInputSearch
@@ -115,13 +110,10 @@ export const SubUsersView = observer(() => {
         />
       </Modal>
 
-      <Modal
-        openModal={viewModel.showPermissionModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
-      >
+      <Modal missClickModalOn openModal={viewModel.showPermissionModal} setOpenModal={viewModel.onClosePermissionModal}>
         <PermissionsForm
           subUser={viewModel.selectedSubUser}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
+          onCloseModal={viewModel.onClosePermissionModal}
           onUpdateData={viewModel.getCurrentData}
         />
       </Modal>

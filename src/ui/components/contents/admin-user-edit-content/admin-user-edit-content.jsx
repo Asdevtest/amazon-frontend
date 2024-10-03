@@ -670,7 +670,11 @@ export const AdminUserEditContent = observer(
           </Button>
         </div>
 
-        <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
+        <Modal
+          missClickModalOn
+          openModal={showPermissionModal}
+          setOpenModal={() => setShowPermissionModal(!showPermissionModal)}
+        >
           <PermissionsForm
             subUser={editUserFormFields}
             onCloseModal={() => setShowPermissionModal(!showPermissionModal)}
