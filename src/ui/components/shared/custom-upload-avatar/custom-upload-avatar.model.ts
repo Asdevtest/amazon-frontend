@@ -23,7 +23,7 @@ export class CustomUploadAvatarModel {
       this.fileList = [
         {
           uid: uuid(),
-          name: 'avatar.png',
+          name: 'avatar',
           status: 'done',
           url: initialUrl,
         },

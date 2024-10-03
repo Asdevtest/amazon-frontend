@@ -19,8 +19,8 @@ export const useStyles = makeStyles()(theme => ({
 
   searchPlaseholder: {
     position: 'absolute',
-    top: 20,
-    left: 22,
+    top: 21,
+    left: 25,
     color: theme.palette.text.second,
     opacity: 0.3,
     pointerEvents: 'none',
@@ -48,6 +48,7 @@ export const useStyles = makeStyles()(theme => ({
     '.ant-select-selection-search': {
       width: '360px !important',
       height: '40px',
+      margin: '0 !important',
 
       '.ant-select-selection-search-input': {
         padding: '10px !important',

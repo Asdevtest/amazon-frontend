@@ -31,6 +31,7 @@ export const TabDestinations = observer(() => {
         sortModel={viewModel.sortModel}
         sortingMode="client"
         paginationMode="client"
+        className={styles.tableWrapper}
         filterModel={viewModel.filterModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         paginationModel={viewModel.paginationModel}

@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
-    maxHeight: '95px',
+    maxHeight: '72px',
     overflow: 'auto',
   },
 }))

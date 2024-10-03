@@ -324,6 +324,11 @@ class UserModelStatic {
       console.error(error)
     }
   }
+
+  onEditMySubUser = async body => {
+    const response = await restApiService.userApi.apiV1UsersEditMySubUsersPatch({ body })
+    return response.data
+  }
 }
 
 export const UserModel = new UserModelStatic()

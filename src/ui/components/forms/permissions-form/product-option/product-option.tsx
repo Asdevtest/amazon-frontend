@@ -12,13 +12,13 @@ const { Text: AntText, Link } = Typography
 interface ProductOptionProps {
   asin?: string
   image?: string
-  title?: string
+  label?: string
   sku?: string
   subOption?: boolean
 }
 
 export const ProductOption: FC<ProductOptionProps> = memo(props => {
-  const { image, title, asin, sku, subOption } = props
+  const { image, label, asin, sku, subOption } = props
 
   const { classes: styles } = useStyles()
   const hoverAsin = useHover()
@@ -33,11 +33,12 @@ export const ProductOption: FC<ProductOptionProps> = memo(props => {
           height={40}
           src={getAmazonImageUrl(image, false)}
           wrapperClassName={styles.image}
+          onClick={e => e.stopPropagation()}
         />
       ) : null}
 
       <div className={styles.flexColumn}>
-        {title ? <p className={styles.title}>{title}</p> : null}
+        {label ? <p className={styles.title}>{label}</p> : null}
 
         <div className={styles.flexRow}>
           {asin && subOption ? (

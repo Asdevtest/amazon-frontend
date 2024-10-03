@@ -55,6 +55,7 @@ export const TabTags = observer(() => {
       <CustomDataGrid
         checkboxSelection
         rowCount={viewModel.rowCount}
+        className={styles.tableWrapper}
         sortModel={viewModel.sortModel}
         filterModel={viewModel.filterModel}
         rowSelectionModel={viewModel.selectedRows}

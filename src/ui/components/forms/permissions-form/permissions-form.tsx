@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { CustomSelect } from '@components/shared/custom-select'
-import { UsersSelect } from '@components/shared/users-select'
 
 import { t } from '@utils/translations'
 
@@ -19,6 +18,7 @@ import { useStyles } from './permissions-form.style'
 import { createPermissionOptions } from './permissions-form.config'
 import { PermissionsFormModel } from './permissions-form.model'
 import { ProductOption } from './product-option'
+import { UsersSelect } from './users-select'
 
 export interface PermissionsFormProps {
   onCloseModal: () => void
@@ -35,7 +35,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
       option.label
     ) : (
       <ProductOption
-        title={option.label as string}
+        label={option.label as string}
         asin={option.asin}
         sku={option.sku}
         image={option.image}
@@ -59,7 +59,15 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
             onChange={viewModel.onChangePermissionTab}
           />
         )}
-        <UsersSelect disabled size="large" defaultUser={viewModel.subUser} />
+        <UsersSelect
+          disabled={!!viewModel.subUser}
+          size="large"
+          suffixIcon={viewModel.subUser && null}
+          mode={viewModel.subUser ? undefined : 'multiple'}
+          maxTagCount="responsive"
+          defaultUser={viewModel.subUser}
+          onChange={viewModel.onChangeUsersData}
+        />
       </div>
 
       <div className={styles.content}>
@@ -79,9 +87,8 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
               popupClassName={styles.cascaderPopup}
               optionRender={optionRender}
               value={viewModel.currentMainOptions}
-              onFocus={() => viewModel.onChangeSearchFocus(true)}
-              onBlur={() => viewModel.onChangeSearchFocus(false)}
               onInputKeyDown={viewModel.onInputKeyDown}
+              onSearch={viewModel.onSeacrh}
               // @ts-ignore
               onChange={viewModel.mainChangeMethod}
             />
@@ -112,7 +119,12 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           )
         ) : null}
 
-        <CustomButton type="primary" size="large" disabled={viewModel.mainLoading} onClick={viewModel.onEditSubUser}>
+        <CustomButton
+          type="primary"
+          size="large"
+          disabled={viewModel.mainLoading || !viewModel.userIds.length}
+          onClick={viewModel.onEditSubUser}
+        >
           {t(TranslationKey.Save)}
         </CustomButton>
         <CustomButton size="large" onClick={props.onCloseModal}>
