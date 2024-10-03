@@ -11,7 +11,7 @@ import { t } from '@utils/translations'
 export const EmptyChatMessages: FC = observer(() => {
   const isSelectedChat = !!chatModel.selectedChatId
 
-  const message = isSelectedChat
+  const message = !isSelectedChat
     ? 'Select a chat room to start messaging'
     : 'Looks like no one has chatted here yet. Send a message to get started!'
 
