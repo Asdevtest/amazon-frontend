@@ -11,10 +11,10 @@ import { t } from '@utils/translations'
 
 export const bindIdeaToRequestColumns = [
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-    renderCell: (params: GridCellParams) => <Text isCell text={params.row.humanFriendlyId} />,
+    renderCell: (params: GridCellParams) => <Text isCell text={params.row.xid} />,
     filterable: false,
     sortable: false,
     width: 80,

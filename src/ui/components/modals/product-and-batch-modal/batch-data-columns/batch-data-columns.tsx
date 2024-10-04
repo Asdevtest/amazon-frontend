@@ -13,7 +13,7 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
     field: 'id',
     headerName: t(TranslationKey['Batch number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
-    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.humanFriendlyId} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.xid} />,
     width: 90,
   },
 

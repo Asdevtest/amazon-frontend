@@ -16,7 +16,7 @@ import { bindIdeaToRequestColumns } from './bind-idea-to-request-columns/bind-id
 
 interface IRequest {
   _id: string
-  humanFriendlyId: number
+  xid: number
   spec: ISpec
   title: string
   status: string

@@ -1,5 +1,7 @@
 import { makeStyles } from 'tss-react/mui'
 
+import { fontWeight } from '@mui/system'
+
 export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
@@ -57,6 +59,16 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: '30px',
     width: '100%',
+  },
+
+  ideaID: {
+    color: theme.palette.text.second,
+    fontSize: '14px',
+  },
+
+  idText: {
+    color: theme.palette.text.main,
+    fontWeight: 700,
   },
 
   mediaBlock: {

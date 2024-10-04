@@ -247,7 +247,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     const boxId = url.searchParams.get('box-id')
 
     if (boxId) {
-      this.columnMenuSettings?.humanFriendlyId.currentFilterData.push(boxId)
+      this.columnMenuSettings?.xid.currentFilterData.push(boxId)
     }
 
     this.currentSearchValue = url.searchParams.get('search-text') || ''
@@ -487,7 +487,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       toast.success(
         `${t(TranslationKey['Formed a task for storekeeper'])} ${this.selectedBox?.storekeeper?.name} ${t(
           TranslationKey['to change the Box'],
-        )} № ${this.selectedBox?.humanFriendlyId}`,
+        )} № ${this.selectedBox?.xid}`,
       )
 
       this.onTriggerOpenModal('showConfirmModal')
@@ -515,7 +515,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       title: '',
       message: `${t(TranslationKey['The task for the warehouse will be formed'])} ${sourceBox?.storekeeper?.name} ${t(
         TranslationKey['to redistribute the Box'],
-      )} № ${sourceBox?.humanFriendlyId}`,
+      )} № ${sourceBox?.xid}`,
       onSubmit: () => this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason),
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
@@ -537,10 +537,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         boxData.items.every((item: any) => !item.tmpBarCode.length) &&
         boxData.items.every((item: any) => !item.tmpTransparencyFile.length) &&
         (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
-          ? `${t(TranslationKey['Change the box'])}: № ${boxData?.humanFriendlyId}`
+          ? `${t(TranslationKey['Change the box'])}: № ${boxData?.xid}`
           : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
               TranslationKey['to change the Box'],
-            )} № ${boxData?.humanFriendlyId}`,
+            )} № ${boxData?.xid}`,
       onSubmit: () => this.onEditBoxSubmit(id, boxData, sourceData, priority, priorityReason),
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
@@ -735,7 +735,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           toast.success(
             `${t(TranslationKey['Formed a task for storekeeper'])} ${
               this.storekeepersData.find(el => el._id === sourceBox.storekeeper?._id)?.name
-            } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox.humanFriendlyId}`,
+            } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox.xid}`,
           )
         } else {
           toast.warning(t(TranslationKey['The box is not split!']))
@@ -1220,7 +1220,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         toast.success(
           `${t(TranslationKey['Formed a task for storekeeper'])} ${sourceData.storekeeper?.name} ${t(
             TranslationKey['to change the Box'],
-          )} № ${sourceData.humanFriendlyId}`,
+          )} № ${sourceData.xid}`,
         )
       }
 
@@ -1255,7 +1255,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       await this.updateBarCodesInInventory(dataToBarCodeChange)
 
-      this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId)
+      this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.xid)
 
       this.loadData()
       this.onTriggerOpenModal('showEditBoxModal')
@@ -1297,7 +1297,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         [
           'tmpShippingLabel',
           'storekeeperId',
-          'humanFriendlyId',
+          'xid',
           'storekeeper',
           'destination',
           'logicsTariff',
@@ -1515,7 +1515,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
             TranslationKey['Boxes do not have enough fare or destination. The following boxes will not be counted'],
           )}: ${boxesWithoutTariffOrDestinationIds
             // @ts-ignore
-            .map(el => this.currentData?.find(box => box?._id === el)?.humanFriendlyId)
+            .map(el => this.currentData?.find(box => box?._id === el)?.xid)
             .join(', ')} `,
         )
 

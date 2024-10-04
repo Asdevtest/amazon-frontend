@@ -13,7 +13,7 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { useStyles } from './check-request-by-type-exists.style'
 
 interface RequestsDataInterface {
-  humanFriendlyId: number
+  xid: number
   _id: string
 }
 
@@ -56,9 +56,7 @@ export const CheckRequestByTypeExists: FC<CheckRequestByTypeExistsProps> = ({
               className={cx(styles.text, styles.requestInfo)}
               onClick={() => onClickRequest(request)}
             >
-              {`№${request?.humanFriendlyId}${
-                requestsData.length > 1 && requestIndex + 1 !== requestsData.length ? ', ' : ''
-              }`}
+              {`№${request?.xid}${requestsData.length > 1 && requestIndex + 1 !== requestsData.length ? ', ' : ''}`}
             </Link>
           ))}
         </div>

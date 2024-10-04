@@ -29,12 +29,12 @@ import { productionTermColumnMenuItems, productionTermColumnMenuValue } from './
 export const pendingOrdersColumns = () => {
   const columns: IGridColumn[] = [
     {
-      field: 'id',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <Text isCell text={params.value} />,
       sortable: true,
-
+      width: 90,
       columnKey: columnnsKeys.shared.NUMBER,
     },
 

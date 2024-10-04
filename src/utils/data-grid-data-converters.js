@@ -52,7 +52,7 @@ export const myRequestsDataConverter = (data, shopsData) =>
     price: item.price,
     executor: item?.executor,
     asin: item.asin,
-    humanFriendlyId: item.humanFriendlyId,
+    xid: item.xid,
     updatedAt: item.updatedAt,
     createdAt: item.createdAt,
     timeoutAt: item.timeoutAt,
@@ -180,7 +180,7 @@ export const addOrEditBatchDataConverter = (
 
     updatedAt: item.updatedAt,
 
-    humanFriendlyId: item.humanFriendlyId,
+    xid: item.xid,
     deliveryTotalPrice:
       getTariffRateForBoxOrOrder(item) *
       (getBatchWeightCalculationMethodForBox
@@ -282,13 +282,13 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
 
     client: item?.client?.name,
 
-    humanFriendlyId: item?.humanFriendlyId,
+    xid: item?.xid,
     amount: item?.items?.reduce((acc, cur) => (acc += cur?.amount), 0),
 
     isDraft: item?.isDraft,
     createdAt: item?.createdAt,
     updatedAt: item?.updatedAt,
-    batchId: item?.batch?.humanFriendlyId,
+    batchId: item?.batch?.xid,
     volumeWeightCoefficient,
 
     prepId: item?.prepId,
@@ -318,7 +318,7 @@ export const SourceFilesDataConverter = data =>
     createdAt: item?.createdAt,
     updatedAt: item?.updatedAt,
 
-    humanFriendlyId: item?.proposal?.request?.humanFriendlyId,
+    xid: item?.proposal?.request?.xid,
     title: item?.proposal?.request?.title,
     asin: item?.proposal?.request?.asin,
     client: item?.proposal?.client,
@@ -339,34 +339,34 @@ export const notificationDataConverter = data =>
         ? item?.data?.[0]?.product
           ? {
               ...item?.data?.[0]?.product,
-              humanFriendlyId: item?.data?.[0]?.id,
+              xid: item?.data?.[0]?.id,
             }
           : item?.data?.needConfirmOrders?.[0]?.product
           ? {
               ...item?.data?.needConfirmOrders?.[0]?.product,
-              humanFriendlyId: item?.data?.needConfirmOrders?.[0]?.id,
+              xid: item?.data?.needConfirmOrders?.[0]?.id,
             }
           : {
               ...item?.data?.vacOrders?.[0]?.product,
-              humanFriendlyId: item?.data?.vacOrders?.[0]?.id,
+              xid: item?.data?.vacOrders?.[0]?.id,
             }
         : item.type === Notification.Proposal
         ? {
             ...item?.data?.[0]?.request?.product,
-            humanFriendlyId: item?.data?.[0]?.request?.humanFriendlyId,
+            xid: item?.data?.[0]?.request?.xid,
             title: item?.data?.[0]?.request?.title,
           }
         : item.type === Notification.Request
         ? {
             ...item?.data?.[0]?.product,
-            humanFriendlyId: item?.data?.[0]?.humanFriendlyId,
+            xid: item?.data?.[0]?.xid,
             title: item?.data?.[0]?.title,
           }
         : item.type === Notification.Launch
         ? item?.data?.[0]?.product
         : {
             ...item?.data?.items?.[0]?.product,
-            humanFriendlyId: item?.data?.humanFriendlyId,
+            xid: item?.data?.xid,
           },
     sub: item.type === Notification.Proposal ? item?.data?.[0]?.sub : undefined,
     type: item?.type,

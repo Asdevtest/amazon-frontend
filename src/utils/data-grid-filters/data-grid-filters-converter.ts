@@ -18,11 +18,11 @@ type OperatorsSettingsType = {
 }
 
 const onlyDigitsRegex = /^\d+$/
-const onlyNumberColumns = ['humanFriendlyId', 'id', 'orderHumanFriendlyId', 'batchHumanFriendlyId']
+const onlyNumberColumns = ['xid', 'id', 'orderHumanFriendlyId', 'batchHumanFriendlyId']
 
 const searchOperatorByColumn = {
   $eq: [
-    'humanFriendlyId',
+    'xid',
     'id',
     'orderHumanFriendlyId',
     'orderHumanFriendlyId',

@@ -51,7 +51,7 @@ export const sharedFieldsWhiteList = [
 ]
 
 export const filtersFields = [
-  'humanFriendlyId',
+  'xid',
   'orderIdsItems',
   'orders',
   'amount',

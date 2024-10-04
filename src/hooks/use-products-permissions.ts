@@ -22,7 +22,7 @@ export interface IPermissionsData {
   skuByClient: string[]
   buyerId: string
   images: string[]
-  humanFriendlyId?: string
+  xid?: number
   name?: string
   allowedSpec?: ISpec[]
   email?: string

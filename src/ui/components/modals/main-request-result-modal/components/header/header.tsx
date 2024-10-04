@@ -14,15 +14,15 @@ interface HeaderProps {
   isClient: boolean
   asin: string
   executionTime: number
-  humanFriendlyId: number
+  xid: number
 }
 
 export const Header: FC<HeaderProps> = memo(props => {
-  const { isClient, asin, executionTime, humanFriendlyId } = props
+  const { isClient, asin, executionTime, xid } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const currentRequestId = humanFriendlyId ? ` / ID ${humanFriendlyId}` : ''
+  const currentRequestId = xid ? ` / ID ${xid}` : ''
   const title = `${t(TranslationKey['Result of the request'])}${currentRequestId}`
 
   return (

@@ -39,7 +39,7 @@ interface IHandlers {
 export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
   const columns: IGridColumn[] = [
     {
-      field: 'id',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <Text isCell text={params.value} />,

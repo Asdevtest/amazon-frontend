@@ -3,7 +3,7 @@ export const filtersFields = [
   'amazonTitle',
   'title',
   'destination',
-  'humanFriendlyId',
+  'xid',
   'storekeeper',
   'logicsTariff',
   'finalWeight',
@@ -20,4 +20,4 @@ export const filtersFields = [
   'subUsers',
 ]
 
-export const fieldsForSearch = ['amazonTitle', 'humanFriendlyId', 'asin', 'orderHumanFriendlyId']
+export const fieldsForSearch = ['amazonTitle', 'xid', 'asin', 'orderHumanFriendlyId']

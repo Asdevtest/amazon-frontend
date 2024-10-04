@@ -716,11 +716,7 @@ export class WarehouseMyWarehouseViewModel {
         images: this.uploadedFiles,
       }
 
-      const newBoxBody = getObjectFilteredByKeyArrayBlackList(boxBody, [
-        'tmpShippingLabel',
-        'storekeeperId',
-        'humanFriendlyId',
-      ])
+      const newBoxBody = getObjectFilteredByKeyArrayBlackList(boxBody, ['tmpShippingLabel', 'storekeeperId', 'xid'])
 
       const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes, newBoxBody)
 
@@ -1067,7 +1063,7 @@ export class WarehouseMyWarehouseViewModel {
         'skuByClient',
         'item',
         'id',
-        'humanFriendlyId',
+        'xid',
         'prepId',
       ]),
     )

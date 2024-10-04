@@ -24,10 +24,10 @@ interface IProductInTransferColumns {
 export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTransferColumns) => {
   const columns: IGridColumn[] = [
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey['Batch number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.humanFriendlyId || 0} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.xid || 0} />,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.QUANTITY,
       width: 80,
