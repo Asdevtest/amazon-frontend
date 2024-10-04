@@ -1,7 +1,5 @@
 import { makeStyles } from 'tss-react/mui'
 
-import { fontWeight } from '@mui/system'
-
 export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
