@@ -9,6 +9,8 @@ import { ParsingView } from '@views/shared/parsing-view/parsing-view'
 
 import { t } from '@utils/translations'
 
+import { TaskStatus } from '@typings/enums/task-status'
+
 import { permissionsKeys } from '../keys/permissions'
 import { TranslationKey } from '../translations/translation-key'
 
@@ -465,14 +467,18 @@ const WarehouseMyWarehouseView = lazy(() =>
   import('@views/warehouse/warehouse-my-warehouse-view').then(module => ({ default: module.WarehouseMyWarehouseView })),
 )
 const WarehouseCanceledTasksView = lazy(() =>
-  import('@views/warehouse/warehouse-tasks-views/warehouse-canceled-tasks-view').then(module => ({
-    default: module.WarehouseCanceledTasksView,
-  })),
+  import('@views/warehouse/warehouse-tasks-views/warehouse-main-tasks-view').then(module => {
+    const Component = module.WarehouseMainTasksView
+
+    return { default: props => <Component status={TaskStatus.NOT_SOLVED} {...props} /> }
+  }),
 )
 const WarehouseCompletedTasksView = lazy(() =>
-  import('@views/warehouse/warehouse-tasks-views/warehouse-completed-tasks-view').then(module => ({
-    default: module.WarehouseCompletedTasksView,
-  })),
+  import('@views/warehouse/warehouse-tasks-views/warehouse-main-tasks-view').then(module => {
+    const Component = module.WarehouseMainTasksView
+
+    return { default: props => <Component status={TaskStatus.SOLVED} {...props} /> }
+  }),
 )
 const WarehouseMyTasksView = lazy(() =>
   import('@views/warehouse/warehouse-tasks-views/warehouse-my-tasks-view').then(module => ({

@@ -1,7 +1,4 @@
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
-import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
-import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
-import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
 import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -19,19 +16,6 @@ import { t } from './translations'
 
 export const addIdDataConverter = data =>
   data.map((item, index) => ({ ...item, originalData: item, id: item._id ? item._id : index }))
-
-export const ideaNoticeDataConverter = data =>
-  data.map((item, index) => ({
-    ...item,
-    originalData: item,
-    id: index,
-
-    updatedAt: item.idea.updatedAt,
-    createdAt: item.createdAt,
-    createdByName: item.createdBy.name,
-    productName: item.idea.productName,
-    status: ideaStatusTranslate(ideaStatusByCode[item.idea.status]),
-  }))
 
 export const stockReportDataConverter = data =>
   data.map(item => ({
@@ -65,53 +49,6 @@ export const myRequestsDataConverter = (data, shopsData) =>
     uploadedToListing: item?.uploadedToListing,
     taskComplexity: item?.taskComplexity,
     shopId: shopsData?.find(el => el._id === item?.product?.shopId)?.name || '',
-  }))
-
-export const clientInventoryDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-
-    researcherName: item.createdBy?.name,
-    buyerName: item.buyer?.name,
-    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
-    status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-
-    category: item.category,
-    weight: item.weight,
-    fbaamount: item.fbaamount,
-
-    amazon: item.amazon,
-    profit: item.profit,
-    margin: item.margin,
-    bsr: item.bsr,
-    fbafee: item.fbafee,
-
-    id: item._id,
-    _id: item._id,
-    asin: item.asin,
-    inTransfer: item.inTransfer,
-    amountInOrders: item.amountInOrders,
-
-    fbaFbmStockSum: item.fbaFbmStockSum,
-    reservedSum: item.reservedSum,
-    sentToFbaSum: item.sentToFbaSum,
-
-    sumStock: item.sumStock,
-    stockCost: item.stockCost,
-    purchaseQuantity: item.purchaseQuantity,
-
-    hsCode: item.hsCode,
-    transparency: item.transparency,
-
-    fourMonthesStock: item.fourMonthesStock,
-    clientComment: item.clientComment,
-    stockUSA: item.stockUSA,
-
-    ideasOnCheck: item.ideasOnCheck,
-    ideasFinished: item.ideasFinished,
-    ideasClosed: item.ideasClosed,
   }))
 
 export const clientOrdersDataConverter = (data, shopsData) =>

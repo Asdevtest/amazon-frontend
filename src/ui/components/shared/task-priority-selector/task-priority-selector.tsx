@@ -9,7 +9,7 @@ import { t } from '@utils/translations'
 import { CustomRadioButton } from '../custom-radio-button'
 
 interface TaskPrioritySelectorProps {
-  currentPriority: string
+  currentPriority: string | null
   onActivePriority: (value: RadioChangeEvent) => void
 }
 
