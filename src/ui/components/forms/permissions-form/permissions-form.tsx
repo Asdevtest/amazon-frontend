@@ -89,6 +89,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
               value={viewModel.currentMainOptions}
               onInputKeyDown={viewModel.onInputKeyDown}
               onSearch={viewModel.onSeacrh}
+              onBlur={() => viewModel.onChangeSearchFocus(false)}
               // @ts-ignore
               onChange={viewModel.mainChangeMethod}
             />
