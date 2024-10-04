@@ -3,8 +3,8 @@ import { ChangeEvent, FC, KeyboardEvent, ReactElement, memo, useCallback, useEff
 import { FaArrowLeft } from 'react-icons/fa'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import 'react-mde/lib/styles/css/react-mde-all.css'
-import { VirtuosoHandle } from 'react-virtuoso'
 
+// import { VirtuosoHandle } from 'react-virtuoso'
 import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
@@ -133,7 +133,7 @@ export const Chat: FC<ChatProps> = memo(
     const prevChatId = usePrevious(chat?._id)
 
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
-    const messagesWrapperRef = useRef<VirtuosoHandle | undefined>(null)
+    // const messagesWrapperRef = useRef<VirtuosoHandle | undefined>(null)
     const highlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     const [isShowChatInfo, setIsShowChatInfo] = useState(false)

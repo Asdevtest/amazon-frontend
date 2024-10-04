@@ -1,6 +1,6 @@
 import { FC, Ref, RefObject, memo, useEffect } from 'react'
-import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 
+// import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 import { ChatModel } from '@models/chat-model'
 import { ChatContract } from '@models/chat-model/contracts'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
@@ -19,7 +19,7 @@ interface ChatMessagesListProps {
   isGroupChat: boolean
   userId: string
   firstItemIndex: number
-  messagesWrapperRef: RefObject<VirtuosoHandle | undefined>
+  // messagesWrapperRef: RefObject<VirtuosoHandle | undefined>
 
   setMessageToReply: (mes: ChatMessageContract | null) => void
   handleScrollToBottomButtonVisibility: (bottomState: boolean) => void
@@ -85,45 +85,46 @@ export const ChatMessagesList: FC<ChatMessagesListProps> = memo(props => {
   }, [messages?.length])
 
   return (
-    <Virtuoso
-      ref={messagesWrapperRef as Ref<VirtuosoHandle> | undefined}
-      className={styles.list}
-      firstItemIndex={firstItemIndex}
-      initialTopMostItemIndex={messages?.length - 1}
-      startReached={() => handleLoadMoreMessages(PaginationDirection.NEXT)}
-      endReached={() => handleLoadMoreMessages(PaginationDirection.PREV)}
-      atBottomStateChange={handleScrollToBottomButtonVisibility}
-      atBottomThreshold={50}
-      data={messages}
-      itemContent={(index, message) => (
-        <ChatMessageItem
-          messageItem={message}
-          indexFromTable={index}
-          firstItemIndex={firstItemIndex}
-          messageToScroll={messageToScroll}
-          userId={userId}
-          messages={messages}
-          isGroupChat={isGroupChat}
-          isFreelanceOwner={isFreelanceOwner}
-          isMobileResolution={isMobileResolution}
-          isShowChatInfo={isShowChatInfo}
-          handleLoadMoreMessages={handleLoadMoreMessages}
-          handlers={handlers}
-          messagesFoundIds={messagesFoundIds}
-          searchPhrase={searchPhrase}
-          selectedMessages={selectedMessages}
-          onSelectMessage={onSelectMessage}
-          onClickReply={onClickReply}
-          onClickForwardMessages={onClickForwardMessages}
-        />
-      )}
-      followOutput={isAtBottom => {
-        if (isAtBottom && chat?.isAllPreviousMessagesLoaded) {
-          return 'smooth'
-        } else {
-          return false
-        }
-      }}
-    />
+    // <Virtuoso
+    //   ref={messagesWrapperRef as Ref<VirtuosoHandle> | undefined}
+    //   className={styles.list}
+    //   firstItemIndex={firstItemIndex}
+    //   initialTopMostItemIndex={messages?.length - 1}
+    //   startReached={() => handleLoadMoreMessages(PaginationDirection.NEXT)}
+    //   endReached={() => handleLoadMoreMessages(PaginationDirection.PREV)}
+    //   atBottomStateChange={handleScrollToBottomButtonVisibility}
+    //   atBottomThreshold={50}
+    //   data={messages}
+    //   itemContent={(index, message) => (
+    //     <ChatMessageItem
+    //       messageItem={message}
+    //       indexFromTable={index}
+    //       firstItemIndex={firstItemIndex}
+    //       messageToScroll={messageToScroll}
+    //       userId={userId}
+    //       messages={messages}
+    //       isGroupChat={isGroupChat}
+    //       isFreelanceOwner={isFreelanceOwner}
+    //       isMobileResolution={isMobileResolution}
+    //       isShowChatInfo={isShowChatInfo}
+    //       handleLoadMoreMessages={handleLoadMoreMessages}
+    //       handlers={handlers}
+    //       messagesFoundIds={messagesFoundIds}
+    //       searchPhrase={searchPhrase}
+    //       selectedMessages={selectedMessages}
+    //       onSelectMessage={onSelectMessage}
+    //       onClickReply={onClickReply}
+    //       onClickForwardMessages={onClickForwardMessages}
+    //     />
+    //   )}
+    //   followOutput={isAtBottom => {
+    //     if (isAtBottom && chat?.isAllPreviousMessagesLoaded) {
+    //       return 'smooth'
+    //     } else {
+    //       return false
+    //     }
+    //   }}
+    // />
+    <></>
   )
 })

@@ -1,4 +1,5 @@
 import { FC, memo, useCallback, useState } from 'react'
+import { CellMeasurerChildProps } from 'react-virtualized/dist/es/CellMeasurer'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { CustomButton } from '@components/shared/custom-button'
@@ -11,9 +12,10 @@ import { useStyles } from './media-files.style'
 
 interface MediaFilesProps {
   mediaFiles: string[]
+  measure: CellMeasurerChildProps['measure']
 }
 
-export const MediaFiles: FC<MediaFilesProps> = memo(({ mediaFiles }) => {
+export const MediaFiles: FC<MediaFilesProps> = memo(({ mediaFiles, measure }) => {
   if (mediaFiles.length === 0) {
     return null
   }
@@ -52,6 +54,7 @@ export const MediaFiles: FC<MediaFilesProps> = memo(({ mediaFiles }) => {
                 src={getAmazonImageUrl(el, true)}
                 alt={index.toString()}
                 loading="lazy"
+                onLoad={measure}
                 onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
                 onClick={() => onClickOpenPreview(index)}
               />

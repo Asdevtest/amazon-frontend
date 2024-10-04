@@ -5,7 +5,6 @@ import { chatModel } from '@models/chat-model-new/chat-model'
 import { useStyles } from './chat-view.style'
 
 import { ChatHeader } from './components/chat-header'
-import { ChatInfo } from './components/chat-info'
 import { ChatsList } from './components/chats-list'
 import { MessagesList } from './components/messages-list'
 import { SendMessageBlock } from './components/send-message-block'
@@ -25,7 +24,7 @@ export const ChatView = observer(() => {
         {chatModel.currentChat ? <SendMessageBlock /> : null}
       </div>
 
-      {chatModel.currentChat ? <ChatInfo /> : null}
+      {/* {chatModel.currentChat ? <ChatInfo /> : null} */}
     </div>
   )
 })

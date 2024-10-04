@@ -6,21 +6,31 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '5px',
-    overflowY: 'scroll',
-    paddingRight: '5px',
     boxShadow: theme.palette.boxShadow.box,
     borderRadius: '20px 0 0 20px',
+  },
 
-    '::-webkit-scrollbar': {
-      display: 'none',
-      background: 'transparent',
-      width: '4px',
-    },
+  autoSizer: {
+    'div:first-child': {
+      paddingRight: '4px',
 
-    '&:hover': {
-      paddingRight: '1px',
+      overflowY: 'auto',
       '::-webkit-scrollbar': {
-        display: 'block',
+        width: '4px',
+        background: 'transparent',
+        display: 'none',
+      },
+
+      '::-webkit-scrollbar-track': {
+        background: 'transparent',
+      },
+
+      '&:hover': {
+        paddingRight: '4px',
+
+        '::-webkit-scrollbar': {
+          display: 'block',
+        },
       },
     },
   },

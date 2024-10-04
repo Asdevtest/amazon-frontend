@@ -22,6 +22,7 @@ export interface Chat {
   messages: ChatMessage[]
   lastMessage: ChatMessage
   type: ChatsType
+  messagesCount: number
 
   info: {
     image: string

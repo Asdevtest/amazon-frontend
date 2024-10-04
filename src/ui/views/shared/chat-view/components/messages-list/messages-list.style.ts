@@ -4,23 +4,31 @@ export const useStyles = makeStyles()(() => ({
   messagesListWrapper: {
     flex: 1,
     display: 'flex',
-    flexDirection: 'column',
     gap: '5px',
     padding: '10px 5px',
-    paddingRight: '9px',
+  },
 
-    overflowY: 'auto',
+  autoSizer: {
+    '& > *:nth-child(1)': {
+      paddingRight: '4px',
 
-    '::-webkit-scrollbar': {
-      display: 'none',
-      background: 'transparent',
-      width: '4px',
-    },
-
-    '&:hover': {
-      paddingRight: '5px',
+      overflowY: 'auto',
       '::-webkit-scrollbar': {
-        display: 'block',
+        width: '4px',
+        background: 'transparent',
+        display: 'none',
+      },
+
+      '::-webkit-scrollbar-track': {
+        background: 'transparent',
+      },
+
+      '&:hover': {
+        paddingRight: '4px',
+
+        '::-webkit-scrollbar': {
+          display: 'block',
+        },
       },
     },
   },

@@ -78,7 +78,14 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
 
   async getChatMessages() {
     try {
-      const result = await this.emitGetChatMessages(this.selectedChatId)
+      if (!this.currentChat) {
+        return
+      }
+
+      const chatId = this.currentChat?._id
+      const { limit, offset } = this.currentChat.pagination
+
+      const result = await this.emitGetChatMessages(chatId, offset, limit)
 
       this.addMessagesToChatById(this.selectedChatId, result?.rows)
     } catch (error) {

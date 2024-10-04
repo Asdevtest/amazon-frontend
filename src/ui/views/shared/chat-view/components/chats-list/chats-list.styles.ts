@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
-    width: '312px',
+    minWidth: '300px',
 
     gap: '10px',
 
@@ -30,29 +30,5 @@ export const useStyles = makeStyles()(theme => ({
   searchInput: {
     flex: '1',
     width: 'unset',
-  },
-
-  chatsList: {
-    flex: '1',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '5px',
-    overflowY: 'scroll',
-    paddingRight: '5px',
-    boxShadow: theme.palette.boxShadow.box,
-    borderRadius: '20px 0 0 20px',
-
-    '::-webkit-scrollbar': {
-      display: 'none',
-      background: 'transparent',
-      width: '4px',
-    },
-
-    '&:hover': {
-      paddingRight: '1px',
-      '::-webkit-scrollbar': {
-        display: 'block',
-      },
-    },
   },
 }))
