@@ -1,7 +1,5 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { filterNullValues } from '@utils/object'
-
 class BoxesModelStatic {
   createBox = async body => {
     const response = await restApiService.boxesApi.apiV1BoxesPost({ body })
@@ -97,7 +95,7 @@ class BoxesModelStatic {
   }
 
   getBoxesForCurClient = async data => {
-    const response = await restApiService.boxesApi.apiV1BoxesClientsGet(filterNullValues(data))
+    const response = await restApiService.boxesApi.apiV1BoxesClientsGet(data)
     return response?.data || []
   }
 

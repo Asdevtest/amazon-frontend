@@ -1,7 +1,5 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { filterNullValues } from '@utils/object'
-
 class IdeaModelStatic {
   getIdeas = async guid => {
     const response = await restApiService.ideaApi.apiV1IdeasByParentGuidGet({ guid, noCache: true })
@@ -9,7 +7,7 @@ class IdeaModelStatic {
   }
 
   getIdeaList = async data => {
-    const response = await restApiService.ideaApi.apiV1IdeasPagMyGet(filterNullValues(data))
+    const response = await restApiService.ideaApi.apiV1IdeasPagMyGet(data)
     return response.data
   }
 

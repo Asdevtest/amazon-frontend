@@ -8,8 +8,6 @@ import { SettingsModel } from '@models/settings-model'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { filterNullValues } from '@utils/object'
-
 const persistProperties = ['accessToken', 'userInfo', 'masterUserId', 'userId', 'refreshToken', 'platformSettings']
 
 class UserModelStatic {
@@ -206,7 +204,7 @@ class UserModelStatic {
   }
 
   async getUsersNotificationsPagMy(data) {
-    const response = await restApiService.userApi.apiV1UsersNotificationsPagMyGet(filterNullValues(data))
+    const response = await restApiService.userApi.apiV1UsersNotificationsPagMyGet(data)
     return response.data
   }
 
