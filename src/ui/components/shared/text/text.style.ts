@@ -4,7 +4,6 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     position: 'relative',
     width: '100%',
-    height: '100%',
 
     '& > div': {
       minHeight: '16px',
