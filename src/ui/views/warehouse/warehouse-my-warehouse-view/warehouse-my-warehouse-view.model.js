@@ -329,7 +329,6 @@ export class WarehouseMyWarehouseViewModel {
               'tmpTransparencyFile',
               'amount',
             ]),
-            shippingLabel: newBoxCopy.shippingLabel,
             orderId: el.order._id,
             productId: el.product._id,
             barCode: prodInDataToUpdateBarCode?.newData[0] || el.barCode,
