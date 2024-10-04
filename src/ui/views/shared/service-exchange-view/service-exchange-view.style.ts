@@ -22,6 +22,7 @@ export const useStyles = makeStyles()(() => ({
 
   content: {
     display: 'flex',
+    justifyContent: 'center',
     flexWrap: 'wrap',
     gap: '10px',
     overflowY: 'auto',

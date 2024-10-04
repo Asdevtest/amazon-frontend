@@ -40,7 +40,6 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
         sku={option.sku}
         image={option.image}
         subOption={option.subOption}
-        onFocus={() => viewModel.onChangeSearchFocus(true)}
       />
     )
   }
@@ -88,9 +87,8 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
               popupClassName={styles.cascaderPopup}
               optionRender={optionRender}
               value={viewModel.currentMainOptions}
-              onFocus={() => viewModel.onChangeSearchFocus(true)}
-              onBlur={() => viewModel.onChangeSearchFocus(false)}
               onInputKeyDown={viewModel.onInputKeyDown}
+              onSearch={viewModel.onSeacrh}
               // @ts-ignore
               onChange={viewModel.mainChangeMethod}
             />
