@@ -501,7 +501,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             columnVisibilityModel={viewModel.columnVisibilityModel}
             rows={boxesToAddData}
             columns={columnsModel}
-            rowHeight={100}
+            getRowHeight={() => 'auto'}
             rowSelectionModel={boxesToAddIds}
             onRowSelectionModelChange={onSelectionAwaitingBoxes}
             onRowDoubleClick={e => viewModel.setBoxId(e.row._id)}
@@ -593,7 +593,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             }}
             rows={chosenBoxes || []}
             columns={columnsModel}
-            rowHeight={100}
+            getRowHeight={() => 'auto'}
             onRowSelectionModelChange={onSelectionChoosenBoxes}
             onRowDoubleClick={e => viewModel.setBoxId(e.row._id)}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

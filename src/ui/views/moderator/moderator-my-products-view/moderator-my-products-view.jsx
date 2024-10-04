@@ -21,7 +21,7 @@ export const ModeratorMyProductsViewRaw = props => {
                 pageSize={rowsPerPage}
                 
                 rows={getCurrentData()}
-                rowHeight={100}
+                getRowHeight={() => 'auto'}
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatus.IS_LOADING}

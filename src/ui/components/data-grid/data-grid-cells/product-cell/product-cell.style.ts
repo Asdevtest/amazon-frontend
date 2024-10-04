@@ -7,11 +7,17 @@ export const useStyles = makeStyles()(theme => ({
     padding: '5px 0px',
     display: 'flex',
     flexDirection: 'column',
+    gap: '3px',
+    position: 'relative',
   },
 
   text: {
     fontSize: '12px',
     lineHeight: '16px',
+  },
+
+  fixWidth: {
+    width: '85%',
   },
 
   flexRow: {
@@ -21,6 +27,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   flexColumn: {
+    width: '100%',
+    minWidth: '80px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -32,6 +40,20 @@ export const useStyles = makeStyles()(theme => ({
     boxShadow: theme.palette.boxShadow.paper,
   },
 
+  superbox: {
+    color: theme.palette.primary.main,
+    fontWeight: 600,
+  },
+
+  warning: {
+    position: 'absolute',
+    bottom: '5px',
+    right: 0,
+  },
+
+  warningText: {
+    color: theme.palette.text.red,
+  },
   mask: {
     padding: '0 5px',
     display: 'flex',

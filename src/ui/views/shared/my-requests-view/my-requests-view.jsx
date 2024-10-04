@@ -98,7 +98,7 @@ export const MyRequestsView = observer(() => {
         rowCount={viewModel.rowCount}
         sortModel={viewModel.sortModel}
         rows={viewModel.currentData}
-        rowHeight={130}
+        getRowHeight={() => 'auto'}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

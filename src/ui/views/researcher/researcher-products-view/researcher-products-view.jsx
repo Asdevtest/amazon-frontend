@@ -31,7 +31,7 @@ export const ResearcherProductsView = observer(() => {
       <CustomDataGrid
         sortingMode="client"
         paginationMode="client"
-        rowHeight={50}
+        getRowHeight={() => 'auto'}
         columns={viewModel.columnsModel}
         rowCount={viewModel.rowCount}
         sortModel={viewModel.sortModel}
