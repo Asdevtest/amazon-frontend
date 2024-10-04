@@ -159,7 +159,7 @@ export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replace
 export const getTableByColumn = (column, hint) => {
   if (
     [
-      'humanFriendlyId',
+      'xid',
       'amount',
       'destination',
       'logicsTariff',
@@ -192,9 +192,7 @@ export const getTableByColumn = (column, hint) => {
     ].includes(column)
   ) {
     if (
-      ['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate', 'quantityBoxes', 'updatedAt'].includes(
-        column,
-      ) &&
+      ['xid', 'boxesCount', 'trackingNumber', 'arrivalDate', 'quantityBoxes', 'updatedAt'].includes(column) &&
       hint === 'batches'
     ) {
       return 'batches'

@@ -22,7 +22,7 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
 
   return (
     <div className={styles.box}>
-      <Typography className={styles.boxTitle}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
+      <Typography className={styles.boxTitle}>{`${t(TranslationKey.Box)} № ${box.xid}`}</Typography>
       <div>
         <div>
           {box.items.map((order, orderIndex) => (

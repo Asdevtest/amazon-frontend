@@ -59,7 +59,7 @@ export const sharedFieldsWhiteList = [
 
 export const filtersFields = [
   'shopId',
-  'humanFriendlyId',
+  'xid',
   'id',
   'item',
   'asin',
@@ -80,15 +80,6 @@ export const filtersFields = [
   'clientComment',
 ]
 
-export const fieldsForSearch = [
-  'asin',
-  'amazonTitle',
-  'skuByClient',
-  'id',
-  'item',
-  'productId',
-  'humanFriendlyId',
-  'prepId',
-]
+export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient', 'id', 'item', 'productId', 'xid', 'prepId']
 
 export const disableSelectionCells = ['prepId']

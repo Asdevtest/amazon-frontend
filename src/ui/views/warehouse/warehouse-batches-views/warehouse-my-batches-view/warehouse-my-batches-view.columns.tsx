@@ -68,10 +68,10 @@ export const warehouseMyBatchesViewColumns = (columnsProps: ColumnsProps) => {
     },
 
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: ({ row }) => <Text isCell text={row.humanFriendlyId} />,
+      renderCell: ({ row }) => <Text isCell text={row.xid} />,
       type: 'number',
       width: 80,
       columnKey: columnnsKeys.shared.STRING,

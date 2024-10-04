@@ -26,7 +26,7 @@ import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/da
 
 export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey['Box ID']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Box ID'])} />,
     type: 'number',
@@ -148,9 +148,9 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
     field: 'batchHumanFriendlyId',
     headerName: t(TranslationKey.Batch),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Batch)} />,
-    valueGetter: ({ row }) => row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch']),
+    valueGetter: ({ row }) => row?.originalData?.batch?.xid || t(TranslationKey['Outside Batch']),
     renderCell: params => (
-      <Text isCell text={params.row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch'])} />
+      <Text isCell text={params.row?.originalData?.batch?.xid || t(TranslationKey['Outside Batch'])} />
     ),
     type: 'number',
     width: 110,

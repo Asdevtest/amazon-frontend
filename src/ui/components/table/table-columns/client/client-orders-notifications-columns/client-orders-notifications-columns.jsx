@@ -47,7 +47,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-      renderCell: params => <Text isCell text={params.row.id} />,
+      renderCell: params => <Text isCell text={params.row.xid} />,
       type: 'number',
       width: 60,
     },

@@ -34,7 +34,7 @@ export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(
     '№ ' +
     viewModel.currentData
       .filter(batch => viewModel.selectedRows.includes(batch._id))
-      .map(batch => batch.humanFriendlyId)
+      .map(batch => batch.xid)
       .join(', ')
   const disabledConfirmSendButton =
     !viewModel.selectedRows.length || viewModel.isInvalidTariffBoxSelected || viewModel.isNeedConfirmPriceBoxSelected

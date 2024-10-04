@@ -345,9 +345,7 @@ export const EditBoxStorekeeperForm = memo(
                       label={`${t(TranslationKey.Box)} №`}
                       inputComponent={
                         <div className={styles.boxTitleWrapper}>
-                          <Typography className={styles.tableTitle}>{`${
-                            formItem && formItem.humanFriendlyId
-                          }`}</Typography>
+                          <Typography className={styles.tableTitle}>{`${formItem && formItem.xid}`}</Typography>
                         </div>
                       }
                     />

@@ -18,7 +18,7 @@ export interface IAnnoucement {
 export interface IAnnoucementRequest {
   _id: string
   title: string
-  humanFriendlyId: number
+  xid: number
   price: number
   status: string
   timeoutAt: string

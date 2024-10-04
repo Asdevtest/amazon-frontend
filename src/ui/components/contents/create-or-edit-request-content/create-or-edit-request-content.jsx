@@ -398,7 +398,7 @@ export const CreateOrEditRequestContent = memo(props => {
     const createdDefaultRequestTemplateSelectValue = {
       ...request,
       value: request?._id,
-      label: `${t(TranslationKey['Request ID'])}: ${request?.humanFriendlyId || t(TranslationKey.Missing)}`,
+      label: `${t(TranslationKey['Request ID'])}: ${request?.xid || t(TranslationKey.Missing)}`,
     }
     setDefaultRequestTemplateSelectValue(createdDefaultRequestTemplateSelectValue)
 

@@ -22,7 +22,7 @@ export const RequestOption: FC<RequestOptionProps> = observer(({ data }) => {
     <Space>
       <div className={styles.column}>
         <div className={styles.row}>
-          <p className={cx(styles.text, styles.textBold)}>{data.humanFriendlyId}</p>
+          <p className={cx(styles.text, styles.textBold)}>{data.xid}</p>
           <p className={cx(styles.text, styles.fixWidth)}>{`- ${data.title}`}</p>
         </div>
 

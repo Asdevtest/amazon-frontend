@@ -31,7 +31,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
   },
 
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: 'ID',
     renderHeader: params => (
       <MultilineTextHeaderCell

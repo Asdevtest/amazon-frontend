@@ -120,6 +120,15 @@ export const clientTasksViewColumns = handlers => {
     },
 
     {
+      field: 'xid',
+      headerName: t(TranslationKey.ID) + ' / item',
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
+      renderCell: params => <Text isCell text={params.row.xid} />,
+      width: 100,
+      type: 'number',
+    },
+
+    {
       field: 'orderId',
       headerName: t(TranslationKey['Order number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
@@ -129,7 +138,7 @@ export const clientTasksViewColumns = handlers => {
           maxItemsDisplay={4}
           maxLettersInItem={10}
           sourceString={params.row?.boxesBefore.reduce(
-            (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur?.order?.id], [])],
+            (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur?.order?.xid], [])],
             [],
           )}
         />

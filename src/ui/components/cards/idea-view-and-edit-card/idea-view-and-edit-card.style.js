@@ -59,6 +59,16 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
   },
 
+  ideaID: {
+    color: theme.palette.text.second,
+    fontSize: '14px',
+  },
+
+  idText: {
+    color: theme.palette.text.main,
+    fontWeight: 700,
+  },
+
   mediaBlock: {
     width: '100%',
 
