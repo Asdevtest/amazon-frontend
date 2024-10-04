@@ -176,7 +176,7 @@ export const clientInventoryColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pending order'])} />,
       renderCell: params => <OrderIdAndAmountCountCell amount={params.row?.amountInPendingOrders} />,
       width: 85,
-      columnKey: columnnsKeys.shared.NUMBER,
+      columnKey: columnnsKeys.shared.STRING,
     },
 
     {
