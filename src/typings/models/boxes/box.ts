@@ -11,7 +11,7 @@ import { IBoxItem } from './box-item'
 
 export interface IBox {
   _id: string
-  humanFriendlyId: number
+  xid: number
   amount: number
   status: string
   isActual: boolean

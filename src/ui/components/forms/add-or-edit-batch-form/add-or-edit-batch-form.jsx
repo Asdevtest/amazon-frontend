@@ -176,7 +176,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             String(item.order.id)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
             String(item.order.item)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
         ) ||
-        String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+        String(el.originalData.xid)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
         String(el.originalData.prepId)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
     )
 
@@ -190,7 +190,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             String(item.order.id)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
             String(item.order.item)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
         ) ||
-        String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+        String(el.originalData.xid)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
         String(el.originalData.prepId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
     )
 

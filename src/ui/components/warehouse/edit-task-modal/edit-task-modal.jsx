@@ -53,16 +53,18 @@ export const EditTaskModal = memo(
     const [isFileDownloading, setIsFileDownloading] = useState(false)
     const [storekeeperComment, setStorekeeperComment] = useState(task.storekeeperComment)
 
+    const taskId = ' ID ' + task.xid
+
     const renderModalTitle = status => {
       switch (status) {
         case mapTaskStatusEmumToKey[TaskStatus.SOLVED]:
-          return t(TranslationKey['Viewing a completed task'])
+          return t(TranslationKey['Viewing a completed task']) + taskId
         case mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED]:
-          return t(TranslationKey['Viewing a canceled task'])
+          return t(TranslationKey['Viewing a canceled task']) + taskId
         case mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS]:
-          return t(TranslationKey['Resolve task'])
+          return t(TranslationKey['Resolve task']) + taskId
         case mapTaskStatusEmumToKey[TaskStatus.NEW]:
-          return t(TranslationKey['New task'])
+          return t(TranslationKey['New task']) + taskId
       }
     }
 
@@ -150,7 +152,7 @@ export const EditTaskModal = memo(
     const isSomeBoxHasntImageToRecive = isReciveTypeTask && newBoxes.some(box => !box?.images?.length)
 
     const isImagesWereChanged = task?.boxesBefore.some(box => {
-      const newBox = newBoxes.find(newBox => newBox.humanFriendlyId === box.humanFriendlyId)
+      const newBox = newBoxes.find(newBox => newBox.xid === box.xid)
 
       if (newBox) {
         return newBox.images?.some((item, itemIndex) => item !== box?.images?.[itemIndex])
@@ -160,7 +162,7 @@ export const EditTaskModal = memo(
     const isTaskChangeBarcodeOrTransparency =
       isEditTask &&
       task?.boxesBefore.some(box => {
-        const newBox = newBoxes.find(newBox => newBox.humanFriendlyId === box.humanFriendlyId)
+        const newBox = newBoxes.find(newBox => newBox.xid === box.xid)
 
         if (newBox) {
           return newBox.items?.some((item, itemIndex) => {

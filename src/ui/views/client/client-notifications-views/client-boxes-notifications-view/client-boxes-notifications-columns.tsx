@@ -25,7 +25,7 @@ interface IHandlers {
 export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
   const columns: IGridColumn[] = [
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 

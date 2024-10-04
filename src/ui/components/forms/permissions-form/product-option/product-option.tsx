@@ -27,14 +27,15 @@ export const ProductOption: FC<ProductOptionProps> = memo(props => {
   return (
     <div className={styles.flexRow}>
       {subOption ? (
-        <Image
-          preview={false}
-          width={40}
-          height={40}
-          src={getAmazonImageUrl(image, false)}
-          wrapperClassName={styles.image}
-          onClick={e => e.stopPropagation()}
-        />
+        <div onClick={e => e.stopPropagation()}>
+          <Image
+            preview={{ maskClassName: styles.mask }}
+            width={40}
+            height={40}
+            src={getAmazonImageUrl(image, false)}
+            wrapperClassName={styles.image}
+          />
+        </div>
       ) : null}
 
       <div className={styles.flexColumn}>

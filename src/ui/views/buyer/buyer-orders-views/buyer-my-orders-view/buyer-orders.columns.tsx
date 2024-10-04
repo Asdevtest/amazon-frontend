@@ -55,7 +55,7 @@ export const buyerOrdersColumns = ({
 }: buyerOrdersColumnsParams) => {
   const columns: IGridColumn[] = [
     {
-      field: 'id',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <Text isCell text={params.value} />,
@@ -63,7 +63,7 @@ export const buyerOrdersColumns = ({
       sortable: true,
       width: 100,
 
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {

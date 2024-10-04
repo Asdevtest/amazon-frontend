@@ -49,10 +49,10 @@ export const freelancerFreelanceColumns = handlers => [
   },
 
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey['Request ID']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request ID'])} />,
-    renderCell: params => <Text isCell text={params.row.humanFriendlyId} />,
+    renderCell: params => <Text isCell text={params.row.xid} />,
     width: 80,
   },
 

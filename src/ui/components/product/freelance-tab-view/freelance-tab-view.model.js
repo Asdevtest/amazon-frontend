@@ -153,7 +153,7 @@ export class FreelanceModel {
     return objectToUrlQs(
       dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
         'title',
-        'humanFriendlyId',
+        'xid',
       ]),
     )
   }

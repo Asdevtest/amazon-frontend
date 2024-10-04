@@ -903,6 +903,7 @@ export enum TranslationKey {
   'Supplier search options' = 'Supplier search options',
   'Product name' = 'Product name',
   'Idea' = 'Idea',
+  'Idea ID' = 'Idea ID',
   'Important criteria' = 'Important criteria',
   'Desired purchase price' = 'Desired purchase price',
   'Edit and balance' = 'Edit and balance',

@@ -70,9 +70,7 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
               </div>
             )}
             <p className={styles.idText}>{t(TranslationKey.ID) + ':'}</p>
-            <p className={cx(styles.idText, styles.idTextDark)}>
-              {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
-            </p>
+            <p className={cx(styles.idText, styles.idTextDark)}>{request?.request?.xid || t(TranslationKey.Missing)}</p>
           </div>
         </div>
       )}

@@ -133,7 +133,7 @@ export const RequestDesignerResultClientForm = memo(props => {
       <div className={styles.modalMainWrapper}>
         <div className={styles.headerWrapper}>
           <Typography className={styles.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
-            proposal?.request?.humanFriendlyId
+            proposal?.request?.xid
           }`}</Typography>
           <div className={styles.headerRightSubWrapper}>
             <Field

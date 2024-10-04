@@ -22,7 +22,7 @@ export const Header: FC<HeaderProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${formFields?.humanFriendlyId}/ prep id:`
+  const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${formFields?.xid}/ prep id:`
 
   return (
     <div className={styles.wrapper}>

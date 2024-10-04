@@ -430,7 +430,7 @@ export const EditOrderModal = memo(
           <div>
             <div className={styles.idItemWrapper}>
               <Typography className={styles.modalText}>
-                {`${t(TranslationKey.Order)} № ${order.id} / `} <span className={styles.modalSpanText}>{'item'}</span>
+                {`${t(TranslationKey.Order)} № ${order.xid} / `} <span className={styles.modalSpanText}>{'item'}</span>
               </Typography>
 
               <Input

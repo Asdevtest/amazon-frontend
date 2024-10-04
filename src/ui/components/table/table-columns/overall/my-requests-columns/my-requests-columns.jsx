@@ -115,7 +115,7 @@ export const myRequestsViewColumns = rowHandlers => {
     },
 
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
@@ -226,34 +226,9 @@ export const myRequestsViewColumns = rowHandlers => {
 
       width: 187,
       filterable: false,
+
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
-
-      fields: [
-        {
-          label: 'Sub user',
-          value: 0,
-        },
-        {
-          label: 'Sub user by shop',
-          value: 1,
-        },
-      ],
-      columnMenuConfig: [
-        {
-          field: 'subUsers',
-          table: DataGridFilterTables.REQUESTS,
-          columnKey: ColumnMenuKeys.OBJECT,
-          sortOptions: 'asc',
-        },
-
-        {
-          field: 'subUsersByShop',
-          table: DataGridFilterTables.REQUESTS,
-          columnKey: ColumnMenuKeys.OBJECT,
-          sortOptions: 'asc',
-        },
-      ],
-      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
