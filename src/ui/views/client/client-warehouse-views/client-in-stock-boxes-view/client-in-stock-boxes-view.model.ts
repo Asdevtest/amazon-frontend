@@ -961,26 +961,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           }
 
           const validItem = {
-            ...getObjectFilteredByKeyArrayBlackList(el, [
-              '_id',
-              'order',
-              'product',
-              'tmpBarCode',
-              'changeBarCodInInventory',
-              'tmpTransparencyFile',
-              'amount',
-            ]),
-            shippingLabel: newBox.shippingLabel,
             orderId: el?.order?._id || el?.orderId,
             productId: el?.product?._id || el?.productId,
             barCode: prodInDataToUpdateBarCode?.newData?.[0] || el.barCode || sharedFields.barCode,
             transparencyFile: transparencyFileLink,
-            isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
-              ? false
-              : el.isBarCodeAlreadyAttachedByTheSupplier,
-            isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData?.length
-              ? false
-              : el.isBarCodeAttachedByTheStorekeeper,
           }
 
           currentBoxItems.push(validItem)

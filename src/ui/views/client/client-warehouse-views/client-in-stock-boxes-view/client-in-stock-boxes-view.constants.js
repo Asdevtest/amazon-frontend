@@ -43,7 +43,6 @@ export const updateManyBoxesWhiteList = [
   'fbaNumber',
   'destinationId',
   'variationTariffId',
-  'isShippingLabelAttachedByStorekeeper',
   'items',
 ]
 
@@ -56,11 +55,6 @@ export const sharedFieldsWhiteList = [
   'destinationId',
   'transparencyFile',
   'variationTariffId',
-  'isShippingLabelAttachedByStorekeeper',
-  'isTransparencyFileAttachedByTheStorekeeper',
-  'isTransparencyFileAlreadyAttachedByTheSupplier',
-  'isBarCodeAlreadyAttachedByTheSupplier',
-  'isBarCodeAttachedByTheStorekeeper',
 ]
 
 export const filtersFields = [
