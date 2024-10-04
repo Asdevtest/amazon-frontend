@@ -174,7 +174,7 @@ export const BindInventoryGoodsToStockForm = observer(props => {
           paginationMode="client"
           rows={chosenGoods || []}
           columns={chosenGoodsColumns({ onClickTrash })}
-          rowHeight={40}
+          getRowHeight={() => 'auto'}
         />
       </div>
 

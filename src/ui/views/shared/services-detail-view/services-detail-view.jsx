@@ -47,7 +47,7 @@ export const ServiceDetailsView = observer(props => {
         sortModel={viewModel.sortModel}
         filterModel={viewModel.filterModel}
         rows={viewModel.currentData}
-        rowHeight={143}
+        getRowHeight={() => 'auto'}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

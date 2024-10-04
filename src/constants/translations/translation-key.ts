@@ -2068,4 +2068,5 @@ export enum TranslationKey {
   'This profile has already been used! Do you want to continue?' = 'This profile has already been used! Do you want to continue?',
   'By proposal' = 'By proposal',
   'By announcement' = 'By announcement',
+  'qty' = 'qty',
 }

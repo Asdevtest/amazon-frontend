@@ -71,7 +71,7 @@ export const AnotherUserProfileViewRaw = props => {
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             rows={viewModel.currentData}
-            rowHeight={100}
+            getRowHeight={() => 'auto'}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

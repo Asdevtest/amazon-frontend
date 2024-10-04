@@ -57,7 +57,7 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
             <CustomDataGrid
               rows={toJS(filteredBatches)}
               columns={moveBoxToBatchFormColumns({ onClickRowRadioBtn }, selectedBatch)}
-              rowHeight={80}
+              getRowHeight={() => 'auto'}
               onRowClick={e => setSelectedBatch(e.row)}
             />
           </div>
