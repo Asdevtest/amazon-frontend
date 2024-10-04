@@ -111,7 +111,7 @@ export class WarehouseCanceledTasksViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    this.nameSearchValue = searchValue.trim()
 
     this.getTasksMy()
   }

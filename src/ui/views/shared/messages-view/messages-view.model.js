@@ -1,16 +1,10 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
-import { toast } from 'react-toastify'
 
 import { chatsType } from '@constants/keys/chats'
-import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
-import { ChatsModel } from '@models/chats-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
-
-import { t } from '@utils/translations'
-import { dataURLtoFile, onSubmitPostImages } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
@@ -189,7 +183,7 @@ export class MessagesViewModel {
   }
 
   onChangeNameSearchValue(e) {
-    this.nameSearchValue = e.target.value
+    this.nameSearchValue = e.target.value.trim()
   }
 
   async onChangeMesSearchValue(value, chatId) {

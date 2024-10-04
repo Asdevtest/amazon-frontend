@@ -166,7 +166,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
                 ? t(TranslationKey['Search by Proxy'])
                 : t(TranslationKey['Search by ASIN, Reason'])
             }
-            onChange={e => setNameSearchValue(e.target.value)}
+            onChange={e => setNameSearchValue(e.target.value.trim())}
           />
         </div>
         {updatedAsinsAndReasonsData.length ? (

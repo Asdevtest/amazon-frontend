@@ -61,7 +61,7 @@ export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
         value={searchValue}
         wrapperClassName={sharedStyles.searchInput}
         placeholder="Search"
-        onChange={e => setSearchValue(e.target.value)}
+        onChange={e => setSearchValue(e.target.value.trim())}
       />
 
       <DataWrapperColumnMenu

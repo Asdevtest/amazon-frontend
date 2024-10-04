@@ -158,7 +158,7 @@ export class UseProductsPermissions {
   }
 
   async onClickSubmitSearch(searchValue: string) {
-    this.searchValue = searchValue
+    this.searchValue = searchValue.trim()
 
     if (!this.callback || this.requestStatus !== loadingStatus.SUCCESS) {
       return

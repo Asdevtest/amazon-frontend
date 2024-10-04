@@ -118,6 +118,6 @@ export class MyServicesViewModel {
   }
 
   onSearchSubmit(value: string) {
-    this.nameSearchValue = value
+    this.nameSearchValue = value.trim()
   }
 }
