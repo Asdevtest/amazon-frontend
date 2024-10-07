@@ -226,8 +226,8 @@ export const myRequestsViewColumns = rowHandlers => {
 
       width: 187,
       filterable: false,
-
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+
       disableCustomSort: true,
     },
 

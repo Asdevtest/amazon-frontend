@@ -249,7 +249,7 @@ export const AccessToProductForm = memo(props => {
                   isRowSelectable={() => selectedAccess !== accessProductSettings.ALL_PRODUCTS}
                   rows={curProdutsData || []}
                   columns={sourceColumns(isResearcher)}
-                  rowHeight={65}
+                  getRowHeight={() => 'auto'}
                   rowSelectionModel={selectionModel}
                   onRowSelectionModelChange={model => handleSelectionModel(model)}
                   onPaginationModelChange={setPaginationModel}

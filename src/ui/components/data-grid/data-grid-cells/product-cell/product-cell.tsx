@@ -33,13 +33,8 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
   const hoverAsin = useHover()
   const hoverSku = useHover()
 
-  const renderTextCell = (text: string, rows: number) => (
-    <Text
-      copyable={false}
-      textRows={rows}
-      text={text}
-      className={cx(styles.text, { [styles.fixWidth]: isErrorText })}
-    />
+  const renderTextCell = (text: string, rows: number, fixWidth?: boolean) => (
+    <Text copyable={false} textRows={rows} text={text} className={cx(styles.text, { [styles.fixWidth]: fixWidth })} />
   )
 
   const notAsinAndSku = !asin && !sku
@@ -54,14 +49,13 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
           preview={{ maskClassName: styles.mask }}
           width={32}
           height={32}
-          src={getAmazonImageUrl(image, true)}
+          src={getAmazonImageUrl(image, false)}
           wrapperClassName={styles.image}
-          onClick={e => e.stopPropagation()}
         />
 
         <div className={styles.flexColumn}>
           {notAsinAndSku && title ? (
-            renderTextCell(title, 2)
+            renderTextCell(title, 2, true)
           ) : (
             <>
               {asin ? (

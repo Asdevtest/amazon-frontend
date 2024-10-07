@@ -27,7 +27,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '5px',
-    minHeight: '22px',
+    minHeight: '16px',
     height: '100%',
   },
 
