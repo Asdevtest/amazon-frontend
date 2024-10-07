@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, createOrderRequestWhiteList } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
-import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { DataGridTagsFilter } from '@models/data-grid-tags-filter'
 import { IdeaModel } from '@models/ideas-model'
 import { OrderModel } from '@models/order-model'
@@ -34,9 +33,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { clientInventoryColumns } from './client-inventory-columns'
 import {
-  TAGS,
   additionalFilterFields,
-  defaultHiddenColumns,
   fieldsOfProductAllowedToCreate,
   fieldsOfProductAllowedToUpdate,
 } from './client-inventory-view.constants'
