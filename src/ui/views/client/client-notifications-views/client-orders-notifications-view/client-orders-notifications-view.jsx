@@ -26,7 +26,7 @@ export const ClientOrdersNotificationsView = observer(() => {
         rows={viewModel.currentData}
         sortingMode="client"
         paginationMode="client"
-        rowHeight={140}
+        getRowHeight={() => 'auto'}
         getRowId={({ _id }) => _id}
         pinnedColumns={viewModel.pinnedColumns}
         density={viewModel.densityModel}

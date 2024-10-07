@@ -41,7 +41,7 @@ export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField
           value={searchValue}
           placeholder={t(TranslationKey.Search)}
           wrapperClassName={styles.searchInput}
-          onChange={e => setSearchValue(e.target.value)}
+          onChange={e => setSearchValue(e.target.value.trim())}
         />
 
         <div className={styles.menuItems}>

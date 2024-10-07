@@ -5,7 +5,7 @@ import { t } from '@utils/translations'
 import { SwitcherCondition } from './my-requests-view.type'
 
 export const filtersFields = [
-  'humanFriendlyId',
+  'xid',
   'updatedAt',
   'status',
   'title',
@@ -42,4 +42,4 @@ export const radioButtonOptions = () => [
   },
 ]
 
-export const fieldsForSearch = ['title', 'humanFriendlyId', 'asin']
+export const fieldsForSearch = ['title', 'xid', 'asin']

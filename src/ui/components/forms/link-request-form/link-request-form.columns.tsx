@@ -14,10 +14,10 @@ import { IGridColumn } from '@typings/shared/grid-column'
 export const linkRequestColumns = () => {
   const columns: IGridColumn[] = [
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: (params: GridCellParams) => <Text isCell text={params.row.humanFriendlyId} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row.xid} />,
 
       width: 80,
     },

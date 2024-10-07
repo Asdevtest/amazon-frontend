@@ -149,7 +149,7 @@ export class WarehouseVacantViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    this.nameSearchValue = searchValue.trim()
 
     this.getTasksVacant()
   }

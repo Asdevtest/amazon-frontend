@@ -176,7 +176,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             String(item.order.id)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
             String(item.order.item)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
         ) ||
-        String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+        String(el.originalData.xid)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
         String(el.originalData.prepId)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
     )
 
@@ -190,7 +190,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             String(item.order.id)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
             String(item.order.item)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
         ) ||
-        String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+        String(el.originalData.xid)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
         String(el.originalData.prepId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
     )
 
@@ -446,7 +446,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             allowClear
             value={nameSearchValueBoxesToAddData}
             placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
-            onChange={e => setNameSearchValueBoxesToAddData(e.target.value)}
+            onChange={e => setNameSearchValueBoxesToAddData(e.target.value.trim())}
           />
         </div>
 
@@ -501,7 +501,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             columnVisibilityModel={viewModel.columnVisibilityModel}
             rows={boxesToAddData}
             columns={columnsModel}
-            rowHeight={100}
+            getRowHeight={() => 'auto'}
             rowSelectionModel={boxesToAddIds}
             onRowSelectionModelChange={onSelectionAwaitingBoxes}
             onRowDoubleClick={e => viewModel.setBoxId(e.row._id)}
@@ -557,7 +557,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             allowClear
             value={nameSearchValueChosenBoxes}
             placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
-            onChange={e => setNameSearchValueChosenBoxes(e.target.value)}
+            onChange={e => setNameSearchValueChosenBoxes(e.target.value.trim())}
           />
         </div>
 
@@ -593,7 +593,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             }}
             rows={chosenBoxes || []}
             columns={columnsModel}
-            rowHeight={100}
+            getRowHeight={() => 'auto'}
             onRowSelectionModelChange={onSelectionChoosenBoxes}
             onRowDoubleClick={e => viewModel.setBoxId(e.row._id)}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

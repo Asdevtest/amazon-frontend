@@ -150,7 +150,7 @@ export class DataGridTableModel extends DefaultModel {
   }
 
   onChangeUnserverSearchValue(value: string) {
-    this.currentSearchValue = value
+    this.currentSearchValue = value.trim()
   }
 
   handlePinColumn(pinnedColumns: GridPinnedColumns) {

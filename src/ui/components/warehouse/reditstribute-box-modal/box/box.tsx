@@ -128,6 +128,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 <Field
                   disabled={readOnly}
                   label={t(TranslationKey.Quantity)}
+                  containerClasses={styles.fieldContainer}
                   className={styles.orderInput}
                   labelClasses={styles.label}
                   value={isMasterBox ? (boxIsMasterBox ? selectedBox.amount : 1) : order.amount}

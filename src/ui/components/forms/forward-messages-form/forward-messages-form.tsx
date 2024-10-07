@@ -59,7 +59,7 @@ export const ForwardMessagesForm: FC<ForwardMessagesFormProps> = memo(props => {
         wrapperClassName={styles.inputSearch}
         value={nameSearchValue}
         placeholder="Title"
-        onChange={event => setNameSearchValue(event.target.value)}
+        onChange={event => setNameSearchValue(event.target.value.trim())}
       />
 
       <div className={styles.chatList}>

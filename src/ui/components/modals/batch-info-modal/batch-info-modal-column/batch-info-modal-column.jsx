@@ -75,12 +75,12 @@ export const batchInfoModalColumn = (
   },
 
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => <Text isCell text={params.value} />,
-    valueGetter: ({ row }) => row?.humanFriendlyId,
+    valueGetter: ({ row }) => row?.xid,
     type: 'number',
     width: 80,
   },

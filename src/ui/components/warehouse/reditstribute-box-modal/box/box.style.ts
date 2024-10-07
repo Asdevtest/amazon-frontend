@@ -32,12 +32,16 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '19px',
-    width: '299px',
+    width: '270px',
     color: theme.palette.text.general,
   },
 
+  fieldContainer: {
+    width: 'fit-content',
+  },
+
   orderInput: {
-    width: '79px',
+    width: '120px',
     margin: 0,
   },
 

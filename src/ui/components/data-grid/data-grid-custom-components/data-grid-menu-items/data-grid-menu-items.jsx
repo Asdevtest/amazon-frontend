@@ -407,7 +407,7 @@ export const MyRequestsStatusMenuItem = memo(
           allowClear
           wrapperClassName={styles.searchInput}
           placeholder="Search"
-          onChange={e => setNameSearchValue(e.target.value)}
+          onChange={e => setNameSearchValue(e.target.value.trim())}
         />
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
@@ -499,7 +499,7 @@ export const FreelanceRequestType = memo(
           allowClear
           wrapperClassName={styles.searchInput}
           placeholder="Search"
-          onChange={e => setNameSearchValue(e.target.value)}
+          onChange={e => setNameSearchValue(e.target.value.trim())}
         />
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
@@ -621,7 +621,7 @@ export const CreatedByMenuItem = memo(
             allowClear
             wrapperClassName={styles.searchInput}
             placeholder="Search"
-            onChange={e => setNameSearchValue(e.target.value)}
+            onChange={e => setNameSearchValue(e.target.value.trim())}
           />
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
@@ -781,7 +781,7 @@ export const ObJectFieldMenuItem = memo(
             allowClear
             wrapperClassName={styles.searchInput}
             placeholder="Search"
-            onChange={e => setNameSearchValue(e.target.value)}
+            onChange={e => setNameSearchValue(e.target.value.trim())}
           />
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
@@ -931,7 +931,7 @@ export const IdeaShopsFieldMenuItem = memo(
             allowClear
             wrapperClassName={styles.searchInput}
             placeholder="Search"
-            onChange={e => setNameSearchValue(e.target.value)}
+            onChange={e => setNameSearchValue(e.target.value.trim())}
           />
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
@@ -1168,7 +1168,7 @@ export const NormalFieldMenuItem = memo(
             allowClear
             wrapperClassName={styles.searchInput}
             placeholder="Search"
-            onChange={e => setNameSearchValue(e.target.value)}
+            onChange={e => setNameSearchValue(e.target.value.trim())}
           />
 
           <div className={styles.universalFilterBody}>
@@ -1399,13 +1399,13 @@ export const OrderOrItemMenuItem = memo(
 
       onClickAccept,
     }) => {
-      const [currentOption, setCurrentOption] = useState(data.item.currentFilterData.length ? 'item' : 'id')
+      const [currentOption, setCurrentOption] = useState(data.item.currentFilterData.length ? 'item' : 'xid')
 
       useEffect(() => {
         onClickFilterBtn(currentOption, table)
 
         if (currentOption === 'item') {
-          onChangeFullFieldMenuItem([], 'id')
+          onChangeFullFieldMenuItem([], 'xid')
         } else {
           onChangeFullFieldMenuItem([], 'item')
         }
@@ -1463,7 +1463,7 @@ export const OrderOrItemMenuItem = memo(
                 <FormControlLabel
                   title={t(TranslationKey['№ Order'])}
                   className={styles.radioOption}
-                  value="id"
+                  value="xid"
                   control={<Radio className={styles.radioControl} />}
                   label={t(TranslationKey['№ Order'])}
                 />
@@ -1482,7 +1482,7 @@ export const OrderOrItemMenuItem = memo(
             allowClear
             wrapperClassName={styles.searchInput}
             placeholder="Search"
-            onChange={e => setNameSearchValue(e.target.value)}
+            onChange={e => setNameSearchValue(e.target.value.trim())}
           />
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
@@ -1650,7 +1650,7 @@ export const DestinationMenuItem = memo(
           allowClear
           wrapperClassName={styles.searchInput}
           placeholder="Search"
-          onChange={e => setNameSearchValue(e.target.value)}
+          onChange={e => setNameSearchValue(e.target.value.trim())}
         />
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
@@ -1803,7 +1803,7 @@ export const FromToDateMenuItem = memo(
             allowClear
             wrapperClassName={styles.searchInput}
             placeholder="Search"
-            onChange={e => setNameSearchValue(e.target.value)}
+            onChange={e => setNameSearchValue(e.target.value.trim())}
           />
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
@@ -2093,7 +2093,7 @@ export const NumberFieldMenuItem = memo(
             allowClear
             wrapperClassName={styles.searchInput}
             placeholder="Search"
-            onChange={e => setNameSearchValue(e.target.value)}
+            onChange={e => setNameSearchValue(e.target.value.trim())}
           />
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
@@ -2230,7 +2230,7 @@ export const InStockMenuItem = memo(
             allowClear
             wrapperClassName={styles.searchInput}
             placeholder="Search"
-            onChange={e => setNameSearchValue(e.target.value)}
+            onChange={e => setNameSearchValue(e.target.value.trim())}
           />
 
           <div className={styles.shopsWrapper}>

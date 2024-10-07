@@ -26,10 +26,10 @@ interface IProductInTransferColumns {
 export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransferColumns) => {
   const columns: IGridColumn[] = [
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.humanFriendlyId || '-'} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.xid || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.QUANTITY,
       width: 80,
@@ -49,7 +49,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       field: 'batchHumanFriendlyId',
       headerName: t(TranslationKey['Batch number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.batch?.humanFriendlyId || '-'} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.batch?.xid || '-'} />,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.QUANTITY,
       width: 100,

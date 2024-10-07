@@ -31,4 +31,10 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '18px',
   },
+
+  mask: {
+    padding: '0 10px',
+    display: 'flex',
+    gap: '20px',
+  },
 }))

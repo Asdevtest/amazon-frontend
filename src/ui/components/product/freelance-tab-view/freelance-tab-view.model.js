@@ -100,7 +100,7 @@ export class FreelanceModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    this.nameSearchValue = searchValue.trim()
 
     this.getCustomRequests()
   }
@@ -153,7 +153,7 @@ export class FreelanceModel {
     return objectToUrlQs(
       dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
         'title',
-        'humanFriendlyId',
+        'xid',
       ]),
     )
   }

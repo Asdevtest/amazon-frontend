@@ -164,7 +164,7 @@ export const CreateOrEditProposalContent = memo(props => {
 
           <div className={styles.infoCellWrapper}>
             <p className={styles.requestTitleName}>{t(TranslationKey.ID)}</p>
-            <p>{request?.request?.humanFriendlyId}</p>
+            <p>{request?.request?.xid}</p>
           </div>
 
           <div className={cx(styles.infoCellWrapper, styles.lastInfoCellWrapper)}>

@@ -123,7 +123,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   onSearchSubmit(value: any) {
-    this.currentSearchValue = value
+    this.currentSearchValue = value.trim()
     this.getCurrentData()
   }
 

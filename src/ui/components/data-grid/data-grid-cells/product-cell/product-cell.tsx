@@ -46,7 +46,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
 
       <div className={styles.flexRow}>
         <Image
-          preview={false}
+          preview={{ maskClassName: styles.mask }}
           width={32}
           height={32}
           src={getAmazonImageUrl(image, false)}
@@ -65,7 +65,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
                   target="_blank"
                   copyable={hoverAsin[0] && !!asin}
                   href={`https://www.amazon.com/dp/${asin}`}
-                  className={cx(styles.text, styles.fixWidth)}
+                  className={cx(styles.text, { [styles.fixWidth]: isErrorText })}
                   onClick={e => e.stopPropagation()}
                 >
                   {asin}
@@ -78,7 +78,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
                   ellipsis
                   copyable={hoverSku[0] && !!sku}
                   type="secondary"
-                  className={cx(styles.text, styles.fixWidth)}
+                  className={cx(styles.text, { [styles.fixWidth]: isErrorText })}
                 >
                   {sku}
                 </AntText>
