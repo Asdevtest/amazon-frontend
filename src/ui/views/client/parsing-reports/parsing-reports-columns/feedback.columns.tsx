@@ -77,16 +77,6 @@ export const feedbackColumns = () => {
     },
 
     {
-      field: 'orderId',
-      headerName: 'Order id',
-      renderHeader: () => <MultilineTextHeaderCell text="Order id" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
       field: 'rating',
       headerName: 'Rating',
       renderHeader: () => <MultilineTextHeaderCell text="Rating" />,
