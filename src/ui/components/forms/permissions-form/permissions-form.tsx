@@ -44,8 +44,6 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
     )
   }
 
-  console.log('viewModel.specsOptions', viewModel.specsOptions)
-
   return (
     <div className={styles.root}>
       <div className={styles.header}>
