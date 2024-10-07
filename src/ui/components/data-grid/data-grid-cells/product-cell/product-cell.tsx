@@ -33,8 +33,13 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
   const hoverAsin = useHover()
   const hoverSku = useHover()
 
-  const renderTextCell = (text: string, rows: number, fixWidth?: boolean) => (
-    <Text copyable={false} textRows={rows} text={text} className={cx(styles.text, { [styles.fixWidth]: fixWidth })} />
+  const renderTextCell = (text: string, rows: number) => (
+    <Text
+      copyable={false}
+      textRows={rows}
+      text={text}
+      className={cx(styles.text, { [styles.fixWidth]: isErrorText })}
+    />
   )
 
   const notAsinAndSku = !asin && !sku
@@ -46,16 +51,17 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
 
       <div className={styles.flexRow}>
         <Image
-          preview={false}
+          preview={{ maskClassName: styles.mask }}
           width={32}
           height={32}
-          src={getAmazonImageUrl(image, false)}
+          src={getAmazonImageUrl(image, true)}
           wrapperClassName={styles.image}
+          onClick={e => e.stopPropagation()}
         />
 
         <div className={styles.flexColumn}>
           {notAsinAndSku && title ? (
-            renderTextCell(title, 2, true)
+            renderTextCell(title, 2)
           ) : (
             <>
               {asin ? (
@@ -65,7 +71,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
                   target="_blank"
                   copyable={hoverAsin[0] && !!asin}
                   href={`https://www.amazon.com/dp/${asin}`}
-                  className={cx(styles.text, styles.fixWidth)}
+                  className={cx(styles.text, { [styles.fixWidth]: isErrorText })}
                   onClick={e => e.stopPropagation()}
                 >
                   {asin}
@@ -78,7 +84,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
                   ellipsis
                   copyable={hoverSku[0] && !!sku}
                   type="secondary"
-                  className={cx(styles.text, styles.fixWidth)}
+                  className={cx(styles.text, { [styles.fixWidth]: isErrorText })}
                 >
                   {sku}
                 </AntText>

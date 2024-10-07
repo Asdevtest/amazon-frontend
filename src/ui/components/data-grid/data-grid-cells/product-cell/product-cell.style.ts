@@ -54,6 +54,7 @@ export const useStyles = makeStyles()(theme => ({
   warningText: {
     color: theme.palette.text.red,
   },
+
   mask: {
     padding: '0 5px',
     display: 'flex',
