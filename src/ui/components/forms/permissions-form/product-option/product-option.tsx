@@ -32,7 +32,7 @@ export const ProductOption: FC<ProductOptionProps> = memo(props => {
             preview={{ maskClassName: styles.mask }}
             width={40}
             height={40}
-            src={getAmazonImageUrl(image, false)}
+            src={getAmazonImageUrl(image, true)}
             wrapperClassName={styles.image}
           />
         </div>

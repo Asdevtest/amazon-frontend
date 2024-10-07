@@ -13,13 +13,14 @@ export const MediaContentCell: FC<SmallRowImageCellProps> = memo(({ image }) => 
   const { classes: styles } = useStyles()
 
   return (
-    <div className={styles.wrapper} onClick={e => e.stopPropagation()}>
+    <div className={styles.wrapper}>
       <Image
-        preview={{ maskClassName: styles.mask }} // fix prewiew mask
+        preview={{ maskClassName: styles.mask }}
         width={48}
         height={48}
-        src={getAmazonImageUrl(image)}
+        src={getAmazonImageUrl(image, true)}
         wrapperClassName={styles.image}
+        onClick={e => e.stopPropagation()}
       />
     </div>
   )
