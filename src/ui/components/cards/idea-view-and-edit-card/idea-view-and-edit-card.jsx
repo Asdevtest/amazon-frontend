@@ -436,10 +436,12 @@ export const IdeaViewAndEditCard = observer(
             </div>
 
             <div className={styles.commentsWrapper}>
-              <p className={styles.ideaID}>
-                {t(TranslationKey['Idea ID'])}
-                <span className={styles.idText}>{`: ${idea.xid}`}</span>
-              </p>
+              {idea ? (
+                <p className={styles.ideaID}>
+                  {t(TranslationKey['Idea ID'])}
+                  <span className={styles.idText}>{`: ${idea?.xid}`}</span>
+                </p>
+              ) : null}
 
               <Field
                 multiline
