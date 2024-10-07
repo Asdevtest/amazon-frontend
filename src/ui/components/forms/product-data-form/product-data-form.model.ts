@@ -18,10 +18,6 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
   batchArchive = false
   showBatchInfoModal = false
 
-  get rows() {
-    return this.currentData
-  }
-
   constructor({ product, isBatches, onAmazon }: { product: IProduct; onAmazon: boolean; isBatches?: boolean }) {
     const columnProps = {
       onClickChangeVariation: (id: string) => this.onClickShowBatchInfoModal(id),

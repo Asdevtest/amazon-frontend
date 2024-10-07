@@ -4,11 +4,14 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     minWidth: '150px',
     width: '100%',
-    padding: '5px 0px',
     display: 'flex',
     flexDirection: 'column',
     gap: '3px',
     position: 'relative',
+  },
+
+  cell: {
+    padding: '5px 0px',
   },
 
   text: {

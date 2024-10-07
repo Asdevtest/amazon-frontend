@@ -5,16 +5,14 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ProductCell } from '@components/data-grid/data-grid-cells'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IProduct } from '@typings/models/products/product'
 
@@ -30,7 +28,6 @@ interface ProductDataFormProps {
 
 export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, onAmazon, isBatches }) => {
   const { classes: styles } = useStyles()
-
   const viewModel = useMemo(() => new ProductDataFormModel({ product, onAmazon, isBatches }), [])
 
   const title = isBatches
@@ -41,46 +38,39 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, on
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.flexContainer}>
+      <div className={styles.flexRow}>
         <p className={styles.title}>{t(TranslationKey[title])}</p>
 
         <CustomInputSearch
           allowClear
-          wrapperClassName={styles.searchInput}
-          value={viewModel.currentSearchValue}
+          enterButton
           placeholder={t(TranslationKey['Batch number and FBA'])}
-          onSubmit={viewModel.onSearchSubmit}
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 
-      <div className={styles.flexContainer}>
-        <div className={styles.product}>
-          <img className={styles.image} src={getAmazonImageUrl(product?.images?.[0])} />
-          <p className={styles.productTitle}>{product?.amazonTitle}</p>
+      <div className={styles.flexRow}>
+        <ProductCell
+          isCell={false}
+          image={product?.images?.[0]}
+          title={product?.amazonTitle}
+          asin={product?.asin}
+          sku={product?.skuByClient}
+        />
 
-          <div className={styles.links}>
-            <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={product?.asin} />
-            <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={product?.skuByClient} />
-            <AsinOrSkuLink withCopyValue withAttributeTitle="fnsku" link={''} />
-          </div>
-        </div>
-
-        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onToggleArchive}>
-          {viewModel.batchArchive ? t(TranslationKey['Actual batches']) : t(TranslationKey.Archive)}
-        </Button>
+        <CustomButton size="large" onClick={viewModel.onToggleArchive}>
+          {t(TranslationKey[viewModel.batchArchive ? 'Actual batches' : 'Archive'])}
+        </CustomButton>
       </div>
 
       <CustomDataGrid
-        rows={viewModel.rows}
-        rowCount={viewModel.rowCount}
-        density={viewModel.densityModel}
-        columns={viewModel.columnsModel}
         sortModel={viewModel.sortModel}
         filterModel={viewModel.filterModel}
         pinnedColumns={viewModel.pinnedColumns}
-        paginationModel={viewModel.paginationModel}
         rowSelectionModel={viewModel.selectedRows}
+        paginationModel={viewModel.paginationModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
+        rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
         getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
@@ -105,13 +95,15 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, on
             },
           },
         }}
+        rowCount={viewModel.rowCount}
+        columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onPinnedColumnsChange={viewModel.handlePinColumn}
         onSortModelChange={viewModel.onChangeSortingModel}
-        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-        onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
-        onChangePinnedColumns={viewModel.handlePinColumn}
+        onRowSelectionModelChange={viewModel.onSelectionModel}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
+        onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
       />
 
       {viewModel.showBatchInfoModal ? (

@@ -181,7 +181,7 @@ export const WithSearchSelect = memo(
                     wrapperClassName={cx(styles.searchInput, customSearchInput)}
                     placeholder={placeholder ? placeholder : 'Search'}
                     value={nameSearchValue}
-                    onSubmit={onClickSubmitSearch ? onClickSubmitSearch : undefined}
+                    onSearch={onClickSubmitSearch ? onClickSubmitSearch : undefined}
                     onChange={onClickSubmitSearch ? undefined : e => setNameSearchValue(e.target.value.trim())}
                   />
                 )}

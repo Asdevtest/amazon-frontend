@@ -41,7 +41,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={boxStatusTranslateKey(row?.status) || '-'} />,
       table: DataGridFilterTables.BOXES,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 180,
     },
 
@@ -61,7 +61,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.batch?.title || '-'} />,
       table: DataGridFilterTables.BATCHES,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 110,
     },
 
@@ -82,7 +82,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.storekeeper?.name || '-'} />,
       table: DataGridFilterTables.BOXES,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
       width: 180,
     },
@@ -93,7 +93,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.destination?.name || '-'} />,
       table: DataGridFilterTables.BOXES,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
       width: 150,
     },
@@ -106,7 +106,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
         <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={15} sourceString={row?.fbaShipment} />
       ),
       table: DataGridFilterTables.BOXES,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 165,
     },
 
@@ -116,7 +116,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={getNewTariffTextForBoxOrOrder(row) || '-'} />,
       table: DataGridFilterTables.BOXES,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
       width: 120,
     },
@@ -173,7 +173,6 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
           onClickFirst={() => onClickChangeVariation(row?.batch?._id)}
         />
       ),
-      disableColumnMenu: true,
       disableCustomSort: true,
       filterable: false,
       width: 190,
