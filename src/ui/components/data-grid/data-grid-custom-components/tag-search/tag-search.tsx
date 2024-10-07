@@ -49,7 +49,7 @@ export const TagSearch: FC<TagSearchProps> = memo(props => {
         wrapperClassName={styles.searchInput}
         placeholder="Search by tags"
         value={searchValue}
-        onChange={e => setSearchValue(e.target.value)}
+        onChange={e => setSearchValue(e.target.value.trim())}
         onFocus={handleGetTags}
       />
 

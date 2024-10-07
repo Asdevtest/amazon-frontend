@@ -100,7 +100,7 @@ export class FreelanceModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    this.nameSearchValue = searchValue.trim()
 
     this.getCustomRequests()
   }

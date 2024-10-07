@@ -74,7 +74,7 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
           <CustomInputSearch
             allowClear
             wrapperClassName={styles.searchInput}
-            onChange={e => setNameSearchValue(e.target.value)}
+            onChange={e => setNameSearchValue(e.target.value.trim())}
             onKeyDown={handleKeyDown}
           />
 

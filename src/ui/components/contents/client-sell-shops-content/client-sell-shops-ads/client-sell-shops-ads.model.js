@@ -65,7 +65,7 @@ export class ClientSellShopsAdsModel {
   }
 
   onChangeNameSearchValue(e) {
-    this.nameSearchValue = e.target.value
+    this.nameSearchValue = e.target.value.trim()
   }
 
   onClickFilterBtn(filter) {

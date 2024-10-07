@@ -145,7 +145,7 @@ export class WarehouseMyTasksViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    this.nameSearchValue = searchValue.trim()
 
     this.getTasksMy()
   }

@@ -78,7 +78,7 @@ export const StringListCell: FC<StringListCellProps> = memo(props => {
               allowClear
               wrapperClassName={styles.searchInput}
               placeholder="Search"
-              onChange={e => setNameSearchValue(e.target.value)}
+              onChange={e => setNameSearchValue(e.target.value.trim())}
             />
             <>
               {itemsForRender?.map((item, i) => (
