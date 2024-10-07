@@ -17,15 +17,15 @@ import { useStyles } from './service-exchange-card.style'
 
 interface ServiceExchangeCardProps {
   service: IAnnoucement
+  onClickButton: (service: IAnnoucement) => void
   choose?: boolean
   order?: boolean
-  pathname?: string
   variant?: 'list' | 'card'
-  onClickButton: (service: IAnnoucement) => void
+  freelancer?: boolean
 }
 
 export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
-  const { service, choose, order, pathname, variant = 'list', onClickButton } = props
+  const { service, onClickButton, choose, order, variant = 'list', freelancer } = props
 
   const { classes: styles, cx } = useStyles()
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -40,7 +40,6 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
     : order
     ? t(TranslationKey['To order'])
     : t(TranslationKey.Open)
-  const isMyServices = pathname === '/freelancer/freelance/my-services'
   const isCard = variant === 'card'
 
   return (
@@ -70,7 +69,7 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
 
           <Text copyable={false} textRows={3} text={service.description} />
 
-          {isMyServices ? (
+          {freelancer ? (
             <p className={styles.detailsText}>
               <span className={styles.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</span>
               <span className={styles.detailDescription}>{service.requests.length}</span>
