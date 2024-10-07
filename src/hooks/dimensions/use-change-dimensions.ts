@@ -91,14 +91,15 @@ export const useChangeDimensions = ({ data, setData, sizeSetting = Dimensions.EU
   }, [data.volumeWeight, data.weighGrossKgWarehouse])
 
   const handleChangeDimensions = (fieldName: string) => (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
+    const value = e.target.value.trim()
+
     if (parseFloat(value) < 0 || !/^\d*\.?\d{0,2}$/.test(value) || value.length > 6) {
       return
     }
 
     setData(prev => ({
       ...prev,
-      [fieldName]: e.target.value,
+      [fieldName]: value,
     }))
   }
 
