@@ -5,6 +5,7 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
+    width: '640px',
   },
 
   title: {
