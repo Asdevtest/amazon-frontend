@@ -57,7 +57,6 @@ export const TabTags = observer(() => {
         rowCount={viewModel.rowCount}
         className={styles.tableWrapper}
         sortModel={viewModel.sortModel}
-        className={styles.tableWrapper}
         filterModel={viewModel.filterModel}
         rowSelectionModel={viewModel.selectedRows}
         columnVisibilityModel={viewModel.columnVisibilityModel}
