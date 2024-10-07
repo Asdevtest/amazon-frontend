@@ -91,7 +91,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   orderInput: {
-    width: '79px',
+    width: '130px',
   },
 
   label: {
@@ -106,7 +106,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'start',
     justifyContent: 'space-between',
     width: '100%',
-
+    gap: '10px',
     flexGrow: 1,
   },
 
@@ -147,7 +147,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
-    width: '299px',
+    width: '270px',
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
