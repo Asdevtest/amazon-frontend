@@ -37,8 +37,6 @@ export class PermissionsFormModel {
   shops: IShop[] = []
   products: IProduct[] = []
   selectedUserIds: string[] = []
-  // allProductsCount = 0
-  // selectedProductsCount = 0
   currentPermissionOptions: string[][] = []
   currentProductOptions: string[][] = []
   searchFocus = false
@@ -249,7 +247,7 @@ export class PermissionsFormModel {
   }
 
   initSelectedSpecs() {
-    this.userInfo?.allowedSpec?.forEach(spec => this.selectedSpecs.push(spec.type))
+    this.subUser?.allowedSpec?.forEach(spec => this.selectedSpecs.push(spec.type))
   }
 
   onChangeSearchFocus(value: boolean) {
