@@ -52,6 +52,7 @@ export const defaultHiddenColumns = [
 export const additionalFilterFields = [
   'inventoryAsin',
   'inventorySku',
+  'inTransfer',
   'asin',
   'skuByClient',
   'amazonTitle',
