@@ -47,7 +47,6 @@ export const reportModalConfig = {
   setRequestTableStatus: action.bound,
   updateProductAndColumns: action.bound,
   onGetProducts: action.bound,
-  // onGetListingReportByProductId: action.bound,
   onPopupScroll: action.bound,
   onDropdownVisibleChange: action.bound,
 }
@@ -65,13 +64,10 @@ export const getAsinOptions = (products: IPermissionsData[]) =>
     const displayedMediaFile = checkIsImageLink(mediaFile) ? getAmazonImageUrl(mediaFile) : '/assets/img/no-photo.jpg'
 
     return {
+      ...product,
       value: product?._id,
-      asin: product?.asin,
-      sku: product?.skuByClient,
       label: `${t(TranslationKey.ASIN)}: ${product?.asin || t(TranslationKey.Missing)}`,
       image: displayedMediaFile,
-      images: product?.images,
-      _id: product?._id,
     }
   })
 
@@ -79,9 +75,10 @@ export const getDefaultAsinOption = (product?: IProduct) =>
   product
     ? {
         value: product?._id,
-        asin: product?.asin,
-        sku: product?.skuByClient,
         label: `${t(TranslationKey.ASIN)}: ${product?.asin || t(TranslationKey.Missing)}`,
+        asin: product?.asin,
+        skuByClient: product?.skuByClient,
         image: getAmazonImageUrl(product?.images[0]),
+        buyerId: product?.buyer?._id,
       }
     : undefined

@@ -1,22 +1,29 @@
-import type { ImageProps } from 'antd'
-import { Image } from 'antd'
+import { Image, ImageProps } from 'antd'
 import { FC, memo } from 'react'
+
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { useStyles } from './custom-image.style'
 
-export interface CustomImageProps extends Omit<ImageProps, 'src'> {
-  imageUrl: string
+export interface CustomImageProps extends ImageProps {
+  fullImage?: boolean
   className?: string
+  maskClassName?: string
   wrapperClassName?: string
 }
 
 export const CustomImage: FC<CustomImageProps> = memo(props => {
-  const { imageUrl, className, wrapperClassName, ...restProps } = props
+  const { fullImage = true, className, src, maskClassName, wrapperClassName, ...restProps } = props
   const { classes: styles, cx } = useStyles()
 
   return (
     <div className={cx(styles.root, wrapperClassName)} onClick={e => e.stopPropagation()}>
-      <Image src={imageUrl} className={className} {...restProps} />
+      <Image
+        preview={!!src && { maskClassName: cx(styles.maskClassNameRoot, maskClassName) }}
+        src={getAmazonImageUrl(src, fullImage)}
+        className={className}
+        {...restProps}
+      />
     </div>
   )
 })

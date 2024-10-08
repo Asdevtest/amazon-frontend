@@ -24,7 +24,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   image: {
-    width: 'max-content',
     borderRadius: '16px',
   },
 
