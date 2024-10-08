@@ -12,7 +12,7 @@ import { UserModel } from '@models/user-model'
 import { t } from '@utils/translations'
 
 import { Specs } from '@typings/enums/specs'
-import { isClient, isFreelancer } from '@typings/guards/roles'
+import { isClient, isFreelancer, isStorekeeper } from '@typings/guards/roles'
 import { IPermission } from '@typings/models/permissions/permission'
 import { IPermissionGroup } from '@typings/models/permissions/permission-group'
 import { IPermissions } from '@typings/models/permissions/permissions'
@@ -90,6 +90,10 @@ export class PermissionsFormModel {
   get isFreelancer() {
     return isFreelancer(this.userInfo?.role)
   }
+  get hasExpiredRoles() {
+    return this.isFreelancer || isStorekeeper(this.userInfo?.role)
+  }
+
   get productsOptions() {
     const mainOptions = this.shops.map(item => ({
       label: item.name,
@@ -355,7 +359,7 @@ export class PermissionsFormModel {
     try {
       await UserModel.onEditMySubUser({ userIds: this.userIds, ...this.editingPermissions })
 
-      if (!this.isFreelancer) {
+      if (!this.hasExpiredRoles) {
         await PermissionsModel.setProductsPermissionsForUser({
           userIds: this.userIds,
           productIds: this.editingProducts.productIds,
@@ -374,10 +378,10 @@ export class PermissionsFormModel {
       }
 
       toast.success(t(TranslationKey['User permissions were changed']))
-      this.onUpdateData?.()
     } catch (error) {
       toast.error(t(TranslationKey['User permissions are not changed']))
     } finally {
+      this.onUpdateData?.()
       this.onCloseModal?.()
     }
   }
@@ -405,7 +409,7 @@ export class PermissionsFormModel {
   }
 
   async getProduts() {
-    if (isFreelancer(this.userInfo?.role)) {
+    if (this.hasExpiredRoles) {
       return
     }
 
@@ -440,7 +444,7 @@ export class PermissionsFormModel {
     this.productsLoading = false
   }
 
-  searchfilter(inputValue: string, path: DefaultOptionType[]) {
+  searchFilter(inputValue: string, path: DefaultOptionType[]) {
     if (this.isAssignPermissions) {
       return path.some(option => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
     } else {
