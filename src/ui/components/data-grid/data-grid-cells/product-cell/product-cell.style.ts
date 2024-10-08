@@ -33,13 +33,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  image: {
-    minWidth: '32px',
-    borderRadius: '4px',
-    overflow: 'hidden',
-    boxShadow: theme.palette.boxShadow.paper,
-  },
-
   superbox: {
     color: theme.palette.primary.main,
     fontWeight: 600,

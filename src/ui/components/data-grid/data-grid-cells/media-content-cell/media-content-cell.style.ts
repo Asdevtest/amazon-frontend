@@ -1,15 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   wrapper: {
     padding: '5px 0',
     height: '58px',
-  },
-
-  image: {
-    borderRadius: '4px',
-    overflow: 'hidden',
-    boxShadow: theme.palette.boxShadow.paper,
   },
 
   mask: {
