@@ -1,7 +1,7 @@
-import { Image, Typography } from 'antd'
+import { Typography } from 'antd'
 import { FC, memo } from 'react'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { CustomImage } from '@components/shared/custom-image'
 
 import { useHover } from '@hooks/use-hover'
 
@@ -28,13 +28,7 @@ export const ProductOption: FC<ProductOptionProps> = memo(props => {
     <div className={styles.flexRow}>
       {subOption ? (
         <div onClick={e => e.stopPropagation()}>
-          <Image
-            preview={{ maskClassName: styles.mask }}
-            width={40}
-            height={40}
-            src={getAmazonImageUrl(image, false)}
-            wrapperClassName={styles.image}
-          />
+          <CustomImage width={40} height={40} src={image} maskClassName={styles.mask} />
         </div>
       ) : null}
 

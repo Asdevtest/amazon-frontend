@@ -9,7 +9,6 @@ import { CustomTag } from '@components/shared/custom-tag'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
@@ -18,16 +17,22 @@ import { useStyles } from './service-exchange-card.style'
 
 interface ServiceExchangeCardProps {
   service: IAnnoucement
+  onClickButton: (service: IAnnoucement) => void
   choose?: boolean
   order?: boolean
-  pathname?: string
   variant?: 'list' | 'card'
-  onClickButton: (service: IAnnoucement) => void
+  freelancer?: boolean
 }
 
 export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
+  const { service, onClickButton, choose, order, variant = 'list', freelancer } = props
+
   const { classes: styles, cx } = useStyles()
-  const { service, choose, order, pathname, variant = 'list', onClickButton } = props
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
+  const handleToggleModal = () => {
+    setIsOpenModal(!isOpenModal)
+  }
 
   const detailDescription = service.spec?.type === 0 ? t(TranslationKey.Universal) : service.spec?.title
   const buttonContent = choose
@@ -35,23 +40,13 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
     : order
     ? t(TranslationKey['To order'])
     : t(TranslationKey.Open)
-
-  const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
   const isCard = variant === 'card'
-  const isNoImage = !service?.linksToMediaFiles?.[0]
-  const cardImageUrl = isNoImage ? '/assets/img/defaultImage.png' : getAmazonImageUrl(service.linksToMediaFiles[0])
-
-  const [isOpenModal, setIsOpenModal] = useState(false)
-
-  const handleToggleModal = () => {
-    setIsOpenModal(!isOpenModal)
-  }
 
   return (
     <>
       <div className={cx(styles.wrapper, { [styles.cardWrapper]: isCard })} onClick={handleToggleModal}>
         <div className={styles.serviceWrapper}>
-          <CustomImage width={240} height={160} wrapperClassName={styles.image} imageUrl={cardImageUrl} />
+          <CustomImage width={240} height={160} wrapperClassName={styles.image} src={service.linksToMediaFiles?.[0]} />
 
           <div className={styles.serviceInfo}>
             <CustomTag title={detailDescription} className={styles.serviceType} />
@@ -74,7 +69,7 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
 
           <Text copyable={false} textRows={3} text={service.description} />
 
-          {!isNotMyServices ? (
+          {freelancer ? (
             <p className={styles.detailsText}>
               <span className={styles.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</span>
               <span className={styles.detailDescription}>{service.requests.length}</span>

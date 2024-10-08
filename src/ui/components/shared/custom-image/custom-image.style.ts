@@ -1,8 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
-    width: '100%',
+    minWidth: 'fit-content',
+    borderRadius: '4px',
+    overflow: 'hidden',
+    boxShadow: theme.palette.boxShadow.paper,
+  },
+
+  maskClassNameRoot: {
     overflow: 'hidden',
   },
 }))

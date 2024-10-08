@@ -42,7 +42,7 @@ export class AdminOrderViewModel {
       const result = await ClientModel.getOrderById(this.orderId)
 
       runInAction(() => {
-        SettingsModel.changeLastCrumbAdditionalText(` № ${result.id}`)
+        SettingsModel.changeLastCrumbAdditionalText(` № ${result.xid}`)
 
         this.order = result
       })

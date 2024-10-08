@@ -2,15 +2,13 @@ import { FC, memo } from 'react'
 
 import { TaskStatus, TaskStatusTranslate, mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 
-import { useStyles } from './task-status-cell.style'
+import { Text } from '@components/shared/text'
 
 interface TaskStatusCellProps {
   status: string
 }
 
 export const TaskStatusCell: FC<TaskStatusCellProps> = memo(({ status }) => {
-  const { classes: styles } = useStyles()
-
   const actualStatus = mapTaskStatusKeyToEnum[status as unknown as keyof typeof mapTaskStatusKeyToEnum]
 
   const colorByStatus = () => {
@@ -25,13 +23,5 @@ export const TaskStatusCell: FC<TaskStatusCellProps> = memo(({ status }) => {
     }
   }
 
-  const colorStatus = colorByStatus()
-
-  return (
-    <div className={styles.statusWrapper}>
-      <p className={styles.orderStatusText} style={{ color: colorStatus }}>
-        {TaskStatusTranslate(actualStatus)}
-      </p>
-    </div>
-  )
+  return <Text isCell color={colorByStatus()} text={TaskStatusTranslate(actualStatus)} />
 })

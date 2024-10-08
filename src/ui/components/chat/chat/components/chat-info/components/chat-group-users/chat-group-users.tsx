@@ -1,5 +1,4 @@
 import { FC, memo } from 'react'
-import { FiPlus } from 'react-icons/fi'
 import { MdClose } from 'react-icons/md'
 
 import { Avatar } from '@mui/material'
@@ -7,8 +6,6 @@ import { Avatar } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
-
-import { CustomButton } from '@components/shared/custom-button'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'

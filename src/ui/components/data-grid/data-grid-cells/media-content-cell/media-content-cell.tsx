@@ -1,7 +1,6 @@
-import { Image } from 'antd'
 import { FC, memo } from 'react'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { CustomImage } from '@components/shared/custom-image'
 
 import { useStyles } from './media-content-cell.style'
 
@@ -13,14 +12,8 @@ export const MediaContentCell: FC<SmallRowImageCellProps> = memo(({ image }) => 
   const { classes: styles } = useStyles()
 
   return (
-    <div className={styles.wrapper} onClick={e => e.stopPropagation()}>
-      <Image
-        preview={{ maskClassName: styles.mask }} // fix prewiew mask
-        width={48}
-        height={48}
-        src={getAmazonImageUrl(image)}
-        wrapperClassName={styles.image}
-      />
+    <div className={styles.wrapper}>
+      <CustomImage width={48} height={48} src={image} maskClassName={styles.mask} />
     </div>
   )
 })
