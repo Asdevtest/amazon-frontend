@@ -303,6 +303,8 @@ export class SuppliersAndIdeasModel {
       this.loadData()
     } catch (error) {
       console.error(error)
+    } finally {
+      this.readyFiles = undefined
     }
   }
 
