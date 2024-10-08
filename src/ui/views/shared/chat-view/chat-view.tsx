@@ -6,6 +6,7 @@ import { useStyles } from './chat-view.style'
 
 import { ChatHeader } from './components/chat-header'
 import { ChatsList } from './components/chats-list'
+import { MessagesBlock } from './components/messages-block'
 import { MessagesList } from './components/messages-list'
 import { SendMessageBlock } from './components/send-message-block'
 
@@ -19,7 +20,7 @@ export const ChatView = observer(() => {
       <div className={cx('viewWrapper', styles.messagesWrapper)}>
         {chatModel.currentChat ? <ChatHeader /> : null}
 
-        <MessagesList />
+        <MessagesBlock />
 
         {chatModel.currentChat ? <SendMessageBlock /> : null}
       </div>

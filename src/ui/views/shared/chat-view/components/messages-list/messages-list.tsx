@@ -1,33 +1,27 @@
-import { Empty } from 'antd'
 import { observer } from 'mobx-react'
-import { useCallback, useEffect, useMemo, useRef } from 'react'
-import { AutoSizer, CellMeasurer, CellMeasurerCache, InfiniteLoader, List } from 'react-virtualized'
+import { FC, useEffect, useMemo, useRef, useState } from 'react'
+import { AutoSizer, CellMeasurer, CellMeasurerCache, List, ScrollParams } from 'react-virtualized'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
+import { Direction } from '@models/chat-model-new/chat-manager/chat-manager.type'
 import { chatModel } from '@models/chat-model-new/chat-model'
+import { Chat } from '@models/chat-model-new/types/chat.type'
+import { ChatMessage } from '@models/chat-model-new/types/message.type'
 import { UserModel } from '@models/user-model'
-
-import { CustomButton } from '@components/shared/custom-button'
-
-import { t } from '@utils/translations'
 
 import { IFullUser } from '@typings/shared/full-user'
 
 import { useStyles } from './messages-list.style'
 
 import { ChatMessageItem } from '../chat-message-item'
-import { EmptyChatMessages } from '../empty-chat-messages/empty-chat-messages'
 
-export const MessagesList = observer(() => {
-  const { classes: styles, cx } = useStyles()
+export const MessagesList: FC = observer(() => {
+  const { classes: styles } = useStyles()
 
-  const isSelectedChat = !!chatModel.selectedChatId
-  const currentChat = chatModel.currentChat
-  const chatMessages = chatModel.currentChatMessages
-  const emptyChat = !isSelectedChat || !chatMessages?.length
+  const currentChat = chatModel.currentChat as Chat
+  const chatMessages = chatModel.currentChatMessages as ChatMessage[]
 
   const listRef = useRef(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   const currentUserId = (UserModel.userInfo as unknown as IFullUser)?._id
 
@@ -36,62 +30,119 @@ export const MessagesList = observer(() => {
       new CellMeasurerCache({
         defaultHeight: 30,
         fixedHeight: false,
+        fixedWidth: true,
       }),
-    [],
+    [chatMessages],
   )
 
-  console.log('currentChat?.messagesCount :>> ', currentChat?.messagesCount)
+  const loadMessages = async (direction: Direction) => {
+    if (!currentChat) {
+      return
+    }
+
+    setIsLoading(true)
+
+    const pagination = {
+      ...currentChat?.pagination,
+      offset: currentChat.pagination.offset + (direction === Direction.START ? 20 : -20),
+    }
+
+    const prevScrollHeight = listRef.current?.Grid?.getScrollHeight?.()
+    console.log('prevScrollHeight :>> ', prevScrollHeight)
+    const prevScrollTop = listRef.current?.Grid?.getScrollTop?.()
+    console.log('prevScrollTop :>> ', prevScrollTop)
+    const distanceFromBottom = prevScrollHeight - prevScrollTop
+
+    chatModel.setChatPagination(currentChat._id, pagination)
+
+    await chatModel.getChatMessages(pagination.offset, pagination.limit, direction)
+
+    cache.clearAll()
+
+    if (direction === Direction.START) {
+      const newScrollHeight = listRef.current?.Grid?.getScrollHeight?.()
+      console.log('newScrollHeight :>> ', newScrollHeight)
+      console.log('distanceFromBottom :>> ', distanceFromBottom)
+
+      const newScrollTop = newScrollHeight - distanceFromBottom
+
+      console.log('newScrollTop :>> ', newScrollTop)
+
+      listRef.current?.scrollToPosition(newScrollTop)
+    }
+
+    setIsLoading(false)
+  }
+
+  const handleScroll = ({ clientHeight, scrollHeight, scrollTop }: ScrollParams) => {
+    if (isLoading) {
+      return
+    }
+
+    const prevScrollHeight = scrollHeight
+    console.log('prevScrollHeight :>> ', prevScrollHeight)
+    const prevScrollTop = scrollTop
+    console.log('prevScrollTop :>> ', prevScrollTop)
+    const distanceFromBottom = prevScrollHeight - prevScrollTop
+
+    if (scrollTop <= 100 && currentChat?.pagination.hasMoreTop) {
+      loadMessages(Direction.START)
+    } else if (scrollTop + clientHeight >= scrollHeight && currentChat?.pagination.hasMoreBottom) {
+      loadMessages(Direction.END)
+    }
+  }
+
+  const initChat = async () => {
+    setIsLoading(true)
+    await chatModel.getChatFirstMessages()
+    listRef.current?.scrollToRow(chatMessages?.length - 1)
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
+    initChat()
+  }, [])
+
+  console.log('listRef.current :>> ', listRef.current)
 
   return (
-    <div
-      className={cx(styles.messagesListWrapper, {
-        [styles.noSelectedChat]: emptyChat,
-      })}
-    >
-      {emptyChat ? (
-        <EmptyChatMessages />
-      ) : (
-        <InfiniteLoader
-          isRowLoaded={({ index }) => !!chatMessages?.[index]}
-          loadMoreRows={info => console.log('info :>> ', info)}
-          rowCount={currentChat?.messagesCount}
-        >
-          {({ onRowsRendered, registerChild }) => (
-            <AutoSizer className={styles.autoSizer}>
-              {({ width, height }) => (
-                <List
-                  ref={registerChild}
-                  width={width}
-                  height={height}
-                  rowCount={chatMessages?.length}
-                  rowHeight={cache.rowHeight}
-                  deferredMeasurementCache={cache}
-                  scrollToIndex={chatMessages?.length - 1}
-                  rowRenderer={({ index, key, style, parent }) => {
-                    const message = chatMessages?.[index]
+    <AutoSizer className={styles.autoSizer}>
+      {({ width, height }) => (
+        <List
+          ref={listRef}
+          width={width}
+          height={height}
+          rowCount={chatMessages?.length}
+          rowHeight={cache.rowHeight}
+          deferredMeasurementCache={cache}
+          rowRenderer={({ index, key, style, parent }) => {
+            const message = chatMessages?.[index]
 
-                    return (
-                      <CellMeasurer key={key} parent={parent} cache={cache} columnIndex={0} rowIndex={index}>
-                        {({ measure, registerChild: cellMeasurerRegisterChild }) => (
-                          <ChatMessageItem
-                            key={message._id}
-                            currentUserId={currentUserId}
-                            message={message}
-                            measure={measure}
-                            registerChild={cellMeasurerRegisterChild}
-                            style={style}
-                          />
-                        )}
-                      </CellMeasurer>
-                    )
-                  }}
-                  onRowsRendered={onRowsRendered}
-                />
-              )}
-            </AutoSizer>
-          )}
-        </InfiniteLoader>
+            return (
+              <CellMeasurer key={key} parent={parent} cache={cache} columnIndex={0} rowIndex={index}>
+                {({ measure, registerChild: cellMeasurerRegisterChild }) => (
+                  <div
+                    // @ts-ignore
+                    ref={cellMeasurerRegisterChild}
+                    style={{
+                      ...style,
+                      padding: '3px 0',
+                    }}
+                  >
+                    <ChatMessageItem
+                      key={message._id}
+                      currentUserId={currentUserId}
+                      message={message}
+                      measure={measure}
+                    />
+                  </div>
+                )}
+              </CellMeasurer>
+            )
+          }}
+          onScroll={handleScroll}
+        />
       )}
-    </div>
+    </AutoSizer>
   )
 })

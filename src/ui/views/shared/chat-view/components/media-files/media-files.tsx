@@ -45,6 +45,7 @@ export const MediaFiles: FC<MediaFilesProps> = memo(({ mediaFiles, measure }) =>
                 key={index}
                 videoSource={getAmazonImageUrl(el)}
                 onClick={() => onClickOpenPreview(index)}
+                onReady={measure}
               />
             )
           } else {
@@ -52,7 +53,6 @@ export const MediaFiles: FC<MediaFilesProps> = memo(({ mediaFiles, measure }) =>
               <img
                 key={index}
                 src={getAmazonImageUrl(el, true)}
-                alt={index.toString()}
                 loading="lazy"
                 onLoad={measure}
                 onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}

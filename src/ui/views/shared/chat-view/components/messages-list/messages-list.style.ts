@@ -1,13 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  messagesListWrapper: {
-    flex: 1,
-    display: 'flex',
-    gap: '5px',
-    padding: '10px 5px',
-  },
-
   autoSizer: {
     '& > *:nth-child(1)': {
       paddingRight: '4px',
@@ -31,10 +24,5 @@ export const useStyles = makeStyles()(() => ({
         },
       },
     },
-  },
-
-  noSelectedChat: {
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 }))

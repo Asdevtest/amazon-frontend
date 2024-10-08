@@ -3,9 +3,10 @@ import { ObservableMap, makeObservable } from 'mobx'
 import { WebsocketSpacenameParams } from '@services/websocket/websocket-spacename/types/websocket-spacename.type'
 
 import { EmitsClient } from '../emits-client'
-import { Chat } from '../types/chat.type'
+import { Chat, ChatPagination } from '../types/chat.type'
 import { ChatMessage } from '../types/message.type'
 
+import { Direction } from './chat-manager.type'
 import { observerConfig } from './observer.config'
 
 export class ChatsManager<T> extends EmitsClient<T> {
@@ -21,11 +22,15 @@ export class ChatsManager<T> extends EmitsClient<T> {
     chats.forEach(this.addChatToManager)
   }
 
-  addMessagesToChatById(chatId: string, messages: ChatMessage[]) {
+  addMessagesToChatById(chatId: string, messages: ChatMessage[], addDirection: Direction = Direction.END) {
     const chat = this.chatsManager?.get(chatId)
 
     if (chat) {
-      chat.messages.push(...messages)
+      if (addDirection === Direction.START) {
+        chat.messages = [...messages, ...chat.messages]
+      } else if (addDirection === Direction.END) {
+        chat.messages = [...chat.messages, ...messages]
+      }
 
       this.chatsManager?.set(chatId, chat)
     }
@@ -36,11 +41,20 @@ export class ChatsManager<T> extends EmitsClient<T> {
     chat.pagination = {
       limit: 20,
       offset: 0,
-      offsetBottom: 0,
-      isAllNextMessagesLoaded: false,
-      isAllPreviousMessagesLoaded: true,
+
+      hasMoreTop: true,
+      hasMoreBottom: false,
     }
 
     this.chatsManager?.set(chat._id, chat)
+  }
+
+  setChatPagination(chatId: string, pagination: ChatPagination) {
+    const chat = this.chatsManager?.get(chatId)
+
+    if (chat) {
+      chat.pagination = pagination
+      this.chatsManager?.set(chatId, chat)
+    }
   }
 }

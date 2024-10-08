@@ -4,6 +4,14 @@ import { IFullUser } from '@typings/shared/full-user'
 
 import { ChatMessage } from './message.type'
 
+export interface ChatPagination {
+  limit: number
+  offset: number
+
+  hasMoreTop: boolean
+  hasMoreBottom: boolean
+}
+
 export interface Chat {
   _id: string
 
@@ -30,13 +38,7 @@ export interface Chat {
     createdBy?: string
   } | null
 
-  pagination: {
-    limit: number
-    offset: number
-    offsetBottom: number
-    isAllNextMessagesLoaded: boolean
-    isAllPreviousMessagesLoaded: boolean
-  }
+  pagination: ChatPagination
 
   blockedById?: string
   isActual?: boolean

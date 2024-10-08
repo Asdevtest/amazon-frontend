@@ -11,4 +11,5 @@ export const observerConfig = {
   destroyModel: action.bound,
   getChats: action.bound,
   getChatMessages: action.bound,
+  getChatFirstMessages: action.bound,
 }
