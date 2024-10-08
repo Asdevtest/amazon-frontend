@@ -1,10 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  contrainer: {
-    padding: '3px 0',
-  },
-
   messageWrapper: {
     display: 'flex',
     alignSelf: 'flex-start',

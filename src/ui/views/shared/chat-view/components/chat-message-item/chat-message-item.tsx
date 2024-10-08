@@ -1,4 +1,4 @@
-import { CSSProperties, FC, memo } from 'react'
+import { FC, memo } from 'react'
 import { IoCheckmarkDone, IoCheckmarkSharp } from 'react-icons/io5'
 import { CellMeasurerChildProps } from 'react-virtualized/dist/es/CellMeasurer'
 
@@ -15,42 +15,35 @@ import { MediaFiles } from '../media-files'
 interface ChatMessageItemProps {
   currentUserId: string
   message: ChatMessage
-  style: CSSProperties
   measure: CellMeasurerChildProps['measure']
-  registerChild: CellMeasurerChildProps['registerChild']
 }
 
-export const ChatMessageItem: FC<ChatMessageItemProps> = memo(
-  ({ message, currentUserId, style, measure, registerChild }) => {
-    const { classes: styles, cx } = useStyles()
+export const ChatMessageItem: FC<ChatMessageItemProps> = memo(({ message, currentUserId, measure }) => {
+  const { classes: styles, cx } = useStyles()
 
-    const isYourMessage = message?.user?._id === currentUserId
-    const isReadMessage = message?.isRead
+  const isYourMessage = message?.user?._id === currentUserId
+  const isReadMessage = message?.isRead
 
-    const mediaFiles = message?.images?.concat(message?.video)
-    const files = message?.files
+  const mediaFiles = message?.images?.concat(message?.video)
+  const files = message?.files
 
-    const CheckMark = isReadMessage ? IoCheckmarkDone : IoCheckmarkSharp
+  const CheckMark = isReadMessage ? IoCheckmarkDone : IoCheckmarkSharp
 
-    return (
-      // @ts-ignore
-      <div ref={registerChild} className={styles.contrainer} style={style}>
-        <div className={cx(styles.messageWrapper, { [styles.yourMessage]: isYourMessage })}>
-          <MediaFiles measure={measure} mediaFiles={mediaFiles} />
+  return (
+    <div className={cx(styles.messageWrapper, { [styles.yourMessage]: isYourMessage })}>
+      <MediaFiles measure={measure} mediaFiles={mediaFiles} />
 
-          <ChatMessageFiles files={files} />
+      <ChatMessageFiles files={files} />
 
-          <p>{message?.text}</p>
+      <p>{message?.text}</p>
 
-          <div className={styles.messageInfo}>
-            <p className={styles.messageDate}>{formatDateTimeHourAndMinutesLocal(message.createdAt)}</p>
+      <div className={styles.messageInfo}>
+        <p className={styles.messageDate}>{formatDateTimeHourAndMinutesLocal(message.createdAt)}</p>
 
-            {isYourMessage ? (
-              <CheckMark className={cx(styles.checkMark, { [styles.checkMarkRead]: isReadMessage })} />
-            ) : null}
-          </div>
-        </div>
+        {isYourMessage ? (
+          <CheckMark className={cx(styles.checkMark, { [styles.checkMarkRead]: isReadMessage })} />
+        ) : null}
       </div>
-    )
-  },
-)
+    </div>
+  )
+})
