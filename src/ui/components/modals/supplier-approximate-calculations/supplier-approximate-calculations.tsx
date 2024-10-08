@@ -126,7 +126,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
             allowClear
             placeholder="Search by Tariff, Destination"
             value={viewModel.currentSearchValue}
-            onChange={e => viewModel.onChangeUnserverSearchValue(e.target.value)}
+            onChange={viewModel.onChangeSearchValue}
             onSearch={viewModel.onSearchSubmit}
           />
         </div>

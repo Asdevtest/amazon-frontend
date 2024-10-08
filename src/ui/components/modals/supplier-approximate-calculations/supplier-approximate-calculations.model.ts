@@ -190,6 +190,11 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     this.getCurrentData()
   }
 
+  onChangeSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim()
+    this.currentSearchValue = value
+  }
+
   async getBoxData() {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
