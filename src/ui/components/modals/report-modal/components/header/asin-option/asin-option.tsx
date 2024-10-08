@@ -28,7 +28,7 @@ export const AsinOption: FC<AsinOptionProps> = observer(({ data }) => {
         <AsinOrSkuLink
           withCopyValue
           withAttributeTitle="sku"
-          link={data.sku}
+          link={data.skuByClient}
           textStyles={styles.optionText}
           iconStyles={styles.optionIcon}
         />
