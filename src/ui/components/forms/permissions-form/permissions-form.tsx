@@ -106,12 +106,12 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
             <Skeleton.Button active block size="large" />
           ) : (
             <CustomSelect
-              allowClear
               isRow
               label="Available request types"
               mode="multiple"
               size="large"
               maxTagCount="responsive"
+              optionFilterProp="label"
               defaultValue={viewModel.selectedSpecs}
               options={viewModel.specsOptions}
               wrapperClassName={styles.specCascader}
