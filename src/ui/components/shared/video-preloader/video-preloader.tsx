@@ -11,6 +11,7 @@ interface VideoPreloaderProps {
   preloaderClassName?: string
   iconPlayClassName?: string
   onClick?: () => void
+  onReady?: () => void
 }
 
 /**
@@ -24,13 +25,13 @@ interface VideoPreloaderProps {
  * @returns {HTMLElement} Returns a video preloader.
  */
 export const VideoPreloader: FC<VideoPreloaderProps> = memo(props => {
-  const { videoSource, wrapperClassName, preloaderClassName, iconPlayClassName, onClick } = props
+  const { videoSource, wrapperClassName, preloaderClassName, iconPlayClassName, onClick, onReady } = props
 
   const { classes: styles, cx } = useStyles()
 
   return (
     <div className={cx(styles.wrapper, wrapperClassName)} onClick={onClick}>
-      <VideoPlayer preloader videoSource={videoSource} />
+      <VideoPlayer preloader videoSource={videoSource} onReady={onReady} />
       <div className={cx(styles.preloader, preloaderClassName)}>
         <MdPlayCircle size={24} className={cx(styles.preloaderIcon, iconPlayClassName)} />
       </div>

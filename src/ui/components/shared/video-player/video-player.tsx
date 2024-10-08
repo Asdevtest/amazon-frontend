@@ -1,11 +1,12 @@
 import { FC, memo } from 'react'
 import ReactPlayer from 'react-player'
+import { BaseReactPlayerProps } from 'react-player/base'
 
 import { checkIsExternalVideoLink } from '@utils/checks'
 
 import { useStyles } from './video-player.style'
 
-interface VideoPlayerProps {
+interface VideoPlayerProps extends BaseReactPlayerProps {
   videoSource: string
   controls?: boolean
   isPlaying?: boolean
@@ -28,7 +29,8 @@ interface VideoPlayerProps {
  * @returns {HTMLElement} Returns a video player.
  */
 export const VideoPlayer: FC<VideoPlayerProps> = memo(props => {
-  const { videoSource, controls, isPlaying, preloader, wrapperClass, videoPlayerClass, setIsPlaying } = props
+  const { videoSource, controls, isPlaying, preloader, wrapperClass, videoPlayerClass, setIsPlaying, ...restProps } =
+    props
 
   const { classes: styles, cx } = useStyles()
   const currentVideoHeight = checkIsExternalVideoLink(videoSource) || preloader ? '100%' : 'auto' // if an external link comes (for example YouTube), then the iframe tag is used inside the ReactPlayer and not the video tag
@@ -45,6 +47,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = memo(props => {
         height={currentVideoHeight}
         className={cx(styles.videoPlayer, videoPlayerClass)}
         onPlay={() => setIsPlaying?.(true)} // fix a bug when changing focus from video to photo
+        {...restProps}
       />
     </div>
   )
